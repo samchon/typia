@@ -70,6 +70,54 @@ func metadata_type_full_name(
   return result
 }
 
+// metadata_type_symbol_name mirrors TypeFactory.getFullName({ aliasTypeArguments:
+// false }) from legacy typia: the name is derived from the type's *symbol*, not
+// from checker.typeToString. This matters for alias chains (e.g. MapAlias.MAP =
+// Map<K, V>) where typeToString prints the alias name ("MapAlias.MAP<...>")
+// instead of "Map<...>", which would defeat the Map/Set prefix guards.
+func metadata_type_symbol_name(checker *nativechecker.Checker, typ *nativechecker.Type) string {
+  if checker == nil || typ == nil {
+    return ""
+  }
+  symbol := typ.Symbol()
+  if symbol == nil {
+    return checker.TypeToString(typ)
+  }
+  name := metadata_symbol_name(symbol)
+  generic := metadata_get_type_arguments(checker, typ)
+  if len(generic) == 0 {
+    return name
+  }
+  if name == "Promise" {
+    return metadata_type_symbol_name(checker, generic[0])
+  }
+  names := make([]string, 0, len(generic))
+  for _, child := range generic {
+    names = append(names, metadata_type_symbol_name(checker, child))
+  }
+  return name + "<" + strings.Join(names, ", ") + ">"
+}
+
+func metadata_symbol_name(symbol *nativeast.Symbol) string {
+  if symbol == nil || len(symbol.Declarations) == 0 || symbol.Declarations[0].Parent == nil {
+    return "__type"
+  }
+  return metadata_explore_symbol_name(symbol.Declarations[0].Parent, symbol.Name)
+}
+
+func metadata_explore_symbol_name(node *nativeast.Node, name string) string {
+  if node != nil && nativeast.IsModuleBlock(node) && node.Parent != nil && node.Parent.Parent != nil {
+    parentName := ""
+    if node.Parent.Name() != nil {
+      parentName = strings.TrimSpace(node.Parent.Name().Text())
+    }
+    if parentName != "" {
+      return metadata_explore_symbol_name(node.Parent.Parent, parentName+"."+name)
+    }
+  }
+  return name
+}
+
 func metadata_get_type_arguments(checker *nativechecker.Checker, typ *nativechecker.Type) (output []*nativechecker.Type) {
   if checker == nil || typ == nil {
     return nil
@@ -187,6 +235,11 @@ func metadata_node_description(symbol *nativeast.Symbol) *string {
 }
 
 func metadata_is_internal(symbol *nativeast.Symbol) bool {
+  for _, tag := range metadata_node_js_doc_tags(symbol) {
+    if tag.Name == "internal" {
+      return true
+    }
+  }
   return false
 }
 

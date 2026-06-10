@@ -6,6 +6,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -129,6 +130,7 @@ type CheckerProgrammer_DecodeObjectProps struct {
   Object  *nativemetadata.MetadataObjectType
   Input   *shimast.Expression
   Explore CheckerProgrammer_IExplore
+  Emit    *shimprinter.EmitContext
 }
 
 var checkerProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -167,30 +169,33 @@ func (checkerProgrammerNamespace) Write_union_functions(props CheckerProgrammer_
   return FeatureProgrammer.Write_union_functions(FeatureProgrammer_WriteUnionFunctionsProps{
     Config:     checkerProgrammer_configure(props.Context, config, props.Functor),
     Collection: props.Collection,
+    Emit:       props.Context.Emit,
   })
 }
 
 func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_WriteArrayFunctionsProps) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   arrays := props.Collection.Arrays()
   output := []*shimast.Node{}
   for i, typ := range arrays {
     if typ.Recursive == false {
       continue
     }
-    input := checkerProgrammer_factory.NewIdentifier("input")
+    input := f.NewIdentifier("input")
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
-      Value: checkerProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        checkerProgrammer_factory.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
           Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
           Type:   nativefactories.TypeFactory.Keyword("any"),
           Input:  input,
+          Emit:   props.Context.Emit,
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        checkerProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
           Config:  props.Config,
           Context: props.Context,
@@ -208,32 +213,34 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
 
 func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_WriteTupleFunctionsProps) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   tuples := props.Collection.Tuples()
   output := []*shimast.Node{}
   for i, tuple := range tuples {
     if tuple.Recursive == false {
       continue
     }
-    input := checkerProgrammer_factory.NewIdentifier("input")
+    input := f.NewIdentifier("input")
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%st%d", props.Config.Prefix, i),
-      Value: checkerProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        checkerProgrammer_factory.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
           Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
           Type:   nativefactories.TypeFactory.Keyword("any"),
           Input:  input,
+          Emit:   props.Context.Emit,
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        checkerProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
           Config:  props.Config,
           Context: props.Context,
@@ -248,16 +255,17 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
 
 func checkerProgrammer_configure(context nativecontext.ITypiaContext, config CheckerProgrammer_IConfig, functor *nativehelpers.FunctionProgrammer) FeatureProgrammer_IConfig {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, context.Emit)
   return FeatureProgrammer_IConfig{
     Types: FeatureProgrammer_IConfig_ITypes{
       Input: func(_ *shimchecker.Type, _ *string) *shimast.TypeNode {
-        return nativefactories.TypeFactory.Keyword("any")
+        return nativefactories.TypeFactory.Keyword("any", context.Emit)
       },
       Output: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
         typeName := ""
@@ -269,11 +277,11 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
             Type:    t,
           })
         }
-        return checkerProgrammer_factory.NewTypePredicateNode(
+        return f.NewTypePredicateNode(
           nil,
-          checkerProgrammer_factory.NewIdentifier("input"),
-          checkerProgrammer_factory.NewTypeReferenceNode(
-            checkerProgrammer_factory.NewIdentifier(typeName),
+          f.NewIdentifier("input"),
+          f.NewTypeReferenceNode(
+            f.NewIdentifier(typeName),
             nil,
           ),
         )
@@ -285,8 +293,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
     Initializer: func(next FeatureProgrammer_InitializerProps) FeatureProgrammer_InitializerOutput {
       collection := nativemetadata.NewMetadataCollection()
       result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-        Checker:     next.Context.Checker,
-        Transformer: next.Context.Transformer,
+        Checker: next.Context.Checker,
         Options: nativefactories.MetadataFactory_IOptions{
           Escape:   false,
           Constant: true,
@@ -357,6 +364,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
           Input:   next.Input,
           Object:  next.Object,
           Explore: next.Explore,
+          Emit:    context.Emit,
         })
       },
       Joiner: func(next FeatureProgrammer_ObjectorJoinerProps) *shimast.Node {
@@ -376,6 +384,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
                 Object:  v.Object,
                 Input:   v.Input,
                 Explore: featureProgrammer_as_explore(v.Explore),
+                Emit:    context.Emit,
               })
             },
             Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -387,6 +396,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
                 Input:   v.Input,
                 Object:  v.Object,
                 Explore: explore,
+                Emit:    context.Emit,
               })
             },
             Success: func(expr *shimast.Expression) *shimast.Node {
@@ -396,7 +406,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
               return expr
             },
             Escaper: func(v nativeiterate.Decode_union_object_escape) *shimast.Node {
-              return checkerProgrammer_factory.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
+              return f.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
                 Input:    v.Input,
                 Expected: v.Expected,
                 Explore:  nil,
@@ -416,6 +426,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
               Object:  object,
               Input:   next.Input,
               Explore: next.Explore,
+              Emit:    context.Emit,
             }),
             Combined: true,
           })
@@ -433,7 +444,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
         })
       },
       Failure: func(next FeatureProgrammer_ObjectorFailureProps) *shimast.Node {
-        return checkerProgrammer_factory.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
+        return f.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
           Input:    next.Input,
           Expected: next.Expected,
           Explore:  next.Explore,
@@ -452,7 +463,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
           Explore:   next.Explore,
         })
       },
-      Type: nativefactories.TypeFactory.Keyword("boolean"),
+      Type: nativefactories.TypeFactory.Keyword("boolean", context.Emit),
     },
     Generator: FeatureProgrammer_IConfig_IGenerator{
       Unions: func(collection *nativemetadata.MetadataCollection) []*shimast.Node {
@@ -464,6 +475,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
         return FeatureProgrammer.Write_union_functions(FeatureProgrammer_WriteUnionFunctionsProps{
           Config:     checkerProgrammer_configure(context, next, functor),
           Collection: collection,
+          Emit:       context.Emit,
         })
       },
       Arrays: func(collection *nativemetadata.MetadataCollection) []*shimast.Node {
@@ -487,6 +499,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
 }
 
 func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   if props.Metadata.Any {
     return props.Config.Success
   }
@@ -498,23 +511,25 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     Left  *shimast.Expression
     Right *shimast.Expression
   }) {
-    checkerProgrammer_create_add(&binaries, props.Input, next.Exact, next.Left, next.Right)
+    checkerProgrammer_create_add(&binaries, props.Input, next.Exact, next.Left, next.Right, props.Context.Emit)
   }
-  getConstantValue := func(value any) *shimast.Node {
-    switch v := value.(type) {
-    case string:
-      return checkerProgrammer_factory.NewStringLiteral(v, shimast.TokenFlagsNone)
-    case int64:
-      return nativefactories.ExpressionFactory.Bigint(v)
-    case uint64:
-      return nativefactories.ExpressionFactory.Bigint(v)
-    case bool:
-      if v {
-        return checkerProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword)
+  // legacy getConstantValue keys on `typeof value` (string | bigint | number |
+  // boolean). Go erases the literal type behind `any`, and typescript-go returns
+  // bigint literals as jsnum.PseudoBigInt (never int64/uint64), so we branch on
+  // the constant's declared `typ` instead of the Go runtime type.
+  getConstantValue := func(typ string, value any) *shimast.Node {
+    switch typ {
+    case "string":
+      return f.NewStringLiteral(fmt.Sprint(value), shimast.TokenFlagsNone)
+    case "bigint":
+      return nativefactories.ExpressionFactory.Bigint(value, props.Context.Emit)
+    case "boolean":
+      if b, ok := value.(bool); ok && b {
+        return f.NewKeywordExpression(shimast.KindTrueKeyword)
       }
-      return checkerProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword)
+      return f.NewKeywordExpression(shimast.KindFalseKeyword)
     default:
-      return checkerProgrammer_factory.NewIdentifier(fmt.Sprint(value))
+      return f.NewIdentifier(fmt.Sprint(value))
     }
   }
 
@@ -525,20 +540,20 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         Exact bool
         Left  *shimast.Expression
         Right *shimast.Expression
-      }{Exact: props.Metadata.Nullable, Left: nativefactories.ValueFactory.NULL()})
+      }{Exact: props.Metadata.Nullable, Left: nativefactories.ValueFactory.NULL(props.Context.Emit)})
     } else {
-      checkerProgrammer_create_add(&top, props.Input, props.Metadata.Nullable, nativefactories.ValueFactory.NULL(), nil)
+      checkerProgrammer_create_add(&top, props.Input, props.Metadata.Nullable, nativefactories.ValueFactory.NULL(props.Context.Emit), nil, props.Context.Emit)
     }
   }
   if checkOptional || !props.Metadata.IsRequired() {
     if props.Metadata.IsRequired() {
-      checkerProgrammer_create_add(&top, props.Input, false, nativefactories.ValueFactory.UNDEFINED(), nil)
+      checkerProgrammer_create_add(&top, props.Input, false, nativefactories.ValueFactory.UNDEFINED(props.Context.Emit), nil, props.Context.Emit)
     } else {
       add(struct {
         Exact bool
         Left  *shimast.Expression
         Right *shimast.Expression
-      }{Exact: true, Left: nativefactories.ValueFactory.UNDEFINED()})
+      }{Exact: true, Left: nativefactories.ValueFactory.UNDEFINED(props.Context.Emit)})
     }
   }
 
@@ -550,8 +565,8 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         Right *shimast.Expression
       }{
         Exact: true,
-        Left:  checkerProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
-        Right: nativefactories.ValueFactory.TYPEOF(props.Input),
+        Left:  f.NewStringLiteral("function", shimast.TokenFlagsNone),
+        Right: nativefactories.ValueFactory.TYPEOF(props.Input, props.Context.Emit),
       })
     } else {
       binaries = append(binaries, CheckerProgrammer_IBinary{Combined: false, Expression: props.Config.Success})
@@ -561,7 +576,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   constants := []*nativemetadata.MetadataConstant{}
   constantLength := 0
   for _, c := range props.Metadata.Constants {
-    if nativehelpers.AtomicPredicator.Constant(struct {
+    if nativehelpers.AtomicPredicator.RuntimeConstant(struct {
       Metadata *nativemetadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: c.Type}) {
@@ -573,29 +588,29 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     values := []*shimast.Node{}
     for _, c := range constants {
       for _, v := range c.Values {
-        switch value := v.Value.(type) {
-        case bool:
-          if value {
-            values = append(values, checkerProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword))
+        switch c.Type {
+        case "boolean":
+          if b, ok := v.Value.(bool); ok && b {
+            values = append(values, f.NewKeywordExpression(shimast.KindTrueKeyword))
           } else {
-            values = append(values, checkerProgrammer_factory.NewKeywordExpression(shimast.KindFalseKeyword))
+            values = append(values, f.NewKeywordExpression(shimast.KindFalseKeyword))
           }
-        case int64, uint64:
-          values = append(values, nativefactories.ExpressionFactory.Bigint(value))
-        case int, float64:
-          values = append(values, nativefactories.ExpressionFactory.Number(value))
+        case "bigint":
+          values = append(values, nativefactories.ExpressionFactory.Bigint(v.Value, props.Context.Emit))
+        case "number":
+          values = append(values, nativefactories.ExpressionFactory.Number(v.Value, props.Context.Emit))
         default:
-          values = append(values, checkerProgrammer_factory.NewStringLiteral(fmt.Sprint(value), shimast.TokenFlagsNone))
+          values = append(values, f.NewStringLiteral(fmt.Sprint(v.Value), shimast.TokenFlagsNone))
         }
       }
     }
     setName := props.Functor.EmplaceVariable(
       fmt.Sprintf("%sv%d", props.Config.Prefix, props.Functor.Increment()),
-      checkerProgrammer_factory.NewNewExpression(
-        checkerProgrammer_factory.NewIdentifier("Set"),
+      f.NewNewExpression(
+        f.NewIdentifier("Set"),
         nil,
-        checkerProgrammer_factory.NewNodeList([]*shimast.Node{
-          checkerProgrammer_factory.NewArrayLiteralExpression(checkerProgrammer_factory.NewNodeList(values), false),
+        f.NewNodeList([]*shimast.Node{
+          f.NewArrayLiteralExpression(f.NewNodeList(values), false),
         }),
       ),
     )
@@ -605,12 +620,12 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
       Right *shimast.Expression
     }{
       Exact: true,
-      Left:  checkerProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
-      Right: checkerProgrammer_factory.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(setName, "has"),
+      Left:  f.NewKeywordExpression(shimast.KindTrueKeyword),
+      Right: f.NewCallExpression(
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, setName, "has"),
         nil,
         nil,
-        checkerProgrammer_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       ),
     })
@@ -621,13 +636,13 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
           Exact bool
           Left  *shimast.Expression
           Right *shimast.Expression
-        }{Exact: true, Left: getConstantValue(v.Value)})
+        }{Exact: true, Left: getConstantValue(c.Type, v.Value)})
       }
     }
   }
 
   for _, atom := range props.Metadata.Atomics {
-    if nativehelpers.AtomicPredicator.Atomic(struct {
+    if nativehelpers.AtomicPredicator.RuntimeAtomic(struct {
       Metadata *nativemetadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: atom.Type}) == false {
@@ -681,8 +696,8 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         Right *shimast.Expression
       }{
         Exact: true,
-        Left:  checkerProgrammer_factory.NewStringLiteral(atom.Type, shimast.TokenFlagsNone),
-        Right: nativefactories.ValueFactory.TYPEOF(props.Input),
+        Left:  f.NewStringLiteral(atom.Type, shimast.TokenFlagsNone),
+        Right: nativefactories.ValueFactory.TYPEOF(props.Input, props.Context.Emit),
       })
     }
   }
@@ -790,7 +805,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         Explore: props.Explore,
         Entry: nativehelpers.ICheckEntry{
           Expected:   strings.Join(expected, " | "),
-          Expression: nativefactories.ExpressionFactory.IsArray(props.Input),
+          Expression: nativefactories.ExpressionFactory.IsArray(props.Input, props.Context.Emit),
           Conditions: [][]nativehelpers.ICheckEntry_ICondition{},
         },
         Input: props.Input,
@@ -826,10 +841,10 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         CheckNull:  true,
         CheckArray: checkArray,
         Input:      props.Input,
-      }),
+      }, props.Context.Emit),
       Expected: strings.Join(names, " | "),
       Body: checkerProgrammer_explore_objects(checkerProgrammer_exploreObjectsProps{
-        Config: props.Config, Functor: props.Functor, Metadata: props.Metadata, Input: props.Input, Explore: explore,
+        Config: props.Config, Context: props.Context, Functor: props.Functor, Metadata: props.Metadata, Input: props.Input, Explore: explore,
       }),
     })
   }
@@ -838,7 +853,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     transformer := func(instance checkerProgrammer_IInstance) CheckerProgrammer_IBinary {
       if instance.Body != nil {
         return CheckerProgrammer_IBinary{
-          Expression: checkerProgrammer_and(instance.Head, instance.Body),
+          Expression: checkerProgrammer_and(instance.Head, instance.Body, props.Context.Emit),
           Combined:   true,
         }
       }
@@ -892,9 +907,12 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
           checkerProgrammer_decode_to_json(struct {
             Input     *shimast.Expression
             CheckNull bool
-          }{Input: props.Input, CheckNull: false}),
+            Emit      *shimprinter.EmitContext
+          }{Input: props.Input, CheckNull: false, Emit: props.Context.Emit}),
           checkerProgrammer_decode_escaped(checkerProgrammer_decodeEscapedProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Metadata: props.Metadata.Escaped.Returns, Input: props.Input, Explore: props.Explore}),
+          props.Context.Emit,
         ),
+        props.Context.Emit,
       )
     }
     binaries = append(binaries, CheckerProgrammer_IBinary{Combined: false, Expression: expression})
@@ -926,6 +944,7 @@ func (checkerProgrammerNamespace) Decode_object(props CheckerProgrammer_DecodeOb
     Object:  props.Object,
     Input:   props.Input,
     Explore: props.Explore,
+    Emit:    props.Emit,
   })
 }
 
@@ -944,6 +963,7 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
   if props.Array.Type.Recursive == false {
     return checkerProgrammer_decode_array_inline(props)
   }
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   arrayExplore := props.Explore
   arrayExplore.Source = "function"
   arrayExplore.From = "array"
@@ -952,14 +972,15 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
     index = *props.Array.Type.Index
   }
   return checkerProgrammer_or(
-    checkerProgrammer_factory.NewCallExpression(
-      checkerProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, index))),
+    f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, index))),
       nil,
       nil,
-      checkerProgrammer_factory.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
         Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Explore: arrayExplore,
         Input:   props.Input,
+        Emit:    props.Context.Emit,
       })),
       shimast.NodeFlagsNone,
     ),
@@ -968,6 +989,7 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
       Expected: props.Array.Type.Name,
       Explore:  &arrayExplore,
     }),
+    props.Context.Emit,
   )
 }
 
@@ -1006,6 +1028,7 @@ func checkerProgrammer_decode_array_inline(props checkerProgrammer_decodeArrayIn
     Array:   props.Array,
     Input:   props.Input,
     Explore: props.Explore,
+    Emit:    props.Context.Emit,
   })
   if length.Expression == nil && len(length.Conditions) == 0 {
     return main
@@ -1017,6 +1040,7 @@ func checkerProgrammer_decode_array_inline(props checkerProgrammer_decodeArrayIn
       Entry:   length,
     }),
     main,
+    props.Context.Emit,
   )
 }
 
@@ -1049,6 +1073,7 @@ func checkerProgrammer_decode_tuple(props checkerProgrammer_decodeTupleProps) *s
       Explore: props.Explore,
     })
   }
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   arrayExplore := props.Explore
   arrayExplore.Source = "function"
   arrayExplore.From = "array"
@@ -1057,14 +1082,15 @@ func checkerProgrammer_decode_tuple(props checkerProgrammer_decodeTupleProps) *s
     index = *props.Tuple.Type.Index
   }
   return checkerProgrammer_or(
-    checkerProgrammer_factory.NewCallExpression(
-      checkerProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%st%d", props.Config.Prefix, index))),
+    f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%st%d", props.Config.Prefix, index))),
       nil,
       nil,
-      checkerProgrammer_factory.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
         Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Explore: arrayExplore,
         Input:   props.Input,
+        Emit:    props.Context.Emit,
       })),
       shimast.NodeFlagsNone,
     ),
@@ -1073,10 +1099,12 @@ func checkerProgrammer_decode_tuple(props checkerProgrammer_decodeTupleProps) *s
       Expected: props.Tuple.Type.Name,
       Explore:  &arrayExplore,
     }),
+    props.Context.Emit,
   )
 }
 
 func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleInlineProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   binaries := []*shimast.Node{}
   for index, metadata := range props.Tuple.Elements {
     if metadata.Rest != nil {
@@ -1093,7 +1121,7 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
       Context:  props.Context,
       Config:   props.Config,
       Functor:  props.Functor,
-      Input:    checkerProgrammer_factory.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index), shimast.NodeFlagsNone),
+      Input:    f.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index, props.Context.Emit), shimast.NodeFlagsNone),
       Metadata: metadata,
       Explore:  explore,
     }))
@@ -1109,11 +1137,11 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
       Config:  props.Config,
       Context: props.Context,
       Functor: props.Functor,
-      Input: checkerProgrammer_factory.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+      Input: f.NewCallExpression(
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
         nil,
         nil,
-        checkerProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements) - 1)}),
+        f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements)-1, props.Context.Emit)}),
         shimast.NodeFlagsNone,
       ),
       Metadata: checkerProgrammer_wrap_metadata_rest_tuple(last.Rest),
@@ -1121,7 +1149,7 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
     })
   }
 
-  arrayLength := nativefactories.IdentifierFactory.Access(props.Input, "length")
+  arrayLength := nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "length")
   entries := []CheckerProgrammer_IBinary{}
   if rest == nil {
     allRequired := true
@@ -1138,15 +1166,17 @@ func checkerProgrammer_decode_tuple_inline(props checkerProgrammer_decodeTupleIn
         Combined: false,
         Expression: checkerProgrammer_equal(
           arrayLength,
-          nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements)),
+          nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements), props.Context.Emit),
+          props.Context.Emit,
         ),
       })
     } else {
       entries = append(entries, CheckerProgrammer_IBinary{
         Combined: false,
         Expression: checkerProgrammer_and(
-          checkerProgrammer_binary(nativefactories.ExpressionFactory.Number(required), shimast.KindLessThanEqualsToken, arrayLength),
-          checkerProgrammer_binary(nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements)), shimast.KindGreaterThanEqualsToken, arrayLength),
+          checkerProgrammer_binary(nativefactories.ExpressionFactory.Number(required, props.Context.Emit), shimast.KindLessThanEqualsToken, arrayLength, props.Context.Emit),
+          checkerProgrammer_binary(nativefactories.ExpressionFactory.Number(len(props.Tuple.Elements), props.Context.Emit), shimast.KindGreaterThanEqualsToken, arrayLength, props.Context.Emit),
+          props.Context.Emit,
         ),
       })
     }
@@ -1184,32 +1214,33 @@ type checkerProgrammer_decodeEscapedProps struct {
 }
 
 func checkerProgrammer_decode_escaped(props checkerProgrammer_decodeEscapedProps) *shimast.Node {
-  return checkerProgrammer_factory.NewCallExpression(
-    checkerProgrammer_factory.NewParenthesizedExpression(
-      checkerProgrammer_factory.NewArrowFunction(
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
+    f.NewParenthesizedExpression(
+      f.NewArrowFunction(
         nil,
         nil,
-        checkerProgrammer_factory.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
         }),
         nil,
         nil,
-        checkerProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{
           Context:  props.Context,
           Config:   props.Config,
           Functor:  props.Functor,
           Metadata: props.Metadata,
-          Input:    checkerProgrammer_factory.NewIdentifier("input"),
+          Input:    f.NewIdentifier("input"),
           Explore:  props.Explore,
         }),
       ),
     ),
     nil,
     nil,
-    checkerProgrammer_factory.NewNodeList([]*shimast.Node{
-      checkerProgrammer_factory.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(props.Input, "toJSON"),
+    f.NewNodeList([]*shimast.Node{
+      f.NewCallExpression(
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "toJSON"),
         nil,
         nil,
         nil,
@@ -1230,7 +1261,8 @@ type checkerProgrammer_exploreSetsProps struct {
 }
 
 func checkerProgrammer_explore_sets(props checkerProgrammer_exploreSetsProps) *shimast.Node {
-  return checkerProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     nativehelpers.UnionExplorer.Set(nativehelpers.UnionExplorer_SetProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
@@ -1252,13 +1284,14 @@ func checkerProgrammer_explore_sets(props checkerProgrammer_exploreSetsProps) *s
         Success: props.Config.Success,
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
           explore := featureProgrammer_as_explore(v.Explore)
-          return checkerProgrammer_factory.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{Input: v.Input, Expected: v.Expected, Explore: &explore}))
+          return f.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{Input: v.Input, Expected: v.Expected, Explore: &explore}))
         },
       },
       Parameters: []*shimast.Node{},
       Input:      props.Input,
       Sets:       props.Sets,
       Explore:    props.Explore,
+      Emit:       props.Context.Emit,
     }),
     nil,
     nil,
@@ -1277,7 +1310,8 @@ type checkerProgrammer_exploreMapsProps struct {
 }
 
 func checkerProgrammer_explore_maps(props checkerProgrammer_exploreMapsProps) *shimast.Node {
-  return checkerProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     nativehelpers.UnionExplorer.Map(nativehelpers.UnionExplorer_MapProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
@@ -1290,12 +1324,13 @@ func checkerProgrammer_explore_maps(props checkerProgrammer_exploreMapsProps) *s
           return checkerProgrammer_and(
             CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{
               Config: props.Config, Context: props.Context, Functor: props.Functor,
-              Input: checkerProgrammer_factory.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(0), shimast.NodeFlagsNone), Metadata: pair[0], Explore: leftExplore,
+              Input: f.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(0, props.Context.Emit), shimast.NodeFlagsNone), Metadata: pair[0], Explore: leftExplore,
             }),
             CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{
               Config: props.Config, Context: props.Context, Functor: props.Functor,
-              Input: checkerProgrammer_factory.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(1), shimast.NodeFlagsNone), Metadata: pair[1], Explore: rightExplore,
+              Input: f.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(1, props.Context.Emit), shimast.NodeFlagsNone), Metadata: pair[1], Explore: rightExplore,
             }),
+            props.Context.Emit,
           )
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -1307,13 +1342,14 @@ func checkerProgrammer_explore_maps(props checkerProgrammer_exploreMapsProps) *s
         Success: props.Config.Success,
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
           explore := featureProgrammer_as_explore(v.Explore)
-          return checkerProgrammer_factory.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{Input: v.Input, Expected: v.Expected, Explore: &explore}))
+          return f.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{Input: v.Input, Expected: v.Expected, Explore: &explore}))
         },
       },
       Parameters: []*shimast.Node{},
       Input:      props.Input,
       Maps:       props.Maps,
       Explore:    props.Explore,
+      Emit:       props.Context.Emit,
     }),
     nil,
     nil,
@@ -1355,7 +1391,7 @@ func checkerProgrammer_explore_tuples(props checkerProgrammer_exploreTuplesProps
     definitions = append(definitions, tuple)
   }
   return checkerProgrammer_explore_array_like_union_types(checkerProgrammer_exploreArrayLikeUnionTypesProps{
-    Config: props.Config, Functor: props.Functor, Definitions: definitions, Input: props.Input, Explore: props.Explore,
+    Config: props.Config, Functor: props.Functor, Definitions: definitions, Input: props.Input, Explore: props.Explore, Emit: props.Context.Emit,
     Factory: func(next checkerProgrammer_exploreArrayLikeUnionTypesFactoryProps) *shimast.Node {
       tuples := make([]*nativemetadata.MetadataTuple, 0, len(next.Definitions))
       for _, value := range next.Definitions {
@@ -1373,6 +1409,7 @@ func checkerProgrammer_explore_tuples(props checkerProgrammer_exploreTuplesProps
         Tuples:     tuples,
         Input:      next.Input,
         Explore:    next.Explore,
+        Emit:       props.Context.Emit,
       })
     },
   })
@@ -1384,7 +1421,7 @@ func checkerProgrammer_explore_arrays(props checkerProgrammer_exploreArraysProps
     definitions = append(definitions, array)
   }
   return checkerProgrammer_explore_array_like_union_types(checkerProgrammer_exploreArrayLikeUnionTypesProps{
-    Config: props.Config, Functor: props.Functor, Definitions: definitions, Input: props.Input, Explore: props.Explore,
+    Config: props.Config, Functor: props.Functor, Definitions: definitions, Input: props.Input, Explore: props.Explore, Emit: props.Context.Emit,
     Factory: func(next checkerProgrammer_exploreArrayLikeUnionTypesFactoryProps) *shimast.Node {
       arrays := make([]*nativemetadata.MetadataArray, 0, len(next.Definitions))
       for _, value := range next.Definitions {
@@ -1402,6 +1439,7 @@ func checkerProgrammer_explore_arrays(props checkerProgrammer_exploreArraysProps
         Arrays:     arrays,
         Input:      next.Input,
         Explore:    next.Explore,
+        Emit:       props.Context.Emit,
       })
     },
   })
@@ -1409,7 +1447,7 @@ func checkerProgrammer_explore_arrays(props checkerProgrammer_exploreArraysProps
 
 func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_exploreArraysAndTuplesProps) *shimast.Node {
   return checkerProgrammer_explore_array_like_union_types(checkerProgrammer_exploreArrayLikeUnionTypesProps{
-    Config: props.Config, Functor: props.Functor, Definitions: props.Definitions, Input: props.Input, Explore: props.Explore,
+    Config: props.Config, Functor: props.Functor, Definitions: props.Definitions, Input: props.Input, Explore: props.Explore, Emit: props.Context.Emit,
     Factory: func(next checkerProgrammer_exploreArrayLikeUnionTypesFactoryProps) *shimast.Node {
       return nativehelpers.UnionExplorer.Array_or_tuple(nativehelpers.UnionExplorer_ArrayOrTupleProps{
         Config: checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
@@ -1446,6 +1484,7 @@ func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_explore
         Definitions: next.Definitions,
         Input:       next.Input,
         Explore:     next.Explore,
+        Emit:        props.Context.Emit,
       })
     },
   })
@@ -1465,16 +1504,18 @@ type checkerProgrammer_exploreArrayLikeUnionTypesProps struct {
   Input       *shimast.Expression
   Definitions []any
   Explore     CheckerProgrammer_IExplore
+  Emit        *shimprinter.EmitContext
 }
 
 func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_exploreArrayLikeUnionTypesProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Emit)
   arrayExplore := props.Explore
   arrayExplore.Source = "function"
   arrayExplore.From = "array"
   names := checkerProgrammer_definition_names(props.Definitions)
   return checkerProgrammer_or(
-    checkerProgrammer_factory.NewCallExpression(
-      checkerProgrammer_factory.NewIdentifier(
+    f.NewCallExpression(
+      f.NewIdentifier(
         props.Functor.EmplaceUnion(
           props.Config.Prefix,
           strings.Join(names, " | "),
@@ -1485,21 +1526,23 @@ func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_ex
               Parameters: FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
                 Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
                 Type:   nativefactories.TypeFactory.Keyword("any"),
-                Input:  checkerProgrammer_factory.NewIdentifier("input"),
+                Input:  f.NewIdentifier("input"),
+                Emit:   props.Emit,
               }),
               Definitions: props.Definitions,
               Explore:     nextExplore,
-              Input:       checkerProgrammer_factory.NewIdentifier("input"),
+              Input:       f.NewIdentifier("input"),
             })
           },
         ),
       ),
       nil,
       nil,
-      checkerProgrammer_factory.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
         Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Input:   props.Input,
         Explore: props.Explore,
+        Emit:    props.Emit,
       })),
       shimast.NodeFlagsNone,
     ),
@@ -1508,11 +1551,13 @@ func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_ex
       Expected: strings.Join(names, " | "),
       Explore:  &arrayExplore,
     }),
+    props.Emit,
   )
 }
 
 type checkerProgrammer_exploreObjectsProps struct {
   Config   CheckerProgrammer_IConfig
+  Context  nativecontext.ITypiaContext
   Functor  *nativehelpers.FunctionProgrammer
   Input    *shimast.Expression
   Metadata *nativemetadata.MetadataSchema
@@ -1521,32 +1566,175 @@ type checkerProgrammer_exploreObjectsProps struct {
 
 func checkerProgrammer_explore_objects(props checkerProgrammer_exploreObjectsProps) *shimast.Node {
   if len(props.Metadata.Objects) == 1 {
-    return CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
+    return checkerProgrammer_decode_object_reference(checkerProgrammer_decodeObjectReferenceProps{
       Config:  props.Config,
+      Context: props.Context,
       Functor: props.Functor,
-      Object:  props.Metadata.Objects[0].Type,
+      Object:  props.Metadata.Objects[0],
       Input:   props.Input,
       Explore: props.Explore,
     })
   }
+  if checkerProgrammer_has_object_type_tags(props.Metadata.Objects) {
+    names := make([]string, 0, len(props.Metadata.Objects))
+    for _, object := range props.Metadata.Objects {
+      names = append(names, object.GetName())
+    }
+    expected := "(" + strings.Join(names, " | ") + ")"
+    f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
+    statements := make([]*shimast.Node, 0, len(props.Metadata.Objects)+1)
+    for _, object := range props.Metadata.Objects {
+      statements = append(statements, f.NewIfStatement(
+        checkerProgrammer_check_object_reference(checkerProgrammer_decodeObjectReferenceProps{
+          Config:  props.Config,
+          Context: props.Context,
+          Functor: props.Functor,
+          Object:  object,
+          Input:   props.Input,
+          Explore: props.Explore,
+        }),
+        f.NewReturnStatement(props.Config.Success),
+        nil,
+      ))
+    }
+    statements = append(statements, f.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
+      Input:    props.Input,
+      Expected: expected,
+      Explore:  &props.Explore,
+    })))
+    return f.NewCallExpression(
+      f.NewArrowFunction(
+        nil,
+        nil,
+        f.NewNodeList(nil),
+        nil,
+        nil,
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewBlock(f.NewNodeList(statements), true),
+      ),
+      nil,
+      nil,
+      nil,
+      shimast.NodeFlagsNone,
+    )
+  }
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   index := 0
   if props.Metadata.Union_index != nil {
     index = *props.Metadata.Union_index
   }
-  return checkerProgrammer_factory.NewCallExpression(
-    checkerProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", props.Config.Prefix, index))),
+  return f.NewCallExpression(
+    f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", props.Config.Prefix, index))),
     nil,
     nil,
-    checkerProgrammer_factory.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
+    f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
       Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Input:   props.Input,
       Explore: props.Explore,
+      Emit:    props.Context.Emit,
     })),
     shimast.NodeFlagsNone,
   )
 }
 
+type checkerProgrammer_decodeObjectReferenceProps struct {
+  Config  CheckerProgrammer_IConfig
+  Context nativecontext.ITypiaContext
+  Functor *nativehelpers.FunctionProgrammer
+  Object  *nativemetadata.MetadataObject
+  Input   *shimast.Expression
+  Explore CheckerProgrammer_IExplore
+}
+
+func checkerProgrammer_check_object_reference(props checkerProgrammer_decodeObjectReferenceProps) *shimast.Node {
+  explore := props.Explore
+  explore.Tracable = false
+  decoded := CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
+    Config:  props.Config,
+    Functor: props.Functor,
+    Object:  props.Object.Type,
+    Input:   props.Input,
+    Explore: explore,
+    Emit:    props.Context.Emit,
+  })
+  tags := nativeiterate.Check_object_type_tags(nativeiterate.Check_object_type_tagsProps{
+    Context: props.Context,
+    Object:  props.Object,
+    Input:   props.Input,
+  })
+  if tags.Expression == nil && len(tags.Conditions) == 0 {
+    return decoded
+  }
+  return checkerProgrammer_and(
+    decoded,
+    checkerProgrammer_object_type_tags_condition(tags, props.Context.Emit),
+    props.Context.Emit,
+  )
+}
+
+func checkerProgrammer_decode_object_reference(props checkerProgrammer_decodeObjectReferenceProps) *shimast.Node {
+  decoded := CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
+    Config:  props.Config,
+    Functor: props.Functor,
+    Object:  props.Object.Type,
+    Input:   props.Input,
+    Explore: props.Explore,
+    Emit:    props.Context.Emit,
+  })
+  tags := nativeiterate.Check_object_type_tags(nativeiterate.Check_object_type_tagsProps{
+    Context: props.Context,
+    Object:  props.Object,
+    Input:   props.Input,
+  })
+  if tags.Expression == nil && len(tags.Conditions) == 0 {
+    return decoded
+  }
+  return checkerProgrammer_and(
+    decoded,
+    props.Config.Atomist(CheckerProgrammer_AtomistProps{
+      Explore: props.Explore,
+      Entry:   tags,
+      Input:   props.Input,
+    }),
+    props.Context.Emit,
+  )
+}
+
+func checkerProgrammer_object_type_tags_condition(entry nativehelpers.ICheckEntry, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, emit)
+  expressions := []*shimast.Node{}
+  if entry.Expression != nil {
+    expressions = append(expressions, entry.Expression)
+  }
+  if len(entry.Conditions) != 0 {
+    rows := make([]*shimast.Node, 0, len(entry.Conditions))
+    for _, set := range entry.Conditions {
+      cols := make([]*shimast.Node, 0, len(set))
+      for _, condition := range set {
+        cols = append(cols, condition.Expression)
+      }
+      rows = append(rows, checkerProgrammer_reduce(cols, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), emit))
+    }
+    expressions = append(expressions, checkerProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), emit))
+  }
+  return checkerProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), emit)
+}
+
+func checkerProgrammer_has_object_type_tags(objects []*nativemetadata.MetadataObject) bool {
+  for _, object := range objects {
+    for _, row := range object.Tags {
+      for _, tag := range row {
+        if tag.Validate != "" {
+          return true
+        }
+      }
+    }
+  }
+  return false
+}
+
 func checkerProgrammer_array_like_config(context nativecontext.ITypiaContext, config CheckerProgrammer_IConfig, functor *nativehelpers.FunctionProgrammer, checker func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node, decoder func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node) nativehelpers.UnionExplorer_ArrayLikeConfig {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, context.Emit)
   return nativehelpers.UnionExplorer_ArrayLikeConfig{
     Checker: checker,
     Decoder: decoder,
@@ -1554,7 +1742,7 @@ func checkerProgrammer_array_like_config(context nativecontext.ITypiaContext, co
     Success: config.Success,
     Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
       explore := featureProgrammer_as_explore(v.Explore)
-      return checkerProgrammer_factory.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
+      return f.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
         Input:    v.Input,
         Expected: v.Expected,
         Explore:  &explore,
@@ -1569,7 +1757,7 @@ type checkerProgrammer_IInstance struct {
   Expected string
 }
 
-func checkerProgrammer_create_add(binaries *[]CheckerProgrammer_IBinary, input *shimast.Expression, exact bool, left *shimast.Expression, right *shimast.Expression) {
+func checkerProgrammer_create_add(binaries *[]CheckerProgrammer_IBinary, input *shimast.Expression, exact bool, left *shimast.Expression, right *shimast.Expression, emit *shimprinter.EmitContext) {
   if right == nil {
     right = input
   }
@@ -1578,31 +1766,43 @@ func checkerProgrammer_create_add(binaries *[]CheckerProgrammer_IBinary, input *
     operator = shimast.KindEqualsEqualsEqualsToken
   }
   *binaries = append(*binaries, CheckerProgrammer_IBinary{
-    Expression: checkerProgrammer_binary(left, operator, right),
+    Expression: checkerProgrammer_binary(left, operator, right, emit),
     Combined:   false,
   })
 }
 
-func checkerProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression) *shimast.Node {
-  return checkerProgrammer_factory.NewBinaryExpression(
+func checkerProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, emit)
+  return f.NewBinaryExpression(
     nil,
     left,
     nil,
-    checkerProgrammer_factory.NewToken(operator),
+    f.NewToken(operator),
     right,
   )
 }
 
-func checkerProgrammer_and(x *shimast.Expression, y *shimast.Expression) *shimast.Node {
-  return checkerProgrammer_binary(x, shimast.KindAmpersandAmpersandToken, y)
+func checkerProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  if len(expressions) == 0 {
+    return initial
+  }
+  output := expressions[0]
+  for _, next := range expressions[1:] {
+    output = checkerProgrammer_binary(output, operator, next, emit)
+  }
+  return output
 }
 
-func checkerProgrammer_or(x *shimast.Expression, y *shimast.Expression) *shimast.Node {
-  return checkerProgrammer_binary(x, shimast.KindBarBarToken, y)
+func checkerProgrammer_and(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return checkerProgrammer_binary(x, shimast.KindAmpersandAmpersandToken, y, emit)
 }
 
-func checkerProgrammer_equal(x *shimast.Expression, y *shimast.Expression) *shimast.Node {
-  return checkerProgrammer_binary(x, shimast.KindEqualsEqualsEqualsToken, y)
+func checkerProgrammer_or(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return checkerProgrammer_binary(x, shimast.KindBarBarToken, y, emit)
+}
+
+func checkerProgrammer_equal(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
+  return checkerProgrammer_binary(x, shimast.KindEqualsEqualsEqualsToken, y, emit)
 }
 
 func checkerProgrammer_array_any(arrays []*nativemetadata.MetadataArray) bool {
@@ -1663,17 +1863,21 @@ func checkerProgrammer_wrap_metadata_rest_tuple(rest *nativemetadata.MetadataSch
 func checkerProgrammer_decode_to_json(props struct {
   Input     *shimast.Expression
   CheckNull bool
+  Emit      *shimprinter.EmitContext
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Emit)
   return checkerProgrammer_and(
     nativefactories.ExpressionFactory.IsObject(nativefactories.ExpressionFactory_IsObjectProps{
       CheckArray: false,
       CheckNull:  props.CheckNull,
       Input:      props.Input,
-    }),
+    }, props.Emit),
     checkerProgrammer_equal(
-      checkerProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
-      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(props.Input, "toJSON")),
+      f.NewStringLiteral("function", shimast.TokenFlagsNone),
+      nativefactories.ValueFactory.TYPEOF(nativefactories.IdentifierFactory.Access(props.Emit, props.Input, "toJSON"), props.Emit),
+      props.Emit,
     ),
+    props.Emit,
   )
 }
 

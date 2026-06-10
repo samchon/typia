@@ -20,8 +20,9 @@ import { TagBase } from "./TagBase";
  * - `"float"`: 32-bit floating point
  * - `"double"`: 64-bit floating point (default JavaScript number)
  *
- * For Protocol Buffers, integer types also determine the wire encoding. The
- * constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
+ * For Protocol Buffers, numeric types select the protobuf scalar type, while
+ * smaller integer tags validate narrower ranges and emit `int32` or `uint32`.
+ * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates appropriate `type` in JSON Schema.
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -38,7 +39,17 @@ import { TagBase } from "./TagBase";
  * @template Value Numeric type identifier
  */
 export type Type<
-  Value extends "int8" | "uint8" | "int16" | "uint16" | "int32" | "uint32" | "int64" | "uint64" | "float" | "double",
+  Value extends
+    | "int8"
+    | "uint8"
+    | "int16"
+    | "uint16"
+    | "int32"
+    | "uint32"
+    | "int64"
+    | "uint64"
+    | "float"
+    | "double",
 > = TagBase<{
   target: Value extends "int64" | "uint64" ? "bigint" | "number" : "number";
   kind: "type";
@@ -57,14 +68,14 @@ export type Type<
               ? `$importInternal("isTypeUint32")($input)`
               : Value extends "int64"
                 ? {
-                  number: `$importInternal("isTypeInt64")($input)`;
-                  bigint: `true`;
-                }
+                    number: `$importInternal("isTypeInt64")($input)`;
+                    bigint: `true`;
+                  }
                 : Value extends "uint64"
                   ? {
-                    number: `$importInternal("isTypeUint64")($input)`;
-                    bigint: `BigInt(0) <= $input`;
-                  }
+                      number: `$importInternal("isTypeUint64")($input)`;
+                      bigint: `BigInt(0) <= $input`;
+                    }
                   : Value extends "float"
                     ? `$importInternal("isTypeFloat")($input)`
                     : `true`;
@@ -75,7 +86,15 @@ export type Type<
         minimum: 0;
       }
     : {
-        type: Value extends "int8" | "uint8" | "int16" | "uint16" | "int32" | "uint32" | "int64" | "uint64"
+        type: Value extends
+          | "int8"
+          | "uint8"
+          | "int16"
+          | "uint16"
+          | "int32"
+          | "uint32"
+          | "int64"
+          | "uint64"
           ? "integer"
           : "number";
       };

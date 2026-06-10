@@ -1,0 +1,239 @@
+package helpers
+
+import (
+  "testing"
+
+  nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+)
+
+// TestUnionPredicatorSkipsSharedNativeNames verifies native fields are not discriminators.
+//
+// Object-union specialization may choose a required property only when it can
+// separate one branch from its neighbors. Rebuilt native metadata instances with
+// the same runtime constructor name still overlap, so shared `Date` or
+// `Uint8Array` fields must not be selected as discriminators.
+//
+//  1. Build two object branches sharing a native property plus one unique field.
+//  2. Assert the shared native property is not selected by UnionPredicator.
+//  3. Repeat with tagged `Uint8Array` metadata whose runtime check is still name
+//     based.
+func TestUnionPredicatorSkipsSharedNativeNames(t *testing.T) {
+  cases := []struct {
+    name   string
+    key    string
+    left   *nativemetadata.MetadataSchema
+    right  *nativemetadata.MetadataSchema
+    expect []string
+  }{
+    {
+      name:   "date",
+      key:    "birthDate",
+      left:   unionPredicatorNativeMetadata("Date", nil),
+      right:  unionPredicatorNativeMetadata("Date", nil),
+      expect: []string{"leftOnly", "rightOnly"},
+    },
+    {
+      name: "tagged-bytes",
+      key:  "bytes",
+      left: unionPredicatorNativeMetadata("Uint8Array", [][]nativemetadata.IMetadataTypeTag{{
+        {Name: "LeftBytes"},
+      }}),
+      right: unionPredicatorNativeMetadata("Uint8Array", [][]nativemetadata.IMetadataTypeTag{{
+        {Name: "RightBytes"},
+      }}),
+      expect: []string{"leftOnly", "rightOnly"},
+    },
+  }
+  for _, tc := range cases {
+    tc := tc
+    t.Run(tc.name, func(t *testing.T) {
+      left := unionPredicatorObject("Left",
+        unionPredicatorProperty(tc.key, tc.left),
+        unionPredicatorProperty("leftOnly", unionPredicatorAtomic("string")),
+      )
+      right := unionPredicatorObject("Right",
+        unionPredicatorProperty(tc.key, tc.right),
+        unionPredicatorProperty("rightOnly", unionPredicatorAtomic("string")),
+      )
+
+      objects := []*nativemetadata.MetadataObjectType{left, right}
+      specs := UnionPredicator.Object(objects)
+      assertUnionPredicatorKeys(t, objects, specs, tc.key, tc.expect)
+    })
+  }
+}
+
+func unionPredicatorObject(name string, properties ...*nativemetadata.MetadataProperty) *nativemetadata.MetadataObjectType {
+  return nativemetadata.MetadataObjectType_create(nativemetadata.MetadataObjectType{
+    Name:       name,
+    Properties: properties,
+  })
+}
+
+func unionPredicatorProperty(key string, value *nativemetadata.MetadataSchema) *nativemetadata.MetadataProperty {
+  return nativemetadata.MetadataProperty_create(nativemetadata.MetadataProperty{
+    Key:   unionPredicatorLiteral(key),
+    Value: value,
+  })
+}
+
+func unionPredicatorLiteral(value string) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Constants: []*nativemetadata.MetadataConstant{
+      nativemetadata.MetadataConstant_create(nativemetadata.MetadataConstant{
+        Type: "string",
+        Values: []*nativemetadata.MetadataConstantValue{
+          nativemetadata.MetadataConstantValue_create(nativemetadata.MetadataConstantValue{Value: value}),
+        },
+      }),
+    },
+  })
+}
+
+func unionPredicatorAtomic(kind string) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Atomics: []*nativemetadata.MetadataAtomic{
+      nativemetadata.MetadataAtomic_create(nativemetadata.MetadataAtomic{Type: kind}),
+    },
+  })
+}
+
+func unionPredicatorArray(value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Arrays: []*nativemetadata.MetadataArray{
+      nativemetadata.MetadataArray_create(nativemetadata.MetadataArray{
+        Type: nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
+          Name:      "Array<" + value.GetName() + ">",
+          Value:     value,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+}
+
+func unionPredicatorTuple(elements ...*nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  name := "["
+  for i, elem := range elements {
+    if i != 0 {
+      name += ", "
+    }
+    name += elem.GetName()
+  }
+  name += "]"
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Tuples: []*nativemetadata.MetadataTuple{
+      nativemetadata.MetadataTuple_create(nativemetadata.MetadataTuple{
+        Type: nativemetadata.MetadataTupleType_create(nativemetadata.MetadataTupleType{
+          Name:      name,
+          Elements:  elements,
+          Nullables: []bool{},
+        }),
+      }),
+    },
+  })
+}
+
+func unionPredicatorTemplate(row ...*nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Templates: []*nativemetadata.MetadataTemplate{
+      nativemetadata.MetadataTemplate_create(nativemetadata.MetadataTemplate{Row: row}),
+    },
+  })
+}
+
+func unionPredicatorNativeMetadata(name string, tags [][]nativemetadata.IMetadataTypeTag) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Natives: []*nativemetadata.MetadataNative{
+      nativemetadata.MetadataNative_create(nativemetadata.MetadataNative{
+        Name: name,
+        Tags: tags,
+      }),
+    },
+  })
+}
+
+func unionPredicatorSet(value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Sets: []*nativemetadata.MetadataSet{
+      nativemetadata.MetadataSet_create(nativemetadata.MetadataSet{Value: value}),
+    },
+  })
+}
+
+func unionPredicatorMap(key *nativemetadata.MetadataSchema, value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  return nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Required: true,
+    Maps: []*nativemetadata.MetadataMap{
+      nativemetadata.MetadataMap_create(nativemetadata.MetadataMap{Key: key, Value: value}),
+    },
+  })
+}
+
+func assertUnionPredicatorKeys(
+  t *testing.T,
+  objects []*nativemetadata.MetadataObjectType,
+  specs []UnionPredicator_ISpecialized,
+  shared string,
+  expect []string,
+) {
+  t.Helper()
+  if len(specs) != len(expect) {
+    t.Fatalf("unexpected specialization count: got %d want %d", len(specs), len(expect))
+  }
+  for i, spec := range specs {
+    if spec.Index != i {
+      t.Fatalf("unexpected specialization index at %d: got %d", i, spec.Index)
+    }
+    if i >= len(objects) {
+      t.Fatalf("specialization index %d exceeds object count %d", i, len(objects))
+    }
+    if spec.Object != objects[i] {
+      t.Fatalf("specialization %d should point at object %q", i, objects[i].Name)
+    }
+    key := spec.Property.Key.GetSoleLiteral()
+    if key == nil {
+      t.Fatal("specialized property should be a literal key")
+    }
+    if *key == shared {
+      t.Fatalf("shared key %q should not be selected", shared)
+    }
+    if *key != expect[i] {
+      t.Fatalf("unexpected specialized key at %d: got %q want %q", i, *key, expect[i])
+    }
+    expectedProperty := unionPredicatorFindProperty(objects[i], expect[i])
+    if expectedProperty == nil {
+      t.Fatalf("expected property %q not found on object %q", expect[i], objects[i].Name)
+    }
+    if spec.Property != expectedProperty {
+      t.Fatalf("specialization %d should point at object-owned property %q", i, expect[i])
+    }
+    expectedNeighbor := false
+    for j, object := range objects {
+      if j != i && unionPredicatorFindProperty(object, expect[i]) != nil {
+        expectedNeighbor = true
+        break
+      }
+    }
+    if spec.Neighbor != expectedNeighbor {
+      t.Fatalf("unexpected neighbor flag for %q: got %v want %v", expect[i], spec.Neighbor, expectedNeighbor)
+    }
+  }
+}
+
+func unionPredicatorFindProperty(object *nativemetadata.MetadataObjectType, key string) *nativemetadata.MetadataProperty {
+  for _, property := range object.Properties {
+    literal := property.Key.GetSoleLiteral()
+    if literal != nil && *literal == key {
+      return property
+    }
+  }
+  return nil
+}

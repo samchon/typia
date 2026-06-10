@@ -30,6 +30,10 @@ Review Cycle, Discussion, Research Review Round, `.codex/skills/multi-agent/SKIL
 
 PR submission flow and the release reference, `.codex/skills/pull-request/SKILL.md`. Read only when the user explicitly asks for a pull request; never open, push, or propose a PR on your own initiative.
 
+### Issue PR Workflow
+
+GitHub issue triage, `.wiki` handoff updates, branch-per-issue implementation, mandatory Research Review Round, CI gating, PR comments, and issue closure, `.codex/skills/issue-pr-workflow/SKILL.md`. Read before sweeping issues or running the issue-to-PR loop.
+
 ### Benchmark
 
 The `@typia/benchmark` runner, fixtures, and per-CPU result archive, `.codex/skills/benchmark/SKILL.md`. Read before running, modifying, or publishing benchmark results.
@@ -54,7 +58,7 @@ Update only for repository-contract changes: a new skill area, a renamed or merg
 
 ### Skills
 
-- **Location.** `.codex/skills/<kebab-name>/SKILL.md`. No numeric prefix, no frontmatter: Claude Code only auto-discovers `.claude/skills/`, and Codex has no native skills system, so each SKILL.md is plain markdown that AGENTS.md points to.
+- **Location.** `.codex/skills/<kebab-name>/SKILL.md`. No numeric prefix. Each file starts with YAML frontmatter holding `name` (the kebab folder name) and `description` (the one-line pointer Codex shows); Claude Code only auto-discovers `.claude/skills/`, so AGENTS.md still points to each SKILL.md for that side.
 - **AGENTS.md pointer.** Each skill gets a `### Title` entry under `## Skills` with a one-paragraph pointer to the SKILL.md path.
 - **Create or merge.** Add a new skill when a substantial repository concern would otherwise inflate AGENTS.md beyond an index. Merge sibling concerns into one multi-section skill when they share most of their structure (`multi-agent/` is the precedent).
 - **Headings are plain.** No chapter numbers in skill or AGENTS.md headings. Use descriptive titles.

@@ -8,9 +8,9 @@ import (
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeiterate "github.com/samchon/typia/packages/typia/native/core/programmers/iterate"
   nativejson "github.com/samchon/typia/packages/typia/native/core/programmers/json"
@@ -51,13 +51,14 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
     Metadata: props.Metadata,
     Config:   props.Config,
   })
-  schemaTypeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, props.Context.Emit)
+  schemaTypeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "ILlmSchema",
   })
-  schemaLiteral := llmSchemaProgrammer_factory.NewAsExpression(
-    llmSchemaProgrammer_factory.NewSatisfiesExpression(
-      nativefactories.LiteralFactory.Write(output.Schema),
+  schemaLiteral := f.NewAsExpression(
+    f.NewSatisfiesExpression(
+      nativefactories.LiteralFactory.Write(output.Schema, props.Context.Emit),
       schemaTypeNode,
     ),
     schemaTypeNode,
@@ -65,42 +66,43 @@ func (llmSchemaProgrammerNamespace) Write(props LlmSchemaProgrammer_IWriteProps)
   if len(output.Defs) == 0 {
     return schemaLiteral
   }
-  recordType := llmSchemaProgrammer_record_type(schemaTypeNode)
-  return llmSchemaProgrammer_factory.NewArrowFunction(
+  recordType := llmSchemaProgrammer_record_type(schemaTypeNode, props.Context.Emit)
+  return f.NewArrowFunction(
     nil,
     nil,
-    llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-      nativefactories.IdentifierFactory.Parameter("$defs", recordType, nil),
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("$defs", recordType, nil, props.Context.Emit),
     }),
     schemaTypeNode,
     nil,
-    llmSchemaProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-    llmSchemaProgrammer_factory.NewBlock(llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-      llmSchemaProgrammer_factory.NewExpressionStatement(
-        llmSchemaProgrammer_factory.NewCallExpression(
-          llmSchemaProgrammer_factory.NewIdentifier("Object.assign"),
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewBlock(f.NewNodeList([]*shimast.Node{
+      f.NewExpressionStatement(
+        f.NewCallExpression(
+          f.NewIdentifier("Object.assign"),
           nil,
           nil,
-          llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-            llmSchemaProgrammer_factory.NewIdentifier("$defs"),
-            llmSchemaProgrammer_factory.NewAsExpression(
-              nativefactories.LiteralFactory.Write(output.Defs),
-              llmSchemaProgrammer_record_type(schemaTypeNode),
+          f.NewNodeList([]*shimast.Node{
+            f.NewIdentifier("$defs"),
+            f.NewAsExpression(
+              nativefactories.LiteralFactory.Write(output.Defs, props.Context.Emit),
+              llmSchemaProgrammer_record_type(schemaTypeNode, props.Context.Emit),
             ),
           }),
           shimast.NodeFlagsNone,
         ),
       ),
-      llmSchemaProgrammer_factory.NewReturnStatement(schemaLiteral),
+      f.NewReturnStatement(schemaLiteral),
     }), true),
   )
 }
 
-func llmSchemaProgrammer_record_type(schemaTypeNode *shimast.Node) *shimast.Node {
-  return llmSchemaProgrammer_factory.NewTypeReferenceNode(
-    llmSchemaProgrammer_factory.NewIdentifier("Record"),
-    llmSchemaProgrammer_factory.NewNodeList([]*shimast.Node{
-      nativefactories.TypeFactory.Keyword("string"),
+func llmSchemaProgrammer_record_type(schemaTypeNode *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, emit...)
+  return f.NewTypeReferenceNode(
+    f.NewIdentifier("Record"),
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.TypeFactory.Keyword("string", emit...),
       schemaTypeNode,
     }),
   )
@@ -181,6 +183,10 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
     output = append(output, "LLM schema does not support Set type.")
   }
   for _, native := range props.Metadata.Natives {
+    if native.Name == "BigInt" {
+      output = append(output, "LLM schema does not support bigint type.")
+      continue
+    }
     if nativehelpers.AtomicPredicator.Native(native.Name) == false &&
       native.Name != "Date" &&
       native.Name != "Blob" &&
@@ -780,36 +786,34 @@ func llmSchemaProgrammer_is_variable_name(str string) bool {
 }
 
 func llmProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return llmSchemaProgrammer_factory.NewIdentifier(name)
+  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, context.Emit)
+  return f.NewIdentifier(name)
 }
 
-func llmProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func llmProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
+  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, context.Emit)
   if str, ok := props.Name.(string); ok {
-    return llmSchemaProgrammer_factory.NewTypeReferenceNode(llmSchemaProgrammer_factory.NewIdentifier(str), llmSchemaProgrammer_factory.NewNodeList(props.Arguments))
+    return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)
 }
 
-func llmProgrammer_type_reference(name string) *shimast.Node {
+func llmProgrammer_type_reference(name string, emit ...*shimprinter.EmitContext) *shimast.Node {
   if name == "" {
     name = "unknown"
   }
-  return llmSchemaProgrammer_factory.NewTypeReferenceNode(llmSchemaProgrammer_factory.NewIdentifier(name), nil)
+  f := nativecontext.EmitFactoryOf(llmSchemaProgrammer_factory, emit...)
+  return f.NewTypeReferenceNode(f.NewIdentifier(name), nil)
 }
 
 func llmProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func llmProgrammer_concat_description(summary *string, description *string) *string {

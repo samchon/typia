@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "esnext",
     "strict": true,
     "skipLibCheck": true,
     "rootDir": "src",
@@ -10,7 +10,8 @@
       {
         "transform": "typia/lib/transform"
       }
-    ]
+    ],
+    "moduleResolution": "bundler"
   },
   "include": [
     "src/**/*.ts"

@@ -35,63 +35,63 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
     Name:    props.Name,
   })
 
+  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, props.Context.Emit)
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions: is.Functions,
     Statements: append(append([]*shimast.Node{}, is.Statements...), nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__is",
       Value: is.Arrow,
-    })),
-    Arrow: jsonParseProgrammer_factory.NewArrowFunction(
+    }, props.Context.Emit)),
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
       }),
-      jsonParseProgrammer_factory.NewUnionTypeNode(jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      f.NewUnionTypeNode(f.NewNodeList([]*shimast.Node{
+        jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
           File: "typia",
           Name: "Primitive",
           Arguments: []*shimast.TypeNode{
             jsonProgrammer_typeReference(props.Context, props.Type, props.Name),
           },
         }),
-        jsonParseProgrammer_factory.NewTypeReferenceNode(jsonParseProgrammer_factory.NewIdentifier("null"), nil),
+        f.NewTypeReferenceNode(f.NewIdentifier("null"), nil),
       })),
       nil,
-      jsonParseProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonParseProgrammer_factory.NewBlock(jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        jsonParseProgrammer_factory.NewExpressionStatement(jsonParseProgrammer_factory.NewBinaryExpression(
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
+        f.NewExpressionStatement(f.NewBinaryExpression(
           nil,
-          jsonParseProgrammer_factory.NewIdentifier("input"),
+          f.NewIdentifier("input"),
           nil,
-          jsonParseProgrammer_factory.NewToken(shimast.KindEqualsToken),
-          jsonParseProgrammer_factory.NewCallExpression(
-            jsonParseProgrammer_factory.NewIdentifier("JSON.parse"),
+          f.NewToken(shimast.KindEqualsToken),
+          f.NewCallExpression(
+            f.NewIdentifier("JSON.parse"),
             nil,
             nil,
-            jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-              jsonParseProgrammer_factory.NewIdentifier("input"),
+            f.NewNodeList([]*shimast.Node{
+              f.NewIdentifier("input"),
             }),
             shimast.NodeFlagsNone,
           ),
         )),
-        jsonParseProgrammer_factory.NewReturnStatement(jsonParseProgrammer_factory.NewConditionalExpression(
-          jsonParseProgrammer_factory.NewCallExpression(
-            jsonParseProgrammer_factory.NewIdentifier("__is"),
+        f.NewReturnStatement(nativefactories.ExpressionFactory.Conditional(
+          f.NewCallExpression(
+            f.NewIdentifier("__is"),
             nil,
             nil,
-            jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-              jsonParseProgrammer_factory.NewIdentifier("input"),
+            f.NewNodeList([]*shimast.Node{
+              f.NewIdentifier("input"),
             }),
             shimast.NodeFlagsNone,
           ),
-          nil,
-          jsonParseProgrammer_factory.NewAsExpression(
-            jsonParseProgrammer_factory.NewIdentifier("input"),
-            nativefactories.TypeFactory.Keyword("any"),
+          f.NewAsExpression(
+            f.NewIdentifier("input"),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
-          nil,
-          jsonParseProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword),
+          f.NewKeywordExpression(shimast.KindNullKeyword),
+          props.Context.Emit,
         )),
       }), false),
     ),
@@ -99,11 +99,8 @@ func (jsonIsParseProgrammerNamespace) Decompose(props JsonIsParseProgrammer_Deco
 }
 
 func (jsonIsParseProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  method := ""
-  if props.Modulo != nil {
-    method = props.Modulo.Text()
-  }
-  functor := nativehelpers.NewFunctionProgrammer(method)
+  method := nativehelpers.ModuloMethodText(props.Modulo)
+  functor := nativehelpers.NewFunctionProgrammer(method, props.Context.Emit)
   result := JsonIsParseProgrammer.Decompose(JsonIsParseProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,
@@ -142,23 +139,23 @@ func jsonParseProgrammer_bool(value bool) *bool {
   return &value
 }
 
-func jsonProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func jsonProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
+  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, context.Emit)
   if str, ok := props.Name.(string); ok {
-    return jsonParseProgrammer_factory.NewTypeReferenceNode(jsonParseProgrammer_factory.NewIdentifier(str), jsonParseProgrammer_factory.NewNodeList(props.Arguments))
+    return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)
 }
 
 func jsonProgrammer_typeReference(context nativecontext.ITypiaContext, typ *shimchecker.Type, name *string) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, context.Emit)
   if name != nil {
-    return jsonParseProgrammer_factory.NewTypeReferenceNode(jsonParseProgrammer_factory.NewIdentifier(*name), nil)
+    return f.NewTypeReferenceNode(f.NewIdentifier(*name), nil)
   }
-  return jsonParseProgrammer_factory.NewTypeReferenceNode(jsonParseProgrammer_factory.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{
+  return f.NewTypeReferenceNode(f.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{
     Checker: context.Checker,
     Type:    typ,
   })), nil)

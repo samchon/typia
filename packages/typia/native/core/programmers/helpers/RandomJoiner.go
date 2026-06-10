@@ -5,6 +5,8 @@ import (
   "sort"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
@@ -21,26 +23,34 @@ type RandomJoiner_ArrayProps struct {
   Expression *shimast.Expression
   Array      *nativemetadata.MetadataArrayType
   Schema     map[string]any
+  Emit       *shimprinter.EmitContext
 }
 
 type RandomJoiner_TupleProps struct {
   Decode   RandomJoiner_Decoder
   Elements []*nativemetadata.MetadataSchema
+  Emit     *shimprinter.EmitContext
 }
 
 type RandomJoiner_ObjectProps struct {
-  Decode RandomJoiner_Decoder
-  Object *nativemetadata.MetadataObjectType
+  Decode                  RandomJoiner_Decoder
+  Object                  *nativemetadata.MetadataObjectType
+  OptionalProperty        func(*nativemetadata.MetadataSchema) bool
+  StrictOptionalUndefined func(*nativemetadata.MetadataSchema) bool
+  Optional                func() *shimast.Node
+  Emit                    *shimprinter.EmitContext
 }
 
 type randomJoiner_DynamicPropertyProps struct {
   Decode   RandomJoiner_Decoder
   Property *nativemetadata.MetadataProperty
+  Emit     *shimprinter.EmitContext
 }
 
 var randomJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
   properties := []*shimast.Node{}
   if props.Schema != nil {
     keys := make([]string, 0, len(props.Schema))
@@ -51,39 +61,39 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
     }
     sort.Strings(keys)
     for _, key := range keys {
-      properties = append(properties, randomJoiner_factory.NewPropertyAssignment(
+      properties = append(properties, f.NewPropertyAssignment(
         nil,
-        nativefactories.IdentifierFactory.Identifier(key),
+        nativefactories.IdentifierFactory.Identifier(key, props.Emit),
         nil,
         nil,
-        nativefactories.LiteralFactory.Write(props.Schema[key]),
+        nativefactories.LiteralFactory.Write(props.Schema[key], props.Emit),
       ))
     }
   } else {
-    properties = append(properties, randomJoiner_factory.NewSpreadAssignment(randomJoiner_factory.NewIdentifier("_schema")))
+    properties = append(properties, f.NewSpreadAssignment(f.NewIdentifier("_schema")))
   }
-  properties = append(properties, randomJoiner_factory.NewPropertyAssignment(
+  properties = append(properties, f.NewPropertyAssignment(
     nil,
-    randomJoiner_factory.NewIdentifier("element"),
+    f.NewIdentifier("element"),
     nil,
     nil,
-    randomJoiner_factory.NewArrowFunction(
+    f.NewArrowFunction(
       nil,
       nil,
-      randomJoiner_factory.NewNodeList(nil),
+      f.NewNodeList(nil),
       nil,
       nil,
-      randomJoiner_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       props.Decode(props.Array.Value),
     ),
   ))
-  call := randomJoiner_factory.NewCallExpression(
+  call := f.NewCallExpression(
     props.Expression,
     nil,
     nil,
-    randomJoiner_factory.NewNodeList([]*shimast.Node{
-      randomJoiner_factory.NewObjectLiteralExpression(
-        randomJoiner_factory.NewNodeList(properties),
+    f.NewNodeList([]*shimast.Node{
+      f.NewObjectLiteralExpression(
+        f.NewNodeList(properties),
         true,
       ),
     }),
@@ -92,22 +102,22 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
   if !props.Recursive {
     return call
   }
-  return randomJoiner_factory.NewConditionalExpression(
-    randomJoiner_factory.NewBinaryExpression(
+  return nativefactories.ExpressionFactory.Conditional(
+    f.NewBinaryExpression(
       nil,
-      nativefactories.ExpressionFactory.Number(5),
+      nativefactories.ExpressionFactory.Number(5, props.Emit),
       nil,
-      randomJoiner_factory.NewToken(shimast.KindGreaterThanEqualsToken),
-      randomJoiner_factory.NewIdentifier("_depth"),
+      f.NewToken(shimast.KindGreaterThanEqualsToken),
+      f.NewIdentifier("_depth"),
     ),
-    nil,
     call,
-    nil,
-    randomJoiner_factory.NewArrayLiteralExpression(randomJoiner_factory.NewNodeList(nil), false),
+    f.NewArrayLiteralExpression(f.NewNodeList(nil), false),
+    props.Emit,
   )
 }
 
 func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
   elements := make([]*shimast.Node, 0, len(props.Elements))
   for _, elem := range props.Elements {
     target := elem
@@ -116,15 +126,16 @@ func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node 
     }
     elements = append(elements, props.Decode(target))
   }
-  return randomJoiner_factory.NewArrayLiteralExpression(
-    randomJoiner_factory.NewNodeList(elements),
+  return f.NewArrayLiteralExpression(
+    f.NewNodeList(elements),
     true,
   )
 }
 
 func (randomJoinerNamespace) Object(props RandomJoiner_ObjectProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
   if len(props.Object.Properties) == 0 {
-    return nativefactories.LiteralFactory.Write(map[string]any{})
+    return nativefactories.LiteralFactory.Write(map[string]any{}, props.Emit)
   }
 
   properties := []*shimast.Node{}
@@ -133,30 +144,55 @@ func (randomJoinerNamespace) Object(props RandomJoiner_ObjectProps) *shimast.Nod
       continue
     }
     str := property.Key.GetSoleLiteral()
-    properties = append(properties, randomJoiner_factory.NewPropertyAssignment(
+    metadata := property.Value
+    optionalProperty := props.OptionalProperty != nil && props.OptionalProperty(property.Value)
+    strictOptionalUndefined := props.StrictOptionalUndefined != nil && props.StrictOptionalUndefined(property.Value)
+    if strictOptionalUndefined {
+      metadata = property.Value.ShallowClone()
+      metadata.Optional = false
+    }
+    propertyAssignment := f.NewPropertyAssignment(
       nil,
-      nativefactories.IdentifierFactory.Identifier(*str),
+      nativefactories.IdentifierFactory.Identifier(*str, props.Emit),
       nil,
       nil,
-      props.Decode(property.Value),
-    ))
+      props.Decode(metadata),
+    )
+    if optionalProperty {
+      condition := f.NewKeywordExpression(shimast.KindTrueKeyword)
+      if props.Optional != nil {
+        condition = props.Optional()
+      }
+      properties = append(properties, f.NewSpreadAssignment(
+        f.NewParenthesizedExpression(nativefactories.ExpressionFactory.Conditional(
+          condition,
+          f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{propertyAssignment}), false),
+          f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
+          props.Emit,
+        )),
+      ))
+    } else {
+      properties = append(properties, propertyAssignment)
+    }
   }
   for _, property := range props.Object.Properties {
     if property.Key.IsSoleLiteral() {
       continue
     }
-    properties = append(properties, randomJoiner_factory.NewSpreadAssignment(randomJoiner_dynamicProperty(randomJoiner_DynamicPropertyProps{
+    properties = append(properties, f.NewSpreadAssignment(randomJoiner_dynamicProperty(randomJoiner_DynamicPropertyProps{
       Decode:   props.Decode,
       Property: property,
+      Emit:     props.Emit,
     })))
   }
-  return randomJoiner_factory.NewObjectLiteralExpression(
-    randomJoiner_factory.NewNodeList(properties),
+  return f.NewObjectLiteralExpression(
+    f.NewNodeList(properties),
     true,
   )
 }
 
 func randomJoiner_dynamicProperty(props randomJoiner_DynamicPropertyProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
   tuple := nativemetadata.MetadataTuple_create(nativemetadata.MetadataTuple{
     Type: nativemetadata.MetadataTupleType_create(nativemetadata.MetadataTupleType{
       Name:      fmt.Sprintf("[%s, %s]", props.Property.Key.GetName(), props.Property.Value.GetName()),
@@ -181,11 +217,11 @@ func randomJoiner_dynamicProperty(props randomJoiner_DynamicPropertyProps) *shim
   })
   metadata := nativemetadata.MetadataSchema_initialize()
   metadata.Arrays = []*nativemetadata.MetadataArray{array}
-  return randomJoiner_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(randomJoiner_factory.NewIdentifier("Object"), "fromEntries"),
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(nil, f.NewIdentifier("Object"), "fromEntries"),
     nil,
     nil,
-    randomJoiner_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
       props.Decode(metadata),
     }),
     shimast.NodeFlagsNone,

@@ -18,16 +18,18 @@ func (atomicPredicatorNamespace) Constant(props struct {
   return true
 }
 
-func (atomicPredicatorNamespace) Atomic(props struct {
+func (atomicPredicatorNamespace) RuntimeConstant(props struct {
   Metadata *nativemetadata.MetadataSchema
   Name     string
 }) bool {
-  for _, native := range props.Metadata.Natives {
-    if lower(native.Name) == props.Name {
-      return false
-    }
-  }
-  return true
+  return atomicPredicator_runtime(props.Metadata, props.Name)
+}
+
+func (atomicPredicatorNamespace) RuntimeAtomic(props struct {
+  Metadata *nativemetadata.MetadataSchema
+  Name     string
+}) bool {
+  return atomicPredicator_runtime(props.Metadata, props.Name)
 }
 
 func (atomicPredicatorNamespace) Native(name string) bool {
@@ -49,6 +51,17 @@ var atomicPredicator_like = map[string]struct{}{
   "bigint":  {},
   "number":  {},
   "string":  {},
+}
+
+func atomicPredicator_runtime(metadata *nativemetadata.MetadataSchema, name string) bool {
+  lowered := lower(name)
+  for _, native := range metadata.Natives {
+    atomic, ok := nativemetadata.MetadataSchema_atomicLikeNative(native.Name)
+    if ok && atomic == lowered {
+      return false
+    }
+  }
+  return true
 }
 
 func lower(str string) string {

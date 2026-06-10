@@ -113,6 +113,14 @@ func MetadataSchema_initialize(parentResolved ...bool) *MetadataSchema {
   return meta
 }
 
+func (obj *MetadataSchema) ShallowClone() *MetadataSchema {
+  if obj == nil {
+    return nil
+  }
+  clone := *obj
+  return &clone
+}
+
 func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
   output := &IMetadataSchema{
     Any:      obj.Any,
@@ -436,7 +444,16 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if len(x.Arrays) != 0 && len(y.Arrays) != 0 {
     return true
   }
+  if (len(x.Arrays) != 0 && len(y.Tuples) != 0) || (len(x.Tuples) != 0 && len(y.Arrays) != 0) {
+    return true
+  }
   if len(x.Tuples) != 0 && len(y.Tuples) != 0 {
+    return true
+  }
+  if len(x.Sets) != 0 && len(y.Sets) != 0 {
+    return true
+  }
+  if len(x.Maps) != 0 && len(y.Maps) != 0 {
     return true
   }
   if len(x.Objects) != 0 && len(y.Objects) != 0 {
@@ -446,8 +463,11 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
     return true
   }
   if anyOf(x.Natives, func(xn *MetadataNative) bool {
-    return anyOf(y.Natives, func(yn *MetadataNative) bool { return xn == yn })
+    return anyOf(y.Natives, func(yn *MetadataNative) bool { return xn.Name == yn.Name })
   }) {
+    return true
+  }
+  if metadataSchema_intersectsAtomicLikeNative(x, y) || metadataSchema_intersectsAtomicLikeNative(y, x) {
     return true
   }
   if x.Escaped != nil && y.Escaped != nil {
@@ -493,25 +513,52 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if len(y.Templates) != 0 && anyOf(x.Atomics, func(xa *MetadataAtomic) bool { return xa.Type == "string" }) {
     return true
   }
+  if len(x.Templates) != 0 && metadataSchema_hasConstant(y, "string") {
+    return true
+  }
+  if len(y.Templates) != 0 && metadataSchema_hasConstant(x, "string") {
+    return true
+  }
+  if len(x.Templates) != 0 && len(y.Templates) != 0 {
+    return true
+  }
   return false
 }
 
 func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped ...any) bool {
-  level := 0
   escaped := false
-  if len(levelAndEscaped) > 0 {
-    if v, ok := levelAndEscaped[0].(int); ok {
-      level = v
-    }
-  }
-  if len(levelAndEscaped) > 1 {
-    if v, ok := levelAndEscaped[1].(bool); ok {
+  for _, value := range levelAndEscaped {
+    if v, ok := value.(bool); ok {
       escaped = v
+      break
     }
   }
   if x == y {
     return false
   }
+  return metadataSchema_covers(x, y, escaped, map[metadataSchemaCoversPair]struct{}{})
+}
+
+type metadataSchemaCoversPair struct {
+  X       *MetadataSchema
+  Y       *MetadataSchema
+  Escaped bool
+}
+
+func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, visited map[metadataSchemaCoversPair]struct{}) bool {
+  if x == y {
+    return true
+  }
+  pair := metadataSchemaCoversPair{
+    X:       x,
+    Y:       y,
+    Escaped: escaped,
+  }
+  if _, ok := visited[pair]; ok {
+    return true
+  }
+  visited[pair] = struct{}{}
+  defer delete(visited, pair)
   if x.Any {
     return true
   }
@@ -523,33 +570,60 @@ func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped
       return false
     }
     if x.Escaped != nil && y.Escaped != nil &&
-      (MetadataSchema_covers(x.Escaped.Original, y.Escaped.Original, level, true) == false ||
-        MetadataSchema_covers(x.Escaped.Returns, y.Escaped.Returns, level, true) == false) {
+      (metadataSchema_covers(x.Escaped.Original, y.Escaped.Original, true, visited) == false ||
+        metadataSchema_covers(x.Escaped.Returns, y.Escaped.Returns, true, visited) == false) {
       return false
     }
   }
-  if level == 0 {
-    for _, ya := range y.Arrays {
-      if anyOf(x.Arrays, func(xa *MetadataArray) bool {
-        return MetadataSchema_covers(xa.Type.Value, ya.Type.Value, level+1)
-      }) == false {
+  if y.Rest != nil {
+    if x.Rest == nil || metadataSchema_covers(x.Rest, y.Rest, false, visited) == false {
+      return false
+    }
+  }
+  for _, ya := range y.Arrays {
+    if anyOf(x.Arrays, func(xa *MetadataArray) bool {
+      return metadataSchema_covers(xa.Type.Value, ya.Type.Value, false, visited)
+    }) == false {
+      return false
+    }
+  }
+  for _, yt := range y.Tuples {
+    if anyOf(x.Tuples, func(xt *MetadataTuple) bool {
+      rest := (*MetadataSchema)(nil)
+      fixed := len(xt.Type.Elements)
+      if fixed != 0 && xt.Type.Elements[fixed-1].Rest != nil {
+        rest = xt.Type.Elements[fixed-1].Rest
+        fixed--
+      }
+      if len(yt.Type.Elements) == 0 {
+        return fixed == 0
+      }
+      if rest == nil && len(xt.Type.Elements) < len(yt.Type.Elements) {
         return false
       }
-    }
-    for _, yt := range y.Tuples {
-      if len(yt.Type.Elements) != 0 && anyOf(x.Tuples, func(xt *MetadataTuple) bool {
-        if len(xt.Type.Elements) < len(yt.Type.Elements) {
+      for i := 0; i < len(yt.Type.Elements); i++ {
+        // rest == nil implies fixed == len(xt.Type.Elements) >= len(yt.Type.Elements),
+        // so every i < fixed there; rest only substitutes past the fixed prefix.
+        elem := rest
+        if i < fixed {
+          elem = xt.Type.Elements[i]
+        }
+        target := yt.Type.Elements[i]
+        if rest != nil && i >= fixed && target.Rest != nil {
+          target = target.Rest
+        }
+        if metadataSchema_covers(elem, target, false, visited) == false {
           return false
         }
-        for i := len(yt.Type.Elements); i < len(xt.Type.Elements); i++ {
-          if MetadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i-len(yt.Type.Elements)], level+1) == false {
-            return false
-          }
-        }
-        return true
-      }) == false {
-        return false
       }
+      for i := len(yt.Type.Elements); i < fixed; i++ {
+        if metadataSchema_covers(xt.Type.Elements[i], yt.Type.Elements[i%len(yt.Type.Elements)], false, visited) == false {
+          return false
+        }
+      }
+      return true
+    }) == false {
+      return false
     }
   }
   for _, yo := range y.Objects {
@@ -565,22 +639,36 @@ func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped
     }
   }
   for _, yn := range y.Natives {
-    if anyOf(x.Natives, func(xn *MetadataNative) bool { return xn == yn }) == false {
+    if anyOf(x.Natives, func(xn *MetadataNative) bool { return xn.Name == yn.Name }) == false {
       return false
     }
   }
   for _, ys := range y.Sets {
-    if anyOf(x.Sets, func(xs *MetadataSet) bool { return MetadataSchema_covers(xs.Value, ys.Value) }) == false {
+    if anyOf(x.Sets, func(xs *MetadataSet) bool { return metadataSchema_covers(xs.Value, ys.Value, false, visited) }) == false {
+      return false
+    }
+  }
+  for _, ym := range y.Maps {
+    if anyOf(x.Maps, func(xm *MetadataMap) bool {
+      return metadataSchema_covers(xm.Key, ym.Key, false, visited) &&
+        metadataSchema_covers(xm.Value, ym.Value, false, visited)
+    }) == false {
+      return false
+    }
+  }
+  for _, yt := range y.Templates {
+    if metadataSchema_coversTemplate(x, yt) == false {
       return false
     }
   }
   if anyOf(y.Atomics, func(ya *MetadataAtomic) bool {
-    return anyOf(x.Atomics, func(xa *MetadataAtomic) bool { return xa.Type == ya.Type }) == false
+    return metadataSchema_hasAtomic(x, ya.Type) == false &&
+      metadataSchema_hasAtomicLikeNative(x, ya.Type) == false
   }) {
     return false
   }
   for _, yc := range y.Constants {
-    if anyOf(x.Atomics, func(atom *MetadataAtomic) bool { return yc.Type == atom.Type }) {
+    if metadataSchema_hasAtomic(x, yc.Type) || metadataSchema_hasAtomicLikeNative(x, yc.Type) {
       continue
     }
     var xc *MetadataConstant
@@ -770,6 +858,58 @@ func safeMetadataName(meta *MetadataSchema) string {
     return "unknown"
   }
   return meta.GetName()
+}
+
+func metadataSchema_intersectsAtomicLikeNative(nativeOwner *MetadataSchema, opposite *MetadataSchema) bool {
+  for _, native := range nativeOwner.Natives {
+    atomic, ok := MetadataSchema_atomicLikeNative(native.Name)
+    if ok == false {
+      continue
+    }
+    if metadataSchema_hasAtomic(opposite, atomic) ||
+      metadataSchema_hasConstant(opposite, atomic) ||
+      (atomic == "string" && len(opposite.Templates) != 0) {
+      return true
+    }
+  }
+  return false
+}
+
+func metadataSchema_coversTemplate(x *MetadataSchema, y *MetadataTemplate) bool {
+  if metadataSchema_hasAtomic(x, "string") || metadataSchema_hasAtomicLikeNative(x, "string") {
+    return true
+  }
+  return anyOf(x.Templates, func(xt *MetadataTemplate) bool { return xt.GetName() == y.GetName() })
+}
+
+func metadataSchema_hasAtomic(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Atomics, func(elem *MetadataAtomic) bool { return elem.Type == atomic })
+}
+
+func metadataSchema_hasConstant(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Constants, func(elem *MetadataConstant) bool { return elem.Type == atomic })
+}
+
+func metadataSchema_hasAtomicLikeNative(meta *MetadataSchema, atomic string) bool {
+  return anyOf(meta.Natives, func(elem *MetadataNative) bool {
+    nativeAtomic, ok := MetadataSchema_atomicLikeNative(elem.Name)
+    return ok && nativeAtomic == atomic
+  })
+}
+
+func MetadataSchema_atomicLikeNative(name string) (string, bool) {
+  switch name {
+  case "Boolean":
+    return "boolean", true
+  case "BigInt":
+    return "bigint", true
+  case "Number":
+    return "number", true
+  case "String":
+    return "string", true
+  default:
+    return "", false
+  }
 }
 
 func anyOf[T any](input []T, pred func(T) bool) bool {

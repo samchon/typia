@@ -1,3 +1,8 @@
+---
+name: multi-agent
+description: Multi-agent workflows — Review Cycle, Discussion, and Research Review Round. Read the Briefing subagents rule before delegating to any subagent; read a mode in full only when the user asks for it by name.
+---
+
 # Multi-Agent Workflows
 
 Use only when the user explicitly asks for one of the named modes — Review Cycle, Discussion, or Research Review Round. Each mode composes the shared building blocks below; do not invent unnamed combinations. Read the **Briefing subagents** rule before delegating to any subagent; read a mode in full only when the user asks for it by name.

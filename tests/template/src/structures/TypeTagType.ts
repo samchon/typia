@@ -36,6 +36,32 @@ export namespace TypeTagType {
           uint64: uint,
           float: int + 0.1,
         });
+    value.push({
+      int: -2147483648,
+      uint: 4294967295,
+      int8: -128,
+      uint8: 255,
+      int16: -32768,
+      uint16: 65535,
+      int32: -2147483648,
+      uint32: 4294967295,
+      int64: -2147483648,
+      uint64: 4294967295,
+      float: -1.175494351e38,
+    });
+    value.push({
+      int: 2147483647,
+      uint: 0,
+      int8: 127,
+      uint8: 0,
+      int16: 32767,
+      uint16: 0,
+      int32: 2147483647,
+      uint32: 0,
+      int64: 2147483647,
+      uint64: 0,
+      float: 3.4028235e38,
+    });
     return { value };
   }
 

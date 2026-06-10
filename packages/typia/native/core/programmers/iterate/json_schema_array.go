@@ -41,6 +41,7 @@ func json_schema_array(props struct {
       props.components.Schemas = map[string]JsonSchema{}
     }
     if _, ok := props.components.Schemas[props.array.Type.Name]; ok == false {
+      props.components.emplaceSchemaKey(props.array.Type.Name)
       props.components.Schemas[props.array.Type.Name] = JsonSchema{}
     }
     oneOf := factory()

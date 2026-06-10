@@ -54,7 +54,7 @@ func (httpAssertQueryProgrammerNamespace) Decompose(props HttpAssertQueryProgram
 }
 
 func (httpAssertQueryProgrammerNamespace) Write(props HttpAssertQueryProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpAssertQueryProgrammer.Decompose(HttpAssertQueryProgrammer_DecomposeProps{
     Context:       props.Context,
     Functor:       functor,

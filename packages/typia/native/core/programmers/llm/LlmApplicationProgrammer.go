@@ -51,18 +51,19 @@ func (llmApplicationProgrammerNamespace) Write(props LlmApplicationProgrammer_IW
     Config:   props.Config,
     Name:     props.Name,
   })
+  f := nativecontext.EmitFactoryOf(llmApplicationProgrammer_factory, props.Context.Emit)
   var arguments []*shimast.TypeNode
   if props.Name != nil {
-    arguments = []*shimast.TypeNode{llmProgrammer_type_reference(*props.Name)}
+    arguments = []*shimast.TypeNode{llmProgrammer_type_reference(*props.Name, props.Context.Emit)}
   }
-  typeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File:      "typia",
     Name:      "ILlmApplication.__IPrimitive",
     Arguments: arguments,
   })
   args := []*shimast.Node{
-    llmApplicationProgrammer_factory.NewAsExpression(
-      llmApplicationProgrammer_factory.NewSatisfiesExpression(nativefactories.LiteralFactory.Write(application), typeNode),
+    f.NewAsExpression(
+      f.NewSatisfiesExpression(nativefactories.LiteralFactory.Write(application, props.Context.Emit), typeNode),
       typeNode,
     ),
   }
@@ -71,13 +72,13 @@ func (llmApplicationProgrammerNamespace) Write(props LlmApplicationProgrammer_IW
   }
   var typeArguments *shimast.NodeList
   if props.Name != nil {
-    typeArguments = llmApplicationProgrammer_factory.NewNodeList([]*shimast.Node{llmProgrammer_type_reference(*props.Name)})
+    typeArguments = f.NewNodeList([]*shimast.Node{llmProgrammer_type_reference(*props.Name, props.Context.Emit)})
   }
-  return llmApplicationProgrammer_factory.NewCallExpression(
+  return f.NewCallExpression(
     llmProgrammer_internal(props.Context, "llmApplicationFinalize"),
     nil,
     typeArguments,
-    llmApplicationProgrammer_factory.NewNodeList(args),
+    f.NewNodeList(args),
     shimast.NodeFlagsNone,
   )
 }

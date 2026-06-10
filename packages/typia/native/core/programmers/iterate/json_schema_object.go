@@ -36,6 +36,7 @@ func json_schema_emplace_object(props struct {
     props.components.Schemas = map[string]JsonSchema{}
   }
   lazy := JsonSchema{}
+  props.components.emplaceSchemaKey(key)
   props.components.Schemas[key] = lazy
   json_schema_assign(lazy, json_schema_create_object_schema(props))
   return JsonSchema{"$ref": ref}
@@ -115,8 +116,8 @@ func json_schema_create_object_schema(props struct {
   schema := JsonSchema{
     "type":                 "object",
     "properties":           properties,
-    "required":             required,
     "additionalProperties": false,
+    "required":             required,
   }
   if title := json_schema_title(struct {
     description *string
@@ -135,6 +136,10 @@ func json_schema_create_object_schema(props struct {
     extra      json_schema_superfluous
   }{components: props.components, extra: extraMeta}); additional != nil {
     schema["additionalProperties"] = additional
+  }
+  if len(properties) == 0 && len(required) == 0 && extraMeta.additionalProperties != nil && len(extraMeta.patternProperties) == 0 {
+    delete(schema, "properties")
+    delete(schema, "required")
   }
   return json_schema_jsDocTags(schema, props.object.Type.JsDocTags)
 }

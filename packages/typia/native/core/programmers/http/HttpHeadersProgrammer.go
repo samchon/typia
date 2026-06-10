@@ -9,7 +9,6 @@ import (
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -31,10 +30,10 @@ type HttpHeadersProgrammer_DecomposeProps struct {
 var httpHeadersProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (httpHeadersProgrammerNamespace) Decompose(props HttpHeadersProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -65,17 +64,18 @@ func (httpHeadersProgrammerNamespace) Decompose(props HttpHeadersProgrammer_Deco
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  map[string]*shimast.Node{},
     Statements: []*shimast.Node{},
-    Arrow: httpHeadersProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      httpHeadersProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter(
           "input",
-          httpHeadersProgrammer_factory.NewTypeReferenceNode(httpHeadersProgrammer_factory.NewIdentifier(HttpHeadersProgrammer_INPUT_TYPE), nil),
+          f.NewTypeReferenceNode(f.NewIdentifier(HttpHeadersProgrammer_INPUT_TYPE), nil),
           nil,
+          props.Context.Emit,
         ),
       }),
-      httpProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      httpProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Resolved",
         Arguments: []*shimast.TypeNode{
@@ -83,14 +83,14 @@ func (httpHeadersProgrammerNamespace) Decompose(props HttpHeadersProgrammer_Deco
         },
       }),
       nil,
-      httpHeadersProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpHeadersProgrammer_factory.NewBlock(httpHeadersProgrammer_factory.NewNodeList(statements), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(statements), true),
     ),
   }
 }
 
 func (httpHeadersProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpHeadersProgrammer.Decompose(HttpHeadersProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,
@@ -210,7 +210,8 @@ func httpHeadersProgrammer_decode_object(props struct {
   Context nativecontext.ITypiaContext
   Object  *schemametadata.MetadataObjectType
 }) []*shimast.Node {
-  output := httpHeadersProgrammer_factory.NewIdentifier("output")
+  f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, props.Context.Emit)
+  output := f.NewIdentifier("output")
   optionals := []string{}
   properties := make([]*shimast.Node, 0, len(props.Object.Properties))
   for _, p := range props.Object.Properties {
@@ -228,30 +229,30 @@ func httpHeadersProgrammer_decode_object(props struct {
   statements := []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "output",
-      Value: httpHeadersProgrammer_factory.NewObjectLiteralExpression(
-        httpHeadersProgrammer_factory.NewNodeList(properties),
+      Value: f.NewObjectLiteralExpression(
+        f.NewNodeList(properties),
         true,
       ),
-    }),
+    }, props.Context.Emit),
   }
   for _, key := range optionals {
-    access := nativefactories.IdentifierFactory.Access(output, key)
-    statements = append(statements, httpHeadersProgrammer_factory.NewIfStatement(
-      httpHeadersProgrammer_factory.NewBinaryExpression(
+    access := nativefactories.IdentifierFactory.Access(props.Context.Emit, output, key)
+    statements = append(statements, f.NewIfStatement(
+      f.NewBinaryExpression(
         nil,
-        nativefactories.ExpressionFactory.Number(0),
+        nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
         nil,
-        httpHeadersProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        nativefactories.IdentifierFactory.Access(access, "length"),
+        f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, access, "length"),
       ),
-      httpHeadersProgrammer_factory.NewExpressionStatement(
-        httpHeadersProgrammer_factory.NewDeleteExpression(access),
+      f.NewExpressionStatement(
+        f.NewDeleteExpression(access),
       ),
       nil,
     ))
   }
-  statements = append(statements, httpHeadersProgrammer_factory.NewReturnStatement(
-    httpHeadersProgrammer_factory.NewAsExpression(output, nativefactories.TypeFactory.Keyword("any")),
+  statements = append(statements, f.NewReturnStatement(
+    f.NewAsExpression(output, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
   ))
   return statements
 }
@@ -260,11 +261,13 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
   Context  nativecontext.ITypiaContext
   Property *schemametadata.MetadataProperty
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, props.Context.Emit)
   key := httpProgrammer_property_key(props.Property)
   value := props.Property.Value
   typ, isArray := httpProgrammer_decode_type(value, false)
   input := nativefactories.IdentifierFactory.Access(
-    httpHeadersProgrammer_factory.NewIdentifier("input"),
+    props.Context.Emit,
+    f.NewIdentifier("input"),
     strings.ToLower(key),
   )
   var decoded *shimast.Node
@@ -297,9 +300,9 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
       Input:   input,
     })
   }
-  return httpHeadersProgrammer_factory.NewPropertyAssignment(
+  return f.NewPropertyAssignment(
     nil,
-    nativefactories.IdentifierFactory.Identifier(key),
+    nativefactories.IdentifierFactory.Identifier(key, props.Context.Emit),
     nil,
     nil,
     decoded,
@@ -314,11 +317,12 @@ func httpHeadersProgrammer_decode_value(props struct {
   if props.Type == "string" {
     return props.Input
   }
-  return httpHeadersProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     httpParameterProgrammer_internal(props.Context, "httpHeaderRead"+httpParameterProgrammer_capitalize(props.Type)),
     nil,
     nil,
-    httpHeadersProgrammer_factory.NewNodeList([]*shimast.Node{props.Input}),
+    f.NewNodeList([]*shimast.Node{props.Input}),
     shimast.NodeFlagsNone,
   )
 }
@@ -330,69 +334,75 @@ func httpHeadersProgrammer_decode_array(props struct {
   Value   *schemametadata.MetadataSchema
   Input   *shimast.Node
 }) *shimast.Node {
-  reader := httpParameterProgrammer_internal(props.Context, "httpHeaderRead"+httpParameterProgrammer_capitalize(props.Type))
+  // The reader helper is registered as an import side effect, so it must only be
+  // requested for non-string types; string[] headers map inline (str => str.trim())
+  // and must not pull in a non-existent _httpHeaderReadString helper. Mirrors the
+  // scalar path (decode_value), which short-circuits string before building a reader.
+  f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, props.Context.Emit)
+  var reader *shimast.Node
   if props.Type == "string" {
-    reader = httpHeadersProgrammer_factory.NewArrowFunction(
+    reader = f.NewArrowFunction(
       nil,
       nil,
-      httpHeadersProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("str", nil, nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("str", nil, nil, props.Context.Emit),
       }),
       nil,
       nil,
-      httpHeadersProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpHeadersProgrammer_factory.NewCallExpression(
-        nativefactories.IdentifierFactory.Access(httpHeadersProgrammer_factory.NewIdentifier("str"), "trim"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("str"), "trim"),
         nil,
         nil,
         nil,
         shimast.NodeFlagsNone,
       ),
     )
+  } else {
+    reader = httpParameterProgrammer_internal(props.Context, "httpHeaderRead"+httpParameterProgrammer_capitalize(props.Type))
   }
   delimiter := ", "
   if props.Key == "cookie" {
     delimiter = "; "
   }
-  split := httpHeadersProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "split", true),
+  split := f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "split", true),
     nil,
     nil,
-    httpHeadersProgrammer_factory.NewNodeList([]*shimast.Node{
-      httpHeadersProgrammer_factory.NewStringLiteral(delimiter, shimast.TokenFlagsNone),
+    f.NewNodeList([]*shimast.Node{
+      f.NewStringLiteral(delimiter, shimast.TokenFlagsNone),
     }),
     shimast.NodeFlagsOptionalChain,
   )
-  mappedSplit := httpHeadersProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(split, "map", true),
+  mappedSplit := f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, split, "map", true),
     nil,
     nil,
-    httpHeadersProgrammer_factory.NewNodeList([]*shimast.Node{reader}),
+    f.NewNodeList([]*shimast.Node{reader}),
     shimast.NodeFlagsOptionalChain,
   )
-  arrayMap := httpHeadersProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(props.Input, "map"),
+  arrayMap := f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "map"),
     nil,
     nil,
-    httpHeadersProgrammer_factory.NewNodeList([]*shimast.Node{reader}),
+    f.NewNodeList([]*shimast.Node{reader}),
     shimast.NodeFlagsNone,
   )
   otherwise := mappedSplit
   if props.Value.IsRequired() {
-    otherwise = httpHeadersProgrammer_factory.NewBinaryExpression(
+    otherwise = f.NewBinaryExpression(
       nil,
       mappedSplit,
       nil,
-      httpHeadersProgrammer_factory.NewToken(shimast.KindQuestionQuestionToken),
-      httpHeadersProgrammer_factory.NewArrayLiteralExpression(httpHeadersProgrammer_factory.NewNodeList(nil), false),
+      f.NewToken(shimast.KindQuestionQuestionToken),
+      f.NewArrayLiteralExpression(f.NewNodeList(nil), false),
     )
   }
-  return httpHeadersProgrammer_factory.NewConditionalExpression(
-    nativefactories.ExpressionFactory.IsArray(props.Input),
-    nil,
+  return nativefactories.ExpressionFactory.Conditional(
+    nativefactories.ExpressionFactory.IsArray(props.Input, props.Context.Emit),
     arrayMap,
-    nil,
     otherwise,
+    props.Context.Emit,
   )
 }
 

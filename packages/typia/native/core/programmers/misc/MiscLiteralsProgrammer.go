@@ -22,9 +22,9 @@ type MiscLiteralsProgrammer_IProps struct {
 var miscLiteralsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscLiteralsProgrammer_factory, props.Context.Emit)
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   true,
       Constant: true,
@@ -91,10 +91,10 @@ func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps
   if metadata.Nullable {
     add(nil)
   }
-  return miscLiteralsProgrammer_factory.NewAsExpression(
-    nativefactories.LiteralFactory.Write(values),
-    miscLiteralsProgrammer_factory.NewTypeReferenceNode(
-      miscLiteralsProgrammer_factory.NewIdentifier("const"),
+  return f.NewAsExpression(
+    nativefactories.LiteralFactory.Write(values, props.Context.Emit),
+    f.NewTypeReferenceNode(
+      f.NewIdentifier("const"),
       nil,
     ),
   )

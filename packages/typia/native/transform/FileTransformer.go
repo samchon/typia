@@ -6,9 +6,9 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   shimcore "github.com/microsoft/typescript-go/shim/core"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
 )
 
 type fileTransformerNamespace struct{}
@@ -19,9 +19,12 @@ type FileTransformer_IEnvironments struct {
   Program         any
   CompilerOptions any
   Checker         any
-  Printer         any
   Options         nativecontext.ITransformOptions
   Extras          nativecontext.ITypiaContext_Extras
+  // EmitContext, when set, puts the importer into AST-integration mode so the
+  // emitted file carries namespace imports that tsgo's module-transform aliases,
+  // instead of bare identifiers meant for the legacy text-splice path.
+  EmitContext *shimprinter.EmitContext
 }
 
 type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
@@ -35,30 +38,34 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
       if file == nil || file.IsDeclarationFile {
         return file
       }
-      importer := nativeprogrammers.NewImportProgrammer(nativeprogrammers.ImportProgrammer_IOptions{
+      importer := nativecontext.NewImportProgrammer(nativecontext.ImportProgrammer_IOptions{
         InternalPrefix: "typia_transform_",
         Runtime:        environments.Options.Runtime,
       })
+      if environments.EmitContext != nil {
+        importer.SetEmitContext(environments.EmitContext)
+      }
       context := nativecontext.ITypiaContext{
         Program:         fileTransformer_program(environments.Program),
         CompilerOptions: fileTransformer_compilerOptions(environments.CompilerOptions),
         Checker:         fileTransformer_checker(environments.Checker),
-        Printer:         environments.Printer,
         Options:         environments.Options,
-        Transformer:     transformer,
+        Emit:            environments.EmitContext,
         Importer:        importer,
         Extras:          environments.Extras,
       }
+      _ = transformer
       fileTransformer_checkJsDocParsingMode(context, file)
       visited := fileTransformer_iterate_file(context, file)
-      return fileTransformer_inject_imports(visited, importer.ToStatements())
+      result := fileTransformer_inject_imports(visited, importer.ToStatements(), environments.EmitContext)
+      return result
     }
   }
 }
 
 func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shimast.SourceFile) *shimast.SourceFile {
   var visitor *shimast.NodeVisitor
-  visitor = shimast.NewNodeVisitor(func(node *shimast.Node) *shimast.Node {
+  visit := func(node *shimast.Node) *shimast.Node {
     if node == nil {
       return nil
     }
@@ -70,7 +77,17 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
       next = node
     }
     return visitor.VisitEachChild(next)
-  }, fileTransformer_factory, shimast.NodeVisitorHooks{})
+  }
+  // emit EmitContext로 순회한다. 그래야 변환된 자식(예: typia 호출을 감싼
+  // namespace)을 담으려고 재생성되는 모든 조상 노드에 parse-tree 노드로의
+  // original 링크가 걸린다. tsgo emit resolver가 그 링크를 따라 binder 심볼을
+  // 되찾으므로 export된 namespace가 exports.X = X = {} 로 lowering된다. 일반
+  // factory는 링크를 잃어 모듈 export가 조용히 사라진다.
+  if context.Emit != nil {
+    visitor = context.Emit.NewNodeVisitor(visit)
+  } else {
+    visitor = shimast.NewNodeVisitor(visit, fileTransformer_factory, shimast.NodeVisitorHooks{})
+  }
   output := visitor.VisitNode(file.AsNode())
   if output == nil {
     return file
@@ -86,7 +103,15 @@ type FileTransformer_TryTransformNodeProps struct {
 func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodeProps) (output *shimast.Node) {
   defer func() {
     if exp := recover(); exp != nil {
-      if _, ok := exp.(*TransformerError); ok {
+      // typia raises a TransformerError to report a user-facing transform error
+      // (e.g. `typia.llm.schema<Record<...>>` whose argument is not a literal
+      // object). core/programmers panic nativecontext.TransformerError while
+      // transform/features panic the transform-layer alias; both must turn into
+      // a diagnostic, not a repanic that kills the whole emit (the legacy text
+      // adapter swallowed every panic, so the node path must at least handle
+      // both error types).
+      switch exp.(type) {
+      case *TransformerError, *nativecontext.TransformerError:
         fileTransformer_addDiagnostic(props)
         output = nil
         return
@@ -107,18 +132,19 @@ func fileTransformer_addDiagnostic(props FileTransformer_TryTransformNodeProps) 
   props.Context.Extras.AddDiagnostic(&shimast.Diagnostic{})
 }
 
-func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast.Node) *shimast.SourceFile {
+func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast.Node, emit ...*shimprinter.EmitContext) *shimast.SourceFile {
   if file == nil || len(imports) == 0 {
     return file
   }
+  f := nativecontext.EmitFactoryOf(fileTransformer_factory, emit...)
   index := fileTransformer_find_import_injection_index(file)
   nodes := make([]*shimast.Node, 0, len(file.Statements.Nodes)+len(imports))
   nodes = append(nodes, file.Statements.Nodes[:index]...)
   nodes = append(nodes, imports...)
   nodes = append(nodes, file.Statements.Nodes[index:]...)
-  return fileTransformer_factory.UpdateSourceFile(
+  return f.UpdateSourceFile(
     file,
-    fileTransformer_factory.NewNodeList(nodes),
+    f.NewNodeList(nodes),
     file.EndOfFileToken,
   ).AsSourceFile()
 }

@@ -23,11 +23,11 @@ type JsonAssertParseProgrammer_DecomposeProps struct {
 }
 
 func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(jsonParseProgrammer_factory, props.Context.Emit)
   nativefactories.JsonMetadataFactory.Analyze(nativefactories.JsonMetadataFactory_IProps{
-    Method:      props.Functor.Method,
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
-    Type:        props.Type,
+    Method:  props.Functor.Method,
+    Checker: props.Context.Checker,
+    Type:    props.Type,
   })
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: jsonParseProgrammer_context(props.Context, &jsonParseProgrammer_options{
@@ -49,12 +49,12 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
     Statements: append(append([]*shimast.Node{}, assert.Statements...), nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__assert",
       Value: assert.Arrow,
-    })),
-    Arrow: jsonParseProgrammer_factory.NewArrowFunction(
+    }, props.Context.Emit)),
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("string", props.Context.Emit), nil, props.Context.Emit),
         nativeprogrammers.Guardian.Parameter(struct {
           Context nativecontext.ITypiaContext
           Init    *shimast.Node
@@ -63,7 +63,7 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
           Init:    props.Init,
         }),
       }),
-      jsonProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      jsonProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Primitive",
         Arguments: []*shimast.TypeNode{
@@ -71,19 +71,19 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
         },
       }),
       nil,
-      jsonParseProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      jsonParseProgrammer_factory.NewAsExpression(
-        jsonParseProgrammer_factory.NewCallExpression(
-          jsonParseProgrammer_factory.NewIdentifier("__assert"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewAsExpression(
+        f.NewCallExpression(
+          f.NewIdentifier("__assert"),
           nil,
           nil,
-          jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-            jsonParseProgrammer_factory.NewCallExpression(
-              jsonParseProgrammer_factory.NewIdentifier("JSON.parse"),
+          f.NewNodeList([]*shimast.Node{
+            f.NewCallExpression(
+              f.NewIdentifier("JSON.parse"),
               nil,
               nil,
-              jsonParseProgrammer_factory.NewNodeList([]*shimast.Node{
-                jsonParseProgrammer_factory.NewIdentifier("input"),
+              f.NewNodeList([]*shimast.Node{
+                f.NewIdentifier("input"),
               }),
               shimast.NodeFlagsNone,
             ),
@@ -91,18 +91,15 @@ func (jsonAssertParseProgrammerNamespace) Decompose(props JsonAssertParseProgram
           }),
           shimast.NodeFlagsNone,
         ),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
       ),
     ),
   }
 }
 
 func (jsonAssertParseProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  method := ""
-  if props.Modulo != nil {
-    method = props.Modulo.Text()
-  }
-  functor := nativehelpers.NewFunctionProgrammer(method)
+  method := nativehelpers.ModuloMethodText(props.Modulo)
+  functor := nativehelpers.NewFunctionProgrammer(method, props.Context.Emit)
   result := JsonAssertParseProgrammer.Decompose(JsonAssertParseProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,

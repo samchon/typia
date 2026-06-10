@@ -43,7 +43,7 @@ func (httpValidateFormDataProgrammerNamespace) Decompose(props HttpValidateFormD
 }
 
 func (httpValidateFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpValidateFormDataProgrammer.Decompose(HttpValidateFormDataProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
@@ -59,46 +59,47 @@ func (httpValidateFormDataProgrammerNamespace) Write(props nativecontext.IProgra
 }
 
 func httpProgrammer_validate_result(context nativecontext.ITypiaContext, validate nativeinternal.FeatureProgrammer_IDecomposed, decode nativeinternal.FeatureProgrammer_IDecomposed) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(httpValidateProgrammer_factory, context.Emit)
   decodeArrow := decode.Arrow.AsArrowFunction()
   output := decodeArrow.Type
   if output == nil {
-    output = nativefactories.TypeFactory.Keyword("any")
+    output = nativefactories.TypeFactory.Keyword("any", context.Emit)
   }
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements,
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__validate",
       Value: validate.Arrow,
-    }),
+    }, context.Emit),
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name:  "__decode",
       Value: decode.Arrow,
-    }),
+    }, context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  httpProgrammer_merge_functions(validate.Functions, decode.Functions),
     Statements: statements,
-    Arrow: httpValidateProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
       decodeArrow.Parameters,
-      httpProgrammer_import_type(context, nativeprogrammers.ImportProgrammer_TypeProps{
+      httpProgrammer_import_type(context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{output},
       }),
       nil,
-      httpValidateProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpValidateProgrammer_factory.NewCallExpression(
-        httpValidateProgrammer_factory.NewIdentifier("__validate"),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewCallExpression(
+        f.NewIdentifier("__validate"),
         nil,
         nil,
-        httpValidateProgrammer_factory.NewNodeList([]*shimast.Node{
-          httpValidateProgrammer_factory.NewCallExpression(
-            httpValidateProgrammer_factory.NewIdentifier("__decode"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewCallExpression(
+            f.NewIdentifier("__decode"),
             nil,
             nil,
-            httpValidateProgrammer_factory.NewNodeList([]*shimast.Node{httpValidateProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
         }),

@@ -32,13 +32,13 @@ type protobufMessageProgrammer_Hierarchy struct {
 var protobufMessageProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(protobufMessageProgrammer_factory, props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
-    Method:      "message",
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
-    Components:  collection,
-    Type:        props.Type,
+    Method:     "message",
+    Checker:    props.Context.Checker,
+    Components: collection,
+    Type:       props.Type,
   })
   hierarchies := map[string]*protobufMessageProgrammer_Hierarchy{}
   order := []string{}
@@ -56,17 +56,18 @@ func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_
   lines := strings.Split(content, "\n")
   elements := make([]*shimast.Node, 0, len(lines))
   for _, line := range lines {
-    elements = append(elements, protobufMessageProgrammer_factory.NewStringLiteral(line, shimast.TokenFlagsNone))
+    elements = append(elements, f.NewStringLiteral(line, shimast.TokenFlagsNone))
   }
-  return protobufMessageProgrammer_factory.NewCallExpression(
+  return f.NewCallExpression(
     nativefactories.IdentifierFactory.Access(
-      protobufMessageProgrammer_factory.NewArrayLiteralExpression(protobufMessageProgrammer_factory.NewNodeList(elements), true),
+      props.Context.Emit,
+      f.NewArrayLiteralExpression(f.NewNodeList(elements), true),
       "join",
     ),
     nil,
     nil,
-    protobufMessageProgrammer_factory.NewNodeList([]*shimast.Node{
-      protobufMessageProgrammer_factory.NewStringLiteral("\n", shimast.TokenFlagsNone),
+    f.NewNodeList([]*shimast.Node{
+      f.NewStringLiteral("\n", shimast.TokenFlagsNone),
     }),
     shimast.NodeFlagsNone,
   )

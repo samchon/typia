@@ -7,6 +7,7 @@ import (
   "unicode/utf8"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   shimscanner "github.com/microsoft/typescript-go/shim/scanner"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -40,8 +41,7 @@ func (reflectSchemaTransformerNamespace) Transform(props nativetransform.ITransf
 
   components := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:     true,
       Constant:   true,
@@ -64,11 +64,11 @@ func (reflectSchemaTransformerNamespace) Transform(props nativetransform.ITransf
   return reflectTransformer_literal(map[string]any{
     "schema":     result.Data.ToJSON(),
     "components": components.ToJSON(),
-  })
+  }, props.Context.Emit)
 }
 
-func reflectTransformer_literal(value any) *shimast.Node {
-  return nativefactories.LiteralFactory.Write(reflectTransformer_toPrimitive(value))
+func reflectTransformer_literal(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
+  return nativefactories.LiteralFactory.Write(reflectTransformer_toPrimitive(value), emit...)
 }
 
 func reflectTransformer_toPrimitive(value any) any {

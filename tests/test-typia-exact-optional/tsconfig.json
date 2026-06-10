@@ -1,0 +1,11 @@
+{
+  "extends": "../config/tsconfig.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "exactOptionalPropertyTypes": true,
+    "plugins": [
+      { "transform": "typia/lib/transform", "undefined": false }
+    ]
+  }
+}

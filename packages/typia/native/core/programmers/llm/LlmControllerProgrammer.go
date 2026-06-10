@@ -3,7 +3,6 @@ package llm
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -26,16 +25,17 @@ type LlmControllerProgrammer_IWriteProps struct {
 var llmControllerProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (llmControllerProgrammerNamespace) Write(props LlmControllerProgrammer_IWriteProps) *shimast.Node {
-  typeNode := llmProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+  f := nativecontext.EmitFactoryOf(llmControllerProgrammer_factory, props.Context.Emit)
+  typeNode := llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File:      "typia",
     Name:      "ILlmController",
     Arguments: []*shimast.TypeNode{props.Node},
   })
-  value := llmControllerProgrammer_factory.NewObjectLiteralExpression(llmControllerProgrammer_factory.NewNodeList([]*shimast.Node{
-    llmControllerProgrammer_factory.NewPropertyAssignment(nil, llmControllerProgrammer_factory.NewStringLiteral("protocol", shimast.TokenFlagsNone), nil, nil, llmControllerProgrammer_factory.NewStringLiteral("class", shimast.TokenFlagsNone)),
-    llmControllerProgrammer_factory.NewPropertyAssignment(nil, llmControllerProgrammer_factory.NewStringLiteral("name", shimast.TokenFlagsNone), nil, nil, props.NameArgument),
-    llmControllerProgrammer_factory.NewPropertyAssignment(nil, llmControllerProgrammer_factory.NewStringLiteral("execute", shimast.TokenFlagsNone), nil, nil, props.ExecuteArgument),
-    llmControllerProgrammer_factory.NewPropertyAssignment(nil, llmControllerProgrammer_factory.NewStringLiteral("application", shimast.TokenFlagsNone), nil, nil, LlmApplicationProgrammer.Write(LlmApplicationProgrammer_IWriteProps{
+  value := f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
+    f.NewPropertyAssignment(nil, f.NewStringLiteral("protocol", shimast.TokenFlagsNone), nil, nil, f.NewStringLiteral("class", shimast.TokenFlagsNone)),
+    f.NewPropertyAssignment(nil, f.NewStringLiteral("name", shimast.TokenFlagsNone), nil, nil, props.NameArgument),
+    f.NewPropertyAssignment(nil, f.NewStringLiteral("execute", shimast.TokenFlagsNone), nil, nil, props.ExecuteArgument),
+    f.NewPropertyAssignment(nil, f.NewStringLiteral("application", shimast.TokenFlagsNone), nil, nil, LlmApplicationProgrammer.Write(LlmApplicationProgrammer_IWriteProps{
       Context:        props.Context,
       Modulo:         props.Modulo,
       Metadata:       props.Metadata,
@@ -44,8 +44,8 @@ func (llmControllerProgrammerNamespace) Write(props LlmControllerProgrammer_IWri
       ConfigArgument: props.ConfigArgument,
     })),
   }), true)
-  return llmControllerProgrammer_factory.NewAsExpression(
-    llmControllerProgrammer_factory.NewSatisfiesExpression(value, typeNode),
+  return f.NewAsExpression(
+    f.NewSatisfiesExpression(value, typeNode),
     typeNode,
   )
 }

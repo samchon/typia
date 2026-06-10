@@ -18,31 +18,32 @@ type Check_numberProps struct {
 }
 
 func Check_number(props Check_numberProps) nativehelpers.ICheckEntry {
-  base := check_number_factory.NewBinaryExpression(
+  f := nativecontext.EmitFactoryOf(check_number_factory, props.Context.Emit)
+  base := f.NewBinaryExpression(
     nil,
-    check_number_factory.NewStringLiteral("number", shimast.TokenFlagsNone),
+    f.NewStringLiteral("number", shimast.TokenFlagsNone),
     nil,
-    check_number_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-    check_number_factory.NewTypeOfExpression(props.Input),
+    f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+    f.NewTypeOfExpression(props.Input),
   )
   var addition *shimast.Node
   if props.Numeric {
     if nativehelpers.OptionPredicator.Finite(props.Context.Options) {
-      addition = check_number_factory.NewCallExpression(
-        check_number_factory.NewIdentifier("Number.isFinite"),
+      addition = f.NewCallExpression(
+        f.NewIdentifier("Number.isFinite"),
         nil,
         nil,
-        check_number_factory.NewNodeList([]*shimast.Node{props.Input}),
+        f.NewNodeList([]*shimast.Node{props.Input}),
         shimast.NodeFlagsNone,
       )
     } else if nativehelpers.OptionPredicator.Numeric(props.Context.Options) {
-      addition = check_number_factory.NewPrefixUnaryExpression(
+      addition = f.NewPrefixUnaryExpression(
         shimast.KindExclamationToken,
-        check_number_factory.NewCallExpression(
-          check_number_factory.NewIdentifier("Number.isNaN"),
+        f.NewCallExpression(
+          f.NewIdentifier("Number.isNaN"),
           nil,
           nil,
-          check_number_factory.NewNodeList([]*shimast.Node{props.Input}),
+          f.NewNodeList([]*shimast.Node{props.Input}),
           shimast.NodeFlagsNone,
         ),
       )
@@ -56,11 +57,11 @@ func Check_number(props Check_numberProps) nativehelpers.ICheckEntry {
   })
   expression := base
   if addition != nil && len(conditions) == 0 {
-    expression = check_number_factory.NewBinaryExpression(
+    expression = f.NewBinaryExpression(
       nil,
       base,
       nil,
-      check_number_factory.NewToken(shimast.KindAmpersandAmpersandToken),
+      f.NewToken(shimast.KindAmpersandAmpersandToken),
       addition,
     )
   }
@@ -106,7 +107,11 @@ func check_numeric_type_tags(props check_numeric_type_tagsProps) [][]nativehelpe
 func check_numeric_type_tags_covers_addition(row []nativemetadata.IMetadataTypeTag) bool {
   if check_number_some(row, func(tag nativemetadata.IMetadataTypeTag) bool {
     return tag.Kind == "type" &&
-      (tag.Value == "int32" ||
+      (tag.Value == "int8" ||
+        tag.Value == "uint8" ||
+        tag.Value == "int16" ||
+        tag.Value == "uint16" ||
+        tag.Value == "int32" ||
         tag.Value == "uint32" ||
         tag.Value == "int64" ||
         tag.Value == "uint64" ||
@@ -156,13 +161,12 @@ func check_number_is_number(value any) bool {
 
 func check_number_transpile(context nativecontext.ITypiaContext, script string) func(input *shimast.Expression) *shimast.Node {
   var importer nativefactories.ExpressionFactory_Importer
-  if v, ok := context.Importer.(nativefactories.ExpressionFactory_Importer); ok {
+  if v := context.Importer; v != nil {
     importer = v
   }
   return nativefactories.ExpressionFactory.Transpile(nativefactories.ExpressionFactory_TranspileProps{
-    Transformer: context.Transformer,
-    Importer:    importer,
-    Script:      script,
+    Importer: importer,
+    Script:   script,
   })
 }
 

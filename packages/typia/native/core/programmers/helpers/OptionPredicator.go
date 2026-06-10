@@ -1,6 +1,9 @@
 package helpers
 
-import nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+import (
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+)
 
 type optionPredicatorNamespace struct{}
 
@@ -20,4 +23,17 @@ func (optionPredicatorNamespace) Finite(options nativecontext.ITransformOptions)
 
 func (optionPredicatorNamespace) Undefined(options nativecontext.ITransformOptions) bool {
   return options.Undefined == nil || *options.Undefined
+}
+
+func (optionPredicatorNamespace) StrictOptionalUndefined(context nativecontext.ITypiaContext, metadata *schemametadata.MetadataSchema) bool {
+  return OptionPredicator.ExactOptionalProperty(context, metadata) &&
+    metadata.Required
+}
+
+func (optionPredicatorNamespace) ExactOptionalProperty(context nativecontext.ITypiaContext, metadata *schemametadata.MetadataSchema) bool {
+  return context.CompilerOptions != nil &&
+    context.CompilerOptions.ExactOptionalPropertyTypes.IsTrue() &&
+    OptionPredicator.Undefined(context.Options) == false &&
+    metadata != nil &&
+    metadata.Optional
 }

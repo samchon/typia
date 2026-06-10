@@ -7,7 +7,6 @@ import (
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -27,10 +26,10 @@ type HttpFormDataProgrammer_DecomposeProps struct {
 var httpFormDataProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (httpFormDataProgrammerNamespace) Decompose(props HttpFormDataProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -61,17 +60,18 @@ func (httpFormDataProgrammerNamespace) Decompose(props HttpFormDataProgrammer_De
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  map[string]*shimast.Node{},
     Statements: []*shimast.Node{},
-    Arrow: httpFormDataProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewNodeList([]*shimast.Node{
         nativefactories.IdentifierFactory.Parameter(
           "input",
-          httpFormDataProgrammer_factory.NewTypeReferenceNode(httpFormDataProgrammer_factory.NewIdentifier("FormData"), nil),
+          f.NewTypeReferenceNode(f.NewIdentifier("FormData"), nil),
           nil,
+          props.Context.Emit,
         ),
       }),
-      httpProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      httpProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Resolved",
         Arguments: []*shimast.TypeNode{
@@ -79,14 +79,14 @@ func (httpFormDataProgrammerNamespace) Decompose(props HttpFormDataProgrammer_De
         },
       }),
       nil,
-      httpFormDataProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      httpFormDataProgrammer_factory.NewBlock(httpFormDataProgrammer_factory.NewNodeList(statements), true),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList(statements), true),
     ),
   }
 }
 
 func (httpFormDataProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(httpProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := HttpFormDataProgrammer.Decompose(HttpFormDataProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: functor,
@@ -167,7 +167,8 @@ func httpFormDataProgrammer_decode_object(props struct {
   Context nativecontext.ITypiaContext
   Object  *schemametadata.MetadataObjectType
 }) []*shimast.Node {
-  output := httpFormDataProgrammer_factory.NewIdentifier("output")
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, props.Context.Emit)
+  output := f.NewIdentifier("output")
   properties := make([]*shimast.Node, 0, len(props.Object.Properties))
   for _, p := range props.Object.Properties {
     properties = append(properties, httpFormDataProgrammer_decode_regular_property(struct {
@@ -181,13 +182,13 @@ func httpFormDataProgrammer_decode_object(props struct {
   return []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: "output",
-      Value: httpFormDataProgrammer_factory.NewObjectLiteralExpression(
-        httpFormDataProgrammer_factory.NewNodeList(properties),
+      Value: f.NewObjectLiteralExpression(
+        f.NewNodeList(properties),
         true,
       ),
-    }),
-    httpFormDataProgrammer_factory.NewReturnStatement(
-      httpFormDataProgrammer_factory.NewAsExpression(output, nativefactories.TypeFactory.Keyword("any")),
+    }, props.Context.Emit),
+    f.NewReturnStatement(
+      f.NewAsExpression(output, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
     ),
   }
 }
@@ -196,27 +197,29 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
   Context  nativecontext.ITypiaContext
   Property *schemametadata.MetadataProperty
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, props.Context.Emit)
   key := httpProgrammer_property_key(props.Property)
   value := props.Property.Value
   typ, isArray := httpProgrammer_decode_type(value, true)
-  input := httpFormDataProgrammer_factory.NewCallExpression(
-    nativefactories.IdentifierFactory.Access(httpFormDataProgrammer_factory.NewIdentifier("input"), "get"),
+  input := f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("input"), "get"),
     nil,
     nil,
-    httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{
-      httpFormDataProgrammer_factory.NewStringLiteral(key, shimast.TokenFlagsNone),
+    f.NewNodeList([]*shimast.Node{
+      f.NewStringLiteral(key, shimast.TokenFlagsNone),
     }),
     shimast.NodeFlagsNone,
   )
   if isArray {
-    input = httpFormDataProgrammer_factory.NewCallExpression(
+    input = f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
-        httpFormDataProgrammer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(httpFormDataProgrammer_factory.NewIdentifier("input"), "getAll"),
+        props.Context.Emit,
+        f.NewCallExpression(
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier("input"), "getAll"),
           nil,
           nil,
-          httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{
-            httpFormDataProgrammer_factory.NewStringLiteral(key, shimast.TokenFlagsNone),
+          f.NewNodeList([]*shimast.Node{
+            f.NewStringLiteral(key, shimast.TokenFlagsNone),
           }),
           shimast.NodeFlagsNone,
         ),
@@ -224,16 +227,16 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
       ),
       nil,
       nil,
-      httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{
-        httpFormDataProgrammer_factory.NewArrowFunction(
+      f.NewNodeList([]*shimast.Node{
+        f.NewArrowFunction(
           nil,
           nil,
-          httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{
-            nativefactories.IdentifierFactory.Parameter("elem", nil, nil),
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.IdentifierFactory.Parameter("elem", nil, nil, props.Context.Emit),
           }),
           nil,
           nil,
-          httpFormDataProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+          f.NewToken(shimast.KindEqualsGreaterThanToken),
           httpFormDataProgrammer_decode_value(struct {
             Context  nativecontext.ITypiaContext
             Type     string
@@ -243,7 +246,7 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
             Context:  props.Context,
             Type:     typ,
             Coalesce: false,
-            Input:    httpFormDataProgrammer_factory.NewIdentifier("elem"),
+            Input:    f.NewIdentifier("elem"),
           }),
         ),
       }),
@@ -271,9 +274,9 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
       Input:    input,
     })
   }
-  return httpFormDataProgrammer_factory.NewPropertyAssignment(
+  return f.NewPropertyAssignment(
     nil,
-    nativefactories.IdentifierFactory.Identifier(key),
+    nativefactories.IdentifierFactory.Identifier(key, props.Context.Emit),
     nil,
     nil,
     input,
@@ -286,22 +289,23 @@ func httpFormDataProgrammer_decode_value(props struct {
   Coalesce bool
   Input    *shimast.Node
 }) *shimast.Node {
-  call := httpFormDataProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, props.Context.Emit)
+  call := f.NewCallExpression(
     httpParameterProgrammer_internal(props.Context, "httpFormDataRead"+httpParameterProgrammer_capitalize(props.Type)),
     nil,
     nil,
-    httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{props.Input}),
+    f.NewNodeList([]*shimast.Node{props.Input}),
     shimast.NodeFlagsNone,
   )
   if props.Coalesce == false {
     return call
   }
-  return httpFormDataProgrammer_factory.NewBinaryExpression(
+  return f.NewBinaryExpression(
     nil,
     call,
     nil,
-    httpFormDataProgrammer_factory.NewToken(shimast.KindQuestionQuestionToken),
-    httpFormDataProgrammer_factory.NewIdentifier("undefined"),
+    f.NewToken(shimast.KindQuestionQuestionToken),
+    f.NewIdentifier("undefined"),
   )
 }
 
@@ -310,18 +314,19 @@ func httpFormDataProgrammer_decode_array(props struct {
   Metadata *schemametadata.MetadataSchema
   Input    *shimast.Node
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, props.Context.Emit)
   if props.Metadata.Nullable == false && props.Metadata.IsRequired() == true {
     return props.Input
   }
-  fallback := httpFormDataProgrammer_factory.NewIdentifier("undefined")
+  fallback := f.NewIdentifier("undefined")
   if props.Metadata.Nullable {
-    fallback = httpFormDataProgrammer_factory.NewKeywordExpression(shimast.KindNullKeyword)
+    fallback = f.NewKeywordExpression(shimast.KindNullKeyword)
   }
-  return httpFormDataProgrammer_factory.NewCallExpression(
+  return f.NewCallExpression(
     httpParameterProgrammer_internal(props.Context, "httpFormDataReadArray"),
     nil,
     nil,
-    httpFormDataProgrammer_factory.NewNodeList([]*shimast.Node{
+    f.NewNodeList([]*shimast.Node{
       props.Input,
       fallback,
     }),
@@ -330,32 +335,29 @@ func httpFormDataProgrammer_decode_array(props struct {
 }
 
 func httpProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
-func httpProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func httpProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, context.Emit)
   if str, ok := props.Name.(string); ok {
-    return httpFormDataProgrammer_factory.NewTypeReferenceNode(
-      httpFormDataProgrammer_factory.NewIdentifier(str),
-      httpFormDataProgrammer_factory.NewNodeList(props.Arguments),
+    return f.NewTypeReferenceNode(
+      f.NewIdentifier(str),
+      f.NewNodeList(props.Arguments),
     )
   }
   return props.Name.(*shimast.Node)
 }
 
 func httpProgrammer_typeReference(context nativecontext.ITypiaContext, typ *shimchecker.Type, name *string) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, context.Emit)
   if name != nil {
-    return httpFormDataProgrammer_factory.NewTypeReferenceNode(httpFormDataProgrammer_factory.NewIdentifier(*name), nil)
+    return f.NewTypeReferenceNode(f.NewIdentifier(*name), nil)
   }
-  return httpFormDataProgrammer_factory.NewTypeReferenceNode(httpFormDataProgrammer_factory.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{
+  return f.NewTypeReferenceNode(f.NewIdentifier(nativefactories.TypeFactory.GetFullName(nativefactories.TypeFactory_GetFullNameProps{
     Checker: context.Checker,
     Type:    typ,
   })), nil)

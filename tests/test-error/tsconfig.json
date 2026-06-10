@@ -4,15 +4,10 @@
     "outDir": "bin",
     "rootDir": "src",
     "noEmit": false,
+    "module": "esnext",
+    "moduleResolution": "bundler"
   },
-  "ts-node": {
-    "transpileOnly": true,
-    "ignoreDiagnostics": [5110],
-    "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "nodenext",
-      "plugins": []
-    }
-  },
-  "include": ["src"],
+  "include": [
+    "src"
+  ]
 }

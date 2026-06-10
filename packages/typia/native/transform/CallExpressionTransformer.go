@@ -85,12 +85,13 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
   if ok == false {
     return props.Expression.AsNode()
   }
+  // Keep the full callee expression (e.g. `typia.assertEquals`) as the modulo,
+  // mirroring the TypeScript transformer. Programmers render it into the
+  // TypeGuardError method label via nativehelpers.ModuloMethodText, which reads
+  // the source-span text so the `typia.` qualifier is preserved. (Reducing it
+  // to the bare name dropped the prefix, so errors reported `assertEquals`
+  // instead of `typia.assertEquals`.)
   modulo := props.Expression.Expression
-  if modulo != nil && modulo.Kind == shimast.KindPropertyAccessExpression {
-    if property := modulo.AsPropertyAccessExpression(); property != nil && property.Name() != nil {
-      modulo = property.Name()
-    }
-  }
   result := functor()(ITransformProps{
     Context:    props.Context,
     Modulo:     modulo,

@@ -28,6 +28,7 @@ type NotationValidateGeneralProgrammer_DecomposeProps struct {
 var notationValidateGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (notationValidateGeneralProgrammerNamespace) Decompose(props NotationValidateGeneralProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(notationValidateGeneralProgrammer_factory, props.Context.Emit)
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
@@ -47,64 +48,64 @@ func (notationValidateGeneralProgrammerNamespace) Decompose(props NotationValida
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements, notation.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__notation", Value: notation.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__notation", Value: notation.Arrow}, props.Context.Emit),
   )
   notationType := notation.Arrow.AsArrowFunction().Type
   if notationType == nil {
-    notationType = nativefactories.TypeFactory.Keyword("any")
+    notationType = nativefactories.TypeFactory.Keyword("any", props.Context.Emit)
   }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  notationGeneralProgrammer_merge_functions(validate.Functions, notation.Functions),
     Statements: statements,
-    Arrow: notationValidateGeneralProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      notationValidateGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      notationGeneralProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      notationGeneralProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{notationType},
       }),
       nil,
-      notationValidateGeneralProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      notationValidateGeneralProgrammer_factory.NewBlock(notationValidateGeneralProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name: "result",
-          Value: notationValidateGeneralProgrammer_factory.NewAsExpression(
-            notationValidateGeneralProgrammer_factory.NewCallExpression(
-              notationValidateGeneralProgrammer_factory.NewIdentifier("__validate"),
+          Value: f.NewAsExpression(
+            f.NewCallExpression(
+              f.NewIdentifier("__validate"),
               nil,
               nil,
-              notationValidateGeneralProgrammer_factory.NewNodeList([]*shimast.Node{notationValidateGeneralProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
-            nativefactories.TypeFactory.Keyword("any"),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
-        }),
-        notationValidateGeneralProgrammer_factory.NewIfStatement(
-          notationValidateGeneralProgrammer_factory.NewIdentifier("result.success"),
-          notationValidateGeneralProgrammer_factory.NewExpressionStatement(notationValidateGeneralProgrammer_factory.NewBinaryExpression(
+        }, props.Context.Emit),
+        f.NewIfStatement(
+          f.NewIdentifier("result.success"),
+          f.NewExpressionStatement(f.NewBinaryExpression(
             nil,
-            notationValidateGeneralProgrammer_factory.NewIdentifier("result.data"),
+            f.NewIdentifier("result.data"),
             nil,
-            notationValidateGeneralProgrammer_factory.NewToken(shimast.KindEqualsToken),
-            notationValidateGeneralProgrammer_factory.NewCallExpression(
-              notationValidateGeneralProgrammer_factory.NewIdentifier("__notation"),
+            f.NewToken(shimast.KindEqualsToken),
+            f.NewCallExpression(
+              f.NewIdentifier("__notation"),
               nil,
               nil,
-              notationValidateGeneralProgrammer_factory.NewNodeList([]*shimast.Node{notationValidateGeneralProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
           )),
           nil,
         ),
-        notationValidateGeneralProgrammer_factory.NewReturnStatement(
-          notationValidateGeneralProgrammer_factory.NewAsExpression(
-            notationValidateGeneralProgrammer_factory.NewIdentifier("result"),
-            nativefactories.TypeFactory.Keyword("any"),
+        f.NewReturnStatement(
+          f.NewAsExpression(
+            f.NewIdentifier("result"),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
         ),
       }), true),
@@ -113,7 +114,7 @@ func (notationValidateGeneralProgrammerNamespace) Decompose(props NotationValida
 }
 
 func (notationValidateGeneralProgrammerNamespace) Write(props NotationValidateGeneralProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(notationGeneralProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(notationGeneralProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := NotationValidateGeneralProgrammer.Decompose(NotationValidateGeneralProgrammer_DecomposeProps{
     Rename:  props.Rename,
     Context: props.Context,

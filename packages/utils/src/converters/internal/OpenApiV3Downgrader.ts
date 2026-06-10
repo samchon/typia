@@ -148,13 +148,16 @@ export namespace OpenApiV3Downgrader {
         ? Object.fromEntries(
             Object.entries(input.headers)
               .filter(([_, v]) => v !== undefined)
-              .map(([key, value]) => [
-                key,
-                {
-                  ...value,
-                  schema: downgradeSchema(collection)(value.schema),
-                },
-              ]),
+              .map(([key, value]) => {
+                const { name: _name, in: _in, ...rest } = value;
+                return [
+                  key,
+                  {
+                    ...rest,
+                    schema: downgradeSchema(collection)(value.schema),
+                  },
+                ];
+              }),
           )
         : undefined,
     });
@@ -269,20 +272,23 @@ export namespace OpenApiV3Downgrader {
         else if (OpenApiTypeChecker.isObject(schema))
           union.push({
             ...schema,
-            properties: schema.properties
-              ? Object.fromEntries(
-                  Object.entries(schema.properties)
-                    .filter(([_, v]) => v !== undefined)
-                    .map(([key, value]) => [
-                      key,
-                      downgradeSchema(collection)(value),
-                    ]),
-                )
-              : undefined,
+            properties:
+              schema.properties === undefined
+                ? undefined
+                : Object.fromEntries(
+                    Object.entries(schema.properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(([key, value]) => [
+                        key,
+                        downgradeSchema(collection)(value),
+                      ]),
+                  ),
             additionalProperties:
-              typeof schema.additionalProperties === "object"
-                ? downgradeSchema(collection)(schema.additionalProperties)
-                : schema.additionalProperties,
+              schema.additionalProperties === undefined
+                ? undefined
+                : typeof schema.additionalProperties === "object"
+                  ? downgradeSchema(collection)(schema.additionalProperties)
+                  : schema.additionalProperties,
             required: schema.required,
           });
         else if (OpenApiTypeChecker.isOneOf(schema))

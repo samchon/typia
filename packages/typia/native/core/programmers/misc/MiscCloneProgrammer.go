@@ -6,6 +6,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
@@ -32,6 +33,7 @@ const miscCloneProgrammer_PREFIX = "_c"
 var miscCloneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscCloneProgrammerNamespace) Decompose(props MiscCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   config := miscCloneProgrammer_configure(struct {
     Context nativecontext.ITypiaContext
     Functor *nativehelpers.FunctionProgrammer
@@ -58,20 +60,20 @@ func (miscCloneProgrammerNamespace) Decompose(props MiscCloneProgrammer_Decompos
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  composed.Functions,
     Statements: composed.Statements,
-    Arrow: miscCloneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscCloneProgrammer_factory.NewNodeList(composed.Parameters),
+      f.NewNodeList(composed.Parameters),
       composed.Response,
       nil,
-      miscCloneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
       composed.Body,
     ),
   }
 }
 
 func (miscCloneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscCloneProgrammer.Decompose(MiscCloneProgrammer_DecomposeProps{
     Context:   props.Context,
     Functor:   functor,
@@ -87,10 +89,12 @@ func (miscCloneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) 
 }
 
 func miscCloneProgrammer_write_array_functions(props struct {
+  Context    nativecontext.ITypiaContext
   Config     nativeinternal.FeatureProgrammer_IConfig
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, typ := range props.Collection.Arrays() {
     if typ.Recursive == false {
@@ -98,21 +102,22 @@ func miscCloneProgrammer_write_array_functions(props struct {
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
-      Value: miscCloneProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        miscCloneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
           Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  miscCloneProgrammer_factory.NewIdentifier("input"),
+          Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+          Input:  f.NewIdentifier("input"),
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        miscCloneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         miscCloneProgrammer_decode_array_inline(miscCloneProgrammer_decodeArrayProps{
+          Context: props.Context,
           Config:  props.Config,
           Functor: props.Functor,
-          Input:   miscCloneProgrammer_factory.NewIdentifier("input"),
+          Input:   f.NewIdentifier("input"),
           Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
             Type: typ,
             Tags: [][]schemametadata.IMetadataTypeTag{},
@@ -125,7 +130,7 @@ func miscCloneProgrammer_write_array_functions(props struct {
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -136,6 +141,7 @@ func miscCloneProgrammer_write_tuple_functions(props struct {
   Functor    *nativehelpers.FunctionProgrammer
   Collection *schemametadata.MetadataCollection
 }) []*shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   for i, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
@@ -143,22 +149,22 @@ func miscCloneProgrammer_write_tuple_functions(props struct {
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%st%d", props.Config.Prefix, i),
-      Value: miscCloneProgrammer_factory.NewArrowFunction(
+      Value: f.NewArrowFunction(
         nil,
         nil,
-        miscCloneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
+        f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
           Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
-          Type:   nativefactories.TypeFactory.Keyword("any"),
-          Input:  miscCloneProgrammer_factory.NewIdentifier("input"),
+          Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+          Input:  f.NewIdentifier("input"),
         })),
-        nativefactories.TypeFactory.Keyword("any"),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
-        miscCloneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
         miscCloneProgrammer_decode_tuple_inline(miscCloneProgrammer_decodeTupleInlineProps{
           Context: props.Context,
           Config:  props.Config,
           Functor: props.Functor,
-          Input:   miscCloneProgrammer_factory.NewIdentifier("input"),
+          Input:   f.NewIdentifier("input"),
           Tuple:   tuple,
           Explore: nativeinternal.FeatureProgrammer_IExplore{
             Tracable: props.Config.Trace,
@@ -168,7 +174,7 @@ func miscCloneProgrammer_write_tuple_functions(props struct {
           },
         }),
       ),
-    }))
+    }, props.Context.Emit))
   }
   return output
 }
@@ -181,16 +187,17 @@ func miscCloneProgrammer_decode(props struct {
   Metadata *schemametadata.MetadataSchema
   Explore  nativeinternal.FeatureProgrammer_IExplore
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   if props.Metadata.Any ||
     miscCloneProgrammer_some_arrays(props.Metadata.Arrays, func(a *schemametadata.MetadataArray) bool { return a.Type.Value.Any }) ||
     miscCloneProgrammer_some_tuples(props.Metadata.Tuples, func(t *schemametadata.MetadataTuple) bool {
       return len(t.Type.Elements) != 0 && miscCloneProgrammer_every_schema(t.Type.Elements, func(e *schemametadata.MetadataSchema) bool { return e.Any })
     }) {
-    return miscCloneProgrammer_factory.NewCallExpression(
+    return f.NewCallExpression(
       miscCloneProgrammer_internal(props.Context, "miscCloneAny"),
       nil,
       nil,
-      miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{props.Input}),
+      f.NewNodeList([]*shimast.Node{props.Input}),
       shimast.NodeFlagsNone,
     )
   }
@@ -200,16 +207,16 @@ func miscCloneProgrammer_decode(props struct {
     unions = append(unions, miscCloneProgrammer_IUnion{
       Type: "functional",
       Is: func() *shimast.Node {
-        return miscCloneProgrammer_factory.NewBinaryExpression(
+        return f.NewBinaryExpression(
           nil,
-          miscCloneProgrammer_factory.NewStringLiteral("function", shimast.TokenFlagsNone),
+          f.NewStringLiteral("function", shimast.TokenFlagsNone),
           nil,
-          miscCloneProgrammer_factory.NewToken(shimast.KindEqualsEqualsEqualsToken),
-          miscCloneProgrammer_factory.NewTypeOfExpression(props.Input),
+          f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+          f.NewTypeOfExpression(props.Input),
         )
       },
       Value: func() *shimast.Node {
-        return miscCloneProgrammer_factory.NewIdentifier("undefined")
+        return f.NewIdentifier("undefined")
       },
     })
   }
@@ -314,9 +321,9 @@ func miscCloneProgrammer_decode(props struct {
         return nativefactories.ExpressionFactory.IsInstanceOf(native.Name, props.Input)
       },
       Value: func() *shimast.Node {
-        if native.Name == "Boolean" || native.Name == "Number" || native.Name == "String" {
-          return miscCloneProgrammer_factory.NewCallExpression(
-            nativefactories.IdentifierFactory.Access(props.Input, "valueOf"),
+        if _, ok := schemametadata.MetadataSchema_atomicLikeNative(native.Name); ok {
+          return f.NewCallExpression(
+            nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "valueOf"),
             nil,
             nil,
             nil,
@@ -324,9 +331,10 @@ func miscCloneProgrammer_decode(props struct {
           )
         }
         return miscCloneProgrammer_decode_native(struct {
-          Type  string
-          Input *shimast.Node
-        }{Type: native.Name, Input: props.Input})
+          Context nativecontext.ITypiaContext
+          Type    string
+          Input   *shimast.Node
+        }{Context: props.Context, Type: native.Name, Input: props.Input})
       },
     })
   }
@@ -344,6 +352,7 @@ func miscCloneProgrammer_decode(props struct {
         explore := props.Explore
         explore.From = "object"
         return miscCloneProgrammer_explore_objects(miscCloneProgrammer_exploreObjectsProps{
+          Context:  props.Context,
           Config:   props.Config,
           Functor:  props.Functor,
           Input:    props.Input,
@@ -360,22 +369,21 @@ func miscCloneProgrammer_decode(props struct {
   if len(unions) == 1 && props.Metadata.Size() == 1 {
     value := unions[0].Value()
     if (props.Metadata.Nullable || props.Metadata.IsRequired() == false) && miscCloneProgrammer_is_instance(props.Metadata) {
-      value = miscCloneProgrammer_factory.NewConditionalExpression(
+      value = nativefactories.ExpressionFactory.Conditional(
         props.Input,
-        nil,
         value,
-        nil,
         props.Input,
+        props.Context.Emit,
       )
     }
-    return miscCloneProgrammer_factory.NewAsExpression(value, nativefactories.TypeFactory.Keyword("any"))
+    return f.NewAsExpression(value, nativefactories.TypeFactory.Keyword("any", props.Context.Emit))
   }
   last := props.Input
   for i := len(unions) - 1; i >= 0; i-- {
     u := unions[i]
-    last = miscCloneProgrammer_factory.NewConditionalExpression(u.Is(), nil, u.Value(), nil, last)
+    last = nativefactories.ExpressionFactory.Conditional(u.Is(), u.Value(), last, props.Context.Emit)
   }
-  return miscCloneProgrammer_factory.NewAsExpression(last, nativefactories.TypeFactory.Keyword("any"))
+  return f.NewAsExpression(last, nativefactories.TypeFactory.Keyword("any", props.Context.Emit))
 }
 
 type miscCloneProgrammer_IUnion struct {
@@ -404,6 +412,7 @@ func miscCloneProgrammer_decode_object(props struct {
 }
 
 type miscCloneProgrammer_decodeArrayProps struct {
+  Context nativecontext.ITypiaContext
   Config  nativeinternal.FeatureProgrammer_IConfig
   Functor *nativehelpers.FunctionProgrammer
   Input   *shimast.Node
@@ -412,12 +421,13 @@ type miscCloneProgrammer_decodeArrayProps struct {
 }
 
 func miscCloneProgrammer_decode_array(props miscCloneProgrammer_decodeArrayProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   if props.Array.Type.Recursive {
-    return miscCloneProgrammer_factory.NewCallExpression(
-      miscCloneProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, *props.Array.Type.Index))),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%sa%d", props.Config.Prefix, *props.Array.Type.Index))),
       nil,
       nil,
-      miscCloneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
         Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Explore: miscCloneProgrammer_explore_with(props.Explore, "function", "array"),
         Input:   props.Input,
@@ -444,6 +454,7 @@ func miscCloneProgrammer_decode_array_inline(props miscCloneProgrammer_decodeArr
       return nativehelpers.CloneJoiner.Array(nativehelpers.CloneJoiner_ArrayProps{
         Input: next.Input,
         Arrow: next.Arrow,
+        Emit:  props.Context.Emit,
       })
     },
     Array:   props.Array,
@@ -462,12 +473,13 @@ type miscCloneProgrammer_decodeTupleProps struct {
 }
 
 func miscCloneProgrammer_decode_tuple(props miscCloneProgrammer_decodeTupleProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   if props.Tuple.Type.Recursive {
-    return miscCloneProgrammer_factory.NewCallExpression(
-      miscCloneProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%st%d", props.Config.Prefix, *props.Tuple.Type.Index))),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%st%d", props.Config.Prefix, *props.Tuple.Type.Index))),
       nil,
       nil,
-      miscCloneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+      f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
         Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
         Explore: miscCloneProgrammer_explore_with(props.Explore, "function", props.Explore.From),
         Input:   props.Input,
@@ -495,6 +507,7 @@ type miscCloneProgrammer_decodeTupleInlineProps struct {
 }
 
 func miscCloneProgrammer_decode_tuple_inline(props miscCloneProgrammer_decodeTupleInlineProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   elements := []*shimast.Node{}
   for index, elem := range props.Tuple.Elements {
     if elem.Rest != nil {
@@ -518,7 +531,7 @@ func miscCloneProgrammer_decode_tuple_inline(props miscCloneProgrammer_decodeTup
       Context:  props.Context,
       Config:   props.Config,
       Functor:  props.Functor,
-      Input:    miscCloneProgrammer_factory.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index), shimast.NodeFlagsNone),
+      Input:    f.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index, props.Context.Emit), shimast.NodeFlagsNone),
       Metadata: elem,
       Explore:  explore,
     }))
@@ -541,11 +554,11 @@ func miscCloneProgrammer_decode_tuple_inline(props miscCloneProgrammer_decodeTup
         Context: props.Context,
         Config:  props.Config,
         Functor: props.Functor,
-        Input: miscCloneProgrammer_factory.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(props.Input, "slice"),
+        Input: f.NewCallExpression(
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "slice"),
           nil,
           nil,
-          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start)}),
+          f.NewNodeList([]*shimast.Node{nativefactories.ExpressionFactory.Number(start, props.Context.Emit)}),
           shimast.NodeFlagsNone,
         ),
         Metadata: nativeiterate.Wrap_metadata_rest_tuple_export(last.Rest),
@@ -556,31 +569,34 @@ func miscCloneProgrammer_decode_tuple_inline(props miscCloneProgrammer_decodeTup
   return nativehelpers.CloneJoiner.Tuple(nativehelpers.CloneJoiner_TupleProps{
     Elements: elements,
     Rest:     rest,
+    Emit:     props.Context.Emit,
   })
 }
 
 func miscCloneProgrammer_decode_native(props struct {
-  Type  string
-  Input *shimast.Node
+  Context nativecontext.ITypiaContext
+  Type    string
+  Input   *shimast.Node
 }) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   switch props.Type {
   case "Date", "Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array", "BigUint64Array", "Int8Array", "Int16Array", "Int32Array", "BigInt64Array", "Float32Array", "Float64Array", "RegExp":
-    return miscCloneProgrammer_factory.NewNewExpression(
-      miscCloneProgrammer_factory.NewIdentifier(props.Type),
+    return f.NewNewExpression(
+      f.NewIdentifier(props.Type),
       nil,
-      miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{props.Input}),
+      f.NewNodeList([]*shimast.Node{props.Input}),
     )
   case "ArrayBuffer", "SharedArrayBuffer":
-    return miscCloneProgrammer_decode_native_buffer(props.Type, props.Input)
+    return miscCloneProgrammer_decode_native_buffer(props.Type, props.Input, props.Context.Emit)
   case "DataView":
-    return miscCloneProgrammer_factory.NewNewExpression(
-      miscCloneProgrammer_factory.NewIdentifier("DataView"),
+    return f.NewNewExpression(
+      f.NewIdentifier("DataView"),
       nil,
-      miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(props.Input, "buffer")}),
+      f.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "buffer")}),
     )
   default:
-    return miscCloneProgrammer_factory.NewCallExpression(
-      miscCloneProgrammer_factory.NewIdentifier(props.Type),
+    return f.NewCallExpression(
+      f.NewIdentifier(props.Type),
       nil,
       nil,
       nil,
@@ -589,38 +605,41 @@ func miscCloneProgrammer_decode_native(props struct {
   }
 }
 
-func miscCloneProgrammer_decode_native_buffer(typ string, input *shimast.Node) *shimast.Node {
+func miscCloneProgrammer_decode_native_buffer(typ string, input *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, emit)
   return nativefactories.ExpressionFactory.SelfCall(
-    miscCloneProgrammer_factory.NewBlock(miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
+    emit,
+    f.NewBlock(f.NewNodeList([]*shimast.Node{
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "buffer",
-        Value: miscCloneProgrammer_factory.NewNewExpression(
-          miscCloneProgrammer_factory.NewIdentifier(typ),
+        Value: f.NewNewExpression(
+          f.NewIdentifier(typ),
           nil,
-          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(input, "byteLength")}),
+          f.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(emit, input, "byteLength")}),
         ),
-      }),
-      miscCloneProgrammer_factory.NewExpressionStatement(miscCloneProgrammer_factory.NewCallExpression(
+      }, emit),
+      f.NewExpressionStatement(f.NewCallExpression(
         nativefactories.IdentifierFactory.Access(
-          miscCloneProgrammer_factory.NewNewExpression(
-            miscCloneProgrammer_factory.NewIdentifier("Uint8Array"),
+          emit,
+          f.NewNewExpression(
+            f.NewIdentifier("Uint8Array"),
             nil,
-            miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{miscCloneProgrammer_factory.NewIdentifier("buffer")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("buffer")}),
           ),
           "set",
         ),
         nil,
         nil,
-        miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-          miscCloneProgrammer_factory.NewNewExpression(
-            miscCloneProgrammer_factory.NewIdentifier("Uint8Array"),
+        f.NewNodeList([]*shimast.Node{
+          f.NewNewExpression(
+            f.NewIdentifier("Uint8Array"),
             nil,
-            miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{input}),
+            f.NewNodeList([]*shimast.Node{input}),
           ),
         }),
         shimast.NodeFlagsNone,
       )),
-      miscCloneProgrammer_factory.NewReturnStatement(miscCloneProgrammer_factory.NewIdentifier("buffer")),
+      f.NewReturnStatement(f.NewIdentifier("buffer")),
     }), true),
   )
 }
@@ -635,7 +654,8 @@ type miscCloneProgrammer_exploreArraysProps struct {
 }
 
 func miscCloneProgrammer_explore_arrays(props miscCloneProgrammer_exploreArraysProps) *shimast.Node {
-  return miscCloneProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     nativehelpers.UnionExplorer.Array(nativehelpers.UnionExplorer_ArrayProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
@@ -649,6 +669,7 @@ func miscCloneProgrammer_explore_arrays(props miscCloneProgrammer_exploreArraysP
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
           return miscCloneProgrammer_decode_array(miscCloneProgrammer_decodeArrayProps{
+            Context: props.Context,
             Config:  props.Config,
             Functor: props.Functor,
             Input:   v.Input,
@@ -656,8 +677,8 @@ func miscCloneProgrammer_explore_arrays(props miscCloneProgrammer_exploreArraysP
             Explore: miscCloneProgrammer_feature_explore(v.Explore),
           })
         },
-        Empty:   miscCloneProgrammer_factory.NewIdentifier("[]"),
-        Success: miscCloneProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+        Empty:   f.NewIdentifier("[]"),
+        Success: f.NewKeywordExpression(shimast.KindTrueKeyword),
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
           return miscCloneProgrammer_create_throw_error(miscCloneProgrammer_throwProps{
             Context:  props.Context,
@@ -671,6 +692,7 @@ func miscCloneProgrammer_explore_arrays(props miscCloneProgrammer_exploreArraysP
       Input:      props.Input,
       Arrays:     props.Arrays,
       Explore:    props.Explore,
+      Emit:       props.Context.Emit,
     }),
     nil,
     nil,
@@ -689,7 +711,8 @@ type miscCloneProgrammer_exploreSetsProps struct {
 }
 
 func miscCloneProgrammer_explore_sets(props miscCloneProgrammer_exploreSetsProps) *shimast.Node {
-  return miscCloneProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     nativehelpers.UnionExplorer.Set(nativehelpers.UnionExplorer_SetProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
@@ -702,11 +725,12 @@ func miscCloneProgrammer_explore_sets(props miscCloneProgrammer_exploreSetsProps
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
-          return miscCloneProgrammer_factory.NewNewExpression(
-            miscCloneProgrammer_factory.NewIdentifier("Set"),
-            miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.TypeFactory.Keyword("any")}),
-            miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
+          return f.NewNewExpression(
+            f.NewIdentifier("Set"),
+            f.NewNodeList([]*shimast.Node{nativefactories.TypeFactory.Keyword("any", props.Context.Emit)}),
+            f.NewNodeList([]*shimast.Node{
               miscCloneProgrammer_decode_array(miscCloneProgrammer_decodeArrayProps{
+                Context: props.Context,
                 Config:  props.Config,
                 Functor: props.Functor,
                 Input:   v.Input,
@@ -716,12 +740,12 @@ func miscCloneProgrammer_explore_sets(props miscCloneProgrammer_exploreSetsProps
             }),
           )
         },
-        Empty: miscCloneProgrammer_factory.NewNewExpression(
-          miscCloneProgrammer_factory.NewIdentifier("Set"),
-          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{nativefactories.TypeFactory.Keyword("any")}),
+        Empty: f.NewNewExpression(
+          f.NewIdentifier("Set"),
+          f.NewNodeList([]*shimast.Node{nativefactories.TypeFactory.Keyword("any", props.Context.Emit)}),
           nil,
         ),
-        Success: miscCloneProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+        Success: f.NewKeywordExpression(shimast.KindTrueKeyword),
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
           return miscCloneProgrammer_create_throw_error(miscCloneProgrammer_throwProps{
             Context:  props.Context,
@@ -735,6 +759,7 @@ func miscCloneProgrammer_explore_sets(props miscCloneProgrammer_exploreSetsProps
       Input:      props.Input,
       Sets:       props.Sets,
       Explore:    props.Explore,
+      Emit:       props.Context.Emit,
     }),
     nil,
     nil,
@@ -753,7 +778,8 @@ type miscCloneProgrammer_exploreMapsProps struct {
 }
 
 func miscCloneProgrammer_explore_maps(props miscCloneProgrammer_exploreMapsProps) *shimast.Node {
-  return miscCloneProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
+  return f.NewCallExpression(
     nativehelpers.UnionExplorer.Map(nativehelpers.UnionExplorer_MapProps{
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
@@ -761,28 +787,29 @@ func miscCloneProgrammer_explore_maps(props miscCloneProgrammer_exploreMapsProps
           first := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,
-            Input:    miscCloneProgrammer_factory.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(0), shimast.NodeFlagsNone),
+            Input:    f.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(0, props.Context.Emit), shimast.NodeFlagsNone),
             Metadata: pair[0],
             Explore:  miscCloneProgrammer_checker_explore_with_postfix(v.Explore, "[0]"),
           })
           second := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,
-            Input:    miscCloneProgrammer_factory.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(1), shimast.NodeFlagsNone),
+            Input:    f.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(1, props.Context.Emit), shimast.NodeFlagsNone),
             Metadata: pair[1],
             Explore:  miscCloneProgrammer_checker_explore_with_postfix(v.Explore, "[1]"),
           })
-          return miscCloneProgrammer_factory.NewBinaryExpression(nil, first, nil, miscCloneProgrammer_factory.NewToken(shimast.KindAmpersandAmpersandToken), second)
+          return f.NewBinaryExpression(nil, first, nil, f.NewToken(shimast.KindAmpersandAmpersandToken), second)
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
-          return miscCloneProgrammer_factory.NewNewExpression(
-            miscCloneProgrammer_factory.NewIdentifier("Map"),
-            miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-              nativefactories.TypeFactory.Keyword("any"),
-              nativefactories.TypeFactory.Keyword("any"),
+          return f.NewNewExpression(
+            f.NewIdentifier("Map"),
+            f.NewNodeList([]*shimast.Node{
+              nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+              nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
             }),
-            miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
+            f.NewNodeList([]*shimast.Node{
               miscCloneProgrammer_decode_array(miscCloneProgrammer_decodeArrayProps{
+                Context: props.Context,
                 Config:  props.Config,
                 Functor: props.Functor,
                 Input:   v.Input,
@@ -792,15 +819,15 @@ func miscCloneProgrammer_explore_maps(props miscCloneProgrammer_exploreMapsProps
             }),
           )
         },
-        Empty: miscCloneProgrammer_factory.NewNewExpression(
-          miscCloneProgrammer_factory.NewIdentifier("Map"),
-          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-            nativefactories.TypeFactory.Keyword("any"),
-            nativefactories.TypeFactory.Keyword("any"),
+        Empty: f.NewNewExpression(
+          f.NewIdentifier("Map"),
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           }),
           nil,
         ),
-        Success: miscCloneProgrammer_factory.NewKeywordExpression(shimast.KindTrueKeyword),
+        Success: f.NewKeywordExpression(shimast.KindTrueKeyword),
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
           return miscCloneProgrammer_create_throw_error(miscCloneProgrammer_throwProps{
             Context:  props.Context,
@@ -814,6 +841,7 @@ func miscCloneProgrammer_explore_maps(props miscCloneProgrammer_exploreMapsProps
       Input:      props.Input,
       Maps:       props.Maps,
       Explore:    props.Explore,
+      Emit:       props.Context.Emit,
     }),
     nil,
     nil,
@@ -823,6 +851,7 @@ func miscCloneProgrammer_explore_maps(props miscCloneProgrammer_exploreMapsProps
 }
 
 type miscCloneProgrammer_exploreObjectsProps struct {
+  Context  nativecontext.ITypiaContext
   Config   nativeinternal.FeatureProgrammer_IConfig
   Functor  *nativehelpers.FunctionProgrammer
   Input    *shimast.Node
@@ -831,6 +860,7 @@ type miscCloneProgrammer_exploreObjectsProps struct {
 }
 
 func miscCloneProgrammer_explore_objects(props miscCloneProgrammer_exploreObjectsProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   if len(props.Metadata.Objects) == 1 {
     return miscCloneProgrammer_decode_object(struct {
       Functor *nativehelpers.FunctionProgrammer
@@ -848,11 +878,11 @@ func miscCloneProgrammer_explore_objects(props miscCloneProgrammer_exploreObject
   if props.Metadata.Union_index != nil {
     index = *props.Metadata.Union_index
   }
-  return miscCloneProgrammer_factory.NewCallExpression(
-    miscCloneProgrammer_factory.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", miscCloneProgrammer_PREFIX, index))),
+  return f.NewCallExpression(
+    f.NewIdentifier(props.Functor.UseLocal(fmt.Sprintf("%su%d", miscCloneProgrammer_PREFIX, index))),
     nil,
     nil,
-    miscCloneProgrammer_factory.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
+    f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
       Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
       Input:   props.Input,
       Explore: props.Explore,
@@ -865,17 +895,18 @@ func miscCloneProgrammer_configure(props struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
 }) nativeinternal.FeatureProgrammer_IConfig {
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
   config := nativeinternal.FeatureProgrammer_IConfig{}
   config.Types = nativeinternal.FeatureProgrammer_IConfig_ITypes{
     Input: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
-      return miscCloneProgrammer_factory.NewTypeReferenceNode(miscCloneProgrammer_factory.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil)
+      return f.NewTypeReferenceNode(f.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil)
     },
     Output: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
-      return miscCloneProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      return miscCloneProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File: "typia",
         Name: "Resolved",
         Arguments: []*shimast.TypeNode{
-          miscCloneProgrammer_factory.NewTypeReferenceNode(miscCloneProgrammer_factory.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil),
+          f.NewTypeReferenceNode(f.NewIdentifier(miscCloneProgrammer_type_name(props.Context, t, name)), nil),
         },
       })
     },
@@ -928,6 +959,7 @@ func miscCloneProgrammer_configure(props struct {
       return nativehelpers.CloneJoiner.Object(nativehelpers.CloneJoiner_ObjectProps{
         Input:   next.Input,
         Entries: next.Entries,
+        Emit:    props.Context.Emit,
       })
     },
     Unionizer: func(next nativeinternal.FeatureProgrammer_ObjectorUnionizerProps) *shimast.Node {
@@ -980,10 +1012,11 @@ func miscCloneProgrammer_configure(props struct {
   config.Generator = nativeinternal.FeatureProgrammer_IConfig_IGenerator{
     Arrays: func(collection *schemametadata.MetadataCollection) []*shimast.Node {
       return miscCloneProgrammer_write_array_functions(struct {
+        Context    nativecontext.ITypiaContext
         Config     nativeinternal.FeatureProgrammer_IConfig
         Functor    *nativehelpers.FunctionProgrammer
         Collection *schemametadata.MetadataCollection
-      }{Config: config, Functor: props.Functor, Collection: collection})
+      }{Context: props.Context, Config: config, Functor: props.Functor, Collection: collection})
     },
     Tuples: func(collection *schemametadata.MetadataCollection) []*shimast.Node {
       return miscCloneProgrammer_write_tuple_functions(struct {
@@ -1000,8 +1033,7 @@ func miscCloneProgrammer_configure(props struct {
 func miscCloneProgrammer_initializer(props nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker:     props.Context.Checker,
-    Transformer: props.Context.Transformer,
+    Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
       Escape:   false,
       Constant: true,
@@ -1048,17 +1080,18 @@ type miscCloneProgrammer_throwProps struct {
 }
 
 func miscCloneProgrammer_create_throw_error(props miscCloneProgrammer_throwProps) *shimast.Node {
-  return miscCloneProgrammer_factory.NewExpressionStatement(
-    miscCloneProgrammer_factory.NewCallExpression(
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, props.Context.Emit)
+  return f.NewExpressionStatement(
+    f.NewCallExpression(
       miscCloneProgrammer_internal(props.Context, "throwTypeGuardError"),
       nil,
       nil,
-      miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-        miscCloneProgrammer_factory.NewObjectLiteralExpression(
-          miscCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-            miscCloneProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("method"), nil, nil, miscCloneProgrammer_factory.NewStringLiteral(props.Functor.Method, shimast.TokenFlagsNone)),
-            miscCloneProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("expected"), nil, nil, miscCloneProgrammer_factory.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)),
-            miscCloneProgrammer_factory.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("value"), nil, nil, props.Input),
+      f.NewNodeList([]*shimast.Node{
+        f.NewObjectLiteralExpression(
+          f.NewNodeList([]*shimast.Node{
+            f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("method", props.Context.Emit), nil, nil, f.NewStringLiteral(props.Functor.Method, shimast.TokenFlagsNone)),
+            f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("expected", props.Context.Emit), nil, nil, f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)),
+            f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("value", props.Context.Emit), nil, nil, props.Input),
           }),
           true,
         ),
@@ -1081,20 +1114,20 @@ func miscCloneProgrammer_is_instance(metadata *schemametadata.MetadataSchema) bo
 }
 
 func miscCloneProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
-  if importer, ok := context.Importer.(interface{ Internal(string) *shimast.Node }); ok {
+  if importer := context.Importer; importer != nil {
     return importer.Internal(name)
   }
-  return miscCloneProgrammer_factory.NewIdentifier(name)
+  f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, context.Emit)
+  return f.NewIdentifier(name)
 }
 
-func miscCloneProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func miscCloneProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
   if str, ok := props.Name.(string); ok {
-    return miscCloneProgrammer_factory.NewTypeReferenceNode(miscCloneProgrammer_factory.NewIdentifier(str), miscCloneProgrammer_factory.NewNodeList(props.Arguments))
+    f := nativecontext.EmitFactoryOf(miscCloneProgrammer_factory, context.Emit)
+    return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)
 }
@@ -1110,10 +1143,7 @@ func miscCloneProgrammer_type_name(context nativecontext.ITypiaContext, typ *shi
 }
 
 func miscCloneProgrammer_method_text(modulo *shimast.Node) string {
-  if modulo == nil {
-    return ""
-  }
-  return modulo.Text()
+  return nativehelpers.ModuloMethodText(modulo)
 }
 
 func miscCloneProgrammer_errors(errors []nativefactories.MetadataFactory_IError) []nativecontext.TransformerError_MetadataFactory_IError {

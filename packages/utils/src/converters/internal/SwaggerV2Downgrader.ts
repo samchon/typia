@@ -140,19 +140,27 @@ export namespace SwaggerV2Downgrader {
     (
       input: OpenApi.IOperation.IParameter,
       i: number,
-    ): SwaggerV2.IOperation.IParameter =>
-      ({
-        ...downgradeSchema(collection)(input.schema),
-        ...input,
+    ): SwaggerV2.IOperation.IParameter => {
+      const {
+        schema,
+        required,
+        example: _example,
+        examples: _examples,
+        ...rest
+      } = input;
+      const { required: _schemaRequired, ...downgraded } = downgradeSchema(
+        collection,
+      )(schema) as SwaggerV2.IJsonSchema & {
+        required?: unknown;
+      };
+      return {
+        ...downgraded,
+        ...rest,
         in: input.in === "querystring" ? "query" : input.in,
-        required: (input.schema as any)?.required,
-        schema: undefined,
+        ...(required !== undefined ? { required } : {}),
         name: input.name ?? `p${i}`,
-        ...{
-          example: undefined,
-          examples: undefined,
-        },
-      }) as any;
+      } as SwaggerV2.IOperation.IParameter;
+    };
 
   const downgradeRequestBody =
     (collection: IComponentsCollection) =>
@@ -162,7 +170,7 @@ export namespace SwaggerV2Downgrader {
       name: "body",
       in: "body",
       description: input.description,
-      required: input.required,
+      ...(input.required !== undefined ? { required: input.required } : {}),
       schema: downgradeSchema(collection)(
         Object.values(input.content ?? {})[0]?.schema ?? {},
       ),
@@ -179,17 +187,24 @@ export namespace SwaggerV2Downgrader {
         ? Object.fromEntries(
             Object.entries(input.headers)
               .filter(([_, v]) => v !== undefined)
-              .map(([key, value]) => [
-                key,
-                {
-                  ...value,
-                  schema: downgradeSchema(collection)(value.schema),
-                  ...{
-                    example: undefined,
-                    examples: undefined,
+              .map(([key, value]) => {
+                const {
+                  name: _name,
+                  in: _in,
+                  required: _required,
+                  example: _example,
+                  examples: _examples,
+                  schema,
+                  ...rest
+                } = value;
+                return [
+                  key,
+                  {
+                    ...rest,
+                    ...downgradeSchema(collection)(schema),
                   },
-                },
-              ]),
+                ];
+              }),
           )
         : undefined,
     });
@@ -291,24 +306,28 @@ export namespace SwaggerV2Downgrader {
         else if (OpenApiTypeChecker.isObject(schema))
           union.push({
             ...schema,
-            properties: schema.properties
-              ? Object.fromEntries(
-                  Object.entries(schema.properties)
-                    .filter(([_, v]) => v !== undefined)
-                    .map(([key, value]) => [
-                      key,
-                      downgradeSchema(collection)(value),
-                    ]),
-                )
-              : undefined,
+            properties:
+              schema.properties === undefined
+                ? undefined
+                : Object.fromEntries(
+                    Object.entries(schema.properties)
+                      .filter(([_, v]) => v !== undefined)
+                      .map(([key, value]) => [
+                        key,
+                        downgradeSchema(collection)(value),
+                      ]),
+                  ),
             additionalProperties:
-              typeof schema.additionalProperties === "object"
-                ? downgradeSchema(collection)(schema.additionalProperties)
-                : schema.additionalProperties,
+              schema.additionalProperties === undefined
+                ? undefined
+                : typeof schema.additionalProperties === "object"
+                  ? downgradeSchema(collection)(schema.additionalProperties)
+                  : schema.additionalProperties,
             required: schema.required,
-            examples: schema.examples
-              ? Object.values(schema.examples)
-              : undefined,
+            examples:
+              schema.examples === undefined
+                ? undefined
+                : Object.values(schema.examples),
           });
         else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);

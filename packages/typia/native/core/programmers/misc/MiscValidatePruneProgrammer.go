@@ -25,6 +25,7 @@ type MiscValidatePruneProgrammer_DecomposeProps struct {
 var miscValidatePruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscValidatePruneProgrammerNamespace) Decompose(props MiscValidatePruneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscValidatePruneProgrammer_factory, props.Context.Emit)
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
@@ -43,61 +44,61 @@ func (miscValidatePruneProgrammerNamespace) Decompose(props MiscValidatePrunePro
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements, prune.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__prune", Value: prune.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__prune", Value: prune.Arrow}, props.Context.Emit),
   )
-  pruneType := miscValidatePruneProgrammer_factory.NewTypeReferenceNode(
-    miscValidatePruneProgrammer_factory.NewIdentifier(miscCloneProgrammer_type_name(props.Context, props.Type, props.Name)),
+  pruneType := f.NewTypeReferenceNode(
+    f.NewIdentifier(miscCloneProgrammer_type_name(props.Context, props.Type, props.Name)),
     nil,
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  miscProgrammer_merge_functions(validate.Functions, prune.Functions),
     Statements: statements,
-    Arrow: miscValidatePruneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscValidatePruneProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      miscCloneProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      miscCloneProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{pruneType},
       }),
       nil,
-      miscValidatePruneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      miscValidatePruneProgrammer_factory.NewBlock(miscValidatePruneProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name: "result",
-          Value: miscValidatePruneProgrammer_factory.NewCallExpression(
-            miscValidatePruneProgrammer_factory.NewIdentifier("__validate"),
+          Value: f.NewCallExpression(
+            f.NewIdentifier("__validate"),
             nil,
             nil,
-            miscValidatePruneProgrammer_factory.NewNodeList([]*shimast.Node{miscValidatePruneProgrammer_factory.NewIdentifier("input")}),
+            f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
             shimast.NodeFlagsNone,
           ),
-        }),
-        miscValidatePruneProgrammer_factory.NewIfStatement(
-          miscValidatePruneProgrammer_factory.NewIdentifier("result.success"),
-          miscValidatePruneProgrammer_factory.NewExpressionStatement(
-            miscValidatePruneProgrammer_factory.NewCallExpression(
-              miscValidatePruneProgrammer_factory.NewIdentifier("__prune"),
+        }, props.Context.Emit),
+        f.NewIfStatement(
+          f.NewIdentifier("result.success"),
+          f.NewExpressionStatement(
+            f.NewCallExpression(
+              f.NewIdentifier("__prune"),
               nil,
               nil,
-              miscValidatePruneProgrammer_factory.NewNodeList([]*shimast.Node{miscValidatePruneProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
           ),
           nil,
         ),
-        miscValidatePruneProgrammer_factory.NewReturnStatement(miscValidatePruneProgrammer_factory.NewIdentifier("result")),
+        f.NewReturnStatement(f.NewIdentifier("result")),
       }), true),
     ),
   }
 }
 
 func (miscValidatePruneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscValidatePruneProgrammer.Decompose(MiscValidatePruneProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

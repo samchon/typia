@@ -1,10 +1,11 @@
 {
   "name": "typia",
-  "version": "13.0.0-dev.20260601.1",
+  "version": "13.0.0-dev.20260605.11",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
+    "./lib/module": "./src/index.ts",
     "./lib/transform": "./src/transform.ts",
     "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
@@ -36,24 +37,21 @@
     "@typia/utils": "workspace:^",
     "commander": "^10.0.0",
     "inquirer": "^8.2.5",
-    "randexp": "^0.5.3"
+    "randexp": "^0.5.3",
+    "tinyglobby": "^0.2.12"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/inquirer": "^8.2.5",
     "@types/node": "catalog:utils",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.1.0",
     "@typescript/native-preview": "catalog:typescript",
     "chalk": "^4.0.0",
-    "eslint-plugin-deprecation": "^3.0.0",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
     "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "suppress-warnings": "^1.0.2",
-    "tinyglobby": "^0.2.12",
     "ttsc": "catalog:typescript"
   },
   "sideEffects": [
@@ -113,6 +111,11 @@
     },
     "exports": {
       ".": {
+        "types": "./lib/index.d.ts",
+        "import": "./lib/index.mjs",
+        "default": "./lib/index.js"
+      },
+      "./lib/module": {
         "types": "./lib/index.d.ts",
         "import": "./lib/index.mjs",
         "default": "./lib/index.js"

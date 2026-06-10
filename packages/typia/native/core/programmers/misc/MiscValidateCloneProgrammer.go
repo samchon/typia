@@ -25,6 +25,7 @@ type MiscValidateCloneProgrammer_DecomposeProps struct {
 var miscValidateCloneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (miscValidateCloneProgrammerNamespace) Decompose(props MiscValidateCloneProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(miscValidateCloneProgrammer_factory, props.Context.Emit)
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
@@ -43,70 +44,70 @@ func (miscValidateCloneProgrammerNamespace) Decompose(props MiscValidateClonePro
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements, clone.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__clone", Value: clone.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__clone", Value: clone.Arrow}, props.Context.Emit),
   )
   cloneType := clone.Arrow.AsArrowFunction().Type
   if cloneType == nil {
-    cloneType = nativefactories.TypeFactory.Keyword("any")
+    cloneType = nativefactories.TypeFactory.Keyword("any", props.Context.Emit)
   }
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  miscProgrammer_merge_functions(validate.Functions, clone.Functions),
     Statements: statements,
-    Arrow: miscValidateCloneProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      miscValidateCloneProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      miscCloneProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      miscCloneProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{cloneType},
       }),
       nil,
-      miscValidateCloneProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      miscValidateCloneProgrammer_factory.NewBlock(miscValidateCloneProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name: "result",
-          Value: miscValidateCloneProgrammer_factory.NewAsExpression(
-            miscValidateCloneProgrammer_factory.NewCallExpression(
-              miscValidateCloneProgrammer_factory.NewIdentifier("__validate"),
+          Value: f.NewAsExpression(
+            f.NewCallExpression(
+              f.NewIdentifier("__validate"),
               nil,
               nil,
-              miscValidateCloneProgrammer_factory.NewNodeList([]*shimast.Node{miscValidateCloneProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
-            nativefactories.TypeFactory.Keyword("any"),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
-        }),
-        miscValidateCloneProgrammer_factory.NewIfStatement(
-          miscValidateCloneProgrammer_factory.NewIdentifier("result.success"),
-          miscValidateCloneProgrammer_factory.NewExpressionStatement(
-            miscValidateCloneProgrammer_factory.NewBinaryExpression(
+        }, props.Context.Emit),
+        f.NewIfStatement(
+          f.NewIdentifier("result.success"),
+          f.NewExpressionStatement(
+            f.NewBinaryExpression(
               nil,
-              miscValidateCloneProgrammer_factory.NewIdentifier("result.data"),
+              f.NewIdentifier("result.data"),
               nil,
-              miscValidateCloneProgrammer_factory.NewToken(shimast.KindEqualsToken),
-              miscValidateCloneProgrammer_factory.NewCallExpression(
-                miscValidateCloneProgrammer_factory.NewIdentifier("__clone"),
+              f.NewToken(shimast.KindEqualsToken),
+              f.NewCallExpression(
+                f.NewIdentifier("__clone"),
                 nil,
                 nil,
-                miscValidateCloneProgrammer_factory.NewNodeList([]*shimast.Node{miscValidateCloneProgrammer_factory.NewIdentifier("input")}),
+                f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
                 shimast.NodeFlagsNone,
               ),
             ),
           ),
           nil,
         ),
-        miscValidateCloneProgrammer_factory.NewReturnStatement(miscValidateCloneProgrammer_factory.NewIdentifier("result")),
+        f.NewReturnStatement(f.NewIdentifier("result")),
       }), true),
     ),
   }
 }
 
 func (miscValidateCloneProgrammerNamespace) Write(props nativecontext.IProgrammerProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(miscCloneProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := MiscValidateCloneProgrammer.Decompose(MiscValidateCloneProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,

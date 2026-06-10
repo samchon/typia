@@ -33,6 +33,7 @@ type ProtobufValidateEncodeProgrammer_DecomposeProps struct {
 var protobufValidateEncodeProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (protobufValidateEncodeProgrammerNamespace) Decompose(props ProtobufValidateEncodeProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
+  f := nativecontext.EmitFactoryOf(protobufValidateEncodeProgrammer_factory, props.Context.Emit)
   validateContext := props.Context
   functional := false
   finite := true
@@ -53,71 +54,71 @@ func (protobufValidateEncodeProgrammerNamespace) Decompose(props ProtobufValidat
     Type:    props.Type,
     Name:    props.Name,
   })
-  encodeType := protobufAssertEncodeProgrammer_returnType(encode.Arrow, protobufValidateEncodeProgrammer_factory.NewTypeReferenceNode(protobufValidateEncodeProgrammer_factory.NewIdentifier("Uint8Array"), nil))
+  encodeType := protobufAssertEncodeProgrammer_returnType(encode.Arrow, f.NewTypeReferenceNode(f.NewIdentifier("Uint8Array"), nil))
   statements := []*shimast.Node{}
   statements = append(statements, validate.Statements...)
   statements = append(statements, encode.Statements...)
   statements = append(statements,
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}),
-    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__encode", Value: encode.Arrow}),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__validate", Value: validate.Arrow}, props.Context.Emit),
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{Name: "__encode", Value: encode.Arrow}, props.Context.Emit),
   )
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  protobufAssertEncodeProgrammer_merge(validate.Functions, encode.Functions),
     Statements: statements,
-    Arrow: protobufValidateEncodeProgrammer_factory.NewArrowFunction(
+    Arrow: f.NewArrowFunction(
       nil,
       nil,
-      protobufValidateEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any"), nil),
+      f.NewNodeList([]*shimast.Node{
+        nativefactories.IdentifierFactory.Parameter("input", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
       }),
-      protobufValidateEncodeProgrammer_import_type(props.Context, nativeprogrammers.ImportProgrammer_TypeProps{
+      protobufValidateEncodeProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
         File:      "typia",
         Name:      "IValidation",
         Arguments: []*shimast.TypeNode{encodeType},
       }),
       nil,
-      protobufValidateEncodeProgrammer_factory.NewToken(shimast.KindEqualsGreaterThanToken),
-      protobufValidateEncodeProgrammer_factory.NewBlock(protobufValidateEncodeProgrammer_factory.NewNodeList([]*shimast.Node{
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name: "result",
-          Value: protobufValidateEncodeProgrammer_factory.NewAsExpression(
-            protobufValidateEncodeProgrammer_factory.NewCallExpression(
-              protobufValidateEncodeProgrammer_factory.NewIdentifier("__validate"),
+          Value: f.NewAsExpression(
+            f.NewCallExpression(
+              f.NewIdentifier("__validate"),
               nil,
               nil,
-              protobufValidateEncodeProgrammer_factory.NewNodeList([]*shimast.Node{protobufValidateEncodeProgrammer_factory.NewIdentifier("input")}),
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
               shimast.NodeFlagsNone,
             ),
-            nativefactories.TypeFactory.Keyword("any"),
+            nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           ),
-        }),
-        protobufValidateEncodeProgrammer_factory.NewIfStatement(
-          protobufValidateEncodeProgrammer_factory.NewIdentifier("result.success"),
-          protobufValidateEncodeProgrammer_factory.NewExpressionStatement(
-            protobufValidateEncodeProgrammer_factory.NewBinaryExpression(
+        }, props.Context.Emit),
+        f.NewIfStatement(
+          f.NewIdentifier("result.success"),
+          f.NewExpressionStatement(
+            f.NewBinaryExpression(
               nil,
-              protobufValidateEncodeProgrammer_factory.NewIdentifier("result.data"),
+              f.NewIdentifier("result.data"),
               nil,
-              protobufValidateEncodeProgrammer_factory.NewToken(shimast.KindEqualsToken),
-              protobufValidateEncodeProgrammer_factory.NewCallExpression(
-                protobufValidateEncodeProgrammer_factory.NewIdentifier("__encode"),
+              f.NewToken(shimast.KindEqualsToken),
+              f.NewCallExpression(
+                f.NewIdentifier("__encode"),
                 nil,
                 nil,
-                protobufValidateEncodeProgrammer_factory.NewNodeList([]*shimast.Node{protobufValidateEncodeProgrammer_factory.NewIdentifier("input")}),
+                f.NewNodeList([]*shimast.Node{f.NewIdentifier("input")}),
                 shimast.NodeFlagsNone,
               ),
             ),
           ),
           nil,
         ),
-        protobufValidateEncodeProgrammer_factory.NewReturnStatement(protobufValidateEncodeProgrammer_factory.NewIdentifier("result")),
+        f.NewReturnStatement(f.NewIdentifier("result")),
       }), true),
     ),
   }
 }
 
 func (protobufValidateEncodeProgrammerNamespace) Write(props ProtobufValidateEncodeProgrammer_IProps) *shimast.Node {
-  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo))
+  functor := nativehelpers.NewFunctionProgrammer(protobufAssertEncodeProgrammer_method_text(props.Modulo), props.Context.Emit)
   result := ProtobufValidateEncodeProgrammer.Decompose(ProtobufValidateEncodeProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
@@ -132,14 +133,13 @@ func (protobufValidateEncodeProgrammerNamespace) Write(props ProtobufValidateEnc
   })
 }
 
-func protobufValidateEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node {
-  if importer, ok := context.Importer.(interface {
-    Type(nativeprogrammers.ImportProgrammer_TypeProps) *shimast.Node
-  }); ok {
+func protobufValidateEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {
+  if importer := context.Importer; importer != nil {
     return importer.Type(props)
   }
+  f := nativecontext.EmitFactoryOf(protobufValidateEncodeProgrammer_factory, context.Emit)
   if str, ok := props.Name.(string); ok {
-    return protobufValidateEncodeProgrammer_factory.NewTypeReferenceNode(protobufValidateEncodeProgrammer_factory.NewIdentifier(str), protobufValidateEncodeProgrammer_factory.NewNodeList(props.Arguments))
+    return f.NewTypeReferenceNode(f.NewIdentifier(str), f.NewNodeList(props.Arguments))
   }
   return props.Name.(*shimast.Node)
 }
