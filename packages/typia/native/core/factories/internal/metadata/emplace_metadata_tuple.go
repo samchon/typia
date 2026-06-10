@@ -49,6 +49,17 @@ func Emplace_metadata_tuple(props IMetadataIteratorProps) *schemametadata.Metada
       elements = append(elements, child)
       continue
     }
+    // Every programmer addresses tuple elements by their fixed leading
+    // position and slices the rest segment off the end, so a rest element
+    // anywhere but the trailing position would compile into positionally
+    // wrong checks (issue #1932). Reject it honestly instead.
+    if i != len(args)-1 && props.Errors != nil {
+      *props.Errors = append(*props.Errors, MetadataFactory_IError{
+        Name:     tuple.Name,
+        Explore:  props.Explore,
+        Messages: []string{"non-trailing rest element in tuple type is not supported."},
+      })
+    }
     wrapper := schemametadata.MetadataSchema_initialize()
     wrapper.Rest = child
     elements = append(elements, wrapper)
