@@ -7,10 +7,14 @@ import (
 )
 
 func Iterate_metadata_native(props IMetadataIteratorProps) bool {
-  name := iterate_metadata_native_getNativeName("")
-  if props.Checker != nil && props.Type != nil {
-    name = iterate_metadata_native_getNativeName(props.Checker.TypeToString(props.Type))
+  name := ""
+  if props.Type != nil {
+    name = metadata_type_symbol_base_name(props.Type)
   }
+  if name == "" && props.Checker != nil && props.Type != nil {
+    name = metadata_type_symbol_base_name(props.Checker.GetApparentType(props.Type))
+  }
+  name = iterate_metadata_native_getNativeName(name)
   if _, ok := iterate_metadata_native_simples[name]; ok {
     iterate_metadata_native_take(props.Metadata, name)
     return true

@@ -13,17 +13,20 @@ type IMetadataSchema_IObjectType struct {
 }
 
 type MetadataObjectType struct {
-  Name        string
-  DisplayName string
-  Properties  []*MetadataProperty
-  Description *string
-  JsDocTags   []IJsDocTagInfo
-  Index       int
-  Validated   bool
-  Recursive   bool
-  Nullables   []bool
-  Tagged_     bool
-  literal_    *bool
+  Name              string
+  DisplayName       string
+  Properties        []*MetadataProperty
+  Description       *string
+  JsDocTags         []IJsDocTagInfo
+  Index             int
+  Validated         bool
+  Recursive         bool
+  Nullables         []bool
+  Parent_objects_  []*MetadataObject
+  Check_properties_ []*MetadataProperty
+  Tagged_           bool
+  literal_          *bool
+  required_literal_ *bool
 }
 
 func MetadataObjectType_create(props MetadataObjectType) *MetadataObjectType {
@@ -64,6 +67,34 @@ func (obj *MetadataObjectType) GetDisplayName() string {
     return obj.DisplayName
   }
   return obj.Name
+}
+
+func (obj *MetadataObjectType) CheckProperties() []*MetadataProperty {
+  if obj.Check_properties_ != nil {
+    return obj.Check_properties_
+  }
+  return obj.Properties
+}
+
+func (obj *MetadataObjectType) HasRequiredLiteralProperty() bool {
+  if obj.required_literal_ != nil {
+    return *obj.required_literal_
+  }
+  value := false
+  for _, parent := range obj.Parent_objects_ {
+    if parent.Type.HasRequiredLiteralProperty() {
+      value = true
+      break
+    }
+  }
+  for _, property := range obj.CheckProperties() {
+    if property.Key.IsSoleLiteral() && property.Value.IsRequired() {
+      value = true
+      break
+    }
+  }
+  obj.required_literal_ = &value
+  return value
 }
 
 func (obj *MetadataObjectType) IsPlain(level ...int) bool {

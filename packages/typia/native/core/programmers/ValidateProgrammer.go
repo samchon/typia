@@ -60,6 +60,7 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
       Trace:   true,
       Numeric: nativehelpers.OptionPredicator.Numeric(props.Context.Options),
       Equals:  props.Config.Equals,
+      ObjectParents: props.Config.Equals == false,
       Atomist: validateProgrammer_atomist(props),
       Combiner: validateProgrammer_combine(struct {
         Config  ValidateProgrammer_IConfig
@@ -208,7 +209,7 @@ func validateProgrammer_atomist(props ValidateProgrammer_DecomposeProps) func(ne
         for _, cond := range next.Entry.Conditions[0] {
           expressions = append(expressions, validateProgrammer_or(
             cond.Expression,
-            validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: cond.Expected, Value: next.Input, Emit: props.Context.Emit}),
+            validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: cond.Expected, Value: next.Input, Functor: props.Functor, Emit: props.Context.Emit}),
             props.Context.Emit,
           ))
         }
@@ -223,7 +224,7 @@ func validateProgrammer_atomist(props ValidateProgrammer_DecomposeProps) func(ne
         }
         expressions = append(expressions, validateProgrammer_or(
           validateProgrammer_reduce(rows, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit),
-          validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Entry.Expected, Value: next.Input, Emit: props.Context.Emit}),
+          validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Entry.Expected, Value: next.Input, Functor: props.Functor, Emit: props.Context.Emit}),
           props.Context.Emit,
         ))
       }
@@ -260,7 +261,7 @@ func validateProgrammer_combine(props struct {
         if binary.Combined {
           expressions = append(expressions, binary.Expression)
         } else {
-          expressions = append(expressions, validateProgrammer_or(binary.Expression, validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input, Emit: props.Context.Emit}), props.Context.Emit))
+          expressions = append(expressions, validateProgrammer_or(binary.Expression, validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input, Functor: props.Functor, Emit: props.Context.Emit}), props.Context.Emit))
         }
       }
       return validateProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit)
@@ -271,7 +272,7 @@ func validateProgrammer_combine(props struct {
     }
     return validateProgrammer_or(
       validateProgrammer_reduce(expressions, shimast.KindBarBarToken, f.NewKeywordExpression(shimast.KindFalseKeyword), props.Context.Emit),
-      validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input, Emit: props.Context.Emit}),
+      validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: exceptionable, Path: path, Expected: next.Expected, Value: next.Input, Functor: props.Functor, Emit: props.Context.Emit}),
       props.Context.Emit,
     )
   }
@@ -307,6 +308,7 @@ func validateProgrammer_validate_object(props validateProgrammer_validateObjectP
           Expected:    "undefined",
           Value:       input,
           Description: description,
+          Functor:     props.Functor,
           Emit:        props.Context.Emit,
         })
       },
@@ -334,7 +336,7 @@ func validateProgrammer_joiner(props ValidateProgrammer_DecomposeProps) nativein
       if next.Explore != nil {
         explore = *next.Explore
       }
-      return validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: validateProgrammer_exceptionable(explore, props.Context.Emit), Path: validateProgrammer_path(explore, props.Context.Emit), Expected: next.Expected, Value: next.Input, Emit: props.Context.Emit})
+      return validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{Exceptionable: validateProgrammer_exceptionable(explore, props.Context.Emit), Path: validateProgrammer_path(explore, props.Context.Emit), Expected: next.Expected, Value: next.Input, Functor: props.Functor, Emit: props.Context.Emit})
     },
     Tuple: func(binaries []*shimast.Node) *shimast.Node {
       return nativeiterate.Check_everything(f.NewArrayLiteralExpression(f.NewNodeList(binaries), true))
@@ -365,6 +367,7 @@ type validateProgrammer_createReportCallProps struct {
   Expected      string
   Value         *shimast.Expression
   Description   *shimast.Expression
+  Functor       *nativehelpers.FunctionProgrammer
   Emit          *shimprinter.EmitContext
 }
 
@@ -376,7 +379,7 @@ func validateProgrammer_create_report_call(props validateProgrammer_createReport
   }
   properties := []*shimast.Node{
     validateProgrammer_property("path", props.Path, props.Emit),
-    validateProgrammer_property("expected", f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone), props.Emit),
+    validateProgrammer_property("expected", validateProgrammer_expected_expression(props), props.Emit),
     validateProgrammer_property("value", props.Value, props.Emit),
   }
   if props.Description != nil {
@@ -392,6 +395,16 @@ func validateProgrammer_create_report_call(props validateProgrammer_createReport
     }),
     shimast.NodeFlagsNone,
   )
+}
+
+func validateProgrammer_expected_expression(props validateProgrammer_createReportCallProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(validateProgrammer_factory, props.Emit)
+  if props.Functor == nil || len(props.Expected) < 128 {
+    return f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)
+  }
+  return props.Functor.EmplaceVariableByKey("_ve", props.Expected, func(string) *shimast.Expression {
+    return f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)
+  })
 }
 
 func validateProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind, initial *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {

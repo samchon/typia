@@ -15,6 +15,7 @@ type FunctionProgrammer struct {
   unions_        map[string]*functionProgrammer_union
   unionOrder_    []string
   variables_     map[string]*shimast.Node
+  variableKeys_   map[string]string
   variableOrder_ []string
   sequence_      int
   disableDeclare bool
@@ -44,6 +45,7 @@ func NewFunctionProgrammer(method string, emit ...*shimprinter.EmitContext) *Fun
     unions_:        map[string]*functionProgrammer_union{},
     unionOrder_:    []string{},
     variables_:     map[string]*shimast.Node{},
+    variableKeys_:   map[string]string{},
     variableOrder_: []string{},
   }
   if len(emit) != 0 {
@@ -137,4 +139,14 @@ func (p *FunctionProgrammer) EmplaceVariable(name string, value *shimast.Express
   }
   p.variables_[name] = value
   return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+}
+
+func (p *FunctionProgrammer) EmplaceVariableByKey(prefix string, key string, factory func(name string) *shimast.Expression) *shimast.Node {
+  compound := prefix + "::" + key
+  if name, ok := p.variableKeys_[compound]; ok {
+    return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+  }
+  name := fmt.Sprintf("%s%d", prefix, len(p.variableKeys_))
+  p.variableKeys_[compound] = name
+  return p.EmplaceVariable(name, factory(name))
 }

@@ -20,15 +20,16 @@ type featureProgrammerNamespace struct{}
 var FeatureProgrammer = featureProgrammerNamespace{}
 
 type FeatureProgrammer_IConfig struct {
-  Types       FeatureProgrammer_IConfig_ITypes
-  Prefix      string
-  Path        bool
-  Trace       bool
-  Addition    func(collection *nativemetadata.MetadataCollection) []*shimast.Node
-  Initializer func(props FeatureProgrammer_InitializerProps) FeatureProgrammer_InitializerOutput
-  Decoder     func(props FeatureProgrammer_DecoderProps) *shimast.Node
-  Objector    FeatureProgrammer_IConfig_IObjector
-  Generator   FeatureProgrammer_IConfig_IGenerator
+  Types         FeatureProgrammer_IConfig_ITypes
+  Prefix        string
+  Path          bool
+  Trace         bool
+  Addition      func(collection *nativemetadata.MetadataCollection) []*shimast.Node
+  Initializer   func(props FeatureProgrammer_InitializerProps) FeatureProgrammer_InitializerOutput
+  Decoder       func(props FeatureProgrammer_DecoderProps) *shimast.Node
+  Objector      FeatureProgrammer_IConfig_IObjector
+  Generator     FeatureProgrammer_IConfig_IGenerator
+  ObjectParents bool
   // Visited reports whether the analyzed type graph carries a recursive
   // component (issue #1820). It is a closure (usually the functor's Visited
   // method) because the answer is unknown until metadata analysis runs,
@@ -177,6 +178,7 @@ type FeatureProgrammer_WriteProps struct {
 type FeatureProgrammer_WriteObjectFunctionsProps struct {
   Config     FeatureProgrammer_IConfig
   Context    nativecontext.ITypiaContext
+  Functor    *nativehelpers.FunctionProgrammer
   Collection *nativemetadata.MetadataCollection
 }
 
@@ -444,6 +446,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
     Functor: props.Functor,
     Type:    props.Type,
   })
+  featureProgrammer_compact_object_parents(props.Config, initialized.Collection)
   featureProgrammer_register_schema_unions(initialized.Collection, initialized.Metadata, map[*nativemetadata.MetadataSchema]bool{})
   body := props.Config.Decoder(FeatureProgrammer_DecoderProps{
     Input:    nativefactories.ValueFactory.INPUT(props.Context.Emit),
@@ -528,6 +531,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
     Functor: props.Functor,
     Type:    props.Type,
   })
+  featureProgrammer_compact_object_parents(props.Config, initialized.Collection)
   featureProgrammer_register_schema_unions(initialized.Collection, initialized.Metadata, map[*nativemetadata.MetadataSchema]bool{})
   output := props.Config.Decoder(FeatureProgrammer_DecoderProps{
     Metadata: initialized.Metadata,
@@ -557,6 +561,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
   }
 
   statements := append([]*shimast.Node{}, added...)
+  statements = append(statements, props.Functor.Declare()...)
   for _, v := range objects {
     statements = append(statements, v)
   }
@@ -592,7 +597,8 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
 }
 
 func (featureProgrammerNamespace) Write_object_functions(props FeatureProgrammer_WriteObjectFunctionsProps) []*shimast.Node {
-  return featureProgrammer_write_object_functions(props.Config, props.Context, props.Collection)
+  featureProgrammer_compact_object_parents(props.Config, props.Collection)
+  return featureProgrammer_write_object_functions(props.Config, props.Context, props.Functor, props.Collection)
 }
 
 func (featureProgrammerNamespace) Write_union_functions(props FeatureProgrammer_WriteUnionFunctionsProps) []*shimast.Node {
@@ -740,7 +746,7 @@ func featureProgrammer_object_functions(props FeatureProgrammer_ComposeProps, co
   if props.Config.Generator.Objects != nil {
     return props.Config.Generator.Objects(collection)
   }
-  return featureProgrammer_write_object_functions(props.Config, props.Context, collection)
+  return featureProgrammer_write_object_functions(props.Config, props.Context, props.Functor, collection)
 }
 
 func featureProgrammer_union_functions(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection, emit *shimprinter.EmitContext) []*shimast.Node {
@@ -752,58 +758,229 @@ func featureProgrammer_union_functions(config FeatureProgrammer_IConfig, collect
   return featureProgrammer_write_union_functions(config, collection, emit)
 }
 
-func featureProgrammer_register_schema_unions(collection *nativemetadata.MetadataCollection, metadata *nativemetadata.MetadataSchema, visited map[*nativemetadata.MetadataSchema]bool) {
-  if collection == nil || metadata == nil || visited[metadata] {
+type featureProgrammer_schemaUnionVisit struct {
+  Schemas map[*nativemetadata.MetadataSchema]bool
+  Objects map[*nativemetadata.MetadataObjectType]bool
+}
+
+const featureProgrammer_objectParentMinProperties = 8
+
+type featureProgrammer_objectPropertySet struct {
+  Properties map[string]*nativemetadata.MetadataProperty
+  Order      []string
+  Anchor     string
+}
+
+func featureProgrammer_compact_object_parents(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection) {
+  if config.ObjectParents == false || collection == nil {
     return
   }
-  visited[metadata] = true
+  objects := collection.Objects()
+  signatures := make([]featureProgrammer_objectPropertySet, len(objects))
+  frequencies := map[string]int{}
+  for i, object := range objects {
+    signatures[i] = featureProgrammer_object_property_set(object)
+    for _, key := range signatures[i].Order {
+      frequencies[key]++
+    }
+  }
+  buckets := map[string][]int{}
+  for i := range objects {
+    if len(signatures[i].Order) < featureProgrammer_objectParentMinProperties {
+      continue
+    }
+    anchor := featureProgrammer_object_parent_anchor(signatures[i], frequencies)
+    if anchor == "" {
+      continue
+    }
+    signatures[i].Anchor = anchor
+    buckets[anchor] = append(buckets[anchor], i)
+  }
+  for i, object := range objects {
+    if object.Check_properties_ != nil || len(object.Properties) <= featureProgrammer_objectParentMinProperties {
+      continue
+    }
+    current := signatures[i]
+    if len(current.Order) <= featureProgrammer_objectParentMinProperties {
+      continue
+    }
+    best := -1
+    bestSize := 0
+    visited := map[int]bool{}
+    for _, key := range current.Order {
+      for _, candidate := range buckets[key] {
+        if visited[candidate] || candidate == i {
+          continue
+        }
+        visited[candidate] = true
+        candidateSize := len(signatures[candidate].Order)
+        if candidateSize <= bestSize || candidateSize >= len(current.Order) {
+          continue
+        }
+        if featureProgrammer_object_parent_covers(current, signatures[candidate]) {
+          best = candidate
+          bestSize = candidateSize
+        }
+      }
+    }
+    if best == -1 {
+      continue
+    }
+    parent := objects[best]
+    object.Parent_objects_ = append(object.Parent_objects_, nativemetadata.MetadataObject_create(nativemetadata.MetadataObject{
+      Type: parent,
+      Tags: [][]nativemetadata.IMetadataTypeTag{},
+    }))
+    object.Check_properties_ = featureProgrammer_object_remaining_properties(object.Properties, signatures[best])
+  }
+}
+
+func featureProgrammer_object_property_set(object *nativemetadata.MetadataObjectType) featureProgrammer_objectPropertySet {
+  if object == nil {
+    return featureProgrammer_objectPropertySet{}
+  }
+  output := featureProgrammer_objectPropertySet{
+    Properties: map[string]*nativemetadata.MetadataProperty{},
+    Order:      []string{},
+  }
+  for _, property := range object.Properties {
+    if property == nil || property.Key == nil {
+      return featureProgrammer_objectPropertySet{}
+    }
+    key := property.Key.GetSoleLiteral()
+    if key == nil {
+      return featureProgrammer_objectPropertySet{}
+    }
+    signature := featureProgrammer_object_property_signature(property)
+    if signature == "" {
+      return featureProgrammer_objectPropertySet{}
+    }
+    output.Properties[signature] = property
+    output.Order = append(output.Order, signature)
+  }
+  return output
+}
+
+func featureProgrammer_object_property_signature(property *nativemetadata.MetadataProperty) string {
+  if property == nil || property.Key == nil || property.Value == nil {
+    return ""
+  }
+  key := property.Key.GetSoleLiteral()
+  if key == nil {
+    return ""
+  }
+  return *key + "\x00" +
+    property.Key.GetName() + "\x00" +
+    property.Value.GetName() + "\x00" +
+    fmt.Sprintf("%t\x00%t", property.Value.Optional, property.Value.Nullable)
+}
+
+func featureProgrammer_object_parent_anchor(set featureProgrammer_objectPropertySet, frequencies map[string]int) string {
+  anchor := ""
+  score := 0
+  for _, key := range set.Order {
+    next := frequencies[key]
+    if anchor == "" || next < score {
+      anchor = key
+      score = next
+    }
+  }
+  return anchor
+}
+
+func featureProgrammer_object_parent_covers(
+  current featureProgrammer_objectPropertySet,
+  candidate featureProgrammer_objectPropertySet,
+) bool {
+  if len(candidate.Order) == 0 || len(candidate.Order) >= len(current.Order) {
+    return false
+  }
+  for _, key := range candidate.Order {
+    if current.Properties[key] == nil {
+      return false
+    }
+  }
+  return true
+}
+
+func featureProgrammer_object_remaining_properties(
+  properties []*nativemetadata.MetadataProperty,
+  parent featureProgrammer_objectPropertySet,
+) []*nativemetadata.MetadataProperty {
+  output := make([]*nativemetadata.MetadataProperty, 0, len(properties)-len(parent.Order))
+  for _, property := range properties {
+    if parent.Properties[featureProgrammer_object_property_signature(property)] != nil {
+      continue
+    }
+    output = append(output, property)
+  }
+  return output
+}
+
+func featureProgrammer_register_schema_unions(collection *nativemetadata.MetadataCollection, metadata *nativemetadata.MetadataSchema, visited map[*nativemetadata.MetadataSchema]bool) {
+  if visited == nil {
+    visited = map[*nativemetadata.MetadataSchema]bool{}
+  }
+  featureProgrammer_register_schema_unions_iterate(collection, metadata, &featureProgrammer_schemaUnionVisit{
+    Schemas: visited,
+    Objects: map[*nativemetadata.MetadataObjectType]bool{},
+  })
+}
+
+func featureProgrammer_register_schema_unions_iterate(collection *nativemetadata.MetadataCollection, metadata *nativemetadata.MetadataSchema, visited *featureProgrammer_schemaUnionVisit) {
+  if collection == nil || metadata == nil || visited.Schemas[metadata] {
+    return
+  }
+  visited.Schemas[metadata] = true
 
   if len(metadata.Objects) > 1 {
     index := collection.GetUnionIndex(metadata)
     metadata.Union_index = &index
   }
   if metadata.Escaped != nil {
-    featureProgrammer_register_schema_unions(collection, metadata.Escaped.Returns, visited)
+    featureProgrammer_register_schema_unions_iterate(collection, metadata.Escaped.Returns, visited)
   }
   if metadata.Rest != nil {
-    featureProgrammer_register_schema_unions(collection, metadata.Rest, visited)
+    featureProgrammer_register_schema_unions_iterate(collection, metadata.Rest, visited)
   }
   for _, alias := range metadata.Aliases {
     if alias.Type != nil {
-      featureProgrammer_register_schema_unions(collection, alias.Type.Value, visited)
+      featureProgrammer_register_schema_unions_iterate(collection, alias.Type.Value, visited)
     }
   }
   for _, array := range metadata.Arrays {
     if array.Type != nil {
-      featureProgrammer_register_schema_unions(collection, array.Type.Value, visited)
+      featureProgrammer_register_schema_unions_iterate(collection, array.Type.Value, visited)
     }
   }
   for _, tuple := range metadata.Tuples {
     if tuple.Type != nil {
       for _, element := range tuple.Type.Elements {
-        featureProgrammer_register_schema_unions(collection, element, visited)
+        featureProgrammer_register_schema_unions_iterate(collection, element, visited)
       }
     }
   }
   for _, object := range metadata.Objects {
-    if object.Type != nil {
+    if object.Type != nil && visited.Objects[object.Type] == false {
+      visited.Objects[object.Type] = true
       for _, property := range object.Type.Properties {
-        featureProgrammer_register_schema_unions(collection, property.Value, visited)
+        featureProgrammer_register_schema_unions_iterate(collection, property.Value, visited)
       }
     }
   }
   for _, set := range metadata.Sets {
-    featureProgrammer_register_schema_unions(collection, set.Value, visited)
+    featureProgrammer_register_schema_unions_iterate(collection, set.Value, visited)
   }
   for _, item := range metadata.Maps {
-    featureProgrammer_register_schema_unions(collection, item.Key, visited)
-    featureProgrammer_register_schema_unions(collection, item.Value, visited)
+    featureProgrammer_register_schema_unions_iterate(collection, item.Key, visited)
+    featureProgrammer_register_schema_unions_iterate(collection, item.Value, visited)
   }
 }
 
-func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, context nativecontext.ITypiaContext, collection *nativemetadata.MetadataCollection) []*shimast.Node {
+func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, context nativecontext.ITypiaContext, functor *nativehelpers.FunctionProgrammer, collection *nativemetadata.MetadataCollection) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(featureProgrammer_factory, context.Emit)
   objects := collection.Objects()
+  propertyFrequencies := featureProgrammer_object_property_frequencies(config, context, functor, objects)
   output := make([]*shimast.Node, 0, len(objects))
   for _, object := range objects {
     input := f.NewIdentifier("input")
@@ -811,6 +988,21 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
     if objectType == nil {
       objectType = nativefactories.TypeFactory.Keyword("any", context.Emit)
     }
+    entriesObject := object
+    if config.ObjectParents && len(object.Parent_objects_) != 0 {
+      entriesObject = &nativemetadata.MetadataObjectType{
+        Name:        object.Name,
+        DisplayName: object.DisplayName,
+        Properties:  object.CheckProperties(),
+        Description: object.Description,
+        JsDocTags:   object.JsDocTags,
+        Index:       object.Index,
+        Validated:   object.Validated,
+        Recursive:   object.Recursive,
+        Nullables:   object.Nullables,
+      }
+    }
+    helperAllProperties := config.ObjectParents && functor != nil && len(entriesObject.Properties) >= 16
     body := config.Objector.Joiner(FeatureProgrammer_ObjectorJoinerProps{
       Input: input,
       Entries: nativeiterate.Feature_object_entries(nativeiterate.Feature_object_entriesProps{
@@ -818,6 +1010,17 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
           Path:  config.Path,
           Trace: config.Trace,
           Decoder: func(next nativeiterate.Feature_object_entriesDecoderProps) *shimast.Node {
+            if key := featureProgrammer_object_property_helper_key(context, next.Property, next.Metadata); key != "" && (propertyFrequencies[key] > 1 || helperAllProperties) {
+              return featureProgrammer_object_property_helper_call(featureProgrammer_objectPropertyHelperProps{
+                Config:     config,
+                Context:    context,
+                Functor:    functor,
+                Input:      input,
+                ReturnType: objectType,
+                Next:       next,
+                Key:        key,
+              })
+            }
             return config.Decoder(FeatureProgrammer_DecoderProps{
               Input:    next.Input,
               Metadata: next.Metadata,
@@ -827,10 +1030,28 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
         },
         Context: context,
         Input:   input,
-        Object:  object,
+        Object:  entriesObject,
       }),
       Object: object,
     })
+    if config.ObjectParents && len(object.Parent_objects_) != 0 {
+      expressions := make([]*shimast.Node, 0, len(object.Parent_objects_)+1)
+      explore := FeatureProgrammer_IExplore{
+        Tracable: config.Path || config.Trace,
+        Source:   "function",
+        From:     "object",
+        Postfix:  "",
+      }
+      for _, parent := range object.Parent_objects_ {
+        expressions = append(expressions, config.Objector.Decoder(FeatureProgrammer_ObjectorDecoderProps{
+          Input:   input,
+          Object:  parent.Type,
+          Explore: explore,
+        }))
+      }
+      expressions = append(expressions, body)
+      body = checkerProgrammer_reduce(expressions, shimast.KindAmpersandAmpersandToken, f.NewKeywordExpression(shimast.KindTrueKeyword), context.Emit)
+    }
     if object.Recursive && config.VisitGuard != nil && featureProgrammer_visited(config) {
       body = config.VisitGuard(FeatureProgrammer_VisitGuardProps{
         Key:   FeatureProgrammer.VisitKey(config.Prefix, "o", object.Index),
@@ -857,6 +1078,120 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
     }, context.Emit))
   }
   return output
+}
+
+type featureProgrammer_objectPropertyHelperProps struct {
+  Config     FeatureProgrammer_IConfig
+  Context    nativecontext.ITypiaContext
+  Functor    *nativehelpers.FunctionProgrammer
+  Input      *shimast.Expression
+  ReturnType *shimast.TypeNode
+  Next       nativeiterate.Feature_object_entriesDecoderProps
+  Key        string
+}
+
+func featureProgrammer_object_property_frequencies(
+  config FeatureProgrammer_IConfig,
+  context nativecontext.ITypiaContext,
+  functor *nativehelpers.FunctionProgrammer,
+  objects []*nativemetadata.MetadataObjectType,
+) map[string]int {
+  output := map[string]int{}
+  if config.ObjectParents == false || functor == nil {
+    return output
+  }
+  for _, object := range objects {
+    for _, property := range object.CheckProperties() {
+      if property == nil || property.Key == nil || property.Value == nil {
+        continue
+      }
+      metadata := property.Value
+      if property.Key.GetSoleLiteral() != nil && nativehelpers.OptionPredicator.StrictOptionalUndefined(context, property.Value) {
+        metadata = property.Value.ShallowClone()
+        metadata.Optional = false
+      }
+      key := featureProgrammer_object_property_helper_key(context, property, metadata)
+      if key != "" {
+        output[key]++
+      }
+    }
+  }
+  return output
+}
+
+func featureProgrammer_object_property_helper_key(
+  context nativecontext.ITypiaContext,
+  property *nativemetadata.MetadataProperty,
+  metadata *nativemetadata.MetadataSchema,
+) string {
+  if property == nil || property.Key == nil || metadata == nil {
+    return ""
+  }
+  key := property.Key.GetSoleLiteral()
+  if key == nil {
+    return ""
+  }
+  return *key + "\x00" +
+    property.Key.GetName() + "\x00" +
+    metadata.GetName() + "\x00" +
+    fmt.Sprintf("%t\x00%t\x00%t", metadata.Optional, metadata.Nullable, nativehelpers.OptionPredicator.Numeric(context.Options))
+}
+
+func featureProgrammer_object_property_helper_call(props featureProgrammer_objectPropertyHelperProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, props.Context.Emit)
+  helper := props.Functor.EmplaceVariableByKey(props.Config.Prefix+"p", props.Key, func(string) *shimast.Expression {
+    input := nativefactories.ValueFactory.INPUT(props.Context.Emit)
+    propertyInput := featureProgrammer_object_property_input(input, props.Next.Key, props.Context.Emit)
+    body := props.Config.Decoder(FeatureProgrammer_DecoderProps{
+      Input:    propertyInput,
+      Metadata: props.Next.Metadata,
+      Explore:  featureProgrammer_from_iterate_explore(props.Next.Explore),
+    })
+    return f.NewArrowFunction(
+      nil,
+      nil,
+      f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
+        Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
+        Type:   nativefactories.TypeFactory.Keyword("any"),
+        Input:  input,
+        Emit:   props.Context.Emit,
+      })),
+      props.ReturnType,
+      nil,
+      f.NewToken(shimast.KindEqualsGreaterThanToken),
+      body,
+    )
+  })
+  return f.NewCallExpression(
+    helper,
+    nil,
+    nil,
+    f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
+      Config: FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
+      Input:  props.Input,
+      Explore: FeatureProgrammer_IExplore{
+        Tracable: props.Config.Path || props.Config.Trace,
+        Source:   "function",
+        From:     "object",
+        Postfix:  "",
+      },
+      Emit: props.Context.Emit,
+    })),
+    shimast.NodeFlagsNone,
+  )
+}
+
+func featureProgrammer_object_property_input(input *shimast.Expression, key *string, emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit...)
+  if key == nil {
+    return f.NewIdentifier("value")
+  }
+  return f.NewElementAccessExpression(
+    input,
+    nil,
+    f.NewStringLiteral(*key, shimast.TokenFlagsNone),
+    shimast.NodeFlagsNone,
+  )
 }
 
 func featureProgrammer_write_union_functions(config FeatureProgrammer_IConfig, collection *nativemetadata.MetadataCollection, emit *shimprinter.EmitContext) []*shimast.Node {
