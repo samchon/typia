@@ -111,6 +111,8 @@ export * from "./ObjectPartialAndRequired";
 export * from "./ObjectPrimitive";
 export * from "./ObjectPropertyNullable";
 export * from "./ObjectRecursive";
+export * from "./ObjectRecursiveCircular";
+export * from "./ObjectRecursiveShared";
 export * from "./ObjectRequired";
 export * from "./ObjectSequenceProtobuf";
 export * from "./ObjectSimple";

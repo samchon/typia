@@ -103,29 +103,33 @@ func miscPruneProgrammer_write_array_functions(props struct {
         nil,
         nil,
         f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         })),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        miscPruneProgrammer_decode_array_inline(miscPruneProgrammer_decodeArrayProps{
-          Context: props.Context,
-          Config:  props.Config,
-          Functor: props.Functor,
-          Input:   f.NewIdentifier("input"),
-          Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
-            Type: typ,
-            Tags: [][]schemametadata.IMetadataTypeTag{},
+        nativeinternal.FeatureProgrammer.VisitGuardSkip(
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i),
+          miscPruneProgrammer_decode_array_inline(miscPruneProgrammer_decodeArrayProps{
+            Context: props.Context,
+            Config:  props.Config,
+            Functor: props.Functor,
+            Input:   f.NewIdentifier("input"),
+            Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
+              Type: typ,
+              Tags: [][]schemametadata.IMetadataTypeTag{},
+            }),
+            Explore: nativeinternal.FeatureProgrammer_IExplore{
+              Tracable: props.Config.Trace,
+              Source:   "function",
+              From:     "array",
+              Postfix:  "",
+            },
           }),
-          Explore: nativeinternal.FeatureProgrammer_IExplore{
-            Tracable: props.Config.Trace,
-            Source:   "function",
-            From:     "array",
-            Postfix:  "",
-          },
-        }),
+          props.Context.Emit,
+        ),
       ),
     }, props.Context.Emit))
   }
@@ -150,26 +154,30 @@ func miscPruneProgrammer_write_tuple_functions(props struct {
         nil,
         nil,
         f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         })),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        miscPruneProgrammer_decode_tuple_inline(miscPruneProgrammer_decodeTupleInlineProps{
-          Context: props.Context,
-          Config:  props.Config,
-          Functor: props.Functor,
-          Input:   f.NewIdentifier("input"),
-          Tuple:   tuple,
-          Explore: nativeinternal.FeatureProgrammer_IExplore{
-            Tracable: props.Config.Trace,
-            Source:   "function",
-            From:     "array",
-            Postfix:  "",
-          },
-        }),
+        nativeinternal.FeatureProgrammer.VisitGuardSkip(
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i),
+          miscPruneProgrammer_decode_tuple_inline(miscPruneProgrammer_decodeTupleInlineProps{
+            Context: props.Context,
+            Config:  props.Config,
+            Functor: props.Functor,
+            Input:   f.NewIdentifier("input"),
+            Tuple:   tuple,
+            Explore: nativeinternal.FeatureProgrammer_IExplore{
+              Tracable: props.Config.Trace,
+              Source:   "function",
+              From:     "array",
+              Postfix:  "",
+            },
+          }),
+          props.Context.Emit,
+        ),
       ),
     }, props.Context.Emit))
   }
@@ -352,9 +360,10 @@ func miscPruneProgrammer_decode_object(props struct {
 }) *shimast.Node {
   return nativeinternal.FeatureProgrammer.Decode_object(nativeinternal.FeatureProgrammer_DecodeObjectProps{
     Config: nativeinternal.FeatureProgrammer_DecodeObjectConfig{
-      Trace:  false,
-      Path:   false,
-      Prefix: miscPruneProgrammer_PREFIX,
+      Trace:   false,
+      Path:    false,
+      Prefix:  miscPruneProgrammer_PREFIX,
+      Visited: props.Functor.Visited(),
     },
     Functor: props.Functor,
     Object:  props.Object,
@@ -380,7 +389,7 @@ func miscPruneProgrammer_decode_array(props miscPruneProgrammer_decodeArrayProps
       nil,
       nil,
       f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: miscCloneProgrammer_explore_with(props.Explore, "function", "array"),
         Input:   props.Input,
       })),
@@ -432,7 +441,7 @@ func miscPruneProgrammer_decode_tuple(props miscPruneProgrammer_decodeTupleProps
       nil,
       nil,
       f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: miscCloneProgrammer_explore_with(props.Explore, "function", props.Explore.From),
         Input:   props.Input,
       })),
@@ -615,7 +624,7 @@ func miscPruneProgrammer_explore_objects(props miscPruneProgrammer_exploreObject
     nil,
     nil,
     f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
       Input:   props.Input,
       Explore: props.Explore,
     })),
@@ -641,6 +650,10 @@ func miscPruneProgrammer_configure(props struct {
   config.Trace = false
   config.Path = false
   config.Initializer = miscPruneProgrammer_initializer
+  config.Visited = props.Functor.Visited
+  config.VisitGuard = func(next nativeinternal.FeatureProgrammer_VisitGuardProps) *shimast.Node {
+    return nativeinternal.FeatureProgrammer.VisitGuardSkip(next.Key, next.Body, props.Context.Emit)
+  }
   config.Decoder = func(next nativeinternal.FeatureProgrammer_DecoderProps) *shimast.Node {
     return miscPruneProgrammer_decode(struct {
       Context  nativecontext.ITypiaContext
@@ -767,6 +780,9 @@ func miscPruneProgrammer_initializer(props nativeinternal.FeatureProgrammer_Init
       Code:   props.Functor.Method,
       Errors: miscCloneProgrammer_errors(result.Errors),
     }))
+  }
+  if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
+    props.Functor.SetVisited(true)
   }
   return nativeinternal.FeatureProgrammer_InitializerOutput{
     Collection: collection,
