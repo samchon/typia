@@ -18,6 +18,12 @@ type FunctionProgrammer struct {
   variableOrder_ []string
   sequence_      int
   disableDeclare bool
+  // visited_ turns on per-invocation visit tracking: set after metadata
+  // analysis when the type graph carries a recursive component, so generated
+  // functions thread a `_vctx` context and recursive ones guard against
+  // runtime cycles (issue #1820). Read late (at emission) on purpose — the
+  // flag is unknown until the collection is analyzed.
+  visited_ bool
   // emit_ routes declaration/identifier creation through the emit context's
   // factory when present so generated `const` validators carry original-node
   // tracking; nil falls back to the standalone factory (legacy / test paths).
@@ -49,6 +55,14 @@ func NewFunctionProgrammer(method string, emit ...*shimprinter.EmitContext) *Fun
 func (p *FunctionProgrammer) UseLocal(name string) string {
   p.local_[name] = true
   return name
+}
+
+func (p *FunctionProgrammer) SetVisited(value bool) {
+  p.visited_ = value
+}
+
+func (p *FunctionProgrammer) Visited() bool {
+  return p.visited_
 }
 
 func (p *FunctionProgrammer) HasLocal(name string) bool {
