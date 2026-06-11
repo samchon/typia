@@ -28,6 +28,25 @@ type FeatureProgrammer_IConfig struct {
   Decoder     func(props FeatureProgrammer_DecoderProps) *shimast.Node
   Objector    FeatureProgrammer_IConfig_IObjector
   Generator   FeatureProgrammer_IConfig_IGenerator
+  // Visited reports whether the analyzed type graph carries a recursive
+  // component (issue #1820). It is a closure (usually the functor's Visited
+  // method) because the answer is unknown until metadata analysis runs,
+  // which happens after the config is constructed. When true, generated
+  // functions thread a per-invocation `_vctx` visit context.
+  Visited func() bool
+  // VisitGuard wraps a recursive function's body with the feature's own
+  // cycle handling (e.g. checkers report a revisited object as valid). Nil
+  // keeps the body untouched even when Visited is on.
+  VisitGuard func(props FeatureProgrammer_VisitGuardProps) *shimast.Node
+}
+
+type FeatureProgrammer_VisitGuardProps struct {
+  // Key names the `_vctx` slot of the guarded function (e.g. "o3" for the
+  // object function of index 3), so each recursive function tracks its own
+  // visit set and union-branch probing cannot pollute sibling checks.
+  Key   string
+  Input *shimast.Expression
+  Body  *shimast.Node
 }
 
 type FeatureProgrammer_IConfig_ITypes struct {
@@ -190,6 +209,12 @@ type FeatureProgrammer_DecodeObjectConfig struct {
   Trace  bool
   Path   bool
   Prefix string
+  // Visited threads the per-invocation `_vctx` argument to the called object
+  // function. It must come from the calling feature's own config — not from
+  // the (possibly shared) functor — so a visit-tracking feature composed with
+  // a non-tracking one (e.g. assert + clone) cannot leak the argument into
+  // functions that do not declare it.
+  Visited bool
 }
 
 type FeatureProgrammer_DecodeObjectProps struct {
@@ -215,8 +240,9 @@ type FeatureProgrammer_ArgumentsArrayProps struct {
 }
 
 type FeatureProgrammer_ArgumentsArrayConfig struct {
-  Path  bool
-  Trace bool
+  Path    bool
+  Trace   bool
+  Visited bool
 }
 
 type FeatureProgrammer_ParameterDeclarationsProps struct {
@@ -227,8 +253,15 @@ type FeatureProgrammer_ParameterDeclarationsProps struct {
 }
 
 type FeatureProgrammer_ParameterConfig struct {
-  Path  bool
-  Trace bool
+  Path    bool
+  Trace   bool
+  Visited bool
+}
+
+// featureProgrammer_visited resolves the late-bound recursion flag; the
+// closure is nil for features that do not participate in visit tracking.
+func featureProgrammer_visited(config FeatureProgrammer_IConfig) bool {
+  return config.Visited != nil && config.Visited()
 }
 
 var featureProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -272,7 +305,7 @@ func (featureProgrammerNamespace) Compose(props FeatureProgrammer_ComposeProps) 
     Statements: statements,
     Functions:  functions,
     Parameters: FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-      Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
       Type:   props.Config.Types.Input(props.Type, props.Name),
       Input:  nativefactories.ValueFactory.INPUT(props.Context.Emit),
       Emit:   props.Context.Emit,
@@ -374,7 +407,7 @@ func (featureProgrammerNamespace) Write(props FeatureProgrammer_WriteProps) *shi
     nil,
     nil,
     f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-      Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
       Type:   props.Config.Types.Input(props.Type, props.Name),
       Input:  nativefactories.ValueFactory.INPUT(props.Context.Emit),
       Emit:   props.Context.Emit,
@@ -442,7 +475,7 @@ func (featureProgrammerNamespace) Decode_object(props FeatureProgrammer_DecodeOb
     nil,
     nil,
     f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
-      Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Config.Visited},
       Input:   props.Input,
       Explore: props.Explore,
       Emit:    props.Emit,
@@ -498,6 +531,9 @@ func (featureProgrammerNamespace) ArgumentsArray(props FeatureProgrammer_Argumen
       tail = append(tail, f.NewKeywordExpression(shimast.KindFalseKeyword))
     }
   }
+  if props.Config.Visited {
+    tail = append(tail, f.NewIdentifier("_vctx"))
+  }
   return append([]*shimast.Node{props.Input}, tail...)
 }
 
@@ -512,6 +548,15 @@ func (featureProgrammerNamespace) ParameterDeclarations(props FeatureProgrammer_
       "_exceptionable",
       nativefactories.TypeFactory.Keyword("boolean"),
       f.NewKeywordExpression(shimast.KindTrueKeyword),
+    ))
+  }
+  if props.Config.Visited {
+    // The per-invocation visit context: internal calls always pass it along,
+    // so the default object literal only materializes at the public entry.
+    tail = append(tail, nativefactories.IdentifierFactory.Parameter(
+      "_vctx",
+      nativefactories.TypeFactory.Keyword("any"),
+      f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
     ))
   }
   return append([]*shimast.Node{
@@ -594,13 +639,40 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
     if objectType == nil {
       objectType = nativefactories.TypeFactory.Keyword("any", context.Emit)
     }
+    body := config.Objector.Joiner(FeatureProgrammer_ObjectorJoinerProps{
+      Input: input,
+      Entries: nativeiterate.Feature_object_entries(nativeiterate.Feature_object_entriesProps{
+        Config: nativeiterate.Feature_object_entriesConfig{
+          Path:  config.Path,
+          Trace: config.Trace,
+          Decoder: func(next nativeiterate.Feature_object_entriesDecoderProps) *shimast.Node {
+            return config.Decoder(FeatureProgrammer_DecoderProps{
+              Input:    next.Input,
+              Metadata: next.Metadata,
+              Explore:  featureProgrammer_from_iterate_explore(next.Explore),
+            })
+          },
+        },
+        Context: context,
+        Input:   input,
+        Object:  object,
+      }),
+      Object: object,
+    })
+    if object.Recursive && config.VisitGuard != nil && featureProgrammer_visited(config) {
+      body = config.VisitGuard(FeatureProgrammer_VisitGuardProps{
+        Key:   fmt.Sprintf("o%d", object.Index),
+        Input: input,
+        Body:  body,
+      })
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: fmt.Sprintf("%so%d", config.Prefix, object.Index),
       Value: f.NewArrowFunction(
         nil,
         nil,
         f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-          Config: FeatureProgrammer_ParameterConfig{Path: config.Path, Trace: config.Trace},
+          Config: FeatureProgrammer_ParameterConfig{Path: config.Path, Trace: config.Trace, Visited: featureProgrammer_visited(config)},
           Type:   nativefactories.TypeFactory.Keyword("any"),
           Input:  nativefactories.ValueFactory.INPUT(context.Emit),
           Emit:   context.Emit,
@@ -608,26 +680,7 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
         objectType,
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        config.Objector.Joiner(FeatureProgrammer_ObjectorJoinerProps{
-          Input: input,
-          Entries: nativeiterate.Feature_object_entries(nativeiterate.Feature_object_entriesProps{
-            Config: nativeiterate.Feature_object_entriesConfig{
-              Path:  config.Path,
-              Trace: config.Trace,
-              Decoder: func(next nativeiterate.Feature_object_entriesDecoderProps) *shimast.Node {
-                return config.Decoder(FeatureProgrammer_DecoderProps{
-                  Input:    next.Input,
-                  Metadata: next.Metadata,
-                  Explore:  featureProgrammer_from_iterate_explore(next.Explore),
-                })
-              },
-            },
-            Context: context,
-            Input:   input,
-            Object:  object,
-          }),
-          Object: object,
-        }),
+        body,
       ),
     }, context.Emit))
   }
@@ -658,7 +711,7 @@ func featureProgrammer_write_union(props struct {
     nil,
     nil,
     f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-      Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: featureProgrammer_visited(props.Config)},
       Type:   nativefactories.TypeFactory.Keyword("any"),
       Input:  nativefactories.ValueFactory.INPUT(nil),
       Emit:   emit,

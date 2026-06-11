@@ -188,7 +188,7 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
         nil,
         nil,
         f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-          Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any"),
           Input:  input,
           Emit:   props.Context.Emit,
@@ -196,7 +196,7 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
+        checkerProgrammer_visit_guard(fmt.Sprintf("a%d", i), checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,
@@ -211,7 +211,7 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
             From:     "array",
             Postfix:  "",
           },
-        }),
+        }), props.Context.Emit),
       ),
     }, props.Context.Emit))
   }
@@ -233,7 +233,7 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
         nil,
         nil,
         f.NewNodeList(FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-          Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any"),
           Input:  input,
           Emit:   props.Context.Emit,
@@ -241,7 +241,7 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
+        checkerProgrammer_visit_guard(fmt.Sprintf("t%d", i), checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,
@@ -253,7 +253,7 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
             From:     "array",
             Postfix:  "",
           },
-        }),
+        }), props.Context.Emit),
       ),
     }, props.Context.Emit))
   }
@@ -287,9 +287,13 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
         )
       },
     },
-    Trace:  config.Trace,
-    Path:   config.Path,
-    Prefix: config.Prefix,
+    Trace:   config.Trace,
+    Path:    config.Path,
+    Prefix:  config.Prefix,
+    Visited: functor.Visited,
+    VisitGuard: func(next FeatureProgrammer_VisitGuardProps) *shimast.Node {
+      return checkerProgrammer_visit_guard(next.Key, next.Body, context.Emit)
+    },
     Initializer: func(next FeatureProgrammer_InitializerProps) FeatureProgrammer_InitializerOutput {
       collection := nativemetadata.NewMetadataCollection()
       result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
@@ -310,6 +314,12 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
           Code:   next.Functor.Method,
           Errors: checkerProgrammer_errors(result.Errors),
         }))
+      }
+      // Recursive type graphs are the only way the generated function call
+      // graph can cycle, so visit tracking (issue #1820) turns on exactly
+      // here; non-recursive types keep their emission byte-identical.
+      if checkerProgrammer_collection_recursive(collection) {
+        next.Functor.SetVisited(true)
       }
       return FeatureProgrammer_InitializerOutput{
         Collection: collection,
@@ -953,9 +963,10 @@ func (checkerProgrammerNamespace) Decode_object(props CheckerProgrammer_DecodeOb
   props.Object.Validated = true
   return FeatureProgrammer.Decode_object(FeatureProgrammer_DecodeObjectProps{
     Config: FeatureProgrammer_DecodeObjectConfig{
-      Prefix: props.Config.Prefix,
-      Path:   props.Config.Path,
-      Trace:  props.Config.Trace,
+      Prefix:  props.Config.Prefix,
+      Path:    props.Config.Path,
+      Trace:   props.Config.Trace,
+      Visited: props.Functor.Visited(),
     },
     Functor: props.Functor,
     Object:  props.Object,
@@ -994,7 +1005,7 @@ func checkerProgrammer_decode_array(props checkerProgrammer_decodeArrayProps) *s
       nil,
       nil,
       f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
-        Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: arrayExplore,
         Input:   props.Input,
         Emit:    props.Context.Emit,
@@ -1104,7 +1115,7 @@ func checkerProgrammer_decode_tuple(props checkerProgrammer_decodeTupleProps) *s
       nil,
       nil,
       f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
-        Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: arrayExplore,
         Input:   props.Input,
         Emit:    props.Context.Emit,
@@ -1545,7 +1556,7 @@ func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_ex
             nextExplore.Postfix = ""
             return props.Factory(checkerProgrammer_exploreArrayLikeUnionTypesFactoryProps{
               Parameters: FeatureProgrammer.ParameterDeclarations(FeatureProgrammer_ParameterDeclarationsProps{
-                Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+                Config: FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
                 Type:   nativefactories.TypeFactory.Keyword("any"),
                 Input:  f.NewIdentifier("input"),
                 Emit:   props.Emit,
@@ -1560,7 +1571,7 @@ func checkerProgrammer_explore_array_like_union_types(props checkerProgrammer_ex
       nil,
       nil,
       f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
-        Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Input:   props.Input,
         Explore: props.Explore,
         Emit:    props.Emit,
@@ -1649,7 +1660,7 @@ func checkerProgrammer_explore_objects(props checkerProgrammer_exploreObjectsPro
     nil,
     nil,
     f.NewNodeList(FeatureProgrammer.ArgumentsArray(FeatureProgrammer_ArgumentsArrayProps{
-      Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
       Input:   props.Input,
       Explore: props.Explore,
       Emit:    props.Context.Emit,
@@ -1816,6 +1827,60 @@ func checkerProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind
 
 func checkerProgrammer_and(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
   return checkerProgrammer_binary(x, shimast.KindAmpersandAmpersandToken, y, emit)
+}
+
+// checkerProgrammer_collection_recursive reports whether the analyzed type
+// graph carries any recursive component — the precondition for a runtime
+// value to drive the generated function call graph into a cycle.
+func checkerProgrammer_collection_recursive(collection *nativemetadata.MetadataCollection) bool {
+  for _, object := range collection.Objects() {
+    if object.Recursive {
+      return true
+    }
+  }
+  for _, array := range collection.Arrays() {
+    if array.Recursive {
+      return true
+    }
+  }
+  for _, tuple := range collection.Tuples() {
+    if tuple.Recursive {
+      return true
+    }
+  }
+  return false
+}
+
+// checkerProgrammer_visit_guard wraps a recursive function body so a value
+// already being checked (or already proven) by this function short-circuits
+// to true — the coinductive reading that makes runtime cycles validate
+// instead of overflowing the stack, and deduplicates aliased subtrees. The
+// entry is removed when the body fails, so union-branch probing of the same
+// value cannot poison sibling checks; each recursive function owns its own
+// `_vctx` slot for the same reason.
+func checkerProgrammer_visit_guard(key string, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, emit)
+  slot := "_vctx." + key
+  return nativefactories.ExpressionFactory.Conditional(
+    f.NewIdentifier("("+slot+" || ("+slot+" = new WeakSet())).has(input)"),
+    f.NewKeywordExpression(shimast.KindTrueKeyword),
+    f.NewParenthesizedExpression(
+      f.NewBinaryExpression(
+        nil,
+        f.NewIdentifier(slot+".add(input)"),
+        nil,
+        f.NewToken(shimast.KindCommaToken),
+        f.NewBinaryExpression(
+          nil,
+          f.NewParenthesizedExpression(body),
+          nil,
+          f.NewToken(shimast.KindBarBarToken),
+          f.NewIdentifier("("+slot+".delete(input), false)"),
+        ),
+      ),
+    ),
+    emit,
+  )
 }
 
 func checkerProgrammer_or(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
