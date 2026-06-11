@@ -196,7 +196,7 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        checkerProgrammer_visit_guard(fmt.Sprintf("a%d", i), checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
+        checkerProgrammer_visit_guard(FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i), checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,
@@ -241,7 +241,7 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        checkerProgrammer_visit_guard(fmt.Sprintf("t%d", i), checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
+        checkerProgrammer_visit_guard(FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i), checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,
@@ -318,7 +318,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
       // Recursive type graphs are the only way the generated function call
       // graph can cycle, so visit tracking (issue #1820) turns on exactly
       // here; non-recursive types keep their emission byte-identical.
-      if checkerProgrammer_collection_recursive(collection) {
+      if FeatureProgrammer.CollectionRecursive(collection) {
         next.Functor.SetVisited(true)
       }
       return FeatureProgrammer_InitializerOutput{
@@ -1827,28 +1827,6 @@ func checkerProgrammer_reduce(expressions []*shimast.Node, operator shimast.Kind
 
 func checkerProgrammer_and(x *shimast.Expression, y *shimast.Expression, emit *shimprinter.EmitContext) *shimast.Node {
   return checkerProgrammer_binary(x, shimast.KindAmpersandAmpersandToken, y, emit)
-}
-
-// checkerProgrammer_collection_recursive reports whether the analyzed type
-// graph carries any recursive component — the precondition for a runtime
-// value to drive the generated function call graph into a cycle.
-func checkerProgrammer_collection_recursive(collection *nativemetadata.MetadataCollection) bool {
-  for _, object := range collection.Objects() {
-    if object.Recursive {
-      return true
-    }
-  }
-  for _, array := range collection.Arrays() {
-    if array.Recursive {
-      return true
-    }
-  }
-  for _, tuple := range collection.Tuples() {
-    if tuple.Recursive {
-      return true
-    }
-  }
-  return false
 }
 
 // checkerProgrammer_visit_guard wraps a recursive function body so a value

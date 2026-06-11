@@ -3,6 +3,7 @@ package internal
 import (
   "fmt"
   "sort"
+  "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
@@ -262,6 +263,177 @@ type FeatureProgrammer_ParameterConfig struct {
 // closure is nil for features that do not participate in visit tracking.
 func featureProgrammer_visited(config FeatureProgrammer_IConfig) bool {
   return config.Visited != nil && config.Visited()
+}
+
+// VisitKey names a recursive function's `_vctx` slot after the function
+// itself (its prefixed name minus the leading underscore, e.g. "io0", "co2").
+// Composed features share one context object — clone embeds is-checks for
+// union discrimination, for instance — so the slot must carry the feature
+// prefix or two families would clash on the same key with different
+// container kinds.
+func (featureProgrammerNamespace) VisitKey(prefix string, kind string, index int) string {
+  return strings.TrimPrefix(fmt.Sprintf("%s%s%d", prefix, kind, index), "_")
+}
+
+// CollectionRecursive reports whether the analyzed type graph carries any
+// recursive component — the precondition for a runtime value to drive the
+// generated function call graph into a cycle (issue #1820).
+func (featureProgrammerNamespace) CollectionRecursive(collection *nativemetadata.MetadataCollection) bool {
+  for _, object := range collection.Objects() {
+    if object.Recursive {
+      return true
+    }
+  }
+  for _, array := range collection.Arrays() {
+    if array.Recursive {
+      return true
+    }
+  }
+  for _, tuple := range collection.Tuples() {
+    if tuple.Recursive {
+      return true
+    }
+  }
+  return false
+}
+
+// VisitGuardSkip wraps a recursive in-place walker (prune) so a revisited
+// object is simply skipped: pruning is idempotent per instance, which makes
+// the skip both the cycle breaker and the DAG deduplication. Handles the
+// block bodies the prune joiner produces as well as expression bodies.
+func (featureProgrammerNamespace) VisitGuardSkip(key string, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  slot := "_vctx." + key
+  has := f.NewIdentifier("(" + slot + " || (" + slot + " = new WeakSet())).has(input)")
+  add := f.NewIdentifier(slot + ".add(input)")
+  if body != nil && body.Kind == shimast.KindBlock {
+    statements := []*shimast.Node{
+      f.NewIfStatement(has, f.NewReturnStatement(nil), nil),
+      f.NewExpressionStatement(add),
+    }
+    statements = append(statements, body.Statements()...)
+    return f.NewBlock(f.NewNodeList(statements), true)
+  }
+  return nativefactories.ExpressionFactory.Conditional(
+    has,
+    f.NewIdentifier("undefined"),
+    f.NewParenthesizedExpression(
+      f.NewBinaryExpression(
+        nil,
+        add,
+        nil,
+        f.NewToken(shimast.KindCommaToken),
+        f.NewParenthesizedExpression(body),
+      ),
+    ),
+    emit,
+  )
+}
+
+// VisitGuardSerialize wraps a recursive serializer function (json.stringify,
+// protobuf.encode) with on-stack cycle detection: JSON and protobuf cannot
+// represent cycles, so a value met again while still being serialized raises
+// the feature's thrower instead of overflowing the stack. Unlike the checker
+// and rebuilder guards the entry is removed after the body finishes either
+// way, because re-serializing a DAG alias at another position is legal and
+// must keep working.
+func (featureProgrammerNamespace) VisitGuardSerialize(key string, thrower *shimast.Node, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  slot := "_vctx." + key
+  finisher := f.NewArrowFunction(
+    nil,
+    nil,
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("_vout", nativefactories.TypeFactory.Keyword("any"), nil),
+    }),
+    nil,
+    nil,
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewParenthesizedExpression(
+      f.NewBinaryExpression(
+        nil,
+        f.NewIdentifier(slot+".delete(input)"),
+        nil,
+        f.NewToken(shimast.KindCommaToken),
+        f.NewIdentifier("_vout"),
+      ),
+    ),
+  )
+  return nativefactories.ExpressionFactory.Conditional(
+    f.NewIdentifier("("+slot+" || ("+slot+" = new WeakSet())).has(input)"),
+    thrower,
+    f.NewParenthesizedExpression(
+      f.NewBinaryExpression(
+        nil,
+        f.NewIdentifier(slot+".add(input)"),
+        nil,
+        f.NewToken(shimast.KindCommaToken),
+        f.NewCallExpression(
+          f.NewParenthesizedExpression(finisher),
+          nil,
+          nil,
+          f.NewNodeList([]*shimast.Node{body}),
+          shimast.NodeFlagsNone,
+        ),
+      ),
+    ),
+    emit,
+  )
+}
+
+// VisitGuardRebuild wraps a recursive rebuilder function (clone, notations)
+// so a revisited source object returns the output instance allocated on its
+// first visit — reproducing runtime cycles and deduplicating DAG aliases.
+// The output container registers in the WeakMap BEFORE the body evaluates,
+// so recursive references inside the body resolve to the same (still
+// filling) instance, exactly like the structured-clone algorithm.
+func (featureProgrammerNamespace) VisitGuardRebuild(key string, array bool, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  slot := "_vctx." + key
+  allocator := f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
+  if array {
+    allocator = f.NewArrayLiteralExpression(f.NewNodeList(nil), false)
+  }
+  filler := f.NewArrowFunction(
+    nil,
+    nil,
+    f.NewNodeList([]*shimast.Node{
+      nativefactories.IdentifierFactory.Parameter("_vout", nativefactories.TypeFactory.Keyword("any"), nil),
+    }),
+    nil,
+    nil,
+    f.NewToken(shimast.KindEqualsGreaterThanToken),
+    f.NewParenthesizedExpression(
+      f.NewBinaryExpression(
+        nil,
+        f.NewIdentifier(slot+".set(input, _vout)"),
+        nil,
+        f.NewToken(shimast.KindCommaToken),
+        f.NewCallExpression(
+          f.NewIdentifier("Object.assign"),
+          nil,
+          nil,
+          f.NewNodeList([]*shimast.Node{
+            f.NewIdentifier("_vout"),
+            body,
+          }),
+          shimast.NodeFlagsNone,
+        ),
+      ),
+    ),
+  )
+  return nativefactories.ExpressionFactory.Conditional(
+    f.NewIdentifier("("+slot+" || ("+slot+" = new WeakMap())).has(input)"),
+    f.NewIdentifier(slot+".get(input)"),
+    f.NewCallExpression(
+      f.NewParenthesizedExpression(filler),
+      nil,
+      nil,
+      f.NewNodeList([]*shimast.Node{allocator}),
+      shimast.NodeFlagsNone,
+    ),
+    emit,
+  )
 }
 
 var featureProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -661,7 +833,7 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
     })
     if object.Recursive && config.VisitGuard != nil && featureProgrammer_visited(config) {
       body = config.VisitGuard(FeatureProgrammer_VisitGuardProps{
-        Key:   fmt.Sprintf("o%d", object.Index),
+        Key:   FeatureProgrammer.VisitKey(config.Prefix, "o", object.Index),
         Input: input,
         Body:  body,
       })

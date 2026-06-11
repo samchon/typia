@@ -54,6 +54,9 @@ func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgramme
     Components: collection,
     Type:       props.Type,
   })
+  if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
+    props.Functor.SetVisited(true)
+  }
 
   callEncoder := func(writer string, factory *shimast.Node) *shimast.Node {
     return nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
@@ -163,6 +166,20 @@ func protobufEncodeProgrammer_write_encoder(props protobufEncodeProgrammer_write
     }, props.Context.Emit))
   }
   statements := []*shimast.Node{}
+  if props.Functor.Visited() {
+    // The encoder closure is created per invocation (once for the sizer
+    // pass, once for the writer pass), so a body-local visit context covers
+    // both the embedded is-functions — which thread it as their `_vctx`
+    // parameter — and the protobuf object guards, without changing any of
+    // the encoder's own function signatures.
+    statements = append(statements, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
+      Name: "_vctx",
+      Value: f.NewAsExpression(
+        f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
+        nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
+      ),
+    }, props.Context.Emit))
+  }
   statements = append(statements, props.Functor.DeclareUnions()...)
   statements = append(statements, functors...)
   statements = append(statements, nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
@@ -224,6 +241,26 @@ type protobufEncodeProgrammer_writeObjectFunctionProps struct {
 func protobufEncodeProgrammer_write_object_function(props protobufEncodeProgrammer_writeObjectFunctionProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
   body := []*shimast.Node{}
+  guarded := props.Object.Recursive && props.Functor.Visited()
+  if guarded {
+    // On-stack cycle detection: protobuf cannot represent circular
+    // references, while re-encoding a DAG alias at another position is
+    // legal — hence add on entry, delete on exit, throw on revisit.
+    slot := "_vctx." + nativeinternal.FeatureProgrammer.VisitKey(protobufEncodeProgrammer_PREFIX, "o", props.Object.Index)
+    body = append(body,
+      f.NewIfStatement(
+        f.NewIdentifier("("+slot+" || ("+slot+" = new WeakSet())).has(input)"),
+        protobufEncodeProgrammer_create_throw_error(protobufEncodeProgrammer_throwProps{
+          Context:  props.Context,
+          Functor:  props.Functor,
+          Expected: "non-circular reference",
+          Input:    f.NewIdentifier("input"),
+        }),
+        nil,
+      ),
+      f.NewExpressionStatement(f.NewIdentifier(slot+".add(input)")),
+    )
+  }
   for _, property := range props.Object.Properties {
     if property.Of_protobuf_ == nil {
       nativefactories.ProtobufFactory.EmplaceObject(props.Object)
@@ -245,6 +282,10 @@ func protobufEncodeProgrammer_write_object_function(props protobufEncodeProgramm
       f.NewIdentifier("// property "+fmt.Sprintf("%q", key)+": "+property.Value.GetName()),
     ))
     body = append(body, block.Statements()...)
+  }
+  if guarded {
+    slot := "_vctx." + nativeinternal.FeatureProgrammer.VisitKey(protobufEncodeProgrammer_PREFIX, "o", props.Object.Index)
+    body = append(body, f.NewExpressionStatement(f.NewIdentifier(slot+".delete(input)")))
   }
   return f.NewArrowFunction(
     nil,

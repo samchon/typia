@@ -138,29 +138,34 @@ func notationGeneralProgrammer_write_array_functions(props struct {
         nil,
         nil,
         f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         })),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        notationGeneralProgrammer_decode_array_inline(notationGeneralProgrammer_decodeArrayProps{
-          Context: props.Context,
-          Config:  props.Config,
-          Functor: props.Functor,
-          Input:   f.NewIdentifier("input"),
-          Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
-            Type: typ,
-            Tags: [][]schemametadata.IMetadataTypeTag{},
+        nativeinternal.FeatureProgrammer.VisitGuardRebuild(
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i),
+          true,
+          notationGeneralProgrammer_decode_array_inline(notationGeneralProgrammer_decodeArrayProps{
+            Context: props.Context,
+            Config:  props.Config,
+            Functor: props.Functor,
+            Input:   f.NewIdentifier("input"),
+            Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
+              Type: typ,
+              Tags: [][]schemametadata.IMetadataTypeTag{},
+            }),
+            Explore: nativeinternal.FeatureProgrammer_IExplore{
+              Tracable: props.Config.Trace,
+              Source:   "function",
+              From:     "array",
+              Postfix:  "",
+            },
           }),
-          Explore: nativeinternal.FeatureProgrammer_IExplore{
-            Tracable: props.Config.Trace,
-            Source:   "function",
-            From:     "array",
-            Postfix:  "",
-          },
-        }),
+          props.Context.Emit,
+        ),
       ),
     }, props.Context.Emit))
   }
@@ -186,27 +191,32 @@ func notationGeneralProgrammer_write_tuple_functions(props struct {
         nil,
         nil,
         f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         })),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        notationGeneralProgrammer_decode_tuple_inline(notationGeneralProgrammer_decodeTupleInlineProps{
-          Context: props.Context,
-          Rename:  props.Rename,
-          Config:  props.Config,
-          Functor: props.Functor,
-          Input:   f.NewIdentifier("input"),
-          Tuple:   tuple,
-          Explore: nativeinternal.FeatureProgrammer_IExplore{
-            Tracable: props.Config.Trace,
-            Source:   "function",
-            From:     "array",
-            Postfix:  "",
-          },
-        }),
+        nativeinternal.FeatureProgrammer.VisitGuardRebuild(
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i),
+          true,
+          notationGeneralProgrammer_decode_tuple_inline(notationGeneralProgrammer_decodeTupleInlineProps{
+            Context: props.Context,
+            Rename:  props.Rename,
+            Config:  props.Config,
+            Functor: props.Functor,
+            Input:   f.NewIdentifier("input"),
+            Tuple:   tuple,
+            Explore: nativeinternal.FeatureProgrammer_IExplore{
+              Tracable: props.Config.Trace,
+              Source:   "function",
+              From:     "array",
+              Postfix:  "",
+            },
+          }),
+          props.Context.Emit,
+        ),
       ),
     }, props.Context.Emit))
   }
@@ -435,7 +445,7 @@ func notationGeneralProgrammer_decode_object(props struct {
   Explore nativeinternal.FeatureProgrammer_IExplore
 }) *shimast.Node {
   return nativeinternal.FeatureProgrammer.Decode_object(nativeinternal.FeatureProgrammer_DecodeObjectProps{
-    Config:  nativeinternal.FeatureProgrammer_DecodeObjectConfig{Trace: false, Path: false, Prefix: notationGeneralProgrammer_PREFIX},
+    Config:  nativeinternal.FeatureProgrammer_DecodeObjectConfig{Trace: false, Path: false, Prefix: notationGeneralProgrammer_PREFIX, Visited: props.Functor.Visited()},
     Functor: props.Functor,
     Object:  props.Object,
     Input:   props.Input,
@@ -464,7 +474,7 @@ func notationGeneralProgrammer_decode_array(props notationGeneralProgrammer_deco
       nil,
       nil,
       f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: notationGeneralProgrammer_explore_with(props.Explore, "function", "array"),
         Input:   props.Input,
       })),
@@ -521,7 +531,7 @@ func notationGeneralProgrammer_decode_tuple(props notationGeneralProgrammer_deco
       nil,
       nil,
       f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: notationGeneralProgrammer_explore_with(props.Explore, "function", props.Explore.From),
         Input:   props.Input,
       })),
@@ -812,7 +822,7 @@ func notationGeneralProgrammer_explore_objects(props notationGeneralProgrammer_e
     nil,
     nil,
     f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
       Explore: props.Explore,
       Input:   props.Input,
     })),
@@ -929,7 +939,7 @@ func notationGeneralProgrammer_explore_array_like_union_types[T interface {
         Input      *shimast.Node
       }{
         Parameters: nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         }),
@@ -940,7 +950,7 @@ func notationGeneralProgrammer_explore_array_like_union_types[T interface {
     nil,
     nil,
     f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
       Explore: arrayExplore,
       Input:   props.Input,
     })),
@@ -972,6 +982,10 @@ func notationGeneralProgrammer_configure(props struct {
     Trace:       false,
     Path:        false,
     Initializer: notationGeneralProgrammer_initializer,
+    Visited:     props.Functor.Visited,
+    VisitGuard: func(next nativeinternal.FeatureProgrammer_VisitGuardProps) *shimast.Node {
+      return nativeinternal.FeatureProgrammer.VisitGuardRebuild(next.Key, false, next.Body, props.Context.Emit)
+    },
     Decoder: func(next nativeinternal.FeatureProgrammer_DecoderProps) *shimast.Node {
       return notationGeneralProgrammer_decode(struct {
         Config   nativeinternal.FeatureProgrammer_IConfig
@@ -1096,6 +1110,9 @@ func notationGeneralProgrammer_initializer(props nativeinternal.FeatureProgramme
       Code:   props.Functor.Method,
       Errors: notationGeneralProgrammer_errors(result.Errors),
     }))
+  }
+  if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
+    props.Functor.SetVisited(true)
   }
   return nativeinternal.FeatureProgrammer_InitializerOutput{
     Collection: collection,
