@@ -59,10 +59,10 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
     return props.Expression.AsNode()
   }
   location, _ := filepath.Abs(sourceFile.FileName())
-  if callExpressionTransformer_isTarget(location) == false {
+  module, ok := callExpressionTransformer_targetModule(location)
+  if ok == false {
     return props.Expression.AsNode()
   }
-  module := strings.Split(filepath.Base(location), ".")[0]
   typ := props.Context.Checker.GetTypeAtLocation(declaration)
   if typ == nil || typ.Symbol() == nil {
     return props.Expression.AsNode()
@@ -103,14 +103,15 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
   return result
 }
 
-func callExpressionTransformer_isTarget(location string) bool {
+func callExpressionTransformer_targetModule(location string) (string, bool) {
+  location = filepath.ToSlash(location)
   for file := range callExpressionTransformer_FUNCTORS() {
-    if strings.Contains(location, filepath.Join("typia", "lib", file+".d.ts")) ||
-      strings.Contains(location, filepath.Join("typia", "src", file+".ts")) {
-      return true
+    if strings.HasSuffix(location, "/typia/lib/"+file+".d.ts") ||
+      strings.HasSuffix(location, "/typia/src/"+file+".ts") {
+      return file, true
     }
   }
-  return false
+  return "", false
 }
 
 func callExpressionTransformer_sourceFile(node *shimast.Node) *shimast.SourceFile {

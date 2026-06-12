@@ -1,11 +1,7 @@
 package misc
 
 import (
-  "strings"
-
   shimast "github.com/microsoft/typescript-go/shim/ast"
-  shimchecker "github.com/microsoft/typescript-go/shim/checker"
-  shimscanner "github.com/microsoft/typescript-go/shim/scanner"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativemiscprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/misc"
   nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
@@ -29,12 +25,8 @@ func miscEqualTransformer_scalar(props nativeinternal.ITransformProps, method st
   }
 
   typ := props.Context.Checker.GetTypeAtLocation(props.Expression.Arguments.Nodes[0])
-  node := props.Expression.Arguments.Nodes[0]
-  generic := false
   if props.Expression.TypeArguments != nil && len(props.Expression.TypeArguments.Nodes) != 0 {
-    node = props.Expression.TypeArguments.Nodes[0]
-    typ = props.Context.Checker.GetTypeFromTypeNode(node)
-    generic = true
+    typ = props.Context.Checker.GetTypeFromTypeNode(props.Expression.TypeArguments.Nodes[0])
   }
   if typ != nil && typ.IsTypeParameter() {
     panic(nativeinternal.NewTransformerError(nativeinternal.TransformerError_IProps{
@@ -43,13 +35,11 @@ func miscEqualTransformer_scalar(props nativeinternal.ITransformProps, method st
     }))
   }
 
-  name := miscEqualTransformer_typeName(props.Context.Checker, typ, node, generic)
   return f.NewCallExpression(
     nativemiscprogrammers.MiscEqualProgrammer.Write(nativemiscprogrammers.MiscEqualProgrammer_IProps{
       Context: props.Context,
       Modulo:  props.Modulo,
       Type:    typ,
-      Name:    &name,
       Config:  nativemiscprogrammers.MiscEqualProgrammer_IConfig{Cover: cover},
     }),
     nil,
@@ -74,29 +64,10 @@ func miscEqualTransformer_factory(props nativeinternal.ITransformProps, method s
       Message: "non-specified generic argument.",
     }))
   }
-  name := miscEqualTransformer_nodeText(node)
   return nativemiscprogrammers.MiscEqualProgrammer.Write(nativemiscprogrammers.MiscEqualProgrammer_IProps{
     Context: props.Context,
     Modulo:  props.Modulo,
     Type:    typ,
-    Name:    &name,
     Config:  nativemiscprogrammers.MiscEqualProgrammer_IConfig{Cover: cover},
   })
-}
-
-func miscEqualTransformer_typeName(checker *shimchecker.Checker, typ *shimchecker.Type, node *shimast.Node, generic bool) string {
-  if generic {
-    return miscEqualTransformer_nodeText(node)
-  }
-  if checker == nil || typ == nil {
-    return ""
-  }
-  return checker.TypeToString(typ)
-}
-
-func miscEqualTransformer_nodeText(node *shimast.Node) string {
-  if node == nil {
-    return ""
-  }
-  return strings.TrimSpace(shimscanner.GetTextOfNode(node))
 }

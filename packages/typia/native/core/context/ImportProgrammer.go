@@ -12,12 +12,11 @@ type ImportProgrammer struct {
   assets_  map[string]*importProgrammer_asset
   order_   []string
   options_ ImportProgrammer_IOptions
-  // emit_은 emit EmitContext다. 설정되면(emit 단계 / AST 통합 모드) import는
-  // emit_.Factory로 만든 namespace import로 나가고 모든 참조는
-  // NewGeneratedNameForNode를 통한 member access라, tsgo의 builtin
-  // module-transform이 손수 짠 commonJS 네이밍 없이 alias한다
-  // (const _x_1 = require(...); _x_1.foo). nil이면(legacy 텍스트 emit 모드)
-  // 원래의 named/default/namespace import와 bare-identifier 참조를 만든다.
+  // emit_ switches import emission to AST-integration mode. When set, imports
+  // become namespace imports created by emit_.Factory, and every reference is a
+  // member access on NewGeneratedNameForNode so tsgo's module transform owns the
+  // CommonJS aliasing. Nil keeps the legacy text-emission path with named,
+  // default, namespace imports and bare identifier references.
   emit_ *shimprinter.EmitContext
 }
 
