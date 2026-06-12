@@ -4,10 +4,10 @@
 package features
 
 import (
-	"testing"
+  "testing"
 
-	nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
-	nativetransform "github.com/samchon/typia/packages/typia/native/transform/internal"
+  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
+  nativetransform "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
 // TestFeatureTransformerEntryCoverage exercises root feature transformers.
@@ -22,36 +22,38 @@ import (
 // 3. Exercise random and create-random generic guard paths.
 // 4. Recover expected transformer panics so every entrypoint can be visited.
 func TestFeatureTransformerEntryCoverage(t *testing.T) {
-	expectFeaturePanic(t, func() { RandomTransformer.Transform(nativetransform.ITransformProps{}) })
-	expectFeaturePanic(t, func() { CreateRandomTransformer.Transform(nativetransform.ITransformProps{}) })
-	for _, config := range []nativeprogrammers.AssertProgrammer_IConfig{
-		{},
-		{Guard: true},
-		{Equals: true},
-		{Guard: true, Equals: true},
-	} {
-		config := config
-		expectFeaturePanic(t, func() { AssertTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-		expectFeaturePanic(t, func() { CreateAssertTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-	}
-	for _, config := range []nativeprogrammers.IsProgrammer_IConfig{{}, {Equals: true}} {
-		config := config
-		expectFeaturePanic(t, func() { IsTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-		expectFeaturePanic(t, func() { CreateIsTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-	}
-	for _, config := range []nativeprogrammers.ValidateProgrammer_IConfig{{}, {Equals: true}} {
-		config := config
-		expectFeaturePanic(t, func() { ValidateTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-		expectFeaturePanic(t, func() { CreateValidateTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-	}
+  expectFeaturePanic(t, func() { RandomTransformer.Transform(nativetransform.ITransformProps{}) })
+  expectFeaturePanic(t, func() { CreateRandomTransformer.Transform(nativetransform.ITransformProps{}) })
+  for _, config := range []nativeprogrammers.AssertProgrammer_IConfig{
+    {},
+    {Guard: true},
+    {Equals: true},
+    {Guard: true, Equals: true},
+  } {
+    config := config
+    expectFeaturePanic(t, func() { AssertTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { CreateAssertTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+  }
+  for _, config := range []nativeprogrammers.IsProgrammer_IConfig{{}, {Equals: true}} {
+    config := config
+    expectFeaturePanic(t, func() { IsTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { CreateIsTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { IsLikelyTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { CreateIsLikelyTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+  }
+  for _, config := range []nativeprogrammers.ValidateProgrammer_IConfig{{}, {Equals: true}} {
+    config := config
+    expectFeaturePanic(t, func() { ValidateTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { CreateValidateTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+  }
 }
 
 func expectFeaturePanic(t *testing.T, run func()) {
-	t.Helper()
-	defer func() {
-		if recover() == nil {
-			t.Fatal("expected transformer panic")
-		}
-	}()
-	run()
+  t.Helper()
+  defer func() {
+    if recover() == nil {
+      t.Fatal("expected transformer panic")
+    }
+  }()
+  run()
 }
