@@ -55,6 +55,7 @@ type importProgrammer_asset struct {
   Default   *ImportProgrammer_IDefault
   namespace *ImportProgrammer_INamespace
   instances map[string]ImportProgrammer_IInstance
+  textRefs  map[string]struct{}
   order     []string
 }
 
@@ -183,11 +184,15 @@ func (p *ImportProgrammer) GetInternalText(name string) string {
     name = "_" + name
   }
   alias := p.alias(name)
-  p.Instance(ImportProgrammer_IInstance{
+  props := ImportProgrammer_IInstance{
     File:  "typia/lib/internal/" + name,
     Name:  name,
     Alias: &alias,
-  })
+  }
+  p.Instance(props)
+  if p.emit_ != nil {
+    p.take(props.File).textRefs[alias] = struct{}{}
+  }
   return alias
 }
 
@@ -223,6 +228,26 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
         modSpec,
         nil,
       ))
+      for _, alias := range asset.order {
+        if _, ok := asset.textRefs[alias]; !ok {
+          continue
+        }
+        instance := asset.instances[alias]
+        statements = append(statements, p.emit_.Factory.NewVariableStatement(
+          nil,
+          p.emit_.Factory.NewVariableDeclarationList(
+            p.emit_.Factory.NewNodeList([]*shimast.Node{
+              p.emit_.Factory.NewVariableDeclaration(
+                p.emit_.Factory.NewIdentifier(alias),
+                nil,
+                nil,
+                p.member(asset, instance.Name),
+              ),
+            }),
+            shimast.NodeFlagsConst,
+          ),
+        ))
+      }
       continue
     }
     if asset.namespace != nil {
@@ -317,6 +342,7 @@ func (p *ImportProgrammer) take(file string) *importProgrammer_asset {
   asset := &importProgrammer_asset{
     file:      file,
     instances: map[string]ImportProgrammer_IInstance{},
+    textRefs:  map[string]struct{}{},
     order:     []string{},
   }
   p.assets_[file] = asset
