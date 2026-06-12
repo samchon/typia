@@ -51,6 +51,9 @@ func tryCallSite(file *shimast.SourceFile, checker *shimchecker.Checker, node *s
   if checker == nil {
     return CallSite{}, false
   }
+  if node.Kind != shimast.KindCallExpression {
+    return CallSite{}, false
+  }
   call := node.AsCallExpression()
   if call == nil {
     return CallSite{}, false
@@ -114,8 +117,10 @@ func matchTypiaModule(location string) (string, bool) {
 
 func callSiteMethodName(checker *shimchecker.Checker, declaration *shimast.Node, call *shimast.CallExpression) string {
   if name := declaration.Name(); name != nil {
-    if symbol := checker.GetSymbolAtLocation(name); symbol != nil && symbol.Name != "" {
-      return symbol.Name
+    if checker != nil {
+      if symbol := checker.GetSymbolAtLocation(name); symbol != nil && symbol.Name != "" {
+        return symbol.Name
+      }
     }
     if name.Kind == shimast.KindIdentifier {
       if id := name.AsIdentifier(); id != nil {

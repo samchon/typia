@@ -19,5 +19,8 @@ func ModuloMethodText(modulo *shimast.Node) string {
   if modulo == nil {
     return ""
   }
+  if modulo.Kind == shimast.KindIdentifier || shimast.IsStringLiteral(modulo) {
+    return modulo.Text()
+  }
   return strings.TrimSpace(shimscanner.GetTextOfNode(modulo))
 }
