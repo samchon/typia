@@ -4,6 +4,7 @@ import (
   "fmt"
   "reflect"
   "sort"
+  "strconv"
   "strings"
 )
 
@@ -59,6 +60,8 @@ type MetadataSchema struct {
   Fixed_                       *int
   Boolean_literal_intersected_ *bool
   is_sequence_                 *bool
+  sole_literal_cached_         bool
+  sole_literal_                *string
 }
 
 func MetadataSchema_create(props MetadataSchema) *MetadataSchema {
@@ -120,6 +123,274 @@ func (obj *MetadataSchema) ShallowClone() *MetadataSchema {
   }
   clone := *obj
   return &clone
+}
+
+func (obj *MetadataSchema) Clone() *MetadataSchema {
+  return metadataSchema_clone(obj, map[*MetadataSchema]*MetadataSchema{})
+}
+
+func metadataSchema_clone(obj *MetadataSchema, visited map[*MetadataSchema]*MetadataSchema) *MetadataSchema {
+  if obj == nil {
+    return nil
+  }
+  if prev, ok := visited[obj]; ok {
+    return prev
+  }
+  clone := MetadataSchema{
+    Any:                          obj.Any,
+    Required:                     obj.Required,
+    Optional:                     obj.Optional,
+    Nullable:                     obj.Nullable,
+    parent_resolved_:             obj.parent_resolved_,
+    Union_index:                  metadataSchema_cloneInt(obj.Union_index),
+    Fixed_:                       metadataSchema_cloneInt(obj.Fixed_),
+    Boolean_literal_intersected_: metadataSchema_cloneBool(obj.Boolean_literal_intersected_),
+  }
+  visited[obj] = &clone
+  if obj.Escaped != nil {
+    clone.Escaped = MetadataEscaped_create(MetadataEscaped{
+      Original: metadataSchema_clone(obj.Escaped.Original, visited),
+      Returns:  metadataSchema_clone(obj.Escaped.Returns, visited),
+    })
+  }
+  clone.Rest = metadataSchema_clone(obj.Rest, visited)
+  clone.Atomics = metadataSchema_cloneAtomics(obj.Atomics)
+  clone.Constants = metadataSchema_cloneConstants(obj.Constants)
+  clone.Templates = metadataSchema_cloneTemplates(obj.Templates, visited)
+  clone.Aliases = metadataSchema_cloneAliases(obj.Aliases)
+  clone.Arrays = metadataSchema_cloneArrays(obj.Arrays)
+  clone.Tuples = metadataSchema_cloneTuples(obj.Tuples)
+  clone.Objects = metadataSchema_cloneObjects(obj.Objects)
+  clone.Functions = metadataSchema_cloneFunctions(obj.Functions, visited)
+  clone.Natives = metadataSchema_cloneNatives(obj.Natives)
+  clone.Sets = metadataSchema_cloneSets(obj.Sets, visited)
+  clone.Maps = metadataSchema_cloneMaps(obj.Maps, visited)
+  return &clone
+}
+
+func metadataSchema_cloneAtomics(input []*MetadataAtomic) []*MetadataAtomic {
+  output := make([]*MetadataAtomic, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataAtomic_create(MetadataAtomic{
+      Type: elem.Type,
+      Tags: cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneConstants(input []*MetadataConstant) []*MetadataConstant {
+  output := make([]*MetadataConstant, 0, len(input))
+  for _, constant := range input {
+    if constant == nil {
+      output = append(output, nil)
+      continue
+    }
+    values := make([]*MetadataConstantValue, 0, len(constant.Values))
+    for _, value := range constant.Values {
+      if value == nil {
+        values = append(values, nil)
+        continue
+      }
+      values = append(values, MetadataConstantValue_create(MetadataConstantValue{
+        Value:       value.Value,
+        Tags:        cloneTagMatrix(value.Tags),
+        Description: value.Description,
+        JsDocTags:   metadataSchema_cloneJsDocTags(value.JsDocTags),
+      }))
+    }
+    output = append(output, MetadataConstant_create(MetadataConstant{
+      Type:   constant.Type,
+      Values: values,
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneTemplates(input []*MetadataTemplate, visited map[*MetadataSchema]*MetadataSchema) []*MetadataTemplate {
+  output := make([]*MetadataTemplate, 0, len(input))
+  for _, template := range input {
+    if template == nil {
+      output = append(output, nil)
+      continue
+    }
+    row := make([]*MetadataSchema, 0, len(template.Row))
+    for _, child := range template.Row {
+      row = append(row, metadataSchema_clone(child, visited))
+    }
+    output = append(output, &MetadataTemplate{
+      Row:  row,
+      Tags: cloneTagMatrix(template.Tags),
+    })
+  }
+  return output
+}
+
+func metadataSchema_cloneArrays(input []*MetadataArray) []*MetadataArray {
+  output := make([]*MetadataArray, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataArray_create(MetadataArray{
+      Type: elem.Type,
+      Tags: cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneTuples(input []*MetadataTuple) []*MetadataTuple {
+  output := make([]*MetadataTuple, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataTuple_create(MetadataTuple{
+      Type: elem.Type,
+      Tags: cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneObjects(input []*MetadataObject) []*MetadataObject {
+  output := make([]*MetadataObject, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataObject_create(MetadataObject{
+      Type: elem.Type,
+      Tags: cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneAliases(input []*MetadataAlias) []*MetadataAlias {
+  output := make([]*MetadataAlias, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataAlias_create(MetadataAlias{
+      Type: elem.Type,
+      Tags: cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneFunctions(input []*MetadataFunction, visited map[*MetadataSchema]*MetadataSchema) []*MetadataFunction {
+  output := make([]*MetadataFunction, 0, len(input))
+  for _, fn := range input {
+    if fn == nil {
+      output = append(output, nil)
+      continue
+    }
+    parameters := make([]*MetadataParameter, 0, len(fn.Parameters))
+    for _, parameter := range fn.Parameters {
+      if parameter == nil {
+        parameters = append(parameters, nil)
+        continue
+      }
+      parameters = append(parameters, MetadataParameter_create(MetadataParameter{
+        Name:        parameter.Name,
+        Type:        metadataSchema_clone(parameter.Type, visited),
+        Description: parameter.Description,
+        JsDocTags:   metadataSchema_cloneJsDocTags(parameter.JsDocTags),
+        TsType:      parameter.TsType,
+      }))
+    }
+    output = append(output, MetadataFunction_create(MetadataFunction{
+      Parameters: parameters,
+      Output:     metadataSchema_clone(fn.Output, visited),
+      Async:      fn.Async,
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneNatives(input []*MetadataNative) []*MetadataNative {
+  output := make([]*MetadataNative, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataNative_create(MetadataNative{
+      Name: elem.Name,
+      Tags: cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneSets(input []*MetadataSet, visited map[*MetadataSchema]*MetadataSchema) []*MetadataSet {
+  output := make([]*MetadataSet, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataSet_create(MetadataSet{
+      Value: metadataSchema_clone(elem.Value, visited),
+      Tags:  cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneMaps(input []*MetadataMap, visited map[*MetadataSchema]*MetadataSchema) []*MetadataMap {
+  output := make([]*MetadataMap, 0, len(input))
+  for _, elem := range input {
+    if elem == nil {
+      output = append(output, nil)
+      continue
+    }
+    output = append(output, MetadataMap_create(MetadataMap{
+      Key:   metadataSchema_clone(elem.Key, visited),
+      Value: metadataSchema_clone(elem.Value, visited),
+      Tags:  cloneTagMatrix(elem.Tags),
+    }))
+  }
+  return output
+}
+
+func metadataSchema_cloneInt(input *int) *int {
+  if input == nil {
+    return nil
+  }
+  output := *input
+  return &output
+}
+
+func metadataSchema_cloneBool(input *bool) *bool {
+  if input == nil {
+    return nil
+  }
+  output := *input
+  return &output
+}
+
+func metadataSchema_cloneJsDocTags(input []IJsDocTagInfo) []IJsDocTagInfo {
+  output := make([]IJsDocTagInfo, 0, len(input))
+  for _, tag := range input {
+    output = append(output, IJsDocTagInfo{
+      Name: tag.Name,
+      Text: append([]IJsDocTagInfo_IText{}, tag.Text...),
+    })
+  }
+  return output
 }
 
 func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
@@ -411,12 +682,29 @@ func (obj *MetadataSchema) IsUnionBucket() bool {
 }
 
 func (obj *MetadataSchema) GetSoleLiteral() *string {
-  if obj.Size() == 1 &&
+  if obj.sole_literal_cached_ {
+    return obj.sole_literal_
+  }
+  obj.sole_literal_cached_ = true
+  if obj.Any == false &&
+    obj.Escaped == nil &&
+    obj.Rest == nil &&
+    len(obj.Templates) == 0 &&
+    len(obj.Atomics) == 0 &&
+    len(obj.Arrays) == 0 &&
+    len(obj.Tuples) == 0 &&
+    len(obj.Objects) == 0 &&
+    len(obj.Aliases) == 0 &&
+    len(obj.Natives) == 0 &&
+    len(obj.Sets) == 0 &&
+    len(obj.Maps) == 0 &&
+    len(obj.Functions) == 0 &&
     len(obj.Constants) == 1 &&
     obj.Constants[0].Type == "string" &&
     len(obj.Constants[0].Values) == 1 {
     if value, ok := obj.Constants[0].Values[0].Value.(string); ok {
-      return &value
+      obj.sole_literal_ = &value
+      return obj.sole_literal_
     }
   }
   return nil
@@ -473,7 +761,7 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
     return true
   }
   // Escaped buckets may coexist with primitive buckets, so an escaped match is
-  // sufficient but not necessary — fall through to the remaining comparisons
+  // sufficient but not necessary. Fall through to the remaining comparisons
   // instead of returning their result.
   if x.Escaped != nil && y.Escaped != nil &&
     (MetadataSchema_intersects(x.Escaped.Original, y.Escaped.Original) ||
@@ -504,13 +792,12 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
     }
     values := map[string]struct{}{}
     for _, v := range constant.Values {
-      values[fmt.Sprint(v.Value)] = struct{}{}
+      values[metadataSchema_constantValueKey(v.Value)] = struct{}{}
     }
     for _, v := range opposite.Values {
-      values[fmt.Sprint(v.Value)] = struct{}{}
-    }
-    if len(values) != len(constant.Values)+len(opposite.Values) {
-      return true
+      if _, ok := values[metadataSchema_constantValueKey(v.Value)]; ok {
+        return true
+      }
     }
   }
   if len(x.Templates) != 0 && anyOf(y.Atomics, func(ya *MetadataAtomic) bool { return ya.Type == "string" }) {
@@ -529,6 +816,41 @@ func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
     return true
   }
   return false
+}
+
+func metadataSchema_constantValueKey(value any) string {
+  switch v := value.(type) {
+  case string:
+    return v
+  case bool:
+    return strconv.FormatBool(v)
+  case int:
+    return strconv.Itoa(v)
+  case int8:
+    return strconv.FormatInt(int64(v), 10)
+  case int16:
+    return strconv.FormatInt(int64(v), 10)
+  case int32:
+    return strconv.FormatInt(int64(v), 10)
+  case int64:
+    return strconv.FormatInt(v, 10)
+  case uint:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint8:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint16:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint32:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint64:
+    return strconv.FormatUint(v, 10)
+  case float32:
+    return strconv.FormatFloat(float64(v), 'g', -1, 32)
+  case float64:
+    return strconv.FormatFloat(v, 'g', -1, 64)
+  default:
+    return fmt.Sprint(value)
+  }
 }
 
 func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped ...any) bool {

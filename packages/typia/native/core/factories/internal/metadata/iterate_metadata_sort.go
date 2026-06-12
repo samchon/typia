@@ -2,7 +2,9 @@ package metadata
 
 import (
   "fmt"
+  "slices"
   "sort"
+  "strings"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
@@ -12,6 +14,7 @@ func Iterate_metadata_sort(props struct {
   Metadata   *schemametadata.MetadataSchema
 }) {
   visited := map[*schemametadata.MetadataSchema]bool{}
+  objectKeys := map[*schemametadata.MetadataObjectType]iterate_metadata_sort_object_key{}
   next := func(metadata *schemametadata.MetadataSchema) {}
   next = func(metadata *schemametadata.MetadataSchema) {
     iterate_metadata_sort_iterate(struct {
@@ -19,11 +22,13 @@ func Iterate_metadata_sort(props struct {
       collection *schemametadata.MetadataCollection
       metadata   *schemametadata.MetadataSchema
       next       func(*schemametadata.MetadataSchema)
+      objectKeys map[*schemametadata.MetadataObjectType]iterate_metadata_sort_object_key
     }{
       visited:    visited,
       collection: props.Collection,
       metadata:   metadata,
       next:       next,
+      objectKeys: objectKeys,
     })
   }
   for _, array := range props.Collection.Arrays() {
@@ -47,6 +52,7 @@ func iterate_metadata_sort_iterate(props struct {
   collection *schemametadata.MetadataCollection
   metadata   *schemametadata.MetadataSchema
   next       func(*schemametadata.MetadataSchema)
+  objectKeys map[*schemametadata.MetadataObjectType]iterate_metadata_sort_object_key
 }) {
   if props.visited[props.metadata] {
     return
@@ -70,10 +76,10 @@ func iterate_metadata_sort_iterate(props struct {
     sort.SliceStable(props.metadata.Objects, func(i, j int) bool {
       x := props.metadata.Objects[i]
       y := props.metadata.Objects[j]
-      if schemametadata.MetadataObjectType_covers(x.Type, y.Type) {
+      if iterate_metadata_sort_object_covers(props.objectKeys, x.Type, y.Type) {
         return true
       }
-      if schemametadata.MetadataObjectType_covers(y.Type, x.Type) {
+      if iterate_metadata_sort_object_covers(props.objectKeys, y.Type, x.Type) {
         return false
       }
       return false
@@ -131,6 +137,45 @@ func iterate_metadata_sort_iterate(props struct {
       })
     }
   }
+}
+
+func iterate_metadata_sort_object_covers(
+  cache map[*schemametadata.MetadataObjectType]iterate_metadata_sort_object_key,
+  x *schemametadata.MetadataObjectType,
+  y *schemametadata.MetadataObjectType,
+) bool {
+  if x == nil || y == nil || len(x.Properties) < len(y.Properties) {
+    return false
+  }
+  return iterate_metadata_sort_object_keys(cache, x).Signature ==
+    iterate_metadata_sort_object_keys(cache, y).Signature
+}
+
+type iterate_metadata_sort_object_key struct {
+  Signature string
+}
+
+func iterate_metadata_sort_object_keys(
+  cache map[*schemametadata.MetadataObjectType]iterate_metadata_sort_object_key,
+  object *schemametadata.MetadataObjectType,
+) iterate_metadata_sort_object_key {
+  if value, ok := cache[object]; ok {
+    return value
+  }
+  keys := []string{}
+  if object != nil {
+    for _, property := range object.Properties {
+      if property != nil && property.Key != nil {
+        keys = append(keys, property.Key.GetName())
+      }
+    }
+  }
+  slices.Sort(keys)
+  value := iterate_metadata_sort_object_key{
+    Signature: strings.Join(keys, "\x00"),
+  }
+  cache[object] = value
+  return value
 }
 
 func iterate_metadata_sort_float(value any) float64 {

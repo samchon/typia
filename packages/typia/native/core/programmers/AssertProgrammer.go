@@ -70,6 +70,7 @@ func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps
       Trace:   true,
       Numeric: nativehelpers.OptionPredicator.Numeric(props.Context.Options),
       Equals:  props.Config.Equals,
+      ObjectParents: props.Config.Equals == false,
       Atomist: assertProgrammer_atomist(props),
       Combiner: assertProgrammer_combiner(struct {
         Config  AssertProgrammer_IConfig
@@ -389,13 +390,23 @@ func assertProgrammer_create_guard_call(props assertProgrammer_createGuardCallPr
       f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{
         f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("method", props.Context.Emit), nil, nil, f.NewStringLiteral(props.Functor.Method, shimast.TokenFlagsNone)),
         f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("path", props.Context.Emit), nil, nil, props.Path),
-        f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("expected", props.Context.Emit), nil, nil, f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)),
+        f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("expected", props.Context.Emit), nil, nil, assertProgrammer_expected_expression(props)),
         f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("value", props.Context.Emit), nil, nil, props.Input),
       }), true),
       f.NewIdentifier("_errorFactory"),
     }),
     shimast.NodeFlagsNone,
   )
+}
+
+func assertProgrammer_expected_expression(props assertProgrammer_createGuardCallProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(assertProgrammer_factory, props.Context.Emit)
+  if props.Functor == nil || len(props.Expected) < 128 {
+    return f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)
+  }
+  return props.Functor.EmplaceVariableByKey("_ae", props.Expected, func(string) *shimast.Expression {
+    return f.NewStringLiteral(props.Expected, shimast.TokenFlagsNone)
+  })
 }
 
 func (assertProgrammerGuardianNamespace) Identifier(emit ...*shimprinter.EmitContext) *shimast.Node {

@@ -15,7 +15,10 @@ type FunctionProgrammer struct {
   unions_        map[string]*functionProgrammer_union
   unionOrder_    []string
   variables_     map[string]*shimast.Node
+  variableKeys_   map[string]string
   variableOrder_ []string
+  nameIndexes_    map[string]int
+  reservedNames_  map[string]bool
   sequence_      int
   disableDeclare bool
   // visited_ turns on per-invocation visit tracking: set after metadata
@@ -44,7 +47,10 @@ func NewFunctionProgrammer(method string, emit ...*shimprinter.EmitContext) *Fun
     unions_:        map[string]*functionProgrammer_union{},
     unionOrder_:    []string{},
     variables_:     map[string]*shimast.Node{},
+    variableKeys_:   map[string]string{},
     variableOrder_: []string{},
+    nameIndexes_:    map[string]int{},
+    reservedNames_:  map[string]bool{},
   }
   if len(emit) != 0 {
     p.emit_ = emit[0]
@@ -122,8 +128,7 @@ func (p *FunctionProgrammer) EmplaceUnion(prefix string, name string, factory fu
   if oldbie, ok := p.unions_[key]; ok {
     return oldbie.name
   }
-  index := len(p.unions_)
-  accessor := fmt.Sprintf("%sp%d", prefix, index)
+  accessor := p.reserveGeneratedName(prefix + "p")
   tuple := &functionProgrammer_union{name: accessor}
   p.unions_[key] = tuple
   p.unionOrder_ = append(p.unionOrder_, key)
@@ -133,8 +138,64 @@ func (p *FunctionProgrammer) EmplaceUnion(prefix string, name string, factory fu
 
 func (p *FunctionProgrammer) EmplaceVariable(name string, value *shimast.Expression) *shimast.Node {
   if _, ok := p.variables_[name]; !ok {
+    if p.isNameReserved(name) {
+      name = p.reserveGeneratedName(name)
+    } else {
+      p.reserveFixedName(name)
+    }
     p.variableOrder_ = append(p.variableOrder_, name)
   }
   p.variables_[name] = value
   return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+}
+
+func (p *FunctionProgrammer) EmplaceVariableByKey(prefix string, key string, factory func(name string) *shimast.Expression) *shimast.Node {
+  compound := prefix + "::" + key
+  if name, ok := p.variableKeys_[compound]; ok {
+    return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+  }
+  name := p.reserveGeneratedName(prefix)
+  p.variableKeys_[compound] = name
+  if _, ok := p.variables_[name]; !ok {
+    p.variableOrder_ = append(p.variableOrder_, name)
+  }
+  p.variables_[name] = factory(name)
+  return nativecontext.EmitFactoryOf(functionProgrammer_factory, p.emit_).NewIdentifier(name)
+}
+
+func (p *FunctionProgrammer) reserveGeneratedName(prefix string) string {
+  if p.nameIndexes_ == nil {
+    p.nameIndexes_ = map[string]int{}
+  }
+  for {
+    index := p.nameIndexes_[prefix]
+    p.nameIndexes_[prefix] = index + 1
+    name := fmt.Sprintf("%s%d", prefix, index)
+    if p.isNameReserved(name) == false {
+      p.reserveFixedName(name)
+      return name
+    }
+  }
+}
+
+func (p *FunctionProgrammer) reserveFixedName(name string) {
+  if p.reservedNames_ == nil {
+    p.reservedNames_ = map[string]bool{}
+  }
+  p.reservedNames_[name] = true
+}
+
+func (p *FunctionProgrammer) isNameReserved(name string) bool {
+  if p.reservedNames_ != nil && p.reservedNames_[name] {
+    return true
+  }
+  if _, ok := p.variables_[name]; ok {
+    return true
+  }
+  for _, union := range p.unions_ {
+    if union.name == name {
+      return true
+    }
+  }
+  return false
 }

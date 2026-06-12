@@ -19,17 +19,18 @@ type checkerProgrammerNamespace struct{}
 var CheckerProgrammer = checkerProgrammerNamespace{}
 
 type CheckerProgrammer_IConfig struct {
-  Prefix   string
-  Path     bool
-  Trace    bool
-  Equals   bool
-  Numeric  bool
-  Addition func() []*shimast.Node
-  Decoder  func(props CheckerProgrammer_DecoderProps) *shimast.Node
-  Combiner CheckerProgrammer_IConfig_Combiner
-  Atomist  func(props CheckerProgrammer_AtomistProps) *shimast.Node
-  Joiner   CheckerProgrammer_IConfig_IJoiner
-  Success  *shimast.Expression
+  Prefix        string
+  Path          bool
+  Trace         bool
+  Equals        bool
+  Numeric       bool
+  ObjectParents bool
+  Addition      func() []*shimast.Node
+  Decoder       func(props CheckerProgrammer_DecoderProps) *shimast.Node
+  Combiner      CheckerProgrammer_IConfig_Combiner
+  Atomist       func(props CheckerProgrammer_AtomistProps) *shimast.Node
+  Joiner        CheckerProgrammer_IConfig_IJoiner
+  Success       *shimast.Expression
 }
 
 type CheckerProgrammer_IConfig_Combiner func(props CheckerProgrammer_CombinerProps) *shimast.Node
@@ -159,6 +160,7 @@ func (checkerProgrammerNamespace) Write_object_functions(props CheckerProgrammer
   return FeatureProgrammer.Write_object_functions(FeatureProgrammer_WriteObjectFunctionsProps{
     Config:     checkerProgrammer_configure(props.Context, props.Config, props.Functor),
     Context:    props.Context,
+    Functor:    props.Functor,
     Collection: props.Collection,
   })
 }
@@ -290,6 +292,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
     Trace:   config.Trace,
     Path:    config.Path,
     Prefix:  config.Prefix,
+    ObjectParents: config.ObjectParents,
     Visited: functor.Visited,
     VisitGuard: func(next FeatureProgrammer_VisitGuardProps) *shimast.Node {
       return checkerProgrammer_visit_guard(next.Key, next.Body, context.Emit)
@@ -614,15 +617,18 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         }
       }
     }
-    setName := props.Functor.EmplaceVariable(
-      fmt.Sprintf("%sv%d", props.Config.Prefix, props.Functor.Increment()),
-      f.NewNewExpression(
-        f.NewIdentifier("Set"),
-        nil,
-        f.NewNodeList([]*shimast.Node{
-          f.NewArrayLiteralExpression(f.NewNodeList(values), false),
-        }),
-      ),
+    setName := props.Functor.EmplaceVariableByKey(
+      props.Config.Prefix+"v",
+      checkerProgrammer_constant_set_key(constants),
+      func(string) *shimast.Expression {
+        return f.NewNewExpression(
+          f.NewIdentifier("Set"),
+          nil,
+          f.NewNodeList([]*shimast.Node{
+            f.NewArrayLiteralExpression(f.NewNodeList(values), false),
+          }),
+        )
+      },
     )
     add(struct {
       Exact bool
@@ -845,14 +851,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   if len(props.Metadata.Objects) > 0 {
     checkArray := false
     for _, obj := range props.Metadata.Objects {
-      all := true
-      for _, prop := range obj.Type.Properties {
-        if prop.Key.IsSoleLiteral() && prop.Value.IsRequired() {
-          all = false
-          break
-        }
-      }
-      if all {
+      if obj.Type.HasRequiredLiteralProperty() == false {
         checkArray = true
         break
       }
@@ -957,6 +956,20 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
     return props.Config.Combiner(CheckerProgrammer_CombinerProps{Explore: props.Explore, Logic: "or", Input: props.Input, Binaries: binaries, Expected: props.Metadata.GetDisplayName()})
   }
   return props.Config.Success
+}
+
+func checkerProgrammer_constant_set_key(constants []*nativemetadata.MetadataConstant) string {
+  builder := strings.Builder{}
+  for _, constant := range constants {
+    builder.WriteString(constant.Type)
+    builder.WriteByte(':')
+    for _, value := range constant.Values {
+      text := fmt.Sprintf("%T:%v", value.Value, value.Value)
+      fmt.Fprintf(&builder, "%d:%s;", len(text), text)
+    }
+    builder.WriteByte('|')
+  }
+  return builder.String()
 }
 
 func (checkerProgrammerNamespace) Decode_object(props CheckerProgrammer_DecodeObjectProps) *shimast.Node {

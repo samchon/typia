@@ -46,6 +46,8 @@ type IMetadataIteratorProps struct {
   Type        *nativechecker.Type
   Explore     MetadataFactory_IExplore
   Intersected bool
+  Unioned     bool
+  Prunable    bool
 }
 
 var MetadataTypeTagAnalyzer func(props struct {
