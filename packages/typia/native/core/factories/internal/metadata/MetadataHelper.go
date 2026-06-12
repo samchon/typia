@@ -98,6 +98,17 @@ func metadata_type_symbol_name(checker *nativechecker.Checker, typ *nativechecke
   return name + "<" + strings.Join(names, ", ") + ">"
 }
 
+func metadata_type_symbol_base_name(typ *nativechecker.Type) string {
+  if typ == nil {
+    return ""
+  }
+  symbol := typ.Symbol()
+  if symbol == nil {
+    return ""
+  }
+  return metadata_symbol_name(symbol)
+}
+
 func metadata_symbol_name(symbol *nativeast.Symbol) string {
   if symbol == nil || len(symbol.Declarations) == 0 || symbol.Declarations[0].Parent == nil {
     return "__type"

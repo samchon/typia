@@ -25,41 +25,16 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     return isProperty(node)
   }
 
-  insert := func(next struct {
-    Key        *schemametadata.MetadataSchema
-    Value      *schemametadata.MetadataSchema
-    Symbol     *nativeast.Symbol
-    Node       *nativeast.Node
-    FilterTags func(schemametadata.IJsDocTagInfo) bool
-  }) *schemametadata.MetadataProperty {
-    description := metadata_node_description(next.Symbol)
-    jsDocTags := metadata_node_js_doc_tags(next.Symbol)
-    if next.FilterTags != nil {
-      filtered := []schemametadata.IJsDocTagInfo{}
-      for _, tag := range jsDocTags {
-        if next.FilterTags(tag) {
-          filtered = append(filtered, tag)
-        }
-      }
-      jsDocTags = filtered
-    }
-    var mutability *string
-    if next.Node != nil && next.Node.ModifierFlags()&nativeast.ModifierFlagsReadonly != 0 {
-      value := "readonly"
-      mutability = &value
-    }
-    property := schemametadata.MetadataProperty_create(schemametadata.MetadataProperty{
-      Key:         next.Key,
-      Value:       next.Value,
-      Description: description,
-      JsDocTags:   jsDocTags,
-      Mutability:  mutability,
-    })
+  insert := func(next emplace_metadata_object_insert) *schemametadata.MetadataProperty {
+    property := emplace_metadata_object_create_property(next)
     obj.Properties = append(obj.Properties, property)
     return property
   }
+  if emplace_metadata_object_intersection(props, obj, insert, pred) {
+    return obj
+  }
 
-  for _, symbol := range nativechecker.Checker_getApparentProperties(props.Checker, props.Type) {
+  for _, symbol := range props.Components.ApparentProperties(props.Checker, props.Type) {
     if metadata_is_internal(symbol) {
       continue
     }
@@ -98,13 +73,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
       Intersected: false,
     })
     value.Optional = symbol.Flags&nativeast.SymbolFlagsOptional != 0
-    insert(struct {
-      Key        *schemametadata.MetadataSchema
-      Value      *schemametadata.MetadataSchema
-      Symbol     *nativeast.Symbol
-      Node       *nativeast.Node
-      FilterTags func(schemametadata.IJsDocTagInfo) bool
-    }{
+    insert(emplace_metadata_object_insert{
       Key:    key,
       Value:  value,
       Symbol: symbol,
@@ -112,7 +81,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     })
   }
 
-  for _, index := range nativechecker.Checker_getIndexInfosOfType(props.Checker, props.Type) {
+  for _, index := range props.Components.IndexInfos(props.Checker, props.Type) {
     analyzer := func(typ *nativechecker.Type) func(any) *schemametadata.MetadataSchema {
       return func(property any) *schemametadata.MetadataSchema {
         explore := MetadataFactory_IExplore{
@@ -154,13 +123,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
         Messages: []string{},
       })
     }
-    insert(struct {
-      Key        *schemametadata.MetadataSchema
-      Value      *schemametadata.MetadataSchema
-      Symbol     *nativeast.Symbol
-      Node       *nativeast.Node
-      FilterTags func(schemametadata.IJsDocTagInfo) bool
-    }{
+    insert(emplace_metadata_object_insert{
       Key:   key,
       Value: value,
       FilterTags: func(doc schemametadata.IJsDocTagInfo) bool {
@@ -169,6 +132,230 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     })
   }
   return obj
+}
+
+type emplace_metadata_object_insert struct {
+  Key        *schemametadata.MetadataSchema
+  Value      *schemametadata.MetadataSchema
+  Symbol     *nativeast.Symbol
+  Node       *nativeast.Node
+  FilterTags func(schemametadata.IJsDocTagInfo) bool
+}
+
+func emplace_metadata_object_create_property(next emplace_metadata_object_insert) *schemametadata.MetadataProperty {
+  description := metadata_node_description(next.Symbol)
+  jsDocTags := metadata_node_js_doc_tags(next.Symbol)
+  if next.FilterTags != nil {
+    filtered := []schemametadata.IJsDocTagInfo{}
+    for _, tag := range jsDocTags {
+      if next.FilterTags(tag) {
+        filtered = append(filtered, tag)
+      }
+    }
+    jsDocTags = filtered
+  }
+  var mutability *string
+  if next.Node != nil && next.Node.ModifierFlags()&nativeast.ModifierFlagsReadonly != 0 {
+    value := "readonly"
+    mutability = &value
+  }
+  return schemametadata.MetadataProperty_create(schemametadata.MetadataProperty{
+    Key:         next.Key,
+    Value:       next.Value,
+    Description: description,
+    JsDocTags:   jsDocTags,
+    Mutability:  mutability,
+  })
+}
+
+func emplace_metadata_object_intersection(
+  props IMetadataIteratorProps,
+  obj *schemametadata.MetadataObjectType,
+  insert func(emplace_metadata_object_insert) *schemametadata.MetadataProperty,
+  pred func(node *nativeast.Node) bool,
+) bool {
+  if props.Checker == nil ||
+    props.Type == nil ||
+    props.Type.IsIntersection() == false ||
+    iterate_metadata_intersection_is_plain_object_only(props.Checker, props.Components, props.Type, map[*nativechecker.Type]bool{}) == false {
+    return false
+  }
+  children := emplace_metadata_object_intersection_children(props.Type, map[*nativechecker.Type]bool{})
+  if len(children) < 2 || emplace_metadata_object_intersection_has_duplicate_key(props.Checker, props.Components, children) {
+    return false
+  }
+  merged := []*schemametadata.MetadataProperty{}
+  checkProperties := []*schemametadata.MetadataProperty{}
+  parentObjects := []*schemametadata.MetadataObject{}
+  props.Explore.Object = obj
+  props.Explore.Top = false
+  for _, child := range children {
+    if emplace_metadata_object_shareable_child(props, child) {
+      explore := props.Explore
+      explore.Object = obj
+      explore.Property = nil
+      explore.Aliased = false
+      metadata := Explore_metadata(Explore_metadata_IProps{
+        Options:    props.Options,
+        Checker:    props.Checker,
+        Components: props.Components,
+        Errors:     props.Errors,
+        Type:       child,
+        Explore:    explore,
+        Prunable:   props.Prunable,
+      })
+      if metadata.Size() != 1 || len(metadata.Objects) != 1 {
+        return false
+      }
+      if len(metadata.Objects[0].Tags) != 0 {
+        return false
+      }
+      parentObjects = append(parentObjects, metadata.Objects[0])
+      for _, property := range metadata.Objects[0].Type.Properties {
+        merged = append(merged, emplace_metadata_object_clone_property(property))
+      }
+    } else if emplace_metadata_object_intersection_append(
+      props,
+      child,
+      func(next emplace_metadata_object_insert) *schemametadata.MetadataProperty {
+        property := emplace_metadata_object_create_property(next)
+        merged = append(merged, property)
+        checkProperties = append(checkProperties, property)
+        return property
+      },
+      pred,
+    ) == false {
+      return false
+    }
+  }
+  obj.Properties = append(obj.Properties, merged...)
+  if len(parentObjects) != 0 {
+    obj.Parent_objects_ = append(obj.Parent_objects_, parentObjects...)
+    obj.Check_properties_ = append(obj.Check_properties_, checkProperties...)
+  }
+  return true
+}
+
+func emplace_metadata_object_shareable_child(props IMetadataIteratorProps, child *nativechecker.Type) bool {
+  fullName := metadata_type_full_name(props.Checker, child, props.Components)
+  sanitized := iterate_metadata_intersection_sanitize_name(fullName)
+  return iterate_metadata_intersection_shareable_name(fullName, sanitized)
+}
+
+func emplace_metadata_object_intersection_append(
+  props IMetadataIteratorProps,
+  child *nativechecker.Type,
+  insert func(emplace_metadata_object_insert) *schemametadata.MetadataProperty,
+  pred func(node *nativeast.Node) bool,
+) bool {
+  if props.Checker == nil || child == nil || len(props.Components.IndexInfos(props.Checker, child)) != 0 {
+    return false
+  }
+  for _, symbol := range props.Components.ApparentProperties(props.Checker, child) {
+    if metadata_is_internal(symbol) {
+      continue
+    }
+    var node *nativeast.Node
+    if len(symbol.Declarations) != 0 {
+      node = symbol.Declarations[0]
+    }
+    var typ *nativechecker.Type
+    if node != nil {
+      typ = props.Checker.GetTypeOfSymbolAtLocation(symbol, node)
+    } else {
+      typ = nativechecker.Checker_getTypeOfPropertyOfType(props.Checker, child, symbol.Name)
+    }
+    if (node != nil && pred(node) == false) || typ == nil {
+      continue
+    }
+
+    explore := props.Explore
+    explore.Property = symbol.Name
+    explore.Parameter = nil
+    explore.Nested = nil
+    explore.Aliased = false
+    explore.Escaped = false
+    explore.Output = false
+    value := Explore_metadata(Explore_metadata_IProps{
+      Options:     props.Options,
+      Checker:     props.Checker,
+      Components:  props.Components,
+      Errors:      props.Errors,
+      Type:        typ,
+      Explore:     explore,
+      Intersected: false,
+      Prunable:    props.Prunable,
+    })
+    value.Optional = symbol.Flags&nativeast.SymbolFlagsOptional != 0
+    insert(emplace_metadata_object_insert{
+      Key:    MetadataHelper.Literal_to_metadata(symbol.Name),
+      Value:  value,
+      Symbol: symbol,
+      Node:   node,
+    })
+  }
+  return true
+}
+
+func emplace_metadata_object_intersection_children(
+  typ *nativechecker.Type,
+  visited map[*nativechecker.Type]bool,
+) []*nativechecker.Type {
+  if typ == nil || visited[typ] {
+    return nil
+  }
+  visited[typ] = true
+  if typ.IsIntersection() == false {
+    return []*nativechecker.Type{typ}
+  }
+  output := []*nativechecker.Type{}
+  for _, child := range typ.Types() {
+    output = append(output, emplace_metadata_object_intersection_children(child, visited)...)
+  }
+  return output
+}
+
+func emplace_metadata_object_intersection_has_duplicate_key(
+  checker *nativechecker.Checker,
+  collection *schemametadata.MetadataCollection,
+  children []*nativechecker.Type,
+) bool {
+  keys := map[string]bool{}
+  for _, child := range children {
+    if child == nil {
+      return true
+    }
+    for _, symbol := range collection.ApparentProperties(checker, child) {
+      if keys[symbol.Name] {
+        return true
+      }
+      keys[symbol.Name] = true
+    }
+  }
+  return false
+}
+
+func emplace_metadata_object_clone_property(property *schemametadata.MetadataProperty) *schemametadata.MetadataProperty {
+  if property == nil {
+    return nil
+  }
+  description := property.Description
+  if description != nil {
+    value := *description
+    description = &value
+  }
+  mutability := property.Mutability
+  if mutability != nil {
+    value := *mutability
+    mutability = &value
+  }
+  return schemametadata.MetadataProperty_create(schemametadata.MetadataProperty{
+    Key:         property.Key,
+    Value:       property.Value.Clone(),
+    Description: description,
+    JsDocTags:   property.JsDocTags,
+    Mutability:  mutability,
+  })
 }
 
 func emplace_metadata_object_significant(functional bool) func(node *nativeast.Node) bool {

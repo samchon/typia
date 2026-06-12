@@ -16,6 +16,8 @@ func Iterate_metadata_union(props IMetadataIteratorProps) bool {
       Type:        typ,
       Explore:     explore,
       Intersected: props.Intersected,
+      Unioned:     true,
+      Prunable:    true,
     })
   }
   return true

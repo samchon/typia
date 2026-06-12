@@ -1,18 +1,13 @@
 package metadata
 
-import (
-  "strings"
-
-  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
-)
+import schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 
 func Iterate_metadata_set(props IMetadataIteratorProps) bool {
   if props.Checker == nil || props.Type == nil {
     return false
   }
   typ := props.Checker.GetApparentType(props.Type)
-  name := metadata_type_symbol_name(props.Checker, typ)
-  if strings.HasPrefix(name, "Set<") == false {
+  if metadata_type_symbol_base_name(typ) != "Set" {
     return false
   }
   generic := metadata_get_type_arguments(props.Checker, typ)

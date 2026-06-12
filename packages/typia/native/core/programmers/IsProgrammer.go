@@ -81,11 +81,12 @@ func (isProgrammerNamespace) Configure(props struct {
   f := nativecontext.EmitFactoryOf(isProgrammer_factory, props.Context.Emit)
   options := props.Options
   return nativeinternal.CheckerProgrammer_IConfig{
-    Prefix:  "_i",
-    Equals:  options != nil && options.Object != nil,
-    Trace:   false,
-    Path:    false,
-    Numeric: isProgrammer_option_numeric(options),
+    Prefix:        "_i",
+    Equals:        options != nil && options.Object != nil,
+    Trace:         false,
+    Path:          false,
+    Numeric:       isProgrammer_option_numeric(options),
+    ObjectParents: options == nil || options.Object == nil,
     Atomist: func(next nativeinternal.CheckerProgrammer_AtomistProps) *shimast.Node {
       expressions := []*shimast.Node{}
       if next.Entry.Expression != nil {
@@ -191,6 +192,7 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
     Functor *nativehelpers.FunctionProgrammer
   }{Options: options, Context: props.Context, Functor: props.Functor})
   config.Trace = props.Config.Equals
+  config.ObjectParents = props.Config.Equals == false
 
   composed := nativeinternal.CheckerProgrammer.Compose(nativeinternal.CheckerProgrammer_ComposeProps{
     Context: props.Context,

@@ -2,6 +2,7 @@ package metadata
 
 import (
   "fmt"
+  "strconv"
 
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -93,10 +94,46 @@ func iterate_metadata_constant_take(metadata *schemametadata.MetadataSchema, typ
 }
 
 func iterate_metadata_constant_add(constant *schemametadata.MetadataConstant, value *schemametadata.MetadataConstantValue) {
+  key := iterate_metadata_constant_key(value.Value)
   for _, oldbie := range constant.Values {
-    if fmt.Sprint(oldbie.Value) == fmt.Sprint(value.Value) {
+    if iterate_metadata_constant_key(oldbie.Value) == key {
       return
     }
   }
   constant.Values = append(constant.Values, value)
+}
+
+func iterate_metadata_constant_key(value any) string {
+  switch v := value.(type) {
+  case string:
+    return v
+  case bool:
+    return strconv.FormatBool(v)
+  case int:
+    return strconv.Itoa(v)
+  case int8:
+    return strconv.FormatInt(int64(v), 10)
+  case int16:
+    return strconv.FormatInt(int64(v), 10)
+  case int32:
+    return strconv.FormatInt(int64(v), 10)
+  case int64:
+    return strconv.FormatInt(v, 10)
+  case uint:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint8:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint16:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint32:
+    return strconv.FormatUint(uint64(v), 10)
+  case uint64:
+    return strconv.FormatUint(v, 10)
+  case float32:
+    return strconv.FormatFloat(float64(v), 'g', -1, 32)
+  case float64:
+    return strconv.FormatFloat(v, 'g', -1, 64)
+  default:
+    return fmt.Sprint(value)
+  }
 }
