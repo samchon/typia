@@ -23,17 +23,17 @@ catalogs:
       version: 8.1.2
   typescript:
     '@ttsc/playground':
-      specifier: ^0.15.1
-      version: 0.15.1
+      specifier: ^0.15.3
+      version: 0.15.3
     '@ttsc/wasm':
-      specifier: ^0.15.1
-      version: 0.15.1
+      specifier: ^0.15.3
+      version: 0.15.3
     '@typescript/native-preview':
-      specifier: 7.0.0-dev.20260610.1
-      version: 7.0.0-dev.20260610.1
+      specifier: 7.0.0-dev.20260611.2
+      version: 7.0.0-dev.20260611.2
     ttsc:
-      specifier: ^0.15.2
-      version: 0.15.2
+      specifier: ^0.15.3
+      version: 0.15.3
   utils:
     '@nestia/e2e':
       specifier: ^10.0.2
@@ -81,7 +81,7 @@ importers:
         version: 1.8.0(prettier@3.8.3)
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   benchmark:
     dependencies:
@@ -148,7 +148,7 @@ importers:
         version: 11.0.0
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       ajv:
         specifier: ^8.12.0
         version: 8.18.0
@@ -202,7 +202,7 @@ importers:
         version: 0.10.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
       zod:
         specifier: ^3.19.1
         version: 3.25.76
@@ -254,19 +254,19 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   packages/interface:
     devDependencies:
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   packages/langchain:
     dependencies:
@@ -288,7 +288,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -306,7 +306,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   packages/mcp:
     dependencies:
@@ -331,7 +331,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -349,7 +349,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
       zod:
         specifier: ^3.25.0
         version: 3.25.76
@@ -392,7 +392,7 @@ importers:
         version: 25.6.0
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       chalk:
         specifier: ^4.0.0
         version: 4.1.2
@@ -413,7 +413,7 @@ importers:
         version: 1.0.2
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   packages/utils:
     dependencies:
@@ -429,7 +429,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
@@ -447,7 +447,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   packages/vercel:
     dependencies:
@@ -469,7 +469,7 @@ importers:
         version: 7.0.15
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       ai:
         specifier: ^6.0.116
         version: 6.0.168(zod@4.4.3)
@@ -490,7 +490,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   tests/debug:
     dependencies:
@@ -566,10 +566,10 @@ importers:
     devDependencies:
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       ttsc:
         specifier: catalog:typescript
-        version: 0.15.2
+        version: 0.15.3
 
   tests/test-langchain:
     dependencies:
@@ -872,10 +872,10 @@ importers:
         version: 4.3.0
       '@ttsc/playground':
         specifier: catalog:typescript
-        version: 0.15.1(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.15.1)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
+        version: 0.15.3(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.15.3)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
       '@ttsc/wasm':
         specifier: catalog:typescript
-        version: 0.15.1
+        version: 0.15.3
       '@typia/interface':
         specifier: workspace:^
         version: link:../packages/interface
@@ -951,7 +951,7 @@ importers:
         version: 18.3.29
       '@typescript/native-preview':
         specifier: catalog:typescript
-        version: 7.0.0-dev.20260610.1
+        version: 7.0.0-dev.20260611.2
       gh-pages:
         specifier: ^5.0.0
         version: 5.0.0
@@ -2767,51 +2767,51 @@ packages:
   '@ts-morph/common@0.28.1':
     resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
 
-  '@ttsc/darwin-arm64@0.15.2':
-    resolution: {integrity: sha512-m5AH/4yZRQpg+/+Z61yHnYkb4t9LPEtdLU5GNVgXApUvEZv4Rj5H/JbrWQP3lndogcMo4ej9SzSu1C5ISNNF0w==}
+  '@ttsc/darwin-arm64@0.15.3':
+    resolution: {integrity: sha512-ebt/vymJE5r2v3szaOlCaihELSJUmiLvRNxINcUH5FnD6DCsH5w6iApZ507dEbiN+U9JIrJjmbYIOYXg4WcYhQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.15.2':
-    resolution: {integrity: sha512-a0icCuN78J3vTTjmEyGVScFJxKfr30NN+CsB4WPVy0OqaefJWCaGNiMNkiVa8MPFSqWM3a+7l52DCr0FAFgOew==}
+  '@ttsc/darwin-x64@0.15.3':
+    resolution: {integrity: sha512-f2dDn8GTIYfduttCoMSojhCkRt/GiRkZjULqSHKTkhtHbjACIWrMCDBUB3lRbYzQe1QXs3j+OtH1uX8HzeKC2w==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/linux-arm64@0.15.2':
-    resolution: {integrity: sha512-hBkbCIO4H7Tc7pRIkYra7+EyK7X+WDkOHMzJrmBQ450Q7CvBYfyvH7vNSdM1xsS8EmD/GMhxdRVJMMqxNRHCsw==}
+  '@ttsc/linux-arm64@0.15.3':
+    resolution: {integrity: sha512-Kj7l08A31MBFJLJPqphFsbeuW9Sp3/jvSV+eMXy9vL+sVa5meDjU3gX+DFcTs9Rctcmsr840cxqHhrDZLa0mwA==}
     cpu: [arm64]
     os: [linux]
 
-  '@ttsc/linux-arm@0.15.2':
-    resolution: {integrity: sha512-WOmBVi7IxIOkW/8dMGozQm0LUHRKlEw44CdAC8AQK1zdQYaQWUwI8mRwbu9HfjVLrsBMQ2TuVwGuul05pRBVrg==}
+  '@ttsc/linux-arm@0.15.3':
+    resolution: {integrity: sha512-ZrK0+uXXG+Ph1F6JmFNp3xY5pm//3iJ9Y8uCGHMN0nIqpLRbrwJYYaJUrS7l1dgL9hCDZ4Zy+k6IkbSTeclraQ==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.15.2':
-    resolution: {integrity: sha512-/d02Trl2DwAA8d6dVZKP62JoHdLXldLgnNuCI29SkGR6lVTYqnNFvMTV1VCufPc02BS+j0XJxGSBDv926wRKPQ==}
+  '@ttsc/linux-x64@0.15.3':
+    resolution: {integrity: sha512-D/oSeJ1uUQlctcxtPSiRSMv1uvLTm8gyJyIzej0z0FhgqVm+e7oLt4R1m74b9wl4L2dqfSXi4GJ6duxy2lE00A==}
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/playground@0.15.1':
-    resolution: {integrity: sha512-JCeLB5QMsYO6A88c8w4khcdDOTuuxXOjG0w8Ur9f7TPkvoukeXrZE911RnfXFLY0UmPq+658qjiSr3FScHaZjQ==}
+  '@ttsc/playground@0.15.3':
+    resolution: {integrity: sha512-BBu1l08+rOfQoCCsBFm2W3HLgMPL3HTA88iFgH7qbIHh0UkK7KINyB/vxE1PfyFUy4LEbdDXRQ9h6CMec/RgxQ==}
     peerDependencies:
       '@monaco-editor/react': ^4.6.0
-      '@ttsc/wasm': ^0.15.1
+      '@ttsc/wasm': ^0.15.3
       monaco-editor: ^0.52.0
       react: ^18.0.0
       react-dom: ^18.0.0
       tgrid: ^1.0.3
 
-  '@ttsc/wasm@0.15.1':
-    resolution: {integrity: sha512-LYePqmu/H7f6J49ojAIcOhnxS6q7jnsnq2SF3sdYN195eU1m5PlZS+sOogbjygNj4L0VM7ya+QV7mlAuTIWqIg==}
+  '@ttsc/wasm@0.15.3':
+    resolution: {integrity: sha512-Pj6X+kj+RQPXrbj7VrPoXmem5uKk0eoZx31muYeVFcKeoK2L7dI3fJhndYcSka8WwphWSEulAdOpbbNfx3HTNg==}
 
-  '@ttsc/win32-arm64@0.15.2':
-    resolution: {integrity: sha512-mY8At5InN8M4xp8VDbXQflEBilqQE4a6u0ljTUSHjBiIGIAAvPQFcGAtN9ZehDNiR3XRGq3zsuKc8fVJA3+Nvw==}
+  '@ttsc/win32-arm64@0.15.3':
+    resolution: {integrity: sha512-LOW6+I4z4Mto2Pm6x0lp4OFli0BI+8/SUciptveThDNncKDe+Gf5E6DE9SeP3/vQgtj2DtCZ72wRJRIij6uHjA==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.15.2':
-    resolution: {integrity: sha512-iFOMcRR2SEbXz5DhAV/PraqzxhJaDubtRRp0w7IjeNPTe/DWL0vuicpo3VGuoXcX7bzUjGCR2HbpvfxCpXIDKw==}
+  '@ttsc/win32-x64@0.15.3':
+    resolution: {integrity: sha512-fj5rxmSWq11E/IiyKBFlPunRSajptM0oVciuCSwcDkR9J4ESicwaCeLdFc83Y1AjTp1MVkZmhVr2pEX3CZKk9A==}
     cpu: [x64]
     os: [win32]
 
@@ -3087,50 +3087,50 @@ packages:
     resolution: {integrity: sha512-nLzdsT1gdOgFxxxwrlNVUBzSNBEEHJ86bblmk4QAS6stfig7rcJzWKqCyxFy3YRRHXDWEkb2NralA1nOYkkm/A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-ClGuxEbvnqDoUYoe8PV+LmXSruS4GYwVgU+l4+S5667ynE3rvZrkQ/tZhS9Z2ew6CI3L16SNn5DFJiOUAI5oWw==}
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-X6NqNmoTnO1vtcsE4qP571BByPi+i16Ynrp6fffcQ38pbRuy4mwECxA9nKb273gscG0wvcIcGM81B+vy1F4nDw==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-kDMqLXt2tS9zh1AozK0NVh3w2z3HlFFbUMJ4yYY3+yaTxr0WB0WtJzxFKyOiVRIMhhFoeJTauIwqh8aYRYNBdA==}
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-VeguHC/F7EbxNPCrcwCRH2wif6PZKcdUg2DtMyjxohtcVK3vOoVCYqhJBgJVWQ2gbXk+bXcIz8L2/uNYDksN0w==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-Au9raEQUR6eH/1+rURkclshEcgBeGwZR27TDqAhWsM1gLYrgZV0q44pyG8ykPkHFk3hrJlBdI3oAV6+l+HyFBg==}
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-19TXmRxxPUNNDAP/4xBwDNud1NvuNgQJhRm87t7/CSh4FGhWeeEm7AuyEvrCB+vzeeI/ExT+J58U1HOo+kYKzg==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [linux]
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-OofDm2YNn9txSsODHliCOp1InHFunzupga78FcA/DKQcG5A93gVeeI3iQYRTje4NWLQxmwETmSyZlvRURB3orA==}
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-szcSb7sSn3OQZ5UWtToG2RTQeDlokd05pXM+rGctBIctDj6E4j9bvAfp6xLZCzqyDuZJhi3cXCJBdSlBD0NjHw==}
     engines: {node: '>=16.20.0'}
     cpu: [arm]
     os: [linux]
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-31mpOqJHqn+QhFqGEUxw0kUxLVM5V8dTP5CFmn/lgWb2ue4Qvqwmkew4Xb740neiEptcq/cx4Au1iVjEO3MHsQ==}
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-h5Etd2Kc6lvvc+X4MU/EFeYDUZAS4hOqB18piWuy2INHfRvJMOo8jZOwUJRix3NQu75tPbltFCkwFOGqB0fd2Q==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [linux]
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-ohktGeyhd+7lwAVvhLKCjdoIWOE405YCCTEckdaXNFfKSjz7sj9Z9yt69IzuevEQrsR8nK23SwWibxDX9tOUlA==}
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-JUUFHNi3asye8iOlVmFEra34LuQ8bw8qvYWp+cW7EXg3mrMxtac/u5chhi8BmICEav2Ff3UFd8ZFL0n+F5EvBA==}
     engines: {node: '>=16.20.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-yq1wzcKX84zCPpcMXpCbjJGpnhwP+4Q5y7xlWo3YCQ/qUz59t7QlnJrC+6XkauddNTgW0rxQfCRnNPc/Qp59Pg==}
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-1ZPtOctecgkUHBIEoTefE34t4CewqxwdzIkRx22fDEC9bHhN8xO4JSfQyL+OSWDxiZaJKuqR9BnfWSl2eAFtmg==}
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
 
-  '@typescript/native-preview@7.0.0-dev.20260610.1':
-    resolution: {integrity: sha512-AEeKaUMKVAPGOrSCn436P9YtAQtfZS+T99SYtHMjLtPuSVTcODvoUyyKhuW+7tLXY6NhlX+R+Z0pTRSjAIaq1g==}
+  '@typescript/native-preview@7.0.0-dev.20260611.2':
+    resolution: {integrity: sha512-nP/OrQRFTRKHeQiXzMVhQlxSrOPeuDgeGGd9KMlmOFTc/bbQ8Zd6Ep5izsdTkFljd26QUfpm98crp5E5bYAvJg==}
     engines: {node: '>=16.20.0'}
     hasBin: true
 
@@ -6734,8 +6734,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.15.2:
-    resolution: {integrity: sha512-O997F9rxMKfupLjfTnPyf7hB5+xqPQrHATBXQhHuhc2E0+y2f65GDkarIqDAohKqMiuRyLMuTw06de0pm19izA==}
+  ttsc@0.15.3:
+    resolution: {integrity: sha512-lyO/CddbP1gHDLHVvpjRVhUdIubCsl6kkMau3kjI+jQloD5hKHvipEz1yKWhKtCyOM+/vokP+ua8SD5lDo21pQ==}
     hasBin: true
 
   twoslash-protocol@0.3.8:
@@ -9357,37 +9357,37 @@ snapshots:
       path-browserify: 1.0.1
       tinyglobby: 0.2.16
 
-  '@ttsc/darwin-arm64@0.15.2':
+  '@ttsc/darwin-arm64@0.15.3':
     optional: true
 
-  '@ttsc/darwin-x64@0.15.2':
+  '@ttsc/darwin-x64@0.15.3':
     optional: true
 
-  '@ttsc/linux-arm64@0.15.2':
+  '@ttsc/linux-arm64@0.15.3':
     optional: true
 
-  '@ttsc/linux-arm@0.15.2':
+  '@ttsc/linux-arm@0.15.3':
     optional: true
 
-  '@ttsc/linux-x64@0.15.2':
+  '@ttsc/linux-x64@0.15.3':
     optional: true
 
-  '@ttsc/playground@0.15.1(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.15.1)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
+  '@ttsc/playground@0.15.3(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.15.3)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
     dependencies:
       '@monaco-editor/react': 4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ttsc/wasm': 0.15.1
+      '@ttsc/wasm': 0.15.3
       lz-string: 1.5.0
       monaco-editor: 0.50.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tgrid: 1.2.1
 
-  '@ttsc/wasm@0.15.1': {}
+  '@ttsc/wasm@0.15.3': {}
 
-  '@ttsc/win32-arm64@0.15.2':
+  '@ttsc/win32-arm64@0.15.3':
     optional: true
 
-  '@ttsc/win32-x64@0.15.2':
+  '@ttsc/win32-x64@0.15.3':
     optional: true
 
   '@tybys/wasm-util@0.10.2':
@@ -9711,36 +9711,36 @@ snapshots:
   '@typescript-eslint/types@8.59.0':
     optional: true
 
-  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-darwin-arm64@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-darwin-x64@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-linux-arm64@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview-linux-arm@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-linux-arm@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview-linux-x64@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-linux-x64@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-win32-arm64@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview-win32-x64@7.0.0-dev.20260610.1':
+  '@typescript/native-preview-win32-x64@7.0.0-dev.20260611.2':
     optional: true
 
-  '@typescript/native-preview@7.0.0-dev.20260610.1':
+  '@typescript/native-preview@7.0.0-dev.20260611.2':
     optionalDependencies:
-      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260610.1
-      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260610.1
-      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260610.1
-      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260610.1
-      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260610.1
-      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260610.1
-      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260610.1
+      '@typescript/native-preview-darwin-arm64': 7.0.0-dev.20260611.2
+      '@typescript/native-preview-darwin-x64': 7.0.0-dev.20260611.2
+      '@typescript/native-preview-linux-arm': 7.0.0-dev.20260611.2
+      '@typescript/native-preview-linux-arm64': 7.0.0-dev.20260611.2
+      '@typescript/native-preview-linux-x64': 7.0.0-dev.20260611.2
+      '@typescript/native-preview-win32-arm64': 7.0.0-dev.20260611.2
+      '@typescript/native-preview-win32-x64': 7.0.0-dev.20260611.2
 
   '@typescript/vfs@1.6.4(typescript@5.9.3)':
     dependencies:
@@ -14136,15 +14136,15 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.15.2:
+  ttsc@0.15.3:
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.15.2
-      '@ttsc/darwin-x64': 0.15.2
-      '@ttsc/linux-arm': 0.15.2
-      '@ttsc/linux-arm64': 0.15.2
-      '@ttsc/linux-x64': 0.15.2
-      '@ttsc/win32-arm64': 0.15.2
-      '@ttsc/win32-x64': 0.15.2
+      '@ttsc/darwin-arm64': 0.15.3
+      '@ttsc/darwin-x64': 0.15.3
+      '@ttsc/linux-arm': 0.15.3
+      '@ttsc/linux-arm64': 0.15.3
+      '@ttsc/linux-x64': 0.15.3
+      '@ttsc/win32-arm64': 0.15.3
+      '@ttsc/win32-x64': 0.15.3
 
   twoslash-protocol@0.3.8: {}
 
