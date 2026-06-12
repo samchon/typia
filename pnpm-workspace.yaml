@@ -15,7 +15,7 @@ catalogs:
   typescript:
     '@ttsc/playground': ^0.15.1
     '@ttsc/wasm': ^0.15.1
-    '@typescript/native-preview': 7.0.0-dev.20260610.1
+    '@typescript/native-preview': 7.0.0-dev.20260611.2
     ts-node: ^10.9.2
     ttsc: ^0.15.2
     typescript: ~6.0.3
