@@ -103,7 +103,7 @@ func (typeFactoryNamespace) GetFullName(props TypeFactory_GetFullNameProps) stri
     return props.Checker.TypeToString(props.Type)
   }
   name := typeFactory_get_name(symbol)
-  generic := props.Checker.GetTypeArguments(props.Type)
+  generic := typeFactory_get_type_arguments(props.Checker, props.Type)
   if len(generic) == 0 {
     return name
   }
@@ -141,6 +141,16 @@ func typeFactory_get_name(symbol *shimast.Symbol) string {
     return "__type"
   }
   return typeFactory_explore_name(symbol.Declarations[0].Parent, symbol.Name)
+}
+
+func typeFactory_get_type_arguments(checker *shimchecker.Checker, t *shimchecker.Type) (output []*shimchecker.Type) {
+  if checker == nil || t == nil {
+    return nil
+  }
+  if t.Flags()&shimchecker.TypeFlagsObject == 0 || t.ObjectFlags()&shimchecker.ObjectFlagsReference == 0 {
+    return nil
+  }
+  return checker.GetTypeArguments(t)
 }
 
 func (typeFactoryNamespace) Keyword(t string, emit ...*shimprinter.EmitContext) *shimast.Node {

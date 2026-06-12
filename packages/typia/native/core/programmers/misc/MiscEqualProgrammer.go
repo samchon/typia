@@ -27,7 +27,6 @@ type MiscEqualProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
   Type    *shimchecker.Type
-  Name    *string
   Config  MiscEqualProgrammer_IConfig
 }
 
