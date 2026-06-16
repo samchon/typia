@@ -9,6 +9,7 @@ import (
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativefunctionalprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/functional"
   nativenotationprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/notations"
+  nativecomparetransformers "github.com/samchon/typia/packages/typia/native/transform/features/compare"
   nativefeatures "github.com/samchon/typia/packages/typia/native/transform/features"
   nativefunctionaltransformers "github.com/samchon/typia/packages/typia/native/transform/features/functional"
   nativehttptransformers "github.com/samchon/typia/packages/typia/native/transform/features/http"
@@ -392,10 +393,18 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
         return nativereflecttransformers.ReflectLiteralsTransformer.Transform
       },
     },
+    "compare": {
+      "equal": func() callExpressionTransformerTask { return nativecomparetransformers.CompareEqualTransformer.Transform },
+      "cover": func() callExpressionTransformerTask { return nativecomparetransformers.CompareCoverTransformer.Transform },
+      "createEqual": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCreateEqualTransformer.Transform
+      },
+      "createCover": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCreateCoverTransformer.Transform
+      },
+    },
     "misc": {
       "clone": func() callExpressionTransformerTask { return nativemisctransformers.MiscCloneTransformer.Transform },
-      "equal":    func() callExpressionTransformerTask { return nativemisctransformers.MiscEqualTransformer.Transform },
-      "cover":    func() callExpressionTransformerTask { return nativemisctransformers.MiscCoverTransformer.Transform },
       "assertClone": func() callExpressionTransformerTask {
         return nativemisctransformers.MiscAssertCloneTransformer.Transform
       },
@@ -413,12 +422,6 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       },
       "createClone": func() callExpressionTransformerTask {
         return nativemisctransformers.MiscCreateCloneTransformer.Transform
-      },
-      "createEqual": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateEqualTransformer.Transform
-      },
-      "createCover": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateCoverTransformer.Transform
       },
       "createAssertClone": func() callExpressionTransformerTask {
         return nativemisctransformers.MiscCreateAssertCloneTransformer.Transform

@@ -9,6 +9,7 @@ import {
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+export * as compare from "./compare";
 export * as functional from "./functional";
 export * as http from "./http";
 export * as llm from "./llm";

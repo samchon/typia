@@ -1,4 +1,4 @@
-package misc
+package compare
 
 import (
   "fmt"
@@ -15,31 +15,31 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-type miscEqualProgrammerNamespace struct{}
+type compareEqualProgrammerNamespace struct{}
 
-var MiscEqualProgrammer = miscEqualProgrammerNamespace{}
+var CompareEqualProgrammer = compareEqualProgrammerNamespace{}
 
-type MiscEqualProgrammer_IConfig struct {
+type CompareEqualProgrammer_IConfig struct {
   Cover bool
 }
 
-type MiscEqualProgrammer_IProps struct {
+type CompareEqualProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
   Type    *shimchecker.Type
-  Config  MiscEqualProgrammer_IConfig
+  Config  CompareEqualProgrammer_IConfig
 }
 
-type miscEqualProgrammerGenerator struct {
-  Config    MiscEqualProgrammer_IConfig
+type compareEqualProgrammerGenerator struct {
+  Config    CompareEqualProgrammer_IConfig
   Recursive bool
   Counter   int
 }
 
-var miscEqualProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+var compareEqualProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func (miscEqualProgrammerNamespace) Write(props MiscEqualProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(miscEqualProgrammer_factory, props.Context.Emit)
+func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(compareEqualProgrammer_factory, props.Context.Emit)
   method := nativehelpers.ModuloMethodText(props.Modulo)
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
@@ -53,7 +53,7 @@ func (miscEqualProgrammerNamespace) Write(props MiscEqualProgrammer_IProps) *shi
         Explore  nativefactories.MetadataFactory_IExplore
         Top      *schemametadata.MetadataSchema
       }) []string {
-        return miscEqualProgrammer_validate(next.Metadata)
+        return compareEqualProgrammer_validate(next.Metadata)
       },
     },
     Components: collection,
@@ -65,11 +65,11 @@ func (miscEqualProgrammerNamespace) Write(props MiscEqualProgrammer_IProps) *shi
       Errors []nativecontext.TransformerError_MetadataFactory_IError
     }{
       Code:   method,
-      Errors: miscCloneProgrammer_errors(result.Errors),
+      Errors: compareEqualProgrammer_errors(result.Errors),
     }))
   }
 
-  generator := &miscEqualProgrammerGenerator{
+  generator := &compareEqualProgrammerGenerator{
     Config:    props.Config,
     Recursive: nativeinternal.FeatureProgrammer.CollectionRecursive(collection),
   }
@@ -96,7 +96,7 @@ func (miscEqualProgrammerNamespace) Write(props MiscEqualProgrammer_IProps) *shi
   return f.NewIdentifier("(() => { " + strings.Join(statements, " ") + " })()")
 }
 
-func miscEqualProgrammer_validate(metadata *schemametadata.MetadataSchema) []string {
+func compareEqualProgrammer_validate(metadata *schemametadata.MetadataSchema) []string {
   if metadata == nil {
     return nil
   }
@@ -123,7 +123,7 @@ func miscEqualProgrammer_validate(metadata *schemametadata.MetadataSchema) []str
   return output
 }
 
-func (g *miscEqualProgrammerGenerator) schema(metadata *schemametadata.MetadataSchema, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) schema(metadata *schemametadata.MetadataSchema, x string, y string) string {
   if metadata == nil {
     return g.same(x, y)
   }
@@ -131,7 +131,7 @@ func (g *miscEqualProgrammerGenerator) schema(metadata *schemametadata.MetadataS
   branches := []string{}
   for _, constant := range metadata.Constants {
     for _, value := range constant.Values {
-      literal := miscEqualProgrammer_literal(value.Value, constant.Type)
+      literal := compareEqualProgrammer_literal(value.Value, constant.Type)
       branches = append(branches, g.and(g.same(x, literal), g.same(y, literal)))
     }
   }
@@ -168,11 +168,11 @@ func (g *miscEqualProgrammerGenerator) schema(metadata *schemametadata.MetadataS
   return g.or(append([]string{g.same(x, y)}, branches...)...)
 }
 
-func (g *miscEqualProgrammerGenerator) atomic(typ string, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) atomic(typ string, x string, y string) string {
   return g.and(g.typeof(x, typ), g.and(g.typeof(y, typ), g.same(x, y)))
 }
 
-func (g *miscEqualProgrammerGenerator) native(name string, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) native(name string, x string, y string) string {
   switch name {
   case "Date":
     return g.and(g.instanceof(x, name), g.and(g.instanceof(y, name), g.same(g.call(x, "getTime"), g.call(y, "getTime"))))
@@ -187,35 +187,35 @@ func (g *miscEqualProgrammerGenerator) native(name string, x string, y string) s
   case "Boolean", "BigInt", "Number", "String":
     return g.and(g.instanceof(x, name), g.and(g.instanceof(y, name), g.same(g.call(x, "valueOf"), g.call(y, "valueOf"))))
   default:
-    if miscEqualProgrammer_typedArray(name) {
+    if compareEqualProgrammer_typedArray(name) {
       return g.and(g.instanceof(x, name), g.and(g.instanceof(y, name), g.bytes(x, y)))
     }
     return g.same(x, y)
   }
 }
 
-func (g *miscEqualProgrammerGenerator) array(array *schemametadata.MetadataArray, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) array(array *schemametadata.MetadataArray, x string, y string) string {
   if array.Type.Recursive {
     return g.arrayCall(array.Type, x, y)
   }
   return g.arrayInline(array.Type.Value, x, y)
 }
 
-func (g *miscEqualProgrammerGenerator) arrayInline(value *schemametadata.MetadataSchema, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) arrayInline(value *schemametadata.MetadataSchema, x string, y string) string {
   elem := g.local("elem")
   index := g.local("i")
   next := g.schema(value, elem, g.index(y, index))
   return g.and(g.isArray(x), g.and(g.isArray(y), g.and(g.same(g.access(x, "length"), g.access(y, "length")), fmt.Sprintf("%s.every((%s, %s) => %s)", g.wrap(x), elem, index, next))))
 }
 
-func (g *miscEqualProgrammerGenerator) tuple(tuple *schemametadata.MetadataTuple, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) tuple(tuple *schemametadata.MetadataTuple, x string, y string) string {
   if tuple.Type.Recursive {
     return g.tupleCall(tuple.Type, x, y)
   }
   return g.tupleInline(tuple.Type, x, y)
 }
 
-func (g *miscEqualProgrammerGenerator) tupleInline(tuple *schemametadata.MetadataTupleType, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) tupleInline(tuple *schemametadata.MetadataTupleType, x string, y string) string {
   fixed := len(tuple.Elements)
   var rest *schemametadata.MetadataSchema
   if fixed != 0 && tuple.Elements[fixed-1].Rest != nil {
@@ -244,14 +244,14 @@ func (g *miscEqualProgrammerGenerator) tupleInline(tuple *schemametadata.Metadat
   return g.and(checks...)
 }
 
-func (g *miscEqualProgrammerGenerator) objectCall(object *schemametadata.MetadataObjectType, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) objectCall(object *schemametadata.MetadataObjectType, x string, y string) string {
   if g.Recursive {
     return fmt.Sprintf("_eo%d(%s, %s, _vctx)", object.Index, g.wrap(x), g.wrap(y))
   }
   return fmt.Sprintf("_eo%d(%s, %s)", object.Index, g.wrap(x), g.wrap(y))
 }
 
-func (g *miscEqualProgrammerGenerator) arrayCall(array *schemametadata.MetadataArrayType, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) arrayCall(array *schemametadata.MetadataArrayType, x string, y string) string {
   index := 0
   if array.Index != nil {
     index = *array.Index
@@ -262,7 +262,7 @@ func (g *miscEqualProgrammerGenerator) arrayCall(array *schemametadata.MetadataA
   return fmt.Sprintf("_ea%d(%s, %s)", index, g.wrap(x), g.wrap(y))
 }
 
-func (g *miscEqualProgrammerGenerator) tupleCall(tuple *schemametadata.MetadataTupleType, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) tupleCall(tuple *schemametadata.MetadataTupleType, x string, y string) string {
   index := 0
   if tuple.Index != nil {
     index = *tuple.Index
@@ -273,7 +273,7 @@ func (g *miscEqualProgrammerGenerator) tupleCall(tuple *schemametadata.MetadataT
   return fmt.Sprintf("_et%d(%s, %s)", index, g.wrap(x), g.wrap(y))
 }
 
-func (g *miscEqualProgrammerGenerator) objectFunction(object *schemametadata.MetadataObjectType) string {
+func (g *compareEqualProgrammerGenerator) objectFunction(object *schemametadata.MetadataObjectType) string {
   body := g.objectInline(object, "x", "y")
   if g.Recursive {
     if object.Recursive {
@@ -284,7 +284,7 @@ func (g *miscEqualProgrammerGenerator) objectFunction(object *schemametadata.Met
   return fmt.Sprintf("const _eo%d = (x, y) => x === y || (%s && %s);", object.Index, g.objectGuard("x", "y"), body)
 }
 
-func (g *miscEqualProgrammerGenerator) arrayFunction(array *schemametadata.MetadataArrayType) string {
+func (g *compareEqualProgrammerGenerator) arrayFunction(array *schemametadata.MetadataArrayType) string {
   index := 0
   if array.Index != nil {
     index = *array.Index
@@ -296,7 +296,7 @@ func (g *miscEqualProgrammerGenerator) arrayFunction(array *schemametadata.Metad
   return fmt.Sprintf("const _ea%d = (x, y) => %s;", index, body)
 }
 
-func (g *miscEqualProgrammerGenerator) tupleFunction(tuple *schemametadata.MetadataTupleType) string {
+func (g *compareEqualProgrammerGenerator) tupleFunction(tuple *schemametadata.MetadataTupleType) string {
   index := 0
   if tuple.Index != nil {
     index = *tuple.Index
@@ -308,7 +308,7 @@ func (g *miscEqualProgrammerGenerator) tupleFunction(tuple *schemametadata.Metad
   return fmt.Sprintf("const _et%d = (x, y) => %s;", index, body)
 }
 
-func (g *miscEqualProgrammerGenerator) objectInline(object *schemametadata.MetadataObjectType, x string, y string) string {
+func (g *compareEqualProgrammerGenerator) objectInline(object *schemametadata.MetadataObjectType, x string, y string) string {
   regular := []*schemametadata.MetadataProperty{}
   dynamic := []*schemametadata.MetadataProperty{}
   for _, property := range object.Properties {
@@ -333,7 +333,7 @@ func (g *miscEqualProgrammerGenerator) objectInline(object *schemametadata.Metad
     checks = append(checks, expr)
   }
 
-  regularCheck := miscEqualProgrammer_regularKeyCheck(regularKeys)
+  regularCheck := compareEqualProgrammer_regularKeyCheck(regularKeys)
   if len(dynamic) != 0 {
     key := g.local("key")
     checks = append(checks, g.dynamicKeys(x, y, key, regularCheck, dynamic))
@@ -348,7 +348,7 @@ func (g *miscEqualProgrammerGenerator) objectInline(object *schemametadata.Metad
   return g.and(checks...)
 }
 
-func (g *miscEqualProgrammerGenerator) dynamicKeys(x string, y string, key string, regularCheck func(string) string, dynamic []*schemametadata.MetadataProperty) string {
+func (g *compareEqualProgrammerGenerator) dynamicKeys(x string, y string, key string, regularCheck func(string) string, dynamic []*schemametadata.MetadataProperty) string {
   conditions := []string{}
   for _, property := range dynamic {
     left := g.index(x, key)
@@ -363,7 +363,7 @@ func (g *miscEqualProgrammerGenerator) dynamicKeys(x string, y string, key strin
   return fmt.Sprintf("Object.keys(%s).every((%s) => %s || (Object.prototype.hasOwnProperty.call(%s, %s) && %s))", g.wrap(x), key, regularCheck(key), g.wrap(y), key, compare)
 }
 
-func (g *miscEqualProgrammerGenerator) dynamicKey(metadata *schemametadata.MetadataSchema, key string) string {
+func (g *compareEqualProgrammerGenerator) dynamicKey(metadata *schemametadata.MetadataSchema, key string) string {
   metadata = schemametadata.MetadataSchema_unalias(metadata)
   checks := []string{}
   for _, constant := range metadata.Constants {
@@ -380,72 +380,72 @@ func (g *miscEqualProgrammerGenerator) dynamicKey(metadata *schemametadata.Metad
   return g.or(checks...)
 }
 
-func (g *miscEqualProgrammerGenerator) visit(kind string, index int) string {
+func (g *compareEqualProgrammerGenerator) visit(kind string, index int) string {
   slot := fmt.Sprintf("_vctx.%s%d", kind, index)
   return fmt.Sprintf("const _map = %s || (%s = new WeakMap()); let _set = _map.get(x); if (_set && _set.has(y)) return true; if (!_set) _map.set(x, (_set = new WeakSet())); _set.add(y);", slot, slot)
 }
 
-func (g *miscEqualProgrammerGenerator) bytes(x string, y string) string {
+func (g *compareEqualProgrammerGenerator) bytes(x string, y string) string {
   elem := g.local("byte")
   index := g.local("i")
   return g.and(g.same(g.access(x, "byteLength"), g.access(y, "byteLength")), fmt.Sprintf("%s.every((%s, %s) => %s === %s)", g.wrap(x), elem, index, elem, g.index(y, index)))
 }
 
-func (g *miscEqualProgrammerGenerator) objectGuard(x string, y string) string {
+func (g *compareEqualProgrammerGenerator) objectGuard(x string, y string) string {
   return g.and(g.isObject(x), g.isObject(y))
 }
 
-func (g *miscEqualProgrammerGenerator) isObject(input string) string {
+func (g *compareEqualProgrammerGenerator) isObject(input string) string {
   return fmt.Sprintf("typeof %s === \"object\" && %s !== null && !Array.isArray(%s)", g.wrap(input), g.wrap(input), g.wrap(input))
 }
 
-func (g *miscEqualProgrammerGenerator) isArray(input string) string {
+func (g *compareEqualProgrammerGenerator) isArray(input string) string {
   return fmt.Sprintf("Array.isArray(%s)", g.wrap(input))
 }
 
-func (g *miscEqualProgrammerGenerator) instanceof(input string, name string) string {
+func (g *compareEqualProgrammerGenerator) instanceof(input string, name string) string {
   return fmt.Sprintf("%s instanceof %s", g.wrap(input), name)
 }
 
-func (g *miscEqualProgrammerGenerator) typeof(input string, typ string) string {
+func (g *compareEqualProgrammerGenerator) typeof(input string, typ string) string {
   return fmt.Sprintf("typeof %s === %s", g.wrap(input), strconv.Quote(typ))
 }
 
-func (g *miscEqualProgrammerGenerator) newBytes(input string) string {
+func (g *compareEqualProgrammerGenerator) newBytes(input string) string {
   return fmt.Sprintf("new Uint8Array(%s)", g.wrap(input))
 }
 
-func (g *miscEqualProgrammerGenerator) call(input string, method string) string {
+func (g *compareEqualProgrammerGenerator) call(input string, method string) string {
   return fmt.Sprintf("%s.%s()", g.wrap(input), method)
 }
 
-func (g *miscEqualProgrammerGenerator) property(input string, key string) string {
-  if miscEqualProgrammer_identifier(key) {
+func (g *compareEqualProgrammerGenerator) property(input string, key string) string {
+  if compareEqualProgrammer_identifier(key) {
     return g.access(input, key)
   }
   return g.index(input, strconv.Quote(key))
 }
 
-func (g *miscEqualProgrammerGenerator) access(input string, key string) string {
+func (g *compareEqualProgrammerGenerator) access(input string, key string) string {
   return fmt.Sprintf("%s.%s", g.wrap(input), key)
 }
 
-func (g *miscEqualProgrammerGenerator) index(input string, key string) string {
+func (g *compareEqualProgrammerGenerator) index(input string, key string) string {
   return fmt.Sprintf("%s[%s]", g.wrap(input), key)
 }
 
-func (g *miscEqualProgrammerGenerator) wrap(input string) string {
-  if miscEqualProgrammer_simple(input) {
+func (g *compareEqualProgrammerGenerator) wrap(input string) string {
+  if compareEqualProgrammer_simple(input) {
     return input
   }
   return "(" + input + ")"
 }
 
-func (g *miscEqualProgrammerGenerator) same(x string, y string) string {
+func (g *compareEqualProgrammerGenerator) same(x string, y string) string {
   return fmt.Sprintf("%s === %s", g.wrap(x), g.wrap(y))
 }
 
-func (g *miscEqualProgrammerGenerator) and(expressions ...string) string {
+func (g *compareEqualProgrammerGenerator) and(expressions ...string) string {
   filtered := []string{}
   for _, expr := range expressions {
     if expr != "" && expr != "true" {
@@ -458,7 +458,7 @@ func (g *miscEqualProgrammerGenerator) and(expressions ...string) string {
   return "(" + strings.Join(filtered, " && ") + ")"
 }
 
-func (g *miscEqualProgrammerGenerator) or(expressions ...string) string {
+func (g *compareEqualProgrammerGenerator) or(expressions ...string) string {
   filtered := []string{}
   for _, expr := range expressions {
     if expr == "true" {
@@ -474,13 +474,13 @@ func (g *miscEqualProgrammerGenerator) or(expressions ...string) string {
   return "(" + strings.Join(filtered, " || ") + ")"
 }
 
-func (g *miscEqualProgrammerGenerator) local(prefix string) string {
+func (g *compareEqualProgrammerGenerator) local(prefix string) string {
   next := fmt.Sprintf("_%s%d", prefix, g.Counter)
   g.Counter++
   return next
 }
 
-func miscEqualProgrammer_literal(value any, typ string) string {
+func compareEqualProgrammer_literal(value any, typ string) string {
   switch v := value.(type) {
   case string:
     if typ == "bigint" {
@@ -508,9 +508,9 @@ func miscEqualProgrammer_literal(value any, typ string) string {
   case uint64:
     return fmt.Sprint(v)
   case float32:
-    return miscEqualProgrammer_float(float64(v))
+    return compareEqualProgrammer_float(float64(v))
   case float64:
-    return miscEqualProgrammer_float(v)
+    return compareEqualProgrammer_float(v)
   default:
     if typ == "bigint" {
       text := fmt.Sprint(value)
@@ -523,7 +523,7 @@ func miscEqualProgrammer_literal(value any, typ string) string {
   }
 }
 
-func miscEqualProgrammer_float(value float64) string {
+func compareEqualProgrammer_float(value float64) string {
   if math.IsInf(value, 1) {
     return "Infinity"
   }
@@ -536,7 +536,7 @@ func miscEqualProgrammer_float(value float64) string {
   return strconv.FormatFloat(value, 'f', -1, 64)
 }
 
-func miscEqualProgrammer_regularKeyCheck(keys []string) func(string) string {
+func compareEqualProgrammer_regularKeyCheck(keys []string) func(string) string {
   quoted := make([]string, 0, len(keys))
   for _, key := range keys {
     quoted = append(quoted, strconv.Quote(key))
@@ -553,7 +553,7 @@ func miscEqualProgrammer_regularKeyCheck(keys []string) func(string) string {
   }
 }
 
-func miscEqualProgrammer_typedArray(name string) bool {
+func compareEqualProgrammer_typedArray(name string) bool {
   switch name {
   case "Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array", "BigUint64Array",
     "Int8Array", "Int16Array", "Int32Array", "BigInt64Array", "Float32Array", "Float64Array":
@@ -563,8 +563,8 @@ func miscEqualProgrammer_typedArray(name string) bool {
   }
 }
 
-func miscEqualProgrammer_identifier(str string) bool {
-  if str == "" || miscEqualProgrammer_reserved[str] {
+func compareEqualProgrammer_identifier(str string) bool {
+  if str == "" || compareEqualProgrammer_reserved[str] {
     return false
   }
   for i := 0; i < len(str); i++ {
@@ -580,8 +580,8 @@ func miscEqualProgrammer_identifier(str string) bool {
   return true
 }
 
-func miscEqualProgrammer_simple(str string) bool {
-  if miscEqualProgrammer_identifier(str) {
+func compareEqualProgrammer_simple(str string) bool {
+  if compareEqualProgrammer_identifier(str) {
     return true
   }
   for i := 0; i < len(str); i++ {
@@ -593,7 +593,7 @@ func miscEqualProgrammer_simple(str string) bool {
   return str != ""
 }
 
-var miscEqualProgrammer_reserved = map[string]bool{
+var compareEqualProgrammer_reserved = map[string]bool{
   "break":      true,
   "case":       true,
   "catch":      true,
@@ -634,4 +634,21 @@ var miscEqualProgrammer_reserved = map[string]bool{
   "void":       true,
   "while":      true,
   "with":       true,
+}
+
+func compareEqualProgrammer_errors(errors []nativefactories.MetadataFactory_IError) []nativecontext.TransformerError_MetadataFactory_IError {
+  output := make([]nativecontext.TransformerError_MetadataFactory_IError, 0, len(errors))
+  for _, err := range errors {
+    output = append(output, nativecontext.TransformerError_MetadataFactory_IError{
+      Name: err.Name,
+      Explore: nativecontext.TransformerError_MetadataFactory_IExplore{
+        Object:    err.Explore.Object,
+        Property:  err.Explore.Property,
+        Parameter: err.Explore.Parameter,
+        Output:    err.Explore.Output,
+      },
+      Messages: append([]string{}, err.Messages...),
+    })
+  }
+  return output
 }

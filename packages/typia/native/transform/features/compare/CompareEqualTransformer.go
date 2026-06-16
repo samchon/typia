@@ -1,21 +1,21 @@
-package misc
+package compare
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativemiscprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/misc"
+  nativecompareprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/compare"
   nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
-type miscEqualTransformerNamespace struct{}
+type compareEqualTransformerNamespace struct{}
 
-var MiscEqualTransformer = miscEqualTransformerNamespace{}
+var CompareEqualTransformer = compareEqualTransformerNamespace{}
 
-func (miscEqualTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
-  return miscEqualTransformer_scalar(props, "misc.equal", false)
+func (compareEqualTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
+  return compareEqualTransformer_scalar(props, "compare.equal", false)
 }
 
-func miscEqualTransformer_scalar(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
+func compareEqualTransformer_scalar(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
   f := nativecontext.EmitFactoryOf(shimast.NewNodeFactory(shimast.NodeFactoryHooks{}), props.Context.Emit)
   if props.Expression == nil || props.Expression.Arguments == nil || len(props.Expression.Arguments.Nodes) < 2 {
     panic(nativeinternal.NewTransformerError(nativeinternal.TransformerError_IProps{
@@ -36,11 +36,11 @@ func miscEqualTransformer_scalar(props nativeinternal.ITransformProps, method st
   }
 
   return f.NewCallExpression(
-    nativemiscprogrammers.MiscEqualProgrammer.Write(nativemiscprogrammers.MiscEqualProgrammer_IProps{
+    nativecompareprogrammers.CompareEqualProgrammer.Write(nativecompareprogrammers.CompareEqualProgrammer_IProps{
       Context: props.Context,
       Modulo:  props.Modulo,
       Type:    typ,
-      Config:  nativemiscprogrammers.MiscEqualProgrammer_IConfig{Cover: cover},
+      Config:  nativecompareprogrammers.CompareEqualProgrammer_IConfig{Cover: cover},
     }),
     nil,
     nil,
@@ -49,7 +49,7 @@ func miscEqualTransformer_scalar(props nativeinternal.ITransformProps, method st
   )
 }
 
-func miscEqualTransformer_factory(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
+func compareEqualTransformer_factory(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {
     panic(nativeinternal.NewTransformerError(nativeinternal.TransformerError_IProps{
       Code:    "typia." + method,
@@ -64,10 +64,10 @@ func miscEqualTransformer_factory(props nativeinternal.ITransformProps, method s
       Message: "non-specified generic argument.",
     }))
   }
-  return nativemiscprogrammers.MiscEqualProgrammer.Write(nativemiscprogrammers.MiscEqualProgrammer_IProps{
+  return nativecompareprogrammers.CompareEqualProgrammer.Write(nativecompareprogrammers.CompareEqualProgrammer_IProps{
     Context: props.Context,
     Modulo:  props.Modulo,
     Type:    typ,
-    Config:  nativemiscprogrammers.MiscEqualProgrammer_IConfig{Cover: cover},
+    Config:  nativecompareprogrammers.CompareEqualProgrammer_IConfig{Cover: cover},
   })
 }

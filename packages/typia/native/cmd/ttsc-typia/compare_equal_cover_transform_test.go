@@ -8,28 +8,28 @@ import (
   "testing"
 )
 
-// TestMiscEqualCoverTransform verifies type-directed structural comparison.
+// TestCompareEqualCoverTransform verifies type-directed structural comparison.
 //
-// Issue #1497 adds `typia.misc.equal` and `typia.misc.cover`:
+// Issue #1497 adds `typia.compare.equal` and `typia.compare.cover`:
 //
 //  1. Transform direct and factory calls for equal/cover.
 //  2. Execute object, partial-object, array-length, native, dynamic-key,
 //     union, and recursive pair-tracking cases.
 //  3. Reject unsupported any, function, Set, Map, WeakSet, and WeakMap types
 //     at transform time.
-func TestMiscEqualCoverTransform(t *testing.T) {
-  project := miscEqualCoverProject(t, "misc-equal-cover-", miscEqualCoverSource)
-  js := miscEqualCoverTransform(t, project)
+func TestCompareEqualCoverTransform(t *testing.T) {
+  project := compareEqualCoverProject(t, "compare-equal-cover-", compareEqualCoverSource)
+  js := compareEqualCoverTransform(t, project)
   for _, needle := range []string{"getTime", "source", "flags", "Uint8Array", "WeakMap", "_vctx"} {
     if !strings.Contains(js, needle) {
-      t.Fatalf("misc equal/cover output is missing %q:\n%s", needle, js)
+      t.Fatalf("compare equal/cover output is missing %q:\n%s", needle, js)
     }
   }
-  miscEqualCoverRunRuntimeCases(t, project, js)
-  miscEqualCoverRejectsUnsupported(t)
+  compareEqualCoverRunRuntimeCases(t, project, js)
+  compareEqualCoverRejectsUnsupported(t)
 }
 
-func miscEqualCoverProject(t *testing.T, prefix string, source string) string {
+func compareEqualCoverProject(t *testing.T, prefix string, source string) string {
   t.Helper()
   root := ttscTypiaTestRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
@@ -47,7 +47,7 @@ func miscEqualCoverProject(t *testing.T, prefix string, source string) string {
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(miscEqualCoverTSConfig), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(compareEqualCoverTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
   if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(source), 0o644); err != nil {
@@ -56,7 +56,7 @@ func miscEqualCoverProject(t *testing.T, prefix string, source string) string {
   return dir
 }
 
-func miscEqualCoverTransform(t *testing.T, project string) string {
+func compareEqualCoverTransform(t *testing.T, project string) string {
   t.Helper()
   out, errText, code := ttscTypiaTestCapture(func() int {
     return runTransform([]string{
@@ -67,12 +67,12 @@ func miscEqualCoverTransform(t *testing.T, project string) string {
     })
   })
   if code != 0 {
-    t.Fatalf("misc equal/cover transform failed: code=%d stderr=\n%s", code, errText)
+    t.Fatalf("compare equal/cover transform failed: code=%d stderr=\n%s", code, errText)
   }
   return out
 }
 
-func miscEqualCoverRunRuntimeCases(t *testing.T, project string, js string) {
+func compareEqualCoverRunRuntimeCases(t *testing.T, project string, js string) {
   t.Helper()
   node, err := exec.LookPath("node")
   if err != nil {
@@ -88,33 +88,33 @@ func miscEqualCoverRunRuntimeCases(t *testing.T, project string, js string) {
     t.Fatalf("write runtime module: %v", err)
   }
   runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(miscEqualCoverRuntimeRunner), 0o644); err != nil {
+  if err := os.WriteFile(runner, []byte(compareEqualCoverRuntimeRunner), 0o644); err != nil {
     t.Fatalf("write runtime runner: %v", err)
   }
   cmd := exec.Command(node, runner)
   cmd.Dir = runtimeDir
   output, err := cmd.CombinedOutput()
   if err != nil {
-    t.Fatalf("misc equal/cover runtime cases failed: %v\n%s", err, output)
+    t.Fatalf("compare equal/cover runtime cases failed: %v\n%s", err, output)
   }
 }
 
-func miscEqualCoverRejectsUnsupported(t *testing.T) {
+func compareEqualCoverRejectsUnsupported(t *testing.T) {
   t.Helper()
   cases := []struct {
     Name   string
     Source string
   }{
-    {"any", "export const bad = typia.misc.createEqual<any>();"},
-    {"function", "export const bad = typia.misc.createEqual<() => void>();"},
-    {"set", "export const bad = typia.misc.createCover<Set<string>>();"},
-    {"map", "export const bad = typia.misc.createEqual<Map<string, number>>();"},
-    {"weak-set", "export const bad = typia.misc.createCover<WeakSet<object>>();"},
-    {"weak-map", "export const bad = typia.misc.createEqual<WeakMap<object, object>>();"},
+    {"any", "export const bad = typia.compare.createEqual<any>();"},
+    {"function", "export const bad = typia.compare.createEqual<() => void>();"},
+    {"set", "export const bad = typia.compare.createCover<Set<string>>();"},
+    {"map", "export const bad = typia.compare.createEqual<Map<string, number>>();"},
+    {"weak-set", "export const bad = typia.compare.createCover<WeakSet<object>>();"},
+    {"weak-map", "export const bad = typia.compare.createEqual<WeakMap<object, object>>();"},
   }
   for _, tc := range cases {
     t.Run(tc.Name, func(t *testing.T) {
-      project := miscEqualCoverProject(t, "misc-equal-cover-reject-", `import typia from "typia";
+      project := compareEqualCoverProject(t, "compare-equal-cover-reject-", `import typia from "typia";
 `+tc.Source+`
 `)
       out, errText, code := ttscTypiaTestCapture(func() int {
@@ -133,7 +133,7 @@ func miscEqualCoverRejectsUnsupported(t *testing.T) {
   }
 }
 
-const miscEqualCoverTSConfig = `{
+const compareEqualCoverTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
@@ -148,7 +148,7 @@ const miscEqualCoverTSConfig = `{
 }
 `
 
-const miscEqualCoverSource = `import typia, { misc } from "typia";
+const compareEqualCoverSource = `import typia, { compare } from "typia";
 
 interface IUser {
   name: string;
@@ -164,34 +164,34 @@ interface IUser {
   bytes: Uint8Array;
 }
 
-export const equalUser = typia.misc.createEqual<IUser>();
-export const coverUser = typia.misc.createCover<IUser>();
-export const equalUserDirect = (x: IUser, y: IUser) => typia.misc.equal<IUser>(x, y);
-export const coverUserDirect = (x: IUser, y: misc.Cover<IUser>) => typia.misc.cover<IUser>(x, y);
+export const equalUser = typia.compare.createEqual<IUser>();
+export const coverUser = typia.compare.createCover<IUser>();
+export const equalUserDirect = (x: IUser, y: IUser) => typia.compare.equal<IUser>(x, y);
+export const coverUserDirect = (x: IUser, y: compare.Cover<IUser>) => typia.compare.cover<IUser>(x, y);
 
 interface IDictionary {
   fixed: string;
   [key: string]: string;
 }
-export const equalDictionary = typia.misc.createEqual<IDictionary>();
-export const coverDictionary = typia.misc.createCover<IDictionary>();
+export const equalDictionary = typia.compare.createEqual<IDictionary>();
+export const coverDictionary = typia.compare.createCover<IDictionary>();
 
 type Shape =
   | { kind: "circle"; radius: number; nested: { label: string } }
   | { kind: "square"; size: number; nested: { label: string } };
-export const equalShape = typia.misc.createEqual<Shape>();
-export const coverShape = typia.misc.createCover<Shape>();
+export const equalShape = typia.compare.createEqual<Shape>();
+export const coverShape = typia.compare.createCover<Shape>();
 
 interface INode {
   id: number;
   next: INode | null;
   children: INode[];
 }
-export const equalNode = typia.misc.createEqual<INode>();
-export const coverNode = typia.misc.createCover<INode>();
+export const equalNode = typia.compare.createEqual<INode>();
+export const coverNode = typia.compare.createCover<INode>();
 `
 
-const miscEqualCoverRuntimeRunner = `const mod = require("./main.cjs");
+const compareEqualCoverRuntimeRunner = `const mod = require("./main.cjs");
 
 const expect = (label, actual, expected) => {
   if (actual !== expected) {
