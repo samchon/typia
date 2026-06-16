@@ -15,8 +15,8 @@ func TestCallExpressionTransformerTargetModuleMatchesTypiaPathSegments(t *testin
   }{
     {
       name:     "installed lib declaration",
-      location: "C:/repo/node_modules/typia/lib/misc.d.ts",
-      module:   "misc",
+      location: "C:/repo/node_modules/typia/lib/plain.d.ts",
+      module:   "plain",
       matched:  true,
     },
     {
@@ -27,7 +27,7 @@ func TestCallExpressionTransformerTargetModuleMatchesTypiaPathSegments(t *testin
     },
     {
       name:     "fake package suffix",
-      location: "C:/repo/node_modules/fake-typia/lib/misc.d.ts",
+      location: "C:/repo/node_modules/fake-typia/lib/plain.d.ts",
       matched:  false,
     },
     {

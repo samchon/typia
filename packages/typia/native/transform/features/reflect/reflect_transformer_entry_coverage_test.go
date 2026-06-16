@@ -4,9 +4,9 @@
 package reflect
 
 import (
-	"testing"
+  "testing"
 
-	nativetransform "github.com/samchon/typia/packages/typia/native/transform/internal"
+  nativetransform "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
 // TestReflectTransformerEntryCoverage exercises reflect transform entrypoints.
@@ -20,28 +20,28 @@ import (
 // 3. Exercise reflect error formatting with empty inputs.
 // 4. Recover expected guard panics after each entrypoint call.
 func TestReflectTransformerEntryCoverage(t *testing.T) {
-	props := nativetransform.ITransformProps{}
-	for _, run := range []func(){
-		func() { ReflectMetadataTransformer.Transform(props) },
-		func() { ReflectNameTransformer.Transform(props) },
-		func() { ReflectSchemaTransformer.Transform(props) },
-		func() { ReflectSchemasTransformer.Transform(props) },
-		func() { ReflectLiteralsTransformer.Transform(props) },
-	} {
-		expectReflectPanic(t, run)
-	}
-	if len(reflectTransformer_errors(nil)) != 0 ||
-		reflectTransformer_sourceTextFallback(nil) != "" {
-		t.Fatal("reflect fallback helpers returned unexpected values")
-	}
+  props := nativetransform.ITransformProps{}
+  for _, run := range []func(){
+    func() { ReflectMetadataTransformer.Transform(props) },
+    func() { ReflectNameTransformer.Transform(props) },
+    func() { ReflectSchemaTransformer.Transform(props) },
+    func() { ReflectSchemasTransformer.Transform(props) },
+    func() { ReflectLiteralsTransformer.Transform(props) },
+  } {
+    expectReflectPanic(t, run)
+  }
+  if len(reflectTransformer_errors(nil)) != 0 ||
+    reflectTransformer_sourceTextFallback(nil) != "" {
+    t.Fatal("reflect fallback helpers returned unexpected values")
+  }
 }
 
 func expectReflectPanic(t *testing.T, run func()) {
-	t.Helper()
-	defer func() {
-		if recover() == nil {
-			t.Fatal("expected reflect transformer panic")
-		}
-	}()
-	run()
+  t.Helper()
+  defer func() {
+    if recover() == nil {
+      t.Fatal("expected reflect transformer panic")
+    }
+  }()
+  run()
 }

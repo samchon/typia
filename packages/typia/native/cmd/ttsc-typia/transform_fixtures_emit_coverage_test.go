@@ -4,12 +4,12 @@
 package main
 
 import (
-	"bytes"
-	"os"
-	"path/filepath"
-	"runtime"
-	"strings"
-	"testing"
+  "bytes"
+  "os"
+  "path/filepath"
+  "runtime"
+  "strings"
+  "testing"
 )
 
 // TestTransformSyntheticEmitCoverage exercises typia transforms inside Go coverage.
@@ -26,137 +26,137 @@ import (
 // 4. Cover reflect metadata, protobuf maps, and object-union emit paths.
 // 5. Run build/check/project-transform command paths against the same project.
 func TestTransformSyntheticEmitCoverage(t *testing.T) {
-	cases := []struct {
-		name   string
-		source string
-	}{
-		{"core", transformCoverageCoreSource},
-		{"json", transformCoverageJSONSource},
-		{"http", transformCoverageHTTPSource},
-		{"misc", transformCoverageMiscSource},
-		{"functional", transformCoverageFunctionalSource},
-		{"complex", transformCoverageComplexSource},
-		{"protobuf", transformCoverageProtobufSource},
-		{"reflect-metadata", transformCoverageReflectMetadataSource},
-	}
-	projects := map[string]string{}
-	for _, tc := range cases {
-		tc := tc
-		projects[tc.name] = transformCoverageProject(t, tc.name, tc.source)
-		t.Run(tc.name+"_ts", func(t *testing.T) {
-			out, errText, code := transformCoverageCapture(func() int {
-				return runTransform([]string{
-					"--cwd", projects[tc.name],
-					"--tsconfig", "tsconfig.json",
-					"--file", "src/main.ts",
-					"--output", "ts",
-				})
-			})
-			if code != 0 {
-				t.Fatalf("transform ts failed for %s: code=%d stderr=\n%s", tc.name, code, errText)
-			}
-			if !strings.Contains(out, "export") && !strings.Contains(out, "const") {
-				t.Fatalf("transform ts output for %s looks empty:\n%s", tc.name, out)
-			}
-		})
-	}
-	for _, tc := range cases {
-		tc := tc
-		t.Run(tc.name+"_js", func(t *testing.T) {
-			_, errText, code := transformCoverageCapture(func() int {
-				return runTransform([]string{
-					"--cwd", projects[tc.name],
-					"--tsconfig", "tsconfig.json",
-					"--file", "src/main.ts",
-					"--output", "js",
-				})
-			})
-			if code != 3 || !strings.Contains(errText, "no output produced") {
-				t.Fatalf("transform js should report no output for %s: code=%d stderr=\n%s", tc.name, code, errText)
-			}
-		})
-	}
-	core := projects["core"]
-	if _, errText, code := transformCoverageCapture(func() int {
-		return runBuild([]string{
-			"--cwd", core,
-			"--tsconfig", "tsconfig.json",
-			"--noEmit",
-			"--verbose",
-		})
-	}); code != 0 {
-		t.Fatalf("build check failed: code=%d stderr=\n%s", code, errText)
-	}
-	if out, errText, code := transformCoverageCapture(func() int {
-		return runTransform([]string{
-			"--cwd", core,
-			"--tsconfig", "tsconfig.json",
-		})
-	}); code != 0 {
-		t.Fatalf("project transform failed: code=%d stderr=\n%s", code, errText)
-	} else if !strings.Contains(out, `"typescript"`) {
-		t.Fatalf("project transform output should include TypeScript map:\n%s", out)
-	}
+  cases := []struct {
+    name   string
+    source string
+  }{
+    {"core", transformCoverageCoreSource},
+    {"json", transformCoverageJSONSource},
+    {"http", transformCoverageHTTPSource},
+    {"plain", transformCoveragePlainSource},
+    {"functional", transformCoverageFunctionalSource},
+    {"complex", transformCoverageComplexSource},
+    {"protobuf", transformCoverageProtobufSource},
+    {"reflect-metadata", transformCoverageReflectMetadataSource},
+  }
+  projects := map[string]string{}
+  for _, tc := range cases {
+    tc := tc
+    projects[tc.name] = transformCoverageProject(t, tc.name, tc.source)
+    t.Run(tc.name+"_ts", func(t *testing.T) {
+      out, errText, code := transformCoverageCapture(func() int {
+        return runTransform([]string{
+          "--cwd", projects[tc.name],
+          "--tsconfig", "tsconfig.json",
+          "--file", "src/main.ts",
+          "--output", "ts",
+        })
+      })
+      if code != 0 {
+        t.Fatalf("transform ts failed for %s: code=%d stderr=\n%s", tc.name, code, errText)
+      }
+      if !strings.Contains(out, "export") && !strings.Contains(out, "const") {
+        t.Fatalf("transform ts output for %s looks empty:\n%s", tc.name, out)
+      }
+    })
+  }
+  for _, tc := range cases {
+    tc := tc
+    t.Run(tc.name+"_js", func(t *testing.T) {
+      _, errText, code := transformCoverageCapture(func() int {
+        return runTransform([]string{
+          "--cwd", projects[tc.name],
+          "--tsconfig", "tsconfig.json",
+          "--file", "src/main.ts",
+          "--output", "js",
+        })
+      })
+      if code != 3 || !strings.Contains(errText, "no output produced") {
+        t.Fatalf("transform js should report no output for %s: code=%d stderr=\n%s", tc.name, code, errText)
+      }
+    })
+  }
+  core := projects["core"]
+  if _, errText, code := transformCoverageCapture(func() int {
+    return runBuild([]string{
+      "--cwd", core,
+      "--tsconfig", "tsconfig.json",
+      "--noEmit",
+      "--verbose",
+    })
+  }); code != 0 {
+    t.Fatalf("build check failed: code=%d stderr=\n%s", code, errText)
+  }
+  if out, errText, code := transformCoverageCapture(func() int {
+    return runTransform([]string{
+      "--cwd", core,
+      "--tsconfig", "tsconfig.json",
+    })
+  }); code != 0 {
+    t.Fatalf("project transform failed: code=%d stderr=\n%s", code, errText)
+  } else if !strings.Contains(out, `"typescript"`) {
+    t.Fatalf("project transform output should include TypeScript map:\n%s", out)
+  }
 }
 
 func transformCoverageProject(t *testing.T, name string, source string) string {
-	t.Helper()
-	root := transformCoverageRepoRoot(t)
-	base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-	if err := os.MkdirAll(base, 0o755); err != nil {
-		t.Fatalf("mkdir temp base: %v", err)
-	}
-	dir, err := os.MkdirTemp(base, name+"-")
-	if err != nil {
-		t.Fatalf("create temp fixture: %v", err)
-	}
-	t.Cleanup(func() {
-		_ = os.RemoveAll(dir)
-	})
-	src := filepath.Join(dir, "src")
-	if err := os.MkdirAll(src, 0o755); err != nil {
-		t.Fatalf("mkdir fixture src: %v", err)
-	}
-	if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(transformCoverageTSConfig), 0o644); err != nil {
-		t.Fatalf("write tsconfig: %v", err)
-	}
-	if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(source), 0o644); err != nil {
-		t.Fatalf("write source: %v", err)
-	}
-	if name == "reflect-metadata" {
-		reflectDir := filepath.Join(src, "typia", "src")
-		if err := os.MkdirAll(reflectDir, 0o755); err != nil {
-			t.Fatalf("mkdir reflect stub: %v", err)
-		}
-		if err := os.WriteFile(filepath.Join(reflectDir, "reflect.ts"), []byte(transformCoverageReflectStubSource), 0o644); err != nil {
-			t.Fatalf("write reflect stub: %v", err)
-		}
-	}
-	return dir
+  t.Helper()
+  root := transformCoverageRepoRoot(t)
+  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
+  if err := os.MkdirAll(base, 0o755); err != nil {
+    t.Fatalf("mkdir temp base: %v", err)
+  }
+  dir, err := os.MkdirTemp(base, name+"-")
+  if err != nil {
+    t.Fatalf("create temp fixture: %v", err)
+  }
+  t.Cleanup(func() {
+    _ = os.RemoveAll(dir)
+  })
+  src := filepath.Join(dir, "src")
+  if err := os.MkdirAll(src, 0o755); err != nil {
+    t.Fatalf("mkdir fixture src: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(transformCoverageTSConfig), 0o644); err != nil {
+    t.Fatalf("write tsconfig: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(source), 0o644); err != nil {
+    t.Fatalf("write source: %v", err)
+  }
+  if name == "reflect-metadata" {
+    reflectDir := filepath.Join(src, "typia", "src")
+    if err := os.MkdirAll(reflectDir, 0o755); err != nil {
+      t.Fatalf("mkdir reflect stub: %v", err)
+    }
+    if err := os.WriteFile(filepath.Join(reflectDir, "reflect.ts"), []byte(transformCoverageReflectStubSource), 0o644); err != nil {
+      t.Fatalf("write reflect stub: %v", err)
+    }
+  }
+  return dir
 }
 
 func transformCoverageRepoRoot(t *testing.T) string {
-	t.Helper()
-	_, file, _, ok := runtime.Caller(0)
-	if !ok {
-		t.Fatal("runtime.Caller failed")
-	}
-	return filepath.Clean(filepath.Join(filepath.Dir(file), "..", "..", "..", "..", ".."))
+  t.Helper()
+  _, file, _, ok := runtime.Caller(0)
+  if !ok {
+    t.Fatal("runtime.Caller failed")
+  }
+  return filepath.Clean(filepath.Join(filepath.Dir(file), "..", "..", "..", "..", ".."))
 }
 
 func transformCoverageCapture(run func() int) (string, string, int) {
-	var out bytes.Buffer
-	var err bytes.Buffer
-	oldStdout := stdout
-	oldStderr := stderr
-	stdout = &out
-	stderr = &err
-	defer func() {
-		stdout = oldStdout
-		stderr = oldStderr
-	}()
-	code := run()
-	return out.String(), err.String(), code
+  var out bytes.Buffer
+  var err bytes.Buffer
+  oldStdout := stdout
+  oldStderr := stderr
+  stdout = &out
+  stderr = &err
+  defer func() {
+    stdout = oldStdout
+    stderr = oldStderr
+  }()
+  code := run()
+  return out.String(), err.String(), code
 }
 
 const transformCoverageTSConfig = `{
@@ -283,41 +283,41 @@ export const createValidateFormData = typia.http.createValidateFormData<FormInpu
 export const createParameter = typia.http.createParameter<string | null>();
 `
 
-const transformCoverageMiscSource = `import typia from "typia";
+const transformCoveragePlainSource = `import typia from "typia";
 
-interface MiscUser {
+interface PlainUser {
   id: string;
   snake_name: string;
-  children?: MiscUser[];
+  children?: PlainUser[];
 }
 
-export const clone = (input: unknown) => typia.misc.assertClone<MiscUser>(input);
-export const isClone = (input: unknown) => typia.misc.isClone<MiscUser>(input);
-export const validateClone = (input: unknown) => typia.misc.validateClone<MiscUser>(input);
-export const prune = (input: MiscUser) => typia.misc.assertPrune<MiscUser>(input);
-export const isPrune = (input: unknown) => typia.misc.isPrune<MiscUser>(input);
-export const validatePrune = (input: unknown) => typia.misc.validatePrune<MiscUser>(input);
-export const createClone = typia.misc.createClone<MiscUser>();
-export const createAssertClone = typia.misc.createAssertClone<MiscUser>();
-export const createIsClone = typia.misc.createIsClone<MiscUser>();
-export const createValidateClone = typia.misc.createValidateClone<MiscUser>();
-export const createPrune = typia.misc.createPrune<MiscUser>();
-export const createAssertPrune = typia.misc.createAssertPrune<MiscUser>();
-export const createIsPrune = typia.misc.createIsPrune<MiscUser>();
-export const createValidatePrune = typia.misc.createValidatePrune<MiscUser>();
+export const clone = (input: unknown) => typia.plain.assertClone<PlainUser>(input);
+export const isClone = (input: unknown) => typia.plain.isClone<PlainUser>(input);
+export const validateClone = (input: unknown) => typia.plain.validateClone<PlainUser>(input);
+export const prune = (input: PlainUser) => typia.plain.assertPrune<PlainUser>(input);
+export const isPrune = (input: unknown) => typia.plain.isPrune<PlainUser>(input);
+export const validatePrune = (input: unknown) => typia.plain.validatePrune<PlainUser>(input);
+export const createClone = typia.plain.createClone<PlainUser>();
+export const createAssertClone = typia.plain.createAssertClone<PlainUser>();
+export const createIsClone = typia.plain.createIsClone<PlainUser>();
+export const createValidateClone = typia.plain.createValidateClone<PlainUser>();
+export const createPrune = typia.plain.createPrune<PlainUser>();
+export const createAssertPrune = typia.plain.createAssertPrune<PlainUser>();
+export const createIsPrune = typia.plain.createIsPrune<PlainUser>();
+export const createValidatePrune = typia.plain.createValidatePrune<PlainUser>();
 export const literals = typia.reflect.literals<false | 1 | "two">();
-export const createCamel = typia.notations.createCamel<MiscUser>();
-export const createAssertCamel = typia.notations.createAssertCamel<MiscUser>();
-export const createIsCamel = typia.notations.createIsCamel<MiscUser>();
-export const createValidateCamel = typia.notations.createValidateCamel<MiscUser>();
-export const createPascal = typia.notations.createPascal<MiscUser>();
-export const createAssertPascal = typia.notations.createAssertPascal<MiscUser>();
-export const createIsPascal = typia.notations.createIsPascal<MiscUser>();
-export const createValidatePascal = typia.notations.createValidatePascal<MiscUser>();
-export const createSnake = typia.notations.createSnake<MiscUser>();
-export const createAssertSnake = typia.notations.createAssertSnake<MiscUser>();
-export const createIsSnake = typia.notations.createIsSnake<MiscUser>();
-export const createValidateSnake = typia.notations.createValidateSnake<MiscUser>();
+export const createCamel = typia.notations.createCamel<PlainUser>();
+export const createAssertCamel = typia.notations.createAssertCamel<PlainUser>();
+export const createIsCamel = typia.notations.createIsCamel<PlainUser>();
+export const createValidateCamel = typia.notations.createValidateCamel<PlainUser>();
+export const createPascal = typia.notations.createPascal<PlainUser>();
+export const createAssertPascal = typia.notations.createAssertPascal<PlainUser>();
+export const createIsPascal = typia.notations.createIsPascal<PlainUser>();
+export const createValidatePascal = typia.notations.createValidatePascal<PlainUser>();
+export const createSnake = typia.notations.createSnake<PlainUser>();
+export const createAssertSnake = typia.notations.createAssertSnake<PlainUser>();
+export const createIsSnake = typia.notations.createIsSnake<PlainUser>();
+export const createValidateSnake = typia.notations.createValidateSnake<PlainUser>();
 `
 
 const transformCoverageFunctionalSource = `import typia from "typia";
@@ -424,10 +424,10 @@ export const isTaggedMap = (input: unknown) => typia.is<TaggedMap>(input);
 export const isTaggedObject = (input: unknown) => typia.is<TaggedObject>(input);
 export const randomComplex = () => typia.random<Complex>();
 export const createRandomComplex = typia.createRandom<Complex>();
-export const cloneComplex = typia.misc.createClone<Complex>();
-export const assertCloneComplex = typia.misc.createAssertClone<Complex>();
-export const isCloneComplex = typia.misc.createIsClone<Complex>();
-export const validateCloneComplex = typia.misc.createValidateClone<Complex>();
+export const cloneComplex = typia.plain.createClone<Complex>();
+export const assertCloneComplex = typia.plain.createAssertClone<Complex>();
+export const isCloneComplex = typia.plain.createIsClone<Complex>();
+export const validateCloneComplex = typia.plain.createValidateClone<Complex>();
 export const stringifyComplex = typia.json.createStringify<JsonComplex>();
 export const assertStringifyComplex = typia.json.createAssertStringify<JsonComplex>();
 export const isStringifyComplex = typia.json.createIsStringify<JsonComplex>();
