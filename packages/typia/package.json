@@ -14,7 +14,7 @@
     "typia": "./src/executable/typia.ts"
   },
   "ttsc": {
-    "plugin": { "transform": "typia" }
+    "plugin": { "transform": "typia/lib/transform" }
   },
   "scripts": {
     "build": "rimraf lib && ttsc && rollup -c && cp ../../README.md README.md",
