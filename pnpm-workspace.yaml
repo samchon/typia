@@ -17,7 +17,7 @@ catalogs:
     '@ttsc/wasm': ^0.15.3
     '@typescript/native-preview': 7.0.0-dev.20260615.1
     ts-node: ^10.9.2
-    ttsc: ^0.15.3
+    ttsc: ^0.15.4
     typescript: ~6.0.3
   rollup:
     rollup: ^4.56.0
