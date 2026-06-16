@@ -143,6 +143,9 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       "is": func() callExpressionTransformerTask {
         return nativefeatures.IsTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
       },
+      "shallow": func() callExpressionTransformerTask {
+        return nativefeatures.ShallowTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
+      },
       "validate": func() callExpressionTransformerTask {
         return nativefeatures.ValidateTransformer.Transform(nativeprogrammers.ValidateProgrammer_IConfig{Equals: false})
       },
@@ -173,6 +176,9 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       },
       "createIs": func() callExpressionTransformerTask {
         return nativefeatures.CreateIsTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
+      },
+      "createShallow": func() callExpressionTransformerTask {
+        return nativefeatures.CreateShallowTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
       },
       "createValidate": func() callExpressionTransformerTask {
         return nativefeatures.CreateValidateTransformer.Transform(nativeprogrammers.ValidateProgrammer_IConfig{Equals: false, StandardSchema: true})

@@ -31,6 +31,7 @@ type CheckerProgrammer_IConfig struct {
   Atomist       func(props CheckerProgrammer_AtomistProps) *shimast.Node
   Joiner        CheckerProgrammer_IConfig_IJoiner
   Success       *shimast.Expression
+  Depth         *int
 }
 
 type CheckerProgrammer_IConfig_Combiner func(props CheckerProgrammer_CombinerProps) *shimast.Node
@@ -127,6 +128,7 @@ type CheckerProgrammer_DecodeProps struct {
 
 type CheckerProgrammer_DecodeObjectProps struct {
   Config  CheckerProgrammer_IConfig
+  Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
   Object  *nativemetadata.MetadataObjectType
   Input   *shimast.Expression
@@ -289,11 +291,11 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
         )
       },
     },
-    Trace:   config.Trace,
-    Path:    config.Path,
-    Prefix:  config.Prefix,
+    Trace:         config.Trace,
+    Path:          config.Path,
+    Prefix:        config.Prefix,
     ObjectParents: config.ObjectParents,
-    Visited: functor.Visited,
+    Visited:       functor.Visited,
     VisitGuard: func(next FeatureProgrammer_VisitGuardProps) *shimast.Node {
       return checkerProgrammer_visit_guard(next.Key, next.Body, context.Emit)
     },
@@ -373,6 +375,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
       Decoder: func(next FeatureProgrammer_ObjectorDecoderProps) *shimast.Node {
         return CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
           Config:  config,
+          Context: context,
           Functor: functor,
           Input:   next.Input,
           Object:  next.Object,
@@ -393,6 +396,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
             Checker: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
               return CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
                 Config:  config,
+                Context: context,
                 Functor: functor,
                 Object:  v.Object,
                 Input:   v.Input,
@@ -405,6 +409,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
               explore.Tracable = true
               return CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
                 Config:  config,
+                Context: context,
                 Functor: functor,
                 Input:   v.Input,
                 Object:  v.Object,
@@ -435,6 +440,7 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
           binaries = append(binaries, CheckerProgrammer_IBinary{
             Expression: CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
               Config:  config,
+              Context: context,
               Functor: functor,
               Object:  object,
               Input:   next.Input,
@@ -515,6 +521,20 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   if props.Metadata.Any {
     return props.Config.Success
+  }
+  // depth budget exhausted (shallow): accept composites as a bare object,
+  // leave atomic-only metadata to the normal exact path.
+  if props.Config.Depth != nil && *props.Config.Depth <= 0 {
+    hasComposite := len(props.Metadata.Objects) != 0 ||
+      len(props.Metadata.Arrays) != 0 ||
+      len(props.Metadata.Tuples) != 0
+    if hasComposite {
+      return nativefactories.ExpressionFactory.IsObject(nativefactories.ExpressionFactory_IsObjectProps{
+        CheckNull:  true,
+        CheckArray: false,
+        Input:      props.Input,
+      }, props.Context.Emit)
+    }
   }
 
   top := []CheckerProgrammer_IBinary{}
@@ -974,6 +994,9 @@ func checkerProgrammer_constant_set_key(constants []*nativemetadata.MetadataCons
 
 func (checkerProgrammerNamespace) Decode_object(props CheckerProgrammer_DecodeObjectProps) *shimast.Node {
   props.Object.Validated = true
+  if props.Config.Depth != nil {
+    return checkerProgrammer_decode_object_inline(props)
+  }
   return FeatureProgrammer.Decode_object(FeatureProgrammer_DecodeObjectProps{
     Config: FeatureProgrammer_DecodeObjectConfig{
       Prefix:  props.Config.Prefix,
@@ -986,6 +1009,55 @@ func (checkerProgrammerNamespace) Decode_object(props CheckerProgrammer_DecodeOb
     Input:   props.Input,
     Explore: props.Explore,
     Emit:    props.Emit,
+  })
+}
+
+// checkerProgrammer_descend returns a copy of config whose shallow depth budget
+// is spent by one level. nil (the non-shallow callers) is left untouched.
+func checkerProgrammer_descend(config CheckerProgrammer_IConfig) CheckerProgrammer_IConfig {
+  if config.Depth == nil {
+    return config
+  }
+  next := *config.Depth - 1
+  config.Depth = &next
+  return config
+}
+
+// checkerProgrammer_decode_object_inline emits an object's property checks
+// inline (instead of the shared _io function) so the shallow depth budget can
+// decrement one level per nesting. The finite budget also bounds recursion: a
+// self-referential type stops descending once the budget reaches zero, where
+// Decode collapses it to a structural object guard.
+func checkerProgrammer_decode_object_inline(props CheckerProgrammer_DecodeObjectProps) *shimast.Node {
+  child := checkerProgrammer_descend(props.Config)
+  entries := nativeiterate.Feature_object_entries(nativeiterate.Feature_object_entriesProps{
+    Config: nativeiterate.Feature_object_entriesConfig{
+      Path:  props.Config.Path,
+      Trace: props.Config.Trace,
+      Decoder: func(next nativeiterate.Feature_object_entriesDecoderProps) *shimast.Node {
+        explore := props.Explore
+        explore.From = next.Explore.From
+        explore.Postfix = next.Explore.Postfix
+        explore.Source = next.Explore.Source
+        explore.Tracable = next.Explore.Tracable
+        return CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{
+          Context:  props.Context,
+          Config:   child,
+          Functor:  props.Functor,
+          Input:    next.Input,
+          Metadata: next.Metadata,
+          Explore:  explore,
+        })
+      },
+    },
+    Context: props.Context,
+    Input:   props.Input,
+    Object:  props.Object,
+  })
+  return props.Config.Joiner.Object(CheckerProgrammer_JoinerObjectProps{
+    Input:   props.Input,
+    Entries: entries,
+    Object:  props.Object,
   })
 }
 
@@ -1696,6 +1768,7 @@ func checkerProgrammer_check_object_reference(props checkerProgrammer_decodeObje
   explore.Tracable = false
   decoded := CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
     Config:  props.Config,
+    Context: props.Context,
     Functor: props.Functor,
     Object:  props.Object.Type,
     Input:   props.Input,
@@ -1720,6 +1793,7 @@ func checkerProgrammer_check_object_reference(props checkerProgrammer_decodeObje
 func checkerProgrammer_decode_object_reference(props checkerProgrammer_decodeObjectReferenceProps) *shimast.Node {
   decoded := CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
     Config:  props.Config,
+    Context: props.Context,
     Functor: props.Functor,
     Object:  props.Object.Type,
     Input:   props.Input,

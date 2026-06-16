@@ -499,6 +499,9 @@ func (featureProgrammerNamespace) WriteDecomposed(props FeatureProgrammer_WriteD
   }
   sort.Strings(keys)
   for _, key := range keys {
+    if props.Functor != nil && props.Functor.HasLocal(key) == false {
+      continue
+    }
     statements = append(statements, props.Result.Functions[key])
   }
   statements = append(statements, props.Result.Statements...)

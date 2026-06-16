@@ -30,6 +30,7 @@ type IsProgrammer_CONFIG_IOptions_ObjectProps struct {
 
 type IsProgrammer_IConfig struct {
   Equals bool
+  Depth  *int
 }
 
 type IsProgrammer_IProps struct {
@@ -193,6 +194,10 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
   }{Options: options, Context: props.Context, Functor: props.Functor})
   config.Trace = props.Config.Equals
   config.ObjectParents = props.Config.Equals == false
+  config.Depth = props.Config.Depth
+  if config.Depth != nil {
+    config.ObjectParents = false
+  }
 
   composed := nativeinternal.CheckerProgrammer.Compose(nativeinternal.CheckerProgrammer_ComposeProps{
     Context: props.Context,
@@ -296,6 +301,7 @@ func (isProgrammerNamespace) Decode_object(props IsProgrammer_DecodeObjectProps)
       Context nativecontext.ITypiaContext
       Functor *nativehelpers.FunctionProgrammer
     }{Options: nil, Context: props.Context, Functor: props.Functor}),
+    Context: props.Context,
     Functor: props.Functor,
     Object:  props.Object,
     Input:   props.Input,
