@@ -5,6 +5,8 @@ import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
+import LocalSource from '../../../components/LocalSource';
+
 # `typia.shallow()` — depth-limited type check
 
 ```typescript copy filename="signature"
@@ -39,27 +41,23 @@ the surface.
 
 ## First example
 
-```typescript copy filename="discriminate.ts"
-import typia from "typia";
+Only the discriminator and the top-level shape are checked, so the deeply nested
+fields never enter the emitted guard.
 
-interface Circle {
-  type: "circle";
-  radius: number;
-}
-interface Square {
-  type: "square";
-  side: number;
-}
-type Shape = Circle | Square;
-
-const input: unknown = await fetchSomething();
-
-// only the discriminator and the top-level shape are checked
-if (typia.shallow<Circle, 1>(input)) {
-  // input is now `Circle` inside this block
-  console.log(input.radius);
-}
-```
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/validators/shallow.ts"
+      filename="examples/src/validators/shallow.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/validators/shallow.js"
+      filename="examples/bin/validators/shallow.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
 ## What `N` does
 
@@ -68,47 +66,47 @@ object, array element, or tuple member spends one unit of budget. Once the budge
 reaches `0`, a composite value is accepted with a bare `typeof input === "object"
 && input !== null` guard instead of being descended.
 
-```typescript copy filename="depth.ts"
-interface Deep {
-  kind: "deep";
-  a: { b: { c: { value: string } } };
-}
-
-typia.shallow<Deep, 0>(input); // typeof input === "object" && input !== null
-typia.shallow<Deep, 1>(input); // also checks `kind` and that `a` is an object
-typia.shallow<Deep, 3>(input); // descends to `a.b.c`, stops before `value`
-typia.is<Deep>(input);         // full descent, including `a.b.c.value`
-```
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/validators/shallow-depth.ts"
+      filename="examples/src/validators/shallow-depth.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/validators/shallow-depth.js"
+      filename="examples/bin/validators/shallow-depth.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
 Because the budget is finite, `shallow` also terminates on recursive types — a
-self-referential type stops descending once the budget runs out:
-
-```typescript copy filename="recursive.ts"
-interface Tree {
-  value: string;
-  children: Tree[];
-}
-
-// inlines two levels of the tree, then accepts the rest structurally
-typia.shallow<Tree, 2>(input);
-```
+self-referential type (e.g. `interface Tree { value: string; children: Tree[] }`)
+stops descending once the budget runs out, so `typia.shallow<Tree, 2>` inlines two
+levels and then accepts the rest structurally.
 
 ## Reusable checkers
 
 Like [`createIs`](/docs/validators/is#reusable-checkers), you can hoist a `shallow`
-checker so the type-specific code is emitted once and reused:
+checker so the type-specific code is emitted once and reused. `typia.createShallow<T, N>()`
+takes no arguments and returns a plain `(input: unknown) => input is T` function
+carrying the same depth bound.
 
-```typescript copy filename="reusable.ts"
-import typia from "typia";
-
-const isShape = typia.createShallow<Shape, 1>();
-
-// ...elsewhere
-if (isShape(input)) { /* ... */ }
-```
-
-`typia.createShallow<T, N>()` takes no arguments and returns a plain
-`(input: unknown) => input is T` function carrying the same depth bound.
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/validators/createShallow.ts"
+      filename="examples/src/validators/createShallow.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/validators/createShallow.js"
+      filename="examples/bin/validators/createShallow.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
 ## How it compares to `is`
 
