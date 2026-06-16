@@ -46,12 +46,13 @@ func (compareLessProgrammerNamespace) Write(props CompareLessProgrammer_IProps) 
       Escape:   false,
       Constant: true,
       Absorb:   true,
+      Methods:  true,
       Validate: func(next struct {
         Metadata *schemametadata.MetadataSchema
         Explore  nativefactories.MetadataFactory_IExplore
         Top      *schemametadata.MetadataSchema
       }) []string {
-        return compareLessProgrammer_validate(next.Metadata)
+        return compareLessProgrammer_validate(next.Metadata, next.Metadata == next.Top)
       },
     },
     Components: collection,
@@ -94,7 +95,7 @@ func (compareLessProgrammerNamespace) Write(props CompareLessProgrammer_IProps) 
 }
 
 // compareLessProgrammer_validate rejects types that have no sound total order.
-func compareLessProgrammer_validate(metadata *schemametadata.MetadataSchema) []string {
+func compareLessProgrammer_validate(metadata *schemametadata.MetadataSchema, top bool) []string {
   if metadata == nil {
     return nil
   }
@@ -102,7 +103,10 @@ func compareLessProgrammer_validate(metadata *schemametadata.MetadataSchema) []s
   if metadata.Any {
     output = append(output, "unable to order any")
   }
-  if len(metadata.Functions) != 0 {
+  // A function-typed property is a method: it carries no orderable data, so it
+  // is ignored (and a `less` method triggers delegation). Only a top-level
+  // function type — which has nothing else to order — is rejected.
+  if top && len(metadata.Functions) != 0 {
     output = append(output, "unable to order Function")
   }
   if len(metadata.Sets) != 0 {
@@ -356,8 +360,17 @@ func (g *compareLessProgrammerGenerator) tupleFunction(tuple *schemametadata.Met
 }
 
 func (g *compareLessProgrammerGenerator) objectInline(object *schemametadata.MetadataObjectType, x string, y string) string {
+  // Defer to a user-defined `less(y): boolean` method when the type declares
+  // one, deriving the three-way result from the two directions.
+  if compareProgrammer_hasMethod(object, "less") {
+    return fmt.Sprintf("(%s.less(%s) ? -1 : %s.less(%s) ? 1 : 0)", g.wrap(x), g.wrap(y), g.wrap(y), g.wrap(x))
+  }
+
   steps := []string{}
   for _, property := range object.Properties {
+    if compareProgrammer_isMethod(property) {
+      continue // methods carry no orderable data
+    }
     if property.Key.GetSoleLiteral() == nil {
       continue // dynamic-key (index signature) members have no declaration order
     }
@@ -450,4 +463,27 @@ func compareLessProgrammer_orderableNative(name string) bool {
     return true
   }
   return compareEqualProgrammer_typedArray(name)
+}
+
+// compareProgrammer_hasMethod reports whether the object type declares a method
+// member (a function-typed property) with the given name — e.g. `equals` or
+// `less` — that the comparator can delegate to.
+func compareProgrammer_hasMethod(object *schemametadata.MetadataObjectType, name string) bool {
+  for _, property := range object.Properties {
+    literal := property.Key.GetSoleLiteral()
+    if literal != nil && *literal == name && compareProgrammer_isMethod(property) {
+      return true
+    }
+  }
+  return false
+}
+
+// compareProgrammer_isMethod reports whether a property is a method (its value
+// is a function type), and therefore carries no comparable / orderable data.
+func compareProgrammer_isMethod(property *schemametadata.MetadataProperty) bool {
+  if property == nil || property.Value == nil {
+    return false
+  }
+  value := schemametadata.MetadataSchema_unalias(property.Value)
+  return value != nil && len(value.Functions) != 0
 }

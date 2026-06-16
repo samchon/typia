@@ -48,12 +48,13 @@ func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps
       Escape:   false,
       Constant: true,
       Absorb:   true,
+      Methods:  true,
       Validate: func(next struct {
         Metadata *schemametadata.MetadataSchema
         Explore  nativefactories.MetadataFactory_IExplore
         Top      *schemametadata.MetadataSchema
       }) []string {
-        return compareEqualProgrammer_validate(next.Metadata)
+        return compareEqualProgrammer_validate(next.Metadata, next.Metadata == next.Top)
       },
     },
     Components: collection,
@@ -96,7 +97,7 @@ func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps
   return f.NewIdentifier("(() => { " + strings.Join(statements, " ") + " })()")
 }
 
-func compareEqualProgrammer_validate(metadata *schemametadata.MetadataSchema) []string {
+func compareEqualProgrammer_validate(metadata *schemametadata.MetadataSchema, top bool) []string {
   if metadata == nil {
     return nil
   }
@@ -104,7 +105,11 @@ func compareEqualProgrammer_validate(metadata *schemametadata.MetadataSchema) []
   if metadata.Any {
     output = append(output, "unable to compare any")
   }
-  if len(metadata.Functions) != 0 {
+  // A function-typed property is a method: it carries no comparable data, so it
+  // is ignored during comparison (and an `equals` method triggers delegation).
+  // Only a top-level function type — which has nothing else to compare — is
+  // rejected.
+  if top && len(metadata.Functions) != 0 {
     output = append(output, "unable to compare Function")
   }
   if len(metadata.Sets) != 0 {
@@ -309,9 +314,18 @@ func (g *compareEqualProgrammerGenerator) tupleFunction(tuple *schemametadata.Me
 }
 
 func (g *compareEqualProgrammerGenerator) objectInline(object *schemametadata.MetadataObjectType, x string, y string) string {
+  // Defer to a user-defined `equals(y): boolean` method when the type declares
+  // one — the value owns its equality semantics.
+  if compareProgrammer_hasMethod(object, "equals") {
+    return fmt.Sprintf("%s.equals(%s)", g.wrap(x), g.wrap(y))
+  }
+
   regular := []*schemametadata.MetadataProperty{}
   dynamic := []*schemametadata.MetadataProperty{}
   for _, property := range object.Properties {
+    if compareProgrammer_isMethod(property) {
+      continue // methods carry no comparable data
+    }
     if property.Key.GetSoleLiteral() != nil {
       regular = append(regular, property)
     } else {

@@ -14,7 +14,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   }
 
   isClass := props.Type != nil && props.Type.IsClass()
-  isProperty := emplace_metadata_object_significant(props.Options.Functional)
+  isProperty := emplace_metadata_object_significant(props.Options.Functional, props.Options.Methods)
   pred := func(node *nativeast.Node) bool {
     if node == nil {
       return true
@@ -358,7 +358,7 @@ func emplace_metadata_object_clone_property(property *schemametadata.MetadataPro
   })
 }
 
-func emplace_metadata_object_significant(functional bool) func(node *nativeast.Node) bool {
+func emplace_metadata_object_significant(functional bool, methods bool) func(node *nativeast.Node) bool {
   if functional {
     return func(node *nativeast.Node) bool {
       return node.Kind != nativeast.KindGetAccessor && node.Kind != nativeast.KindSetAccessor
@@ -373,6 +373,9 @@ func emplace_metadata_object_significant(functional bool) func(node *nativeast.N
       nativeast.KindTypeLiteral,
       nativeast.KindShorthandPropertyAssignment:
       return true
+    case nativeast.KindMethodDeclaration,
+      nativeast.KindMethodSignature:
+      return methods
     default:
       return false
     }
