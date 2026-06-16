@@ -11,7 +11,11 @@ import LocalSource from '../../components/LocalSource';
 
 Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
 
-## `plain.clone`
+## `plain`
+
+Plain-data operations that reshape a value to its declared type `T`: `clone` deep-copies it, `prune` strips properties that aren't on `T`. Each has the same `assert` / `is` / `validate` family and `create*` factories as the validators.
+
+### `plain.clone`
 
 ```typescript copy filename="signatures"
 namespace plain {
@@ -91,7 +95,7 @@ export namespace plain {
   </Tabs.Tab>
 </Tabs>
 
-## `plain.prune`
+### `plain.prune`
 
 ```typescript copy filename="signatures"
 namespace plain {
@@ -136,33 +140,6 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
     <LocalSource
       path="examples/bin/plain/assertPrune.js"
       filename="examples/bin/plain/assertPrune.js"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-## `reflect.literals`
-
-```typescript copy filename="signature"
-namespace reflect {
-  function literals<T extends boolean | number | string | bigint | null>(): T[];
-}
-```
-
-If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `reflect.literals` reads the union from the TS type and emits the array.
-
-Handy for select-box options, discriminated-union test matrices, etc.
-
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
-  <Tabs.Tab>
-    <LocalSource
-      path="examples/src/reflect/literals.ts"
-      filename="examples/src/reflect/literals.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="examples/bin/reflect/literals.js"
-      filename="examples/bin/reflect/literals.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -533,6 +510,33 @@ typia.reflect.name<{ value: string } | null>(); // "{ value: string } | null"
 ```
 
 Use it when correlating `TypeGuardError.expected` / `IValidation.IError.expected` strings, or `components` entries from `reflect.schema`, back to your own types.
+
+### `reflect.literals`
+
+```typescript copy filename="signature"
+namespace reflect {
+  function literals<T extends boolean | number | string | bigint | null>(): T[];
+}
+```
+
+If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `reflect.literals` reads the union from the TS type and emits the array.
+
+Handy for select-box options, discriminated-union test matrices, etc.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/reflect/literals.ts"
+      filename="examples/src/reflect/literals.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/reflect/literals.js"
+      filename="examples/bin/reflect/literals.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
 ## Where to go next
 
