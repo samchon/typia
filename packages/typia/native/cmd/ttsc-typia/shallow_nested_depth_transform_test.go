@@ -8,7 +8,7 @@ import (
   "testing"
 )
 
-// TestIsLikelyNestedDepthTransform verifies typia.isLikely<T, N> stops
+// TestShallowNestedDepthTransform verifies typia.shallow<T, N> stops
 // descending once N nesting levels are consumed.
 //
 // At depth 1 the top-level object properties are still checked, but a nested
@@ -17,16 +17,16 @@ import (
 // regression that ignored N past the root would emit the deep `inner.value`
 // check and behave like a full `is`.
 //
-//  1. Transform an isLikely<Outer, 1> call site whose type nests an inner
+//  1. Transform an shallow<Outer, 1> call site whose type nests an inner
 //     object holding a string property.
 //  2. Assert the top-level discriminant is checked but the inner string
 //     property check never appears.
 //  3. Assert the inner object is still guarded structurally.
-func TestIsLikelyNestedDepthTransform(t *testing.T) {
-  project := isLikelyNestedProject(t)
-  out := isLikelyNestedTransform(t, project, "ts")
+func TestShallowNestedDepthTransform(t *testing.T) {
+  project := shallowNestedProject(t)
+  out := shallowNestedTransform(t, project, "ts")
 
-  depth1 := isLikelyNestedFunctionBlock(t, out, "isLikelyOuterDepth1")
+  depth1 := shallowNestedFunctionBlock(t, out, "shallowOuterDepth1")
   if !strings.Contains(depth1, "input.kind") {
     t.Fatalf("depth 1 must still check the top-level discriminant:\n%s", depth1)
   }
@@ -34,13 +34,13 @@ func TestIsLikelyNestedDepthTransform(t *testing.T) {
     t.Fatalf("depth 1 must not descend into the inner string property:\n%s", depth1)
   }
 
-  depth2 := isLikelyNestedFunctionBlock(t, out, "isLikelyOuterDepth2")
+  depth2 := shallowNestedFunctionBlock(t, out, "shallowOuterDepth2")
   if !strings.Contains(depth2, "input.inner.value") {
     t.Fatalf("depth 2 must descend into the inner string property:\n%s", depth2)
   }
 }
 
-func isLikelyNestedFunctionBlock(t *testing.T, text string, name string) string {
+func shallowNestedFunctionBlock(t *testing.T, text string, name string) string {
   t.Helper()
   marker := "export const " + name + " ="
   start := strings.Index(text, marker)
@@ -54,14 +54,14 @@ func isLikelyNestedFunctionBlock(t *testing.T, text string, name string) string 
   return rest
 }
 
-func isLikelyNestedProject(t *testing.T) string {
+func shallowNestedProject(t *testing.T) string {
   t.Helper()
-  root := isLikelyNestedRepoRoot(t)
+  root := shallowNestedRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
   if err := os.MkdirAll(base, 0o755); err != nil {
     t.Fatalf("mkdir temp base: %v", err)
   }
-  dir, err := os.MkdirTemp(base, "is-likely-nested-")
+  dir, err := os.MkdirTemp(base, "shallow-nested-")
   if err != nil {
     t.Fatalf("create temp fixture: %v", err)
   }
@@ -72,16 +72,16 @@ func isLikelyNestedProject(t *testing.T) string {
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(isLikelyNestedTSConfig), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(shallowNestedTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(isLikelyNestedSource), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(shallowNestedSource), 0o644); err != nil {
     t.Fatalf("write source: %v", err)
   }
   return dir
 }
 
-func isLikelyNestedRepoRoot(t *testing.T) string {
+func shallowNestedRepoRoot(t *testing.T) string {
   t.Helper()
   _, file, _, ok := runtime.Caller(0)
   if !ok {
@@ -100,9 +100,9 @@ func isLikelyNestedRepoRoot(t *testing.T) string {
   }
 }
 
-func isLikelyNestedTransform(t *testing.T, project string, output string) string {
+func shallowNestedTransform(t *testing.T, project string, output string) string {
   t.Helper()
-  out, errText, code := isLikelyDepthCapture(func() int {
+  out, errText, code := shallowDepthCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -111,12 +111,12 @@ func isLikelyNestedTransform(t *testing.T, project string, output string) string
     })
   })
   if code != 0 {
-    t.Fatalf("is-likely nested transform failed: output=%s code=%d stderr=\n%s", output, code, errText)
+    t.Fatalf("shallow nested transform failed: output=%s code=%d stderr=\n%s", output, code, errText)
   }
   return out
 }
 
-const isLikelyNestedTSConfig = `{
+const shallowNestedTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
@@ -131,7 +131,7 @@ const isLikelyNestedTSConfig = `{
 }
 `
 
-const isLikelyNestedSource = `import typia from "typia";
+const shallowNestedSource = `import typia from "typia";
 
 interface Outer {
   kind: "outer";
@@ -140,9 +140,9 @@ interface Outer {
   };
 }
 
-export const isLikelyOuterDepth1 = (input: unknown): boolean =>
-  typia.isLikely<Outer, 1>(input);
+export const shallowOuterDepth1 = (input: unknown): boolean =>
+  typia.shallow<Outer, 1>(input);
 
-export const isLikelyOuterDepth2 = (input: unknown): boolean =>
-  typia.isLikely<Outer, 2>(input);
+export const shallowOuterDepth2 = (input: unknown): boolean =>
+  typia.shallow<Outer, 2>(input);
 `

@@ -10,19 +10,19 @@ import (
   nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
-const isLikelyTransformer_DEFAULT_DEPTH = 2
+const shallowTransformer_DEFAULT_DEPTH = 2
 
-type isLikelyTransformerNamespace struct{}
+type shallowTransformerNamespace struct{}
 
-var IsLikelyTransformer = isLikelyTransformerNamespace{}
+var ShallowTransformer = shallowTransformerNamespace{}
 
-func (isLikelyTransformerNamespace) Transform(config nativeprogrammers.IsProgrammer_IConfig) func(props nativeinternal.ITransformProps) *shimast.Node {
+func (shallowTransformerNamespace) Transform(config nativeprogrammers.IsProgrammer_IConfig) func(props nativeinternal.ITransformProps) *shimast.Node {
   return func(props nativeinternal.ITransformProps) *shimast.Node {
-    depth := isLikelyTransformer_depth(props, "isLikely")
+    depth := shallowTransformer_depth(props, "shallow")
     config.Depth = &depth
     return nativeinternal.GenericTransformer.Scalar(nativeinternal.GenericTransformer_IProps{
       ITransformProps: props,
-      Method:          "isLikely",
+      Method:          "shallow",
       Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
         return nativeprogrammers.IsProgrammer.Write(nativeprogrammers.IsProgrammer_IProps{
           Context: x.Context,
@@ -37,15 +37,15 @@ func (isLikelyTransformerNamespace) Transform(config nativeprogrammers.IsProgram
   }
 }
 
-func isLikelyTransformer_depth(props nativeinternal.ITransformProps, method string) int {
+func shallowTransformer_depth(props nativeinternal.ITransformProps, method string) int {
   if props.Expression == nil ||
     props.Expression.TypeArguments == nil ||
     len(props.Expression.TypeArguments.Nodes) <= 1 {
-    return isLikelyTransformer_DEFAULT_DEPTH
+    return shallowTransformer_DEFAULT_DEPTH
   }
   node := props.Expression.TypeArguments.Nodes[1]
   if node == nil {
-    return isLikelyTransformer_DEFAULT_DEPTH
+    return shallowTransformer_DEFAULT_DEPTH
   }
   typ := props.Context.Checker.GetTypeFromTypeNode(node)
   if typ == nil || typ.Flags()&shimchecker.TypeFlagsNumberLiteral == 0 {

@@ -9,7 +9,7 @@ import (
   "testing"
 )
 
-// TestIsLikelyDepthRuntime verifies the depth-limited isLikely guards behave
+// TestShallowDepthRuntime verifies the depth-limited shallow guards behave
 // correctly at runtime, including on a recursive type.
 //
 // The emitted guards are executed on Node so the decrementing budget is checked
@@ -18,25 +18,25 @@ import (
 // accept deep-but-shallow-valid trees while still catching a near-surface
 // mismatch.
 //
-//  1. Transform isLikely<Outer, 1> and isLikely<Tree, 2> call sites to JS.
+//  1. Transform shallow<Outer, 1> and shallow<Tree, 2> call sites to JS.
 //  2. Run the Outer guard against a value whose deep leaf is wrong: depth 1
 //     accepts it (not descended) while a full is would reject it.
 //  3. Run the Tree guard against valid and shallow-invalid trees and assert it
 //     terminates with the expected verdicts.
-func TestIsLikelyDepthRuntime(t *testing.T) {
-  project := isLikelyRuntimeProject(t)
-  js := isLikelyRuntimeTransform(t, project)
-  isLikelyRuntimeRun(t, project, js)
+func TestShallowDepthRuntime(t *testing.T) {
+  project := shallowRuntimeProject(t)
+  js := shallowRuntimeTransform(t, project)
+  shallowRuntimeRun(t, project, js)
 }
 
-func isLikelyRuntimeProject(t *testing.T) string {
+func shallowRuntimeProject(t *testing.T) string {
   t.Helper()
-  root := isLikelyRuntimeRepoRoot(t)
+  root := shallowRuntimeRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
   if err := os.MkdirAll(base, 0o755); err != nil {
     t.Fatalf("mkdir temp base: %v", err)
   }
-  dir, err := os.MkdirTemp(base, "is-likely-runtime-")
+  dir, err := os.MkdirTemp(base, "shallow-runtime-")
   if err != nil {
     t.Fatalf("create temp fixture: %v", err)
   }
@@ -47,16 +47,16 @@ func isLikelyRuntimeProject(t *testing.T) string {
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(isLikelyNestedTSConfig), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(shallowNestedTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(isLikelyRuntimeSource), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(shallowRuntimeSource), 0o644); err != nil {
     t.Fatalf("write source: %v", err)
   }
   return dir
 }
 
-func isLikelyRuntimeRepoRoot(t *testing.T) string {
+func shallowRuntimeRepoRoot(t *testing.T) string {
   t.Helper()
   _, file, _, ok := runtime.Caller(0)
   if !ok {
@@ -75,9 +75,9 @@ func isLikelyRuntimeRepoRoot(t *testing.T) string {
   }
 }
 
-func isLikelyRuntimeTransform(t *testing.T, project string) string {
+func shallowRuntimeTransform(t *testing.T, project string) string {
   t.Helper()
-  out, errText, code := isLikelyDepthCapture(func() int {
+  out, errText, code := shallowDepthCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -86,12 +86,12 @@ func isLikelyRuntimeTransform(t *testing.T, project string) string {
     })
   })
   if code != 0 {
-    t.Fatalf("is-likely runtime transform failed: code=%d stderr=\n%s", code, errText)
+    t.Fatalf("shallow runtime transform failed: code=%d stderr=\n%s", code, errText)
   }
   return out
 }
 
-func isLikelyRuntimeRun(t *testing.T, project string, js string) {
+func shallowRuntimeRun(t *testing.T, project string, js string) {
   t.Helper()
   node, err := exec.LookPath("node")
   if err != nil {
@@ -108,18 +108,18 @@ func isLikelyRuntimeRun(t *testing.T, project string, js string) {
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "run.cjs"), []byte(isLikelyRuntimeRunner), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(runtimeDir, "run.cjs"), []byte(shallowRuntimeRunner), 0o644); err != nil {
     t.Fatalf("write runtime runner: %v", err)
   }
   cmd := exec.Command(node, filepath.Join(runtimeDir, "run.cjs"))
   cmd.Dir = project
   output, err := cmd.CombinedOutput()
   if err != nil {
-    t.Fatalf("is-likely runtime cases failed: %v\n%s", err, output)
+    t.Fatalf("shallow runtime cases failed: %v\n%s", err, output)
   }
 }
 
-const isLikelyRuntimeSource = `import typia from "typia";
+const shallowRuntimeSource = `import typia from "typia";
 
 interface Outer {
   kind: "outer";
@@ -134,13 +134,13 @@ interface Tree {
 }
 
 export const outerDepth1 = (input: unknown): boolean =>
-  typia.isLikely<Outer, 1>(input);
+  typia.shallow<Outer, 1>(input);
 
 export const treeDepth2 = (input: unknown): boolean =>
-  typia.isLikely<Tree, 2>(input);
+  typia.shallow<Tree, 2>(input);
 `
 
-const isLikelyRuntimeRunner = `const { outerDepth1, treeDepth2 } = require("./main.cjs");
+const shallowRuntimeRunner = `const { outerDepth1, treeDepth2 } = require("./main.cjs");
 
 const outerCases = [
   ["matching outer", { kind: "outer", inner: { value: "x" } }, true],

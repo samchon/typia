@@ -10,56 +10,57 @@ import (
   "testing"
 )
 
-// TestIsLikelyDepthLimitTransform verifies typia.isLikely() bounds how deep the
+// TestShallowDepthLimitTransform verifies typia.shallow() bounds how deep the
 // emitted checker descends through the depth budget N.
 //
-// isLikely powers discrimination rather than full validation: once the budget
-// is exhausted a value is accepted as long as it is a non-null object, instead
-// of paying for a full structural walk of every leaf. At depth 0 a composite
+// The shallow check powers discrimination rather than full validation: once
+// the budget is exhausted a value is accepted as long as it is a non-null
+// object, instead of paying for a full structural walk of every leaf. At depth
+// 0 a composite
 // type must collapse to a bare `typeof input === "object"` guard with a null
 // check; at the default depth (2) the near-surface discriminant is still
 // checked so the right union branch can be told apart.
 //
-//  1. Transform one fixture that calls isLikely<T, 0> and another that calls
-//     isLikely<Discriminated> at the default depth.
+//  1. Transform one fixture that calls shallow<T, 0> and another that calls
+//     shallow<Discriminated> at the default depth.
 //  2. Assert the depth-0 emit is only the structural object guard and never
 //     reaches the inner property, while the default-depth emit still checks the
 //     discriminant property.
 //  3. Execute both emitted guards against matching, shallow-wrong, and
 //     non-object runtime cases.
-func TestIsLikelyDepthLimitTransform(t *testing.T) {
-  project := isLikelyDepthProject(t)
+func TestShallowDepthLimitTransform(t *testing.T) {
+  project := shallowDepthProject(t)
 
-  zero := isLikelyDepthTransform(t, project, "src/zero.ts", "ts")
-  isLikelyDepthContainsAll(t, zero, []string{
+  zero := shallowDepthTransform(t, project, "src/zero.ts", "ts")
+  shallowDepthContainsAll(t, zero, []string{
     `input is Point => "object" === typeof input && null !== input`,
   })
-  isLikelyDepthReturnedGuardExcludes(t, zero, []string{
+  shallowDepthReturnedGuardExcludes(t, zero, []string{
     `input.type`,
     `"point"`,
   })
 
-  surface := isLikelyDepthTransform(t, project, "src/surface.ts", "ts")
-  isLikelyDepthContainsAll(t, surface, []string{
+  surface := shallowDepthTransform(t, project, "src/surface.ts", "ts")
+  shallowDepthContainsAll(t, surface, []string{
     `input.type`,
   })
 
-  isLikelyDepthRunRuntimeCases(
+  shallowDepthRunRuntimeCases(
     t,
     project,
-    isLikelyDepthTransform(t, project, "src/zero.ts", "js"),
-    isLikelyDepthTransform(t, project, "src/surface.ts", "js"),
+    shallowDepthTransform(t, project, "src/zero.ts", "js"),
+    shallowDepthTransform(t, project, "src/surface.ts", "js"),
   )
 }
 
-func isLikelyDepthProject(t *testing.T) string {
+func shallowDepthProject(t *testing.T) string {
   t.Helper()
-  root := isLikelyDepthRepoRoot(t)
+  root := shallowDepthRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
   if err := os.MkdirAll(base, 0o755); err != nil {
     t.Fatalf("mkdir temp base: %v", err)
   }
-  dir, err := os.MkdirTemp(base, "is-likely-depth-")
+  dir, err := os.MkdirTemp(base, "shallow-depth-")
   if err != nil {
     t.Fatalf("create temp fixture: %v", err)
   }
@@ -70,19 +71,19 @@ func isLikelyDepthProject(t *testing.T) string {
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(isLikelyDepthTSConfig), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(shallowDepthTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(src, "zero.ts"), []byte(isLikelyDepthZeroSource), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(src, "zero.ts"), []byte(shallowDepthZeroSource), 0o644); err != nil {
     t.Fatalf("write zero source: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(src, "surface.ts"), []byte(isLikelyDepthSurfaceSource), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(src, "surface.ts"), []byte(shallowDepthSurfaceSource), 0o644); err != nil {
     t.Fatalf("write surface source: %v", err)
   }
   return dir
 }
 
-func isLikelyDepthRepoRoot(t *testing.T) string {
+func shallowDepthRepoRoot(t *testing.T) string {
   t.Helper()
   _, file, _, ok := runtime.Caller(0)
   if !ok {
@@ -101,7 +102,7 @@ func isLikelyDepthRepoRoot(t *testing.T) string {
   }
 }
 
-func isLikelyDepthCapture(run func() int) (string, string, int) {
+func shallowDepthCapture(run func() int) (string, string, int) {
   var out bytes.Buffer
   var err bytes.Buffer
   oldStdout := stdout
@@ -116,9 +117,9 @@ func isLikelyDepthCapture(run func() int) (string, string, int) {
   return out.String(), err.String(), code
 }
 
-func isLikelyDepthTransform(t *testing.T, project string, file string, output string) string {
+func shallowDepthTransform(t *testing.T, project string, file string, output string) string {
   t.Helper()
-  out, errText, code := isLikelyDepthCapture(func() int {
+  out, errText, code := shallowDepthCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -127,12 +128,12 @@ func isLikelyDepthTransform(t *testing.T, project string, file string, output st
     })
   })
   if code != 0 {
-    t.Fatalf("is-likely transform failed: file=%s output=%s code=%d stderr=\n%s", file, output, code, errText)
+    t.Fatalf("shallow transform failed: file=%s output=%s code=%d stderr=\n%s", file, output, code, errText)
   }
   return out
 }
 
-func isLikelyDepthContainsAll(t *testing.T, text string, expected []string) {
+func shallowDepthContainsAll(t *testing.T, text string, expected []string) {
   t.Helper()
   for _, needle := range expected {
     if !strings.Contains(text, needle) {
@@ -141,7 +142,7 @@ func isLikelyDepthContainsAll(t *testing.T, text string, expected []string) {
   }
 }
 
-func isLikelyDepthReturnedGuardExcludes(t *testing.T, text string, forbidden []string) {
+func shallowDepthReturnedGuardExcludes(t *testing.T, text string, forbidden []string) {
   t.Helper()
   guard := ""
   for _, line := range strings.Split(text, "\n") {
@@ -160,7 +161,7 @@ func isLikelyDepthReturnedGuardExcludes(t *testing.T, text string, forbidden []s
   }
 }
 
-func isLikelyDepthRunRuntimeCases(t *testing.T, project string, zeroJS string, surfaceJS string) {
+func shallowDepthRunRuntimeCases(t *testing.T, project string, zeroJS string, surfaceJS string) {
   t.Helper()
   node, err := exec.LookPath("node")
   if err != nil {
@@ -183,18 +184,18 @@ func isLikelyDepthRunRuntimeCases(t *testing.T, project string, zeroJS string, s
     t.Fatalf("write surface runtime module: %v", err)
   }
   runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(isLikelyDepthRuntimeRunner), 0o644); err != nil {
+  if err := os.WriteFile(runner, []byte(shallowDepthRuntimeRunner), 0o644); err != nil {
     t.Fatalf("write runtime runner: %v", err)
   }
   cmd := exec.Command(node, runner)
   cmd.Dir = project
   output, err := cmd.CombinedOutput()
   if err != nil {
-    t.Fatalf("is-likely runtime cases failed: %v\n%s", err, output)
+    t.Fatalf("shallow runtime cases failed: %v\n%s", err, output)
   }
 }
 
-const isLikelyDepthTSConfig = `{
+const shallowDepthTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
     "module": "commonjs",
@@ -209,7 +210,7 @@ const isLikelyDepthTSConfig = `{
 }
 `
 
-const isLikelyDepthZeroSource = `import typia from "typia";
+const shallowDepthZeroSource = `import typia from "typia";
 
 interface Point {
   type: "point";
@@ -217,11 +218,11 @@ interface Point {
   y: number;
 }
 
-export const isLikelyZero = (input: unknown): boolean =>
-  typia.isLikely<Point, 0>(input);
+export const shallowZero = (input: unknown): boolean =>
+  typia.shallow<Point, 0>(input);
 `
 
-const isLikelyDepthSurfaceSource = `import typia from "typia";
+const shallowDepthSurfaceSource = `import typia from "typia";
 
 interface Circle {
   type: "circle";
@@ -233,15 +234,15 @@ interface Square {
 }
 type Shape = Circle | Square;
 
-export const isLikelySquare = (input: unknown): boolean =>
-  typia.isLikely<Square>(input);
+export const shallowSquare = (input: unknown): boolean =>
+  typia.shallow<Square>(input);
 
 export const discriminate = (input: Shape): string =>
-  typia.isLikely<Circle>(input) ? "circle" : "square";
+  typia.shallow<Circle>(input) ? "circle" : "square";
 `
 
-const isLikelyDepthRuntimeRunner = `const { isLikelyZero } = require("./zero.cjs");
-const { isLikelySquare, discriminate } = require("./surface.cjs");
+const shallowDepthRuntimeRunner = `const { shallowZero } = require("./zero.cjs");
+const { shallowSquare, discriminate } = require("./surface.cjs");
 
 const zeroCases = [
   ["matching object", { type: "point", x: 1, y: 2 }, true],
@@ -250,7 +251,7 @@ const zeroCases = [
   ["primitive is rejected", 42, false],
 ];
 for (const [name, input, expected] of zeroCases) {
-  const actual = isLikelyZero(input);
+  const actual = shallowZero(input);
   if (actual !== expected) {
     throw new Error("zero/" + name + ": expected " + expected + " but got " + actual);
   }
@@ -262,7 +263,7 @@ const surfaceCases = [
   ["non object", "square", false],
 ];
 for (const [name, input, expected] of surfaceCases) {
-  const actual = isLikelySquare(input);
+  const actual = shallowSquare(input);
   if (actual !== expected) {
     throw new Error("surface/" + name + ": expected " + expected + " but got " + actual);
   }

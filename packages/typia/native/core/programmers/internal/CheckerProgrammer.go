@@ -522,7 +522,7 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
   if props.Metadata.Any {
     return props.Config.Success
   }
-  // depth budget exhausted (isLikely): accept composites as a bare object,
+  // depth budget exhausted (shallow): accept composites as a bare object,
   // leave atomic-only metadata to the normal exact path.
   if props.Config.Depth != nil && *props.Config.Depth <= 0 {
     hasComposite := len(props.Metadata.Objects) != 0 ||
@@ -1012,8 +1012,8 @@ func (checkerProgrammerNamespace) Decode_object(props CheckerProgrammer_DecodeOb
   })
 }
 
-// checkerProgrammer_descend returns a copy of config whose isLikely depth budget
-// is spent by one level. nil (the non-isLikely callers) is left untouched.
+// checkerProgrammer_descend returns a copy of config whose shallow depth budget
+// is spent by one level. nil (the non-shallow callers) is left untouched.
 func checkerProgrammer_descend(config CheckerProgrammer_IConfig) CheckerProgrammer_IConfig {
   if config.Depth == nil {
     return config
@@ -1024,7 +1024,7 @@ func checkerProgrammer_descend(config CheckerProgrammer_IConfig) CheckerProgramm
 }
 
 // checkerProgrammer_decode_object_inline emits an object's property checks
-// inline (instead of the shared _io function) so the isLikely depth budget can
+// inline (instead of the shared _io function) so the shallow depth budget can
 // decrement one level per nesting. The finite budget also bounds recursion: a
 // self-referential type stops descending once the budget reaches zero, where
 // Decode collapses it to a structural object guard.

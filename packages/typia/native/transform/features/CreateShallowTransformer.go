@@ -7,17 +7,17 @@ import (
   nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
-type createIsLikelyTransformerNamespace struct{}
+type createShallowTransformerNamespace struct{}
 
-var CreateIsLikelyTransformer = createIsLikelyTransformerNamespace{}
+var CreateShallowTransformer = createShallowTransformerNamespace{}
 
-func (createIsLikelyTransformerNamespace) Transform(config nativeprogrammers.IsProgrammer_IConfig) func(props nativeinternal.ITransformProps) *shimast.Node {
+func (createShallowTransformerNamespace) Transform(config nativeprogrammers.IsProgrammer_IConfig) func(props nativeinternal.ITransformProps) *shimast.Node {
   return func(props nativeinternal.ITransformProps) *shimast.Node {
-    depth := isLikelyTransformer_depth(props, "createIsLikely")
+    depth := shallowTransformer_depth(props, "createShallow")
     config.Depth = &depth
     return nativeinternal.GenericTransformer.Factory(nativeinternal.GenericTransformer_IProps{
       ITransformProps: props,
-      Method:          "createIsLikely",
+      Method:          "createShallow",
       Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
         return nativeprogrammers.IsProgrammer.Write(nativeprogrammers.IsProgrammer_IProps{
           Context: x.Context,

@@ -207,9 +207,9 @@ export function is(): never {
  * structural check of every leaf is wasteful.
  *
  * Because the check is shallow past depth `N`, a `true` result is **not** a
- * guarantee that the whole value conforms to `T`. The name uses `Likely` on
- * purpose: only the discriminating, near-surface part of the type is verified.
- * For a full guarantee, use {@link is}.
+ * guarantee that the whole value conforms to `T`. The name `shallow` reflects
+ * this: only the discriminating, near-surface part of the type is verified. For
+ * a full guarantee, use {@link is}.
  *
  * Related functions:
  *
@@ -225,7 +225,7 @@ export function is(): never {
  * @returns `true` if valid up to depth `N`, `false` otherwise (type predicate
  *   `input is T`)
  */
-export function isLikely<T, N extends number = 2>(input: T): input is T;
+export function shallow<T, N extends number = 2>(input: T): input is T;
 
 /**
  * Tests type `T` up to a limited depth.
@@ -238,9 +238,9 @@ export function isLikely<T, N extends number = 2>(input: T): input is T;
  * structural check of every leaf is wasteful.
  *
  * Because the check is shallow past depth `N`, a `true` result is **not** a
- * guarantee that the whole value conforms to `T`. The name uses `Likely` on
- * purpose: only the discriminating, near-surface part of the type is verified.
- * For a full guarantee, use {@link is}.
+ * guarantee that the whole value conforms to `T`. The name `shallow` reflects
+ * this: only the discriminating, near-surface part of the type is verified. For
+ * a full guarantee, use {@link is}.
  *
  * Related functions:
  *
@@ -256,11 +256,11 @@ export function isLikely<T, N extends number = 2>(input: T): input is T;
  * @returns `true` if valid up to depth `N`, `false` otherwise (type predicate
  *   `input is T`)
  */
-export function isLikely<T, N extends number = 2>(input: unknown): input is T;
+export function shallow<T, N extends number = 2>(input: unknown): input is T;
 
 /** @internal */
-export function isLikely(): never {
-  NoTransformConfigurationError("isLikely");
+export function shallow(): never {
+  NoTransformConfigurationError("shallow");
 }
 
 /**
@@ -672,7 +672,7 @@ export function createIs<T>(): (input: unknown) => input is T {
 }
 
 /**
- * Creates reusable {@link isLikely} function.
+ * Creates reusable {@link shallow} function.
  *
  * Returns a depth-limited type guard function that can be called multiple times
  * without recompilation.
@@ -683,10 +683,10 @@ export function createIs<T>(): (input: unknown) => input is T {
  * @returns Reusable type guard function `(input: unknown) => input is T`
  * @danger You must configure the generic argument `T`
  */
-export function createIsLikely(): never;
+export function createShallow(): never;
 
 /**
- * Creates reusable {@link isLikely} function.
+ * Creates reusable {@link shallow} function.
  *
  * Returns a depth-limited type guard function that can be called multiple times
  * without recompilation.
@@ -696,13 +696,13 @@ export function createIsLikely(): never;
  *   Must be a non-negative integer literal. Defaults to `2`.
  * @returns Reusable type guard function `(input: unknown) => input is T`
  */
-export function createIsLikely<T, N extends number = 2>(): (
+export function createShallow<T, N extends number = 2>(): (
   input: unknown,
 ) => input is T;
 
 /** @internal */
-export function createIsLikely<T>(): (input: unknown) => input is T {
-  NoTransformConfigurationError("createIsLikely");
+export function createShallow<T>(): (input: unknown) => input is T {
+  NoTransformConfigurationError("createShallow");
 }
 
 /**

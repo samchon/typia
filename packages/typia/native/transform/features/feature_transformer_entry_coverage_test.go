@@ -38,8 +38,8 @@ func TestFeatureTransformerEntryCoverage(t *testing.T) {
     config := config
     expectFeaturePanic(t, func() { IsTransformer.Transform(config)(nativetransform.ITransformProps{}) })
     expectFeaturePanic(t, func() { CreateIsTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-    expectFeaturePanic(t, func() { IsLikelyTransformer.Transform(config)(nativetransform.ITransformProps{}) })
-    expectFeaturePanic(t, func() { CreateIsLikelyTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { ShallowTransformer.Transform(config)(nativetransform.ITransformProps{}) })
+    expectFeaturePanic(t, func() { CreateShallowTransformer.Transform(config)(nativetransform.ITransformProps{}) })
   }
   for _, config := range []nativeprogrammers.ValidateProgrammer_IConfig{{}, {Equals: true}} {
     config := config
