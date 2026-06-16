@@ -1,4 +1,4 @@
-package misc
+package reflect
 
 import (
   "fmt"
@@ -10,19 +10,19 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
-type miscLiteralsProgrammerNamespace struct{}
+type reflectLiteralsProgrammerNamespace struct{}
 
-var MiscLiteralsProgrammer = miscLiteralsProgrammerNamespace{}
+var ReflectLiteralsProgrammer = reflectLiteralsProgrammerNamespace{}
 
-type MiscLiteralsProgrammer_IProps struct {
+type ReflectLiteralsProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Type    *shimchecker.Type
 }
 
-var miscLiteralsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+var reflectLiteralsProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(miscLiteralsProgrammer_factory, props.Context.Emit)
+func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_IProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(reflectLiteralsProgrammer_factory, props.Context.Emit)
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
@@ -44,10 +44,10 @@ func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps
           }
         }
         if length == 0 {
-          return []string{string(MiscLiteralsProgrammer_ErrorMessages_NO)}
+          return []string{string(ReflectLiteralsProgrammer_ErrorMessages_NO)}
         }
         if next.Metadata.Size() != length {
-          return []string{string(MiscLiteralsProgrammer_ErrorMessages_ONLY)}
+          return []string{string(ReflectLiteralsProgrammer_ErrorMessages_ONLY)}
         }
         return []string{}
       },
@@ -60,8 +60,8 @@ func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps
       Code   string
       Errors []nativecontext.TransformerError_MetadataFactory_IError
     }{
-      Code:   "typia.misc.literals",
-      Errors: miscLiteralsProgrammer_errors(result.Errors),
+      Code:   "typia.reflect.literals",
+      Errors: reflectLiteralsProgrammer_errors(result.Errors),
     }))
   }
 
@@ -100,14 +100,14 @@ func (miscLiteralsProgrammerNamespace) Write(props MiscLiteralsProgrammer_IProps
   )
 }
 
-type MiscLiteralsProgrammer_ErrorMessages string
+type ReflectLiteralsProgrammer_ErrorMessages string
 
 const (
-  MiscLiteralsProgrammer_ErrorMessages_NO   MiscLiteralsProgrammer_ErrorMessages = "no constant literal type found."
-  MiscLiteralsProgrammer_ErrorMessages_ONLY MiscLiteralsProgrammer_ErrorMessages = "only constant literal types are allowed."
+  ReflectLiteralsProgrammer_ErrorMessages_NO   ReflectLiteralsProgrammer_ErrorMessages = "no constant literal type found."
+  ReflectLiteralsProgrammer_ErrorMessages_ONLY ReflectLiteralsProgrammer_ErrorMessages = "only constant literal types are allowed."
 )
 
-func miscLiteralsProgrammer_errors(errors []nativefactories.MetadataFactory_IError) []nativecontext.TransformerError_MetadataFactory_IError {
+func reflectLiteralsProgrammer_errors(errors []nativefactories.MetadataFactory_IError) []nativecontext.TransformerError_MetadataFactory_IError {
   output := make([]nativecontext.TransformerError_MetadataFactory_IError, 0, len(errors))
   for _, err := range errors {
     output = append(output, nativecontext.TransformerError_MetadataFactory_IError{

@@ -16,7 +16,7 @@ import (
 // are enough to enter those wrappers and verify that each route delegates to
 // the generic guard layer.
 //
-// 1. Visit clone, prune, and literals scalar wrappers.
+// 1. Visit clone and prune scalar wrappers.
 // 2. Visit assert, is, and validate variants for clone and prune.
 // 3. Visit create/factory variants for clone and prune.
 // 4. Recover expected guard panics after each entrypoint call.
@@ -31,7 +31,6 @@ func TestMiscTransformerEntryCoverage(t *testing.T) {
 		func() { MiscAssertPruneTransformer.Transform(props) },
 		func() { MiscIsPruneTransformer.Transform(props) },
 		func() { MiscValidatePruneTransformer.Transform(props) },
-		func() { MiscLiteralsTransformer.Transform(props) },
 		func() { MiscCreateCloneTransformer.Transform(props) },
 		func() { MiscCreateAssertCloneTransformer.Transform(props) },
 		func() { MiscCreateIsCloneTransformer.Transform(props) },

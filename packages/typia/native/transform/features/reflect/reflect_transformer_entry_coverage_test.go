@@ -16,7 +16,7 @@ import (
 // enters each reflect wrapper directly and recovers the expected guard failure.
 //
 // 1. Visit metadata and name wrappers.
-// 2. Visit schema and schemas wrappers.
+// 2. Visit schema, schemas, and literals wrappers.
 // 3. Exercise reflect error formatting with empty inputs.
 // 4. Recover expected guard panics after each entrypoint call.
 func TestReflectTransformerEntryCoverage(t *testing.T) {
@@ -26,6 +26,7 @@ func TestReflectTransformerEntryCoverage(t *testing.T) {
 		func() { ReflectNameTransformer.Transform(props) },
 		func() { ReflectSchemaTransformer.Transform(props) },
 		func() { ReflectSchemasTransformer.Transform(props) },
+		func() { ReflectLiteralsTransformer.Transform(props) },
 	} {
 		expectReflectPanic(t, run)
 	}

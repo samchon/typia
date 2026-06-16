@@ -1,19 +1,19 @@
-package misc
+package reflect
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
-  nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/misc"
+  reflectprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/reflect"
   nativetransform "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
-type miscLiteralsTransformerNamespace struct{}
+type reflectLiteralsTransformerNamespace struct{}
 
-var MiscLiteralsTransformer = miscLiteralsTransformerNamespace{}
+var ReflectLiteralsTransformer = reflectLiteralsTransformerNamespace{}
 
-func (miscLiteralsTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
+func (reflectLiteralsTransformerNamespace) Transform(props nativetransform.ITransformProps) *shimast.Node {
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
-      Code:    "typia.misc.literals",
+      Code:    "typia.reflect.literals",
       Message: "generic argument is not specified.",
     }))
   }
@@ -21,11 +21,11 @@ func (miscLiteralsTransformerNamespace) Transform(props nativetransform.ITransfo
   typ := props.Context.Checker.GetTypeFromTypeNode(node)
   if typ != nil && typ.IsTypeParameter() {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
-      Code:    "typia.misc.literals",
+      Code:    "typia.reflect.literals",
       Message: "non-specified generic argument.",
     }))
   }
-  return nativeprogrammers.MiscLiteralsProgrammer.Write(nativeprogrammers.MiscLiteralsProgrammer_IProps{
+  return reflectprogrammers.ReflectLiteralsProgrammer.Write(reflectprogrammers.ReflectLiteralsProgrammer_IProps{
     Context: props.Context,
     Type:    typ,
   })

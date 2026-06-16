@@ -1,12 +1,9 @@
 /* ===========================================================
     MISCELLANEOUS
-      - LITERALS
       - CLONE
       - PRUNE
       - FACTORY FUNCTIONS
-==============================================================
-    LITERALS
------------------------------------------------------------ */
+=========================================================== */
 import { Atomic, IValidation, Resolved } from "@typia/interface";
 
 import { TypeGuardError } from "./TypeGuardError";
@@ -21,28 +18,6 @@ export type Cover<T> = T extends Atomic.Type | null | undefined
       : T extends object
         ? { [K in keyof T]?: Cover<T[K]> }
         : T;
-
-/**
- * Converts union literal type to array.
- *
- * @danger You must configure the generic argument `T`
- */
-export function literals(): never;
-
-/**
- * Converts union literal type to array.
- *
- * Extracts all members of a union literal type `T` into an array at runtime.
- *
- * @template T Union literal type (e.g., `"A" | "B" | 1`)
- * @returns Array containing all union members
- */
-export function literals<T extends Atomic.Type | null>(): T[];
-
-/** @internal */
-export function literals(): never {
-  NoTransformConfigurationError("misc.literals");
-}
 
 /* -----------------------------------------------------------
     CLONE

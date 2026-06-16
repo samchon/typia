@@ -388,10 +388,12 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       "schemas": func() callExpressionTransformerTask {
         return nativereflecttransformers.ReflectSchemasTransformer.Transform
       },
+      "literals": func() callExpressionTransformerTask {
+        return nativereflecttransformers.ReflectLiteralsTransformer.Transform
+      },
     },
     "misc": {
-      "literals": func() callExpressionTransformerTask { return nativemisctransformers.MiscLiteralsTransformer.Transform },
-      "clone":    func() callExpressionTransformerTask { return nativemisctransformers.MiscCloneTransformer.Transform },
+      "clone": func() callExpressionTransformerTask { return nativemisctransformers.MiscCloneTransformer.Transform },
       "equal":    func() callExpressionTransformerTask { return nativemisctransformers.MiscEqualTransformer.Transform },
       "cover":    func() callExpressionTransformerTask { return nativemisctransformers.MiscCoverTransformer.Transform },
       "assertClone": func() callExpressionTransformerTask {
