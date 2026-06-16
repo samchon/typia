@@ -9,12 +9,12 @@ import LocalSource from '../../components/LocalSource';
 
 # Miscellaneous
 
-Four small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection).
+Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
 
-## `misc.clone`
+## `plain.clone`
 
 ```typescript copy filename="signatures"
-namespace misc {
+namespace plain {
   function clone<T>(input: T): Resolved<T>;
   function assertClone<T>(input: unknown): Resolved<T>;  // + assert
   function isClone<T>(input: unknown): Resolved<T> | null;  // + is
@@ -25,24 +25,24 @@ namespace misc {
 Same family pattern as the validators — `clone` trusts you, the others wrap the copy with type checking.
 
 ```typescript copy
-const copy = typia.misc.clone<User>(user);
+const copy = typia.plain.clone<User>(user);
 
 // Type-safe variants
-const maybe = typia.misc.isClone<User>(input);        // null if `input` isn't a User
-const result = typia.misc.validateClone<User>(input); // IValidation<User>
-const checked = typia.misc.assertClone<User>(input);  // throws if invalid
+const maybe = typia.plain.isClone<User>(input);        // null if `input` isn't a User
+const result = typia.plain.validateClone<User>(input); // IValidation<User>
+const checked = typia.plain.assertClone<User>(input);  // throws if invalid
 ```
 
 The pairing rule is the same as elsewhere:
 
-- `misc.isClone<T>` = [`is<T>`](/docs/validators/is) + `clone<T>`
-- `misc.assertClone<T>` = [`assert<T>`](/docs/validators/assert) + `clone<T>`
-- `misc.validateClone<T>` = [`validate<T>`](/docs/validators/validate) + `clone<T>`
+- `plain.isClone<T>` = [`is<T>`](/docs/validators/is) + `clone<T>`
+- `plain.assertClone<T>` = [`assert<T>`](/docs/validators/assert) + `clone<T>`
+- `plain.validateClone<T>` = [`validate<T>`](/docs/validators/validate) + `clone<T>`
 
 <Tabs items={[<code>typia</code>, <code>TypeGuardError.ts</code>, <code>IValidation.ts</code>, <code>Resolved.ts</code>]}>
   <Tabs.Tab>
 ```typescript
-export namespace misc {
+export namespace plain {
   export function clone<T>(input: T): Resolved<T>;
   export function assertClone<T>(input: T | unknown): Resolved<T>;
   export function isClone<T>(input: T | unknown): Resolved<T> | null;
@@ -79,22 +79,22 @@ export namespace misc {
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
-      path="examples/src/misc/assertClone.ts"
-      filename="examples/src/misc/assertClone.ts"
+      path="examples/src/plain/assertClone.ts"
+      filename="examples/src/plain/assertClone.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/bin/misc/assertClone.js"
-      filename="examples/bin/misc/assertClone.js"
+      path="examples/bin/plain/assertClone.js"
+      filename="examples/bin/plain/assertClone.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `misc.prune`
+## `plain.prune`
 
 ```typescript copy filename="signatures"
-namespace misc {
+namespace plain {
   function prune<T>(input: T): void;                          // mutates input
   function assertPrune<T>(input: unknown): T;                 // + assert, then mutates
   function isPrune<T>(input: unknown): input is T;            // + is; prunes & returns true on match, false (no mutation) on mismatch
@@ -106,20 +106,20 @@ namespace misc {
 
 > [!CAUTION]
 >
-> If you need a non-mutating version, clone first: `typia.misc.prune<T>(typia.misc.clone<T>(value))`.
+> If you need a non-mutating version, clone first: `typia.plain.prune<T>(typia.plain.clone<T>(value))`.
 
 ```typescript copy
-typia.misc.prune<User>(input);
+typia.plain.prune<User>(input);
 // input is now narrowed in place — extra properties removed.
 
-const cleaned = typia.misc.assertPrune<User>(input);
+const cleaned = typia.plain.assertPrune<User>(input);
 // Same, but throws if input doesn't match User. Returns input.
 
-if (typia.misc.isPrune<User>(input)) {
+if (typia.plain.isPrune<User>(input)) {
   // input is User and has been pruned. `input` is now typed as User.
 }
 
-const r = typia.misc.validatePrune<User>(input);
+const r = typia.plain.validatePrune<User>(input);
 // r.success === true means input was a User and is now pruned.
 ```
 
@@ -128,41 +128,41 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
-      path="examples/src/misc/assertPrune.ts"
-      filename="examples/src/misc/assertPrune.ts"
+      path="examples/src/plain/assertPrune.ts"
+      filename="examples/src/plain/assertPrune.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/bin/misc/assertPrune.js"
-      filename="examples/bin/misc/assertPrune.js"
+      path="examples/bin/plain/assertPrune.js"
+      filename="examples/bin/plain/assertPrune.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `misc.literals`
+## `reflect.literals`
 
 ```typescript copy filename="signature"
-namespace misc {
+namespace reflect {
   function literals<T extends boolean | number | string | bigint | null>(): T[];
 }
 ```
 
-If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `misc.literals` reads the union from the TS type and emits the array.
+If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `reflect.literals` reads the union from the TS type and emits the array.
 
 Handy for select-box options, discriminated-union test matrices, etc.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
-      path="examples/src/misc/literals.ts"
-      filename="examples/src/misc/literals.ts"
+      path="examples/src/reflect/literals.ts"
+      filename="examples/src/reflect/literals.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/bin/misc/literals.js"
-      filename="examples/bin/misc/literals.js"
+      path="examples/bin/reflect/literals.js"
+      filename="examples/bin/reflect/literals.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

@@ -1,7 +1,7 @@
 import typia from "typia";
 
 const department: IDepartment = typia.random<IDepartment>();
-const pruned: IDepartment = typia.misc.assertPrune<IDepartment>(department);
+const pruned: IDepartment = typia.plain.assertPrune<IDepartment>(department);
 
 console.log(pruned);
 
