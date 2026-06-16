@@ -394,13 +394,13 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       },
     },
     "compare": {
-      "equal": func() callExpressionTransformerTask {
+      "equals": func() callExpressionTransformerTask {
         return nativecomparetransformers.CompareEqualTransformer.Transform
       },
       "cover": func() callExpressionTransformerTask {
         return nativecomparetransformers.CompareCoverTransformer.Transform
       },
-      "createEqual": func() callExpressionTransformerTask {
+      "createEquals": func() callExpressionTransformerTask {
         return nativecomparetransformers.CompareCreateEqualTransformer.Transform
       },
       "createCover": func() callExpressionTransformerTask {

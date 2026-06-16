@@ -1,6 +1,6 @@
 /* ===========================================================
     COMPARE
-      - EQUAL
+      - EQUALS
       - COVER
       - FACTORY FUNCTIONS
 =========================================================== */
@@ -19,25 +19,26 @@ export type Cover<T> = T extends Atomic.Type | null | undefined
         : T;
 
 /* -----------------------------------------------------------
-    EQUAL
+    EQUALS
 ----------------------------------------------------------- */
 /**
  * Compares two values of type `T`.
  *
  * Performs a type-directed deep equality comparison. Object properties are
  * compared by the declared structure of `T`; extra runtime properties are not
- * part of the comparison.
+ * part of the comparison. When `T` declares an `equals(y: T): boolean` method,
+ * that method is used instead of the structural comparison.
  *
  * @template T Type of values to compare
  * @param x Left value
  * @param y Right value
  * @returns Whether both values are equal by structure
  */
-export function equal<T>(x: T, y: T): boolean;
+export function equals<T>(x: T, y: T): boolean;
 
 /** @internal */
-export function equal(): never {
-  NoTransformConfigurationError("compare.equal");
+export function equals(): never {
+  NoTransformConfigurationError("compare.equals");
 }
 
 /**
@@ -62,23 +63,23 @@ export function cover(): never {
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
- * Creates reusable {@link equal} function.
+ * Creates reusable {@link equals} function.
  *
  * @danger You must configure the generic argument `T`
  */
-export function createEqual(): never;
+export function createEquals(): never;
 
 /**
- * Creates reusable {@link equal} function.
+ * Creates reusable {@link equals} function.
  *
  * @template T Type of values to compare
  * @returns Reusable equality function
  */
-export function createEqual<T>(): (x: T, y: T) => boolean;
+export function createEquals<T>(): (x: T, y: T) => boolean;
 
 /** @internal */
-export function createEqual(): never {
-  NoTransformConfigurationError("compare.createEqual");
+export function createEquals(): never {
+  NoTransformConfigurationError("compare.createEquals");
 }
 
 /**

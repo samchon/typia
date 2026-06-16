@@ -12,7 +12,7 @@ type compareEqualTransformerNamespace struct{}
 var CompareEqualTransformer = compareEqualTransformerNamespace{}
 
 func (compareEqualTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
-  return compareEqualTransformer_scalar(props, "compare.equal", false)
+  return compareEqualTransformer_scalar(props, "compare.equals", false)
 }
 
 func compareEqualTransformer_scalar(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
