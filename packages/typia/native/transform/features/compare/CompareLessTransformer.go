@@ -7,15 +7,15 @@ import (
   nativeinternal "github.com/samchon/typia/packages/typia/native/transform/internal"
 )
 
-type compareEqualTransformerNamespace struct{}
+type compareLessTransformerNamespace struct{}
 
-var CompareEqualTransformer = compareEqualTransformerNamespace{}
+var CompareLessTransformer = compareLessTransformerNamespace{}
 
-func (compareEqualTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
-  return compareEqualTransformer_scalar(props, "compare.equals", false)
+func (compareLessTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
+  return compareLessTransformer_scalar(props, "compare.less")
 }
 
-func compareEqualTransformer_scalar(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
+func compareLessTransformer_scalar(props nativeinternal.ITransformProps, method string) *shimast.Node {
   f := nativecontext.EmitFactoryOf(shimast.NewNodeFactory(shimast.NodeFactoryHooks{}), props.Context.Emit)
   if props.Expression == nil || props.Expression.Arguments == nil || len(props.Expression.Arguments.Nodes) < 2 {
     panic(nativeinternal.NewTransformerError(nativeinternal.TransformerError_IProps{
@@ -36,11 +36,10 @@ func compareEqualTransformer_scalar(props nativeinternal.ITransformProps, method
   }
 
   return f.NewCallExpression(
-    nativecompareprogrammers.CompareEqualProgrammer.Write(nativecompareprogrammers.CompareEqualProgrammer_IProps{
+    nativecompareprogrammers.CompareLessProgrammer.Write(nativecompareprogrammers.CompareLessProgrammer_IProps{
       Context: props.Context,
       Modulo:  props.Modulo,
       Type:    typ,
-      Config:  nativecompareprogrammers.CompareEqualProgrammer_IConfig{Cover: cover},
     }),
     nil,
     nil,
@@ -49,7 +48,7 @@ func compareEqualTransformer_scalar(props nativeinternal.ITransformProps, method
   )
 }
 
-func compareEqualTransformer_factory(props nativeinternal.ITransformProps, method string, cover bool) *shimast.Node {
+func compareLessTransformer_factory(props nativeinternal.ITransformProps, method string) *shimast.Node {
   if props.Expression == nil || props.Expression.TypeArguments == nil || len(props.Expression.TypeArguments.Nodes) == 0 {
     panic(nativeinternal.NewTransformerError(nativeinternal.TransformerError_IProps{
       Code:    "typia." + method,
@@ -64,10 +63,9 @@ func compareEqualTransformer_factory(props nativeinternal.ITransformProps, metho
       Message: "non-specified generic argument.",
     }))
   }
-  return nativecompareprogrammers.CompareEqualProgrammer.Write(nativecompareprogrammers.CompareEqualProgrammer_IProps{
+  return nativecompareprogrammers.CompareLessProgrammer.Write(nativecompareprogrammers.CompareLessProgrammer_IProps{
     Context: props.Context,
     Modulo:  props.Modulo,
     Type:    typ,
-    Config:  nativecompareprogrammers.CompareEqualProgrammer_IConfig{Cover: cover},
   })
 }

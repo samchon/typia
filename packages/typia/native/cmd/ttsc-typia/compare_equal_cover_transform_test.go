@@ -10,7 +10,7 @@ import (
 
 // TestCompareEqualCoverTransform verifies type-directed structural comparison.
 //
-// Issue #1497 adds `typia.compare.equal` and `typia.compare.cover`:
+// Issue #1497 adds `typia.compare.equals` and `typia.compare.cover`:
 //
 //  1. Transform direct and factory calls for equal/cover.
 //  2. Execute object, partial-object, array-length, native, dynamic-key,
@@ -105,12 +105,12 @@ func compareEqualCoverRejectsUnsupported(t *testing.T) {
     Name   string
     Source string
   }{
-    {"any", "export const bad = typia.compare.createEqual<any>();"},
-    {"function", "export const bad = typia.compare.createEqual<() => void>();"},
+    {"any", "export const bad = typia.compare.createEquals<any>();"},
+    {"function", "export const bad = typia.compare.createEquals<() => void>();"},
     {"set", "export const bad = typia.compare.createCover<Set<string>>();"},
-    {"map", "export const bad = typia.compare.createEqual<Map<string, number>>();"},
+    {"map", "export const bad = typia.compare.createEquals<Map<string, number>>();"},
     {"weak-set", "export const bad = typia.compare.createCover<WeakSet<object>>();"},
-    {"weak-map", "export const bad = typia.compare.createEqual<WeakMap<object, object>>();"},
+    {"weak-map", "export const bad = typia.compare.createEquals<WeakMap<object, object>>();"},
   }
   for _, tc := range cases {
     t.Run(tc.Name, func(t *testing.T) {
@@ -164,22 +164,22 @@ interface IUser {
   bytes: Uint8Array;
 }
 
-export const equalUser = typia.compare.createEqual<IUser>();
+export const equalUser = typia.compare.createEquals<IUser>();
 export const coverUser = typia.compare.createCover<IUser>();
-export const equalUserDirect = (x: IUser, y: IUser) => typia.compare.equal<IUser>(x, y);
+export const equalUserDirect = (x: IUser, y: IUser) => typia.compare.equals<IUser>(x, y);
 export const coverUserDirect = (x: IUser, y: compare.Cover<IUser>) => typia.compare.cover<IUser>(x, y);
 
 interface IDictionary {
   fixed: string;
   [key: string]: string;
 }
-export const equalDictionary = typia.compare.createEqual<IDictionary>();
+export const equalDictionary = typia.compare.createEquals<IDictionary>();
 export const coverDictionary = typia.compare.createCover<IDictionary>();
 
 type Shape =
   | { kind: "circle"; radius: number; nested: { label: string } }
   | { kind: "square"; size: number; nested: { label: string } };
-export const equalShape = typia.compare.createEqual<Shape>();
+export const equalShape = typia.compare.createEquals<Shape>();
 export const coverShape = typia.compare.createCover<Shape>();
 
 interface INode {
@@ -187,7 +187,7 @@ interface INode {
   next: INode | null;
   children: INode[];
 }
-export const equalNode = typia.compare.createEqual<INode>();
+export const equalNode = typia.compare.createEquals<INode>();
 export const coverNode = typia.compare.createCover<INode>();
 `
 
