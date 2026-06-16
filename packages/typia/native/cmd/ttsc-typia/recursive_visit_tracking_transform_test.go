@@ -108,10 +108,10 @@ func recursiveVisitTrackingRunRuntimeCases(t *testing.T, project string, js stri
   }
   ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
   extras := map[string]string{
-    "throw-type-guard-error-stub.cjs":   recursiveVisitTrackingThrowStub,
-    "protobuf-sizer-stub.cjs":           recursiveVisitTrackingProtobufSizerStub,
-    "protobuf-writer-stub.cjs":          recursiveVisitTrackingProtobufWriterStub,
-    "json-stringify-number-stub.cjs":    recursiveVisitTrackingNumberStub,
+    "throw-type-guard-error-stub.cjs": recursiveVisitTrackingThrowStub,
+    "protobuf-sizer-stub.cjs":         recursiveVisitTrackingProtobufSizerStub,
+    "protobuf-writer-stub.cjs":        recursiveVisitTrackingProtobufWriterStub,
+    "json-stringify-number-stub.cjs":  recursiveVisitTrackingNumberStub,
   }
   for name, content := range extras {
     if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
@@ -216,13 +216,13 @@ export const validateForest = typia.createValidate<ITree[] | number>();
 
 // Rebuilders: clone must reproduce cycles (structured-clone style), and the
 // assert composition shares one functor with the clone emission.
-export const cloneNode = typia.misc.createClone<INode>();
-export const assertCloneNode = typia.misc.createAssertClone<INode>();
-export const cloneTree = typia.misc.createClone<ITree>();
+export const cloneNode = typia.plain.createClone<INode>();
+export const assertCloneNode = typia.plain.createAssertClone<INode>();
+export const cloneTree = typia.plain.createClone<ITree>();
 
 // In-place walker: prune must terminate on cycles while still erasing the
 // superfluous properties it reaches.
-export const pruneNode = typia.misc.createPrune<INode>();
+export const pruneNode = typia.plain.createPrune<INode>();
 
 // Renaming rebuilder: notations must reproduce cycles under the new keys.
 interface IRenamed {

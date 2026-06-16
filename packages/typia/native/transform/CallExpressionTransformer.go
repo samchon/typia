@@ -10,12 +10,13 @@ import (
   nativefunctionalprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/functional"
   nativenotationprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/notations"
   nativefeatures "github.com/samchon/typia/packages/typia/native/transform/features"
+  nativecomparetransformers "github.com/samchon/typia/packages/typia/native/transform/features/compare"
   nativefunctionaltransformers "github.com/samchon/typia/packages/typia/native/transform/features/functional"
   nativehttptransformers "github.com/samchon/typia/packages/typia/native/transform/features/http"
   nativejsontransformers "github.com/samchon/typia/packages/typia/native/transform/features/json"
   nativellmtransformers "github.com/samchon/typia/packages/typia/native/transform/features/llm"
-  nativemisctransformers "github.com/samchon/typia/packages/typia/native/transform/features/misc"
   nativenotationtransformers "github.com/samchon/typia/packages/typia/native/transform/features/notations"
+  nativeplaintransformers "github.com/samchon/typia/packages/typia/native/transform/features/plain"
   nativeprotobuftransformers "github.com/samchon/typia/packages/typia/native/transform/features/protobuf"
   nativereflecttransformers "github.com/samchon/typia/packages/typia/native/transform/features/reflect"
 )
@@ -388,56 +389,64 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       "schemas": func() callExpressionTransformerTask {
         return nativereflecttransformers.ReflectSchemasTransformer.Transform
       },
+      "literals": func() callExpressionTransformerTask {
+        return nativereflecttransformers.ReflectLiteralsTransformer.Transform
+      },
     },
-    "misc": {
-      "literals": func() callExpressionTransformerTask { return nativemisctransformers.MiscLiteralsTransformer.Transform },
-      "clone":    func() callExpressionTransformerTask { return nativemisctransformers.MiscCloneTransformer.Transform },
-      "equal":    func() callExpressionTransformerTask { return nativemisctransformers.MiscEqualTransformer.Transform },
-      "cover":    func() callExpressionTransformerTask { return nativemisctransformers.MiscCoverTransformer.Transform },
-      "assertClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscAssertCloneTransformer.Transform
+    "compare": {
+      "equal": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareEqualTransformer.Transform
       },
-      "isClone": func() callExpressionTransformerTask { return nativemisctransformers.MiscIsCloneTransformer.Transform },
-      "validateClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscValidateCloneTransformer.Transform
-      },
-      "prune": func() callExpressionTransformerTask { return nativemisctransformers.MiscPruneTransformer.Transform },
-      "assertPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscAssertPruneTransformer.Transform
-      },
-      "isPrune": func() callExpressionTransformerTask { return nativemisctransformers.MiscIsPruneTransformer.Transform },
-      "validatePrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscValidatePruneTransformer.Transform
-      },
-      "createClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateCloneTransformer.Transform
+      "cover": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCoverTransformer.Transform
       },
       "createEqual": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateEqualTransformer.Transform
+        return nativecomparetransformers.CompareCreateEqualTransformer.Transform
       },
       "createCover": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateCoverTransformer.Transform
+        return nativecomparetransformers.CompareCreateCoverTransformer.Transform
+      },
+    },
+    "plain": {
+      "clone": func() callExpressionTransformerTask { return nativeplaintransformers.PlainCloneTransformer.Transform },
+      "assertClone": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainAssertCloneTransformer.Transform
+      },
+      "isClone": func() callExpressionTransformerTask { return nativeplaintransformers.PlainIsCloneTransformer.Transform },
+      "validateClone": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainValidateCloneTransformer.Transform
+      },
+      "prune": func() callExpressionTransformerTask { return nativeplaintransformers.PlainPruneTransformer.Transform },
+      "assertPrune": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainAssertPruneTransformer.Transform
+      },
+      "isPrune": func() callExpressionTransformerTask { return nativeplaintransformers.PlainIsPruneTransformer.Transform },
+      "validatePrune": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainValidatePruneTransformer.Transform
+      },
+      "createClone": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateCloneTransformer.Transform
       },
       "createAssertClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateAssertCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateAssertCloneTransformer.Transform
       },
       "createIsClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateIsCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateIsCloneTransformer.Transform
       },
       "createValidateClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateValidateCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateValidateCloneTransformer.Transform
       },
       "createPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreatePruneTransformer.Transform
+        return nativeplaintransformers.PlainCreatePruneTransformer.Transform
       },
       "createAssertPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateAssertPruneTransformer.Transform
+        return nativeplaintransformers.PlainCreateAssertPruneTransformer.Transform
       },
       "createIsPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateIsPruneTransformer.Transform
+        return nativeplaintransformers.PlainCreateIsPruneTransformer.Transform
       },
       "createValidatePrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateValidatePruneTransformer.Transform
+        return nativeplaintransformers.PlainCreateValidatePruneTransformer.Transform
       },
     },
     "notations": callExpressionTransformer_notations(),

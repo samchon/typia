@@ -424,7 +424,7 @@ export namespace TestAutomationTemplate {
     // MISCELLANEOUS
     //----
     {
-      module: "misc",
+      module: "plain",
       method: "clone",
       creatable: true,
       spoilable: false,
@@ -432,7 +432,7 @@ export namespace TestAutomationTemplate {
       resolved: true,
     },
     // {
-    //   module: "misc",
+    //   module: "plain",
     //   method: "isClone",
     //   creatable: true,
     //   spoilable: true,
@@ -440,7 +440,7 @@ export namespace TestAutomationTemplate {
     //   resolved: true,
     // },
     // {
-    //   module: "misc",
+    //   module: "plain",
     //   method: "assertClone",
     //   creatable: true,
     //   spoilable: true,
@@ -448,7 +448,7 @@ export namespace TestAutomationTemplate {
     //   resolved: true,
     // },
     // {
-    //   module: "misc",
+    //   module: "plain",
     //   method: "validateClone",
     //   creatable: true,
     //   spoilable: true,
@@ -456,7 +456,7 @@ export namespace TestAutomationTemplate {
     //   resolved: true,
     // },
     {
-      module: "misc",
+      module: "plain",
       method: "prune",
       creatable: true,
       spoilable: false,
@@ -464,7 +464,7 @@ export namespace TestAutomationTemplate {
       resolved: true,
     },
     // {
-    //   module: "misc",
+    //   module: "plain",
     //   method: "isPrune",
     //   creatable: true,
     //   spoilable: true,
@@ -472,7 +472,7 @@ export namespace TestAutomationTemplate {
     //   resolved: true,
     // },
     // {
-    //   module: "misc",
+    //   module: "plain",
     //   method: "assertPrune",
     //   creatable: true,
     //   spoilable: true,
@@ -480,7 +480,7 @@ export namespace TestAutomationTemplate {
     //   resolved: true,
     // },
     // {
-    //   module: "misc",
+    //   module: "plain",
     //   method: "validatePrune",
     //   creatable: true,
     //   spoilable: true,
