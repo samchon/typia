@@ -14,15 +14,9 @@ function shallow<T, N extends number = 2>(input: T): input is T;
 function shallow<T, N extends number = 2>(input: unknown): input is T;
 ```
 
-`typia.shallow<T, N>` is [`is`](/docs/validators/is) with a depth limit. It checks
-`input` against type `T` exactly like `is` does, but only descends `N` levels into
-nested objects, arrays, and tuples. Past that depth a value is accepted as long as
-it is a non-null object — the deep leaves are not inspected.
+`typia.shallow<T, N>` is [`is`](/docs/validators/is) with a depth limit. It checks `input` against type `T` exactly like `is` does, but only descends `N` levels into nested objects, arrays, and tuples. Past that depth a value is accepted as long as it is a non-null object — the deep leaves are not inspected.
 
-It is meant for **discrimination** rather than full validation. When you only need
-to know which branch of a union an input belongs to, a deep structural check of
-every leaf is wasteful: the discriminating information usually lives in a key near
-the surface.
+It is meant for **discrimination** rather than full validation. When you only need to know which branch of a union an input belongs to, a deep structural check of every leaf is wasteful: the discriminating information usually lives in a key near the surface.
 
 | Scenario | Pick |
 |----------|------|
@@ -33,16 +27,12 @@ the surface.
 
 <Alert severity="warning">
   <AlertTitle>`shallow` is not a soundness guarantee</AlertTitle>
-  A `true` result only means the value matched `T` **down to depth `N`**. Anything
-  deeper is accepted structurally without being checked. The predicate still
-  narrows to `T` for ergonomics, but use [`is`](/docs/validators/is) when you need
-  the value to actually conform.
+  A `true` result only means the value matched `T` **down to depth `N`**. Anything deeper is accepted structurally without being checked. The predicate still narrows to `T` for ergonomics, but use [`is`](/docs/validators/is) when you need the value to actually conform.
 </Alert>
 
 ## First example
 
-Only the discriminator and the top-level shape are checked, so the deeply nested
-fields never enter the emitted guard.
+Only the discriminator and the top-level shape are checked, so the deeply nested fields never enter the emitted guard.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
@@ -61,10 +51,7 @@ fields never enter the emitted guard.
 
 ## What `N` does
 
-`N` is a non-negative integer literal (default `2`). Each level of nesting into an
-object, array element, or tuple member spends one unit of budget. Once the budget
-reaches `0`, a composite value is accepted with a bare `typeof input === "object"
-&& input !== null` guard instead of being descended.
+`N` is a non-negative integer literal (default `2`). Each level of nesting into an object, array element, or tuple member spends one unit of budget. Once the budget reaches `0`, a composite value is accepted with a bare `typeof input === "object" && input !== null` guard instead of being descended.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
@@ -81,17 +68,11 @@ reaches `0`, a composite value is accepted with a bare `typeof input === "object
   </Tabs.Tab>
 </Tabs>
 
-Because the budget is finite, `shallow` also terminates on recursive types — a
-self-referential type (e.g. `interface Tree { value: string; children: Tree[] }`)
-stops descending once the budget runs out, so `typia.shallow<Tree, 2>` inlines two
-levels and then accepts the rest structurally.
+Because the budget is finite, `shallow` also terminates on recursive types — a self-referential type (e.g. `interface Tree { value: string; children: Tree[] }`) stops descending once the budget runs out, so `typia.shallow<Tree, 2>` inlines two levels and then accepts the rest structurally.
 
 ## Reusable checkers
 
-Like [`createIs`](/docs/validators/is#reusable-checkers), you can hoist a `shallow`
-checker so the type-specific code is emitted once and reused. `typia.createShallow<T, N>()`
-takes no arguments and returns a plain `(input: unknown) => input is T` function
-carrying the same depth bound.
+Like [`createIs`](/docs/validators/is#reusable-checkers), you can hoist a `shallow` checker so the type-specific code is emitted once and reused. `typia.createShallow<T, N>()` takes no arguments and returns a plain `(input: unknown) => input is T` function carrying the same depth bound.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
@@ -110,15 +91,9 @@ carrying the same depth bound.
 
 ## How it compares to `is`
 
-`typia.shallow<T, N>` emits the exact same checks as `typia.is<T>` for everything
-within depth `N`. The only difference is what happens past the budget: `is` keeps
-descending into every leaf, while `shallow` accepts a non-null object. So the
-emitted code for `shallow` is a strict prefix of the `is` code — never more work,
-and usually much less for deeply nested or recursive types.
+`typia.shallow<T, N>` emits the exact same checks as `typia.is<T>` for everything within depth `N`. The only difference is what happens past the budget: `is` keeps descending into every leaf, while `shallow` accepts a non-null object. So the emitted code for `shallow` is a strict prefix of the `is` code — never more work, and usually much less for deeply nested or recursive types.
 
-This makes `shallow` a good fit for hot paths where you only branch on a
-discriminator, and `is` the right pick whenever you actually consume the deep
-fields afterward.
+This makes `shallow` a good fit for hot paths where you only branch on a discriminator, and `is` the right pick whenever you actually consume the deep fields afterward.
 
 ## Where to go next
 
