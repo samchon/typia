@@ -1,7 +1,7 @@
 import { TestStructure } from "@typia/template";
 import { IValidation, assertEquals } from "typia";
 
-export const _test_misc_validatePrune =
+export const _test_plain_validatePrune =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (prune: (input: T) => IValidation<T>): void => {
@@ -17,7 +17,7 @@ export const _test_misc_validatePrune =
     // DO VALIDATE
     if (prune(input).success === false)
       throw new Error(
-        `Bug on typia.misc.validatePrune(): failed to prune the ${name} type.`,
+        `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
       );
     else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
       iterate((obj: any) => {
@@ -27,7 +27,7 @@ export const _test_misc_validatePrune =
           )
         )
           throw new Error(
-            `Bug on typia.misc.validatePrune(): failed to prune the ${name} type.`,
+            `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
           );
       })(input);
 
@@ -40,7 +40,7 @@ export const _test_misc_validatePrune =
 
       if (valid.success === true)
         throw new Error(
-          `Bug on typia.misc.validatePrune(): failed to detect error on the ${name} type.`,
+          `Bug on typia.plain.validatePrune(): failed to detect error on the ${name} type.`,
         );
 
       assertEquals(valid);
@@ -59,7 +59,7 @@ export const _test_misc_validatePrune =
     if (wrong.length !== 0) {
       console.log(wrong);
       throw new Error(
-        `Bug on typia.misc.validatePrune(): failed to detect error on the ${name} type.`,
+        `Bug on typia.plain.validatePrune(): failed to detect error on the ${name} type.`,
       );
     }
   };

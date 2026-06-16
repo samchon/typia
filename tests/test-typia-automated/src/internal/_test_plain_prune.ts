@@ -1,6 +1,6 @@
 import { TestStructure } from "@typia/template";
 
-export const _test_misc_prune =
+export const _test_plain_prune =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (prune: (input: T) => void): void => {
@@ -23,7 +23,7 @@ export const _test_misc_prune =
           )
         )
           throw new Error(
-            `Bug on typia.misc.prune(): failed to prune the ${name} type.`,
+            `Bug on typia.plain.prune(): failed to prune the ${name} type.`,
           );
       })(input);
   };

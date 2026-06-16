@@ -3,7 +3,7 @@ import { Resolved } from "typia";
 
 import { resolved_equal_to } from "../utils/resolved_equal_to";
 
-export const _test_misc_clone =
+export const _test_plain_clone =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (clone: (input: T) => Resolved<T>): void => {
@@ -12,7 +12,7 @@ export const _test_misc_clone =
 
     if (resolved_equal_to(name)(data, cloned) === false) {
       throw new Error(
-        `Bug on typia.misc.clone(): failed to clone the ${name} type.`,
+        `Bug on typia.plain.clone(): failed to clone the ${name} type.`,
       );
     }
   };

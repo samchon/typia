@@ -1,4 +1,4 @@
-export const _test_misc_literals =
+export const _test_reflect_literals =
   (name: string) =>
   <T>(factory: () => readonly T[]) =>
   (expected: readonly T[]): void => {

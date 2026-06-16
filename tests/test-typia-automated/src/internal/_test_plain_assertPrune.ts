@@ -1,9 +1,11 @@
 import { TestStructure } from "@typia/template";
+import typia, { TypeGuardError } from "typia";
 
-export const _test_misc_isPrune =
+export const _test_plain_assertPrune =
+  (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (prune: (input: T) => boolean): void => {
+  (prune: (input: T) => T): void => {
     const input: T = factory.generate();
 
     // SPOIL OBJECTS
@@ -14,11 +16,8 @@ export const _test_misc_isPrune =
     )(input);
 
     // DO VALIDATE
-    if (prune(input) === false)
-      throw new Error(
-        `Bug on typia.misc.isPrune(): failed to understand the ${name} type.`,
-      );
-    else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
+    prune(input);
+    if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
       iterate((obj: any) => {
         if (
           Object.keys(obj).some(
@@ -26,19 +25,32 @@ export const _test_misc_isPrune =
           )
         )
           throw new Error(
-            `Bug on typia.misc.isPrune(): failed to prune the ${name} type.`,
+            `Bug on typia.plain.isPrune(): failed to prune the ${name} type.`,
           );
       })(input);
 
     // SPOIL
     for (const spoil of factory.SPOILERS ?? []) {
       const elem: T = factory.generate();
-      spoil(elem);
+      const expected: string[] = spoil(elem);
 
-      if (prune(elem) === true)
-        throw new Error(
-          `Bug on typia.misc.isPrune(): failed to detect error on the ${name} type.`,
-        );
+      try {
+        prune(elem);
+      } catch (exp) {
+        if (
+          (exp as Function).constructor?.name === ErrorClass.name &&
+          typia.is<TypeGuardError.IProps>(exp)
+        )
+          if (exp.path && expected.includes(exp.path) === true) continue;
+          else
+            console.log({
+              expected,
+              actual: exp.path,
+            });
+      }
+      throw new Error(
+        `Bug on typia.plain.assertPrune(): failed to detect error on the ${name} type.`,
+      );
     }
   };
 

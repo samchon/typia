@@ -20,7 +20,7 @@ export const test_exact_optional_undefined_clone_random = (): void => {
     nested: {},
     array: [{}],
   };
-  const cloned = typia.misc.clone<IExactOptionalClone>(missing);
+  const cloned = typia.plain.clone<IExactOptionalClone>(missing);
 
   assertOwn("clone root optional", cloned, "optional", false);
   assertOwn("clone root optionalUndefined", cloned, "optionalUndefined", false);
@@ -56,7 +56,7 @@ export const test_exact_optional_undefined_clone_random = (): void => {
       },
     ],
   };
-  const presentClone = typia.misc.clone<IExactOptionalClone>(present);
+  const presentClone = typia.plain.clone<IExactOptionalClone>(present);
 
   TestValidator.equals("clone present optional", presentClone.optional, "root");
   assertOwn(
