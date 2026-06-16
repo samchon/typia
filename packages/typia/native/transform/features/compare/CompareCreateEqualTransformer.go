@@ -10,5 +10,5 @@ type compareCreateEqualTransformerNamespace struct{}
 var CompareCreateEqualTransformer = compareCreateEqualTransformerNamespace{}
 
 func (compareCreateEqualTransformerNamespace) Transform(props nativeinternal.ITransformProps) *shimast.Node {
-  return compareEqualTransformer_factory(props, "compare.createEqual", false)
+  return compareEqualTransformer_factory(props, "compare.createEquals", false)
 }

@@ -9,7 +9,7 @@ import LocalSource from '../../components/LocalSource';
 
 # Miscellaneous
 
-Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
+Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `compare` (structural equality / ordering), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
 
 ## `plain`
 
@@ -140,6 +140,97 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
     <LocalSource
       path="examples/bin/plain/assertPrune.js"
       filename="examples/bin/plain/assertPrune.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## `compare`
+
+Type-directed structural comparison of two values of the same type `T`. All three compare by the declared structure of `T`; when `T` (or a nested object type) declares an `equals(y): boolean` / `less(y): boolean` method, that method is used instead, and other method members are ignored — so class instances compare by their data.
+
+### `compare.equals`
+
+```typescript copy filename="signatures"
+namespace compare {
+  function equals<T>(x: T, y: T): boolean;
+}
+```
+
+Deep equality by the structure of `T`. Extra runtime properties outside `T` are not part of the comparison.
+
+```typescript copy
+typia.compare.equals<IPoint>(x, y); // true when every declared field matches
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/compare/equals.ts"
+      filename="examples/src/compare/equals.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/compare/equals.js"
+      filename="examples/bin/compare/equals.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `compare.cover`
+
+```typescript copy filename="signatures"
+namespace compare {
+  function cover<T>(x: T, y: Cover<T>): boolean;
+}
+```
+
+Asymmetric match: whether `x` covers the (partial) `y`. Object properties whose value is `undefined` in `y` are ignored; arrays and tuples still require identical lengths.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/compare/cover.ts"
+      filename="examples/src/compare/cover.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/compare/cover.js"
+      filename="examples/bin/compare/cover.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `compare.less`
+
+```typescript copy filename="signatures"
+namespace compare {
+  function less<T>(x: T, y: T): boolean;
+}
+```
+
+Lexicographic ordering: walks the properties of `T` in declaration order and decides on the first differing scalar leaf (`number` / `boolean` / `string` / `bigint`), with `undefined < null < value`. Arrays compare element-by-element, the shorter prefix preceding. `less` and `equals` compose into an `Array.prototype.sort` comparator:
+
+```typescript copy
+const cmp = (a: IPoint, b: IPoint): number =>
+  typia.compare.less<IPoint>(a, b) ? -1 : typia.compare.less<IPoint>(b, a) ? 1 : 0;
+items.sort(cmp);
+```
+
+Types with no sound total order (`any`, `Function`, `Set`, `Map`, `WeakSet`, `WeakMap`, or a union of multiple object types) are rejected at compile time.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/compare/less.ts"
+      filename="examples/src/compare/less.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/compare/less.js"
+      filename="examples/bin/compare/less.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
