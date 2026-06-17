@@ -2,9 +2,10 @@
     PLAIN
       - CLONE
       - PRUNE
+      - CLASSIFY
       - FACTORY FUNCTIONS
 =========================================================== */
-import { IValidation, Resolved } from "@typia/interface";
+import { Classifiable, IValidation, Resolved } from "@typia/interface";
 
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
@@ -242,6 +243,96 @@ export function validatePrune<T>(): IValidation<T> {
 }
 
 /* -----------------------------------------------------------
+    CLASSIFY
+----------------------------------------------------------- */
+/**
+ * Reconstructs a class instance from plain data.
+ *
+ * Builds a real instance of class type `T` from a plain object, driven by
+ * typia's compile-time type information — no decorators required (unlike
+ * `class-transformer`). Each class is constructed by exactly one strategy, in
+ * precedence order: a static factory `T.from(x)`, then `new T(x)` (single
+ * argument), then field copy onto the prototype. Nested classes and containers
+ * are reconstructed recursively, and methods come from the prototype.
+ *
+ * Does not validate the input. For validation, use:
+ *
+ * - {@link assertClassify} — Throws on type mismatch
+ * - {@link validateClassify} — Returns detailed validation errors
+ *
+ * @template T Target class type to reconstruct
+ * @param input Plain data to classify
+ * @returns A real instance of type `T`
+ */
+export function classify<T>(input: Classifiable<T>): T;
+
+/** @internal */
+export function classify(): never {
+  NoTransformConfigurationError("plain.classify");
+}
+
+/**
+ * Reconstructs a class instance with assertion.
+ *
+ * Combines {@link assert} with {@link classify}: validates the plain input
+ * against type `T`, throwing {@link TypeGuardError} on mismatch, then builds a
+ * real instance of `T`.
+ *
+ * Related functions:
+ *
+ * - {@link classify} — No validation
+ * - {@link validateClassify} — Returns detailed validation errors
+ *
+ * @template T Target class type to reconstruct
+ * @param input Plain data to validate and classify
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns A real instance of type `T`
+ * @throws {TypeGuardError} When input doesn't conform to type `T`
+ */
+export function assertClassify<T>(
+  input: Classifiable<T>,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
+
+/** @internal */
+export function assertClassify<T>(
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): T;
+
+/** @internal */
+export function assertClassify(): never {
+  NoTransformConfigurationError("plain.assertClassify");
+}
+
+/**
+ * Reconstructs a class instance with validation.
+ *
+ * Combines {@link validate} with {@link classify}: validates the plain input
+ * against type `T`, returning {@link IValidation.IFailure} with all errors on
+ * mismatch, or {@link IValidation.ISuccess} holding a real instance of `T`.
+ *
+ * Related functions:
+ *
+ * - {@link classify} — No validation
+ * - {@link assertClassify} — Throws on first error
+ *
+ * @template T Target class type to reconstruct
+ * @param input Plain data to validate and classify
+ * @returns Validation result containing the instance or errors
+ */
+export function validateClassify<T>(input: Classifiable<T>): IValidation<T>;
+
+/** @internal */
+export function validateClassify<T>(input: unknown): IValidation<T>;
+
+/** @internal */
+export function validateClassify(): never {
+  NoTransformConfigurationError("plain.validateClassify");
+}
+
+/* -----------------------------------------------------------
     FACTORY FUNCTIONS
 ----------------------------------------------------------- */
 /**
@@ -420,4 +511,70 @@ export function createValidatePrune<T extends object>(): (
 /** @internal */
 export function createValidatePrune(): never {
   NoTransformConfigurationError("plain.createValidatePrune");
+}
+
+/**
+ * Creates reusable {@link classify} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createClassify(): never;
+
+/**
+ * Creates reusable {@link classify} function.
+ *
+ * @template T Target class type to reconstruct
+ * @returns Reusable classify function
+ */
+export function createClassify<T>(): (input: Classifiable<T>) => T;
+
+/** @internal */
+export function createClassify(): never {
+  NoTransformConfigurationError("plain.createClassify");
+}
+
+/**
+ * Creates reusable {@link assertClassify} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createAssertClassify(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): never;
+
+/**
+ * Creates reusable {@link assertClassify} function.
+ *
+ * @template T Target class type to reconstruct
+ * @param errorFactory Custom error factory receiving
+ *   {@link TypeGuardError.IProps}
+ * @returns Reusable classify function
+ */
+export function createAssertClassify<T>(
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+): (input: unknown) => T;
+
+/** @internal */
+export function createAssertClassify(): never {
+  NoTransformConfigurationError("plain.createAssertClassify");
+}
+
+/**
+ * Creates reusable {@link validateClassify} function.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function createValidateClassify(): never;
+
+/**
+ * Creates reusable {@link validateClassify} function.
+ *
+ * @template T Target class type to reconstruct
+ * @returns Reusable classify function
+ */
+export function createValidateClassify<T>(): (input: unknown) => IValidation<T>;
+
+/** @internal */
+export function createValidateClassify(): never {
+  NoTransformConfigurationError("plain.createValidateClassify");
 }
