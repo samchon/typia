@@ -42,6 +42,22 @@ export type ClassifiableClassDetectionCases = [
   // a `from` returning `Instance | null` IS a factory (the null arm is looked
   // through), so its seed is accepted
   Assert<IsEqual<Classifiable<typeof NullableFrom>, { seed: string }>>,
+  // a CALLABLE object carrying a `prototype` field is not a class → `never`
+  // (a function is not a JSON-decodable classify target)
+  Assert<
+    IsEqual<
+      Classifiable<{
+        (x: number): string;
+        prototype: { foo: number };
+        meta: number;
+      }>,
+      never
+    >
+  >,
+  // a `from` that constructs nothing (`never`, or only `null`/`undefined`) is
+  // not a factory → field-copy property shape
+  Assert<IsEqual<Classifiable<typeof NeverFrom>, { id: string }>>,
+  Assert<IsEqual<Classifiable<typeof NullishFrom>, { id: string }>>,
 ];
 
 type Assert<T extends true> = T;
@@ -92,6 +108,22 @@ class NullableFrom {
   id!: number;
   static from(seed: { seed: string }): NullableFrom | null {
     void seed;
+    return null;
+  }
+}
+
+class NeverFrom {
+  id!: string;
+  static from(s: { iso: string }): never {
+    void s;
+    throw new Error();
+  }
+}
+
+class NullishFrom {
+  id!: string;
+  static from(s: { iso: string }): null | undefined {
+    void s;
     return null;
   }
 }
