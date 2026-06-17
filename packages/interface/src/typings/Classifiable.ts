@@ -46,24 +46,35 @@ type ClassifiableMain<T> = T extends [never]
         ? ClassifiableObject<T>
         : ValueOf<T>;
 
-type ClassifiableObject<T extends object> =
+type ClassifiableObject<T extends object> = T extends readonly any[]
+  ? ClassifiableArray<T>
+  : T extends Set<infer U>
+    ? Set<ClassifiableMain<U>>
+    : T extends Map<infer K, infer V>
+      ? Map<ClassifiableMain<K>, ClassifiableMain<V>>
+      : T extends WeakSet<any> | WeakMap<any, any>
+        ? never
+        : T extends NativeClass
+          ? T
+          : {
+              [P in keyof T as T[P] extends Function
+                ? never
+                : P]: ClassifiableMain<T[P]>;
+            };
+
+// Array-likes are split into mutable vs `readonly` so the modifier survives;
+// the object branch's key remapping (which drops methods) would otherwise
+// mangle a `readonly` array into an index-signature object.
+type ClassifiableArray<T extends readonly any[]> =
   T extends Array<infer U>
     ? IsTuple<T> extends true
       ? ClassifiableTuple<T>
       : ClassifiableMain<U>[]
-    : T extends Set<infer U>
-      ? Set<ClassifiableMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<ClassifiableMain<K>, ClassifiableMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [P in keyof T as T[P] extends Function
-                  ? never
-                  : P]: ClassifiableMain<T[P]>;
-              };
+    : T extends readonly (infer U)[]
+      ? IsTuple<T> extends true
+        ? Readonly<ClassifiableTuple<[...T]>>
+        : readonly ClassifiableMain<U>[]
+      : never;
 
 type ClassifiableTuple<T extends readonly any[]> = T extends []
   ? []
