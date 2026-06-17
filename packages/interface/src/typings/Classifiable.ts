@@ -96,10 +96,14 @@ type ClassifiableSeed<A extends readonly any[]> = A extends readonly [
 // The seed of `from`/`new`, rendered as the plain, JSON-decodable form:
 //  - `any`/`unknown` are rejected up front, else an `any`-typed seed (the common
 //    `static from(json: any)` pattern) poisons the whole union to `any`.
-//  - boxed/primitive seeds collapse to their primitive via `ValueOf`, so a boxed
-//    `String` seed is `string`, not `string[]` (it would otherwise match the
-//    `Iterable` arm through its iterator).
-//  - iterable seeds render as arrays and object seeds recurse through
+//  - the bare-primitive arm is DISTRIBUTIVE and must stay ahead of `ValueOf`: a
+//    union seed like `number | string | Date` keeps `string` as `string`.
+//    Without it the non-distributive `ValueOf` arm fails for the whole union and
+//    `string` falls to the `Iterable` arm, becoming `string[]`. `ValueOf` then
+//    unwraps a boxed `String`/`Number` seed to its primitive.
+//  - per the spec ("iterable construction seeds are rendered as arrays"), an
+//    iterable seed — including a tuple or typed array — renders as its element
+//    array (the JSON-decodable form); object seeds recurse through
 //    `ClassifiableMain`, so a nested class inside a seed is classified too.
 type ClassifiableSeedValue<P> =
   IsAny<P> extends true

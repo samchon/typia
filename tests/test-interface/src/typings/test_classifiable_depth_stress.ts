@@ -18,8 +18,9 @@ import { Classifiable } from "@typia/interface";
  */
 export type ClassifiableDepthStressCases = [
   Assert<IsEqual<Classifiable<Leaf>, PlainLeaf>>,
-  // the monster root resolves to *something* assignable (no depth blow-up)
-  Assert<Classifiable<Root> extends infer _ ? true : false>,
+  // the monster root resolves with no depth blow-up AND its `head` leaf is the
+  // method-stripped plain shape — a real shape signal, not a vacuous `extends _`
+  Assert<Classifiable<Root> extends { head: PlainLeaf } ? true : false>,
 ];
 
 interface PlainLeaf {

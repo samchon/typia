@@ -22,6 +22,17 @@ export type ClassifiableReadonlyCollectionCases = [
       ReadonlyMap<string, Plain> | [string, Plain][]
     >
   >,
+  // as class members they are kept (not matched as mutable Set/Map, not weak)
+  // and classified through the same arms
+  Assert<
+    IsEqual<
+      Classifiable<ReadonlyHolder>,
+      {
+        rs: ReadonlySet<Plain> | Plain[];
+        rm: ReadonlyMap<string, Plain> | [string, Plain][];
+      }
+    >
+  >,
 ];
 
 type Assert<T extends true> = T;
@@ -40,4 +51,9 @@ class Box {
 
 interface Plain {
   id: number;
+}
+
+class ReadonlyHolder {
+  rs!: ReadonlySet<Box>;
+  rm!: ReadonlyMap<string, Box>;
 }

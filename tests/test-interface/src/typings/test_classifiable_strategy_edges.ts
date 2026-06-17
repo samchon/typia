@@ -23,6 +23,10 @@ export type ClassifiableStrategyEdgeCases = [
   Assert<IsEqual<Classifiable<typeof RestCtor>, { seed: string }>>,
   // a two-argument `from` is not a single-seed factory; default ctor adds none
   Assert<IsEqual<Classifiable<typeof FromTwoArgs>, { a: number }>>,
+  // an overloaded constructor seeds from the signature `infer` selects (the last
+  // overload) — Rev 5's documented transparent quirk; not default-constructible,
+  // so the property arm drops and only that seed survives
+  Assert<IsEqual<Classifiable<typeof Overloaded>, { y: string }>>,
 ];
 
 // the cyclic class type resolves and recurses (methods omitted), no overflow
@@ -72,4 +76,13 @@ class Cyclic {
   next?: Cyclic;
   children!: Cyclic[];
   walk(): void {}
+}
+
+class Overloaded {
+  a!: number;
+  constructor(seed: { x: number });
+  constructor(seed: { y: string });
+  constructor(seed: unknown) {
+    void seed;
+  }
 }
