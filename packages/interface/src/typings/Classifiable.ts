@@ -84,31 +84,41 @@ type ClassifiableInput<T> = [ClassifiableFactory<T>] extends [never]
 // also resolves a class whose constructor is private/protected (or declared in a
 // `.d.ts` ambient class) — whose construct signature `abstract new` does NOT
 // match — so a value-object with a private constructor stays classifiable. It is
-// `never` for any non-class type (instance type, plain object, plain function),
-// letting the arms below tell a class apart from a plain value. The `IsAny` guard
-// rejects a plain function (whose `prototype` is `any`) and the `object` guard a
-// plain object that merely carries a non-object `prototype` field.
+// `never` for any non-class type, letting the arms below tell a class apart from
+// a plain value. The `T extends Function` guard is essential: a class (even with
+// a private constructor) is a Function, whereas a plain object / interface /
+// instance that merely carries a data field literally named `prototype` is not —
+// without it, `{ prototype: infer I }` would read that field as the instance and
+// drop the object's other fields. `IsAny` then rejects a plain function (whose
+// `prototype` is `any`) and the `object` guard a non-object `prototype`.
 type ClassInstanceType<T> = T extends abstract new (...args: any) => infer I
   ? I
-  : T extends { prototype: infer I }
-    ? IsAny<I> extends true
-      ? never
-      : I extends object
-        ? I
-        : never
+  : T extends Function
+    ? T extends { prototype: infer I }
+      ? IsAny<I> extends true
+        ? never
+        : I extends object
+          ? I
+          : never
+      : never
     : never;
 
 // Static factory `T.from(x)` seed. Detected via `ClassInstanceType` (a class
 // type, even one with a private constructor), so an instance/plain-object method
 // named `from` cannot seed a spurious arm. `from` counts as a constructing
-// factory only when it RETURNS the instance type — a `from` whose return type is
-// unrelated to the class (a mere helper) does not hijack the strategy.
+// factory only when it RETURNS the instance type (looking through a `| null` /
+// `| undefined` failure arm) — a `from` whose return is unrelated (a helper like
+// `from(text): number`) or untyped (`any`) does not hijack the strategy, and one
+// returning a base/supertype (e.g. an inherited `from`) falls through to field
+// copy, which safely captures the subclass's own fields.
 type ClassifiableFactory<T> = [ClassInstanceType<T>] extends [never]
   ? never
   : T extends { from: (...args: infer A) => infer R }
-    ? [R] extends [ClassInstanceType<T>]
-      ? ClassifiableSeed<A>
-      : never
+    ? IsAny<R> extends true
+      ? never
+      : [NonNullable<R>] extends [ClassInstanceType<T>]
+        ? ClassifiableSeed<A>
+        : never
     : never;
 
 // `new T(x)` seed — single-argument callable. A private/protected (or otherwise

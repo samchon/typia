@@ -1,25 +1,47 @@
 import { Classifiable } from "@typia/interface";
 
 /**
- * Verifies class-type detection is robust to constructor visibility and
- * helpers.
+ * Verifies class-type detection is robust to constructor visibility, helpers,
+ * and a data field named `prototype`.
  *
- * Pins three strategy-selection edges a naive `abstract new` gate gets wrong: a
- * class with a PRIVATE constructor (the canonical value-object / named-
- * constructor / singleton pattern) is still detected — its static `from` seeds
- * the factory arm and, lacking `from`, its public fields seed the field-copy
- * arm — instead of the whole union collapsing to `never`; and a static `from`
- * whose RETURN type is unrelated to the class is a helper, not a factory, so it
- * must not hijack the strategy.
+ * Pins the strategy-selection edges a naive gate gets wrong. A class with a
+ * PRIVATE constructor (the canonical value-object / named-constructor /
+ * singleton pattern) must still be detected — its static `from` seeds the
+ * factory arm and, lacking `from`, its public fields seed the field-copy arm —
+ * instead of the whole result collapsing to `never`. A plain object / instance
+ * that merely carries a data field literally named `prototype` is NOT a class
+ * and must be field-copied whole (it must not be misread as its `prototype`
+ * value). And a static `from` is a factory only when it RETURNS the instance
+ * (looking through a `| null` arm) — a helper returning an unrelated or `any`
+ * type must not hijack.
  *
- * 1. Private ctor + static `from` → the `from` seed.
- * 2. Private ctor + no `from` → the field-copy property shape (not `never`).
- * 3. A `from` returning an unrelated type does not seed the factory arm.
+ * 1. Private ctor + static `from` → the `from` seed; private ctor + no `from` →
+ *    the field-copy property shape (not `never`).
+ * 2. A data field named `prototype` is field-copied whole, not treated as a class.
+ * 3. `from` returning an unrelated/`any` type is ignored; `from` returning
+ *    `Instance | null` is honored.
  */
 export type ClassifiableClassDetectionCases = [
   Assert<IsEqual<Classifiable<typeof Singleton>, { value: number }>>,
   Assert<IsEqual<Classifiable<typeof PrivateNoFrom>, { data: string }>>,
   Assert<IsEqual<Classifiable<typeof HasHelperFrom>, { value: number }>>,
+  // a plain object with a `prototype` DATA field is NOT a class — field-copied
+  // whole, not misread as its `prototype` value (regression guard)
+  Assert<
+    IsEqual<
+      Classifiable<{ prototype: { inner: number }; other: string }>,
+      { prototype: { inner: number }; other: string }
+    >
+  >,
+  // same for a class INSTANCE type carrying a `prototype` field (the common call)
+  Assert<
+    IsEqual<Classifiable<WithProtoField>, { prototype: number[]; tag: string }>
+  >,
+  // a `from` returning `any` is not a factory and must not hijack the strategy
+  Assert<IsEqual<Classifiable<typeof AnyReturnFrom>, { value: number }>>,
+  // a `from` returning `Instance | null` IS a factory (the null arm is looked
+  // through), so its seed is accepted
+  Assert<IsEqual<Classifiable<typeof NullableFrom>, { seed: string }>>,
 ];
 
 type Assert<T extends true> = T;
@@ -51,5 +73,25 @@ class HasHelperFrom {
   // a helper that returns something OTHER than the instance — not a factory
   static from(text: string): number {
     return Number(text);
+  }
+}
+
+class WithProtoField {
+  prototype!: number[];
+  tag!: string;
+}
+
+class AnyReturnFrom {
+  value!: number;
+  static from(options: { key: string }): any {
+    return options;
+  }
+}
+
+class NullableFrom {
+  id!: number;
+  static from(seed: { seed: string }): NullableFrom | null {
+    void seed;
+    return null;
   }
 }
