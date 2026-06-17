@@ -14,11 +14,20 @@ import { Classifiable } from "@typia/interface";
  *
  * 1. A `constructor(seed: { inner: Inner })` classifies `Inner` (drops methods).
  * 2. A `constructor(seed: String)` (boxed) yields `string`, not `string[]`.
- * 3. The resulting seed therefore carries only plain data.
+ * 3. A tuple seed PRESERVES its shape (arity/positions/readonly), while a `Set`
+ *    seed — which has no JSON form of its own — renders as its element array.
  */
 export type ClassifiableSeedRecursionCases = [
   Assert<IsEqual<Classifiable<typeof NestedSeed>, { inner: PlainInner }>>,
   Assert<IsEqual<Classifiable<typeof BoxedSeed>, string>>,
+  // a tuple seed keeps arity/positions (NOT widened to `(number | string)[]`,
+  // which the emitted `C.from(data)` would reject)
+  Assert<IsEqual<Classifiable<typeof TupleSeed>, [number, string]>>,
+  Assert<
+    IsEqual<Classifiable<typeof ReadonlyTupleSeed>, readonly [number, string]>
+  >,
+  // a `Set` seed still renders as its element array (no JSON form of its own)
+  Assert<IsEqual<Classifiable<typeof SetSeed>, number[]>>,
 ];
 
 type Assert<T extends true> = T;
@@ -48,6 +57,27 @@ class NestedSeed {
 class BoxedSeed {
   // boxed `String` (not the primitive) on purpose, to pin the unwrap
   constructor(seed: String) {
+    void seed;
+  }
+}
+
+class TupleSeed {
+  k!: string;
+  constructor(seed: [number, string]) {
+    void seed;
+  }
+}
+
+class ReadonlyTupleSeed {
+  k!: string;
+  constructor(seed: readonly [number, string]) {
+    void seed;
+  }
+}
+
+class SetSeed {
+  k!: string;
+  constructor(seed: Set<number>) {
     void seed;
   }
 }

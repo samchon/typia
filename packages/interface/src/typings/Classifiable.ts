@@ -177,10 +177,15 @@ type ClassifiableSeed<A extends readonly any[]> = A extends readonly [
 //    Without it the non-distributive `ValueOf` arm fails for the whole union and
 //    `string` falls to the `Iterable` arm, becoming `string[]`. `ValueOf` then
 //    unwraps a boxed `String`/`Number` seed to its primitive.
-//  - per the spec ("iterable construction seeds are rendered as arrays"), an
-//    iterable seed — including a tuple or typed array — renders as its element
-//    array (the JSON-decodable form); object seeds recurse through
-//    `ClassifiableMain`, so a nested class inside a seed is classified too.
+//  - a tuple or array seed PRESERVES its shape (arity, element positions, and
+//    the `readonly` modifier) by routing through the property path — exactly as
+//    the spec promises for tuples, and matching how a tuple PROPERTY is handled.
+//    Only a genuine collection that has no JSON form of its own — a `Set`/`Map`,
+//    a typed array, or another bare iterable — renders as its element array. (A
+//    naive `Iterable` arm would widen `[string, number]` to `(string | number)[]`
+//    and accept `["a", "b"]`, which the emitted `C.from(data)` would then reject.)
+//  - object seeds recurse through `ClassifiableMain`, so a nested class inside a
+//    seed is classified too.
 type ClassifiableSeedValue<P> =
   IsAny<P> extends true
     ? never
@@ -190,11 +195,13 @@ type ClassifiableSeedValue<P> =
         ? P
         : ValueOf<P> extends boolean | number | bigint | string
           ? ValueOf<P>
-          : P extends Iterable<infer U>
-            ? ClassifiableMain<U>[]
-            : P extends null | undefined
-              ? never
-              : ClassifiableMain<P>;
+          : P extends readonly any[]
+            ? ClassifiableMain<P>
+            : P extends Iterable<infer U>
+              ? ClassifiableMain<U>[]
+              : P extends null | undefined
+                ? never
+                : ClassifiableMain<P>;
 
 type ClassifiableMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type
