@@ -34,8 +34,8 @@ export type ClassifiableUnionIntersectionCases = [
 
 export const validNarrow: Classifiable<Cat | Dog> = { kind: "cat", lives: 9 };
 
-// @ts-expect-error discriminant value must match one of the classified arms.
 export const invalidNarrow: Classifiable<Cat | Dog> = {
+  // @ts-expect-error discriminant value must match one of the classified arms.
   kind: "fish",
   lives: 9,
 };
