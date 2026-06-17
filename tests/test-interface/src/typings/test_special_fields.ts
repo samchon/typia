@@ -3,9 +3,9 @@ import { SpecialFields } from "@typia/interface";
 /**
  * Verifies `SpecialFields<Instance, Target>` selects keys by value type.
  *
- * Pins the key-filtering behaviour: it returns the union of property names
- * whose value extends `Target` — used to pick method keys (`Function`),
- * `never`-typed keys (the basis of `OmitNever`), or any value-shaped subset.
+ * Pins the key-filtering behavior: it returns the union of property names whose
+ * value extends `Target` — used to pick method keys (`Function`), `never`-typed
+ * keys (the basis of `OmitNever`), or any value-shaped subset.
  *
  * 1. Select number-valued keys from a mixed object.
  * 2. Select method keys via `Function`, and `never`-valued keys via `never`.

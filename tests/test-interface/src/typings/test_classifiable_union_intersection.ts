@@ -3,7 +3,7 @@ import { Classifiable } from "@typia/interface";
 /**
  * Verifies `Classifiable<T>` distributes over unions and merges intersections.
  *
- * Pins the variance behaviour: a union of classes classifies member-wise (naked
+ * Pins the variance behavior: a union of classes classifies member-wise (naked
  * conditional distribution), unions mixing primitives / `null` keep those arms
  * intact, a function arm collapses to `never` and is absorbed, an intersection
  * of classes merges into one plain shape with every method omitted, and `never`

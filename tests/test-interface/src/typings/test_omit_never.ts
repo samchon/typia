@@ -3,9 +3,9 @@ import { OmitNever } from "@typia/interface";
 /**
  * Verifies `OmitNever<T>` drops exactly the `never`-typed properties.
  *
- * Pins the pruning behaviour: properties whose value is `never` disappear,
- * every other property (including optional and `undefined`-valued ones)
- * survives unchanged, and an all-`never` object collapses to `{}`.
+ * Pins the pruning behavior: properties whose value is `never` disappear, every
+ * other property (including optional and `undefined`-valued ones) survives
+ * unchanged, and an all-`never` object collapses to `{}`.
  *
  * 1. Remove the lone `never` member from a mixed object.
  * 2. Confirm optional and `undefined`-valued members are retained.
