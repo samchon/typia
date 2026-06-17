@@ -5,82 +5,97 @@ import { ValueOf } from "./internal/ValueOf";
 /**
  * Every plain form that can be classified into a class instance.
  *
- * `Classifiable<T>` is the **union of the three inputs** `typia.plain.classify`
+ * `Classifiable<T>` is the union of the inputs `typia.plain.classify<T>`
  * accepts to reconstruct an instance, mirroring the transform's construction
  * strategy:
  *
- * 1. {@link ClassifiableFactory} — the seed accepted by a static factory
- *    `T.from(x)`, when one exists.
- * 2. {@link ClassifiableConstructor} — the seed accepted by `new T(x)`, when the
- *    constructor is callable with a single argument (a first parameter that may
- *    be optional, with every later parameter optional).
- * 3. {@link ClassifiableProperties} — the public, methods-excluded property shape
- *    (field copy), recursing through nested classes and containers.
+ * 1. The seed of a static factory `T.from(x)`, when `T` is a class with a `from`
+ *    callable with a single argument.
+ * 2. The seed of `new T(x)`, when the constructor is callable with a single
+ *    argument (a first parameter that may be optional, every later parameter
+ *    optional/rest).
+ * 3. The public, methods-excluded property shape (field copy) — but only when `T`
+ *    is constructible with no arguments (`new T()`), since the field-copy
+ *    strategy builds a blank instance first. For a non-class type this arm is
+ *    the type itself with each property recursively classified.
  *
- * `from`/constructor parameters are only reachable from the **class** type
- * (`typeof T`); for an instance type those two arms resolve to `never` and the
- * union collapses to the property shape, which already structurally accepts a
- * live instance. The property arm always recurses; native classes (Date, typed
- * arrays, ArrayBuffer, Buffer, RegExp, …) pass through unchanged and boxed
+ * Factory/constructor seeds are reachable only from the **class** type (`typeof
+ * T`); for an instance type all class-only arms vanish and the result is the
+ * recursive property shape, which already structurally accepts a live instance.
+ * The property arm recurses through nested classes and containers; native
+ * classes (Date, typed arrays, RegExp, Buffer, …) pass through and boxed
  * primitives unwrap, while `Set`/`Map` additionally accept their array form
- * (`Set<T>` ⇒ also `T[]`, `Map<K,V>` ⇒ also `[K, V][]`) so JSON-decoded data
- * round-trips.
+ * (`Set<T>` ⇒ `T[]`, `Map<K,V>` ⇒ `[K, V][]`). Iterable construction seeds are
+ * rendered as arrays (the JSON-decodable form). `any`/`unknown` are rejected
+ * (`never`) so they cannot widen the union.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target class (or instance) type to classify into
  */
 export type Classifiable<T> =
-  | ClassifiableFactory<T>
-  | ClassifiableConstructor<T>
-  | ClassifiableProperties<T>;
+  IsAny<T> extends true
+    ? never
+    : unknown extends T
+      ? never
+      :
+          | ClassifiableFactory<T>
+          | ClassifiableConstructor<T>
+          | ClassifiableProperties<T>;
 
-/**
- * Seed accepted by a static factory `T.from(x)`, or `never` when `T` has no
- * `from` whose call needs only a single argument.
- */
-export type ClassifiableFactory<T> = T extends {
-  from: (...args: infer A) => any;
-}
-  ? ClassifiableSeed<A>
+type IsAny<T> = 0 extends 1 & T ? true : false;
+
+// Static factory `T.from(x)` seed — only on a class (constructor) type, so an
+// instance/plain-object method named `from` cannot seed a spurious arm.
+type ClassifiableFactory<T> = T extends abstract new (...args: any) => any
+  ? T extends { from: (...args: infer A) => any }
+    ? ClassifiableSeed<A>
+    : never
   : never;
 
-/**
- * Seed accepted by `new T(x)`, or `never` when `T` is not constructible with a
- * single argument (first parameter present, every later parameter optional).
- */
-export type ClassifiableConstructor<T> = T extends abstract new (
+// `new T(x)` seed — only on a class type, single-argument callable.
+type ClassifiableConstructor<T> = T extends abstract new (
   ...args: infer A
 ) => any
   ? ClassifiableSeed<A>
   : never;
 
-/**
- * Public, methods-excluded property shape — the field-copy input. For a class
- * type the instance side is used; otherwise `T` itself is classified.
- */
-export type ClassifiableProperties<T> = T extends abstract new (
+// Field-copy property shape. For a non-class type, recurse properties. For a
+// class type, offer it only when `new T()` works (no required constructor
+// arguments), because field copy builds a blank instance first.
+type ClassifiableProperties<T> = T extends abstract new (
   ...args: any
 ) => infer I
-  ? ClassifiableMain<I>
+  ? T extends abstract new () => any
+    ? ClassifiableMain<I>
+    : never
   : ClassifiableMain<T>;
 
-// First parameter type, but only when the function/constructor is callable with
-// exactly one argument: there must be a first parameter, and every parameter
-// after it must be optional (so `[]` is assignable to the rest).
+// First parameter type, but only when the call is valid with a single argument:
+// a first parameter must exist and every later parameter must be optional/rest
+// (so `[]` is assignable to the rest). An `Iterable<U>` seed is rendered as
+// `U[]` (the plain, JSON-decodable form typia can validate).
 type ClassifiableSeed<A extends readonly any[]> = A extends readonly [
   infer P,
   ...infer Rest,
 ]
   ? [] extends Rest
-    ? P
+    ? ClassifiableSeedValue<P>
     : never
   : A extends readonly []
-    ? never // no parameter slot: cannot carry the seed
+    ? never
     : A extends readonly [(infer P)?, ...infer Rest]
       ? [] extends Rest
-        ? P
+        ? ClassifiableSeedValue<P>
         : never
       : never;
+
+type ClassifiableSeedValue<P> = P extends string
+  ? P
+  : P extends Iterable<infer U>
+    ? U[]
+    : P extends null | undefined
+      ? never
+      : P;
 
 type ClassifiableMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type

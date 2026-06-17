@@ -18,11 +18,9 @@ export type ClassifiableStrategyEdgeCases = [
   // default constructor → property shape only (must NOT become `unknown`)
   Assert<IsEqual<Classifiable<typeof Defaulted>, { a: number }>>,
   Assert<IsEqual<Classifiable<typeof NoArg>, { a: number }>>,
-  // rest-parameter constructor stays usable; first parameter is the seed arm,
-  // unioned with the distinct property arm
-  Assert<
-    IsEqual<Classifiable<typeof RestCtor>, { seed: string } | { a: number }>
-  >,
+  // rest-parameter constructor stays single-arg usable (seed = first param);
+  // required-first ⇒ not default-constructible ⇒ no property arm, seed only
+  Assert<IsEqual<Classifiable<typeof RestCtor>, { seed: string }>>,
   // a two-argument `from` is not a single-seed factory; default ctor adds none
   Assert<IsEqual<Classifiable<typeof FromTwoArgs>, { a: number }>>,
 ];
