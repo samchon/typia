@@ -26,8 +26,9 @@ import { ValueOf } from "./internal/ValueOf";
  * classes (Date, typed arrays, RegExp, Buffer, …) pass through and boxed
  * primitives unwrap, while `Set`/`Map` additionally accept their array form
  * (`Set<T>` ⇒ `T[]`, `Map<K,V>` ⇒ `[K, V][]`). Iterable construction seeds are
- * rendered as arrays (the JSON-decodable form). `any`/`unknown` are rejected
- * (`never`) so they cannot widen the union.
+ * rendered as arrays (the JSON-decodable form). A top-level or
+ * construction-seed `any`/`unknown` is rejected (`never`) so it cannot widen
+ * the union; a nested `any` inside a property is preserved as-is.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target class (or instance) type to classify into
@@ -89,13 +90,22 @@ type ClassifiableSeed<A extends readonly any[]> = A extends readonly [
         : never
       : never;
 
-type ClassifiableSeedValue<P> = P extends string
-  ? P
-  : P extends Iterable<infer U>
-    ? U[]
-    : P extends null | undefined
+// `any`/`unknown` seeds are rejected up front: without this an `any`-typed
+// `from`/constructor parameter (the common `static from(json: any)` pattern)
+// collapses the whole union to `any`/`unknown`, the same poisoning the no-arg
+// constructor rule closes — the guard must run on the seed value too.
+type ClassifiableSeedValue<P> =
+  IsAny<P> extends true
+    ? never
+    : unknown extends P
       ? never
-      : P;
+      : P extends string
+        ? P
+        : P extends Iterable<infer U>
+          ? U[]
+          : P extends null | undefined
+            ? never
+            : P;
 
 type ClassifiableMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type
@@ -120,7 +130,12 @@ type ClassifiableObject<T extends object> = T extends readonly any[]
         : T extends NativeClass
           ? T
           : {
-              [P in keyof T as T[P] extends Function
+              // `NonNullable` looks through optionality: an optional method
+              // `m?(): void` has type `(() => void) | undefined`, which does
+              // not `extends Function`, so a bare `T[P] extends Function` would
+              // keep the key as `m?: undefined` and reject the class's own
+              // instance — breaking "the shape accepts a live instance".
+              [P in keyof T as NonNullable<T[P]> extends Function
                 ? never
                 : P]: ClassifiableMain<T[P]>;
             };
