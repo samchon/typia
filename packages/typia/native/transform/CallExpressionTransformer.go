@@ -460,6 +460,24 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       "createValidatePrune": func() callExpressionTransformerTask {
         return nativeplaintransformers.PlainCreateValidatePruneTransformer.Transform
       },
+      "classify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainClassifyTransformer.Transform
+      },
+      "assertClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainAssertClassifyTransformer.Transform
+      },
+      "validateClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainValidateClassifyTransformer.Transform
+      },
+      "createClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateClassifyTransformer.Transform
+      },
+      "createAssertClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateAssertClassifyTransformer.Transform
+      },
+      "createValidateClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateValidateClassifyTransformer.Transform
+      },
     },
     "notations": callExpressionTransformer_notations(),
   }

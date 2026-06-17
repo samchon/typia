@@ -1,0 +1,158 @@
+package helpers
+
+import (
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
+  nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+)
+
+type classifyJoinerNamespace struct{}
+
+var ClassifyJoiner = classifyJoinerNamespace{}
+
+type ClassifyJoiner_ObjectProps struct {
+  Input   *shimast.Expression
+  Entries []IExpressionEntry
+  Object  *nativemetadata.MetadataObjectType
+  Emit    *shimprinter.EmitContext
+}
+
+var classifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+
+// Object reconstructs an object value for plain.classify.
+//
+// For an anonymous / interface (literal) shape there is no class to
+// instantiate, so it builds a plain object literal exactly like clone. For a
+// named class it field-copies onto the prototype:
+//
+//	const output = Object.create(<Class>.prototype) as any;
+//	output.<key> = <decoded>;        // (guarded for optional properties)
+//	for (const [key, value] of Object.entries(input)) { ...dynamic keys... }
+//	return output;
+//
+// This is the universal fallback of the design's from -> new -> field-copy
+// precedence: Object.create never calls the constructor, so it reconstructs any
+// class regardless of its constructor signature. (The from / new strategies,
+// which need the construct-signature checker APIs and per-class arity metadata,
+// land in a later slice.)
+//
+// The class is referenced by its bare identifier — it is in lexical scope at
+// the classify() call site, the common case the field-copy slice targets.
+// Resolving a cross-module class to an Importer.Instance value import requires
+// an export module path that the metadata schema does not yet carry; that
+// arrives with the from / new slice.
+func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast.Node {
+  if props.Object == nil || props.Object.IsLiteral() {
+    return CloneJoiner.Object(CloneJoiner_ObjectProps{
+      Input:   props.Input,
+      Entries: props.Entries,
+      Emit:    props.Emit,
+    })
+  }
+  f := nativecontext.EmitFactoryOf(classifyJoiner_factory, props.Emit)
+
+  regular := []IExpressionEntry{}
+  dynamic := []IExpressionEntry{}
+  for _, entry := range props.Entries {
+    if entry.Key.IsSoleLiteral() {
+      regular = append(regular, entry)
+    } else {
+      dynamic = append(dynamic, entry)
+    }
+  }
+
+  output := f.NewIdentifier("output")
+  classRef := f.NewIdentifier(props.Object.Name)
+
+  statements := []*shimast.Node{
+    nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
+      Name: "output",
+      Value: f.NewAsExpression(
+        f.NewCallExpression(
+          f.NewIdentifier("Object.create"),
+          nil,
+          nil,
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.IdentifierFactory.Access(props.Emit, classRef, "prototype"),
+          }),
+          shimast.NodeFlagsNone,
+        ),
+        nativefactories.TypeFactory.Keyword("any", props.Emit),
+      ),
+    }, props.Emit),
+  }
+
+  for _, entry := range regular {
+    key := entry.Key.GetSoleLiteral()
+    assignment := f.NewExpressionStatement(f.NewBinaryExpression(
+      nil,
+      nativefactories.IdentifierFactory.Access(props.Emit, output, *key),
+      nil,
+      f.NewToken(shimast.KindEqualsToken),
+      entry.Expression,
+    ))
+    if entry.OptionalProperty {
+      statements = append(statements, f.NewIfStatement(
+        cloneJoiner_optional_condition(entry, props.Input, props.Emit),
+        assignment,
+        nil,
+      ))
+    } else {
+      statements = append(statements, assignment)
+    }
+  }
+
+  if len(dynamic) != 0 {
+    key := f.NewIdentifier("key")
+    loop := []*shimast.Node{}
+    if len(regular) != 0 {
+      loop = append(loop, cloneJoiner_regular_skip(regular, props.Emit))
+    }
+    for _, entry := range dynamic {
+      loop = append(loop, f.NewIfStatement(
+        f.NewCallExpression(
+          f.NewIdentifier("RegExp(/"+cloneJoiner_metadata_to_pattern(struct {
+            top      bool
+            metadata *nativemetadata.MetadataSchema
+          }{top: true, metadata: entry.Key})+"/).test"),
+          nil,
+          nil,
+          f.NewNodeList([]*shimast.Node{key}),
+          shimast.NodeFlagsNone,
+        ),
+        f.NewBlock(
+          f.NewNodeList([]*shimast.Node{
+            f.NewExpressionStatement(f.NewBinaryExpression(
+              nil,
+              f.NewElementAccessExpression(output, nil, key, shimast.NodeFlagsNone),
+              nil,
+              f.NewToken(shimast.KindEqualsToken),
+              entry.Expression,
+            )),
+            f.NewContinueStatement(nil),
+          }),
+          false,
+        ),
+        nil,
+      ))
+    }
+    statements = append(statements, f.NewForInOrOfStatement(
+      shimast.KindForOfStatement,
+      nil,
+      nativefactories.StatementFactory.Entry(nativefactories.StatementFactory_EntryProps{Key: "key", Value: "value"}, props.Emit),
+      f.NewCallExpression(
+        f.NewIdentifier("Object.entries"),
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{props.Input}),
+        shimast.NodeFlagsNone,
+      ),
+      f.NewBlock(f.NewNodeList(loop), false),
+    ))
+  }
+
+  statements = append(statements, f.NewReturnStatement(output))
+  return f.NewBlock(f.NewNodeList(statements), false)
+}
