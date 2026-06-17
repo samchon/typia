@@ -22,6 +22,7 @@ export {
   IMetadataTypeTag,
   IJsDocTagInfo,
   // typings
+  Classifiable,
   Primitive,
   Resolved,
   CamelCase,
