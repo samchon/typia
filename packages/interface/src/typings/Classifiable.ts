@@ -24,11 +24,14 @@ import { ValueOf } from "./internal/ValueOf";
  * recursive property shape, which already structurally accepts a live instance.
  * The property arm recurses through nested classes and containers; native
  * classes (Date, typed arrays, RegExp, Buffer, …) pass through and boxed
- * primitives unwrap, while `Set`/`Map` additionally accept their array form
- * (`Set<T>` ⇒ `T[]`, `Map<K,V>` ⇒ `[K, V][]`). Iterable construction seeds are
- * rendered as arrays (the JSON-decodable form). A top-level or
- * construction-seed `any`/`unknown` is rejected (`never`) so it cannot widen
- * the union; a nested `any` inside a property is preserved as-is.
+ * primitives unwrap, while `Set`/`Map` (and their `readonly` counterparts)
+ * additionally accept their array form (`Set<T>` ⇒ `T[]`, `Map<K,V>` ⇒ `[K,
+ * V][]`). A `WeakSet`/`WeakMap` member is dropped (it cannot be rebuilt from
+ * plain data). Construction seeds are recursively classified into the same
+ * plain form — a nested class inside a seed is method-stripped, iterable seeds
+ * render as arrays, boxed seeds unwrap. A top-level or construction-seed
+ * `any`/`unknown` is rejected (`never`) so it cannot widen the union; a nested
+ * `any` inside a property is preserved as-is.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target class (or instance) type to classify into
@@ -90,22 +93,28 @@ type ClassifiableSeed<A extends readonly any[]> = A extends readonly [
         : never
       : never;
 
-// `any`/`unknown` seeds are rejected up front: without this an `any`-typed
-// `from`/constructor parameter (the common `static from(json: any)` pattern)
-// collapses the whole union to `any`/`unknown`, the same poisoning the no-arg
-// constructor rule closes — the guard must run on the seed value too.
+// The seed of `from`/`new`, rendered as the plain, JSON-decodable form:
+//  - `any`/`unknown` are rejected up front, else an `any`-typed seed (the common
+//    `static from(json: any)` pattern) poisons the whole union to `any`.
+//  - boxed/primitive seeds collapse to their primitive via `ValueOf`, so a boxed
+//    `String` seed is `string`, not `string[]` (it would otherwise match the
+//    `Iterable` arm through its iterator).
+//  - iterable seeds render as arrays and object seeds recurse through
+//    `ClassifiableMain`, so a nested class inside a seed is classified too.
 type ClassifiableSeedValue<P> =
   IsAny<P> extends true
     ? never
     : unknown extends P
       ? never
-      : P extends string
+      : P extends string | number | bigint | boolean
         ? P
-        : P extends Iterable<infer U>
-          ? U[]
-          : P extends null | undefined
-            ? never
-            : P;
+        : ValueOf<P> extends boolean | number | bigint | string
+          ? ValueOf<P>
+          : P extends Iterable<infer U>
+            ? ClassifiableMain<U>[]
+            : P extends null | undefined
+              ? never
+              : ClassifiableMain<P>;
 
 type ClassifiableMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type
@@ -125,20 +134,40 @@ type ClassifiableObject<T extends object> = T extends readonly any[]
       ?
           | Map<ClassifiableMain<K>, ClassifiableMain<V>>
           | [ClassifiableMain<K>, ClassifiableMain<V>][]
-      : T extends WeakSet<any> | WeakMap<any, any>
-        ? never
-        : T extends NativeClass
-          ? T
-          : {
-              // `NonNullable` looks through optionality: an optional method
-              // `m?(): void` has type `(() => void) | undefined`, which does
-              // not `extends Function`, so a bare `T[P] extends Function` would
-              // keep the key as `m?: undefined` and reject the class's own
-              // instance — breaking "the shape accepts a live instance".
-              [P in keyof T as NonNullable<T[P]> extends Function
-                ? never
-                : P]: ClassifiableMain<T[P]>;
-            };
+      : T extends ReadonlyMap<infer K, infer V>
+        ? // checked before ReadonlySet: a ReadonlyMap structurally matches
+            // ReadonlySet<infer U> (methods are bivariant and ReadonlySet has no
+            // distinguishing required member like the mutable `Set.add`), so the
+            // more specific ReadonlyMap arm must run first — ReadonlySet has no
+            // `get`, so it can never match this arm in turn.
+            | ReadonlyMap<ClassifiableMain<K>, ClassifiableMain<V>>
+            | [ClassifiableMain<K>, ClassifiableMain<V>][]
+        : T extends ReadonlySet<infer U>
+          ? ReadonlySet<ClassifiableMain<U>> | ClassifiableMain<U>[]
+          : T extends WeakSet<any> | WeakMap<any, any>
+            ? never
+            : T extends NativeClass
+              ? T
+              : {
+                  // Drop a key when its value carries no plain data. `NonNullable`
+                  // looks through an optional `m?(): void` (type `(() => void) |
+                  // undefined`), which would otherwise survive as `m?: undefined`
+                  // and reject the class's own instance. A `WeakSet`/`WeakMap`
+                  // member is also dropped (it cannot be rebuilt from plain data,
+                  // and a `never` value would make the whole object
+                  // unsatisfiable) — but a real `Set`/`Map` is structurally
+                  // *wider* than its weak counterpart, so it must be matched and
+                  // kept first, otherwise `Set extends WeakSet` would drop it.
+                  [P in keyof T as NonNullable<T[P]> extends Function
+                    ? never
+                    : NonNullable<T[P]> extends Set<any> | Map<any, any>
+                      ? P
+                      : NonNullable<T[P]> extends
+                            | WeakSet<any>
+                            | WeakMap<any, any>
+                        ? never
+                        : P]: ClassifiableMain<T[P]>;
+                };
 
 // Array-likes are split into mutable vs `readonly` so the modifier survives;
 // the object branch's key remapping (which drops methods) would otherwise
