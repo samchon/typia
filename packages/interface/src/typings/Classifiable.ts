@@ -238,15 +238,21 @@ type ClassifiableObject<T extends object> = T extends readonly any[]
                   // unsatisfiable) — but a real `Set`/`Map` is structurally
                   // *wider* than its weak counterpart, so it must be matched and
                   // kept first, otherwise `Set extends WeakSet` would drop it.
-                  [P in keyof T as NonNullable<T[P]> extends Function
-                    ? never
-                    : NonNullable<T[P]> extends Set<any> | Map<any, any>
-                      ? P
-                      : NonNullable<T[P]> extends
-                            | WeakSet<any>
-                            | WeakMap<any, any>
-                        ? never
-                        : P]: ClassifiableMain<T[P]>;
+                  // A purely-nullish field (`null`/`undefined`) is KEPT (its
+                  // `NonNullable` is `never`, which would otherwise be vacuously a
+                  // `Function` and dropped like a method) — `null` is valid plain
+                  // data that the runtime field copy preserves.
+                  [P in keyof T as [NonNullable<T[P]>] extends [never]
+                    ? P
+                    : NonNullable<T[P]> extends Function
+                      ? never
+                      : NonNullable<T[P]> extends Set<any> | Map<any, any>
+                        ? P
+                        : NonNullable<T[P]> extends
+                              | WeakSet<any>
+                              | WeakMap<any, any>
+                          ? never
+                          : P]: ClassifiableMain<T[P]>;
                 };
 
 // Array-likes are split into mutable vs `readonly` so the modifier survives;
