@@ -20,8 +20,11 @@ import { ValueOf } from "./internal/ValueOf";
  * `from`/constructor parameters are only reachable from the **class** type
  * (`typeof T`); for an instance type those two arms resolve to `never` and the
  * union collapses to the property shape, which already structurally accepts a
- * live instance. The property arm always recurses; native classes (Date, Set,
- * Map, typed arrays, Buffer, etc.) and boxed primitives are handled there.
+ * live instance. The property arm always recurses; native classes (Date, typed
+ * arrays, ArrayBuffer, Buffer, RegExp, …) pass through unchanged and boxed
+ * primitives unwrap, while `Set`/`Map` additionally accept their array form
+ * (`Set<T>` ⇒ also `T[]`, `Map<K,V>` ⇒ also `[K, V][]`) so JSON-decoded data
+ * round-trips.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target class (or instance) type to classify into
@@ -71,11 +74,13 @@ type ClassifiableSeed<A extends readonly any[]> = A extends readonly [
   ? [] extends Rest
     ? P
     : never
-  : A extends readonly [(infer P)?, ...infer Rest]
-    ? [] extends Rest
-      ? P
-      : never
-    : never;
+  : A extends readonly []
+    ? never // no parameter slot: cannot carry the seed
+    : A extends readonly [(infer P)?, ...infer Rest]
+      ? [] extends Rest
+        ? P
+        : never
+      : never;
 
 type ClassifiableMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type
@@ -90,9 +95,11 @@ type ClassifiableMain<T> = T extends [never]
 type ClassifiableObject<T extends object> = T extends readonly any[]
   ? ClassifiableArray<T>
   : T extends Set<infer U>
-    ? Set<ClassifiableMain<U>>
+    ? Set<ClassifiableMain<U>> | ClassifiableMain<U>[]
     : T extends Map<infer K, infer V>
-      ? Map<ClassifiableMain<K>, ClassifiableMain<V>>
+      ?
+          | Map<ClassifiableMain<K>, ClassifiableMain<V>>
+          | [ClassifiableMain<K>, ClassifiableMain<V>][]
       : T extends WeakSet<any> | WeakMap<any, any>
         ? never
         : T extends NativeClass

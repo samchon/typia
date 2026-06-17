@@ -33,10 +33,20 @@ export type ClassifiableContainerCases = [
       readonly (string | Plain)[]
     >
   >,
-  // sets & maps
-  Assert<IsEqual<Classifiable<Set<Box>>, Set<Plain>>>,
-  Assert<IsEqual<Classifiable<Map<string, Box>>, Map<string, Plain>>>,
-  Assert<IsEqual<Classifiable<Map<Box, Box[]>>, Map<Plain, Plain[]>>>,
+  // sets & maps also accept their array / entries form (JSON round-trip)
+  Assert<IsEqual<Classifiable<Set<Box>>, Set<Plain> | Plain[]>>,
+  Assert<
+    IsEqual<
+      Classifiable<Map<string, Box>>,
+      Map<string, Plain> | [string, Plain][]
+    >
+  >,
+  Assert<
+    IsEqual<
+      Classifiable<Map<Box, Box[]>>,
+      Map<Plain, Plain[]> | [Plain, Plain[]][]
+    >
+  >,
   // weak collections cannot be reconstructed
   Assert<IsEqual<Classifiable<WeakSet<Box>>, never>>,
   Assert<IsEqual<Classifiable<WeakMap<Box, Box>>, never>>,
@@ -55,6 +65,12 @@ export const invalidArray: Classifiable<Box[]> = [{}, { id: 2 }];
 export const validMap: Classifiable<Map<string, Box>> = new Map([
   ["a", { id: 1 }],
 ]);
+
+// the array / entries forms are accepted too (what JSON.parse yields)
+export const validSetAsArray: Classifiable<Set<Box>> = [{ id: 1 }];
+export const validMapAsEntries: Classifiable<Map<string, Box>> = [
+  ["a", { id: 1 }],
+];
 
 type Assert<T extends true> = T;
 

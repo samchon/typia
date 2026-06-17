@@ -106,8 +106,8 @@ interface PlainCompany {
   logo?: Uint8Array;
   ceo: PlainPerson;
   staff: PlainPerson[];
-  teams: Map<string, PlainPerson[]>;
+  teams: Map<string, PlainPerson[]> | [string, PlainPerson[]][];
   coords: readonly [number, number];
   meta: Record<string, PlainAddress | null>;
-  tags: Set<string>;
+  tags: Set<string> | string[];
 }
