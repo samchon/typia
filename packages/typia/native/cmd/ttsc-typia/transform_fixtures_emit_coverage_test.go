@@ -291,6 +291,15 @@ interface PlainUser {
   children?: PlainUser[];
 }
 
+class PlainAccount {
+  id!: string;
+  snake_name!: string;
+  children?: PlainAccount[];
+  describe(): string {
+    return this.id;
+  }
+}
+
 export const clone = (input: unknown) => typia.plain.assertClone<PlainUser>(input);
 export const isClone = (input: unknown) => typia.plain.isClone<PlainUser>(input);
 export const validateClone = (input: unknown) => typia.plain.validateClone<PlainUser>(input);
@@ -305,6 +314,12 @@ export const createPrune = typia.plain.createPrune<PlainUser>();
 export const createAssertPrune = typia.plain.createAssertPrune<PlainUser>();
 export const createIsPrune = typia.plain.createIsPrune<PlainUser>();
 export const createValidatePrune = typia.plain.createValidatePrune<PlainUser>();
+export const classify = (input: PlainAccount) => typia.plain.classify<PlainAccount>(input);
+export const assertClassify = (input: unknown) => typia.plain.assertClassify<PlainAccount>(input);
+export const validateClassify = (input: unknown) => typia.plain.validateClassify<PlainAccount>(input);
+export const createClassify = typia.plain.createClassify<PlainAccount>();
+export const createAssertClassify = typia.plain.createAssertClassify<PlainAccount>();
+export const createValidateClassify = typia.plain.createValidateClassify<PlainAccount>();
 export const literals = typia.reflect.literals<false | 1 | "two">();
 export const createCamel = typia.notations.createCamel<PlainUser>();
 export const createAssertCamel = typia.notations.createAssertCamel<PlainUser>();
