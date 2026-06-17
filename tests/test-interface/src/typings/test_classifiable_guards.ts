@@ -13,7 +13,7 @@ import { Classifiable } from "@typia/interface";
  * 1. Top-level `Classifiable<any>` / `Classifiable<unknown>` collapse to `never`,
  *    but a nested `any` property survives unchanged.
  * 2. An instance `from` method leaves only the property shape.
- * 3. `Classifiable<typeof Date>` is the `new Date(x)` seed union.
+ * 3. `Classifiable<typeof Date>` is the `new Date(x)` constructor seed.
  */
 export type ClassifiableGuardCases = [
   Assert<[Classifiable<any>] extends [never] ? true : false>,
@@ -23,7 +23,9 @@ export type ClassifiableGuardCases = [
   Assert<IsEqual<Classifiable<{ a: number; b: any }>, { a: number; b: any }>>,
   // an instance method named `from` does not create a factory arm
   Assert<IsEqual<Classifiable<HasFromMethod>, { value: string }>>,
-  // a native class TYPE honors its constructor seed (new Date(x))
+  // a native class TYPE resolves to its single-argument constructor seed
+  // (`new Date(value)`, whose value is `string | number | Date`); precedence
+  // picks the ctor, and `Date` here comes from that seed, not a field-copy arm
   Assert<IsEqual<Classifiable<typeof Date>, string | number | Date>>,
 ];
 

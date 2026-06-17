@@ -3,25 +3,47 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Every plain form that can be classified into a class instance.
+ * The plain input `typia.plain.classify<T>` accepts to reconstruct an instance.
  *
- * `Classifiable<T>` is the union of the inputs `typia.plain.classify<T>`
- * accepts to reconstruct an instance, mirroring the transform's construction
- * strategy:
+ * The transform builds each class with **exactly one** construction strategy,
+ * chosen by precedence, so `Classifiable<T>` resolves to that one strategy's
+ * plain seed — not a union of all three. (A union would accept, say, the
+ * property shape for a class the runtime builds via `from`, which `T.from` then
+ * rejects: the union over-accepts and is unsound.) For a **class** type
+ * (`typeof T`) the precedence is:
  *
- * 1. The seed of a static factory `T.from(x)`, when `T` is a class with a `from`
- *    callable with a single argument.
- * 2. The seed of `new T(x)`, when the constructor is callable with a single
- *    argument (a first parameter that may be optional, every later parameter
- *    optional/rest).
- * 3. The public, methods-excluded property shape (field copy) — but only when `T`
- *    is constructible with no arguments (`new T()`), since the field-copy
- *    strategy builds a blank instance first. For a non-class type this arm is
- *    the type itself with each property recursively classified.
+ * 1. The seed of a static factory `T.from(x)`, when `T` has a `from` callable with
+ *    a single argument.
+ * 2. Otherwise the seed of `new T(x)`, when the constructor is callable with a
+ *    single argument (a first parameter that may be optional, every later
+ *    parameter optional/rest).
+ * 3. Otherwise the public, methods-excluded property shape — field copy onto the
+ *    prototype (`Object.create(T.prototype)` + assign), which needs no
+ *    constructor call and so applies to any class regardless of its
+ *    constructor. For a non-class type this is the type itself, each property
+ *    classified.
  *
- * Factory/constructor seeds are reachable only from the **class** type (`typeof
- * T`); for an instance type all class-only arms vanish and the result is the
- * recursive property shape, which already structurally accepts a live instance.
+ * Factory/constructor seeds are reachable only from the class type; for an
+ * **instance** type `T` (the common `classify<User>` call) the class-only arms
+ * are unreachable, so the result is the recursive property shape — the most a
+ * type can express from an instance, and it already structurally accepts a live
+ * instance. (A class built via `from`/`new` from a shape that diverges from its
+ * public properties is the one input TypeScript cannot recover from an instance
+ * type; such callers pass `any` — the `JSON.parse` case — or use the validated
+ * `assertClassify`/`validateClassify` variants.)
+ *
+ * Strategy selection within the class-type form is by ARITY — a single
+ * meaningful argument — and is deliberately NOT gated on the field shape being
+ * assignable to the `from`/constructor parameter, so a divergent factory such
+ * as `Temporal.from(isoString)` is honored (following Rev 3/5's arity rule over
+ * a literal reading of the earlier "parameter accepts the plain data shape"
+ * clause). One consequence, peculiar to `Classifiable<typeof X>`: an INHERITED
+ * single-argument constructor (e.g. `class X extends Error`, which inherits
+ * `new (message?: string)`) is selected by arity and its seed omits `X`'s own
+ * fields — own-vs-inherited cannot be distinguished at the type level. The
+ * instance form `Classifiable<X>` (the normal call) field-copies every public
+ * property and is unaffected.
+ *
  * The property arm recurses through nested classes and containers; native
  * classes (Date, typed arrays, RegExp, Buffer, …) pass through and boxed
  * primitives unwrap, while `Set`/`Map` (and their `readonly` counterparts)
@@ -30,7 +52,7 @@ import { ValueOf } from "./internal/ValueOf";
  * plain data). Construction seeds are recursively classified into the same
  * plain form — a nested class inside a seed is method-stripped, iterable seeds
  * render as arrays, boxed seeds unwrap. A top-level or construction-seed
- * `any`/`unknown` is rejected (`never`) so it cannot widen the union; a nested
+ * `any`/`unknown` is rejected (`never`) so it cannot widen the result; a nested
  * `any` inside a property is preserved as-is.
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -41,38 +63,73 @@ export type Classifiable<T> =
     ? never
     : unknown extends T
       ? never
-      :
-          | ClassifiableFactory<T>
-          | ClassifiableConstructor<T>
-          | ClassifiableProperties<T>;
+      : T extends any // distribute over a union of (class) types
+        ? ClassifiableInput<T>
+        : never;
 
 type IsAny<T> = 0 extends 1 & T ? true : false;
 
-// Static factory `T.from(x)` seed — only on a class (constructor) type, so an
-// instance/plain-object method named `from` cannot seed a spurious arm.
-type ClassifiableFactory<T> = T extends abstract new (...args: any) => any
-  ? T extends { from: (...args: infer A) => any }
-    ? ClassifiableSeed<A>
-    : never
-  : never;
+// Runtime precedence as a conditional: `T.from(x)` → `new T(x)` → field copy.
+// Each arm is `never` when its strategy is inapplicable, so the conditional
+// falls through to the next, yielding exactly the one strategy the transform
+// picks — never a union of all three (which would accept inputs a later strategy
+// rejects, e.g. the property shape for a `from`-built class).
+type ClassifiableInput<T> = [ClassifiableFactory<T>] extends [never]
+  ? [ClassifiableConstructor<T>] extends [never]
+    ? ClassifiableProperties<T>
+    : ClassifiableConstructor<T>
+  : ClassifiableFactory<T>;
 
-// `new T(x)` seed — only on a class type, single-argument callable.
+// Instance type of a class type T (its `prototype`). Unlike `abstract new`, this
+// also resolves a class whose constructor is private/protected (or declared in a
+// `.d.ts` ambient class) — whose construct signature `abstract new` does NOT
+// match — so a value-object with a private constructor stays classifiable. It is
+// `never` for any non-class type (instance type, plain object, plain function),
+// letting the arms below tell a class apart from a plain value. The `IsAny` guard
+// rejects a plain function (whose `prototype` is `any`) and the `object` guard a
+// plain object that merely carries a non-object `prototype` field.
+type ClassInstanceType<T> = T extends abstract new (...args: any) => infer I
+  ? I
+  : T extends { prototype: infer I }
+    ? IsAny<I> extends true
+      ? never
+      : I extends object
+        ? I
+        : never
+    : never;
+
+// Static factory `T.from(x)` seed. Detected via `ClassInstanceType` (a class
+// type, even one with a private constructor), so an instance/plain-object method
+// named `from` cannot seed a spurious arm. `from` counts as a constructing
+// factory only when it RETURNS the instance type — a `from` whose return type is
+// unrelated to the class (a mere helper) does not hijack the strategy.
+type ClassifiableFactory<T> = [ClassInstanceType<T>] extends [never]
+  ? never
+  : T extends { from: (...args: infer A) => infer R }
+    ? [R] extends [ClassInstanceType<T>]
+      ? ClassifiableSeed<A>
+      : never
+    : never;
+
+// `new T(x)` seed — single-argument callable. A private/protected (or otherwise
+// non-`new`-able) constructor does not match `abstract new`, so this is `never`
+// for it — correct, since you cannot `new` it; such a class is built via `from`
+// or field copy.
 type ClassifiableConstructor<T> = T extends abstract new (
   ...args: infer A
 ) => any
   ? ClassifiableSeed<A>
   : never;
 
-// Field-copy property shape. For a non-class type, recurse properties. For a
-// class type, offer it only when `new T()` works (no required constructor
-// arguments), because field copy builds a blank instance first.
-type ClassifiableProperties<T> = T extends abstract new (
-  ...args: any
-) => infer I
-  ? T extends abstract new () => any
-    ? ClassifiableMain<I>
-    : never
-  : ClassifiableMain<T>;
+// Field-copy property shape — the fallback strategy. Field copy is
+// `Object.create(T.prototype)` + property assignment; it never calls the
+// constructor, so it applies to ANY class and is NOT gated on `new T()` (a
+// required-argument, or even private/protected, constructor does not disable
+// field copy — the instance type is read from `prototype`). For a non-class type
+// this is just the recursive property shape.
+type ClassifiableProperties<T> = [ClassInstanceType<T>] extends [never]
+  ? ClassifiableMain<T>
+  : ClassifiableMain<ClassInstanceType<T>>;
 
 // First parameter type, but only when the call is valid with a single argument:
 // a first parameter must exist and every later parameter must be optional/rest

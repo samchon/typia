@@ -5,10 +5,10 @@ import { Classifiable } from "@typia/interface";
  *
  * Regression shield for the seed-extraction rules: a no-argument constructor
  * (implicit default or explicit) must contribute **no** constructor seed — and
- * must never leak `unknown` into the union — a rest-parameter constructor stays
- * usable (rest is optional), a `from` that needs two arguments is not a
- * single-seed factory, and a self-referential (cyclic) class type resolves
- * without exploding the type instantiation depth.
+ * must never leak `unknown` — a rest-parameter constructor stays usable (rest is
+ * optional), a `from` that needs two arguments is not a single-seed factory, and
+ * a self-referential (cyclic) class type resolves without exploding the type
+ * instantiation depth.
  *
  * 1. Default / no-arg constructors collapse to the property shape only.
  * 2. Rest-parameter constructor and two-argument `from` behave per the rule.
@@ -18,14 +18,15 @@ export type ClassifiableStrategyEdgeCases = [
   // default constructor → property shape only (must NOT become `unknown`)
   Assert<IsEqual<Classifiable<typeof Defaulted>, { a: number }>>,
   Assert<IsEqual<Classifiable<typeof NoArg>, { a: number }>>,
-  // rest-parameter constructor stays single-arg usable (seed = first param);
-  // required-first ⇒ not default-constructible ⇒ no property arm, seed only
+  // no `from`, rest-parameter constructor is single-arg usable (rest is
+  // optional) → the constructor seed (first param) wins over field copy
   Assert<IsEqual<Classifiable<typeof RestCtor>, { seed: string }>>,
-  // a two-argument `from` is not a single-seed factory; default ctor adds none
+  // a two-argument `from` is not a single-seed factory and the default ctor
+  // yields no seed → precedence falls through to the field-copy property shape
   Assert<IsEqual<Classifiable<typeof FromTwoArgs>, { a: number }>>,
   // an overloaded constructor seeds from the signature `infer` selects (the last
-  // overload) — Rev 5's documented transparent quirk; not default-constructible,
-  // so the property arm drops and only that seed survives
+  // overload) — Rev 5's documented transparent quirk; no `from`, so this
+  // single-argument constructor seed wins over field copy
   Assert<IsEqual<Classifiable<typeof Overloaded>, { y: string }>>,
 ];
 
