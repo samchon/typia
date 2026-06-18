@@ -206,11 +206,29 @@ export class Plain {
   }
 }
 
+// self-referential SEED: the constructor seed contains the class itself. The
+// top is built via new Tree(seed); a nested Tree inside the seed is field-copied
+// (the Classifiable contract method-strips a nested class in a seed). Codegen
+// must terminate.
+export class Tree {
+  value!: number;
+  children!: Tree[];
+  constructor(seed: { value: number; children: Tree[] }) {
+    this.value = seed.value;
+    this.children = seed.children;
+  }
+}
+
 export const fromPoint = typia.plain.createClassify<typeof Point>();
 export const newBox = typia.plain.createClassify<typeof Box>();
 export const newError = typia.plain.createClassify<typeof HttpError>();
 export const restBag = typia.plain.createClassify<typeof Bag>();
 export const fieldPlain = typia.plain.createClassify<Plain>();
+export const buildTree = typia.plain.createClassify<typeof Tree>();
+// assert/validate against a class TYPE must validate the SEED, not typeof C's
+// static members (the validation_type redirect).
+export const assertPoint = typia.plain.createAssertClassify<typeof Point>();
+export const validatePoint = typia.plain.createValidateClassify<typeof Point>();
 `
 
 const plainClassifyFromNewRuntimeRunner = `const mod = require("./main.cjs");
@@ -244,4 +262,31 @@ assert(Array.isArray(bag.items) && bag.items[0] === 7, "rest seed should reconst
 const plain = mod.fieldPlain({ id: 1, name: "Kim" });
 assert(plain instanceof mod.Plain, "plain should be a Plain instance (field copy)");
 assert(plain.greet() === "hi Kim", "instance field-copy prototype method should work");
+
+// (6) self-referential seed terminates: top via new, nested via field copy
+const tree = mod.buildTree({ value: 1, children: [{ value: 2, children: [] }] });
+assert(tree instanceof mod.Tree, "tree should be a Tree instance (new)");
+assert(tree.children[0] instanceof mod.Tree, "nested tree should be a Tree (field copy)");
+assert(tree.children[0].value === 2, "nested tree value should be preserved");
+
+// (7) assertClassify<typeof Point> validates the SEED (not typeof C statics)
+assert(mod.assertPoint({ x: 1, y: 2 }) instanceof mod.Point, "assertPoint valid seed -> Point");
+let threw = false;
+try {
+  mod.assertPoint({ x: "no", y: 2 });
+} catch (e) {
+  threw = true;
+}
+assert(threw, "assertPoint should throw on an invalid seed");
+
+// (8) validateClassify<typeof Point> validates the SEED
+const ok = mod.validatePoint({ x: 3, y: 4 });
+assert(ok.success === true, "validatePoint should succeed on a valid seed");
+assert(ok.data instanceof mod.Point, "validatePoint data should be a Point instance");
+const bad = mod.validatePoint({ x: "no", y: 4 });
+assert(bad.success === false, "validatePoint should fail on an invalid seed");
+assert(
+  Array.isArray(bad.errors) && bad.errors.length > 0,
+  "validatePoint failure should populate errors",
+);
 `
