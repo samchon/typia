@@ -392,3 +392,133 @@ const assert = (cond, msg) => {
 const w = mod.build({ x: 5 });
 assert(w && w.x === 5, "unbound anonymous class should field-copy its data, got: " + JSON.stringify(w));
 `
+
+// TestPlainClassifyNamedInterfaceFieldCopy verifies that a named INTERFACE field
+// is field-copied as a plain {} — an interface has no runtime value, so emitting
+// Object.create(<Interface>.prototype) would throw ReferenceError.
+func TestPlainClassifyNamedInterfaceFieldCopy(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-iface-", plainClassifyInterfaceSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--file", "src/main.ts", "--output", "js"})
+  })
+  if code != 0 {
+    t.Fatalf("named-interface field transform failed: code=%d\n%s", code, errText)
+  }
+  if strings.Contains(out, "Object.create(Animal.prototype)") {
+    t.Fatalf("a named interface must NOT be field-copied via Object.create(Animal.prototype):\n%s", out)
+  }
+  if !strings.Contains(out, "Object.create(Zoo.prototype)") {
+    t.Fatalf("the enclosing class should still field-copy onto Zoo.prototype:\n%s", out)
+  }
+  plainClassifyRunNode(t, project, out, plainClassifyInterfaceRunner)
+}
+
+// TestPlainClassifyRecursiveAnonymousObject verifies a RECURSIVE anonymous object
+// type (whose IsLiteral() is false) field-copies as {} rather than emitting
+// Object.create(__type.prototype) (a ReferenceError).
+func TestPlainClassifyRecursiveAnonymousObject(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-recanon-", plainClassifyRecAnonSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--file", "src/main.ts", "--output", "js"})
+  })
+  if code != 0 {
+    t.Fatalf("recursive-anonymous-object transform failed: code=%d\n%s", code, errText)
+  }
+  if strings.Contains(out, "__type") {
+    t.Fatalf("a recursive anonymous object must NOT leak the binder-internal __type name:\n%s", out)
+  }
+  plainClassifyRunNode(t, project, out, plainClassifyRecAnonRunner)
+}
+
+// TestPlainClassifyGenericInheritedPrivateRejected verifies that a class whose
+// #private-bearing base is reached through a GENERIC subclass (a bare
+// TypeReference) is still rejected — the inheritance walk must not stop at the
+// generic boundary.
+func TestPlainClassifyGenericInheritedPrivateRejected(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-genericpriv-", plainClassifyGenericPrivateSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json"})
+  })
+  if code == 0 {
+    t.Fatalf("a #private base reached through a generic subclass must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
+  }
+  if !strings.Contains(out, "typia transform error") {
+    t.Fatalf("the generic-inherited-#private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
+  }
+}
+
+const plainClassifyInterfaceSource = `import typia from "typia";
+
+// A named INTERFACE — a type-only name with no runtime value.
+export interface Animal {
+  name: string;
+  legs: number;
+}
+
+// Zoo is a real class (field-copies onto its prototype); its `animal` field is
+// the interface, which must field-copy as a plain {}.
+export class Zoo {
+  label!: string;
+  animal!: Animal;
+  describe(): string {
+    return this.label + ":" + this.animal.name;
+  }
+}
+
+export const build = typia.plain.createClassify<Zoo>();
+`
+
+const plainClassifyInterfaceRunner = `const mod = require("./main.cjs");
+
+const assert = (cond, msg) => {
+  if (!cond) throw new Error(msg);
+};
+
+const z = mod.build({ label: "z", animal: { name: "fox", legs: 4 } });
+assert(z instanceof mod.Zoo, "Zoo should be a class instance");
+assert(z.describe() === "z:fox", "Zoo method should work, got: " + z.describe());
+assert(z.animal && z.animal.name === "fox" && z.animal.legs === 4, "interface field is a plain object");
+`
+
+const plainClassifyRecAnonSource = `import typia from "typia";
+
+// A RECURSIVE anonymous object type alias — no runtime value, IsLiteral() is
+// false because it is recursive, so classify must still field-copy a plain {}.
+export type Rec = { value: number; self: Rec | null };
+
+export const build = typia.plain.createClassify<Rec>();
+`
+
+const plainClassifyRecAnonRunner = `const mod = require("./main.cjs");
+
+const assert = (cond, msg) => {
+  if (!cond) throw new Error(msg);
+};
+
+// must NOT throw "ReferenceError: __type is not defined"
+const r = mod.build({ value: 1, self: { value: 2, self: null } });
+assert(r && r.value === 1, "recursive anonymous object should field-copy, got: " + JSON.stringify(r));
+assert(r.self && r.self.value === 2 && r.self.self === null, "nested recursion should field-copy");
+`
+
+const plainClassifyGenericPrivateSource = `import typia from "typia";
+
+// Base has an instance #private; Mid is GENERIC; Sub reaches Base through the
+// generic instantiation Mid<string> (a bare TypeReference) — the #private walk
+// must not stop at that boundary, so Sub is rejected.
+class Base {
+  #secret = 0;
+  bump(): number {
+    this.#secret += 1;
+    return this.#secret;
+  }
+}
+class Mid<T> extends Base {
+  mid!: T;
+}
+export class Sub extends Mid<string> {
+  name!: string;
+}
+
+export const build = typia.plain.createClassify<Sub>();
+`

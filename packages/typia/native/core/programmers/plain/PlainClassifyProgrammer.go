@@ -977,7 +977,13 @@ func plainClassifyProgrammer_configure(props struct {
   // exported cross-module class still resolves via a named import here; the
   // from/new construct path resolves default vs named precisely via class_ref.)
   classRefOf := func(obj *schemametadata.MetadataObjectType) *shimast.Node {
-    if obj == nil {
+    // Only a real `class` has a runtime value to Object.create against. An
+    // interface / type alias / anonymous object literal (including a RECURSIVE
+    // one, whose IsLiteral() is false so it would otherwise reach here) has only a
+    // type-only name (`Animal`, `__type`) — return nil so the joiner / VisitGuard
+    // field-copy a plain {} instead of emitting `Object.create(<type-name>.prototype)`,
+    // a runtime ReferenceError.
+    if obj == nil || !obj.IsClass {
       return nil
     }
     // The runtime value reference. obj.Name is the qualified metadata name, which

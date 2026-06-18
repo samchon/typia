@@ -32,6 +32,14 @@ type MetadataObjectType struct {
   // class at a field-copied position. Read in-process by the classify
   // programmer; ignored by clone/prune, not serialized.
   PrivateFields     bool
+  // IsClass is true when this object's declaration is a `class` (declaration or
+  // expression), so it has a runtime VALUE binding plain.classify can
+  // `Object.create(<name>.prototype)`/`new` against. False for an interface, a
+  // type alias, or an anonymous object literal — none of which is a runtime
+  // value, so classify field-copies a plain {} instead of referencing a
+  // type-only name. Read in-process by the classify programmer; ignored by
+  // clone/prune, not serialized.
+  IsClass           bool
   // ValueRef overrides the runtime VALUE-binding name plain.classify uses when
   // the class's metadata Name is not a usable runtime constructor reference —
   // namely a NAMED class EXPRESSION (`const X = class Beast {...}`), whose Name

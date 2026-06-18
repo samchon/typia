@@ -21,6 +21,12 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   if props.Type != nil {
     if sym := props.Type.Symbol(); sym != nil && len(sym.Declarations) != 0 {
       decl := sym.Declarations[0]
+      // A `class` (declaration or expression — including a generic instantiation,
+      // whose symbol still resolves to the class declaration) has a runtime value
+      // binding; an interface / type alias / anonymous object literal does not, so
+      // plain.classify must field-copy a plain {} rather than reference a type-only
+      // name. classRefOf gates on this.
+      obj.IsClass = decl.Kind == nativeast.KindClassDeclaration || decl.Kind == nativeast.KindClassExpression
       if src := nativeast.GetSourceFileOfNode(decl); src != nil {
         file := src.FileName()
         obj.Source = &file
@@ -187,36 +193,41 @@ func emplace_metadata_object_private_fields(checker *nativechecker.Checker, typ 
     return false
   }
   visited[typ] = true
-  if sym := typ.Symbol(); sym != nil && len(sym.Declarations) != 0 {
-    decl := sym.Declarations[0]
-    var members []*nativeast.Node
-    if decl.Kind == nativeast.KindClassDeclaration {
-      if cd := decl.AsClassDeclaration(); cd != nil && cd.Members != nil {
-        members = cd.Members.Nodes
-      }
-    } else if decl.Kind == nativeast.KindClassExpression {
-      if ce := decl.AsClassExpression(); ce != nil && ce.Members != nil {
-        members = ce.Members.Nodes
-      }
-    }
-    for _, member := range members {
-      if member == nil {
-        continue
-      }
-      if member.ModifierFlags()&nativeast.ModifierFlagsStatic != 0 {
-        continue
-      }
-      if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
-        return true
-      }
-    }
-  }
-  // The `extends` chain — only for a CLASS/INTERFACE object type, since
-  // Checker_getBaseTypes is defined only for those; calling it on a union /
-  // primitive / other type panics (cf. iterate_metadata_array's same guard).
-  if typ.ObjectFlags()&nativechecker.ObjectFlagsClassOrInterface == 0 {
+  sym := typ.Symbol()
+  if sym == nil || len(sym.Declarations) == 0 {
     return false
   }
+  decl := sym.Declarations[0]
+  var members []*nativeast.Node
+  if decl.Kind == nativeast.KindClassDeclaration {
+    if cd := decl.AsClassDeclaration(); cd != nil && cd.Members != nil {
+      members = cd.Members.Nodes
+    }
+  } else if decl.Kind == nativeast.KindClassExpression {
+    if ce := decl.AsClassExpression(); ce != nil && ce.Members != nil {
+      members = ce.Members.Nodes
+    }
+  } else {
+    // Not a class — no instance #private to find, and Checker_getBaseTypes is
+    // defined only for class/interface symbols (a union / primitive / type-alias
+    // Reference would hit its panic arm). Stop here.
+    return false
+  }
+  for _, member := range members {
+    if member == nil {
+      continue
+    }
+    if member.ModifierFlags()&nativeast.ModifierFlagsStatic != 0 {
+      continue
+    }
+    if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
+      return true
+    }
+  }
+  // Walk the `extends` chain. `typ`'s symbol is a class here, so
+  // Checker_getBaseTypes resolves its bases via the symbol even when `typ` is a
+  // bare generic Reference (whose ObjectFlags lack ClassOrInterface) — covering an
+  // inherited #private on a generic subclass.
   for _, base := range nativechecker.Checker_getBaseTypes(checker, typ) {
     if emplace_metadata_object_private_fields(checker, base, visited) {
       return true
