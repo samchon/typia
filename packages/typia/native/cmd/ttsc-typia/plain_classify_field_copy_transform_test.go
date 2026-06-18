@@ -21,7 +21,7 @@ import (
 //     array of classes, and a self-referential class.
 //  2. Require the emitted code to take the prototype path (Object.create).
 //  3. Execute classify/assertClassify/validateClassify and require real
-//     instances, working prototype methods, and validation behaviour.
+//     instances, working prototype methods, and validation behavior.
 func TestPlainClassifyFieldCopyTransform(t *testing.T) {
   project := plainClassifyFieldCopyProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
