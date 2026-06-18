@@ -194,3 +194,82 @@ export class Holder {
 
 export const buildHolder = typia.plain.createClassify<Holder>();
 `
+
+// TestPlainClassifyStaticPrivateAllowed verifies that a class whose ONLY #private
+// member is STATIC is NOT rejected — a static `#x` lives on the constructor, not
+// on instances, so field-copy (Object.create(prototype) + assign) still yields a
+// sound instance.
+func TestPlainClassifyStaticPrivateAllowed(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-staticpriv-", plainClassifyStaticPrivateSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", "js",
+    })
+  })
+  if code != 0 {
+    t.Fatalf("a class with only a STATIC #private member must field-copy, not be rejected: code=%d\n%s", code, errText)
+  }
+  if !strings.Contains(out, "Object.create(Counter.prototype)") {
+    t.Fatalf("the static-#private class should field-copy onto Counter.prototype:\n%s", out)
+  }
+}
+
+// TestPlainClassifySelfRefPrivateRejected verifies that a SELF-REFERENTIAL
+// #private class is rejected: construction is root-only, so its nested
+// self-occurrences are field-copied (losing the #private slots), which the guard
+// must reject rather than emit code that throws at runtime.
+func TestPlainClassifySelfRefPrivateRejected(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-selfrefpriv-", plainClassifySelfRefPrivateSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+    })
+  })
+  if code == 0 {
+    t.Fatalf("a self-referential #private class field-copies its nested occurrences, so it must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
+  }
+  if !strings.Contains(out, "typia transform error") {
+    t.Fatalf("the self-ref #private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
+  }
+}
+
+const plainClassifyStaticPrivateSource = `import typia from "typia";
+
+// Only a STATIC #private member — it lives on the constructor, not instances, so
+// field-copy reconstructs a sound instance and classify must NOT reject it.
+export class Counter {
+  value = 0;
+  static #total = 0;
+  bump(): number {
+    this.value += 1;
+    Counter.#total += 1;
+    return this.value;
+  }
+}
+
+export const build = typia.plain.createClassify<Counter>();
+`
+
+const plainClassifySelfRefPrivateSource = `import typia from "typia";
+
+// A self-referential class with an INSTANCE #private field, built via new at the
+// root. Its nested self-occurrences (next) are field-copied — construction is
+// root-only — so the #private slot would be lost there: classify must reject.
+export class Node {
+  #id!: string;
+  next: Node | null = null;
+  constructor(seed: { id: string; next: Node | null }) {
+    this.#id = seed.id;
+    this.next = seed.next;
+  }
+  id(): string {
+    return this.#id;
+  }
+}
+
+export const build = typia.plain.createClassify<typeof Node>();
+`

@@ -1347,9 +1347,19 @@ func plainClassifyProgrammer_initialize(
   // seed-nested class, a field-copy fallback root, or a field-copy union member)
   // — its prototype methods would throw 'Cannot read private member' at runtime.
   // The single from/new target's instance object is the one classify constructs.
+  // A from/new target is soundly constructed only when it NEVER also appears at a
+  // field-copied position. Construction is root-only, so a SELF-REFERENTIAL class
+  // (Recursive: it reappears inside its own seed / nested fields, sharing the same
+  // *MetadataObjectType pointer) IS field-copied at those nested positions — where
+  // its #private slots are lost. Such a class must therefore NOT count as
+  // constructed, so a #private + recursive class is rejected rather than emitting
+  // a nested field-copy whose methods throw at runtime. (For a non-#private
+  // recursive class this exclusion is inert — PrivateFields is false.)
   constructed := map[*schemametadata.MetadataObjectType]bool{}
   if strategy != nil && len(result.Data.Objects) == 1 {
-    constructed[result.Data.Objects[0].Type] = true
+    if root := result.Data.Objects[0].Type; !root.Recursive {
+      constructed[root] = true
+    }
   }
   for _, obj := range collection.Objects() {
     if obj.PrivateFields && !constructed[obj] {

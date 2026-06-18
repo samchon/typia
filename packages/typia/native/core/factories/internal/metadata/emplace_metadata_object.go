@@ -64,6 +64,12 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
         if member == nil {
           continue
         }
+        // A STATIC `#x` / `#m()` lives on the constructor, not on instances, so
+        // field-copy (Object.create(prototype) + assign) still produces a sound
+        // instance — only INSTANCE #private members block field-copy.
+        if member.ModifierFlags()&nativeast.ModifierFlagsStatic != 0 {
+          continue
+        }
         if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
           obj.PrivateFields = true
           break
