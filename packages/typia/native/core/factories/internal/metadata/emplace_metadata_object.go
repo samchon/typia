@@ -224,13 +224,14 @@ func emplace_metadata_object_private_fields(checker *nativechecker.Checker, typ 
       return true
     }
   }
-  // Walk the `extends` chain. Checker_getBaseTypes is safe (no nil-deref) only for
-  // a type carrying ClassOrInterface (a class/interface INSTANCE) or Reference (a
-  // generic instantiation — and its symbol is a class here, so getBaseTypes
-  // resolves bases via the symbol, covering inherited #private on a generic
-  // subclass). A class's STATIC side `typeof C` is an Anonymous object that would
-  // nil-deref inside getBaseTypes, so it is excluded here.
-  if typ.ObjectFlags()&(nativechecker.ObjectFlagsClassOrInterface|nativechecker.ObjectFlagsReference) == 0 {
+  // Walk the `extends` chain. Checker_getBaseTypes nil-dereferences (its internal
+  // t.AsInterfaceType() is nil) for anything that is not a class/interface
+  // INSTANCE — including a class's Anonymous static side `typeof C` and a generic
+  // instantiation Reference (`Mid<string>`) — so it is guarded to a ClassOrInterface
+  // instance. A generic subclass's OWN #private is still caught by the member scan
+  // above; only a #private INHERITED through a generic base boundary is not
+  // detected (narrow, documented). The non-generic inheritance chain is covered.
+  if typ.ObjectFlags()&nativechecker.ObjectFlagsClassOrInterface == 0 {
     return false
   }
   for _, base := range nativechecker.Checker_getBaseTypes(checker, typ) {

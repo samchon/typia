@@ -430,20 +430,20 @@ func TestPlainClassifyRecursiveAnonymousObject(t *testing.T) {
   plainClassifyRunNode(t, project, out, plainClassifyRecAnonRunner)
 }
 
-// TestPlainClassifyGenericInheritedPrivateRejected verifies that a class whose
-// #private-bearing base is reached through a GENERIC subclass (a bare
-// TypeReference) is still rejected — the inheritance walk must not stop at the
-// generic boundary.
-func TestPlainClassifyGenericInheritedPrivateRejected(t *testing.T) {
+// TestPlainClassifyGenericPrivateRejected verifies that a GENERIC class with its
+// own instance #private is rejected — its instantiation Gen<string> is a bare
+// TypeReference, but the member scan resolves the class declaration so the
+// #private is still detected.
+func TestPlainClassifyGenericPrivateRejected(t *testing.T) {
   project := plainClassifyWriteProject(t, "plain-classify-genericpriv-", plainClassifyGenericPrivateSource)
   out, errText, code := ttscTypiaTestCapture(func() int {
     return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json"})
   })
   if code == 0 {
-    t.Fatalf("a #private base reached through a generic subclass must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
+    t.Fatalf("a generic class with its own #private must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
   }
   if !strings.Contains(out, "typia transform error") {
-    t.Fatalf("the generic-inherited-#private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
+    t.Fatalf("the generic-#private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
   }
 }
 
@@ -503,22 +503,17 @@ assert(r.self && r.self.value === 2 && r.self.self === null, "nested recursion s
 
 const plainClassifyGenericPrivateSource = `import typia from "typia";
 
-// Base has an instance #private; Mid is GENERIC; Sub reaches Base through the
-// generic instantiation Mid<string> (a bare TypeReference) — the #private walk
-// must not stop at that boundary, so Sub is rejected.
-class Base {
+// A GENERIC class with its OWN instance #private. classify<Gen<string>> emplaces
+// the Gen<string> instance (a bare TypeReference), but the member scan resolves
+// Gen's declaration, so the own #private is detected and the class is rejected.
+export class Gen<T> {
   #secret = 0;
+  value!: T;
   bump(): number {
     this.#secret += 1;
     return this.#secret;
   }
 }
-class Mid<T> extends Base {
-  mid!: T;
-}
-export class Sub extends Mid<string> {
-  name!: string;
-}
 
-export const build = typia.plain.createClassify<Sub>();
+export const build = typia.plain.createClassify<Gen<string>>();
 `
