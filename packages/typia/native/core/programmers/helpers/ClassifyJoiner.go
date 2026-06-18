@@ -48,7 +48,11 @@ var classifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 // or a resolved value import when it is declared in another module (so a
 // cross-module field-copied class does not throw ReferenceError).
 func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast.Node {
-  if props.Object == nil || props.Object.IsLiteral() {
+  // No usable runtime binding (nil ClassRef: an unbound anonymous class
+  // expression / a same-file anonymous default export) field-copies as a plain
+  // {} literal, just like a structurally-literal shape — Object.create needs a
+  // value reference, and there is none.
+  if props.Object == nil || props.Object.IsLiteral() || props.ClassRef == nil {
     return CloneJoiner.Object(CloneJoiner_ObjectProps{
       Input:   props.Input,
       Entries: props.Entries,
@@ -68,10 +72,7 @@ func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast
   }
 
   output := f.NewIdentifier("output")
-  classRef := props.ClassRef
-  if classRef == nil {
-    classRef = f.NewIdentifier(props.Object.Name)
-  }
+  classRef := props.ClassRef // non-nil here: a nil ClassRef field-copies as {} above
 
   statements := []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{

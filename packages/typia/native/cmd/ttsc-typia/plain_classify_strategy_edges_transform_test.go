@@ -273,3 +273,84 @@ export class Node {
 
 export const build = typia.plain.createClassify<typeof Node>();
 `
+
+// TestPlainClassifyUnboundAnonymousClass verifies an anonymous class expression
+// with NO enclosing const binding field-copies as a plain {} instead of emitting
+// `Object.create(__class.prototype)` — the binder-internal __class name is not a
+// usable runtime binding (it would throw ReferenceError).
+func TestPlainClassifyUnboundAnonymousClass(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-anon-", plainClassifyUnboundAnonSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", "js",
+    })
+  })
+  if code != 0 {
+    t.Fatalf("unbound anonymous class transform failed: code=%d\n%s", code, errText)
+  }
+  if strings.Contains(out, "__class") {
+    t.Fatalf("an unbound anonymous class must NOT leak the binder-internal __class name:\n%s", out)
+  }
+  plainClassifyRunNode(t, project, out, plainClassifyUnboundAnonRunner)
+}
+
+// plainClassifyRunNode writes the rewritten module + a custom runner and runs it.
+func plainClassifyRunNode(t *testing.T, project string, js string, runnerSrc string) {
+  t.Helper()
+  node, err := exec.LookPath("node")
+  if err != nil {
+    t.Skip("node executable not found")
+  }
+  runtimeDir := filepath.Join(project, "runtime")
+  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
+    t.Fatalf("mkdir runtime dir: %v", err)
+  }
+  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
+  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
+    t.Fatalf("write generic stub: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, js)), 0o644); err != nil {
+    t.Fatalf("write runtime module: %v", err)
+  }
+  runner := filepath.Join(runtimeDir, "run.cjs")
+  if err := os.WriteFile(runner, []byte(runnerSrc), 0o644); err != nil {
+    t.Fatalf("write runner: %v", err)
+  }
+  cmd := exec.Command(node, runner)
+  cmd.Dir = runtimeDir
+  output, err := cmd.CombinedOutput()
+  if err != nil {
+    t.Fatalf("runtime cases failed: %v\n%s", err, output)
+  }
+}
+
+const plainClassifyUnboundAnonSource = `import typia from "typia";
+
+// An anonymous class expression with NO enclosing const binding (returned from a
+// factory). Its binder-internal name (__class) is not a usable runtime binding,
+// so classify must field-copy a plain {} rather than Object.create(__class…).
+const factory = () =>
+  class {
+    x!: number;
+    label(): string {
+      return "x=" + this.x;
+    }
+  };
+export type Widget = InstanceType<ReturnType<typeof factory>>;
+
+export const build = typia.plain.createClassify<Widget>();
+`
+
+const plainClassifyUnboundAnonRunner = `const mod = require("./main.cjs");
+
+const assert = (cond, msg) => {
+  if (!cond) throw new Error(msg);
+};
+
+// must NOT throw "ReferenceError: __class is not defined"; field-copies the data
+const w = mod.build({ x: 5 });
+assert(w && w.x === 5, "unbound anonymous class should field-copy its data, got: " + JSON.stringify(w));
+`

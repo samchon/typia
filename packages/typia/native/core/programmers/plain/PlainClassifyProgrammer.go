@@ -988,7 +988,18 @@ func plainClassifyProgrammer_configure(props struct {
     } else if i := strings.IndexByte(name, '<'); i >= 0 {
       name = name[:i]
     }
-    bare := f.NewIdentifier(name)
+    // A binder-internal anonymous class (`__class`, an unbound `class {}`
+    // expression) or a reserved anonymous default export (`default`, from
+    // `export default class {}`) is NOT a usable bare runtime binding. For such a
+    // class `bare` stays nil, so the same-file paths return nil and the joiner /
+    // VisitGuard field-copy a plain `{}` instead of `Object.create(__class…)` /
+    // `Object.create(default…)`. A cross-module default export still resolves
+    // through Importer.Default below (which emits a valid `.default` access).
+    usable := name != "" && name != "__class" && name != "default"
+    var bare *shimast.Node
+    if usable {
+      bare = f.NewIdentifier(name)
+    }
     if obj.Source == nil || callFile == "" {
       return bare
     }
@@ -1006,6 +1017,9 @@ func plainClassifyProgrammer_configure(props struct {
     }
     if obj.SourceDefault {
       return props.Context.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: name, Type: false})
+    }
+    if !usable {
+      return nil
     }
     return props.Context.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: name})
   }
@@ -1048,17 +1062,20 @@ func plainClassifyProgrammer_configure(props struct {
     // from/new Importer.Instance slice, which must update this allocator AND
     // ClassifyJoiner.Object together.
     var allocator *shimast.Node
-    if next.Object != nil && !next.Object.IsLiteral() {
+    classRef := classRefOf(next.Object)
+    if next.Object != nil && !next.Object.IsLiteral() && classRef != nil {
       allocator = f.NewCallExpression(
         f.NewIdentifier("Object.create"),
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Access(props.Context.Emit, classRefOf(next.Object), "prototype"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, classRef, "prototype"),
         }),
         shimast.NodeFlagsNone,
       )
     } else {
+      // No usable runtime binding (an unbound anonymous class expression / a
+      // same-file anonymous default export) → a plain {} allocator, like a literal.
       allocator = f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
     }
     return nativeinternal.FeatureProgrammer.VisitGuardRebuildWith(next.Key, allocator, next.Body, props.Context.Emit)
@@ -1682,16 +1699,25 @@ func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *
     valueName = plainClassifyProgrammer_qualified_name(decl.Parent, sym.Name)
   }
   src := shimast.GetSourceFileOfNode(decl)
+  // `default` (an anonymous `export default class {}`) and an empty name are not
+  // a usable same-file bare binding → return nil so detect_strategy falls to
+  // field-copy (which then field-copies a plain {}). A cross-module default
+  // export still resolves below through Importer.Default.
+  usable := valueName != "" && valueName != "default"
+  var bare *shimast.Node
+  if usable {
+    bare = f.NewIdentifier(valueName)
+  }
   if src == nil {
-    return f.NewIdentifier(valueName)
+    return bare
   }
   classFileAbs, err := filepath.Abs(src.FileName())
   if err != nil || callFile == "" || classFileAbs == callFile {
-    return f.NewIdentifier(valueName)
+    return bare
   }
   rel, err := filepath.Rel(filepath.Dir(callFile), strings.TrimSuffix(classFileAbs, filepath.Ext(classFileAbs)))
   if err != nil {
-    return f.NewIdentifier(valueName)
+    return bare
   }
   spec := filepath.ToSlash(rel)
   if !strings.HasPrefix(spec, ".") {
@@ -1700,6 +1726,9 @@ func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *
   if decl.ModifierFlags()&shimast.ModifierFlagsDefault != 0 ||
     plainClassifyProgrammer_is_default_export(ctx.Checker, sym, decl, src) {
     return ctx.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: valueName, Type: false})
+  }
+  if !usable {
+    return nil
   }
   return ctx.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: valueName})
 }
