@@ -1256,10 +1256,40 @@ func plainClassifyProgrammer_initialize(
   }
 
   collection := schemametadata.NewMetadataCollection()
+
+  // For a class-TYPE UNION (typeof A | typeof B) constructor_nature(union) is
+  // false (no single class symbol / no common construct signature), so the
+  // single strategy above is nil and the field-copy fallback would lose each
+  // member's construction. Detect a per-member strategy instead; the root decode
+  // emits a discriminated construction ladder over them. union_members analyzes
+  // each member's seed / instance shape into `collection`, so it owns the shared
+  // collection and every is-check object function it references is generated.
+  var members []plainClassifyProgrammer_member
+  if static.IsUnion() {
+    members = plainClassifyProgrammer_union_members(props.Context, static, collection, callFile)
+  }
+
+  // Where the seed-union validation is analyzed. A construction union (members
+  // present) has already registered each member seed in `collection` exactly
+  // once via union_members; the seed-union validation goes to a THROWAWAY
+  // collection so it only yields the root metadata / success — the construction
+  // ladder owns the shared collection and never decodes this root metadata. A
+  // second, structurally identical copy of each seed in the shared collection
+  // would push its property-shape frequency to 2, which makes the
+  // discrimination's is-check object function split into an `_io` -> `_ip`
+  // helper pair — and the classify Addition emits the `_io` half but not the
+  // `_ip` half (a `_ip<n>` ReferenceError at runtime). With a single copy every
+  // shape stays at frequency 1, so the is-check stays a self-contained inline
+  // object function. A non-construction target keeps the shared collection (the
+  // ordinary decode reads this root metadata, so it must reference it).
+  components := collection
+  if len(members) != 0 {
+    components = schemametadata.NewMetadataCollection()
+  }
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker:    checker,
     Options:    plainClassifyProgrammer_options(),
-    Components: collection,
+    Components: components,
     Type:       analyzeT,
   })
   if result.Success == false {
@@ -1275,16 +1305,6 @@ func plainClassifyProgrammer_initialize(
   var strategy *plainClassifyProgrammer_strategy
   if hasStrategy {
     strategy = plainClassifyProgrammer_detect_strategy(props.Context, static, instanceT, ctorSigs, fromSym, collection, callFile)
-  }
-
-  // For a class-TYPE UNION (typeof A | typeof B) constructor_nature(union) is
-  // false (no single class symbol / no common construct signature), so the
-  // single strategy above is nil and the field-copy fallback would lose each
-  // member's construction. Detect a per-member strategy instead; the root decode
-  // emits a discriminated construction ladder over them.
-  var members []plainClassifyProgrammer_member
-  if static.IsUnion() {
-    members = plainClassifyProgrammer_union_members(props.Context, static, collection, callFile)
   }
 
   if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
