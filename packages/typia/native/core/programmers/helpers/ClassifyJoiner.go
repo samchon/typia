@@ -154,5 +154,13 @@ func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast
   }
 
   statements = append(statements, f.NewReturnStatement(output))
-  return f.NewBlock(f.NewNodeList(statements), false)
+  // Wrap the reconstruction statements in an IIFE so the result is an
+  // EXPRESSION, not a bare Block. The shared FeatureProgrammer object pipeline
+  // treats the joiner result as an expression — it &&-reduces it with parent
+  // checks, threads it through the recursion VisitGuard, and nests it as a
+  // property value — so a raw Block lands in an expression position and the
+  // emitter rejects it ("unexpected Expression: KindBlock"). Cloning's joiner
+  // returns an object-literal expression for the same reason; the native-class
+  // arm matches it via SelfCall, exactly like the typed-array buffer decode.
+  return nativefactories.ExpressionFactory.SelfCall(props.Emit, f.NewBlock(f.NewNodeList(statements), true))
 }
