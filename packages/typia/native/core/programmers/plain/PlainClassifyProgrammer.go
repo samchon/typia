@@ -63,6 +63,12 @@ func (plainClassifyProgrammerNamespace) Decompose(props PlainClassifyProgrammer_
   if props.Validated {
     isPrefix = plainClassifyProgrammer_IS_PREFIX_VALIDATED
   }
+  // Carry the is-prefix on the function programmer so the recursive decode /
+  // explore helpers (which emit NESTED discriminations — object-unions, arrays/
+  // sets/maps of unions, tuples) reference the same namespace as the top-level
+  // ladder and the Addition, instead of the default "_i" (which in the validated
+  // path comes from the assert side's divergent collection).
+  props.Functor.SetIsPrefix(isPrefix)
   config := plainClassifyProgrammer_configure(struct {
     Context  nativecontext.ITypiaContext
     Functor  *nativehelpers.FunctionProgrammer
@@ -273,6 +279,7 @@ func plainClassifyProgrammer_decode(props struct {
         return nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
           Context:  props.Context,
           Functor:  props.Functor,
+          Prefix:   props.Functor.IsPrefix(),
           Metadata: partial,
           Input:    props.Input,
           Explore: nativeinternal.CheckerProgrammer_IExplore{
@@ -706,6 +713,7 @@ func plainClassifyProgrammer_explore_arrays(props plainClassifyProgrammer_explor
           return nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,
+            Prefix:   props.Functor.IsPrefix(),
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
             Explore:  plainClassifyProgrammer_checker_explore(v.Explore),
@@ -763,6 +771,7 @@ func plainClassifyProgrammer_explore_sets(props plainClassifyProgrammer_exploreS
           return nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,
+            Prefix:   props.Functor.IsPrefix(),
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
             Explore:  plainClassifyProgrammer_checker_explore(v.Explore),
@@ -831,6 +840,7 @@ func plainClassifyProgrammer_explore_maps(props plainClassifyProgrammer_exploreM
           first := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,
+            Prefix:   props.Functor.IsPrefix(),
             Input:    f.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(0, props.Context.Emit), shimast.NodeFlagsNone),
             Metadata: pair[0],
             Explore:  plainClassifyProgrammer_checker_explore_with_postfix(v.Explore, "[0]"),
@@ -838,6 +848,7 @@ func plainClassifyProgrammer_explore_maps(props plainClassifyProgrammer_exploreM
           second := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
             Context:  props.Context,
             Functor:  props.Functor,
+            Prefix:   props.Functor.IsPrefix(),
             Input:    f.NewElementAccessExpression(v.Input, nil, nativefactories.ExpressionFactory.Number(1, props.Context.Emit), shimast.NodeFlagsNone),
             Metadata: pair[1],
             Explore:  plainClassifyProgrammer_checker_explore_with_postfix(v.Explore, "[1]"),
@@ -1128,6 +1139,7 @@ func plainClassifyProgrammer_configure(props struct {
       return nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
         Context:  props.Context,
         Functor:  props.Functor,
+        Prefix:   props.Functor.IsPrefix(),
         Input:    next.Input,
         Metadata: next.Metadata,
         Explore:  plainClassifyProgrammer_checker_explore(next.Explore),
@@ -1161,6 +1173,7 @@ func plainClassifyProgrammer_configure(props struct {
           return nativeprogrammers.IsProgrammer.Decode_object(nativeprogrammers.IsProgrammer_DecodeObjectProps{
             Context: props.Context,
             Functor: props.Functor,
+            Prefix:  props.Functor.IsPrefix(),
             Input:   v.Input,
             Object:  v.Object,
             Explore: plainClassifyProgrammer_feature_explore(v.Explore),

@@ -135,3 +135,78 @@ assert(r.success === true, "validateClassify should succeed on a valid seed, got
 assert(r.data instanceof mod.Bob, "validateClassify should build the Bob instance");
 assert(r.data.tag() === "bob:y", "validateClassify reconstruct");
 `
+
+// TestPlainClassifyNestedValidatedUnion exercises a VALIDATED class union whose
+// members carry a NESTED object-union — the discrimination of that nested union
+// must reference classify's own _yi helpers (emitted from the classify
+// collection), not the assert side's _io (a SEPARATE GetUnionType collection
+// that dedups/reorders), or it would `ReferenceError: _io<n> is not defined`.
+func TestPlainClassifyNestedValidatedUnion(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-nested-vunion-", plainClassifyNestedVUnionSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", "js",
+    })
+  })
+  if code != 0 {
+    t.Fatalf("nested validated-union transform failed: code=%d\n%s", code, errText)
+  }
+  plainClassifyRunNode(t, project, out, plainClassifyNestedVUnionRunner)
+}
+
+const plainClassifyNestedVUnionSource = `import typia from "typia";
+
+// Two discriminable classes (by ` + "`kind`" + `) that SHARE a nested object-union
+// payload. classify's discrimination of that nested { k1 } | { k2 } union, in the
+// VALIDATED path, must use its own _yi helpers — the assert side analyzes the
+// seeds through GetUnionType (which dedups the shared payload), so an _i index
+// would diverge.
+export class Holder {
+  kind!: "holder";
+  payload!: { k1: string } | { k2: number };
+  constructor(seed: { kind: "holder"; payload: { k1: string } | { k2: number } }) {
+    this.kind = seed.kind;
+    this.payload = seed.payload;
+  }
+  describe(): string {
+    return "holder:" + JSON.stringify(this.payload);
+  }
+}
+export class Twin {
+  kind!: "twin";
+  payload!: { k1: string } | { k2: number };
+  constructor(seed: { kind: "twin"; payload: { k1: string } | { k2: number } }) {
+    this.kind = seed.kind;
+    this.payload = seed.payload;
+  }
+  describe(): string {
+    return "twin:" + JSON.stringify(this.payload);
+  }
+}
+
+export const assertShape = typia.plain.createAssertClassify<typeof Holder | typeof Twin>();
+export const validateShape = typia.plain.createValidateClassify<typeof Holder | typeof Twin>();
+`
+
+const plainClassifyNestedVUnionRunner = `const mod = require("./main.cjs");
+
+const assert = (cond, msg) => {
+  if (!cond) throw new Error(msg);
+};
+
+// nested object-union discrimination must not ReferenceError and builds the right class
+const h = mod.assertShape({ kind: "holder", payload: { k1: "x" } });
+assert(h instanceof mod.Holder, "kind holder -> Holder, got: " + (h && h.constructor && h.constructor.name));
+assert(h.describe() === 'holder:{"k1":"x"}', "Holder payload k1, got: " + h.describe());
+
+const tw = mod.assertShape({ kind: "twin", payload: { k2: 5 } });
+assert(tw instanceof mod.Twin, "kind twin -> Twin, got: " + (tw && tw.constructor && tw.constructor.name));
+assert(tw.describe() === 'twin:{"k2":5}', "Twin payload k2, got: " + tw.describe());
+
+const r = mod.validateShape({ kind: "holder", payload: { k2: 9 } });
+assert(r.success === true, "validateClassify success, got: " + JSON.stringify(r.errors));
+assert(r.data instanceof mod.Holder && r.data.describe() === 'holder:{"k2":9}', "validate builds Holder with k2 payload");
+`

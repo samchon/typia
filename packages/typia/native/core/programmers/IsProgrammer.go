@@ -81,6 +81,11 @@ type IsProgrammer_DecodeObjectProps struct {
   Object  *nativemetadata.MetadataObjectType
   Input   *shimast.Expression
   Explore nativeinternal.FeatureProgrammer_IExplore
+  // Prefix overrides the is-helper namespace ("" => the default "_i"). See
+  // IsProgrammer_DecodeProps.Prefix — plain.classify's VALIDATED path passes
+  // "_yi" so a NESTED object discrimination references _yio<i> emitted by its own
+  // classify collection, not the assert side's reordered/deduped _io<i>.
+  Prefix string
 }
 
 var isProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -313,12 +318,16 @@ func (isProgrammerNamespace) Decode(props IsProgrammer_DecodeProps) *shimast.Nod
 }
 
 func (isProgrammerNamespace) Decode_object(props IsProgrammer_DecodeObjectProps) *shimast.Node {
+  config := IsProgrammer.Configure(struct {
+    Options *IsProgrammer_CONFIG_IOptions
+    Context nativecontext.ITypiaContext
+    Functor *nativehelpers.FunctionProgrammer
+  }{Options: nil, Context: props.Context, Functor: props.Functor})
+  if props.Prefix != "" {
+    config.Prefix = props.Prefix
+  }
   return nativeinternal.CheckerProgrammer.Decode_object(nativeinternal.CheckerProgrammer_DecodeObjectProps{
-    Config: IsProgrammer.Configure(struct {
-      Options *IsProgrammer_CONFIG_IOptions
-      Context nativecontext.ITypiaContext
-      Functor *nativehelpers.FunctionProgrammer
-    }{Options: nil, Context: props.Context, Functor: props.Functor}),
+    Config:  config,
     Context: props.Context,
     Functor: props.Functor,
     Object:  props.Object,
