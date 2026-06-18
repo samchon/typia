@@ -132,14 +132,21 @@ type ClassifiableFactory<T> = [ClassInstanceType<T>] extends [never]
           : never
     : never;
 
-// `new T(x)` seed — single-argument callable. A private/protected (or otherwise
-// non-`new`-able) constructor does not match `abstract new`, so this is `never`
-// for it — correct, since you cannot `new` it; such a class is built via `from`
-// or field copy.
+// `new T(x)` seed — single-argument callable. Two non-newable shapes must fall
+// through to field copy, and they are excluded in two steps:
+//  - a private/protected constructor does not match `abstract new` at all, so the
+//    outer arm is already `never` for it;
+//  - an ABSTRACT class DOES match `abstract new` (that is precisely its construct
+//    signature) yet cannot be `new`-ed at runtime (`new Abstract()` throws), so
+//    the inner `T extends new (...) => any` gate drops it — an abstract
+//    constructor type is not assignable to a concrete `new` signature. Both then
+//    field-copy, matching the transform (which never emits `new` for them).
 type ClassifiableConstructor<T> = T extends abstract new (
   ...args: infer A
 ) => any
-  ? ClassifiableSeed<A>
+  ? T extends new (...args: any) => any
+    ? ClassifiableSeed<A>
+    : never
   : never;
 
 // Field-copy property shape — the fallback strategy. Field copy is
