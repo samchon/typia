@@ -1176,7 +1176,7 @@ func plainClassifyProgrammer_initialize(
   // interface carries neither (the typeof-C static side is NOT IsClass). Only
   // then redirect the analyzed shape to the INSTANCE type and consider a
   // from/new strategy — this also prevents a plain object with a data field
-  // literally named `prototype` from being mis-shaped.
+  // literally named `prototype` from being misshapen.
   ctorSigs := checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)
   fromSym := checker.GetPropertyOfType(static, "from")
   hasStrategy := len(ctorSigs) > 0 || fromSym != nil

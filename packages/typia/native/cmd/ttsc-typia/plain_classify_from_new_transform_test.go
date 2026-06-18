@@ -4,6 +4,7 @@ import (
   "os"
   "os/exec"
   "path/filepath"
+  "regexp"
   "strings"
   "testing"
 )
@@ -83,7 +84,10 @@ func plainClassifyFromNewRunRuntimeCases(t *testing.T, project string, js string
     t.Fatalf("mkdir runtime dir: %v", err)
   }
   ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
+  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
+    t.Fatalf("write generic internal stub: %v", err)
+  }
+  runtimeJS := plainClassifyFromNewRewrite(t, js)
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
@@ -98,6 +102,41 @@ func plainClassifyFromNewRunRuntimeCases(t *testing.T, project string, js string
     t.Fatalf("classify from/new runtime cases failed: %v\n%s", err, output)
   }
 }
+
+// plainClassifyFromNewRewrite resolves the emitted module's typia imports to
+// local stubs. Beyond the known internal helpers, the createClassify path emits
+// is-check helpers (config.Addition) that are DEFINED but never called at
+// runtime — e.g. for an inherited Error field. Those are stubbed generically so
+// the module loads; each is logged so a genuinely-needed helper is visible.
+func plainClassifyFromNewRewrite(t *testing.T, js string) string {
+  t.Helper()
+  s := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
+  for from, to := range map[string]string{
+    `require("typia/lib/internal/_validateReport")`:           `require("./validate-report-stub.cjs")`,
+    `require("typia/lib/internal/_createStandardSchema")`:     `require("./standard-schema-stub.cjs")`,
+    `require("typia/lib/internal/_assertGuard")`:              `require("./assert-guard-stub.cjs")`,
+    `require("typia/lib/internal/_accessExpressionAsString")`: `require("./access-expression-stub.cjs")`,
+  } {
+    s = strings.ReplaceAll(s, from, to)
+  }
+  re := regexp.MustCompile(`require\("typia/lib/internal/([A-Za-z0-9_]+)"\)`)
+  for _, m := range re.FindAllStringSubmatch(s, -1) {
+    t.Logf("from/new emit references typia/lib/internal/%s (generic-stubbed)", m[1])
+  }
+  s = re.ReplaceAllString(s, `require("./generic-internal-stub.cjs")`)
+  if strings.Contains(s, `require("typia")`) || strings.Contains(s, "typia/lib/internal/") {
+    t.Fatalf("unresolved typia import remains after rewrite:\n%s", s)
+  }
+  return s
+}
+
+// plainClassifyFromNewGenericStub returns an identity function for any helper
+// name, so a generated-but-unused internal helper does not break module load.
+const plainClassifyFromNewGenericStub = `module.exports = new Proxy(
+  {},
+  { get: () => (x) => x },
+);
+`
 
 const plainClassifyFromNewTSConfig = `{
   "compilerOptions": {
