@@ -1798,7 +1798,16 @@ func plainClassifyProgrammer_value_binding(decl *shimast.Node) string {
   if node == nil || node.Kind != shimast.KindVariableDeclaration || node.Name() == nil {
     return ""
   }
-  return strings.TrimSpace(node.Name().Text())
+  name := strings.TrimSpace(node.Name().Text())
+  // Qualify by any enclosing namespace: VariableDeclaration -> VariableDeclarationList
+  // -> VariableStatement -> (ModuleBlock for `namespace NS { const X = class {} }`),
+  // so the runtime binding is `NS.X`, not the unqualified `X`.
+  if list := node.Parent; list != nil {
+    if stmt := list.Parent; stmt != nil {
+      return plainClassifyProgrammer_qualified_name(stmt.Parent, name)
+    }
+  }
+  return name
 }
 
 // plainClassifyProgrammer_is_default_export reports whether the class `sym`

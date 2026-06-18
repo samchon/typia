@@ -264,7 +264,15 @@ func emplace_metadata_object_value_binding(decl *nativeast.Node) string {
   if node == nil || node.Kind != nativeast.KindVariableDeclaration || node.Name() == nil {
     return ""
   }
-  return strings.TrimSpace(node.Name().Text())
+  name := strings.TrimSpace(node.Name().Text())
+  // Qualify by any enclosing namespace (VariableDeclaration -> List -> Statement
+  // -> ModuleBlock) so a `namespace NS { const X = class {} }` binds as `NS.X`.
+  if list := node.Parent; list != nil {
+    if stmt := list.Parent; stmt != nil {
+      return metadata_explore_symbol_name(stmt.Parent, name)
+    }
+  }
+  return name
 }
 
 type emplace_metadata_object_insert struct {
