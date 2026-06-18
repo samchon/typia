@@ -219,7 +219,7 @@ export class Tree {
   }
 }
 
-// any-seed factory: a \`static from(json: any)\` must FALL TO field-copy (the
+// any-seed factory: a static from(json: any) must FALL TO field-copy (the
 // any seed collapses the factory arm, matching ClassifiableSeedValue), so
 // J.from must NOT be called at runtime.
 export class J {
@@ -305,7 +305,7 @@ assert(
   "validatePoint failure should populate errors",
 );
 
-// (9) any-seed \`from\` falls to field copy: J.from must NOT be called
+// (9) any-seed from falls to field copy: J.from must NOT be called
 const j = mod.classifyJ({ id: 9 });
 assert(j instanceof mod.J, "j should be a J instance (field copy)");
 assert(j.id === 9, "j.id should be field-copied, got: " + j.id);
