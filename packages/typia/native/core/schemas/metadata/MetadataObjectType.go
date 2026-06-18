@@ -22,6 +22,9 @@ type MetadataObjectType struct {
   // in-process by the classify programmer; not serialized (classify is
   // single-pass), and ignored by clone/prune.
   Source            *string
+  // SourceDefault is true when the class is the default export of Source, so a
+  // cross-module classify value-import uses a default (not named) import.
+  SourceDefault     bool
   Properties        []*MetadataProperty
   Description       *string
   JsDocTags         []IJsDocTagInfo

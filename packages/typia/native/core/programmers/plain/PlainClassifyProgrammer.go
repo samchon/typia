@@ -962,6 +962,9 @@ func plainClassifyProgrammer_configure(props struct {
     if !strings.HasPrefix(spec, ".") {
       spec = "./" + spec
     }
+    if obj.SourceDefault {
+      return props.Context.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: obj.Name, Type: false})
+    }
     return props.Context.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: obj.Name})
   }
   config.Types = nativeinternal.FeatureProgrammer_IConfig_ITypes{

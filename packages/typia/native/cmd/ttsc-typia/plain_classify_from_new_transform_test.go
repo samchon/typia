@@ -422,13 +422,22 @@ export class Factory {
     return f;
   }
 }
+
+// default-exported field-copy class: the value import must be a DEFAULT import
+export default class Memo {
+  text!: string;
+  show(): string {
+    return this.text;
+  }
+}
 `
 
 const plainClassifyCrossModuleMain = `import typia from "typia";
-import type { Model, Factory } from "./model";
+import type Memo, { Model, Factory } from "./model";
 
 export const classifyModel = typia.plain.createClassify<Model>();
 export const classifyFactory = typia.plain.createClassify<typeof Factory>();
+export const classifyMemo = typia.plain.createClassify<Memo>();
 `
 
 const plainClassifyCrossModuleRunner = `const model = require("./model.js");
@@ -448,4 +457,9 @@ assert(m.greet() === "m3", "Model method should work, got: " + m.greet());
 const w = main.classifyFactory({ value: 7 });
 assert(w instanceof model.Factory, "cross-module from should yield a Factory instance");
 assert(w.value === 7, "Factory.from seed should reconstruct, got: " + w.value);
+
+// cross-module DEFAULT-export field copy: the value import must be a default import
+const memo = main.classifyMemo({ text: "hi" });
+assert(memo instanceof model.default, "cross-module default-export field-copy should yield a Memo instance");
+assert(memo.show() === "hi", "Memo method should work, got: " + memo.show());
 `

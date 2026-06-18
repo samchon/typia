@@ -18,9 +18,11 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   // features ignore obj.Source.
   if props.Type != nil {
     if sym := props.Type.Symbol(); sym != nil && len(sym.Declarations) != 0 {
-      if src := nativeast.GetSourceFileOfNode(sym.Declarations[0]); src != nil {
+      decl := sym.Declarations[0]
+      if src := nativeast.GetSourceFileOfNode(decl); src != nil {
         file := src.FileName()
         obj.Source = &file
+        obj.SourceDefault = decl.ModifierFlags()&nativeast.ModifierFlagsDefault != 0
       }
     }
   }
