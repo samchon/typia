@@ -455,7 +455,7 @@ export interface Animal {
   legs: number;
 }
 
-// Zoo is a real class (field-copies onto its prototype); its `animal` field is
+// Zoo is a real class (field-copies onto its prototype); its animal field is
 // the interface, which must field-copy as a plain {}.
 export class Zoo {
   label!: string;
