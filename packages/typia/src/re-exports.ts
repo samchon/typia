@@ -23,6 +23,7 @@ export {
   IJsDocTagInfo,
   // typings
   Classifiable,
+  ClassifyResult,
   Primitive,
   Resolved,
   CamelCase,

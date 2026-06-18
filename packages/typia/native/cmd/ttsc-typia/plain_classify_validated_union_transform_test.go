@@ -28,8 +28,8 @@ func TestPlainClassifyValidatedUnionTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("classify validated-union transform failed: code=%d stderr=\n%s", code, errText)
   }
-  if !strings.Contains(out, ".from(") || !strings.Contains(out, "new ") {
-    t.Fatalf("the validated union should construct both from- and new-members:\n%s", out)
+  if !strings.Contains(out, "Ann.from(") || !strings.Contains(out, "new Bob(") {
+    t.Fatalf("the validated union should construct both from- (Ann.from) and new- (new Bob) members:\n%s", out)
   }
   plainClassifyValidatedUnionRun(t, project, out)
 }

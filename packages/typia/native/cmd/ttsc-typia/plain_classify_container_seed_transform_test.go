@@ -27,7 +27,7 @@ func TestPlainClassifyContainerSeedTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("classify container-seed transform failed: code=%d stderr=\n%s", code, errText)
   }
-  if !strings.Contains(out, "new ") {
+  if !strings.Contains(out, "new Cart(") {
     t.Fatalf("the from/new form should emit new Cart(seed):\n%s", out)
   }
   plainClassifyContainerRun(t, project, out)

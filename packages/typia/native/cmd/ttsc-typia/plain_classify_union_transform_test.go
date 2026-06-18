@@ -29,7 +29,7 @@ func TestPlainClassifyUnionTransform(t *testing.T) {
   if !strings.Contains(out, ".from(") {
     t.Fatalf("the union should construct the `from` member via Circle.from(seed):\n%s", out)
   }
-  if !strings.Contains(out, "new ") {
+  if !strings.Contains(out, "new Square(") {
     t.Fatalf("the union should construct the `new` member via new Square(seed):\n%s", out)
   }
   plainClassifyUnionRun(t, project, out)

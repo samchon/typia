@@ -37,8 +37,8 @@ func TestPlainClassifyFromNewTransform(t *testing.T) {
   if !strings.Contains(out, ".from(") {
     t.Fatalf("classify of a typeof-C with a static factory should emit C.from(seed):\n%s", out)
   }
-  if !strings.Contains(out, "new ") {
-    t.Fatalf("classify of a typeof-C with a single-arg constructor should emit new C(seed):\n%s", out)
+  if !strings.Contains(out, "new Box(") {
+    t.Fatalf("classify of a typeof-C with a single-arg constructor should emit new Box(seed):\n%s", out)
   }
   if !strings.Contains(out, "Object.create") {
     t.Fatalf("the instance-form classify<Plain> must still field-copy (Object.create):\n%s", out)

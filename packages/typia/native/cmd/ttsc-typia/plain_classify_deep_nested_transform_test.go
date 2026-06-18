@@ -28,7 +28,7 @@ func TestPlainClassifyDeepNestedTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("classify deep-nested transform failed: code=%d stderr=\n%s", code, errText)
   }
-  if !strings.Contains(out, "new ") {
+  if !strings.Contains(out, "new Forest(") {
     t.Fatalf("the from/new form should emit new Forest(seed):\n%s", out)
   }
   if !strings.Contains(out, "Object.create") {
