@@ -20,6 +20,9 @@ type PlainAssertClassifyProgrammer_DecomposeProps struct {
   Type    *shimchecker.Type
   Name    *string
   Init    *shimast.Node
+  // Modulo is the call-site node; forwarded so the inner classify can resolve a
+  // cross-module class value-import for from/new construction.
+  Modulo *shimast.Node
 }
 
 var plainAssertClassifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -44,6 +47,7 @@ func (plainAssertClassifyProgrammerNamespace) Decompose(props PlainAssertClassif
     Type:      props.Type,
     Name:      props.Name,
     Validated: true,
+    Modulo:    props.Modulo,
   })
   statements := append([]*shimast.Node{}, assert.Statements...)
   statements = append(statements, classify.Statements...)
@@ -97,6 +101,7 @@ func (plainAssertClassifyProgrammerNamespace) Write(props nativecontext.IProgram
     Type:    props.Type,
     Name:    props.Name,
     Init:    props.Init,
+    Modulo:  props.Modulo,
   })
   return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
     Modulo:  props.Modulo,

@@ -219,12 +219,27 @@ export class Tree {
   }
 }
 
+// any-seed factory: a \`static from(json: any)\` must FALL TO field-copy (the
+// any seed collapses the factory arm, matching ClassifiableSeedValue), so
+// J.from must NOT be called at runtime.
+export class J {
+  id!: number;
+  static fromCalled = false;
+  static from(json: any): J {
+    J.fromCalled = true;
+    const j = new J();
+    j.id = json.id;
+    return j;
+  }
+}
+
 export const fromPoint = typia.plain.createClassify<typeof Point>();
 export const newBox = typia.plain.createClassify<typeof Box>();
 export const newError = typia.plain.createClassify<typeof HttpError>();
 export const restBag = typia.plain.createClassify<typeof Bag>();
 export const fieldPlain = typia.plain.createClassify<Plain>();
 export const buildTree = typia.plain.createClassify<typeof Tree>();
+export const classifyJ = typia.plain.createClassify<typeof J>();
 // assert/validate against a class TYPE must validate the SEED, not typeof C's
 // static members (the validation_type redirect).
 export const assertPoint = typia.plain.createAssertClassify<typeof Point>();
@@ -289,4 +304,148 @@ assert(
   Array.isArray(bad.errors) && bad.errors.length > 0,
   "validatePoint failure should populate errors",
 );
+
+// (9) any-seed \`from\` falls to field copy: J.from must NOT be called
+const j = mod.classifyJ({ id: 9 });
+assert(j instanceof mod.J, "j should be a J instance (field copy)");
+assert(j.id === 9, "j.id should be field-copied, got: " + j.id);
+assert(mod.J.fromCalled === false, "any-seed from must fall to field-copy, not call J.from");
+`
+
+// TestPlainClassifyCrossModuleTransform verifies a class declared in ANOTHER
+// module and referenced only as a TYPE at the call site is value-imported when
+// reconstructed: field-copy (Object.create(Model.prototype)) and from
+// (Factory.from). Without the cross-module value import the emitted module would
+// throw ReferenceError. Two files are transformed (model + main) and run
+// together.
+func TestPlainClassifyCrossModuleTransform(t *testing.T) {
+  project := plainClassifyCrossModuleProject(t)
+  transform := func(file string) string {
+    out, errText, code := ttscTypiaTestCapture(func() int {
+      return runTransform([]string{
+        "--cwd", project,
+        "--tsconfig", "tsconfig.json",
+        "--file", file,
+        "--output", "js",
+      })
+    })
+    if code != 0 {
+      t.Fatalf("transform %s failed: code=%d stderr=\n%s", file, code, errText)
+    }
+    return out
+  }
+  modelJS := transform("src/model.ts")
+  mainJS := transform("src/main.ts")
+  if !strings.Contains(mainJS, "model") {
+    t.Fatalf("main module should value-import the cross-module class:\n%s", mainJS)
+  }
+  plainClassifyCrossModuleRun(t, project, modelJS, mainJS)
+}
+
+func plainClassifyCrossModuleProject(t *testing.T) string {
+  t.Helper()
+  root := ttscTypiaTestRepoRoot(t)
+  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
+  if err := os.MkdirAll(base, 0o755); err != nil {
+    t.Fatalf("mkdir temp base: %v", err)
+  }
+  dir, err := os.MkdirTemp(base, "plain-classify-crossmodule-")
+  if err != nil {
+    t.Fatalf("create temp fixture: %v", err)
+  }
+  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  src := filepath.Join(dir, "src")
+  if err := os.MkdirAll(src, 0o755); err != nil {
+    t.Fatalf("mkdir fixture src: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(plainClassifyFromNewTSConfig), 0o644); err != nil {
+    t.Fatalf("write tsconfig: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(src, "model.ts"), []byte(plainClassifyCrossModuleModel), 0o644); err != nil {
+    t.Fatalf("write model: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(plainClassifyCrossModuleMain), 0o644); err != nil {
+    t.Fatalf("write main: %v", err)
+  }
+  return dir
+}
+
+func plainClassifyCrossModuleRun(t *testing.T, project string, modelJS string, mainJS string) {
+  t.Helper()
+  node, err := exec.LookPath("node")
+  if err != nil {
+    t.Skip("node executable not found")
+  }
+  runtimeDir := filepath.Join(project, "runtime")
+  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
+    t.Fatalf("mkdir runtime dir: %v", err)
+  }
+  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
+  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
+    t.Fatalf("write generic stub: %v", err)
+  }
+  // model.ts has no typia calls; write it as model.js so the typia-injected
+  // `require("./model")` value import in main resolves.
+  if err := os.WriteFile(filepath.Join(runtimeDir, "model.js"), []byte(modelJS), 0o644); err != nil {
+    t.Fatalf("write model.js: %v", err)
+  }
+  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, mainJS)), 0o644); err != nil {
+    t.Fatalf("write main.cjs: %v", err)
+  }
+  runner := filepath.Join(runtimeDir, "run.cjs")
+  if err := os.WriteFile(runner, []byte(plainClassifyCrossModuleRunner), 0o644); err != nil {
+    t.Fatalf("write runner: %v", err)
+  }
+  cmd := exec.Command(node, runner)
+  cmd.Dir = runtimeDir
+  output, err := cmd.CombinedOutput()
+  if err != nil {
+    t.Fatalf("cross-module runtime cases failed: %v\n%s", err, output)
+  }
+}
+
+const plainClassifyCrossModuleModel = `export class Model {
+  id!: number;
+  greet(): string {
+    return "m" + this.id;
+  }
+}
+
+export class Factory {
+  value!: number;
+  private constructor(value: number) {
+    this.value = value;
+  }
+  static from(seed: { value: number }): Factory {
+    const f = Object.create(Factory.prototype) as Factory;
+    (f as { value: number }).value = seed.value;
+    return f;
+  }
+}
+`
+
+const plainClassifyCrossModuleMain = `import typia from "typia";
+import type { Model, Factory } from "./model";
+
+export const classifyModel = typia.plain.createClassify<Model>();
+export const classifyFactory = typia.plain.createClassify<typeof Factory>();
+`
+
+const plainClassifyCrossModuleRunner = `const model = require("./model.js");
+const main = require("./main.cjs");
+
+const assert = (cond, msg) => {
+  if (!cond) throw new Error(msg);
+};
+
+// cross-module field copy: Model is imported only as a TYPE at the call site,
+// so the emitted module must add a VALUE import to reach Model.prototype.
+const m = main.classifyModel({ id: 3 });
+assert(m instanceof model.Model, "cross-module field-copy should yield a Model instance");
+assert(m.greet() === "m3", "Model method should work, got: " + m.greet());
+
+// cross-module from construction
+const w = main.classifyFactory({ value: 7 });
+assert(w instanceof model.Factory, "cross-module from should yield a Factory instance");
+assert(w.value === 7, "Factory.from seed should reconstruct, got: " + w.value);
 `

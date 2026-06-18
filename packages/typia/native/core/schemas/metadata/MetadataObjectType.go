@@ -15,6 +15,13 @@ type IMetadataSchema_IObjectType struct {
 type MetadataObjectType struct {
   Name              string
   DisplayName       string
+  // Source is the absolute-or-as-declared path of the file declaring a named
+  // class, captured at analysis time so plain.classify can value-import a
+  // cross-module class it reconstructs (Object.create / new / from). nil for
+  // anonymous/literal shapes and types with no locatable declaration. Read
+  // in-process by the classify programmer; not serialized (classify is
+  // single-pass), and ignored by clone/prune.
+  Source            *string
   Properties        []*MetadataProperty
   Description       *string
   JsDocTags         []IJsDocTagInfo

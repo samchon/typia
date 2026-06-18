@@ -13,6 +13,18 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     return obj
   }
 
+  // Capture the declaring source file (named declarations only) so plain.classify
+  // can value-import a cross-module class it reconstructs. Additive: other
+  // features ignore obj.Source.
+  if props.Type != nil {
+    if sym := props.Type.Symbol(); sym != nil && len(sym.Declarations) != 0 {
+      if src := nativeast.GetSourceFileOfNode(sym.Declarations[0]); src != nil {
+        file := src.FileName()
+        obj.Source = &file
+      }
+    }
+  }
+
   isClass := props.Type != nil && props.Type.IsClass()
   isProperty := emplace_metadata_object_significant(props.Options.Functional, props.Options.Methods)
   pred := func(node *nativeast.Node) bool {

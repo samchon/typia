@@ -16,7 +16,12 @@ type ClassifyJoiner_ObjectProps struct {
   Input   *shimast.Expression
   Entries []IExpressionEntry
   Object  *nativemetadata.MetadataObjectType
-  Emit    *shimprinter.EmitContext
+  // ClassRef is the value reference to the class (a bare identifier when in
+  // lexical scope, or a resolved value import for a cross-module class). When
+  // nil the bare object name is used. Resolved by the classify programmer, which
+  // owns the importer and the call-site file.
+  ClassRef *shimast.Node
+  Emit     *shimprinter.EmitContext
 }
 
 var classifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -38,11 +43,10 @@ var classifyJoiner_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 // which need the construct-signature checker APIs and per-class arity metadata,
 // land in a later slice.)
 //
-// The class is referenced by its bare identifier — it is in lexical scope at
-// the classify() call site, the common case the field-copy slice targets.
-// Resolving a cross-module class to an Importer.Instance value import requires
-// an export module path that the metadata schema does not yet carry; that
-// arrives with the from / new slice.
+// The class is referenced by props.ClassRef: a bare identifier when the class
+// is in lexical scope at the classify() call site (the common same-file case),
+// or a resolved value import when it is declared in another module (so a
+// cross-module field-copied class does not throw ReferenceError).
 func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast.Node {
   if props.Object == nil || props.Object.IsLiteral() {
     return CloneJoiner.Object(CloneJoiner_ObjectProps{
@@ -64,7 +68,10 @@ func (classifyJoinerNamespace) Object(props ClassifyJoiner_ObjectProps) *shimast
   }
 
   output := f.NewIdentifier("output")
-  classRef := f.NewIdentifier(props.Object.Name)
+  classRef := props.ClassRef
+  if classRef == nil {
+    classRef = f.NewIdentifier(props.Object.Name)
+  }
 
   statements := []*shimast.Node{
     nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{

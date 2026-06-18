@@ -934,6 +934,36 @@ func plainClassifyProgrammer_configure(props struct {
       }
     }
   }
+  // classRefOf resolves a named class to a value reference for the field-copy
+  // path (Object.create(<Class>.prototype) in ClassifyJoiner and the recursion
+  // guard allocator). Bare identifier when the class is in lexical scope at the
+  // call site (same file, or source unknown); a relative value import otherwise
+  // — without it a cross-module field-copied class is referenced by an
+  // unimported identifier and throws ReferenceError at runtime. (A default-
+  // exported cross-module class still resolves via a named import here; the
+  // from/new construct path resolves default vs named precisely via class_ref.)
+  classRefOf := func(obj *schemametadata.MetadataObjectType) *shimast.Node {
+    if obj == nil {
+      return nil
+    }
+    bare := f.NewIdentifier(obj.Name)
+    if obj.Source == nil || callFile == "" {
+      return bare
+    }
+    classFileAbs, err := filepath.Abs(*obj.Source)
+    if err != nil || classFileAbs == callFile {
+      return bare
+    }
+    rel, err := filepath.Rel(filepath.Dir(callFile), strings.TrimSuffix(classFileAbs, filepath.Ext(classFileAbs)))
+    if err != nil {
+      return bare
+    }
+    spec := filepath.ToSlash(rel)
+    if !strings.HasPrefix(spec, ".") {
+      spec = "./" + spec
+    }
+    return props.Context.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: obj.Name})
+  }
   config.Types = nativeinternal.FeatureProgrammer_IConfig_ITypes{
     Input: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
       return f.NewTypeReferenceNode(f.NewIdentifier(plainClassifyProgrammer_type_name(props.Context, t, name)), nil)
@@ -976,7 +1006,7 @@ func plainClassifyProgrammer_configure(props struct {
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(next.Object.Name), "prototype"),
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, classRefOf(next.Object), "prototype"),
         }),
         shimast.NodeFlagsNone,
       )
@@ -1044,10 +1074,11 @@ func plainClassifyProgrammer_configure(props struct {
     },
     Joiner: func(next nativeinternal.FeatureProgrammer_ObjectorJoinerProps) *shimast.Node {
       return nativehelpers.ClassifyJoiner.Object(nativehelpers.ClassifyJoiner_ObjectProps{
-        Input:   next.Input,
-        Entries: next.Entries,
-        Object:  next.Object,
-        Emit:    props.Context.Emit,
+        Input:    next.Input,
+        Entries:  next.Entries,
+        Object:   next.Object,
+        ClassRef: classRefOf(next.Object),
+        Emit:     props.Context.Emit,
       })
     },
     Unionizer: func(next nativeinternal.FeatureProgrammer_ObjectorUnionizerProps) *shimast.Node {
@@ -1171,22 +1202,22 @@ func plainClassifyProgrammer_initialize(
   checker := props.Context.Checker
   static := props.Type
 
-  // Constructor-nature gate: a class TYPE (typeof C) carries construct
-  // signatures and/or a static `from`; an instance type / plain object /
-  // interface carries neither (the typeof-C static side is NOT IsClass). Only
-  // then redirect the analyzed shape to the INSTANCE type and consider a
-  // from/new strategy — this also prevents a plain object with a data field
-  // literally named `prototype` from being misshapen.
+  // Constructor-nature gate: only a class/constructor TYPE (typeof C) — one that
+  // is Function-like (has construct signatures, or is callable with a static
+  // `from`) — gets the instance redirect and a from/new strategy. A plain
+  // object / interface / instance does not qualify (even one with a data field
+  // named `prototype` or a `from` member), matching ClassInstanceType's
+  // `T extends Function`.
   ctorSigs := checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)
   fromSym := checker.GetPropertyOfType(static, "from")
-  hasStrategy := len(ctorSigs) > 0 || fromSym != nil
+  hasStrategy := plainClassifyProgrammer_constructor_nature(checker, static)
 
   analyzeT := static
   instanceT := static
   if hasStrategy {
     instanceT = shimchecker.Checker_getTypeOfPropertyOfType(checker, static, "prototype")
     if instanceT == nil && len(ctorSigs) > 0 {
-      instanceT = checker.GetReturnTypeOfSignature(ctorSigs[0])
+      instanceT = checker.GetReturnTypeOfSignature(ctorSigs[len(ctorSigs)-1])
     }
     if instanceT == nil {
       instanceT = static
@@ -1245,51 +1276,67 @@ func plainClassifyProgrammer_detect_strategy(
   if classRef == nil {
     return nil
   }
-
-  analyzeSeed := func(seedT *shimchecker.Type) *schemametadata.MetadataSchema {
-    if seedT == nil {
-      return nil
-    }
-    r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-      Checker:    checker,
-      Options:    plainClassifyProgrammer_options(),
-      Components: collection,
-      Type:       seedT,
-    })
-    if r.Success == false {
-      return nil
-    }
-    return r.Data
+  kind, seedT := plainClassifyProgrammer_choose_seed(checker, instanceT, ctorSigs, fromSym)
+  if kind == "" {
+    return nil
   }
+  // Analyze the chosen seed into the SAME collection (so its runtime decode
+  // matches Classifiable<T> and its helpers are emitted). If it cannot be
+  // analyzed (e.g. a WeakSet seed), fall through to field-copy.
+  r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
+    Checker:    checker,
+    Options:    plainClassifyProgrammer_options(),
+    Components: collection,
+    Type:       seedT,
+  })
+  if r.Success == false {
+    return nil
+  }
+  return &plainClassifyProgrammer_strategy{Kind: kind, Seed: r.Data, SeedType: seedT, ClassRef: classRef}
+}
 
+// plainClassifyProgrammer_choose_seed applies the construction precedence and
+// gates EXACTLY as classify decodes, returning the chosen seed type with its
+// kind ("from"/"new") or ("", nil) for field-copy. A static `from` wins when its
+// LAST overload (TypeScript's `infer` resolves an overloaded signature to the
+// last) is callable with a single meaningful argument, returns the instance
+// (through a nullable failure arm), and has a non-any/unknown seed; otherwise the
+// LAST single-argument PUBLIC construct signature selects `new`. The
+// any/unknown-seed rejection mirrors ClassifiableSeedValue — a `static
+// from(json: any)` collapses the factory arm and falls to field-copy.
+func plainClassifyProgrammer_choose_seed(
+  checker *shimchecker.Checker,
+  instanceT *shimchecker.Type,
+  ctorSigs []*shimchecker.Signature,
+  fromSym *shimast.Symbol,
+) (string, *shimchecker.Type) {
+  rejected := func(seedT *shimchecker.Type) bool {
+    return seedT == nil ||
+      seedT.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsUnknown) != 0
+  }
   if fromSym != nil && fromSym.ValueDeclaration != nil {
     fnT := checker.GetTypeOfSymbolAtLocation(fromSym, fromSym.ValueDeclaration)
-    for _, sig := range checker.GetSignaturesOfType(fnT, shimchecker.SignatureKindCall) {
-      if !plainClassifyProgrammer_arity_ok(checker, sig) {
-        continue
+    if sigs := checker.GetSignaturesOfType(fnT, shimchecker.SignatureKindCall); len(sigs) != 0 {
+      sig := sigs[len(sigs)-1]
+      if plainClassifyProgrammer_arity_ok(checker, sig) {
+        nn := checker.GetNonNullableType(checker.GetReturnTypeOfSignature(sig))
+        if nn != nil && checker.IsTypeAssignableTo(nn, instanceT) {
+          if seedT := plainClassifyProgrammer_seed_type(checker, sig); !rejected(seedT) {
+            return "from", seedT
+          }
+        }
       }
-      ret := checker.GetReturnTypeOfSignature(sig)
-      nn := checker.GetNonNullableType(ret)
-      if nn == nil || !checker.IsTypeAssignableTo(nn, instanceT) {
-        continue
-      }
-      seedT := plainClassifyProgrammer_seed_type(checker, sig)
-      if seed := analyzeSeed(seedT); seed != nil {
-        return &plainClassifyProgrammer_strategy{Kind: "from", Seed: seed, SeedType: seedT, ClassRef: classRef}
-      }
-      break
     }
   }
-  for _, sig := range ctorSigs {
-    if !plainClassifyProgrammer_ctor_public(sig) || !plainClassifyProgrammer_arity_ok(checker, sig) {
-      continue
-    }
-    seedT := plainClassifyProgrammer_seed_type(checker, sig)
-    if seed := analyzeSeed(seedT); seed != nil {
-      return &plainClassifyProgrammer_strategy{Kind: "new", Seed: seed, SeedType: seedT, ClassRef: classRef}
+  if len(ctorSigs) != 0 {
+    sig := ctorSigs[len(ctorSigs)-1]
+    if plainClassifyProgrammer_ctor_public(sig) && plainClassifyProgrammer_arity_ok(checker, sig) {
+      if seedT := plainClassifyProgrammer_seed_type(checker, sig); !rejected(seedT) {
+        return "new", seedT
+      }
     }
   }
-  return nil
+  return "", nil
 }
 
 // plainClassifyProgrammer_ctor_public reports whether a construct signature is
@@ -1334,43 +1381,62 @@ func plainClassifyProgrammer_seed_type(checker *shimchecker.Checker, sig *shimch
 // is the type itself. Mirrors the detection in plainClassifyProgrammer_initialize.
 func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, static *shimchecker.Type) *shimchecker.Type {
   checker := ctx.Checker
-  ctorSigs := checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)
-  fromSym := checker.GetPropertyOfType(static, "from")
-  if len(ctorSigs) == 0 && fromSym == nil {
+  if plainClassifyProgrammer_constructor_nature(checker, static) == false {
     return static
   }
+  ctorSigs := checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)
+  fromSym := checker.GetPropertyOfType(static, "from")
   instanceT := shimchecker.Checker_getTypeOfPropertyOfType(checker, static, "prototype")
   if instanceT == nil && len(ctorSigs) > 0 {
-    instanceT = checker.GetReturnTypeOfSignature(ctorSigs[0])
+    instanceT = checker.GetReturnTypeOfSignature(ctorSigs[len(ctorSigs)-1])
   }
   if instanceT == nil {
     instanceT = static
   }
-  if fromSym != nil && fromSym.ValueDeclaration != nil {
-    fnT := checker.GetTypeOfSymbolAtLocation(fromSym, fromSym.ValueDeclaration)
-    for _, sig := range checker.GetSignaturesOfType(fnT, shimchecker.SignatureKindCall) {
-      if !plainClassifyProgrammer_arity_ok(checker, sig) {
-        continue
-      }
-      nn := checker.GetNonNullableType(checker.GetReturnTypeOfSignature(sig))
-      if nn == nil || !checker.IsTypeAssignableTo(nn, instanceT) {
-        continue
-      }
-      if seedT := plainClassifyProgrammer_seed_type(checker, sig); seedT != nil {
+  // Return the SEED only when classify actually commits to from/new — i.e. the
+  // class value is locatable AND the seed metadata-analyzes — so assert/validate
+  // check exactly what classify decodes/constructs (else the field-copy instance
+  // shape).
+  if kind, seedT := plainClassifyProgrammer_choose_seed(checker, instanceT, ctorSigs, fromSym); kind != "" {
+    if plainClassifyProgrammer_class_ref(ctx, static, "") != nil {
+      r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
+        Checker:    checker,
+        Options:    plainClassifyProgrammer_options(),
+        Components: schemametadata.NewMetadataCollection(),
+        Type:       seedT,
+      })
+      if r.Success {
         return seedT
       }
-      break
-    }
-  }
-  for _, sig := range ctorSigs {
-    if !plainClassifyProgrammer_ctor_public(sig) || !plainClassifyProgrammer_arity_ok(checker, sig) {
-      continue
-    }
-    if seedT := plainClassifyProgrammer_seed_type(checker, sig); seedT != nil {
-      return seedT
     }
   }
   return instanceT
+}
+
+// plainClassifyProgrammer_constructor_nature reports whether `static` is a class
+// / constructor TYPE (typeof C) — the gate for the instance redirect and the
+// from/new strategy. It matches ClassInstanceType's `T extends Function`
+// requirement: a real class always has at least one construct signature (public,
+// private, or abstract), so a `from` member ALONE (on a plain object/interface
+// that is not callable) does not qualify and is field-copied whole.
+func plainClassifyProgrammer_constructor_nature(checker *shimchecker.Checker, static *shimchecker.Type) bool {
+  if static == nil {
+    return false
+  }
+  // a class TYPE (typeof C): its symbol is a class declaration. This holds even
+  // for a PRIVATE-constructor class (whose construct signature may be filtered
+  // by accessibility), so the static-factory arm still applies — Point.from.
+  if sym := static.Symbol(); sym != nil && sym.Flags&shimast.SymbolFlagsClass != 0 {
+    return true
+  }
+  // a constructor type without a class symbol (anonymous class, `new () => X`)
+  if len(checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)) != 0 {
+    return true
+  }
+  // a callable Function carrying a static `from` is still Function-like; a plain
+  // object/interface with only a `from` member is NOT (so it is field-copied)
+  return checker.GetPropertyOfType(static, "from") != nil &&
+    len(checker.GetSignaturesOfType(static, shimchecker.SignatureKindCall)) != 0
 }
 
 // plainClassifyProgrammer_class_ref builds the VALUE reference to the class:
