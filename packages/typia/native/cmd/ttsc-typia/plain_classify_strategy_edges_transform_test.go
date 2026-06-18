@@ -330,8 +330,8 @@ func plainClassifyRunNode(t *testing.T, project string, js string, runnerSrc str
 const plainClassifyUnboundAnonSource = `import typia from "typia";
 
 // An anonymous class expression with NO enclosing const binding (returned from a
-// factory). Its binder-internal name (__class) is not a usable runtime binding,
-// so classify must field-copy a plain {} rather than Object.create(__class…).
+// factory). Its binder-internal name is not a usable runtime binding, so classify
+// must field-copy a plain {} rather than reference that unbound name.
 const factory = () =>
   class {
     x!: number;
