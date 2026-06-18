@@ -32,12 +32,15 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
           emplace_metadata_object_is_default_export(props.Checker, sym, decl, src)
       }
       // A class EXPRESSION's symbol name is the inner `Beast` (`const X = class
-      // Beast {}`) or the binder-internal `__class`, neither of which binds at
-      // the classify call site; the runtime value is the enclosing `const X`.
-      // Capture X so the field-copy allocator references it. A class DECLARATION
-      // and an UNNAMED class expression (whose Name already resolves to the
-      // variable binding) leave this empty.
-      if decl.Kind == nativeast.KindClassExpression && decl.Name() != nil {
+      // Beast {}`) or the binder-internal `__class` (`const X = class {}`),
+      // neither of which binds at the classify call site; the runtime value is
+      // the enclosing `const X`. Capture X so the field-copy allocator (classRefOf)
+      // references it for BOTH named and unnamed expressions — the unnamed form's
+      // metadata Name can still surface the `__class` binder name, so do not rely
+      // on it. An expression with no enclosing variable binding leaves ValueRef
+      // empty (classRefOf falls back to the metadata Name). A class DECLARATION's
+      // Kind is not ClassExpression, so it is unaffected.
+      if decl.Kind == nativeast.KindClassExpression {
         obj.ValueRef = emplace_metadata_object_value_binding(decl)
       }
       // ES `#private` members are installed only by the constructor, so

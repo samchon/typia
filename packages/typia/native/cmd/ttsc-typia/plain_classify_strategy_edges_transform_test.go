@@ -47,7 +47,8 @@ func TestPlainClassifyStrategyEdgesTransform(t *testing.T) {
 // throw "Cannot read private member" at runtime.
 func TestPlainClassifyPrivateFieldRejected(t *testing.T) {
   project := plainClassifyPrivateProject(t)
-  _, errText, code := ttscTypiaTestCapture(func() int {
+  t.Setenv("CLASSIFY_PRIVDBG", "1")
+  out, errText, code := ttscTypiaTestCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -56,7 +57,7 @@ func TestPlainClassifyPrivateFieldRejected(t *testing.T) {
     })
   })
   if code == 0 {
-    t.Fatalf("a nested #private-field class must be rejected at transform time, but the transform succeeded")
+    t.Fatalf("a nested #private-field class must be rejected at transform time, but the transform succeeded\n=== PRIVDBG (stderr) ===\n%s\n=== emitted ===\n%s", errText, out)
   }
   if !strings.Contains(errText, "#private") && !strings.Contains(errText, "private") {
     t.Fatalf("the rejection must mention the #private fields; got:\n%s", errText)
