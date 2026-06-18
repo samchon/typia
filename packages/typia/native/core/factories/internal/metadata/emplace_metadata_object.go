@@ -211,6 +211,12 @@ func emplace_metadata_object_private_fields(checker *nativechecker.Checker, typ 
       }
     }
   }
+  // The `extends` chain — only for a CLASS/INTERFACE object type, since
+  // Checker_getBaseTypes is defined only for those; calling it on a union /
+  // primitive / other type panics (cf. iterate_metadata_array's same guard).
+  if typ.ObjectFlags()&nativechecker.ObjectFlagsClassOrInterface == 0 {
+    return false
+  }
   for _, base := range nativechecker.Checker_getBaseTypes(checker, typ) {
     if emplace_metadata_object_private_fields(checker, base, visited) {
       return true
