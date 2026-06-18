@@ -94,7 +94,9 @@ type ClassifiableInput<T> = [ClassifiableFactory<T>] extends [never]
 // a `prototype` field — a class constructor has no call signature, so it passes.
 // `IsAny` rejects a plain function (whose `prototype` is `any`) and the `object`
 // guard a non-object `prototype`.
-type ClassInstanceType<T> = T extends abstract new (...args: any) => infer I
+export type ClassInstanceType<T> = T extends abstract new (
+  ...args: any
+) => infer I
   ? I
   : T extends Function
     ? T extends (...args: any) => any
@@ -287,3 +289,23 @@ type ClassifiableTuple<T extends readonly any[]> = T extends []
         : T extends [(infer F)?, ...infer Rest extends readonly any[]]
           ? [ClassifiableMain<F>?, ...ClassifiableTuple<Rest>]
           : [];
+
+/**
+ * The value `typia.plain.classify<T>` returns: a real instance.
+ *
+ * For a **class** type (`typeof C`) classify reconstructs and returns the
+ * INSTANCE `C` (via `from`/`new`/field copy), so the result is
+ * {@link ClassInstanceType}, not the constructor `typeof C`. For an instance
+ * type or any non-class type, `ClassInstanceType` is `never`, so the result is
+ * `T` unchanged — the common `classify<User>` call still returns `User`. The
+ * conditional distributes over a union so a mixed `typeof A | number` maps
+ * per-member to `A | number`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target class (or instance) type to classify into
+ */
+export type ClassifyResult<T> = T extends any
+  ? [ClassInstanceType<T>] extends [never]
+    ? T
+    : ClassInstanceType<T>
+  : never;

@@ -5,7 +5,12 @@
       - CLASSIFY
       - FACTORY FUNCTIONS
 =========================================================== */
-import { Classifiable, IValidation, Resolved } from "@typia/interface";
+import {
+  Classifiable,
+  ClassifyResult,
+  IValidation,
+  Resolved,
+} from "@typia/interface";
 
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
@@ -264,7 +269,7 @@ export function validatePrune<T>(): IValidation<T> {
  * @param input Plain data to classify
  * @returns A real instance of type `T`
  */
-export function classify<T>(input: Classifiable<T>): T;
+export function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
 
 /** @internal */
 export function classify(): never {
@@ -293,13 +298,13 @@ export function classify(): never {
 export function assertClassify<T>(
   input: Classifiable<T>,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): T;
+): ClassifyResult<T>;
 
 /** @internal */
 export function assertClassify<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): T;
+): ClassifyResult<T>;
 
 /** @internal */
 export function assertClassify(): never {
@@ -322,10 +327,14 @@ export function assertClassify(): never {
  * @param input Plain data to validate and classify
  * @returns Validation result containing the instance or errors
  */
-export function validateClassify<T>(input: Classifiable<T>): IValidation<T>;
+export function validateClassify<T>(
+  input: Classifiable<T>,
+): IValidation<ClassifyResult<T>>;
 
 /** @internal */
-export function validateClassify<T>(input: unknown): IValidation<T>;
+export function validateClassify<T>(
+  input: unknown,
+): IValidation<ClassifyResult<T>>;
 
 /** @internal */
 export function validateClassify(): never {
@@ -526,7 +535,9 @@ export function createClassify(): never;
  * @template T Target class type to reconstruct
  * @returns Reusable classify function
  */
-export function createClassify<T>(): (input: Classifiable<T>) => T;
+export function createClassify<T>(): (
+  input: Classifiable<T>,
+) => ClassifyResult<T>;
 
 /** @internal */
 export function createClassify(): never {
@@ -552,7 +563,7 @@ export function createAssertClassify(
  */
 export function createAssertClassify<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => T;
+): (input: unknown) => ClassifyResult<T>;
 
 /** @internal */
 export function createAssertClassify(): never {
@@ -572,7 +583,9 @@ export function createValidateClassify(): never;
  * @template T Target class type to reconstruct
  * @returns Reusable classify function
  */
-export function createValidateClassify<T>(): (input: unknown) => IValidation<T>;
+export function createValidateClassify<T>(): (
+  input: unknown,
+) => IValidation<ClassifyResult<T>>;
 
 /** @internal */
 export function createValidateClassify(): never {
