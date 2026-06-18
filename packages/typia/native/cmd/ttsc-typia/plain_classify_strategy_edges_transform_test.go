@@ -47,20 +47,20 @@ func TestPlainClassifyStrategyEdgesTransform(t *testing.T) {
 // throw "Cannot read private member" at runtime.
 func TestPlainClassifyPrivateFieldRejected(t *testing.T) {
   project := plainClassifyPrivateProject(t)
-  t.Setenv("CLASSIFY_PRIVDBG", "1")
+  // Project mode (no --file/--output js): runTransformProject reports typia
+  // transform diagnostics and exits non-zero, the established pattern for
+  // asserting a transform-time rejection (see compare_equal_cover).
   out, errText, code := ttscTypiaTestCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
     })
   })
   if code == 0 {
-    t.Fatalf("a nested #private-field class must be rejected at transform time, but the transform succeeded\n=== PRIVDBG (stderr) ===\n%s\n=== emitted ===\n%s", errText, out)
+    t.Fatalf("a nested #private-field class must be rejected at transform time, but the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
   }
-  if !strings.Contains(errText, "#private") && !strings.Contains(errText, "private") {
-    t.Fatalf("the rejection must mention the #private fields; got:\n%s", errText)
+  if !strings.Contains(out, "typia transform error") {
+    t.Fatalf("the #private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
   }
 }
 

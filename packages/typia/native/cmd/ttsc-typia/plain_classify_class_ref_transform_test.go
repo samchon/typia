@@ -186,7 +186,7 @@ export class Container<T> {
   }
 }
 
-// unnamed class expression -> const binding Animal (symbol name is __class)
+// unnamed class expression -> reconstructed via the const binding Animal
 export const Animal = class {
   name!: string;
   constructor(seed?: { name: string }) {

@@ -2,7 +2,6 @@ package plain
 
 import (
   "fmt"
-  "os"
   "path/filepath"
   "strings"
 
@@ -1351,11 +1350,6 @@ func plainClassifyProgrammer_initialize(
   constructed := map[*schemametadata.MetadataObjectType]bool{}
   if strategy != nil && len(result.Data.Objects) == 1 {
     constructed[result.Data.Objects[0].Type] = true
-  }
-  if os.Getenv("CLASSIFY_PRIVDBG") != "" {
-    for _, obj := range collection.Objects() {
-      fmt.Fprintf(os.Stderr, "PRIVDBG obj=%q private=%v constructed=%v props=%d\n", obj.GetDisplayName(), obj.PrivateFields, constructed[obj], len(obj.Properties))
-    }
   }
   for _, obj := range collection.Objects() {
     if obj.PrivateFields && !constructed[obj] {
