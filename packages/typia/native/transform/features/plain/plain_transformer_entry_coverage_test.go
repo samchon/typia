@@ -39,6 +39,12 @@ func TestPlainTransformerEntryCoverage(t *testing.T) {
     func() { PlainCreateAssertPruneTransformer.Transform(props) },
     func() { PlainCreateIsPruneTransformer.Transform(props) },
     func() { PlainCreateValidatePruneTransformer.Transform(props) },
+    func() { PlainClassifyTransformer.Transform(props) },
+    func() { PlainAssertClassifyTransformer.Transform(props) },
+    func() { PlainValidateClassifyTransformer.Transform(props) },
+    func() { PlainCreateClassifyTransformer.Transform(props) },
+    func() { PlainCreateAssertClassifyTransformer.Transform(props) },
+    func() { PlainCreateValidateClassifyTransformer.Transform(props) },
   } {
     expectPlainPanic(t, run)
   }

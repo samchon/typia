@@ -13,6 +13,7 @@ tru = "tru"
 fals = "fals"
 INPU = "INPU"
 INOT = "INOT"
+yiu = "yiu"
 
 [files]
 extend-exclude = [

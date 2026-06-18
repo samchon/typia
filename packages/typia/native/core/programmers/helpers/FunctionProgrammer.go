@@ -31,6 +31,13 @@ type FunctionProgrammer struct {
   // factory when present so generated `const` validators carry original-node
   // tracking; nil falls back to the standalone factory (legacy / test paths).
   emit_ *shimprinter.EmitContext
+  // isPrefix_ is the is-check helper namespace plain.classify's NESTED
+  // discriminations emit under. "" / "_i" for the unvalidated path; "_yi" for
+  // the validated path (whose __assert side already owns "_i" from a separate
+  // collection, so classify's own checks must not collide with it). Carried on
+  // the per-function programmer so the recursive decode/explore helpers thread
+  // it without per-call plumbing; ignored by every non-classify programmer.
+  isPrefix_ string
 }
 
 type functionProgrammer_union struct {
@@ -69,6 +76,16 @@ func (p *FunctionProgrammer) SetVisited(value bool) {
 
 func (p *FunctionProgrammer) Visited() bool {
   return p.visited_
+}
+
+func (p *FunctionProgrammer) SetIsPrefix(prefix string) {
+  p.isPrefix_ = prefix
+}
+
+// IsPrefix returns the is-check helper namespace classify's nested
+// discriminations emit under ("" => the default "_i"). See isPrefix_.
+func (p *FunctionProgrammer) IsPrefix() string {
+  return p.isPrefix_
 }
 
 func (p *FunctionProgrammer) HasLocal(name string) bool {

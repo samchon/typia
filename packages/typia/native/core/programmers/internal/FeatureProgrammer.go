@@ -49,6 +49,11 @@ type FeatureProgrammer_VisitGuardProps struct {
   Key   string
   Input *shimast.Expression
   Body  *shimast.Node
+  // Object is the recursive object being guarded, so a feature's VisitGuard can
+  // choose a prototype-bearing allocator (classify: Object.create(Name.prototype)
+  // for a named class, matching ClassifyJoiner.Object). nil keeps the legacy
+  // plain-container ({}/[]) behavior used by clone, notation, and the rest.
+  Object *nativemetadata.MetadataObjectType
 }
 
 type FeatureProgrammer_IConfig_ITypes struct {
@@ -391,11 +396,24 @@ func (featureProgrammerNamespace) VisitGuardSerialize(key string, thrower *shima
 // filling) instance, exactly like the structured-clone algorithm.
 func (featureProgrammerNamespace) VisitGuardRebuild(key string, array bool, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
-  slot := "_vctx." + key
   allocator := f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
   if array {
     allocator = f.NewArrayLiteralExpression(f.NewNodeList(nil), false)
   }
+  return FeatureProgrammer.VisitGuardRebuildWith(key, allocator, body, emit)
+}
+
+// VisitGuardRebuildWith is VisitGuardRebuild with a caller-supplied output
+// container. clone/notation pass a plain {} (or [] for arrays); classify passes
+// Object.create(<Class>.prototype) for a named class so the WeakMap-registered
+// instance carries the right prototype — `x instanceof Class` then holds even on
+// the recursive arm, where the joiner body's own (unregistered) instance is
+// merged onto this allocator by Object.assign and discarded. The allocator
+// registers in the WeakMap BEFORE the body evaluates, so a back-reference
+// inside the body resolves to this same (still filling) instance.
+func (featureProgrammerNamespace) VisitGuardRebuildWith(key string, allocator *shimast.Node, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
+  slot := "_vctx." + key
   filler := f.NewArrowFunction(
     nil,
     nil,
@@ -1057,9 +1075,10 @@ func featureProgrammer_write_object_functions(config FeatureProgrammer_IConfig, 
     }
     if object.Recursive && config.VisitGuard != nil && featureProgrammer_visited(config) {
       body = config.VisitGuard(FeatureProgrammer_VisitGuardProps{
-        Key:   FeatureProgrammer.VisitKey(config.Prefix, "o", object.Index),
-        Input: input,
-        Body:  body,
+        Key:    FeatureProgrammer.VisitKey(config.Prefix, "o", object.Index),
+        Input:  input,
+        Body:   body,
+        Object: object,
       })
     }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
