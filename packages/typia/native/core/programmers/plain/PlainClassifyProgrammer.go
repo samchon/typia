@@ -35,36 +35,52 @@ type PlainClassifyProgrammer_DecomposeProps struct {
 
 const plainClassifyProgrammer_PREFIX = "_y"
 
+// is-check helper namespaces for the union construction ladder. The UNVALIDATED
+// path reuses the sole "_i" IsProgrammer namespace. The VALIDATED path must NOT
+// reuse it: assert/validateClassify already emit _io<i>/_iu<i> for __assert from
+// a SEPARATE collection (built over GetUnionType(seeds), which may reorder/dedup),
+// so the construction ladder — which indexes by the CLASSIFY collection — would
+// reference a divergent index. "_yi" gives __classify its own helpers, emitted
+// and referenced from the one classify collection, disjoint from "_i" (assert)
+// and from the "_y" classify joiners (_yo<i>/_yu<i>): "_yi"+"o"+i = _yio<i>.
+const plainClassifyProgrammer_IS_PREFIX = "_i"
+const plainClassifyProgrammer_IS_PREFIX_VALIDATED = "_yi"
+
 var plainClassifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
 func (plainClassifyProgrammerNamespace) Decompose(props PlainClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, props.Context.Emit)
-  config := plainClassifyProgrammer_configure(struct {
-    Context nativecontext.ITypiaContext
-    Functor *nativehelpers.FunctionProgrammer
-    Modulo  *shimast.Node
-  }{
-    Context: props.Context,
-    Functor: props.Functor,
-    Modulo:  props.Modulo,
-  })
   // The union construction ladder discriminates members with IsProgrammer.Decode
-  // (_io<index> calls), so those is-check helpers must exist in the classify
-  // function's IIFE. Emit them via the Addition ONLY for the unvalidated path: a
-  // plain `classify` / `createClassify` has no other source for them (a non-union
-  // field-copy references none, so the Addition is a harmless no-op there). The
-  // validated variant (assert/validateClassify) ALREADY emits the very same
-  // _io<index>/_iu<index> helpers into the same IIFE for its __assert checker, and
-  // the construction __classify references those — so adding them here too would
-  // redeclare each ("Identifier '_io0' has already been declared").
-  if props.Validated == false {
-    config.Addition = func(collection *schemametadata.MetadataCollection) []*shimast.Node {
-      return nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
-        Context:    props.Context,
-        Functor:    props.Functor,
-        Collection: collection,
-      })
-    }
+  // (is-check helper calls), so those helpers must exist in the classify IIFE,
+  // emitted via the Addition. UNVALIDATED uses the sole "_i" namespace (a non-union
+  // field-copy references none, so the Addition is a harmless no-op). VALIDATED
+  // must NOT reuse "_i": __assert already emits _io<i>/_iu<i> from a SEPARATE
+  // collection that GetUnionType may reorder/dedup, so the ladder's classify-
+  // collection indices would diverge from the emitted ones (ReferenceError / wrong
+  // class). The validated ladder therefore emits and references its OWN helpers
+  // under "_yi" (=> _yio<i>/_yiu<i>), disjoint from "_i" and the "_y" joiners.
+  isPrefix := plainClassifyProgrammer_IS_PREFIX
+  if props.Validated {
+    isPrefix = plainClassifyProgrammer_IS_PREFIX_VALIDATED
+  }
+  config := plainClassifyProgrammer_configure(struct {
+    Context  nativecontext.ITypiaContext
+    Functor  *nativehelpers.FunctionProgrammer
+    Modulo   *shimast.Node
+    IsPrefix string
+  }{
+    Context:  props.Context,
+    Functor:  props.Functor,
+    Modulo:   props.Modulo,
+    IsPrefix: isPrefix,
+  })
+  config.Addition = func(collection *schemametadata.MetadataCollection) []*shimast.Node {
+    return nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
+      Context:    props.Context,
+      Functor:    props.Functor,
+      Collection: collection,
+      Prefix:     isPrefix,
+    })
   }
   composed := nativeinternal.FeatureProgrammer.Compose(nativeinternal.FeatureProgrammer_ComposeProps{
     Context: props.Context,
@@ -920,9 +936,10 @@ func plainClassifyProgrammer_explore_objects(props plainClassifyProgrammer_explo
 }
 
 func plainClassifyProgrammer_configure(props struct {
-  Context nativecontext.ITypiaContext
-  Functor *nativehelpers.FunctionProgrammer
-  Modulo  *shimast.Node
+  Context  nativecontext.ITypiaContext
+  Functor  *nativehelpers.FunctionProgrammer
+  Modulo   *shimast.Node
+  IsPrefix string
 }) nativeinternal.FeatureProgrammer_IConfig {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, props.Context.Emit)
   config := nativeinternal.FeatureProgrammer_IConfig{}
@@ -1060,7 +1077,7 @@ func plainClassifyProgrammer_configure(props struct {
         // the no-match fallback: return the input unchanged. Decoding next.Metadata
         // here would walk the static class sides (their `from`/`prototype` members),
         // emitting a bundled-lib require and plainCloneAny — broken at runtime.
-        return plainClassifyProgrammer_construct_union(props.Context, config, props.Functor, next.Input, next.Explore, unionMembers, next.Input)
+        return plainClassifyProgrammer_construct_union(props.Context, config, props.Functor, next.Input, next.Explore, unionMembers, next.Input, props.IsPrefix)
       }
       var st *plainClassifyProgrammer_strategy
       if len(next.Metadata.Objects) == 1 {
@@ -1881,15 +1898,20 @@ func plainClassifyProgrammer_construct_union(
   explore nativeinternal.FeatureProgrammer_IExplore,
   members []plainClassifyProgrammer_member,
   tail *shimast.Node,
+  isPrefix string,
 ) *shimast.Node {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, ctx.Emit)
   statements := []*shimast.Node{}
   for _, member := range members {
+    // isPrefix is "_i" (unvalidated) or "_yi" (validated). The validated ladder
+    // emits its OWN _yio<i>/_yiu<i> from the classify collection so these checks
+    // line up with the Addition's helpers, not the assert side's reordered _io<i>.
     isCheck := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
       Context:  ctx,
       Functor:  functor,
       Metadata: member.Seed,
       Input:    input,
+      Prefix:   isPrefix,
       Explore: nativeinternal.CheckerProgrammer_IExplore{
         Tracable: explore.Tracable,
         Source:   explore.Source,

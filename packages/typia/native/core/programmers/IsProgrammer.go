@@ -54,6 +54,12 @@ type IsProgrammer_WriteFunctionStatementsProps struct {
   Context    nativecontext.ITypiaContext
   Functor    *nativehelpers.FunctionProgrammer
   Collection *nativemetadata.MetadataCollection
+  // Prefix overrides the is-helper namespace ("" => the default "_i"). Used by
+  // plain.classify's VALIDATED union construction, which emits its OWN is-check
+  // helpers under "_yi" so the construction ladder references them by the
+  // classify collection's index — disjoint from the assert/validate side's "_i"
+  // (whose helpers come from a SEPARATE collection that may reorder/dedup).
+  Prefix string
 }
 
 type IsProgrammer_DecodeProps struct {
@@ -62,6 +68,11 @@ type IsProgrammer_DecodeProps struct {
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
   Explore  nativeinternal.CheckerProgrammer_IExplore
+  // Prefix overrides the is-helper namespace ("" => the default "_i"). See
+  // IsProgrammer_WriteFunctionStatementsProps.Prefix — the classify validated
+  // union ladder passes "_yi" so its _yio<i>/_yiu<i> references line up with the
+  // helpers its own Addition emits, not the assert side's _io<i>.
+  Prefix string
 }
 
 type IsProgrammer_DecodeObjectProps struct {
@@ -244,6 +255,9 @@ func (isProgrammerNamespace) Write_function_statements(props IsProgrammer_WriteF
     Context nativecontext.ITypiaContext
     Functor *nativehelpers.FunctionProgrammer
   }{Options: nil, Context: props.Context, Functor: props.Functor})
+  if props.Prefix != "" {
+    config.Prefix = props.Prefix
+  }
   next := nativeinternal.CheckerProgrammer_WriteObjectFunctionsProps{
     Context:    props.Context,
     Config:     config,
@@ -280,13 +294,17 @@ func (isProgrammerNamespace) Write_function_statements(props IsProgrammer_WriteF
 }
 
 func (isProgrammerNamespace) Decode(props IsProgrammer_DecodeProps) *shimast.Node {
+  config := IsProgrammer.Configure(struct {
+    Options *IsProgrammer_CONFIG_IOptions
+    Context nativecontext.ITypiaContext
+    Functor *nativehelpers.FunctionProgrammer
+  }{Options: nil, Context: props.Context, Functor: props.Functor})
+  if props.Prefix != "" {
+    config.Prefix = props.Prefix
+  }
   return nativeinternal.CheckerProgrammer.Decode(nativeinternal.CheckerProgrammer_DecodeProps{
-    Context: props.Context,
-    Config: IsProgrammer.Configure(struct {
-      Options *IsProgrammer_CONFIG_IOptions
-      Context nativecontext.ITypiaContext
-      Functor *nativehelpers.FunctionProgrammer
-    }{Options: nil, Context: props.Context, Functor: props.Functor}),
+    Context:  props.Context,
+    Config:   config,
     Functor:  props.Functor,
     Metadata: props.Metadata,
     Input:    props.Input,
