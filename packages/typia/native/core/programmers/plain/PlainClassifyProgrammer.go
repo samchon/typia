@@ -926,6 +926,10 @@ func plainClassifyProgrammer_configure(props struct {
   // has no single object to key by. callFile anchors cross-module class imports.
   strategies := map[*schemametadata.MetadataObjectType]*plainClassifyProgrammer_strategy{}
   var topStrategy *plainClassifyProgrammer_strategy
+  // ordered arms of a class-TYPE UNION target (typeof A | typeof B); empty for a
+  // single (non-union) target, which keeps the strategies[]/topStrategy path
+  // below byte-identical.
+  var unionMembers []plainClassifyProgrammer_member
   callFile := ""
   if props.Modulo != nil {
     if src := shimast.GetSourceFileOfNode(props.Modulo); src != nil {
@@ -981,12 +985,15 @@ func plainClassifyProgrammer_configure(props struct {
   config.Trace = false
   config.Path = false
   config.Initializer = func(p nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
-    out, st := plainClassifyProgrammer_initialize(p, callFile, props.Modulo)
+    out, st, members := plainClassifyProgrammer_initialize(p, callFile, props.Modulo)
     if st != nil {
       topStrategy = st
       if len(out.Metadata.Objects) == 1 {
         strategies[out.Metadata.Objects[0].Type] = st
       }
+    }
+    if len(members) != 0 {
+      unionMembers = members
     }
     return out
   }
@@ -1025,6 +1032,26 @@ func plainClassifyProgrammer_configure(props struct {
     // _yo<index> joiner — keeps a self-referential class field-copying at nested
     // positions while still constructing at the root.
     if next.Explore.From == "top" {
+      // class-TYPE UNION: discriminate the input and construct the matched member
+      // (the tail = the ordinary union decode lets non-class members pass through).
+      if len(unionMembers) != 0 {
+        tail := plainClassifyProgrammer_decode(struct {
+          Context  nativecontext.ITypiaContext
+          Config   nativeinternal.FeatureProgrammer_IConfig
+          Functor  *nativehelpers.FunctionProgrammer
+          Input    *shimast.Node
+          Metadata *schemametadata.MetadataSchema
+          Explore  nativeinternal.FeatureProgrammer_IExplore
+        }{
+          Context:  props.Context,
+          Config:   config,
+          Functor:  props.Functor,
+          Input:    next.Input,
+          Metadata: next.Metadata,
+          Explore:  next.Explore,
+        })
+        return plainClassifyProgrammer_construct_union(props.Context, config, props.Functor, next.Input, next.Explore, unionMembers, tail)
+      }
       var st *plainClassifyProgrammer_strategy
       if len(next.Metadata.Objects) == 1 {
         st = strategies[next.Metadata.Objects[0].Type]
@@ -1200,7 +1227,7 @@ func plainClassifyProgrammer_initialize(
   props nativeinternal.FeatureProgrammer_InitializerProps,
   callFile string,
   modulo *shimast.Node,
-) (nativeinternal.FeatureProgrammer_InitializerOutput, *plainClassifyProgrammer_strategy) {
+) (nativeinternal.FeatureProgrammer_InitializerOutput, *plainClassifyProgrammer_strategy, []plainClassifyProgrammer_member) {
   _ = modulo
   checker := props.Context.Checker
   static := props.Type
@@ -1250,13 +1277,23 @@ func plainClassifyProgrammer_initialize(
     strategy = plainClassifyProgrammer_detect_strategy(props.Context, static, instanceT, ctorSigs, fromSym, collection, callFile)
   }
 
+  // For a class-TYPE UNION (typeof A | typeof B) constructor_nature(union) is
+  // false (no single class symbol / no common construct signature), so the
+  // single strategy above is nil and the field-copy fallback would lose each
+  // member's construction. Detect a per-member strategy instead; the root decode
+  // emits a discriminated construction ladder over them.
+  var members []plainClassifyProgrammer_member
+  if static.IsUnion() {
+    members = plainClassifyProgrammer_union_members(props.Context, static, collection, callFile)
+  }
+
   if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
     props.Functor.SetVisited(true)
   }
   return nativeinternal.FeatureProgrammer_InitializerOutput{
     Collection: collection,
     Metadata:   result.Data,
-  }, strategy
+  }, strategy, members
 }
 
 // plainClassifyProgrammer_detect_strategy applies the precedence from -> new ->
@@ -1384,6 +1421,33 @@ func plainClassifyProgrammer_seed_type(checker *shimchecker.Checker, sig *shimch
 // is the type itself. Mirrors the detection in plainClassifyProgrammer_initialize.
 func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, static *shimchecker.Type) *shimchecker.Type {
   checker := ctx.Checker
+  // class-TYPE UNION: assert/validate must check the SEED union (seedA | seedB |
+  // ...non-class members...), not the constructor union typeof A | typeof B —
+  // else every valid seed is rejected. Distribute per member like classify does.
+  if static != nil && static.IsUnion() {
+    seeds := []*shimchecker.Type{}
+    for _, member := range static.Types() {
+      if !plainClassifyProgrammer_constructor_nature(checker, member) {
+        seeds = append(seeds, member)
+        continue
+      }
+      ctorSigs := checker.GetSignaturesOfType(member, shimchecker.SignatureKindConstruct)
+      fromSym := checker.GetPropertyOfType(member, "from")
+      instanceT := shimchecker.Checker_getTypeOfPropertyOfType(checker, member, "prototype")
+      if instanceT == nil && len(ctorSigs) > 0 {
+        instanceT = checker.GetReturnTypeOfSignature(ctorSigs[len(ctorSigs)-1])
+      }
+      if instanceT == nil {
+        instanceT = member
+      }
+      if kind, seedT := plainClassifyProgrammer_choose_seed(checker, instanceT, ctorSigs, fromSym); kind != "" {
+        seeds = append(seeds, seedT)
+      } else {
+        seeds = append(seeds, instanceT)
+      }
+    }
+    return checker.GetUnionType(seeds)
+  }
   if plainClassifyProgrammer_constructor_nature(checker, static) == false {
     return static
   }
@@ -1521,6 +1585,126 @@ func plainClassifyProgrammer_construct(
     call = f.NewNewExpression(st.ClassRef, nil, f.NewNodeList([]*shimast.Node{decoded}))
   }
   return f.NewAsExpression(call, nativefactories.TypeFactory.Keyword("any", ctx.Emit))
+}
+
+// plainClassifyProgrammer_member is one arm of a class-TYPE UNION target
+// (typeof A | typeof B): the input shape used to discriminate the value at
+// runtime (Seed) and how to build the matched class — Strategy non-nil runs
+// from/new, nil field-copies the instance shape.
+type plainClassifyProgrammer_member struct {
+  Seed     *schemametadata.MetadataSchema
+  Strategy *plainClassifyProgrammer_strategy
+}
+
+// plainClassifyProgrammer_union_members detects, per CLASS member of a union
+// target, its construction strategy (from/new) or field-copy, plus the seed /
+// instance-shape metadata used to discriminate the input. Non-class members
+// (e.g. `number` in `typeof A | number`) are omitted — they fall through to the
+// ordinary union-decode tail. Each member's seed/shape is analyzed into the
+// shared collection so its decode helpers are emitted. Members keep declaration
+// order; the runtime ladder is first-match-wins, matching how typia's is/validate
+// resolve a structurally ambiguous union.
+func plainClassifyProgrammer_union_members(
+  ctx nativecontext.ITypiaContext,
+  static *shimchecker.Type,
+  collection *schemametadata.MetadataCollection,
+  callFile string,
+) []plainClassifyProgrammer_member {
+  checker := ctx.Checker
+  members := []plainClassifyProgrammer_member{}
+  for _, member := range static.Types() {
+    if !plainClassifyProgrammer_constructor_nature(checker, member) {
+      continue
+    }
+    ctorSigs := checker.GetSignaturesOfType(member, shimchecker.SignatureKindConstruct)
+    fromSym := checker.GetPropertyOfType(member, "from")
+    instanceT := shimchecker.Checker_getTypeOfPropertyOfType(checker, member, "prototype")
+    if instanceT == nil && len(ctorSigs) > 0 {
+      instanceT = checker.GetReturnTypeOfSignature(ctorSigs[len(ctorSigs)-1])
+    }
+    if instanceT == nil {
+      instanceT = member
+    }
+    if st := plainClassifyProgrammer_detect_strategy(ctx, member, instanceT, ctorSigs, fromSym, collection, callFile); st != nil {
+      members = append(members, plainClassifyProgrammer_member{Seed: st.Seed, Strategy: st})
+      continue
+    }
+    // field-copy member: analyze its INSTANCE shape into the collection and
+    // discriminate / reconstruct on that shape (not the static side).
+    r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
+      Checker:    checker,
+      Options:    plainClassifyProgrammer_options(),
+      Components: collection,
+      Type:       instanceT,
+    })
+    if r.Success {
+      members = append(members, plainClassifyProgrammer_member{Seed: r.Data, Strategy: nil})
+    }
+  }
+  return members
+}
+
+// plainClassifyProgrammer_construct_union emits the root construction for a union
+// of class types: a first-match ladder over the ordered members —
+// `if (is<seedA>(input)) return A.from/new(...); if (is<seedB>(input)) return ...`
+// — then a TAIL that runs the ordinary union decode, so a mixed `typeof A |
+// number` lets the non-class members (42) pass through unchanged. The whole thing
+// is an IIFE arrow (an EXPRESSION, never a bare Block).
+func plainClassifyProgrammer_construct_union(
+  ctx nativecontext.ITypiaContext,
+  config nativeinternal.FeatureProgrammer_IConfig,
+  functor *nativehelpers.FunctionProgrammer,
+  input *shimast.Node,
+  explore nativeinternal.FeatureProgrammer_IExplore,
+  members []plainClassifyProgrammer_member,
+  tail *shimast.Node,
+) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, ctx.Emit)
+  statements := []*shimast.Node{}
+  for _, member := range members {
+    isCheck := nativeprogrammers.IsProgrammer.Decode(nativeprogrammers.IsProgrammer_DecodeProps{
+      Context:  ctx,
+      Functor:  functor,
+      Metadata: member.Seed,
+      Input:    input,
+      Explore: nativeinternal.CheckerProgrammer_IExplore{
+        Tracable: explore.Tracable,
+        Source:   explore.Source,
+        From:     "object",
+        Postfix:  explore.Postfix,
+        Start:    explore.Start,
+      },
+    })
+    var value *shimast.Node
+    if member.Strategy != nil {
+      value = plainClassifyProgrammer_construct(ctx, config, functor, input, member.Strategy)
+    } else {
+      value = plainClassifyProgrammer_decode(struct {
+        Context  nativecontext.ITypiaContext
+        Config   nativeinternal.FeatureProgrammer_IConfig
+        Functor  *nativehelpers.FunctionProgrammer
+        Input    *shimast.Node
+        Metadata *schemametadata.MetadataSchema
+        Explore  nativeinternal.FeatureProgrammer_IExplore
+      }{
+        Context:  ctx,
+        Config:   config,
+        Functor:  functor,
+        Input:    input,
+        Metadata: member.Seed,
+        Explore: nativeinternal.FeatureProgrammer_IExplore{
+          Tracable: explore.Tracable,
+          Source:   "object",
+          From:     "object",
+          Postfix:  explore.Postfix,
+          Start:    explore.Start,
+        },
+      })
+    }
+    statements = append(statements, f.NewIfStatement(isCheck, f.NewReturnStatement(value), nil))
+  }
+  statements = append(statements, f.NewReturnStatement(tail))
+  return nativefactories.ExpressionFactory.SelfCall(ctx.Emit, f.NewBlock(f.NewNodeList(statements), true))
 }
 
 type plainClassifyProgrammer_throwProps struct {
