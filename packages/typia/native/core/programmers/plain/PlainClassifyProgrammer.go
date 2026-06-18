@@ -48,7 +48,12 @@ func (plainClassifyProgrammerNamespace) Decompose(props PlainClassifyProgrammer_
     Functor: props.Functor,
     Modulo:  props.Modulo,
   })
-  if props.Validated == false {
+  // The is-check helpers (_io<index>) are emitted into the classify function for
+  // the unvalidated path, and ALSO for a class-type union (even when validated):
+  // the union construction ladder discriminates members with IsProgrammer.Decode,
+  // which calls those helpers, so they must be defined in the classify function
+  // — the validating variant's own checkers live in a separate function.
+  if props.Validated == false || (props.Type != nil && props.Type.IsUnion()) {
     config.Addition = func(collection *schemametadata.MetadataCollection) []*shimast.Node {
       return nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
         Context:    props.Context,
