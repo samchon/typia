@@ -924,7 +924,31 @@ func plainClassifyProgrammer_configure(props struct {
   config.Initializer = plainClassifyProgrammer_initializer
   config.Visited = props.Functor.Visited
   config.VisitGuard = func(next nativeinternal.FeatureProgrammer_VisitGuardProps) *shimast.Node {
-    return nativeinternal.FeatureProgrammer.VisitGuardRebuild(next.Key, false, next.Body, props.Context.Emit)
+    // The recursion guard registers its allocator in the WeakMap as the
+    // canonical output for a revisited input, so for a named class it must be a
+    // prototype-bearing instance — otherwise Object.assign onto a plain {} drops
+    // the prototype and `x instanceof Class` fails on the recursive arm. Mirror
+    // ClassifyJoiner.Object's literal/named split (same *MetadataObjectType
+    // pointer, so IsLiteral() agrees): Object.create(<Name>.prototype) for a
+    // named class, {} for a literal/anonymous shape. The class is referenced by
+    // bare identifier (lexical scope); cross-module support arrives with the
+    // from/new Importer.Instance slice, which must update this allocator AND
+    // ClassifyJoiner.Object together.
+    var allocator *shimast.Node
+    if next.Object != nil && !next.Object.IsLiteral() {
+      allocator = f.NewCallExpression(
+        f.NewIdentifier("Object.create"),
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, f.NewIdentifier(next.Object.Name), "prototype"),
+        }),
+        shimast.NodeFlagsNone,
+      )
+    } else {
+      allocator = f.NewObjectLiteralExpression(f.NewNodeList(nil), false)
+    }
+    return nativeinternal.FeatureProgrammer.VisitGuardRebuildWith(next.Key, allocator, next.Body, props.Context.Emit)
   }
   config.Decoder = func(next nativeinternal.FeatureProgrammer_DecoderProps) *shimast.Node {
     return plainClassifyProgrammer_decode(struct {

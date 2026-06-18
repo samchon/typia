@@ -168,6 +168,16 @@ assert(node instanceof mod.Node, "node should be a Node instance");
 assert(node.next instanceof mod.Node, "node.next should be a Node instance");
 assert(node.next.next.value === 3, "deep recursion should preserve the leaf value");
 
+// (2b) a TRUE self-cycle rebuilds as a cyclic instance graph: the WeakMap-
+// registered allocator must be the prototyped instance, else either instanceof
+// fails or the back-reference does not close the cycle.
+const cyclic = { value: 7 };
+cyclic.next = cyclic;
+const rebuilt = mod.classifyNode(cyclic);
+assert(rebuilt instanceof mod.Node, "cyclic node should be a Node instance");
+assert(rebuilt.next === rebuilt, "self-cycle should rebuild as a self-reference");
+assert(rebuilt.value === 7, "cyclic node value should be preserved");
+
 // (3) assertClassify throws on invalid input
 let threw = false;
 try {
