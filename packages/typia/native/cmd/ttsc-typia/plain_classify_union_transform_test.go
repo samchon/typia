@@ -74,7 +74,8 @@ func plainClassifyUnionRun(t *testing.T, project string, js string) {
   if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
     t.Fatalf("write generic stub: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, js)), 0o644); err != nil {
+  moduleText := plainClassifyFromNewRewrite(t, js)
+  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(moduleText), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
   }
   runner := filepath.Join(runtimeDir, "run.cjs")
@@ -85,7 +86,7 @@ func plainClassifyUnionRun(t *testing.T, project string, js string) {
   cmd.Dir = runtimeDir
   output, err := cmd.CombinedOutput()
   if err != nil {
-    t.Fatalf("classify union runtime cases failed: %v\n%s", err, output)
+    t.Fatalf("classify union runtime cases failed: %v\n%s\n=== EMITTED main.cjs ===\n%s\n=== END main.cjs ===", err, output, moduleText)
   }
 }
 
