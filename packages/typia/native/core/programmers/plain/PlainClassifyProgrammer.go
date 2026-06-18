@@ -959,7 +959,19 @@ func plainClassifyProgrammer_configure(props struct {
     if obj == nil {
       return nil
     }
-    bare := f.NewIdentifier(obj.Name)
+    // The runtime value reference. obj.Name is the qualified metadata name, which
+    // is already a usable value for a plain or namespaced class ("NS.Plain"
+    // prints verbatim). Two cases need a different binding: a NAMED class
+    // expression (ValueRef = the `const X` binding, since obj.Name is the inner
+    // class name), and a generic instantiation (obj.Name is "Container<string>" —
+    // strip the type arguments to the bare constructor "Container").
+    name := obj.Name
+    if obj.ValueRef != "" {
+      name = obj.ValueRef
+    } else if i := strings.IndexByte(name, '<'); i >= 0 {
+      name = name[:i]
+    }
+    bare := f.NewIdentifier(name)
     if obj.Source == nil || callFile == "" {
       return bare
     }
@@ -976,9 +988,9 @@ func plainClassifyProgrammer_configure(props struct {
       spec = "./" + spec
     }
     if obj.SourceDefault {
-      return props.Context.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: obj.Name, Type: false})
+      return props.Context.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: name, Type: false})
     }
-    return props.Context.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: obj.Name})
+    return props.Context.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: name})
   }
   config.Types = nativeinternal.FeatureProgrammer_IConfig_ITypes{
     Input: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
@@ -1627,26 +1639,108 @@ func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *
     return nil
   }
   decl := sym.Declarations[0]
+  // The runtime value name to construct against. The class symbol name is not
+  // always a usable binding: a class declared inside a `namespace` binds as
+  // `NS.Inner.C` (mirror the qualified name the field-copy path derives), and a
+  // class EXPRESSION binds as its enclosing `const X` (the symbol name is the
+  // inner / binder-internal name). An unresolvable class expression returns nil
+  // so detect_strategy falls back to field-copy rather than emit `new __class`.
+  var valueName string
+  if decl.Kind == shimast.KindClassExpression {
+    valueName = plainClassifyProgrammer_value_binding(decl)
+    if valueName == "" {
+      return nil
+    }
+  } else {
+    valueName = plainClassifyProgrammer_qualified_name(decl.Parent, sym.Name)
+  }
   src := shimast.GetSourceFileOfNode(decl)
   if src == nil {
-    return f.NewIdentifier(sym.Name)
+    return f.NewIdentifier(valueName)
   }
   classFileAbs, err := filepath.Abs(src.FileName())
   if err != nil || callFile == "" || classFileAbs == callFile {
-    return f.NewIdentifier(sym.Name)
+    return f.NewIdentifier(valueName)
   }
   rel, err := filepath.Rel(filepath.Dir(callFile), strings.TrimSuffix(classFileAbs, filepath.Ext(classFileAbs)))
   if err != nil {
-    return f.NewIdentifier(sym.Name)
+    return f.NewIdentifier(valueName)
   }
   spec := filepath.ToSlash(rel)
   if !strings.HasPrefix(spec, ".") {
     spec = "./" + spec
   }
-  if decl.ModifierFlags()&shimast.ModifierFlagsDefault != 0 {
-    return ctx.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: sym.Name, Type: false})
+  if decl.ModifierFlags()&shimast.ModifierFlagsDefault != 0 ||
+    plainClassifyProgrammer_is_default_export(ctx.Checker, sym, decl, src) {
+    return ctx.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: valueName, Type: false})
   }
-  return ctx.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: sym.Name})
+  return ctx.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: valueName})
+}
+
+// plainClassifyProgrammer_qualified_name walks the enclosing namespace
+// ModuleBlocks of a class declaration and returns its lexically-qualified value
+// name ("NS.Inner.C", or the bare name for a top-level class). Mirrors
+// metadata_explore_symbol_name so the from/new construct reference matches the
+// qualified MetadataObjectType.Name the field-copy path uses; both must agree or
+// `typeof NS.C` constructs a bare `C` that is not in scope.
+func plainClassifyProgrammer_qualified_name(node *shimast.Node, name string) string {
+  if node != nil && shimast.IsModuleBlock(node) && node.Parent != nil && node.Parent.Parent != nil {
+    parentName := ""
+    if node.Parent.Name() != nil {
+      parentName = strings.TrimSpace(node.Parent.Name().Text())
+    }
+    if parentName != "" {
+      return plainClassifyProgrammer_qualified_name(node.Parent.Parent, parentName+"."+name)
+    }
+  }
+  return name
+}
+
+// plainClassifyProgrammer_value_binding returns the enclosing `const X = class
+// {...}` variable name for a class-expression declaration (walking past any
+// parentheses), or "" when there is no variable binding.
+func plainClassifyProgrammer_value_binding(decl *shimast.Node) string {
+  node := decl.Parent
+  for node != nil && node.Kind == shimast.KindParenthesizedExpression {
+    node = node.Parent
+  }
+  if node == nil || node.Kind != shimast.KindVariableDeclaration || node.Name() == nil {
+    return ""
+  }
+  return strings.TrimSpace(node.Name().Text())
+}
+
+// plainClassifyProgrammer_is_default_export reports whether the class `sym`
+// (declared by `decl` in `src`) is the module's default export via a SEPARATE
+// `export default C;` statement (no Default modifier on the declaration).
+// Mirrors emplace_metadata_object_is_default_export so the field-copy path
+// (obj.SourceDefault) and the from/new path agree.
+func plainClassifyProgrammer_is_default_export(
+  checker *shimchecker.Checker,
+  sym *shimast.Symbol,
+  decl *shimast.Node,
+  src *shimast.SourceFile,
+) bool {
+  if checker == nil || sym == nil || src == nil || src.Statements == nil {
+    return false
+  }
+  for _, stmt := range src.Statements.Nodes {
+    if stmt == nil || stmt.Kind != shimast.KindExportAssignment {
+      continue
+    }
+    ea := stmt.AsExportAssignment()
+    if ea == nil || ea.IsExportEquals || ea.Expression == nil {
+      continue
+    }
+    target := checker.GetSymbolAtLocation(ea.Expression)
+    if target == nil {
+      continue
+    }
+    if target == sym || (len(target.Declarations) != 0 && target.Declarations[0] == decl) {
+      return true
+    }
+  }
+  return false
 }
 
 // plainClassifyProgrammer_construct emits the root construction expression for a

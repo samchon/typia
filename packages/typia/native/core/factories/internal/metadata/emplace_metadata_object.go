@@ -1,6 +1,8 @@
 package metadata
 
 import (
+  "strings"
+
   nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -22,7 +24,21 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
       if src := nativeast.GetSourceFileOfNode(decl); src != nil {
         file := src.FileName()
         obj.Source = &file
-        obj.SourceDefault = decl.ModifierFlags()&nativeast.ModifierFlagsDefault != 0
+        // The Default modifier covers `export default class C {}`; a SEPARATE
+        // `class C {}; export default C;` puts no modifier on the class, so also
+        // detect that ExportAssignment form (else a cross-module classify
+        // value-imports a missing NAMED binding).
+        obj.SourceDefault = decl.ModifierFlags()&nativeast.ModifierFlagsDefault != 0 ||
+          emplace_metadata_object_is_default_export(props.Checker, sym, decl, src)
+      }
+      // A class EXPRESSION's symbol name is the inner `Beast` (`const X = class
+      // Beast {}`) or the binder-internal `__class`, neither of which binds at
+      // the classify call site; the runtime value is the enclosing `const X`.
+      // Capture X so the field-copy allocator references it. A class DECLARATION
+      // and an UNNAMED class expression (whose Name already resolves to the
+      // variable binding) leave this empty.
+      if decl.Kind == nativeast.KindClassExpression && decl.Name() != nil {
+        obj.ValueRef = emplace_metadata_object_value_binding(decl)
       }
       // ES `#private` members are installed only by the constructor, so
       // plain.classify cannot soundly field-copy (Object.create + assign) a class
@@ -172,6 +188,54 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     })
   }
   return obj
+}
+
+// emplace_metadata_object_is_default_export reports whether `sym` (a class
+// declared by `decl` in `src`) is the module default export via a SEPARATE
+// `export default C;` statement, which leaves NO Default modifier on the class
+// declaration. Walks the source file's top-level ExportAssignment statements for
+// an `export default <ident>` (not `export = `) whose identifier resolves to
+// this class symbol. nil-safe.
+func emplace_metadata_object_is_default_export(
+  checker *nativechecker.Checker,
+  sym *nativeast.Symbol,
+  decl *nativeast.Node,
+  src *nativeast.SourceFile,
+) bool {
+  if checker == nil || sym == nil || src == nil || src.Statements == nil {
+    return false
+  }
+  for _, stmt := range src.Statements.Nodes {
+    if stmt == nil || stmt.Kind != nativeast.KindExportAssignment {
+      continue
+    }
+    ea := stmt.AsExportAssignment()
+    if ea == nil || ea.IsExportEquals || ea.Expression == nil {
+      continue
+    }
+    target := checker.GetSymbolAtLocation(ea.Expression)
+    if target == nil {
+      continue
+    }
+    if target == sym || (len(target.Declarations) != 0 && target.Declarations[0] == decl) {
+      return true
+    }
+  }
+  return false
+}
+
+// emplace_metadata_object_value_binding returns the enclosing `const X = class
+// {...}` variable name for a class-expression declaration (walking past any
+// parentheses), or "" when the class expression has no variable binding.
+func emplace_metadata_object_value_binding(decl *nativeast.Node) string {
+  node := decl.Parent
+  for node != nil && node.Kind == nativeast.KindParenthesizedExpression {
+    node = node.Parent
+  }
+  if node == nil || node.Kind != nativeast.KindVariableDeclaration || node.Name() == nil {
+    return ""
+  }
+  return strings.TrimSpace(node.Name().Text())
 }
 
 type emplace_metadata_object_insert struct {

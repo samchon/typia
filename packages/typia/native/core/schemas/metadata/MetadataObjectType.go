@@ -32,6 +32,15 @@ type MetadataObjectType struct {
   // class at a field-copied position. Read in-process by the classify
   // programmer; ignored by clone/prune, not serialized.
   PrivateFields     bool
+  // ValueRef overrides the runtime VALUE-binding name plain.classify uses when
+  // the class's metadata Name is not a usable runtime constructor reference —
+  // namely a NAMED class EXPRESSION (`const X = class Beast {...}`), whose Name
+  // is the inner `Beast` that binds only inside the class body. Holds the
+  // enclosing variable binding ("X"). Empty for a class DECLARATION (Name binds)
+  // and for an unnamed class expression (Name is already the variable binding).
+  // Read in-process by the classify programmer; not serialized, ignored by
+  // clone/prune.
+  ValueRef          string
   Properties        []*MetadataProperty
   Description       *string
   JsDocTags         []IJsDocTagInfo
