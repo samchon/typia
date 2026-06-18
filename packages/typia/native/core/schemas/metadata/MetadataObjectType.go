@@ -15,6 +15,40 @@ type IMetadataSchema_IObjectType struct {
 type MetadataObjectType struct {
   Name              string
   DisplayName       string
+  // Source is the absolute-or-as-declared path of the file declaring a named
+  // class, captured at analysis time so plain.classify can value-import a
+  // cross-module class it reconstructs (Object.create / new / from). nil for
+  // anonymous/literal shapes and types with no locatable declaration. Read
+  // in-process by the classify programmer; not serialized (classify is
+  // single-pass), and ignored by clone/prune.
+  Source            *string
+  // SourceDefault is true when the class is the default export of Source, so a
+  // cross-module classify value-import uses a default (not named) import.
+  SourceDefault     bool
+  // PrivateFields is true when the named class declaration carries at least one
+  // ES `#private` member (a member named with a PrivateIdentifier). Such slots
+  // are installed only by running the constructor; plain.classify's field-copy
+  // (Object.create + assign) cannot restore them, so classify rejects any such
+  // class at a field-copied position. Read in-process by the classify
+  // programmer; ignored by clone/prune, not serialized.
+  PrivateFields     bool
+  // IsClass is true when this object's declaration is a `class` (declaration or
+  // expression), so it has a runtime VALUE binding plain.classify can
+  // `Object.create(<name>.prototype)`/`new` against. False for an interface, a
+  // type alias, or an anonymous object literal — none of which is a runtime
+  // value, so classify field-copies a plain {} instead of referencing a
+  // type-only name. Read in-process by the classify programmer; ignored by
+  // clone/prune, not serialized.
+  IsClass           bool
+  // ValueRef overrides the runtime VALUE-binding name plain.classify uses when
+  // the class's metadata Name is not a usable runtime constructor reference —
+  // namely a NAMED class EXPRESSION (`const X = class Beast {...}`), whose Name
+  // is the inner `Beast` that binds only inside the class body. Holds the
+  // enclosing variable binding ("X"). Empty for a class DECLARATION (Name binds)
+  // and for an unnamed class expression (Name is already the variable binding).
+  // Read in-process by the classify programmer; not serialized, ignored by
+  // clone/prune.
+  ValueRef          string
   Properties        []*MetadataProperty
   Description       *string
   JsDocTags         []IJsDocTagInfo

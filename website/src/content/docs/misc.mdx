@@ -13,7 +13,7 @@ Small modules that share the typia transform but don't fit anywhere else: `plain
 
 ## `plain`
 
-Plain-data operations that reshape a value to its declared type `T`: `clone` deep-copies it, `prune` strips properties that aren't on `T`. Each has the same `assert` / `is` / `validate` family and `create*` factories as the validators.
+Plain-data operations that reshape a value to its declared type `T`: `clone` deep-copies it, `prune` strips properties that aren't on `T`, and `classify` rebuilds a class instance from plain data. Each wraps the operation with the same `assert` / `validate` family and `create*` factories as the validators (`clone` and `prune` also add an `is` variant).
 
 ### `plain.clone`
 
@@ -140,6 +140,87 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
     <LocalSource
       path="examples/bin/plain/assertPrune.js"
       filename="examples/bin/plain/assertPrune.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `plain.classify`
+
+```typescript copy filename="signatures"
+namespace plain {
+  function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
+  function assertClassify<T>(input: Classifiable<T>): ClassifyResult<T>;  // + assert
+  function validateClassify<T>(input: Classifiable<T>): IValidation<ClassifyResult<T>>;  // + validate
+}
+```
+
+`classify` is the inverse of `clone`: it takes plain data — a `JSON.parse` result, a `structuredClone`, anything without a prototype — and reconstructs a real **class instance** of `T`, with its prototype and methods restored. It builds each class by one strategy, chosen by precedence: the static factory `T.from(seed)`, then the single-argument `new T(seed)`, then a field copy onto the prototype (`Object.create(T.prototype)` then assign — this calls no constructor, so it works on any class). Nested classes and containers are reconstructed recursively.
+
+The type argument decides what you pass and which strategy runs. With an **instance** type, `classify<User>(plain)` takes the property shape and field-copies it onto `User.prototype` — the common "give me back a real `User`" case. With a **class** type, `classify<typeof Point>(seed)` runs `from` / `new`, so the input is the constructor seed (for a value object, e.g. an ISO string), and the result is still the instance. A union of class types is handled too: `classify<typeof Circle | typeof Square>` discriminates the input by seed shape — the first member whose seed it matches (in declaration order) is the one built — and a mixed `typeof Circle | number` constructs the class for an object seed while letting a primitive pass through unchanged.
+
+```typescript copy
+// JSON.parse drops the prototype; classify restores it
+const user = typia.plain.classify<User>(JSON.parse(text));
+user.greet(); // works — the method comes from User.prototype
+
+// the class-type form builds via the class's factory / constructor
+const point = typia.plain.classify<typeof Point>({ x: 1, y: 2 });
+
+// validated variants for untrusted input
+const checked = typia.plain.assertClassify<User>(input);  // throws if invalid
+const result = typia.plain.validateClassify<User>(input); // IValidation<User>
+```
+
+A few details of the class-type form follow the [`Classifiable<T>`](https://github.com/samchon/typia/blob/master/packages/interface/src/typings/Classifiable.ts) contract. A constructor or factory counts only when it takes a single meaningful argument: a first parameter that may be optional, with every later parameter optional or rest. A rest-only parameter `(...xs: S[])` takes the element `S` as its seed, not the array, and a rest **tuple** `(...xs: [P, Q?])` takes its first element `P`. A `from` is a factory only when it returns the instance, so a divergent factory like `Temporal.PlainDate.from(isoString)` is honored while a helper `from(text): number` is not. A `from(json: any)` collapses to field copy — the seed shape can't be `any`. An **abstract** class exposes no runnable constructor, so it field-copies rather than `new`-ing. A class nested inside a seed is itself classified (method-stripped, then field-copied), so the whole graph comes back as instances. For a class-type target the validated variants check the **seed**, not the class's static members.
+
+One constraint is enforced at transform time: a class with ES `#private` fields cannot be field-copied, because `Object.create` + assign never installs the private slots and the prototype's methods would then throw `Cannot read private member`. classify therefore rejects such a class at any field-copied position — a nested class, or a root with no construction strategy — with a compile-time error; give it a single-argument constructor or a static `from` so it is **constructed** instead.
+
+Plain `classify` trusts the input; `assertClassify` and `validateClassify` validate it first — the same pairing as the validators. There is no `is` variant. The input type `Classifiable<T>` is the plain seed the chosen strategy accepts; the output is always the instance `T`.
+
+<Tabs items={[<code>typia</code>, <code>Classifiable.ts</code>, <code>IValidation.ts</code>]}>
+  <Tabs.Tab>
+```typescript
+export namespace plain {
+  export function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
+  export function assertClassify<T>(input: Classifiable<T> | unknown): ClassifyResult<T>;
+  export function validateClassify<T>(
+    input: Classifiable<T> | unknown,
+  ): IValidation<ClassifyResult<T>>;
+
+  // Factories (ClassifyResult<T> = the instance of a class-type T, else T)
+  export function createClassify<T>(): (input: Classifiable<T>) => ClassifyResult<T>;
+  export function createAssertClassify<T>(): (input: unknown) => ClassifyResult<T>;
+  export function createValidateClassify<T>(): (
+    input: unknown,
+  ) => IValidation<ClassifyResult<T>>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/typings/Classifiable.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/plain/assertClassify.ts"
+      filename="examples/src/plain/assertClassify.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/plain/assertClassify.js"
+      filename="examples/bin/plain/assertClassify.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

@@ -1,6 +1,8 @@
 package metadata
 
 import (
+  "strings"
+
   nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -11,6 +13,53 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   metadata_array_util_add_bool(&obj.Nullables, props.Metadata.Nullable)
   if newbie == false {
     return obj
+  }
+
+  // Capture the declaring source file (named declarations only) so plain.classify
+  // can value-import a cross-module class it reconstructs. Additive: other
+  // features ignore obj.Source.
+  if props.Type != nil {
+    if sym := props.Type.Symbol(); sym != nil && len(sym.Declarations) != 0 {
+      decl := sym.Declarations[0]
+      // A `class` (declaration or expression — including a generic instantiation,
+      // whose symbol still resolves to the class declaration) has a runtime value
+      // binding; an interface / type alias / anonymous object literal does not, so
+      // plain.classify must field-copy a plain {} rather than reference a type-only
+      // name. classRefOf gates on this.
+      obj.IsClass = decl.Kind == nativeast.KindClassDeclaration || decl.Kind == nativeast.KindClassExpression
+      if src := nativeast.GetSourceFileOfNode(decl); src != nil {
+        file := src.FileName()
+        obj.Source = &file
+        // The Default modifier covers `export default class C {}`; a SEPARATE
+        // `class C {}; export default C;` puts no modifier on the class, so also
+        // detect that ExportAssignment form (else a cross-module classify
+        // value-imports a missing NAMED binding).
+        obj.SourceDefault = decl.ModifierFlags()&nativeast.ModifierFlagsDefault != 0 ||
+          emplace_metadata_object_is_default_export(props.Checker, sym, decl, src)
+      }
+      // A class EXPRESSION's symbol name is the inner `Beast` (`const X = class
+      // Beast {}`) or the binder-internal `__class` (`const X = class {}`),
+      // neither of which binds at the classify call site; the runtime value is
+      // the enclosing `const X`. Capture X so the field-copy allocator (classRefOf)
+      // references it for BOTH named and unnamed expressions — the unnamed form's
+      // metadata Name can still surface the `__class` binder name, so do not rely
+      // on it. An expression with no enclosing variable binding leaves ValueRef
+      // empty (classRefOf falls back to the metadata Name). A class DECLARATION's
+      // Kind is not ClassExpression, so it is unaffected.
+      if decl.Kind == nativeast.KindClassExpression {
+        obj.ValueRef = emplace_metadata_object_value_binding(decl)
+      }
+      // ES `#private` members are installed only by the constructor, so
+      // plain.classify cannot soundly field-copy (Object.create + assign) a class
+      // that has them — and the PROTOTYPE CHAIN matters: a field-copied subclass
+      // of a #private-bearing base would equally throw "Cannot read private
+      // member". The type system hides #private from ApparentProperties, so detect
+      // it on the class declaration(s), walking the `extends` chain. Additive flag,
+      // read only by the classify programmer.
+      if emplace_metadata_object_private_fields(props.Checker, props.Type, map[*nativechecker.Type]bool{}) {
+        obj.PrivateFields = true
+      }
+    }
   }
 
   isClass := props.Type != nil && props.Type.IsClass()
@@ -132,6 +181,121 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     })
   }
   return obj
+}
+
+// emplace_metadata_object_private_fields reports whether `typ` or any class in
+// its `extends` chain declares an INSTANCE ES #private member — which field-copy
+// (Object.create + assign) cannot reconstruct, so plain.classify must reject it.
+// A STATIC #private (on the constructor) is excluded at every level. `visited`
+// guards against type cycles.
+func emplace_metadata_object_private_fields(checker *nativechecker.Checker, typ *nativechecker.Type, visited map[*nativechecker.Type]bool) bool {
+  if checker == nil || typ == nil || visited[typ] {
+    return false
+  }
+  visited[typ] = true
+  sym := typ.Symbol()
+  if sym == nil || len(sym.Declarations) == 0 {
+    return false
+  }
+  decl := sym.Declarations[0]
+  var members []*nativeast.Node
+  if decl.Kind == nativeast.KindClassDeclaration {
+    if cd := decl.AsClassDeclaration(); cd != nil && cd.Members != nil {
+      members = cd.Members.Nodes
+    }
+  } else if decl.Kind == nativeast.KindClassExpression {
+    if ce := decl.AsClassExpression(); ce != nil && ce.Members != nil {
+      members = ce.Members.Nodes
+    }
+  } else {
+    // Not a class — no instance #private to find, and Checker_getBaseTypes is
+    // defined only for class/interface symbols (a union / primitive / type-alias
+    // Reference would hit its panic arm). Stop here.
+    return false
+  }
+  for _, member := range members {
+    if member == nil {
+      continue
+    }
+    if member.ModifierFlags()&nativeast.ModifierFlagsStatic != 0 {
+      continue
+    }
+    if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
+      return true
+    }
+  }
+  // Walk the `extends` chain. Checker_getBaseTypes nil-dereferences (its internal
+  // t.AsInterfaceType() is nil) for anything that is not a class/interface
+  // INSTANCE — including a class's Anonymous static side `typeof C` and a generic
+  // instantiation Reference (`Mid<string>`) — so it is guarded to a ClassOrInterface
+  // instance. A generic subclass's OWN #private is still caught by the member scan
+  // above; only a #private INHERITED through a generic base boundary is not
+  // detected (narrow, documented). The non-generic inheritance chain is covered.
+  if typ.ObjectFlags()&nativechecker.ObjectFlagsClassOrInterface == 0 {
+    return false
+  }
+  for _, base := range nativechecker.Checker_getBaseTypes(checker, typ) {
+    if emplace_metadata_object_private_fields(checker, base, visited) {
+      return true
+    }
+  }
+  return false
+}
+
+// emplace_metadata_object_is_default_export reports whether `sym` (a class
+// declared by `decl` in `src`) is the module default export via a SEPARATE
+// `export default C;` statement, which leaves NO Default modifier on the class
+// declaration. Walks the source file's top-level ExportAssignment statements for
+// an `export default <ident>` (not `export = `) whose identifier resolves to
+// this class symbol. nil-safe.
+func emplace_metadata_object_is_default_export(
+  checker *nativechecker.Checker,
+  sym *nativeast.Symbol,
+  decl *nativeast.Node,
+  src *nativeast.SourceFile,
+) bool {
+  if checker == nil || sym == nil || src == nil || src.Statements == nil {
+    return false
+  }
+  for _, stmt := range src.Statements.Nodes {
+    if stmt == nil || stmt.Kind != nativeast.KindExportAssignment {
+      continue
+    }
+    ea := stmt.AsExportAssignment()
+    if ea == nil || ea.IsExportEquals || ea.Expression == nil {
+      continue
+    }
+    target := checker.GetSymbolAtLocation(ea.Expression)
+    if target == nil {
+      continue
+    }
+    if target == sym || (len(target.Declarations) != 0 && target.Declarations[0] == decl) {
+      return true
+    }
+  }
+  return false
+}
+
+// emplace_metadata_object_value_binding returns the enclosing `const X = class
+// {...}` variable name for a class-expression declaration (walking past any
+// parentheses), or "" when the class expression has no variable binding.
+func emplace_metadata_object_value_binding(decl *nativeast.Node) string {
+  node := decl.Parent
+  for node != nil && node.Kind == nativeast.KindParenthesizedExpression {
+    node = node.Parent
+  }
+  if node == nil || node.Kind != nativeast.KindVariableDeclaration || node.Name() == nil {
+    return ""
+  }
+  name := strings.TrimSpace(node.Name().Text())
+  // Qualify by any enclosing namespace (VariableDeclaration -> List -> Statement
+  // -> ModuleBlock) so a `namespace NS { const X = class {} }` binds as `NS.X`.
+  if list := node.Parent; list != nil {
+    if stmt := list.Parent; stmt != nil {
+      return metadata_explore_symbol_name(stmt.Parent, name)
+    }
+  }
+  return name
 }
 
 type emplace_metadata_object_insert struct {
