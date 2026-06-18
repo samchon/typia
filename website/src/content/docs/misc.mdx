@@ -171,7 +171,9 @@ const checked = typia.plain.assertClassify<User>(input);  // throws if invalid
 const result = typia.plain.validateClassify<User>(input); // IValidation<User>
 ```
 
-Plain `classify` trusts the input; `assertClassify` and `validateClassify` validate it first — the same pairing as the validators. There is no `is` variant. The input type [`Classifiable<T>`](https://github.com/samchon/typia/blob/master/packages/interface/src/typings/Classifiable.ts) is the plain seed the chosen strategy accepts; the output is always the instance `T`.
+A few details of the class-type form follow the [`Classifiable<T>`](https://github.com/samchon/typia/blob/master/packages/interface/src/typings/Classifiable.ts) contract. A constructor or factory counts only when it takes a single meaningful argument: a first parameter that may be optional, with every later parameter optional or rest. A rest-only parameter `(...xs: S[])` takes the element `S` as its seed, not the array. A `from` is a factory only when it returns the instance, so a divergent factory like `Temporal.PlainDate.from(isoString)` is honored while a helper `from(text): number` is not. A `from(json: any)` collapses to field copy — the seed shape can't be `any`. A class nested inside a seed is itself classified (method-stripped, then field-copied), so the whole graph comes back as instances. For a class-type target the validated variants check the **seed**, not the class's static members.
+
+Plain `classify` trusts the input; `assertClassify` and `validateClassify` validate it first — the same pairing as the validators. There is no `is` variant. The input type `Classifiable<T>` is the plain seed the chosen strategy accepts; the output is always the instance `T`.
 
 <Tabs items={[<code>typia</code>, <code>Classifiable.ts</code>, <code>IValidation.ts</code>]}>
   <Tabs.Tab>
