@@ -25,6 +25,13 @@ type MetadataObjectType struct {
   // SourceDefault is true when the class is the default export of Source, so a
   // cross-module classify value-import uses a default (not named) import.
   SourceDefault     bool
+  // PrivateFields is true when the named class declaration carries at least one
+  // ES `#private` member (a member named with a PrivateIdentifier). Such slots
+  // are installed only by running the constructor; plain.classify's field-copy
+  // (Object.create + assign) cannot restore them, so classify rejects any such
+  // class at a field-copied position. Read in-process by the classify
+  // programmer; ignored by clone/prune, not serialized.
+  PrivateFields     bool
   Properties        []*MetadataProperty
   Description       *string
   JsDocTags         []IJsDocTagInfo

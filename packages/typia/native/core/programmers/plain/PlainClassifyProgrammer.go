@@ -1311,6 +1311,32 @@ func plainClassifyProgrammer_initialize(
     strategy = plainClassifyProgrammer_detect_strategy(props.Context, static, instanceT, ctorSigs, fromSym, collection, callFile)
   }
 
+  // ES #private fields are installed only by the constructor; field-copy
+  // (Object.create + assign) cannot restore them, so a #private-bearing class is
+  // usable ONLY when classify CONSTRUCTS it (from/new at the root). Reject any
+  // #private-bearing class that classify FIELD-COPIES (a nested class, a
+  // seed-nested class, a field-copy fallback root, or a field-copy union member)
+  // — its prototype methods would throw 'Cannot read private member' at runtime.
+  // The single from/new target's instance object is the one classify constructs.
+  constructed := map[*schemametadata.MetadataObjectType]bool{}
+  if strategy != nil && len(result.Data.Objects) == 1 {
+    constructed[result.Data.Objects[0].Type] = true
+  }
+  for _, obj := range collection.Objects() {
+    if obj.PrivateFields && !constructed[obj] {
+      panic(nativecontext.TransformerError_from(struct {
+        Code   string
+        Errors []nativecontext.TransformerError_MetadataFactory_IError
+      }{
+        Code: props.Functor.Method,
+        Errors: []nativecontext.TransformerError_MetadataFactory_IError{{
+          Name:     obj.GetDisplayName(),
+          Messages: []string{"plain.classify cannot field-copy class \"" + obj.GetDisplayName() + "\" because it has ES #private fields (installed only by its constructor); give it a single-argument constructor or static from() so it is constructed, or remove the #private fields"},
+        }},
+      }))
+    }
+  }
+
   if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
     props.Functor.SetVisited(true)
   }
@@ -1340,7 +1366,7 @@ func plainClassifyProgrammer_detect_strategy(
   if classRef == nil {
     return nil
   }
-  kind, seedT := plainClassifyProgrammer_choose_seed(checker, instanceT, ctorSigs, fromSym)
+  kind, seedT := plainClassifyProgrammer_choose_seed(checker, static, instanceT, ctorSigs, fromSym)
   if kind == "" {
     return nil
   }
@@ -1370,6 +1396,7 @@ func plainClassifyProgrammer_detect_strategy(
 // from(json: any)` collapses the factory arm and falls to field-copy.
 func plainClassifyProgrammer_choose_seed(
   checker *shimchecker.Checker,
+  static *shimchecker.Type,
   instanceT *shimchecker.Type,
   ctorSigs []*shimchecker.Signature,
   fromSym *shimast.Symbol,
@@ -1394,7 +1421,7 @@ func plainClassifyProgrammer_choose_seed(
   }
   if len(ctorSigs) != 0 {
     sig := ctorSigs[len(ctorSigs)-1]
-    if plainClassifyProgrammer_ctor_public(sig) && plainClassifyProgrammer_arity_ok(checker, sig) {
+    if plainClassifyProgrammer_ctor_public(static, sig) && plainClassifyProgrammer_arity_ok(checker, sig) {
       if seedT := plainClassifyProgrammer_seed_type(checker, sig); !rejected(seedT) {
         return "new", seedT
       }
@@ -1403,11 +1430,33 @@ func plainClassifyProgrammer_choose_seed(
   return "", nil
 }
 
+// plainClassifyProgrammer_is_abstract reports whether the class TYPE is abstract
+// — its construct signature is un-`new`-able at runtime (`new C` throws "Cannot
+// create an instance of an abstract class"). The `abstract` keyword sits on the
+// CLASS declaration, not the constructor declaration, so it is read from the
+// class symbol's declaration (the same node class_ref / emplace_metadata_object
+// read for Default/Private). An abstract class therefore field-copies, exactly
+// like a private-constructor class — Object.create(C.prototype) needs no `new`;
+// a `static from` on it is still honored (the from arm is ungated on abstract).
+func plainClassifyProgrammer_is_abstract(static *shimchecker.Type) bool {
+  if static == nil {
+    return false
+  }
+  sym := static.Symbol()
+  if sym == nil || len(sym.Declarations) == 0 {
+    return false
+  }
+  return sym.Declarations[0].ModifierFlags()&shimast.ModifierFlagsAbstract != 0
+}
+
 // plainClassifyProgrammer_ctor_public reports whether a construct signature is
-// publicly newable — matching ClassifiableConstructor's `abstract new` gate,
-// which a private/protected constructor does not satisfy. A synthesized default
-// constructor has no declaration and counts as public.
-func plainClassifyProgrammer_ctor_public(sig *shimchecker.Signature) bool {
+// publicly newable — matching ClassifiableConstructor's `new` gate, which a
+// private/protected constructor, or an abstract class, does not satisfy. A
+// synthesized default constructor has no declaration and counts as public.
+func plainClassifyProgrammer_ctor_public(static *shimchecker.Type, sig *shimchecker.Signature) bool {
+  if plainClassifyProgrammer_is_abstract(static) {
+    return false
+  }
   decl := sig.Declaration()
   if decl == nil {
     return true
@@ -1425,10 +1474,21 @@ func plainClassifyProgrammer_arity_ok(checker *shimchecker.Checker, sig *shimche
 }
 
 // plainClassifyProgrammer_seed_type returns the seed type of a single-argument
-// signature: the rest ELEMENT for a rest-only parameter `(...xs: S[])`,
-// otherwise the first parameter's type. Matches ClassifiableSeed.
+// signature: the rest ELEMENT for an array rest `(...xs: S[])`, the FIRST element
+// for a tuple rest `(...xs: [X, Y?])` (rejected when a later tuple element is
+// required), otherwise the first parameter's type. Matches ClassifiableSeed.
 func plainClassifyProgrammer_seed_type(checker *shimchecker.Checker, sig *shimchecker.Signature) *shimchecker.Type {
   if sig.HasRestParameter() && len(sig.Parameters()) == 1 {
+    // A rest parameter's declared type is either a plain array `S[]` (the seed is
+    // the element S — GetRestTypeOfSignature handles it) or a TUPLE `[X, Y?]`. For
+    // a tuple, GetRestTypeOfSignature returns `any` (getRestTypeOfTupleType is nil
+    // with no trailing rest), which `rejected` would drop to field-copy — but
+    // ClassifiableSeed reads a tuple via `[infer P, ...Rest]` and yields its FIRST
+    // element P. Reproduce that so Go and the type pick the same strategy.
+    restParamT := checker.GetTypeOfSymbol(sig.Parameters()[0])
+    if restParamT != nil && shimchecker.IsTupleType(restParamT) {
+      return plainClassifyProgrammer_tuple_seed(checker, restParamT)
+    }
     return checker.GetRestTypeOfSignature(sig)
   }
   params := sig.Parameters()
@@ -1436,6 +1496,32 @@ func plainClassifyProgrammer_seed_type(checker *shimchecker.Checker, sig *shimch
     return nil
   }
   return checker.GetTypeOfSymbol(params[0])
+}
+
+// plainClassifyProgrammer_tuple_seed reproduces ClassifiableSeed's rule for a
+// rest-tuple parameter `(...xs: [X, Y?])`: the seed is the FIRST element, EXCEPT
+// the tuple is rejected (nil = field-copy) when it is empty or any element after
+// index 0 is REQUIRED — then `[] extends Rest` fails and ClassifiableSeed is
+// `never`. GetTypeArguments / TargetTupleType require an object reference; the
+// IsTupleType caller guarantees that, but a recover degrades a surprise panic to
+// field-copy (the same safe fallback as a failed seed analysis).
+func plainClassifyProgrammer_tuple_seed(checker *shimchecker.Checker, restParamT *shimchecker.Type) (seed *shimchecker.Type) {
+  defer func() {
+    if recover() != nil {
+      seed = nil
+    }
+  }()
+  args := checker.GetTypeArguments(restParamT)
+  if len(args) == 0 {
+    return nil // `[]` -> ClassifiableSeed is never -> field-copy
+  }
+  flags := restParamT.TargetTupleType().ElementFlags()
+  for i := 1; i < len(flags); i++ {
+    if flags[i] == shimchecker.ElementFlagsRequired {
+      return nil // a required tail element -> `[] extends Rest` false -> never
+    }
+  }
+  return args[0] // first element is the seed (P in `[infer P, ...Rest]`)
 }
 
 // plainClassifyProgrammer_validation_type returns the type assertClassify /
@@ -1464,7 +1550,7 @@ func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, st
       if instanceT == nil {
         instanceT = member
       }
-      if kind, seedT := plainClassifyProgrammer_choose_seed(checker, instanceT, ctorSigs, fromSym); kind != "" {
+      if kind, seedT := plainClassifyProgrammer_choose_seed(checker, member, instanceT, ctorSigs, fromSym); kind != "" {
         seeds = append(seeds, seedT)
       } else {
         seeds = append(seeds, instanceT)
@@ -1488,7 +1574,7 @@ func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, st
   // class value is locatable AND the seed metadata-analyzes — so assert/validate
   // check exactly what classify decodes/constructs (else the field-copy instance
   // shape).
-  if kind, seedT := plainClassifyProgrammer_choose_seed(checker, instanceT, ctorSigs, fromSym); kind != "" {
+  if kind, seedT := plainClassifyProgrammer_choose_seed(checker, static, instanceT, ctorSigs, fromSym); kind != "" {
     if plainClassifyProgrammer_class_ref(ctx, static, "") != nil {
       r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
         Checker:    checker,

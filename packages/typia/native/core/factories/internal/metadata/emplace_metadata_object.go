@@ -24,6 +24,32 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
         obj.Source = &file
         obj.SourceDefault = decl.ModifierFlags()&nativeast.ModifierFlagsDefault != 0
       }
+      // ES `#private` members are installed only by the constructor, so
+      // plain.classify cannot soundly field-copy (Object.create + assign) a class
+      // that has them. The type system hides #private from ApparentProperties, so
+      // detect it on the class declaration: any member named with a
+      // PrivateIdentifier. Additive flag, read only by the classify programmer.
+      // The member NodeList is reached via the typed accessor (AsClassDeclaration
+      // / AsClassExpression), keyed on Kind so the wrong accessor never fires.
+      var classMembers []*nativeast.Node
+      if decl.Kind == nativeast.KindClassDeclaration {
+        if cd := decl.AsClassDeclaration(); cd != nil && cd.Members != nil {
+          classMembers = cd.Members.Nodes
+        }
+      } else if decl.Kind == nativeast.KindClassExpression {
+        if ce := decl.AsClassExpression(); ce != nil && ce.Members != nil {
+          classMembers = ce.Members.Nodes
+        }
+      }
+      for _, member := range classMembers {
+        if member == nil {
+          continue
+        }
+        if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
+          obj.PrivateFields = true
+          break
+        }
+      }
     }
   }
 
