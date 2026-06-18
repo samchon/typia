@@ -48,12 +48,16 @@ func (plainClassifyProgrammerNamespace) Decompose(props PlainClassifyProgrammer_
     Functor: props.Functor,
     Modulo:  props.Modulo,
   })
-  // The is-check helpers (_io<index>) are emitted into the classify function for
-  // the unvalidated path, and ALSO for a class-type union (even when validated):
-  // the union construction ladder discriminates members with IsProgrammer.Decode,
-  // which calls those helpers, so they must be defined in the classify function
-  // — the validating variant's own checkers live in a separate function.
-  if props.Validated == false || (props.Type != nil && props.Type.IsUnion()) {
+  // The union construction ladder discriminates members with IsProgrammer.Decode
+  // (_io<index> calls), so those is-check helpers must exist in the classify
+  // function's IIFE. Emit them via the Addition ONLY for the unvalidated path: a
+  // plain `classify` / `createClassify` has no other source for them (a non-union
+  // field-copy references none, so the Addition is a harmless no-op there). The
+  // validated variant (assert/validateClassify) ALREADY emits the very same
+  // _io<index>/_iu<index> helpers into the same IIFE for its __assert checker, and
+  // the construction __classify references those — so adding them here too would
+  // redeclare each ("Identifier '_io0' has already been declared").
+  if props.Validated == false {
     config.Addition = func(collection *schemametadata.MetadataCollection) []*shimast.Node {
       return nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
         Context:    props.Context,
