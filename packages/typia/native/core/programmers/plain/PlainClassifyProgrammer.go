@@ -1035,22 +1035,11 @@ func plainClassifyProgrammer_configure(props struct {
       // class-TYPE UNION: discriminate the input and construct the matched member
       // (the tail = the ordinary union decode lets non-class members pass through).
       if len(unionMembers) != 0 {
-        tail := plainClassifyProgrammer_decode(struct {
-          Context  nativecontext.ITypiaContext
-          Config   nativeinternal.FeatureProgrammer_IConfig
-          Functor  *nativehelpers.FunctionProgrammer
-          Input    *shimast.Node
-          Metadata *schemametadata.MetadataSchema
-          Explore  nativeinternal.FeatureProgrammer_IExplore
-        }{
-          Context:  props.Context,
-          Config:   config,
-          Functor:  props.Functor,
-          Input:    next.Input,
-          Metadata: next.Metadata,
-          Explore:  next.Explore,
-        })
-        return plainClassifyProgrammer_construct_union(props.Context, config, props.Functor, next.Input, next.Explore, unionMembers, tail)
+        // Every union member (class + non-class) is in the ladder, so the tail is
+        // the no-match fallback: return the input unchanged. Decoding next.Metadata
+        // here would walk the static class sides (their `from`/`prototype` members),
+        // emitting a bundled-lib require and plainCloneAny — broken at runtime.
+        return plainClassifyProgrammer_construct_union(props.Context, config, props.Functor, next.Input, next.Explore, unionMembers, next.Input)
       }
       var st *plainClassifyProgrammer_strategy
       if len(next.Metadata.Objects) == 1 {
@@ -1253,6 +1242,12 @@ func plainClassifyProgrammer_initialize(
       instanceT = static
     }
     analyzeT = instanceT
+  } else if static.IsUnion() {
+    // A class-TYPE union: analyze the SEED union (what the input actually
+    // carries: seedA | seedB | non-class members), NOT the static union — whose
+    // members are the classes' static sides (`from`/`prototype`), which emit a
+    // bundled-lib require and plainCloneAny that break the runtime module.
+    analyzeT = plainClassifyProgrammer_validation_type(props.Context, static)
   }
 
   collection := schemametadata.NewMetadataCollection()
@@ -1612,10 +1607,24 @@ func plainClassifyProgrammer_union_members(
 ) []plainClassifyProgrammer_member {
   checker := ctx.Checker
   members := []plainClassifyProgrammer_member{}
+  hasClass := false
   for _, member := range static.Types() {
     if !plainClassifyProgrammer_constructor_nature(checker, member) {
+      // A non-class member (e.g. `number` in `typeof A | number`) is
+      // discriminated and decoded on its OWN shape, so it joins the ladder
+      // rather than relying on a tail that would decode the static class sides.
+      // It only forms a construction union alongside a class member (hasClass).
+      if r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
+        Checker:    checker,
+        Options:    plainClassifyProgrammer_options(),
+        Components: collection,
+        Type:       member,
+      }); r.Success {
+        members = append(members, plainClassifyProgrammer_member{Seed: r.Data, Strategy: nil})
+      }
       continue
     }
+    hasClass = true
     ctorSigs := checker.GetSignaturesOfType(member, shimchecker.SignatureKindConstruct)
     fromSym := checker.GetPropertyOfType(member, "from")
     instanceT := shimchecker.Checker_getTypeOfPropertyOfType(checker, member, "prototype")
@@ -1640,6 +1649,11 @@ func plainClassifyProgrammer_union_members(
     if r.Success {
       members = append(members, plainClassifyProgrammer_member{Seed: r.Data, Strategy: nil})
     }
+  }
+  // A pure non-class union (number | string) has no class to construct — let the
+  // ordinary decode handle it, so the construction ladder never engages.
+  if !hasClass {
+    return nil
   }
   return members
 }
