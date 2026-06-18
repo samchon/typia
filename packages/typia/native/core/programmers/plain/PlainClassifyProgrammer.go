@@ -967,14 +967,7 @@ func plainClassifyProgrammer_configure(props struct {
   // single (non-union) target, which keeps the strategies[]/topStrategy path
   // below byte-identical.
   var unionMembers []plainClassifyProgrammer_member
-  callFile := ""
-  if props.Modulo != nil {
-    if src := shimast.GetSourceFileOfNode(props.Modulo); src != nil {
-      if abs, err := filepath.Abs(src.FileName()); err == nil {
-        callFile = abs
-      }
-    }
-  }
+  callFile := plainClassifyProgrammer_call_file(props.Modulo)
   // classRefOf resolves a named class to a value reference for the field-copy
   // path (Object.create(<Class>.prototype) in ClassifyJoiner and the recursion
   // guard allocator). Bare identifier when the class is in lexical scope at the
@@ -1315,7 +1308,7 @@ func plainClassifyProgrammer_initialize(
     // carries: seedA | seedB | non-class members), NOT the static union — whose
     // members are the classes' static sides (`from`/`prototype`), which emit a
     // bundled-lib require and plainCloneAny that break the runtime module.
-    analyzeT = plainClassifyProgrammer_validation_type(props.Context, static)
+    analyzeT = plainClassifyProgrammer_validation_type(props.Context, static, callFile)
   }
 
   collection := schemametadata.NewMetadataCollection()
@@ -1598,7 +1591,22 @@ func plainClassifyProgrammer_tuple_seed(checker *shimchecker.Checker, restParamT
 // input is NOT typeof C: it is the from/new SEED (validate the seed), or, when
 // field-copy is selected, the instance shape. For an instance / plain type it
 // is the type itself. Mirrors the detection in plainClassifyProgrammer_initialize.
-func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, static *shimchecker.Type) *shimchecker.Type {
+// plainClassifyProgrammer_call_file resolves the absolute path of the classify
+// call site (from the Modulo node) — used to decide a same-file vs cross-module
+// class reference. "" when unresolvable.
+func plainClassifyProgrammer_call_file(modulo *shimast.Node) string {
+  if modulo == nil {
+    return ""
+  }
+  if src := shimast.GetSourceFileOfNode(modulo); src != nil {
+    if abs, err := filepath.Abs(src.FileName()); err == nil {
+      return abs
+    }
+  }
+  return ""
+}
+
+func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, static *shimchecker.Type, callFile string) *shimchecker.Type {
   checker := ctx.Checker
   // class-TYPE UNION: assert/validate must check the SEED union (seedA | seedB |
   // ...non-class members...), not the constructor union typeof A | typeof B —
@@ -1619,11 +1627,25 @@ func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, st
       if instanceT == nil {
         instanceT = member
       }
+      // Use the SEED only when classify actually commits to from/new for this
+      // member — the class value is locatable AND the seed metadata-analyzes —
+      // mirroring detect_strategy; otherwise classify field-copies the instance
+      // shape, so validate that instead.
+      chosen := instanceT
       if kind, seedT := plainClassifyProgrammer_choose_seed(checker, member, instanceT, ctorSigs, fromSym); kind != "" {
-        seeds = append(seeds, seedT)
-      } else {
-        seeds = append(seeds, instanceT)
+        if plainClassifyProgrammer_class_ref(ctx, member, callFile) != nil {
+          r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
+            Checker:    checker,
+            Options:    plainClassifyProgrammer_options(),
+            Components: schemametadata.NewMetadataCollection(),
+            Type:       seedT,
+          })
+          if r.Success {
+            chosen = seedT
+          }
+        }
       }
+      seeds = append(seeds, chosen)
     }
     return checker.GetUnionType(seeds)
   }
@@ -1644,7 +1666,7 @@ func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, st
   // check exactly what classify decodes/constructs (else the field-copy instance
   // shape).
   if kind, seedT := plainClassifyProgrammer_choose_seed(checker, static, instanceT, ctorSigs, fromSym); kind != "" {
-    if plainClassifyProgrammer_class_ref(ctx, static, "") != nil {
+    if plainClassifyProgrammer_class_ref(ctx, static, callFile) != nil {
       r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
         Checker:    checker,
         Options:    plainClassifyProgrammer_options(),

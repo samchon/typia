@@ -34,7 +34,7 @@ func (plainValidateClassifyProgrammerNamespace) Decompose(props PlainValidateCla
     Modulo:  props.Modulo,
     Functor: props.Functor,
     Config:  nativeprogrammers.ValidateProgrammer_IConfig{Equals: false},
-    Type:    plainClassifyProgrammer_validation_type(props.Context, props.Type),
+    Type:    plainClassifyProgrammer_validation_type(props.Context, props.Type, plainClassifyProgrammer_call_file(props.Modulo)),
     Name:    props.Name,
   })
   classify := PlainClassifyProgrammer.Decompose(PlainClassifyProgrammer_DecomposeProps{

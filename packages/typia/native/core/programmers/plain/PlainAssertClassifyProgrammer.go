@@ -37,7 +37,7 @@ func (plainAssertClassifyProgrammerNamespace) Decompose(props PlainAssertClassif
     Context: props.Context,
     Functor: props.Functor,
     Config:  nativeprogrammers.AssertProgrammer_IConfig{Equals: false, Guard: false},
-    Type:    plainClassifyProgrammer_validation_type(props.Context, props.Type),
+    Type:    plainClassifyProgrammer_validation_type(props.Context, props.Type, plainClassifyProgrammer_call_file(props.Modulo)),
     Name:    props.Name,
     Init:    props.Init,
   })
