@@ -344,6 +344,44 @@ export type Widget = InstanceType<ReturnType<typeof factory>>;
 export const build = typia.plain.createClassify<Widget>();
 `
 
+// TestPlainClassifyInheritedPrivateRejected verifies that a class extending a
+// #private-bearing base is rejected: field-copying the subclass never installs
+// the inherited #private slot, so its prototype methods would throw at runtime.
+func TestPlainClassifyInheritedPrivateRejected(t *testing.T) {
+  project := plainClassifyWriteProject(t, "plain-classify-inheritedpriv-", plainClassifyInheritedPrivateSource)
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+    })
+  })
+  if code == 0 {
+    t.Fatalf("a class extending a #private-bearing base must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
+  }
+  if !strings.Contains(out, "typia transform error") {
+    t.Fatalf("the inherited-#private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
+  }
+}
+
+const plainClassifyInheritedPrivateSource = `import typia from "typia";
+
+// A base class with an INSTANCE #private field; the subclass adds only public
+// data. Field-copying the subclass never installs the inherited #private slot, so
+// classify must reject it — the prototype chain matters.
+class Base {
+  #secret = 0;
+  bump(): number {
+    this.#secret += 1;
+    return this.#secret;
+  }
+}
+export class Derived extends Base {
+  name!: string;
+}
+
+export const build = typia.plain.createClassify<Derived>();
+`
+
 const plainClassifyUnboundAnonRunner = `const mod = require("./main.cjs");
 
 const assert = (cond, msg) => {

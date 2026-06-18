@@ -45,35 +45,13 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
       }
       // ES `#private` members are installed only by the constructor, so
       // plain.classify cannot soundly field-copy (Object.create + assign) a class
-      // that has them. The type system hides #private from ApparentProperties, so
-      // detect it on the class declaration: any member named with a
-      // PrivateIdentifier. Additive flag, read only by the classify programmer.
-      // The member NodeList is reached via the typed accessor (AsClassDeclaration
-      // / AsClassExpression), keyed on Kind so the wrong accessor never fires.
-      var classMembers []*nativeast.Node
-      if decl.Kind == nativeast.KindClassDeclaration {
-        if cd := decl.AsClassDeclaration(); cd != nil && cd.Members != nil {
-          classMembers = cd.Members.Nodes
-        }
-      } else if decl.Kind == nativeast.KindClassExpression {
-        if ce := decl.AsClassExpression(); ce != nil && ce.Members != nil {
-          classMembers = ce.Members.Nodes
-        }
-      }
-      for _, member := range classMembers {
-        if member == nil {
-          continue
-        }
-        // A STATIC `#x` / `#m()` lives on the constructor, not on instances, so
-        // field-copy (Object.create(prototype) + assign) still produces a sound
-        // instance — only INSTANCE #private members block field-copy.
-        if member.ModifierFlags()&nativeast.ModifierFlagsStatic != 0 {
-          continue
-        }
-        if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
-          obj.PrivateFields = true
-          break
-        }
+      // that has them — and the PROTOTYPE CHAIN matters: a field-copied subclass
+      // of a #private-bearing base would equally throw "Cannot read private
+      // member". The type system hides #private from ApparentProperties, so detect
+      // it on the class declaration(s), walking the `extends` chain. Additive flag,
+      // read only by the classify programmer.
+      if emplace_metadata_object_private_fields(props.Checker, props.Type, map[*nativechecker.Type]bool{}) {
+        obj.PrivateFields = true
       }
     }
   }
@@ -197,6 +175,48 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     })
   }
   return obj
+}
+
+// emplace_metadata_object_private_fields reports whether `typ` or any class in
+// its `extends` chain declares an INSTANCE ES #private member — which field-copy
+// (Object.create + assign) cannot reconstruct, so plain.classify must reject it.
+// A STATIC #private (on the constructor) is excluded at every level. `visited`
+// guards against type cycles.
+func emplace_metadata_object_private_fields(checker *nativechecker.Checker, typ *nativechecker.Type, visited map[*nativechecker.Type]bool) bool {
+  if checker == nil || typ == nil || visited[typ] {
+    return false
+  }
+  visited[typ] = true
+  if sym := typ.Symbol(); sym != nil && len(sym.Declarations) != 0 {
+    decl := sym.Declarations[0]
+    var members []*nativeast.Node
+    if decl.Kind == nativeast.KindClassDeclaration {
+      if cd := decl.AsClassDeclaration(); cd != nil && cd.Members != nil {
+        members = cd.Members.Nodes
+      }
+    } else if decl.Kind == nativeast.KindClassExpression {
+      if ce := decl.AsClassExpression(); ce != nil && ce.Members != nil {
+        members = ce.Members.Nodes
+      }
+    }
+    for _, member := range members {
+      if member == nil {
+        continue
+      }
+      if member.ModifierFlags()&nativeast.ModifierFlagsStatic != 0 {
+        continue
+      }
+      if name := member.Name(); name != nil && name.Kind == nativeast.KindPrivateIdentifier {
+        return true
+      }
+    }
+  }
+  for _, base := range nativechecker.Checker_getBaseTypes(checker, typ) {
+    if emplace_metadata_object_private_fields(checker, base, visited) {
+      return true
+    }
+  }
+  return false
 }
 
 // emplace_metadata_object_is_default_export reports whether `sym` (a class
