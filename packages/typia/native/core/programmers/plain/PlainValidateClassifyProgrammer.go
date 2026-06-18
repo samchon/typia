@@ -26,12 +26,15 @@ var plainValidateClassifyProgrammer_factory = shimast.NewNodeFactory(shimast.Nod
 
 func (plainValidateClassifyProgrammerNamespace) Decompose(props PlainValidateClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.EmitFactoryOf(plainValidateClassifyProgrammer_factory, props.Context.Emit)
+  // Validate the INPUT against the redirected type (from/new seed or field-copy
+  // instance shape for a class-TYPE target; the type itself otherwise) — never
+  // typeof C's static members.
   validate := nativeprogrammers.ValidateProgrammer.Decompose(nativeprogrammers.ValidateProgrammer_DecomposeProps{
     Context: props.Context,
     Modulo:  props.Modulo,
     Functor: props.Functor,
     Config:  nativeprogrammers.ValidateProgrammer_IConfig{Equals: false},
-    Type:    props.Type,
+    Type:    plainClassifyProgrammer_validation_type(props.Context, props.Type),
     Name:    props.Name,
   })
   classify := PlainClassifyProgrammer.Decompose(PlainClassifyProgrammer_DecomposeProps{
@@ -40,6 +43,7 @@ func (plainValidateClassifyProgrammerNamespace) Decompose(props PlainValidateCla
     Type:      props.Type,
     Name:      props.Name,
     Validated: true,
+    Modulo:    props.Modulo,
   })
   statements := append([]*shimast.Node{}, validate.Statements...)
   statements = append(statements, classify.Statements...)

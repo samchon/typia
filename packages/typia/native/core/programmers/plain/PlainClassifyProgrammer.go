@@ -2,6 +2,7 @@ package plain
 
 import (
   "fmt"
+  "path/filepath"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -26,6 +27,10 @@ type PlainClassifyProgrammer_DecomposeProps struct {
   Functor   *nativehelpers.FunctionProgrammer
   Type      *shimchecker.Type
   Name      *string
+  // Modulo is the call-site node (the typia.plain.classify(...) call). Its
+  // source file anchors cross-module class value-import specifiers for the
+  // from/new construction strategies; nil falls back to a bare identifier.
+  Modulo *shimast.Node
 }
 
 const plainClassifyProgrammer_PREFIX = "_y"
@@ -37,9 +42,11 @@ func (plainClassifyProgrammerNamespace) Decompose(props PlainClassifyProgrammer_
   config := plainClassifyProgrammer_configure(struct {
     Context nativecontext.ITypiaContext
     Functor *nativehelpers.FunctionProgrammer
+    Modulo  *shimast.Node
   }{
     Context: props.Context,
     Functor: props.Functor,
+    Modulo:  props.Modulo,
   })
   if props.Validated == false {
     config.Addition = func(collection *schemametadata.MetadataCollection) []*shimast.Node {
@@ -80,6 +87,7 @@ func (plainClassifyProgrammerNamespace) Write(props nativecontext.IProgrammerPro
     Type:      props.Type,
     Name:      props.Name,
     Validated: false,
+    Modulo:    props.Modulo,
   })
   return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
     Modulo:  props.Modulo,
@@ -905,9 +913,27 @@ func plainClassifyProgrammer_explore_objects(props plainClassifyProgrammer_explo
 func plainClassifyProgrammer_configure(props struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
+  Modulo  *shimast.Node
 }) nativeinternal.FeatureProgrammer_IConfig {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, props.Context.Emit)
   config := nativeinternal.FeatureProgrammer_IConfig{}
+
+  // from/new construction strategies (classify-scoped, never on the shared
+  // metadata schema). The wrapped initializer detects a class-TYPE target
+  // (typeof C) and records its strategy here, keyed by the top object; the
+  // root decode (Explore.From=="top") consumes it. topStrategy covers a
+  // non-object instance (e.g. a class extending Map/Array) whose top metadata
+  // has no single object to key by. callFile anchors cross-module class imports.
+  strategies := map[*schemametadata.MetadataObjectType]*plainClassifyProgrammer_strategy{}
+  var topStrategy *plainClassifyProgrammer_strategy
+  callFile := ""
+  if props.Modulo != nil {
+    if src := shimast.GetSourceFileOfNode(props.Modulo); src != nil {
+      if abs, err := filepath.Abs(src.FileName()); err == nil {
+        callFile = abs
+      }
+    }
+  }
   config.Types = nativeinternal.FeatureProgrammer_IConfig_ITypes{
     Input: func(t *shimchecker.Type, name *string) *shimast.TypeNode {
       return f.NewTypeReferenceNode(f.NewIdentifier(plainClassifyProgrammer_type_name(props.Context, t, name)), nil)
@@ -921,7 +947,16 @@ func plainClassifyProgrammer_configure(props struct {
   config.Prefix = plainClassifyProgrammer_PREFIX
   config.Trace = false
   config.Path = false
-  config.Initializer = plainClassifyProgrammer_initializer
+  config.Initializer = func(p nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
+    out, st := plainClassifyProgrammer_initialize(p, callFile, props.Modulo)
+    if st != nil {
+      topStrategy = st
+      if len(out.Metadata.Objects) == 1 {
+        strategies[out.Metadata.Objects[0].Type] = st
+      }
+    }
+    return out
+  }
   config.Visited = props.Functor.Visited
   config.VisitGuard = func(next nativeinternal.FeatureProgrammer_VisitGuardProps) *shimast.Node {
     // The recursion guard registers its allocator in the WeakMap as the
@@ -951,6 +986,23 @@ func plainClassifyProgrammer_configure(props struct {
     return nativeinternal.FeatureProgrammer.VisitGuardRebuildWith(next.Key, allocator, next.Body, props.Context.Emit)
   }
   config.Decoder = func(next nativeinternal.FeatureProgrammer_DecoderProps) *shimast.Node {
+    // ROOT-ONLY from/new construction. Only the root decode carries
+    // Explore.From=="top" (FeatureProgrammer.go:475); every nested decode
+    // carries "object"/"array"/etc. Emitting here — never inside the shared
+    // _yo<index> joiner — keeps a self-referential class field-copying at nested
+    // positions while still constructing at the root.
+    if next.Explore.From == "top" {
+      var st *plainClassifyProgrammer_strategy
+      if len(next.Metadata.Objects) == 1 {
+        st = strategies[next.Metadata.Objects[0].Type]
+      }
+      if st == nil {
+        st = topStrategy
+      }
+      if st != nil {
+        return plainClassifyProgrammer_construct(props.Context, config, props.Functor, next.Input, st)
+      }
+    }
     return plainClassifyProgrammer_decode(struct {
       Context  nativecontext.ITypiaContext
       Config   nativeinternal.FeatureProgrammer_IConfig
@@ -1066,32 +1118,88 @@ func plainClassifyProgrammer_configure(props struct {
   return config
 }
 
-func plainClassifyProgrammer_initializer(props nativeinternal.FeatureProgrammer_InitializerProps) nativeinternal.FeatureProgrammer_InitializerOutput {
+// plainClassifyProgrammer_strategy is the construction chosen for a class-TYPE
+// (typeof C) classify target: a static `from` factory or a single-argument
+// `new`. Seed is the recursively-analyzed plain seed metadata (decoded from the
+// input and passed to the factory/constructor); ClassRef is the value reference
+// to C (bare identifier same-file, value import cross-module).
+type plainClassifyProgrammer_strategy struct {
+  Kind     string // "from" | "new"
+  Seed     *schemametadata.MetadataSchema
+  SeedType *shimchecker.Type
+  ClassRef *shimast.Node
+}
+
+// plainClassifyProgrammer_options is the metadata-analysis option set shared by
+// the field-copy shape analysis and the from/new seed analysis, so a seed is
+// validated (e.g. WeakSet/WeakMap rejection) exactly like a property value.
+func plainClassifyProgrammer_options() nativefactories.MetadataFactory_IOptions {
+  return nativefactories.MetadataFactory_IOptions{
+    Escape:   false,
+    Constant: true,
+    Absorb:   true,
+    Validate: func(next struct {
+      Metadata *schemametadata.MetadataSchema
+      Explore  nativefactories.MetadataFactory_IExplore
+      Top      *schemametadata.MetadataSchema
+    }) []string {
+      output := []string{}
+      for _, native := range next.Metadata.Natives {
+        if native.Name == "WeakSet" {
+          output = append(output, "unable to classify WeakSet")
+        } else if native.Name == "WeakMap" {
+          output = append(output, "unable to classify WeakMap")
+        }
+      }
+      return output
+    },
+  }
+}
+
+// plainClassifyProgrammer_initialize analyzes the classify target and, for a
+// class-TYPE target, detects its construction strategy. For typeof C the
+// analyzed shape is REDIRECTED to the instance type (the static side's apparent
+// properties are static members, not the instance fields), keeping the
+// field-copy fallback + assert/validate shape correct. Returns the metadata
+// output and, when a from/new strategy is selected, the strategy (else nil).
+func plainClassifyProgrammer_initialize(
+  props nativeinternal.FeatureProgrammer_InitializerProps,
+  callFile string,
+  modulo *shimast.Node,
+) (nativeinternal.FeatureProgrammer_InitializerOutput, *plainClassifyProgrammer_strategy) {
+  _ = modulo
+  checker := props.Context.Checker
+  static := props.Type
+
+  // Constructor-nature gate: a class TYPE (typeof C) carries construct
+  // signatures and/or a static `from`; an instance type / plain object /
+  // interface carries neither (the typeof-C static side is NOT IsClass). Only
+  // then redirect the analyzed shape to the INSTANCE type and consider a
+  // from/new strategy — this also prevents a plain object with a data field
+  // literally named `prototype` from being mis-shaped.
+  ctorSigs := checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)
+  fromSym := checker.GetPropertyOfType(static, "from")
+  hasStrategy := len(ctorSigs) > 0 || fromSym != nil
+
+  analyzeT := static
+  instanceT := static
+  if hasStrategy {
+    instanceT = shimchecker.Checker_getTypeOfPropertyOfType(checker, static, "prototype")
+    if instanceT == nil && len(ctorSigs) > 0 {
+      instanceT = checker.GetReturnTypeOfSignature(ctorSigs[0])
+    }
+    if instanceT == nil {
+      instanceT = static
+    }
+    analyzeT = instanceT
+  }
+
   collection := schemametadata.NewMetadataCollection()
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
-    Checker: props.Context.Checker,
-    Options: nativefactories.MetadataFactory_IOptions{
-      Escape:   false,
-      Constant: true,
-      Absorb:   true,
-      Validate: func(next struct {
-        Metadata *schemametadata.MetadataSchema
-        Explore  nativefactories.MetadataFactory_IExplore
-        Top      *schemametadata.MetadataSchema
-      }) []string {
-        output := []string{}
-        for _, native := range next.Metadata.Natives {
-          if native.Name == "WeakSet" {
-            output = append(output, "unable to classify WeakSet")
-          } else if native.Name == "WeakMap" {
-            output = append(output, "unable to classify WeakMap")
-          }
-        }
-        return output
-      },
-    },
+    Checker:    checker,
+    Options:    plainClassifyProgrammer_options(),
     Components: collection,
-    Type:       props.Type,
+    Type:       analyzeT,
   })
   if result.Success == false {
     panic(nativecontext.TransformerError_from(struct {
@@ -1102,13 +1210,248 @@ func plainClassifyProgrammer_initializer(props nativeinternal.FeatureProgrammer_
       Errors: plainClassifyProgrammer_errors(result.Errors),
     }))
   }
+
+  var strategy *plainClassifyProgrammer_strategy
+  if hasStrategy {
+    strategy = plainClassifyProgrammer_detect_strategy(props.Context, static, instanceT, ctorSigs, fromSym, collection, callFile)
+  }
+
   if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
     props.Functor.SetVisited(true)
   }
   return nativeinternal.FeatureProgrammer_InitializerOutput{
     Collection: collection,
     Metadata:   result.Data,
+  }, strategy
+}
+
+// plainClassifyProgrammer_detect_strategy applies the precedence from -> new ->
+// (nil = field-copy). FROM wins when a static `from` is callable with a single
+// argument and returns the instance (looking through a `| null` failure arm);
+// otherwise a single-argument PUBLIC constructor selects NEW. The seed type is
+// the first parameter (or the rest element of a rest-only parameter), analyzed
+// into the same collection so its runtime decode matches Classifiable<T>.
+func plainClassifyProgrammer_detect_strategy(
+  ctx nativecontext.ITypiaContext,
+  static *shimchecker.Type,
+  instanceT *shimchecker.Type,
+  ctorSigs []*shimchecker.Signature,
+  fromSym *shimast.Symbol,
+  collection *schemametadata.MetadataCollection,
+  callFile string,
+) *plainClassifyProgrammer_strategy {
+  checker := ctx.Checker
+  classRef := plainClassifyProgrammer_class_ref(ctx, static, callFile)
+  if classRef == nil {
+    return nil
   }
+
+  analyzeSeed := func(seedT *shimchecker.Type) *schemametadata.MetadataSchema {
+    if seedT == nil {
+      return nil
+    }
+    r := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
+      Checker:    checker,
+      Options:    plainClassifyProgrammer_options(),
+      Components: collection,
+      Type:       seedT,
+    })
+    if r.Success == false {
+      return nil
+    }
+    return r.Data
+  }
+
+  if fromSym != nil && fromSym.ValueDeclaration != nil {
+    fnT := checker.GetTypeOfSymbolAtLocation(fromSym, fromSym.ValueDeclaration)
+    for _, sig := range checker.GetSignaturesOfType(fnT, shimchecker.SignatureKindCall) {
+      if !plainClassifyProgrammer_arity_ok(checker, sig) {
+        continue
+      }
+      ret := checker.GetReturnTypeOfSignature(sig)
+      nn := checker.GetNonNullableType(ret)
+      if nn == nil || !checker.IsTypeAssignableTo(nn, instanceT) {
+        continue
+      }
+      seedT := plainClassifyProgrammer_seed_type(checker, sig)
+      if seed := analyzeSeed(seedT); seed != nil {
+        return &plainClassifyProgrammer_strategy{Kind: "from", Seed: seed, SeedType: seedT, ClassRef: classRef}
+      }
+      break
+    }
+  }
+  for _, sig := range ctorSigs {
+    if !plainClassifyProgrammer_ctor_public(sig) || !plainClassifyProgrammer_arity_ok(checker, sig) {
+      continue
+    }
+    seedT := plainClassifyProgrammer_seed_type(checker, sig)
+    if seed := analyzeSeed(seedT); seed != nil {
+      return &plainClassifyProgrammer_strategy{Kind: "new", Seed: seed, SeedType: seedT, ClassRef: classRef}
+    }
+  }
+  return nil
+}
+
+// plainClassifyProgrammer_ctor_public reports whether a construct signature is
+// publicly newable — matching ClassifiableConstructor's `abstract new` gate,
+// which a private/protected constructor does not satisfy. A synthesized default
+// constructor has no declaration and counts as public.
+func plainClassifyProgrammer_ctor_public(sig *shimchecker.Signature) bool {
+  decl := sig.Declaration()
+  if decl == nil {
+    return true
+  }
+  return decl.ModifierFlags()&(shimast.ModifierFlagsPrivate|shimast.ModifierFlagsProtected) == 0
+}
+
+// plainClassifyProgrammer_arity_ok reports whether a signature is callable with
+// a single meaningful argument: at least one parameter and at most one REQUIRED
+// argument (the type-level "single meaningful argument" rule). getMinArgumentCount
+// is unexported upstream, hence the shim wrapper.
+func plainClassifyProgrammer_arity_ok(checker *shimchecker.Checker, sig *shimchecker.Signature) bool {
+  return shimchecker.Signature_parameterCount(sig) >= 1 &&
+    shimchecker.Checker_getMinArgumentCount(checker, sig) <= 1
+}
+
+// plainClassifyProgrammer_seed_type returns the seed type of a single-argument
+// signature: the rest ELEMENT for a rest-only parameter `(...xs: S[])`,
+// otherwise the first parameter's type. Matches ClassifiableSeed.
+func plainClassifyProgrammer_seed_type(checker *shimchecker.Checker, sig *shimchecker.Signature) *shimchecker.Type {
+  if sig.HasRestParameter() && len(sig.Parameters()) == 1 {
+    return checker.GetRestTypeOfSignature(sig)
+  }
+  params := sig.Parameters()
+  if len(params) == 0 {
+    return nil
+  }
+  return checker.GetTypeOfSymbol(params[0])
+}
+
+// plainClassifyProgrammer_validation_type returns the type assertClassify /
+// validateClassify must validate the INPUT against. For a class-TYPE target the
+// input is NOT typeof C: it is the from/new SEED (validate the seed), or, when
+// field-copy is selected, the instance shape. For an instance / plain type it
+// is the type itself. Mirrors the detection in plainClassifyProgrammer_initialize.
+func plainClassifyProgrammer_validation_type(ctx nativecontext.ITypiaContext, static *shimchecker.Type) *shimchecker.Type {
+  checker := ctx.Checker
+  ctorSigs := checker.GetSignaturesOfType(static, shimchecker.SignatureKindConstruct)
+  fromSym := checker.GetPropertyOfType(static, "from")
+  if len(ctorSigs) == 0 && fromSym == nil {
+    return static
+  }
+  instanceT := shimchecker.Checker_getTypeOfPropertyOfType(checker, static, "prototype")
+  if instanceT == nil && len(ctorSigs) > 0 {
+    instanceT = checker.GetReturnTypeOfSignature(ctorSigs[0])
+  }
+  if instanceT == nil {
+    instanceT = static
+  }
+  if fromSym != nil && fromSym.ValueDeclaration != nil {
+    fnT := checker.GetTypeOfSymbolAtLocation(fromSym, fromSym.ValueDeclaration)
+    for _, sig := range checker.GetSignaturesOfType(fnT, shimchecker.SignatureKindCall) {
+      if !plainClassifyProgrammer_arity_ok(checker, sig) {
+        continue
+      }
+      nn := checker.GetNonNullableType(checker.GetReturnTypeOfSignature(sig))
+      if nn == nil || !checker.IsTypeAssignableTo(nn, instanceT) {
+        continue
+      }
+      if seedT := plainClassifyProgrammer_seed_type(checker, sig); seedT != nil {
+        return seedT
+      }
+      break
+    }
+  }
+  for _, sig := range ctorSigs {
+    if !plainClassifyProgrammer_ctor_public(sig) || !plainClassifyProgrammer_arity_ok(checker, sig) {
+      continue
+    }
+    if seedT := plainClassifyProgrammer_seed_type(checker, sig); seedT != nil {
+      return seedT
+    }
+  }
+  return instanceT
+}
+
+// plainClassifyProgrammer_class_ref builds the VALUE reference to the class:
+// a bare identifier when the class is in lexical scope at the call site
+// (same file), or a value import (default/named) when it is declared in another
+// module. Returns nil when the class symbol cannot be located.
+func plainClassifyProgrammer_class_ref(ctx nativecontext.ITypiaContext, static *shimchecker.Type, callFile string) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, ctx.Emit)
+  sym := static.Symbol()
+  if sym == nil || len(sym.Declarations) == 0 {
+    return nil
+  }
+  decl := sym.Declarations[0]
+  src := shimast.GetSourceFileOfNode(decl)
+  if src == nil {
+    return f.NewIdentifier(sym.Name)
+  }
+  classFileAbs, err := filepath.Abs(src.FileName())
+  if err != nil || callFile == "" || classFileAbs == callFile {
+    return f.NewIdentifier(sym.Name)
+  }
+  rel, err := filepath.Rel(filepath.Dir(callFile), strings.TrimSuffix(classFileAbs, filepath.Ext(classFileAbs)))
+  if err != nil {
+    return f.NewIdentifier(sym.Name)
+  }
+  spec := filepath.ToSlash(rel)
+  if !strings.HasPrefix(spec, ".") {
+    spec = "./" + spec
+  }
+  if decl.ModifierFlags()&shimast.ModifierFlagsDefault != 0 {
+    return ctx.Importer.Default(nativecontext.ImportProgrammer_IDefault{File: spec, Name: sym.Name, Type: false})
+  }
+  return ctx.Importer.Instance(nativecontext.ImportProgrammer_IInstance{File: spec, Name: sym.Name})
+}
+
+// plainClassifyProgrammer_construct emits the root construction expression for a
+// from/new strategy: the seed is decoded from the function input (reusing the
+// classify decode), then wrapped in `C.from(seed) as any` / `new C(seed) as any`.
+// The result is an EXPRESSION (never a bare Block — the printer rejects that);
+// `as any` keeps the body type-consistent with the cosmetic typeof-C annotation.
+func plainClassifyProgrammer_construct(
+  ctx nativecontext.ITypiaContext,
+  config nativeinternal.FeatureProgrammer_IConfig,
+  functor *nativehelpers.FunctionProgrammer,
+  input *shimast.Node,
+  st *plainClassifyProgrammer_strategy,
+) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, ctx.Emit)
+  decoded := plainClassifyProgrammer_decode(struct {
+    Context  nativecontext.ITypiaContext
+    Config   nativeinternal.FeatureProgrammer_IConfig
+    Functor  *nativehelpers.FunctionProgrammer
+    Input    *shimast.Node
+    Metadata *schemametadata.MetadataSchema
+    Explore  nativeinternal.FeatureProgrammer_IExplore
+  }{
+    Context:  ctx,
+    Config:   config,
+    Functor:  functor,
+    Input:    input,
+    Metadata: st.Seed,
+    Explore: nativeinternal.FeatureProgrammer_IExplore{
+      Tracable: config.Path || config.Trace,
+      Source:   "object",
+      From:     "object",
+      Postfix:  "\"\"",
+    },
+  })
+  var call *shimast.Node
+  if st.Kind == "from" {
+    call = f.NewCallExpression(
+      nativefactories.IdentifierFactory.Access(ctx.Emit, st.ClassRef, "from"),
+      nil,
+      nil,
+      f.NewNodeList([]*shimast.Node{decoded}),
+      shimast.NodeFlagsNone,
+    )
+  } else {
+    call = f.NewNewExpression(st.ClassRef, nil, f.NewNodeList([]*shimast.Node{decoded}))
+  }
+  return f.NewAsExpression(call, nativefactories.TypeFactory.Keyword("any", ctx.Emit))
 }
 
 type plainClassifyProgrammer_throwProps struct {

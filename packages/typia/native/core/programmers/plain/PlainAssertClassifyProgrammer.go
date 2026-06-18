@@ -26,11 +26,15 @@ var plainAssertClassifyProgrammer_factory = shimast.NewNodeFactory(shimast.NodeF
 
 func (plainAssertClassifyProgrammerNamespace) Decompose(props PlainAssertClassifyProgrammer_DecomposeProps) nativeinternal.FeatureProgrammer_IDecomposed {
   f := nativecontext.EmitFactoryOf(plainAssertClassifyProgrammer_factory, props.Context.Emit)
+  // For a class-TYPE target (typeof C) the input is the from/new SEED or the
+  // field-copy instance shape — NOT typeof C's static members. Validate against
+  // that redirected type so a legitimate seed is accepted and the static side is
+  // never validated. Instance / plain types are returned unchanged.
   assert := nativeprogrammers.AssertProgrammer.Decompose(nativeprogrammers.AssertProgrammer_DecomposeProps{
     Context: props.Context,
     Functor: props.Functor,
     Config:  nativeprogrammers.AssertProgrammer_IConfig{Equals: false, Guard: false},
-    Type:    props.Type,
+    Type:    plainClassifyProgrammer_validation_type(props.Context, props.Type),
     Name:    props.Name,
     Init:    props.Init,
   })
