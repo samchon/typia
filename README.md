@@ -66,7 +66,7 @@ Install `typia@next` with the [`ttsc`](https://github.com/samchon/ttsc) toolchai
 ```bash
 # install
 npm i typia@next
-npm i -D ttsc @typescript/native-preview
+npm i -D ttsc typescript@rc
 
 # build
 npx ttsc

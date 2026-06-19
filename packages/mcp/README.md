@@ -18,7 +18,7 @@ Registers typia controllers as MCP tools with automatic validation.
 
 ```bash
 npm install @typia/mcp @modelcontextprotocol/sdk typia
-npm install -D ttsc @typescript/native-preview
+npm install -D ttsc typescript@rc
 ```
 
 ## Usage

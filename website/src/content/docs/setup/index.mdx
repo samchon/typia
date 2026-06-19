@@ -10,7 +10,7 @@ typia is a compile-time transformer, so it has to plug into your TypeScript buil
 
 | Path | When to use | Package | Default? |
 |------|-------------|---------|---------|
-| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go preview (`@typescript/native-preview`) — experimental | `typia@next` | experimental preview |
+| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go (`typescript@7`, release candidate) | `typia@next` | release candidate |
 | [**Legacy (`ts-patch`)**](/docs/setup/legacy) | Stable TypeScript v5 or v6 (the standard `typescript` npm package) | `typia` | ✅ recommended |
 
 **TypeScript-Go** is the in-progress Go-rewrite of the TypeScript compiler shipped by the TypeScript team. The transformer plug-in API is settled, but packaging and binary naming are not — pin versions carefully and expect breakage.
@@ -28,7 +28,7 @@ Use [`typia@next`](/docs/setup/tsgo). TypeScript is migrating its compiler from 
 ```bash filename="Terminal" showLineNumbers copy
 # install
 npm i typia@next
-npm i -D ttsc @typescript/native-preview
+npm i -D ttsc typescript@rc
 
 # build
 npx ttsc
@@ -41,7 +41,7 @@ npx ttsx src/index.ts
 ```bash filename="Terminal" showLineNumbers copy
 # install
 pnpm i typia@next
-pnpm i -D ttsc @typescript/native-preview
+pnpm i -D ttsc typescript@rc
 
 # build
 pnpm ttsc
@@ -54,7 +54,7 @@ pnpm ttsx src/index.ts
 ```bash filename="Terminal" showLineNumbers copy
 # install
 yarn add typia@next
-yarn add -D ttsc @typescript/native-preview
+yarn add -D ttsc typescript@rc
 
 # build
 yarn ttsc
@@ -67,7 +67,7 @@ yarn ttsx src/index.ts
 ```bash filename="Terminal" showLineNumbers copy
 # install
 bun add typia@next
-bun add -d ttsc @typescript/native-preview
+bun add -d ttsc typescript@rc
 
 # build
 bun ttsc
