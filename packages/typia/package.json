@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-esm-shim": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/inquirer": "^8.2.5",
     "@types/node": "catalog:utils",

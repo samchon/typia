@@ -9,6 +9,9 @@ catalogs:
     '@rollup/plugin-commonjs':
       specifier: ^29.0.0
       version: 29.0.2
+    '@rollup/plugin-esm-shim':
+      specifier: ^0.1.8
+      version: 0.1.8
     '@rollup/plugin-node-resolve':
       specifier: ^16.0.3
       version: 16.0.3
@@ -387,6 +390,9 @@ importers:
       '@rollup/plugin-commonjs':
         specifier: catalog:rollup
         version: 29.0.2(rollup@4.60.2)
+      '@rollup/plugin-esm-shim':
+        specifier: catalog:rollup
+        version: 0.1.8(rollup@4.60.2)
       '@rollup/plugin-node-resolve':
         specifier: catalog:rollup
         version: 16.0.3(rollup@4.60.2)
@@ -2199,6 +2205,15 @@ packages:
       rollup:
         optional: true
 
+  '@rollup/plugin-esm-shim@0.1.8':
+    resolution: {integrity: sha512-xEU0b/BShgDDSPjidhJd4R74J9xZ9jLVtFWNGtsUXyEsdwwwB1a3XOAwwGaNIyUHD6EhxPO21JMfUmJWoMn7SA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+
   '@rollup/plugin-node-resolve@16.0.3':
     resolution: {integrity: sha512-lUYM3UBGuM93CnMPG1YocWu7X802BrNF3jW2zny5gQyLQgRFJhV1Sq0Zi74+dh/6NBx1DxFC4b4GXg9wUCG5Qg==}
     engines: {node: '>=14.0.0'}
@@ -3760,6 +3775,9 @@ packages:
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  confbox@0.1.8:
+    resolution: {integrity: sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==}
 
   confbox@0.2.4:
     resolution: {integrity: sha512-ysOGlgTFbN2/Y6Cg3Iye8YKulHw+R2fNXHrgSmXISQdMnomY6eNDprVdW9R5xBguEqI954+S6709UyiO7B+6OQ==}
@@ -5523,6 +5541,9 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
+  mlly@1.8.2:
+    resolution: {integrity: sha512-d+ObxMQFmbt10sretNDytwt85VrbkhhUA/JBGm1MPaWJ65Cl4wOgLaB1NYvJSZ0Ef03MMEU/0xpPMXUIQ29UfA==}
+
   moment@2.30.1:
     resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
@@ -5947,6 +5968,9 @@ packages:
   pkg-dir@4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
+
+  pkg-types@1.3.1:
+    resolution: {integrity: sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==}
 
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
@@ -6856,6 +6880,9 @@ packages:
 
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
+
+  ufo@1.6.4:
+    resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
 
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
@@ -8755,6 +8782,13 @@ snapshots:
     optionalDependencies:
       rollup: 4.60.2
 
+  '@rollup/plugin-esm-shim@0.1.8(rollup@4.60.2)':
+    dependencies:
+      magic-string: 0.30.21
+      mlly: 1.8.2
+    optionalDependencies:
+      rollup: 4.60.2
+
   '@rollup/plugin-node-resolve@16.0.3(rollup@4.60.2)':
     dependencies:
       '@rollup/pluginutils': 5.3.0(rollup@4.60.2)
@@ -10473,6 +10507,8 @@ snapshots:
   compute-scroll-into-view@3.1.1: {}
 
   concat-map@0.0.1: {}
+
+  confbox@0.1.8: {}
 
   confbox@0.2.4: {}
 
@@ -12732,6 +12768,13 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
+  mlly@1.8.2:
+    dependencies:
+      acorn: 8.16.0
+      pathe: 2.0.3
+      pkg-types: 1.3.1
+      ufo: 1.6.4
+
   moment@2.30.1: {}
 
   monaco-editor@0.50.0: {}
@@ -13198,6 +13241,12 @@ snapshots:
   pkg-dir@4.2.0:
     dependencies:
       find-up: 4.1.0
+
+  pkg-types@1.3.1:
+    dependencies:
+      confbox: 0.1.8
+      mlly: 1.8.2
+      pathe: 2.0.3
 
   pkg-types@2.3.0:
     dependencies:
@@ -14328,6 +14377,8 @@ snapshots:
       '@typescript/typescript-win32-x64': 7.0.1-rc
 
   uc.micro@2.1.0: {}
+
+  ufo@1.6.4: {}
 
   undici-types@5.26.5: {}
 

@@ -24,6 +24,7 @@ catalogs:
     rollup-plugin-auto-external: ^2.0.0
     rollup-plugin-node-externals: ^8.1.2
     '@rollup/plugin-commonjs': ^29.0.0
+    '@rollup/plugin-esm-shim': ^0.1.8
     '@rollup/plugin-node-resolve': ^16.0.3
     '@rollup/plugin-terser': ^0.4.4
   utils:
