@@ -22,7 +22,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typescript/native-preview": "catalog:typescript",
+    "typescript": "catalog:typescript",
     "ttsc": "catalog:typescript"
   },
   "dependencies": {

@@ -31,13 +31,13 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-esm-shim": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/json-schema": "^7.0.15",
-    "@typescript/native-preview": "catalog:typescript",
+    "typescript": "catalog:typescript",
     "ai": "^6.0.116",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
-    "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "tinyglobby": "^0.2.12",
     "ttsc": "catalog:typescript"
