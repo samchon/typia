@@ -6,5 +6,5 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 10
     allow:
-      - dependency-name: "@typescript/native-preview"
+      - dependency-name: "typescript"
       - dependency-name: "ttsc"

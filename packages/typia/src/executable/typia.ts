@@ -17,17 +17,17 @@ const halt = (desc: string): never => {
   process.exit(-1);
 };
 
-const loadNativePreview = (): void => {
+const loadTypeScript = (): void => {
   loadPackage(
-    "@typescript/native-preview/package.json",
-    `@typescript/native-preview has not been installed. Run "npm i -D ttsc @typescript/native-preview" before.`,
+    "typescript/package.json",
+    `typescript has not been installed. Run "npm i -D ttsc typescript" before.`,
   );
 };
 
 const loadTtsc = (): void => {
   loadPackage(
     "ttsc/package.json",
-    `ttsc has not been installed. Run "npm i -D ttsc @typescript/native-preview" before.`,
+    `ttsc has not been installed. Run "npm i -D ttsc typescript" before.`,
   );
 };
 
@@ -64,7 +64,7 @@ const main = async (): Promise<void> => {
   if (type === "generate") {
     if (isHelp(process.argv.slice(3)) === false) {
       loadTtsc();
-      loadNativePreview();
+      loadTypeScript();
     }
     const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard.js");
     await TypiaGenerateWizard.generate();

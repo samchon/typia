@@ -28,7 +28,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
-    "@typescript/native-preview": "catalog:typescript",
+    "typescript": "catalog:typescript",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
     "rollup-plugin-auto-external": "catalog:rollup",

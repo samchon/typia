@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
@@ -18,9 +19,10 @@ export default function createTtscPlugin(
 
 function resolvePackageRoot(projectRoot: string): string | null {
   try {
-    return path.dirname(
-      require.resolve("typia/package.json", { paths: [projectRoot] }),
-    );
+    // ttsc loads this descriptor as ESM, where the ambient `require` is
+    // unavailable; anchor a CJS resolver on the consuming project instead.
+    const requireFrom = createRequire(path.join(projectRoot, "package.json"));
+    return path.dirname(requireFrom.resolve("typia/package.json"));
   } catch {
     return null;
   }
