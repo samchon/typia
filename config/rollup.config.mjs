@@ -1,6 +1,6 @@
 import commonjs from "@rollup/plugin-commonjs";
+import esmShim from "@rollup/plugin-esm-shim";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import autoExternal from "rollup-plugin-auto-external";
 import nodeExternals from "rollup-plugin-node-externals";
 import { globSync } from "tinyglobby";
 
@@ -21,8 +21,11 @@ export default {
     preserveModulesRoot: "lib",
   },
   plugins: [
+    // Some sources use the CJS globals `__dirname`/`__filename` (e.g.
+    // typia's `executable/TypiaGenerateWizard.ts`). esm-shim derives them from
+    // `import.meta.url` so the transcoded `.mjs` stays correct in ESM too.
+    esmShim(),
     nodeExternals(),
-    autoExternal(),
     nodeResolve(),
     commonjs({
       strictRequires: false,

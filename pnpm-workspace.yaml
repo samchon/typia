@@ -21,7 +21,6 @@ catalogs:
     typescript: 7.0.1-rc
   rollup:
     rollup: ^4.56.0
-    rollup-plugin-auto-external: ^2.0.0
     rollup-plugin-node-externals: ^8.1.2
     '@rollup/plugin-commonjs': ^29.0.0
     '@rollup/plugin-esm-shim': ^0.1.8
