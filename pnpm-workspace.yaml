@@ -17,7 +17,7 @@ catalogs:
     '@ttsc/unplugin': ^0.16.0
     '@ttsc/wasm': ^0.16.0
     ts-node: ^10.9.2
-    ttsc: ^0.16.0
+    ttsc: ^0.16.2
     typescript: 7.0.1-rc
   rollup:
     rollup: ^4.56.0
