@@ -76,6 +76,13 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
     // typia's own tags are always honored — even intersected onto an object.
     {"primitive_typia_tag", `number & tags.Type<"int32">`},
     {"object_typia_tag", `{ a: string } & tags.JsonSchemaPlugin<{ "x-tag": true }>`},
+    // An empty marker object drops (TS `string & {}` is `string`); multiple and
+    // nested phantom markers all strip; a tag distributed over a literal union
+    // narrows each member rather than collapsing the union.
+    {"empty_object_brand", `string & {}`},
+    {"multi_phantom_brand", `string & { [sym]: "A" } & { tag?: number }`},
+    {"nested_phantom_brand", `(string & { [sym]: "A" }) & { [sym2]: "B" }`},
+    {"union_literal_typia_tag", `(1 | 2 | 3) & tags.Type<"int32">`},
   }
   for _, tc := range accepted {
     tc := tc

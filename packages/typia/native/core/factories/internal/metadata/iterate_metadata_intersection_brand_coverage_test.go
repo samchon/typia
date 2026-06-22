@@ -13,13 +13,13 @@ import (
 // predicates (issue #1967) as pure schema functions.
 //
 // A `Base & Marker` intersection drops the marker object only when every one of
-// its properties is phantom: optional, symbol-keyed, or a required literal brand
-// value. A required, non-literal, string-keyed property carries real data and
-// must keep the whole intersection nonsensible. These predicates run on a
-// `MetadataObjectType`, so crafted fixtures cover each branch without a checker.
+// its properties is phantom: optional or symbol-keyed. A required string-keyed
+// property — literal or not — carries (potentially) real data and must keep the
+// whole intersection nonsensible. These predicates run on a `MetadataObjectType`,
+// so crafted fixtures cover each branch without a checker.
 //
-//  1. Drive the symbol-key and literal-brand value predicates across every case.
-//  2. Drive the per-property phantom predicate.
+//  1. Drive the symbol-key predicate across every case.
+//  2. Drive the per-property phantom predicate (optional / symbol / required).
 //  3. Drive the removable-brand object predicate end to end.
 func TestIterateMetadataIntersectionBrandCoverage(t *testing.T) {
   atomic := func(typ string) *schemametadata.MetadataSchema {

@@ -95,9 +95,10 @@ func intersectionBrandRunRuntimeCases(t *testing.T, project string, js string) {
   }
 }
 
-const intersectionBrandSource = `import typia from "typia";
+const intersectionBrandSource = `import typia, { tags } from "typia";
 
 declare const sym: unique symbol;
+declare const sym2: unique symbol;
 
 // Only the unambiguously-phantom markers are honored: a unique-symbol key (zod /
 // type-fest / Effect brands) or an optional property. A required string-keyed
@@ -122,6 +123,18 @@ type UnionSymbol = (string | number) & { [sym]: "Tag" };
 enum Currency { KRW = "KRW", USD = "USD" }
 type EnumSymbol = Currency & { [sym]: "Tag" };
 
+// Optional markers on array / tuple bases, and a typia tag on an object base —
+// the accepted backstop rows whose soundness needs a runtime mirror (a build that
+// merely succeeds cannot tell a correct validator from accept-everything).
+type ArrayOptionalTag = string[] & { tag?: string };
+type TupleOptionalTag = [string, number] & { tag?: string };
+type ObjectTypiaTag = { a: string } & tags.JsonSchemaPlugin<{ "x-y": true }>;
+
+// Multiple phantom markers on one base, and a nested intersection of two brands —
+// exercising the recursive marker recognition.
+type MultiBrand = string & { [sym]: "A" } & { z?: number };
+type NestedBrand = (string & { [sym]: "A" }) & { [sym2]: "B" };
+
 export const isSymbolString = typia.createIs<SymbolString>();
 export const isOptionalString = typia.createIs<OptionalString>();
 export const isSymbolNumber = typia.createIs<SymbolNumber>();
@@ -131,6 +144,11 @@ export const isSymbolTuple = typia.createIs<SymbolTuple>();
 export const isSymbolDate = typia.createIs<SymbolDate>();
 export const isUnionSymbol = typia.createIs<UnionSymbol>();
 export const isEnumSymbol = typia.createIs<EnumSymbol>();
+export const isArrayOptionalTag = typia.createIs<ArrayOptionalTag>();
+export const isTupleOptionalTag = typia.createIs<TupleOptionalTag>();
+export const isObjectTypiaTag = typia.createIs<ObjectTypiaTag>();
+export const isMultiBrand = typia.createIs<MultiBrand>();
+export const isNestedBrand = typia.createIs<NestedBrand>();
 
 export const validateSymbolString = typia.createValidate<SymbolString>();
 export const assertSymbolNumber = typia.createAssert<SymbolNumber>();
@@ -182,6 +200,26 @@ check("enumSymbol accepts member", mod.isEnumSymbol("KRW"), true);
 check("enumSymbol accepts other member", mod.isEnumSymbol("USD"), true);
 check("enumSymbol rejects non-member", mod.isEnumSymbol("JPY"), false);
 check("enumSymbol rejects number", mod.isEnumSymbol(1), false);
+
+// Optional marker on array / tuple bases strips to the bare container.
+check("arrayOptionalTag accepts strings", mod.isArrayOptionalTag(["a", "b"]), true);
+check("arrayOptionalTag accepts empty", mod.isArrayOptionalTag([]), true);
+check("arrayOptionalTag rejects numbers", mod.isArrayOptionalTag([1]), false);
+check("arrayOptionalTag rejects non-array", mod.isArrayOptionalTag("x"), false);
+check("tupleOptionalTag accepts pair", mod.isTupleOptionalTag(["a", 1]), true);
+check("tupleOptionalTag rejects short", mod.isTupleOptionalTag(["a"]), false);
+check("tupleOptionalTag rejects swapped", mod.isTupleOptionalTag([1, "a"]), false);
+// typia tag on an object base keeps validating the object's real property.
+check("objectTypiaTag accepts object", mod.isObjectTypiaTag({ a: "s" }), true);
+check("objectTypiaTag rejects wrong type", mod.isObjectTypiaTag({ a: 1 }), false);
+check("objectTypiaTag rejects missing", mod.isObjectTypiaTag({}), false);
+check("objectTypiaTag rejects non-object", mod.isObjectTypiaTag("x"), false);
+// Multiple / nested phantom markers all strip, leaving the bare base.
+check("multiBrand accepts string", mod.isMultiBrand("abc"), true);
+check("multiBrand rejects number", mod.isMultiBrand(1), false);
+check("nestedBrand accepts string", mod.isNestedBrand("abc"), true);
+check("nestedBrand rejects number", mod.isNestedBrand(1), false);
+check("nestedBrand rejects object", mod.isNestedBrand({}), false);
 
 check("validate symbolString success", mod.validateSymbolString("abc").success, true);
 check("validate symbolString failure", mod.validateSymbolString(123).success, false);
