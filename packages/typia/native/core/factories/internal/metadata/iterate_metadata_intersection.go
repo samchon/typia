@@ -345,7 +345,17 @@ func iterate_metadata_intersection_is_symbol_key(key *schemametadata.MetadataSch
     return false
   }
   lit := key.GetSoleLiteral()
-  return lit != nil && len(*lit) != 0 && (*lit)[0] == 0xFE
+  return lit != nil && iterate_metadata_intersection_is_symbol_name(*lit)
+}
+
+// iterate_metadata_intersection_is_symbol_name reports whether an escaped member
+// name is a computed `symbol` member. The TypeScript checker prefixes such names
+// with a 0xFE byte (`InternalSymbolNamePrefix`), an invalid UTF-8 lead unit that
+// never begins a real string property name. This runs on the raw checker symbol
+// name (`is_removable_object_constraint`) as well as the metadata key literal
+// (`is_symbol_key`), so both the type-level and schema-level brand checks agree.
+func iterate_metadata_intersection_is_symbol_name(name string) bool {
+  return len(name) != 0 && name[0] == 0xFE
 }
 
 func iterate_metadata_intersection_reduce_union(props IMetadataIteratorProps) bool {
@@ -487,6 +497,13 @@ func iterate_metadata_intersection_is_removable_object_constraint(
     return false
   }
   for _, symbol := range collection.ApparentProperties(checker, typ) {
+    // A symbol-keyed member is never observable on a JSON value (the canonical
+    // nominal brand), so it is phantom and removable. typia's own tag is handled
+    // as a constraint, not stripped here; any required string-keyed property might
+    // be real data — both keep the object as a constraint, not a removable brand.
+    if iterate_metadata_intersection_is_symbol_name(symbol.Name) {
+      continue
+    }
     if symbol.Name == "typia.tag" || symbol.Flags&nativeast.SymbolFlagsOptional == 0 {
       return false
     }

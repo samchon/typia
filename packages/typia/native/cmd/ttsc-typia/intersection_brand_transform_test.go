@@ -113,6 +113,15 @@ type SymbolArray = string[] & { [sym]: "Tag" };
 type SymbolTuple = [string, number] & { [sym]: "Tag" };
 type SymbolDate = Date & { [sym]: "Tag" };
 
+// A union / enum base carrying a phantom symbol brand validates as the bare
+// union. TypeScript distributes (a | b) & Brand into (a & Brand) | (b & Brand),
+// so each member is a prunable intersection; the brand must drop on every member
+// rather than collapsing it to never (which would leave the union empty and
+// vacuously accept everything).
+type UnionSymbol = (string | number) & { [sym]: "Tag" };
+enum Currency { KRW = "KRW", USD = "USD" }
+type EnumSymbol = Currency & { [sym]: "Tag" };
+
 export const isSymbolString = typia.createIs<SymbolString>();
 export const isOptionalString = typia.createIs<OptionalString>();
 export const isSymbolNumber = typia.createIs<SymbolNumber>();
@@ -120,6 +129,8 @@ export const isOptionalNumber = typia.createIs<OptionalNumber>();
 export const isSymbolArray = typia.createIs<SymbolArray>();
 export const isSymbolTuple = typia.createIs<SymbolTuple>();
 export const isSymbolDate = typia.createIs<SymbolDate>();
+export const isUnionSymbol = typia.createIs<UnionSymbol>();
+export const isEnumSymbol = typia.createIs<EnumSymbol>();
 
 export const validateSymbolString = typia.createValidate<SymbolString>();
 export const assertSymbolNumber = typia.createAssert<SymbolNumber>();
@@ -159,6 +170,18 @@ check("symbolTuple rejects wrong slot", mod.isSymbolTuple([1, "a"]), false);
 check("symbolDate accepts Date", mod.isSymbolDate(new Date()), true);
 check("symbolDate rejects string", mod.isSymbolDate("2020-01-01"), false);
 check("symbolDate rejects plain object", mod.isSymbolDate({}), false);
+
+// A union / enum base intersected with a phantom symbol brand validates as the
+// bare union — never accept-everything. Each distributed member drops the brand.
+check("unionSymbol accepts string", mod.isUnionSymbol("abc"), true);
+check("unionSymbol accepts number", mod.isUnionSymbol(42), true);
+check("unionSymbol rejects boolean", mod.isUnionSymbol(true), false);
+check("unionSymbol rejects object", mod.isUnionSymbol({}), false);
+check("unionSymbol rejects array", mod.isUnionSymbol([1]), false);
+check("enumSymbol accepts member", mod.isEnumSymbol("KRW"), true);
+check("enumSymbol accepts other member", mod.isEnumSymbol("USD"), true);
+check("enumSymbol rejects non-member", mod.isEnumSymbol("JPY"), false);
+check("enumSymbol rejects number", mod.isEnumSymbol(1), false);
 
 check("validate symbolString success", mod.validateSymbolString("abc").success, true);
 check("validate symbolString failure", mod.validateSymbolString(123).success, false);
