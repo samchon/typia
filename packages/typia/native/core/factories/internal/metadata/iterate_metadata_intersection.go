@@ -129,31 +129,24 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   if len(metadatas) != 1 {
     removable := []int{}
     for i, m := range metadatas {
-      if m.Size() == 1 && len(m.Objects) == 1 {
-        object := m.Objects[0].Type
-        if len(object.Properties) == 0 {
-          removable = append(removable, i)
-          continue
-        }
-        allOptional := true
-        for _, p := range object.Properties {
-          if p.Value.Optional != true {
-            allOptional = false
-            break
-          }
-        }
-        if allOptional {
-          removable = append(removable, i)
-        }
+      if iterate_metadata_intersection_is_removable_brand(m) {
+        removable = append(removable, i)
       }
     }
-    if len(removable) != 0 && len(removable) != len(metadatas) {
-      for i := len(removable) - 1; i >= 0; i-- {
-        index := removable[i]
-        metadatas = append(metadatas[:index], metadatas[index+1:]...)
-        indexes = append(indexes[:index], indexes[index+1:]...)
-      }
-    } else {
+    if len(removable) == len(metadatas) {
+      return nonsensible()
+    }
+    for i := len(removable) - 1; i >= 0; i-- {
+      index := removable[i]
+      metadatas = append(metadatas[:index], metadatas[index+1:]...)
+      indexes = append(indexes[:index], indexes[index+1:]...)
+    }
+    // After phantom brands are dropped, a single non-object survivor is the
+    // branded base (`string & Brand`). Anything else — two genuine non-object
+    // members (`string[] & number[]`, `T1 & T2`, …) — is an intersection of
+    // constraint carriers, which is a misuse with no sound merge, so it stays
+    // nonsensible.
+    if len(metadatas) != 1 {
       return nonsensible()
     }
   } else {
@@ -305,6 +298,62 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
     }
   }
   return true
+}
+
+// iterate_metadata_intersection_is_removable_brand reports whether an explored
+// member schema is a phantom "brand" object that an intersection with a
+// non-object member may drop. A value intersected with a non-object survivor is
+// that primitive/array/etc. at runtime, so an object constraint carrying no
+// runtime-observable required data is purely a compile-time nominal marker.
+//
+// The single-survivor guard lives in the caller: when EVERY member is a plain
+// object, the entry point routes to the object-merge path before this runs, so
+// a required-literal property of a genuine `A & B` object merge is never dropped
+// here — only brands intersected with a primitive/array/template/native are.
+//
+// A member is removable when it is a single non-recursive object bucket whose
+// every property is phantom: optional, or symbol-keyed. Those two are the only
+// unambiguously phantom markers — an optional property need not be present, and
+// a symbol-keyed property is never observable on a JSON value. Any required
+// string-keyed property (literal or not) might be real data, so it keeps the
+// intersection nonsensible rather than silently dropping a declared constraint.
+func iterate_metadata_intersection_is_removable_brand(m *schemametadata.MetadataSchema) bool {
+  if m == nil || m.Size() != 1 || len(m.Objects) != 1 {
+    return false
+  }
+  object := m.Objects[0].Type
+  if object == nil || object.Recursive {
+    return false
+  }
+  for _, p := range object.Properties {
+    if iterate_metadata_intersection_is_phantom_property(p) == false {
+      return false
+    }
+  }
+  return true
+}
+
+func iterate_metadata_intersection_is_phantom_property(p *schemametadata.MetadataProperty) bool {
+  if p == nil || p.Value == nil {
+    return false
+  }
+  if p.Value.Optional {
+    return true
+  }
+  return iterate_metadata_intersection_is_symbol_key(p.Key)
+}
+
+// iterate_metadata_intersection_is_symbol_key reports whether a property key is a
+// computed `symbol`/`unique symbol` member. The TypeScript checker escapes such
+// member names with a leading 0xFE byte (an invalid UTF-8 lead unit that never
+// begins a real string property name), so the brand `string & { [s]: T }` is
+// recognized regardless of whether T is a literal.
+func iterate_metadata_intersection_is_symbol_key(key *schemametadata.MetadataSchema) bool {
+  if key == nil {
+    return false
+  }
+  lit := key.GetSoleLiteral()
+  return lit != nil && len(*lit) != 0 && (*lit)[0] == 0xFE
 }
 
 func iterate_metadata_intersection_reduce_union(props IMetadataIteratorProps) bool {
