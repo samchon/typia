@@ -141,20 +141,15 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
       metadatas = append(metadatas[:index], metadatas[index+1:]...)
       indexes = append(indexes[:index], indexes[index+1:]...)
     }
-    // After phantom brands are dropped, a single non-object survivor is the
-    // branded base (`string & Brand`). Anything else — two genuine non-object
-    // members (`string[] & number[]`, `T1 & T2`, …) — is an intersection of
-    // constraint carriers, which is a misuse with no sound merge, so it stays
-    // nonsensible.
-    if len(metadatas) != 1 {
-      return nonsensible()
-    }
-  } else {
-    for _, m := range metadatas {
-      if m.Size() != 1 {
-        return nonsensible()
-      }
-    }
+  }
+  // After phantom brands are dropped, exactly one single-bucket base member must
+  // survive (`string & Brand` → string). Two genuine non-object members
+  // (`string[] & number[]`, `A[] & [t…]`, `T1 & T2`, …) — or a multi-bucket
+  // survivor — is an intersection of constraint carriers, a misuse with no sound
+  // merge, so it stays nonsensible. This subsumes the per-candidate-kind check
+  // below, which therefore always collapses to a single candidate.
+  if len(metadatas) != 1 || metadatas[0].Size() != 1 {
+    return nonsensible()
   }
 
   candidates := map[string]string{}
@@ -266,9 +261,6 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
         }
       }(m.Key.GetName(), m.Value.GetName()))
     }
-  }
-  if len(candidates) != 1 {
-    return nonsensible()
   }
 
   *props.Components = *commit
