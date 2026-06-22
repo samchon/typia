@@ -44,8 +44,8 @@ func TestIterateMetadataIntersectionBrandCoverage(t *testing.T) {
   }
   object := func(props ...*schemametadata.MetadataProperty) *schemametadata.MetadataSchema {
     m := schemametadata.MetadataSchema_initialize()
-    ot := schemametadata.MetadataObjectType_create(schemametadata.MetadataObjectType{Name: "__type", Properties: props})
-    m.Objects = append(m.Objects, schemametadata.MetadataObject_create(schemametadata.MetadataObject{Type: ot, Tags: [][]schemametadata.IMetadataTypeTag{}}))
+    objectType := schemametadata.MetadataObjectType_create(schemametadata.MetadataObjectType{Name: "__type", Properties: props})
+    m.Objects = append(m.Objects, schemametadata.MetadataObject_create(schemametadata.MetadataObject{Type: objectType, Tags: [][]schemametadata.IMetadataTypeTag{}}))
     return m
   }
   symbolKey := constant("\xfe@sym@1")
