@@ -273,6 +273,11 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   explore := props.Explore
   explore.Aliased = false
   explore.Escaped = false
+  // Re-explore the surviving base alone (`Intersected: true` short-circuits the
+  // intersection handler at the top of this function). TypeScript flattens nested
+  // intersections — `(A & B) & C` is presented as a single `types: [A, B, C]` — so
+  // `Types()[index]` is always an atomic member, never itself an intersection that
+  // would re-enter and leave `props.Metadata` empty.
   Iterate_metadata(IMetadataIteratorProps{
     Options:     options,
     Checker:     props.Checker,

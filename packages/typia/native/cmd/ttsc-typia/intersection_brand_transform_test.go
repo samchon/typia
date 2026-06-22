@@ -135,6 +135,12 @@ type ObjectTypiaTag = { a: string } & tags.JsonSchemaPlugin<{ "x-y": true }>;
 type MultiBrand = string & { [sym]: "A" } & { z?: number };
 type NestedBrand = (string & { [sym]: "A" }) & { [sym2]: "B" };
 
+// A *validating* typia tag must still attach and ENFORCE after the brand is
+// stripped (primitive base) and on an array base — proving the tag landed on the
+// surviving bucket, not just that it compiled.
+type BrandMinLength = string & { [sym]: "A" } & tags.MinLength<3>;
+type ArrayMinItems = string[] & tags.MinItems<1>;
+
 export const isSymbolString = typia.createIs<SymbolString>();
 export const isOptionalString = typia.createIs<OptionalString>();
 export const isSymbolNumber = typia.createIs<SymbolNumber>();
@@ -149,6 +155,8 @@ export const isTupleOptionalTag = typia.createIs<TupleOptionalTag>();
 export const isObjectTypiaTag = typia.createIs<ObjectTypiaTag>();
 export const isMultiBrand = typia.createIs<MultiBrand>();
 export const isNestedBrand = typia.createIs<NestedBrand>();
+export const isBrandMinLength = typia.createIs<BrandMinLength>();
+export const isArrayMinItems = typia.createIs<ArrayMinItems>();
 
 export const validateSymbolString = typia.createValidate<SymbolString>();
 export const assertSymbolNumber = typia.createAssert<SymbolNumber>();
@@ -220,6 +228,13 @@ check("multiBrand rejects number", mod.isMultiBrand(1), false);
 check("nestedBrand accepts string", mod.isNestedBrand("abc"), true);
 check("nestedBrand rejects number", mod.isNestedBrand(1), false);
 check("nestedBrand rejects object", mod.isNestedBrand({}), false);
+// A validating tag enforces at runtime after the brand strips / on an array base.
+check("brandMinLength accepts len3", mod.isBrandMinLength("abc"), true);
+check("brandMinLength rejects len2", mod.isBrandMinLength("ab"), false);
+check("brandMinLength rejects number", mod.isBrandMinLength(1), false);
+check("arrayMinItems accepts non-empty", mod.isArrayMinItems(["a"]), true);
+check("arrayMinItems rejects empty", mod.isArrayMinItems([]), false);
+check("arrayMinItems rejects numbers", mod.isArrayMinItems([1]), false);
 
 check("validate symbolString success", mod.validateSymbolString("abc").success, true);
 check("validate symbolString failure", mod.validateSymbolString(123).success, false);
