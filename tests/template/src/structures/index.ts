@@ -133,6 +133,7 @@ export * from "./SetSimple";
 export * from "./SetUnion";
 export * from "./TemplateAtomic";
 export * from "./TemplateConstant";
+export * from "./TemplateInterpolationTagged";
 export * from "./TemplateUnion";
 export * from "./ToJsonArray";
 export * from "./ToJsonAtomicSimple";
