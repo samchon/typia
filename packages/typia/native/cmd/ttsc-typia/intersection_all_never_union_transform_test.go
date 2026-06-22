@@ -86,6 +86,8 @@ func TestIntersectionAllNeverUnionTransform(t *testing.T) {
 const intersectionAllNeverUnionSource = `import typia from "typia";
 
 enum MyEnum { A = "a", B = "b" }
+interface Foo { a: number }
+interface Bar { b: number }
 
 // Every distributed member is a non-object base & a real-data object — all pruned
 // to never. The union must validate as never, never as accept-everything.
@@ -93,6 +95,15 @@ export const isEnumData = typia.createIs<MyEnum & { data: number }>();
 export const isUnionData = typia.createIs<(string | number) & { data: number }>();
 export const isUnionNested = typia.createIs<(string | number) & { nested: { a: string } }>();
 export const isUnionMulti = typia.createIs<(string | number) & { a: string; b: number }>();
+
+// A "decisive" reduce_union reduction that matches no member is also uninhabited.
+// The constraint is decisive (a named/shareable object, or a primitive/native/
+// array), unlike an inline object — that is the path with no member-write, which
+// must render as never, not the default-required accept-everything.
+export const isPrimNamed = typia.createIs<(string | number) & Foo>();
+export const isObjPrim = typia.createIs<({ a: number } | { b: number }) & string>();
+export const isNamedObjPrim = typia.createIs<(Foo | Bar) & string>();
+export const isNamedObjArray = typia.createIs<(Foo | Bar) & number[]>();
 
 // A union narrowed to its surviving object member keeps validating that object —
 // the never-pruning guard must not fire when a member contributes a bucket.
@@ -117,7 +128,12 @@ const check = (label, actual, expected) => {
 };
 
 // All-pruned unions reject every concrete value (never-render, not accept-everything).
-const neverValidators = { isEnumData: mod.isEnumData, isUnionData: mod.isUnionData, isUnionNested: mod.isUnionNested, isUnionMulti: mod.isUnionMulti };
+const neverValidators = {
+  isEnumData: mod.isEnumData, isUnionData: mod.isUnionData,
+  isUnionNested: mod.isUnionNested, isUnionMulti: mod.isUnionMulti,
+  isPrimNamed: mod.isPrimNamed, isObjPrim: mod.isObjPrim,
+  isNamedObjPrim: mod.isNamedObjPrim, isNamedObjArray: mod.isNamedObjArray,
+};
 const samples = ["a", "b", 1, 0, true, false, null, {}, [], { data: 1 }, { a: "s", b: 1 }, "x"];
 for (const [name, fn] of Object.entries(neverValidators)) {
   for (const value of samples) {
