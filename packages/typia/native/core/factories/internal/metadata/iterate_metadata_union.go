@@ -4,7 +4,9 @@ func Iterate_metadata_union(props IMetadataIteratorProps) bool {
   if props.Type == nil || props.Type.IsUnion() == false {
     return false
   }
-  for _, typ := range props.Type.Types() {
+  members := props.Type.Types()
+  before := props.Metadata.Size()
+  for _, typ := range members {
     explore := props.Explore
     explore.Aliased = false
     Iterate_metadata(IMetadataIteratorProps{
@@ -19,6 +21,15 @@ func Iterate_metadata_union(props IMetadataIteratorProps) bool {
       Unioned:     true,
       Prunable:    true,
     })
+  }
+  // Every member of a non-empty union pruned away to `never`, contributing no type
+  // bucket — e.g. `Enum & { data: number }` distributes to
+  // `("a" & { data }) | ("b" & { data })`, each member a non-object base meeting a
+  // real-data object, which `is_never` drops. Left as an empty schema the union
+  // would validate as accept-everything; mark it not-required so it renders as
+  // `never` (rejecting every concrete value), matching a standalone `never`.
+  if len(members) != 0 && props.Metadata.Any == false && props.Metadata.Size() == before {
+    props.Metadata.Required = false
   }
   return true
 }
