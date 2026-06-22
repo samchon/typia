@@ -68,7 +68,7 @@ func template_runtime_pattern(row []*nativemetadata.MetadataSchema) (string, []t
       default:
         // A string placeholder lowers to "(.*)", but `.` excludes newlines,
         // so a value spanning a line break would hand the tag check only the
-        // first line (under-reporting length, mis-matching Pattern). Capture
+        // first line (under-reporting length, mismatching Pattern). Capture
         // every character instead, anchored by PatternUtil.Fix.
         sub = "([\\s\\S]*)"
       }

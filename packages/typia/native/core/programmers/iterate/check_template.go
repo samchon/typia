@@ -310,7 +310,7 @@ func check_template_inline_interpolation_tags(props Check_templateProps, tpl *na
   if len(groups) == 0 {
     return nil
   }
-  ands := make([]*shimast.Node, 0, len(groups))
+  conjuncts := make([]*shimast.Node, 0, len(groups))
   for _, matrix := range groups {
     rows := make([]*shimast.Node, 0, len(matrix))
     for _, set := range matrix {
@@ -320,9 +320,9 @@ func check_template_inline_interpolation_tags(props Check_templateProps, tpl *na
       }
       rows = append(rows, check_template_reduce(cols, shimast.KindAmpersandAmpersandToken, props.Emit))
     }
-    ands = append(ands, check_template_reduce(rows, shimast.KindBarBarToken, props.Emit))
+    conjuncts = append(conjuncts, check_template_reduce(rows, shimast.KindBarBarToken, props.Emit))
   }
-  return check_template_reduce(ands, shimast.KindAmpersandAmpersandToken, props.Emit)
+  return check_template_reduce(conjuncts, shimast.KindAmpersandAmpersandToken, props.Emit)
 }
 
 func check_template_reduce(expressions []*shimast.Node, operator shimast.Kind, emit ...*shimprinter.EmitContext) *shimast.Node {
