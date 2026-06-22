@@ -98,6 +98,14 @@ export const isUnionMulti = typia.createIs<(string | number) & { a: string; b: n
 // the never-pruning guard must not fire when a member contributes a bucket.
 export const isNarrowPrimitive = typia.createIs<(string | { a: number }) & { a: number }>();
 export const isNarrowNumber = typia.createIs<(number | { a: number }) & { a: number }>();
+
+// A nullary member (null / undefined) sets a flag without a bucket, so the union
+// still reaches the all-pruned guard with empty size. The guard must NOT swallow
+// it: 'null | never' is 'null' (accepts only null, rejects undefined); 'undefined
+// | never' is 'undefined'; their combination accepts both — never accept-everything.
+export const isNullNever = typia.createIs<null | (string & { data: number })>();
+export const isUndefinedNever = typia.createIs<undefined | (string & { data: number })>();
+export const isNullUndefinedNever = typia.createIs<null | undefined | (string & { data: number })>();
 `
 
 const intersectionAllNeverUnionRunner = `const mod = require("./main.cjs");
@@ -125,6 +133,20 @@ check("isNarrowPrimitive {}", mod.isNarrowPrimitive({}), false);
 check("isNarrowNumber {a:1}", mod.isNarrowNumber({ a: 1 }), true);
 check("isNarrowNumber 5", mod.isNarrowNumber(5), false);
 check("isNarrowNumber {a:'s'}", mod.isNarrowNumber({ a: "s" }), false);
+
+// A nullary member must survive the all-pruned guard: null accepts only null,
+// undefined only undefined — and neither accepts a concrete value or each other.
+check("isNullNever null", mod.isNullNever(null), true);
+check("isNullNever undefined", mod.isNullNever(undefined), false);
+check("isNullNever 'x'", mod.isNullNever("x"), false);
+check("isNullNever {data:1}", mod.isNullNever({ data: 1 }), false);
+check("isUndefinedNever undefined", mod.isUndefinedNever(undefined), true);
+check("isUndefinedNever null", mod.isUndefinedNever(null), false);
+check("isUndefinedNever 'x'", mod.isUndefinedNever("x"), false);
+check("isNullUndefinedNever null", mod.isNullUndefinedNever(null), true);
+check("isNullUndefinedNever undefined", mod.isNullUndefinedNever(undefined), true);
+check("isNullUndefinedNever 'x'", mod.isNullUndefinedNever("x"), false);
+check("isNullUndefinedNever {data:1}", mod.isNullUndefinedNever({ data: 1 }), false);
 
 console.log("ok");
 `

@@ -28,7 +28,12 @@ func Iterate_metadata_union(props IMetadataIteratorProps) bool {
   // real-data object, which `is_never` drops. Left as an empty schema the union
   // would validate as accept-everything; mark it not-required so it renders as
   // `never` (rejecting every concrete value), matching a standalone `never`.
-  if len(members) != 0 && props.Metadata.Any == false && props.Metadata.Size() == before {
+  //
+  // `Nullable == false` is required: a `null` member sets `Nullable` without adding
+  // a bucket, so `null | (string & { data })` (= `null`) reaches here with an empty
+  // size. Forcing not-required there would also accept `undefined`, which `null`
+  // must reject — so the guard fires only when the union carries no `null` either.
+  if len(members) != 0 && props.Metadata.Any == false && props.Metadata.Nullable == false && props.Metadata.Size() == before {
     props.Metadata.Required = false
   }
   return true
