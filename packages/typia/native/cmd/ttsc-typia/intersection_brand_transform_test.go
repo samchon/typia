@@ -108,9 +108,10 @@ type SymbolNumber = number & { [sym]: "Age" };
 type OptionalNumber = number & { __brand?: "Age" };
 
 // A symbol marker is honored on a non-primitive base too — the genuinely new
-// capability of #933: the array / tuple is validated as itself.
+// capability of #933: the array / tuple / native base is validated as itself.
 type SymbolArray = string[] & { [sym]: "Tag" };
 type SymbolTuple = [string, number] & { [sym]: "Tag" };
+type SymbolDate = Date & { [sym]: "Tag" };
 
 export const isSymbolString = typia.createIs<SymbolString>();
 export const isOptionalString = typia.createIs<OptionalString>();
@@ -118,6 +119,7 @@ export const isSymbolNumber = typia.createIs<SymbolNumber>();
 export const isOptionalNumber = typia.createIs<OptionalNumber>();
 export const isSymbolArray = typia.createIs<SymbolArray>();
 export const isSymbolTuple = typia.createIs<SymbolTuple>();
+export const isSymbolDate = typia.createIs<SymbolDate>();
 
 export const validateSymbolString = typia.createValidate<SymbolString>();
 export const assertSymbolNumber = typia.createAssert<SymbolNumber>();
@@ -154,6 +156,9 @@ check("symbolArray rejects non-array", mod.isSymbolArray("x"), false);
 check("symbolTuple accepts pair", mod.isSymbolTuple(["a", 1]), true);
 check("symbolTuple rejects short", mod.isSymbolTuple(["a"]), false);
 check("symbolTuple rejects wrong slot", mod.isSymbolTuple([1, "a"]), false);
+check("symbolDate accepts Date", mod.isSymbolDate(new Date()), true);
+check("symbolDate rejects string", mod.isSymbolDate("2020-01-01"), false);
+check("symbolDate rejects plain object", mod.isSymbolDate({}), false);
 
 check("validate symbolString success", mod.validateSymbolString("abc").success, true);
 check("validate symbolString failure", mod.validateSymbolString(123).success, false);

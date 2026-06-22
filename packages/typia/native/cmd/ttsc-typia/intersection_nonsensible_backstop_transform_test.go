@@ -43,6 +43,9 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
     {"primitive_and_nested_object", `string & { nested: { a: string } }`},
     {"number_and_data_object", `number & { a: string }`},
     {"array_and_data_object", `string[] & { a: string }`},
+    // Only phantom brand objects (no real base) plus a type tag — every member
+    // drops away, leaving nothing to validate, so the tag cannot stand alone.
+    {"only_brands_and_tag", `{ [sym]: "A" } & { [sym2]: "B" } & tags.Type<"int32">`},
   }
   for _, tc := range rejected {
     tc := tc
@@ -110,6 +113,7 @@ func intersectionBackstopProject(t *testing.T, name string, decl string) string 
   source := fmt.Sprintf(`import typia, { tags } from "typia";
 
 declare const sym: unique symbol;
+declare const sym2: unique symbol;
 type Probe = %s;
 
 export const check = typia.createIs<Probe>();
