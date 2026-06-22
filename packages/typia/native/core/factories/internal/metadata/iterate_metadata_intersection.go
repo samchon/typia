@@ -129,39 +129,27 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   if len(metadatas) != 1 {
     removable := []int{}
     for i, m := range metadatas {
-      if m.Size() == 1 && len(m.Objects) == 1 {
-        object := m.Objects[0].Type
-        if len(object.Properties) == 0 {
-          removable = append(removable, i)
-          continue
-        }
-        allOptional := true
-        for _, p := range object.Properties {
-          if p.Value.Optional != true {
-            allOptional = false
-            break
-          }
-        }
-        if allOptional {
-          removable = append(removable, i)
-        }
+      if iterate_metadata_intersection_is_removable_brand(m) {
+        removable = append(removable, i)
       }
     }
-    if len(removable) != 0 && len(removable) != len(metadatas) {
-      for i := len(removable) - 1; i >= 0; i-- {
-        index := removable[i]
-        metadatas = append(metadatas[:index], metadatas[index+1:]...)
-        indexes = append(indexes[:index], indexes[index+1:]...)
-      }
-    } else {
+    if len(removable) == len(metadatas) {
       return nonsensible()
     }
-  } else {
-    for _, m := range metadatas {
-      if m.Size() != 1 {
-        return nonsensible()
-      }
+    for i := len(removable) - 1; i >= 0; i-- {
+      index := removable[i]
+      metadatas = append(metadatas[:index], metadatas[index+1:]...)
+      indexes = append(indexes[:index], indexes[index+1:]...)
     }
+  }
+  // After phantom brands are dropped, exactly one single-bucket base member must
+  // survive (`string & Brand` → string). Two genuine non-object members
+  // (`string[] & number[]`, `A[] & [t…]`, `T1 & T2`, …) — or a multi-bucket
+  // survivor — is an intersection of constraint carriers, a misuse with no sound
+  // merge, so it stays nonsensible. This subsumes the per-candidate-kind check
+  // below, which therefore always collapses to a single candidate.
+  if len(metadatas) != 1 || metadatas[0].Size() != 1 {
+    return nonsensible()
   }
 
   candidates := map[string]string{}
@@ -274,9 +262,6 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
       }(m.Key.GetName(), m.Value.GetName()))
     }
   }
-  if len(candidates) != 1 {
-    return nonsensible()
-  }
 
   *props.Components = *commit
   index := 0
@@ -288,6 +273,11 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   explore := props.Explore
   explore.Aliased = false
   explore.Escaped = false
+  // Re-explore the surviving base alone (`Intersected: true` short-circuits the
+  // intersection handler at the top of this function). TypeScript flattens nested
+  // intersections — `(A & B) & C` is presented as a single `types: [A, B, C]` — so
+  // `Types()[index]` is always an atomic member, never itself an intersection that
+  // would re-enter and leave `props.Metadata` empty.
   Iterate_metadata(IMetadataIteratorProps{
     Options:     options,
     Checker:     props.Checker,
@@ -305,6 +295,72 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
     }
   }
   return true
+}
+
+// iterate_metadata_intersection_is_removable_brand reports whether an explored
+// member schema is a phantom "brand" object that an intersection with a
+// non-object member may drop. A value intersected with a non-object survivor is
+// that primitive/array/etc. at runtime, so an object constraint carrying no
+// runtime-observable required data is purely a compile-time nominal marker.
+//
+// The single-survivor guard lives in the caller: when EVERY member is a plain
+// object, the entry point routes to the object-merge path before this runs, so
+// a required-literal property of a genuine `A & B` object merge is never dropped
+// here — only brands intersected with a primitive/array/template/native are.
+//
+// A member is removable when it is a single non-recursive object bucket whose
+// every property is phantom: optional, or symbol-keyed. Those two are the only
+// unambiguously phantom markers — an optional property need not be present, and
+// a symbol-keyed property is never observable on a JSON value. Any required
+// string-keyed property (literal or not) might be real data, so it keeps the
+// intersection nonsensible rather than silently dropping a declared constraint.
+func iterate_metadata_intersection_is_removable_brand(m *schemametadata.MetadataSchema) bool {
+  if m == nil || m.Size() != 1 || len(m.Objects) != 1 {
+    return false
+  }
+  object := m.Objects[0].Type
+  if object == nil || object.Recursive {
+    return false
+  }
+  for _, p := range object.Properties {
+    if iterate_metadata_intersection_is_phantom_property(p) == false {
+      return false
+    }
+  }
+  return true
+}
+
+func iterate_metadata_intersection_is_phantom_property(p *schemametadata.MetadataProperty) bool {
+  if p == nil || p.Value == nil {
+    return false
+  }
+  if p.Value.Optional {
+    return true
+  }
+  return iterate_metadata_intersection_is_symbol_key(p.Key)
+}
+
+// iterate_metadata_intersection_is_symbol_key reports whether a property key is a
+// computed `symbol`/`unique symbol` member. The TypeScript checker escapes such
+// member names with a leading 0xFE byte (an invalid UTF-8 lead unit that never
+// begins a real string property name), so the brand `string & { [s]: T }` is
+// recognized regardless of whether T is a literal.
+func iterate_metadata_intersection_is_symbol_key(key *schemametadata.MetadataSchema) bool {
+  if key == nil {
+    return false
+  }
+  lit := key.GetSoleLiteral()
+  return lit != nil && iterate_metadata_intersection_is_symbol_name(*lit)
+}
+
+// iterate_metadata_intersection_is_symbol_name reports whether an escaped member
+// name is a computed `symbol` member. The TypeScript checker prefixes such names
+// with a 0xFE byte (`InternalSymbolNamePrefix`), an invalid UTF-8 lead unit that
+// never begins a real string property name. This runs on the raw checker symbol
+// name (`is_removable_object_constraint`) as well as the metadata key literal
+// (`is_symbol_key`), so both the type-level and schema-level brand checks agree.
+func iterate_metadata_intersection_is_symbol_name(name string) bool {
+  return len(name) != 0 && name[0] == 0xFE
 }
 
 func iterate_metadata_intersection_reduce_union(props IMetadataIteratorProps) bool {
@@ -446,6 +502,13 @@ func iterate_metadata_intersection_is_removable_object_constraint(
     return false
   }
   for _, symbol := range collection.ApparentProperties(checker, typ) {
+    // A symbol-keyed member is never observable on a JSON value (the canonical
+    // nominal brand), so it is phantom and removable. typia's own tag is handled
+    // as a constraint, not stripped here; any required string-keyed property might
+    // be real data — both keep the object as a constraint, not a removable brand.
+    if iterate_metadata_intersection_is_symbol_name(symbol.Name) {
+      continue
+    }
     if symbol.Name == "typia.tag" || symbol.Flags&nativeast.SymbolFlagsOptional == 0 {
       return false
     }
