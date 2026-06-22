@@ -89,6 +89,20 @@ Note the parentheses on the third example — `number & (Type<"int32"> | Type<"f
 
 If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a `number`), the TypeScript compiler will reject it.
 
+### Inside template literals
+
+A tag intersected into a template-literal interpolation constrains that placeholder's parsed value, not just the surrounding shape:
+
+```typescript copy
+type Percent = `${number & tags.Minimum<0> & tags.Maximum<100>}%`;
+type Serial = `SN-${bigint & tags.Minimum<0n>}`;
+type Hex = `0x${string & tags.Pattern<"^[0-9a-fA-F]+$">}`;
+```
+
+The validator matches the template's structural pattern, then re-parses each constrained placeholder — `Number(...)` for a `number`, `BigInt(...)` for a `bigint`, the raw substring for a `string` — and runs that placeholder's own tag checks against it. So `"150%"` matches `` `${number}%` `` structurally but fails `Maximum<100>`, and `"0x1.5"` fails the hex `Pattern`. A `bigint` placeholder captures an integer only, so `"SN-1.5"` is rejected up front and `BigInt(...)` never throws. `is` / `assert` / `validate` agree, and `random` generates a constrained value that round-trips.
+
+> `json.schema` / `llm.schema` keep the template's structural `pattern` only: a numeric sub-range like `[0, 100]` cannot be expressed inside a JSON Schema string `pattern`, so a placeholder's tags are intentionally dropped from the emitted schema (the runtime validator still enforces them). Whole-string template tags — e.g. `` tags.MaxLength<30> & `prefix${string}postfix` `` — stay on the schema as before.
+
 ### Full catalogue
 
 #### `number` and `bigint`
