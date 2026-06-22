@@ -107,16 +107,24 @@ type OptionalString = string & { __brand?: "UserId" };
 type SymbolNumber = number & { [sym]: "Age" };
 type OptionalNumber = number & { __brand?: "Age" };
 
+// A symbol marker is honored on a non-primitive base too — the genuinely new
+// capability of #933: the array / tuple is validated as itself.
+type SymbolArray = string[] & { [sym]: "Tag" };
+type SymbolTuple = [string, number] & { [sym]: "Tag" };
+
 export const isSymbolString = typia.createIs<SymbolString>();
 export const isOptionalString = typia.createIs<OptionalString>();
 export const isSymbolNumber = typia.createIs<SymbolNumber>();
 export const isOptionalNumber = typia.createIs<OptionalNumber>();
+export const isSymbolArray = typia.createIs<SymbolArray>();
+export const isSymbolTuple = typia.createIs<SymbolTuple>();
 
 export const validateSymbolString = typia.createValidate<SymbolString>();
 export const assertSymbolNumber = typia.createAssert<SymbolNumber>();
 
 export const schemaSymbolString = typia.json.schema<SymbolString>();
 export const schemaSymbolNumber = typia.json.schema<SymbolNumber>();
+export const schemaSymbolArray = typia.json.schema<SymbolArray>();
 `
 
 const intersectionBrandRuntimeRunner = `const mod = require("./main.cjs");
@@ -136,6 +144,16 @@ check("symbolNumber accepts number", mod.isSymbolNumber(42), true);
 check("symbolNumber rejects string", mod.isSymbolNumber("x"), false);
 check("optionalNumber accepts number", mod.isOptionalNumber(42), true);
 check("optionalNumber rejects string", mod.isOptionalNumber("x"), false);
+
+// Symbol marker on array / tuple bases (the net-new #933 capability) validates
+// as the bare container, not as an object carrying the symbol.
+check("symbolArray accepts strings", mod.isSymbolArray(["a", "b"]), true);
+check("symbolArray accepts empty", mod.isSymbolArray([]), true);
+check("symbolArray rejects numbers", mod.isSymbolArray([1, 2]), false);
+check("symbolArray rejects non-array", mod.isSymbolArray("x"), false);
+check("symbolTuple accepts pair", mod.isSymbolTuple(["a", 1]), true);
+check("symbolTuple rejects short", mod.isSymbolTuple(["a"]), false);
+check("symbolTuple rejects wrong slot", mod.isSymbolTuple([1, "a"]), false);
 
 check("validate symbolString success", mod.validateSymbolString("abc").success, true);
 check("validate symbolString failure", mod.validateSymbolString(123).success, false);
@@ -160,6 +178,9 @@ if ("properties" in stringSchema || "required" in stringSchema || "allOf" in str
 }
 const numberSchema = root(mod.schemaSymbolNumber);
 check("schema symbolNumber type", numberSchema.type, "number");
+const arraySchema = root(mod.schemaSymbolArray);
+check("schema symbolArray type", arraySchema.type, "array");
+check("schema symbolArray items", arraySchema.items.type, "string");
 
 console.log("ok");
 `
