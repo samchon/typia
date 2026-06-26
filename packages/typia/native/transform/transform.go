@@ -17,7 +17,9 @@ type TransformFactory func(file *shimast.SourceFile) *shimast.SourceFile
 func Transform(program *driver.Program, options *nativecontext.ITransformOptions, extras nativecontext.ITypiaContext_Extras, ec *shimprinter.EmitContext) TransformFactory {
   compilerOptions := transform_compilerOptions(program)
   if transform_strict(compilerOptions) == false && extras.AddDiagnostic != nil {
-    extras.AddDiagnostic(&shimast.Diagnostic{})
+    extras.AddDiagnostic(&nativecontext.ITypiaDiagnostic{
+      Message: "typia transform error",
+    })
   }
   opt := nativecontext.ITransformOptions{}
   if options != nil {

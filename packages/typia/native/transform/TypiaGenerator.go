@@ -8,7 +8,6 @@ import (
   "regexp"
   "strings"
 
-  shimast "github.com/microsoft/typescript-go/shim/ast"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
@@ -91,8 +90,12 @@ func (typiaGeneratorNamespace) Build(location TypiaGenerator_ILocation) error {
   }
 
   plugin := Transform(program, nil, nativecontext.ITypiaContext_Extras{
-    AddDiagnostic: func(diag *shimast.Diagnostic) int {
-      diagnostics = append(diagnostics, driver.Diagnostic{Message: "typia transform diagnostic"})
+    AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
+      message := "typia transform diagnostic"
+      if diag != nil && diag.Message != "" {
+        message = diag.Message
+      }
+      diagnostics = append(diagnostics, driver.Diagnostic{Message: message})
       return len(diagnostics)
     },
   }, nil)
