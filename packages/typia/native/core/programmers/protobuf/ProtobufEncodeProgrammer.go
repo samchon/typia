@@ -57,6 +57,8 @@ func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgramme
   if nativeinternal.FeatureProgrammer.CollectionRecursive(collection) {
     props.Functor.SetVisited(true)
   }
+  encoderFunctor := nativehelpers.NewFunctionProgrammer(protobufEncodeProgrammer_method_text(props.Modulo), props.Context.Emit)
+  encoderFunctor.SetVisited(props.Functor.Visited())
 
   callEncoder := func(writer string, factory *shimast.Node) *shimast.Node {
     return nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
@@ -88,7 +90,7 @@ func (protobufEncodeProgrammerNamespace) Decompose(props ProtobufEncodeProgramme
         Name: props.Functor.UseLocal("encoder"),
         Value: protobufEncodeProgrammer_write_encoder(protobufEncodeProgrammer_writeEncoderProps{
           Context:    props.Context,
-          Functor:    props.Functor,
+          Functor:    encoderFunctor,
           Collection: collection,
           Metadata:   metadata,
         }),
@@ -180,13 +182,14 @@ func protobufEncodeProgrammer_write_encoder(props protobufEncodeProgrammer_write
       ),
     }, props.Context.Emit))
   }
-  statements = append(statements, props.Functor.DeclareUnions()...)
-  statements = append(statements, functors...)
-  statements = append(statements, nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
+  checkers := nativeprogrammers.IsProgrammer.Write_function_statements(nativeprogrammers.IsProgrammer_WriteFunctionStatementsProps{
     Context:    props.Context,
     Functor:    props.Functor,
     Collection: props.Collection,
-  })...)
+  })
+  statements = append(statements, props.Functor.Declare()...)
+  statements = append(statements, functors...)
+  statements = append(statements, checkers...)
   index := 0
   if len(props.Metadata.Objects) != 0 {
     index = props.Metadata.Objects[0].Type.Index
