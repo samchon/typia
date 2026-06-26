@@ -113,6 +113,45 @@ const writeGenericDiagnosticProject = (project: string): void => {
   );
 };
 
+const writeRecursiveDynamicCloneProject = (project: string): void => {
+  fs.mkdirSync(path.join(project, "src"), { recursive: true });
+  writeTypiaPackageStub(project);
+  writeJson(path.join(project, "tsconfig.json"), {
+    compilerOptions: {
+      target: "ES2022",
+      lib: ["ES2022"],
+      outDir: "bin",
+      rootDir: "src",
+      noEmit: false,
+      esModuleInterop: true,
+      module: "esnext",
+      moduleResolution: "bundler",
+      strict: true,
+      skipLibCheck: true,
+      types: [],
+      noUnusedLocals: false,
+      noUnusedParameters: false,
+      plugins: [{ transform: "typia/lib/transform" }],
+    },
+    include: ["src"],
+  });
+  fs.writeFileSync(
+    path.join(project, "src", "recursive-clone.ts"),
+    [
+      `import typia from "typia";`,
+      ``,
+      `interface RecursiveDynamicClone {`,
+      `  name: string;`,
+      `  next?: RecursiveDynamicClone;`,
+      `  [key: \`child_\${string}\`]: RecursiveDynamicClone | string | undefined;`,
+      `}`,
+      ``,
+      `export const clone = typia.createClone<RecursiveDynamicClone>();`,
+      ``,
+    ].join("\n"),
+  );
+};
+
 const writeTypiaPackageStub = (project: string): void => {
   const directory: string = path.join(project, "node_modules", "typia");
   const lib: string = path.join(directory, "lib");
@@ -137,17 +176,29 @@ const writeTypiaPackageStub = (project: string): void => {
     path.join(lib, "module.d.ts"),
     [
       `declare namespace typia {`,
+      `  type Resolved<T> = T;`,
       `  function is<T>(input: unknown): input is T;`,
+      `  function createClone<T>(): (input: T) => Resolved<T>;`,
       `}`,
       `declare const typia: {`,
       `  is: typeof typia.is;`,
+      `  createClone: typeof typia.createClone;`,
       `};`,
       `export default typia;`,
+      `export declare type Resolved<T> = typia.Resolved<T>;`,
       `export declare function is<T>(input: unknown): input is T;`,
+      `export declare function createClone<T>(): (input: T) => Resolved<T>;`,
       ``,
     ].join("\n"),
   );
-  fs.writeFileSync(path.join(lib, "module.js"), `exports.is = () => false;\n`);
+  fs.writeFileSync(
+    path.join(lib, "module.js"),
+    [
+      `exports.is = () => false;`,
+      `exports.createClone = () => (input) => input;`,
+      ``,
+    ].join("\n"),
+  );
   fs.writeFileSync(
     path.join(lib, "transform.js"),
     [
@@ -236,8 +287,51 @@ const testGenericTransformDiagnostic = (): void => {
     );
 };
 
+/**
+ * Verifies recursive dynamic clone emit does not feed blocks to the Go printer.
+ *
+ * Recursive clone/classify guards evaluate the object joiner body as an
+ * expression while registering the output in a WeakMap. Dynamic object keys
+ * make the clone joiner return a statement block; the native transform must
+ * wrap that block in an IIFE before passing it to Object.assign, otherwise
+ * TypeScript-Go panics with "unexpected Expression: KindBlock" during emit.
+ */
+const testRecursiveDynamicCloneEmit = (): void => {
+  const project: string = fs.mkdtempSync(
+    path.join(scratch, "recursive-dynamic-clone-"),
+  );
+  writeRecursiveDynamicCloneProject(project);
+
+  assertNoTypiaSourceJavascript("before recursive dynamic clone compilation");
+  const result: ICommandResult = run([
+    "exec",
+    "ttsc",
+    "--emit",
+    "--cwd",
+    project,
+    "-p",
+    "tsconfig.json",
+  ]);
+  assertNoTypiaSourceJavascript("after recursive dynamic clone compilation");
+  if (result.status !== 0)
+    throw new Error(
+      `Recursive dynamic clone emit unexpectedly failed:\n${result.output}`,
+    );
+  if (
+    /unexpected Expression: KindBlock|panic:|SIGSEGV|runtime error/i.test(
+      result.output,
+    )
+  )
+    throw new Error(
+      `Recursive dynamic clone emit regressed to a printer panic:\n${result.output}`,
+    );
+  if (fs.existsSync(path.join(project, "bin", "recursive-clone.js")) === false)
+    throw new Error("Recursive dynamic clone emit did not write JavaScript.");
+};
+
 const main = (): void => {
   testGenericTransformDiagnostic();
+  testRecursiveDynamicCloneEmit();
   console.log("Success");
 };
 main();
