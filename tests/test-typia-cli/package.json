@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "name": "@typia/test-typia-cli",
+  "description": "CLI end-to-end tests for typia.",
+  "scripts": {
+    "start": "ttsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test",
+    "cli"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils"
+  }
+}
