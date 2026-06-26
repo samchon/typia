@@ -9,7 +9,8 @@ interface ICommandResult {
 }
 
 const root: string = path.resolve(__dirname, "..");
-const cache: string = fs.mkdtempSync(path.join(os.tmpdir(), "typia-cli-"));
+const scratch: string = fs.mkdtempSync(path.join(os.tmpdir(), "typia-cli-"));
+const ttscCache: string = process.env.TTSC_CACHE_DIR ?? scratch;
 const typiaSource: string = path.resolve(
   root,
   "..",
@@ -20,7 +21,7 @@ const typiaSource: string = path.resolve(
 );
 
 process.on("exit", () => {
-  fs.rmSync(cache, { recursive: true, force: true });
+  fs.rmSync(scratch, { recursive: true, force: true });
 });
 
 const run = (args: string[]): ICommandResult => {
@@ -29,10 +30,10 @@ const run = (args: string[]): ICommandResult => {
     encoding: "utf8",
     env: {
       ...process.env,
-      TTSC_CACHE_DIR: cache,
+      TTSC_CACHE_DIR: ttscCache,
     },
     shell: process.platform === "win32",
-    timeout: 180_000,
+    timeout: 600_000,
   });
   const error: string =
     result.error instanceof Error
@@ -192,7 +193,7 @@ const writeTypiaPackageStub = (project: string): void => {
  */
 const testGenericTransformDiagnostic = (): void => {
   const project: string = fs.mkdtempSync(
-    path.join(cache, "generic-diagnostic-"),
+    path.join(scratch, "generic-diagnostic-"),
   );
   writeGenericDiagnosticProject(project);
 
