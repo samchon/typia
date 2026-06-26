@@ -347,6 +347,7 @@ func (featureProgrammerNamespace) VisitGuardSkip(key string, body *shimast.Node,
 func (featureProgrammerNamespace) VisitGuardSerialize(key string, thrower *shimast.Node, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
   slot := "_vctx." + key
+  bodyExpression := featureProgrammer_block_to_expression(body, emit)
   finisher := f.NewArrowFunction(
     nil,
     nil,
@@ -379,7 +380,7 @@ func (featureProgrammerNamespace) VisitGuardSerialize(key string, thrower *shima
           f.NewParenthesizedExpression(finisher),
           nil,
           nil,
-          f.NewNodeList([]*shimast.Node{body}),
+          f.NewNodeList([]*shimast.Node{bodyExpression}),
           shimast.NodeFlagsNone,
         ),
       ),
@@ -414,6 +415,7 @@ func (featureProgrammerNamespace) VisitGuardRebuild(key string, array bool, body
 func (featureProgrammerNamespace) VisitGuardRebuildWith(key string, allocator *shimast.Node, body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(featureProgrammer_factory, emit)
   slot := "_vctx." + key
+  bodyExpression := featureProgrammer_block_to_expression(body, emit)
   filler := f.NewArrowFunction(
     nil,
     nil,
@@ -435,7 +437,7 @@ func (featureProgrammerNamespace) VisitGuardRebuildWith(key string, allocator *s
           nil,
           f.NewNodeList([]*shimast.Node{
             f.NewIdentifier("_vout"),
-            body,
+            bodyExpression,
           }),
           shimast.NodeFlagsNone,
         ),
@@ -454,6 +456,13 @@ func (featureProgrammerNamespace) VisitGuardRebuildWith(key string, allocator *s
     ),
     emit,
   )
+}
+
+func featureProgrammer_block_to_expression(body *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
+  if body != nil && body.Kind == shimast.KindBlock {
+    return nativefactories.ExpressionFactory.SelfCall(emit, body)
+  }
+  return body
 }
 
 var featureProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
