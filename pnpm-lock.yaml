@@ -688,6 +688,12 @@ importers:
         specifier: catalog:utils
         version: 11.0.0
 
+  tests/test-typia-cli:
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+
   tests/test-typia-exact-optional:
     dependencies:
       '@nestia/e2e':
