@@ -71,6 +71,7 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
     }
     next := fileTransformer_try_transform_node(FileTransformer_TryTransformNodeProps{
       Context: context,
+      File:    file,
       Node:    node,
     })
     if next == nil {
@@ -96,6 +97,7 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
 
 type FileTransformer_TryTransformNodeProps struct {
   Context nativecontext.ITypiaContext
+  File    *shimast.SourceFile
   Node    *shimast.Node
 }
 
@@ -109,9 +111,13 @@ func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodePr
       // a diagnostic, not a repanic that kills the whole emit (the legacy text
       // adapter swallowed every panic, so the node path must at least handle
       // both error types).
-      switch exp.(type) {
-      case *TransformerError, *nativecontext.TransformerError:
-        fileTransformer_addDiagnostic(props)
+      switch err := exp.(type) {
+      case *TransformerError:
+        fileTransformer_addDiagnostic(props, err.Code, err.Message)
+        output = nil
+        return
+      case *nativecontext.TransformerError:
+        fileTransformer_addDiagnostic(props, err.Code, err.Message)
         output = nil
         return
       }
@@ -124,11 +130,29 @@ func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodePr
   })
 }
 
-func fileTransformer_addDiagnostic(props FileTransformer_TryTransformNodeProps) {
+func fileTransformer_addDiagnostic(props FileTransformer_TryTransformNodeProps, code string, message string) {
   if props.Context.Extras.AddDiagnostic == nil {
     return
   }
-  props.Context.Extras.AddDiagnostic(&shimast.Diagnostic{})
+  text := "typia transform error"
+  if message != "" {
+    text += ": " + message
+  }
+  diag := &nativecontext.ITypiaDiagnostic{
+    File:    props.File,
+    Code:    code,
+    Message: text,
+  }
+  if props.Node != nil {
+    if pos := props.Node.Pos(); pos >= 0 {
+      diag.Start = &pos
+      if end := props.Node.End(); end >= pos {
+        length := end - pos
+        diag.Length = &length
+      }
+    }
+  }
+  props.Context.Extras.AddDiagnostic(diag)
 }
 
 func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast.Node, emit ...*shimprinter.EmitContext) *shimast.SourceFile {

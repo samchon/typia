@@ -79,8 +79,8 @@ func runBuild(args []string) int {
   pluginOptions := readTypiaPluginOptions(cwd, *tsconfigPath)
   transformOptions := pluginOptions.TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
-    AddDiagnostic: func(diag *shimast.Diagnostic) int {
-      transformDiags = append(transformDiags, typiaTransformDiagnostic{Message: "typia transform error"})
+    AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
+      transformDiags = append(transformDiags, typiaTransformDiagnosticFrom(diag))
       return len(transformDiags)
     },
   }
@@ -149,17 +149,6 @@ type typiaTransformDiagnostic struct {
   Column  int
   Code    string
   Message string
-}
-
-func (d typiaTransformDiagnostic) String(cwd string) string {
-  file := d.File
-  if rel, err := filepath.Rel(cwd, file); err == nil {
-    file = rel
-  }
-  if d.Line > 0 {
-    return fmt.Sprintf("%s:%d:%d - error TS(%s): %s", file, d.Line, d.Column, d.Code, d.Message)
-  }
-  return fmt.Sprintf("%s - error TS(%s): %s", file, d.Code, d.Message)
 }
 
 func writeTypiaTransformDiagnostics(out io.Writer, diagnostics []typiaTransformDiagnostic, cwd string) {

@@ -24,5 +24,13 @@ type ITypiaContext struct {
 }
 
 type ITypiaContext_Extras struct {
-  AddDiagnostic func(diag *shimast.Diagnostic) int
+  AddDiagnostic func(diag *ITypiaDiagnostic) int
+}
+
+type ITypiaDiagnostic struct {
+  File    *shimast.SourceFile
+  Start   *int
+  Length  *int
+  Code    string
+  Message string
 }

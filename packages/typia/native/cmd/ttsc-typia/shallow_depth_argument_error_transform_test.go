@@ -15,9 +15,8 @@ import (
 // lowered into a concrete budget. Each must abort the transform with a
 // diagnostic instead of silently defaulting; otherwise a typo like
 // `shallow<T, -1>` would emit a surprising guard rather than failing loudly.
-// The transform layer collapses the TransformerError message to a generic
-// "typia transform error" diagnostic, so the assertion pins the rejection (a
-// non-zero exit with that diagnostic) rather than the per-branch wording.
+// This test only pins the rejection path; transform diagnostic detail is covered
+// by the command diagnostics tests.
 //
 //  1. Transform a call site whose N is the `number` type (not a literal).
 //  2. Transform a call site whose N is the negative literal `-1`.
