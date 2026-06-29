@@ -16,7 +16,7 @@ function createRandom<T>(generator?: Partial<IRandomGenerator>): () => Resolved<
 
 It honors every [type tag](/docs/validators/tags) you put on the type: `tags.Format<"email">` will produce an email, `tags.Minimum<0> & tags.Maximum<100>` will pick a number in that range, `tags.MaxLength<8>` will cap a string's length.
 
-Without length tags, plain strings use length `5..10`, and non-recursive arrays use length `1..6`. Explicit constraints still win: `tags.MaxLength<0>` can produce `""`, and `tags.MaxItems<0>` produces an empty array. Recursive arrays receive `recursive: true` on the array generator props and keep `0` in their default range so graph-shaped data can terminate.
+Without length tags, plain strings use length `5..10`, and non-recursive arrays use length `1..6`. Explicit constraints still win: `tags.MaxLength<0>` can produce `""`, and `tags.MaxItems<0>` produces an empty array. Recursive arrays receive `recursive: true` on the array generator props and use length `0..2` by default so graph-shaped data can terminate.
 
 ## First example
 
