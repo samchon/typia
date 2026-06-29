@@ -15,6 +15,8 @@ import typia, { tags } from "typia";
  *    recursive array property passed by the transformer.
  * 4. Generate recursive trees with the default generator and require every
  *    recursive child array to stay within the default recursive range.
+ * 5. Generate a non-recursive MinItems<1> array and require the constraint to
+ *    remain accepted and forwarded to the custom array generator.
  */
 export const test_random_defaults = (): void => {
   for (let i = 0; i < 20; ++i) {
@@ -53,6 +55,23 @@ export const test_random_defaults = (): void => {
     recursiveFlags.some((recursive) => recursive !== true),
   );
 
+  let minItems: number | undefined;
+  const constrained: INonRecursiveMinItems =
+    typia.random<INonRecursiveMinItems>({
+      string: () => "label",
+      array: (schema) => {
+        minItems = schema.minItems;
+        const count: number = schema.minItems ?? 0;
+        return new Array(count)
+          .fill(null)
+          .map((_, index) => schema.element(index, count));
+      },
+    });
+  TestValidator.equals("non-recursive minItems schema", minItems, 1);
+  TestValidator.equals("non-recursive minItems output", constrained.items, [
+    "label",
+  ]);
+
   for (let i = 0; i < 20; ++i) {
     const generated: IRecursiveTree = typia.random<IRecursiveTree>();
     TestValidator.predicate("default recursive array length", () =>
@@ -72,6 +91,10 @@ interface IRecursiveTree {
   value: string;
   children: IRecursiveTree[];
   labels: string[];
+}
+
+interface INonRecursiveMinItems {
+  items: string[] & tags.MinItems<1>;
 }
 
 const visit = (

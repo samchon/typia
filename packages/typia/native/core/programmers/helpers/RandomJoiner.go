@@ -72,7 +72,7 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
   } else {
     properties = append(properties, f.NewSpreadAssignment(f.NewIdentifier("_schema")))
   }
-  if randomJoiner_is_recursive_array(props.Array) {
+  if RandomJoiner.IsRecursiveArray(props.Array) {
     properties = append(properties, f.NewPropertyAssignment(
       nil,
       f.NewIdentifier("recursive"),
@@ -125,7 +125,7 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
   )
 }
 
-func randomJoiner_is_recursive_array(array *nativemetadata.MetadataArrayType) bool {
+func (randomJoinerNamespace) IsRecursiveArray(array *nativemetadata.MetadataArrayType) bool {
   return randomJoiner_is_recursive_array_type(
     array,
     map[*nativemetadata.MetadataSchema]bool{},

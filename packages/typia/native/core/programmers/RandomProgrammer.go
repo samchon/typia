@@ -3,6 +3,8 @@ package programmers
 import (
   "fmt"
   "math"
+  "reflect"
+  "strconv"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -103,6 +105,12 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
     }{
       Code:   props.Functor.Method,
       Errors: randomProgrammer_errors(result.Errors),
+    }))
+  }
+  if messages := randomProgrammer_validate_recursive_min_items(result.Data); len(messages) != 0 {
+    panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+      Code:    props.Functor.Method,
+      Message: strings.Join(messages, "\n"),
     }))
   }
 
@@ -223,7 +231,123 @@ func (randomProgrammerNamespace) Validate(props struct {
       break
     }
   }
+  for _, array := range props.Metadata.Arrays {
+    if nativehelpers.RandomJoiner.IsRecursiveArray(array.Type) {
+      if tag := randomProgrammer_find_positive_min_items(array.Tags); tag != nil {
+        output = append(output, fmt.Sprintf("recursive array type cannot have %s.", tag.Name))
+      }
+    }
+  }
   return output
+}
+
+func randomProgrammer_find_positive_min_items(tags [][]schemametadata.IMetadataTypeTag) *schemametadata.IMetadataTypeTag {
+  for _, row := range tags {
+    for _, tag := range row {
+      if tag.Kind == "minItems" && randomProgrammer_is_positive_min_items_tag(tag) {
+        copied := tag
+        return &copied
+      }
+    }
+  }
+  return nil
+}
+
+func randomProgrammer_is_positive_min_items_tag(tag schemametadata.IMetadataTypeTag) bool {
+  if randomProgrammer_is_positive_numeric(tag.Value) {
+    return true
+  }
+  if schema, ok := tag.Schema.(map[string]any); ok {
+    return randomProgrammer_is_positive_numeric(schema["minItems"])
+  }
+  return false
+}
+
+func randomProgrammer_is_positive_numeric(value any) bool {
+  if value == nil {
+    return false
+  }
+  rv := reflect.ValueOf(value)
+  switch rv.Kind() {
+  case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+    return rv.Int() > 0
+  case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+    return rv.Uint() > 0
+  case reflect.Float32, reflect.Float64:
+    return rv.Float() > 0
+  case reflect.String:
+    parsed, err := strconv.ParseFloat(rv.String(), 64)
+    return err == nil && parsed > 0
+  default:
+    return false
+  }
+}
+
+func randomProgrammer_validate_recursive_min_items(metadata *schemametadata.MetadataSchema) []string {
+  messages := []string{}
+  randomProgrammer_visit_recursive_min_items(
+    metadata,
+    map[*schemametadata.MetadataSchema]bool{},
+    map[*schemametadata.MetadataObjectType]bool{},
+    &messages,
+  )
+  return messages
+}
+
+func randomProgrammer_visit_recursive_min_items(
+  metadata *schemametadata.MetadataSchema,
+  visited map[*schemametadata.MetadataSchema]bool,
+  visitedObjects map[*schemametadata.MetadataObjectType]bool,
+  messages *[]string,
+) {
+  if metadata == nil || visited[metadata] {
+    return
+  }
+  visited[metadata] = true
+  if metadata.Escaped != nil {
+    randomProgrammer_visit_recursive_min_items(metadata.Escaped.Original, visited, visitedObjects, messages)
+    randomProgrammer_visit_recursive_min_items(metadata.Escaped.Returns, visited, visitedObjects, messages)
+  }
+  randomProgrammer_visit_recursive_min_items(metadata.Rest, visited, visitedObjects, messages)
+  for _, alias := range metadata.Aliases {
+    if alias.Type != nil {
+      randomProgrammer_visit_recursive_min_items(alias.Type.Value, visited, visitedObjects, messages)
+    }
+  }
+  for _, array := range metadata.Arrays {
+    if nativehelpers.RandomJoiner.IsRecursiveArray(array.Type) {
+      if tag := randomProgrammer_find_positive_min_items(array.Tags); tag != nil {
+        *messages = append(*messages, fmt.Sprintf("recursive array type cannot have %s.", tag.Name))
+      }
+    }
+    if array.Type != nil {
+      randomProgrammer_visit_recursive_min_items(array.Type.Value, visited, visitedObjects, messages)
+    }
+  }
+  for _, tuple := range metadata.Tuples {
+    if tuple.Type == nil {
+      continue
+    }
+    for _, elem := range tuple.Type.Elements {
+      randomProgrammer_visit_recursive_min_items(elem, visited, visitedObjects, messages)
+    }
+  }
+  for _, object := range metadata.Objects {
+    if object.Type == nil || visitedObjects[object.Type] {
+      continue
+    }
+    visitedObjects[object.Type] = true
+    for _, property := range object.Type.Properties {
+      randomProgrammer_visit_recursive_min_items(property.Value, visited, visitedObjects, messages)
+    }
+  }
+  for _, set := range metadata.Sets {
+    randomProgrammer_visit_recursive_min_items(set.Value, visited, visitedObjects, messages)
+  }
+  for _, entry := range metadata.Maps {
+    randomProgrammer_visit_recursive_min_items(entry.Key, visited, visitedObjects, messages)
+    randomProgrammer_visit_recursive_min_items(entry.Value, visited, visitedObjects, messages)
+  }
 }
 
 func randomProgrammer_write_object_functions(props struct {
@@ -621,6 +745,14 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
   })
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
+  if nativehelpers.RandomJoiner.IsRecursiveArray(props.Array.Type) {
+    if tag := randomProgrammer_find_positive_min_items(props.Array.Tags); tag != nil {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive array type cannot have %s.", tag.Name),
+      }))
+    }
+  }
   if props.Array.Type.Recursive {
     for _, schema := range schemaList {
       arguments := []*shimast.Node{
