@@ -13,6 +13,8 @@ import typia, { tags } from "typia";
  * 2. Generate MaxLength<0> and MaxItems<0> controls and require empty values.
  * 3. Generate a recursive tree with a custom array generator and inspect the
  *    recursive array property passed by the transformer.
+ * 4. Generate recursive trees with the default generator and require every
+ *    recursive child array to stay within the default recursive range.
  */
 export const test_random_defaults = (): void => {
   for (let i = 0; i < 20; ++i) {
@@ -50,6 +52,13 @@ export const test_random_defaults = (): void => {
   TestValidator.predicate("plain array property", () =>
     recursiveFlags.some((recursive) => recursive !== true),
   );
+
+  for (let i = 0; i < 20; ++i) {
+    const generated: IRecursiveTree = typia.random<IRecursiveTree>();
+    TestValidator.predicate("default recursive array length", () =>
+      visit(generated, (node) => node.children.length <= 2),
+    );
+  }
 };
 
 interface IRandomDefaults {
@@ -64,3 +73,9 @@ interface IRecursiveTree {
   children: IRecursiveTree[];
   labels: string[];
 }
+
+const visit = (
+  node: IRecursiveTree,
+  predicate: (node: IRecursiveTree) => boolean,
+): boolean =>
+  predicate(node) && node.children.every((child) => visit(child, predicate));
