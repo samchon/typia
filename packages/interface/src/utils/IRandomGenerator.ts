@@ -28,6 +28,7 @@ export interface IRandomGenerator {
   array<T>(
     schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
       element: (index: number, count: number) => T;
+      recursive?: boolean;
     },
   ): T[];
 
@@ -99,6 +100,7 @@ export namespace IRandomGenerator {
     array?: <T>(
       schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
         element: (index: number, count: number) => T;
+        recursive?: boolean;
       } & Record<string, any>,
     ) => T[];
   }

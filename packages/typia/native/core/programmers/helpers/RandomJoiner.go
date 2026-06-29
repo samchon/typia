@@ -72,6 +72,15 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
   } else {
     properties = append(properties, f.NewSpreadAssignment(f.NewIdentifier("_schema")))
   }
+  if randomJoiner_is_recursive_array(props.Array) {
+    properties = append(properties, f.NewPropertyAssignment(
+      nil,
+      f.NewIdentifier("recursive"),
+      nil,
+      nil,
+      f.NewKeywordExpression(shimast.KindTrueKeyword),
+    ))
+  }
   properties = append(properties, f.NewPropertyAssignment(
     nil,
     f.NewIdentifier("element"),
@@ -114,6 +123,93 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
     f.NewArrayLiteralExpression(f.NewNodeList(nil), false),
     props.Emit,
   )
+}
+
+func randomJoiner_is_recursive_array(array *nativemetadata.MetadataArrayType) bool {
+  return randomJoiner_is_recursive_array_type(
+    array,
+    map[*nativemetadata.MetadataSchema]bool{},
+  )
+}
+
+func randomJoiner_is_recursive_array_type(
+  array *nativemetadata.MetadataArrayType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+) bool {
+  if array == nil {
+    return false
+  }
+  return array.Recursive || randomJoiner_is_recursive_metadata(array.Value, visited)
+}
+
+func randomJoiner_is_recursive_tuple_type(
+  tuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+) bool {
+  if tuple == nil {
+    return false
+  } else if tuple.Recursive {
+    return true
+  }
+  for _, elem := range tuple.Elements {
+    if randomJoiner_is_recursive_metadata(elem, visited) {
+      return true
+    }
+  }
+  return false
+}
+
+func randomJoiner_is_recursive_metadata(
+  meta *nativemetadata.MetadataSchema,
+  visited map[*nativemetadata.MetadataSchema]bool,
+) bool {
+  if meta == nil {
+    return false
+  } else if visited[meta] {
+    return false
+  }
+  visited[meta] = true
+  if meta.Escaped != nil &&
+    (randomJoiner_is_recursive_metadata(meta.Escaped.Original, visited) ||
+      randomJoiner_is_recursive_metadata(meta.Escaped.Returns, visited)) {
+    return true
+  } else if randomJoiner_is_recursive_metadata(meta.Rest, visited) {
+    return true
+  }
+  for _, alias := range meta.Aliases {
+    if alias.Type != nil &&
+      (alias.Type.Recursive ||
+        randomJoiner_is_recursive_metadata(alias.Type.Value, visited)) {
+      return true
+    }
+  }
+  for _, array := range meta.Arrays {
+    if randomJoiner_is_recursive_array_type(array.Type, visited) {
+      return true
+    }
+  }
+  for _, tuple := range meta.Tuples {
+    if randomJoiner_is_recursive_tuple_type(tuple.Type, visited) {
+      return true
+    }
+  }
+  for _, object := range meta.Objects {
+    if object.Type != nil && object.Type.Recursive {
+      return true
+    }
+  }
+  for _, set := range meta.Sets {
+    if randomJoiner_is_recursive_metadata(set.Value, visited) {
+      return true
+    }
+  }
+  for _, entry := range meta.Maps {
+    if randomJoiner_is_recursive_metadata(entry.Key, visited) ||
+      randomJoiner_is_recursive_metadata(entry.Value, visited) {
+      return true
+    }
+  }
+  return false
 }
 
 func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node {

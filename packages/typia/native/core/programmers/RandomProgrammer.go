@@ -303,7 +303,7 @@ func randomProgrammer_write_array_functions(props struct {
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("_schema", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), nil, props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("_schema", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
           nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit),
           nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
         }),
@@ -623,13 +623,21 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
   output := make([]*shimast.Node, 0, len(schemaList))
   if props.Array.Type.Recursive {
     for _, schema := range schemaList {
+      arguments := []*shimast.Node{
+        randomProgrammer_schema_without_items(schema, props.Context.Emit),
+      }
+      if props.Explore.Function {
+        recursive := f.NewIdentifier("_recursive")
+        if props.Explore.Recursive {
+          recursive = f.NewKeywordExpression(shimast.KindTrueKeyword)
+        }
+        arguments = append(arguments, recursive, f.NewIdentifier("_depth"))
+      }
       output = append(output, f.NewCallExpression(
         f.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_array(*props.Array.Type.Index))),
         nil,
         nil,
-        f.NewNodeList([]*shimast.Node{
-          randomProgrammer_schema_without_items(schema, props.Context.Emit),
-        }),
+        f.NewNodeList(arguments),
         shimast.NodeFlagsNone,
       ))
     }
