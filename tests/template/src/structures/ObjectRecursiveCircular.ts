@@ -13,8 +13,8 @@ export namespace ObjectRecursiveCircular {
 
   /**
    * A doubly-linked tree: every child points back to its parent, so the
-   * generated value contains runtime cycles. Validators used to overflow
-   * the call stack on it; with visit tracking they accept the valid value
+   * generated value contains runtime cycles. Validators used to overflow the
+   * call stack on it; with visit tracking they accept the valid value
    * coinductively and report a spoiled property exactly once, because the
    * cyclic re-entry short-circuits while the check is still in progress.
    */

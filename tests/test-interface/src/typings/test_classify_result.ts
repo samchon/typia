@@ -3,7 +3,7 @@ import { ClassifyResult } from "@typia/interface";
 /**
  * Verifies the RETURN type of `typia.plain.classify<T>`.
  *
- * classify reconstructs and returns a real INSTANCE, so for a class TYPE
+ * Classify reconstructs and returns a real INSTANCE, so for a class TYPE
  * (`typeof C`) the result is the instance `C`, never the constructor `typeof C`
  * — even for a private-constructor class, whose instance is read from
  * `prototype`. For an instance type (the common `classify<User>` call) and any
