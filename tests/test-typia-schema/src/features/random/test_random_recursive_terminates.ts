@@ -5,15 +5,15 @@ import typia, { IRandomGenerator } from "typia";
  * Verifies recursive random terminates whenever the cycle has an escape.
  *
  * Random generation stops a recursive type at the depth cutoff through one of
- * four escapes — a nullable edge becomes `null`, an optional property is
- * dropped, an array empties, or a union picks a finite variant. Each shape
- * below forces the recursive branch through a custom generator (so the cutoff,
- * not luck, is what stops it) and must still produce a finite value that
- * satisfies its type. The valveless counterparts are rejected at compile time,
- * so they cannot appear here.
+ * its escapes — a nullable edge becomes `null`, an optional property is
+ * dropped, an array, set, or map empties, or a union picks a finite variant.
+ * Each shape below forces the recursive branch through a custom generator (so
+ * the cutoff, not luck, is what stops it) and must still produce a finite value
+ * that satisfies its type. The valveless counterparts are rejected at compile
+ * time, so they cannot appear here.
  *
- * 1. Generate nullable-, optional-, array-, and union-escaped recursive types.
- * 2. Force every array generator to emit one element so depth keeps climbing.
+ * 1. Generate nullable-, optional-, array-, set-, map-, and union-escaped types.
+ * 2. Force every container generator to emit one element so depth keeps climbing.
  * 3. Require each value to be finite and to pass `typia.assert`.
  */
 export const test_random_recursive_terminates = (): void => {
@@ -43,6 +43,27 @@ export const test_random_recursive_terminates = (): void => {
     () => arrayDepth(array) <= 8,
   );
 
+  const set: ISet = typia.random<ISet>(grow);
+  typia.assert<ISet>(set);
+  TestValidator.predicate(
+    "set recursion finite",
+    () => set.self instanceof Set,
+  );
+
+  const mapKey: IMapKey = typia.random<IMapKey>(grow);
+  typia.assert<IMapKey>(mapKey);
+  TestValidator.predicate(
+    "map-key recursion finite",
+    () => mapKey.self instanceof Map,
+  );
+
+  const mapValue: IMapValue = typia.random<IMapValue>(grow);
+  typia.assert<IMapValue>(mapValue);
+  TestValidator.predicate(
+    "map-value recursion finite",
+    () => mapValue.self instanceof Map,
+  );
+
   const union: IUnionOwner = typia.random<IUnionOwner>(grow);
   typia.assert<IUnionOwner>(union);
   TestValidator.predicate("union recursion finite", () => true);
@@ -61,6 +82,21 @@ interface IOptional {
 interface IArray {
   value: string;
   self: IArray[];
+}
+
+interface ISet {
+  value: string;
+  self: Set<ISet>;
+}
+
+interface IMapKey {
+  value: string;
+  self: Map<IMapKey, string>;
+}
+
+interface IMapValue {
+  value: string;
+  self: Map<string, IMapValue>;
 }
 
 interface IUnionOwner {
