@@ -433,6 +433,7 @@ func randomProgrammer_write_tuple_functions(props struct {
           },
           Elements:        tuple.Elements,
           ArrayExpression: randomProgrammer_coalesce(props.Context, "array", "randomArray"),
+          HasDepth:        true,
           Emit:            props.Context.Emit,
         }),
       ),
@@ -795,6 +796,7 @@ func randomProgrammer_decode_tuple(props randomProgrammer_decodeTupleProps) *shi
     },
     Elements:        props.Tuple.Type.Elements,
     ArrayExpression: randomProgrammer_coalesce(props.Context, "array", "randomArray"),
+    HasDepth:        props.Explore.Function,
     Emit:            props.Context.Emit,
   })
 }

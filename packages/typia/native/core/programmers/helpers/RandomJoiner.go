@@ -36,7 +36,12 @@ type RandomJoiner_TupleProps struct {
   Decode          RandomJoiner_Decoder
   Elements        []*nativemetadata.MetadataSchema
   ArrayExpression *shimast.Expression
-  Emit            *shimprinter.EmitContext
+  // HasDepth marks that the surrounding function exposes `_depth`, so a
+  // recursive rest spread may guard itself with the depth cutoff. A tuple
+  // inlined at the top level has no `_depth`, and its element recursion already
+  // terminates through its own helper, so the guard must be omitted there.
+  HasDepth bool
+  Emit     *shimprinter.EmitContext
 }
 
 type RandomJoiner_ObjectProps struct {
@@ -748,7 +753,7 @@ func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node 
       })
       elements = append(elements, f.NewSpreadElement(RandomJoiner.Array(RandomJoiner_ArrayProps{
         Decode:     props.Decode,
-        Recursive:  RandomJoiner.IsRecursiveArray(arrayType),
+        Recursive:  props.HasDepth && RandomJoiner.IsRecursiveArray(arrayType),
         Expression: props.ArrayExpression,
         Array:      arrayType,
         Schema:     map[string]any{"type": "array"},

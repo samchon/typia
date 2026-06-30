@@ -13,6 +13,8 @@ import typia, { IRandomGenerator } from "typia";
  *    with every rest member a string.
  * 2. Force the recursive rest generator to keep emitting one element per level.
  * 3. Require the recursive value to be finite and to pass `typia.assert`.
+ * 4. Generate a top-level rest tuple whose element is independently recursive,
+ *    which has no surrounding `_depth`, and require it not to throw.
  */
 export const test_random_tuple_rest = (): void => {
   const plain = typia.random<IPlainRest>();
@@ -34,10 +36,24 @@ export const test_random_tuple_rest = (): void => {
     "recursive rest terminates at the cutoff",
     () => restDepth(recursive) >= 1 && restDepth(recursive) <= 8,
   );
+
+  // The element recurses through its own helper, so the rest spread must not
+  // reference the `_depth` cutoff that a top-level tuple has no binding for.
+  const owned = typia.random<IOwnedRest>();
+  typia.assert<IOwnedRest>(owned);
+  TestValidator.predicate("top-level rest of recursive element", () =>
+    Array.isArray(owned),
+  );
 };
+
+interface IOwnedNode {
+  value: string;
+  children: IOwnedNode[];
+}
 
 type IPlainRest = [number, ...string[]];
 type IRecursiveRest = [string, ...IRecursiveRest[]];
+type IOwnedRest = [string, ...IOwnedNode[]];
 
 const restDepth = (node: unknown): number =>
   Array.isArray(node) && node.length > 1 ? 1 + restDepth(node[1]) : 0;
