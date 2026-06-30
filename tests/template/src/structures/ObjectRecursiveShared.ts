@@ -7,11 +7,11 @@ export namespace ObjectRecursiveShared {
 
   /**
    * A recursive directory tree whose generated value is a DAG: the very same
-   * `shared` instance is referenced from two different branches. Walking it
-   * is finite, but every visit-tracked feature (issue #1820) crosses its
+   * `shared` instance is referenced from two different branches. Walking it is
+   * finite, but every visit-tracked feature (issue #1820) crosses its
    * deduplication path — and a spoiled shared instance must be reported at
-   * every position it appears under, pinning the delete-on-fail re-walk of
-   * the generated validators.
+   * every position it appears under, pinning the delete-on-fail re-walk of the
+   * generated validators.
    */
   export interface IDirectory {
     id: number;
