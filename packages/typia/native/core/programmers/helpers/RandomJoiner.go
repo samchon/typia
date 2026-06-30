@@ -312,7 +312,7 @@ func (randomJoinerNamespace) UnsatisfiableRecursives(
 }
 
 // randomJoiner_terminable_fixpoint marks every object/tuple that has a finite
-// inhabitant, growing the known set until it stabilises (monotone least fixpoint,
+// inhabitant, growing the known set until it stabilizes (monotone least fixpoint,
 // so the result is independent of iteration order).
 func randomJoiner_terminable_fixpoint(
   objects map[*nativemetadata.MetadataObjectType]bool,

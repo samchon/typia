@@ -14,7 +14,7 @@ export namespace MapRecursiveKey {
    * the recursion travels through the map KEY rather than a plain property.
    * Recursion detection used to follow only map values, leaving a `Map<Self,
    * V>` unmarked; every visit-tracked feature (validate, equals, clone, random)
-   * has to recognise the key edge or it either inlines forever at build time or
+   * has to recognize the key edge or it either inlines forever at build time or
    * walks the wrong cycle at runtime. The generated value stays a finite tree
    * so the positive path of each feature runs to completion.
    */
