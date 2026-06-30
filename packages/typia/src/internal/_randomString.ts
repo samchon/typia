@@ -1,4 +1,4 @@
-import { OpenApi } from "@typia/interface";
+import type { OpenApi } from "@typia/interface";
 
 import { _randomInteger } from "./_randomInteger";
 
