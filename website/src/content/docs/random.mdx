@@ -18,6 +18,8 @@ It honors satisfiable [type tags](/docs/validators/tags) you put on the type: `t
 
 Without length tags, plain strings use length `5..10`, and non-recursive arrays use length `1..6`. Explicit constraints still win: `tags.MaxLength<0>` can produce `""`, and `tags.MaxItems<0>` produces an empty array. Recursive arrays receive `recursive: true` on the array generator props and use length `0..2` by default so graph-shaped data can terminate. A direct recursive array alias or owner edge, and any array that must serve as the recursive depth cutoff, cannot also require a positive minimum length; `typia.random` rejects that combination at compile time because the cutoff may need to emit an empty array.
 
+Recursion terminates only where the depth cutoff has an escape to take: an array, set, or map that may be empty, a nullable edge that may become `null`, an optional or index-signature property that may be dropped, or a union with at least one finite variant. A recursive type whose every cycle is a required, non-nullable, non-container value — `interface INode { next: INode }`, a mutual `A → B → A` object cycle, or a recursive tuple rest element — has no finite value to generate, so `typia.random` rejects it at compile time instead of overflowing the stack. Give the cycle any one escape (`next: INode | null`, `next?: INode`, or `next: INode[]`) to make it satisfiable.
+
 ## First example
 
 ```typescript copy filename="hello-random.ts"
