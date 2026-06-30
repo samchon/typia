@@ -282,6 +282,12 @@ func randomProgrammer_write_object_functions(props struct {
   for i, obj := range props.Collection.Objects() {
     index := i
     object := obj
+    if object.Recursive && nativehelpers.RandomJoiner.IsUnsatisfiableRecursiveObject(object) {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive type %q cannot be randomly generated because the recursion never terminates; give it a nullable, optional, or array/set/map escape.", object.Name),
+      }))
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_object(index),
       Value: f.NewArrowFunction(
@@ -394,6 +400,12 @@ func randomProgrammer_write_tuple_functions(props struct {
     }
     index := i
     tuple := tuple
+    if nativehelpers.RandomJoiner.IsUnsatisfiableRecursiveTuple(tuple) {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive type %q cannot be randomly generated because the recursion never terminates; give it a nullable, optional, or array/set/map escape.", tuple.Name),
+      }))
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_tuple(index),
       Value: f.NewArrowFunction(

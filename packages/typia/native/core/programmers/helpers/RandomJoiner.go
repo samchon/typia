@@ -262,6 +262,223 @@ func randomJoiner_requires_recursive_guard_metadata(
   return false
 }
 
+// IsUnsatisfiableRecursiveObject reports whether random generation of the object
+// can never terminate. Every terminating recursive shape has an escape the
+// generator uses to stop: an array/set/map empties at the depth cutoff, a
+// nullable edge becomes `null`, an optional or index-signature property is
+// omitted, or a union picks a finite variant. This is a least-fixpoint "can a
+// finite value be built" analysis — a schema terminates if ANY of its union
+// options does, an object terminates if ALL of its required literal properties
+// do — so a recursive type with no finite inhabitant the generator can reach is
+// rejected at compile time instead of overflowing the stack at runtime.
+func (randomJoinerNamespace) IsUnsatisfiableRecursiveObject(object *nativemetadata.MetadataObjectType) bool {
+  if object == nil {
+    return false
+  }
+  objects := map[*nativemetadata.MetadataObjectType]bool{}
+  tuples := map[*nativemetadata.MetadataTupleType]bool{}
+  randomJoiner_collect_object(object, map[*nativemetadata.MetadataSchema]bool{}, objects, tuples)
+  knownObjects, _ := randomJoiner_terminable_fixpoint(objects, tuples)
+  return knownObjects[object] == false
+}
+
+// IsUnsatisfiableRecursiveTuple is the tuple counterpart of
+// IsUnsatisfiableRecursiveObject.
+func (randomJoinerNamespace) IsUnsatisfiableRecursiveTuple(tuple *nativemetadata.MetadataTupleType) bool {
+  if tuple == nil {
+    return false
+  }
+  objects := map[*nativemetadata.MetadataObjectType]bool{}
+  tuples := map[*nativemetadata.MetadataTupleType]bool{}
+  randomJoiner_collect_tuple(tuple, map[*nativemetadata.MetadataSchema]bool{}, objects, tuples)
+  _, knownTuples := randomJoiner_terminable_fixpoint(objects, tuples)
+  return knownTuples[tuple] == false
+}
+
+// randomJoiner_collect_schema gathers every object and tuple type reachable from
+// a schema, which forms the domain the terminability fixpoint iterates over.
+func randomJoiner_collect_schema(
+  meta *nativemetadata.MetadataSchema,
+  seen map[*nativemetadata.MetadataSchema]bool,
+  objects map[*nativemetadata.MetadataObjectType]bool,
+  tuples map[*nativemetadata.MetadataTupleType]bool,
+) {
+  if meta == nil || seen[meta] {
+    return
+  }
+  seen[meta] = true
+  if meta.Escaped != nil {
+    randomJoiner_collect_schema(meta.Escaped.Returns, seen, objects, tuples)
+  }
+  randomJoiner_collect_schema(meta.Rest, seen, objects, tuples)
+  for _, alias := range meta.Aliases {
+    if alias.Type != nil {
+      randomJoiner_collect_schema(alias.Type.Value, seen, objects, tuples)
+    }
+  }
+  for _, array := range meta.Arrays {
+    if array.Type != nil {
+      randomJoiner_collect_schema(array.Type.Value, seen, objects, tuples)
+    }
+  }
+  for _, set := range meta.Sets {
+    randomJoiner_collect_schema(set.Value, seen, objects, tuples)
+  }
+  for _, entry := range meta.Maps {
+    randomJoiner_collect_schema(entry.Key, seen, objects, tuples)
+    randomJoiner_collect_schema(entry.Value, seen, objects, tuples)
+  }
+  for _, tuple := range meta.Tuples {
+    randomJoiner_collect_tuple(tuple.Type, seen, objects, tuples)
+  }
+  for _, object := range meta.Objects {
+    randomJoiner_collect_object(object.Type, seen, objects, tuples)
+  }
+}
+
+func randomJoiner_collect_object(
+  object *nativemetadata.MetadataObjectType,
+  seen map[*nativemetadata.MetadataSchema]bool,
+  objects map[*nativemetadata.MetadataObjectType]bool,
+  tuples map[*nativemetadata.MetadataTupleType]bool,
+) {
+  if object == nil || objects[object] {
+    return
+  }
+  objects[object] = true
+  for _, property := range object.Properties {
+    randomJoiner_collect_schema(property.Value, seen, objects, tuples)
+  }
+}
+
+func randomJoiner_collect_tuple(
+  tuple *nativemetadata.MetadataTupleType,
+  seen map[*nativemetadata.MetadataSchema]bool,
+  objects map[*nativemetadata.MetadataObjectType]bool,
+  tuples map[*nativemetadata.MetadataTupleType]bool,
+) {
+  if tuple == nil || tuples[tuple] {
+    return
+  }
+  tuples[tuple] = true
+  for _, elem := range tuple.Elements {
+    randomJoiner_collect_schema(elem, seen, objects, tuples)
+  }
+}
+
+// randomJoiner_terminable_fixpoint marks every object/tuple that has a finite
+// inhabitant, growing the known set until it stabilises (monotone least fixpoint,
+// so the result is independent of iteration order).
+func randomJoiner_terminable_fixpoint(
+  objects map[*nativemetadata.MetadataObjectType]bool,
+  tuples map[*nativemetadata.MetadataTupleType]bool,
+) (map[*nativemetadata.MetadataObjectType]bool, map[*nativemetadata.MetadataTupleType]bool) {
+  knownObjects := map[*nativemetadata.MetadataObjectType]bool{}
+  knownTuples := map[*nativemetadata.MetadataTupleType]bool{}
+  for {
+    changed := false
+    for object := range objects {
+      if knownObjects[object] == false && randomJoiner_object_terminable(object, knownObjects, knownTuples) {
+        knownObjects[object] = true
+        changed = true
+      }
+    }
+    for tuple := range tuples {
+      if knownTuples[tuple] == false && randomJoiner_tuple_terminable(tuple, knownObjects, knownTuples) {
+        knownTuples[tuple] = true
+        changed = true
+      }
+    }
+    if changed == false {
+      break
+    }
+  }
+  return knownObjects, knownTuples
+}
+
+func randomJoiner_object_terminable(
+  object *nativemetadata.MetadataObjectType,
+  knownObjects map[*nativemetadata.MetadataObjectType]bool,
+  knownTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  for _, property := range object.Properties {
+    if property.Value == nil {
+      continue
+    } else if property.Key == nil || property.Key.IsSoleLiteral() == false {
+      continue // index signature: the object may carry zero such entries
+    } else if property.Value.IsRequired() == false {
+      continue // optional property: it may be omitted
+    } else if randomJoiner_schema_terminable(property.Value, knownObjects, knownTuples, map[*nativemetadata.MetadataSchema]bool{}) == false {
+      return false
+    }
+  }
+  return true
+}
+
+func randomJoiner_tuple_terminable(
+  tuple *nativemetadata.MetadataTupleType,
+  knownObjects map[*nativemetadata.MetadataObjectType]bool,
+  knownTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  for _, elem := range tuple.Elements {
+    if elem == nil {
+      continue
+    } else if elem.Rest != nil {
+      // The generator emits exactly one rest element, so it is a required value.
+      if randomJoiner_schema_terminable(elem.Rest, knownObjects, knownTuples, map[*nativemetadata.MetadataSchema]bool{}) == false {
+        return false
+      }
+    } else if elem.Optional {
+      continue // optional tuple member: it may be omitted
+    } else if randomJoiner_schema_terminable(elem, knownObjects, knownTuples, map[*nativemetadata.MetadataSchema]bool{}) == false {
+      return false
+    }
+  }
+  return true
+}
+
+func randomJoiner_schema_terminable(
+  meta *nativemetadata.MetadataSchema,
+  knownObjects map[*nativemetadata.MetadataObjectType]bool,
+  knownTuples map[*nativemetadata.MetadataTupleType]bool,
+  visited map[*nativemetadata.MetadataSchema]bool,
+) bool {
+  if meta == nil {
+    return false
+  } else if meta.Any || meta.Nullable {
+    return true
+  } else if len(meta.Atomics) > 0 || len(meta.Constants) > 0 || len(meta.Templates) > 0 ||
+    len(meta.Natives) > 0 || len(meta.Functions) > 0 {
+    return true
+  } else if len(meta.Arrays) > 0 || len(meta.Sets) > 0 || len(meta.Maps) > 0 {
+    return true // an empty container is a finite value
+  } else if visited[meta] {
+    return false
+  }
+  visited[meta] = true
+  if meta.Escaped != nil && randomJoiner_schema_terminable(meta.Escaped.Returns, knownObjects, knownTuples, visited) {
+    return true
+  } else if meta.Rest != nil && randomJoiner_schema_terminable(meta.Rest, knownObjects, knownTuples, visited) {
+    return true
+  }
+  for _, alias := range meta.Aliases {
+    if alias.Type != nil && randomJoiner_schema_terminable(alias.Type.Value, knownObjects, knownTuples, visited) {
+      return true
+    }
+  }
+  for _, object := range meta.Objects {
+    if object.Type != nil && knownObjects[object.Type] {
+      return true
+    }
+  }
+  for _, tuple := range meta.Tuples {
+    if tuple.Type != nil && knownTuples[tuple.Type] {
+      return true
+    }
+  }
+  return false
+}
+
 func randomJoiner_has_recursive_owner_array_path(
   array *nativemetadata.MetadataArrayType,
   object *nativemetadata.MetadataObjectType,
