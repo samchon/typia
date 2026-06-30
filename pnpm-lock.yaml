@@ -32,8 +32,8 @@ catalogs:
       specifier: ^0.16.0
       version: 0.16.0
     ttsc:
-      specifier: ^0.16.6
-      version: 0.16.6
+      specifier: ^0.16.7
+      version: 0.16.7
     typescript:
       specifier: 7.0.1-rc
       version: 7.0.1-rc
@@ -84,7 +84,7 @@ importers:
         version: 1.8.0(prettier@3.8.3)
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
 
   benchmark:
     dependencies:
@@ -202,7 +202,7 @@ importers:
         version: 0.10.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -260,7 +260,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
 
   packages/interface:
     devDependencies:
@@ -269,7 +269,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -309,7 +309,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -352,7 +352,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -416,7 +416,7 @@ importers:
         version: 1.0.2
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -450,7 +450,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -493,7 +493,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -572,7 +572,7 @@ importers:
     devDependencies:
       ttsc:
         specifier: catalog:typescript
-        version: 0.16.6
+        version: 0.16.7
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
@@ -2785,28 +2785,28 @@ packages:
   '@ts-morph/common@0.28.1':
     resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
 
-  '@ttsc/darwin-arm64@0.16.6':
-    resolution: {integrity: sha512-6wcctcMqqnb40AtZ1m2oEIEUTqF/jDqx3PyW8bTa6uZY3IrAjXBolUKVK3nxNQO9cX+PGxzlPnmBrGXTLLYHPQ==}
+  '@ttsc/darwin-arm64@0.16.7':
+    resolution: {integrity: sha512-01z0pcS53RuCE/FesZwHkRTSuDnFU/PR9ZzQOpICprEmp3ecQOeq4X6cSIQ6o9H/MpVIy5+tVaFSc52zjSlkVQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.16.6':
-    resolution: {integrity: sha512-/GN80aTmVooHefvsluh3bpJEpex8t8QJeuPODe64jaY1jKUqVS1KTY6+/iEbOmu4/g7yGShi9h3/Y8OFqWZhAA==}
+  '@ttsc/darwin-x64@0.16.7':
+    resolution: {integrity: sha512-AHNGfiQldM2VdITfggK/fjLXWI4JjDs6ZcGTcpBNZdhRWRjqpO0fHQ9/pXtvmHr046Z1AhBUAeIoMzIYMbJC3A==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/linux-arm64@0.16.6':
-    resolution: {integrity: sha512-HFeiUm/95/+c3llBlYW8xk4VOOS0l2ArsHyiVYBZ4ZyCzlV7cPBZEMtGm9XXJNbi2dbksTEw0DGCMFnVh0UM6Q==}
+  '@ttsc/linux-arm64@0.16.7':
+    resolution: {integrity: sha512-/cR12dXxOl5sfZY/v2D0X+XJ70QFqY+gKlzwbKbstcvggrXlYX56ZiEt/X7VDw04iDntEEI5pET7sjTV7ikhZA==}
     cpu: [arm64]
     os: [linux]
 
-  '@ttsc/linux-arm@0.16.6':
-    resolution: {integrity: sha512-BH7P/RDvCk3tjZLMtj7NnY0mNcjr1jFCnIkDFjY9c42NrekIqQg3Ec+FaOM2WGajfRq33KtIPGNm0L9ooqjmMQ==}
+  '@ttsc/linux-arm@0.16.7':
+    resolution: {integrity: sha512-HZzb4FqIznUHLyG7S1FnZJEXW4cz5MZ9AhdM5I4zq3pPtsoyWDNn+hseSlTV4nFccsh/T4Kc70wwD35C29K3EQ==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.16.6':
-    resolution: {integrity: sha512-kJtoZN7w2P5mXz9FstbpT++um0/3+O339fgnRQAzaXlEudzE4CrALIVEH6mvAPO4fDgzyDmdOA7QZTdHywZt+g==}
+  '@ttsc/linux-x64@0.16.7':
+    resolution: {integrity: sha512-ZY8XVwlbI50LZ/wulLYucnD6JVzgSiFxH1IqIpUoa9YrSqlEYhPGoPJ1M6HmJp7vbAD5aDBCILhA6sW/98ZdAg==}
     cpu: [x64]
     os: [linux]
 
@@ -2826,13 +2826,13 @@ packages:
   '@ttsc/wasm@0.16.0':
     resolution: {integrity: sha512-UUGYzSnjhdHabSSP3qWXF3G/IOua5An0Em1jNkyuMw36l/mNy8tWWBvFEr2lrmkECA8aDuSLyL2Es34D1KdzFQ==}
 
-  '@ttsc/win32-arm64@0.16.6':
-    resolution: {integrity: sha512-UPVrgQkT9mwlx44I3asBRKTvPiKBhRafm9h0OlBO2yO0MA7Ife7y090T1QTNse7BKet3bOsqzJoSC0Y0sdZadA==}
+  '@ttsc/win32-arm64@0.16.7':
+    resolution: {integrity: sha512-l3OxXYPLmSjp1JtYPILcDiop5zSgMqlRE3b5Z0cim/GPfnmyCqA72xIcfiKNngbCpPCKsiZzV59vZl6LXa/ubw==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.16.6':
-    resolution: {integrity: sha512-HmlRmKWnZUDIR4Gl3Dq1Zkekv/DMxkaM9gxxLJS0TNYSwp9P1bgwFm+MdxPdyrjg3pbL3+/Zxk/3qWNDX8malg==}
+  '@ttsc/win32-x64@0.16.7':
+    resolution: {integrity: sha512-mZhCpCu94PQwy1Uxdj5GQX3phIE/JAZ2WhaIIuu6+KD28lDWu4rShvq4Ax7KVHUJxWOMaP6WZc7SyhtsmVVBlQ==}
     cpu: [x64]
     os: [win32]
 
@@ -6776,8 +6776,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.16.6:
-    resolution: {integrity: sha512-yyP0MrurRbkhanoCdkR+Nm7aPhSFJI6T3w0SMO6Hhw89luW6NBCidsS0iDdaVvv6meTPjIJvDggyn6SzEJbq5Q==}
+  ttsc@0.16.7:
+    resolution: {integrity: sha512-CLYPhdad2PNBuN+J5EZviyT8we6C7w0AYhPO8/UU8ffBgyF8yOuvaqs5wLNwbHnaL9h47fnZr7rc80shCkgkBA==}
     hasBin: true
 
   twoslash-protocol@0.3.8:
@@ -9418,19 +9418,19 @@ snapshots:
       path-browserify: 1.0.1
       tinyglobby: 0.2.16
 
-  '@ttsc/darwin-arm64@0.16.6':
+  '@ttsc/darwin-arm64@0.16.7':
     optional: true
 
-  '@ttsc/darwin-x64@0.16.6':
+  '@ttsc/darwin-x64@0.16.7':
     optional: true
 
-  '@ttsc/linux-arm64@0.16.6':
+  '@ttsc/linux-arm64@0.16.7':
     optional: true
 
-  '@ttsc/linux-arm@0.16.6':
+  '@ttsc/linux-arm@0.16.7':
     optional: true
 
-  '@ttsc/linux-x64@0.16.6':
+  '@ttsc/linux-x64@0.16.7':
     optional: true
 
   '@ttsc/playground@0.16.0(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.16.0)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
@@ -9449,10 +9449,10 @@ snapshots:
 
   '@ttsc/wasm@0.16.0': {}
 
-  '@ttsc/win32-arm64@0.16.6':
+  '@ttsc/win32-arm64@0.16.7':
     optional: true
 
-  '@ttsc/win32-x64@0.16.6':
+  '@ttsc/win32-x64@0.16.7':
     optional: true
 
   '@tybys/wasm-util@0.10.2':
@@ -14178,15 +14178,15 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.16.6:
+  ttsc@0.16.7:
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.16.6
-      '@ttsc/darwin-x64': 0.16.6
-      '@ttsc/linux-arm': 0.16.6
-      '@ttsc/linux-arm64': 0.16.6
-      '@ttsc/linux-x64': 0.16.6
-      '@ttsc/win32-arm64': 0.16.6
-      '@ttsc/win32-x64': 0.16.6
+      '@ttsc/darwin-arm64': 0.16.7
+      '@ttsc/darwin-x64': 0.16.7
+      '@ttsc/linux-arm': 0.16.7
+      '@ttsc/linux-arm64': 0.16.7
+      '@ttsc/linux-x64': 0.16.7
+      '@ttsc/win32-arm64': 0.16.7
+      '@ttsc/win32-x64': 0.16.7
 
   twoslash-protocol@0.3.8: {}
 
