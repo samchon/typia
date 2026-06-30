@@ -138,12 +138,6 @@ func (randomJoinerNamespace) IsRecursiveArray(array *nativemetadata.MetadataArra
   )
 }
 
-func (randomJoinerNamespace) RequiresRecursiveArrayGuard(array *nativemetadata.MetadataArrayType) bool {
-  return RandomJoiner.RequiresRecursiveArrayGuardFor(RandomJoiner_RecursiveArrayGuardProps{
-    Array: array,
-  })
-}
-
 func (randomJoinerNamespace) RequiresRecursiveArrayGuardFor(props RandomJoiner_RecursiveArrayGuardProps) bool {
   return randomJoiner_requires_recursive_array_guard(
     props.Array,
