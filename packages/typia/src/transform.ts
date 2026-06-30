@@ -2,7 +2,7 @@ import { createRequire } from "node:module";
 import path from "node:path";
 import type { ITtscPlugin, ITtscPluginFactoryContext } from "ttsc";
 
-export default function createTtscPlugin(
+export function createTtscPlugin(
   context: ITtscPluginFactoryContext,
 ): ITtscPlugin {
   // ttsc loads this descriptor as ESM, where the ambient `require` is
@@ -17,3 +17,5 @@ export default function createTtscPlugin(
     source: path.resolve(root, "native", "cmd", "ttsc-typia"),
   };
 }
+
+export default createTtscPlugin;

@@ -74,6 +74,7 @@ export * from "./FunctionalValue";
 export * from "./FunctionalValueUnion";
 export * from "./InstanceUnion";
 export * from "./MapAlias";
+export * from "./MapRecursiveKey";
 export * from "./MapSimple";
 export * from "./MapSimpleProtobuf";
 export * from "./MapSimpleProtobufNullable";

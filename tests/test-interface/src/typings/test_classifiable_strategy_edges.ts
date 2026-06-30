@@ -5,10 +5,10 @@ import { Classifiable } from "@typia/interface";
  *
  * Regression shield for the seed-extraction rules: a no-argument constructor
  * (implicit default or explicit) must contribute **no** constructor seed — and
- * must never leak `unknown` — a rest-parameter constructor stays usable (rest is
- * optional), a `from` that needs two arguments is not a single-seed factory, and
- * a self-referential (cyclic) class type resolves without exploding the type
- * instantiation depth.
+ * must never leak `unknown` — a rest-parameter constructor stays usable (rest
+ * is optional), a `from` that needs two arguments is not a single-seed factory,
+ * and a self-referential (cyclic) class type resolves without exploding the
+ * type instantiation depth.
  *
  * 1. Default / no-arg constructors collapse to the property shape only.
  * 2. Rest-parameter constructor and two-argument `from` behave per the rule.

@@ -93,7 +93,7 @@ func iterate_metadata_collection_is_array_recursive(props struct {
     }
   }
   for _, m := range props.Metadata.Maps {
-    if next(m.Value) {
+    if next(m.Key) || next(m.Value) {
       return true
     }
   }
@@ -144,7 +144,7 @@ func iterate_metadata_collection_is_tuple_recursive(props struct {
     }
   }
   for _, m := range props.Metadata.Maps {
-    if next(m.Value) {
+    if next(m.Key) || next(m.Value) {
       return true
     }
   }
@@ -176,12 +176,12 @@ func iterate_metadata_collection_mark_object_recursives(
     output := map[*schemametadata.MetadataObjectType]bool{}
     for _, property := range object.Properties {
       iterate_metadata_collection_collect_object_edges(struct {
-        Visited map[*schemametadata.MetadataSchema]bool
-        Output  map[*schemametadata.MetadataObjectType]bool
+        Visited  map[*schemametadata.MetadataSchema]bool
+        Output   map[*schemametadata.MetadataObjectType]bool
         Metadata *schemametadata.MetadataSchema
       }{
-        Visited: map[*schemametadata.MetadataSchema]bool{},
-        Output:  output,
+        Visited:  map[*schemametadata.MetadataSchema]bool{},
+        Output:   output,
         Metadata: property.Value,
       })
     }
@@ -246,8 +246,8 @@ func iterate_metadata_collection_mark_object_recursives(
 }
 
 func iterate_metadata_collection_collect_object_edges(props struct {
-  Visited map[*schemametadata.MetadataSchema]bool
-  Output  map[*schemametadata.MetadataObjectType]bool
+  Visited  map[*schemametadata.MetadataSchema]bool
+  Output   map[*schemametadata.MetadataObjectType]bool
   Metadata *schemametadata.MetadataSchema
 }) {
   if props.Metadata == nil || props.Visited[props.Metadata] {
@@ -256,12 +256,12 @@ func iterate_metadata_collection_collect_object_edges(props struct {
   props.Visited[props.Metadata] = true
   next := func(metadata *schemametadata.MetadataSchema) {
     iterate_metadata_collection_collect_object_edges(struct {
-      Visited map[*schemametadata.MetadataSchema]bool
-      Output  map[*schemametadata.MetadataObjectType]bool
+      Visited  map[*schemametadata.MetadataSchema]bool
+      Output   map[*schemametadata.MetadataObjectType]bool
       Metadata *schemametadata.MetadataSchema
     }{
-      Visited: props.Visited,
-      Output:  props.Output,
+      Visited:  props.Visited,
+      Output:   props.Output,
       Metadata: metadata,
     })
   }
@@ -288,6 +288,7 @@ func iterate_metadata_collection_collect_object_edges(props struct {
     }
   }
   for _, m := range props.Metadata.Maps {
+    next(m.Key)
     next(m.Value)
   }
   for _, set := range props.Metadata.Sets {
@@ -349,7 +350,7 @@ func iterate_metadata_collection_is_object_recursive(props struct {
     }
   }
   for _, m := range props.Metadata.Maps {
-    if next(m.Value) {
+    if next(m.Key) || next(m.Value) {
       return true
     }
   }
