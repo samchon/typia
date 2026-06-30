@@ -33,9 +33,10 @@ type RandomJoiner_RecursiveArrayGuardProps struct {
 }
 
 type RandomJoiner_TupleProps struct {
-  Decode   RandomJoiner_Decoder
-  Elements []*nativemetadata.MetadataSchema
-  Emit     *shimprinter.EmitContext
+  Decode          RandomJoiner_Decoder
+  Elements        []*nativemetadata.MetadataSchema
+  ArrayExpression *shimast.Expression
+  Emit            *shimprinter.EmitContext
 }
 
 type RandomJoiner_ObjectProps struct {
@@ -424,10 +425,7 @@ func randomJoiner_tuple_terminable(
     if elem == nil {
       continue
     } else if elem.Rest != nil {
-      // The generator emits exactly one rest element, so it is a required value.
-      if randomJoiner_schema_terminable(elem.Rest, knownObjects, knownTuples, map[*nativemetadata.MetadataSchema]bool{}) == false {
-        return false
-      }
+      continue // `...X[]` spreads a possibly-empty array: it may carry no value
     } else if elem.Optional {
       continue // optional tuple member: it may be omitted
     } else if randomJoiner_schema_terminable(elem, knownObjects, knownTuples, map[*nativemetadata.MetadataSchema]bool{}) == false {
@@ -735,11 +733,30 @@ func (randomJoinerNamespace) Tuple(props RandomJoiner_TupleProps) *shimast.Node 
   f := nativecontext.EmitFactoryOf(randomJoiner_factory, props.Emit)
   elements := make([]*shimast.Node, 0, len(props.Elements))
   for _, elem := range props.Elements {
-    target := elem
-    if elem.Rest != nil {
-      target = elem.Rest
+    if elem != nil && elem.Rest != nil {
+      // `...X[]` spreads a possibly-empty array of `X`. Routing it through the
+      // array helper gives the spread the same `recursive` cutoff a real array
+      // gets, so the array empties at the depth limit and a recursive rest
+      // element terminates instead of overflowing.
+      arrayType := nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{
+        Name:        "..." + elem.Rest.GetName(),
+        DisplayName: "..." + elem.Rest.GetDisplayName(),
+        Value:       elem.Rest,
+        Nullables:   []bool{},
+        Recursive:   false,
+        Index:       nil,
+      })
+      elements = append(elements, f.NewSpreadElement(RandomJoiner.Array(RandomJoiner_ArrayProps{
+        Decode:     props.Decode,
+        Recursive:  RandomJoiner.IsRecursiveArray(arrayType),
+        Expression: props.ArrayExpression,
+        Array:      arrayType,
+        Schema:     map[string]any{"type": "array"},
+        Emit:       props.Emit,
+      })))
+      continue
     }
-    elements = append(elements, props.Decode(target))
+    elements = append(elements, props.Decode(elem))
   }
   return f.NewArrayLiteralExpression(
     f.NewNodeList(elements),

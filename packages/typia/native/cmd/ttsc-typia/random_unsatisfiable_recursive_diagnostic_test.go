@@ -11,16 +11,16 @@ import (
 // types fail.
 //
 // Random generation terminates a recursive type through an escape it can take at
-// the depth cutoff: an array/set/map empties, a nullable edge becomes null, an
-// optional or index-signature property is dropped, or a union picks a finite
-// variant. A recursive cycle whose every step is a required, non-nullable,
-// non-container value has no such escape, so the generated function would recurse
-// until the stack overflows. The build must reject it through the transform
-// diagnostic path across object, mutual-object, deep-chain, tuple-rest, and
+// the depth cutoff: an array/set/map (or a tuple rest spread) empties, a nullable
+// edge becomes null, an optional or index-signature property is dropped, or a
+// union picks a finite variant. A recursive cycle whose every step is a required,
+// non-nullable, non-container value has no such escape, so the generated function
+// would recurse until the stack overflows. The build must reject it through the
+// transform diagnostic path across object, mutual-object, deep-chain, and
 // array-of-owner shapes, for both immediate and factory random entrypoints.
 //
 //  1. Build a self-referential required object and a mutual object cycle.
-//  2. Build a deep required chain and a recursive tuple-rest alias.
+//  2. Build a deep required object chain.
 //  3. Build an array whose element is an unsatisfiable recursive object.
 //  4. Require each project to fail through the transform-diagnostic path.
 func TestRandomUnsatisfiableRecursiveDiagnostic(t *testing.T) {
@@ -31,7 +31,6 @@ func TestRandomUnsatisfiableRecursiveDiagnostic(t *testing.T) {
     {"required-self", randomUnsatisfiableSelfSource},
     {"mutual-object", randomUnsatisfiableMutualSource},
     {"deep-chain", randomUnsatisfiableDeepChainSource},
-    {"tuple-rest", randomUnsatisfiableTupleRestSource},
     {"array-of-owner", randomUnsatisfiableArrayOfOwnerSource},
   } {
     randomUnsatisfiableExpectDiagnostic(t, tt.name, tt.source)
@@ -133,14 +132,6 @@ interface IC {
 
 typia.random<IA>();
 typia.createRandom<IA>();
-`
-
-const randomUnsatisfiableTupleRestSource = `import typia from "typia";
-
-type IRecursiveRest = [string, ...IRecursiveRest[]];
-
-typia.random<IRecursiveRest>();
-typia.createRandom<IRecursiveRest>();
 `
 
 const randomUnsatisfiableArrayOfOwnerSource = `import typia from "typia";
