@@ -268,108 +268,47 @@ func randomJoiner_requires_recursive_guard_metadata(
   return false
 }
 
-// IsUnsatisfiableRecursiveObject reports whether random generation of the object
-// can never terminate. Every terminating recursive shape has an escape the
-// generator uses to stop: an array/set/map empties at the depth cutoff, a
-// nullable edge becomes `null`, an optional or index-signature property is
-// omitted, or a union picks a finite variant. This is a least-fixpoint "can a
-// finite value be built" analysis — a schema terminates if ANY of its union
-// options does, an object terminates if ALL of its required literal properties
-// do — so a recursive type with no finite inhabitant the generator can reach is
-// rejected at compile time instead of overflowing the stack at runtime.
-func (randomJoinerNamespace) IsUnsatisfiableRecursiveObject(object *nativemetadata.MetadataObjectType) bool {
-  if object == nil {
-    return false
-  }
-  objects := map[*nativemetadata.MetadataObjectType]bool{}
-  tuples := map[*nativemetadata.MetadataTupleType]bool{}
-  randomJoiner_collect_object(object, map[*nativemetadata.MetadataSchema]bool{}, objects, tuples)
-  knownObjects, _ := randomJoiner_terminable_fixpoint(objects, tuples)
-  return knownObjects[object] == false
-}
-
-// IsUnsatisfiableRecursiveTuple is the tuple counterpart of
-// IsUnsatisfiableRecursiveObject.
-func (randomJoinerNamespace) IsUnsatisfiableRecursiveTuple(tuple *nativemetadata.MetadataTupleType) bool {
-  if tuple == nil {
-    return false
-  }
-  objects := map[*nativemetadata.MetadataObjectType]bool{}
-  tuples := map[*nativemetadata.MetadataTupleType]bool{}
-  randomJoiner_collect_tuple(tuple, map[*nativemetadata.MetadataSchema]bool{}, objects, tuples)
-  _, knownTuples := randomJoiner_terminable_fixpoint(objects, tuples)
-  return knownTuples[tuple] == false
-}
-
-// randomJoiner_collect_schema gathers every object and tuple type reachable from
-// a schema, which forms the domain the terminability fixpoint iterates over.
-func randomJoiner_collect_schema(
-  meta *nativemetadata.MetadataSchema,
-  seen map[*nativemetadata.MetadataSchema]bool,
-  objects map[*nativemetadata.MetadataObjectType]bool,
-  tuples map[*nativemetadata.MetadataTupleType]bool,
-) {
-  if meta == nil || seen[meta] {
-    return
-  }
-  seen[meta] = true
-  if meta.Escaped != nil {
-    randomJoiner_collect_schema(meta.Escaped.Returns, seen, objects, tuples)
-  }
-  randomJoiner_collect_schema(meta.Rest, seen, objects, tuples)
-  for _, alias := range meta.Aliases {
-    if alias.Type != nil {
-      randomJoiner_collect_schema(alias.Type.Value, seen, objects, tuples)
+// UnsatisfiableRecursives reports which of the given object and tuple types can
+// never be randomly generated. Every terminating recursive shape has an escape
+// the generator uses to stop: an array/set/map (or a tuple rest spread) empties
+// at the depth cutoff, a nullable edge becomes `null`, an optional or
+// index-signature property is omitted, or a union picks a finite variant. This
+// is a least-fixpoint "can a finite value be built" analysis — a schema
+// terminates if ANY of its union options does, an object terminates if ALL of
+// its required literal properties do — so a recursive type with no finite
+// inhabitant the generator can reach is rejected at compile time instead of
+// overflowing the stack at runtime. The collection already enumerates every
+// reachable object and tuple, so the fixpoint runs once over the whole domain.
+func (randomJoinerNamespace) UnsatisfiableRecursives(
+  objects []*nativemetadata.MetadataObjectType,
+  tuples []*nativemetadata.MetadataTupleType,
+) (map[*nativemetadata.MetadataObjectType]bool, map[*nativemetadata.MetadataTupleType]bool) {
+  objectSet := map[*nativemetadata.MetadataObjectType]bool{}
+  for _, object := range objects {
+    if object != nil {
+      objectSet[object] = true
     }
   }
-  for _, array := range meta.Arrays {
-    if array.Type != nil {
-      randomJoiner_collect_schema(array.Type.Value, seen, objects, tuples)
+  tupleSet := map[*nativemetadata.MetadataTupleType]bool{}
+  for _, tuple := range tuples {
+    if tuple != nil {
+      tupleSet[tuple] = true
     }
   }
-  for _, set := range meta.Sets {
-    randomJoiner_collect_schema(set.Value, seen, objects, tuples)
+  knownObjects, knownTuples := randomJoiner_terminable_fixpoint(objectSet, tupleSet)
+  unsatisfiableObjects := map[*nativemetadata.MetadataObjectType]bool{}
+  for object := range objectSet {
+    if knownObjects[object] == false {
+      unsatisfiableObjects[object] = true
+    }
   }
-  for _, entry := range meta.Maps {
-    randomJoiner_collect_schema(entry.Key, seen, objects, tuples)
-    randomJoiner_collect_schema(entry.Value, seen, objects, tuples)
+  unsatisfiableTuples := map[*nativemetadata.MetadataTupleType]bool{}
+  for tuple := range tupleSet {
+    if knownTuples[tuple] == false {
+      unsatisfiableTuples[tuple] = true
+    }
   }
-  for _, tuple := range meta.Tuples {
-    randomJoiner_collect_tuple(tuple.Type, seen, objects, tuples)
-  }
-  for _, object := range meta.Objects {
-    randomJoiner_collect_object(object.Type, seen, objects, tuples)
-  }
-}
-
-func randomJoiner_collect_object(
-  object *nativemetadata.MetadataObjectType,
-  seen map[*nativemetadata.MetadataSchema]bool,
-  objects map[*nativemetadata.MetadataObjectType]bool,
-  tuples map[*nativemetadata.MetadataTupleType]bool,
-) {
-  if object == nil || objects[object] {
-    return
-  }
-  objects[object] = true
-  for _, property := range object.Properties {
-    randomJoiner_collect_schema(property.Value, seen, objects, tuples)
-  }
-}
-
-func randomJoiner_collect_tuple(
-  tuple *nativemetadata.MetadataTupleType,
-  seen map[*nativemetadata.MetadataSchema]bool,
-  objects map[*nativemetadata.MetadataObjectType]bool,
-  tuples map[*nativemetadata.MetadataTupleType]bool,
-) {
-  if tuple == nil || tuples[tuple] {
-    return
-  }
-  tuples[tuple] = true
-  for _, elem := range tuple.Elements {
-    randomJoiner_collect_schema(elem, seen, objects, tuples)
-  }
+  return unsatisfiableObjects, unsatisfiableTuples
 }
 
 // randomJoiner_terminable_fixpoint marks every object/tuple that has a finite

@@ -279,10 +279,11 @@ func randomProgrammer_write_object_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
+  unsatisfiableObjects, _ := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
   for i, obj := range props.Collection.Objects() {
     index := i
     object := obj
-    if object.Recursive && nativehelpers.RandomJoiner.IsUnsatisfiableRecursiveObject(object) {
+    if object.Recursive && unsatisfiableObjects[object] {
       panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
         Code:    props.Functor.Method,
         Message: fmt.Sprintf("recursive type %q cannot be randomly generated because the recursion never terminates; give it a nullable, optional, or array/set/map escape.", object.Name),
@@ -394,13 +395,14 @@ func randomProgrammer_write_tuple_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
+  _, unsatisfiableTuples := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
   for i, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
       continue
     }
     index := i
     tuple := tuple
-    if nativehelpers.RandomJoiner.IsUnsatisfiableRecursiveTuple(tuple) {
+    if unsatisfiableTuples[tuple] {
       panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
         Code:    props.Functor.Method,
         Message: fmt.Sprintf("recursive type %q cannot be randomly generated because the recursion never terminates; give it a nullable, optional, or array/set/map escape.", tuple.Name),
