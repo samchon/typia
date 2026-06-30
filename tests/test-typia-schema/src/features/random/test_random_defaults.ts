@@ -9,30 +9,46 @@ import typia, { tags } from "typia";
  * still win, and recursive arrays need a context flag so custom generators can
  * keep graph termination under control.
  *
- * 1. Generate unconstrained strings and arrays and require positive lengths.
+ * 1. Generate unconstrained strings and arrays at deterministic min/max draws.
  * 2. Generate MaxLength<0> and MaxItems<0> controls and require empty values.
  * 3. Generate a recursive tree with a custom array generator and inspect the
  *    recursive array property passed by the transformer.
- * 4. Generate recursive trees with the default generator and require every
- *    recursive child array to stay within the default recursive range.
+ * 4. Generate recursive trees with deterministic default draws and require the
+ *    recursive array default range.
  * 5. Generate a non-recursive MinItems<1> array and require the constraint to
  *    remain accepted and forwarded to the custom array generator.
  */
 export const test_random_defaults = (): void => {
-  for (let i = 0; i < 20; ++i) {
-    const value: IRandomDefaults = typia.random<IRandomDefaults>();
+  const minimum: IRandomDefaults = withRandom(0, () =>
+    typia.random<IRandomDefaults>(),
+  );
+  assertDefaults("random minimum", minimum, {
+    array: 1,
+    string: 5,
+  });
 
-    TestValidator.predicate(
-      "default string length",
-      () => 5 <= value.name.length && value.name.length <= 10,
-    );
-    TestValidator.predicate(
-      "default array length",
-      () => 1 <= value.aliases.length && value.aliases.length <= 6,
-    );
-    TestValidator.equals("explicit empty string", value.emptyText, "");
-    TestValidator.equals("explicit empty array", value.emptyItems.length, 0);
-  }
+  const maximum: IRandomDefaults = withRandom(1 - Number.EPSILON, () =>
+    typia.random<IRandomDefaults>(),
+  );
+  assertDefaults("random maximum", maximum, {
+    array: 6,
+    string: 10,
+  });
+
+  const createDefaults = typia.createRandom<IRandomDefaults>();
+  const createdMinimum: IRandomDefaults = withRandom(0, () => createDefaults());
+  assertDefaults("createRandom minimum", createdMinimum, {
+    array: 1,
+    string: 5,
+  });
+
+  const createdMaximum: IRandomDefaults = withRandom(1 - Number.EPSILON, () =>
+    createDefaults(),
+  );
+  assertDefaults("createRandom maximum", createdMaximum, {
+    array: 6,
+    string: 10,
+  });
 
   const recursiveFlags: Array<boolean | undefined> = [];
   const tree: IRecursiveTree = typia.random<IRecursiveTree>({
@@ -72,12 +88,29 @@ export const test_random_defaults = (): void => {
     "label",
   ]);
 
-  for (let i = 0; i < 20; ++i) {
-    const generated: IRecursiveTree = typia.random<IRecursiveTree>();
-    TestValidator.predicate("default recursive array length", () =>
-      visit(generated, (node) => node.children.length <= 2),
-    );
-  }
+  const shallowTree: IRecursiveTree = withRandom(0, () =>
+    typia.random<IRecursiveTree>(),
+  );
+  TestValidator.equals(
+    "default recursive array minimum",
+    shallowTree.children.length,
+    0,
+  );
+
+  const wideTree: IRecursiveTree = withRandom(1 - Number.EPSILON, () =>
+    typia.random<IRecursiveTree>(),
+  );
+  TestValidator.predicate("default recursive array maximum", () =>
+    visit(wideTree, (node) => node.children.length <= 2),
+  );
+
+  const createTree = typia.createRandom<IRecursiveTree>();
+  const createdWideTree: IRecursiveTree = withRandom(1 - Number.EPSILON, () =>
+    createTree(),
+  );
+  TestValidator.predicate("createRandom default recursive array maximum", () =>
+    visit(createdWideTree, (node) => node.children.length <= 2),
+  );
 };
 
 interface IRandomDefaults {
@@ -97,8 +130,44 @@ interface INonRecursiveMinItems {
   items: string[] & tags.MinItems<1>;
 }
 
+const assertDefaults = (
+  prefix: string,
+  value: IRandomDefaults,
+  expected: {
+    array: number;
+    string: number;
+  },
+): void => {
+  TestValidator.equals(
+    `${prefix} default string length`,
+    value.name.length,
+    expected.string,
+  );
+  TestValidator.equals(
+    `${prefix} default array length`,
+    value.aliases.length,
+    expected.array,
+  );
+  TestValidator.equals(`${prefix} explicit empty string`, value.emptyText, "");
+  TestValidator.equals(
+    `${prefix} explicit empty array`,
+    value.emptyItems.length,
+    0,
+  );
+};
+
 const visit = (
   node: IRecursiveTree,
   predicate: (node: IRecursiveTree) => boolean,
 ): boolean =>
   predicate(node) && node.children.every((child) => visit(child, predicate));
+
+const withRandom = <T>(value: number, closure: () => T): T => {
+  const old: () => number = Math.random;
+  Math.random = () => value;
+  try {
+    return closure();
+  } finally {
+    Math.random = old;
+  }
+};

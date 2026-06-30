@@ -26,6 +26,12 @@ type RandomJoiner_ArrayProps struct {
   Emit       *shimprinter.EmitContext
 }
 
+type RandomJoiner_RecursiveArrayGuardProps struct {
+  Array  *nativemetadata.MetadataArrayType
+  Object *nativemetadata.MetadataObjectType
+  Tuple  *nativemetadata.MetadataTupleType
+}
+
 type RandomJoiner_TupleProps struct {
   Decode   RandomJoiner_Decoder
   Elements []*nativemetadata.MetadataSchema
@@ -132,6 +138,47 @@ func (randomJoinerNamespace) IsRecursiveArray(array *nativemetadata.MetadataArra
   )
 }
 
+func (randomJoinerNamespace) RequiresRecursiveArrayGuard(array *nativemetadata.MetadataArrayType) bool {
+  return RandomJoiner.RequiresRecursiveArrayGuardFor(RandomJoiner_RecursiveArrayGuardProps{
+    Array: array,
+  })
+}
+
+func (randomJoinerNamespace) RequiresRecursiveArrayGuardFor(props RandomJoiner_RecursiveArrayGuardProps) bool {
+  return randomJoiner_requires_recursive_array_guard(
+    props.Array,
+    props.Object,
+    props.Tuple,
+    map[*nativemetadata.MetadataSchema]bool{},
+    map[*nativemetadata.MetadataObjectType]bool{},
+    map[*nativemetadata.MetadataTupleType]bool{},
+  )
+}
+
+func (randomJoinerNamespace) HasRecursiveOwnerPathFor(props RandomJoiner_RecursiveArrayGuardProps) bool {
+  return randomJoiner_has_recursive_owner_array_path(
+    props.Array,
+    props.Object,
+    props.Tuple,
+    map[*nativemetadata.MetadataSchema]bool{},
+    map[*nativemetadata.MetadataArrayType]bool{},
+    map[*nativemetadata.MetadataObjectType]bool{},
+    map[*nativemetadata.MetadataTupleType]bool{},
+  )
+}
+
+func (randomJoinerNamespace) HasDirectRecursiveOwnerPathFor(props RandomJoiner_RecursiveArrayGuardProps) bool {
+  return randomJoiner_has_direct_recursive_owner_array_path(
+    props.Array,
+    props.Object,
+    props.Tuple,
+    map[*nativemetadata.MetadataSchema]bool{},
+    map[*nativemetadata.MetadataArrayType]bool{},
+    map[*nativemetadata.MetadataObjectType]bool{},
+    map[*nativemetadata.MetadataTupleType]bool{},
+  )
+}
+
 func randomJoiner_is_recursive_array_type(
   array *nativemetadata.MetadataArrayType,
   visited map[*nativemetadata.MetadataSchema]bool,
@@ -140,6 +187,267 @@ func randomJoiner_is_recursive_array_type(
     return false
   }
   return array.Recursive || randomJoiner_is_recursive_metadata(array.Value, visited)
+}
+
+func randomJoiner_requires_recursive_array_guard(
+  array *nativemetadata.MetadataArrayType,
+  object *nativemetadata.MetadataObjectType,
+  tuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+  visitedObjects map[*nativemetadata.MetadataObjectType]bool,
+  visitedTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  if array == nil {
+    return false
+  }
+  return array.Recursive || randomJoiner_requires_recursive_guard_metadata(
+    array.Value,
+    object,
+    tuple,
+    visited,
+    visitedObjects,
+    visitedTuples,
+  )
+}
+
+func randomJoiner_requires_recursive_guard_metadata(
+  meta *nativemetadata.MetadataSchema,
+  object *nativemetadata.MetadataObjectType,
+  ownerTuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+  visitedObjects map[*nativemetadata.MetadataObjectType]bool,
+  visitedTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  if meta == nil {
+    return false
+  } else if visited[meta] {
+    return false
+  }
+  visited[meta] = true
+  if meta.Escaped != nil && randomJoiner_requires_recursive_guard_metadata(meta.Escaped.Returns, object, ownerTuple, visited, visitedObjects, visitedTuples) {
+    return true
+  } else if randomJoiner_requires_recursive_guard_metadata(meta.Rest, object, ownerTuple, visited, visitedObjects, visitedTuples) {
+    return true
+  }
+  for _, alias := range meta.Aliases {
+    if alias.Type != nil &&
+      randomJoiner_requires_recursive_guard_metadata(alias.Type.Value, object, ownerTuple, visited, visitedObjects, visitedTuples) {
+      return true
+    }
+  }
+  for _, item := range meta.Tuples {
+    if item.Type == nil {
+      continue
+    } else if item.Type == ownerTuple {
+      return true
+    } else if visitedTuples[item.Type] {
+      continue
+    }
+    visitedTuples[item.Type] = true
+    for _, elem := range item.Type.Elements {
+      if randomJoiner_requires_recursive_guard_metadata(elem, object, ownerTuple, visited, visitedObjects, visitedTuples) {
+        return true
+      }
+    }
+  }
+  for _, item := range meta.Objects {
+    if item.Type == nil {
+      continue
+    } else if item.Type == object {
+      return true
+    } else if visitedObjects[item.Type] {
+      continue
+    }
+    visitedObjects[item.Type] = true
+    for _, property := range item.Type.Properties {
+      if randomJoiner_requires_recursive_guard_metadata(property.Value, object, ownerTuple, visited, visitedObjects, visitedTuples) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+func randomJoiner_has_recursive_owner_array_path(
+  array *nativemetadata.MetadataArrayType,
+  object *nativemetadata.MetadataObjectType,
+  tuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+  visitedArrays map[*nativemetadata.MetadataArrayType]bool,
+  visitedObjects map[*nativemetadata.MetadataObjectType]bool,
+  visitedTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  if array == nil || visitedArrays[array] {
+    return false
+  }
+  visitedArrays[array] = true
+  return randomJoiner_has_recursive_owner_metadata_path(
+    array.Value,
+    object,
+    tuple,
+    visited,
+    visitedArrays,
+    visitedObjects,
+    visitedTuples,
+  )
+}
+
+func randomJoiner_has_direct_recursive_owner_array_path(
+  array *nativemetadata.MetadataArrayType,
+  object *nativemetadata.MetadataObjectType,
+  tuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+  visitedArrays map[*nativemetadata.MetadataArrayType]bool,
+  visitedObjects map[*nativemetadata.MetadataObjectType]bool,
+  visitedTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  if array == nil {
+    return false
+  }
+  return randomJoiner_has_direct_recursive_owner_metadata_path(
+    array.Value,
+    object,
+    tuple,
+    visited,
+    visitedArrays,
+    visitedObjects,
+    visitedTuples,
+  )
+}
+
+func randomJoiner_has_direct_recursive_owner_metadata_path(
+  meta *nativemetadata.MetadataSchema,
+  object *nativemetadata.MetadataObjectType,
+  ownerTuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+  visitedArrays map[*nativemetadata.MetadataArrayType]bool,
+  visitedObjects map[*nativemetadata.MetadataObjectType]bool,
+  visitedTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  if meta == nil {
+    return false
+  } else if visited[meta] {
+    return false
+  }
+  visited[meta] = true
+  if meta.Escaped != nil && randomJoiner_has_direct_recursive_owner_metadata_path(meta.Escaped.Returns, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+    return true
+  } else if randomJoiner_has_direct_recursive_owner_metadata_path(meta.Rest, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+    return true
+  }
+  for _, alias := range meta.Aliases {
+    if alias.Type != nil &&
+      randomJoiner_has_direct_recursive_owner_metadata_path(alias.Type.Value, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+      return true
+    }
+  }
+  for _, item := range meta.Tuples {
+    if item.Type == nil {
+      continue
+    } else if item.Type == ownerTuple {
+      return true
+    } else if visitedTuples[item.Type] {
+      continue
+    }
+    visitedTuples[item.Type] = true
+    for _, elem := range item.Type.Elements {
+      if randomJoiner_has_recursive_owner_metadata_path(elem, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+        return true
+      }
+    }
+  }
+  for _, item := range meta.Objects {
+    if item.Type == nil {
+      continue
+    } else if item.Type == object {
+      return true
+    } else if visitedObjects[item.Type] {
+      continue
+    }
+    visitedObjects[item.Type] = true
+    for _, property := range item.Type.Properties {
+      if randomJoiner_has_recursive_owner_metadata_path(property.Value, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+func randomJoiner_has_recursive_owner_metadata_path(
+  meta *nativemetadata.MetadataSchema,
+  object *nativemetadata.MetadataObjectType,
+  ownerTuple *nativemetadata.MetadataTupleType,
+  visited map[*nativemetadata.MetadataSchema]bool,
+  visitedArrays map[*nativemetadata.MetadataArrayType]bool,
+  visitedObjects map[*nativemetadata.MetadataObjectType]bool,
+  visitedTuples map[*nativemetadata.MetadataTupleType]bool,
+) bool {
+  if meta == nil {
+    return false
+  } else if visited[meta] {
+    return false
+  }
+  visited[meta] = true
+  if meta.Escaped != nil && randomJoiner_has_recursive_owner_metadata_path(meta.Escaped.Returns, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+    return true
+  } else if randomJoiner_has_recursive_owner_metadata_path(meta.Rest, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+    return true
+  }
+  for _, alias := range meta.Aliases {
+    if alias.Type != nil &&
+      randomJoiner_has_recursive_owner_metadata_path(alias.Type.Value, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+      return true
+    }
+  }
+  for _, item := range meta.Arrays {
+    if item.Type != nil &&
+      randomJoiner_has_recursive_owner_array_path(item.Type, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+      return true
+    }
+  }
+  for _, item := range meta.Tuples {
+    if item.Type == nil {
+      continue
+    } else if item.Type == ownerTuple {
+      return true
+    } else if visitedTuples[item.Type] {
+      continue
+    }
+    visitedTuples[item.Type] = true
+    for _, elem := range item.Type.Elements {
+      if randomJoiner_has_recursive_owner_metadata_path(elem, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+        return true
+      }
+    }
+  }
+  for _, item := range meta.Objects {
+    if item.Type == nil {
+      continue
+    } else if item.Type == object {
+      return true
+    } else if visitedObjects[item.Type] {
+      continue
+    }
+    visitedObjects[item.Type] = true
+    for _, property := range item.Type.Properties {
+      if randomJoiner_has_recursive_owner_metadata_path(property.Value, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+        return true
+      }
+    }
+  }
+  for _, item := range meta.Sets {
+    if randomJoiner_has_recursive_owner_metadata_path(item.Value, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+      return true
+    }
+  }
+  for _, item := range meta.Maps {
+    if randomJoiner_has_recursive_owner_metadata_path(item.Key, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) ||
+      randomJoiner_has_recursive_owner_metadata_path(item.Value, object, ownerTuple, visited, visitedArrays, visitedObjects, visitedTuples) {
+      return true
+    }
+  }
+  return false
 }
 
 func randomJoiner_is_recursive_tuple_type(
