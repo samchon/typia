@@ -28,6 +28,11 @@ export interface IRandomGenerator {
   array<T>(
     schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
       element: (index: number, count: number) => T;
+      /**
+       * Whether this array lies on a recursive type's cycle. Custom generators
+       * can bias toward fewer (or zero) elements so graph-shaped data
+       * terminates instead of growing without bound.
+       */
       recursive?: boolean;
     },
   ): T[];
@@ -100,6 +105,11 @@ export namespace IRandomGenerator {
     array?: <T>(
       schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
         element: (index: number, count: number) => T;
+        /**
+         * Whether this array lies on a recursive type's cycle. Custom
+         * generators can bias toward fewer (or zero) elements so graph-shaped
+         * data terminates instead of growing without bound.
+         */
         recursive?: boolean;
       } & Record<string, any>,
     ) => T[];
