@@ -172,6 +172,21 @@ Every tool registered through `registerMcpControllers` carries built-in lenient 
 
 For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJson`](/docs/llm/json). For the same harness pattern in `typia.llm.application`, see [Function calling harness](/docs/llm/application#the-function-calling-harness).
 
+## Inlining without `@typia/mcp`
+
+If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` in lockstep with a specific `typia` dev build — you can register the `tools/list` + `tools/call` handlers yourself over a controller's `application.functions`. The one step you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. `typia` re-exports [`LlmJson`](/docs/llm/json), so `LlmJson.validateArguments` (coerce → validate) and `LlmJson.stringify` (error feedback) are reachable through the single `typia` import — the same helper `registerMcpControllers` uses internally:
+
+```typescript
+import typia, { LlmJson } from "typia";
+
+// inside your tools/call handler, given `func` from controller.application.functions:
+const result = LlmJson.validateArguments(func, request.params.arguments);
+if (!result.success) return errorResult(LlmJson.stringify(result));
+const output = await method.call(execute, result.data);
+```
+
+See the [`@typia/mcp` README](https://github.com/samchon/typia/tree/master/packages/mcp#inlining-registration-without-typiamcp) for the full `tools/list` + `tools/call` example.
+
 ## Preserve mode
 
 By default `registerMcpControllers` owns the server's tool list. If you've already registered tools the standard way with `McpServer.registerTool(...)` and want typia's tools to coexist, pass `preserve: true`.

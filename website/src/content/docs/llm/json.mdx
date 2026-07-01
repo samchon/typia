@@ -47,6 +47,12 @@ export namespace LlmJson {
     parameters: ILlmSchema.IParameters,
     equals?: boolean,
   ): (value: unknown) => IValidation<unknown>;
+
+  // Coerce one function's raw arguments, then validate them. Returns IValidation<T>.
+  function validateArguments<T>(
+    func: Pick<ILlmFunction, "parameters" | "validate">,
+    args: unknown,
+  ): IValidation<T>;
 }
 ```
 
@@ -67,6 +73,10 @@ export namespace LlmJson {
     parameters: ILlmSchema.IParameters,
     equals?: boolean,
   ): (value: unknown) => IValidation<unknown>;
+  export function validateArguments<T>(
+    func: Pick<ILlmFunction, "parameters" | "validate">,
+    args: unknown,
+  ): IValidation<T>;
 }
 ```
   </Tabs.Tab>
@@ -92,7 +102,7 @@ func.coerce(parsedObject);    // LlmJson.coerce + bound schema
 func.validate(args);          // typia.validate + bound schema
 ```
 
-The only `LlmJson.*` function that doesn't have a built-in equivalent is `stringify` — that's what you import from `@typia/utils` for the feedback loop.
+`LlmJson.validateArguments(func, args)` bundles the `coerce` → `validate` step every function-call handler needs (it's `func.validate(func.coerce(args))`), which is handy when inlining an MCP-style handler. And `stringify` — the feedback formatter — is the one piece with no pre-bound equivalent. Both, along with the rest of `LlmJson`, are re-exported from `typia`, so you can reach them with just `import { LlmJson } from "typia"`.
 </Callout>
 
 ## `LlmJson.stringify`

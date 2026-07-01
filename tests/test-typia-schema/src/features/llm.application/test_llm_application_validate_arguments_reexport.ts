@@ -25,8 +25,13 @@ export const test_llm_application_validate_arguments_reexport = (): void => {
   const func: ILlmFunction | undefined = app.functions[0];
   if (func === undefined) throw new Error("function not generated");
 
-  // named export and default-namespace access are the same object
-  TestValidator.equals("named === namespace", LlmJson, typia.LlmJson);
+  // named export and default-namespace access resolve to the same functions
+  TestValidator.predicate(
+    "named === namespace",
+    () =>
+      LlmJson.validateArguments === typia.LlmJson.validateArguments &&
+      LlmJson.stringify === typia.LlmJson.stringify,
+  );
 
   // coercion reachable through the single `typia` pin
   const ok = LlmJson.validateArguments<{ value: number }>(func, {
