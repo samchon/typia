@@ -70,9 +70,19 @@ export const test_json_schema_object_description = (): void => {
 
   // Standard-library utility types must NOT leak their own JSDoc
   // (e.g. Record's "Construct a type ...", NonNullable's "Exclude null ...").
+  // Locate the components first so the anti-leak assertion cannot pass vacuously
+  // when the naming changes.
   const recordKey = Object.keys(schemas).find((k) => k.startsWith("Record"));
   const nonNullableKey = Object.keys(schemas).find((k) =>
     k.startsWith("NonNullable"),
+  );
+  TestValidator.predicate(
+    "Record component exists",
+    () => recordKey !== undefined,
+  );
+  TestValidator.predicate(
+    "NonNullable component exists",
+    () => nonNullableKey !== undefined,
   );
   TestValidator.equals(
     "Record has no library description",
