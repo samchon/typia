@@ -15,6 +15,13 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     return obj
   }
 
+  // The MetadataCollection layer cannot reach the AST JSDoc helpers (they live in
+  // this factory package), so the object's own description / tags are emplaced as
+  // stubs there and filled in here from the declaring symbol.
+  symbol := props.Type.Symbol()
+  obj.Description = metadata_node_description(symbol)
+  obj.JsDocTags = metadata_node_js_doc_tags(symbol)
+
   // Capture the declaring source file (named declarations only) so plain.classify
   // can value-import a cross-module class it reconstructs. Additive: other
   // features ignore obj.Source.
