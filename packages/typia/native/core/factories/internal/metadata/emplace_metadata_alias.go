@@ -17,6 +17,13 @@ func Emplace_metadata_alias(props IMetadataIteratorProps) *schemametadata.Metada
     return alias
   }
 
+  // The MetadataCollection layer stubs description / tags (the AST JSDoc helpers
+  // live in this factory package), so fill them here from the alias symbol. The
+  // type-level readers skip default-library declarations, so a standard-library
+  // alias such as `NonNullable<...>` does not leak its own JSDoc.
+  alias.Description = metadata_node_type_description(symbol)
+  alias.JsDocTags = metadata_node_type_js_doc_tags(symbol)
+
   explore := props.Explore
   explore.Escaped = false
   explore.Aliased = true
