@@ -158,6 +158,29 @@ examples/src/llm/application.violation.ts:15:30 - error TS(typia.llm.application
 
 For the deeper type-level rules see [`llm.parameters`](/docs/llm/parameters) and [`llm.schema`](/docs/llm/schema).
 
+## Application description
+
+Just as every method's JSDoc becomes its `ILlmFunction.description`, the JSDoc written on the class or interface itself becomes `ILlmApplication.description` — a description of the whole toolset rather than any single function.
+
+```typescript filename="application-description.ts" showLineNumbers
+import typia, { ILlmApplication } from "typia";
+
+/**
+ * Bulletin board article service.
+ *
+ * Groups the tools an agent uses to create and browse articles.
+ */
+interface BbsArticleService {
+  /** Create a new article. */
+  create(props: { input: { title: string; body: string } }): Promise<{ id: string }>;
+}
+
+const app: ILlmApplication = typia.llm.application<BbsArticleService>();
+//  app.description = "Bulletin board article service.\n\nGroups the tools an agent uses to create and browse articles."
+```
+
+Because it describes the entire collection, agent frameworks can surface it as a system instruction — for example an [MCP](#framework-adapters) server's `instructions` — while other consumers may treat it as a plain description. The property is omitted when the source type carries no JSDoc.
+
 ## Framework adapters
 
 `typia.llm.controller<Class>(name, instance)` wraps the schema together with an executable instance. You pass the controller to an adapter and the adapter does the wiring:

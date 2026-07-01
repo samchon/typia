@@ -238,7 +238,15 @@ func (llmApplicationProgrammerNamespace) WriteApplication(props struct {
       functions = append(functions, written)
     }
   }
-  return map[string]any{"functions": functions}
+  result := map[string]any{"functions": functions}
+  if len(metadata.Objects) != 0 {
+    if object := metadata.Objects[0].Type; object != nil {
+      if description := llmApplicationProgrammer_describe(object.Description, object.JsDocTags); description != nil && len(*description) != 0 {
+        result["description"] = *description
+      }
+    }
+  }
+  return result
 }
 
 func llmApplicationProgrammer_writeFunction(props struct {
@@ -472,9 +480,12 @@ func llmApplicationProgrammer_validateName(prefix string, name string) []string 
 }
 
 func llmApplicationProgrammer_propertyDescription(property *schemametadata.MetadataProperty) *string {
-  description := property.Description
+  return llmApplicationProgrammer_describe(property.Description, property.JsDocTags)
+}
+
+func llmApplicationProgrammer_describe(description *string, jsDocTags []schemametadata.IJsDocTagInfo) *string {
   if description == nil {
-    for _, tag := range property.JsDocTags {
+    for _, tag := range jsDocTags {
       if tag.Name == "description" && len(tag.Text) != 0 {
         text := tag.Text[0].Text
         description = &text
@@ -486,7 +497,7 @@ func llmApplicationProgrammer_propertyDescription(property *schemametadata.Metad
     Description *string
     JsDocTags   []schemametadata.IJsDocTagInfo
     Kind        string
-  }{Description: description, JsDocTags: property.JsDocTags, Kind: "summary"})
+  }{Description: description, JsDocTags: jsDocTags, Kind: "summary"})
   var summary *string
   if s, ok := desc["summary"].(string); ok {
     summary = &s
