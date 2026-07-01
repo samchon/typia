@@ -1,5 +1,6 @@
 import {
   IJsonParseResult,
+  ILlmFunction,
   ILlmSchema,
   ILlmStructuredOutput,
   IValidation,
@@ -18,6 +19,7 @@ import { stringifyValidationFailure } from "./internal/stringifyValidationFailur
  * - {@link LlmJson.parse}: Lenient JSON parser for incomplete/malformed JSON
  * - {@link LlmJson.stringify}: Format validation errors for LLM feedback
  * - {@link LlmJson.validate}: Create a reusable validator from schema
+ * - {@link LlmJson.validateArguments}: Coerce + validate one function's arguments
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -138,6 +140,36 @@ export namespace LlmJson {
       required: true,
       equals,
     });
+  }
+
+  /**
+   * Coerce and validate LLM function-call arguments in one step.
+   *
+   * Bundles the two things every function-call handler must do before dispatch:
+   * {@link coerce} the raw arguments to the schema's expected types, then run
+   * the function's own {@link ILlmFunction.validate}. Coercing first is what
+   * makes an LLM's `"12"` for a `number` (or a stringified boolean) acceptable;
+   * calling {@link ILlmFunction.validate} alone would reject it.
+   *
+   * Use this when inlining an MCP-style `tools/call` handler over an
+   * `ILlmFunction` instead of `registerMcpControllers` from `@typia/mcp` — it
+   * keeps the dependency surface to `typia` while preserving the coercion step
+   * that `registerMcpControllers` performs. On failure, format the result with
+   * {@link stringify} to feed the errors back to the model for self-correction.
+   *
+   * @template T Expected arguments type
+   * @param func Target function from `typia.llm.application` /
+   *   `typia.llm.controller` (only {@link ILlmFunction.parameters} and
+   *   {@link ILlmFunction.validate} are used)
+   * @param args Raw arguments from the LLM, possibly with wrong types or
+   *   omitted
+   * @returns Validation result with coerced `data` on success, or `errors`
+   */
+  export function validateArguments<T = unknown>(
+    func: Pick<ILlmFunction, "parameters" | "validate">,
+    args: unknown,
+  ): IValidation<T> {
+    return func.validate(coerce(args, func.parameters)) as IValidation<T>;
   }
 
   /**
