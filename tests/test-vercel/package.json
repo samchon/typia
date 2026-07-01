@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-vercel",
-  "version": "13.0.0-dev.20260626.1",
+  "version": "13.0.0-dev.20260701.1",
   "description": "Test suite for @typia/vercel package",
   "scripts": {
     "start": "ttsx src/index.ts",
