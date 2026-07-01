@@ -28,6 +28,21 @@ export interface ILlmApplication<Class extends object = any> {
   functions: ILlmFunction[];
 
   /**
+   * Human-readable description of the application.
+   *
+   * Explains the overall purpose of the application and the collection of
+   * {@link functions} it exposes. Extracted from the JSDoc comment written on
+   * the source class or interface.
+   *
+   * As this describes the whole toolset rather than a single function, agent
+   * frameworks can surface it as a system instruction (e.g. an MCP server's
+   * `instructions`), while other consumers may treat it as a plain description.
+   *
+   * `undefined` when the source class or interface has no JSDoc comment.
+   */
+  description?: string | undefined;
+
+  /**
    * Configuration used to generate this application.
    *
    * Contains the settings that were applied during schema generation, including
