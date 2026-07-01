@@ -17,10 +17,17 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
 
   // The MetadataCollection layer cannot reach the AST JSDoc helpers (they live in
   // this factory package), so the object's own description / tags are emplaced as
-  // stubs there and filled in here from the declaring symbol.
+  // stubs there and filled in here from the declaring symbol. Prefer the type-name
+  // symbol (so a `type Foo = { ... }` alias' comment is honored) and fall back to
+  // the structural symbol (an interface / class). The type-level readers skip
+  // default-library declarations so a utility type such as `Record<K, V>` never
+  // leaks its standard-library comment.
   symbol := props.Type.Symbol()
-  obj.Description = metadata_node_description(symbol)
-  obj.JsDocTags = metadata_node_js_doc_tags(symbol)
+  if typeName := nativechecker_type_name_symbol(props.Type); typeName != nil {
+    symbol = typeName
+  }
+  obj.Description = metadata_node_type_description(symbol)
+  obj.JsDocTags = metadata_node_type_js_doc_tags(symbol)
 
   // Capture the declaring source file (named declarations only) so plain.classify
   // can value-import a cross-module class it reconstructs. Additive: other
