@@ -1,5 +1,7 @@
 # Typia
 
+[![Listed on TakoAPI](https://takoapi.com/api/badge/samchon-typia)](https://takoapi.com/agents/samchon-typia)
+
 ![Typia Logo](https://typia.io/logo.png)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typia/blob/master/LICENSE)
