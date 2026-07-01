@@ -23,18 +23,6 @@ export * from "./TypeGuardError";
 
 export * from "./re-exports";
 
-/**
- * Runtime helpers for LLM function calling.
- *
- * Companion to the compile-time `typia.llm.*` transformers: parse, coerce,
- * validate, and format LLM function-call arguments at runtime. Re-exported from
- * `@typia/utils` so consumers that inline their own MCP-style registration can
- * reach {@link LlmJson.validateArguments} and {@link LlmJson.stringify} with a
- * single `typia` dependency, rather than pinning `@typia/mcp` /
- * `@typia/utils`.
- */
-export { LlmJson } from "@typia/utils";
-
 /* -----------------------------------------------------------
     BASIC VALIDATORS
 ----------------------------------------------------------- */

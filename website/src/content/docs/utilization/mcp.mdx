@@ -174,18 +174,18 @@ For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJso
 
 ## Inlining without `@typia/mcp`
 
-If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` in lockstep with a specific `typia` dev build — you can register the `tools/list` + `tools/call` handlers yourself over a controller's `application.functions`. The one step you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. `typia` re-exports [`LlmJson`](/docs/llm/json), so `LlmJson.validateArguments` (coerce → validate) and `LlmJson.stringify` (error feedback) are reachable through the single `typia` import — the same helper `registerMcpControllers` uses internally:
+If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` in lockstep with a specific `typia` dev build — you can register the `tools/list` + `tools/call` handlers yourself over a controller's `application.functions`. The one step you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. Every `ILlmFunction` already carries `coerce` and `validate` bound to its schema, so `func.validate(func.coerce(args))` reproduces the coerce → validate step `registerMcpControllers` performs — with only `typia`:
 
 ```typescript
-import typia, { LlmJson } from "typia";
+import typia from "typia";
 
 // inside your tools/call handler, given `func` from controller.application.functions:
-const result = LlmJson.validateArguments(func, request.params.arguments);
-if (!result.success) return errorResult(LlmJson.stringify(result));
+const result = func.validate(func.coerce(request.params.arguments ?? {}));
+if (!result.success) return errorResult(JSON.stringify(result.errors, null, 2));
 const output = await method.call(execute, result.data);
 ```
 
-See the [`@typia/mcp` README](https://github.com/samchon/typia/tree/master/packages/mcp#inlining-registration-without-typiamcp) for the full `tools/list` + `tools/call` example.
+If you already depend on [`@typia/utils`](/docs/llm/json), `LlmJson.validateArguments(func, args)` bundles the same step into one call and `LlmJson.stringify(result)` formats the failure for the model. See the [`@typia/mcp` README](https://github.com/samchon/typia/tree/master/packages/mcp#inlining-registration-without-typiamcp) for the full `tools/list` + `tools/call` example.
 
 ## Preserve mode
 

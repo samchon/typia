@@ -62,14 +62,14 @@ registerMcpControllers({
 
 ### Inlining registration (without `@typia/mcp`)
 
-If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` / `@typia/interface` / `@typia/utils` in lockstep with a specific `typia` dev build — you can inline the `tools/list` + `tools/call` handlers over a controller's `application.functions`. The one thing you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. `typia` re-exports `LlmJson` so you get the coerce-then-validate step and the LLM-feedback formatter through the single `typia` import:
+If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` / `@typia/interface` / `@typia/utils` in lockstep with a specific `typia` dev build — you can inline the `tools/list` + `tools/call` handlers over a controller's `application.functions`. The one thing you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. Every `ILlmFunction` already carries `coerce` and `validate` bound to its own schema, so `func.validate(func.coerce(args))` gives you the same coerce-then-validate step `registerMcpControllers` performs — with only `typia`:
 
 ```typescript
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
-import typia, { LlmJson } from "typia";
+import typia from "typia";
 
 const controller = typia.llm.controller<MyClass>("my", new MyClass());
 const functions = controller.application.functions;
@@ -99,10 +99,10 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     return errorResult(`Unknown tool: ${request.params.name}`);
 
   // coerce (e.g. "12" -> 12) THEN validate — this is what registerMcpControllers does
-  const result = LlmJson.validateArguments(func, request.params.arguments);
+  const result = func.validate(func.coerce(request.params.arguments ?? {}));
   if (!result.success)
-    // hand typia's annotated errors back so the model can self-correct
-    return errorResult(LlmJson.stringify(result));
+    // hand typia's errors back so the model can self-correct
+    return errorResult(JSON.stringify(result.errors, null, 2));
 
   const output = await method.call(execute, result.data);
   return {
@@ -115,6 +115,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   };
 });
 ```
+
+If you already depend on `@typia/utils`, `LlmJson.validateArguments(func, args)` bundles that same coerce-then-validate step into one call, and `LlmJson.stringify(result)` formats the failure with inline `// ❌` markers for the model to self-correct from — this is exactly what `registerMcpControllers` uses internally.
 
 `registerMcpControllers` uses the same `LlmJson.validateArguments` internally, so an inlined handler and the built-in registration behave identically.
 

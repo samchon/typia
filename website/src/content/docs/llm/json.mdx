@@ -102,7 +102,7 @@ func.coerce(parsedObject);    // LlmJson.coerce + bound schema
 func.validate(args);          // typia.validate + bound schema
 ```
 
-`LlmJson.validateArguments(func, args)` bundles the `coerce` → `validate` step every function-call handler needs (it's `func.validate(func.coerce(args))`), which is handy when inlining an MCP-style handler. And `stringify` — the feedback formatter — is the one piece with no pre-bound equivalent. Both, along with the rest of `LlmJson`, are re-exported from `typia`, so you can reach them with just `import { LlmJson } from "typia"`.
+`LlmJson.validateArguments(func, args)` bundles the `coerce` → `validate` step every function-call handler needs — it's exactly `func.validate(func.coerce(args))`. So if you already hold the function object (and want to stay on a single `typia` dependency), `func.validate(func.coerce(args))` gets you the same result without importing `LlmJson`. And `stringify` — the feedback formatter — is the one piece with no pre-bound equivalent, so reach for `@typia/utils` when you need it.
 </Callout>
 
 ## `LlmJson.stringify`
