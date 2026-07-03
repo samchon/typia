@@ -8,9 +8,9 @@ import type {
 /**
  * End-to-end check: a real MCP client speaks to the `@typia/mcp` server over
  * stdio. No mocks — this spawns `lib/server.js`, performs the MCP handshake,
- * lists the reflected tools, and calls them with valid, invalid, and
- * exception-raising arguments to prove the whole loop works as a published npm
- * consumer would experience it.
+ * lists the reflected tools, and drives them with valid, invalid,
+ * exception-raising, and unknown-tool requests to prove the whole loop works as
+ * a published npm consumer would experience it.
  */
 const assert = (label: string, condition: boolean): void => {
   if (!condition) throw new Error(`FAIL: ${label}`);

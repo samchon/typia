@@ -44,7 +44,7 @@ npx typia setup
 ```
 
 <Callout type="info">
-`@typia/mcp` adds **zero** runtime dependencies beyond what `typia` itself already installs, plus the MCP SDK as a peer. Its former `preserve` option — coexistence with `McpServer.registerTool()` — has been removed together with its `zod-to-json-schema` dependency; the server surface is declared entirely through `createMcpServer`.
+`@typia/mcp` adds **zero** runtime dependencies beyond what `typia` itself already installs, plus the MCP SDK as a peer — the entire server surface is declared through `createMcpServer`.
 </Callout>
 
 ## Tools
