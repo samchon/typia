@@ -6,7 +6,7 @@ import { Tabs } from "nextra/components";
 
 ## TypeScript-Go (`ttsc`)
 
-This setup targets **TypeScript-Go** — the Go rewrite of the TypeScript compiler, now shipping as the `typescript@7` release candidate (formerly `@typescript/native-preview`). `typia@next` ships a Go-rewritten transform that plugs into it through the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
+This setup targets **TypeScript-Go** — the Go rewrite of the TypeScript compiler, now shipping as the `typescript@7` release candidate (formerly `@typescript/native-preview`). `typia@rc` ships a Go-rewritten transform that plugs into it through the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
 
 You need three commands:
 
@@ -16,7 +16,7 @@ You need three commands:
 
 > [!NOTE]
 >
-> `typescript@7` is a **release candidate**, and `typia@next` is the matching prerelease of typia. For a fully stable toolchain, use the [Legacy (TS v6) setup](/docs/setup/legacy).
+> `typescript@7` is a **release candidate**, and `typia@rc` is the matching release candidate of typia. For a fully stable toolchain, use the [Legacy (TS v6) setup](/docs/setup/legacy).
 >
 > The stock `tsc`, `ts-node`, and `tsx` cannot apply the typia transform — you must use `ttsc` and `ttsx`.
 
@@ -25,25 +25,25 @@ You need three commands:
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npm i typia@next
+npm i typia@rc
 npm i -D ttsc typescript@rc
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-pnpm i typia@next
+pnpm i typia@rc
 pnpm i -D ttsc typescript@rc
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-yarn add typia@next
+yarn add typia@rc
 yarn add -D ttsc typescript@rc
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-bun add typia@next
+bun add typia@rc
 bun add -d ttsc typescript@rc
 ```
   </Tabs.Tab>

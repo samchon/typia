@@ -10,7 +10,7 @@ typia is a compile-time transformer, so it has to plug into your TypeScript buil
 
 | Path | When to use | Package | Default? |
 |------|-------------|---------|---------|
-| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go (`typescript@7`, release candidate) | `typia@next` | release candidate |
+| [**TypeScript-Go (`ttsc`)**](/docs/setup/tsgo) | TypeScript-Go (`typescript@7`, release candidate) | `typia@rc` | release candidate |
 | [**Legacy (`ts-patch`)**](/docs/setup/legacy) | Stable TypeScript v5 or v6 (the standard `typescript` npm package) | `typia` | ✅ recommended |
 
 **TypeScript-Go** is the in-progress Go-rewrite of the TypeScript compiler shipped by the TypeScript team. The transformer plug-in API is settled, but packaging and binary naming are not — pin versions carefully and expect breakage.
@@ -21,13 +21,13 @@ If you don't know which to pick, choose **Legacy**.
 
 ## TypeScript-Go
 
-Use [`typia@next`](/docs/setup/tsgo). TypeScript is migrating its compiler from JavaScript to Go (the "TypeScript-Go" project). `ttsc` is the Go-native plugin toolchain for that compiler, and `typia@next` ships a Go-rewritten transform that plugs into it.
+Use [`typia@rc`](/docs/setup/tsgo). TypeScript is migrating its compiler from JavaScript to Go (the "TypeScript-Go" project). `ttsc` is the Go-native plugin toolchain for that compiler, and `typia@rc` ships a Go-rewritten transform that plugs into it.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # install
-npm i typia@next
+npm i typia@rc
 npm i -D ttsc typescript@rc
 
 # build
@@ -40,7 +40,7 @@ npx ttsx src/index.ts
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # install
-pnpm i typia@next
+pnpm i typia@rc
 pnpm i -D ttsc typescript@rc
 
 # build
@@ -53,7 +53,7 @@ pnpm ttsx src/index.ts
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # install
-yarn add typia@next
+yarn add typia@rc
 yarn add -D ttsc typescript@rc
 
 # build
@@ -66,7 +66,7 @@ yarn ttsx src/index.ts
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # install
-bun add typia@next
+bun add typia@rc
 bun add -d ttsc typescript@rc
 
 # build
