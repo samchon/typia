@@ -2,7 +2,9 @@ import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   CallToolRequestSchema,
   CallToolResult,
+  ErrorCode,
   ListToolsRequestSchema,
+  McpError,
   Tool,
 } from "@modelcontextprotocol/sdk/types.js";
 import {
@@ -57,15 +59,14 @@ export namespace McpControllerRegistrar {
     server.setRequestHandler(CallToolRequestSchema, async (request) => {
       const entry: IToolEntry | undefined = registry.get(request.params.name);
       if (entry === undefined) {
-        return {
-          isError: true,
-          content: [
-            {
-              type: "text" as const,
-              text: `Unknown tool: ${request.params.name}`,
-            },
-          ],
-        };
+        // The MCP spec classifies an unknown tool as a protocol error (-32602),
+        // not a tool-execution error — unlike a validation failure, the model
+        // cannot self-correct a call to a tool that does not exist. The
+        // low-level Server turns this throw into the JSON-RPC error response.
+        throw new McpError(
+          ErrorCode.InvalidParams,
+          `Unknown tool: ${request.params.name}`,
+        );
       }
       return handleToolCall(entry, request.params.arguments);
     });

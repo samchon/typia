@@ -1,6 +1,6 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { ErrorCode, McpError } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
@@ -9,18 +9,19 @@ import typia from "typia";
 import { Calculator } from "../structures/Calculator";
 
 /**
- * Verifies MCP tool handler returns `isError: true` for unknown tool names.
+ * Verifies calling an unknown tool raises an `InvalidParams` protocol error.
  *
- * Locks the unknown-tool fallback branch of `McpControllerRegistrar`'s
- * `tools/call` handler. When an LLM calls a tool name that doesn't exist in the
- * registry, the handler must return a well-formed `CallToolResult` with
- * `isError: true` and a descriptive message, rather than throwing or returning
- * undefined.
+ * The MCP spec classifies an unknown tool as a protocol error (JSON-RPC
+ * `-32602`), not an in-band tool-execution error: unlike bad arguments, a model
+ * cannot self-correct a call to a tool that does not exist, and the reference
+ * `McpServer` throws `McpError` here too. The handler must therefore throw
+ * `McpError(InvalidParams)`, which the low-level Server turns into the error
+ * response — a regression returning `isError` content would misreport the
+ * failure category.
  *
- * 1. Register a `Calculator` controller with the MCP server.
- * 2. Invoke a non-existent tool name `"nonExistentTool"`.
- * 3. Assert the result has `isError: true`.
- * 4. Assert the text content contains `"Unknown tool: nonExistentTool"`.
+ * 1. Serve a `Calculator` controller and grab its tools/call handler.
+ * 2. Call a tool name that isn't registered.
+ * 3. Assert it throws `McpError` with code `InvalidParams` naming the tool.
  */
 export const test_mcp_class_controller_unknown_tool =
   async (): Promise<void> => {
@@ -33,27 +34,23 @@ export const test_mcp_class_controller_unknown_tool =
       ._requestHandlers;
     const callHandler: Function = requestHandlers.get("tools/call")!;
 
-    const result: CallToolResult = await callHandler(
-      {
-        method: "tools/call",
-        params: {
-          name: "nonExistentTool",
-          arguments: {},
+    let caught: unknown = null;
+    try {
+      await callHandler(
+        {
+          method: "tools/call",
+          params: { name: "nonExistentTool", arguments: {} },
         },
-      },
-      { signal: new AbortController().signal },
-    );
+        { signal: new AbortController().signal },
+      );
+    } catch (error) {
+      caught = error;
+    }
 
     TestValidator.predicate(
-      "result should have isError: true",
-      () => result.isError === true,
-    );
-    TestValidator.predicate("error should contain unknown tool name", () =>
-      result.content.some(
-        (c) =>
-          c.type === "text" &&
-          (c as { type: "text"; text: string }).text ===
-            "Unknown tool: nonExistentTool",
-      ),
+      "unknown tool raises InvalidParams protocol error naming the tool",
+      caught instanceof McpError &&
+        caught.code === ErrorCode.InvalidParams &&
+        caught.message.includes("nonExistentTool"),
     );
   };

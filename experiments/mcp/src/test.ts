@@ -9,8 +9,8 @@ import type {
  * End-to-end check: a real MCP client speaks to the `@typia/mcp` server over
  * stdio. No mocks — this spawns `lib/server.js`, performs the MCP handshake,
  * lists the reflected tools, and calls them with valid, invalid, and
- * exception-raising arguments to prove the whole loop works as a published
- * npm consumer would experience it.
+ * exception-raising arguments to prove the whole loop works as a published npm
+ * consumer would experience it.
  */
 const assert = (label: string, condition: boolean): void => {
   if (!condition) throw new Error(`FAIL: ${label}`);
@@ -68,7 +68,7 @@ const main = async (): Promise<void> => {
       arguments: { x: "40", y: 2 },
     })) as CallToolResult;
     assert(
-      "coerced add (\"40\") returns 42",
+      'coerced add ("40") returns 42',
       coerced.isError !== true &&
         JSON.stringify(coerced.structuredContent) ===
           JSON.stringify({ value: 42 }),
@@ -94,6 +94,20 @@ const main = async (): Promise<void> => {
     assert(
       "divide-by-zero reports the message",
       text(div0).includes("Division by zero"),
+    );
+
+    // 7. an unknown tool is a JSON-RPC protocol error the client rejects on,
+    //    not an in-band result (the model cannot self-correct a missing tool)
+    let unknown: unknown = null;
+    try {
+      await client.callTool({ name: "does_not_exist", arguments: {} });
+    } catch (error) {
+      unknown = error;
+    }
+    assert(
+      "unknown tool rejects as a protocol error",
+      unknown !== null &&
+        String((unknown as Error).message).includes("does_not_exist"),
     );
 
     console.log("\nAll end-to-end MCP client checks passed.");
