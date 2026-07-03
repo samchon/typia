@@ -322,13 +322,10 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../utils
-      zod-to-json-schema:
-        specifier: '>=3.24.0'
-        version: 3.25.2(zod@3.25.76)
     devDependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.26.0
-        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
+        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@rollup/plugin-commonjs':
         specifier: catalog:rollup
         version: 29.0.2(rollup@4.60.2)
@@ -356,9 +353,6 @@ importers:
       typescript:
         specifier: catalog:typescript
         version: 7.0.1-rc
-      zod:
-        specifier: ^3.25.0
-        version: 3.25.76
 
   packages/typia:
     dependencies:
@@ -621,7 +615,7 @@ importers:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.26.0
-        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
+        version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)
       '@nestia/e2e':
         specifier: catalog:utils
         version: 10.0.2
@@ -640,9 +634,6 @@ importers:
       typia:
         specifier: workspace:^
         version: link:../../packages/typia
-      zod:
-        specifier: ^3.25.0
-        version: 3.25.76
     devDependencies:
       '@types/node':
         specifier: catalog:utils
@@ -8367,7 +8358,7 @@ snapshots:
     dependencies:
       '@chevrotain/types': 11.1.2
 
-  '@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)':
+  '@modelcontextprotocol/sdk@1.29.0(@cfworker/json-schema@4.1.1)(zod@4.4.3)':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.12.14)
       ajv: 8.18.0
@@ -8384,8 +8375,8 @@ snapshots:
       json-schema-typed: 8.0.2
       pkce-challenge: 5.0.1
       raw-body: 3.0.2
-      zod: 3.25.76
-      zod-to-json-schema: 3.25.2(zod@3.25.76)
+      zod: 4.4.3
+      zod-to-json-schema: 3.25.2(zod@4.4.3)
     optionalDependencies:
       '@cfworker/json-schema': 4.1.1
     transitivePeerDependencies:
@@ -14598,14 +14589,14 @@ snapshots:
   zimmerframe@1.1.4:
     optional: true
 
-  zod-to-json-schema@3.25.2(zod@3.25.76):
-    dependencies:
-      zod: 3.25.76
-
   zod-to-json-schema@3.25.2(zod@4.1.12):
     dependencies:
       zod: 4.1.12
     optional: true
+
+  zod-to-json-schema@3.25.2(zod@4.4.3):
+    dependencies:
+      zod: 4.4.3
 
   zod@3.25.76: {}
 

@@ -3,53 +3,37 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
-import { registerMcpControllers } from "@typia/mcp";
+import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies each class method executes as a tool and returns its result.
+ *
+ * Locks the happy-path dispatch of the tools/call handler: the method named in
+ * the request runs on the controller instance and its object return is
+ * serialized back as the tool result. A regression would misroute the call or
+ * drop the computed value.
+ *
+ * 1. Serve a `Calculator` controller and grab its tools/call handler.
+ * 2. Call add, subtract, multiply, and divide with concrete operands.
+ * 3. Assert each returns the correct arithmetic result.
+ */
 export const test_mcp_class_controller_execute = async (): Promise<void> => {
-  // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =
     typia.llm.controller<Calculator>("calculator", new Calculator());
+  const mcpServer: McpServer = createMcpServer(controller);
 
-  // 2. Create McpServer with tools capability
-  const mcpServer: McpServer = new McpServer(
-    {
-      name: "test-server",
-      version: "1.0.0",
-    },
-    {
-      capabilities: {
-        tools: {},
-      },
-    },
-  );
-
-  // 3. Register controller
-  registerMcpControllers({
-    server: mcpServer,
-    controllers: [controller],
-    preserve: false,
-  });
-
-  // 4. Get tools/call handler
   const rawServer: Server = mcpServer.server;
-  const requestHandlers: Map<string, Function> = (rawServer as any)
-    ._requestHandlers;
-  const callHandler: Function = requestHandlers.get("tools/call")!;
+  const callHandler: Function = (rawServer as any)._requestHandlers.get(
+    "tools/call",
+  )!;
 
-  // 5. Test add function
   const addResult: CallToolResult = await callHandler(
     {
       method: "tools/call",
-      params: {
-        name: "add",
-        arguments: {
-          x: 10,
-          y: 5,
-        },
-      },
+      params: { name: "add", arguments: { x: 10, y: 5 } },
     },
     { signal: new AbortController().signal },
   );
@@ -59,17 +43,10 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     { value: 15 },
   );
 
-  // 6. Test subtract function
   const subtractResult: CallToolResult = await callHandler(
     {
       method: "tools/call",
-      params: {
-        name: "subtract",
-        arguments: {
-          x: 10,
-          y: 3,
-        },
-      },
+      params: { name: "subtract", arguments: { x: 10, y: 3 } },
     },
     { signal: new AbortController().signal },
   );
@@ -79,17 +56,10 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     { value: 7 },
   );
 
-  // 7. Test multiply function
   const multiplyResult: CallToolResult = await callHandler(
     {
       method: "tools/call",
-      params: {
-        name: "multiply",
-        arguments: {
-          x: 4,
-          y: 7,
-        },
-      },
+      params: { name: "multiply", arguments: { x: 4, y: 7 } },
     },
     { signal: new AbortController().signal },
   );
@@ -99,17 +69,10 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     { value: 28 },
   );
 
-  // 8. Test divide function
   const divideResult: CallToolResult = await callHandler(
     {
       method: "tools/call",
-      params: {
-        name: "divide",
-        arguments: {
-          x: 20,
-          y: 4,
-        },
-      },
+      params: { name: "divide", arguments: { x: 20, y: 4 } },
     },
     { signal: new AbortController().signal },
   );

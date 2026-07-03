@@ -151,11 +151,13 @@ export namespace LlmJson {
    * makes an LLM's `"12"` for a `number` (or a stringified boolean) acceptable;
    * calling {@link ILlmFunction.validate} alone would reject it.
    *
-   * Use this when inlining an MCP-style `tools/call` handler over an
-   * `ILlmFunction` instead of `registerMcpControllers` from `@typia/mcp` — it
-   * keeps the dependency surface to `typia` while preserving the coercion step
-   * that `registerMcpControllers` performs. On failure, format the result with
-   * {@link stringify} to feed the errors back to the model for self-correction.
+   * This is the coerce-then-validate step `@typia/mcp` runs on every tool
+   * call — for MCP servers, prefer `createMcpServer` from `@typia/mcp`
+   * over hand-rolling a `tools/call` handler; it adds no runtime dependency
+   * beyond what `typia` already installs. Use this function directly when
+   * dispatching an `ILlmFunction` outside `@typia/mcp` (a custom harness or a
+   * non-MCP transport). On failure, format the result with {@link stringify} to
+   * feed the errors back to the model for self-correction.
    *
    * @template T Expected arguments type
    * @param func Target function from `typia.llm.application` /

@@ -7,59 +7,33 @@ import LocalSource from "../../../components/LocalSource";
 
 # MCP
 
-[`@typia/mcp`](https://github.com/samchon/typia/tree/master/packages/mcp) registers typia controllers as [Model Context Protocol](https://modelcontextprotocol.io) tools. Every method on your TypeScript class — or every endpoint in an OpenAPI document — becomes an MCP tool, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
+[`@typia/mcp`](https://github.com/samchon/typia/tree/master/packages/mcp) builds a [Model Context Protocol](https://modelcontextprotocol.io) server over a single typia controller. Every tool's input schema, output schema, argument validation, and the handshake instructions all derive from TypeScript types and JSDoc — there is no hand-written JSON schema or Zod shape anywhere:
 
 ```typescript copy filename="signature"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
+import { ILlmController } from "@typia/interface";
+import { createMcpServer } from "@typia/mcp";
 
-export function registerMcpControllers(props: {
-  server: McpServer | Server;
-  controllers: Array<ILlmController | IHttpLlmController>;
-  preserve?: boolean;
-}): void;
+export function createMcpServer<Class extends object = any>(
+  controller: ILlmController<Class>,
+  version?: string, // default "1.0.0"
+): McpServer;
 ```
 
-| Argument | Meaning |
-|----------|---------|
-| `server` | An MCP server instance (`McpServer` or raw `Server` from the MCP SDK) |
-| `controllers` | An array of controllers — either [`typia.llm.controller<Class>()`](/docs/llm/application) or [`HttpLlm.controller()`](/docs/llm/http) |
-| `preserve` | `false` (default): typia owns the server's tool list. `true`: coexist with the MCP SDK's `McpServer.registerTool()` calls. |
+The class you would hand to [`typia.llm.application<Class>()`](/docs/llm/application) _is_ your server: its methods become the tools, and its class JSDoc becomes the handshake instructions. You pass it through [`typia.llm.controller<Class>(name, instance)`](/docs/llm/application#framework-adapters) — the same reflected application bound to a live instance so the server can execute the calls — where `name` becomes the server name. The returned server connects to any MCP transport:
 
-<Tabs items={[
-    <code>@typia/mcp</code>,
-    <code>ILlmController</code>,
-    <code>IHttpLlmController</code>,
-    <code>HttpLlm.controller</code>,
-  ]}>
-  <Tabs.Tab>
-```typescript filename="@typia/mcp" showLineNumbers
-export function registerMcpControllers(props: {
-  server: McpServer | Server;
-  controllers: Array<ILlmController | IHttpLlmController>;
-  preserve?: boolean | undefined;
-}): void;
+```typescript filename="src/main.ts" showLineNumbers {1-3, 6-9}
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { createMcpServer } from "@typia/mcp";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const server = createMcpServer(
+  typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+);
+await server.connect(new StdioServerTransport());
 ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/schema/ILlmController.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/interface/src/http/IHttpLlmController.ts"
-      filename="@typia/interface"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="packages/utils/src/http/HttpLlm.ts"
-      filename="@typia/utils"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
 
 ## Setup
 
@@ -69,31 +43,22 @@ npm install typia
 npx typia setup
 ```
 
-## From a TypeScript class
+<Callout type="info">
+`@typia/mcp` adds **zero** runtime dependencies beyond what `typia` itself already installs, plus the MCP SDK as a peer — the entire server surface is declared through `createMcpServer`.
+</Callout>
 
-```typescript filename="src/main.ts" showLineNumbers {1-3, 12-19}
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
+## Tools
+
+Every method of the controller class becomes an MCP tool named after the method: JSDoc comments turn into tool descriptions, parameter types turn into `inputSchema`, and return types turn into [`outputSchema`](#structured-output). To serve multiple services from one server, compose them into one facade class.
+
+```typescript filename="src/main.ts" showLineNumbers {4}
+import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
 
-import { BbsArticleService } from "./BbsArticleService";
-import { Calculator } from "./Calculator";
-
-const server: McpServer = new McpServer({
-  name: "my-server",
-  version: "1.0.0",
-});
-
-registerMcpControllers({
-  server,
-  controllers: [
-    typia.llm.controller<Calculator>("calculator", new Calculator()),
-    typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
-  ],
-});
+const server = createMcpServer(
+  typia.llm.controller<Calculator>("calculator", new Calculator()),
+);
 ```
-
-Every method on `Calculator` and `BbsArticleService` becomes an MCP tool. JSDoc comments turn into tool descriptions, TypeScript types turn into JSON schemas. Tool names are `{controllerName}_{methodName}` (e.g. `calculator_add`, `bbs_create`).
 
 <Tabs items={[
     <code>Calculator</code>,
@@ -121,45 +86,21 @@ Every method on `Calculator` and `BbsArticleService` becomes an MCP tool. JSDoc 
 </Tabs>
 
 <Callout type="warning">
-**Method type rules.** Every method's parameter type must be a keyworded object with static keys (no primitives, arrays, or unions). The return type must be an object or `void`. See [`typia.llm.application` restrictions](/docs/llm/application#restrictions) for the full list.
+**Method type rules.** Every method's parameter type must be a keyworded object with static keys (no primitives, arrays, or unions). The return type must be a single object type or `void`. See [`typia.llm.application` restrictions](/docs/llm/application#restrictions) for the full list.
 </Callout>
 
-## From an OpenAPI document
+### Structured output
 
-When the API you want to expose is described by Swagger/OpenAPI, use [`HttpLlm.controller`](/docs/llm/http) — it produces controllers that `registerMcpControllers` accepts the same way:
+When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` alongside the JSON text fallback — MCP's structured tool output, for free, by construction:
 
-```typescript filename="src/main.ts" showLineNumbers {1-3, 9-21}
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
-import { HttpLlm } from "@typia/utils";
+<LocalSource
+  path="tests/test-mcp/src/features/test_mcp_tool_output_schema.ts"
+  filename="test_mcp_tool_output_schema.ts"
+  showLineNumbers />
 
-const server: McpServer = new McpServer({
-  name: "my-server",
-  version: "1.0.0",
-});
+### The function calling harness
 
-registerMcpControllers({
-  server,
-  controllers: [
-    HttpLlm.controller({
-      name: "shopping",
-      document: await fetch(
-        "https://shopping-be.wrtn.ai/editor/swagger.json",
-      ).then((r) => r.json()),
-      connection: {
-        host: "https://shopping-be.wrtn.ai",
-        headers: { Authorization: "Bearer ********" },
-      },
-    }),
-  ],
-});
-```
-
-Every operation in the Swagger document becomes an MCP tool, with the same harness wrapping each one.
-
-## The function calling harness
-
-Every tool registered through `registerMcpControllers` carries built-in lenient JSON parsing, type coercion, and validation feedback — same as the underlying [`typia.llm.application`](/docs/llm/application). When validation fails, the tool returns the input annotated with `// ❌` markers, which the LLM reads and self-corrects from:
+Every tool call runs typia's lenient JSON parsing, type coercion, and validation — same as the underlying [`typia.llm.application`](/docs/llm/application). When validation fails, the tool returns the input annotated with `// ❌` markers as an in-band tool error, which the LLM reads and self-corrects from — the exact feedback loop the MCP spec recommends for input validation errors:
 
 ```json
 {
@@ -170,47 +111,16 @@ Every tool registered through `registerMcpControllers` carries built-in lenient 
 }
 ```
 
-For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJson`](/docs/llm/json). For the same harness pattern in `typia.llm.application`, see [Function calling harness](/docs/llm/application#the-function-calling-harness).
+For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJson`](/docs/llm/json).
 
-## Inlining without `@typia/mcp`
+## Instructions
 
-If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` in lockstep with a specific `typia` dev build — you can register the `tools/list` + `tools/call` handlers yourself over a controller's `application.functions`. The one step you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. Every `ILlmFunction` already carries `coerce` and `validate` bound to its schema, so `func.validate(func.coerce(args))` reproduces the coerce → validate step `registerMcpControllers` performs — with only `typia`:
+MCP `instructions` tell the client's LLM how to use the server, and they come straight from your class's JSDoc. [`typia.llm.application`](/docs/llm/application#application-description) reflects the doc comment written on the class (or interface) onto [`ILlmApplication.description`](/docs/llm/application#application-description), and `createMcpServer` ships that verbatim as the handshake `instructions` — write the usage contract once, as documentation on the class, and it reaches the client automatically. Because the controller is constructed by the caller, the executor can also defer expensive work until the first tool call while the handshake and instructions answer immediately:
 
-```typescript
-import typia from "typia";
-
-// inside your tools/call handler, given `func` from controller.application.functions:
-const result = func.validate(func.coerce(request.params.arguments ?? {}));
-if (!result.success) return errorResult(JSON.stringify(result.errors, null, 2));
-const output = await method.call(execute, result.data);
-```
-
-If you already depend on [`@typia/utils`](/docs/llm/json), `LlmJson.validateArguments(func, args)` bundles the same step into one call and `LlmJson.stringify(result)` formats the failure for the model. See the [`@typia/mcp` README](https://github.com/samchon/typia/tree/master/packages/mcp#inlining-registration-without-typiamcp) for the full `tools/list` + `tools/call` example.
-
-## Preserve mode
-
-By default `registerMcpControllers` owns the server's tool list. If you've already registered tools the standard way with `McpServer.registerTool(...)` and want typia's tools to coexist, pass `preserve: true`.
-
-<Tabs items={[
-    "Preserve test",
-    <code>Calculator</code>,
-  ]}>
-  <Tabs.Tab>
-    <LocalSource
-      path="tests/test-mcp/src/features/test_mcp_class_controller_preserve.ts"
-      filename="test_mcp_class_controller_preserve.ts"
-      showLineNumbers
-      highlight="33-52, 55-57, 73-86" />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="tests/test-mcp/src/structures/Calculator.ts"
-      filename="Calculator.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
-
-In the test above, an `"echo"` tool registered through `McpServer.registerTool` lives alongside four calculator tools registered through `registerMcpControllers` — five tools total. If two registrations would produce the same tool name, registration fails at startup so you can fix it before clients ever see the conflict.
+<LocalSource
+  path="tests/test-mcp/src/features/test_mcp_create_server_lazy_controller.ts"
+  filename="test_mcp_create_server_lazy_controller.ts"
+  showLineNumbers />
 
 ## Runtime errors
 
@@ -229,8 +139,7 @@ In both cases the MCP conversation stays alive — the model sees the failure an
     <LocalSource
       path="tests/test-mcp/src/features/test_mcp_class_controller_error_handling.ts"
       filename="test_mcp_class_controller_error_handling.ts"
-      showLineNumbers
-      highlight="61-75, 77-91" />
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
@@ -244,6 +153,5 @@ In both cases the MCP conversation stays alive — the model sees the failure an
 
 - Same idea, different framework → [Vercel AI SDK](/docs/utilization/vercel) · [LangChain](/docs/utilization/langchain)
 - Source TypeScript class for the tools → [`typia.llm.application`](/docs/llm/application)
-- Source OpenAPI document for the tools → [`HttpLlm`](/docs/llm/http)
 - Harness internals (`parse`, `coerce`, `validate`, `stringify`) → [`LlmJson`](/docs/llm/json)
 - Building a full chatbot → [Agentica](/docs/llm/chat)

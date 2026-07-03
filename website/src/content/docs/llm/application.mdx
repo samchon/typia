@@ -179,7 +179,7 @@ const app: ILlmApplication = typia.llm.application<BbsArticleService>();
 //  app.description = "Bulletin board article service.\n\nGroups the tools an agent uses to create and browse articles."
 ```
 
-Because it describes the entire collection, agent frameworks can surface it as a system instruction — for example an [MCP](#framework-adapters) server's `instructions` — while other consumers may treat it as a plain description. The property is omitted when the source type carries no JSDoc.
+Because it describes the entire collection, agent frameworks surface it as a system instruction: [`@typia/mcp`](/docs/utilization/mcp)'s `createMcpServer` ships this `description` verbatim as the MCP server's handshake `instructions`, so the class JSDoc _is_ the agent's usage contract. Other consumers may treat it as a plain description. The property is omitted when the source type carries no JSDoc.
 
 ## Framework adapters
 
@@ -255,23 +255,14 @@ npm i @modelcontextprotocol/sdk @typia/mcp
 ```
 
 ```typescript filename="src/main.ts"
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
+import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
 
 import { BbsArticleService } from "./BbsArticleService";
 
-const server: McpServer = new McpServer({
-  name: "my-server",
-  version: "1.0.0",
-});
-
-registerMcpControllers({
-  server,
-  controllers: [
-    typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
-  ],
-});
+const server = createMcpServer(
+  typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+);
 ```
   </Tabs.Tab>
 </Tabs>

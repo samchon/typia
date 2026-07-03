@@ -9,29 +9,24 @@ import { ILlmApplication } from "./ILlmApplication";
  * {@link execute class instance} for method execution.
  *
  * You can create this controller with `typia.llm.controller<Class>()` function,
- * and register it to MCP server with {@link registerMcpControllers}:
+ * and serve it as an MCP server with `createMcpServer` from `@typia/mcp`:
  *
  * ```typescript
- * import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
- * import { registerMcpControllers } from "@typia/mcp";
+ * import { createMcpServer } from "@typia/mcp";
  * import typia from "typia";
  *
  * class Calculator {
- *   add(input: { a: number; b: number }): number {
- *     return input.a + input.b;
+ *   add(input: { a: number; b: number }): { value: number } {
+ *     return { value: input.a + input.b };
  *   }
- *   subtract(input: { a: number; b: number }): number {
- *     return input.a - input.b;
+ *   subtract(input: { a: number; b: number }): { value: number } {
+ *     return { value: input.a - input.b };
  *   }
  * }
  *
- * const server = new McpServer({ name: "my-server", version: "1.0.0" });
- * registerMcpControllers({
- *   server,
- *   controllers: [
- *     typia.llm.controller<Calculator>("calculator", new Calculator()),
- *   ],
- * });
+ * const server = createMcpServer(
+ *   typia.llm.controller<Calculator>("calculator", new Calculator()),
+ * );
  * ```
  *
  * For OpenAPI/HTTP-based controller, use {@link IHttpLlmController} instead.
