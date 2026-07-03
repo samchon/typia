@@ -23,14 +23,14 @@ catalogs:
       version: 8.1.2
   typescript:
     '@ttsc/playground':
-      specifier: ^0.16.0
-      version: 0.16.0
+      specifier: ^0.16.10
+      version: 0.16.10
     '@ttsc/unplugin':
-      specifier: ^0.16.0
-      version: 0.16.0
+      specifier: ^0.16.10
+      version: 0.16.10
     '@ttsc/wasm':
-      specifier: ^0.16.0
-      version: 0.16.0
+      specifier: ^0.16.10
+      version: 0.16.10
     ttsc:
       specifier: ^0.16.8
       version: 0.16.8
@@ -223,7 +223,7 @@ importers:
         version: 16.0.3(rollup@4.60.2)
       '@ttsc/unplugin':
         specifier: catalog:typescript
-        version: 0.16.0
+        version: 0.16.10
       rollup:
         specifier: catalog:rollup
         version: 4.60.2
@@ -875,10 +875,10 @@ importers:
         version: 4.3.0
       '@ttsc/playground':
         specifier: catalog:typescript
-        version: 0.16.0(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.16.0)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
+        version: 0.16.10(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.16.10)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
       '@ttsc/wasm':
         specifier: catalog:typescript
-        version: 0.16.0
+        version: 0.16.10
       '@typia/interface':
         specifier: workspace:^
         version: link:../packages/interface
@@ -2801,21 +2801,21 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/playground@0.16.0':
-    resolution: {integrity: sha512-nRQg3pOSUsYNz0cYZctYyR5Jp3f+LbwgypttsZ/du8m0i78NZIR3kaVxiQzNyyPVsPFubU9yW9r3+dluGAldhQ==}
+  '@ttsc/playground@0.16.10':
+    resolution: {integrity: sha512-rz/A2CBOKMTstJx2roKLpc2H3CmnlX6G5ebQIG7v++tizqqIEMSPN6/LC8IfSpiViTBb0rlgERd+EnjilVGjAw==}
     peerDependencies:
       '@monaco-editor/react': ^4.6.0
-      '@ttsc/wasm': ^0.16.0
+      '@ttsc/wasm': ^0.16.10
       monaco-editor: ^0.52.0
       react: ^18.0.0
       react-dom: ^18.0.0
       tgrid: ^1.0.3
 
-  '@ttsc/unplugin@0.16.0':
-    resolution: {integrity: sha512-SDypVuNBAGrmBiuGP8xsZ+VdFGVHH0ANWHpT43xfNfSwqQjzxafymOgQxebYNtCVmW4OZDLXb2vnPPMh8M/dBQ==}
+  '@ttsc/unplugin@0.16.10':
+    resolution: {integrity: sha512-5zdz1vHT/eQPuxBmH7vQTdG9tgfmjWdeLUP1p9RxjX4jbmxd1519lcPFGYDpMYwPIqOGvED/w0FDyx8b13qtSA==}
 
-  '@ttsc/wasm@0.16.0':
-    resolution: {integrity: sha512-UUGYzSnjhdHabSSP3qWXF3G/IOua5An0Em1jNkyuMw36l/mNy8tWWBvFEr2lrmkECA8aDuSLyL2Es34D1KdzFQ==}
+  '@ttsc/wasm@0.16.10':
+    resolution: {integrity: sha512-dHQHSrwDjtUQXa4Wv3qjfsamFl0ANp3va8dcyTHfIIh1b39DXKCG1Elrx0iq3sBg07H/36T2cf8SBhYl9LtHUw==}
 
   '@ttsc/win32-arm64@0.16.8':
     resolution: {integrity: sha512-kwx6ZYz0Z1AHTKgh1oft7LQRr5oVMWpl435WK8Y0nA8BNY3P5QDy9SSavedyO1dbiX9cg26XrpPoYCGQ2oDu0A==}
@@ -9424,21 +9424,21 @@ snapshots:
   '@ttsc/linux-x64@0.16.8':
     optional: true
 
-  '@ttsc/playground@0.16.0(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.16.0)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
+  '@ttsc/playground@0.16.10(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.16.10)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
     dependencies:
       '@monaco-editor/react': 4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ttsc/wasm': 0.16.0
+      '@ttsc/wasm': 0.16.10
       lz-string: 1.5.0
       monaco-editor: 0.50.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tgrid: 1.2.1
 
-  '@ttsc/unplugin@0.16.0':
+  '@ttsc/unplugin@0.16.10':
     dependencies:
       unplugin: 2.3.11
 
-  '@ttsc/wasm@0.16.0': {}
+  '@ttsc/wasm@0.16.10': {}
 
   '@ttsc/win32-arm64@0.16.8':
     optional: true
