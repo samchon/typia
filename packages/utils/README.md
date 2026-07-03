@@ -68,9 +68,8 @@ const controller: IHttpLlmController = HttpLlm.controller({
   },
 });
 
-// use with @typia/langchain, @typia/mcp, or @typia/vercel
+// use with @typia/langchain or @typia/vercel
 toLangChainTools({ controllers: [controller] });
-registerMcpControllers({ server, controllers: [controller] });
 toVercelTools({ controllers: [controller] });
 ```
 

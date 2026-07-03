@@ -135,7 +135,7 @@ flowchart
 
 The same controller plugs into any supported framework. Pick whichever your app already uses:
 
-<Tabs items={["Vercel AI SDK", "LangChain", "Model Context Protocol"]}>
+<Tabs items={["Vercel AI SDK", "LangChain"]}>
   <Tabs.Tab>
 ```typescript filename="src/main.ts"
 import { openai } from "@ai-sdk/openai";
@@ -202,34 +202,6 @@ const agent: Runnable = createToolCallingAgent({
 const executor: AgentExecutor = new AgentExecutor({ agent, tools });
 const result: ChainValues = await executor.invoke({
   input: "I wanna buy MacBook Pro",
-});
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```typescript filename="src/main.ts"
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
-import { HttpLlm } from "@typia/utils";
-
-const server: McpServer = new McpServer({
-  name: "my-server",
-  version: "1.0.0",
-});
-
-registerMcpControllers({
-  server,
-  controllers: [
-    HttpLlm.controller({
-      name: "shopping",
-      document: await fetch(
-        "https://shopping-be.wrtn.ai/editor/swagger.json",
-      ).then((r) => r.json()),
-      connection: {
-        host: "https://shopping-be.wrtn.ai",
-        headers: { Authorization: "Bearer ********" },
-      },
-    }),
-  ],
 });
 ```
   </Tabs.Tab>

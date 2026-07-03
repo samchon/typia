@@ -255,23 +255,14 @@ npm i @modelcontextprotocol/sdk @typia/mcp
 ```
 
 ```typescript filename="src/main.ts"
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
+import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
 
 import { BbsArticleService } from "./BbsArticleService";
 
-const server: McpServer = new McpServer({
-  name: "my-server",
-  version: "1.0.0",
-});
-
-registerMcpControllers({
-  server,
-  controllers: [
-    typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
-  ],
-});
+const server = createMcpServer(
+  typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+);
 ```
   </Tabs.Tab>
 </Tabs>

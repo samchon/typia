@@ -48,8 +48,9 @@ export namespace HttpLlm {
    * Create HTTP LLM controller from OpenAPI document.
    *
    * Composes {@link IHttpLlmController} from OpenAPI document with connection
-   * info. The controller can be used with {@link registerMcpControllers} to
-   * register all API operations as MCP tools at once.
+   * info. The controller feeds an LLM framework adapter such as
+   * `@typia/langchain` or `@typia/vercel` to expose all API operations as tools
+   * at once.
    *
    * @param props Controller properties
    * @returns HTTP LLM controller

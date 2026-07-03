@@ -10,119 +10,55 @@
 [![Gurubase](https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF)](https://gurubase.io/g/typia)
 [![Discord Badge](https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ)](https://discord.gg/E94XhzrUCZ)
 
-[MCP (Model Context Protocol)](https://modelcontextprotocol.io) integration for [`typia`](https://github.com/samchon/typia).
+[MCP (Model Context Protocol)](https://modelcontextprotocol.io) server integration for [`typia`](https://github.com/samchon/typia).
 
-Registers typia controllers as MCP tools with automatic validation.
+`createMcpServer` turns a single typia controller into an MCP server. Every tool's input schema, output schema, and argument validation derives from the TypeScript types and JSDoc — no hand-written JSON schema or Zod shape anywhere. Every tool call is coerced and validated by typia, and validation failures go back to the model as self-correction feedback, exactly the loop the MCP spec recommends.
+
+- **Tools**: every class method or OpenAPI operation, with `inputSchema`, `outputSchema`, and `structuredContent` reflected from the types
+- **Instructions**: the reflected class/interface JSDoc, shipped through the handshake
+- **Zero extra dependencies**: nothing at runtime beyond what `typia` already installs, plus the MCP SDK as a peer
 
 ## Setup
 
 ```bash
 npm install @typia/mcp @modelcontextprotocol/sdk typia
-npm install -D ttsc typescript@rc
+npx typia setup
 ```
 
 ## Usage
 
-### From TypeScript class
+`createMcpServer(controller, version?)` — pass a `typia.llm.controller`, connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions.
 
 ```typescript
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { registerMcpControllers } from "@typia/mcp";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
 
-const server: McpServer = new McpServer({
-  name: "my-server",
-  version: "1.0.0",
-});
-registerMcpControllers({
-  server,
-  controllers: [
-    typia.llm.controller<Calculator>("Calculator", new Calculator()),
-  ],
-});
+/** Arithmetic tools. */
+class Calculator {
+  /** Add two numbers. */
+  add(p: { x: number; y: number }): { value: number } {
+    return { value: p.x + p.y };
+  }
+}
+
+const server = createMcpServer(
+  typia.llm.controller<Calculator>("calculator", new Calculator()),
+);
+await server.connect(new StdioServerTransport());
 ```
 
-### From OpenAPI document
+## Validation feedback
 
-```typescript
-import { registerMcpControllers } from "@typia/mcp";
-import { HttpLlm } from "@typia/utils";
+If the LLM provides invalid arguments, the tool returns the input annotated with `// ❌` markers so the model can self-correct:
 
-registerMcpControllers({
-  server,
-  controllers: [
-    HttpLlm.controller({
-      name: "petStore",
-      document: yourOpenApiDocument,
-      connection: { host: "https://api.example.com" },
-    }),
-  ],
-});
+```json
+{
+  "name": "John",
+  "age": "twenty", // ❌ [{"path":"$input.age","expected":"number"}]
+  "email": "not-an-email", // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+  "hobbies": "reading" // ❌ [{"path":"$input.hobbies","expected":"Array<string>"}]
+}
 ```
 
-### Inlining registration (without `@typia/mcp`)
-
-If you want to keep your dependency surface to `typia` plus the MCP SDK — for example to avoid pinning `@typia/mcp` / `@typia/interface` / `@typia/utils` in lockstep with a specific `typia` dev build — you can inline the `tools/list` + `tools/call` handlers over a controller's `application.functions`. The one thing you must not skip is **coercion before validation**: LLMs routinely send `"12"` for a `number` or `"true"` for a `boolean`, and `func.validate(args)` alone rejects those. Every `ILlmFunction` already carries `coerce` and `validate` bound to its own schema, so `func.validate(func.coerce(args))` gives you the same coerce-then-validate step `registerMcpControllers` performs — with only `typia`:
-
-```typescript
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
-import typia from "typia";
-
-const controller = typia.llm.controller<MyClass>("my", new MyClass());
-const functions = controller.application.functions;
-const execute = controller.execute as unknown as Record<
-  string,
-  (input: unknown) => unknown
->;
-
-server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: functions.map((func) => ({
-    name: func.name,
-    description: func.description,
-    inputSchema: {
-      type: "object" as const,
-      properties: func.parameters.properties,
-      required: func.parameters.required,
-      additionalProperties: false,
-      $defs: func.parameters.$defs,
-    },
-  })),
-}));
-
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const func = functions.find((f) => f.name === request.params.name);
-  const method = execute[request.params.name];
-  if (func === undefined || method === undefined)
-    return errorResult(`Unknown tool: ${request.params.name}`);
-
-  // coerce (e.g. "12" -> 12) THEN validate — this is what registerMcpControllers does
-  const result = func.validate(func.coerce(request.params.arguments ?? {}));
-  if (!result.success)
-    // hand typia's errors back so the model can self-correct
-    return errorResult(JSON.stringify(result.errors, null, 2));
-
-  const output = await method.call(execute, result.data);
-  return {
-    content: [
-      {
-        type: "text" as const,
-        text: output === undefined ? "Success" : JSON.stringify(output),
-      },
-    ],
-  };
-});
-```
-
-If you already depend on `@typia/utils`, `LlmJson.validateArguments(func, args)` bundles that same coerce-then-validate step into one call, and `LlmJson.stringify(result)` formats the failure with inline `// ❌` markers for the model to self-correct from — this is exactly what `registerMcpControllers` uses internally.
-
-`registerMcpControllers` uses the same `LlmJson.validateArguments` internally, so an inlined handler and the built-in registration behave identically.
-
-## Features
-
-- No manual schema definition — generates everything from TypeScript types or OpenAPI
-- Automatic argument validation with LLM-friendly error feedback
-- Supports both class-based (`typia.llm.controller`) and HTTP-based (`HttpLlm.controller`) controllers
-- `preserve` option to coexist with `McpServer.registerTool()`
+Guide documents: https://typia.io/docs/utilization/mcp
