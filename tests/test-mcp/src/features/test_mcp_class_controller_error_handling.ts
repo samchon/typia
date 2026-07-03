@@ -24,20 +24,15 @@ import { Calculator } from "../structures/Calculator";
  */
 export const test_mcp_class_controller_error_handling =
   async (): Promise<void> => {
-    // 1. Create class-based controller using typia.llm.controller
     const controller: ILlmController<Calculator> =
       typia.llm.controller<Calculator>("calculator", new Calculator());
-
-    // 2. Create McpServer with tools capability
     const mcpServer: McpServer = createMcpServer(controller);
 
-    // 4. Get tools/call handler
     const rawServer: Server = mcpServer.server;
     const requestHandlers: Map<string, Function> = (rawServer as any)
       ._requestHandlers;
     const callHandler: Function = requestHandlers.get("tools/call")!;
 
-    // 5. Test divide by zero (throws an error)
     const result: CallToolResult = await callHandler(
       {
         method: "tools/call",
@@ -52,13 +47,10 @@ export const test_mcp_class_controller_error_handling =
       { signal: new AbortController().signal },
     );
 
-    // 6. Verify the result is an error
     TestValidator.predicate(
       "result should have isError: true",
       () => result.isError === true,
     );
-
-    // 7. Verify the error message contains the expected text
     TestValidator.predicate(
       "error should contain division by zero message",
       () =>

@@ -14,7 +14,8 @@ import { Greeter } from "../structures/Greeter";
  * must carry at least one content block. The handler must translate an
  * `undefined` result into a plain `"Success"` text and must not attach
  * `structuredContent` (there is no value to structure). A regression would
- * either return an empty, spec-invalid result or crash serializing `undefined`.
+ * either return an empty, spec-invalid result or crash serializing
+ * `undefined`.
  *
  * 1. Serve `Greeter.reset()`, a `void`-returning method.
  * 2. Call it through `tools/call`.

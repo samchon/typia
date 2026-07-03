@@ -24,20 +24,15 @@ import { Calculator } from "../structures/Calculator";
  */
 export const test_mcp_class_controller_unknown_tool =
   async (): Promise<void> => {
-    // 1. Create class-based controller using typia.llm.controller
     const controller: ILlmController<Calculator> =
       typia.llm.controller<Calculator>("calculator", new Calculator());
-
-    // 2. Create McpServer with tools capability
     const mcpServer: McpServer = createMcpServer(controller);
 
-    // 4. Get tools/call handler
     const rawServer: Server = mcpServer.server;
     const requestHandlers: Map<string, Function> = (rawServer as any)
       ._requestHandlers;
     const callHandler: Function = requestHandlers.get("tools/call")!;
 
-    // 5. Call a non-existent tool
     const result: CallToolResult = await callHandler(
       {
         method: "tools/call",
@@ -49,13 +44,10 @@ export const test_mcp_class_controller_unknown_tool =
       { signal: new AbortController().signal },
     );
 
-    // 6. Verify the result is an error
     TestValidator.predicate(
       "result should have isError: true",
       () => result.isError === true,
     );
-
-    // 7. Verify the error message references the unknown tool name
     TestValidator.predicate("error should contain unknown tool name", () =>
       result.content.some(
         (c) =>

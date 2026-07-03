@@ -11,10 +11,10 @@ import { Calculator } from "../structures/Calculator";
 /**
  * Verifies tools/list advertises one tool per class method with its schema.
  *
- * The controller's methods are the server's tools, named after the method,
- * with the parameter type reflected into `inputSchema`. A regression here
- * would drop tools from discovery or ship them with the wrong required fields,
- * so a model could never call them correctly.
+ * The controller's methods are the server's tools, named after the method, with
+ * the parameter type reflected into `inputSchema`. A regression here would drop
+ * tools from discovery or ship them with the wrong required fields, so a model
+ * could never call them correctly.
  *
  * 1. Serve a `Calculator` controller through createMcpServer.
  * 2. Call `tools/list`.
@@ -55,5 +55,9 @@ export const test_mcp_tool_list = async (): Promise<void> => {
     "add tool should have required params",
     (addTool!.inputSchema as any).required?.sort(),
     ["x", "y"].sort(),
+  );
+  TestValidator.predicate(
+    "add tool description comes from the method JSDoc",
+    addTool!.description?.includes("Add two numbers") === true,
   );
 };
