@@ -61,11 +61,11 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 <!--
 ## Setup
 
-Install `typia@next` with the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
+Install `typia@rc` with the [`ttsc`](https://github.com/samchon/ttsc) toolchain.
 
 ```bash
 # install
-npm i typia@next
+npm i typia@rc
 npm i -D ttsc typescript@rc
 
 # build
