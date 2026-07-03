@@ -1,19 +1,22 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { IHttpLlmController, ILlmController } from "@typia/interface";
+import { ILlmController } from "@typia/interface";
 
 import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
 
 /**
- * Register MCP tools from controllers.
+ * Create an MCP server over a single typia controller.
  *
- * Registers TypeScript class methods via `typia.llm.controller<Class>()` or
- * OpenAPI operations via `HttpLlm.controller()` as MCP tools.
+ * Every method of the `controller`'s class becomes an MCP tool, with its input
+ * schema, `outputSchema` / `structuredContent`, and argument validation all
+ * reflected from the TypeScript types and JSDoc. No hand-written JSON schema.
+ * The controller's `name` becomes the server name, and the class JSDoc
+ * (`application.description`) becomes the MCP handshake instructions.
  *
- * Every tool call is validated by typia. If LLM provides invalid arguments,
- * returns {@link IValidation.IFailure} formatted by {@link LlmJson.stringify} so
- * that LLM can correct them automatically. Below is an example of the
- * validation error format:
+ * Every tool call is validated by typia. If the LLM provides invalid arguments,
+ * it receives an {@link IValidation.IFailure} formatted by
+ * {@link LlmJson.stringify} so it can correct them automatically — the exact
+ * feedback loop the MCP spec recommends for model self-correction. Below is an
+ * example of the validation error format:
  *
  * ```json
  * {
@@ -24,44 +27,37 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  * }
  * ```
  *
- * If you use `McpServer.registerTool()` instead, you have to define Zod schema,
- * function name, and description string manually for each tool. Also, without
- * typia's validation feedback, LLM cannot auto-correct its mistakes, which
- * significantly degrades tool calling performance.
+ * The caller connects the returned server to a transport:
  *
- * @param props Registration properties
+ * ```typescript
+ * import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+ * import { createMcpServer } from "@typia/mcp";
+ * import typia from "typia";
+ *
+ * const server = createMcpServer(
+ *   typia.llm.controller<BbsService>("bbs", new BbsService()),
+ * );
+ * await server.connect(new StdioServerTransport());
+ * ```
+ *
+ * @template Class Executor class type of the controller
+ * @param controller Controller from `typia.llm.controller<Class>()`
+ * @param version Server version for the MCP handshake
+ * @returns McpServer ready to connect to a transport
  */
-export function registerMcpControllers(props: {
-  /**
-   * Target MCP server to register tools.
-   *
-   * Both {@link McpServer} and raw {@link Server} are supported. To combine with
-   * `McpServer.registerTool()`, set `preserve: true`.
-   */
-  server: McpServer | Server;
-
-  /**
-   * List of controllers to register as MCP tools.
-   *
-   * - {@link ILlmController}: from `typia.llm.controller<Class>()`, registers all
-   *   methods of the class as tools
-   * - {@link IHttpLlmController}: from `HttpLlm.controller()`, registers all
-   *   operations from OpenAPI document as tools
-   */
-  controllers: Array<ILlmController | IHttpLlmController>;
-
-  /**
-   * Preserve existing tools registered via `McpServer.registerTool()`.
-   *
-   * If `true`, typia tools coexist with existing McpServer tools. This uses MCP
-   * SDK's internal (private) API which may break on SDK updates.
-   *
-   * If `false`, typia tools completely replace the tool handlers, ignoring any
-   * tools registered via `McpServer.registerTool()`.
-   *
-   * @default false
-   */
-  preserve?: boolean | undefined;
-}): void {
-  return McpControllerRegistrar.register(props);
+export function createMcpServer<Class extends object = any>(
+  controller: ILlmController<Class>,
+  version: string = "1.0.0",
+): McpServer {
+  const instructions: string | undefined =
+    controller.application.description?.trim() || undefined;
+  const server: McpServer = new McpServer(
+    { name: controller.name, version },
+    {
+      capabilities: { tools: {} },
+      ...(instructions !== undefined ? { instructions } : {}),
+    },
+  );
+  McpControllerRegistrar.register(server.server, controller);
+  return server;
 }

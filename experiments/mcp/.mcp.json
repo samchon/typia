@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "calc": {
+      "command": "node",
+      "args": ["lib/server.js"]
+    }
+  }
+}

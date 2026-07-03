@@ -12,31 +12,24 @@ import { IHttpResponse } from "./IHttpResponse";
  * {@link connection} to the API server.
  *
  * You can create this controller with {@link HttpLlm.controller} function, and
- * register it to MCP server with {@link registerMcpControllers}:
+ * feed it to an LLM framework adapter such as `@typia/langchain` or
+ * `@typia/vercel`:
  *
  * ```typescript
- * import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
- * import { registerMcpControllers } from "@typia/mcp";
  * import { HttpLlm } from "@typia/utils";
+ * import { toVercelTools } from "@typia/vercel";
  *
- * const server = new McpServer({ name: "my-server", version: "1.0.0" });
- * registerMcpControllers({
- *   server,
- *   controllers: [
- *     HttpLlm.controller({
- *       name: "shopping",
- *       document: await fetch(
- *         "https://shopping-be.wrtn.io/editor/swagger.json",
- *       ).then((r) => r.json()),
- *       connection: {
- *         host: "https://shopping-be.wrtn.io",
- *         headers: {
- *           Authorization: "Bearer ********",
- *         },
- *       },
- *     }),
- *   ],
+ * const controller = HttpLlm.controller({
+ *   name: "shopping",
+ *   document: await fetch(
+ *     "https://shopping-be.wrtn.io/editor/swagger.json",
+ *   ).then((r) => r.json()),
+ *   connection: {
+ *     host: "https://shopping-be.wrtn.io",
+ *     headers: { Authorization: "Bearer ********" },
+ *   },
  * });
+ * const tools = toVercelTools({ controllers: [controller] });
  * ```
  *
  * For TypeScript class-based controller, use {@link ILlmController} instead.
