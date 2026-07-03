@@ -14,7 +14,7 @@
 
 `createMcpServer` turns a single typia controller into an MCP server. Every tool's input schema, output schema, and argument validation derives from the TypeScript types and JSDoc — no hand-written JSON schema or Zod shape anywhere. Every tool call is coerced and validated by typia, and validation failures go back to the model as self-correction feedback, exactly the loop the MCP spec recommends.
 
-- **Tools**: every class method or OpenAPI operation, with `inputSchema`, `outputSchema`, and `structuredContent` reflected from the types
+- **Tools**: every class method, with `inputSchema`, `outputSchema`, and `structuredContent` reflected from the types
 - **Instructions**: the reflected class/interface JSDoc, shipped through the handshake
 - **Zero extra dependencies**: nothing at runtime beyond what `typia` already installs, plus the MCP SDK as a peer
 
