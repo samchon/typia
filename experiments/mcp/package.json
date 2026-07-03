@@ -1,0 +1,21 @@
+{
+  "name": "typia-mcp-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "ttsc",
+    "start": "node lib/server.js",
+    "test": "node lib/test.js"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@types/node": "^22.20.0",
+    "@typia/interface": "file:../tarballs/interface.tgz",
+    "@typia/mcp": "file:../tarballs/mcp.tgz",
+    "@typia/utils": "file:../tarballs/utils.tgz",
+    "ttsc": "^0.16.0",
+    "typescript": "7.0.1-rc",
+    "typia": "file:../tarballs/typia.tgz"
+  }
+}
