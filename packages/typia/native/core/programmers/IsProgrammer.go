@@ -54,11 +54,11 @@ type IsProgrammer_WriteFunctionStatementsProps struct {
   Context    nativecontext.ITypiaContext
   Functor    *nativehelpers.FunctionProgrammer
   Collection *nativemetadata.MetadataCollection
-  // Prefix overrides the is-helper namespace ("" => the default "_i"). Used by
-  // plain.classify's VALIDATED union construction, which emits its OWN is-check
-  // helpers under "_yi" so the construction ladder references them by the
-  // classify collection's index — disjoint from the assert/validate side's "_i"
-  // (whose helpers come from a SEPARATE collection that may reorder/dedup).
+  // Prefix overrides the is-helper namespace ("" => the default "_i"). Use it
+  // when a caller emits branch-selection helpers from its own metadata
+  // collection, disjoint from an outer assert/validate/is collection that may
+  // reorder or deduplicate helper indexes. For example, plain.classify uses
+  // "_yi" and validated json.stringify uses "_si".
   Prefix string
 }
 
@@ -69,9 +69,9 @@ type IsProgrammer_DecodeProps struct {
   Input    *shimast.Expression
   Explore  nativeinternal.CheckerProgrammer_IExplore
   // Prefix overrides the is-helper namespace ("" => the default "_i"). See
-  // IsProgrammer_WriteFunctionStatementsProps.Prefix — the classify validated
-  // union ladder passes "_yi" so its _yio<i>/_yiu<i> references line up with the
-  // helpers its own Addition emits, not the assert side's _io<i>.
+  // IsProgrammer_WriteFunctionStatementsProps.Prefix; callers must pass the
+  // same prefix to Decode and Write_function_statements so helper references
+  // line up with the helpers emitted from the caller's own collection.
   Prefix string
 }
 
@@ -82,9 +82,8 @@ type IsProgrammer_DecodeObjectProps struct {
   Input   *shimast.Expression
   Explore nativeinternal.FeatureProgrammer_IExplore
   // Prefix overrides the is-helper namespace ("" => the default "_i"). See
-  // IsProgrammer_DecodeProps.Prefix — plain.classify's VALIDATED path passes
-  // "_yi" so a NESTED object discrimination references _yio<i> emitted by its own
-  // classify collection, not the assert side's reordered/deduped _io<i>.
+  // IsProgrammer_DecodeProps.Prefix; nested object discriminations must use the
+  // same caller-owned helper namespace as the surrounding union ladder.
   Prefix string
 }
 
