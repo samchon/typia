@@ -3,7 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { Tool } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
-import { registerMcpControllers } from "@typia/mcp";
+import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -14,17 +14,7 @@ export const test_mcp_class_controller_standalone = async (): Promise<void> => {
     typia.llm.controller<Calculator>("calculator", new Calculator());
 
   // 2. Create McpServer with tools capability
-  const mcpServer: McpServer = new McpServer(
-    { name: "test-server", version: "1.0.0" },
-    { capabilities: { tools: {} } },
-  );
-
-  // 3. Register with preserve: false (standalone)
-  registerMcpControllers({
-    server: mcpServer,
-    controllers: [controller],
-    preserve: false,
-  });
+  const mcpServer: McpServer = createMcpServer(controller);
 
   // 4. Verify private API is NOT touched
   const registeredTools: Record<string, unknown> =

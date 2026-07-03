@@ -3,7 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController, IValidation } from "@typia/interface";
-import { registerMcpControllers } from "@typia/mcp";
+import { createMcpServer } from "@typia/mcp";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -15,24 +15,7 @@ export const test_mcp_class_controller_validation = async (): Promise<void> => {
     typia.llm.controller<Calculator>("calculator", new Calculator());
 
   // 2. Create McpServer with tools capability
-  const mcpServer: McpServer = new McpServer(
-    {
-      name: "test-server",
-      version: "1.0.0",
-    },
-    {
-      capabilities: {
-        tools: {},
-      },
-    },
-  );
-
-  // 3. Register controller
-  registerMcpControllers({
-    server: mcpServer,
-    controllers: [controller],
-    preserve: false,
-  });
+  const mcpServer: McpServer = createMcpServer(controller);
 
   // 4. Get tools/call handler
   const rawServer: Server = mcpServer.server;
