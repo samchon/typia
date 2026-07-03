@@ -28,7 +28,7 @@ namespace HttpLlm {
 }
 ```
 
-`HttpLlm` lives in `@typia/utils`. Install it alongside the framework adapter you want to wire it into (MCP, Vercel, LangChain).
+`HttpLlm` lives in `@typia/utils`. Install it alongside the framework adapter you want to wire it into (Vercel, LangChain).
 
 ## First example
 
@@ -252,7 +252,7 @@ Both run the same type-coercion logic; `parse` adds the lenient JSON layer in fr
 
 ### Validation feedback
 
-When validation fails inside a framework adapter (MCP / Vercel / LangChain), the tool returns annotated error JSON the LLM can read:
+When validation fails inside a framework adapter (Vercel / LangChain), the tool returns annotated error JSON the LLM can read:
 
 ```json
 {
@@ -295,6 +295,6 @@ For the full mechanics of `parse`, `coerce`, `validate`, and `stringify`, see [`
 ## Where to go next
 
 - TypeScript class as the source instead of OpenAPI → [`typia.llm.application`](/docs/llm/application)
-- Framework adapters → [Vercel](/docs/utilization/vercel) · [LangChain](/docs/utilization/langchain) · [MCP](/docs/utilization/mcp)
+- Framework adapters → [Vercel](/docs/utilization/vercel) · [LangChain](/docs/utilization/langchain)
 - Harness internals → [`LlmJson`](/docs/llm/json)
 - Building a chatbot on top → [Agentica](/docs/llm/chat)

@@ -20,7 +20,7 @@ export function createMcpServer<Class extends object = any>(
 ): McpServer;
 ```
 
-Pass a [`typia.llm.controller<Class>()`](/docs/llm/application). The controller's `name` becomes the server name, and its class JSDoc becomes the handshake instructions — the class _is_ the server. The returned server connects to any MCP transport:
+The class you would hand to [`typia.llm.application<Class>()`](/docs/llm/application) _is_ your server: its methods become the tools, and its class JSDoc becomes the handshake instructions. You pass it through [`typia.llm.controller<Class>(name, instance)`](/docs/llm/application#framework-adapters) — the same reflected application bound to a live instance so the server can execute the calls — where `name` becomes the server name. The returned server connects to any MCP transport:
 
 ```typescript filename="src/main.ts" showLineNumbers {1-3, 6-9}
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -115,7 +115,7 @@ For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJso
 
 ## Instructions
 
-MCP `instructions` tell the client's LLM how to use the server. `typia.llm.controller` reflects the class or interface JSDoc onto `ILlmApplication.description`, and `createMcpServer` ships that reflected description as the handshake instructions — write the usage contract once, as documentation on the class, and it reaches the client automatically. Because the controller is constructed by the caller, the executor can defer expensive work until the first tool call while the handshake and instructions answer immediately:
+MCP `instructions` tell the client's LLM how to use the server, and they come straight from your class's JSDoc. [`typia.llm.application`](/docs/llm/application#application-description) reflects the doc comment written on the class (or interface) onto [`ILlmApplication.description`](/docs/llm/application#application-description), and `createMcpServer` ships that verbatim as the handshake `instructions` — write the usage contract once, as documentation on the class, and it reaches the client automatically. Because the controller is constructed by the caller, the executor can also defer expensive work until the first tool call while the handshake and instructions answer immediately:
 
 <LocalSource
   path="tests/test-mcp/src/features/test_mcp_create_server_lazy_controller.ts"
