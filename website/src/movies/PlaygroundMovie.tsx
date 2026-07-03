@@ -5,10 +5,21 @@ import {
   createSandboxRequire,
   loadTypiaRuntimePack,
 } from "@ttsc/playground";
+import { useEffect } from "react";
 
 import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
 
 const TYPIA_RUNTIME_PACK_URL = "/compiler/typia-runtime-pack.json";
+
+// Nextra's docs Search binds a global "/" hotkey (a window-level, bubbling
+// keydown listener) that focuses the search box whenever the active element is
+// not an editable field. On the playground that steals "/" the moment focus
+// sits on a non-editable pane — the console, the option toggles, the shell
+// chrome — instead of the Monaco textarea, so a "/" meant for the editor jumps
+// the caret up into the navbar search. The tag set below mirrors Nextra's own
+// guard so genuine text inputs (including the Monaco editor's textarea) keep
+// receiving "/".
+const EDITABLE_TAGS = new Set(["INPUT", "SELECT", "BUTTON", "TEXTAREA"]);
 
 /**
  * In-browser typia playground.
@@ -28,6 +39,28 @@ const TYPIA_RUNTIME_PACK_URL = "/compiler/typia-runtime-pack.json";
  *   the `executeBundle` doc below), capturing its `console.*` calls.
  */
 export default function PlaygroundMovie() {
+  // Suppress Nextra's "/" search-focus hotkey while the playground is mounted.
+  // Listening in the capture phase means the event is stopped before it can
+  // bubble up to Nextra's window-level handler; the activeElement guard lets
+  // "/" through untouched whenever an editable element (the Monaco editor, an
+  // input, ...) is focused, so only the stray "/" over non-editable panes is
+  // swallowed. The listener is torn down on unmount, so search's "/" hotkey
+  // keeps working on every other docs page.
+  useEffect(() => {
+    const suppressSearchHotkey = (event: KeyboardEvent) => {
+      if (event.key !== "/") return;
+      const el = document.activeElement;
+      if (
+        el &&
+        (EDITABLE_TAGS.has(el.tagName) || (el as HTMLElement).isContentEditable)
+      )
+        return;
+      event.stopPropagation();
+    };
+    window.addEventListener("keydown", suppressSearchHotkey, true);
+    return () =>
+      window.removeEventListener("keydown", suppressSearchHotkey, true);
+  }, []);
   return (
     <PlaygroundShell
       workerUrl="/compiler/index.js"
