@@ -20,7 +20,7 @@ export function createMcpServer<Class extends object = any>(
 ): McpServer;
 ```
 
-The class you would hand to [`typia.llm.application<Class>()`](/docs/llm/application) _is_ your server: its methods become the tools, and its class JSDoc becomes the handshake instructions. You pass it through [`typia.llm.controller<Class>(name, instance)`](/docs/llm/application#framework-adapters) — the same reflected application bound to a live instance so the server can execute the calls — where `name` becomes the server name. The returned server connects to any MCP transport:
+The class you would hand to [`typia.llm.application<Class>()`](/docs/llm/application) _is_ your server. Its methods become the tools, each method's JSDoc becomes that tool's description, and — the part most people miss — the JSDoc written on the class (or interface) itself becomes the server's handshake [instructions](#server-instructions). You pass the class through [`typia.llm.controller<Class>(name, instance)`](/docs/llm/application#framework-adapters) — the same reflected application bound to a live instance so the server can execute the calls — where `name` becomes the server name. The returned server connects to any MCP transport:
 
 ```typescript filename="src/main.ts" showLineNumbers {1-3, 6-9}
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -89,18 +89,55 @@ const server = createMcpServer(
 **Method type rules.** Every method's parameter type must be a keyworded object with static keys (no primitives, arrays, or unions). The return type must be a single object type or `void`. See [`typia.llm.application` restrictions](/docs/llm/application#restrictions) for the full list.
 </Callout>
 
+## Server instructions
+
+MCP `instructions` tell the client's LLM what the server is for and how to drive it. With `@typia/mcp` you do not write them separately — **the JSDoc comment on the controller class (or interface) is the instructions.** [`typia.llm.application`](/docs/llm/application#application-description) reflects that doc comment onto [`ILlmApplication.description`](/docs/llm/application#application-description), and `createMcpServer` ships it verbatim as the handshake `instructions`. Write the usage contract once, as documentation on the type, and it reaches every connected client automatically.
+
+So the comment above `class BbsArticleService` is not a comment for human readers — it is the agent's operating manual. Give it the sections an agent needs: what the server manages, which tool to reach for, and the rules it must not break.
+
+```typescript filename="BbsArticleService.ts" showLineNumbers {1-18}
+/**
+ * Bulletin board article service.
+ *
+ * Manage the articles of a bulletin board — list them, write new ones, edit an
+ * existing one, or remove it. Every article is identified by its UUID `id`.
+ *
+ * ## Which tool to call
+ * - Browsing, or "show me the articles" → `index`
+ * - Writing or posting a new article → `create`
+ * - Editing an existing article → `update` (only the supplied fields change)
+ * - Deleting an article → `erase`
+ *
+ * ## Rules
+ * - Never call `update` or `erase` without a concrete `id`; confirm the target
+ *   article with the user first.
+ * - Leave `thumbnail` as `null` unless the user supplies an image URL.
+ */
+export class BbsArticleService {
+  public index(): IBbsArticle.IPage;
+  public create(props: { input: IBbsArticle.ICreate }): IBbsArticle;
+  public update(props: { id: string; input: IBbsArticle.IUpdate }): void;
+  public erase(props: { id: string }): void;
+}
+```
+
+Because the description covers the whole toolset, agent frameworks surface it as a system-level instruction rather than a per-tool hint. The controller is constructed by the caller, so the executor can defer expensive work until the first tool call while the handshake and instructions still answer immediately — a large project never stalls the connection just to describe itself.
+
+For a production example of instructions written entirely as interface JSDoc, see [`@ttsc/graph`](https://github.com/samchon/ttsc)'s [`ITtscGraphApplication`](https://github.com/samchon/ttsc/blob/master/packages/graph/src/structures/ITtscGraphApplication.ts): the interface-level comment carries the server's entire usage contract — what the tool returns, when to stop calling it, how to read its result — and that block becomes the MCP handshake `instructions` with no separate configuration.
+
 ### Structured output
 
-When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` alongside the JSON text fallback — MCP's structured tool output, for free, by construction:
+When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` alongside the JSON text fallback — MCP's structured tool output, for free, by construction. A `Calculator.add(props): { value: number }` tool therefore lists
 
-<LocalSource
-  path="tests/test-mcp/src/features/test_mcp_tool_output_schema.ts"
-  filename="test_mcp_tool_output_schema.ts"
-  showLineNumbers />
+```json
+{ "type": "object", "properties": { "value": { "type": "number" } }, "required": ["value"] }
+```
 
-### The function calling harness
+as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` next to the plain-text block so clients that understand structured output get the typed object and the rest still see the text.
 
-Every tool call runs typia's lenient JSON parsing, type coercion, and validation — same as the underlying [`typia.llm.application`](/docs/llm/application). When validation fails, the tool returns the input annotated with `// ❌` markers as an in-band tool error, which the LLM reads and self-corrects from — the exact feedback loop the MCP spec recommends for input validation errors:
+## Instructions vs. runtime validation
+
+Every tool call runs typia's lenient JSON parsing, type coercion, and validation — the same harness as [`typia.llm.application`](/docs/llm/application). When validation fails, the tool returns the input annotated with `// ❌` markers as an in-band tool error, which the LLM reads and self-corrects from — the feedback loop the MCP spec recommends for input validation errors:
 
 ```json
 {
@@ -113,41 +150,14 @@ Every tool call runs typia's lenient JSON parsing, type coercion, and validation
 
 For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJson`](/docs/llm/json).
 
-## Instructions
-
-MCP `instructions` tell the client's LLM how to use the server, and they come straight from your class's JSDoc. [`typia.llm.application`](/docs/llm/application#application-description) reflects the doc comment written on the class (or interface) onto [`ILlmApplication.description`](/docs/llm/application#application-description), and `createMcpServer` ships that verbatim as the handshake `instructions` — write the usage contract once, as documentation on the class, and it reaches the client automatically. Because the controller is constructed by the caller, the executor can also defer expensive work until the first tool call while the handshake and instructions answer immediately:
-
-<LocalSource
-  path="tests/test-mcp/src/features/test_mcp_create_server_lazy_controller.ts"
-  filename="test_mcp_create_server_lazy_controller.ts"
-  showLineNumbers />
-
 ## Runtime errors
 
-There are two distinct failure modes when a tool is called:
+There are two distinct failure modes when a tool is called, and the server keeps the MCP conversation alive through both:
 
-- **Validation error** — the LLM passed arguments that don't match the schema. The tool returns `isError: true` with the annotated input (same `// ❌` markers as above) so the model can fix it.
-- **Runtime error** — the tool itself threw (e.g. divide-by-zero, network error, business-rule violation). The tool returns `isError: true` with the error name and message.
+- **Validation error** — the LLM passed arguments that don't match the schema. The tool returns `isError: true` with the annotated input (the same `// ❌` markers as above) so the model can fix it.
+- **Runtime error** — the tool itself threw (e.g. divide-by-zero, network failure, business-rule violation). The tool returns `isError: true` with the error name and message, instead of letting the exception propagate and crash the server.
 
-In both cases the MCP conversation stays alive — the model sees the failure and can either retry with different inputs or inform the user.
-
-<Tabs items={[
-    "Error handling test",
-    <code>Calculator</code>,
-  ]}>
-  <Tabs.Tab>
-    <LocalSource
-      path="tests/test-mcp/src/features/test_mcp_class_controller_error_handling.ts"
-      filename="test_mcp_class_controller_error_handling.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-  <Tabs.Tab>
-    <LocalSource
-      path="tests/test-mcp/src/structures/Calculator.ts"
-      filename="Calculator.ts"
-      showLineNumbers />
-  </Tabs.Tab>
-</Tabs>
+In both cases the model sees the failure and can either retry with different inputs or report back to the user, so a single bad call never tears down the session.
 
 ## Where to go next
 
