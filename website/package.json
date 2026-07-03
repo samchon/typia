@@ -13,7 +13,6 @@
     "build:pagefind": "pagefind --site .next/server/app --output-path out/_pagefind",
     "build:sitemap": "node build/sitemap",
     "build:tgz": "node build/tgz",
-    "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
     "dev": "npm run build:compiler && npm run build:examples && next dev"
   },
@@ -69,7 +68,6 @@
     "process": "^0.11.10",
     "rimraf": "^5.0.0",
     "ts-loader": "^9.5.1",
-    "typedoc": "^0.28.9",
     "typescript": "catalog:typescript",
     "write-file-webpack-plugin": "^4.5.1"
   }

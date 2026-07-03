@@ -21,10 +21,6 @@ export default {
     title: "🔗 Appendix",
   },
   utilization: "Utilization Cases",
-  api: {
-    title: "⇲ API Documents",
-    href: "/api",
-  },
   benchmark: {
     title: "⇲ Benchmark Result",
     href: "https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics",
