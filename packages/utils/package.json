@@ -1,6 +1,6 @@
 {
   "name": "@typia/utils",
-  "version": "13.0.0-dev.20260605.5",
+  "version": "13.0.0-dev.20260701.1",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
@@ -27,11 +27,11 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-esm-shim": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
-    "@typescript/native-preview": "catalog:typescript",
+    "typescript": "catalog:typescript",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
-    "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "tinyglobby": "^0.2.12",
     "ttsc": "catalog:typescript"

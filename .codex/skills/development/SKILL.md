@@ -70,7 +70,7 @@ Match the scope of the command to the scope of the change. Report any command yo
 - Touched one test workspace → `pnpm --filter ./tests/<name> start`.
 - Touched the transform, descriptors, or a shared package → `pnpm test`.
 - Touched packaging → `pnpm package:tgz` from `experiments/tarballs` (stages tarballs the website consumes) and try a clean install. Don't commit or hand-edit the staged tarballs.
-- Touched `website/src/content/docs/**` or anything else under `website/` → `cd website && npm install && npm run build` to validate MDX, nav, and tarball pickup.
+- Touched `website/src/content/docs/**` or anything else under `website/` → root `pnpm install`, then `pnpm run build` inside `website/` to validate MDX, nav, and tarball pickup. The website is a pnpm workspace member consuming `catalog:` versions, so a standalone `npm install` inside `website/` cannot resolve its dependencies.
 
 ## Change Integrity
 

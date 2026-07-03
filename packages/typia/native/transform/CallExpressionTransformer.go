@@ -10,12 +10,13 @@ import (
   nativefunctionalprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/functional"
   nativenotationprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/notations"
   nativefeatures "github.com/samchon/typia/packages/typia/native/transform/features"
+  nativecomparetransformers "github.com/samchon/typia/packages/typia/native/transform/features/compare"
   nativefunctionaltransformers "github.com/samchon/typia/packages/typia/native/transform/features/functional"
   nativehttptransformers "github.com/samchon/typia/packages/typia/native/transform/features/http"
   nativejsontransformers "github.com/samchon/typia/packages/typia/native/transform/features/json"
   nativellmtransformers "github.com/samchon/typia/packages/typia/native/transform/features/llm"
-  nativemisctransformers "github.com/samchon/typia/packages/typia/native/transform/features/misc"
   nativenotationtransformers "github.com/samchon/typia/packages/typia/native/transform/features/notations"
+  nativeplaintransformers "github.com/samchon/typia/packages/typia/native/transform/features/plain"
   nativeprotobuftransformers "github.com/samchon/typia/packages/typia/native/transform/features/protobuf"
   nativereflecttransformers "github.com/samchon/typia/packages/typia/native/transform/features/reflect"
 )
@@ -59,10 +60,10 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
     return props.Expression.AsNode()
   }
   location, _ := filepath.Abs(sourceFile.FileName())
-  if callExpressionTransformer_isTarget(location) == false {
+  module, ok := callExpressionTransformer_targetModule(location)
+  if ok == false {
     return props.Expression.AsNode()
   }
-  module := strings.Split(filepath.Base(location), ".")[0]
   typ := props.Context.Checker.GetTypeAtLocation(declaration)
   if typ == nil || typ.Symbol() == nil {
     return props.Expression.AsNode()
@@ -103,14 +104,15 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
   return result
 }
 
-func callExpressionTransformer_isTarget(location string) bool {
+func callExpressionTransformer_targetModule(location string) (string, bool) {
+  location = filepath.ToSlash(location)
   for file := range callExpressionTransformer_FUNCTORS() {
-    if strings.Contains(location, filepath.Join("typia", "lib", file+".d.ts")) ||
-      strings.Contains(location, filepath.Join("typia", "src", file+".ts")) {
-      return true
+    if strings.HasSuffix(location, "/typia/lib/"+file+".d.ts") ||
+      strings.HasSuffix(location, "/typia/src/"+file+".ts") {
+      return file, true
     }
   }
-  return false
+  return "", false
 }
 
 func callExpressionTransformer_sourceFile(node *shimast.Node) *shimast.SourceFile {
@@ -140,6 +142,9 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       },
       "is": func() callExpressionTransformerTask {
         return nativefeatures.IsTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
+      },
+      "shallow": func() callExpressionTransformerTask {
+        return nativefeatures.ShallowTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
       },
       "validate": func() callExpressionTransformerTask {
         return nativefeatures.ValidateTransformer.Transform(nativeprogrammers.ValidateProgrammer_IConfig{Equals: false})
@@ -171,6 +176,9 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       },
       "createIs": func() callExpressionTransformerTask {
         return nativefeatures.CreateIsTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
+      },
+      "createShallow": func() callExpressionTransformerTask {
+        return nativefeatures.CreateShallowTransformer.Transform(nativeprogrammers.IsProgrammer_IConfig{Equals: false})
       },
       "createValidate": func() callExpressionTransformerTask {
         return nativefeatures.CreateValidateTransformer.Transform(nativeprogrammers.ValidateProgrammer_IConfig{Equals: false, StandardSchema: true})
@@ -387,48 +395,88 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       "schemas": func() callExpressionTransformerTask {
         return nativereflecttransformers.ReflectSchemasTransformer.Transform
       },
+      "literals": func() callExpressionTransformerTask {
+        return nativereflecttransformers.ReflectLiteralsTransformer.Transform
+      },
     },
-    "misc": {
-      "literals": func() callExpressionTransformerTask { return nativemisctransformers.MiscLiteralsTransformer.Transform },
-      "clone":    func() callExpressionTransformerTask { return nativemisctransformers.MiscCloneTransformer.Transform },
+    "compare": {
+      "equals": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareEqualTransformer.Transform
+      },
+      "cover": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCoverTransformer.Transform
+      },
+      "less": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareLessTransformer.Transform
+      },
+      "createEquals": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCreateEqualTransformer.Transform
+      },
+      "createCover": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCreateCoverTransformer.Transform
+      },
+      "createLess": func() callExpressionTransformerTask {
+        return nativecomparetransformers.CompareCreateLessTransformer.Transform
+      },
+    },
+    "plain": {
+      "clone": func() callExpressionTransformerTask { return nativeplaintransformers.PlainCloneTransformer.Transform },
       "assertClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscAssertCloneTransformer.Transform
+        return nativeplaintransformers.PlainAssertCloneTransformer.Transform
       },
-      "isClone": func() callExpressionTransformerTask { return nativemisctransformers.MiscIsCloneTransformer.Transform },
+      "isClone": func() callExpressionTransformerTask { return nativeplaintransformers.PlainIsCloneTransformer.Transform },
       "validateClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscValidateCloneTransformer.Transform
+        return nativeplaintransformers.PlainValidateCloneTransformer.Transform
       },
-      "prune": func() callExpressionTransformerTask { return nativemisctransformers.MiscPruneTransformer.Transform },
+      "prune": func() callExpressionTransformerTask { return nativeplaintransformers.PlainPruneTransformer.Transform },
       "assertPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscAssertPruneTransformer.Transform
+        return nativeplaintransformers.PlainAssertPruneTransformer.Transform
       },
-      "isPrune": func() callExpressionTransformerTask { return nativemisctransformers.MiscIsPruneTransformer.Transform },
+      "isPrune": func() callExpressionTransformerTask { return nativeplaintransformers.PlainIsPruneTransformer.Transform },
       "validatePrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscValidatePruneTransformer.Transform
+        return nativeplaintransformers.PlainValidatePruneTransformer.Transform
       },
       "createClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateCloneTransformer.Transform
       },
       "createAssertClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateAssertCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateAssertCloneTransformer.Transform
       },
       "createIsClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateIsCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateIsCloneTransformer.Transform
       },
       "createValidateClone": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateValidateCloneTransformer.Transform
+        return nativeplaintransformers.PlainCreateValidateCloneTransformer.Transform
       },
       "createPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreatePruneTransformer.Transform
+        return nativeplaintransformers.PlainCreatePruneTransformer.Transform
       },
       "createAssertPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateAssertPruneTransformer.Transform
+        return nativeplaintransformers.PlainCreateAssertPruneTransformer.Transform
       },
       "createIsPrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateIsPruneTransformer.Transform
+        return nativeplaintransformers.PlainCreateIsPruneTransformer.Transform
       },
       "createValidatePrune": func() callExpressionTransformerTask {
-        return nativemisctransformers.MiscCreateValidatePruneTransformer.Transform
+        return nativeplaintransformers.PlainCreateValidatePruneTransformer.Transform
+      },
+      "classify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainClassifyTransformer.Transform
+      },
+      "assertClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainAssertClassifyTransformer.Transform
+      },
+      "validateClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainValidateClassifyTransformer.Transform
+      },
+      "createClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateClassifyTransformer.Transform
+      },
+      "createAssertClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateAssertClassifyTransformer.Transform
+      },
+      "createValidateClassify": func() callExpressionTransformerTask {
+        return nativeplaintransformers.PlainCreateValidateClassifyTransformer.Transform
       },
     },
     "notations": callExpressionTransformer_notations(),
@@ -507,6 +555,7 @@ func callExpressionTransformer_notations() map[string]callExpressionTransformerF
   camel := nativenotationprogrammers.NotationGeneralProgrammer_Camel
   pascal := nativenotationprogrammers.NotationGeneralProgrammer_Pascal
   snake := nativenotationprogrammers.NotationGeneralProgrammer_Snake
+  kebab := nativenotationprogrammers.NotationGeneralProgrammer_Kebab
   return map[string]callExpressionTransformerFunctor{
     "camel": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationGeneralTransformer.Transform(camel)
@@ -544,6 +593,18 @@ func callExpressionTransformer_notations() map[string]callExpressionTransformerF
     "validateSnake": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationValidateGeneralTransformer.Transform(snake)
     },
+    "kebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationGeneralTransformer.Transform(kebab)
+    },
+    "assertKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationAssertGeneralTransformer.Transform(kebab)
+    },
+    "isKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationIsGeneralTransformer.Transform(kebab)
+    },
+    "validateKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationValidateGeneralTransformer.Transform(kebab)
+    },
     "createCamel": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationCreateGeneralTransformer.Transform(camel)
     },
@@ -579,6 +640,18 @@ func callExpressionTransformer_notations() map[string]callExpressionTransformerF
     },
     "createValidateSnake": func() callExpressionTransformerTask {
       return nativenotationtransformers.NotationCreateValidateGeneralTransformer.Transform(snake)
+    },
+    "createKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateGeneralTransformer.Transform(kebab)
+    },
+    "createAssertKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateAssertGeneralTransformer.Transform(kebab)
+    },
+    "createIsKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateIsGeneralTransformer.Transform(kebab)
+    },
+    "createValidateKebab": func() callExpressionTransformerTask {
+      return nativenotationtransformers.NotationCreateValidateGeneralTransformer.Transform(kebab)
     },
   }
 }

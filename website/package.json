@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/website",
-  "version": "13.0.0-dev.20260605.1",
+  "version": "13.0.0-dev.20260701.1",
   "description": "Typia Guide Documents",
   "scripts": {
     "build": "npm run build:prepare && next build && npm run build:finalize",
@@ -63,7 +63,7 @@
     "@types/node": "^18.11.10",
     "@types/prettier": "^3.0.0",
     "@types/react": "^18.0.35",
-    "@typescript/native-preview": "7.0.0-dev.20260429.1",
+    "typescript": "catalog:typescript",
     "gh-pages": "^5.0.0",
     "next-sitemap": "^4.2.3",
     "pagefind": "^1.3.0",

@@ -72,8 +72,8 @@ func runTransform(args []string) int {
   pluginOptions := readTypiaPluginOptions(cwd, *tsconfigPath)
   transformOptions := pluginOptions.TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
-    AddDiagnostic: func(diag *shimast.Diagnostic) int {
-      transformDiags = append(transformDiags, typiaTransformDiagnostic{Message: "typia transform error"})
+    AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
+      transformDiags = append(transformDiags, typiaTransformDiagnosticFrom(diag))
       return len(transformDiags)
     },
   }

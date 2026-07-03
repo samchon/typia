@@ -116,6 +116,7 @@ func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
 
   if len(props.Metadata.Templates) != 0 {
     conditions = append(conditions, check_dynamic_key_atomist(Check_template(Check_templateProps{
+      Context:   props.Context,
       Templates: props.Metadata.Templates,
       Input:     props.Input,
     }), props.Context.Emit))

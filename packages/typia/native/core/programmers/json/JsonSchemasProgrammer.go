@@ -32,17 +32,8 @@ func (jsonSchemasProgrammerNamespace) Validate(props struct {
   Explore  nativefactories.MetadataFactory_IExplore
 }) []string {
   output := []string{}
-  for _, atomic := range props.Metadata.Atomics {
-    if atomic.Type == "bigint" {
-      output = append(output, "JSON schema does not support bigint type.")
-      break
-    }
-  }
-  for _, constant := range props.Metadata.Constants {
-    if constant.Type == "bigint" {
-      output = append(output, "JSON schema does not support bigint type.")
-      break
-    }
+  if nativemetadata.MetadataSchema_hasBigint(props.Metadata) {
+    output = append(output, "JSON schema does not support bigint type.")
   }
   tupleInvalid := false
   for _, tuple := range props.Metadata.Tuples {
@@ -73,6 +64,9 @@ func (jsonSchemasProgrammerNamespace) Validate(props struct {
     output = append(output, "JSON schema does not support Set type.")
   }
   for _, native := range props.Metadata.Natives {
+    if native.Name == "BigInt" {
+      continue
+    }
     if nativehelpers.AtomicPredicator.Native(native.Name) == false &&
       native.Name != "Date" &&
       native.Name != "Blob" &&
@@ -135,7 +129,7 @@ func jsonSchemasProgrammer_writeV3_1(metadataList []*nativemetadata.MetadataSche
     if schema == nil {
       panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
         Code:    "typia.json.schemas",
-        Message: fmt.Sprintf("invalid type on argument - (%s, %d)", meta.GetName(), i),
+        Message: fmt.Sprintf("invalid type on argument - (%s, %d)", meta.GetDisplayName(), i),
       }))
     }
     schemas = append(schemas, schema)

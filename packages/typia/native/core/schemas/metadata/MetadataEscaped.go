@@ -28,6 +28,10 @@ func (obj *MetadataEscaped) GetName() string {
   return obj.Returns.GetName()
 }
 
+func (obj *MetadataEscaped) GetDisplayName() string {
+  return obj.Returns.GetDisplayName()
+}
+
 func (obj *MetadataEscaped) ToJSON() IMetadataSchema_IEscaped {
   return IMetadataSchema_IEscaped{
     Original: obj.Original.ToJSON(),

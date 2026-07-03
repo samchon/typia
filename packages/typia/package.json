@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "13.0.0-dev.20260605.6",
+  "version": "13.0.0-dev.20260701.1",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "exports": {
@@ -42,17 +42,17 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "catalog:rollup",
+    "@rollup/plugin-esm-shim": "catalog:rollup",
     "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/inquirer": "^8.2.5",
     "@types/node": "catalog:utils",
-    "@typescript/native-preview": "catalog:typescript",
     "chalk": "^4.0.0",
     "rimraf": "catalog:utils",
     "rollup": "catalog:rollup",
-    "rollup-plugin-auto-external": "catalog:rollup",
     "rollup-plugin-node-externals": "catalog:rollup",
     "suppress-warnings": "^1.0.2",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "sideEffects": [
     "./lib/_virtual/*.mjs",

@@ -83,7 +83,13 @@ func check_numeric_type_tags(props check_numeric_type_tagsProps) [][]nativehelpe
   output := [][]nativehelpers.ICheckEntry_ICondition{}
   for _, row := range props.Atomic.Tags {
     tags := check_number_filter_validate(row)
-    if len(tags) == 0 {
+    excludes := []nativehelpers.ICheckEntry_ICondition{}
+    for _, tag := range row {
+      if condition := check_exclude_condition("number", tag, props.Input, props.Context.Emit); condition != nil {
+        excludes = append(excludes, *condition)
+      }
+    }
+    if len(tags) == 0 && len(excludes) == 0 {
       continue
     }
     conditions := []nativehelpers.ICheckEntry_ICondition{}
@@ -99,6 +105,7 @@ func check_numeric_type_tags(props check_numeric_type_tagsProps) [][]nativehelpe
         Expression: check_number_transpile(props.Context, tag.Validate)(props.Input),
       })
     }
+    conditions = append(conditions, excludes...)
     output = append(output, conditions)
   }
   return output
@@ -107,7 +114,11 @@ func check_numeric_type_tags(props check_numeric_type_tagsProps) [][]nativehelpe
 func check_numeric_type_tags_covers_addition(row []nativemetadata.IMetadataTypeTag) bool {
   if check_number_some(row, func(tag nativemetadata.IMetadataTypeTag) bool {
     return tag.Kind == "type" &&
-      (tag.Value == "int32" ||
+      (tag.Value == "int8" ||
+        tag.Value == "uint8" ||
+        tag.Value == "int16" ||
+        tag.Value == "uint16" ||
+        tag.Value == "int32" ||
         tag.Value == "uint32" ||
         tag.Value == "int64" ||
         tag.Value == "uint64" ||

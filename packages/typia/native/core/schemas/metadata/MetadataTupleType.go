@@ -9,12 +9,13 @@ type IMetadataSchema_ITupleType struct {
 }
 
 type MetadataTupleType struct {
-  Name      string
-  Elements  []*MetadataSchema
-  Index     *int
-  Recursive bool
-  Nullables []bool
-  Of_map    *bool
+  Name        string
+  DisplayName string
+  Elements    []*MetadataSchema
+  Index       *int
+  Recursive   bool
+  Nullables   []bool
+  Of_map      *bool
 }
 
 func MetadataTupleType__From_without_elements(props IMetadataSchema_ITupleType) *MetadataTupleType {
@@ -29,13 +30,24 @@ func MetadataTupleType__From_without_elements(props IMetadataSchema_ITupleType) 
 
 func MetadataTupleType_create(props MetadataTupleType) *MetadataTupleType {
   return &MetadataTupleType{
-    Name:      props.Name,
-    Elements:  props.Elements,
-    Index:     props.Index,
-    Recursive: props.Recursive,
-    Nullables: append([]bool{}, props.Nullables...),
-    Of_map:    props.Of_map,
+    Name:        props.Name,
+    DisplayName: props.DisplayName,
+    Elements:    props.Elements,
+    Index:       props.Index,
+    Recursive:   props.Recursive,
+    Nullables:   append([]bool{}, props.Nullables...),
+    Of_map:      props.Of_map,
   }
+}
+
+// GetDisplayName returns the human-facing rendering of the type: the
+// structural form for anonymous (inline) types, the identifier name otherwise.
+// Identity-sensitive logic (function keys, deduplication) must keep using Name.
+func (obj *MetadataTupleType) GetDisplayName() string {
+  if obj.DisplayName != "" {
+    return obj.DisplayName
+  }
+  return obj.Name
 }
 
 func (obj *MetadataTupleType) IsRest() bool {

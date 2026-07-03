@@ -36,7 +36,7 @@ func Decode_union_object(props Decode_union_objectProps) *shimast.Node {
   names := make([]string, 0, len(props.Objects))
   for _, object := range props.Objects {
     obj := object
-    names = append(names, obj.Name)
+    names = append(names, obj.GetDisplayName())
     unions = append(unions, decode_union_object_IUnion{
       Type: "object",
       Is: func() *shimast.Node {

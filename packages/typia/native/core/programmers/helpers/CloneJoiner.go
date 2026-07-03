@@ -65,7 +65,7 @@ func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node 
     if entry.OptionalProperty {
       properties = append(properties, f.NewSpreadAssignment(
         f.NewParenthesizedExpression(nativefactories.ExpressionFactory.Conditional(
-          nativefactories.ExpressionFactory.IsRequired(entry.Input, props.Emit),
+          cloneJoiner_optional_condition(entry, props.Input, props.Emit),
           f.NewObjectLiteralExpression(f.NewNodeList([]*shimast.Node{property}), false),
           f.NewObjectLiteralExpression(f.NewNodeList(nil), false),
           props.Emit,
@@ -145,6 +145,30 @@ func (cloneJoinerNamespace) Object(props CloneJoiner_ObjectProps) *shimast.Node 
       f.NewReturnStatement(output),
     }),
     false,
+  )
+}
+
+func cloneJoiner_optional_condition(entry IExpressionEntry, input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+  if entry.StrictOptionalUndefined {
+    return nativefactories.ExpressionFactory.IsRequired(entry.Input, emit...)
+  }
+  key := entry.Key.GetSoleLiteral()
+  if key == nil {
+    return nativefactories.ExpressionFactory.IsRequired(entry.Input, emit...)
+  }
+  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, emit...)
+  return f.NewBinaryExpression(
+    nil,
+    nativefactories.ExpressionFactory.IsRequired(entry.Input, emit...),
+    nil,
+    f.NewToken(shimast.KindBarBarToken),
+    f.NewBinaryExpression(
+      nil,
+      f.NewStringLiteral(*key, shimast.TokenFlagsNone),
+      nil,
+      f.NewToken(shimast.KindInKeyword),
+      input,
+    ),
   )
 }
 

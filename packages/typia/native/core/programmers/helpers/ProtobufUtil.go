@@ -36,19 +36,8 @@ func (protobufUtilNamespace) Size(meta *nativemetadata.MetadataSchema) int {
 
 func (protobufUtilNamespace) GetSequence(tags []nativemetadata.IMetadataTypeTag) *int {
   for _, tag := range tags {
-    if tag.Kind != "sequence" {
-      continue
-    }
-    schema, ok := tag.Schema.(map[string]any)
-    if ok == false {
-      continue
-    }
-    value, ok := schema["x-protobuf-sequence"]
-    if ok == false {
-      continue
-    }
-    if parsed, ok := protobufUtil_toInt(value); ok {
-      return &parsed
+    if sequence := nativemetadata.IMetadataTypeTag_getSequence(tag); sequence != nil {
+      return sequence
     }
   }
   return nil
@@ -212,7 +201,7 @@ func protobufUtil_decode_bigint(output map[string]*int, tags [][]nativemetadata.
     return
   }
   for _, row := range tags {
-    value := "int64"
+    value := defaultType
     for _, tag := range row {
       if tag.Kind == "type" && (tag.Value == "int64" || tag.Value == "uint64") {
         value = fmt.Sprint(tag.Value)
@@ -229,43 +218,17 @@ func protobufUtil_decode_number(output map[string]*int, tags [][]nativemetadata.
     return
   }
   for _, row := range tags {
-    value := "double"
+    value := defaultType
     for _, tag := range row {
       if tag.Kind == "type" {
-        str := fmt.Sprint(tag.Value)
-        if str == "int32" || str == "uint32" || str == "int64" || str == "uint64" || str == "float" || str == "double" {
+        str := protobufUtil_normalize_number_type(fmt.Sprint(tag.Value))
+        if str != "" {
           value = str
           break
         }
       }
     }
     output[value] = ProtobufUtil.GetSequence(row)
-  }
-}
-
-func protobufUtil_toInt(value any) (int, bool) {
-  switch v := value.(type) {
-  case int:
-    return v, true
-  case int32:
-    return int(v), true
-  case int64:
-    return int(v), true
-  case uint:
-    return int(v), true
-  case uint32:
-    return int(v), true
-  case uint64:
-    return int(v), true
-  case float64:
-    return int(v), true
-  case float32:
-    return int(v), true
-  case string:
-    parsed, err := strconv.Atoi(v)
-    return parsed, err == nil
-  default:
-    return 0, false
   }
 }
 
@@ -293,5 +256,18 @@ func protobufUtil_toFloat(value any) float64 {
   default:
     parsed, _ := strconv.ParseFloat(fmt.Sprint(value), 64)
     return parsed
+  }
+}
+
+func protobufUtil_normalize_number_type(value string) string {
+  switch value {
+  case "int8", "int16":
+    return "int32"
+  case "uint8", "uint16":
+    return "uint32"
+  case "int32", "uint32", "int64", "uint64", "float", "double":
+    return value
+  default:
+    return ""
   }
 }

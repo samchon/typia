@@ -67,7 +67,7 @@ JSON can't represent everything TypeScript can. `Primitive<T>` is the projection
 | `bigint` | `never` |
 | `class Foo { … }` | the plain object form |
 
-The error from `Primitive<T>` collapsing to `never` is the type system telling you: *this field cannot survive JSON parsing.* Choose a JSON-representable type, or use [`typia.protobuf`](/docs/protobuf/encode) for binary data, or [`typia.misc.clone`](/docs/misc) when you don't actually need JSON.
+The error from `Primitive<T>` collapsing to `never` is the type system telling you: *this field cannot survive JSON parsing.* Choose a JSON-representable type, or use [`typia.protobuf`](/docs/protobuf/encode) for binary data, or [`typia.plain.clone`](/docs/misc) when you don't actually need JSON.
 
 For example:
 

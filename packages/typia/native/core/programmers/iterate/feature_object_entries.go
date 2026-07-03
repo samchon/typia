@@ -25,6 +25,8 @@ type Feature_object_entriesConfig struct {
 
 type Feature_object_entriesDecoderProps struct {
   Metadata *nativemetadata.MetadataSchema
+  Property *nativemetadata.MetadataProperty
+  Key      *string
   Input    *shimast.Expression
   Explore  Feature_object_entriesExplore
 }
@@ -70,6 +72,8 @@ func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.I
       Expression: props.Config.Decoder(Feature_object_entriesDecoderProps{
         Input:    propInput,
         Metadata: metadata,
+        Property: next,
+        Key:      sole,
         Explore: Feature_object_entriesExplore{
           Tracable: props.Config.Path || props.Config.Trace,
           Source:   "function",

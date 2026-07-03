@@ -11,6 +11,7 @@
  * - {@link camel}: Convert to camelCase (`fooBar`)
  * - {@link pascal}: Convert to PascalCase (`FooBar`)
  * - {@link snake}: Convert to snake_case (`foo_bar`)
+ * - {@link kebab}: Convert to kebab-case (`foo-bar`)
  * - {@link variable}: Test if string is valid JavaScript variable name
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -86,7 +87,7 @@ export namespace NamingConvention {
       if (now - prev === 1) indexes.splice(i, 1);
     }
     if (indexes.length !== 0 && indexes[0] === 0) indexes.splice(0, 1);
-    if (indexes.length === 0) return str.toLowerCase();
+    if (indexes.length === 0) return out(str.toLowerCase());
 
     let ret: string = "";
     for (let i: number = 0; i < indexes.length; i++) {
@@ -98,6 +99,25 @@ export namespace NamingConvention {
     }
     ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
     return out(ret);
+  }
+
+  /**
+   * Convert to kebab-case.
+   *
+   * Derives the snake_case form first and then rewrites the word separators to
+   * hyphens, keeping any leading underscores untouched.
+   *
+   * @param str Input string
+   * @returns Kebab-case string
+   */
+  export function kebab(str: string): string {
+    const snaked: string = snake(str);
+    let prefix: string = "";
+    for (let i: number = 0; i < snaked.length; i++) {
+      if (snaked[i] === "_") prefix += "_";
+      else break;
+    }
+    return prefix + snaked.substring(prefix.length).split("_").join("-");
   }
 
   /**

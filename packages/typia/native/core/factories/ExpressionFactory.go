@@ -42,8 +42,8 @@ type ExpressionFactory_Importer interface {
   Default(props ExpressionFactory_IDefault) *shimast.Node
 }
 
-// 이 import 인자 타입들의 단일 정의처는 ImportProgrammer가 사는 core/context다.
-// 여기서는 alias만 둔다.
+// ImportProgrammer owns these import argument shapes in core/context. This
+// package only aliases them so expression helpers do not duplicate the contract.
 type ExpressionFactory_IDefault = nativecontext.ImportProgrammer_IDefault
 type ExpressionFactory_IInstance = nativecontext.ImportProgrammer_IInstance
 type ExpressionFactory_INamespace = nativecontext.ImportProgrammer_INamespace
@@ -251,8 +251,12 @@ func (expressionFactoryNamespace) GetEscapedText(props ExpressionFactory_GetEsca
 
 func (expressionFactoryNamespace) Transpile(props ExpressionFactory_TranspileProps, emit ...*shimprinter.EmitContext) func(input *shimast.Expression) *shimast.Node {
   f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
+  fileName := filepath.Join(os.TempDir(), expressionFactory_random_format_uuid()+".ts")
+  if absolute, err := filepath.Abs(fileName); err == nil {
+    fileName = absolute
+  }
   file := shimparser.ParseSourceFile(
-    shimast.SourceFileParseOptions{FileName: filepath.Join(os.TempDir(), expressionFactory_random_format_uuid()+".ts")},
+    shimast.SourceFileParseOptions{FileName: filepath.ToSlash(fileName)},
     props.Script,
     shimcore.ScriptKindTS,
   )

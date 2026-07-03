@@ -1,6 +1,6 @@
 {
   "name": "@typia/interface",
-  "version": "13.0.0-dev.20260605.4",
+  "version": "13.0.0-dev.20260701.1",
   "description": "Superfast runtime validators with only one line",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@typescript/native-preview": "catalog:typescript",
+    "typescript": "catalog:typescript",
     "rimraf": "catalog:utils",
     "ttsc": "catalog:typescript"
   },

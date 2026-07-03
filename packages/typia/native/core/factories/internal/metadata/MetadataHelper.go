@@ -98,6 +98,17 @@ func metadata_type_symbol_name(checker *nativechecker.Checker, typ *nativechecke
   return name + "<" + strings.Join(names, ", ") + ">"
 }
 
+func metadata_type_symbol_base_name(typ *nativechecker.Type) string {
+  if typ == nil {
+    return ""
+  }
+  symbol := typ.Symbol()
+  if symbol == nil {
+    return ""
+  }
+  return metadata_symbol_name(symbol)
+}
+
 func metadata_symbol_name(symbol *nativeast.Symbol) string {
   if symbol == nil || len(symbol.Declarations) == 0 || symbol.Declarations[0].Parent == nil {
     return "__type"
@@ -232,6 +243,53 @@ func metadata_node_description(symbol *nativeast.Symbol) *string {
     }
   }
   return nil
+}
+
+// metadata_node_type_description / metadata_node_type_js_doc_tags read the JSDoc
+// of a TYPE-level symbol (an interface, class, or `type` alias), skipping symbols
+// declared in a TypeScript default library file. Standard-library type aliases
+// carry their own JSDoc (e.g. `NonNullable`'s "Exclude null and undefined from
+// T", `Record`'s "Construct a type ...") and, since the type-name symbol of an
+// instantiation such as `NonNullable<...>` resolves to that library declaration,
+// an unfiltered read would leak the library comment into the user's schema. A
+// property's own comment is unaffected — it is read from the property symbol,
+// which is declared in user code.
+func metadata_node_type_description(symbol *nativeast.Symbol) *string {
+  if metadata_symbol_from_default_lib(symbol) {
+    return nil
+  }
+  return metadata_node_description(symbol)
+}
+
+func metadata_node_type_js_doc_tags(symbol *nativeast.Symbol) []schemametadata.IJsDocTagInfo {
+  if metadata_symbol_from_default_lib(symbol) {
+    return []schemametadata.IJsDocTagInfo{}
+  }
+  return metadata_node_js_doc_tags(symbol)
+}
+
+// metadata_symbol_from_default_lib reports whether the symbol's first locatable
+// declaration lives in a TypeScript default library file. Default library files
+// are always named `lib.<target>.d.ts` regardless of the install directory, so
+// the base name alone is a stable signal.
+func metadata_symbol_from_default_lib(symbol *nativeast.Symbol) bool {
+  for _, node := range metadata_node_declarations(symbol) {
+    src := nativeast.GetSourceFileOfNode(node)
+    if src == nil {
+      continue
+    }
+    return metadata_is_default_lib_file_name(src.FileName())
+  }
+  return false
+}
+
+func metadata_is_default_lib_file_name(fileName string) bool {
+  slash := strings.ReplaceAll(fileName, "\\", "/")
+  base := slash
+  if idx := strings.LastIndex(slash, "/"); idx >= 0 {
+    base = slash[idx+1:]
+  }
+  return strings.HasPrefix(base, "lib.") && strings.HasSuffix(base, ".d.ts")
 }
 
 func metadata_is_internal(symbol *nativeast.Symbol) bool {

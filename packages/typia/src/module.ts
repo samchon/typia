@@ -9,11 +9,12 @@ import {
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+export * as compare from "./compare";
 export * as functional from "./functional";
 export * as http from "./http";
 export * as llm from "./llm";
 export * as json from "./json";
-export * as misc from "./misc";
+export * as plain from "./plain";
 export * as notations from "./notations";
 export * as protobuf from "./protobuf";
 export * as reflect from "./reflect";
@@ -194,6 +195,73 @@ export function is<T>(input: unknown): input is T;
 /** @internal */
 export function is(): never {
   NoTransformConfigurationError("is");
+}
+
+/**
+ * Tests type `T` up to a limited depth.
+ *
+ * Like {@link is}, but only descends into nested objects, arrays, and tuples
+ * until the depth budget `N` is exhausted; beyond that point a value is
+ * accepted as long as it is an `object` (or `null` where the type permits).
+ * Useful for **discrimination** rather than full validation — when you only
+ * need to know which branch of a union an input belongs to, paying for a deep
+ * structural check of every leaf is wasteful.
+ *
+ * Because the check is shallow past depth `N`, a `true` result is **not** a
+ * guarantee that the whole value conforms to `T`. The name `shallow` reflects
+ * this: only the discriminating, near-surface part of the type is verified. For
+ * a full guarantee, use {@link is}.
+ *
+ * Related functions:
+ *
+ * - {@link is} — Full-depth check, returns a sound type guard
+ * - {@link assert} — Throws {@link TypeGuardError} with detailed error info on
+ *   mismatch
+ * - {@link validate} — Returns all errors without throwing
+ *
+ * @template T Target type to check
+ * @template N Maximum depth to descend before accepting a value structurally.
+ *   Must be a non-negative integer literal. Defaults to `2`.
+ * @param input Value to test
+ * @returns `true` if valid up to depth `N`, `false` otherwise (type predicate
+ *   `input is T`)
+ */
+export function shallow<T, N extends number = 2>(input: T): input is T;
+
+/**
+ * Tests type `T` up to a limited depth.
+ *
+ * Like {@link is}, but only descends into nested objects, arrays, and tuples
+ * until the depth budget `N` is exhausted; beyond that point a value is
+ * accepted as long as it is an `object` (or `null` where the type permits).
+ * Useful for **discrimination** rather than full validation — when you only
+ * need to know which branch of a union an input belongs to, paying for a deep
+ * structural check of every leaf is wasteful.
+ *
+ * Because the check is shallow past depth `N`, a `true` result is **not** a
+ * guarantee that the whole value conforms to `T`. The name `shallow` reflects
+ * this: only the discriminating, near-surface part of the type is verified. For
+ * a full guarantee, use {@link is}.
+ *
+ * Related functions:
+ *
+ * - {@link is} — Full-depth check, returns a sound type guard
+ * - {@link assert} — Throws {@link TypeGuardError} with detailed error info on
+ *   mismatch
+ * - {@link validate} — Returns all errors without throwing
+ *
+ * @template T Target type to check
+ * @template N Maximum depth to descend before accepting a value structurally.
+ *   Must be a non-negative integer literal. Defaults to `2`.
+ * @param input Value to test
+ * @returns `true` if valid up to depth `N`, `false` otherwise (type predicate
+ *   `input is T`)
+ */
+export function shallow<T, N extends number = 2>(input: unknown): input is T;
+
+/** @internal */
+export function shallow(): never {
+  NoTransformConfigurationError("shallow");
 }
 
 /**
@@ -602,6 +670,40 @@ export function createIs<T>(): (input: unknown) => input is T;
 /** @internal */
 export function createIs<T>(): (input: unknown) => input is T {
   NoTransformConfigurationError("createIs");
+}
+
+/**
+ * Creates reusable {@link shallow} function.
+ *
+ * Returns a depth-limited type guard function that can be called multiple times
+ * without recompilation.
+ *
+ * @template T Target type to check
+ * @template N Maximum depth to descend before accepting a value structurally.
+ *   Must be a non-negative integer literal. Defaults to `2`.
+ * @returns Reusable type guard function `(input: unknown) => input is T`
+ * @danger You must configure the generic argument `T`
+ */
+export function createShallow(): never;
+
+/**
+ * Creates reusable {@link shallow} function.
+ *
+ * Returns a depth-limited type guard function that can be called multiple times
+ * without recompilation.
+ *
+ * @template T Target type to check
+ * @template N Maximum depth to descend before accepting a value structurally.
+ *   Must be a non-negative integer literal. Defaults to `2`.
+ * @returns Reusable type guard function `(input: unknown) => input is T`
+ */
+export function createShallow<T, N extends number = 2>(): (
+  input: unknown,
+) => input is T;
+
+/** @internal */
+export function createShallow<T>(): (input: unknown) => input is T {
+  NoTransformConfigurationError("createShallow");
 }
 
 /**

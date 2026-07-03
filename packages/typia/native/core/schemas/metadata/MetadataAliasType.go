@@ -11,6 +11,7 @@ type IMetadataSchema_IAliasType struct {
 
 type MetadataAliasType struct {
   Name        string
+  DisplayName string
   Value       *MetadataSchema
   Description *string
   JsDocTags   []IJsDocTagInfo
@@ -21,6 +22,7 @@ type MetadataAliasType struct {
 func MetadataAliasType_create(props MetadataAliasType) *MetadataAliasType {
   return &MetadataAliasType{
     Name:        props.Name,
+    DisplayName: props.DisplayName,
     Value:       props.Value,
     Description: props.Description,
     JsDocTags:   append([]IJsDocTagInfo{}, props.JsDocTags...),
@@ -38,6 +40,16 @@ func MetadataAliasType__From_without_value(props IMetadataSchema_IAliasType) *Me
     JsDocTags:   append([]IJsDocTagInfo{}, props.JsDocTags...),
     Nullables:   append([]bool{}, props.Nullables...),
   })
+}
+
+// GetDisplayName returns the human-facing rendering of the type: the
+// structural form for anonymous (inline) types, the identifier name otherwise.
+// Identity-sensitive logic (function keys, deduplication) must keep using Name.
+func (obj *MetadataAliasType) GetDisplayName() string {
+  if obj.DisplayName != "" {
+    return obj.DisplayName
+  }
+  return obj.Name
 }
 
 func (obj *MetadataAliasType) ToJSON() IMetadataSchema_IAliasType {

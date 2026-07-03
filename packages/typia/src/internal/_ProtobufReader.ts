@@ -27,7 +27,7 @@ export class _ProtobufReader {
   }
 
   public uint32(): number {
-    return this.varint32();
+    return this.varint32() >>> 0;
   }
 
   public int32(): number {

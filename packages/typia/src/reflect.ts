@@ -1,4 +1,5 @@
 import {
+  Atomic,
   IMetadataSchemaCollection,
   IMetadataSchemaUnit,
 } from "@typia/interface";
@@ -72,4 +73,26 @@ export function name<T, Regular extends boolean = false>(): string;
 /** @internal */
 export function name(): never {
   NoTransformConfigurationError("reflect.name");
+}
+
+/**
+ * Converts union literal type to array.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function literals(): never;
+
+/**
+ * Converts union literal type to array.
+ *
+ * Extracts all members of a union literal type `T` into an array at runtime.
+ *
+ * @template T Union literal type (e.g., `"A" | "B" | 1`)
+ * @returns Array containing all union members
+ */
+export function literals<T extends Atomic.Type | null>(): T[];
+
+/** @internal */
+export function literals(): never {
+  NoTransformConfigurationError("reflect.literals");
 }

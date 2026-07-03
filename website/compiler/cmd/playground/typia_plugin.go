@@ -31,6 +31,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
+  shimscanner "github.com/microsoft/typescript-go/shim/scanner"
 
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
@@ -322,8 +323,8 @@ func newTypiaTransform(
 ) driver.PluginTransform {
   transformOptions := readTypiaPluginOptions(cwd, tsconfigPath).TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
-    AddDiagnostic: func(diag *shimast.Diagnostic) int {
-      *sink = append(*sink, typiaPlaygroundDiag{Message: "typia transform error"})
+    AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
+      *sink = append(*sink, typiaPlaygroundDiagFrom(diag))
       return len(*sink)
     },
   }
@@ -390,15 +391,44 @@ type typiaPlaygroundDiag struct {
   Message string
 }
 
+func typiaPlaygroundDiagFrom(diag *nativecontext.ITypiaDiagnostic) typiaPlaygroundDiag {
+  out := typiaPlaygroundDiag{Message: "typia transform error"}
+  if diag == nil {
+    return out
+  }
+  if diag.Code != "" {
+    out.Code = diag.Code
+  }
+  if diag.Message != "" {
+    out.Message = diag.Message
+  }
+  if diag.File != nil {
+    out.File = diag.File.FileName()
+    if diag.Start != nil && *diag.Start >= 0 {
+      line, column := shimscanner.GetECMALineAndByteOffsetOfPosition(diag.File, *diag.Start)
+      out.Line = line + 1
+      out.Column = column + 1
+    }
+  }
+  return out
+}
+
 func (d typiaPlaygroundDiag) String(cwd string) string {
+  code := d.Code
+  if code == "" {
+    code = "typia"
+  }
+  if d.File == "" {
+    return fmt.Sprintf("error TS(%s): %s", code, d.Message)
+  }
   file := d.File
   if rel, err := filepath.Rel(cwd, file); err == nil {
     file = rel
   }
   if d.Line > 0 {
-    return fmt.Sprintf("%s:%d:%d - error TS(%s): %s", file, d.Line, d.Column, d.Code, d.Message)
+    return fmt.Sprintf("%s:%d:%d - error TS(%s): %s", file, d.Line, d.Column, code, d.Message)
   }
-  return fmt.Sprintf("%s - error TS(%s): %s", file, d.Code, d.Message)
+  return fmt.Sprintf("%s - error TS(%s): %s", file, code, d.Message)
 }
 
 func writeTypiaPlaygroundDiagnostics(diagnostics []typiaPlaygroundDiag, cwd string) {
@@ -435,6 +465,15 @@ func readTypiaPluginOptions(cwd, tsconfigPath string) typiaadapter.PluginOptions
     Functional: regexp.MustCompile(`(?s)"functional"\s*:\s*true`).MatchString(text),
     Numeric:    regexp.MustCompile(`(?s)"numeric"\s*:\s*true`).MatchString(text),
     Finite:     regexp.MustCompile(`(?s)"finite"\s*:\s*true`).MatchString(text),
-    Undefined:  regexp.MustCompile(`(?s)"undefined"\s*:\s*true`).MatchString(text),
+    Undefined:  readBooleanTypiaPluginOption(text, "undefined"),
   }
+}
+
+func readBooleanTypiaPluginOption(text string, name string) *bool {
+  matched := regexp.MustCompile(`(?s)"` + regexp.QuoteMeta(name) + `"\s*:\s*(true|false)`).FindStringSubmatch(text)
+  if matched == nil {
+    return nil
+  }
+  value := matched[1] == "true"
+  return &value
 }

@@ -108,29 +108,34 @@ func jsonStringifyProgrammer_write_array_functions(props struct {
         nil,
         nil,
         f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         })),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        jsonStringifyProgrammer_decode_array_inline(jsonStringifyProgrammer_decodeArrayProps{
-          Context: props.Context,
-          Config:  props.Config,
-          Functor: props.Functor,
-          Input:   f.NewIdentifier("input"),
-          Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
-            Type: typ,
-            Tags: [][]schemametadata.IMetadataTypeTag{},
+        nativeinternal.FeatureProgrammer.VisitGuardSerialize(
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i),
+          jsonStringifyProgrammer_circular_thrower(props.Context, props.Functor),
+          jsonStringifyProgrammer_decode_array_inline(jsonStringifyProgrammer_decodeArrayProps{
+            Context: props.Context,
+            Config:  props.Config,
+            Functor: props.Functor,
+            Input:   f.NewIdentifier("input"),
+            Array: schemametadata.MetadataArray_create(schemametadata.MetadataArray{
+              Type: typ,
+              Tags: [][]schemametadata.IMetadataTypeTag{},
+            }),
+            Explore: nativeinternal.FeatureProgrammer_IExplore{
+              Tracable: props.Config.Trace,
+              Source:   "function",
+              From:     "array",
+              Postfix:  "",
+            },
           }),
-          Explore: nativeinternal.FeatureProgrammer_IExplore{
-            Tracable: props.Config.Trace,
-            Source:   "function",
-            From:     "array",
-            Postfix:  "",
-          },
-        }),
+          props.Context.Emit,
+        ),
       ),
     }, props.Context.Emit))
   }
@@ -156,22 +161,27 @@ func jsonStringifyProgrammer_write_tuple_functions(props struct {
         nil,
         nil,
         f.NewNodeList(nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         })),
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        jsonStringifyProgrammer_decode_tuple_inline(jsonStringifyProgrammer_decodeTupleInlineProps{
-          Context:   props.Context,
-          Config:    props.Config,
-          Functor:   props.Functor,
-          Input:     f.NewIdentifier("input"),
-          Tuple:     tuple,
-          Explore:   nativeinternal.FeatureProgrammer_IExplore{Tracable: props.Config.Trace, Source: "function", From: "array", Postfix: ""},
-          Validated: props.Validated,
-        }),
+        nativeinternal.FeatureProgrammer.VisitGuardSerialize(
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i),
+          jsonStringifyProgrammer_circular_thrower(props.Context, props.Functor),
+          jsonStringifyProgrammer_decode_tuple_inline(jsonStringifyProgrammer_decodeTupleInlineProps{
+            Context:   props.Context,
+            Config:    props.Config,
+            Functor:   props.Functor,
+            Input:     f.NewIdentifier("input"),
+            Tuple:     tuple,
+            Explore:   nativeinternal.FeatureProgrammer_IExplore{Tracable: props.Config.Trace, Source: "function", From: "array", Postfix: ""},
+            Validated: props.Validated,
+          }),
+          props.Context.Emit,
+        ),
       ),
     }, props.Context.Emit))
   }
@@ -315,7 +325,7 @@ func jsonStringifyProgrammer_decode(props struct {
 
   for _, constant := range props.Metadata.Constants {
     constant := constant
-    if nativehelpers.AtomicPredicator.Constant(struct {
+    if nativehelpers.AtomicPredicator.RuntimeConstant(struct {
       Metadata *schemametadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: constant.Type}) == false {
@@ -387,7 +397,7 @@ func jsonStringifyProgrammer_decode(props struct {
 
   for _, atomic := range props.Metadata.Atomics {
     atomic := atomic
-    if nativehelpers.AtomicPredicator.Atomic(struct {
+    if nativehelpers.AtomicPredicator.RuntimeAtomic(struct {
       Metadata *schemametadata.MetadataSchema
       Name     string
     }{Metadata: props.Metadata, Name: atomic.Type}) {
@@ -608,7 +618,7 @@ func jsonStringifyProgrammer_decode(props struct {
         Context:  props.Context,
         Functor:  props.Functor,
         Input:    props.Input,
-        Expected: props.Metadata.GetName(),
+        Expected: props.Metadata.GetDisplayName(),
         Unions:   unions,
       }),
     ),
@@ -626,7 +636,7 @@ func jsonStringifyProgrammer_decode_object(props struct {
   Explore nativeinternal.FeatureProgrammer_IExplore
 }) *shimast.Node {
   return nativeinternal.FeatureProgrammer.Decode_object(nativeinternal.FeatureProgrammer_DecodeObjectProps{
-    Config:  nativeinternal.FeatureProgrammer_DecodeObjectConfig{Trace: false, Path: false, Prefix: jsonStringifyProgrammer_PREFIX},
+    Config:  nativeinternal.FeatureProgrammer_DecodeObjectConfig{Trace: false, Path: false, Prefix: jsonStringifyProgrammer_PREFIX, Visited: props.Functor.Visited()},
     Functor: props.Functor,
     Object:  props.Object,
     Input:   props.Input,
@@ -655,7 +665,7 @@ func jsonStringifyProgrammer_decode_array(props jsonStringifyProgrammer_decodeAr
       nil,
       nil,
       f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Input:   props.Input,
         Explore: jsonStringifyProgrammer_explore_with(props.Explore, "function", "array"),
       })),
@@ -712,7 +722,7 @@ func jsonStringifyProgrammer_decode_tuple(props jsonStringifyProgrammer_decodeTu
       nil,
       nil,
       f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+        Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
         Explore: jsonStringifyProgrammer_explore_with(props.Explore, "function", props.Explore.From),
         Input:   props.Input,
       })),
@@ -950,7 +960,7 @@ func jsonStringifyProgrammer_explore_objects(props jsonStringifyProgrammer_explo
     nil,
     nil,
     f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
       Input:   props.Input,
       Explore: props.Explore,
     })),
@@ -1067,7 +1077,7 @@ func jsonStringifyProgrammer_explore_array_like_union_types[T interface {
         Input      *shimast.Node
       }{
         Parameters: nativeinternal.FeatureProgrammer.ParameterDeclarations(nativeinternal.FeatureProgrammer_ParameterDeclarationsProps{
-          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+          Config: nativeinternal.FeatureProgrammer_ParameterConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
           Type:   nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
           Input:  f.NewIdentifier("input"),
         }),
@@ -1078,7 +1088,7 @@ func jsonStringifyProgrammer_explore_array_like_union_types[T interface {
     nil,
     nil,
     f.NewNodeList(nativeinternal.FeatureProgrammer.ArgumentsArray(nativeinternal.FeatureProgrammer_ArgumentsArrayProps{
-      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace},
+      Config:  nativeinternal.FeatureProgrammer_ArgumentsArrayConfig{Path: props.Config.Path, Trace: props.Config.Trace, Visited: props.Functor.Visited()},
       Explore: arrayExplore,
       Input:   props.Input,
     })),
@@ -1199,6 +1209,15 @@ func jsonStringifyProgrammer_configure(props struct {
     Trace:       false,
     Path:        false,
     Initializer: jsonStringifyProgrammer_initializer,
+    Visited:     props.Functor.Visited,
+    VisitGuard: func(next nativeinternal.FeatureProgrammer_VisitGuardProps) *shimast.Node {
+      return nativeinternal.FeatureProgrammer.VisitGuardSerialize(
+        next.Key,
+        jsonStringifyProgrammer_circular_thrower(props.Context, props.Functor),
+        next.Body,
+        props.Context.Emit,
+      )
+    },
     Decoder: func(next nativeinternal.FeatureProgrammer_DecoderProps) *shimast.Node {
       return jsonStringifyProgrammer_decode(struct {
         Context   nativecontext.ITypiaContext
@@ -1315,10 +1334,37 @@ func jsonStringifyProgrammer_initializer(props nativeinternal.FeatureProgrammer_
     Checker: props.Context.Checker,
     Type:    props.Type,
   })
+  if nativeinternal.FeatureProgrammer.CollectionRecursive(result.Collection) {
+    props.Functor.SetVisited(true)
+  }
   return nativeinternal.FeatureProgrammer_InitializerOutput{
     Collection: result.Collection,
     Metadata:   result.Metadata,
   }
+}
+
+// jsonStringifyProgrammer_circular_thrower raises the cycle error used by the
+// on-stack visit guard: JSON cannot represent circular references, so meeting
+// a value again while it is still being serialized must fail fast instead of
+// overflowing the stack.
+func jsonStringifyProgrammer_circular_thrower(context nativecontext.ITypiaContext, functor *nativehelpers.FunctionProgrammer) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(jsonStringifyProgrammer_factory, context.Emit)
+  return f.NewCallExpression(
+    jsonStringifyProgrammer_internal(context, "throwTypeGuardError"),
+    nil,
+    f.NewNodeList(nil),
+    f.NewNodeList([]*shimast.Node{
+      f.NewObjectLiteralExpression(
+        f.NewNodeList([]*shimast.Node{
+          f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("method", context.Emit), nil, nil, f.NewStringLiteral(functor.Method, shimast.TokenFlagsNone)),
+          f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("expected", context.Emit), nil, nil, f.NewStringLiteral("non-circular reference", shimast.TokenFlagsNone)),
+          f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("value", context.Emit), nil, nil, f.NewIdentifier("input")),
+        }),
+        true,
+      ),
+    }),
+    shimast.NodeFlagsNone,
+  )
 }
 
 type jsonStringifyProgrammer_throwProps struct {

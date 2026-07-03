@@ -9,12 +9,16 @@ import LocalSource from '../../components/LocalSource';
 
 # Miscellaneous
 
-Three small modules that share the typia transform but don't fit anywhere else: `misc` (clone / prune / literals), `notations` (case conversion), and `http` (form data / query / headers / route parameters).
+Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `compare` (structural equality / ordering), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
 
-## `misc.clone`
+## `plain`
+
+Plain-data operations that reshape a value to its declared type `T`: `clone` deep-copies it, `prune` strips properties that aren't on `T`, and `classify` rebuilds a class instance from plain data. Each wraps the operation with the same `assert` / `validate` family and `create*` factories as the validators (`clone` and `prune` also add an `is` variant).
+
+### `plain.clone`
 
 ```typescript copy filename="signatures"
-namespace misc {
+namespace plain {
   function clone<T>(input: T): Resolved<T>;
   function assertClone<T>(input: unknown): Resolved<T>;  // + assert
   function isClone<T>(input: unknown): Resolved<T> | null;  // + is
@@ -25,24 +29,24 @@ namespace misc {
 Same family pattern as the validators — `clone` trusts you, the others wrap the copy with type checking.
 
 ```typescript copy
-const copy = typia.misc.clone<User>(user);
+const copy = typia.plain.clone<User>(user);
 
 // Type-safe variants
-const maybe = typia.misc.isClone<User>(input);        // null if `input` isn't a User
-const result = typia.misc.validateClone<User>(input); // IValidation<User>
-const checked = typia.misc.assertClone<User>(input);  // throws if invalid
+const maybe = typia.plain.isClone<User>(input);        // null if `input` isn't a User
+const result = typia.plain.validateClone<User>(input); // IValidation<User>
+const checked = typia.plain.assertClone<User>(input);  // throws if invalid
 ```
 
 The pairing rule is the same as elsewhere:
 
-- `misc.isClone<T>` = [`is<T>`](/docs/validators/is) + `clone<T>`
-- `misc.assertClone<T>` = [`assert<T>`](/docs/validators/assert) + `clone<T>`
-- `misc.validateClone<T>` = [`validate<T>`](/docs/validators/validate) + `clone<T>`
+- `plain.isClone<T>` = [`is<T>`](/docs/validators/is) + `clone<T>`
+- `plain.assertClone<T>` = [`assert<T>`](/docs/validators/assert) + `clone<T>`
+- `plain.validateClone<T>` = [`validate<T>`](/docs/validators/validate) + `clone<T>`
 
 <Tabs items={[<code>typia</code>, <code>TypeGuardError.ts</code>, <code>IValidation.ts</code>, <code>Resolved.ts</code>]}>
   <Tabs.Tab>
 ```typescript
-export namespace misc {
+export namespace plain {
   export function clone<T>(input: T): Resolved<T>;
   export function assertClone<T>(input: T | unknown): Resolved<T>;
   export function isClone<T>(input: T | unknown): Resolved<T> | null;
@@ -79,22 +83,22 @@ export namespace misc {
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
-      path="examples/src/misc/assertClone.ts"
-      filename="examples/src/misc/assertClone.ts"
+      path="examples/src/plain/assertClone.ts"
+      filename="examples/src/plain/assertClone.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/bin/misc/assertClone.js"
-      filename="examples/bin/misc/assertClone.js"
+      path="examples/bin/plain/assertClone.js"
+      filename="examples/bin/plain/assertClone.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `misc.prune`
+### `plain.prune`
 
 ```typescript copy filename="signatures"
-namespace misc {
+namespace plain {
   function prune<T>(input: T): void;                          // mutates input
   function assertPrune<T>(input: unknown): T;                 // + assert, then mutates
   function isPrune<T>(input: unknown): input is T;            // + is; prunes & returns true on match, false (no mutation) on mismatch
@@ -106,20 +110,20 @@ namespace misc {
 
 > [!CAUTION]
 >
-> If you need a non-mutating version, clone first: `typia.misc.prune<T>(typia.misc.clone<T>(value))`.
+> If you need a non-mutating version, clone first: `typia.plain.prune<T>(typia.plain.clone<T>(value))`.
 
 ```typescript copy
-typia.misc.prune<User>(input);
+typia.plain.prune<User>(input);
 // input is now narrowed in place — extra properties removed.
 
-const cleaned = typia.misc.assertPrune<User>(input);
+const cleaned = typia.plain.assertPrune<User>(input);
 // Same, but throws if input doesn't match User. Returns input.
 
-if (typia.misc.isPrune<User>(input)) {
+if (typia.plain.isPrune<User>(input)) {
   // input is User and has been pruned. `input` is now typed as User.
 }
 
-const r = typia.misc.validatePrune<User>(input);
+const r = typia.plain.validatePrune<User>(input);
 // r.success === true means input was a User and is now pruned.
 ```
 
@@ -128,48 +132,193 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource
-      path="examples/src/misc/assertPrune.ts"
-      filename="examples/src/misc/assertPrune.ts"
+      path="examples/src/plain/assertPrune.ts"
+      filename="examples/src/plain/assertPrune.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/bin/misc/assertPrune.js"
-      filename="examples/bin/misc/assertPrune.js"
+      path="examples/bin/plain/assertPrune.js"
+      filename="examples/bin/plain/assertPrune.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-## `misc.literals`
+### `plain.classify`
 
-```typescript copy filename="signature"
-namespace misc {
-  function literals<T extends boolean | number | string | bigint | null>(): T[];
+```typescript copy filename="signatures"
+namespace plain {
+  function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
+  function assertClassify<T>(input: Classifiable<T>): ClassifyResult<T>;  // + assert
+  function validateClassify<T>(input: Classifiable<T>): IValidation<ClassifyResult<T>>;  // + validate
 }
 ```
 
-If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `misc.literals` reads the union from the TS type and emits the array.
+`classify` is the inverse of `clone`: it takes plain data — a `JSON.parse` result, a `structuredClone`, anything without a prototype — and reconstructs a real **class instance** of `T`, with its prototype and methods restored. It builds each class by one strategy, chosen by precedence: the static factory `T.from(seed)`, then the single-argument `new T(seed)`, then a field copy onto the prototype (`Object.create(T.prototype)` then assign — this calls no constructor, so it works on any class). Nested classes and containers are reconstructed recursively.
 
-Handy for select-box options, discriminated-union test matrices, etc.
+The type argument decides what you pass and which strategy runs. With an **instance** type, `classify<User>(plain)` takes the property shape and field-copies it onto `User.prototype` — the common "give me back a real `User`" case. With a **class** type, `classify<typeof Point>(seed)` runs `from` / `new`, so the input is the constructor seed (for a value object, e.g. an ISO string), and the result is still the instance. A union of class types is handled too: `classify<typeof Circle | typeof Square>` discriminates the input by seed shape — the first member whose seed it matches (in declaration order) is the one built — and a mixed `typeof Circle | number` constructs the class for an object seed while letting a primitive pass through unchanged.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+```typescript copy
+// JSON.parse drops the prototype; classify restores it
+const user = typia.plain.classify<User>(JSON.parse(text));
+user.greet(); // works — the method comes from User.prototype
+
+// the class-type form builds via the class's factory / constructor
+const point = typia.plain.classify<typeof Point>({ x: 1, y: 2 });
+
+// validated variants for untrusted input
+const checked = typia.plain.assertClassify<User>(input);  // throws if invalid
+const result = typia.plain.validateClassify<User>(input); // IValidation<User>
+```
+
+A few details of the class-type form follow the [`Classifiable<T>`](https://github.com/samchon/typia/blob/master/packages/interface/src/typings/Classifiable.ts) contract. A constructor or factory counts only when it takes a single meaningful argument: a first parameter that may be optional, with every later parameter optional or rest. A rest-only parameter `(...xs: S[])` takes the element `S` as its seed, not the array, and a rest **tuple** `(...xs: [P, Q?])` takes its first element `P`. A `from` is a factory only when it returns the instance, so a divergent factory like `Temporal.PlainDate.from(isoString)` is honored while a helper `from(text): number` is not. A `from(json: any)` collapses to field copy — the seed shape can't be `any`. An **abstract** class exposes no runnable constructor, so it field-copies rather than `new`-ing. A class nested inside a seed is itself classified (method-stripped, then field-copied), so the whole graph comes back as instances. For a class-type target the validated variants check the **seed**, not the class's static members.
+
+One constraint is enforced at transform time: a class with ES `#private` fields cannot be field-copied, because `Object.create` + assign never installs the private slots and the prototype's methods would then throw `Cannot read private member`. classify therefore rejects such a class at any field-copied position — a nested class, or a root with no construction strategy — with a compile-time error; give it a single-argument constructor or a static `from` so it is **constructed** instead.
+
+Plain `classify` trusts the input; `assertClassify` and `validateClassify` validate it first — the same pairing as the validators. There is no `is` variant. The input type `Classifiable<T>` is the plain seed the chosen strategy accepts; the output is always the instance `T`.
+
+<Tabs items={[<code>typia</code>, <code>Classifiable.ts</code>, <code>IValidation.ts</code>]}>
+  <Tabs.Tab>
+```typescript
+export namespace plain {
+  export function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
+  export function assertClassify<T>(input: Classifiable<T> | unknown): ClassifyResult<T>;
+  export function validateClassify<T>(
+    input: Classifiable<T> | unknown,
+  ): IValidation<ClassifyResult<T>>;
+
+  // Factories (ClassifyResult<T> = the instance of a class-type T, else T)
+  export function createClassify<T>(): (input: Classifiable<T>) => ClassifyResult<T>;
+  export function createAssertClassify<T>(): (input: unknown) => ClassifyResult<T>;
+  export function createValidateClassify<T>(): (
+    input: unknown,
+  ) => IValidation<ClassifyResult<T>>;
+}
+```
+  </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/src/misc/literals.ts"
-      filename="examples/src/misc/literals.ts"
+      path="packages/interface/src/typings/Classifiable.ts"
+      filename="@typia/interface"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
-      path="examples/bin/misc/literals.js"
-      filename="examples/bin/misc/literals.js"
+      path="packages/interface/src/schema/IValidation.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/plain/assertClassify.ts"
+      filename="examples/src/plain/assertClassify.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/plain/assertClassify.js"
+      filename="examples/bin/plain/assertClassify.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## `compare`
+
+Type-directed structural comparison of two values of the same type `T`. All three compare by the declared structure of `T`; when `T` (or a nested object type) declares an `equals(y): boolean` / `less(y): boolean` method, that method is used instead, and other method members are ignored — so class instances compare by their data.
+
+### `compare.equals`
+
+```typescript copy filename="signatures"
+namespace compare {
+  function equals<T>(x: T, y: T): boolean;
+}
+```
+
+Deep equality by the structure of `T`. Extra runtime properties outside `T` are not part of the comparison.
+
+```typescript copy
+typia.compare.equals<IPoint>(x, y); // true when every declared field matches
+```
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/compare/equals.ts"
+      filename="examples/src/compare/equals.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/compare/equals.js"
+      filename="examples/bin/compare/equals.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `compare.cover`
+
+```typescript copy filename="signatures"
+namespace compare {
+  function cover<T>(x: T, y: Cover<T>): boolean;
+}
+```
+
+Asymmetric match: whether `x` covers the (partial) `y`. Object properties whose value is `undefined` in `y` are ignored; arrays and tuples still require identical lengths.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/compare/cover.ts"
+      filename="examples/src/compare/cover.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/compare/cover.js"
+      filename="examples/bin/compare/cover.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `compare.less`
+
+```typescript copy filename="signatures"
+namespace compare {
+  function less<T>(x: T, y: T): boolean;
+}
+```
+
+Lexicographic ordering: walks the properties of `T` in declaration order and decides on the first differing scalar leaf (`number` / `boolean` / `string` / `bigint`), with `undefined < null < value`. Arrays compare element-by-element, the shorter prefix preceding. `less` and `equals` compose into an `Array.prototype.sort` comparator:
+
+```typescript copy
+const cmp = (a: IPoint, b: IPoint): number =>
+  typia.compare.less<IPoint>(a, b) ? -1 : typia.compare.less<IPoint>(b, a) ? 1 : 0;
+items.sort(cmp);
+```
+
+Types with no sound total order (`any`, `Function`, `Set`, `Map`, `WeakSet`, `WeakMap`, or a union of multiple object types) are rejected at compile time.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/compare/less.ts"
+      filename="examples/src/compare/less.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/compare/less.js"
+      filename="examples/bin/compare/less.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ## `notations`
 
-Three case converters: `camel`, `pascal`, `snake`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
+Four case converters: `camel`, `pascal`, `snake`, `kebab`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
 
 ### `camel`
 
@@ -261,6 +410,42 @@ typia.notations.snake<{ userId: string; userName: string }>({
     <LocalSource
       path="examples/bin/notations/snake.js"
       filename="examples/bin/notations/snake.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+### `kebab`
+
+```typescript copy filename="signatures"
+namespace notations {
+  function kebab<T>(input: T): KebabCase<T>;
+  function assertKebab<T>(input: unknown): KebabCase<T>;
+  function isKebab<T>(input: unknown): KebabCase<T> | null;
+  function validateKebab<T>(input: unknown): IValidation<KebabCase<T>>;
+}
+```
+
+```typescript copy
+typia.notations.kebab<{ userId: string; user_name: string }>({
+  userId: "1",
+  user_name: "John",
+});
+// → { "user-id": "1", "user-name": "John" }
+```
+
+`kebab` derives the snake_case form first and then rewrites the word separators to hyphens, keeping leading underscores untouched.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/notations/kebab.ts"
+      filename="examples/src/notations/kebab.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/notations/kebab.js"
+      filename="examples/bin/notations/kebab.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -413,6 +598,117 @@ namespace http {
 ```
 
 `http.formData` decodes a `FormData` instance into a typed object. Allowed property types: `boolean | bigint | number | string | Blob | File` or arrays of those.
+
+## `reflect`
+
+```typescript copy filename="signatures"
+namespace reflect {
+  function schema<Type>(): IMetadataSchemaUnit;
+  function schemas<Types extends unknown[]>(): IMetadataSchemaCollection;
+  function name<T, Regular extends boolean = false>(): string;
+}
+```
+
+`reflect` exposes typia's own type representation — the metadata every other feature (validators, JSON schema, protobuf, random, LLM schemas) is compiled from. Where `typia.json.schemas` flattens a type into JSON Schema, `reflect.schema` hands you the lossless internal form: unions stay buckets, optionality/nullability stay flags, and type tags keep their validation expressions.
+
+### `reflect.schema` / `reflect.schemas`
+
+`reflect.schema<T>()` returns an `IMetadataSchemaUnit`: the `schema` of the target type plus a `components` dictionary holding every named object, alias, array, and tuple definition it references (recursive types reference themselves through here). `reflect.schemas<[A, B]>()` is the multi-type variant returning an `IMetadataSchemaCollection` with one entry per type over a shared `components`.
+
+An `IMetadataSchema` is a *union of buckets* with top-level flags:
+
+| Member | Meaning |
+| --- | --- |
+| `required` / `optional` / `nullable` / `any` | `undefined` · `?` modifier · `null` · `any` participation |
+| `atomics` | primitive members (`boolean`, `bigint`, `number`, `string`), each with its type-tag matrix |
+| `constants` | literal members, grouped by base type |
+| `templates` | template literal members |
+| `arrays` / `tuples` / `objects` / `aliases` | references into `components` by name |
+| `natives` | built-in classes (`Date`, `Uint8Array`, …) |
+| `sets` / `maps` / `functions` / `escaped` / `rest` | `Set` · `Map` · function members · `toJSON()` projection · variadic tuple rest |
+
+Type tags survive with full fidelity — for `string & tags.Format<"uuid">` the atomic's tag matrix carries the kind, the JSON-schema fragment, and the validation expression:
+
+```typescript copy
+typia.reflect.schema<IMember>();
+
+interface IMember {
+  id: string & tags.Format<"uuid">;
+  age: number;
+  parent: IMember | null;
+}
+```
+
+```javascript filename="compiled (excerpt)"
+export const unit = {
+  schema: { objects: [{ name: "IMember", tags: [] }], required: true, ... },
+  components: {
+    objects: [{
+      name: "IMember",
+      properties: [
+        {
+          key: { constants: [{ type: "string", values: [{ value: "id" }] }], ... },
+          value: {
+            atomics: [{
+              type: "string",
+              tags: [[{
+                kind: "format",
+                name: 'Format<"uuid">',
+                schema: { format: "uuid" },
+                validate: '$importInternal("isFormatUuid")($input)',
+                ...
+              }]],
+            }],
+            ...
+          },
+        },
+        // age: { atomics: [{ type: "number" }] }, parent: { objects: [IMember], nullable: true }
+      ],
+    }],
+    aliases: [], arrays: [], tuples: [],
+  },
+};
+```
+
+Everything is a plain literal embedded at compile time — there is no runtime reflection cost, and the result is `JSON.stringify`-able as-is.
+
+### `reflect.name`
+
+`reflect.name<T>()` embeds the display name typia uses for `T` in error messages and component keys:
+
+```typescript copy
+typia.reflect.name<IMember[]>();              // "IMember[]"
+typia.reflect.name<{ value: string } | null>(); // "{ value: string } | null"
+```
+
+Use it when correlating `TypeGuardError.expected` / `IValidation.IError.expected` strings, or `components` entries from `reflect.schema`, back to your own types.
+
+### `reflect.literals`
+
+```typescript copy filename="signature"
+namespace reflect {
+  function literals<T extends boolean | number | string | bigint | null>(): T[];
+}
+```
+
+If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `reflect.literals` reads the union from the TS type and emits the array.
+
+Handy for select-box options, discriminated-union test matrices, etc.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/reflect/literals.ts"
+      filename="examples/src/reflect/literals.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/reflect/literals.js"
+      filename="examples/bin/reflect/literals.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
 
 ## Where to go next
 

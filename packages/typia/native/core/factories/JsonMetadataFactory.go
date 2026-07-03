@@ -72,17 +72,8 @@ func (jsonMetadataFactoryNamespace) Validate(props struct {
   Explore  MetadataFactory_IExplore
 }) []string {
   output := []string{}
-  for _, atomic := range props.Metadata.Atomics {
-    if atomic.Type == "bigint" {
-      output = append(output, "JSON does not support bigint type.")
-      break
-    }
-  }
-  for _, constant := range props.Metadata.Constants {
-    if constant.Type == "bigint" {
-      output = append(output, "JSON does not support bigint type.")
-      break
-    }
+  if schemametadata.MetadataSchema_hasBigint(props.Metadata) {
+    output = append(output, "JSON does not support bigint type.")
   }
   tupleInvalid := false
   for _, tuple := range props.Metadata.Tuples {
@@ -113,6 +104,9 @@ func (jsonMetadataFactoryNamespace) Validate(props struct {
     output = append(output, "JSON does not support Set type.")
   }
   for _, native := range props.Metadata.Natives {
+    if native.Name == "BigInt" {
+      continue
+    }
     if jsonMetadataFactory_atomic_predicator_native(native.Name) == false && native.Name != "Date" {
       output = append(output, "JSON does not support "+native.Name+" type.")
     }

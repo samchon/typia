@@ -154,18 +154,30 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
         }
       }
     }
-  }
-  for _, atomic := range props.Metadata.Atomics {
-    if atomic.Type == "bigint" {
-      output = append(output, "LLM schema does not support bigint type.")
-      break
+    // OpenAI strict structured outputs cannot express the `not` keyword the
+    // exclude tag compiles to (supported subset: types, enum, anyOf, $defs).
+    excluded := false
+    scan := func(matrix [][]schemametadata.IMetadataTypeTag) {
+      for _, row := range matrix {
+        for _, tag := range row {
+          if tag.Kind == "exclude" {
+            excluded = true
+          }
+        }
+      }
+    }
+    for _, atomic := range props.Metadata.Atomics {
+      scan(atomic.Tags)
+    }
+    for _, template := range props.Metadata.Templates {
+      scan(template.Tags)
+    }
+    if excluded {
+      output = append(output, "Strict mode does not support exclude type tag.")
     }
   }
-  for _, constant := range props.Metadata.Constants {
-    if constant.Type == "bigint" {
-      output = append(output, "LLM schema does not support bigint type.")
-      break
-    }
+  if schemametadata.MetadataSchema_hasBigint(props.Metadata) {
+    output = append(output, "LLM schema does not support bigint type.")
   }
   if len(props.Metadata.Tuples) != 0 {
     output = append(output, "LLM schema does not support tuple type.")
@@ -183,6 +195,9 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
     output = append(output, "LLM schema does not support Set type.")
   }
   for _, native := range props.Metadata.Natives {
+    if native.Name == "BigInt" {
+      continue
+    }
     if nativehelpers.AtomicPredicator.Native(native.Name) == false &&
       native.Name != "Date" &&
       native.Name != "Blob" &&

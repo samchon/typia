@@ -31,9 +31,27 @@ type MetadataCollection struct {
   names_                 map[string]map[*nativechecker.Type]string
   type_full_names_       map[*nativechecker.Type]string
   full_names_            map[*nativechecker.Type]string
+  display_names_         map[*nativechecker.Type]string
+  apparent_properties_   map[*nativechecker.Type][]*nativeast.Symbol
+  index_infos_           map[*nativechecker.Type][]*nativechecker.IndexInfo
+  plain_objects_         map[*nativechecker.Type]bool
+  literal_conflicts_     map[*nativechecker.Type]bool
   object_index_          int
   recursive_array_index_ int
   recursive_tuple_index_ int
+  explore_cache_         map[MetadataCollection_ExploreCacheKey]*MetadataSchema
+}
+
+type MetadataCollection_ExploreCacheKey struct {
+  Type       *nativechecker.Type
+  Escape     bool
+  Absorb     bool
+  Constant   bool
+  Functional bool
+  Top        bool
+  Aliased    bool
+  Escaped    bool
+  Output     bool
 }
 
 // LookupTypeFullName / StoreTypeFullName memoize the pure type -> full-name
@@ -82,14 +100,17 @@ func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCol
     object_index_:          0,
     recursive_array_index_: 0,
     recursive_tuple_index_: 0,
+    explore_cache_:         map[MetadataCollection_ExploreCacheKey]*MetadataSchema{},
+    apparent_properties_:   map[*nativechecker.Type][]*nativeast.Symbol{},
+    index_infos_:           map[*nativechecker.Type][]*nativechecker.IndexInfo{},
+    plain_objects_:         map[*nativechecker.Type]bool{},
+    literal_conflicts_:     map[*nativechecker.Type]bool{},
   }
 }
 
 func (collection *MetadataCollection) Clone() *MetadataCollection {
-  // Clone is the snapshot taken before every intersection exploration, so it is
-  // one of the hottest allocation sites. Pre-size each destination map (maps.Clone)
-  // instead of copying into the empty maps NewMetadataCollection allocates, which
-  // forced repeated rehashing as entries were re-inserted.
+  // Clone snapshots the collection before intersection exploration and keeps
+  // every lookup cache aligned with that snapshot.
   output := &MetadataCollection{
     Options: collection.Options,
 
@@ -106,9 +127,17 @@ func (collection *MetadataCollection) Clone() *MetadataCollection {
     tuples_order_:        slices.Clone(collection.tuples_order_),
 
     names_:                 make(map[string]map[*nativechecker.Type]string, len(collection.names_)),
+    type_full_names_:       maps.Clone(collection.type_full_names_),
+    full_names_:            maps.Clone(collection.full_names_),
+    display_names_:         maps.Clone(collection.display_names_),
+    apparent_properties_:   maps.Clone(collection.apparent_properties_),
+    index_infos_:           maps.Clone(collection.index_infos_),
+    plain_objects_:         maps.Clone(collection.plain_objects_),
+    literal_conflicts_:     maps.Clone(collection.literal_conflicts_),
     object_index_:          collection.object_index_,
     recursive_array_index_: collection.recursive_array_index_,
     recursive_tuple_index_: collection.recursive_tuple_index_,
+    explore_cache_:         maps.Clone(collection.explore_cache_),
   }
   for k, v := range collection.object_unions_ {
     output.object_unions_[k] = slices.Clone(v)
@@ -117,6 +146,93 @@ func (collection *MetadataCollection) Clone() *MetadataCollection {
     output.names_[k] = maps.Clone(v)
   }
   return output
+}
+
+func (collection *MetadataCollection) LookupExploreCache(key MetadataCollection_ExploreCacheKey) (*MetadataSchema, bool) {
+  if collection == nil || collection.explore_cache_ == nil {
+    return nil, false
+  }
+  value, ok := collection.explore_cache_[key]
+  if ok == false || value == nil {
+    return nil, false
+  }
+  return value.Clone(), true
+}
+
+func (collection *MetadataCollection) StoreExploreCache(key MetadataCollection_ExploreCacheKey, value *MetadataSchema) {
+  if collection == nil || key.Type == nil || value == nil {
+    return
+  }
+  if collection.explore_cache_ == nil {
+    collection.explore_cache_ = map[MetadataCollection_ExploreCacheKey]*MetadataSchema{}
+  }
+  collection.explore_cache_[key] = value.Clone()
+}
+
+func (collection *MetadataCollection) ApparentProperties(checker *nativechecker.Checker, typ *nativechecker.Type) []*nativeast.Symbol {
+  if collection == nil {
+    return nativechecker.Checker_getApparentProperties(checker, typ)
+  }
+  if collection.apparent_properties_ == nil {
+    collection.apparent_properties_ = map[*nativechecker.Type][]*nativeast.Symbol{}
+  }
+  if value, ok := collection.apparent_properties_[typ]; ok {
+    return value
+  }
+  value := nativechecker.Checker_getApparentProperties(checker, typ)
+  collection.apparent_properties_[typ] = value
+  return value
+}
+
+func (collection *MetadataCollection) IndexInfos(checker *nativechecker.Checker, typ *nativechecker.Type) []*nativechecker.IndexInfo {
+  if collection == nil {
+    return nativechecker.Checker_getIndexInfosOfType(checker, typ)
+  }
+  if collection.index_infos_ == nil {
+    collection.index_infos_ = map[*nativechecker.Type][]*nativechecker.IndexInfo{}
+  }
+  if value, ok := collection.index_infos_[typ]; ok {
+    return value
+  }
+  value := nativechecker.Checker_getIndexInfosOfType(checker, typ)
+  collection.index_infos_[typ] = value
+  return value
+}
+
+func (collection *MetadataCollection) LookupPlainObjectIntersection(typ *nativechecker.Type) (bool, bool) {
+  if collection == nil || collection.plain_objects_ == nil {
+    return false, false
+  }
+  value, ok := collection.plain_objects_[typ]
+  return value, ok
+}
+
+func (collection *MetadataCollection) StorePlainObjectIntersection(typ *nativechecker.Type, value bool) {
+  if collection == nil || typ == nil {
+    return
+  }
+  if collection.plain_objects_ == nil {
+    collection.plain_objects_ = map[*nativechecker.Type]bool{}
+  }
+  collection.plain_objects_[typ] = value
+}
+
+func (collection *MetadataCollection) LookupLiteralConflict(typ *nativechecker.Type) (bool, bool) {
+  if collection == nil || collection.literal_conflicts_ == nil {
+    return false, false
+  }
+  value, ok := collection.literal_conflicts_[typ]
+  return value, ok
+}
+
+func (collection *MetadataCollection) StoreLiteralConflict(typ *nativechecker.Type, value bool) {
+  if collection == nil || typ == nil {
+    return
+  }
+  if collection.literal_conflicts_ == nil {
+    collection.literal_conflicts_ = map[*nativechecker.Type]bool{}
+  }
+  collection.literal_conflicts_[typ] = value
 }
 
 func (collection *MetadataCollection) Aliases() []*MetadataAliasType {
@@ -169,12 +285,35 @@ func (collection *MetadataCollection) Tuples() []*MetadataTupleType {
   return output
 }
 
-func (collection *MetadataCollection) getName(checker *nativechecker.Checker, typ *nativechecker.Type) string {
-  // metadataCollection_getFullName (checker.TypeToString, recursing generics and
-  // unions) is pure for a given type pointer, but the duplicate-numbering logic
-  // below calls getName again for the same type. Cache only the full-name
-  // reconstruction; the numbering bookkeeping still runs every call so ordering
-  // is unaffected.
+func (collection *MetadataCollection) getName(checker *nativechecker.Checker, typ *nativechecker.Type) (string, string) {
+  fullName := collection.getFullName(checker, typ)
+  name := fullName
+  name = strings.ToValidUTF8(name, "__")
+  name = strings.ReplaceAll(name, "\uFFFD", "__")
+  // The anonymous marker only reads "__type" after sanitization: the raw
+  // symbol name carries tsgo's internal prefix byte, which the lines above
+  // rewrite to "__". Gate the display rendering on the sanitized form.
+  display := collection.getDisplayName(checker, typ, name)
+  if collection.Options != nil && collection.Options.Replace != nil {
+    name = collection.Options.Replace(name)
+  }
+  duplicates := collection.names_[name]
+  if duplicates == nil {
+    duplicates = map[*nativechecker.Type]string{}
+    collection.names_[name] = duplicates
+  }
+  if oldbie, ok := duplicates[typ]; ok {
+    return oldbie, display
+  }
+  addicted := name
+  if len(duplicates) != 0 {
+    addicted = name + ".o" + metadataCollection_itoa(len(duplicates))
+  }
+  duplicates[typ] = addicted
+  return addicted, display
+}
+
+func (collection *MetadataCollection) getFullName(checker *nativechecker.Checker, typ *nativechecker.Type) string {
   fullName, ok := collection.full_names_[typ]
   if ok == false {
     fullName = metadataCollection_getFullName(checker, typ)
@@ -185,26 +324,34 @@ func (collection *MetadataCollection) getName(checker *nativechecker.Checker, ty
       collection.full_names_[typ] = fullName
     }
   }
-  name := fullName
-  name = strings.ToValidUTF8(name, "__")
-  name = strings.ReplaceAll(name, "\uFFFD", "__")
-  if collection.Options != nil && collection.Options.Replace != nil {
-    name = collection.Options.Replace(name)
+  return fullName
+}
+
+// getDisplayName renders the structural form (checker.TypeToString) of types
+// whose sanitized identifier name carries the anonymous "__type" marker, so
+// human-facing expected strings can show `{ id: string; name: string; }`
+// instead of `__type.o1`. Named types return "": their identifier name is
+// already the best display, and so is the degenerate case where the rendering
+// brings no extra information.
+func (collection *MetadataCollection) getDisplayName(checker *nativechecker.Checker, typ *nativechecker.Type, sanitized string) string {
+  if strings.Contains(sanitized, "__type") == false {
+    return ""
   }
-  duplicates := collection.names_[name]
-  if duplicates == nil {
-    duplicates = map[*nativechecker.Type]string{}
-    collection.names_[name] = duplicates
+  if checker == nil || typ == nil {
+    return ""
   }
-  if oldbie, ok := duplicates[typ]; ok {
-    return oldbie
+  if display, ok := collection.display_names_[typ]; ok {
+    return display
   }
-  addicted := name
-  if len(duplicates) != 0 {
-    addicted = name + ".o" + metadataCollection_itoa(len(duplicates))
+  display := metadataCollection_sanitizeName(checker.TypeToString(typ))
+  if display == sanitized {
+    display = ""
   }
-  duplicates[typ] = addicted
-  return addicted
+  if collection.display_names_ == nil {
+    collection.display_names_ = map[*nativechecker.Type]string{}
+  }
+  collection.display_names_[typ] = display
+  return display
 }
 
 func (collection *MetadataCollection) GetUnionIndex(meta *MetadataSchema) int {
@@ -233,9 +380,10 @@ func (collection *MetadataCollection) Emplace(checker *nativechecker.Checker, ty
   if oldbie := collection.objects_[typ]; oldbie != nil {
     return oldbie, false
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   obj := MetadataObjectType_create(MetadataObjectType{
     Name:        id,
+    DisplayName: display,
     Properties:  []*MetadataProperty{},
     Description: metadataCollection_description(metadataCollection_symbol(typ)),
     JsDocTags:   metadataCollection_jsDocTags(metadataCollection_symbol(typ)),
@@ -258,9 +406,10 @@ func (collection *MetadataCollection) EmplaceAlias(
   if oldbie := collection.aliases_[typ]; oldbie != nil {
     return oldbie, false, func(meta *MetadataSchema) {}
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   alias := MetadataAliasType_create(MetadataAliasType{
     Name:        id,
+    DisplayName: display,
     Value:       nil,
     Description: metadataCollection_description(symbol),
     Recursive:   false,
@@ -281,13 +430,14 @@ func (collection *MetadataCollection) EmplaceArray(
   if oldbie := collection.arrays_[typ]; oldbie != nil {
     return oldbie, false, func(meta *MetadataSchema) {}
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   array := MetadataArrayType_create(MetadataArrayType{
-    Name:      id,
-    Value:     nil,
-    Index:     nil,
-    Recursive: false,
-    Nullables: []bool{},
+    Name:        id,
+    DisplayName: display,
+    Value:       nil,
+    Index:       nil,
+    Recursive:   false,
+    Nullables:   []bool{},
   })
   collection.arrays_[typ] = array
   collection.arrays_order_ = append(collection.arrays_order_, typ)
@@ -303,13 +453,14 @@ func (collection *MetadataCollection) EmplaceTuple(
   if oldbie := collection.tuples_[typ]; oldbie != nil {
     return oldbie, false, func(elements []*MetadataSchema) {}
   }
-  id := collection.getName(checker, typ)
+  id, display := collection.getName(checker, typ)
   tuple := MetadataTupleType_create(MetadataTupleType{
-    Name:      id,
-    Elements:  nil,
-    Index:     nil,
-    Recursive: false,
-    Nullables: []bool{},
+    Name:        id,
+    DisplayName: display,
+    Elements:    nil,
+    Index:       nil,
+    Recursive:   false,
+    Nullables:   []bool{},
   })
   collection.tuples_[typ] = tuple
   collection.tuples_order_ = append(collection.tuples_order_, typ)

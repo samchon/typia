@@ -3,6 +3,9 @@ package programmers
 import (
   "fmt"
   "math"
+  "reflect"
+  "sort"
+  "strconv"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -39,6 +42,8 @@ type RandomProgrammer_IDecomposeProps struct {
 type randomProgrammer_IExplore struct {
   Function  bool
   Recursive bool
+  Object    *schemametadata.MetadataObjectType
+  Tuple     *schemametadata.MetadataTupleType
 }
 
 type randomProgrammer_decodeProps struct {
@@ -105,7 +110,6 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
       Errors: randomProgrammer_errors(result.Errors),
     }))
   }
-
   functions := map[string]*shimast.Node{}
   for i, stmt := range randomProgrammer_write_object_functions(struct {
     Context    nativecontext.ITypiaContext
@@ -226,6 +230,48 @@ func (randomProgrammerNamespace) Validate(props struct {
   return output
 }
 
+func randomProgrammer_find_positive_min_items(tags [][]schemametadata.IMetadataTypeTag) *schemametadata.IMetadataTypeTag {
+  for _, row := range tags {
+    for _, tag := range row {
+      if tag.Kind == "minItems" && randomProgrammer_is_positive_min_items_tag(tag) {
+        copied := tag
+        return &copied
+      }
+    }
+  }
+  return nil
+}
+
+func randomProgrammer_is_positive_min_items_tag(tag schemametadata.IMetadataTypeTag) bool {
+  if randomProgrammer_is_positive_numeric(tag.Value) {
+    return true
+  }
+  if schema, ok := tag.Schema.(map[string]any); ok {
+    return randomProgrammer_is_positive_numeric(schema["minItems"])
+  }
+  return false
+}
+
+func randomProgrammer_is_positive_numeric(value any) bool {
+  if value == nil {
+    return false
+  }
+  rv := reflect.ValueOf(value)
+  switch rv.Kind() {
+  case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+    return rv.Int() > 0
+  case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+    return rv.Uint() > 0
+  case reflect.Float32, reflect.Float64:
+    return rv.Float() > 0
+  case reflect.String:
+    parsed, err := strconv.ParseFloat(rv.String(), 64)
+    return err == nil && parsed > 0
+  default:
+    return false
+  }
+}
+
 func randomProgrammer_write_object_functions(props struct {
   Context    nativecontext.ITypiaContext
   Functor    *nativehelpers.FunctionProgrammer
@@ -233,9 +279,16 @@ func randomProgrammer_write_object_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
+  unsatisfiableObjects, _ := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
   for i, obj := range props.Collection.Objects() {
     index := i
     object := obj
+    if object.Recursive && unsatisfiableObjects[object] {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive type %q cannot be randomly generated because the recursion never terminates; give it a nullable, optional, or array/set/map escape.", object.Name),
+      }))
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_object(index),
       Value: f.NewArrowFunction(
@@ -256,6 +309,7 @@ func randomProgrammer_write_object_functions(props struct {
               Explore: randomProgrammer_IExplore{
                 Recursive: object.Recursive,
                 Function:  true,
+                Object:    object,
               },
               Metadata: metadata,
             })
@@ -303,7 +357,7 @@ func randomProgrammer_write_array_functions(props struct {
         nil,
         nil,
         f.NewNodeList([]*shimast.Node{
-          nativefactories.IdentifierFactory.Parameter("_schema", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), nil, props.Context.Emit),
+          nativefactories.IdentifierFactory.Parameter("_schema", nativefactories.TypeFactory.Keyword("any", props.Context.Emit), nil, props.Context.Emit),
           nativefactories.IdentifierFactory.Parameter("_recursive", nativefactories.TypeFactory.Keyword("boolean", props.Context.Emit), f.NewKeywordExpression(shimast.KindTrueKeyword), props.Context.Emit),
           nativefactories.IdentifierFactory.Parameter("_depth", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
         }),
@@ -341,12 +395,19 @@ func randomProgrammer_write_tuple_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
+  _, unsatisfiableTuples := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
   for i, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
       continue
     }
     index := i
     tuple := tuple
+    if unsatisfiableTuples[tuple] {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive type %q cannot be randomly generated because the recursion never terminates; give it a nullable, optional, or array/set/map escape.", tuple.Name),
+      }))
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_tuple(index),
       Value: f.NewArrowFunction(
@@ -367,12 +428,15 @@ func randomProgrammer_write_tuple_functions(props struct {
               Explore: randomProgrammer_IExplore{
                 Function:  true,
                 Recursive: true,
+                Tuple:     tuple,
               },
               Metadata: metadata,
             })
           },
-          Elements: tuple.Elements,
-          Emit:     props.Context.Emit,
+          Elements:        tuple.Elements,
+          ArrayExpression: randomProgrammer_coalesce(props.Context, "array", "randomArray"),
+          HasDepth:        true,
+          Emit:            props.Context.Emit,
         }),
       ),
     }, props.Context.Emit))
@@ -619,17 +683,42 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
     Components: components,
     Array:      props.Array,
   })
+  schemaList = randomProgrammer_array_schema_list(props.Array, components, schemaList)
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
   if props.Array.Type.Recursive {
+    if tag := randomProgrammer_find_positive_min_items(props.Array.Tags); tag != nil {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive array type cannot have %s.", tag.Name),
+      }))
+    }
     for _, schema := range schemaList {
+      arguments := []*shimast.Node{
+        randomProgrammer_schema_without_items(schema, props.Context.Emit),
+      }
+      if props.Explore.Function {
+        recursive := f.NewIdentifier("_recursive")
+        if props.Explore.Recursive {
+          recursive = f.NewKeywordExpression(shimast.KindTrueKeyword)
+        }
+        depth := f.NewIdentifier("_depth")
+        if props.Explore.Recursive {
+          depth = f.NewBinaryExpression(
+            nil,
+            nativefactories.ExpressionFactory.Number(1, props.Context.Emit),
+            nil,
+            f.NewToken(shimast.KindPlusToken),
+            f.NewIdentifier("_depth"),
+          )
+        }
+        arguments = append(arguments, recursive, depth)
+      }
       output = append(output, f.NewCallExpression(
         f.NewIdentifier(props.Functor.UseLocal(randomProgrammer_prefix_array(*props.Array.Type.Index))),
         nil,
         nil,
-        f.NewNodeList([]*shimast.Node{
-          randomProgrammer_schema_without_items(schema, props.Context.Emit),
-        }),
+        f.NewNodeList(arguments),
         shimast.NodeFlagsNone,
       ))
     }
@@ -637,6 +726,24 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
   }
   for _, schema := range schemaList {
     schema := schema
+    guardProps := nativehelpers.RandomJoiner_RecursiveArrayGuardProps{
+      Array:  props.Array.Type,
+      Object: props.Explore.Object,
+      Tuple:  props.Explore.Tuple,
+    }
+    requiredGuard := nativehelpers.RandomJoiner.RequiresRecursiveArrayGuardFor(guardProps)
+    directOwnerPath := nativehelpers.RandomJoiner.HasDirectRecursiveOwnerPathFor(guardProps)
+    positiveMinItems := randomProgrammer_find_positive_min_items(props.Array.Tags)
+    if props.Explore.Recursive && positiveMinItems != nil && (requiredGuard || directOwnerPath) {
+      panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+        Code:    props.Functor.Method,
+        Message: fmt.Sprintf("recursive array type cannot have %s.", positiveMinItems.Name),
+      }))
+    }
+    ownerPath := requiredGuard || nativehelpers.RandomJoiner.HasRecursiveOwnerPathFor(guardProps)
+    guardRecursive := props.Explore.Recursive &&
+      ownerPath &&
+      !(positiveMinItems != nil && requiredGuard == false)
     output = append(output, nativehelpers.RandomJoiner.Array(nativehelpers.RandomJoiner_ArrayProps{
       Decode: func(metadata *schemametadata.MetadataSchema) *shimast.Node {
         return randomProgrammer_decode(randomProgrammer_decodeProps{
@@ -648,7 +755,7 @@ func randomProgrammer_decode_array(props randomProgrammer_decodeArrayProps) []*s
       },
       Expression: randomProgrammer_coalesce(props.Context, "array", "randomArray"),
       Array:      props.Array.Type,
-      Recursive:  props.Explore.Recursive,
+      Recursive:  guardRecursive,
       Schema:     schema,
       Emit:       props.Context.Emit,
     }))
@@ -689,8 +796,10 @@ func randomProgrammer_decode_tuple(props randomProgrammer_decodeTupleProps) *shi
         Metadata: metadata,
       })
     },
-    Elements: props.Tuple.Type.Elements,
-    Emit:     props.Context.Emit,
+    Elements:        props.Tuple.Type.Elements,
+    ArrayExpression: randomProgrammer_coalesce(props.Context, "array", "randomArray"),
+    HasDepth:        props.Explore.Function,
+    Emit:            props.Context.Emit,
   })
 }
 
@@ -811,11 +920,7 @@ func randomProgrammer_decode_native(props struct {
   Explore randomProgrammer_IExplore
   Name    string
 }) *shimast.Node {
-  if props.Name == "Boolean" || props.Name == "Number" || props.Name == "BigInt" || props.Name == "String" {
-    atomic := strings.ToLower(props.Name)
-    if atomic == "bigint" {
-      atomic = "bigint"
-    }
+  if atomic, ok := schemametadata.MetadataSchema_atomicLikeNative(props.Name); ok {
     return randomProgrammer_first(randomProgrammer_decode_atomic(randomProgrammer_decodeAtomicProps{
       Context: props.Context,
       Atomic: schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{
@@ -1165,20 +1270,46 @@ func randomProgrammer_coalesce(context nativecontext.ITypiaContext, method strin
 
 func randomProgrammer_schema_without_items(schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, emit)
-  properties := []*shimast.Node{}
-  for key, value := range schema {
-    if key == "items" {
-      continue
+  keys := make([]string, 0, len(schema))
+  for key := range schema {
+    if key != "items" {
+      keys = append(keys, key)
     }
+  }
+  sort.Strings(keys)
+  properties := []*shimast.Node{}
+  for _, key := range keys {
     properties = append(properties, f.NewPropertyAssignment(
       nil,
       nativefactories.IdentifierFactory.Identifier(key, emit),
       nil,
       nil,
-      nativefactories.LiteralFactory.Write(value, emit),
+      nativefactories.LiteralFactory.Write(schema[key], emit),
     ))
   }
   return f.NewObjectLiteralExpression(f.NewNodeList(properties), true)
+}
+
+func randomProgrammer_array_schema_list(
+  array *schemametadata.MetadataArray,
+  components *nativeiterate.OpenApi_IComponents,
+  schemaList []nativeiterate.JsonSchema,
+) []nativeiterate.JsonSchema {
+  if array == nil ||
+    array.Type == nil ||
+    array.Type.Recursive == false ||
+    components == nil ||
+    components.Schemas == nil {
+    return schemaList
+  }
+  schema, ok := components.Schemas[array.Type.Name]
+  if ok == false || len(schema) == 0 {
+    return schemaList
+  }
+  if oneOf, ok := schema["oneOf"].([]nativeiterate.JsonSchema); ok {
+    return oneOf
+  }
+  return []nativeiterate.JsonSchema{schema}
 }
 
 func randomProgrammer_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {

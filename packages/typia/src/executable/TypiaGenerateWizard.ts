@@ -580,7 +580,7 @@ export namespace TypiaGenerateWizard {
     );
     if (resolved === null) {
       throw new URIError(
-        `Error on TypiaGenerateWizard.generate(): unable to resolve ttsc from the current project, typia package, or workspace root. Run "npm i -D ttsc @typescript/native-preview" before.`,
+        `Error on TypiaGenerateWizard.generate(): unable to resolve ttsc from the current project, typia package, or workspace root. Run "npm i -D ttsc typescript" before.`,
       );
     }
     const imported = createRequire(resolved)(resolved) as typeof import("ttsc");
@@ -600,23 +600,23 @@ export namespace TypiaGenerateWizard {
 
     const packageRoot: string = resolveTypiaPackageRoot();
     const manifest: string | null = resolveFromRoots(
-      "@typescript/native-preview/package.json",
+      "typescript/package.json",
       resolveRuntimeRoots(packageRoot),
     );
     if (manifest === null) {
       throw new URIError(
-        "Error on TypiaGenerateWizard.generate(): unable to resolve @typescript/native-preview from the current project, typia package, or workspace root.",
+        "Error on TypiaGenerateWizard.generate(): unable to resolve typescript from the current project, typia package, or workspace root.",
       );
     }
 
-    const platform: string = `@typescript/native-preview-${process.platform}-${process.arch}`;
+    const platform: string = `@typescript/typescript-${process.platform}-${process.arch}`;
     const platformManifest: string = createRequire(manifest).resolve(
       `${platform}/package.json`,
     );
     const binary: string = path.join(
       path.dirname(platformManifest),
       "lib",
-      process.platform === "win32" ? "tsgo.exe" : "tsgo",
+      process.platform === "win32" ? "tsc.exe" : "tsc",
     );
     if (fs.existsSync(binary) === false) {
       throw new URIError(

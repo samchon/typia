@@ -71,6 +71,7 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
     }
     next := fileTransformer_try_transform_node(FileTransformer_TryTransformNodeProps{
       Context: context,
+      File:    file,
       Node:    node,
     })
     if next == nil {
@@ -78,11 +79,10 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
     }
     return visitor.VisitEachChild(next)
   }
-  // emit EmitContext로 순회한다. 그래야 변환된 자식(예: typia 호출을 감싼
-  // namespace)을 담으려고 재생성되는 모든 조상 노드에 parse-tree 노드로의
-  // original 링크가 걸린다. tsgo emit resolver가 그 링크를 따라 binder 심볼을
-  // 되찾으므로 export된 namespace가 exports.X = X = {} 로 lowering된다. 일반
-  // factory는 링크를 잃어 모듈 export가 조용히 사라진다.
+  // Traverse with the emit context when available. Recreated ancestor nodes then
+  // retain original parse-tree links, which lets tsgo's emit resolver recover
+  // binder symbols and lower exported namespaces correctly. The standalone
+  // factory loses those links, so module exports can disappear silently.
   if context.Emit != nil {
     visitor = context.Emit.NewNodeVisitor(visit)
   } else {
@@ -97,6 +97,7 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
 
 type FileTransformer_TryTransformNodeProps struct {
   Context nativecontext.ITypiaContext
+  File    *shimast.SourceFile
   Node    *shimast.Node
 }
 
@@ -110,9 +111,13 @@ func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodePr
       // a diagnostic, not a repanic that kills the whole emit (the legacy text
       // adapter swallowed every panic, so the node path must at least handle
       // both error types).
-      switch exp.(type) {
-      case *TransformerError, *nativecontext.TransformerError:
-        fileTransformer_addDiagnostic(props)
+      switch err := exp.(type) {
+      case *TransformerError:
+        fileTransformer_addDiagnostic(props, err.Code, err.Message)
+        output = nil
+        return
+      case *nativecontext.TransformerError:
+        fileTransformer_addDiagnostic(props, err.Code, err.Message)
         output = nil
         return
       }
@@ -125,11 +130,29 @@ func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodePr
   })
 }
 
-func fileTransformer_addDiagnostic(props FileTransformer_TryTransformNodeProps) {
+func fileTransformer_addDiagnostic(props FileTransformer_TryTransformNodeProps, code string, message string) {
   if props.Context.Extras.AddDiagnostic == nil {
     return
   }
-  props.Context.Extras.AddDiagnostic(&shimast.Diagnostic{})
+  text := "typia transform error"
+  if message != "" {
+    text += ": " + message
+  }
+  diag := &nativecontext.ITypiaDiagnostic{
+    File:    props.File,
+    Code:    code,
+    Message: text,
+  }
+  if props.Node != nil {
+    if pos := props.Node.Pos(); pos >= 0 {
+      diag.Start = &pos
+      if end := props.Node.End(); end >= pos {
+        length := end - pos
+        diag.Length = &length
+      }
+    }
+  }
+  props.Context.Extras.AddDiagnostic(diag)
 }
 
 func fileTransformer_inject_imports(file *shimast.SourceFile, imports []*shimast.Node, emit ...*shimprinter.EmitContext) *shimast.SourceFile {

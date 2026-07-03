@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const validate = (directory) => {
   const tsFiles = fs.readdirSync(__dirname + "/src/" + directory);
+  let success = true;
   for (const file of tsFiles) {
     const src = fs.readFileSync(
       `${__dirname}/src/${directory}/${file}`,
@@ -21,10 +22,10 @@ const validate = (directory) => {
         x,
         y,
       );
-      return false;
+      success = false;
     }
-    return true;
   }
+  return success;
 };
 
 const main = () => {

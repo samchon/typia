@@ -12,12 +12,11 @@ type ImportProgrammer struct {
   assets_  map[string]*importProgrammer_asset
   order_   []string
   options_ ImportProgrammer_IOptions
-  // emit_은 emit EmitContext다. 설정되면(emit 단계 / AST 통합 모드) import는
-  // emit_.Factory로 만든 namespace import로 나가고 모든 참조는
-  // NewGeneratedNameForNode를 통한 member access라, tsgo의 builtin
-  // module-transform이 손수 짠 commonJS 네이밍 없이 alias한다
-  // (const _x_1 = require(...); _x_1.foo). nil이면(legacy 텍스트 emit 모드)
-  // 원래의 named/default/namespace import와 bare-identifier 참조를 만든다.
+  // emit_ switches import emission to AST-integration mode. When set, imports
+  // become namespace imports created by emit_.Factory, and every reference is a
+  // member access on NewGeneratedNameForNode so tsgo's module transform owns the
+  // CommonJS aliasing. Nil keeps the legacy text-emission path with named,
+  // default, namespace imports and bare identifier references.
   emit_ *shimprinter.EmitContext
 }
 
@@ -55,6 +54,7 @@ type importProgrammer_asset struct {
   Default   *ImportProgrammer_IDefault
   namespace *ImportProgrammer_INamespace
   instances map[string]ImportProgrammer_IInstance
+  textRefs  map[string]struct{}
   order     []string
 }
 
@@ -183,11 +183,15 @@ func (p *ImportProgrammer) GetInternalText(name string) string {
     name = "_" + name
   }
   alias := p.alias(name)
-  p.Instance(ImportProgrammer_IInstance{
+  props := ImportProgrammer_IInstance{
     File:  "typia/lib/internal/" + name,
     Name:  name,
     Alias: &alias,
-  })
+  }
+  p.Instance(props)
+  if p.emit_ != nil {
+    p.take(props.File).textRefs[alias] = struct{}{}
+  }
   return alias
 }
 
@@ -223,6 +227,26 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
         modSpec,
         nil,
       ))
+      for _, alias := range asset.order {
+        if _, ok := asset.textRefs[alias]; !ok {
+          continue
+        }
+        instance := asset.instances[alias]
+        statements = append(statements, p.emit_.Factory.NewVariableStatement(
+          nil,
+          p.emit_.Factory.NewVariableDeclarationList(
+            p.emit_.Factory.NewNodeList([]*shimast.Node{
+              p.emit_.Factory.NewVariableDeclaration(
+                p.emit_.Factory.NewIdentifier(alias),
+                nil,
+                nil,
+                p.member(asset, instance.Name),
+              ),
+            }),
+            shimast.NodeFlagsConst,
+          ),
+        ))
+      }
       continue
     }
     if asset.namespace != nil {
@@ -317,6 +341,7 @@ func (p *ImportProgrammer) take(file string) *importProgrammer_asset {
   asset := &importProgrammer_asset{
     file:      file,
     instances: map[string]ImportProgrammer_IInstance{},
+    textRefs:  map[string]struct{}{},
     order:     []string{},
   }
   p.assets_[file] = asset

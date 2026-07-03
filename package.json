@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/station",
-  "version": "13.0.0-dev.20260605.6",
+  "version": "13.0.0-dev.20260701.1",
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm run build:packages",
@@ -10,7 +10,9 @@
     "format:go": "node scripts/format-go.cjs",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
     "test:packages": "node scripts/with-ttsc-cache.cjs pnpm --filter=./tests/test-* -r start",
-    "test:go": "node scripts/with-ttsc-cache.cjs go -C packages/typia/test test ./...",
+    "test:go": "pnpm run test:go:public && pnpm run test:go:native",
+    "test:go:public": "node scripts/with-ttsc-cache.cjs go -C packages/typia/test test ./...",
+    "test:go:native": "node scripts/with-ttsc-cache.cjs go -C packages/typia/test test ../native/...",
     "test:toolchain": "pnpm run test:go",
     "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
     "package:next": "bash next.bash",

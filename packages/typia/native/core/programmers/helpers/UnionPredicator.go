@@ -18,50 +18,47 @@ type unionPredicator_ISpecializedProperty struct {
   Neighbor bool
 }
 
+type unionPredicator_propertyEntry struct {
+  Property *nativemetadata.MetadataProperty
+  Key      string
+}
+
 func (unionPredicatorNamespace) Object(objects []*nativemetadata.MetadataObjectType) []UnionPredicator_ISpecialized {
   matrix := map[string][]*nativemetadata.MetadataProperty{}
-  for _, obj := range objects {
+  entries := make([][]unionPredicator_propertyEntry, len(objects))
+  for i, obj := range objects {
+    entries[i] = make([]unionPredicator_propertyEntry, 0, len(obj.Properties))
     for _, prop := range obj.Properties {
       key := prop.Key.GetSoleLiteral()
       if key == nil {
         continue
       }
-      if _, ok := matrix[*key]; ok == false {
-        matrix[*key] = make([]*nativemetadata.MetadataProperty, len(objects))
+      text := *key
+      if _, ok := matrix[text]; ok == false {
+        matrix[text] = make([]*nativemetadata.MetadataProperty, len(objects))
       }
-    }
-  }
-  for i, obj := range objects {
-    for _, prop := range obj.Properties {
-      key := prop.Key.GetSoleLiteral()
-      if key != nil {
-        matrix[*key][i] = prop
-      }
+      matrix[text][i] = prop
+      entries[i] = append(entries[i], unionPredicator_propertyEntry{
+        Property: prop,
+        Key:      text,
+      })
     }
   }
 
   output := []UnionPredicator_ISpecialized{}
-  for i, obj := range objects {
+  for i, entry := range entries {
     children := []unionPredicator_ISpecializedProperty{}
-    for _, prop := range obj.Properties {
+    for _, item := range entry {
+      prop := item.Property
       if prop.Value.IsRequired() == false {
         continue
       }
-      key := prop.Key.GetSoleLiteral()
-      if key == nil {
-        continue
-      }
-      neighbors := []*nativemetadata.MetadataProperty{}
-      for k, oppo := range matrix[*key] {
+      neighbor := false
+      unique := true
+      for k, oppo := range matrix[item.Key] {
         if i != k && oppo != nil {
-          neighbors = append(neighbors, oppo)
-        }
-      }
-      unique := len(neighbors) == 0
-      if unique == false {
-        unique = true
-        for _, neighbor := range neighbors {
-          if nativemetadata.MetadataSchema_intersects(prop.Value, neighbor.Value) {
+          neighbor = true
+          if nativemetadata.MetadataSchema_intersects(prop.Value, oppo.Value) {
             unique = false
             break
           }
@@ -70,7 +67,7 @@ func (unionPredicatorNamespace) Object(objects []*nativemetadata.MetadataObjectT
       if unique {
         children = append(children, unionPredicator_ISpecializedProperty{
           Property: prop,
-          Neighbor: len(neighbors) != 0,
+          Neighbor: neighbor,
         })
       }
     }
@@ -86,7 +83,7 @@ func (unionPredicatorNamespace) Object(objects []*nativemetadata.MetadataObjectT
     }
     output = append(output, UnionPredicator_ISpecialized{
       Index:    i,
-      Object:   obj,
+      Object:   objects[i],
       Property: top.Property,
       Neighbor: top.Neighbor,
     })

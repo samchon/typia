@@ -10,7 +10,12 @@ type MetadataFactory_IOptions struct {
   Absorb     bool
   Constant   bool
   Functional bool
-  Validate   func(props struct {
+  // Methods opts object/class method members (e.g. an `equals` / `less`
+  // method) into the collected properties as function-typed values, without
+  // switching on full Functional analysis. Used by the compare programmers to
+  // detect user-defined comparison methods.
+  Methods  bool
+  Validate func(props struct {
     Metadata *schemametadata.MetadataSchema
     Explore  MetadataFactory_IExplore
     Top      *schemametadata.MetadataSchema
@@ -46,6 +51,8 @@ type IMetadataIteratorProps struct {
   Type        *nativechecker.Type
   Explore     MetadataFactory_IExplore
   Intersected bool
+  Unioned     bool
+  Prunable    bool
 }
 
 var MetadataTypeTagAnalyzer func(props struct {
