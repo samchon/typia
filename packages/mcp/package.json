@@ -27,7 +27,7 @@
     "@typia/utils": "workspace:^"
   },
   "peerDependencies": {
-    "@modelcontextprotocol/sdk": ">=1.0.0"
+    "@modelcontextprotocol/sdk": ">=1.12.0"
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",
