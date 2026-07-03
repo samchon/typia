@@ -12,6 +12,13 @@ export class Greeter {
   hello(): Greeter.IGreeting {
     return { message: "Hello, world!" };
   }
+
+  /**
+   * Reset the greeter's state.
+   *
+   * @returns Nothing; the reset is a side effect
+   */
+  reset(): void {}
 }
 export namespace Greeter {
   /** Greeting produced by {@link Greeter.hello}. */
