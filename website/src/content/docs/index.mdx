@@ -159,7 +159,7 @@ typia.random<T>();                     // generate a value that satisfies T
 
 The transformation above happens at compile time, so typia needs to be wired into the TypeScript build. There are two supported paths:
 
-- **TypeScript-Go (`@next`)** — use [`ttsc`](/docs/setup/tsgo) as a drop-in replacement for `tsc`. The Go-native compiler ships the typia transform on the side.
+- **TypeScript-Go (`@rc`)** — use [`ttsc`](/docs/setup/tsgo) as a drop-in replacement for `tsc`. The Go-native compiler ships the typia transform on the side.
 - **Stable TypeScript v5 / v6** — use [`ts-patch`](/docs/setup/legacy) to patch the stock JavaScript compiler so it can apply the same transform. This is the production path most teams ship today.
 
 Bundlers (Vite, Next.js, Webpack, esbuild, Rollup, …) plug in through `@ttsc/unplugin` (modern) or `@typia/unplugin` (legacy). Babel and SWC can't run a TypeScript transformer, so for those toolchains typia falls back to its [generation mode](/docs/setup/legacy#generation), which writes the transformed `.ts` files ahead of time.
