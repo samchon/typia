@@ -131,7 +131,9 @@ The debugger opens the emitted `.js` file, but breakpoints bind back to the orig
 
 ## Generation mode
 
-Projects that use [`typia generate`](/docs/setup/legacy#generation) should debug the generated source or the JavaScript built from it. Point VSCode, Bun, or your bundler at `src/generated/**` instead of the template files that still contain raw `typia.*` calls.
+Projects that use [`typia generate`](/docs/setup/legacy#generation) should debug the generated source or the JavaScript built from it. Point VSCode, Bun, or your bundler at the files under your `--output` directory, such as `src/generated/**`, instead of the template files that still contain raw `typia.*` calls.
+
+When you pass file paths or globs to `typia generate`, each generated file is written as `--output/<basename>`, so point the debugger at those emitted basenames.
 
 If you compile the generated TypeScript into `dist`, use the [build first](#build-first) flow after running `typia generate`. If you run generated TypeScript directly, use the same runtime command that works outside the debugger.
 
@@ -208,8 +210,12 @@ If Bun is your package manager, run the same `debug:ttsx` script from the termin
 
 Put application arguments after the entry file:
 
-```json copy
-"debug:ttsx": "ttsx --project tsconfig.json src/index.ts -- --port 3000"
+```json filename="package.json" showLineNumbers copy
+{
+  "scripts": {
+    "debug:ttsx": "ttsx --project tsconfig.json src/index.ts -- --port 3000"
+  }
+}
 ```
 
 Flags before the entry file are handled by `ttsx` and the TypeScript-Go compiler. Flags after `--` are delivered to your program as `process.argv`.
