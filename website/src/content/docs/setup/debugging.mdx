@@ -274,7 +274,7 @@ Bun debugging has two separate requirements: typia must still run in the same bu
 
 ### `Bun.build` output
 
-For TypeScript-Go Bun applications, debug generated JavaScript. [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) integrates with `Bun.build`, so keep typia in that build path, emit to `dist`, then start Bun's inspector on the emitted entry. The same shape applies to legacy `Bun.build` projects that use [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin). Bun's bundler [`sourcemap`](https://bun.com/docs/bundler#sourcemap) option defaults to no source maps, so set `sourcemap: "linked"` and keep the generated `.js.map` files beside the emitted `.js` files.
+For TypeScript-Go Bun applications, debug generated JavaScript. [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) integrates with `Bun.build`, so keep typia in that build path, emit a bundle for the same runtime you attach to, then start Bun's inspector on the emitted entry. The same shape applies to legacy `Bun.build` projects that use [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin). Bun's bundler [`target`](https://bun.com/docs/bundler#target) defaults to browser output and its [`sourcemap`](https://bun.com/docs/bundler#sourcemap) option defaults to no source maps, so set `target: "bun"` for `bun --inspect-brk` and keep the generated `.js.map` files beside the emitted `.js` files.
 
 <Tabs items={["TypeScript-Go", "Legacy"]}>
   <Tabs.Tab>
@@ -284,6 +284,7 @@ import ttsc from "@ttsc/unplugin/bun";
 await Bun.build({
   entrypoints: ["src/index.ts"],
   outdir: "dist",
+  target: "bun",
   sourcemap: "linked",
   plugins: [ttsc()],
 });
@@ -296,6 +297,7 @@ import UnpluginTypia from "@typia/unplugin/bun";
 await Bun.build({
   entrypoints: ["src/index.ts"],
   outdir: "dist",
+  target: "bun",
   sourcemap: "linked",
   plugins: [UnpluginTypia()],
 });
