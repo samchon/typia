@@ -7,11 +7,19 @@ import LocalSource from "../../../components/LocalSource";
 
 # LangChain.js
 
-[`@typia/langchain`](https://github.com/samchon/typia/tree/master/packages/langchain) plugs typia controllers into [LangChain.js](https://github.com/langchain-ai/langchainjs). Every method on your TypeScript class — or every endpoint in an OpenAPI document — becomes a `DynamicStructuredTool` ready for `AgentExecutor` and friends, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
+[`@typia/langchain`](https://github.com/samchon/typia/tree/master/packages/langchain) plugs typia controllers into [LangChain.js](https://github.com/langchain-ai/langchainjs). Every method on your TypeScript class or every endpoint in an OpenAPI document becomes a `DynamicStructuredTool` ready for `AgentExecutor` and friends, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
 
 ```typescript copy filename="signature"
 import { toLangChainTools } from "@typia/langchain";
 
+export function toLangChainTools(
+  controller: ILlmController | IHttpLlmController,
+  options?: { prefix?: boolean },
+): DynamicStructuredTool[];
+export function toLangChainTools(
+  controllers: Array<ILlmController | IHttpLlmController>,
+  options?: { prefix?: boolean },
+): DynamicStructuredTool[];
 export function toLangChainTools(props: {
   controllers: Array<ILlmController | IHttpLlmController>;
   prefix?: boolean;   // default false; if true, tool names are "{controller}_{method}"
@@ -26,6 +34,14 @@ export function toLangChainTools(props: {
   ]}>
   <Tabs.Tab>
 ```typescript filename="@typia/langchain" showLineNumbers
+export function toLangChainTools(
+  controller: ILlmController | IHttpLlmController,
+  options?: { prefix?: boolean },
+): DynamicStructuredTool[];
+export function toLangChainTools(
+  controllers: Array<ILlmController | IHttpLlmController>,
+  options?: { prefix?: boolean },
+): DynamicStructuredTool[];
 export function toLangChainTools(props: {
   controllers: Array<ILlmController | IHttpLlmController>;
   prefix?: boolean | undefined;
@@ -73,11 +89,9 @@ import typia from "typia";
 
 import { Calculator } from "./Calculator";
 
-const tools: DynamicStructuredTool[] = toLangChainTools({
-  controllers: [
-    typia.llm.controller<Calculator>("calculator", new Calculator()),
-  ],
-});
+const tools: DynamicStructuredTool[] = toLangChainTools(
+  typia.llm.controller<Calculator>("calculator", new Calculator()),
+);
 
 const agent: Runnable = createToolCallingAgent({
   llm: new ChatOpenAI({ model: "gpt-4o" }),
@@ -94,7 +108,7 @@ const result: ChainValues = await executor.invoke({
 });
 ```
 
-Every method on `Calculator` is now a LangChain tool. JSDoc comments become tool descriptions, TypeScript types become JSON schemas. Tool names default to the bare method name; pass `prefix: true` to get `{controllerName}_{methodName}`.
+Every method on `Calculator` is now a LangChain tool. JSDoc comments become tool descriptions, TypeScript types become JSON schemas. Tool names default to the bare method name; pass `{ prefix: true }` as the second argument to `toLangChainTools` to get `{controllerName}_{methodName}`. The older `toLangChainTools({ controllers: [...] })` form still works when that shape is clearer for multiple controllers.
 
 <Tabs items={[
     <code>Calculator</code>,
@@ -134,25 +148,23 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import { toLangChainTools } from "@typia/langchain";
 import { HttpLlm } from "@typia/utils";
 
-const tools: DynamicStructuredTool[] = toLangChainTools({
-  controllers: [
-    HttpLlm.controller({
-      name: "shopping",
-      document: await fetch(
-        "https://shopping-be.wrtn.ai/editor/swagger.json",
-      ).then((r) => r.json()),
-      connection: {
-        host: "https://shopping-be.wrtn.ai",
-        headers: { Authorization: "Bearer ********" },
-      },
-    }),
-  ],
-});
+const tools: DynamicStructuredTool[] = toLangChainTools(
+  HttpLlm.controller({
+    name: "shopping",
+    document: await fetch(
+      "https://shopping-be.wrtn.ai/editor/swagger.json",
+    ).then((r) => r.json()),
+    connection: {
+      host: "https://shopping-be.wrtn.ai",
+      headers: { Authorization: "Bearer ********" },
+    },
+  }),
+);
 ```
 
 ## The function calling harness
 
-Every tool carries the harness — lenient parsing, type coercion, validation feedback. When validation fails, the tool returns the original input annotated with `// ❌` markers:
+Every tool carries the harness: type coercion, validation, and model-readable feedback. When typia validation catches invalid arguments, the tool raises `ToolInputParsingException` with the original input annotated by `// ❌` markers:
 
 ```json
 {
@@ -166,10 +178,19 @@ Every tool carries the harness — lenient parsing, type coercion, validation fe
 For the mechanics see [`LlmJson`](/docs/llm/json).
 
 <Callout type="info">
-**Why typia replaces LangChain's built-in validator**
+**How LangChain validation fits**
 
-LangChain validates tool arguments with `@cfworker/json-schema`, which throws `ToolInputParsingException` *before* anything else can run. `@typia/langchain` works around this by registering a permissive passthrough Zod schema (`z.record(z.unknown())`) — then runs typia's much more detailed validator inside the tool body. You get the harness output instead of a generic JSON-schema error.
+LangChain may reject malformed tool inputs before the adapter body runs. For inputs that reach the tool body, `@typia/langchain` still runs typia's coerce-then-validate path, so TypeScript constraints and typia tags become the feedback the model sees.
 </Callout>
+
+## Runtime errors
+
+There are two distinct failure modes:
+
+- **Validation error**: the LLM passed arguments that don't match the schema. The tool raises `ToolInputParsingException` with validation feedback.
+- **Runtime error**: the tool itself threw, for example a divide-by-zero, network error, or business-rule violation.
+
+`@typia/langchain` catches runtime errors after argument validation and returns `{ success: false, error: "..." }`. That keeps the agent loop alive while preserving the original error message for the model.
 
 ## Structured output
 
@@ -220,8 +241,8 @@ The `IMember` interface is the single source of truth. The schema and the valida
 
 ## Where to go next
 
-- Source TypeScript class for the tools → [`typia.llm.application`](/docs/llm/application)
-- Source OpenAPI document for the tools → [`HttpLlm`](/docs/llm/http)
-- Harness internals → [`LlmJson`](/docs/llm/json)
-- Same idea, different framework → [Vercel AI SDK](/docs/utilization/vercel) · [MCP](/docs/utilization/mcp)
-- Full agent loop on top → [Agentica](/docs/llm/chat)
+- Source TypeScript class for the tools: [`typia.llm.application`](/docs/llm/application)
+- Source OpenAPI document for the tools: [`HttpLlm`](/docs/llm/http)
+- Harness internals: [`LlmJson`](/docs/llm/json)
+- Same idea, different framework: [Vercel AI SDK](/docs/utilization/vercel) and [MCP](/docs/utilization/mcp)
+- Full agent loop on top: [Agentica](/docs/llm/chat)

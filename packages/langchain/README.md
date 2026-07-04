@@ -34,11 +34,9 @@ import { toLangChainTools } from "@typia/langchain";
 import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
 import typia from "typia";
 
-const tools: DynamicStructuredTool[] = toLangChainTools({
-  controllers: [
-    typia.llm.controller<Calculator>("Calculator", new Calculator()),
-  ],
-});
+const tools: DynamicStructuredTool[] = toLangChainTools(
+  typia.llm.controller<Calculator>("Calculator", new Calculator()),
+);
 
 const agent: Runnable = createToolCallingAgent({
   llm: new ChatOpenAI({ model: "gpt-4o" }),
@@ -60,15 +58,13 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import { toLangChainTools } from "@typia/langchain";
 import { HttpLlm } from "@typia/utils";
 
-const tools: DynamicStructuredTool[] = toLangChainTools({
-  controllers: [
-    HttpLlm.controller({
-      name: "petStore",
-      document: yourOpenApiDocument,
-      connection: { host: "https://api.example.com" },
-    }),
-  ],
-});
+const tools: DynamicStructuredTool[] = toLangChainTools(
+  HttpLlm.controller({
+    name: "petStore",
+    document: yourOpenApiDocument,
+    connection: { host: "https://api.example.com" },
+  }),
+);
 ```
 
 ### Structured Output
@@ -111,4 +107,5 @@ if (!result.success) {
 
 - No manual schema definition — generates everything from TypeScript types or OpenAPI
 - Automatic argument validation with LLM-friendly error feedback
+- Runtime tool errors are returned as `{ success: false, error }` for model recovery
 - Supports both class-based (`typia.llm.controller`) and HTTP-based (`HttpLlm.controller`) controllers

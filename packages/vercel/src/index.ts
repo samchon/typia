@@ -8,6 +8,32 @@ import type { Schema, Tool } from "ai";
 import { VercelParameterConverter } from "./internal/VercelParameterConverter";
 import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
 
+type IVercelController = ILlmController | IHttpLlmController;
+
+interface IVercelToolsOptions {
+  /**
+   * Whether to prefix tool names with controller name.
+   *
+   * If `true`, tool names are formatted as `{controller}_{function}`. If
+   * `false`, only the function name is used (may cause conflicts).
+   *
+   * @default false
+   */
+  prefix?: boolean | undefined;
+}
+
+interface IVercelToolsProps extends IVercelToolsOptions {
+  /**
+   * List of controllers to convert to Vercel tools.
+   *
+   * - {@link ILlmController}: from `typia.llm.controller<Class>()`, converts all
+   *   methods of the class to tools
+   * - {@link IHttpLlmController}: from `HttpLlm.controller()`, converts all
+   *   operations from OpenAPI document to tools
+   */
+  controllers: IVercelController[];
+}
+
 /**
  * Convert typia controllers to Vercel AI SDK tools.
  *
@@ -35,7 +61,7 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * }
  *
  * const controller = typia.llm.controller<Calculator>("calc", new Calculator());
- * const tools = toVercelTools({ controllers: [controller] });
+ * const tools = toVercelTools(controller);
  *
  * const result = await generateText({
  *   model: openai("gpt-4o"),
@@ -53,7 +79,7 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  *
  * const result = await generateText({
  *   model: anthropic("claude-sonnet-4-20250514"),
- *   tools: toVercelTools({ controllers: [controller] }),
+ *   tools: toVercelTools(controller),
  *   prompt: "Calculate 100 * 50",
  * });
  * ```
@@ -82,31 +108,26 @@ import { VercelToolsRegistrar } from "./internal/VercelToolsRegistrar";
  * ```
  *
  * @author Jeongho Nam - https://github.com/samchon
- * @param props Conversion properties
+ * @param input Controller, controller list, or conversion properties
+ * @param options Conversion options when `input` is not a properties object
  * @returns Record of Vercel AI SDK Tools keyed by tool name
  */
-export function toVercelTools(props: {
-  /**
-   * List of controllers to convert to Vercel tools.
-   *
-   * - {@link ILlmController}: from `typia.llm.controller<Class>()`, converts all
-   *   methods of the class to tools
-   * - {@link IHttpLlmController}: from `HttpLlm.controller()`, converts all
-   *   operations from OpenAPI document to tools
-   */
-  controllers: Array<ILlmController | IHttpLlmController>;
-
-  /**
-   * Whether to prefix tool names with controller name.
-   *
-   * If `true`, tool names are formatted as `{controller}_{function}`. If
-   * `false`, only the function name is used (may cause conflicts).
-   *
-   * @default false
-   */
-  prefix?: boolean | undefined;
-}): Record<string, Tool> {
-  return VercelToolsRegistrar.convert(props);
+export function toVercelTools(
+  controller: IVercelController,
+  options?: IVercelToolsOptions | undefined,
+): Record<string, Tool>;
+export function toVercelTools(
+  controllers: IVercelController[],
+  options?: IVercelToolsOptions | undefined,
+): Record<string, Tool>;
+export function toVercelTools(props: IVercelToolsProps): Record<string, Tool>;
+export function toVercelTools(
+  input: IVercelController | IVercelController[] | IVercelToolsProps,
+  options?: IVercelToolsOptions | undefined,
+): Record<string, Tool> {
+  return VercelToolsRegistrar.convert(
+    normalizeVercelToolsProps(input, options),
+  );
 }
 
 /**
@@ -153,3 +174,22 @@ export function toVercelSchema(
 ): Schema<object> {
   return VercelParameterConverter.convert(parameters);
 }
+
+const normalizeVercelToolsProps = (
+  input: IVercelController | IVercelController[] | IVercelToolsProps,
+  options?: IVercelToolsOptions | undefined,
+): IVercelToolsProps => {
+  if (isVercelToolsProps(input)) return input;
+  return {
+    controllers: Array.isArray(input) ? input : [input],
+    prefix: options?.prefix,
+  };
+};
+
+const isVercelToolsProps = (
+  input: IVercelController | IVercelController[] | IVercelToolsProps,
+): input is IVercelToolsProps =>
+  Array.isArray(input) === false &&
+  typeof input === "object" &&
+  input !== null &&
+  "controllers" in input;

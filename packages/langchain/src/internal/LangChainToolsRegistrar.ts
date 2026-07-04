@@ -1,6 +1,7 @@
 import {
   DynamicStructuredTool,
   ToolInputParsingException,
+  tool,
 } from "@langchain/core/tools";
 import {
   IHttpLlmController,
@@ -124,26 +125,47 @@ export namespace LangChainToolsRegistrar {
     function: ILlmFunction | IHttpLlmFunction;
     execute: (args: unknown) => Promise<unknown>;
   }): DynamicStructuredTool =>
-    new DynamicStructuredTool<any>({
-      name: entry.name,
-      description: entry.function.description ?? "",
-      schema: entry.function.parameters,
-      func: async (args: unknown): Promise<unknown> => {
-        const coerced: unknown = LlmJson.coerce(
-          args,
-          entry.function.parameters,
+    tool(
+      async (args: unknown): Promise<unknown> => {
+        const valid: IValidation<unknown> = LlmJson.validateArguments(
+          entry.function,
+          args ?? {},
         );
-        const valid: IValidation<unknown> = entry.function.validate(coerced);
         if (valid.success === false)
           throw new ToolInputParsingException(
             `Type errors in "${entry.name}" arguments:\n\n` +
               `\`\`\`json\n${LlmJson.stringify(valid)}\n\`\`\``,
-            JSON.stringify(coerced),
+            JSON.stringify(args ?? {}),
           );
-        const result: unknown = await entry.execute(valid.data);
-        return result === undefined
-          ? { success: true }
-          : { success: true, data: result };
+        try {
+          const result: unknown = await entry.execute(valid.data);
+          if (result === undefined) {
+            return entry.function.output === undefined
+              ? ({ success: true } satisfies ITryResult)
+              : ({
+                  success: false,
+                  error: `Function "${entry.name}" returned undefined despite declaring an output schema`,
+                } satisfies ITryResult);
+          }
+          return { success: true, data: result } satisfies ITryResult;
+        } catch (error) {
+          return {
+            success: false,
+            error:
+              error instanceof Error
+                ? `${error.name}: ${error.message}`
+                : String(error),
+          } satisfies ITryResult;
+        }
       },
-    });
+      {
+        name: entry.name,
+        description: entry.function.description ?? "",
+        schema: entry.function.parameters,
+      },
+    );
 }
+
+type ITryResult =
+  | { success: true; data?: unknown | undefined }
+  | { success: false; error: string };
