@@ -220,7 +220,7 @@ export namespace OpenApiV3Downgrader {
         readOnly: input.readOnly,
         writeOnly: input.writeOnly,
         example: input.example,
-        examples: input.examples,
+        examples: downgradeSchemaExamples(input.examples),
         ...Object.fromEntries(
           Object.entries(input).filter(
             ([key, value]) => key.startsWith("x-") && value !== undefined,
@@ -237,15 +237,20 @@ export namespace OpenApiV3Downgrader {
           OpenApiTypeChecker.isString(schema) ||
           OpenApiTypeChecker.isReference(schema)
         )
-          union.push({ ...schema });
+          union.push({
+            ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
+          });
         else if (OpenApiTypeChecker.isArray(schema))
           union.push({
             ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
             items: downgradeSchema(collection)(schema.items),
           });
         else if (OpenApiTypeChecker.isTuple(schema))
           union.push({
             ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
             items: ((): OpenApiV3.IJsonSchema => {
               if (schema.additionalItems === true) return {};
               const elements = [
@@ -272,6 +277,7 @@ export namespace OpenApiV3Downgrader {
         else if (OpenApiTypeChecker.isObject(schema))
           union.push({
             ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
             properties:
               schema.properties === undefined
                 ? undefined
@@ -370,6 +376,11 @@ export namespace OpenApiV3Downgrader {
       }
       schema.$ref += ".Nullable";
     };
+
+  const downgradeSchemaExamples = (
+    examples: OpenApi.IJsonSchema["examples"],
+  ): any[] | undefined =>
+    examples === undefined ? undefined : Object.values(examples);
 
   const isNullable =
     (visited: Set<string>) =>
