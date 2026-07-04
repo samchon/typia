@@ -306,4 +306,4 @@ import typia from "typia";
 console.log(typia.is<{ id: string }>({ id: "ok" }));
 ```
 
-If the debug console prints `true`, the debugger is running transformed code. If it throws `typia transformer has not been configured`, the launch configuration is bypassing `ttsc`, the legacy patched compiler, or the bundler plugin.
+If the debug console prints `true`, the debugger is running transformed code. If it throws `Error on typia.<method>(): no transform has been configured.`, the launch configuration is bypassing `ttsc`, the legacy patched compiler, or the bundler plugin.
