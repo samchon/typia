@@ -6,7 +6,7 @@ import { Tabs } from "nextra/components";
 
 ## Debugging typia projects
 
-typia runs at compile time. The debugger must start code that has already passed through the typia transformer, so use the same toolchain that you use for normal builds: `ttsc` / `ttsx` for TypeScript-Go, or the patched TypeScript compiler from the legacy setup.
+typia runs at compile time. The debugger must start code that has already passed through the typia transform path, so use the same toolchain that you use for normal builds: `ttsc` / `ttsx` for TypeScript-Go, the patched TypeScript compiler from the legacy setup, a bundler plugin, or generated output from `typia generate`.
 
 ## Build first
 
@@ -128,6 +128,12 @@ Then make VSCode run that script before starting the debugger. Use the Bun tab h
 ```
 
 The debugger opens the emitted `.js` file, but breakpoints bind back to the original `.ts` files through the source map.
+
+## Generation mode
+
+Projects that use [`typia generate`](/docs/setup/legacy#generation) should debug the generated source or the JavaScript built from it. Point VSCode, Bun, or your bundler at `src/generated/**` instead of the template files that still contain raw `typia.*` calls.
+
+If you compile the generated TypeScript into `dist`, use the [build first](#build-first) flow after running `typia generate`. If you run generated TypeScript directly, use the same runtime command that works outside the debugger.
 
 ## Run through `ttsx`
 
@@ -262,7 +268,34 @@ Bun debugging has two separate requirements: typia must still run in the same bu
 
 ### `Bun.build` output
 
-For TypeScript-Go Bun applications, debug generated JavaScript. [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) integrates with `Bun.build`, so keep typia in that build path, emit to `dist`, then start Bun's inspector on the emitted entry. The same shape applies to legacy `Bun.build` projects that use [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin).
+For TypeScript-Go Bun applications, debug generated JavaScript. [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) integrates with `Bun.build`, so keep typia in that build path, emit to `dist`, then start Bun's inspector on the emitted entry. The same shape applies to legacy `Bun.build` projects that use [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin). Bun's bundler [`sourcemap`](https://bun.com/docs/bundler#sourcemap) option defaults to no source maps, so set `sourcemap: "linked"` and keep the generated `.js.map` files beside the emitted `.js` files.
+
+<Tabs items={["TypeScript-Go", "Legacy"]}>
+  <Tabs.Tab>
+```ts filename="build.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/bun";
+
+await Bun.build({
+  entrypoints: ["src/index.ts"],
+  outdir: "dist",
+  sourcemap: "linked",
+  plugins: [ttsc()],
+});
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```ts filename="build.ts" showLineNumbers copy
+import UnpluginTypia from "@typia/unplugin/bun";
+
+await Bun.build({
+  entrypoints: ["src/index.ts"],
+  outdir: "dist",
+  sourcemap: "linked",
+  plugins: [UnpluginTypia()],
+});
+```
+  </Tabs.Tab>
+</Tabs>
 
 ```json filename="package.json" showLineNumbers copy
 {
@@ -306,4 +339,4 @@ import typia from "typia";
 console.log(typia.is<{ id: string }>({ id: "ok" }));
 ```
 
-If the debug console prints `true`, the debugger is running transformed code. If it throws `Error on typia.<method>(): no transform has been configured.`, the launch configuration is bypassing `ttsc`, the legacy patched compiler, or the bundler plugin.
+If the debug console prints `true`, the debugger is running transformed code. If it throws `Error on typia.<method>(): no transform has been configured.`, the launch configuration is bypassing `ttsc`, the legacy patched compiler, the bundler plugin, or is still pointed at the template files instead of the generated files from `typia generate`.
