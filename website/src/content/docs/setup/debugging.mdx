@@ -264,7 +264,7 @@ If your legacy project is ESM-only, use the same loader command that runs the ap
 
 ## Bun
 
-Bun debugging has two separate requirements: typia must still run in the same build or preload path, and Bun's inspector must attach to the process. The examples below show the Bun commands that preserve typia's transform path. Attach with Bun's [web debugger](https://bun.com/docs/guides/runtime/web-debugger), or use Bun's [VSCode debugger](https://bun.com/docs/guides/runtime/vscode-debugger) after installing and validating the Bun extension.
+Bun debugging has two separate requirements: typia must still run in the same build or preload path, and Bun's inspector must attach to the process. The examples below show the Bun commands that preserve typia's transform path. Prefer Bun's [web debugger](https://bun.com/docs/runtime/debugger#debug-bun-sh) for the attach step. Treat Bun's [VSCode debugger](https://bun.com/docs/runtime/debugger#visual-studio-code-debugger) as an experimental fallback after installing and validating the Bun extension.
 
 ### `Bun.build` output
 
