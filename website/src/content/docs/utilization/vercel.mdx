@@ -12,6 +12,14 @@ import LocalSource from "../../../components/LocalSource";
 ```typescript copy filename="signature"
 import { toVercelTools } from "@typia/vercel";
 
+export function toVercelTools(
+  controller: ILlmController | IHttpLlmController,
+  options?: { prefix?: boolean },
+): Record<string, Tool>;
+export function toVercelTools(
+  controllers: Array<ILlmController | IHttpLlmController>,
+  options?: { prefix?: boolean },
+): Record<string, Tool>;
 export function toVercelTools(props: {
   controllers: Array<ILlmController | IHttpLlmController>;
   prefix?: boolean;   // default false; if true, tool names are "{controller}_{method}"
@@ -26,6 +34,14 @@ export function toVercelTools(props: {
   ]}>
   <Tabs.Tab>
 ```typescript filename="@typia/vercel" showLineNumbers
+export function toVercelTools(
+  controller: ILlmController | IHttpLlmController,
+  options?: { prefix?: boolean },
+): Record<string, Tool>;
+export function toVercelTools(
+  controllers: Array<ILlmController | IHttpLlmController>,
+  options?: { prefix?: boolean },
+): Record<string, Tool>;
 export function toVercelTools(props: {
   controllers: Array<ILlmController | IHttpLlmController>;
   prefix?: boolean | undefined;
@@ -83,11 +99,9 @@ import typia from "typia";
 
 import { Calculator } from "./Calculator";
 
-const tools: Record<string, Tool> = toVercelTools({
-  controllers: [
-    typia.llm.controller<Calculator>("calculator", new Calculator()),
-  ],
-});
+const tools: Record<string, Tool> = toVercelTools(
+  typia.llm.controller<Calculator>("calculator", new Calculator()),
+);
 
 const result: GenerateTextResult = await generateText({
   model: openai("gpt-4o"),
@@ -96,7 +110,7 @@ const result: GenerateTextResult = await generateText({
 });
 ```
 
-The JSDoc on each method becomes the tool description; the parameter type becomes the JSON schema. Every method on `Calculator` is now a Vercel `Tool`. JSDoc comments become tool descriptions, TypeScript types become JSON schemas. Tool names default to the bare method name; pass `prefix: true` to `toVercelTools` to get `{controllerName}_{methodName}` instead.
+The JSDoc on each method becomes the tool description; the parameter type becomes the JSON schema. Every method on `Calculator` is now a Vercel `Tool`. Tool names default to the bare method name; pass `{ prefix: true }` as the second argument to `toVercelTools` to get `{controllerName}_{methodName}` instead. The older `toVercelTools({ controllers: [...] })` form still works when that shape is clearer for multiple controllers.
 
 <Tabs items={[
     <code>Calculator</code>,
@@ -136,20 +150,18 @@ import { toVercelTools } from "@typia/vercel";
 import { HttpLlm } from "@typia/utils";
 import { Tool } from "ai";
 
-const tools: Record<string, Tool> = toVercelTools({
-  controllers: [
-    HttpLlm.controller({
-      name: "shopping",
-      document: await fetch(
-        "https://shopping-be.wrtn.ai/editor/swagger.json",
-      ).then((r) => r.json()),
-      connection: {
-        host: "https://shopping-be.wrtn.ai",
-        headers: { Authorization: "Bearer ********" },
-      },
-    }),
-  ],
-});
+const tools: Record<string, Tool> = toVercelTools(
+  HttpLlm.controller({
+    name: "shopping",
+    document: await fetch(
+      "https://shopping-be.wrtn.ai/editor/swagger.json",
+    ).then((r) => r.json()),
+    connection: {
+      host: "https://shopping-be.wrtn.ai",
+      headers: { Authorization: "Bearer ********" },
+    },
+  }),
+);
 ```
 
 Every API operation becomes a tool with parameters, descriptions, and the same harness wrapping each call.
@@ -228,7 +240,7 @@ There are two distinct failure modes:
 - **Validation error** — the LLM passed arguments that don't match the schema. Tool returns the annotated input so the model can fix it.
 - **Runtime error** — the tool itself threw (e.g. divide-by-zero, network error, business-rule violation).
 
-`@typia/vercel` catches the runtime error and surfaces it as `{ error: true, message: "..." }`. That keeps the conversation alive — the model can see the failure and either retry with different inputs or apologize to the user.
+`@typia/vercel` catches the runtime error and surfaces it as `{ success: false, error: "..." }`. That keeps the conversation alive — the model can see the failure and either retry with different inputs or apologize to the user.
 
 <Tabs items={[
     "Error handling test",

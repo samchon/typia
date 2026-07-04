@@ -129,21 +129,34 @@ export namespace LangChainToolsRegistrar {
       description: entry.function.description ?? "",
       schema: entry.function.parameters,
       func: async (args: unknown): Promise<unknown> => {
-        const coerced: unknown = LlmJson.coerce(
-          args,
-          entry.function.parameters,
+        const valid: IValidation<unknown> = LlmJson.validateArguments(
+          entry.function,
+          args ?? {},
         );
-        const valid: IValidation<unknown> = entry.function.validate(coerced);
         if (valid.success === false)
           throw new ToolInputParsingException(
             `Type errors in "${entry.name}" arguments:\n\n` +
               `\`\`\`json\n${LlmJson.stringify(valid)}\n\`\`\``,
-            JSON.stringify(coerced),
+            JSON.stringify(args ?? {}),
           );
-        const result: unknown = await entry.execute(valid.data);
-        return result === undefined
-          ? { success: true }
-          : { success: true, data: result };
+        try {
+          const result: unknown = await entry.execute(valid.data);
+          return result === undefined
+            ? ({ success: true } satisfies ITryResult)
+            : ({ success: true, data: result } satisfies ITryResult);
+        } catch (error) {
+          return {
+            success: false,
+            error:
+              error instanceof Error
+                ? `${error.name}: ${error.message}`
+                : String(error),
+          } satisfies ITryResult;
+        }
       },
     });
 }
+
+type ITryResult =
+  | { success: true; data?: unknown | undefined }
+  | { success: false; error: string };

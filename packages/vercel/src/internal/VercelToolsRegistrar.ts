@@ -133,8 +133,10 @@ export namespace VercelToolsRegistrar {
       description: func.description ?? "",
       inputSchema: VercelParameterConverter.convert(func.parameters),
       execute: async (args: unknown): Promise<ITryResult> => {
-        const coerced: unknown = LlmJson.coerce(args, func.parameters);
-        const validation: IValidation<unknown> = func.validate(coerced);
+        const validation: IValidation<unknown> = LlmJson.validateArguments(
+          func,
+          args ?? {},
+        );
         if (!validation.success)
           return {
             success: false,

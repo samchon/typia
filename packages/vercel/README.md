@@ -31,11 +31,9 @@ import { toVercelTools } from "@typia/vercel";
 import { generateText, GenerateTextResult, Tool } from "ai";
 import typia from "typia";
 
-const tools: Record<string, Tool> = toVercelTools({
-  controllers: [
-    typia.llm.controller<Calculator>("Calculator", new Calculator()),
-  ],
-});
+const tools: Record<string, Tool> = toVercelTools(
+  typia.llm.controller<Calculator>("Calculator", new Calculator()),
+);
 
 const result: GenerateTextResult = await generateText({
   model: openai("gpt-4o"),
@@ -51,15 +49,13 @@ import { toVercelTools } from "@typia/vercel";
 import { HttpLlm } from "@typia/utils";
 import { Tool } from "ai";
 
-const tools: Record<string, Tool> = toVercelTools({
-  controllers: [
-    HttpLlm.controller({
-      name: "petStore",
-      document: yourOpenApiDocument,
-      connection: { host: "https://api.example.com" },
-    }),
-  ],
-});
+const tools: Record<string, Tool> = toVercelTools(
+  HttpLlm.controller({
+    name: "petStore",
+    document: yourOpenApiDocument,
+    connection: { host: "https://api.example.com" },
+  }),
+);
 ```
 
 ### Structured Output
@@ -106,5 +102,6 @@ const { object } = await generateObject({
 
 - No manual schema definition — generates everything from TypeScript types or OpenAPI
 - Automatic argument validation with LLM-friendly error feedback
+- Runtime tool errors are returned as `{ success: false, error }` for model recovery
 - Supports both class-based (`typia.llm.controller`) and HTTP-based (`HttpLlm.controller`) controllers
 - Works with any LLM provider supported by Vercel AI SDK
