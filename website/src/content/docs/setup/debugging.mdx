@@ -1,0 +1,165 @@
+---
+title: Guide Documents > Setup > Debugging
+---
+
+import { Tabs } from "nextra/components";
+
+## Debugging typia projects
+
+typia runs at compile time. The debugger must start code that has already passed through the typia transformer, so use the same toolchain that you use for normal builds: `ttsc` / `ttsx` for TypeScript-Go, or the patched TypeScript compiler from the legacy setup.
+
+## Build first
+
+The most reliable VSCode setup is to build with source maps and debug the emitted JavaScript. This works for Node.js, Bun, and any app that eventually runs JavaScript from `dist`.
+
+```json filename="tsconfig.json" showLineNumbers copy
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true
+  }
+}
+```
+
+<Tabs items={["TypeScript-Go", "Legacy"]}>
+  <Tabs.Tab>
+```json filename=".vscode/tasks.json" showLineNumbers copy
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ttsc: build",
+      "type": "shell",
+      "command": "pnpm ttsc",
+      "problemMatcher": "$tsc"
+    }
+  ]
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```json filename=".vscode/tasks.json" showLineNumbers copy
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "tsc: build",
+      "type": "shell",
+      "command": "pnpm tsc",
+      "problemMatcher": "$tsc"
+    }
+  ]
+}
+```
+  </Tabs.Tab>
+</Tabs>
+
+```json filename=".vscode/launch.json" showLineNumbers copy
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug compiled app",
+      "program": "${workspaceFolder}/dist/index.js",
+      "preLaunchTask": "ttsc: build",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
+```
+
+Use `preLaunchTask: "tsc: build"` when you are on the legacy setup. The debugger still opens the emitted `.js` file, but breakpoints bind back to the original `.ts` files through the source map.
+
+## Run through `ttsx`
+
+For a quick TypeScript-Go debug session without a persistent `dist` directory, launch the `ttsx` runner itself and let VSCode attach to the child Node process that executes your entrypoint.
+
+```json filename=".vscode/launch.json" showLineNumbers copy
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug with ttsx",
+      "runtimeExecutable": "node",
+      "program": "${workspaceFolder}/node_modules/ttsc/lib/launcher/ttsx.js",
+      "args": ["--project", "tsconfig.json", "src/index.ts"],
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
+```
+
+Put application arguments after the entry file:
+
+```json copy
+"args": ["--project", "tsconfig.json", "src/index.ts", "--", "--port", "3000"]
+```
+
+Flags before the entry file are handled by `ttsx` and the TypeScript-Go compiler. Flags after `--` are delivered to your program as `process.argv`.
+
+## Legacy `ts-node`
+
+The legacy setup can debug directly through `ts-node/register`, because `typia setup` patched the TypeScript compiler that `ts-node` uses.
+
+```json filename=".vscode/launch.json" showLineNumbers copy
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug legacy ts-node",
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "args": ["${workspaceFolder}/src/index.ts"],
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+      },
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
+```
+
+If your legacy project is ESM-only, use the same loader command that runs the app outside VSCode. The important part is unchanged: do not replace the patched compiler path with stock `tsx` or an SWC/Babel loader, because those runners cannot apply typia's transformer.
+
+## Bun
+
+For Bun applications, keep typia in the build path and debug the generated JavaScript. Use [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) with TypeScript-Go or [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin) with the legacy setup, emit to `dist`, then start Bun's inspector on the emitted entry.
+
+```json filename=".vscode/launch.json" showLineNumbers copy
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Bun output",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["--inspect-brk"],
+      "program": "${workspaceFolder}/dist/index.js",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ]
+}
+```
+
+Do not point Bun or VSCode at the raw `.ts` entry unless the Bun plugin is already registered in that runtime. Without the plugin, the program can run with untransformed `typia.*` calls.
+
+## Verify the debugger path
+
+Add a one-line setup check and start the same debug configuration:
+
+```ts filename="src/check-setup.ts" showLineNumbers copy
+import typia from "typia";
+
+console.log(typia.is<{ id: string }>({ id: "ok" }));
+```
+
+If the debug console prints `true`, the debugger is running transformed code. If it throws `typia transformer has not been configured`, the launch configuration is bypassing `ttsc`, the legacy patched compiler, or the bundler plugin.
