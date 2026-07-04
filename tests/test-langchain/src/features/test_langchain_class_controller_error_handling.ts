@@ -40,4 +40,35 @@ export const test_langchain_class_controller_error_handling =
         typeof failure.error === "string" &&
         failure.error.includes("Division by zero"),
     );
+
+    const broken: DynamicStructuredTool[] = toLangChainTools(
+      typia.llm.controller<BrokenOutput>("broken", new BrokenOutput()),
+    );
+    const read: DynamicStructuredTool | undefined = broken.find(
+      (tool) => tool.name === "read",
+    );
+    if (read === undefined) throw new Error("Missing read tool");
+
+    TestValidator.equals(
+      "typed undefined result should be returned as a failure object",
+      await read.invoke({}),
+      {
+        success: false,
+        error:
+          'Function "read" returned undefined despite declaring an output schema',
+      },
+    );
   };
+
+class BrokenOutput {
+  /** Read a typed result but violate it at runtime. */
+  read(_: BrokenOutput.IProps): BrokenOutput.IResult {
+    return undefined as any;
+  }
+}
+namespace BrokenOutput {
+  export interface IProps {}
+  export interface IResult {
+    value: number;
+  }
+}

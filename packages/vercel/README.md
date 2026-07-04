@@ -102,6 +102,7 @@ const { object } = await generateObject({
 
 - No manual schema definition — generates everything from TypeScript types or OpenAPI
 - Automatic argument validation with LLM-friendly error feedback
+- Reflected return types advertise the `{ success, data/error }` output wrapper
 - Runtime tool errors are returned as `{ success: false, error }` for model recovery
 - Supports both class-based (`typia.llm.controller`) and HTTP-based (`HttpLlm.controller`) controllers
 - Works with any LLM provider supported by Vercel AI SDK

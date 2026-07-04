@@ -110,7 +110,7 @@ const result: GenerateTextResult = await generateText({
 });
 ```
 
-The JSDoc on each method becomes the tool description; the parameter type becomes the JSON schema. Every method on `Calculator` is now a Vercel `Tool`. Tool names default to the bare method name; pass `{ prefix: true }` as the second argument to `toVercelTools` to get `{controllerName}_{methodName}` instead. The older `toVercelTools({ controllers: [...] })` form still works when that shape is clearer for multiple controllers.
+The JSDoc on each method becomes the tool description; the parameter type becomes the JSON schema. Every method on `Calculator` is now a Vercel `Tool`. Tool names default to the bare method name; pass `{ prefix: true }` as the second argument to `toVercelTools` to get `{controllerName}_{methodName}` instead. The older `toVercelTools({ controllers: [...] })` form still works when that shape is clearer for multiple controllers. When a method has a reflected return type, the tool also advertises an `outputSchema` for the `{ success, data/error }` result wrapper returned by `execute`.
 
 <Tabs items={[
     <code>Calculator</code>,

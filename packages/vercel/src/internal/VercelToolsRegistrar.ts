@@ -132,6 +132,13 @@ export namespace VercelToolsRegistrar {
     return tool({
       description: func.description ?? "",
       inputSchema: VercelParameterConverter.convert(func.parameters),
+      ...(func.output !== undefined
+        ? {
+            outputSchema: VercelParameterConverter.convertToolOutput(
+              func.output,
+            ),
+          }
+        : {}),
       execute: async (args: unknown): Promise<ITryResult> => {
         const validation: IValidation<unknown> = LlmJson.validateArguments(
           func,
@@ -146,9 +153,15 @@ export namespace VercelToolsRegistrar {
           } satisfies ITryResult;
         try {
           const result: unknown = await execute(validation.data);
-          return result === undefined
-            ? ({ success: true } satisfies ITryResult)
-            : ({ success: true, data: result } satisfies ITryResult);
+          if (result === undefined) {
+            return func.output === undefined
+              ? ({ success: true } satisfies ITryResult)
+              : ({
+                  success: false,
+                  error: `Function "${name}" returned undefined despite declaring an output schema`,
+                } satisfies ITryResult);
+          }
+          return { success: true, data: result } satisfies ITryResult;
         } catch (error) {
           return {
             success: false,
