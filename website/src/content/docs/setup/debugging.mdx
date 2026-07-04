@@ -10,7 +10,7 @@ typia runs at compile time. The debugger must start code that has already passed
 
 ## Build first
 
-The most reliable VSCode setup is to build with source maps and debug the emitted JavaScript. This works for Node.js, Bun, and any app that eventually runs JavaScript from `dist`.
+The most reliable VSCode setup is to build with source maps and debug the emitted JavaScript. Use this for Node.js and for any workflow where `ttsc` or the patched `tsc` emits the file you run from `dist`. Bun projects that rely on `Bun.build` should use the [Bun](#bun) section, because the debug build has to run the same Bun plugin path.
 
 ```json filename="tsconfig.json" showLineNumbers copy
 {
@@ -45,7 +45,7 @@ Add a build script for your setup path:
   </Tabs.Tab>
 </Tabs>
 
-Then make VSCode run that script before starting the debugger:
+Then make VSCode run that script before starting the debugger. Use the Bun tab here only when Bun is the package manager for a build script that emits the JavaScript this Node.js launch configuration runs.
 
 <Tabs items={["npm", "pnpm", "yarn", "bun"]}>
   <Tabs.Tab>
@@ -141,7 +141,7 @@ For a quick TypeScript-Go debug session without a persistent `dist` directory, l
 }
 ```
 
-<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+<Tabs items={["npm", "pnpm", "yarn"]}>
   <Tabs.Tab>
 ```json filename=".vscode/launch.json" showLineNumbers copy
 {
@@ -196,25 +196,9 @@ For a quick TypeScript-Go debug session without a persistent `dist` directory, l
 }
 ```
   </Tabs.Tab>
-  <Tabs.Tab>
-```json filename=".vscode/launch.json" showLineNumbers copy
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug with ttsx",
-      "runtimeExecutable": "bun",
-      "runtimeArgs": ["run", "debug:ttsx"],
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**"]
-    }
-  ]
-}
-```
-  </Tabs.Tab>
 </Tabs>
+
+If Bun is your package manager, run the same `debug:ttsx` script from the terminal (`bun run debug:ttsx`) or use the [Bun](#bun) section for Bun inspector workflows. Do not switch this VSCode launch block to `runtimeExecutable: "bun"` unless your Bun debugger setup is already working independently of typia.
 
 Put application arguments after the entry file:
 
@@ -274,51 +258,49 @@ If your legacy project is ESM-only, use the same loader command that runs the ap
 
 ## Bun
 
-For TypeScript-Go Bun applications, debug generated JavaScript. [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) integrates with `Bun.build`, so keep typia in that build path, emit to `dist`, then start Bun's inspector on the emitted entry.
+Bun debugging has two separate requirements: typia must still run in the same build or preload path, and Bun's inspector must attach to the process. The examples below show the Bun commands that preserve typia's transform path. Attach with Bun's [web debugger](https://bun.com/docs/guides/runtime/web-debugger), or use Bun's [VSCode debugger](https://bun.com/docs/guides/runtime/vscode-debugger) after installing and validating the Bun extension.
 
-```json filename=".vscode/launch.json" showLineNumbers copy
+### `Bun.build` output
+
+For TypeScript-Go Bun applications, debug generated JavaScript. [`@ttsc/unplugin/bun`](/docs/setup/tsgo#bundlers) integrates with `Bun.build`, so keep typia in that build path, emit to `dist`, then start Bun's inspector on the emitted entry. The same shape applies to legacy `Bun.build` projects that use [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin).
+
+```json filename="package.json" showLineNumbers copy
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Bun output",
-      "runtimeExecutable": "bun",
-      "runtimeArgs": ["--inspect-brk"],
-      "program": "${workspaceFolder}/dist/index.js",
-      "skipFiles": ["<node_internals>/**"]
-    }
-  ]
+  "scripts": {
+    "build:debug": "bun run build.ts",
+    "debug:bun": "bun --inspect-brk dist/index.js"
+  }
 }
 ```
 
+```bash filename="Terminal" showLineNumbers copy
+bun run build:debug
+bun run debug:bun
+```
+
+### Bun runtime preload
+
 Legacy Bun projects can also debug the raw `.ts` entry when [`@typia/unplugin/bun`](/docs/setup/legacy#typiaunplugin) is registered through `bunfig.toml` preload.
 
-```json filename=".vscode/launch.json" showLineNumbers copy
+```json filename="package.json" showLineNumbers copy
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Bun runtime",
-      "runtimeExecutable": "bun",
-      "runtimeArgs": ["--inspect-brk"],
-      "program": "${workspaceFolder}/src/index.ts",
-      "skipFiles": ["<node_internals>/**"]
-    }
-  ]
+  "scripts": {
+    "debug:bun": "bun --inspect-brk src/index.ts"
+  }
 }
+```
+
+```bash filename="Terminal" showLineNumbers copy
+bun run debug:bun
 ```
 
 Do not point Bun or VSCode at the raw `.ts` entry unless the Bun plugin is already registered in that runtime. Without the plugin, the program can run with untransformed `typia.*` calls.
 
 ## Verify the debugger path
 
-Add a one-line setup check and start the same debug configuration:
+Temporarily add a setup check to the entry file that your debug configuration already runs:
 
-```ts filename="src/check-setup.ts" showLineNumbers copy
+```ts filename="src/index.ts" showLineNumbers copy
 import typia from "typia";
 
 console.log(typia.is<{ id: string }>({ id: "ok" }));
