@@ -319,9 +319,6 @@ export namespace OpenApiV3Upgrader {
         readOnly: input.readOnly,
         writeOnly: input.writeOnly,
         example: input.example,
-        examples: Array.isArray(input.examples)
-          ? Object.fromEntries(input.examples.map((v, i) => [`v${i}`, v]))
-          : input.examples,
         ...Object.fromEntries(
           Object.entries(input).filter(
             ([key, value]) => key.startsWith("x-") && value !== undefined,

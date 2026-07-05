@@ -220,7 +220,6 @@ export namespace OpenApiV3Downgrader {
         readOnly: input.readOnly,
         writeOnly: input.writeOnly,
         example: input.example,
-        examples: downgradeSchemaExamples(input.examples),
         ...Object.fromEntries(
           Object.entries(input).filter(
             ([key, value]) => key.startsWith("x-") && value !== undefined,
@@ -237,20 +236,17 @@ export namespace OpenApiV3Downgrader {
           OpenApiTypeChecker.isString(schema) ||
           OpenApiTypeChecker.isReference(schema)
         )
+          union.push(omitSchemaExamples(schema));
+        else if (OpenApiTypeChecker.isArray(schema)) {
+          const next = omitSchemaExamples(schema);
           union.push({
-            ...schema,
-            examples: downgradeSchemaExamples(schema.examples),
-          });
-        else if (OpenApiTypeChecker.isArray(schema))
-          union.push({
-            ...schema,
-            examples: downgradeSchemaExamples(schema.examples),
+            ...next,
             items: downgradeSchema(collection)(schema.items),
           });
-        else if (OpenApiTypeChecker.isTuple(schema))
+        } else if (OpenApiTypeChecker.isTuple(schema)) {
+          const next = omitSchemaExamples(schema);
           union.push({
-            ...schema,
-            examples: downgradeSchemaExamples(schema.examples),
+            ...next,
             items: ((): OpenApiV3.IJsonSchema => {
               if (schema.additionalItems === true) return {};
               const elements = [
@@ -274,10 +270,10 @@ export namespace OpenApiV3Downgrader {
               additionalItems: undefined,
             },
           });
-        else if (OpenApiTypeChecker.isObject(schema))
+        } else if (OpenApiTypeChecker.isObject(schema)) {
+          const next = omitSchemaExamples(schema);
           union.push({
-            ...schema,
-            examples: downgradeSchemaExamples(schema.examples),
+            ...next,
             properties:
               schema.properties === undefined
                 ? undefined
@@ -297,7 +293,7 @@ export namespace OpenApiV3Downgrader {
                   : schema.additionalProperties,
             required: schema.required,
           });
-        else if (OpenApiTypeChecker.isOneOf(schema))
+        } else if (OpenApiTypeChecker.isOneOf(schema))
           schema.oneOf.forEach(visit);
       };
       const visitConstant = (schema: OpenApi.IJsonSchema): void => {
@@ -377,10 +373,12 @@ export namespace OpenApiV3Downgrader {
       schema.$ref += ".Nullable";
     };
 
-  const downgradeSchemaExamples = (
-    examples: OpenApi.IJsonSchema["examples"],
-  ): any[] | undefined =>
-    examples === undefined ? undefined : Object.values(examples);
+  const omitSchemaExamples = <Schema extends OpenApi.IJsonSchema>(
+    schema: Schema,
+  ): Omit<Schema, "examples"> => {
+    const { examples: _examples, ...rest } = schema;
+    return rest;
+  };
 
   const isNullable =
     (visited: Set<string>) =>
