@@ -129,7 +129,7 @@ A few JSON-Schema-only comment tags are also recognized — they don't affect ru
 
 ## Custom fields
 
-JSON Schema reserves the `x-` prefix for non-standard extensions. To embed `x-…` properties (for vendor-specific tooling, internal flags, anything that isn't part of the standard), use `tags.TagBase.schema` or the `tags.JsonSchemaPlugin` helper:
+OpenAPI-style schema consumers commonly use the `x-*` prefix for non-standard extensions. To embed `x-*` properties (for vendor-specific tooling, internal flags, anything that isn't part of the standard), use `tags.TagBase.schema` or the `tags.JsonSchemaPlugin` helper:
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
@@ -145,6 +145,24 @@ JSON Schema reserves the `x-` prefix for non-standard extensions. To embed `x-�
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+For standard schema keywords that TypeScript cannot infer, such as OpenAPI 3.1 / JSON Schema `patternProperties`, use the same escape hatch when the annotation is only for schema consumers:
+
+```typescript copy
+import typia, { tags } from "typia";
+
+type XHeaders = Record<string, string> &
+  tags.JsonSchemaPlugin<{
+    patternProperties: {
+      "^x-": { type: "string" };
+    };
+    additionalProperties: false;
+  }>;
+
+typia.json.schema<XHeaders>();
+```
+
+`JsonSchemaPlugin` is schema-only metadata. It does not change validator behavior; if runtime validation must reject keys outside the pattern, encode that rule with a validating custom `tags.TagBase` or validate the keys separately.
 
 ## Restrictions
 
