@@ -643,7 +643,7 @@ export namespace OpenApiV3_2 {
       "examples"
     > {
       /** Example values. */
-      examples?: any[] | Record<string, any>;
+      examples?: any[];
     }
   }
 

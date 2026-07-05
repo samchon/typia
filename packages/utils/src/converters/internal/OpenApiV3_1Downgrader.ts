@@ -235,7 +235,7 @@ export namespace OpenApiV3_1Downgrader {
         readOnly: input.readOnly,
         writeOnly: input.writeOnly,
         example: input.example,
-        examples: input.examples,
+        examples: downgradeSchemaExamples(input.examples),
         ...Object.fromEntries(
           Object.entries(input).filter(
             ([key, value]) => key.startsWith("x-") && value !== undefined,
@@ -253,15 +253,20 @@ export namespace OpenApiV3_1Downgrader {
           OpenApiTypeChecker.isString(schema) ||
           OpenApiTypeChecker.isReference(schema)
         )
-          union.push({ ...schema });
+          union.push({
+            ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
+          });
         else if (OpenApiTypeChecker.isArray(schema))
           union.push({
             ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
             items: downgradeSchema(collection)(schema.items),
           });
         else if (OpenApiTypeChecker.isTuple(schema))
           union.push({
             ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
             prefixItems: schema.prefixItems.map(downgradeSchema(collection)),
             additionalItems:
               typeof schema.additionalItems === "object"
@@ -271,6 +276,7 @@ export namespace OpenApiV3_1Downgrader {
         else if (OpenApiTypeChecker.isObject(schema))
           union.push({
             ...schema,
+            examples: downgradeSchemaExamples(schema.examples),
             properties:
               schema.properties === undefined
                 ? undefined
@@ -303,6 +309,11 @@ export namespace OpenApiV3_1Downgrader {
         ...attribute,
       };
     };
+
+  const downgradeSchemaExamples = (
+    examples: OpenApi.IJsonSchema["examples"],
+  ): any[] | undefined =>
+    examples === undefined ? undefined : Object.values(examples);
 
   const downgradeSecuritySchemes = (
     input: Record<string, OpenApi.ISecurityScheme>,

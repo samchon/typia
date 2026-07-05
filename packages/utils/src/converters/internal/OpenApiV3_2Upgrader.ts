@@ -168,7 +168,7 @@ export namespace OpenApiV3_2Upgrader {
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/headers/${string}`>
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/parameters/${string}`>,
     ): OpenApiV3_2.IOperation.IParameter | undefined => {
-      if (!OpenApiV3_1TypeChecker.isReference(input)) return input;
+      if (!("$ref" in input)) return input;
       const key: string = input.$ref.split("/").pop() ?? "";
       if (input.$ref.startsWith("#/components/headers/")) {
         const header:
@@ -228,7 +228,7 @@ export namespace OpenApiV3_2Upgrader {
         | OpenApiV3_2.IOperation.IRequestBody
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/requestBodies/${string}`>,
     ): OpenApi.IOperation.IRequestBody | undefined => {
-      if (OpenApiV3_1TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: OpenApiV3_2.IOperation.IRequestBody | undefined =
           doc.components?.requestBodies?.[input.$ref.split("/").pop() ?? ""];
         if (found === undefined) return undefined;
@@ -249,7 +249,7 @@ export namespace OpenApiV3_2Upgrader {
         | OpenApiV3_2.IOperation.IResponse
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/responses/${string}`>,
     ): OpenApi.IOperation.IResponse | undefined => {
-      if (OpenApiV3_1TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: OpenApiV3_2.IOperation.IResponse | undefined =
           doc.components?.responses?.[input.$ref.split("/").pop() ?? ""];
         if (found === undefined) return undefined;
@@ -282,7 +282,7 @@ export namespace OpenApiV3_2Upgrader {
         | Omit<OpenApiV3_2.IOperation.IParameter, "in">
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/headers/${string}`>,
     ): OpenApi.IOperation.IParameter | undefined => {
-      if (OpenApiV3_1TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: Omit<OpenApiV3_2.IOperation.IParameter, "in"> | undefined =
           input.$ref.startsWith("#/components/headers/")
             ? components.headers?.[input.$ref.split("/").pop() ?? ""]

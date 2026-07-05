@@ -631,7 +631,7 @@ export namespace OpenApiV3_1 {
       "examples"
     > {
       /** Example values. */
-      examples?: any[] | Record<string, any>;
+      examples?: any[];
     }
   }
 
