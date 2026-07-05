@@ -47,7 +47,24 @@ const schemas = typia.json.schemas<[User]>();
 // → an IJsonSchemaCollection with `User` under components.schemas
 ```
 
-The output is a plain object — drop it into your OpenAPI spec, hand it to `ajv` if you must, or save it to disk for tooling that wants schemas at rest.
+The output is a plain object. Use it directly with typia and `@typia/utils`, hand it to `ajv` when your JSON Schema consumer accepts typia's emended shape, or save it to disk for tooling that wants schemas at rest.
+
+`typia.json.schema`, `typia.json.schemas`, and `typia.json.application` return typia's emended schema representation. It is designed for typia and `@typia/utils` converters first, not for direct assignment to every third-party OpenAPI `SchemaObject` type. When a tool expects raw OpenAPI 3.1 schemas, convert the components with `OpenApiConverter.downgradeComponents`:
+
+```typescript copy filename="openapi-components.ts"
+import typia from "typia";
+import { OpenApiConverter } from "@typia/utils";
+
+const collection = typia.json.schemas<[User]>();
+const components = OpenApiConverter.downgradeComponents(
+  collection.components,
+  "3.1",
+);
+
+// Use components.schemas in an OpenAPI 3.1 document or plugin option.
+```
+
+This matters for schema-level `examples`: typia keeps `tags.Examples<T>` as named examples in the emended schema, while OpenAPI 3.1's Schema Object uses JSON Schema's array-shaped `examples` keyword. The converter drops the names and emits the raw OpenAPI form.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>

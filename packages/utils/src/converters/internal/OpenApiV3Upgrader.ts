@@ -127,7 +127,7 @@ export namespace OpenApiV3Upgrader {
         | OpenApiV3.IJsonSchema.IReference<`#/components/headers/${string}`>
         | OpenApiV3.IJsonSchema.IReference<`#/components/parameters/${string}`>,
     ): OpenApiV3.IOperation.IParameter | undefined => {
-      if (!OpenApiV3TypeChecker.isReference(input)) return input;
+      if (!("$ref" in input)) return input;
       const key: string = input.$ref.split("/").pop() ?? "";
       if (input.$ref.startsWith("#/components/headers/")) {
         const header: Omit<OpenApiV3.IOperation.IParameter, "in"> | undefined =
@@ -184,7 +184,7 @@ export namespace OpenApiV3Upgrader {
         | OpenApiV3.IOperation.IRequestBody
         | OpenApiV3.IJsonSchema.IReference<`#/components/requestBodies/${string}`>,
     ): OpenApi.IOperation.IRequestBody | undefined => {
-      if (OpenApiV3TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: OpenApiV3.IOperation.IRequestBody | undefined =
           doc.components?.requestBodies?.[input.$ref.split("/").pop() ?? ""];
         if (found === undefined) return undefined;
@@ -205,7 +205,7 @@ export namespace OpenApiV3Upgrader {
         | OpenApiV3.IOperation.IResponse
         | OpenApiV3.IJsonSchema.IReference<`#/components/responses/${string}`>,
     ): OpenApi.IOperation.IResponse | undefined => {
-      if (OpenApiV3TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: OpenApiV3.IOperation.IResponse | undefined =
           doc.components?.responses?.[input.$ref.split("/").pop() ?? ""];
         if (found === undefined) return undefined;
@@ -238,7 +238,7 @@ export namespace OpenApiV3Upgrader {
         | Omit<OpenApiV3.IOperation.IParameter, "in">
         | OpenApiV3.IJsonSchema.IReference<`#/components/headers/${string}`>,
     ): OpenApi.IOperation.IParameter | undefined => {
-      if (OpenApiV3TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: Omit<OpenApiV3.IOperation.IParameter, "in"> | undefined =
           input.$ref.startsWith("#/components/headers/")
             ? components.headers?.[input.$ref.split("/").pop() ?? ""]
@@ -319,9 +319,6 @@ export namespace OpenApiV3Upgrader {
         readOnly: input.readOnly,
         writeOnly: input.writeOnly,
         example: input.example,
-        examples: Array.isArray(input.examples)
-          ? Object.fromEntries(input.examples.map((v, i) => [`v${i}`, v]))
-          : input.examples,
         ...Object.fromEntries(
           Object.entries(input).filter(
             ([key, value]) => key.startsWith("x-") && value !== undefined,

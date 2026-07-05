@@ -549,10 +549,7 @@ export namespace OpenApiV3 {
     export interface __IAttribute extends Omit<
       IJsonSchemaAttribute,
       "examples"
-    > {
-      /** Example values. */
-      examples?: any[] | Record<string, any>;
-    }
+    > {}
   }
 
   /** Security scheme types. */
