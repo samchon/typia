@@ -10,7 +10,12 @@ interface ICommandResult {
 
 const root: string = path.resolve(__dirname, "..");
 const scratch: string = fs.mkdtempSync(path.join(os.tmpdir(), "typia-cli-"));
-const ttscCache: string = process.env.TTSC_CACHE_DIR ?? scratch;
+// The fixture projects live in os.tmpdir(), outside the pnpm workspace, so
+// ttsc's workspace-local cache resolution cannot find the repository root on
+// its own; point it at the shared cache or every run pays a cold `go build`.
+const ttscCache: string =
+  process.env.TTSC_CACHE_DIR ??
+  path.resolve(root, "..", "..", "node_modules", ".cache", "ttsc");
 const typiaSource: string = path.resolve(
   root,
   "..",
