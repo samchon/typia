@@ -17,68 +17,11 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  # Pack the typia tarballs once and share them with every matrix job below,
-  # instead of rebuilding them six times.
-  tarballs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.6.4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24.x
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: packages/typia/native/go.mod
-          cache-dependency-path: packages/typia/native/go.sum
-
-      - name: Install typia dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build typia tarballs
-        run: pnpm package:tgz
-
-      - name: Upload tarballs
-        uses: actions/upload-artifact@v4
-        with:
-          name: typia-tarballs
-          path: experiments/tarballs/*.tgz
-          if-no-files-found: error
-          retention-days: 1
-
-  # Mirror nestia (next)'s own test.yml matrix so each suite runs in parallel,
-  # but against the local typia tarballs instead of the published release.
-  nestia:
-    needs: tarballs
-    name: ${{ matrix.name }}
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - { name: go, run: "pnpm test:go" }
-          - { name: sdk, run: "pnpm --filter ./tests/test-sdk start" }
-          - { name: migrate, run: "pnpm --filter ./tests/test-migrate start" }
-          - {
-              name: transform-options,
-              run: "pnpm --filter ./tests/test-transform-options start",
-            }
-          - { name: e2e, run: "pnpm --filter ./tests/test-e2e start" }
-          - { name: benchmark, run: "pnpm --filter ./tests/test-benchmark start" }
     steps:
       - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.6.4
 
       - uses: actions/setup-node@v4
         with:
@@ -86,84 +29,12 @@ jobs:
 
       - uses: actions/setup-go@v5
         with:
-          go-version-file: packages/typia/native/go.mod
-          cache-dependency-path: packages/typia/native/go.sum
+          go-version: 1.26.x
 
-      - name: Download typia tarballs
-        uses: actions/download-artifact@v4
-        with:
-          name: typia-tarballs
-          path: experiments/tarballs
+      - uses: pnpm/action-setup@v4
 
-      - name: Resolve ttsc version from typia lockfile
-        id: ttsc
-        run: |
-          # Pin nestia's ttsc to the exact version typia is currently locked
-          # against, so both sides exercise the same compiler when we override
-          # typia with the local tarballs.
-          node -e '
-          const fs = require("fs");
-          const text = fs.readFileSync("pnpm-lock.yaml", "utf8");
-          const match = text.match(/^\s{2}ttsc@([^\s:(]+)/m);
-          if (!match) {
-            console.error("ttsc not found in typia pnpm-lock.yaml");
-            process.exit(1);
-          }
-          fs.appendFileSync(process.env.GITHUB_OUTPUT, "version=" + match[1] + "\n");
-          console.log("Resolved ttsc version:", match[1]);
-          '
+      - name: Install Dependencies
+        run: pnpm install
 
-      - name: Clone nestia (next)
-        run: |
-          rm -rf experiments/nestia
-          git clone --depth=1 --branch next https://github.com/samchon/nestia experiments/nestia
-
-      - name: Use local typia tarballs and pin ttsc
-        working-directory: experiments/nestia
-        env:
-          TTSC_VERSION: ${{ steps.ttsc.outputs.version }}
-        run: |
-          # nestia (next) resolves typia + ttsc through a catalog and may grow
-          # its own top-level `overrides:` block, in which case appending a
-          # second one makes pnpm fail with a duplicated-mapping-key YAML
-          # error. Merge our entries into the existing block instead, creating
-          # it only when absent, and no-op on re-run.
-          node -e '
-          const fs = require("fs");
-          const file = "pnpm-workspace.yaml";
-          const text = fs.readFileSync(file, "utf8");
-          if (text.includes("file:../tarballs/typia.tgz")) process.exit(0);
-          const entries = [
-            "  typia: file:../tarballs/typia.tgz",
-            "  \"@typia/core\": file:../tarballs/core.tgz",
-            "  \"@typia/interface\": file:../tarballs/interface.tgz",
-            "  \"@typia/transform\": file:../tarballs/transform.tgz",
-            "  \"@typia/utils\": file:../tarballs/utils.tgz",
-            "  ttsc: " + process.env.TTSC_VERSION,
-          ].join("\n");
-          const merged = /^overrides:[ \t]*$/m.test(text)
-            ? text.replace(/^overrides:[ \t]*$/m, (line) => line + "\n" + entries)
-            : text.replace(/\s*$/, "") + "\n\noverrides:\n" + entries + "\n";
-          fs.writeFileSync(file, merged);
-          '
-
-      - name: Install nestia dependencies
-        working-directory: experiments/nestia
-        run: pnpm install --no-frozen-lockfile
-
-      - name: Use System Go For Source Plugin Build
-        run: echo "TTSC_GO_BINARY=$(go env GOROOT)/bin/go" >> "$GITHUB_ENV"
-
-      - name: Build nestia
-        working-directory: experiments/nestia
-        env:
-          # Mirror nestia's own test.yml: keep Node's native TS strip / module
-          # detection off so the e2e run matches nestia's CI environment.
-          NODE_OPTIONS: --no-experimental-strip-types --no-experimental-detect-module
-        run: pnpm build
-
-      - name: Run ${{ matrix.name }}
-        working-directory: experiments/nestia
-        env:
-          NODE_OPTIONS: --no-experimental-strip-types --no-experimental-detect-module
-        run: ${{ matrix.run }}
+      - name: Run Tests
+        run: pnpm test

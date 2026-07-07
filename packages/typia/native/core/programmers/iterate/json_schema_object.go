@@ -1,6 +1,7 @@
 package iterate
 
 import (
+  nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
   nativeutils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
@@ -46,7 +47,8 @@ func json_schema_create_object_schema(props struct {
   components *OpenApi_IComponents
   object     *nativemetadata.MetadataObject
 }) JsonSchema {
-  properties := JsonSchema{}
+  properties := map[string]any{}
+  propertyKeys := []string{}
   extraMeta := json_schema_superfluous{
     patternProperties: map[string]json_schema_metadata_schema_pair{},
   }
@@ -96,6 +98,7 @@ func json_schema_create_object_schema(props struct {
     key := property.Key.GetSoleLiteral()
     if key != nil {
       properties[*key] = value
+      propertyKeys = append(propertyKeys, *key)
       if property.Value.IsRequired() {
         required = append(required, *key)
       }
@@ -115,7 +118,7 @@ func json_schema_create_object_schema(props struct {
 
   schema := JsonSchema{
     "type":                 "object",
-    "properties":           properties,
+    "properties":           nativefactories.LiteralFactory_OrderedObject{Keys: propertyKeys, Values: properties},
     "additionalProperties": false,
     "required":             required,
   }

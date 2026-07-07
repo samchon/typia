@@ -323,20 +323,20 @@ func llmSchemaProgrammer_convert_schema_config(schema nativeiterate.JsonSchema, 
     }
     if input["type"] == "object" {
       properties := map[string]any{}
-      if raw, ok := llmSchemaProgrammer_schema_map(input["properties"]); ok {
-        keys := make([]string, 0, len(raw))
-        for key := range raw {
-          keys = append(keys, key)
-        }
-        sort.Strings(keys)
+      propertyKeys := []string{}
+      if raw, keys, ok := llmSchemaProgrammer_schema_map_ordered(input["properties"]); ok {
         for _, key := range keys {
           if value, ok := llmSchemaProgrammer_schema_from_any(raw[key]); ok {
             properties[key] = llmSchemaProgrammer_convert_schema_config(value, components, defs, config)
+            propertyKeys = append(propertyKeys, key)
           }
         }
       }
       output := llmSchemaProgrammer_clone(input)
-      output["properties"] = properties
+      output["properties"] = nativefactories.LiteralFactory_OrderedObject{
+        Keys:   propertyKeys,
+        Values: properties,
+      }
       if additional, ok := llmSchemaProgrammer_schema_from_any(input["additionalProperties"]); ok {
         output["additionalProperties"] = llmSchemaProgrammer_convert_schema_config(additional, components, defs, config)
       } else if strict {
@@ -533,6 +533,13 @@ func llmSchemaProgrammer_schema_array(value any) []nativeiterate.JsonSchema {
 
 func llmSchemaProgrammer_schema_map(value any) (map[string]any, bool) {
   switch v := value.(type) {
+  case nativefactories.LiteralFactory_OrderedObject:
+    return v.Values, true
+  case *nativefactories.LiteralFactory_OrderedObject:
+    if v == nil {
+      return nil, false
+    }
+    return v.Values, true
   case nativeiterate.JsonSchema:
     output := map[string]any{}
     for key, value := range v {
@@ -544,6 +551,55 @@ func llmSchemaProgrammer_schema_map(value any) (map[string]any, bool) {
   default:
     return nil, false
   }
+}
+
+func llmSchemaProgrammer_schema_map_ordered(value any) (map[string]any, []string, bool) {
+  switch v := value.(type) {
+  case nativefactories.LiteralFactory_OrderedObject:
+    return v.Values, llmSchemaProgrammer_ordered_keys(v.Keys, v.Values), true
+  case *nativefactories.LiteralFactory_OrderedObject:
+    if v == nil {
+      return nil, nil, false
+    }
+    return v.Values, llmSchemaProgrammer_ordered_keys(v.Keys, v.Values), true
+  case nativeiterate.JsonSchema:
+    output := map[string]any{}
+    keys := make([]string, 0, len(v))
+    for key, value := range v {
+      output[key] = value
+      keys = append(keys, key)
+    }
+    sort.Strings(keys)
+    return output, keys, true
+  case map[string]any:
+    keys := make([]string, 0, len(v))
+    for key := range v {
+      keys = append(keys, key)
+    }
+    sort.Strings(keys)
+    return v, keys, true
+  default:
+    return nil, nil, false
+  }
+}
+
+func llmSchemaProgrammer_ordered_keys(keys []string, values map[string]any) []string {
+  output := make([]string, 0, len(values))
+  visited := map[string]bool{}
+  for _, key := range keys {
+    if _, ok := values[key]; ok && visited[key] == false {
+      output = append(output, key)
+      visited[key] = true
+    }
+  }
+  rest := make([]string, 0, len(values)-len(output))
+  for key := range values {
+    if visited[key] == false {
+      rest = append(rest, key)
+    }
+  }
+  sort.Strings(rest)
+  return append(output, rest...)
 }
 
 func llmSchemaProgrammer_schema_from_any(value any) (nativeiterate.JsonSchema, bool) {
