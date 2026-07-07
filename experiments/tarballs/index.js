@@ -4,11 +4,6 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "../..");
 const outputDir = __dirname;
-const env = {
-  ...process.env,
-  TTSC_CACHE_DIR:
-    process.env.TTSC_CACHE_DIR ?? path.join(root, "node_modules", ".ttsc"),
-};
 
 const targets = [
   ...listTargets(path.join(root, "packages")),
@@ -30,7 +25,6 @@ function build(target) {
   cp.execSync("pnpm pack", {
     stdio: "inherit",
     cwd: packageDir,
-    env,
   });
 
   // copy tgz file

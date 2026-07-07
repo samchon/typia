@@ -24,6 +24,19 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      # ttsc compiles the typia Go plugin on first use into
+      # node_modules/.cache/ttsc, keyed by content (plugin source + ttsc/tsgo
+      # versions). Restoring a stale cache is safe: a changed source misses the
+      # binary key but still reuses the incremental go-build objects. Restored
+      # after `pnpm install` so an install-time node_modules rebuild cannot
+      # discard it.
+      - name: Restore ttsc Plugin Cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/ttsc
+          key: ttsc-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
+          restore-keys: ttsc-cache-${{ runner.os }}-
+
       - name: Build Tarballs
         run: pnpm run package:tgz
 

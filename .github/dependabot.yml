@@ -1,10 +1,24 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"
+    # experiments/* are not pnpm workspace members, so their manifests are
+    # invisible to the root scan; list them so the ttsc family cannot drift
+    # there again (grouping spans directories, keeping one PR per family bump).
+    directories:
+      - "/"
+      - "/experiments/mcp"
+      - "/experiments/smoke"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
     allow:
       - dependency-name: "typescript"
       - dependency-name: "ttsc"
+      - dependency-name: "@ttsc/*"
+    # ttsc and the @ttsc/* companions (playground, unplugin, wasm) release in
+    # lockstep; bumping them separately leaves the catalog on mixed versions.
+    groups:
+      ttsc:
+        patterns:
+          - "ttsc"
+          - "@ttsc/*"
