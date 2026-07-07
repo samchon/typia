@@ -13,6 +13,6 @@
   },
   "devDependencies": {
     "typescript": "7.0.1-rc",
-    "ttsc": "^0.16.0"
+    "ttsc": "^0.17.3"
   }
 }

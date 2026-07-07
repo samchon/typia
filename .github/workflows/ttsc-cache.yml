@@ -1,0 +1,43 @@
+name: ttsc-cache
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/ttsc-cache.yml'
+      - 'packages/typia/native/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
+      - uses: pnpm/action-setup@v4
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      # Caches saved by pull_request runs live on the PR's merge ref, which
+      # other PRs cannot restore; only default-branch caches are shared with
+      # everyone. This job rebuilds the ttsc plugin cache on master after each
+      # relevant merge so every new PR starts warm. Restore uses the same key
+      # as the pull_request workflows; on an exact hit the post step skips the
+      # save, so an already-seeded master push costs only the restore.
+      - name: Restore ttsc Plugin Cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/ttsc
+          key: ttsc-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
+          restore-keys: ttsc-cache-${{ runner.os }}-
+
+      # The cheapest command that compiles the plugin (examples build runs
+      # ttsc with the typia transform); the binary lands in the cached path.
+      - name: Build ttsc Plugin
+        run: pnpm --filter ./examples run build

@@ -28,7 +28,7 @@ A single Go program under `packages/typia/native` performs the compile-time tran
 "ttsc": { "plugin": { "transform": "typia/lib/transform" } }
 ```
 
-The `transform.ts` files inside the typia packages are plugin descriptors, not transformers — there is no TypeScript-side transform anymore. The descriptor resolves to the Go entrypoint under `native/cmd/`; other packages compose on it. Consumers reach the binary through `ttsc` / `ttsx` and the published descriptors. Inside the repo, `scripts/with-ttsc-cache.cjs` wires the `TTSC_CACHE_DIR` (and, for runtime suites, the ts-node transpile-only loader) into every workspace command.
+The `transform.ts` files inside the typia packages are plugin descriptors, not transformers — there is no TypeScript-side transform anymore. The descriptor resolves to the Go entrypoint under `native/cmd/`; other packages compose on it. Consumers reach the binary through `ttsc` / `ttsx` and the published descriptors. ttsc keys each plugin build by content and stores it workspace-wide under `node_modules/.cache/ttsc` (it walks up to `pnpm-workspace.yaml`), so every package and test workspace shares one binary; `TTSC_CACHE_DIR` overrides the location only for suites whose fixture projects live outside the workspace (e.g. `tests/test-typia-cli`).
 
 ## Layout
 
@@ -55,6 +55,6 @@ pnpm build
 pnpm test
 ```
 
-`pnpm test` runs `pnpm test:packages` (builds `@typia/template`, then runs every `tests/test-*` workspace through `scripts/with-ttsc-cache.cjs`) followed by `pnpm test:toolchain` (`go test ./...` under `packages/typia/test`). It needs `go` on `PATH`. Run `pnpm install` before `go test`, or the Go workspace cannot resolve the `ttsc` shims through `../node_modules/`. Test workspaces execute TypeScript sources directly via the `ts-node` transpile-only loader; the wrapper script wires that loader and the shared `TTSC_CACHE_DIR` into every workspace command.
+`pnpm test` runs `pnpm test:packages` (builds `@typia/template`, then runs every `tests/test-*` workspace) followed by `pnpm test:toolchain` (`go test ./...` under `packages/typia/test`). It needs `go` on `PATH`. Run `pnpm install` before `go test`, or the Go workspace cannot resolve the `ttsc` shims through `../node_modules/`. Test workspaces execute TypeScript sources directly through `ttsx`, sharing the workspace-local plugin cache under `node_modules/.cache/ttsc`.
 
 Release-time commands (most contributors skip these): `pnpm package:next`, `pnpm package:latest`, `pnpm release`. `pnpm package:tgz` stages local tarballs in `experiments/tarballs/` for offline testing. See `.codex/skills/pull-request/SKILL.md` for the release flow.
