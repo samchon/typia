@@ -1,0 +1,52 @@
+name: release-rc
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "bumpp version argument, for example 13.0.0-rc.2 or prerelease"
+        required: true
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org/
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Bump versions
+        env:
+          VERSION: ${{ inputs.version }}
+        run: pnpm bumpp "$VERSION" --no-commit --no-tag --no-push --recursive --yes
+
+      - name: Commit bumped versions
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json pnpm-lock.yaml ":(glob)**/package.json"
+          git commit -m "chore(release): bump rc to ${VERSION}"
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+      - name: Publish rc to npm
+        run: pnpm run package:rc --no-git-checks --provenance

@@ -15,8 +15,8 @@
     "test:go:native": "node scripts/with-ttsc-cache.cjs go -C packages/typia/test test ../native/...",
     "test:toolchain": "pnpm run test:go",
     "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
-    "package:next": "bash next.bash",
-    "package:rc": "bash rc.bash",
+    "package:next": "bash -c 'pnpm --filter=./packages/* -r publish --tag next --access public \"$@\"' --",
+    "package:rc": "bash -c 'pnpm --filter=./packages/* -r publish --tag rc --access public \"$@\"' --",
     "package:tgz": "node experiments/tarballs",
     "release": "bumpp -r"
   },
