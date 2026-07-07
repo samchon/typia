@@ -1,17 +1,8 @@
 name: website
-on: 
-  push: 
-    branches:
-      - master
-    paths:
-      - .github/workflows/website.yml
-      - 'examples/**'
-      - 'packages/**'
-      - 'website/**'
-      - 'website/package.json'
-      - 'package.json'
+on:
   pull_request:
     paths:
+      - .github/workflows/release.yml
       - .github/workflows/website.yml
       - 'examples/**'
       - 'packages/**'
@@ -19,7 +10,7 @@ on:
       - 'website/package.json'
       - 'package.json'
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 #v4
@@ -53,10 +44,3 @@ jobs:
       - name: Build
         working-directory: website
         run: pnpm run build
-
-      - name: Deploy
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: ./website/out
