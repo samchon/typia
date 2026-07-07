@@ -98,6 +98,31 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
   }
 }
 
+// Unlike the sibling suites sharing atomicIntersectionSchemaTSConfig, this
+// test runs a full `--emit` build, and the fixture imports the real "typia"
+// package whose exports ship TypeScript source — so packages/typia/src/**
+// joins the program as emittable input. outDir keeps that emit inside the
+// fixture directory (removed by t.Cleanup) instead of writing .js beside
+// typia's own sources, and tsgo then demands rootDir name the program's
+// common source directory explicitly (TS5011): "../../.." resolves to
+// packages/typia from a fixture at native/.tmp-ttsc-typia-tests/<name>/.
+const intersectionBackstopTSConfig = `{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "6.0",
+    "types": ["*"],
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "rootDir": "../../.."
+  },
+  "include": ["src"]
+}
+`
+
 func intersectionBackstopProject(t *testing.T, name string, decl string) string {
   t.Helper()
   root := ttscTypiaTestRepoRoot(t)
@@ -114,7 +139,7 @@ func intersectionBackstopProject(t *testing.T, name string, decl string) string 
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(atomicIntersectionSchemaTSConfig), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(intersectionBackstopTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
   source := fmt.Sprintf(`import typia, { tags } from "typia";
