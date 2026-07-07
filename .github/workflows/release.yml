@@ -82,7 +82,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No version changes to commit."
           else
-            git commit -m "chore(release): bump ${NPM_TAG} to ${VERSION}"
+            git commit -m "chore(release): bump ${NPM_TAG} to ${VERSION} [skip ci]"
             git push origin HEAD:${GITHUB_REF_NAME}
           fi
       - name: Publish to npm
