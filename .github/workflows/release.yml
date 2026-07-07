@@ -3,19 +3,20 @@ name: release
 on:
   push:
     tags:
-      - "*"
+      - "v*.*.*"
+      - "!v*-*"
+      - '!v*\+*'
   workflow_dispatch:
     inputs:
       tag:
-        description: "npm dist-tag to publish"
+        description: "prerelease npm dist-tag to publish"
         required: true
         type: choice
         options:
-          - latest
           - rc
           - next
       version:
-        description: "Exact version. latest: x.y.z, rc: x.y.z-rc.n, next: x.y.z-next.n"
+        description: "Exact prerelease version. rc: x.y.z-rc.n, next: x.y.z-next.n"
         required: true
 permissions:
   id-token: write
@@ -25,40 +26,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 #v4
-        with:
-          ref: ${{ github.ref_name }}
-      - name: Validate dispatch inputs
-        if: github.event_name == 'workflow_dispatch'
-        env:
-          NPM_TAG: ${{ inputs.tag }}
-          VERSION: ${{ inputs.version }}
-        run: |
-          case "$NPM_TAG" in
-            latest)
-              PATTERN='^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$'
-              EXAMPLE='13.0.0'
-              ;;
-            rc)
-              PATTERN='^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)-rc\.(0|[1-9][0-9]*)$'
-              EXAMPLE='13.0.0-rc.2'
-              ;;
-            next)
-              PATTERN='^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)-next\.(0|[1-9][0-9]*)$'
-              EXAMPLE='13.0.0-next.0'
-              ;;
-            *)
-              echo "::error::tag must be one of latest, rc, or next"
-              exit 1
-              ;;
-          esac
-          if [[ ! "$VERSION" =~ $PATTERN ]]; then
-            echo "::error::tag '$NPM_TAG' requires version like $EXAMPLE"
-            exit 1
-          fi
       - uses: actions/setup-node@v6
         with:
           node-version: 24.x
           registry-url: https://registry.npmjs.org/
+      - name: Validate release context
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: node .github/workflows/release-guard.cjs validate-context
       - uses: actions/setup-go@v5
         with:
           go-version: 1.26.x
@@ -67,14 +43,12 @@ jobs:
         run: pnpm install
       - name: Bump versions
         if: github.event_name == 'workflow_dispatch'
-        env:
-          VERSION: ${{ inputs.version }}
-        run: pnpm bumpp "$VERSION" --no-commit --no-tag --no-push --recursive --yes
+        run: node .github/workflows/release-guard.cjs bump-if-needed
+      - name: Validate bumped versions
+        if: github.event_name == 'workflow_dispatch'
+        run: node .github/workflows/release-guard.cjs validate-package-versions
       - name: Commit bumped versions
         if: github.event_name == 'workflow_dispatch'
-        env:
-          NPM_TAG: ${{ inputs.tag }}
-          VERSION: ${{ inputs.version }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -82,12 +56,10 @@ jobs:
           if git diff --cached --quiet; then
             echo "No version changes to commit."
           else
-            git commit -m "chore(release): bump ${NPM_TAG} to ${VERSION}"
+            git commit -m "chore(release): bump ${NPM_TAG} to ${RELEASE_VERSION} [skip ci]"
             git push origin HEAD:${GITHUB_REF_NAME}
           fi
       - name: Publish to npm
-        env:
-          NPM_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || 'latest' }}
         run: pnpm run "package:${NPM_TAG}" --no-git-checks --provenance
   release:
     runs-on: ubuntu-latest
