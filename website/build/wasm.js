@@ -82,7 +82,7 @@ function walk(root, visit) {
     }
     if (stat.isDirectory()) {
       const base = path.basename(cur);
-      if (base === "node_modules" || base === ".git") continue;
+      if (base === "node_modules" || base === ".ttsc" || base === ".git") continue;
       for (const entry of fs.readdirSync(cur)) {
         stack.push(path.join(cur, entry));
       }
