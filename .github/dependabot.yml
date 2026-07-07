@@ -8,3 +8,11 @@ updates:
     allow:
       - dependency-name: "typescript"
       - dependency-name: "ttsc"
+      - dependency-name: "@ttsc/*"
+    # ttsc and the @ttsc/* companions (playground, unplugin, wasm) release in
+    # lockstep; bumping them separately leaves the catalog on mixed versions.
+    groups:
+      ttsc:
+        patterns:
+          - "ttsc"
+          - "@ttsc/*"
