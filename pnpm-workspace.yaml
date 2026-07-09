@@ -18,7 +18,7 @@ catalogs:
     '@ttsc/wasm': ^0.17.3
     ts-node: ^10.9.2
     ttsc: ^0.17.3
-    typescript: 7.0.1-rc
+    typescript: ^7.0.2
   rollup:
     rollup: ^4.56.0
     rollup-plugin-node-externals: ^8.1.2

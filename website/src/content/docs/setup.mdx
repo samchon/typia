@@ -1,0 +1,194 @@
+---
+title: Guide Documents > Setup
+---
+
+import { Tabs } from "nextra/components";
+
+## Setup
+
+typia is a compile-time transformer, so your build has to run through the TypeScript 7 transformer path. Install `typia`, `typescript`, and [`ttsc`](https://github.com/samchon/ttsc); then build with `ttsc` or execute TypeScript directly with `ttsx`.
+
+## Install
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npm i typia
+npm i -D ttsc typescript
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm i typia
+pnpm i -D ttsc typescript
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn add typia
+yarn add -D ttsc typescript
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun add typia
+bun add -d ttsc typescript
+```
+  </Tabs.Tab>
+</Tabs>
+
+Keep the TypeScript project strict:
+
+```json filename="tsconfig.json" showLineNumbers copy
+{
+  "compilerOptions": {
+    "strict": true
+  }
+}
+```
+
+`ttsc` discovers the typia transform from the `ttsc` field in `typia/package.json`, so the default setup does not require a typia entry in `compilerOptions.plugins`.
+
+## Build
+
+Use `ttsc` where you would normally run a TypeScript compiler:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npx ttsc
+npx ttsc --noEmit
+npx ttsc --watch
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm ttsc
+pnpm ttsc --noEmit
+pnpm ttsc --watch
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn ttsc
+yarn ttsc --noEmit
+yarn ttsc --watch
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun ttsc
+bun ttsc --noEmit
+bun ttsc --watch
+```
+  </Tabs.Tab>
+</Tabs>
+
+## Execute Without Building
+
+Use `ttsx` instead of runners that strip TypeScript before typia can transform it:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npx ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+yarn ttsx src/index.ts
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun ttsx src/index.ts
+```
+  </Tabs.Tab>
+</Tabs>
+
+> [!IMPORTANT]
+>
+> The stock `tsc`, `ts-node`, and `tsx` commands do not load typia's transform. Use `ttsc`, `ttsx`, or `@ttsc/unplugin`.
+
+## Bundlers
+
+Bundlers such as Vite, Next.js, Rollup, esbuild, Webpack, Rspack, Farm, and Bun run their own TypeScript pipeline. Install [`@ttsc/unplugin`](https://github.com/samchon/ttsc/tree/master/packages/unplugin) and add the matching plugin to the bundler config.
+
+```bash filename="Terminal" showLineNumbers copy
+npm i -D @ttsc/unplugin
+```
+
+```ts filename="vite.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [ttsc()],
+});
+```
+
+If the bundler should use a config other than `tsconfig.json`, pass `project`:
+
+```ts filename="vite.config.ts" showLineNumbers copy
+import ttsc from "@ttsc/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [
+    ttsc({
+      project: "tsconfig.bundle.json",
+    }),
+  ],
+});
+```
+
+## Transform Options
+
+Most projects do not need this section. Add `compilerOptions.plugins` only when you want to change an optional typia transform flag:
+
+```jsonc filename="tsconfig.json" showLineNumbers copy
+{
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "plugins": [
+      {
+        "transform": "typia/lib/transform",
+        "functional": true,
+        "numeric": true,
+        "finite": true
+      }
+    ]
+  }
+}
+```
+
+| Flag | Default | What it does |
+|------|---------|--------------|
+| `functional` | `false` | Validate `function`-typed properties as well as data properties |
+| `numeric` | `false` | Reject `NaN` when a property is typed as `number` |
+| `finite` | `false` | Reject `NaN` and `Infinity` when a property is typed as `number` |
+
+## Verify
+
+Drop this into your project and run it through the same command you use for the application:
+
+```ts copy filename="src/check-setup.ts"
+import typia from "typia";
+
+console.log(typia.is<{ id: string }>({ id: "ok" }));
+// true
+```
+
+If it prints `true`, the transform ran. If it throws `Error on typia.<method>(): no transform has been configured.`, the command bypassed `ttsc`, `ttsx`, or `@ttsc/unplugin`.
+
+## Where to go next
+
+- First validator after setup: [`is`](/docs/validators/is), [`assert`](/docs/validators/assert), [`validate`](/docs/validators/validate)
+- Why typia needs a transform: [Pure TypeScript](/docs/pure)
+- Bundled framework recipes: [Utilization Cases](/docs/utilization/mcp)
