@@ -47,7 +47,7 @@ The decorators are interchangeable with the standard NestJS ones — same shape,
 You can add `@TypedBody` / `@TypedRoute` to a single route without touching the rest of the codebase. Specifically:
 
 - **`@TypedBody` and `@Body` coexist on different routes of the same controller.** Existing `class-validator`-decorated DTOs keep working; you migrate route by route.
-- **The build still uses `tsc`** — but it must be the `ts-patch`-patched `tsc`. Add the [legacy setup](/docs/setup/legacy) (wizard or manual) once, and from then on your existing `npm run build` keeps the same shape. CI pipelines that run `npm ci --ignore-scripts` need an explicit `npx ts-patch install` after install — see the [CI tip on the Legacy setup page](/docs/setup/legacy#wizard-setup).
+- **The route migration is incremental, but the project build still needs typia's transform.** Use the TypeScript 7 [`ttsc` setup](/docs/setup) or `@ttsc/unplugin` for the bundler that builds the NestJS app.
 - **`@nestia/sdk` runs alongside `@nestjs/swagger`** during migration. The two generators emit different artifacts (typed client SDK vs Swagger JSON), so you can keep `@nestjs/swagger` until every controller is on `@TypedRoute`, then drop it.
 
 ## SDK generation

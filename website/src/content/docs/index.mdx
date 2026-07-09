@@ -52,7 +52,7 @@ export const check = (input) =>
 
 No reflection at runtime, no schema file to maintain — just the exact comparisons your `User` type implies, inlined into the build. This is the core trick that every other typia feature builds on; see [Pure TypeScript](/docs/pure) for the long story.
 
-> The right-hand "Compiled JavaScript" tab is produced by typia's compile-time transform — **stock `tsc` will not produce it**. To enable the transform, install one of the build paths in [Setup](/docs/setup) (`ttsc` for TypeScript-Go, `ts-patch` for the stable TypeScript v5/v6 release). Without setup, your `typia.is<T>()` call sites throw at runtime instead.
+> The right-hand "Compiled JavaScript" tab is produced by typia's compile-time transform — **stock `tsc` will not produce it**. To enable the transform, install the TypeScript 7 toolchain in [Setup](/docs/setup) and build with `ttsc`, `ttsx`, or `@ttsc/unplugin`. Without setup, your `typia.is<T>()` call sites throw at runtime instead.
 
 ![Typia Logo](/logo.png)
 
@@ -157,18 +157,13 @@ typia.random<T>();                     // generate a value that satisfies T
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen></iframe>
 
-The transformation above happens at compile time, so typia needs to be wired into the TypeScript build. There are two supported paths:
-
-- **TypeScript-Go (`@rc`)** — use [`ttsc`](/docs/setup/tsgo) as a drop-in replacement for `tsc`. The Go-native compiler ships the typia transform on the side.
-- **Stable TypeScript v5 / v6** — use [`ts-patch`](/docs/setup/legacy) to patch the stock JavaScript compiler so it can apply the same transform. This is the production path most teams ship today.
-
-Bundlers (Vite, Next.js, Webpack, esbuild, Rollup, …) plug in through `@ttsc/unplugin` (modern) or `@typia/unplugin` (legacy). Babel and SWC can't run a TypeScript transformer, so for those toolchains typia falls back to its [generation mode](/docs/setup/legacy#generation), which writes the transformed `.ts` files ahead of time.
+The transformation above happens at compile time, so typia needs to be wired into the TypeScript build. Use [`ttsc`](/docs/setup) for TypeScript 7 builds, [`ttsx`](/docs/setup) when running a TypeScript entrypoint directly, and [`@ttsc/unplugin`](/docs/setup#bundlers) for bundlers such as Vite, Next.js, Webpack, esbuild, Rollup, and Bun.
 
 > Whichever path you pick, the call sites in your code don't change — `typia.is<T>`, `typia.assert<T>`, `typia.json.assertParse<T>`, … always emit the same inline checks shown in [What is typia?](#what-is-typia) above. Setup is something you do once; the rest of the docs assume it's done.
 
 ## Where to go next
 
-- **Need to install it now?** See [Setup](/docs/setup) — pick TypeScript-Go (`ttsc`) or the TS v6 legacy path.
+- **Need to install it now?** See [Setup](/docs/setup) for the TypeScript 7 `ttsc` toolchain.
 - **Looking up an API?** Jump straight to [Validators](/docs/validators/is), [JSON](/docs/json/schema), [LLM](/docs/llm/application), [Protobuf](/docs/protobuf/message), or [Random](/docs/random).
 - **Building an agent?** Start at [LLM function calling](/docs/llm/application) and the [function calling harness](/docs/llm/json).
 - **Adopting on NestJS / Hono / tRPC?** See the [Utilization Cases](/docs/utilization/nestjs) — drop-in recipes for the most common backend frameworks.
