@@ -1,6 +1,8 @@
 package factories
 
 import (
+  "bytes"
+  "encoding/json"
   "math/big"
   "reflect"
   "sort"
@@ -24,6 +26,41 @@ var LiteralFactory = literalFactoryNamespace{}
 type LiteralFactory_OrderedObject struct {
   Keys   []string
   Values map[string]any
+}
+
+// MarshalJSON keeps encoding/json consumers aligned with the printer: the
+// ordered object serializes as the plain JSON object it represents (in Keys
+// order, skipping absent and nil-like entries), never as its raw struct
+// fields. Downstream tools marshal schema metadata containing these objects
+// (e.g. nestia's SDK transform), and the raw {Keys, Values} shape corrupted
+// their output.
+func (obj LiteralFactory_OrderedObject) MarshalJSON() ([]byte, error) {
+  buffer := bytes.Buffer{}
+  buffer.WriteByte('{')
+  first := true
+  for _, key := range obj.Keys {
+    value, ok := obj.Values[key]
+    if ok == false || literalFactory_isNilLike(value) {
+      continue
+    }
+    encodedKey, err := json.Marshal(key)
+    if err != nil {
+      return nil, err
+    }
+    encodedValue, err := json.Marshal(value)
+    if err != nil {
+      return nil, err
+    }
+    if first == false {
+      buffer.WriteByte(',')
+    }
+    first = false
+    buffer.Write(encodedKey)
+    buffer.WriteByte(':')
+    buffer.Write(encodedValue)
+  }
+  buffer.WriteByte('}')
+  return buffer.Bytes(), nil
 }
 
 var literalFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
