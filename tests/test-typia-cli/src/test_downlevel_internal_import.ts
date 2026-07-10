@@ -148,7 +148,7 @@ const writeProject = (project: string): void => {
       `import typia from "typia";`,
       `interface Sample { value: number; }`,
       `const data = typia.random<Sample>();`,
-      `if (typeof data.value !== "number") throw new Error("invalid random value");`,
+      `if (data.value !== 42) throw new Error("random helper did not run");`,
       `export { data };`,
       ``,
     ].join("\n"),
@@ -193,7 +193,7 @@ export const test_downlevel_internal_import = (): void => {
       "utf8",
     );
     const binding: RegExpMatchArray | null = output.match(
-      /const\s+([A-Za-z_$][\w$]*)\s*=.*require\(["']typia\/lib\/internal\/_randomNumber["']\)/,
+      /const\s+([A-Za-z_$][\w$]*)\s*=\s*[^;]*require\(\s*["']typia\/lib\/internal\/_randomNumber["']\s*\)[^;]*;/,
     );
     if (binding === null)
       throw new Error(`Random helper import was not emitted:\n${output}`);
