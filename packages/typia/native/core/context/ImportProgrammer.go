@@ -14,7 +14,7 @@ type ImportProgrammer struct {
   options_ ImportProgrammer_IOptions
   // emit_ switches import emission to AST-integration mode. When set, imports
   // become namespace imports created by emit_.Factory, and every reference is a
-  // member access on NewGeneratedNameForNode so tsgo's module transform owns the
+  // member access on a cloned unique name so tsgo's module transform owns the
   // CommonJS aliasing. Nil keeps the legacy text-emission path with named,
   // default, namespace imports and bare identifier references.
   emit_ *shimprinter.EmitContext
@@ -51,6 +51,7 @@ type ImportProgrammer_TypeProps struct {
 type importProgrammer_asset struct {
   file      string
   modSpec   *shimast.Node
+  binding   *shimast.Node
   Default   *ImportProgrammer_IDefault
   namespace *ImportProgrammer_INamespace
   instances map[string]ImportProgrammer_IInstance
@@ -80,8 +81,7 @@ func (p *ImportProgrammer) SetEmitContext(ec *shimprinter.EmitContext) {
 }
 
 // moduleSpecifier returns the asset's module-specifier string literal, allocated
-// once and reused as the stable key for NewGeneratedNameForNode so the namespace
-// alias prints identically in the import declaration and every reference.
+// once and reused by the namespace import declaration.
 func (p *ImportProgrammer) moduleSpecifier(asset *importProgrammer_asset) *shimast.Node {
   if asset.modSpec == nil {
     asset.modSpec = p.emit_.Factory.NewStringLiteral(asset.file, shimast.TokenFlagsNone)
@@ -89,11 +89,20 @@ func (p *ImportProgrammer) moduleSpecifier(asset *importProgrammer_asset) *shima
   return asset.modSpec
 }
 
+// namespaceName returns a clone of the asset's unique generated identifier.
+// Clones preserve the generated-name id while keeping distinct AST parents.
+func (p *ImportProgrammer) namespaceName(asset *importProgrammer_asset) *shimast.Node {
+  if asset.binding == nil {
+    asset.binding = p.emit_.Factory.NewUniqueName(importProgrammer_moduleIdentifier(asset.file))
+  }
+  return asset.binding.Clone(p.emit_.Factory)
+}
+
 // member builds `<namespace>.<name>` for the file, where <namespace> is the
 // generated name tsgo's module-transform binds to `require(file)`.
 func (p *ImportProgrammer) member(asset *importProgrammer_asset, name string) *shimast.Node {
   return p.emit_.Factory.NewPropertyAccessExpression(
-    p.emit_.Factory.NewGeneratedNameForNode(p.moduleSpecifier(asset)),
+    p.namespaceName(asset),
     nil,
     p.emit_.Factory.NewIdentifier(name),
     shimast.NodeFlagsNone,
@@ -137,7 +146,7 @@ func (p *ImportProgrammer) Namespace(props ImportProgrammer_INamespace) *shimast
     asset.namespace = &copy
   }
   if p.emit_ != nil {
-    return p.emit_.Factory.NewGeneratedNameForNode(p.moduleSpecifier(asset))
+    return p.namespaceName(asset)
   }
   return EmitFactory(p.emit_, importProgrammer_factory).NewIdentifier(asset.namespace.Name)
 }
@@ -222,7 +231,7 @@ func (p *ImportProgrammer) ToStatements() []*shimast.Node {
         p.emit_.Factory.NewImportClause(
           0,
           nil,
-          p.emit_.Factory.NewNamespaceImport(p.emit_.Factory.NewGeneratedNameForNode(modSpec)),
+          p.emit_.Factory.NewNamespaceImport(p.namespaceName(asset)),
         ),
         modSpec,
         nil,
@@ -332,6 +341,31 @@ func importProgrammer_fileRank(file string) int {
     return 900
   }
   return 500
+}
+
+func importProgrammer_moduleIdentifier(file string) string {
+  if index := strings.LastIndexAny(file, "/\\"); index != -1 {
+    file = file[index+1:]
+  }
+  if file == "" {
+    return "module"
+  }
+  var builder strings.Builder
+  for i := 0; i < len(file); i++ {
+    ch := file[i]
+    if i == 0 && '0' <= ch && ch <= '9' {
+      builder.WriteByte('_')
+    }
+    if ('a' <= ch && ch <= 'z') ||
+      ('A' <= ch && ch <= 'Z') ||
+      ('0' <= ch && ch <= '9') ||
+      ch == '_' {
+      builder.WriteByte(ch)
+    } else {
+      builder.WriteByte('_')
+    }
+  }
+  return builder.String()
 }
 
 func (p *ImportProgrammer) take(file string) *importProgrammer_asset {
