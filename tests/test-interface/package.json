@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-interface",
-  "version": "13.0.1",
+  "version": "13.0.2",
   "description": "Type tests for @typia/interface.",
   "scripts": {
     "start": "ttsc"
