@@ -627,7 +627,11 @@ export namespace TypiaGenerateWizard {
   }
 
   function resolveTypiaPackageRoot(): string {
-    const current: string = path.resolve(__dirname);
+    // The CLI entrypoint (`lib/executable/typia.js`) lives in the same
+    // directory as this module, so its `process.argv[1]` path anchors the
+    // walk-up identically in both the CJS and ESM builds — `__dirname` does
+    // not exist in the transcoded `.mjs`.
+    const current: string = path.dirname(path.resolve(process.argv[1] ?? ""));
     for (const directory of [
       path.resolve(current, "..", ".."),
       path.resolve(current, ".."),
