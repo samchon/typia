@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+import { createRequire } from "node:module";
+import path from "node:path";
+
 const USAGE = `Wrong command has been detected. Use like below:
 
   npx typia generate [options] [files...]
@@ -32,12 +35,13 @@ const loadTtsc = (): void => {
 };
 
 const loadPackage = (request: string, desc: string): void => {
+  // The ambient CJS `require` does not exist in the transcoded `.mjs`;
+  // anchor explicit resolvers on the consuming project (cwd) first, then on
+  // this executable's own location, mirroring the original lookup order.
   const resolvers: Array<() => string> = [
     () =>
-      require.resolve(request, {
-        paths: [process.cwd()],
-      }),
-    () => require.resolve(request),
+      createRequire(path.join(process.cwd(), "package.json")).resolve(request),
+    () => createRequire(path.resolve(process.argv[1] ?? "")).resolve(request),
   ];
   for (const resolve of resolvers) {
     try {

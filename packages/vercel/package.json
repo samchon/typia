@@ -8,7 +8,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc && rollup -c",
+    "build": "rimraf lib && ttsc && rolldown -c",
     "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },
@@ -30,17 +30,13 @@
     "ai": ">=6.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "catalog:rollup",
-    "@rollup/plugin-esm-shim": "catalog:rollup",
-    "@rollup/plugin-node-resolve": "catalog:rollup",
     "@types/json-schema": "^7.0.15",
-    "typescript": "catalog:typescript",
     "ai": "^6.0.116",
     "rimraf": "catalog:utils",
-    "rollup": "catalog:rollup",
-    "rollup-plugin-node-externals": "catalog:rollup",
+    "rolldown": "catalog:rolldown",
     "tinyglobby": "^0.2.12",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "sideEffects": false,
   "files": [
