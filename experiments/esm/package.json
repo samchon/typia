@@ -1,0 +1,25 @@
+{
+  "name": "typia-esm-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "ttsc",
+    "start": "npm run build && npm test",
+    "test": "node lib/index.js"
+  },
+  "devDependencies": {
+    "@langchain/core": "^1.1.31",
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@types/node": "^25.3.0",
+    "@typia/interface": "file:../tarballs/interface.tgz",
+    "@typia/langchain": "file:../tarballs/langchain.tgz",
+    "@typia/mcp": "file:../tarballs/mcp.tgz",
+    "@typia/utils": "file:../tarballs/utils.tgz",
+    "@typia/vercel": "file:../tarballs/vercel.tgz",
+    "ai": "^6.0.116",
+    "ttsc": "^0.17.3",
+    "typescript": "^7.0.2",
+    "typia": "file:../tarballs/typia.tgz"
+  }
+}

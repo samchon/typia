@@ -1,4 +1,4 @@
-export {
+export type {
   // validate
   AssertionGuard,
   IJsonParseResult,
@@ -32,6 +32,11 @@ export {
   SnakeCase,
   // http
   IReadableURLSearchParams,
-  // namespaces
-  tags,
 } from "@typia/interface";
+
+// `tags` is the only runtime value `@typia/interface` exports. Everything
+// above must stay `export type`: the `.mjs` build transpiles per file
+// (rolldown/oxc, no cross-file type info), so a plain re-export of a type
+// would survive as a runtime import and crash against the CJS-only
+// `@typia/interface`.
+export { tags } from "@typia/interface";

@@ -19,13 +19,8 @@ catalogs:
     ts-node: ^10.9.2
     ttsc: ^0.17.3
     typescript: ^7.0.2
-  rollup:
-    rollup: ^4.56.0
-    rollup-plugin-node-externals: ^8.1.2
-    '@rollup/plugin-commonjs': ^29.0.0
-    '@rollup/plugin-esm-shim': ^0.1.8
-    '@rollup/plugin-node-resolve': ^16.0.3
-    '@rollup/plugin-terser': ^0.4.4
+  rolldown:
+    rolldown: ^1.1.5
   utils:
     '@nestia/e2e': ^10.0.2
     '@types/node': ^25.3.0

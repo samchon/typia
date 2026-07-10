@@ -1,7 +1,6 @@
-const { spawnSync } =
-  require("node:child_process") as typeof import("node:child_process");
-const fs = require("node:fs") as typeof import("node:fs");
-const path = require("node:path") as typeof import("node:path");
+import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 
 const packageRoot = path.resolve(
   path.dirname(path.resolve(process.argv[1] ?? "")),

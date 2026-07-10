@@ -114,11 +114,11 @@ export const test_document_roundtrip_v31_media_type_examples = (): void => {
     upgraded,
     "3.1",
   );
-  const downgradedMedia =
-    (
-      downgraded.paths?.["/users"]?.post
-        ?.requestBody as OpenApiV3_1.IOperation.IRequestBody | undefined
-    )?.content?.["application/json"];
+  const downgradedMedia = (
+    downgraded.paths?.["/users"]?.post?.requestBody as
+      | OpenApiV3_1.IOperation.IRequestBody
+      | undefined
+  )?.content?.["application/json"];
   TestValidator.equals("downgraded media", downgradedMedia, {
     schema: {
       type: "object",

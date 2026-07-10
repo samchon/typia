@@ -45,3 +45,21 @@ jobs:
         run: |
           npm install
           npm start
+
+      # Real ESM consumers resolve the `import` condition to the bundled
+      # lib/**/*.mjs — a path no ttsx/source-level suite exercises. These two
+      # projects install from the staged tarballs, compile as
+      # `"type": "module"`, and run with plain node.
+      - name: Test ESM
+        working-directory: experiments/esm
+        run: |
+          npm install
+          npm run build
+          npm test
+
+      - name: Test MCP
+        working-directory: experiments/mcp
+        run: |
+          npm install
+          npm run build
+          npm test
