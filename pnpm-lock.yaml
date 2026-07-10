@@ -11,17 +11,17 @@ catalogs:
       version: 1.1.5
   typescript:
     '@ttsc/playground':
-      specifier: ^0.17.3
-      version: 0.17.3
+      specifier: ^0.18.4
+      version: 0.18.4
     '@ttsc/unplugin':
-      specifier: ^0.17.3
-      version: 0.17.3
+      specifier: ^0.18.4
+      version: 0.18.4
     '@ttsc/wasm':
-      specifier: ^0.17.3
-      version: 0.17.3
+      specifier: ^0.18.4
+      version: 0.18.4
     ttsc:
-      specifier: ^0.17.3
-      version: 0.17.3
+      specifier: ^0.18.4
+      version: 0.18.4
     typescript:
       specifier: ^7.0.2
       version: 7.0.2
@@ -72,7 +72,7 @@ importers:
         version: 1.8.0(prettier@3.8.3)
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
 
   benchmark:
     dependencies:
@@ -190,7 +190,7 @@ importers:
         version: 0.10.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -202,7 +202,7 @@ importers:
     devDependencies:
       '@ttsc/unplugin':
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       tinyglobby:
         specifier: ^0.2.12
         version: 0.2.16
@@ -233,7 +233,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
 
   packages/interface:
     devDependencies:
@@ -242,7 +242,7 @@ importers:
         version: 6.1.3
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -270,7 +270,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -298,7 +298,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -347,7 +347,7 @@ importers:
         version: 1.0.2
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -369,7 +369,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -400,7 +400,7 @@ importers:
         version: 0.2.16
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -479,7 +479,7 @@ importers:
     devDependencies:
       ttsc:
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
@@ -788,10 +788,10 @@ importers:
         version: 4.3.0
       '@ttsc/playground':
         specifier: catalog:typescript
-        version: 0.17.3(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.17.3)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
+        version: 0.18.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.18.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
       '@ttsc/wasm':
         specifier: catalog:typescript
-        version: 0.17.3
+        version: 0.18.4
       '@typia/interface':
         specifier: workspace:^
         version: link:../packages/interface
@@ -2638,54 +2638,54 @@ packages:
   '@ts-morph/common@0.28.1':
     resolution: {integrity: sha512-W74iWf7ILp1ZKNYXY5qbddNaml7e9Sedv5lvU1V8lftlitkc9Pq1A+jlH23ltDgWYeZFFEqGCD1Ies9hqu3O+g==}
 
-  '@ttsc/darwin-arm64@0.17.3':
-    resolution: {integrity: sha512-DMKA3qYAyvHmmDgjbvUx1587hEOAYe635ES1Yrsd6g8oDqwcCBGDEyHgf7mJlaP1AwGa1BAlT/vcngAjX8bonQ==}
+  '@ttsc/darwin-arm64@0.18.4':
+    resolution: {integrity: sha512-XhUPqcmx1w83fUSQfYA91zoD5dQzDlTxi6fGtmDPzXz839hbI21iZ80rQtKIr0FjLqbCHWuTmz5PAbquTZ1wXA==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.17.3':
-    resolution: {integrity: sha512-9sL34peAWCbTe2vQk4RIUm7PSDichav9OGlmDD4wUi/StRPaBCaDd9AA2QDAppK8dEZocO6nkGE4sDNPOAlbXQ==}
+  '@ttsc/darwin-x64@0.18.4':
+    resolution: {integrity: sha512-oDfrHVsHGgmbhEwNtVUmArzB4XnkfqhtjEN1h95eZWfJpTZGKhWIXwucX3ODOaJpxZFjRczvrvlpm5c5Sksw0g==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/linux-arm64@0.17.3':
-    resolution: {integrity: sha512-Y25cXjaEa2d1x4KnMjHAxC3DrUg0K1ZiPPYmTLIkpe0Xr7ja5E9f5BJc6eg/5/EAgNuuud7nh666c0uD9msOIQ==}
+  '@ttsc/linux-arm64@0.18.4':
+    resolution: {integrity: sha512-y7j9rhYGxiYosDsnP2ZzTVGLo8CRm6CyK+2ex16bhdO1idkmRCvCYMN6PdtYTjFfldDROI+bqouikqwftEKylQ==}
     cpu: [arm64]
     os: [linux]
 
-  '@ttsc/linux-arm@0.17.3':
-    resolution: {integrity: sha512-sOuP74jdwZkkkUYBTHL+Xq6VEbN41z4L8fr+oZC1gQNLp4GPrRVMqk81LlulB//snKJ14XN8/wLnPCvC6ji3NA==}
+  '@ttsc/linux-arm@0.18.4':
+    resolution: {integrity: sha512-B5P6a65jXh4mDYbmbSgdnGMUsZ0/gvld5KcVbQMb1Am0tl3yQ9F588zgGQm4PYAWcoqsvZ+qtNoBMQkvg93WFw==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.17.3':
-    resolution: {integrity: sha512-jffrD5+lK5wN6KPbtn4XMaCaIeIellX8HtoZmyqf+a+ElbzUkIIIu1QVEJnHI9IGy2wnefNLtqUrAaiGALtsgg==}
+  '@ttsc/linux-x64@0.18.4':
+    resolution: {integrity: sha512-nq6Tzm1yJf2XQ+68Sg8MIf5GoLyDFuwW0Pw+6TQCKz8mFpexiIkztoiptGYgzNJmrEqTNeiK/gs4IMIO1pkb/g==}
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/playground@0.17.3':
-    resolution: {integrity: sha512-tqTmNtuzdFS+tR4gPtt0M4UJ5P9q+zqxbV6jJC1A4GPl1a+6kDs8sScZCieCFzIdcRxpt/akgyglnGUZc/UV/A==}
+  '@ttsc/playground@0.18.4':
+    resolution: {integrity: sha512-hyhVzAml/ENAw/Dgj60Vu0gdcrdPRcKZpBDSMt6GpQn5we7AMLr/1scJtS94yDwXwwXMaNH6ieY2iAmIBYDN+A==}
     peerDependencies:
       '@monaco-editor/react': ^4.6.0
-      '@ttsc/wasm': ^0.17.3
+      '@ttsc/wasm': ^0.18.4
       monaco-editor: ^0.52.0
       react: ^18.0.0
       react-dom: ^18.0.0
       tgrid: ^1.0.3
 
-  '@ttsc/unplugin@0.17.3':
-    resolution: {integrity: sha512-kaLaLDvLmA/+sxIVrvExYuyzpm8/Qe19y6u9hgo5tGuJwn4q/x+B0hWYHkJ+pJQW25ns2yyWAioaZrhAB+4uxQ==}
+  '@ttsc/unplugin@0.18.4':
+    resolution: {integrity: sha512-lbizSMFePL+dzJZIw8N/ethvsHKwqsa741H301EefMvG7u4sOEyJHiorN1H2Zp58sYb8HJYBxCtDavtHJjf9IQ==}
 
-  '@ttsc/wasm@0.17.3':
-    resolution: {integrity: sha512-EA3JhxD7J7/XsyWtWwxkqlk1WxQWjCKA+VNCOiPJnTu1m97soz0DoMC+eKbv/X+bo2CPJ1EW58B0QCgcwP8Kfg==}
+  '@ttsc/wasm@0.18.4':
+    resolution: {integrity: sha512-WVyaZBpjd1tC3Xj7AEcSUqhjqWipyhSgxQyzgvzVG8rzmEl2rZLxQmQ1MC7mgh8izyk+LAmrgSpghZo94nLicQ==}
 
-  '@ttsc/win32-arm64@0.17.3':
-    resolution: {integrity: sha512-BFyoJQEX7oLizWcKLT8lEi/UfnC5X/0h3AqWAoa8gll5Yn6HHJOV7dHkidoKzu1NervzRymcqayhflFHr5+V5g==}
+  '@ttsc/win32-arm64@0.18.4':
+    resolution: {integrity: sha512-YmEoUVZg2OAQcoWeYQw0c9aBgoz8kBvFEvbI+uAFn0+bFX1uGryD/5f6bUhS/c3Cdx7xoISumEF3KSJpkjmT9g==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.17.3':
-    resolution: {integrity: sha512-/4lfLYCHYAb2AL0jStveinIlv5/EYDQGxFlI9TDYAfbPEWAdHKzYQu4TVBdRRKYZTkrB5XNqlKiZ+vP0Gp9AgA==}
+  '@ttsc/win32-x64@0.18.4':
+    resolution: {integrity: sha512-dp+h7XLLYSw4FHSiZF+EgQs0Fu2RtPcO4lpZfA6NwtmXuTuf64kh4NSsYTDeaEv5qquTcZpFxmA9I4HMNxXWkA==}
     cpu: [x64]
     os: [win32]
 
@@ -6604,8 +6604,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.17.3:
-    resolution: {integrity: sha512-zaWxVTbxEs98r8PSYSleRlFb9mpd4M/HP11yooJgx3p6PfDQRdFnFsNDNqNgM8C/2kNS9plnkGemJwX5WrtnXA==}
+  ttsc@0.18.4:
+    resolution: {integrity: sha512-RKsPOGP0D4EpH3yMNOiDw2Ona7e2CeEX6YwybDcVu+2dN6oToHrF43rlYC9srZ6zyvEbT/4wT39QiYQNj4d9JQ==}
     hasBin: true
 
   twoslash-protocol@0.3.8:
@@ -9207,41 +9207,41 @@ snapshots:
       path-browserify: 1.0.1
       tinyglobby: 0.2.16
 
-  '@ttsc/darwin-arm64@0.17.3':
+  '@ttsc/darwin-arm64@0.18.4':
     optional: true
 
-  '@ttsc/darwin-x64@0.17.3':
+  '@ttsc/darwin-x64@0.18.4':
     optional: true
 
-  '@ttsc/linux-arm64@0.17.3':
+  '@ttsc/linux-arm64@0.18.4':
     optional: true
 
-  '@ttsc/linux-arm@0.17.3':
+  '@ttsc/linux-arm@0.18.4':
     optional: true
 
-  '@ttsc/linux-x64@0.17.3':
+  '@ttsc/linux-x64@0.18.4':
     optional: true
 
-  '@ttsc/playground@0.17.3(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.17.3)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
+  '@ttsc/playground@0.18.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.18.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
     dependencies:
       '@monaco-editor/react': 4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ttsc/wasm': 0.17.3
+      '@ttsc/wasm': 0.18.4
       lz-string: 1.5.0
       monaco-editor: 0.50.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       tgrid: 1.2.1
 
-  '@ttsc/unplugin@0.17.3':
+  '@ttsc/unplugin@0.18.4':
     dependencies:
       unplugin: 2.3.11
 
-  '@ttsc/wasm@0.17.3': {}
+  '@ttsc/wasm@0.18.4': {}
 
-  '@ttsc/win32-arm64@0.17.3':
+  '@ttsc/win32-arm64@0.18.4':
     optional: true
 
-  '@ttsc/win32-x64@0.17.3':
+  '@ttsc/win32-x64@0.18.4':
     optional: true
 
   '@tybys/wasm-util@0.10.2':
@@ -13933,15 +13933,15 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.17.3:
+  ttsc@0.18.4:
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.17.3
-      '@ttsc/darwin-x64': 0.17.3
-      '@ttsc/linux-arm': 0.17.3
-      '@ttsc/linux-arm64': 0.17.3
-      '@ttsc/linux-x64': 0.17.3
-      '@ttsc/win32-arm64': 0.17.3
-      '@ttsc/win32-x64': 0.17.3
+      '@ttsc/darwin-arm64': 0.18.4
+      '@ttsc/darwin-x64': 0.18.4
+      '@ttsc/linux-arm': 0.18.4
+      '@ttsc/linux-arm64': 0.18.4
+      '@ttsc/linux-x64': 0.18.4
+      '@ttsc/win32-arm64': 0.18.4
+      '@ttsc/win32-x64': 0.18.4
 
   twoslash-protocol@0.3.8: {}
 
