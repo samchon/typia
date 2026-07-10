@@ -13,11 +13,11 @@ overrides:
   zod@4: 4.1.12
 catalogs:
   typescript:
-    '@ttsc/playground': ^0.17.3
-    '@ttsc/unplugin': ^0.17.3
-    '@ttsc/wasm': ^0.17.3
+    '@ttsc/playground': ^0.18.3
+    '@ttsc/unplugin': ^0.18.3
+    '@ttsc/wasm': ^0.18.3
     ts-node: ^10.9.2
-    ttsc: ^0.17.3
+    ttsc: ^0.18.3
     typescript: ^7.0.2
   rolldown:
     rolldown: ^1.1.5
