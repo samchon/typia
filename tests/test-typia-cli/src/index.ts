@@ -3,6 +3,8 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 
+import { test_downlevel_internal_import } from "./test_downlevel_internal_import";
+
 interface ICommandResult {
   status: number | null;
   output: string;
@@ -337,6 +339,7 @@ const testRecursiveDynamicCloneEmit = (): void => {
 const main = (): void => {
   testGenericTransformDiagnostic();
   testRecursiveDynamicCloneEmit();
+  test_downlevel_internal_import();
   console.log("Success");
 };
 main();
