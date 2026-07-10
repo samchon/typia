@@ -18,10 +18,6 @@ export default {
     entryFileNames: "[name].mjs",
     preserveModules: true,
     preserveModulesRoot: "src",
-    // rolldown materializes namespace re-exports (`export * as ns`) through a
-    // tiny shared runtime helper chunk; park it inside `internal/` (the bucket
-    // for generated helpers) instead of the default `_virtual/` directory.
-    virtualDirname: "internal",
   },
   plugins: [ttsc()],
 };
