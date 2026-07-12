@@ -34,7 +34,6 @@ export const test_mcp_create_server_lazy_controller =
           return { value: 42 };
         }),
       ),
-      "0.16.8",
     );
 
     const raw: Server = server.server;
@@ -61,7 +60,7 @@ export const test_mcp_create_server_lazy_controller =
     TestValidator.equals("first call builds the state once", built, 1);
     TestValidator.equals(
       "call returns the reflected result",
-      JSON.parse((result.content[0] as { text: string }).text),
+      result.structuredContent,
       { answer: "depth=42" },
     );
   };

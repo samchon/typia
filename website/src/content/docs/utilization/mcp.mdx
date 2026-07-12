@@ -11,13 +11,17 @@ import LocalSource from "../../../components/LocalSource";
 
 ```typescript copy filename="signature"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ILlmController } from "@typia/interface";
+import { IHttpLlmController, ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
 
 export function createMcpServer<Class extends object = any>(
-  controller: ILlmController<Class>,
-  version?: string, // default "1.0.0"
+  controller: ILlmController<Class> | IHttpLlmController,
+  options?: IMcpServerOptions,
 ): McpServer;
+
+export interface IMcpServerOptions {
+  textFallback?: boolean; // default false
+}
 ```
 
 The class you would hand to [`typia.llm.application<Class>()`](/docs/llm/application) _is_ your server. Its methods become the tools, each method's JSDoc becomes that tool's description, and — the part most people miss — the JSDoc written on the class (or interface) itself becomes the server's handshake [instructions](#server-instructions). You pass the class through [`typia.llm.controller<Class>(name, instance)`](/docs/llm/application#framework-adapters) — the same reflected application bound to a live instance so the server can execute the calls — where `name` becomes the server name. The returned server connects to any MCP transport:
@@ -89,6 +93,27 @@ const server = createMcpServer(
 **Method type rules.** Every method's parameter type must be a keyworded object with static keys (no primitives, arrays, or unions). The return type must be a single object type or `void`. See [`typia.llm.application` restrictions](/docs/llm/application#restrictions) for the full list.
 </Callout>
 
+## HTTP controllers
+
+An OpenAPI document can be the controller instead of a class. `HttpLlm.controller()` from `@typia/utils` converts every operation into an LLM function, and `createMcpServer` serves each one as an MCP tool that calls the actual endpoint:
+
+```typescript filename="src/main.ts" showLineNumbers {5-12}
+import { createMcpServer } from "@typia/mcp";
+import { HttpLlm } from "@typia/utils";
+
+const server = createMcpServer(
+  HttpLlm.controller({
+    name: "shopping",
+    document: await fetch(
+      "https://shopping-be.wrtn.io/editor/swagger.json",
+    ).then((r) => r.json()),
+    connection: { host: "https://shopping-be.wrtn.io" },
+  }),
+);
+```
+
+The handshake version is the document's `info.version` (a class controller announces `"1.0.0"`). Argument validation, structured output, and error feedback behave exactly as with class controllers.
+
 ## Server instructions
 
 MCP `instructions` tell the client's LLM what the server is for and how to drive it. With `@typia/mcp` you do not write them separately — **the JSDoc comment on the controller class (or interface) is the instructions.** [`typia.llm.application`](/docs/llm/application#application-description) reflects that doc comment onto [`ILlmApplication.description`](/docs/llm/application#application-description), and `createMcpServer` ships it verbatim as the handshake `instructions`. Write the usage contract once, as documentation on the type, and it reaches every connected client automatically.
@@ -127,13 +152,24 @@ For a production example of instructions written entirely as interface JSDoc, se
 
 ### Structured output
 
-When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` alongside the JSON text fallback — MCP's structured tool output, for free, by construction. A `Calculator.add(props): { value: number }` tool therefore lists
+When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` — MCP's structured tool output, for free, by construction. A `Calculator.add(props): { value: number }` tool therefore lists
 
 ```json
 { "type": "object", "properties": { "value": { "type": "number" } }, "required": ["value"] }
 ```
 
-as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` next to the plain-text block so clients that understand structured output get the typed object and the rest still see the text.
+as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` — once, with no duplicate rendering.
+
+The MCP spec also recommends serializing the same JSON into a text block, as a fallback for clients that ignore `outputSchema`. But that doubles every result on the wire, and a client that caps tool-result size counts both copies — a large result gets rejected at double its real size even though the payload itself fits. So the fallback is opt-in:
+
+```typescript filename="src/main.ts" showLineNumbers {3}
+const server = createMcpServer(
+  typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+  { textFallback: true },
+);
+```
+
+A result with no structured representation — a `void` method's `"Success"`, a validation failure, a runtime error — always keeps its text content.
 
 ## Instructions vs. runtime validation
 
