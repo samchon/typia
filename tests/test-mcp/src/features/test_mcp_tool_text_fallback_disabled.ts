@@ -1,6 +1,6 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
 import typia from "typia";
@@ -34,14 +34,13 @@ export const test_mcp_tool_text_fallback_disabled = async (): Promise<void> => {
     ._requestHandlers;
 
   const listHandler: Function = requestHandlers.get("tools/list")!;
-  const listed: { tools: Array<{ name: string; outputSchema?: unknown }> } =
-    await listHandler(
-      { method: "tools/list", params: {} },
-      { signal: new AbortController().signal },
-    );
+  const listed: { tools: Tool[] } = await listHandler(
+    { method: "tools/list", params: {} },
+    { signal: new AbortController().signal },
+  );
   TestValidator.predicate(
     "add tool should still advertise outputSchema",
-    listed.tools.find((tool) => tool.name === "add")?.outputSchema !==
+    listed.tools.find((tool: Tool) => tool.name === "add")?.outputSchema !==
       undefined,
   );
 
