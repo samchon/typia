@@ -16,11 +16,11 @@ import { createMcpServer } from "@typia/mcp";
 
 export function createMcpServer<Class extends object = any>(
   controller: ILlmController<Class>,
-  version?: string, // default "1.0.0"
   options?: IMcpServerOptions,
 ): McpServer;
 
 export interface IMcpServerOptions {
+  version?: string; // default "1.0.0"
   textFallback?: boolean; // default true
 }
 ```
@@ -142,10 +142,9 @@ as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` nex
 
 The text block is a *fallback*: the MCP spec recommends it for clients that ignore `outputSchema`, but it means every structured result crosses the wire twice. A client that caps tool-result size counts both copies, so a tool returning a large object can be rejected at double its real size even though the payload itself fits the cap. Pass `textFallback: false` to ship each structured result once:
 
-```typescript filename="src/main.ts" showLineNumbers {4}
+```typescript filename="src/main.ts" showLineNumbers {3}
 const server = createMcpServer(
   typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
-  "1.0.0",
   { textFallback: false },
 );
 ```

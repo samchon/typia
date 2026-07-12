@@ -25,7 +25,6 @@ import { Calculator } from "../structures/Calculator";
 export const test_mcp_tool_text_fallback_disabled = async (): Promise<void> => {
   const server: McpServer = createMcpServer(
     typia.llm.controller<Calculator>("calculator", new Calculator()),
-    "1.0.0",
     { textFallback: false },
   );
 

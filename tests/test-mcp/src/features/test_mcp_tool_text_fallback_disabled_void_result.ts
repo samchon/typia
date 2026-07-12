@@ -26,7 +26,6 @@ export const test_mcp_tool_text_fallback_disabled_void_result =
   async (): Promise<void> => {
     const server: McpServer = createMcpServer(
       typia.llm.controller<Greeter>("greeter", new Greeter()),
-      "1.0.0",
       { textFallback: false },
     );
 

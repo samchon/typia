@@ -6,6 +6,13 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
 /** Options of {@link createMcpServer}. */
 export interface IMcpServerOptions {
   /**
+   * Server version for the MCP handshake.
+   *
+   * @default "1.0.0"
+   */
+  version?: string | undefined;
+
+  /**
    * Whether to keep the serialized JSON text block next to `structuredContent`
    * in every tool result.
    *
@@ -61,19 +68,17 @@ export interface IMcpServerOptions {
  *
  * @template Class Executor class type of the controller
  * @param controller Controller from `typia.llm.controller<Class>()`
- * @param version Server version for the MCP handshake
  * @param options Optional behaviors of the server ({@link IMcpServerOptions})
  * @returns McpServer ready to connect to a transport
  */
 export function createMcpServer<Class extends object = any>(
   controller: ILlmController<Class>,
-  version: string = "1.0.0",
   options?: IMcpServerOptions,
 ): McpServer {
   const instructions: string | undefined =
     controller.application.description?.trim() || undefined;
   const server: McpServer = new McpServer(
-    { name: controller.name, version },
+    { name: controller.name, version: options?.version ?? "1.0.0" },
     {
       capabilities: { tools: {} },
       ...(instructions !== undefined ? { instructions } : {}),

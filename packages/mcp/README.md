@@ -27,7 +27,7 @@ npx typia setup
 
 ## Usage
 
-`createMcpServer(controller, version?, options?)` — pass a `typia.llm.controller`, connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions.
+`createMcpServer(controller, options?)` — pass a `typia.llm.controller`, connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions. The options carry the handshake `version` (default `"1.0.0"`) and the behaviors below.
 
 ```typescript
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -51,7 +51,7 @@ await server.connect(new StdioServerTransport());
 Every typed tool result ships as `structuredContent` plus a serialized-JSON text block, the spec-recommended fallback for clients that ignore `outputSchema`. That doubles the payload on the wire, so a client that caps tool-result size may reject a large result that actually fits. Pass `{ textFallback: false }` to ship each structured result once; results with no structured representation (`void` methods, errors) keep their text content regardless.
 
 ```typescript
-const server = createMcpServer(controller, "1.0.0", { textFallback: false });
+const server = createMcpServer(controller, { textFallback: false });
 ```
 
 ## Validation feedback
