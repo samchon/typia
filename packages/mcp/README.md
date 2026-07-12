@@ -16,6 +16,7 @@
 
 - **Tools**: every class method, with `inputSchema`, `outputSchema`, and `structuredContent` reflected from the types
 - **Instructions**: the reflected class/interface JSDoc, shipped through the handshake
+- **OpenAPI**: `HttpLlm.controller()` documents serve the same way — every operation becomes a tool calling the real endpoint, and `info.version` becomes the server version
 - **Zero extra dependencies**: nothing at runtime beyond what `typia` already installs, plus the MCP SDK as a peer
 
 ## Setup
@@ -27,7 +28,7 @@ npx typia setup
 
 ## Usage
 
-`createMcpServer(controller, options?)` — pass a `typia.llm.controller`, connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions. The options carry the handshake `version` (default `"1.0.0"`) and the behaviors below.
+`createMcpServer(controller, options?)` — pass a `typia.llm.controller` (or an `HttpLlm.controller` over an OpenAPI document), connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions. The handshake version is the OpenAPI `info.version` for HTTP controllers, `"1.0.0"` otherwise.
 
 ```typescript
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";

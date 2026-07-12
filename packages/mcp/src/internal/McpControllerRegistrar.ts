@@ -8,37 +8,33 @@ import {
   Tool,
 } from "@modelcontextprotocol/sdk/types.js";
 import {
+  IHttpLlmController,
+  IHttpLlmFunction,
+  IHttpResponse,
   ILlmController,
   ILlmFunction,
   ILlmSchema,
   IValidation,
 } from "@typia/interface";
-import { LlmJson } from "@typia/utils";
+import { HttpLlm, LlmJson } from "@typia/utils";
 
 export namespace McpControllerRegistrar {
   export const register = (
     server: Server,
-    controller: ILlmController,
+    controller: ILlmController | IHttpLlmController,
     textFallback: boolean,
   ): void => {
     // Build tool registry from the controller's functions
     const registry: Map<string, IToolEntry> = new Map();
-    const execute: Record<string, unknown> = controller.execute;
     for (const func of controller.application.functions) {
       if (registry.has(func.name)) {
         throw new Error(
           `Duplicate function name "${func.name}" in controller "${controller.name}"`,
         );
       }
-      const method: unknown = execute[func.name];
-      if (typeof method !== "function") {
-        throw new Error(
-          `Method "${func.name}" not found on controller "${controller.name}"`,
-        );
-      }
       registry.set(func.name, {
         function: func,
-        execute: async (args: unknown) => method.call(execute, args),
+        execute: composeExecute(controller, func),
       });
     }
 
@@ -71,6 +67,40 @@ export namespace McpControllerRegistrar {
       }
       return handleToolCall(entry, request.params.arguments, textFallback);
     });
+  };
+
+  const composeExecute = (
+    controller: ILlmController | IHttpLlmController,
+    func: ILlmFunction,
+  ): ((args: unknown) => Promise<unknown>) => {
+    if (controller.protocol === "http") {
+      const httpFunction: IHttpLlmFunction = func as IHttpLlmFunction;
+      return async (args: unknown) => {
+        if (controller.execute !== undefined) {
+          const response: IHttpResponse = await controller.execute({
+            connection: controller.connection,
+            application: controller.application,
+            function: httpFunction,
+            arguments: args as object,
+          });
+          return response.body;
+        }
+        return HttpLlm.execute({
+          application: controller.application,
+          function: httpFunction,
+          connection: controller.connection,
+          input: args as object,
+        });
+      };
+    }
+    const execute: Record<string, unknown> = controller.execute;
+    const method: unknown = execute[func.name];
+    if (typeof method !== "function") {
+      throw new Error(
+        `Method "${func.name}" not found on controller "${controller.name}"`,
+      );
+    }
+    return async (args: unknown) => method.call(execute, args);
   };
 
   const handleToolCall = async (

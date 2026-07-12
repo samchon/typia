@@ -47,11 +47,9 @@ export const test_mcp_class_controller_coercion = async (): Promise<void> => {
     "coerced call is not an error",
     () => result.isError !== true,
   );
-  TestValidator.predicate("coerced call returns the sum", () =>
-    result.content.some(
-      (x) =>
-        x.type === "text" &&
-        (JSON.parse(x.text) as { value: number }).value === 7,
-    ),
+  TestValidator.equals(
+    "coerced call returns the sum",
+    result.structuredContent,
+    { value: 7 },
   );
 };

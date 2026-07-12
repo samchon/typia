@@ -6,34 +6,23 @@ import typia from "typia";
 import { Greeter } from "../structures/Greeter";
 
 /**
- * Verifies `options.version` reaches the MCP handshake `serverInfo`.
+ * Verifies a class controller announces the fixed `"1.0.0"` handshake version.
  *
- * The server version lives in {@link IMcpServerOptions} next to the other
- * optional behaviors, and it must land on the `Implementation` the SDK
- * announces during initialization. A regression would pin every server to the
- * `"1.0.0"` default no matter what the caller declares.
+ * `IMcpServerOptions` intentionally carries no version knob: an HTTP controller
+ * inherits the OpenAPI `info.version`, and a class controller has no version
+ * source, so the handshake pins the `"1.0.0"` default. A regression would
+ * announce `undefined` and break the SDK's `Implementation` contract.
  *
- * 1. Create a server with `{ version: "2.5.0" }`.
- * 2. Assert the underlying SDK server's `serverInfo.version` is `"2.5.0"`.
- * 3. Create a server without options and assert the `"1.0.0"` default.
+ * 1. Create a server over a class controller.
+ * 2. Assert the underlying SDK server's `serverInfo.version` is `"1.0.0"`.
  */
 export const test_mcp_create_server_version = async (): Promise<void> => {
-  const explicit: McpServer = createMcpServer(
-    typia.llm.controller<Greeter>("greeter", new Greeter()),
-    { version: "2.5.0" },
-  );
-  TestValidator.equals(
-    "explicit version should reach serverInfo",
-    ((explicit.server as any)._serverInfo as { version: string }).version,
-    "2.5.0",
-  );
-
-  const defaulted: McpServer = createMcpServer(
+  const server: McpServer = createMcpServer(
     typia.llm.controller<Greeter>("greeter", new Greeter()),
   );
   TestValidator.equals(
-    "omitted version should default to 1.0.0",
-    ((defaulted.server as any)._serverInfo as { version: string }).version,
+    "class controller should announce the 1.0.0 default",
+    ((server.server as any)._serverInfo as { version: string }).version,
     "1.0.0",
   );
 };

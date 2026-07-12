@@ -11,16 +11,15 @@ import LocalSource from "../../../components/LocalSource";
 
 ```typescript copy filename="signature"
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ILlmController } from "@typia/interface";
+import { IHttpLlmController, ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
 
 export function createMcpServer<Class extends object = any>(
-  controller: ILlmController<Class>,
+  controller: ILlmController<Class> | IHttpLlmController,
   options?: IMcpServerOptions,
 ): McpServer;
 
 export interface IMcpServerOptions {
-  version?: string; // default "1.0.0"
   textFallback?: boolean; // default false
 }
 ```
@@ -93,6 +92,27 @@ const server = createMcpServer(
 <Callout type="warning">
 **Method type rules.** Every method's parameter type must be a keyworded object with static keys (no primitives, arrays, or unions). The return type must be a single object type or `void`. See [`typia.llm.application` restrictions](/docs/llm/application#restrictions) for the full list.
 </Callout>
+
+## HTTP controllers
+
+An OpenAPI document can be the controller instead of a class. `HttpLlm.controller()` from `@typia/utils` converts every operation into an LLM function, and `createMcpServer` serves each one as an MCP tool that calls the actual endpoint:
+
+```typescript filename="src/main.ts" showLineNumbers {5-12}
+import { createMcpServer } from "@typia/mcp";
+import { HttpLlm } from "@typia/utils";
+
+const server = createMcpServer(
+  HttpLlm.controller({
+    name: "shopping",
+    document: await fetch(
+      "https://shopping-be.wrtn.io/editor/swagger.json",
+    ).then((r) => r.json()),
+    connection: { host: "https://shopping-be.wrtn.io" },
+  }),
+);
+```
+
+The handshake version is the document's `info.version` (a class controller announces `"1.0.0"`). Argument validation, structured output, and error feedback behave exactly as with class controllers.
 
 ## Server instructions
 
