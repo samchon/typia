@@ -18,8 +18,9 @@ export interface IMcpServerOptions {
    *
    * The MCP spec recommends the duplicate text copy as a fallback for clients
    * that ignore `outputSchema`. But it doubles the payload, and a client that
-   * caps tool-result size counts both copies — so structured results ship once
-   * by default, and the fallback is an opt-in.
+   * caps tool-result size counts both copies.
+   *
+   * So structured results ship once by default; opt in for legacy clients.
    *
    * A result with no structured representation (a `void` method, a validation
    * failure, a runtime error) always keeps its text content.
