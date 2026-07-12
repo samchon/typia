@@ -1,6 +1,6 @@
 {
   "name": "@typia/vercel",
-  "version": "13.0.2",
+  "version": "13.1.0",
   "description": "Vercel AI SDK integration for typia",
   "main": "src/index.ts",
   "exports": {
