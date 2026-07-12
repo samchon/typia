@@ -17,7 +17,12 @@ import { createMcpServer } from "@typia/mcp";
 export function createMcpServer<Class extends object = any>(
   controller: ILlmController<Class>,
   version?: string, // default "1.0.0"
+  options?: IMcpServerOptions,
 ): McpServer;
+
+export interface IMcpServerOptions {
+  textFallback?: boolean; // default true
+}
 ```
 
 The class you would hand to [`typia.llm.application<Class>()`](/docs/llm/application) _is_ your server. Its methods become the tools, each method's JSDoc becomes that tool's description, and — the part most people miss — the JSDoc written on the class (or interface) itself becomes the server's handshake [instructions](#server-instructions). You pass the class through [`typia.llm.controller<Class>(name, instance)`](/docs/llm/application#framework-adapters) — the same reflected application bound to a live instance so the server can execute the calls — where `name` becomes the server name. The returned server connects to any MCP transport:
@@ -134,6 +139,18 @@ When a method's return type is reflected (`ILlmFunction.output`), the tool adver
 ```
 
 as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` next to the plain-text block so clients that understand structured output get the typed object and the rest still see the text.
+
+The text block is a *fallback*: the MCP spec recommends it for clients that ignore `outputSchema`, but it means every structured result crosses the wire twice. A client that caps tool-result size counts both copies, so a tool returning a large object can be rejected at double its real size even though the payload itself fits the cap. Pass `textFallback: false` to ship each structured result once:
+
+```typescript filename="src/main.ts" showLineNumbers {4}
+const server = createMcpServer(
+  typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+  "1.0.0",
+  { textFallback: false },
+);
+```
+
+The opt-out only suppresses the duplicate copy. A result with no structured representation — a `void` method's `"Success"`, a validation failure, a runtime error — keeps its text content regardless.
 
 ## Instructions vs. runtime validation
 

@@ -3,6 +3,25 @@ import { ILlmController } from "@typia/interface";
 
 import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
 
+/** Options of {@link createMcpServer}. */
+export interface IMcpServerOptions {
+  /**
+   * Whether to keep the serialized JSON text block next to `structuredContent`
+   * in every tool result.
+   *
+   * The MCP spec recommends the text copy as a fallback for clients that ignore
+   * `outputSchema`, so it stays on by default. Turning it off ships each
+   * structured result once — with the fallback, a tool result crosses the wire
+   * twice, and a client that caps tool-result size counts both copies,
+   * rejecting payloads at double their real size. A result that has no
+   * structured representation (a `void` method, a validation failure, a runtime
+   * error) keeps its text content regardless of this option.
+   *
+   * @default true
+   */
+  textFallback?: boolean | undefined;
+}
+
 /**
  * Create an MCP server over a single typia controller.
  *
@@ -43,11 +62,13 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  * @template Class Executor class type of the controller
  * @param controller Controller from `typia.llm.controller<Class>()`
  * @param version Server version for the MCP handshake
+ * @param options Optional behaviors of the server ({@link IMcpServerOptions})
  * @returns McpServer ready to connect to a transport
  */
 export function createMcpServer<Class extends object = any>(
   controller: ILlmController<Class>,
   version: string = "1.0.0",
+  options?: IMcpServerOptions,
 ): McpServer {
   const instructions: string | undefined =
     controller.application.description?.trim() || undefined;
@@ -58,6 +79,10 @@ export function createMcpServer<Class extends object = any>(
       ...(instructions !== undefined ? { instructions } : {}),
     },
   );
-  McpControllerRegistrar.register(server.server, controller);
+  McpControllerRegistrar.register(
+    server.server,
+    controller,
+    options?.textFallback !== false,
+  );
   return server;
 }

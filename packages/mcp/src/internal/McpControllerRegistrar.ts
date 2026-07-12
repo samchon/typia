@@ -19,6 +19,7 @@ export namespace McpControllerRegistrar {
   export const register = (
     server: Server,
     controller: ILlmController,
+    textFallback: boolean,
   ): void => {
     // Build tool registry from the controller's functions
     const registry: Map<string, IToolEntry> = new Map();
@@ -68,13 +69,14 @@ export namespace McpControllerRegistrar {
           `Unknown tool: ${request.params.name}`,
         );
       }
-      return handleToolCall(entry, request.params.arguments);
+      return handleToolCall(entry, request.params.arguments, textFallback);
     });
   };
 
   const handleToolCall = async (
     entry: IToolEntry,
     args: unknown,
+    textFallback: boolean,
   ): Promise<CallToolResult> => {
     // Validate an empty object when a client omits `arguments` — the MCP spec
     // allows the omission for zero-parameter tools, and validating `{}` also
@@ -97,15 +99,23 @@ export namespace McpControllerRegistrar {
       if (result === undefined) {
         return { content: [{ type: "text" as const, text: "Success" }] };
       }
-      return {
-        content: [{ type: "text" as const, text: JSON.stringify(result) }],
-        // When the reflected return type schema exists, ship the result as
-        // structured output too; the text block above stays as the
-        // spec-recommended fallback for clients that ignore `outputSchema`.
-        ...(entry.function.output !== undefined &&
+      // When the reflected return type schema exists, ship the result as
+      // structured output; the text block is the spec-recommended fallback
+      // for clients that ignore `outputSchema`, and `textFallback: false`
+      // drops that duplicate copy. A result that cannot ship as
+      // `structuredContent` keeps its text block regardless — dropping it
+      // would leave the call with no payload at all.
+      const structured: boolean =
+        entry.function.output !== undefined &&
         typeof result === "object" &&
         result !== null &&
-        !Array.isArray(result)
+        !Array.isArray(result);
+      return {
+        content:
+          structured && textFallback === false
+            ? []
+            : [{ type: "text" as const, text: JSON.stringify(result) }],
+        ...(structured
           ? { structuredContent: result as Record<string, unknown> }
           : {}),
       };
