@@ -100,11 +100,12 @@ export namespace McpControllerRegistrar {
         return { content: [{ type: "text" as const, text: "Success" }] };
       }
       // When the reflected return type schema exists, ship the result as
-      // structured output; the text block is the spec-recommended fallback
-      // for clients that ignore `outputSchema`, and `textFallback: false`
-      // drops that duplicate copy. A result that cannot ship as
-      // `structuredContent` keeps its text block regardless — dropping it
-      // would leave the call with no payload at all.
+      // structured output, once. The spec's duplicate text fallback for
+      // clients that ignore `outputSchema` doubles the payload, so it is
+      // opt-in through `textFallback: true`.
+      //
+      // A result that cannot ship as `structuredContent` keeps its text
+      // block regardless — dropping it would leave the call empty.
       const structured: boolean =
         entry.function.output !== undefined &&
         typeof result === "object" &&
@@ -112,7 +113,7 @@ export namespace McpControllerRegistrar {
         !Array.isArray(result);
       return {
         content:
-          structured && textFallback === false
+          structured && !textFallback
             ? []
             : [{ type: "text" as const, text: JSON.stringify(result) }],
         ...(structured

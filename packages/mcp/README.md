@@ -48,11 +48,13 @@ const server = createMcpServer(
 await server.connect(new StdioServerTransport());
 ```
 
-Every typed tool result ships as `structuredContent` plus a serialized-JSON text block, the spec-recommended fallback for clients that ignore `outputSchema`. That doubles the payload on the wire, so a client that caps tool-result size may reject a large result that actually fits. Pass `{ textFallback: false }` to ship each structured result once; results with no structured representation (`void` methods, errors) keep their text content regardless.
+Every typed tool result ships once, as `structuredContent`. The MCP spec also recommends a duplicate serialized-JSON text block for clients that ignore `outputSchema` — but that doubles the payload, and a size-capped client counts both copies. So the fallback is opt-in:
 
 ```typescript
-const server = createMcpServer(controller, { textFallback: false });
+const server = createMcpServer(controller, { textFallback: true });
 ```
+
+Results with no structured representation (`void` methods, errors) always keep their text content.
 
 ## Validation feedback
 

@@ -21,7 +21,7 @@ export function createMcpServer<Class extends object = any>(
 
 export interface IMcpServerOptions {
   version?: string; // default "1.0.0"
-  textFallback?: boolean; // default true
+  textFallback?: boolean; // default false
 }
 ```
 
@@ -132,24 +132,24 @@ For a production example of instructions written entirely as interface JSDoc, se
 
 ### Structured output
 
-When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` alongside the JSON text fallback — MCP's structured tool output, for free, by construction. A `Calculator.add(props): { value: number }` tool therefore lists
+When a method's return type is reflected (`ILlmFunction.output`), the tool advertises it as `outputSchema` in `tools/list`, and every call result ships as `structuredContent` — MCP's structured tool output, for free, by construction. A `Calculator.add(props): { value: number }` tool therefore lists
 
 ```json
 { "type": "object", "properties": { "value": { "type": "number" } }, "required": ["value"] }
 ```
 
-as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` next to the plain-text block so clients that understand structured output get the typed object and the rest still see the text.
+as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` — once, with no duplicate rendering.
 
-The text block is a *fallback*: the MCP spec recommends it for clients that ignore `outputSchema`, but it means every structured result crosses the wire twice. A client that caps tool-result size counts both copies, so a tool returning a large object can be rejected at double its real size even though the payload itself fits the cap. Pass `textFallback: false` to ship each structured result once:
+The MCP spec also recommends serializing the same JSON into a text block, as a fallback for clients that ignore `outputSchema`. But that doubles every result on the wire, and a client that caps tool-result size counts both copies — a large result gets rejected at double its real size even though the payload itself fits. So the fallback is opt-in:
 
 ```typescript filename="src/main.ts" showLineNumbers {3}
 const server = createMcpServer(
   typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
-  { textFallback: false },
+  { textFallback: true },
 );
 ```
 
-The opt-out only suppresses the duplicate copy. A result with no structured representation — a `void` method's `"Success"`, a validation failure, a runtime error — keeps its text content regardless.
+A result with no structured representation — a `void` method's `"Success"`, a validation failure, a runtime error — always keeps its text content.
 
 ## Instructions vs. runtime validation
 

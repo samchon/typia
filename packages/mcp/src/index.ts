@@ -13,18 +13,18 @@ export interface IMcpServerOptions {
   version?: string | undefined;
 
   /**
-   * Whether to keep the serialized JSON text block next to `structuredContent`
-   * in every tool result.
+   * Whether to add a serialized JSON text block next to `structuredContent` in
+   * every tool result.
    *
-   * The MCP spec recommends the text copy as a fallback for clients that ignore
-   * `outputSchema`, so it stays on by default. Turning it off ships each
-   * structured result once — with the fallback, a tool result crosses the wire
-   * twice, and a client that caps tool-result size counts both copies,
-   * rejecting payloads at double their real size. A result that has no
-   * structured representation (a `void` method, a validation failure, a runtime
-   * error) keeps its text content regardless of this option.
+   * The MCP spec recommends the duplicate text copy as a fallback for clients
+   * that ignore `outputSchema`. But it doubles the payload, and a client that
+   * caps tool-result size counts both copies — so structured results ship once
+   * by default, and the fallback is an opt-in.
    *
-   * @default true
+   * A result with no structured representation (a `void` method, a validation
+   * failure, a runtime error) always keeps its text content.
+   *
+   * @default false
    */
   textFallback?: boolean | undefined;
 }
@@ -87,7 +87,7 @@ export function createMcpServer<Class extends object = any>(
   McpControllerRegistrar.register(
     server.server,
     controller,
-    options?.textFallback !== false,
+    options?.textFallback === true,
   );
   return server;
 }
