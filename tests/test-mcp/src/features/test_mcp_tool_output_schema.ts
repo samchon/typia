@@ -13,13 +13,14 @@ import { Calculator } from "../structures/Calculator";
  *
  * `ILlmFunction.output` reflects the method's return type, and MCP structured
  * output maps onto it directly: `outputSchema` in `tools/list` and
- * `structuredContent` alongside the text fallback in `tools/call`. A regression
- * would degrade every typed tool result back to opaque text.
+ * `structuredContent` in `tools/call`. By default the result crosses the wire
+ * once — no duplicate text copy. A regression would either degrade typed
+ * results back to opaque text or resurrect the double payload.
  *
  * 1. Serve `Calculator` whose methods return `IResult` objects.
  * 2. Assert `tools/list` advertises `outputSchema` with the `value` property.
- * 3. Call `add` and assert `structuredContent` carries the typed result while the
- *    text block remains as fallback.
+ * 3. Call `add` and assert `structuredContent` carries the typed result while
+ *    `content` stays empty.
  */
 export const test_mcp_tool_output_schema = async (): Promise<void> => {
   const server: McpServer = createMcpServer(
@@ -60,8 +61,8 @@ export const test_mcp_tool_output_schema = async (): Promise<void> => {
     { value: 15 },
   );
   TestValidator.equals(
-    "text content should remain as fallback",
-    JSON.parse((result.content[0] as { text: string }).text),
-    { value: 15 },
+    "content should stay empty without the opt-in text fallback",
+    result.content,
+    [],
   );
 };

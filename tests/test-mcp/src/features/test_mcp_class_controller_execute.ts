@@ -12,9 +12,9 @@ import { Calculator } from "../structures/Calculator";
  * Verifies each class method executes as a tool and returns its result.
  *
  * Locks the happy-path dispatch of the tools/call handler: the method named in
- * the request runs on the controller instance and its object return is
- * serialized back as the tool result. A regression would misroute the call or
- * drop the computed value.
+ * the request runs on the controller instance and its object return ships back
+ * as `structuredContent`. A regression would misroute the call or drop the
+ * computed value.
  *
  * 1. Serve a `Calculator` controller and grab its tools/call handler.
  * 2. Call add, subtract, multiply, and divide with concrete operands.
@@ -39,7 +39,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   );
   TestValidator.equals(
     "add(10, 5) should return 15",
-    JSON.parse((addResult.content[0] as { text: string }).text),
+    addResult.structuredContent,
     { value: 15 },
   );
 
@@ -52,7 +52,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   );
   TestValidator.equals(
     "subtract(10, 3) should return 7",
-    JSON.parse((subtractResult.content[0] as { text: string }).text),
+    subtractResult.structuredContent,
     { value: 7 },
   );
 
@@ -65,7 +65,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   );
   TestValidator.equals(
     "multiply(4, 7) should return 28",
-    JSON.parse((multiplyResult.content[0] as { text: string }).text),
+    multiplyResult.structuredContent,
     { value: 28 },
   );
 
@@ -78,7 +78,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
   );
   TestValidator.equals(
     "divide(20, 4) should return 5",
-    JSON.parse((divideResult.content[0] as { text: string }).text),
+    divideResult.structuredContent,
     { value: 5 },
   );
 };

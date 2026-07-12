@@ -13,12 +13,12 @@ import { TicketSearch } from "../structures/TicketSearch";
  *
  * Locks the MCP structured-output path for controller methods that wrap raw
  * Markdown in an object to satisfy typia.llm's object-return rule. A regression
- * would leave clients with only an escaped JSON text fallback.
+ * would leave clients with only an escaped JSON text rendering.
  *
  * 1. Serve a ticket search controller whose result object contains Markdown.
  * 2. Call `searchTickets` through tools/call.
- * 3. Assert `structuredContent` carries the original object while text remains the
- *    backward-compatible serialized JSON fallback.
+ * 3. Assert `structuredContent` carries the original object and no text copy
+ *    accompanies it by default.
  */
 export const test_mcp_tool_markdown_structured_content =
   async (): Promise<void> => {
@@ -47,8 +47,8 @@ export const test_mcp_tool_markdown_structured_content =
       { content: markdown },
     );
     TestValidator.equals(
-      "text content should remain the JSON fallback",
-      JSON.parse((result.content[0] as { text: string }).text),
-      { content: markdown },
+      "content should stay empty without the opt-in text fallback",
+      result.content,
+      [],
     );
   };

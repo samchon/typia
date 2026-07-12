@@ -1,7 +1,27 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { ILlmController } from "@typia/interface";
+import { IHttpLlmController, ILlmController } from "@typia/interface";
 
 import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
+
+/** Options of {@link createMcpServer}. */
+export interface IMcpServerOptions {
+  /**
+   * Whether to add a serialized JSON text block next to `structuredContent` in
+   * every tool result.
+   *
+   * The MCP spec recommends the duplicate text copy as a fallback for clients
+   * that ignore `outputSchema`. But it doubles the payload, and a client that
+   * caps tool-result size counts both copies.
+   *
+   * So structured results ship once by default; opt in for legacy clients.
+   *
+   * A result with no structured representation (a `void` method, a validation
+   * failure, a runtime error) always keeps its text content.
+   *
+   * @default false
+   */
+  textFallback?: boolean | undefined;
+}
 
 /**
  * Create an MCP server over a single typia controller.
@@ -11,6 +31,10 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  * reflected from the TypeScript types and JSDoc. No hand-written JSON schema.
  * The controller's `name` becomes the server name, and the class JSDoc
  * (`application.description`) becomes the MCP handshake instructions.
+ *
+ * An {@link IHttpLlmController} from `HttpLlm.controller()` works the same way:
+ * every OpenAPI operation becomes an MCP tool that calls the actual endpoint,
+ * and the document's `info.version` becomes the handshake version.
  *
  * Every tool call is validated by typia. If the LLM provides invalid arguments,
  * it receives an {@link IValidation.IFailure} formatted by
@@ -41,16 +65,23 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
  * ```
  *
  * @template Class Executor class type of the controller
- * @param controller Controller from `typia.llm.controller<Class>()`
- * @param version Server version for the MCP handshake
+ * @param controller Controller from `typia.llm.controller<Class>()` or
+ *   `HttpLlm.controller()`
+ * @param options Optional behaviors of the server ({@link IMcpServerOptions})
  * @returns McpServer ready to connect to a transport
  */
 export function createMcpServer<Class extends object = any>(
-  controller: ILlmController<Class>,
-  version: string = "1.0.0",
+  controller: ILlmController<Class> | IHttpLlmController,
+  options?: IMcpServerOptions,
 ): McpServer {
   const instructions: string | undefined =
-    controller.application.description?.trim() || undefined;
+    controller.protocol === "http"
+      ? undefined
+      : controller.application.description?.trim() || undefined;
+  const version: string =
+    (controller.protocol === "http"
+      ? controller.application.version
+      : undefined) ?? "1.0.0";
   const server: McpServer = new McpServer(
     { name: controller.name, version },
     {
@@ -58,6 +89,10 @@ export function createMcpServer<Class extends object = any>(
       ...(instructions !== undefined ? { instructions } : {}),
     },
   );
-  McpControllerRegistrar.register(server.server, controller);
+  McpControllerRegistrar.register(
+    server.server,
+    controller,
+    options?.textFallback === true,
+  );
   return server;
 }

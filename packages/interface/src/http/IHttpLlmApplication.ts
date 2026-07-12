@@ -33,6 +33,13 @@ export interface IHttpLlmApplication {
 
   /** Configuration used for composition. */
   config: IHttpLlmApplication.IConfig;
+
+  /**
+   * Version of the API, taken from the OpenAPI document's `info.version`.
+   *
+   * `undefined` when the source document carries no version info.
+   */
+  version?: string | undefined;
 }
 export namespace IHttpLlmApplication {
   /** Configuration for HTTP LLM application composition. */

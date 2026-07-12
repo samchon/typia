@@ -16,6 +16,7 @@
 
 - **Tools**: every class method, with `inputSchema`, `outputSchema`, and `structuredContent` reflected from the types
 - **Instructions**: the reflected class/interface JSDoc, shipped through the handshake
+- **OpenAPI**: `HttpLlm.controller()` documents serve the same way — every operation becomes a tool calling the real endpoint, and `info.version` becomes the server version
 - **Zero extra dependencies**: nothing at runtime beyond what `typia` already installs, plus the MCP SDK as a peer
 
 ## Setup
@@ -27,7 +28,7 @@ npx typia setup
 
 ## Usage
 
-`createMcpServer(controller, version?)` — pass a `typia.llm.controller`, connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions.
+`createMcpServer(controller, options?)` — pass a `typia.llm.controller` (or an `HttpLlm.controller` over an OpenAPI document), connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions. The handshake version is the OpenAPI `info.version` for HTTP controllers, `"1.0.0"` otherwise.
 
 ```typescript
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -47,6 +48,14 @@ const server = createMcpServer(
 );
 await server.connect(new StdioServerTransport());
 ```
+
+Every typed tool result ships once, as `structuredContent`. The MCP spec also recommends a duplicate serialized-JSON text block for clients that ignore `outputSchema` — but that doubles the payload, and a size-capped client counts both copies. So the fallback is opt-in:
+
+```typescript
+const server = createMcpServer(controller, { textFallback: true });
+```
+
+Results with no structured representation (`void` methods, errors) always keep their text content.
 
 ## Validation feedback
 

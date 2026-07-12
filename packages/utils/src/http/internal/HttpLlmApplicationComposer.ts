@@ -98,10 +98,13 @@ export namespace HttpLlmApplicationComposer {
       })
       .filter((v): v is IHttpLlmFunction => v !== null);
 
+    const version: string | undefined =
+      props.migrate.document().info?.version || undefined;
     const app: IHttpLlmApplication = {
       config,
       functions,
       errors,
+      ...(version !== undefined ? { version } : {}),
     };
     shorten(app, props.config?.maxLength ?? 64);
     return app;

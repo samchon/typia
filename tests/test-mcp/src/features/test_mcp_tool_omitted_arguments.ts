@@ -42,7 +42,7 @@ export const test_mcp_tool_omitted_arguments = async (): Promise<void> => {
   );
   TestValidator.equals(
     "hello() should return the greeting",
-    JSON.parse((result.content[0] as { text: string }).text),
+    result.structuredContent,
     { message: "Hello, world!" },
   );
 };
