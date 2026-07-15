@@ -29,10 +29,7 @@ interface IProps {
   /** Render {@linkcode ITarget} and {@linkplain ITarget.value}. */
   variants: string;
 
-  /**
-   * Visit {@link https://example.com/docs} or
-   * {@link https://example.com/docs | docs}.
-   */
+  /** Visit {@link https://x.io/docs} or {@link https://x.io/docs | docs}. */
   url: string;
 
   /** Keep {@link UnresolvedTarget}. */
@@ -131,7 +128,7 @@ export const test_json_schema_jsdoc_link_text = (): void => {
   TestValidator.equals(
     "URL links",
     props?.properties?.url?.description,
-    "Visit https://example.com/docs or\ndocs.",
+    "Visit https://x.io/docs or docs.",
   );
   TestValidator.equals(
     "unresolved target link",
