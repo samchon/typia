@@ -2,6 +2,7 @@ import { IJsonSchemaAttribute, OpenApi, OpenApiV3_1 } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
+import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace OpenApiV3_1Upgrader {
@@ -340,6 +341,15 @@ export namespace OpenApiV3_1Upgrader {
     (components: OpenApiV3_1.IComponents) =>
     (input: OpenApiV3_1.IJsonSchema): OpenApi.IJsonSchema => {
       const union: OpenApi.IJsonSchema[] = [];
+      const discriminator:
+        | OpenApi.IJsonSchema.IOneOf.IDiscriminator
+        | undefined =
+        OpenApiV3_1TypeChecker.isMixed(input) === false &&
+        OpenApiV3_1TypeChecker.isOneOf(input) &&
+        input.discriminator !== undefined
+          ? OpenApiDiscriminatorConverter.clone(input.discriminator)
+          : undefined;
+      let preserveDiscriminator: boolean = discriminator !== undefined;
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -451,9 +461,22 @@ export namespace OpenApiV3_1Upgrader {
             else visit({ ...schema, type: type as any });
         }
         // UNION TYPE CASE
-        else if (OpenApiV3_1TypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(visit);
-        else if (OpenApiV3_1TypeChecker.isAnyOf(schema))
+        else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {
+          const tracked: boolean =
+            schema === input && discriminator !== undefined;
+          if (tracked && nullable.value) preserveDiscriminator = false;
+          for (const branch of schema.oneOf) {
+            const previous: number = union.length;
+            const previousNullable: boolean = nullable.value;
+            visit(branch);
+            if (
+              tracked &&
+              (union.length !== previous + 1 ||
+                nullable.value !== previousNullable)
+            )
+              preserveDiscriminator = false;
+          }
+        } else if (OpenApiV3_1TypeChecker.isAnyOf(schema))
           schema.anyOf.forEach(visit);
         else if (OpenApiV3_1TypeChecker.isAllOf(schema))
           if (schema.allOf.length === 1) visit(schema.allOf[0]!);
@@ -682,6 +705,9 @@ export namespace OpenApiV3_1Upgrader {
                   nullable: undefined,
                   $defs: undefined,
                 })),
+                ...(preserveDiscriminator && discriminator !== undefined
+                  ? { discriminator }
+                  : {}),
               }),
         ...attribute,
         ...{
