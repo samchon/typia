@@ -1,6 +1,4 @@
 .claude/
-.codex/*
-!.codex/skills/
 .discussions/
 .wiki/
 
