@@ -213,6 +213,46 @@ export const test_openapi_converter_discriminator = (): void => {
     Object.hasOwn(clean(nullable), "discriminator") === false,
   );
 
+  const v30RewriteFixture: IV30Fixture = createV30Fixture();
+  TestValidator.equals(
+    "v3.0 document enum rewrite drops discriminator",
+    clean(
+      upgradeV30DocumentSchema(v30RewriteFixture, {
+        oneOf: [
+          { type: "string", enum: ["alpha", "beta"] },
+          v30RewriteFixture.choice.oneOf[0]!,
+        ],
+        discriminator: v30RewriteFixture.choice.discriminator,
+      }),
+    ),
+    {
+      oneOf: [
+        { const: "alpha" },
+        { const: "beta" },
+        { $ref: "#/components/schemas/IOptionA" },
+      ],
+    },
+  );
+  TestValidator.equals(
+    "v3.0 document nullable rewrite drops discriminator",
+    clean(
+      upgradeV30DocumentSchema(v30RewriteFixture, {
+        oneOf: [
+          { type: "string", nullable: true },
+          v30RewriteFixture.choice.oneOf[0]!,
+        ],
+        discriminator: v30RewriteFixture.choice.discriminator,
+      }),
+    ),
+    {
+      oneOf: [
+        { type: "string" },
+        { $ref: "#/components/schemas/IOptionA" },
+        { type: "null" },
+      ],
+    },
+  );
+
   const downgradedRewriteFixture: IFixture = createFixture();
   const downgradedRewrite = OpenApiConverter.downgradeSchema({
     components: downgradedRewriteFixture.components,
@@ -245,6 +285,20 @@ export const test_openapi_converter_discriminator = (): void => {
             propertyName: "kind",
             mapping: { a: "#/components/schemas/IOptionA" },
           },
+        },
+      }),
+    ),
+    clean(branch),
+  );
+  const v30CollapsedFixture: IV30Fixture = createV30Fixture();
+  TestValidator.equals(
+    "v3.0 document collapsed oneOf",
+    clean(
+      upgradeV30DocumentSchema(v30CollapsedFixture, {
+        oneOf: [v30CollapsedFixture.choice.oneOf[0]!],
+        discriminator: {
+          propertyName: "kind",
+          mapping: { a: "#/components/schemas/IOptionA" },
         },
       }),
     ),
@@ -404,6 +458,22 @@ const upgradeV30 = (fixture: IV30Fixture): OpenApi.IJsonSchema[] => {
     }).components.schemas!.Choice!,
   ];
 };
+
+const upgradeV30DocumentSchema = (
+  fixture: IV30Fixture,
+  schema: OpenApiV3.IJsonSchema,
+): OpenApi.IJsonSchema =>
+  OpenApiConverter.upgradeDocument({
+    openapi: "3.0.4",
+    components: {
+      ...fixture.components,
+      schemas: {
+        ...fixture.components.schemas,
+        Boundary: schema,
+      },
+    },
+    paths: {},
+  }).components.schemas!.Boundary!;
 
 const upgradeV32 = (fixture: IFixture): OpenApi.IJsonSchema[] => {
   const components: OpenApiV3_2.IComponents = toV32Components(
