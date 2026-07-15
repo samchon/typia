@@ -407,11 +407,100 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
   }
   parts := []string{}
   for _, node := range list.Nodes {
-    if node != nil {
+    if node == nil {
+      continue
+    }
+    switch node.Kind {
+    case nativeast.KindJSDocText:
       parts = append(parts, node.Text())
+    case nativeast.KindJSDocLink,
+      nativeast.KindJSDocLinkCode,
+      nativeast.KindJSDocLinkPlain:
+      parts = append(parts, metadata_js_doc_link_text(node))
     }
   }
   return metadata_clean_js_doc_text(strings.Join(parts, ""))
+}
+
+func metadata_js_doc_link_text(node *nativeast.Node) string {
+  if node == nil {
+    return ""
+  }
+  name := node.Name()
+  text := strings.Trim(node.Text(), " ")
+  if name == nil {
+    return text
+  }
+  nameText := metadata_js_doc_entity_name_text(name)
+  if (nameText == "http" || nameText == "https") && strings.HasPrefix(text, "://") {
+    target := nameText + text
+    index := strings.IndexAny(target, " |")
+    if index == -1 {
+      return target
+    }
+    label := metadata_js_doc_link_label(target[index:])
+    if label != "" {
+      return label
+    }
+    return target[:index]
+  }
+
+  suffix := ""
+  if strings.HasPrefix(text, "()") {
+    suffix = "()"
+    text = text[2:]
+  }
+  if label := metadata_js_doc_link_label(text); label != "" {
+    return label
+  }
+  return nameText + suffix
+}
+
+func metadata_js_doc_link_label(text string) string {
+  text = strings.TrimLeft(text, " ")
+  text = strings.TrimPrefix(text, "|")
+  return strings.TrimSpace(text)
+}
+
+func metadata_js_doc_entity_name_text(node *nativeast.Node) string {
+  if node == nil {
+    return ""
+  }
+  switch node.Kind {
+  case nativeast.KindIdentifier:
+    return node.Text()
+  case nativeast.KindQualifiedName:
+    name := node.AsQualifiedName()
+    if name == nil {
+      return ""
+    }
+    left := metadata_js_doc_entity_name_text(name.Left)
+    right := metadata_js_doc_entity_name_text(name.Right)
+    if left == "" {
+      return right
+    }
+    if right == "" {
+      return left
+    }
+    return left + "." + right
+  case nativeast.KindPropertyAccessExpression:
+    left := metadata_js_doc_entity_name_text(node.Expression())
+    right := metadata_js_doc_entity_name_text(node.Name())
+    if left == "" {
+      return right
+    }
+    if right == "" {
+      return left
+    }
+    return left + "." + right
+  case nativeast.KindParenthesizedExpression,
+    nativeast.KindExpressionWithTypeArguments:
+    return metadata_js_doc_entity_name_text(node.Expression())
+  case nativeast.KindJSDocNameReference:
+    return metadata_js_doc_entity_name_text(node.Name())
+  default:
+    return ""
+  }
 }
 
 func metadata_clean_js_doc_text(text string) string {
