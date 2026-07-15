@@ -178,7 +178,7 @@ export const test_openapi_converter_discriminator = (): void => {
   });
   TestValidator.predicate(
     "Swagger 2.0 does not misrepresent OpenAPI mapping metadata",
-    !("discriminator" in swagger),
+    Object.hasOwn(clean(swagger), "discriminator") === false,
   );
 };
 
