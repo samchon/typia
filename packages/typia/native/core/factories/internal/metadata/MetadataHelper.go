@@ -474,25 +474,9 @@ func metadata_js_doc_entity_name_text(node *nativeast.Node) string {
     if name == nil {
       return ""
     }
-    left := metadata_js_doc_entity_name_text(name.Left)
-    right := metadata_js_doc_entity_name_text(name.Right)
-    if left == "" {
-      return right
-    }
-    if right == "" {
-      return left
-    }
-    return left + "." + right
+    return metadata_js_doc_entity_name_text(name.Left) + "." + metadata_js_doc_entity_name_text(name.Right)
   case nativeast.KindPropertyAccessExpression:
-    left := metadata_js_doc_entity_name_text(node.Expression())
-    right := metadata_js_doc_entity_name_text(node.Name())
-    if left == "" {
-      return right
-    }
-    if right == "" {
-      return left
-    }
-    return left + "." + right
+    return metadata_js_doc_entity_name_text(node.Expression()) + "." + metadata_js_doc_entity_name_text(node.Name())
   case nativeast.KindParenthesizedExpression,
     nativeast.KindExpressionWithTypeArguments:
     return metadata_js_doc_entity_name_text(node.Expression())

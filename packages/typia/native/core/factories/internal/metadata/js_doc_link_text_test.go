@@ -21,7 +21,8 @@ import (
 // integration.
 //
 // 1. Parse a property comment containing plain, qualified, labeled, URL, and
-// unresolved links, empty labels, call suffixes, plus a link inside a JSDoc tag.
+// unresolved and malformed links, empty labels, call suffixes, plus a link
+// inside a JSDoc tag.
 // 2. Reflect the property's description and tags through the metadata helpers.
 // 3. Assert the visible text and punctuation are preserved deterministically.
 func TestJsDocLinkText(t *testing.T) {
@@ -37,6 +38,7 @@ interface IBox {
    * {@linkplain ITarget.value}; {@link MissingTarget};
    * {@link https://example.com/docs}; {@link https://example.com/docs | docs}.
    * {@link ITarget | }; {@link makeTarget()}; {@link makeTarget() | maker}.
+   * {@link Missing.};
    * @title {@link ITarget titled target}
    */
   field: string;
@@ -54,7 +56,7 @@ interface IBox {
   if description == nil {
     t.Fatal("description was not reflected")
   }
-  if *description != "Plain; ITarget; ITarget.value;\nlabel; ITarget;\nITarget.value; MissingTarget;\nhttps://example.com/docs; docs.\nITarget; makeTarget(); maker." {
+  if *description != "Plain; ITarget; ITarget.value;\nlabel; ITarget;\nITarget.value; MissingTarget;\nhttps://example.com/docs; docs.\nITarget; makeTarget(); maker.\nMissing.;" {
     t.Fatalf("unexpected description: %q", *description)
   }
   tags := metadata_node_js_doc_tags(symbol)
