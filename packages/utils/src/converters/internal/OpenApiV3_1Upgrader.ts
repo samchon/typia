@@ -349,6 +349,7 @@ export namespace OpenApiV3_1Upgrader {
         input.discriminator !== undefined
           ? OpenApiDiscriminatorConverter.clone(input.discriminator)
           : undefined;
+      let preserveDiscriminator: boolean = discriminator !== undefined;
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -460,9 +461,22 @@ export namespace OpenApiV3_1Upgrader {
             else visit({ ...schema, type: type as any });
         }
         // UNION TYPE CASE
-        else if (OpenApiV3_1TypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(visit);
-        else if (OpenApiV3_1TypeChecker.isAnyOf(schema))
+        else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {
+          const tracked: boolean =
+            schema === input && discriminator !== undefined;
+          if (tracked && nullable.value) preserveDiscriminator = false;
+          for (const branch of schema.oneOf) {
+            const previous: number = union.length;
+            const previousNullable: boolean = nullable.value;
+            visit(branch);
+            if (
+              tracked &&
+              (union.length !== previous + 1 ||
+                nullable.value !== previousNullable)
+            )
+              preserveDiscriminator = false;
+          }
+        } else if (OpenApiV3_1TypeChecker.isAnyOf(schema))
           schema.anyOf.forEach(visit);
         else if (OpenApiV3_1TypeChecker.isAllOf(schema))
           if (schema.allOf.length === 1) visit(schema.allOf[0]!);
@@ -691,7 +705,9 @@ export namespace OpenApiV3_1Upgrader {
                   nullable: undefined,
                   $defs: undefined,
                 })),
-                ...(discriminator !== undefined ? { discriminator } : {}),
+                ...(preserveDiscriminator && discriminator !== undefined
+                  ? { discriminator }
+                  : {}),
               }),
         ...attribute,
         ...{

@@ -319,6 +319,7 @@ export namespace OpenApiV3Upgrader {
         OpenApiV3TypeChecker.isOneOf(input) && input.discriminator !== undefined
           ? OpenApiDiscriminatorConverter.clone(input.discriminator)
           : undefined;
+      let preserveDiscriminator: boolean = discriminator !== undefined;
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -349,9 +350,22 @@ export namespace OpenApiV3Upgrader {
           nullable.value ||= true;
         // UNION TYPE CASE
         if (OpenApiV3TypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
-        else if (OpenApiV3TypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(visit);
-        else if (OpenApiV3TypeChecker.isAllOf(schema))
+        else if (OpenApiV3TypeChecker.isOneOf(schema)) {
+          const tracked: boolean =
+            schema === input && discriminator !== undefined;
+          if (tracked && nullable.value) preserveDiscriminator = false;
+          for (const branch of schema.oneOf) {
+            const previous: number = union.length;
+            const previousNullable: boolean = nullable.value;
+            visit(branch);
+            if (
+              tracked &&
+              (union.length !== previous + 1 ||
+                nullable.value !== previousNullable)
+            )
+              preserveDiscriminator = false;
+          }
+        } else if (OpenApiV3TypeChecker.isAllOf(schema))
           if (schema.allOf.length === 1) visit(schema.allOf[0]!);
           else union.push(convertAllOfSchema(components)(schema));
         // ATOMIC TYPE CASE (CONSIDER ENUM VALUES)
@@ -478,7 +492,9 @@ export namespace OpenApiV3Upgrader {
             ? { ...union[0] }
             : {
                 oneOf: union.map((u) => ({ ...u, nullable: undefined })),
-                ...(discriminator !== undefined ? { discriminator } : {}),
+                ...(preserveDiscriminator && discriminator !== undefined
+                  ? { discriminator }
+                  : {}),
               }),
         ...attribute,
         ...{ nullable: undefined },
