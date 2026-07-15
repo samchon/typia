@@ -19,7 +19,7 @@ import (
 // metadata consumers keep qualified targets, normalized labels, URLs, and tag
 // comments without depending only on an application-programmer integration.
 //
-// 1. Parse a property comment containing plain, qualified, labelled, URL, and
+// 1. Parse a property comment containing plain, qualified, labeled, URL, and
 // unresolved links, plus a link inside a JSDoc tag.
 // 2. Reflect the property's description and tags through the metadata helpers.
 // 3. Assert the visible text and punctuation are preserved deterministically.

@@ -21,10 +21,10 @@ interface IProps {
   target: string;
 
   /** Render {@link ITarget | the target contract}. */
-  labelled: string;
+  labeled: string;
 
   /** Render {@link ITarget the target contract}. */
-  labelledWithoutPipe: string;
+  labeledWithoutPipe: string;
 
   /** Render {@linkcode ITarget} and {@linkplain ITarget.value}. */
   variants: string;
@@ -73,7 +73,7 @@ interface IApplication {
  * JSDoc-tag behavior through the published transform surface.
  *
  * 1. Describe an application, function, named interface, alias, and properties
- *    with plain, target-only, qualified, labelled, URL, and variant links.
+ *    with plain, target-only, qualified, labeled, URL, and variant links.
  * 2. Generate JSON Schema and LLM application metadata through normal typia calls.
  * 3. Assert every reflected description keeps its visible text and punctuation
  *    while tag labels lose the optional pipe separator.
@@ -115,12 +115,12 @@ export const test_json_schema_jsdoc_link_text = (): void => {
   );
   TestValidator.equals(
     "pipe label",
-    props?.properties?.labelled?.description,
+    props?.properties?.labeled?.description,
     "Render the target contract.",
   );
   TestValidator.equals(
     "space label",
-    props?.properties?.labelledWithoutPipe?.description,
+    props?.properties?.labeledWithoutPipe?.description,
     "Render the target contract.",
   );
   TestValidator.equals(
