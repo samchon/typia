@@ -131,7 +131,7 @@ export const test_json_schema_jsdoc_link_text = (): void => {
   TestValidator.equals(
     "URL links",
     props?.properties?.url?.description,
-    "Visit https://example.com/docs or docs.",
+    "Visit https://example.com/docs or\ndocs.",
   );
   TestValidator.equals(
     "unresolved target link",
