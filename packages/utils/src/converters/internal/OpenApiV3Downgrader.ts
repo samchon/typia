@@ -1,6 +1,7 @@
 import { OpenApi, OpenApiV3 } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
+import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
 export namespace OpenApiV3Downgrader {
   export interface IComponentsCollection {
@@ -213,6 +214,14 @@ export namespace OpenApiV3Downgrader {
         input,
       );
       const union: OpenApiV3.IJsonSchema[] = [];
+      const discriminator:
+        | OpenApiV3.IJsonSchema.IOneOf.IDiscriminator
+        | undefined =
+        OpenApiTypeChecker.isOneOf(input) && input.discriminator !== undefined
+          ? OpenApiDiscriminatorConverter.clone(input.discriminator)
+          : undefined;
+      let preserveDiscriminator: boolean =
+        discriminator !== undefined && nullable === false;
       const attribute: OpenApiV3.IJsonSchema.__IAttribute = {
         title: input.title,
         description: input.description,
@@ -293,8 +302,16 @@ export namespace OpenApiV3Downgrader {
                   : schema.additionalProperties,
             required: schema.required,
           });
-        } else if (OpenApiTypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(visit);
+        } else if (OpenApiTypeChecker.isOneOf(schema)) {
+          const tracked: boolean =
+            schema === input && discriminator !== undefined;
+          for (const branch of schema.oneOf) {
+            const previous: number = union.length;
+            visit(branch);
+            if (tracked && union.length !== previous + 1)
+              preserveDiscriminator = false;
+          }
+        }
       };
       const visitConstant = (schema: OpenApi.IJsonSchema): void => {
         const insert = (value: any): void => {
@@ -326,7 +343,12 @@ export namespace OpenApiV3Downgrader {
           ? { type: undefined }
           : union.length === 1
             ? { ...union[0] }
-            : { oneOf: union }),
+            : {
+                oneOf: union,
+                ...(preserveDiscriminator && discriminator !== undefined
+                  ? { discriminator }
+                  : {}),
+              }),
         ...attribute,
       };
     };

@@ -1,6 +1,7 @@
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
+import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
 export namespace OpenApiV3_1Downgrader {
   export interface IComponentsCollection {
@@ -228,6 +229,13 @@ export namespace OpenApiV3_1Downgrader {
     (collection: IComponentsCollection) =>
     (input: OpenApi.IJsonSchema): OpenApiV3_1.IJsonSchema => {
       const union: OpenApiV3_1.IJsonSchema[] = [];
+      const discriminator:
+        | OpenApiV3_1.IJsonSchema.IOneOf.IDiscriminator
+        | undefined =
+        OpenApiTypeChecker.isOneOf(input) && input.discriminator !== undefined
+          ? OpenApiDiscriminatorConverter.clone(input.discriminator)
+          : undefined;
+      let preserveDiscriminator: boolean = discriminator !== undefined;
       const attribute: OpenApiV3_1.IJsonSchema.__IAttribute = {
         title: input.title,
         description: input.description,
@@ -296,8 +304,16 @@ export namespace OpenApiV3_1Downgrader {
                   : schema.additionalProperties,
             required: schema.required,
           });
-        else if (OpenApiTypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(visit);
+        else if (OpenApiTypeChecker.isOneOf(schema)) {
+          const tracked: boolean =
+            schema === input && discriminator !== undefined;
+          for (const branch of schema.oneOf) {
+            const previous: number = union.length;
+            visit(branch);
+            if (tracked && union.length !== previous + 1)
+              preserveDiscriminator = false;
+          }
+        }
       };
       visit(input);
       return {
@@ -305,7 +321,12 @@ export namespace OpenApiV3_1Downgrader {
           ? { type: undefined }
           : union.length === 1
             ? { ...union[0] }
-            : { oneOf: union }),
+            : {
+                oneOf: union,
+                ...(preserveDiscriminator && discriminator !== undefined
+                  ? { discriminator }
+                  : {}),
+              }),
         ...attribute,
       };
     };

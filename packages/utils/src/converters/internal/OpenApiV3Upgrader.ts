@@ -2,6 +2,7 @@ import { IJsonSchemaAttribute, OpenApi, OpenApiV3 } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
+import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace OpenApiV3Upgrader {
@@ -312,6 +313,13 @@ export namespace OpenApiV3Upgrader {
         default: undefined,
       };
       const union: OpenApi.IJsonSchema[] = [];
+      const discriminator:
+        | OpenApi.IJsonSchema.IOneOf.IDiscriminator
+        | undefined =
+        OpenApiV3TypeChecker.isOneOf(input) && input.discriminator !== undefined
+          ? OpenApiDiscriminatorConverter.clone(input.discriminator)
+          : undefined;
+      let preserveDiscriminator: boolean = discriminator !== undefined;
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -342,9 +350,22 @@ export namespace OpenApiV3Upgrader {
           nullable.value ||= true;
         // UNION TYPE CASE
         if (OpenApiV3TypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
-        else if (OpenApiV3TypeChecker.isOneOf(schema))
-          schema.oneOf.forEach(visit);
-        else if (OpenApiV3TypeChecker.isAllOf(schema))
+        else if (OpenApiV3TypeChecker.isOneOf(schema)) {
+          const tracked: boolean =
+            schema === input && discriminator !== undefined;
+          if (tracked && nullable.value) preserveDiscriminator = false;
+          for (const branch of schema.oneOf) {
+            const previous: number = union.length;
+            const previousNullable: boolean = nullable.value;
+            visit(branch);
+            if (
+              tracked &&
+              (union.length !== previous + 1 ||
+                nullable.value !== previousNullable)
+            )
+              preserveDiscriminator = false;
+          }
+        } else if (OpenApiV3TypeChecker.isAllOf(schema))
           if (schema.allOf.length === 1) visit(schema.allOf[0]!);
           else union.push(convertAllOfSchema(components)(schema));
         // ATOMIC TYPE CASE (CONSIDER ENUM VALUES)
@@ -469,7 +490,12 @@ export namespace OpenApiV3Upgrader {
           ? { type: undefined }
           : union.length === 1
             ? { ...union[0] }
-            : { oneOf: union.map((u) => ({ ...u, nullable: undefined })) }),
+            : {
+                oneOf: union.map((u) => ({ ...u, nullable: undefined })),
+                ...(preserveDiscriminator && discriminator !== undefined
+                  ? { discriminator }
+                  : {}),
+              }),
         ...attribute,
         ...{ nullable: undefined },
       };
