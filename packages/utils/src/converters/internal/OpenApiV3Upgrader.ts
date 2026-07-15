@@ -2,6 +2,7 @@ import { IJsonSchemaAttribute, OpenApi, OpenApiV3 } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
+import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
 export namespace OpenApiV3Upgrader {
@@ -312,6 +313,12 @@ export namespace OpenApiV3Upgrader {
         default: undefined,
       };
       const union: OpenApi.IJsonSchema[] = [];
+      const discriminator:
+        | OpenApi.IJsonSchema.IOneOf.IDiscriminator
+        | undefined =
+        OpenApiV3TypeChecker.isOneOf(input) && input.discriminator !== undefined
+          ? OpenApiDiscriminatorConverter.clone(input.discriminator)
+          : undefined;
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -469,7 +476,10 @@ export namespace OpenApiV3Upgrader {
           ? { type: undefined }
           : union.length === 1
             ? { ...union[0] }
-            : { oneOf: union.map((u) => ({ ...u, nullable: undefined })) }),
+            : {
+                oneOf: union.map((u) => ({ ...u, nullable: undefined })),
+                ...(discriminator !== undefined ? { discriminator } : {}),
+              }),
         ...attribute,
         ...{ nullable: undefined },
       };
