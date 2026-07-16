@@ -37,6 +37,21 @@ export namespace ClassNonPublic {
     },
   ];
 
+  /**
+   * The Protocol Buffer codec sees only the two public members.
+   *
+   * `generate()` hands out an `Accessor` whose own enumerable keys include the
+   * constructor-assigned `heritage` and `hidden`, but the declared type exposes
+   * neither, so `typia.protobuf.message<ClassNonPublic>()` describes exactly
+   * `implicit` and `shown` and a decode gives only those back. Declaring the
+   * projection lets the oracle demand that shape exactly: injecting a non-public
+   * member into the output now fails instead of being waved through.
+   */
+  export const RESOLVE = (input: ClassNonPublic) => ({
+    implicit: input.implicit,
+    shown: input.shown,
+  });
+
   export const ADDABLE = false;
   export const JSONABLE = false;
 }

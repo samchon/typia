@@ -11,7 +11,7 @@ export const _test_plain_assertClone =
     const input: T = factory.generate();
     const cloned: Resolved<T> = clone(input);
 
-    if (resolved_equal_to(name)(input, cloned) === false) {
+    if (resolved_equal_to(factory)(input, cloned) === false) {
       throw new Error(
         `Bug on typia.plain.assertClone(): failed to understand the ${name} type.`,
       );

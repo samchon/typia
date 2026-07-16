@@ -21,7 +21,7 @@ export const _test_http_validateQuery =
     typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
-      result !== null && resolved_equal_to(name)(data, result.data);
+      result !== null && resolved_equal_to(factory)(data, result.data);
     if (equal === false)
       throw new Error(
         `Bug on typia.http.validateQuery(): failed to understand ${name} type.`,
