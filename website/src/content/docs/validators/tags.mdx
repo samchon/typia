@@ -132,7 +132,7 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
-`byte` validates one complete padded base64 value, `iri-reference` accepts both absolute IRIs and relative references, and `date` / `date-time` reject impossible Gregorian calendar dates.
+`byte` validates one complete standard base64 value with required padding, `iri-reference` accepts both absolute IRIs and relative references, and `date` / `date-time` reject impossible Gregorian calendar dates.
 
 For `url`, DNS host labels may contain interior hyphen runs such as `example--example`, but leading or trailing label hyphens and private IPv4 hosts are rejected.
 

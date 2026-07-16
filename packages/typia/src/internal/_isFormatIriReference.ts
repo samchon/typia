@@ -9,4 +9,4 @@ export const _isFormatIriReference = (str: string): boolean => {
 
 const FORBIDDEN = /[\u0000-\u0020\u007f-\u009f\ud800-\udfff"<>\\^`{|}]/u;
 const INVALID_PERCENT = /%(?![0-9A-Fa-f]{2})/u;
-const SCHEME = /^[A-Za-z][\d+-.A-Za-z]*:/u;
+const SCHEME = /^[A-Za-z][A-Za-z0-9+.-]*:/u;
