@@ -78,6 +78,17 @@ export const test_standard_schema_unknown_diagnostics = (): void => {
     ordinary.issues[0]?.message,
   );
 
+  const primitive = rootValidators[0]!["~standard"].validate(42);
+  if (primitive instanceof Promise || primitive.issues === undefined)
+    throw new Error(
+      "Expected an ordinary primitive to return Standard Schema issues.",
+    );
+  TestValidator.equals(
+    "ordinary primitive message",
+    "expected string, got 42",
+    primitive.issues[0]?.message,
+  );
+
   const success = propertyValidators[0]!["~standard"].validate({ value: "ok" });
   if (success instanceof Promise || !("value" in success))
     throw new Error(

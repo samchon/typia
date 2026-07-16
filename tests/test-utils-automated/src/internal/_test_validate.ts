@@ -6,9 +6,9 @@ import { OpenApiTypeChecker, OpenApiValidator } from "@typia/utils";
  * Verifies OpenAPI validation against independent template spoiler oracles.
  *
  * Template spoilers define invalid paths independently of the schema validator.
- * Predictable branches retain their leaf paths, while both sides canonicalize
- * an ambiguous oneOf failure to its union owner. Enforcing the whole sorted
- * canonical path set prevents omissions from hiding behind a failed result.
+ * Predictable branches retain their leaf paths, while ambiguous spoiler paths
+ * canonicalize to the union owner emitted by the validator. Actual errors stay
+ * raw so the whole sorted path set and its multiplicity remain exact.
  *
  * 1. Validate a generated success value and preserve its identity.
  * 2. Apply every fixture spoiler and compare the exact sorted failure paths.
@@ -58,12 +58,7 @@ export const _test_validate = <T>(props: {
       );
     }
 
-    const actual: string[] = normalizePaths({
-      components: props.components,
-      schema: props.schema,
-      value: elem,
-      paths: valid.errors.map((error) => error.path),
-    });
+    const actual: string[] = valid.errors.map((error) => error.path).sort();
 
     if (
       actual.length !== expected.length ||
@@ -93,8 +88,8 @@ const normalizePaths = (props: {
   value: unknown;
   paths: string[];
 }): string[] => {
-  // Distinct branch leaves can share one ambiguous union owner, but repeated
-  // occurrences of the same raw path must remain visible to the count oracle.
+  // Distinct spoiler leaves can share one ambiguous union owner, but repeated
+  // occurrences of the same expected path must remain visible to the oracle.
   const frequencies = new Map<string, Map<string, number>>();
   for (const original of props.paths) {
     const normalized = normalizePath({
@@ -187,8 +182,20 @@ const selectOneOf = (props: {
       value: props.value,
     });
   if (typeof props.value !== "object" || props.value === null) return undefined;
+  return selectObject({
+    components: props.components,
+    branches: compatible,
+    value: props.value as Record<string, unknown>,
+  });
+};
 
-  const objects = compatible.filter(
+const selectObject = (props: {
+  components: OpenApi.IComponents;
+  branches: IResolvedBranch[];
+  value: Record<string, unknown>;
+}): OpenApi.IJsonSchema | undefined => {
+  if (props.branches.length === 1) return props.branches[0]!.original;
+  const objects = props.branches.filter(
     (
       branch,
     ): branch is {
@@ -196,13 +203,18 @@ const selectOneOf = (props: {
       resolved: OpenApi.IJsonSchema.IObject;
     } => OpenApiTypeChecker.isObject(branch.resolved),
   );
-  for (const branch of objects) {
+  const selectable = objects.filter(
+    ({ resolved }) =>
+      resolved.properties !== undefined && resolved.required !== undefined,
+  );
+  const discriminated: IObjectDiscriminator[] = [];
+  for (const branch of selectable) {
     const candidates: string[] = [];
     for (const key of branch.resolved.required ?? []) {
       const targetSchema = branch.resolved.properties?.[key];
       if (targetSchema === undefined) continue;
       const target = resolve(props.components, targetSchema);
-      const neighbors = objects
+      const neighbors = selectable
         .filter((other) => other !== branch)
         .map(({ resolved }) => resolved.properties?.[key])
         .filter((schema) => schema !== undefined)
@@ -233,11 +245,25 @@ const selectOneOf = (props: {
         : resolve(props.components, targetSchema);
     const matched =
       target !== undefined && OpenApiTypeChecker.isConstant(target)
-        ? (props.value as Record<string, unknown>)[key] === target.const
-        : (props.value as Record<string, unknown>)[key] !== undefined;
-    if (matched) return branch.original;
+        ? props.value[key] === target.const
+        : props.value[key] !== undefined;
+    discriminated.push({
+      branch,
+      matched,
+    });
   }
-  return undefined;
+  const matched = discriminated.find(({ matched }) => matched);
+  if (matched !== undefined) return matched.branch.original;
+  if (discriminated.length === 0) return undefined;
+  const remainders = props.branches.filter(
+    (branch) => discriminated.some((item) => item.branch === branch) === false,
+  );
+  return remainders.length === 0
+    ? undefined
+    : selectObject({
+        ...props,
+        branches: remainders,
+      });
 };
 
 const selectArray = (props: {
@@ -364,4 +390,11 @@ interface IPathSegment {
 interface IResolvedBranch {
   original: OpenApi.IJsonSchema;
   resolved: OpenApi.IJsonSchema;
+}
+
+interface IObjectDiscriminator {
+  branch: IResolvedBranch & {
+    resolved: OpenApi.IJsonSchema.IObject;
+  };
+  matched: boolean;
 }
