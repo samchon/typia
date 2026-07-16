@@ -174,34 +174,25 @@ func protobufDecodeProgrammer_write_object_function(props struct {
   Object  *schemametadata.MetadataObjectType
 }) *shimast.Node {
   f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, props.Context.Emit)
-  lengthAssign := f.NewExpressionStatement(
-    protobufDecodeProgrammer_assignment(
-      f.NewIdentifier("length"),
-      shimast.KindEqualsToken,
-      nativefactories.ExpressionFactory.Conditional(
-        protobufDecodeProgrammer_lessThan(f.NewIdentifier("length"), nativefactories.ExpressionFactory.Number(0, props.Context.Emit), props.Context.Emit),
-        protobufDecodeProgrammer_callReader("size", nil, props.Context.Emit),
-        protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), f.NewIdentifier("length"), props.Context.Emit),
-        props.Context.Emit,
-      ),
-      props.Context.Emit,
-    ),
-  )
-  body := []*shimast.Node{lengthAssign}
-  body = append(body, protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
+  body := protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
     Context:   props.Context,
-    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), f.NewIdentifier("length"), props.Context.Emit),
+    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), protobufDecodeProgrammer_callReader("size", nil, props.Context.Emit), props.Context.Emit),
     Tag:       "tag",
     Output:    "output",
     Object:    props.Object,
-  })...)
+  })
+  body = append(body, f.NewIfStatement(
+    protobufDecodeProgrammer_lessThan(nativefactories.ExpressionFactory.Number(-1, props.Context.Emit), f.NewIdentifier("previous"), props.Context.Emit),
+    f.NewExpressionStatement(protobufDecodeProgrammer_callReader("close", []*shimast.Node{f.NewIdentifier("previous")}, props.Context.Emit)),
+    nil,
+  ))
   body = append(body, f.NewReturnStatement(f.NewIdentifier("output")))
   return f.NewArrowFunction(
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
       nativefactories.IdentifierFactory.Parameter("reader", nil, nil, props.Context.Emit),
-      nativefactories.IdentifierFactory.Parameter("length", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(-1, props.Context.Emit), props.Context.Emit),
+      nativefactories.IdentifierFactory.Parameter("previous", nativefactories.TypeFactory.Keyword("number", props.Context.Emit), nativefactories.ExpressionFactory.Number(-1, props.Context.Emit), props.Context.Emit),
     }),
     nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
     nil,
@@ -460,12 +451,13 @@ func protobufDecodeProgrammer_decode_array(props protobufDecodeProgrammer_decode
       f.NewBlock(f.NewNodeList([]*shimast.Node{
         nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
           Name:  "piece",
-          Value: protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("uint32", nil, emit), protobufDecodeProgrammer_callReader("index", nil, emit), emit),
+          Value: protobufDecodeProgrammer_callReader("fork", nil, emit),
         }, emit),
         f.NewWhileStatement(
-          protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, emit), f.NewIdentifier("piece"), emit),
+          protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, emit), protobufDecodeProgrammer_callReader("size", nil, emit), emit),
           f.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder, emit)),
         ),
+        f.NewExpressionStatement(protobufDecodeProgrammer_callReader("close", []*shimast.Node{f.NewIdentifier("piece")}, emit)),
       }), true),
       f.NewExpressionStatement(protobufDecodeProgrammer_arrayPush(props.Accessor, decoder, emit)),
     ))
@@ -486,7 +478,7 @@ func protobufDecodeProgrammer_decode_regular_object(props struct {
   }
   args := []*shimast.Node{f.NewIdentifier("reader")}
   if props.Top == false {
-    args = append(args, protobufDecodeProgrammer_callReader("uint32", nil, emit))
+    args = append(args, protobufDecodeProgrammer_callReader("fork", nil, emit))
   }
   return f.NewCallExpression(
     f.NewIdentifier(fmt.Sprintf("%so%d", protobufDecodeProgrammer_PREFIX, index)),
@@ -507,11 +499,11 @@ func protobufDecodeProgrammer_decode_map(props protobufDecodeProgrammer_decodeMa
   }
   statements = append(statements, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
     Name:  "piece",
-    Value: protobufDecodeProgrammer_add(protobufDecodeProgrammer_callReader("uint32", nil, props.Context.Emit), protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), props.Context.Emit),
+    Value: protobufDecodeProgrammer_callReader("fork", nil, props.Context.Emit),
   }, props.Context.Emit))
   statements = append(statements, protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
     Context:   props.Context,
-    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), f.NewIdentifier("piece"), props.Context.Emit),
+    Condition: protobufDecodeProgrammer_lessThan(protobufDecodeProgrammer_callReader("index", nil, props.Context.Emit), protobufDecodeProgrammer_callReader("size", nil, props.Context.Emit), props.Context.Emit),
     Tag:       "kind",
     Output:    "entry",
     Object: protobufDecodeProgrammer_createObjectType([]struct {
@@ -522,6 +514,7 @@ func protobufDecodeProgrammer_decode_map(props protobufDecodeProgrammer_decodeMa
       {Key: "value", Value: props.Value},
     }),
   })...)
+  statements = append(statements, f.NewExpressionStatement(protobufDecodeProgrammer_callReader("close", []*shimast.Node{f.NewIdentifier("piece")}, props.Context.Emit)))
   if props.Required == false {
     statements = append(statements, f.NewExpressionStatement(
       protobufDecodeProgrammer_assignment(props.Accessor, shimast.KindQuestionQuestionEqualsToken, props.Initializer, props.Context.Emit),
@@ -676,11 +669,6 @@ func protobufDecodeProgrammer_assignment(left *shimast.Node, operator shimast.Ki
 func protobufDecodeProgrammer_lessThan(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
   return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindLessThanToken), right)
-}
-
-func protobufDecodeProgrammer_add(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(protobufDecodeProgrammer_factory, emit)
-  return f.NewBinaryExpression(nil, left, nil, f.NewToken(shimast.KindPlusToken), right)
 }
 
 func protobufDecodeProgrammer_unsigned_right_shift(left *shimast.Node, right *shimast.Node, emit *shimprinter.EmitContext) *shimast.Node {
