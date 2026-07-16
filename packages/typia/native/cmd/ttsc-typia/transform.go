@@ -127,7 +127,10 @@ func runTransformProject(
     Diagnostics: []transformCompilerDiagnostic{},
     TypeScript:  map[string]string{},
   }
-  collector := newTransformDependencyCollector(cwd)
+  collector := newTransformDependencyCollector(cwd, func(fileName string) bool {
+    sf := prog.SourceFile(fileName)
+    return sf != nil && prog.TSProgram.IsLibFile(sf)
+  })
   schemametadata.MetadataDependency_listen(prog.Checker, collector.Touch)
   defer schemametadata.MetadataDependency_release(prog.Checker)
   for _, sf := range prog.SourceFiles() {
@@ -249,9 +252,9 @@ type transformProjectOutput struct {
   // TypeScript) to the source files owning the declarations typia's analysis
   // consulted for it. Values are project-relative when the file lives under the
   // project and absolute otherwise; the consumer absolutizes against the
-  // project root and drops the file itself. Default `lib.*.d.ts` files are
-  // excluded (toolchain-versioned, not project inputs); `node_modules`
-  // declaration files are included.
+  // project root and drops the file itself. Compiler-owned default library
+  // files are excluded (toolchain-versioned, not project inputs);
+  // `node_modules` declaration files are included.
   Dependencies map[string][]string `json:"dependencies,omitempty"`
 }
 
@@ -262,16 +265,26 @@ type transformDependencyCollector struct {
   cwd     string
   current string
   files   map[string]map[string]bool
+  // isLibraryFile reports the compiler's own classification of a file as a
+  // default library. Classification must come from the program, never from a
+  // filename pattern: a project's own ambient declaration file may legitimately
+  // be named `lib.custom.d.ts`, and dropping it by basename silently loses
+  // cache invalidation for the types it declares (samchon/typia#2108).
+  isLibraryFile func(fileName string) bool
   // values memoizes fileName -> envelope value ("" for a dropped file): the
   // listener reports the same declaration files repeatedly across call sites.
   values map[string]string
 }
 
-func newTransformDependencyCollector(cwd string) *transformDependencyCollector {
+func newTransformDependencyCollector(
+  cwd string,
+  isLibraryFile func(fileName string) bool,
+) *transformDependencyCollector {
   return &transformDependencyCollector{
-    cwd:    cwd,
-    files:  map[string]map[string]bool{},
-    values: map[string]string{},
+    cwd:           cwd,
+    isLibraryFile: isLibraryFile,
+    files:         map[string]map[string]bool{},
+    values:        map[string]string{},
   }
 }
 
@@ -290,7 +303,7 @@ func (collector *transformDependencyCollector) Touch(fileName string) {
   }
   value, memoized := collector.values[fileName]
   if memoized == false {
-    value = transformDependencyValue(collector.cwd, fileName)
+    value = collector.value(fileName)
     collector.values[fileName] = value
   }
   if value == "" || value == collector.current {
@@ -304,13 +317,16 @@ func (collector *transformDependencyCollector) Touch(fileName string) {
   set[value] = true
 }
 
-// transformDependencyValue renders one reported file as its envelope value, or
-// "" when the file must be dropped (default library or virtual URI source).
-func transformDependencyValue(cwd string, fileName string) string {
-  if transformDependencyDefaultLib(fileName) || strings.Contains(fileName, "://") {
+// value renders one reported file as its envelope value, or "" when the file
+// must be dropped: virtual URI sources (e.g. tsgo's `bundled:///` embedded
+// libraries) cannot be watched, and files the compiler classifies as default
+// libraries (on-disk in `noembed` or `libReplacement` configurations) are
+// toolchain inputs, not project inputs.
+func (collector *transformDependencyCollector) value(fileName string) string {
+  if strings.Contains(fileName, "://") || collector.isLibraryFile(fileName) {
     return ""
   }
-  return sourceFileKey(cwd, filepath.ToSlash(fileName))
+  return sourceFileKey(collector.cwd, filepath.ToSlash(fileName))
 }
 
 // ToJSON renders the collected sets as the envelope's `dependencies` map with
@@ -335,14 +351,6 @@ func (collector *transformDependencyCollector) ToJSON() map[string][]string {
     return nil
   }
   return output
-}
-
-// transformDependencyDefaultLib reports whether the file is a TypeScript
-// default library (`lib.<target>.d.ts`), identified by base name because the
-// install directory varies by toolchain.
-func transformDependencyDefaultLib(fileName string) bool {
-  base := filepath.Base(filepath.FromSlash(fileName))
-  return strings.HasPrefix(base, "lib.") && strings.HasSuffix(base, ".d.ts")
 }
 
 type transformCompilerDiagnostic struct {

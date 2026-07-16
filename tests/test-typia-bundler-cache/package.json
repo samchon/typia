@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "name": "@typia/test-typia-bundler-cache",
+  "description": "Bundler persistent-cache invalidation end-to-end tests for typia.",
+  "scripts": {
+    "start": "ttsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test",
+    "bundler",
+    "cache"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@ttsc/unplugin": "catalog:typescript",
+    "@types/node": "catalog:utils",
+    "esbuild-loader": "^4.5.0",
+    "webpack": "^5.107.2"
+  },
+  "dependencies": {
+    "typia": "workspace:^"
+  }
+}
