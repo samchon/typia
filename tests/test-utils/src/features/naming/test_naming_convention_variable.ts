@@ -12,17 +12,17 @@ import { _isLegalBinding } from "../../internal/_isLegalBinding";
  * shape". That gap let eight strings through (#2111), and `eval`/`arguments`
  * prove a reserved-word list can never express the rule: they are not reserved
  * words at all, only illegal as BoundNames in strict code. Because
- * `HttpMigrateRouteAccessor` and `HttpMigrateRouteComposer` derive real
- * binding identifiers from this predicate, a false positive emits a module
- * that cannot parse. Expectations therefore come from Node's parser rather
- * than from typia's current output.
+ * `HttpMigrateRouteAccessor` and `HttpMigrateRouteComposer` derive real binding
+ * identifiers from this predicate, a false positive emits a module that cannot
+ * parse. Expectations therefore come from Node's parser rather than from
+ * typia's current output.
  *
- * 1. Cross-check every reserved, strict-reserved, and restricted word against
- *    the engine oracle, so the predicate cannot drift from the grammar.
+ * 1. Cross-check every reserved, strict-reserved, and restricted word against the
+ *    engine oracle, so the predicate cannot drift from the grammar.
  * 2. Pin the eight words #2111 reported as false positives.
  * 3. Pin ordinary and contextual names that must stay valid.
- * 4. Assert the deliberate `module` policy, the identifier-shape boundaries,
- *    and that repeated calls are stable.
+ * 4. Assert the deliberate `module` policy, the identifier-shape boundaries, and
+ *    that repeated calls are stable.
  */
 export const test_naming_convention_variable = (): void => {
   // 1. THE ENGINE IS THE ORACLE
@@ -33,20 +33,75 @@ export const test_naming_convention_variable = (): void => {
   // held out of this sweep.
   const words: string[] = [
     // ECMAScript ReservedWord
-    "await", "break", "case", "catch", "class", "const", "continue",
-    "debugger", "default", "delete", "do", "else", "enum", "export",
-    "extends", "false", "finally", "for", "function", "if", "import", "in",
-    "instanceof", "new", "null", "return", "super", "switch", "this", "throw",
-    "true", "try", "typeof", "var", "void", "while", "with", "yield",
+    "await",
+    "break",
+    "case",
+    "catch",
+    "class",
+    "const",
+    "continue",
+    "debugger",
+    "default",
+    "delete",
+    "do",
+    "else",
+    "enum",
+    "export",
+    "extends",
+    "false",
+    "finally",
+    "for",
+    "function",
+    "if",
+    "import",
+    "in",
+    "instanceof",
+    "new",
+    "null",
+    "return",
+    "super",
+    "switch",
+    "this",
+    "throw",
+    "true",
+    "try",
+    "typeof",
+    "var",
+    "void",
+    "while",
+    "with",
+    "yield",
     // strict-mode future reserved words
-    "implements", "interface", "let", "package", "private", "protected",
-    "public", "static",
+    "implements",
+    "interface",
+    "let",
+    "package",
+    "private",
+    "protected",
+    "public",
+    "static",
     // strict-mode BoundNames restrictions
-    "eval", "arguments",
+    "eval",
+    "arguments",
     // not reserved -- must stay valid
-    "foo", "value", "async", "of", "get", "set", "from", "as", "target",
-    "meta", "undefined", "NaN", "Infinity", "globalThis", "constructor",
-    "prototype", "name", "length",
+    "foo",
+    "value",
+    "async",
+    "of",
+    "get",
+    "set",
+    "from",
+    "as",
+    "target",
+    "meta",
+    "undefined",
+    "NaN",
+    "Infinity",
+    "globalThis",
+    "constructor",
+    "prototype",
+    "name",
+    "length",
   ];
   for (const word of words) {
     TestValidator.equals(
@@ -83,7 +138,16 @@ export const test_naming_convention_variable = (): void => {
   }
 
   // 3. ORDINARY AND CONTEXTUAL NAMES STAY VALID
-  for (const word of ["foo", "async", "of", "get", "undefined", "NaN", "_", "$"])
+  for (const word of [
+    "foo",
+    "async",
+    "of",
+    "get",
+    "undefined",
+    "NaN",
+    "_",
+    "$",
+  ])
     TestValidator.equals(
       `variable(${JSON.stringify(word)}) stays valid`,
       NamingConvention.variable(word),
@@ -96,8 +160,16 @@ export const test_naming_convention_variable = (): void => {
   // typia reserves it anyway: shadowing `module` would break `module.exports`
   // in CommonJS output. This asymmetry is policy, not a grammar claim, so it
   // is asserted explicitly rather than swept.
-  TestValidator.equals("module is a legal binding per the engine", _isLegalBinding("module"), true);
-  TestValidator.equals("module is reserved by typia policy", NamingConvention.variable("module"), false);
+  TestValidator.equals(
+    "module is a legal binding per the engine",
+    _isLegalBinding("module"),
+    true,
+  );
+  TestValidator.equals(
+    "module is reserved by typia policy",
+    NamingConvention.variable("module"),
+    false,
+  );
 
   // 4b. IDENTIFIER SHAPE BOUNDARIES
   const shapes: [string, boolean][] = [
@@ -122,7 +194,15 @@ export const test_naming_convention_variable = (): void => {
   // The predicate must not carry a stateful `/g` regex whose `lastIndex`
   // survives between calls.
   for (let i = 0; i < 4; ++i) {
-    TestValidator.equals(`variable("foo") is stable on call ${i}`, NamingConvention.variable("foo"), true);
-    TestValidator.equals(`variable("let") is stable on call ${i}`, NamingConvention.variable("let"), false);
+    TestValidator.equals(
+      `variable("foo") is stable on call ${i}`,
+      NamingConvention.variable("foo"),
+      true,
+    );
+    TestValidator.equals(
+      `variable("let") is stable on call ${i}`,
+      NamingConvention.variable("let"),
+      false,
+    );
   }
 };

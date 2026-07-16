@@ -141,18 +141,18 @@ export namespace NamingConvention {
   /**
    * Check if string is valid JavaScript variable name.
    *
-   * Returns `true` only when `str` can be used as a *binding* identifier — a
-   * declaration, parameter, or import name — in the dialect typia generates:
-   * an ES module, which is always strict mode. A string is a valid binding
-   * when it has identifier shape and is neither {@link reserved} nor one of
-   * the strict-mode restricted binding names (`eval`, `arguments`).
+   * Returns `true` only when `str` can be used as a _binding_ identifier — a
+   * declaration, parameter, or import name — in the dialect typia generates: an
+   * ES module, which is always strict mode. A string is a valid binding when it
+   * has identifier shape and is neither {@link reserved} nor one of the
+   * strict-mode restricted binding names (`eval`, `arguments`).
    *
    * The restricted binding names are why this is not derived from
    * {@link reserved} alone. `eval` and `arguments` are not reserved words at
    * all; they are rejected only in binding position under strict mode, so no
    * reserved-word list can express this predicate.
    *
-   * Property *access* is a weaker requirement than binding, since dot notation
+   * Property _access_ is a weaker requirement than binding, since dot notation
    * accepts reserved words (`x.let` is legal). Callers escaping a property key
    * rather than declaring a name are therefore held to a stricter rule than
    * they need; that is safe, but they cannot rely on this predicate to mean
@@ -178,8 +178,8 @@ export namespace NamingConvention {
    * it is a legal identifier, but shadowing it would break `module.exports` in
    * CommonJS output.
    *
-   * `eval` and `arguments` are deliberately absent. They are not reserved
-   * words — they are merely illegal as binding names in strict code — so
+   * `eval` and `arguments` are deliberately absent. They are not reserved words
+   * — they are merely illegal as binding names in strict code — so
    * {@link variable} rejects them separately.
    *
    * @param str String to check
@@ -191,12 +191,12 @@ export namespace NamingConvention {
 /**
  * Identifier shape, ASCII subset.
  *
- * Declared without the `g` flag on purpose: a global regular expression
- * carries `lastIndex` across `test()` calls, which would make
- * {@link NamingConvention.variable} alternate between answers for the same
- * input once the pattern is hoisted out of the function body.
+ * Declared without the `g` flag on purpose: a global regular expression carries
+ * `lastIndex` across `test()` calls, which would make
+ * {@link NamingConvention.variable} alternate between answers for the same input
+ * once the pattern is hoisted out of the function body.
  */
-const IDENTIFIER = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/;
+const IDENTIFIER: RegExp = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/;
 
 /** ECMAScript `ReservedWord`. */
 const RESERVED_WORDS: string[] = [

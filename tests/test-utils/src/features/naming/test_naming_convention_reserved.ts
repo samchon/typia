@@ -12,25 +12,57 @@ import { NamingConvention } from "@typia/utils";
  * predicate, so an omission silently produces a keyword where an escaped name
  * was intended.
  *
- * `eval` and `arguments` are deliberately *not* reserved words: they are only
+ * `eval` and `arguments` are deliberately _not_ reserved words: they are only
  * restricted as BoundNames in strict code. Keeping them out of `reserved()` is
  * what makes it an honest reserved-word predicate, and is exactly why
  * `variable()` cannot be derived from it alone.
  *
  * 1. Assert every ECMAScript `ReservedWord` is reserved.
  * 2. Assert every strict-mode future reserved word is reserved.
- * 3. Assert `eval`/`arguments` are not reserved words, though not valid
- *    bindings.
+ * 3. Assert `eval`/`arguments` are not reserved words, though not valid bindings.
  * 4. Assert ordinary names are not reserved, and pin the `module` policy.
  */
 export const test_naming_convention_reserved = (): void => {
   // 1. ECMAScript ReservedWord (ECMA-262, Keywords and Reserved Words)
   const RESERVED_WORDS: string[] = [
-    "await", "break", "case", "catch", "class", "const", "continue",
-    "debugger", "default", "delete", "do", "else", "enum", "export",
-    "extends", "false", "finally", "for", "function", "if", "import", "in",
-    "instanceof", "new", "null", "return", "super", "switch", "this", "throw",
-    "true", "try", "typeof", "var", "void", "while", "with", "yield",
+    "await",
+    "break",
+    "case",
+    "catch",
+    "class",
+    "const",
+    "continue",
+    "debugger",
+    "default",
+    "delete",
+    "do",
+    "else",
+    "enum",
+    "export",
+    "extends",
+    "false",
+    "finally",
+    "for",
+    "function",
+    "if",
+    "import",
+    "in",
+    "instanceof",
+    "new",
+    "null",
+    "return",
+    "super",
+    "switch",
+    "this",
+    "throw",
+    "true",
+    "try",
+    "typeof",
+    "var",
+    "void",
+    "while",
+    "with",
+    "yield",
   ];
   for (const word of RESERVED_WORDS)
     TestValidator.equals(
@@ -77,7 +109,17 @@ export const test_naming_convention_reserved = (): void => {
   }
 
   // 4a. ORDINARY AND CONTEXTUAL NAMES
-  for (const word of ["foo", "async", "of", "get", "set", "from", "as", "undefined", "NaN"])
+  for (const word of [
+    "foo",
+    "async",
+    "of",
+    "get",
+    "set",
+    "from",
+    "as",
+    "undefined",
+    "NaN",
+  ])
     TestValidator.equals(
       `reserved(${JSON.stringify(word)}) is not reserved`,
       NamingConvention.reserved(word),
