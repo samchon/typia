@@ -25,6 +25,8 @@ export const test_http_llm_application = async (): Promise<void> => {
       "properties",
       [
         ...route.parameters.map((p) => p.key),
+        ...(route.headers ? [route.headers.key] : []),
+        ...(route.cookies ? [route.cookies.key] : []),
         ...(route.query ? ["query"] : []),
         ...(route.body ? ["body"] : []),
       ],

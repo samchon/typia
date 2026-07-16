@@ -8,9 +8,18 @@ export namespace HttpMigrateRouteAccessor {
   export const overwrite = (routes: IHttpMigrateRoute[]): void => {
     const predefined: Map<string, number> = getPredefinedAccessors(routes);
     const dict: Map<string, IElement> = collect((op) =>
-      op.emendedPath
+      op.path
         .split("/")
-        .filter((str) => !!str.length && str[0] !== ":")
+        .map((str) => ({
+          original: str,
+          static: str.replace(/\{[^{}]+\}/g, ""),
+        }))
+        .filter(
+          (str) =>
+            str.static.length !== 0 &&
+            (str.original === str.static || /[a-zA-Z0-9_$]/.test(str.static)),
+        )
+        .map((str) => str.static)
         .map(EndpointUtil.normalize)
         .map((str) => (NamingConvention.variable(str) ? str : `_${str}`)),
     )(routes) as Map<string, IElement>;
@@ -28,6 +37,7 @@ export namespace HttpMigrateRouteAccessor {
           ...entry.route.parameters,
           ...(entry.route.body ? [entry.route.body] : []),
           ...(entry.route.headers ? [entry.route.headers] : []),
+          ...(entry.route.cookies ? [entry.route.cookies] : []),
           ...(entry.route.query ? [entry.route.query] : []),
         ];
         parameters.forEach(

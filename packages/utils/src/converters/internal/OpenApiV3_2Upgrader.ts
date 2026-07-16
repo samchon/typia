@@ -186,12 +186,27 @@ export namespace OpenApiV3_2Upgrader {
     operationParameters: OpenApiV3_2.IOperation.IParameter[],
   ): OpenApiV3_2.IOperation.IParameter[] => {
     const map: Map<string, OpenApiV3_2.IOperation.IParameter> = new Map();
+    const duplicates = (
+      parameters: OpenApiV3_2.IOperation.IParameter[],
+    ): OpenApiV3_2.IOperation.IParameter[] => {
+      const seen: Set<string> = new Set();
+      return parameters.filter((parameter) => {
+        const key: string = `${parameter.in}:${parameter.name}`;
+        if (seen.has(key)) return true;
+        seen.add(key);
+        return false;
+      });
+    };
     const emplace = (parameter: OpenApiV3_2.IOperation.IParameter): void => {
       map.set(`${parameter.in}:${parameter.name}`, parameter);
     };
     pathParameters.forEach(emplace);
     operationParameters.forEach(emplace);
-    return [...map.values()];
+    return [
+      ...map.values(),
+      ...duplicates(pathParameters),
+      ...duplicates(operationParameters),
+    ];
   };
 
   const convertParameter =
@@ -202,10 +217,17 @@ export namespace OpenApiV3_2Upgrader {
       const { required: inputRequired, ...rest } = input;
       const required: boolean | undefined =
         input.in === "path" ? true : inputRequired;
+      const content: OpenApi.IOperation.IContent | undefined = input.content
+        ? convertContent(components)(input.content)
+        : undefined;
       return {
         ...rest,
         ...(required !== undefined ? { required } : {}),
-        schema: convertSchema(components)(input.schema),
+        schema:
+          input.schema !== undefined
+            ? convertSchema(components)(input.schema)
+            : (Object.values(content ?? {})[0]?.schema ?? {}),
+        content,
         examples: input.examples
           ? Object.fromEntries(
               Object.entries(input.examples)

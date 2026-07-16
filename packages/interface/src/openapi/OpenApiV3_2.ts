@@ -240,11 +240,28 @@ export namespace OpenApiV3_2 {
       /** Parameter location. */
       in: "path" | "query" | "querystring" | "header" | "cookie";
 
-      /** Parameter schema. */
-      schema: IJsonSchema;
+      /** Parameter schema for every location except `querystring`. */
+      schema?: IJsonSchema;
+
+      /** Media types for a content-backed `querystring` parameter. */
+      content?: Record<string, IMediaType>;
 
       /** Whether required. */
       required?: boolean;
+
+      /** Parameter serialization style. */
+      style?:
+        | "matrix"
+        | "label"
+        | "form"
+        | "cookie"
+        | "simple"
+        | "spaceDelimited"
+        | "pipeDelimited"
+        | "deepObject";
+
+      /** Whether arrays and objects are exploded during serialization. */
+      explode?: boolean;
 
       /** Parameter description. */
       description?: string;

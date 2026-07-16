@@ -30,8 +30,10 @@ export namespace HttpLlmFunctionFetcher {
       parameters: Object.fromEntries(
         route.parameters.map((p) => [p.key, input[p.key]] as const),
       ),
-      query: input.query,
-      body: input.body,
+      headers: route.headers ? input[route.headers.key] : undefined,
+      cookies: route.cookies ? input[route.cookies.key] : undefined,
+      query: route.query ? input[route.query.key] : undefined,
+      body: route.body ? input[route.body.key] : undefined,
     };
   };
 }

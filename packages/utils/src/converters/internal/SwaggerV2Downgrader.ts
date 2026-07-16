@@ -144,6 +144,9 @@ export namespace SwaggerV2Downgrader {
       const {
         schema,
         required,
+        content: _content,
+        style: _style,
+        explode: _explode,
         example: _example,
         examples: _examples,
         ...rest
@@ -192,6 +195,8 @@ export namespace SwaggerV2Downgrader {
                   name: _name,
                   in: _in,
                   required: _required,
+                  style: _style,
+                  explode: _explode,
                   example: _example,
                   examples: _examples,
                   schema,
