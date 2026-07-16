@@ -25,7 +25,7 @@ const transformPayload = (overrides = {}) => ({
   ...overrides,
 });
 
-const run = async (plugin) => {
+const run = async (plugin, overrides = {}) => {
   const writes = new Map();
   let buildCalls = 0;
   const result = await runTypiaBuildPipeline({
@@ -46,7 +46,7 @@ const run = async (plugin) => {
     runTypia: true,
     workDir: "/work",
     tsconfigPath: "tsconfig.json",
-    entryFile: "src/playground.ts",
+    entryFile: overrides.entryFile ?? "src/playground.ts",
     typiaPluginName: "typia",
   });
   return { buildCalls, result, writes };
@@ -162,6 +162,39 @@ test("typia transform responses gate the ordinary build", async (t) => {
     );
     assert.equal(actual.result.type, "error");
     assert.match(actual.result.value.message, /entry file/);
+    assert.equal(actual.buildCalls, 0);
+    assert.equal(actual.writes.size, 0);
+  });
+
+  await t.test("relative entry alias", async () => {
+    const actual = await run(transformPayload(), {
+      entryFile: "./src/playground.ts",
+    });
+    assert.deepEqual(actual.result, {
+      type: "success",
+      target: "javascript",
+      value: "export const compiled = true;",
+    });
+    assert.equal(actual.buildCalls, 1);
+    assert.deepEqual(
+      [...actual.writes],
+      [["/work/src/playground.ts", "export const transformed = true;"]],
+    );
+  });
+
+  await t.test("canonical duplicate paths", async () => {
+    const actual = await run(
+      transformPayload({
+        stdout: JSON.stringify({
+          typescript: {
+            "src/playground.ts": "export const first = true;",
+            "src/./playground.ts": "export const second = true;",
+          },
+        }),
+      }),
+    );
+    assert.equal(actual.result.type, "error");
+    assert.match(actual.result.value.message, /duplicate TypeScript paths/);
     assert.equal(actual.buildCalls, 0);
     assert.equal(actual.writes.size, 0);
   });

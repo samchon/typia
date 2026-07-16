@@ -193,9 +193,13 @@ export async function runTypiaBuildPipeline(
   props: ITypiaBuildPipelineProps,
 ): Promise<ICompilerService.IResult> {
   try {
+    const entryFile = normalizeRelativePath(props.entryFile);
+    if (entryFile === null)
+      return runtimeError("playground entry file must be a relative path");
+
     let transformDiagnostics: ICompilerService.IDiagnostic[] = [];
     if (props.runTypia) {
-      const transformed = await applyTypiaTransform(props);
+      const transformed = await applyTypiaTransform(props, entryFile);
       if (!transformed.success) return transformed.result;
       transformDiagnostics = transformed.diagnostics;
     }
@@ -223,7 +227,7 @@ export async function runTypiaBuildPipeline(
         mapDiagnostic(diagnostic, props.source),
       ),
     ];
-    const js = pickEmittedJS(parsed.output ?? {}, props.entryFile) ?? "";
+    const js = pickEmittedJS(parsed.output ?? {}, entryFile) ?? "";
     // Warnings do not block emission. They use the diagnostic-bearing result
     // variant so the playground can display them beside the successful output.
     if (diagnostics.length > 0)
@@ -245,6 +249,7 @@ export async function runTypiaBuildPipeline(
 
 async function applyTypiaTransform(
   props: ITypiaBuildPipelineProps,
+  entryFile: string,
 ): Promise<
   | { success: true; diagnostics: ICompilerService.IDiagnostic[] }
   | { success: false; result: ICompilerService.IResult }
@@ -267,11 +272,7 @@ async function applyTypiaTransform(
 
   const parsed = safeParseTypiaTransform(raw.stdout);
   if (parsed.success) {
-    const entryFile = normalizeRelativePath(props.entryFile);
-    if (
-      entryFile === null ||
-      !Object.hasOwn(parsed.value.typescript, entryFile)
-    )
+    if (!Object.hasOwn(parsed.value.typescript, entryFile))
       return {
         success: false,
         result: runtimeError(
@@ -437,11 +438,17 @@ function normalizeRelativePath(path: string): string | null {
     normalized.length === 0 ||
     normalized.startsWith("/") ||
     /^[A-Za-z]:\//.test(normalized) ||
-    normalized.includes("\0") ||
-    normalized.split("/").includes("..")
+    normalized.includes("\0")
   )
     return null;
-  return normalized;
+
+  const segments: string[] = [];
+  for (const segment of normalized.split("/")) {
+    if (segment.length === 0 || segment === ".") continue;
+    if (segment === "..") return null;
+    segments.push(segment);
+  }
+  return segments.length === 0 ? null : segments.join("/");
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
