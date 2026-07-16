@@ -16,7 +16,9 @@ import {
  * ones whose fixtures carry binary parts: it runs the same strict walk and then
  * awaits the content of every blob pair that walk collected.
  *
- * Keeping it separate keeps the twelve synchronous consumers synchronous.
+ * Keeping it separate keeps the fourteen synchronous consumers synchronous:
+ * eight HTTP query and header internals, four plain-clone internals, and the
+ * two Protocol Buffer internals.
  */
 export const resolved_equal_to_async =
   <T>(factory: TestStructure<T>) =>
