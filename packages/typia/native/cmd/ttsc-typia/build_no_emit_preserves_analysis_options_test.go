@@ -53,6 +53,9 @@ export const isValue = (input: unknown): input is { value: number } =>
   if code != 0 {
     t.Fatalf("valid analysis-only project failed with code %d\nstdout=%s\nstderr=%s", code, out, errText)
   }
+  if strings.TrimSpace(errText) != "" {
+    t.Fatalf("valid analysis-only project reported private emit diagnostics:\n%s", errText)
+  }
   for _, path := range []string{
     filepath.Join(project, "dist"),
     filepath.Join(project, "cache.tsbuildinfo"),
