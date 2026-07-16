@@ -55,26 +55,50 @@ func runBuild(args []string) int {
       return 2
     }
   }
-  prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, driver.LoadProgramOptions{
+  loadProgram := func(options driver.LoadProgramOptions) (*driver.Program, int) {
+    prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, options)
+    if err != nil {
+      fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
+      return nil, 2
+    }
+    if len(diags) > 0 {
+      if prog != nil {
+        prog.Close()
+      }
+      driver.WritePrettyDiagnostics(stderr, diags, cwd)
+      return nil, 2
+    }
+    if diags := prog.Diagnostics(); len(diags) > 0 {
+      prog.Close()
+      driver.WritePrettyDiagnostics(stderr, diags, cwd)
+      return nil, 2
+    }
+    return prog, 0
+  }
+  prog, code := loadProgram(driver.LoadProgramOptions{
     ForceEmit:   *emit,
     ForceNoEmit: *noEmit,
     OutDir:      *outDir,
   })
-  if err != nil {
-    fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
-    return 2
+  if code != 0 {
+    return code
   }
-  if len(diags) > 0 {
-    driver.WritePrettyDiagnostics(stderr, diags, cwd)
-    return 2
+  shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
+  if !shouldEmit {
+    // The plugin transformer is part of tsgo's emit pipeline. Reload with emit
+    // enabled so check/noEmit traverses the exact same source set, then discard
+    // every generated output below.
+    prog.Close()
+    prog, code = loadProgram(driver.LoadProgramOptions{
+      ForceEmit: true,
+      OutDir:    *outDir,
+    })
+    if code != 0 {
+      return code
+    }
   }
   defer prog.Close()
-  if diags := prog.Diagnostics(); len(diags) > 0 {
-    driver.WritePrettyDiagnostics(stderr, diags, cwd)
-    return 2
-  }
 
-  shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
   transformDiags := []typiaTransformDiagnostic{}
   pluginOptions := readTypiaPluginOptions(cwd, *tsconfigPath)
   transformOptions := pluginOptions.TransformOptions()
@@ -96,19 +120,33 @@ func runBuild(args []string) int {
   if !*quiet {
     fmt.Fprintf(stdout, "// ttsc-typia build: tsconfig=%s cwd=%s emit=%v rewrite=%s\n", *tsconfigPath, cwd, shouldEmit, *rewriteMode)
   }
-  if shouldEmit {
-    emitted := []string{}
-    writeFile := shimcompiler.WriteFile(func(fileName, text string, data *shimcompiler.WriteFileData) error {
+  emitted := []string{}
+  pending := []buildPendingOutput{}
+  writeFile := shimcompiler.WriteFile(func(fileName, text string, data *shimcompiler.WriteFileData) error {
+    if shouldEmit {
       emitted = append(emitted, fileName)
-      return driver.DefaultWriteFile(fileName, text)
-    })
-    eDiags, err := prog.EmitWithPluginTransformers([]driver.PluginTransform{typiaTransform}, writeFile)
-    if err != nil {
-      fmt.Fprintf(stderr, "ttsc-typia build: emit failed: %v\n", err)
-      return 3
+      pending = append(pending, buildPendingOutput{FileName: fileName, Text: text})
     }
-    for _, d := range eDiags {
-      fmt.Fprintln(stderr, "  -", d.String())
+    return nil
+  })
+  eDiags, err := prog.EmitWithPluginTransformers([]driver.PluginTransform{typiaTransform}, writeFile)
+  if err != nil {
+    fmt.Fprintf(stderr, "ttsc-typia build: emit failed: %v\n", err)
+    return 3
+  }
+  for _, d := range eDiags {
+    fmt.Fprintln(stderr, "  -", d.String())
+  }
+  if len(transformDiags) > 0 {
+    writeTypiaTransformDiagnostics(stderr, transformDiags, cwd)
+    return 3
+  }
+  if shouldEmit {
+    for _, output := range pending {
+      if err := driver.DefaultWriteFile(output.FileName, output.Text); err != nil {
+        fmt.Fprintf(stderr, "ttsc-typia build: emit write failed: %v\n", err)
+        return 3
+      }
     }
     if !*quiet {
       fmt.Fprintf(stdout, "// ttsc-typia build: emitted=%d files\n", len(emitted))
@@ -136,11 +174,12 @@ func runBuild(args []string) int {
       }
     }
   }
-  if len(transformDiags) > 0 {
-    writeTypiaTransformDiagnostics(stderr, transformDiags, cwd)
-    return 3
-  }
   return 0
+}
+
+type buildPendingOutput struct {
+  FileName string
+  Text     string
 }
 
 type typiaTransformDiagnostic struct {
