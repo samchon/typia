@@ -14,22 +14,18 @@ import (
 // explicit protobuf field numbers were silently replaced by auto-numbering and
 // duplicate-sequence validation never fired.
 //
+// The two messages live in separate fixtures because a duplicate-sequence
+// diagnostic now withholds the whole file's artifact (samchon/typia#2117), so one
+// combined source could no longer show the valid message's emitted numbers.
+//
 //  1. Transform a message fixture carrying explicit `Sequence<5>` / `Sequence<7>`
 //     field numbers plus an untagged property (auto-numbered after the highest
-//     explicit number).
-//  2. Require the emitted proto message to carry the explicit numbers.
-//  3. Require a message whose two properties share `Sequence<1>` to fail the
-//     transform, leaving the call untransformed.
+//     explicit number), and require the emitted proto message to carry them.
+//  2. Require a message whose two properties share `Sequence<1>` to fail the
+//     transform with a diagnostic naming the duplicate.
+//  3. Require that rejected transform to publish no artifact.
 func TestProtobufSequenceFieldNumbersTransform(t *testing.T) {
-  project := protobufSequenceFieldNumbersProject(t)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
-    })
-  })
+  out, errText, code := protobufSequenceFieldNumbersTransform(t, "sequenced-", protobufSequenceFieldNumbersSource)
   if code != 0 {
     t.Fatalf("protobuf sequence transform failed: code=%d stderr=\n%s", code, errText)
   }
@@ -42,19 +38,41 @@ func TestProtobufSequenceFieldNumbersTransform(t *testing.T) {
       t.Fatalf("emitted proto message should contain %q:\n%s", line, out)
     }
   }
-  if !strings.Contains(out, ".protobuf.message()") {
-    t.Fatalf("duplicated sequence message should stay untransformed:\n%s", out)
+
+  dupOut, dupErr, dupCode := protobufSequenceFieldNumbersTransform(t, "duplicated-", protobufSequenceDuplicatedSource)
+  if dupCode != 3 {
+    t.Fatalf("duplicated sequence message should be rejected with code 3: code=%d stdout=\n%s\nstderr=\n%s", dupCode, dupOut, dupErr)
+  }
+  if !strings.Contains(dupErr, "error TS(typia.protobuf.message):") ||
+    !strings.Contains(dupErr, `The Sequence<1> tag is duplicated in two properties ("id" and "age")`) {
+    t.Fatalf("duplicated sequence diagnostic did not name the collision:\n%s", dupErr)
+  }
+  if dupOut != "" {
+    t.Fatalf("duplicated sequence message published an artifact:\n%s", dupOut)
   }
 }
 
-func protobufSequenceFieldNumbersProject(t *testing.T) string {
+func protobufSequenceFieldNumbersTransform(t *testing.T, prefix string, source string) (string, string, int) {
+  t.Helper()
+  project := protobufSequenceFieldNumbersProject(t, prefix, source)
+  return ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", "js",
+    })
+  })
+}
+
+func protobufSequenceFieldNumbersProject(t *testing.T, prefix string, source string) string {
   t.Helper()
   root := ttscTypiaTestRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
   if err := os.MkdirAll(base, 0o755); err != nil {
     t.Fatalf("mkdir temp base: %v", err)
   }
-  dir, err := os.MkdirTemp(base, "protobuf-sequence-")
+  dir, err := os.MkdirTemp(base, "protobuf-sequence-"+prefix)
   if err != nil {
     t.Fatalf("create temp fixture: %v", err)
   }
@@ -68,7 +86,7 @@ func protobufSequenceFieldNumbersProject(t *testing.T) string {
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(protobufSequenceFieldNumbersTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(protobufSequenceFieldNumbersSource), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(source), 0o644); err != nil {
     t.Fatalf("write source: %v", err)
   }
   return dir
@@ -97,11 +115,18 @@ interface Sequenced {
   flag: boolean;
 }
 
+export const sequenced = typia.protobuf.message<Sequenced>();
+`
+
+// protobufSequenceDuplicatedSource is the negative twin: the same message shape
+// whose two properties claim one `Sequence<1>` number, which typia must reject
+// rather than auto-renumber.
+const protobufSequenceDuplicatedSource = `import typia, { tags } from "typia";
+
 interface Duplicated {
   id: string & tags.Sequence<1>;
   age: number & tags.Sequence<1>;
 }
 
-export const sequenced = typia.protobuf.message<Sequenced>();
 export const duplicated = typia.protobuf.message<Duplicated>();
 `
