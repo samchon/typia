@@ -114,7 +114,7 @@ export namespace FeatureIdentity {
    * — owns their naming. Working from git also makes the result independent of
    * whichever suites happen to have run before this one.
    *
-   * `-z` is not decoration. Without it `git ls-files` honours `core.quotePath`
+   * `-z` is not decoration. Without it `git ls-files` honors `core.quotePath`
    * and prints a non-ASCII path quoted and octal-escaped, which this scan's
    * anchored pattern would not match — the file would drop out silently, which
    * is exactly the failure the suite exists to prevent.
