@@ -255,6 +255,9 @@ func emplace_metadata_object_touch_heritage(
         if element == nil {
           continue
         }
+        // The node walk reports the heritage expression's symbol and every
+        // reference written in its type arguments (e.g. `extends Base<Id>`).
+        schemametadata.MetadataDependency_touchTypeNode(checker, element)
         expr := element.AsExpressionWithTypeArguments()
         if expr == nil || expr.Expression == nil {
           continue
@@ -268,7 +271,6 @@ func emplace_metadata_object_touch_heritage(
             target = resolved
           }
         }
-        schemametadata.MetadataDependency_touchSymbol(checker, target)
         emplace_metadata_object_touch_heritage(checker, target, visited)
       }
     }

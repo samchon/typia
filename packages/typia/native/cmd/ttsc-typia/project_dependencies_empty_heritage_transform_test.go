@@ -15,11 +15,11 @@ import (
 // gaining its first property is exactly the change that must invalidate the
 // consumer's cached validator. This pins the explicit `extends` chain walk.
 //
-// 1. Build a project where `main.ts` validates `Doc`, `doc.ts` declares
-//    `Doc extends Empty`, and `empty.ts` declares the empty interface.
-// 2. Run project transform mode and decode the JSON envelope.
-// 3. Assert `dependencies["src/main.ts"]` contains both `src/doc.ts` (the
-//    declaring file) and `src/empty.ts` (the property-less heritage target).
+//  1. Build a project where `main.ts` validates `Doc`, `doc.ts` declares
+//     `Doc extends Empty`, and `empty.ts` declares the empty interface.
+//  2. Run project transform mode and decode the JSON envelope.
+//  3. Assert `dependencies["src/main.ts"]` contains both `src/doc.ts` (the
+//     declaring file) and `src/empty.ts` (the property-less heritage target).
 func TestProjectDependenciesEmptyHeritageTransform(t *testing.T) {
   project := projectDependenciesEmptyHeritageProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

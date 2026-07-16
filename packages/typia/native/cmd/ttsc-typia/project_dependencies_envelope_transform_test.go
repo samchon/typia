@@ -19,13 +19,13 @@ import (
 // nothing attributed to files without typia calls, no self entry, and no
 // default-library noise.
 //
-// 1. Build a project where `a.ts` calls `typia.validate<Bee>()` with `Bee`
-//    declared in `b.ts` referencing `Cee` from `c.ts` through a property type,
-//    plus `d.ts` with no typia call.
-// 2. Run project transform mode and decode the JSON envelope.
-// 3. Assert `dependencies["src/a.ts"]` contains both `src/b.ts` and `src/c.ts`.
-// 4. Assert no entry exists for `src/b.ts`, `src/c.ts`, or `src/d.ts`, the
-//    entry omits `src/a.ts` itself, and no `lib.*.d.ts` value leaks.
+//  1. Build a project where `a.ts` calls `typia.validate<Bee>()` with `Bee`
+//     declared in `b.ts` referencing `Cee` from `c.ts` through a property type,
+//     plus `d.ts` with no typia call.
+//  2. Run project transform mode and decode the JSON envelope.
+//  3. Assert `dependencies["src/a.ts"]` contains both `src/b.ts` and `src/c.ts`.
+//  4. Assert no entry exists for `src/b.ts`, `src/c.ts`, or `src/d.ts`, the
+//     entry omits `src/a.ts` itself, and no `lib.*.d.ts` value leaks.
 func TestProjectDependenciesEnvelopeTransform(t *testing.T) {
   project := projectDependenciesEnvelopeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
