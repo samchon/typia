@@ -31,27 +31,27 @@ func (promiseTypeFactoryNamespace) Resolve(checker *shimchecker.Checker, t *shim
 }
 
 func (promiseTypeFactoryNamespace) satisfiesGlobalContract(checker *shimchecker.Checker, t *shimchecker.Type) bool {
-  symbol := checker.GetGlobalSymbol("Promise", shimast.SymbolFlagsType, nil)
+  symbol := checker.GetGlobalSymbol("Promise", shimast.SymbolFlagsValue, nil)
   if symbol == nil {
     return false
   }
-  global := checker.GetDeclaredTypeOfSymbol(symbol)
-  if global == nil {
+  constructor := checker.GetTypeOfSymbol(symbol)
+  if constructor == nil {
     return false
   }
-  for _, property := range checker.GetPropertiesOfType(global) {
+  contract := checker.GetTypeOfPropertyOfType(constructor, "prototype")
+  if contract == nil {
+    return false
+  }
+  for _, property := range checker.GetPropertiesOfType(contract) {
     if property.Name == "then" || (len(property.Name) != 0 && property.Name[0] == 0xfe) {
-      // GetPromisedTypeOfPromise already verifies the complete thenable shape.
-      // Conditional Promise inference ignores well-known-symbol augmentations.
+      // GetPromisedTypeOfPromise verifies the thenable shape. Conditional
+      // Promise inference ignores well-known-symbol augmentations.
       continue
     }
-    required := checker.GetTypeOfPropertyOfType(global, property.Name)
+    required := checker.GetTypeOfPropertyOfType(contract, property.Name)
     candidate := checker.GetTypeOfPropertyOfType(t, property.Name)
-    if candidate == nil {
-      return false
-    }
-    if required != nil && len(checker.GetSignaturesOfType(required, shimchecker.SignatureKindCall)) != 0 &&
-      len(checker.GetSignaturesOfType(candidate, shimchecker.SignatureKindCall)) == 0 {
+    if required == nil || candidate == nil || !checker.IsTypeAssignableTo(candidate, required) {
       return false
     }
   }

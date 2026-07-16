@@ -16,9 +16,9 @@ import (
 // unrelated class named Promise and weaker PromiseLike contracts must remain
 // synchronous, even when a thenable adds only part of the Promise surface.
 //
-//  1. Load nine return-shape declarations through the real checker.
+//  1. Load ten return-shape declarations through the real checker.
 //  2. Resolve the fulfilled type for every genuine Promise shape.
-//  3. Keep plain and catchable PromiseLike, shadowed-name, and ordinary controls unchanged.
+//  3. Reject plain, partial, and malformed PromiseLike controls without replacing their types.
 func TestPromiseTypeFactorySemantics(t *testing.T) {
   dir := t.TempDir()
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(`{
@@ -44,6 +44,10 @@ type BrandedPromise<T> = Promise<T> & { readonly __brand: unique symbol };
 type CatchablePromiseLike<T> = PromiseLike<T> & {
   catch(onrejected?: (reason: any) => any): CatchablePromiseLike<T>;
 };
+type MalformedPromiseLike<T> = PromiseLike<T> & {
+  catch(): number;
+  finally(): number;
+};
 namespace Shadow { export class Promise<T> { public constructor(public value: T) {} } }
 let builtin!: Promise<string>;
 let derivedClass!: DerivedPromise<number>;
@@ -54,8 +58,10 @@ let synchronous!: { value: RegExp };
 let promiseLike!: PromiseLike<string>;
 let structural!: Pick<Promise<URL>, "then" | "catch" | "finally">;
 let catchablePromiseLike!: CatchablePromiseLike<string>;
+let malformedPromiseLike!: MalformedPromiseLike<string>;
 const structuralBoundary: Pick<Promise<URL>, "then" | "catch" | "finally"> extends Promise<infer _> ? true : false = true;
 const catchableBoundary: CatchablePromiseLike<string> extends Promise<infer _> ? true : false = false;
+const malformedBoundary: MalformedPromiseLike<string> extends Promise<infer _> ? true : false = false;
 `), 0o644); err != nil {
     t.Fatalf("write source: %v", err)
   }
@@ -69,7 +75,7 @@ const catchableBoundary: CatchablePromiseLike<string> extends Promise<infer _> ?
   defer program.Close()
 
   source := program.SourceFile(filepath.Join(dir, "src", "main.ts"))
-  if source == nil || source.Statements == nil || len(source.Statements.Nodes) != 16 {
+  if source == nil || source.Statements == nil || len(source.Statements.Nodes) != 19 {
     t.Fatal("fixture declarations were not loaded")
   }
   variableType := func(index int) *shimchecker.Type {
@@ -82,15 +88,16 @@ const catchableBoundary: CatchablePromiseLike<string> extends Promise<infer _> ?
     async     bool
     fulfilled string
   }{
-    {"builtin", 5, true, "string"},
-    {"derived-class", 6, true, "number"},
-    {"derived-interface", 7, true, "boolean"},
-    {"branded-intersection", 8, true, "bigint"},
-    {"shadowed-name", 9, false, ""},
-    {"synchronous", 10, false, ""},
-    {"promise-like", 11, false, ""},
-    {"structural", 12, true, "URL"},
-    {"catchable-promise-like", 13, false, ""},
+    {"builtin", 6, true, "string"},
+    {"derived-class", 7, true, "number"},
+    {"derived-interface", 8, true, "boolean"},
+    {"branded-intersection", 9, true, "bigint"},
+    {"shadowed-name", 10, false, ""},
+    {"synchronous", 11, false, ""},
+    {"promise-like", 12, false, ""},
+    {"structural", 13, true, "URL"},
+    {"catchable-promise-like", 14, false, ""},
+    {"malformed-promise-like", 15, false, ""},
   }
   for _, tc := range tests {
     t.Run(tc.name, func(t *testing.T) {
