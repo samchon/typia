@@ -7,6 +7,7 @@ import (
   "fmt"
   "os"
   "path/filepath"
+  "sort"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -118,9 +119,11 @@ func runTransformProject(
   transformDiags *[]typiaTransformDiagnostic,
 ) int {
   out := transformProjectOutput{
-    Diagnostics: []transformCompilerDiagnostic{},
-    TypeScript:  map[string]string{},
+    Dependencies: map[string][]string{},
+    Diagnostics:  []transformCompilerDiagnostic{},
+    TypeScript:   map[string]string{},
   }
+  dependencySources := transformProjectDependencySources(prog, cwd)
   for _, sf := range prog.SourceFiles() {
     if sf.IsDeclarationFile {
       continue
@@ -129,7 +132,11 @@ func runTransformProject(
     if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
       continue
     }
-    out.TypeScript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
+    transformed := transformFileToTypeScriptResult(prog, typiaTransform, sf)
+    out.TypeScript[key] = transformed.TypeScript
+    if transformed.Changed {
+      out.Dependencies[key] = excludeTransformDependency(dependencySources, key)
+    }
   }
   for _, diag := range *transformDiags {
     out.Diagnostics = append(out.Diagnostics, transformDiagnosticToCompilerDiagnostic(diag))
@@ -152,6 +159,19 @@ func transformFileToTypeScript(
   typiaTransform driver.PluginTransform,
   sf *shimast.SourceFile,
 ) string {
+  return transformFileToTypeScriptResult(prog, typiaTransform, sf).TypeScript
+}
+
+type transformFileOutput struct {
+  Changed    bool
+  TypeScript string
+}
+
+func transformFileToTypeScriptResult(
+  prog *driver.Program,
+  typiaTransform driver.PluginTransform,
+  sf *shimast.SourceFile,
+) transformFileOutput {
   options := prog.TSProgram.Options()
   ec := shimprinter.NewEmitContext()
   result := sf
@@ -162,7 +182,53 @@ func transformFileToTypeScript(
   writer := shimprinter.NewTextWriter(options.NewLine.GetNewLineCharacter(), 0)
   printer := shimprinter.NewPrinter(shimprinter.PrinterOptions{NewLine: options.NewLine}, shimprinter.PrintHandlers{}, ec)
   printer.Write(result.AsNode(), result, writer, nil)
-  return writer.String()
+  return transformFileOutput{
+    Changed:    result != sf,
+    TypeScript: writer.String(),
+  }
+}
+
+// transformProjectDependencySources returns a conservative source universe.
+// The checker does not expose per-transform query provenance, so omitting any
+// program source could leave a type alias, augmentation, or ambient declaration
+// unwatched. Bundled TypeScript libraries use URI names and have no watchable
+// filesystem path; all other sources remain relative to cwd when possible.
+func transformProjectDependencySources(prog *driver.Program, cwd string) []string {
+  seen := map[string]struct{}{}
+  for _, sf := range prog.TSProgram.SourceFiles() {
+    file := filepath.ToSlash(sf.FileName())
+    if file == "" || strings.Contains(file, "://") {
+      continue
+    }
+    dependency := sourceFileDependency(cwd, file)
+    if dependency != "" {
+      seen[dependency] = struct{}{}
+    }
+  }
+  dependencies := make([]string, 0, len(seen))
+  for dependency := range seen {
+    dependencies = append(dependencies, dependency)
+  }
+  sort.Strings(dependencies)
+  return dependencies
+}
+
+func sourceFileDependency(cwd string, file string) string {
+  key := sourceFileKey(cwd, file)
+  if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
+    return filepath.ToSlash(file)
+  }
+  return key
+}
+
+func excludeTransformDependency(dependencies []string, self string) []string {
+  output := make([]string, 0, len(dependencies))
+  for _, dependency := range dependencies {
+    if dependency != self {
+      output = append(output, dependency)
+    }
+  }
+  return output
 }
 
 // runTransformSingleJS emits a single file's JS through the full node-path emit
@@ -232,8 +298,9 @@ func defaultTransformOutput() string {
 }
 
 type transformProjectOutput struct {
-  Diagnostics []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
-  TypeScript  map[string]string             `json:"typescript"`
+  Dependencies map[string][]string           `json:"dependencies,omitempty"`
+  Diagnostics  []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
+  TypeScript   map[string]string              `json:"typescript"`
 }
 
 type transformCompilerDiagnostic struct {

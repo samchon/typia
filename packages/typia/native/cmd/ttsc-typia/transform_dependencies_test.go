@@ -55,10 +55,23 @@ func TestTransformProjectReportsTypeDependencies(t *testing.T) {
 	if _, ok := first.Dependencies["src/unrelated.ts"]; ok {
 		t.Fatalf("an unchanged non-typia source received a dependency list: %+v", first.Dependencies)
 	}
+	if len(first.Dependencies) != 1 {
+		t.Fatalf("only the transformed validator should report dependencies: %+v", first.Dependencies)
+	}
 
 	second := transformDependenciesRun(t, project)
 	if !reflect.DeepEqual(first.Dependencies, second.Dependencies) {
 		t.Fatalf("dependency envelope changed across identical transforms:\nfirst=%+v\nsecond=%+v", first.Dependencies, second.Dependencies)
+	}
+	if err := os.WriteFile(filepath.Join(project, "src", "model.ts"), []byte("export interface Model { value: number }\n"), 0o644); err != nil {
+		t.Fatalf("change type-only model: %v", err)
+	}
+	changed := transformDependenciesRun(t, project)
+	if changed.TypeScript["src/validator.ts"] == first.TypeScript["src/validator.ts"] {
+		t.Fatal("changing only the imported model did not regenerate the validator")
+	}
+	if !reflect.DeepEqual(first.Dependencies, changed.Dependencies) {
+		t.Fatalf("type-only change altered the stable dependency graph:\nbefore=%+v\nafter=%+v", first.Dependencies, changed.Dependencies)
 	}
 
 	disabled := transformDependenciesRun(t, project, "--rewrite-mode", "none")
@@ -114,7 +127,7 @@ export type Alias = Box<ImportedModel>;
 		"unrelated.ts": `export const unrelated = "still a project input";
 `,
 		"validator.ts": `import typia from "typia";
-import type { Reexported } from "./barrel";
+import type { Reexported } from "@model/barrel";
 type Product<T> = { payload: T; meta: DeclaredMetadata };
 export const check = (input: unknown): boolean => typia.is<Product<Reexported>>(input);
 `,
@@ -132,8 +145,10 @@ const transformDependenciesTSConfig = `{
     "target": "ES2022",
     "module": "commonjs",
     "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
-    "types": ["*"],
+		"ignoreDeprecations": "6.0",
+		"types": ["*"],
+		"baseUrl": ".",
+		"paths": { "@model/*": ["src/*"] },
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
