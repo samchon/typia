@@ -13,6 +13,7 @@ import { OpenApiValidator } from "@typia/utils";
  * 1. Build base, middle, and top object variants with cumulative required keys.
  * 2. Accept a valid value from every level under both branch permutations.
  * 3. Reject invalid present middle/top keys at their exact diagnostic paths.
+ * 4. Keep the first matching object discriminator responsible for ambiguity.
  */
 export const test_openapi_validator_nested_discriminator = (): void => {
   const base: OpenApi.IJsonSchema.IObject = {
@@ -68,6 +69,41 @@ export const test_openapi_validator_nested_discriminator = (): void => {
         TestValidator.equals(`report ${path}`, result.errors[0]?.path, path);
     }
   }
+
+  const shared: OpenApi.IJsonSchema.IObject = {
+    type: "object",
+    properties: {
+      id: { type: "string" },
+      children: { type: "array", items: {} },
+      access: { oneOf: [{ const: "read" }, { const: "write" }] },
+    },
+    required: ["id", "children", "access"],
+  };
+  const shortcut: OpenApi.IJsonSchema.IObject = {
+    type: "object",
+    properties: {
+      id: { type: "string" },
+      target: {},
+    },
+    required: ["id", "target"],
+  };
+  const ambiguous = validate([shared, shortcut], {
+    id: "directory shortcut",
+    children: [],
+    access: "nothing",
+    target: {},
+  });
+  TestValidator.equals(
+    "reject the first matching object discriminator",
+    ambiguous.success,
+    false,
+  );
+  if (ambiguous.success === false)
+    TestValidator.equals(
+      "report the owning discriminator field",
+      ambiguous.errors[0]?.path,
+      "$input.access",
+    );
 };
 
 const validate = (
