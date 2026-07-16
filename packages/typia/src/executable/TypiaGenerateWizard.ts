@@ -221,7 +221,7 @@ export namespace TypiaGenerateWizard {
         JSON.stringify({
           extends: props.project,
           exclude: [],
-          files: props.entries.map((entry) => entry.file),
+          files: props.entries.map((entry) => resolveRealPath(entry.file)),
           include: [],
         }),
         "utf8",
