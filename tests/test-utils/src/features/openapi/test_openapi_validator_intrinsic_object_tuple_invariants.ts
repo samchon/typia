@@ -103,6 +103,12 @@ export const test_openapi_validator_intrinsic_object_tuple_invariants =
         },
       },
     );
+    expectFailure(
+      "null component dictionary is unresolved",
+      { $ref: "#/components/schemas/Missing" },
+      "value",
+      { schemas: null } as unknown as OpenApi.IComponents,
+    );
 
     const optionalTuple: OpenApi.IJsonSchema.ITuple = {
       type: "array",
@@ -125,6 +131,30 @@ export const test_openapi_validator_intrinsic_object_tuple_invariants =
       "tuple holes are not present JSON values",
       optionalTuple,
       Object.assign(new Array(2), { 0: "first" }),
+      {},
+      false,
+    );
+    expectFailure(
+      "unknown tuple prefix still requires a JSON value",
+      {
+        type: "array",
+        prefixItems: [{}],
+        additionalItems: false,
+        minItems: 1,
+      },
+      [undefined],
+      {},
+      false,
+    );
+    expectFailure(
+      "open tuple rest still requires a JSON value",
+      {
+        type: "array",
+        prefixItems: [],
+        additionalItems: true,
+        minItems: 1,
+      },
+      [undefined],
       {},
       false,
     );

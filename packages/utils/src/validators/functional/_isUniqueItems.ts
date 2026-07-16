@@ -136,12 +136,18 @@ const equals = (visited: WeakMap<object, WeakMap<object, boolean>>) => {
         bytes(a).every((value, index) => value === bytes(b)[index])
       );
 
-    const keys: string[] = Object.keys(a);
+    const keys: PropertyKey[] = Reflect.ownKeys(a).filter((key) =>
+      Object.prototype.propertyIsEnumerable.call(a, key),
+    );
     return (
-      keys.length === Object.keys(b).length &&
+      keys.length ===
+        Reflect.ownKeys(b).filter((key) =>
+          Object.prototype.propertyIsEnumerable.call(b, key),
+        ).length &&
       keys.every(
         (key) =>
-          Object.hasOwn(b, key) && next((a as any)[key], (b as any)[key]),
+          Object.prototype.propertyIsEnumerable.call(b, key) &&
+          next((a as any)[key], (b as any)[key]),
       )
     );
   };

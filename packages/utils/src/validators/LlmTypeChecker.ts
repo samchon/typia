@@ -402,11 +402,16 @@ export namespace LlmTypeChecker {
   const escapeReference = (
     $defs: Record<string, ILlmSchema> | undefined,
     schema: ILlmSchema,
-  ): Exclude<ILlmSchema, ILlmSchema.IReference> =>
-    isReference(schema)
-      ? escapeReference(
-          $defs,
-          ObjectDictionary.get($defs, schema.$ref.replace("#/$defs/", ""))!,
-        )
-      : schema;
+  ): ILlmSchema => {
+    const visited: Set<string> = new Set();
+    while (isReference(schema)) {
+      const key: string = schema.$ref.replace("#/$defs/", "");
+      if (visited.has(key)) return schema;
+      visited.add(key);
+      const resolved: ILlmSchema | undefined = ObjectDictionary.get($defs, key);
+      if (resolved === undefined) return schema;
+      schema = resolved;
+    }
+    return schema;
+  };
 }

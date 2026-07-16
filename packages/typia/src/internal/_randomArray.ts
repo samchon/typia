@@ -36,7 +36,8 @@ export const _randomArray = <T>(
         "Unable to generate enough unique items; the element domain may be too small.",
       );
     const candidate: T = props.element(elements.length, count);
-    if (_isUniqueItems([...elements, candidate])) elements.push(candidate);
+    if (elements.every((element) => _isUniqueItems([element, candidate])))
+      elements.push(candidate);
   }
   return elements;
 };

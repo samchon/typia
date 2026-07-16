@@ -59,6 +59,17 @@ export const test_validate_unique_items_structural = (): void => {
     [duplicateObject, nullPrototype],
     false,
   );
+  const symbol: unique symbol = Symbol("key");
+  assertUnique(
+    "enumerable symbol structural duplicate",
+    [{ [symbol]: 1 }, { [symbol]: 1 }],
+    false,
+  );
+  assertUnique(
+    "enumerable symbol distinction",
+    [{ [symbol]: 1 }, { [symbol]: 2 }],
+    true,
+  );
 
   assertUnique(
     "deep sets",

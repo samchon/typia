@@ -6,7 +6,11 @@ import {
   OpenApi,
   SwaggerV2,
 } from "@typia/interface";
-import { LlmSchemaConverter, OpenApiConverter } from "@typia/utils";
+import {
+  LlmSchemaConverter,
+  LlmTypeChecker,
+  OpenApiConverter,
+} from "@typia/utils";
 
 /**
  * Verifies reserved schema names remain own definitions in both directions.
@@ -93,6 +97,63 @@ export const test_llm_schema_reserved_references = (): void => {
   TestValidator.equals(
     "inherited-only component is missing",
     missing.success,
+    false,
+  );
+
+  const parameters = LlmSchemaConverter.parameters({
+    components: { schemas },
+    schema: {
+      type: "object",
+      properties: {
+        value: { $ref: "#/components/schemas/__proto__" },
+      },
+      required: ["value"],
+    },
+  });
+  TestValidator.equals(
+    "parameters conversion succeeds",
+    parameters.success,
+    true,
+  );
+  if (parameters.success)
+    TestValidator.equals(
+      "public $defs keeps ordinary prototype",
+      Object.getPrototypeOf(parameters.value.$defs),
+      Object.prototype,
+    );
+
+  const createdComponents: OpenApi.IComponents = {};
+  LlmSchemaConverter.invert({
+    components: createdComponents,
+    $defs: Object.fromEntries([["__proto__", { type: "string" }]]),
+    schema: { $ref: "#/$defs/__proto__" },
+  });
+  TestValidator.equals(
+    "public components keeps ordinary prototype",
+    Object.getPrototypeOf(createdComponents.schemas!),
+    Object.prototype,
+  );
+
+  const cyclicDefinitions: Record<string, ILlmSchema> = {
+    A: { $ref: "#/$defs/B" },
+    B: { $ref: "#/$defs/A" },
+  };
+  TestValidator.equals(
+    "cyclic LLM coverage terminates",
+    LlmTypeChecker.covers({
+      $defs: cyclicDefinitions,
+      x: { $ref: "#/$defs/A" },
+      y: { type: "string" },
+    }),
+    false,
+  );
+  TestValidator.equals(
+    "inherited LLM definition is unresolved",
+    LlmTypeChecker.covers({
+      $defs: Object.create({ toString: { type: "string" } }),
+      x: { $ref: "#/$defs/toString" },
+      y: { type: "string" },
+    }),
     false,
   );
 

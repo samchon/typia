@@ -1,11 +1,14 @@
 export namespace ObjectDictionary {
-  export const create = <T>(): Record<string, T> => Object.create(null);
-
-  export const has = (record: object | undefined, key: PropertyKey): boolean =>
-    record !== undefined && Object.prototype.hasOwnProperty.call(record, key);
+  export const has = (
+    record: object | null | undefined,
+    key: PropertyKey,
+  ): boolean =>
+    record !== undefined &&
+    record !== null &&
+    Object.prototype.hasOwnProperty.call(record, key);
 
   export const get = <T>(
-    record: Record<string, T> | undefined,
+    record: Record<string, T> | null | undefined,
     key: string,
   ): T | undefined => (has(record, key) ? record![key] : undefined);
 

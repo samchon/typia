@@ -78,7 +78,7 @@ export namespace LlmSchemaConverter {
     });
     if (entity.success === false) return entity;
 
-    const $defs: Record<string, ILlmSchema> = ObjectDictionary.create();
+    const $defs: Record<string, ILlmSchema> = {};
     const result: IResult<ILlmSchema, IJsonSchemaTransformError> = transform({
       ...props,
       config,
@@ -514,7 +514,7 @@ export namespace LlmSchemaConverter {
         const key: string =
           schema.$ref.split("#/$defs/")[1] ?? schema.$ref.split("/").at(-1)!;
         if (ObjectDictionary.get(props.components.schemas, key) === undefined) {
-          props.components.schemas ??= ObjectDictionary.create();
+          props.components.schemas ??= {};
           ObjectDictionary.set(props.components.schemas, key, {});
           ObjectDictionary.set(
             props.components.schemas,

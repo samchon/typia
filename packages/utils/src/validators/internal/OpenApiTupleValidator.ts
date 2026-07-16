@@ -35,7 +35,6 @@ export namespace OpenApiTupleValidator {
       return ctx.report(ctx);
 
     return Array.from({ length }, (_, index) => {
-      const value: unknown = array[index];
       const schema: OpenApi.IJsonSchema | undefined =
         index < ctx.schema.prefixItems.length
           ? ctx.schema.prefixItems[index]
@@ -43,6 +42,13 @@ export namespace OpenApiTupleValidator {
               ctx.schema.additionalItems !== null
             ? ctx.schema.additionalItems
             : undefined;
+      const value: unknown = array[index];
+      if (Object.hasOwn(array, index) === false || value === undefined)
+        return ctx.report({
+          ...ctx,
+          value,
+          path: `${ctx.path}[${index}]`,
+        });
       return schema === undefined
         ? true
         : OpenApiStationValidator.validate({
