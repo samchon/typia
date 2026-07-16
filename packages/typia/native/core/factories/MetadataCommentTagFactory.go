@@ -346,7 +346,7 @@ func metadataCommentTagFactory_parse_type(props struct {
   } else if value == "uint64" {
     validate = "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615"
   } else if value == "float" {
-    validate = "-1.175494351e38 <= $input && $input <= 3.4028235e38"
+    validate = "-3.4028235e38 <= $input && $input <= 3.4028235e38"
   }
   var numberSchema any
   if value == "int8" || value == "int16" || value == "int32" || value == "int64" {

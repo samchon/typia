@@ -47,7 +47,7 @@ export namespace TypeTagType {
       uint32: 4294967295,
       int64: -2147483648,
       uint64: 4294967295,
-      float: -1.175494351e38,
+      float: -3.4028235e38,
     });
     value.push({
       int: 2147483647,
@@ -159,7 +159,7 @@ export namespace TypeTagType {
       return ["$input.value[2].int64"];
     },
     (input) => {
-      input.value[0]!.float = -1.175494351e38 * 2;
+      input.value[0]!.float = -3.4028235e38 * 2;
       return ["$input.value[0].float"];
     },
     (input) => {

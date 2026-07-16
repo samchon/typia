@@ -1426,7 +1426,7 @@ func randomProgrammer_typed_array_range(name string) (string, string, string) {
   case "BigInt64Array":
     return "uint64", "-9223372036854775808", "9223372036854775807"
   case "Float32Array":
-    return "float", "-1.175494351e38", "3.4028235e38"
+    return "float", "-3.4028235e38", "3.4028235e38"
   default:
     return "double", fmt.Sprint(math.SmallestNonzeroFloat64), fmt.Sprint(math.MaxFloat64)
   }
