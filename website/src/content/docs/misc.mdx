@@ -364,6 +364,8 @@ Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return 
 
 Four case converters: `camel`, `pascal`, `snake`, `kebab`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
 
+Every enumerable string key is converted, including keys supplied by an index signature. If declared literal properties or runtime index-signature entries become the same destination key, every direct and factory variant throws an `Error` naming both source keys and the destination instead of discarding one value. The `isName` and `validateName` variants reserve `null` and `IValidation.IFailure` for input type mismatches; a key collision is a conversion error and still throws.
+
 ### `camel`
 
 ```typescript copy filename="signatures"

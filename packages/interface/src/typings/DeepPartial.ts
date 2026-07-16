@@ -15,7 +15,8 @@
  * - **Primitives** (`string`, `number`, `boolean`, `bigint`, `symbol`, `null`,
  *   `undefined`): returned as-is
  * - **Functions**: returned as-is
- * - **Arrays**: element type becomes `DeepPartial<U>`
+ * - **Arrays and tuples**: members become deeply partial while mutability and
+ *   tuple positions are preserved
  * - **Objects**: all properties become optional with `DeepPartial` applied
  *
  * @author Michael - https://github.com/8471919
@@ -30,10 +31,10 @@ export type DeepPartial<T> = T extends
   | null
   | undefined
   ? T
-  : T extends (...args: unknown[]) => unknown
+  : T extends Function
     ? T
-    : T extends Array<infer U>
-      ? Array<DeepPartial<U>>
+    : T extends readonly unknown[]
+      ? { [P in keyof T]: DeepPartial<T[P]> }
       : T extends object
         ? { [P in keyof T]?: DeepPartial<T[P]> }
         : T;

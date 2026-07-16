@@ -1,5 +1,5 @@
 import { Equal } from "./internal/Equal";
-import { IsTuple } from "./internal/IsTuple";
+import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -15,44 +15,59 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @template T Target type to resolve
  */
-export type Resolved<T> =
-  Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;
+export type Resolved<T> = unknown extends T
+  ? T
+  : object extends T
+    ? T
+    : T extends readonly unknown[]
+      ? ResolvedMain<T> // avoid eagerly comparing recursive tuple rest aliases
+      : Equal<T, ResolvedMain<T>> extends true
+        ? T
+        : ResolvedMain<T>;
 
-type ResolvedMain<T> = T extends [never]
+// TupleStack closes recursive tuple rest cycles without limiting other nesting.
+type ResolvedMain<T, TupleStack = never> = T extends [never]
   ? never // (special trick for jsonable | null) type
   : ValueOf<T> extends boolean | number | bigint | string
     ? ValueOf<T>
     : T extends Function
       ? never
       : T extends object
-        ? ResolvedObject<T>
+        ? ResolvedObject<T, TupleStack>
         : ValueOf<T>;
 
-type ResolvedObject<T extends object> =
+type ResolvedObject<T extends object, TupleStack> =
   T extends Array<infer U>
-    ? IsTuple<T> extends true
-      ? ResolvedTuple<T>
-      : ResolvedMain<U>[]
-    : T extends Set<infer U>
-      ? Set<ResolvedMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<ResolvedMain<K>, ResolvedMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [P in keyof T]: ResolvedMain<T[P]>;
-              };
+    ? IsTupleLike<T> extends true
+      ? T extends TupleStack
+        ? T
+        : ResolvedArray<T, TupleStack | T>
+      : Array<ResolvedMain<U, TupleStack>>
+    : T extends ReadonlyArray<infer U>
+      ? IsTupleLike<T> extends true
+        ? T extends TupleStack
+          ? T
+          : ResolvedArray<T, TupleStack | T>
+        : ReadonlyArray<ResolvedMain<U, TupleStack>>
+      : T extends Set<infer U>
+        ? Set<ResolvedMain<U, TupleStack>>
+        : T extends Map<infer K, infer V>
+          ? Map<ResolvedMain<K, TupleStack>, ResolvedMain<V, TupleStack>>
+          : T extends ReadonlyMap<infer K, infer V>
+            ? ReadonlyMap<
+                ResolvedMain<K, TupleStack>,
+                ResolvedMain<V, TupleStack>
+              >
+            : T extends ReadonlySet<infer U>
+              ? ReadonlySet<ResolvedMain<U, TupleStack>>
+              : T extends WeakSet<any> | WeakMap<any, any>
+                ? never
+                : T extends NativeClass
+                  ? T
+                  : {
+                      [P in keyof T]: ResolvedMain<T[P], TupleStack>;
+                    };
 
-type ResolvedTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [ResolvedMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-          : [];
+type ResolvedArray<T extends readonly unknown[], TupleStack> = {
+  [P in keyof T]: ResolvedMain<T[P], TupleStack>;
+};

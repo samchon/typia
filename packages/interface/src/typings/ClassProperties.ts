@@ -1,5 +1,3 @@
-import { OmitNever } from "./OmitNever";
-
 /**
  * Extracts non-function properties from a class type.
  *
@@ -10,6 +8,12 @@ import { OmitNever } from "./OmitNever";
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target class type
  */
-export type ClassProperties<T extends object> = OmitNever<{
-  [K in keyof T]: T[K] extends Function ? never : T[K];
-}>;
+export type ClassProperties<T extends object> = {
+  [K in keyof T as [T[K]] extends [never]
+    ? never
+    : [Exclude<T[K], undefined>] extends [never]
+      ? K
+      : Exclude<T[K], undefined> extends Function
+        ? never
+        : K]: T[K];
+};
