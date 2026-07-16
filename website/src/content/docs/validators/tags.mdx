@@ -1,6 +1,7 @@
 ---
 title: Guide Documents > Runtime Validators > Special Tags
 ---
+
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
@@ -35,18 +36,20 @@ typia.assert<User>(input);
 
 Compiled output — note that each constraint becomes inline code:
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is-type-tag.ts"
       filename="examples/src/validators/is-type-tag.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is-type-tag.js"
       filename="examples/bin/validators/is-type-tag.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -65,13 +68,13 @@ Type tags compose with `|` and `&` exactly like regular TypeScript types:
 ```typescript copy
 type N = number & (tags.Type<"uint32"> | tags.Type<"double">);
 ```
+
 - the `number` value can be a `uint32` **or** a `double` — the validator accepts either
 
 ```typescript copy
-type ID =
-  | (number & tags.Type<"int32">)
-  | (bigint  & tags.Type<"uint64">);
+type ID = (number & tags.Type<"int32">) | (bigint & tags.Type<"uint64">);
 ```
+
 - the value is either:
   - a `number` that is `int32`, **or**
   - a `bigint` that is `uint64`
@@ -79,8 +82,9 @@ type ID =
 ```typescript copy
 type Mixed =
   | (number & (tags.Type<"int32"> | tags.Type<"float">))
-  | (bigint  & tags.Type<"uint64">);
+  | (bigint & tags.Type<"uint64">);
 ```
+
 - the value is either:
   - a `number` that is `int32` **or** `float`, **or**
   - a `bigint` that is `uint64`
@@ -88,6 +92,16 @@ type Mixed =
 Note the parentheses on the third example — `number & (Type<"int32"> | Type<"float">)` is the `number` branch; `bigint & Type<"uint64">` is the `bigint` branch. The grouping matters: changing the parentheses changes the meaning, so when in doubt, match the structure of the bulleted breakdown above.
 
 If you intersect a tag with the wrong base type (e.g. `tags.MaxLength<100>` on a `number`), the TypeScript compiler will reject it.
+
+### On array union branches
+
+Array tags constrain their own union branch, including when that branch has `any` or `unknown` elements:
+
+```typescript copy
+type Batch = (unknown[] & tags.MinItems<2>) | string[];
+```
+
+The validator accepts `[1, 2]` through the tagged `unknown[]` branch and `["single"]` through the `string[]` branch, but rejects `[1]` because it satisfies neither complete branch. Branch selection checks the array's wrapper tags together with its element type, so a failed `MinItems`, `MaxItems`, `UniqueItems`, or custom array predicate does not bypass the constraint or prevent a later array or tuple branch from matching.
 
 ### Inside template literals
 
@@ -97,9 +111,12 @@ A tag intersected into a template-literal interpolation constrains that placehol
 type Percent = `${number & tags.Minimum<0> & tags.Maximum<100>}%`;
 type Serial = `SN-${bigint & tags.Minimum<0n>}`;
 type Hex = `0x${string & tags.Pattern<"^[0-9a-fA-F]+$">}`;
+type Suffix = `${string}${number & tags.Minimum<10>}`;
 ```
 
-The validator matches the template's structural pattern, then re-parses each constrained placeholder — `Number(...)` for a `number`, `BigInt(...)` for a `bigint`, the raw substring for a `string` — and runs that placeholder's own tag checks against it. So `"150%"` matches `` `${number}%` `` structurally but fails `Maximum<100>`, and `"0x1.5"` fails the hex `Pattern`. A `bigint` placeholder captures an integer only, so `"SN-1.5"` is rejected up front and `BigInt(...)` never throws. `is` / `assert` / `validate` agree, and `random` generates a constrained value that round-trips.
+The validator matches the template's structural pattern, then re-parses each constrained placeholder — `Number(...)` for a `number`, `BigInt(...)` for a `bigint`, the raw substring for a `string` — and runs that placeholder's own tag checks against it. So `"150%"` matches `` `${number}%` `` structurally but fails `Maximum<100>`, and `"0x1.5"` fails the hex `Pattern`. A `bigint` placeholder accepts an integer only, so `"SN-1.5"` is rejected before `BigInt(...)` can throw.
+
+When adjacent placeholders or repeated separators make the boundary ambiguous, the validator tries the possible splits and accepts the string if at least one complete split satisfies every placeholder. For `Suffix`, `"prefix123"` passes because the suffix can be parsed as `123`, while `"prefix9"` fails because no numeric suffix reaches `Minimum<10>`. This existential matching also applies to dynamic template keys and unions; `is`, `assert`, `validate`, validated serializers, and generated random values use the same runtime contract.
 
 > `json.schema` / `llm.schema` keep the template's structural `pattern` only: a numeric sub-range like `[0, 100]` cannot be expressed inside a JSON Schema string `pattern`, so a placeholder's tags are intentionally dropped from the emitted schema (the runtime validator still enforces them). Whole-string template tags — e.g. `` tags.MaxLength<30> & `prefix${string}postfix` `` — stay on the schema as before.
 
@@ -114,17 +131,19 @@ The validator matches the template's structural pattern, then re-parses each con
 | `tags.Maximum<N>` | `value <= N` |
 | `tags.ExclusiveMinimum<N>` | `value > N` |
 | `tags.ExclusiveMaximum<N>` | `value < N` |
-| `tags.MultipleOf<N>` | `value % N === 0` |
+| `tags.MultipleOf<N>` | `value / N` has an integer mathematical quotient |
 | `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
+
+For `number`, decimal divisors use exact finite-decimal arithmetic rather than JavaScript remainder rounding. For example, `0.03` satisfies `tags.MultipleOf<0.01>`, while `0.031` does not.
 
 #### `string`
 
 | Tag | Notes |
 |-----|-------|
-| `tags.MinLength<N>` | `value.length >= N` |
-| `tags.MaxLength<N>` | `value.length <= N` |
+| `tags.MinLength<N>` | Unicode code-point count is at least `N` |
+| `tags.MaxLength<N>` | Unicode code-point count is at most `N` |
 | `tags.Pattern<R>` | regex (passed as a string literal) |
 | `tags.Format<F>` | one of the formats below |
 | `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`) |
@@ -134,6 +153,8 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 
 `byte` validates one complete standard base64 value with required padding, `iri-reference` accepts both absolute IRIs and relative references, and `date` / `date-time` reject impossible Gregorian calendar dates.
 
+String length follows JSON Schema character semantics: an astral character such as `😀` counts as one code point, while a base character and a combining mark count as two. It does not count grapheme clusters.
+
 For `url`, DNS host labels may contain interior hyphen runs such as `example--example`, but leading or trailing label hyphens and private IPv4 hosts are rejected.
 
 > `Format` and `Pattern` are mutually exclusive on the same string — pick one.
@@ -142,63 +163,65 @@ For `url`, DNS host labels may contain interior hyphen runs such as `example--ex
 
 #### `Array<T>`
 
-| Tag | Notes |
-|-----|-------|
-| `tags.MinItems<N>` | `arr.length >= N` |
-| `tags.MaxItems<N>` | `arr.length <= N` |
+| Tag                | Notes                          |
+| ------------------ | ------------------------------ |
+| `tags.MinItems<N>` | `arr.length >= N`              |
+| `tags.MaxItems<N>` | `arr.length <= N`              |
 | `tags.UniqueItems` | All elements pairwise distinct |
 
 #### Other useful tags
 
-| Tag | What it does |
-|-----|--------------|
-| `tags.Default<V>` | Records a default value in JSON Schema output |
-| `tags.Example<V>` / `tags.Examples<Record>` | Records example(s) in JSON Schema output |
-| `tags.Constant<V, {title, description}>` | Single-value literal with metadata |
-| `tags.JsonSchemaPlugin<{...}>` | Inject arbitrary `x-…` JSON Schema fields |
-| `tags.Sequence<N>` | Protobuf field number ([protobuf docs](/docs/protobuf/message)) |
+| Tag                                         | What it does                                                    |
+| ------------------------------------------- | --------------------------------------------------------------- |
+| `tags.Default<V>`                           | Records a default value in JSON Schema output                   |
+| `tags.Example<V>` / `tags.Examples<Record>` | Records example(s) in JSON Schema output                        |
+| `tags.Constant<V, {title, description}>`    | Single-value literal with metadata                              |
+| `tags.JsonSchemaPlugin<{...}>`              | Inject arbitrary `x-…` JSON Schema fields                       |
+| `tags.Sequence<N>`                          | Protobuf field number ([protobuf docs](/docs/protobuf/message)) |
 
 ## Comment tags
 
 If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 
-| Comment tag | Equivalent type tag |
-|-------------|---------------------|
-| `@type int8` | `tags.Type<"int8">` |
-| `@type uint8` | `tags.Type<"uint8">` |
-| `@type int16` | `tags.Type<"int16">` |
-| `@type uint16` | `tags.Type<"uint16">` |
-| `@type int32` | `tags.Type<"int32">` |
-| `@type uint32` | `tags.Type<"uint32">` |
-| `@type int64` | `tags.Type<"int64">` |
-| `@type uint64` | `tags.Type<"uint64">` |
-| `@type float` | `tags.Type<"float">` |
-| `@type double` | `tags.Type<"double">` |
-| `@minimum 0` | `tags.Minimum<0>` |
-| `@maximum 100` | `tags.Maximum<100>` |
-| `@exclusiveMinimum 0` | `tags.ExclusiveMinimum<0>` |
+| Comment tag             | Equivalent type tag          |
+| ----------------------- | ---------------------------- |
+| `@type int8`            | `tags.Type<"int8">`          |
+| `@type uint8`           | `tags.Type<"uint8">`         |
+| `@type int16`           | `tags.Type<"int16">`         |
+| `@type uint16`          | `tags.Type<"uint16">`        |
+| `@type int32`           | `tags.Type<"int32">`         |
+| `@type uint32`          | `tags.Type<"uint32">`        |
+| `@type int64`           | `tags.Type<"int64">`         |
+| `@type uint64`          | `tags.Type<"uint64">`        |
+| `@type float`           | `tags.Type<"float">`         |
+| `@type double`          | `tags.Type<"double">`        |
+| `@minimum 0`            | `tags.Minimum<0>`            |
+| `@maximum 100`          | `tags.Maximum<100>`          |
+| `@exclusiveMinimum 0`   | `tags.ExclusiveMinimum<0>`   |
 | `@exclusiveMaximum 100` | `tags.ExclusiveMaximum<100>` |
-| `@multipleOf 0.5` | `tags.MultipleOf<0.5>` |
-| `@minLength 3` | `tags.MinLength<3>` |
-| `@maxLength 100` | `tags.MaxLength<100>` |
-| `@pattern ^[a-z]+$` | `tags.Pattern<"^[a-z]+$">` |
-| `@format uuid` | `tags.Format<"uuid">` |
-| `@minItems 1` | `tags.MinItems<1>` |
-| `@maxItems 10` | `tags.MaxItems<10>` |
-| `@uniqueItems` | `tags.UniqueItems` |
+| `@multipleOf 0.5`       | `tags.MultipleOf<0.5>`       |
+| `@minLength 3`          | `tags.MinLength<3>`          |
+| `@maxLength 100`        | `tags.MaxLength<100>`        |
+| `@pattern ^[a-z]+$`     | `tags.Pattern<"^[a-z]+$">`   |
+| `@format uuid`          | `tags.Format<"uuid">`        |
+| `@minItems 1`           | `tags.MinItems<1>`           |
+| `@maxItems 10`          | `tags.MaxItems<10>`          |
+| `@uniqueItems`          | `tags.UniqueItems`           |
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is-comment-tag.ts"
       filename="examples/src/validators/is-comment-tag.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is-comment-tag.js"
       filename="examples/bin/validators/is-comment-tag.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -243,52 +266,60 @@ You can also set `exclusive: true | string[]` to mark a tag as mutually exclusiv
 
 Example tag definitions from the standard library — refer to these as templates:
 
-<Tabs items={[
+<Tabs
+  items={[
     <code>TagBase.ts</code>,
     <code>Minimum.ts</code>,
     <code>Type.ts</code>,
     <code>Pattern.ts</code>,
-]}>
+  ]}
+>
   <Tabs.Tab>
     <LocalSource
       path="packages/interface/src/tags/TagBase.ts"
       filename="@typia/interface"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="packages/interface/src/tags/Minimum.ts"
       filename="@typia/interface"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="packages/interface/src/tags/Type.ts"
       filename="@typia/interface"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="packages/interface/src/tags/Pattern.ts"
       filename="@typia/interface"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
 End-to-end example with three custom tags (`Postfix`, `Dollar`, `IsEven`):
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is-custom-tags.ts"
       filename="examples/src/validators/is-custom-tags.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is-custom-tags.js"
       filename="examples/bin/validators/is-custom-tags.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

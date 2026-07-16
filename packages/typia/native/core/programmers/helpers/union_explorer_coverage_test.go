@@ -91,7 +91,7 @@ func TestUnionExplorerCoverage(t *testing.T) {
 	if unionExplorer_array_if(func(init string, from *shimast.Expression, ifStatement *shimast.Node) *shimast.Node {
 		iterated = init == "pred" && from != nil && ifStatement != nil
 		return ifStatement
-	}, input, input, factory.NewKeywordExpression(shimast.KindTrueKeyword)) == nil || !iterated {
+	}, input, input, factory.NewKeywordExpression(shimast.KindTrueKeyword), false) == nil || !iterated {
 		t.Fatal("array disambiguation helper did not invoke iterator")
 	}
 	if unionExplorer_return_or_statement(input) == nil ||

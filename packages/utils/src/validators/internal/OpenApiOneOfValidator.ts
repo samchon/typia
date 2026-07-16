@@ -12,16 +12,51 @@ export namespace OpenApiOneOfValidator {
     references: ReadonlySet<string> = new Set(),
   ): boolean => {
     const discriminator: IDiscriminator = getDiscriminator(ctx);
-    for (const item of discriminator.branches)
-      if (item.predicator(ctx.value))
-        return OpenApiStationValidator.validate(
-          {
-            ...ctx,
-            schema: item.schema,
-          },
-          undefined,
-          references,
-        );
+    const candidates: IDiscriminatorBranch[] = discriminator.branches.filter(
+      (item) => item.predicator(ctx.value),
+    );
+    if (candidates.length !== 0) {
+      for (const item of candidates)
+        if (
+          OpenApiStationValidator.validate(
+            {
+              ...ctx,
+              schema: item.schema,
+              exceptionable: false,
+              equals: false,
+            },
+            undefined,
+            references,
+          )
+        )
+          return ctx.equals === true
+            ? OpenApiStationValidator.validate(
+                {
+                  ...ctx,
+                  schema: item.schema,
+                },
+                undefined,
+                references,
+              )
+            : true;
+        else if (item.retryable === false)
+          return OpenApiStationValidator.validate(
+            {
+              ...ctx,
+              schema: item.schema,
+            },
+            undefined,
+            references,
+          );
+      return OpenApiStationValidator.validate(
+        {
+          ...ctx,
+          schema: candidates[0]!.schema,
+        },
+        undefined,
+        references,
+      );
+    }
     if (discriminator.branches.length !== 0)
       return validate(
         {
@@ -32,19 +67,19 @@ export namespace OpenApiOneOfValidator {
         },
         references,
       );
+
     const matched: OpenApi.IJsonSchema | undefined =
-      discriminator.remainders.find(
-        (schema) =>
-          OpenApiStationValidator.validate(
-            {
-              ...ctx,
-              schema,
-              exceptionable: false,
-              equals: false,
-            },
-            undefined,
-            references,
-          ) === true,
+      discriminator.remainders.find((schema) =>
+        OpenApiStationValidator.validate(
+          {
+            ...ctx,
+            schema,
+            exceptionable: false,
+            equals: false,
+          },
+          undefined,
+          references,
+        ),
       );
     if (matched === undefined) return ctx.report(ctx);
     return ctx.equals === true
@@ -95,6 +130,7 @@ export namespace OpenApiOneOfValidator {
           {
             schema: significant[0]!.schema,
             predicator: (value) => value !== null,
+            retryable: false,
           },
         ],
         remainders: nullables.map((nullable) => nullable.schema),
@@ -138,6 +174,7 @@ export namespace OpenApiOneOfValidator {
         {
           schema: arraySchemas[0]!.schema,
           predicator: (value) => Array.isArray(value),
+          retryable: true,
         },
       ];
     return arraySchemas
@@ -167,6 +204,7 @@ export namespace OpenApiOneOfValidator {
                   exceptionable: false,
                   equals: false,
                 })),
+            retryable: true,
           }) satisfies IDiscriminatorBranch,
       );
   };
@@ -186,6 +224,7 @@ export namespace OpenApiOneOfValidator {
                 typeof value === "object" &&
                 value !== null &&
                 Array.isArray(value) === false,
+          retryable: false,
         },
       ];
 
@@ -269,6 +308,7 @@ export namespace OpenApiOneOfValidator {
                 typeof value === "object" &&
                 value !== null &&
                 ObjectDictionary.has(value, top),
+          retryable: false,
         } satisfies IDiscriminatorBranch;
       })
       .filter((b) => b !== null);
@@ -311,6 +351,13 @@ interface IDiscriminator {
 interface IDiscriminatorBranch {
   schema: OpenApi.IJsonSchema;
   predicator: (value: unknown) => boolean;
+  /**
+   * Whether a failed predicate match may fall through to another candidate.
+   *
+   * Array first-element probes are tentative, while object key discriminators
+   * establish ordered ownership of the value and its validation errors.
+   */
+  retryable: boolean;
 }
 
 interface IFlatSchema<
