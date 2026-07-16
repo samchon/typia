@@ -1,5 +1,11 @@
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
+import {
+  _integerMultipleOfStep,
+  _isMultipleOf,
+} from "../../validators/functional/_isMultipleOf";
+import { _isStringFormat } from "../../validators/functional/_isStringFormat";
+import { _stringLength } from "../../validators/functional/_stringLength";
 import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
 import { ObjectDictionary } from "./ObjectDictionary";
@@ -594,6 +600,17 @@ export namespace OpenApiTypeCheckerBase {
           y: p.y,
         })
       );
+    else if (isTuple(p.x))
+      return (
+        isTuple(p.y) &&
+        coverTuple({
+          prefix: p.prefix,
+          components: p.components,
+          visited: p.visited,
+          x: p.x,
+          y: p.y,
+        })
+      );
     else if (isObject(p.x))
       return (
         isObject(p.y) &&
@@ -616,9 +633,22 @@ export namespace OpenApiTypeCheckerBase {
     x: OpenApi.IJsonSchema.IArray;
     y: OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.ITuple;
   }): boolean => {
-    if (isTuple(p.y))
-      return (
-        p.y.prefixItems.every((v) =>
+    const xRange: IArrayRange = getArrayRange(p.x);
+    const yRange: IArrayRange = getArrayRange(p.y);
+    if (yRange.minimum > yRange.maximum) return true;
+    if (
+      xRange.minimum > yRange.minimum ||
+      xRange.maximum < yRange.maximum ||
+      (p.x.uniqueItems === true &&
+        p.y.uniqueItems !== true &&
+        yRange.maximum > 1)
+    )
+      return false;
+
+    if (isTuple(p.y)) {
+      const count: number = Math.min(p.y.prefixItems.length, yRange.maximum);
+      if (
+        p.y.prefixItems.slice(0, count).every((v) =>
           coverStation({
             prefix: p.prefix,
             components: p.components,
@@ -626,31 +656,20 @@ export namespace OpenApiTypeCheckerBase {
             x: p.x.items,
             y: v,
           }),
-        ) &&
-        (p.y.additionalItems === undefined ||
-          (typeof p.y.additionalItems === "object" &&
-            coverStation({
-              prefix: p.prefix,
-              components: p.components,
-              visited: p.visited,
-              x: p.x.items,
-              y: p.y.additionalItems,
-            })))
-      );
-    else if (
-      !(
-        p.x.minItems === undefined ||
-        (p.y.minItems !== undefined && p.x.minItems <= p.y.minItems)
+        ) === false
       )
-    )
-      return false;
-    else if (
-      !(
-        p.x.maxItems === undefined ||
-        (p.y.maxItems !== undefined && p.x.maxItems >= p.y.maxItems)
-      )
-    )
-      return false;
+        return false;
+      if (yRange.maximum <= p.y.prefixItems.length) return true;
+      const additional: OpenApi.IJsonSchema =
+        typeof p.y.additionalItems === "object" ? p.y.additionalItems : {};
+      return coverStation({
+        prefix: p.prefix,
+        components: p.components,
+        visited: p.visited,
+        x: p.x.items,
+        y: additional,
+      });
+    }
     return coverStation({
       prefix: p.prefix,
       components: p.components,
@@ -659,6 +678,103 @@ export namespace OpenApiTypeCheckerBase {
       y: p.y.items,
     });
   };
+
+  const coverTuple = (p: {
+    prefix: string;
+    components: OpenApi.IComponents;
+    visited: Map<OpenApi.IJsonSchema, Map<OpenApi.IJsonSchema, boolean>>;
+    x: OpenApi.IJsonSchema.ITuple;
+    y: OpenApi.IJsonSchema.ITuple;
+  }): boolean => {
+    const xRange: IArrayRange = getArrayRange(p.x);
+    const yRange: IArrayRange = getArrayRange(p.y);
+    if (yRange.minimum > yRange.maximum) return true;
+    if (
+      xRange.minimum > yRange.minimum ||
+      xRange.maximum < yRange.maximum ||
+      (p.x.uniqueItems === true &&
+        p.y.uniqueItems !== true &&
+        yRange.maximum > 1)
+    )
+      return false;
+
+    const prefixCount: number = Math.min(
+      p.y.prefixItems.length,
+      yRange.maximum,
+    );
+    for (let i = 0; i < prefixCount; ++i) {
+      const target: OpenApi.IJsonSchema | null = getTupleItem(p.x, i);
+      if (
+        target === null ||
+        coverStation({
+          prefix: p.prefix,
+          components: p.components,
+          visited: p.visited,
+          x: target,
+          y: p.y.prefixItems[i]!,
+        }) === false
+      )
+        return false;
+    }
+    if (yRange.maximum <= p.y.prefixItems.length) return true;
+
+    const additional: OpenApi.IJsonSchema =
+      typeof p.y.additionalItems === "object" ? p.y.additionalItems : {};
+    const fixedEnd: number = Math.min(p.x.prefixItems.length, yRange.maximum);
+    for (let i = p.y.prefixItems.length; i < fixedEnd; ++i)
+      if (
+        coverStation({
+          prefix: p.prefix,
+          components: p.components,
+          visited: p.visited,
+          x: p.x.prefixItems[i]!,
+          y: additional,
+        }) === false
+      )
+        return false;
+    if (yRange.maximum <= p.x.prefixItems.length) return true;
+
+    const target: OpenApi.IJsonSchema | null = getTupleItem(
+      p.x,
+      p.x.prefixItems.length,
+    );
+    return (
+      target !== null &&
+      coverStation({
+        prefix: p.prefix,
+        components: p.components,
+        visited: p.visited,
+        x: target,
+        y: additional,
+      })
+    );
+  };
+
+  const getTupleItem = (
+    schema: OpenApi.IJsonSchema.ITuple,
+    index: number,
+  ): OpenApi.IJsonSchema | null => {
+    if (index < schema.prefixItems.length) return schema.prefixItems[index]!;
+    if (schema.additionalItems === true) return {};
+    return typeof schema.additionalItems === "object"
+      ? schema.additionalItems
+      : null;
+  };
+
+  const getArrayRange = (
+    schema: OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.ITuple,
+  ): IArrayRange => ({
+    minimum:
+      schema.minItems ?? (isTuple(schema) ? schema.prefixItems.length : 0),
+    maximum: Math.min(
+      schema.maxItems ?? Number.POSITIVE_INFINITY,
+      isTuple(schema) &&
+        schema.additionalItems !== true &&
+        typeof schema.additionalItems !== "object"
+        ? schema.prefixItems.length
+        : Number.POSITIVE_INFINITY,
+    ),
+  });
 
   const coverObject = (p: {
     prefix: string;
@@ -709,9 +825,22 @@ export namespace OpenApiTypeCheckerBase {
     x: OpenApi.IJsonSchema.IInteger,
     y: OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger,
   ): boolean => {
+    if (isConstant(y) === false && isEmptyNumericRange(y)) return true;
     if (isConstant(y))
-      return typeof y.const === "number" && Number.isInteger(y.const);
-    return x.type === y.type && coverNumericRange(x, y);
+      return (
+        typeof y.const === "number" &&
+        Number.isInteger(y.const) &&
+        coversNumericValue(x, y.const)
+      );
+    const xStep: bigint | null = _integerMultipleOfStep(x.multipleOf);
+    const yStep: bigint | null = _integerMultipleOfStep(y.multipleOf);
+    return (
+      x.type === y.type &&
+      coverNumericBounds(x, y) &&
+      xStep !== null &&
+      yStep !== null &&
+      yStep % xStep === BigInt(0)
+    );
   };
 
   export const coverNumber = (
@@ -721,10 +850,22 @@ export namespace OpenApiTypeCheckerBase {
       | OpenApi.IJsonSchema.IInteger
       | OpenApi.IJsonSchema.INumber,
   ): boolean => {
-    if (isConstant(y)) return typeof y.const === "number";
+    if (isConstant(y) === false && isEmptyNumericRange(y)) return true;
+    if (isConstant(y))
+      return typeof y.const === "number" && coversNumericValue(x, y.const);
     return (
       (x.type === y.type || (x.type === "number" && y.type === "integer")) &&
-      coverNumericRange(x, y)
+      coverNumericBounds(x, y) &&
+      (x.multipleOf === undefined ||
+        (y.type === "integer"
+          ? (() => {
+              const step: bigint | null = _integerMultipleOfStep(y.multipleOf);
+              return (
+                step !== null && _isMultipleOf(Number(step), x.multipleOf!)
+              );
+            })()
+          : y.multipleOf !== undefined &&
+            _isMultipleOf(y.multipleOf, x.multipleOf)))
     );
   };
 
@@ -732,7 +873,14 @@ export namespace OpenApiTypeCheckerBase {
     x: OpenApi.IJsonSchema.IString,
     y: OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IString,
   ): boolean => {
-    if (isConstant(y)) return typeof y.const === "string";
+    if (isConstant(y))
+      return typeof y.const === "string" && coversStringValue(x, y.const);
+    if (
+      y.minLength !== undefined &&
+      y.maxLength !== undefined &&
+      y.minLength > y.maxLength
+    )
+      return true;
     return [
       x.format === undefined ||
         (y.format !== undefined && coverFormat(x.format, y.format)),
@@ -815,26 +963,129 @@ export namespace OpenApiTypeCheckerBase {
       | "multipleOf"
     >,
   ): boolean =>
-    [
-      x.minimum === undefined ||
-        (y.minimum !== undefined && x.minimum <= y.minimum) ||
-        (y.exclusiveMinimum !== undefined && x.minimum < y.exclusiveMinimum),
-      x.maximum === undefined ||
-        (y.maximum !== undefined && x.maximum >= y.maximum) ||
-        (y.exclusiveMaximum !== undefined && x.maximum > y.exclusiveMaximum),
-      x.exclusiveMinimum === undefined ||
-        (y.minimum !== undefined && x.exclusiveMinimum <= y.minimum) ||
-        (y.exclusiveMinimum !== undefined &&
-          x.exclusiveMinimum <= y.exclusiveMinimum),
-      x.exclusiveMaximum === undefined ||
-        (y.maximum !== undefined && x.exclusiveMaximum >= y.maximum) ||
-        (y.exclusiveMaximum !== undefined &&
-          x.exclusiveMaximum >= y.exclusiveMaximum),
-      x.multipleOf === undefined ||
-        (y.multipleOf !== undefined &&
-          y.multipleOf / x.multipleOf ===
-            Math.floor(y.multipleOf / x.multipleOf)),
-    ].every((v) => v);
+    coverNumericBounds(x, y) &&
+    (x.multipleOf === undefined ||
+      (y.multipleOf !== undefined &&
+        _isMultipleOf(y.multipleOf, x.multipleOf)));
+
+  const coverNumericBounds = (
+    x: INumericConstraints,
+    y: INumericConstraints,
+  ): boolean => {
+    const xLower: IBoundary | null = getLowerBoundary(x);
+    const yLower: IBoundary | null = getLowerBoundary(y);
+    const xUpper: IBoundary | null = getUpperBoundary(x);
+    const yUpper: IBoundary | null = getUpperBoundary(y);
+    return (
+      coversLowerBoundary(xLower, yLower) && coversUpperBoundary(xUpper, yUpper)
+    );
+  };
+
+  const isEmptyNumericRange = (schema: INumericConstraints): boolean => {
+    const lower: IBoundary | null = getLowerBoundary(schema);
+    const upper: IBoundary | null = getUpperBoundary(schema);
+    return (
+      lower !== null &&
+      upper !== null &&
+      (lower.value > upper.value ||
+        (lower.value === upper.value && (lower.exclusive || upper.exclusive)))
+    );
+  };
+
+  const coversNumericValue = (
+    schema: INumericConstraints,
+    value: number,
+  ): boolean =>
+    (schema.minimum === undefined || value >= schema.minimum) &&
+    (schema.maximum === undefined || value <= schema.maximum) &&
+    (schema.exclusiveMinimum === undefined ||
+      value > schema.exclusiveMinimum) &&
+    (schema.exclusiveMaximum === undefined ||
+      value < schema.exclusiveMaximum) &&
+    (schema.multipleOf === undefined ||
+      _isMultipleOf(value, schema.multipleOf));
+
+  const coversStringValue = (
+    schema: OpenApi.IJsonSchema.IString,
+    value: string,
+  ): boolean => {
+    const length: number = _stringLength(value);
+    return (
+      (schema.minLength === undefined || length >= schema.minLength) &&
+      (schema.maxLength === undefined || length <= schema.maxLength) &&
+      (schema.pattern === undefined ||
+        new RegExp(schema.pattern).test(value)) &&
+      (schema.format === undefined || _isStringFormat(schema.format, value))
+    );
+  };
+
+  const getLowerBoundary = (schema: INumericConstraints): IBoundary | null => {
+    const inclusive: IBoundary | null =
+      schema.minimum === undefined
+        ? null
+        : { value: schema.minimum, exclusive: false };
+    const exclusive: IBoundary | null =
+      schema.exclusiveMinimum === undefined
+        ? null
+        : { value: schema.exclusiveMinimum, exclusive: true };
+    if (inclusive === null) return exclusive;
+    if (exclusive === null) return inclusive;
+    if (inclusive.value !== exclusive.value)
+      return inclusive.value > exclusive.value ? inclusive : exclusive;
+    return exclusive;
+  };
+
+  const getUpperBoundary = (schema: INumericConstraints): IBoundary | null => {
+    const inclusive: IBoundary | null =
+      schema.maximum === undefined
+        ? null
+        : { value: schema.maximum, exclusive: false };
+    const exclusive: IBoundary | null =
+      schema.exclusiveMaximum === undefined
+        ? null
+        : { value: schema.exclusiveMaximum, exclusive: true };
+    if (inclusive === null) return exclusive;
+    if (exclusive === null) return inclusive;
+    if (inclusive.value !== exclusive.value)
+      return inclusive.value < exclusive.value ? inclusive : exclusive;
+    return exclusive;
+  };
+
+  const coversLowerBoundary = (
+    x: IBoundary | null,
+    y: IBoundary | null,
+  ): boolean =>
+    x === null ||
+    (y !== null &&
+      (y.value > x.value ||
+        (y.value === x.value && (x.exclusive === false || y.exclusive))));
+
+  const coversUpperBoundary = (
+    x: IBoundary | null,
+    y: IBoundary | null,
+  ): boolean =>
+    x === null ||
+    (y !== null &&
+      (y.value < x.value ||
+        (y.value === x.value && (x.exclusive === false || y.exclusive))));
+}
+
+interface IArrayRange {
+  minimum: number;
+  maximum: number;
+}
+
+interface INumericConstraints {
+  minimum?: number;
+  maximum?: number;
+  exclusiveMinimum?: number;
+  exclusiveMaximum?: number;
+  multipleOf?: number;
+}
+
+interface IBoundary {
+  value: number;
+  exclusive: boolean;
 }
 
 const getReference = (prefix: string): string =>

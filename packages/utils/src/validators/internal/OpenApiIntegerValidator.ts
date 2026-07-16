@@ -1,5 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
+import { _isMultipleOf } from "../functional/_isMultipleOf";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 
 export namespace OpenApiIntegerValidator {
@@ -42,7 +43,7 @@ export namespace OpenApiIntegerValidator {
           })
         : true,
       ctx.schema.multipleOf !== undefined
-        ? ctx.value % ctx.schema.multipleOf === 0 ||
+        ? _isMultipleOf(ctx.value, ctx.schema.multipleOf) ||
           ctx.report({
             ...ctx,
             expected: `number & Type<"int32"> & MultipleOf<${ctx.schema.multipleOf}>`,

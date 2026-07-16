@@ -110,6 +110,23 @@ func TestMetadataCommentTagFactoryCoverage(t *testing.T) {
       Tag    schemametadata.IJsDocTagInfo
     }{Report: report, Tag: tag})
   }
+  decimalReportCount := len(reports)
+  decimal := metadataCommentTagFactory_parse(struct {
+    Report func(msg string) any
+    Tag    schemametadata.IJsDocTagInfo
+  }{
+    Report: report,
+    Tag: schemametadata.IJsDocTagInfo{
+      Name: "multipleOf",
+      Text: []schemametadata.IJsDocTagInfo_IText{{Text: "0.01"}},
+    },
+  })
+  if len(reports) != decimalReportCount || len(decimal["number"]) != 1 || len(decimal["bigint"]) != 0 {
+    t.Fatalf("decimal multipleOf must remain a number-only JSDoc tag: %#v, reports=%#v", decimal, reports[decimalReportCount:])
+  }
+  if decimal["number"][0].Validate != "$importInternal(\"_isMultipleOf\")($input, 0.01)" {
+    t.Fatalf("decimal multipleOf must use the shared exact helper: %s", decimal["number"][0].Validate)
+  }
   invalidBefore := len(reports)
   _ = metadataCommentTagFactory_parse_number(struct {
     Report func(msg string) any
@@ -192,6 +209,28 @@ func TestMetadataCommentTagFactoryCoverage(t *testing.T) {
   }
   if len(oppositeOnly.Atomics[0].Tags) == 0 {
     t.Fatal("numeric comment tag should apply when only one numeric side exists")
+  }
+  decimalOnly := schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{
+    Atomics: []*schemametadata.MetadataAtomic{
+      schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: "number"}),
+    },
+  })
+  decimalErrors := []MetadataFactory_IError{}
+  MetadataCommentTagFactory.Analyze(struct {
+    Errors   *[]MetadataFactory_IError
+    Metadata *schemametadata.MetadataSchema
+    Tags     []schemametadata.IJsDocTagInfo
+    Explore  MetadataFactory_IExplore
+  }{
+    Errors:   &decimalErrors,
+    Metadata: decimalOnly,
+    Tags: []schemametadata.IJsDocTagInfo{{
+      Name: "multipleOf",
+      Text: []schemametadata.IJsDocTagInfo_IText{{Text: "0.01"}},
+    }},
+  })
+  if len(decimalErrors) != 0 || len(decimalOnly.Atomics[0].Tags) != 1 {
+    t.Fatalf("decimal number JSDoc must analyze without bigint diagnostics: errors=%#v tags=%#v", decimalErrors, decimalOnly.Atomics[0].Tags)
   }
 
   empty := schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{})

@@ -66,6 +66,7 @@ func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
     "assert-guard-stub.cjs":      ttscTypiaTestAssertGuardStub,
     "functional-error-stub.cjs":  ttscTypiaTestFunctionalErrorStub,
     "access-expression-stub.cjs": ttscTypiaTestAccessExpressionStub,
+    "string-length-stub.cjs":     ttscTypiaTestStringLengthStub,
   }
   for name, content := range files {
     if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
@@ -82,6 +83,7 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_functionalTypeGuardErrorFactory")`, `require("./functional-error-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_stringLength")`, `require("./string-length-stub.cjs")`)
   for _, needle := range []string{`require("typia")`, `require('typia')`, `from "typia"`, `from 'typia'`, `typia/lib/internal/`} {
     if strings.Contains(runtimeJS, needle) {
       t.Fatalf("runtime module still contains unresolved typia import %q", needle)
@@ -130,6 +132,13 @@ const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionab
 
 const ttscTypiaTestFunctionalErrorStub = `module.exports._functionalTypeGuardErrorFactory = (props) =>
   Object.assign(new Error(props.expected), props);
+`
+
+const ttscTypiaTestStringLengthStub = `module.exports._stringLength = (value) => {
+  let count = 0;
+  for (const _ of value) ++count;
+  return count;
+};
 `
 
 const ttscTypiaTestAccessExpressionStub = `const reserved = new Set([
