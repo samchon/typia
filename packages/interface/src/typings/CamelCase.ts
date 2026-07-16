@@ -62,13 +62,15 @@ type CamelizeArray<T extends readonly unknown[]> = {
   [P in keyof T]: CamelizeMain<T[P]>;
 };
 
-type CamelizeString<Key extends string> = Key extends `_${infer R}`
-  ? `_${CamelizeString<R>}`
-  : Key extends `${infer _F}_${infer _R}`
-    ? CamelizeSnakeString<Key>
-    : Key extends Uppercase<Key>
-      ? Lowercase<Key>
-      : CamelizePascalString<Key>;
+type CamelizeString<Key extends string> = string extends Key
+  ? string
+  : Key extends `_${infer R}`
+    ? `_${CamelizeString<R>}`
+    : Key extends `${infer _F}_${infer _R}`
+      ? CamelizeSnakeString<Key>
+      : Key extends Uppercase<Key>
+        ? Lowercase<Key>
+        : CamelizePascalString<Key>;
 type CamelizePascalString<Key extends string> =
   Key extends `${infer F}${infer R}` ? `${Lowercase<F>}${R}` : Key;
 type CamelizeSnakeString<Key extends string> = Key extends `_${infer R}`

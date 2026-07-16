@@ -3,10 +3,10 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
 /**
  * Verifies every notation alias preserves readonly container structure.
  *
- * The four aliases share the same mutable-only container decision. This matrix
- * pins one common contract: recursive key conversion changes member shapes,
- * while array/tuple/set/map mutability and optional or rest tuple positions do
- * not change.
+ * The four aliases share the same container decision tree. This matrix pins one
+ * common contract: recursive key conversion changes member shapes, while
+ * array/tuple/set/map mutability and optional or rest tuple positions do not
+ * change.
  *
  * 1. Convert readonly arrays and optional/rest tuples in every notation.
  * 2. Convert readonly sets and maps in every notation.

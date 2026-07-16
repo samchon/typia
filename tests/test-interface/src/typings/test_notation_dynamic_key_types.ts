@@ -18,8 +18,7 @@ export type NotationDynamicKeyTypeCases = [
       Record<string, { innerKey: string }>
     >
   >,
-  Assert<PascalDynamicActual extends PascalDynamicExpected ? true : false>,
-  Assert<PascalDynamicExpected extends PascalDynamicActual ? true : false>,
+  Assert<IsEqual<PascalDynamicActual, Record<string, { InnerKey: string }>>>,
   Assert<
     IsEqual<
       SnakeCase<Record<string, { innerKey: string }>>,
@@ -35,7 +34,6 @@ export type NotationDynamicKeyTypeCases = [
 ];
 
 type PascalDynamicActual = PascalCase<Record<string, { inner_key: string }>>;
-type PascalDynamicExpected = Record<string, { InnerKey: string }>;
 
 type Assert<T extends true> = T;
 type IsEqual<X, Y> =

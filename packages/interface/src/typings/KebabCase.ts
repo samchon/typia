@@ -76,9 +76,11 @@ type KebabageArray<T extends readonly unknown[]> = {
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type KebabageString<Key extends string> = Key extends `${infer _}`
-  ? KebabagePrefix<SnakageStringRepeatedly<Key, "">>
-  : Key;
+type KebabageString<Key extends string> = string extends Key
+  ? string
+  : Key extends `${infer _}`
+    ? KebabagePrefix<SnakageStringRepeatedly<Key, "">>
+    : Key;
 type KebabagePrefix<S extends string> = S extends `_${infer Rest}`
   ? `_${KebabagePrefix<Rest>}`
   : KebabageBody<S>;

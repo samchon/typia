@@ -10,6 +10,11 @@ export const _notationAssign = (
   const destination: string = rename(source);
   if (Object.hasOwn(output, destination))
     _notationKeyCollision(sources[destination]!, source, destination);
-  output[destination] = value;
+  Object.defineProperty(output, destination, {
+    configurable: true,
+    enumerable: true,
+    value,
+    writable: true,
+  });
   sources[destination] = source;
 };

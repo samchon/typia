@@ -62,11 +62,13 @@ type PascalizeArray<T extends readonly unknown[]> = {
   [P in keyof T]: PascalizeMain<T[P]>;
 };
 
-type PascalizeString<Key extends string> = Key extends `_${infer R}`
-  ? `_${PascalizeString<R>}`
-  : Key extends `${infer _F}_${infer _R}`
-    ? PascalizeSnakeString<Key>
-    : Capitalize<Key>;
+type PascalizeString<Key extends string> = string extends Key
+  ? string
+  : Key extends `_${infer R}`
+    ? `_${PascalizeString<R>}`
+    : Key extends `${infer _F}_${infer _R}`
+      ? PascalizeSnakeString<Key>
+      : Capitalize<Key>;
 type PascalizeSnakeString<Key extends string> = Key extends `_${infer R}`
   ? PascalizeSnakeString<R>
   : Key extends `${infer F}${infer M}_${infer R}`

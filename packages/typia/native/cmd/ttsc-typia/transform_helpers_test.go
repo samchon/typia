@@ -254,7 +254,12 @@ module.exports._notationAssign = (output, sources, source, value, rename) => {
   const destination = rename(source);
   if (Object.hasOwn(output, destination))
     module.exports._notationKeyCollision(sources[destination], source, destination);
-  output[destination] = value;
+  Object.defineProperty(output, destination, {
+    configurable: true,
+    enumerable: true,
+    value,
+    writable: true,
+  });
   sources[destination] = source;
 };
 module.exports._notationKeyCollision = (first, second, destination) => {

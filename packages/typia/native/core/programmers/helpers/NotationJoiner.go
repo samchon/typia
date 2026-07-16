@@ -66,7 +66,9 @@ func (notationJoinerNamespace) Object(props NotationJoiner_ObjectProps) *shimast
     str := props.Rename(*entry.Key.GetSoleLiteral())
     properties = append(properties, f.NewPropertyAssignment(
       nil,
-      nativefactories.IdentifierFactory.Identifier(str, props.Emit),
+      f.NewComputedPropertyName(
+        f.NewStringLiteral(str, shimast.TokenFlagsNone),
+      ),
       nil,
       nil,
       entry.Expression,

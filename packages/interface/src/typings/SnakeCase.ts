@@ -72,9 +72,11 @@ type SnakageArray<T extends readonly unknown[]> = {
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type SnakageString<Key extends string> = Key extends `${infer _}`
-  ? SnakageStringRepeatedly<Key, "">
-  : Key;
+type SnakageString<Key extends string> = string extends Key
+  ? string
+  : Key extends `${infer _}`
+    ? SnakageStringRepeatedly<Key, "">
+    : Key;
 type SnakageStringRepeatedly<
   S extends string,
   Previous extends string,

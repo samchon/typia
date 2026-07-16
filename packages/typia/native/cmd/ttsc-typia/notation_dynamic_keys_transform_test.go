@@ -105,6 +105,10 @@ const notationDynamicKeysSource = `import typia from "typia";
 
 type UnderscoreRecord = Record<string, { inner_key: string }>;
 type CamelRecord = Record<string, { innerValue: string }>;
+interface SnakeLiteral { "__proto__": { innerValue: string }; }
+
+export const snakeLiteral = (input: SnakeLiteral) =>
+  typia.notations.snake<SnakeLiteral>(input);
 
 export const camel = {
   direct: (input: UnderscoreRecord) => typia.notations.camel<UnderscoreRecord>(input),
@@ -150,6 +154,17 @@ export const kebab = {
 
 const notationDynamicKeysRuntimeRunner = `const mod = require("./main.cjs");
 
+const literalMagic = mod.snakeLiteral(
+  Object.fromEntries([["__proto__", { innerValue: "literal" }]]),
+);
+if (
+  Object.getPrototypeOf(literalMagic) !== Object.prototype ||
+  !Object.hasOwn(literalMagic, "__proto__") ||
+  !Object.hasOwn(literalMagic.__proto__, "inner_value")
+) {
+  throw new Error("snake literal __proto__ was not emitted as an own data property");
+}
+
 const families = [
   {
     name: "camel",
@@ -157,6 +172,7 @@ const families = [
     valid: { user_id: { inner_key: "u" }, account_name: { inner_key: "a" } },
     expected: [["userId", "innerKey"], ["accountName", "innerKey"]],
     collision: { user_id: { inner_key: "a" }, userId: { inner_key: "b" } },
+    collisionKeys: ["user_id", "userId", "userId"],
   },
   {
     name: "pascal",
@@ -164,13 +180,19 @@ const families = [
     valid: { user_id: { inner_key: "u" }, account_name: { inner_key: "a" } },
     expected: [["UserId", "InnerKey"], ["AccountName", "InnerKey"]],
     collision: { user_id: { inner_key: "a" }, UserId: { inner_key: "b" } },
+    collisionKeys: ["user_id", "UserId", "UserId"],
   },
   {
     name: "snake",
     api: mod.snake,
-    valid: { userId: { innerValue: "u" }, accountName: { innerValue: "a" } },
-    expected: [["user_id", "inner_value"], ["account_name", "inner_value"]],
+    valid: Object.fromEntries([
+      ["userId", { innerValue: "u" }],
+      ["accountName", { innerValue: "a" }],
+      ["__proto__", { innerValue: "p" }],
+    ]),
+    expected: [["user_id", "inner_value"], ["account_name", "inner_value"], ["__proto__", "inner_value"]],
     collision: { userId: { innerValue: "a" }, user_id: { innerValue: "b" } },
+    collisionKeys: ["userId", "user_id", "user_id"],
   },
   {
     name: "kebab",
@@ -178,6 +200,7 @@ const families = [
     valid: { userId: { innerValue: "u" }, account_name: { innerValue: "a" } },
     expected: [["user-id", "inner-value"], ["account-name", "inner-value"]],
     collision: { userId: { innerValue: "a" }, user_id: { innerValue: "b" } },
+    collisionKeys: ["userId", "user_id", "user-id"],
   },
 ];
 const variants = ["direct", "create", "assert", "createAssert", "is", "createIs", "validate", "createValidate"];
@@ -191,8 +214,15 @@ for (const family of families) {
     if (converted === null) {
       throw new Error(family.name + "." + variant + " rejected valid dynamic input");
     }
+    if (Object.keys(converted).length !== family.expected.length) {
+      throw new Error(family.name + "." + variant + " emitted unexpected keys: " + JSON.stringify(converted));
+    }
     for (const [outer, inner] of family.expected) {
-      if (!Object.hasOwn(converted, outer) || !Object.hasOwn(converted[outer], inner)) {
+      if (
+        !Object.hasOwn(converted, outer) ||
+        Object.keys(converted[outer]).length !== 1 ||
+        !Object.hasOwn(converted[outer], inner)
+      ) {
         throw new Error(family.name + "." + variant + " kept an unconverted key: " + JSON.stringify(converted));
       }
     }
@@ -205,6 +235,11 @@ for (const family of families) {
     }
     if (collision === null) {
       throw new Error(family.name + "." + variant + " silently accepted a destination collision");
+    }
+    for (const key of family.collisionKeys) {
+      if (!String(collision.message).includes(JSON.stringify(key))) {
+        throw new Error(family.name + "." + variant + " collision omitted " + key + ": " + collision.message);
+      }
     }
   }
 }
