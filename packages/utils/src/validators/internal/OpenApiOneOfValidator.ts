@@ -93,13 +93,7 @@ export namespace OpenApiOneOfValidator {
     );
     const branches: IDiscriminatorBranch[] = [
       ...(tuples.length === 0 && arrays.length !== 0
-        ? discriminateArrays(
-            ctx,
-            significant.filter(
-              (flat): flat is IFlatSchema<OpenApi.IJsonSchema.IArray> =>
-                OpenApiTypeChecker.isArray(flat.schema),
-            ),
-          )
+        ? discriminateArrays(ctx, arrays)
         : []),
       ...discriminateObjects(
         ctx,
