@@ -4,11 +4,15 @@ on:
     paths:
       - .github/workflows/release.yml
       - .github/workflows/website.yml
+      - 'config/**'
       - 'examples/**'
+      - 'experiments/tarballs/**'
       - 'packages/**'
       - 'website/**'
       - 'website/package.json'
       - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,17 +26,19 @@ jobs:
           go-version: 1.26.x
       - uses: pnpm/action-setup@v4
 
-      # The wasm playground build links against samchon/ttsc via a sibling
-      # go.work file (packages/typia/native/go.work). Local layout puts ttsc
-      # next to typia; CI must reproduce that so `go build` can resolve the
-      # ttsc/* and ttsc/shim/* modules.
-      - name: Checkout ttsc sibling
-        run: git clone --depth 1 https://github.com/samchon/ttsc.git ../ttsc
-
       # website is a pnpm workspace member, so a single root `pnpm install`
       # wires its deps and the workspace symlinks to typia / @typia/*.
       - name: Install Dependencies
         run: pnpm install
+
+      # The wasm playground build links against samchon/ttsc via a sibling
+      # go.work file (packages/typia/native/go.work). Match that checkout to the
+      # installed @ttsc/wasm package so its Go host and browser API cannot drift.
+      - name: Checkout ttsc sibling
+        run: |
+          TTSC_VERSION="$(node -p "require('./website/node_modules/@ttsc/wasm/package.json').version")"
+          test -n "${TTSC_VERSION}"
+          git clone --branch "v${TTSC_VERSION}" --depth 1 https://github.com/samchon/ttsc.git ../ttsc
 
       # ttsc compiles the typia Go plugin on first use into
       # node_modules/.cache/ttsc, keyed by content (plugin source + ttsc/tsgo
@@ -55,6 +61,12 @@ jobs:
         run: |
           pnpm run build
           pnpm run package:tgz
+
+      - name: Test Playground Compiler
+        working-directory: website
+        run: |
+          pnpm run test:compiler
+          go -C compiler test ./cmd/playground
 
       - name: Build
         working-directory: website

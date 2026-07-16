@@ -6,6 +6,7 @@ on:
       - 'packages/**'
       - 'tests/**'
       - 'examples/**'
+      - 'config/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'

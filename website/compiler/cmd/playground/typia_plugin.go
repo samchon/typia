@@ -23,6 +23,7 @@ import (
   "encoding/json"
   "flag"
   "fmt"
+  "io"
   "os"
   "path/filepath"
   "regexp"
@@ -40,6 +41,20 @@ import (
 )
 
 type typiaPlugin struct{}
+
+type typiaCompilerDiag struct {
+  File        *string `json:"file"`
+  Category    string  `json:"category"`
+  Code        string  `json:"code"`
+  Line        int     `json:"line,omitempty"`
+  Character   int     `json:"character,omitempty"`
+  MessageText string  `json:"messageText"`
+}
+
+type typiaTransformProjectOutput struct {
+  Diagnostics []typiaCompilerDiag `json:"diagnostics,omitempty"`
+  TypeScript  map[string]string   `json:"typescript"`
+}
 
 func newTypiaPlugin() typiaPlugin { return typiaPlugin{} }
 
@@ -264,19 +279,7 @@ func runTypiaTransformProject(
   typiaTransform driver.PluginTransform,
   transformDiags *[]typiaPlaygroundDiag,
 ) int {
-  type compilerDiag struct {
-    File        *string `json:"file"`
-    Category    string  `json:"category"`
-    Code        string  `json:"code"`
-    Line        int     `json:"line,omitempty"`
-    Character   int     `json:"character,omitempty"`
-    MessageText string  `json:"messageText"`
-  }
-  type out struct {
-    Diagnostics []compilerDiag    `json:"diagnostics,omitempty"`
-    TypeScript  map[string]string `json:"typescript"`
-  }
-  res := out{TypeScript: map[string]string{}}
+  typescript := map[string]string{}
   for _, sf := range prog.SourceFiles() {
     if sf.IsDeclarationFile {
       continue
@@ -285,15 +288,25 @@ func runTypiaTransformProject(
     if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
       continue
     }
-    res.TypeScript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
+    typescript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
   }
-  for _, diag := range *transformDiags {
+  return writeTypiaTransformProjectOutput(os.Stdout, os.Stderr, typescript, *transformDiags)
+}
+
+func writeTypiaTransformProjectOutput(
+  stdout io.Writer,
+  stderr io.Writer,
+  typescript map[string]string,
+  transformDiags []typiaPlaygroundDiag,
+) int {
+  res := typiaTransformProjectOutput{TypeScript: typescript}
+  for _, diag := range transformDiags {
     var fp *string
     if diag.File != "" {
       normalized := filepath.ToSlash(diag.File)
       fp = &normalized
     }
-    res.Diagnostics = append(res.Diagnostics, compilerDiag{
+    res.Diagnostics = append(res.Diagnostics, typiaCompilerDiag{
       File:        fp,
       Category:    "error",
       Code:        diag.Code,
@@ -302,8 +315,8 @@ func runTypiaTransformProject(
       MessageText: diag.Message,
     })
   }
-  if err := json.NewEncoder(os.Stdout).Encode(res); err != nil {
-    fmt.Fprintf(os.Stderr, "typia transform: encode output: %v\n", err)
+  if err := json.NewEncoder(stdout).Encode(res); err != nil {
+    fmt.Fprintf(stderr, "typia transform: encode output: %v\n", err)
     return 3
   }
   if len(res.Diagnostics) > 0 {

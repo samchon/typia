@@ -31,8 +31,31 @@ type TypiaPluginEntry = {
   transform: string;
 } & Partial<Record<(typeof TYPIA_OPTION_KEYS)[number], boolean>>;
 
+interface ITypiaTransformDiagnostic {
+  file?: string | null;
+  category: "error" | "warning";
+  code: number | string;
+  start?: number;
+  length?: number;
+  line?: number;
+  character?: number;
+  messageText: string;
+}
+
 interface ITypiaTransformOutput {
+  diagnostics: ITypiaTransformDiagnostic[];
   typescript: Record<string, string>;
+}
+
+interface ITypiaBuildPipelineProps {
+  api: Pick<IBootResult["api"], "build" | "plugin">;
+  host: Pick<IBootResult["host"], "writeFile">;
+  source: string;
+  runTypia: boolean;
+  workDir: string;
+  tsconfigPath: string;
+  entryFile: string;
+  typiaPluginName: string;
 }
 
 export function createTypiaWorkerCompiler(
@@ -107,31 +130,6 @@ export function createTypiaWorkerCompiler(
       host.writeFile(path, text);
   };
 
-  const applyTypiaTransform = async (
-    api: IBootResult["api"],
-    host: IBootResult["host"],
-  ): Promise<void> => {
-    if (!typiaPlugin) return;
-    try {
-      const raw = await api.plugin({
-        name: typiaPluginName,
-        command: "transform",
-        cwd: workDir,
-        tsconfig: tsconfigPath,
-        output: "ts",
-      });
-      if (!raw.stdout) return;
-      const transformed = safeParseTypiaTransform(raw.stdout);
-      if (!transformed) return;
-      for (const [rel, text] of Object.entries(transformed.typescript)) {
-        host.writeFile(joinUnder(workDir, rel), text);
-      }
-    } catch {
-      // Keep the playground usable; the following build still reports tsgo
-      // diagnostics for the user's source.
-    }
-  };
-
   const runBuildPipeline = async (
     source: string,
     runTypia: boolean,
@@ -144,43 +142,16 @@ export function createTypiaWorkerCompiler(
         host,
         projectFiles(source, buildTsconfig(module, transformOptions)),
       );
-      if (runTypia) await applyTypiaTransform(api, host);
-      const raw = await api.build({
-        cwd: workDir,
-        tsconfig: tsconfigPath,
+      return runTypiaBuildPipeline({
+        api,
+        host,
+        source,
+        runTypia: runTypia && typiaPlugin !== null,
+        workDir,
+        tsconfigPath,
+        entryFile,
+        typiaPluginName,
       });
-      if (raw.code !== 0 && !raw.result) {
-        return {
-          type: "error",
-          target: "javascript",
-          value: {
-            message:
-              raw.stderr || "ttsc: build failed without a result payload",
-          },
-        };
-      }
-      const parsed = parseResult<ITtscCompileResult>(raw);
-      if (!parsed) {
-        return {
-          type: "error",
-          target: "javascript",
-          value: { message: "ttsc: result JSON could not be parsed" },
-        };
-      }
-      const diagnostics = (parsed.diagnostics ?? []).map((d) =>
-        mapDiagnostic(d, source),
-      );
-      const js = pickEmittedJS(parsed.output ?? {}, entryFile);
-      const errors = diagnostics.filter((d) => d.severity === "error");
-      if (errors.length > 0) {
-        return {
-          type: "failure",
-          target: "javascript",
-          value: js ?? "",
-          diagnostics,
-        };
-      }
-      return { type: "success", target: "javascript", value: js ?? "" };
     } catch (error) {
       return {
         type: "error",
@@ -218,6 +189,135 @@ export function createTypiaWorkerCompiler(
   };
 }
 
+export async function runTypiaBuildPipeline(
+  props: ITypiaBuildPipelineProps,
+): Promise<ICompilerService.IResult> {
+  try {
+    let transformDiagnostics: ICompilerService.IDiagnostic[] = [];
+    if (props.runTypia) {
+      const transformed = await applyTypiaTransform(props);
+      if (!transformed.success) return transformed.result;
+      transformDiagnostics = transformed.diagnostics;
+    }
+
+    const raw = await props.api.build({
+      cwd: props.workDir,
+      tsconfig: props.tsconfigPath,
+    });
+    if (raw.code !== 0 && !raw.result) {
+      return runtimeError(
+        raw.stderr || "ttsc: build failed without a result payload",
+        "typescript-build",
+      );
+    }
+    const parsed = parseResult<ITtscCompileResult>(raw);
+    if (!parsed)
+      return runtimeError(
+        "ttsc: result JSON could not be parsed",
+        "typescript-build",
+      );
+
+    const diagnostics = [
+      ...transformDiagnostics,
+      ...(parsed.diagnostics ?? []).map((diagnostic) =>
+        mapDiagnostic(diagnostic, props.source),
+      ),
+    ];
+    const js = pickEmittedJS(parsed.output ?? {}, props.entryFile) ?? "";
+    // Warnings do not block emission. They use the diagnostic-bearing result
+    // variant so the playground can display them beside the successful output.
+    if (diagnostics.length > 0)
+      return {
+        type: "failure",
+        target: "javascript",
+        value: js,
+        diagnostics,
+      };
+    return { type: "success", target: "javascript", value: js };
+  } catch (error) {
+    return {
+      type: "error",
+      target: "javascript",
+      value: normalizeError(error),
+    };
+  }
+}
+
+async function applyTypiaTransform(
+  props: ITypiaBuildPipelineProps,
+): Promise<
+  | { success: true; diagnostics: ICompilerService.IDiagnostic[] }
+  | { success: false; result: ICompilerService.IResult }
+> {
+  const raw = await props.api.plugin({
+    name: props.typiaPluginName,
+    command: "transform",
+    cwd: props.workDir,
+    tsconfig: props.tsconfigPath,
+    output: "ts",
+  });
+  if (raw.stdout.trim().length === 0) {
+    const message =
+      raw.stderr.trim() ||
+      (raw.code !== 0
+        ? `typia transform exited with code ${raw.code}`
+        : "typia transform returned empty stdout");
+    return { success: false, result: runtimeError(message) };
+  }
+
+  const parsed = safeParseTypiaTransform(raw.stdout);
+  if (parsed.success) {
+    const entryFile = normalizeRelativePath(props.entryFile);
+    if (
+      entryFile === null ||
+      !Object.hasOwn(parsed.value.typescript, entryFile)
+    )
+      return {
+        success: false,
+        result: runtimeError(
+          "typia transform payload does not contain the entry file",
+        ),
+      };
+    const diagnostics = parsed.value.diagnostics.map((diagnostic) =>
+      mapTypiaTransformDiagnostic(diagnostic),
+    );
+    if (diagnostics.some((diagnostic) => diagnostic.severity === "error"))
+      return {
+        success: false,
+        result: {
+          type: "failure",
+          target: "javascript",
+          value: "",
+          diagnostics,
+        },
+      };
+    if (raw.code !== 0)
+      return {
+        success: false,
+        result: runtimeError(
+          raw.stderr.trim() || `typia transform exited with code ${raw.code}`,
+        ),
+      };
+    if (raw.stderr.trim().length !== 0)
+      return { success: false, result: runtimeError(raw.stderr.trim()) };
+
+    for (const [relativePath, text] of Object.entries(parsed.value.typescript))
+      props.host.writeFile(joinUnder(props.workDir, relativePath), text);
+    return { success: true, diagnostics };
+  }
+
+  if (raw.code !== 0)
+    return {
+      success: false,
+      result: runtimeError(
+        raw.stderr.trim() || `typia transform exited with code ${raw.code}`,
+      ),
+    };
+  if (raw.stderr.trim().length !== 0)
+    return { success: false, result: runtimeError(raw.stderr.trim()) };
+  return { success: false, result: runtimeError(parsed.message) };
+}
+
 export function createTypiaPluginEntry(
   transformModule: string,
   options: ITransformOptions | undefined,
@@ -234,20 +334,126 @@ function shouldRunTypia(options?: ITransformOptions): boolean {
   return options?.typia !== false;
 }
 
-function safeParseTypiaTransform(text: string): ITypiaTransformOutput | null {
+function safeParseTypiaTransform(
+  text: string,
+):
+  | { success: true; value: ITypiaTransformOutput }
+  | { success: false; message: string } {
+  let parsed: unknown;
   try {
-    const parsed = JSON.parse(text) as ITypiaTransformOutput;
-    if (
-      parsed &&
-      typeof parsed === "object" &&
-      parsed.typescript &&
-      typeof parsed.typescript === "object"
-    )
-      return parsed;
-    return null;
+    parsed = JSON.parse(text);
   } catch {
-    return null;
+    return {
+      success: false,
+      message: "typia transform stdout is not valid JSON",
+    };
   }
+  if (!isRecord(parsed) || !isRecord(parsed.typescript))
+    return {
+      success: false,
+      message: "typia transform payload must include a TypeScript map",
+    };
+
+  const typescript: Record<string, string> = Object.create(null);
+  for (const [relativePath, value] of Object.entries(parsed.typescript)) {
+    const normalized = normalizeRelativePath(relativePath);
+    if (normalized === null || typeof value !== "string")
+      return {
+        success: false,
+        message:
+          "typia transform payload must use relative TypeScript paths with string contents",
+      };
+    if (Object.hasOwn(typescript, normalized))
+      return {
+        success: false,
+        message: "typia transform payload contains duplicate TypeScript paths",
+      };
+    typescript[normalized] = value;
+  }
+
+  const rawDiagnostics = parsed.diagnostics ?? [];
+  if (
+    !Array.isArray(rawDiagnostics) ||
+    !rawDiagnostics.every(isTypiaTransformDiagnostic)
+  )
+    return {
+      success: false,
+      message: "typia transform payload contains malformed diagnostics",
+    };
+  return {
+    success: true,
+    value: { diagnostics: rawDiagnostics, typescript },
+  };
+}
+
+function isTypiaTransformDiagnostic(
+  value: unknown,
+): value is ITypiaTransformDiagnostic {
+  if (!isRecord(value)) return false;
+  return (
+    (value.category === "error" || value.category === "warning") &&
+    (typeof value.code === "number" || typeof value.code === "string") &&
+    typeof value.messageText === "string" &&
+    (value.file === undefined ||
+      value.file === null ||
+      typeof value.file === "string") &&
+    isOptionalPositiveInteger(value.line) &&
+    isOptionalPositiveInteger(value.character) &&
+    isOptionalNonNegativeInteger(value.start) &&
+    isOptionalPositiveInteger(value.length)
+  );
+}
+
+function mapTypiaTransformDiagnostic(
+  diagnostic: ITypiaTransformDiagnostic,
+): ICompilerService.IDiagnostic {
+  return {
+    line: diagnostic.line ?? 1,
+    column: diagnostic.character ?? 1,
+    length: diagnostic.length ?? 1,
+    severity: diagnostic.category,
+    message: diagnostic.messageText,
+    code:
+      typeof diagnostic.code === "number"
+        ? `TS${diagnostic.code}`
+        : diagnostic.code,
+  };
+}
+
+function runtimeError(
+  message: string,
+  stage = "typia-transform",
+): ICompilerService.IError {
+  return {
+    type: "error",
+    target: "javascript",
+    value: { name: "CompilerPipelineError", stage, message },
+  };
+}
+
+function normalizeRelativePath(path: string): string | null {
+  const normalized = path.replace(/\\/g, "/");
+  if (
+    normalized.length === 0 ||
+    normalized.startsWith("/") ||
+    /^[A-Za-z]:\//.test(normalized) ||
+    normalized.includes("\0") ||
+    normalized.split("/").includes("..")
+  )
+    return null;
+  return normalized;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function isOptionalPositiveInteger(value: unknown): boolean {
+  return value === undefined || (Number.isInteger(value) && Number(value) > 0);
+}
+
+function isOptionalNonNegativeInteger(value: unknown): boolean {
+  return value === undefined || (Number.isInteger(value) && Number(value) >= 0);
 }
 
 function joinUnder(root: string, rel: string): string {
