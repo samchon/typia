@@ -23,6 +23,9 @@ export const test_document_roundtrip_v20_urlencoded_file = (): void => {
     in: "formData",
     required: true,
     type: "file",
+    minLength: 1,
+    maxLength: 1048576,
+    pattern: "\\.bin$",
     "x-upload-kind": "attachment",
   } as unknown as SwaggerV2.IOperation.IGeneralParameter;
   const input: SwaggerV2.IDocument = {
@@ -55,6 +58,9 @@ export const test_document_roundtrip_v20_urlencoded_file = (): void => {
     "URL-encoded file upgrades to binary",
     OpenApiTypeChecker.isString(property) &&
       property.format === "binary" &&
+      property.minLength === 1 &&
+      property.maxLength === 1048576 &&
+      property.pattern === "\\.bin$" &&
       (property as unknown as Record<string, unknown>)["x-upload-kind"] ===
         "attachment",
   );
@@ -83,6 +89,12 @@ export const test_document_roundtrip_v20_urlencoded_file = (): void => {
         parameter.name === "file" &&
         "type" in parameter &&
         parameter.type === "file" &&
+        "minLength" in parameter &&
+        parameter.minLength === 1 &&
+        "maxLength" in parameter &&
+        parameter.maxLength === 1048576 &&
+        "pattern" in parameter &&
+        parameter.pattern === "\\.bin$" &&
         (parameter as unknown as Record<string, unknown>)["x-upload-kind"] ===
           "attachment",
     ),

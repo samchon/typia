@@ -272,17 +272,19 @@ export namespace SwaggerV2Upgrader {
       } = input as SwaggerV2.IOperation.IGeneralParameter & {
         required?: boolean | string[];
       };
-      if ((schema as { type?: string }).type === "file")
+      if ((schema as { type?: string }).type === "file") {
+        const {
+          type: _type,
+          format: _format,
+          ...attributes
+        } = schema as SwaggerV2.IJsonSchema.IString;
         return {
+          ...attributes,
           type: "string",
           format: "binary",
           description,
-          ...Object.fromEntries(
-            Object.entries(schema).filter(
-              ([key, value]) => key.startsWith("x-") && value !== undefined,
-            ),
-          ),
-        };
+        } as OpenApi.IJsonSchema;
+      }
       const converted: OpenApi.IJsonSchema = convertSchema(definitions)({
         ...schema,
         description:
