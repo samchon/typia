@@ -66,6 +66,12 @@ const components = OpenApiConverter.downgradeComponents(
 
 This matters for schema-level `examples`: typia keeps `tags.Examples<T>` as named examples in the emended schema, while OpenAPI 3.1's Schema Object uses JSON Schema's array-shaped `examples` keyword. The converter drops the names and emits the raw OpenAPI form.
 
+### Swagger 2 document conversion
+
+For Swagger 2 documents, `OpenApiConverter.upgradeDocument` composes each server URL from `schemes`, `host`, and `basePath`. An operation's `schemes`, `consumes`, and `produces` override the document defaults; when neither media list is present, the converter uses `application/json` for compatibility.
+
+`OpenApiConverter.downgradeDocument(document, "2.0")` keeps media types on each operation instead of guessing shared document defaults. Swagger 2 can express only one host and base path and only one schema and example per media map, so the converter throws a `TypeError` when server variables, different authorities or paths, streaming item schemas, or media-specific schemas and examples would otherwise be lost.
+
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
     <LocalSource

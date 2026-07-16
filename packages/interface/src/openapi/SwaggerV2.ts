@@ -46,6 +46,9 @@ export namespace SwaggerV2 {
     /** Base path for all operations. */
     basePath?: string;
 
+    /** Transfer protocols supported by the API. */
+    schemes?: string[];
+
     /** Global content types consumed. */
     consumes?: string[];
 
@@ -180,6 +183,15 @@ export namespace SwaggerV2 {
 
     /** Whether deprecated. */
     deprecated?: boolean;
+
+    /** Operation-specific transfer protocols. */
+    schemes?: string[];
+
+    /** Operation-specific consumed content types. */
+    consumes?: string[];
+
+    /** Operation-specific produced content types. */
+    produces?: string[];
   }
   export namespace IOperation {
     /** Operation parameter (general or body). */

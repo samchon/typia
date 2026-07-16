@@ -18,13 +18,7 @@ export namespace SwaggerV2Upgrader {
             ),
         )
       : undefined,
-    servers: input.host
-      ? [
-          {
-            url: input.host,
-          },
-        ]
-      : undefined,
+    servers: convertServers(input),
     security: input.security,
     tags: input.tags,
     "x-typia-emended-v12": true,
@@ -125,6 +119,8 @@ export namespace SwaggerV2Upgrader {
       ].find(isBodyParameter) as
         | SwaggerV2.IOperation.IBodyParameter
         | undefined;
+      const consumes: string[] = selectMediaTypes(input.consumes, doc.consumes);
+      const produces: string[] = selectMediaTypes(input.produces, doc.produces);
       return {
         ...input,
         parameters:
@@ -132,7 +128,7 @@ export namespace SwaggerV2Upgrader {
             ? parameters.map(convertParameter(doc.definitions ?? {}))
             : undefined,
         requestBody: body
-          ? convertRequestBody(doc.definitions ?? {})(body)
+          ? convertRequestBody(doc.definitions ?? {}, consumes)(body)
           : undefined,
         responses: input.responses
           ? Object.fromEntries(
@@ -140,11 +136,20 @@ export namespace SwaggerV2Upgrader {
                 .filter(([_, v]) => v !== undefined)
                 .map(
                   ([key, value]) =>
-                    [key, convertResponse(doc)(value)!] as const,
+                    [key, convertResponse(doc, produces)(value)!] as const,
                 )
                 .filter(([_, v]) => v !== undefined),
             )
           : undefined,
+        servers:
+          input.schemes !== undefined
+            ? convertServers({ ...doc, schemes: input.schemes })
+            : undefined,
+        ...{
+          consumes: undefined,
+          produces: undefined,
+          schemes: undefined,
+        },
       };
     };
 
@@ -208,21 +213,27 @@ export namespace SwaggerV2Upgrader {
       };
     };
   const convertRequestBody =
-    (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
+    (
+      definitions: Record<string, SwaggerV2.IJsonSchema>,
+      mediaTypes: string[],
+    ) =>
     (
       input: SwaggerV2.IOperation.IBodyParameter,
     ): OpenApi.IOperation.IRequestBody => ({
       description: input.description,
       ...(input.required !== undefined ? { required: input.required } : {}),
-      content: {
-        "application/json": {
-          schema: convertSchema(definitions)(input.schema),
-        },
-      },
+      content: Object.fromEntries(
+        mediaTypes.map((type) => [
+          type,
+          {
+            schema: convertSchema(definitions)(input.schema),
+          },
+        ]),
+      ),
     });
 
   const convertResponse =
-    (doc: SwaggerV2.IDocument) =>
+    (doc: SwaggerV2.IDocument, mediaTypes: string[]) =>
     (
       input:
         | SwaggerV2.IOperation.IResponse
@@ -237,12 +248,15 @@ export namespace SwaggerV2Upgrader {
       return {
         description: input.description,
         content: input.schema
-          ? {
-              "application/json": {
-                schema: convertSchema(doc.definitions ?? {})(input.schema),
-                example: input.example,
-              },
-            }
+          ? Object.fromEntries(
+              mediaTypes.map((type) => [
+                type,
+                {
+                  schema: convertSchema(doc.definitions ?? {})(input.schema!),
+                  example: input.example,
+                },
+              ]),
+            )
           : undefined,
         headers: input.headers
           ? Object.fromEntries(
@@ -263,6 +277,63 @@ export namespace SwaggerV2Upgrader {
           : undefined,
       };
     };
+
+  const selectMediaTypes = (
+    operation: string[] | undefined,
+    document: string[] | undefined,
+  ): string[] => [
+    ...new Set(
+      operation?.length
+        ? operation
+        : document?.length
+          ? document
+          : ["application/json"],
+    ),
+  ];
+
+  const convertServers = (
+    input: Pick<SwaggerV2.IDocument, "host" | "basePath" | "schemes">,
+  ): OpenApi.IServer[] | undefined => {
+    const basePath: string = normalizeBasePath(input.basePath);
+    if (!input.host) {
+      if (input.schemes?.length)
+        throw new TypeError(
+          "SwaggerV2Upgrader: schemes require host to compose server URLs.",
+        );
+      return basePath ? [{ url: basePath }] : undefined;
+    }
+
+    const absolute: RegExpMatchArray | null = input.host.match(
+      /^([A-Za-z][A-Za-z0-9+.-]*):\/\/([^/?#]+)(\/[^?#]*)?$/,
+    );
+    const embeddedScheme: string | undefined = absolute?.[1];
+    const host: string = absolute?.[2] ?? input.host.replace(/^\/\//, "");
+    const hostPath: string = normalizeBasePath(absolute?.[3]);
+    const path: string = joinBasePaths(hostPath, basePath);
+    const schemes: string[] = [
+      ...new Set(
+        input.schemes?.length
+          ? input.schemes
+          : embeddedScheme
+            ? [embeddedScheme]
+            : [],
+      ),
+    ];
+    return schemes.length
+      ? schemes.map((scheme) => ({ url: `${scheme}://${host}${path}` }))
+      : [{ url: `//${host}${path}` }];
+  };
+
+  const normalizeBasePath = (path: string | undefined): string => {
+    if (!path || path === "/") return path ?? "";
+    const prefixed: string = path.startsWith("/") ? path : `/${path}`;
+    return prefixed.replace(/\/+$/, "");
+  };
+
+  const joinBasePaths = (x: string, y: string): string =>
+    x.length === 0 && y.length === 0
+      ? ""
+      : normalizeBasePath(`${x}/${y}`.replace(/\/+/g, "/"));
 
   /* -----------------------------------------------------------
     DEFINITIONS
