@@ -29,6 +29,9 @@ export namespace SwaggerV2 {
     | "patch"
     | "trace";
 
+  /** Transfer protocol supported by Swagger v2. */
+  export type Scheme = "http" | "https" | "ws" | "wss";
+
   /* -----------------------------------------------------------
     DOCUMENTS
   ----------------------------------------------------------- */
@@ -47,7 +50,7 @@ export namespace SwaggerV2 {
     basePath?: string;
 
     /** Transfer protocols supported by the API. */
-    schemes?: string[];
+    schemes?: Scheme[];
 
     /** Global content types consumed. */
     consumes?: string[];
@@ -185,7 +188,7 @@ export namespace SwaggerV2 {
     deprecated?: boolean;
 
     /** Operation-specific transfer protocols. */
-    schemes?: string[];
+    schemes?: Scheme[];
 
     /** Operation-specific consumed content types. */
     consumes?: string[];
@@ -198,11 +201,27 @@ export namespace SwaggerV2 {
     export type IParameter = IGeneralParameter | IBodyParameter;
 
     /** General parameter (path, query, header, formData). */
-    export type IGeneralParameter = IJsonSchema & {
+    export type IGeneralParameter = (
+      | IGeneralParameter.ISchema
+      | IGeneralParameter.IFile
+    ) & {
       name: string;
       in: string;
       description?: string;
     };
+    export namespace IGeneralParameter {
+      /** Non-body parameter schema with parameter-level requiredness. */
+      export type ISchema<Schema extends IJsonSchema = IJsonSchema> =
+        Schema extends IJsonSchema.IObject
+          ? Omit<Schema, "required"> & { required?: boolean | string[] }
+          : Schema & { required?: boolean };
+
+      /** File uploaded through a form-data request. */
+      export interface IFile {
+        type: "file";
+        required?: boolean;
+      }
+    }
 
     /** Body parameter. */
     export interface IBodyParameter {
@@ -233,7 +252,15 @@ export namespace SwaggerV2 {
       /** Response body schema. */
       schema?: IJsonSchema;
 
-      /** Example value. */
+      /** Example values keyed by MIME type. */
+      examples?: Record<string, any>;
+
+      /**
+       * Legacy non-standard example value.
+       *
+       * @deprecated Swagger v2 response examples are keyed by MIME type in
+       *   {@link examples}.
+       */
       example?: any;
     }
   }

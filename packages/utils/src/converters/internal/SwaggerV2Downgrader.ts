@@ -182,7 +182,7 @@ export namespace SwaggerV2Downgrader {
       const produced: string[][] = responseEntries
         .map(([_, value]) => value.produces)
         .filter((value): value is string[] => value !== undefined);
-      if (produced.some((value) => !sameStrings(value, produced[0]!)))
+      if (produced.some((value) => !sameStringSet(value, produced[0]!)))
         throw new TypeError(
           "SwaggerV2Downgrader: response media types must be identical within an operation.",
         );
@@ -193,7 +193,7 @@ export namespace SwaggerV2Downgrader {
           input.parameters !== undefined || body !== undefined
             ? [
                 ...(input.parameters ?? []).map(downgradeParameter(collection)),
-                ...(body ? [body.parameter] : []),
+                ...(body?.parameters ?? []),
               ]
             : undefined,
         responses: input.responses
@@ -251,35 +251,215 @@ export namespace SwaggerV2Downgrader {
         input.content,
         "request body",
       );
-      if (media.example !== undefined)
+      if (Object.keys(media.examples ?? {}).length > 0)
         throw new TypeError(
           "SwaggerV2Downgrader: request body examples are not representable.",
         );
+      if (input["x-nestia-encrypted"] !== undefined)
+        throw new TypeError(
+          "SwaggerV2Downgrader: encrypted request bodies are not representable.",
+        );
+      const types: string[] = media.types ?? [];
+      const formTypes: string[] = types.filter(isFormMediaType);
+      if (formTypes.length > 0 && formTypes.length !== types.length)
+        throw new TypeError(
+          "SwaggerV2Downgrader: form and non-form request media types cannot coexist.",
+        );
+      if (formTypes.length > 0 && input.description !== undefined)
+        throw new TypeError(
+          "SwaggerV2Downgrader: form request body descriptions are not representable.",
+        );
       return {
         consumes: media.types,
-        parameter: {
-          name: "body",
-          in: "body",
-          description: input.description,
-          ...(input.required !== undefined ? { required: input.required } : {}),
-          schema: downgradeSchema(collection)(media.schema ?? {}),
-        },
+        parameters:
+          formTypes.length > 0
+            ? downgradeFormData(collection)(
+                media.schema,
+                input.required,
+                formTypes,
+              )
+            : [
+                {
+                  name: "body",
+                  in: "body",
+                  description: input.description,
+                  ...(input.required !== undefined
+                    ? { required: input.required }
+                    : {}),
+                  schema: downgradeSchema(collection)(media.schema ?? {}),
+                },
+              ],
       };
     };
+
+  const downgradeFormData =
+    (collection: IComponentsCollection) =>
+    (
+      schema: OpenApi.IJsonSchema | undefined,
+      requestRequired: boolean | undefined,
+      mediaTypes: string[],
+    ): SwaggerV2.IOperation.IGeneralParameter[] => {
+      const resolved: OpenApi.IJsonSchema | undefined =
+        resolveSchema(collection)(schema);
+      if (
+        resolved === undefined ||
+        OpenApiTypeChecker.isObject(resolved) === false
+      )
+        throw new TypeError(
+          "SwaggerV2Downgrader: form request schemas must be objects.",
+        );
+      const object: OpenApi.IJsonSchema.IObject = resolved;
+      const unsupported: string[] = Object.entries(object)
+        .filter(
+          ([key, value]) =>
+            value !== undefined &&
+            key !== "type" &&
+            key !== "properties" &&
+            key !== "additionalProperties" &&
+            key !== "required",
+        )
+        .map(([key]) => key);
+      if (unsupported.length > 0)
+        throw new TypeError(
+          `SwaggerV2Downgrader: form request object attributes are not representable: ${unsupported.join(", ")}.`,
+        );
+      if (
+        object.additionalProperties !== undefined &&
+        object.additionalProperties !== false
+      )
+        throw new TypeError(
+          "SwaggerV2Downgrader: form request schemas cannot have additional properties.",
+        );
+      const required: string[] = object.required ?? [];
+      if (
+        required.some(
+          (name) => Object.hasOwn(object.properties ?? {}, name) === false,
+        )
+      )
+        throw new TypeError(
+          "SwaggerV2Downgrader: form required fields must exist as properties.",
+        );
+      if ((requestRequired === true) !== required.length > 0)
+        throw new TypeError(
+          "SwaggerV2Downgrader: form request body and field requiredness must agree.",
+        );
+      return Object.entries(object.properties ?? {})
+        .filter(([_, property]) => property !== undefined)
+        .map(([name, property]) => ({
+          ...downgradeFormDataSchema(collection)(
+            property,
+            mediaTypes.every((type) => type === "multipart/form-data"),
+          ),
+          name,
+          in: "formData",
+          required: required.includes(name) || undefined,
+        }));
+    };
+
+  const downgradeFormDataSchema =
+    (collection: IComponentsCollection) =>
+    (
+      input: OpenApi.IJsonSchema,
+      allowFile: boolean,
+    ):
+      | SwaggerV2.IJsonSchema.IBoolean
+      | SwaggerV2.IJsonSchema.IInteger
+      | SwaggerV2.IJsonSchema.INumber
+      | SwaggerV2.IJsonSchema.IString
+      | SwaggerV2.IJsonSchema.IArray
+      | SwaggerV2.IOperation.IGeneralParameter.IFile => {
+      const schema: OpenApi.IJsonSchema | undefined =
+        resolveSchema(collection)(input);
+      if (schema === undefined)
+        throw new TypeError(
+          "SwaggerV2Downgrader: form property references must resolve.",
+        );
+      if (OpenApiTypeChecker.isString(schema) && schema.format === "binary") {
+        if (allowFile === false)
+          throw new TypeError(
+            "SwaggerV2Downgrader: file fields require multipart/form-data.",
+          );
+        const { format: _format, ...rest } = downgradeSchema(collection)(
+          schema,
+        ) as SwaggerV2.IJsonSchema.IString;
+        return { ...rest, type: "file" };
+      }
+      const downgraded: SwaggerV2.IJsonSchema =
+        downgradeSchema(collection)(schema);
+      if (isFormDataSchema(downgraded) === false)
+        throw new TypeError(
+          "SwaggerV2Downgrader: form properties must use simple schemas.",
+        );
+      return downgraded;
+    };
+
+  const resolveSchema =
+    (collection: IComponentsCollection) =>
+    (
+      input: OpenApi.IJsonSchema | undefined,
+      visited: Set<string> = new Set(),
+    ): OpenApi.IJsonSchema | undefined => {
+      if (
+        input === undefined ||
+        OpenApiTypeChecker.isReference(input) === false
+      )
+        return input;
+      if (visited.has(input.$ref)) return undefined;
+      visited.add(input.$ref);
+      const key: string = input.$ref.split("/").pop()!;
+      return resolveSchema(collection)(
+        collection.original.schemas?.[key],
+        visited,
+      );
+    };
+
+  const isFormDataSchema = (
+    input: SwaggerV2.IJsonSchema,
+  ): input is
+    | SwaggerV2.IJsonSchema.IBoolean
+    | SwaggerV2.IJsonSchema.IInteger
+    | SwaggerV2.IJsonSchema.INumber
+    | SwaggerV2.IJsonSchema.IString
+    | SwaggerV2.IJsonSchema.IArray => {
+    const type: string | undefined = (input as { type?: string }).type;
+    if (
+      type === "boolean" ||
+      type === "integer" ||
+      type === "number" ||
+      type === "string"
+    )
+      return true;
+    if (type !== "array") return false;
+    const array: SwaggerV2.IJsonSchema.IArray =
+      input as SwaggerV2.IJsonSchema.IArray;
+    const itemType: string | undefined = (array.items as { type?: string })
+      .type;
+    return (
+      itemType === "boolean" ||
+      itemType === "integer" ||
+      itemType === "number" ||
+      (itemType === "string" &&
+        (array.items as SwaggerV2.IJsonSchema.IString).format !== "binary")
+    );
+  };
 
   const downgradeResponse =
     (collection: IComponentsCollection) =>
     (input: OpenApi.IOperation.IResponse): IDowngradedResponse => {
+      if (input["x-nestia-encrypted"] !== undefined)
+        throw new TypeError(
+          "SwaggerV2Downgrader: encrypted responses are not representable.",
+        );
       const media: IDowngradedMedia = downgradeMedia(input.content, "response");
       return {
         produces: media.types,
         response: {
           description: input.description,
           schema:
-            input.content !== undefined
-              ? downgradeSchema(collection)(media.schema ?? {})
+            media.schema !== undefined
+              ? downgradeSchema(collection)(media.schema)
               : undefined,
-          example: media.example,
+          examples: media.examples,
           headers: input.headers
             ? Object.fromEntries(
                 Object.entries(input.headers)
@@ -588,12 +768,12 @@ export namespace SwaggerV2Downgrader {
   interface ISwaggerServer {
     host?: string;
     basePath?: string;
-    schemes?: string[];
+    schemes?: SwaggerV2.Scheme[];
   }
 
   interface IDowngradedRequestBody {
     consumes?: string[];
-    parameter: SwaggerV2.IOperation.IBodyParameter;
+    parameters: SwaggerV2.IOperation.IParameter[];
   }
 
   interface IDowngradedResponse {
@@ -604,7 +784,7 @@ export namespace SwaggerV2Downgrader {
   interface IDowngradedMedia {
     types?: string[];
     schema?: OpenApi.IJsonSchema;
-    example?: any;
+    examples?: Record<string, any>;
   }
 
   const downgradeServers = (
@@ -613,6 +793,10 @@ export namespace SwaggerV2Downgrader {
   ): ISwaggerServer => {
     if (!servers?.length) return {};
     const parsed: ISwaggerServer[] = servers.map((server) => {
+      if (server.description !== undefined)
+        throw new TypeError(
+          `SwaggerV2Downgrader: ${scope} descriptions are not representable.`,
+        );
       if (
         Object.keys(server.variables ?? {}).length > 0 ||
         server.url.includes("{")
@@ -627,20 +811,35 @@ export namespace SwaggerV2Downgrader {
       const absolute: RegExpMatchArray | null = server.url.match(
         /^([A-Za-z][A-Za-z0-9+.-]*):\/\/([^/?#]+)(\/[^?#]*)?$/,
       );
-      if (absolute)
+      if (absolute) {
+        const scheme: string = absolute[1]!.toLowerCase();
+        if (isSwaggerScheme(scheme) === false)
+          throw new TypeError(
+            `SwaggerV2Downgrader: ${scope} use an unsupported scheme.`,
+          );
+        if (absolute[2]!.includes("@"))
+          throw new TypeError(
+            `SwaggerV2Downgrader: ${scope} contain user information.`,
+          );
         return {
-          schemes: [absolute[1]!],
+          schemes: [scheme],
           host: absolute[2]!,
           basePath: normalizeBasePath(absolute[3]),
         };
+      }
       const network: RegExpMatchArray | null = server.url.match(
         /^\/\/([^/?#]+)(\/[^?#]*)?$/,
       );
-      if (network)
+      if (network) {
+        if (network[1]!.includes("@"))
+          throw new TypeError(
+            `SwaggerV2Downgrader: ${scope} contain user information.`,
+          );
         return {
           host: network[1]!,
           basePath: normalizeBasePath(network[2]),
         };
+      }
       if (server.url.startsWith("/"))
         return { basePath: normalizeBasePath(server.url) };
       throw new TypeError(
@@ -679,7 +878,7 @@ export namespace SwaggerV2Downgrader {
   const downgradeOperationSchemes = (
     document: ISwaggerServer,
     servers: OpenApi.IServer[] | undefined,
-  ): string[] | undefined => {
+  ): SwaggerV2.Scheme[] | undefined => {
     if (servers === undefined) return undefined;
     const operation: ISwaggerServer = downgradeServers(
       servers,
@@ -704,13 +903,14 @@ export namespace SwaggerV2Downgrader {
     content: OpenApi.IOperation.IContent | undefined,
     scope: string,
   ): IDowngradedMedia => {
+    if (content === undefined) return {};
     const entries: [string, OpenApi.IOperation.IMediaType][] = Object.entries(
-      content ?? {},
+      content,
     ).filter(
       (entry): entry is [string, OpenApi.IOperation.IMediaType] =>
         entry[1] !== undefined,
     );
-    if (entries.length === 0) return {};
+    if (entries.length === 0) return { types: [] };
     const first = entries[0]![1];
     if (first.itemSchema !== undefined)
       throw new TypeError(
@@ -733,15 +933,14 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           `SwaggerV2Downgrader: ${scope} media types must share one schema.`,
         );
-      if (!sameJson(media.example, first.example))
-        throw new TypeError(
-          `SwaggerV2Downgrader: ${scope} media types must share one example.`,
-        );
     }
+    const examples: Array<[string, any]> = entries
+      .filter(([_, media]) => media.example !== undefined)
+      .map(([type, media]) => [type, media.example]);
     return {
       types: [...new Set(entries.map(([type]) => type))],
       schema: first.schema,
-      example: first.example,
+      examples: examples.length > 0 ? Object.fromEntries(examples) : undefined,
     };
   };
 
@@ -759,6 +958,16 @@ export namespace SwaggerV2Downgrader {
     x === undefined || y === undefined
       ? x === y
       : x.length === y.length && x.every((value, index) => value === y[index]);
+
+  const sameStringSet = (x: string[], y: string[]): boolean =>
+    x.length === y.length && x.every((value) => y.includes(value));
+
+  const isFormMediaType = (type: string): boolean =>
+    type === "application/x-www-form-urlencoded" ||
+    type === "multipart/form-data";
+
+  const isSwaggerScheme = (input: string): input is SwaggerV2.Scheme =>
+    input === "http" || input === "https" || input === "ws" || input === "wss";
 
   const sameJson = (x: unknown, y: unknown): boolean =>
     JSON.stringify(canonicalize(x)) === JSON.stringify(canonicalize(y));

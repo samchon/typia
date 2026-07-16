@@ -10,9 +10,10 @@ import { OpenApiConverter } from "@typia/utils";
  * silently redirects requests or changes payload contracts.
  *
  * 1. Attempt to downgrade servers with different authorities and server variables.
- * 2. Attempt to downgrade request and response media entries with different
- *    schemas.
- * 3. Assert every lossy case reports an explicit representability error.
+ * 2. Reject unsupported server metadata and mixed form/non-form request media.
+ * 3. Attempt to downgrade request and response media entries with different
+ *    schemas or unrepresentable examples.
+ * 4. Assert every lossy case reports an explicit representability error.
  */
 export const test_document_downgrade_v20_unrepresentable = (): void => {
   const document = (props: Partial<OpenApi.IDocument>): OpenApi.IDocument => ({
@@ -41,6 +42,138 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
             variables: { region: { default: "us" } },
           },
         ],
+      }),
+    },
+    {
+      name: "unsupported server scheme",
+      input: document({ servers: [{ url: "ftp://api.example.com/v1" }] }),
+    },
+    {
+      name: "server credentials",
+      input: document({
+        servers: [{ url: "https://user:secret@api.example.com/v1" }],
+      }),
+    },
+    {
+      name: "server description",
+      input: document({
+        servers: [
+          { url: "https://api.example.com/v1", description: "Production" },
+        ],
+      }),
+    },
+    {
+      name: "mixed form and body media",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: {
+                  "multipart/form-data": {
+                    schema: { type: "object", properties: {} },
+                  },
+                  "application/json": {
+                    schema: { type: "object", properties: {} },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "required form body without required field",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                required: true,
+                content: {
+                  "multipart/form-data": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        file: { type: "string", format: "binary" },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "optional form body with required field",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: {
+                  "application/x-www-form-urlencoded": {
+                    schema: {
+                      type: "object",
+                      properties: { name: { type: "string" } },
+                      required: ["name"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "urlencoded file field",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                required: true,
+                content: {
+                  "application/x-www-form-urlencoded": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        file: { type: "string", format: "binary" },
+                      },
+                      required: ["file"],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "form object metadata",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: {
+                  "multipart/form-data": {
+                    schema: {
+                      type: "object",
+                      description: "Upload form",
+                      properties: {},
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       }),
     },
     {

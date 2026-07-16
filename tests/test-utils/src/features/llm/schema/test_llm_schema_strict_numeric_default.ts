@@ -18,7 +18,8 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Convert integer and number schemas with existing descriptions and
  *    constraints.
  * 2. Cover zero, negative, fractional, and scientific-notation defaults.
- * 3. Assert the default is removed only after its deterministic tag is written.
+ * 3. Exercise nested properties, array items, unions, and referenced schemas.
+ * 4. Assert the default is removed only after its deterministic tag is written.
  */
 export const test_llm_schema_strict_numeric_default = (): void => {
   const cases: Array<{
@@ -74,4 +75,54 @@ export const test_llm_schema_strict_numeric_default = (): void => {
       Object.hasOwn(result.value, "default") === false,
     );
   }
+
+  const $defs: Record<string, ILlmSchema> = {};
+  const nested: IResult<ILlmSchema, IJsonSchemaTransformError> =
+    LlmSchemaConverter.schema({
+      config: { strict: true },
+      components: {
+        schemas: {
+          Referenced: { type: "number", default: -2.5 },
+        },
+      },
+      $defs,
+      schema: {
+        type: "object",
+        properties: {
+          direct: { type: "integer", default: 0 },
+          array: {
+            type: "array",
+            items: { type: "number", default: 0.125 },
+          },
+          union: {
+            oneOf: [
+              { type: "integer", default: -3 },
+              { type: "number", default: 6e4 },
+            ],
+          },
+          referenced: { $ref: "#/components/schemas/Referenced" },
+        },
+        required: ["direct", "array", "union", "referenced"],
+      },
+    });
+  TestValidator.predicate("nested conversion", nested.success);
+  if (nested.success === false) return;
+  const object = nested.value as ILlmSchema.IObject;
+  TestValidator.equals(
+    "nested defaults",
+    {
+      direct: object.properties.direct!.description,
+      array: (object.properties.array as ILlmSchema.IArray).items.description,
+      union: (object.properties.union as ILlmSchema.IAnyOf).anyOf.map(
+        (schema) => schema.description,
+      ),
+      reference: $defs.Referenced!.description,
+    },
+    {
+      direct: "@default 0",
+      array: "@default 0.125",
+      union: ["@default -3", "@default 60000"],
+      reference: "@default -2.5",
+    },
+  );
 };

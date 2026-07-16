@@ -73,4 +73,37 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       ],
     },
   );
+  TestValidator.equals(
+    "nullable constant",
+    convert({ oneOf: [{ const: "fixed" }, { type: "null" }] }),
+    { type: "string", enum: ["fixed"], "x-nullable": true },
+  );
+  TestValidator.equals("null only", convert({ type: "null" }), {
+    type: "null",
+  });
+
+  const downgraded: Record<string, SwaggerV2.IJsonSchema> = {};
+  TestValidator.equals(
+    "constant reference",
+    OpenApiConverter.downgradeSchema({
+      components: {
+        schemas: { Fixed: { const: "referenced" } },
+      },
+      downgraded,
+      schema: {
+        oneOf: [{ $ref: "#/components/schemas/Fixed" }, { type: "null" }],
+      },
+      version: "2.0",
+    }),
+    { $ref: "#/definitions/Fixed.Nullable" },
+  );
+  TestValidator.equals(
+    "referenced constant definition",
+    downgraded["Fixed.Nullable"],
+    {
+      type: "string",
+      enum: ["referenced"],
+      "x-nullable": true,
+    },
+  );
 };

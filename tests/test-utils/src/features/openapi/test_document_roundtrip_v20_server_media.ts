@@ -54,7 +54,30 @@ export const test_document_roundtrip_v20_server_media = (): void => {
             },
           ],
           responses: {
-            "200": { description: "ok", schema: { type: "integer" } },
+            "200": {
+              description: "ok",
+              schema: { type: "integer" },
+              examples: {
+                "text/plain": "1",
+                "application/json": 1,
+              },
+            },
+          },
+        },
+      },
+      "/clear": {
+        post: {
+          consumes: [],
+          produces: [],
+          parameters: [
+            {
+              name: "body",
+              in: "body",
+              schema: { type: "boolean" },
+            },
+          ],
+          responses: {
+            "200": { description: "ok", schema: { type: "boolean" } },
           },
         },
       },
@@ -92,6 +115,27 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       upgraded.paths!["/override"]!.post!.responses!["200"]!.content!,
     ),
     ["text/plain", "application/json"],
+  );
+  TestValidator.equals(
+    "operation response examples",
+    Object.fromEntries(
+      Object.entries(
+        upgraded.paths!["/override"]!.post!.responses!["200"]!.content!,
+      ).map(([key, value]) => [key, value!.example]),
+    ),
+    { "text/plain": "1", "application/json": 1 },
+  );
+  TestValidator.equals(
+    "explicit empty operation media",
+    {
+      consumes: Object.keys(
+        upgraded.paths!["/clear"]!.post!.requestBody!.content!,
+      ),
+      produces: Object.keys(
+        upgraded.paths!["/clear"]!.post!.responses!["200"]!.content!,
+      ),
+    },
+    { consumes: [], produces: [] },
   );
 
   const downgraded: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(
@@ -134,5 +178,50 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       consumes: ["text/plain"],
       produces: ["text/plain", "application/json"],
     },
+  );
+  TestValidator.equals(
+    "downgraded response examples",
+    downgraded.paths!["/override"]!.post!.responses!["200"]!.examples,
+    { "text/plain": "1", "application/json": 1 },
+  );
+  TestValidator.predicate(
+    "downgraded explicit empty operation media",
+    () =>
+      downgraded.paths!["/clear"]!.post!.consumes?.length === 0 &&
+      downgraded.paths!["/clear"]!.post!.produces?.length === 0,
+  );
+
+  const reordered: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(
+    {
+      openapi: "3.2.0",
+      components: {},
+      paths: {
+        "/reordered": {
+          get: {
+            responses: {
+              "200": {
+                content: {
+                  "application/json": { schema: { type: "string" } },
+                  "text/plain": { schema: { type: "string" } },
+                },
+              },
+              "400": {
+                content: {
+                  "text/plain": { schema: { type: "string" } },
+                  "application/json": { schema: { type: "string" } },
+                },
+              },
+            },
+          },
+        },
+      },
+      "x-typia-emended-v12": true,
+    },
+    "2.0",
+  );
+  TestValidator.equals(
+    "response media order is not semantic",
+    reordered.paths!["/reordered"]!.get!.produces,
+    ["application/json", "text/plain"],
   );
 };
