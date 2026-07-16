@@ -264,6 +264,10 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           "SwaggerV2Downgrader: request bodies require at least one media type.",
         );
+      if (media.schema === undefined)
+        throw new TypeError(
+          "SwaggerV2Downgrader: request media types require a shared schema.",
+        );
       const formTypes: string[] = types.filter(isFormMediaType);
       if (formTypes.length > 0 && formTypes.length !== types.length)
         throw new TypeError(
@@ -290,7 +294,7 @@ export namespace SwaggerV2Downgrader {
                   ...(input.required !== undefined
                     ? { required: input.required }
                     : {}),
-                  schema: downgradeSchema(collection)(media.schema ?? {}),
+                  schema: downgradeSchema(collection)(media.schema),
                 },
               ],
       };
@@ -331,12 +335,21 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           "SwaggerV2Downgrader: form request additionalProperties constraints are not representable.",
         );
+      const properties: [string, OpenApi.IJsonSchema][] = Object.entries(
+        object.properties ?? {},
+      ).filter(
+        (entry): entry is [string, OpenApi.IJsonSchema] =>
+          entry[1] !== undefined,
+      );
+      if (properties.length === 0)
+        throw new TypeError(
+          "SwaggerV2Downgrader: form request schemas require at least one defined property.",
+        );
+      const propertyNames: Set<string> = new Set(
+        properties.map(([name]) => name),
+      );
       const required: string[] = object.required ?? [];
-      if (
-        required.some(
-          (name) => Object.hasOwn(object.properties ?? {}, name) === false,
-        )
-      )
+      if (required.some((name) => propertyNames.has(name) === false))
         throw new TypeError(
           "SwaggerV2Downgrader: form required fields must exist as properties.",
         );
@@ -344,17 +357,15 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           "SwaggerV2Downgrader: form request body and field requiredness must agree.",
         );
-      return Object.entries(object.properties ?? {})
-        .filter(([_, property]) => property !== undefined)
-        .map(([name, property]) => ({
-          ...downgradeFormDataSchema(collection)(
-            property,
-            mediaTypes.every((type) => type === "multipart/form-data"),
-          ),
-          name,
-          in: "formData",
-          required: required.includes(name) || undefined,
-        }));
+      return properties.map(([name, property]) => ({
+        ...downgradeFormDataSchema(collection)(
+          property,
+          mediaTypes.every((type) => type === "multipart/form-data"),
+        ),
+        name,
+        in: "formData",
+        required: required.includes(name) || undefined,
+      }));
     };
 
   const downgradeFormDataSchema =
@@ -525,20 +536,27 @@ export namespace SwaggerV2Downgrader {
       > = new Map();
       const getAttribute = (
         schema: OpenApi.IJsonSchema,
-      ): SwaggerV2.IJsonSchema.__IAttribute => ({
-        title: schema.title,
-        description: schema.description,
-        deprecated: schema.deprecated,
-        readOnly: schema.readOnly,
-        example: schema.example,
-        examples: schema.examples ? Object.values(schema.examples) : undefined,
-        ...Object.fromEntries(
-          Object.entries(schema).filter(
-            ([key, value]) => key.startsWith("x-") && value !== undefined,
-          ),
-        ),
-      });
+      ): SwaggerV2.IJsonSchema.__IAttribute =>
+        Object.fromEntries(
+          Object.entries({
+            title: schema.title,
+            description: schema.description,
+            deprecated: schema.deprecated,
+            readOnly: schema.readOnly,
+            example: schema.example,
+            examples: schema.examples
+              ? Object.values(schema.examples)
+              : undefined,
+            ...Object.fromEntries(
+              Object.entries(schema).filter(
+                ([key, value]) => key.startsWith("x-") && value !== undefined,
+              ),
+            ),
+          }).filter(([_, value]) => value !== undefined),
+        ) as SwaggerV2.IJsonSchema.__IAttribute;
       const attribute: SwaggerV2.IJsonSchema.__IAttribute = getAttribute(input);
+      const preserveNullableBranches: { value: boolean } = { value: false };
+      const nullableBranches: SwaggerV2.IJsonSchema[] = [];
       const insertConstant = (schema: OpenApi.IJsonSchema.IConstant): void => {
         const value: boolean | number | string = schema.const;
         const type: "boolean" | "number" | "string" =
@@ -577,7 +595,11 @@ export namespace SwaggerV2Downgrader {
         union.push(created);
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isConstant(schema)) insertConstant(schema);
+        if (schema !== input && Object.keys(getAttribute(schema)).length > 0)
+          preserveNullableBranches.value = true;
+        if (OpenApiTypeChecker.isNull(schema))
+          nullableBranches.push({ type: "null", ...getAttribute(schema) });
+        else if (OpenApiTypeChecker.isConstant(schema)) insertConstant(schema);
         else if (
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
@@ -591,7 +613,10 @@ export namespace SwaggerV2Downgrader {
               : undefined,
           });
         else if (OpenApiTypeChecker.isReference(schema))
-          union.push({ $ref: `#/definitions/${schema.$ref.split("/").pop()}` });
+          union.push({
+            $ref: `#/definitions/${schema.$ref.split("/").pop()}`,
+            ...(schema === input ? {} : getAttribute(schema)),
+          });
         else if (OpenApiTypeChecker.isArray(schema))
           union.push({
             ...schema,
@@ -660,6 +685,19 @@ export namespace SwaggerV2Downgrader {
       };
 
       visit(input);
+      if (nullable === true && preserveNullableBranches.value === true) {
+        const branches: SwaggerV2.IJsonSchema[] = [
+          ...union,
+          ...(nullableBranches.length > 0
+            ? nullableBranches
+            : [{ type: "null" } as SwaggerV2.IJsonSchema]),
+        ];
+        if (branches.length === 1) return { ...branches[0], ...attribute };
+        return {
+          "x-oneOf": branches,
+          ...attribute,
+        };
+      }
       if (nullable) {
         for (const u of union)
           if (OpenApiTypeChecker.isReference(u as any))
@@ -866,7 +904,8 @@ export namespace SwaggerV2Downgrader {
     if (
       parsed.some(
         (server) =>
-          server.host !== first.host || server.basePath !== first.basePath,
+          sameAuthority(server.host, first.host) === false ||
+          server.basePath !== first.basePath,
       )
     )
       throw new TypeError(
@@ -901,7 +940,7 @@ export namespace SwaggerV2Downgrader {
       "operation servers",
     );
     if (
-      operation.host !== document.host ||
+      sameAuthority(operation.host, document.host) === false ||
       operation.basePath !== document.basePath
     )
       throw new TypeError(
@@ -973,6 +1012,14 @@ export namespace SwaggerV2Downgrader {
     x === undefined || y === undefined
       ? x === y
       : x.length === y.length && x.every((value, index) => value === y[index]);
+
+  const sameAuthority = (
+    x: string | undefined,
+    y: string | undefined,
+  ): boolean =>
+    x === undefined || y === undefined
+      ? x === y
+      : x.toLowerCase() === y.toLowerCase();
 
   const sameStringSet = (x: string[], y: string[]): boolean =>
     x.length === y.length && x.every((value) => y.includes(value));

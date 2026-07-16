@@ -19,7 +19,8 @@ export const test_document_roundtrip_v20_form_data = (): void => {
     in: "formData",
     required: true,
     type: "file",
-  } satisfies SwaggerV2.IOperation.IGeneralParameter;
+    "x-upload-kind": "attachment",
+  } as unknown as SwaggerV2.IOperation.IGeneralParameter;
   const input: SwaggerV2.IDocument = {
     swagger: "2.0",
     info: { title: "Form API", version: "1.0.0" },
@@ -80,7 +81,20 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       multipart.content!["multipart/form-data"]!
         .schema as OpenApi.IJsonSchema.IObject
     ).properties!.file,
-    { type: "string", format: "binary" },
+    {
+      type: "string",
+      format: "binary",
+      "x-upload-kind": "attachment",
+    } as unknown as OpenApi.IJsonSchema,
+  );
+  TestValidator.predicate(
+    "multipart file vendor extension",
+    (
+      (
+        multipart.content!["multipart/form-data"]!
+          .schema as OpenApi.IJsonSchema.IObject
+      ).properties!.file as unknown as Record<string, unknown>
+    )["x-upload-kind"] === "attachment",
   );
 
   const migration: IHttpMigrateApplication =
@@ -120,11 +134,33 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       name: "name" in parameter ? parameter.name : undefined,
       in: "in" in parameter ? parameter.in : undefined,
       type: "type" in parameter ? parameter.type : undefined,
+      uploadKind:
+        "x-upload-kind" in parameter ? parameter["x-upload-kind"] : undefined,
     })),
     [
-      { name: "file", in: "formData", type: "file" },
-      { name: "label", in: "formData", type: "string" },
+      {
+        name: "file",
+        in: "formData",
+        type: "file",
+        uploadKind: "attachment",
+      },
+      {
+        name: "label",
+        in: "formData",
+        type: "string",
+        uploadKind: undefined,
+      },
     ],
+  );
+  TestValidator.predicate(
+    "downgraded file vendor extension",
+    downgraded.paths!["/multipart"]!.post!.parameters!.some(
+      (parameter) =>
+        "name" in parameter &&
+        parameter.name === "file" &&
+        (parameter as unknown as Record<string, unknown>)["x-upload-kind"] ===
+          "attachment",
+    ),
   );
 
   assertThrows("body and formData", () =>

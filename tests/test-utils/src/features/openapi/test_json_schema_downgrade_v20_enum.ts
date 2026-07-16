@@ -1,6 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
-import { OpenApiConverter } from "@typia/utils";
+import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
 
 /**
  * Verifies Swagger 2 downgrade groups constants into typed enums.
@@ -105,6 +105,62 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
         { const: "b", description: "Second" },
       ],
     },
+  );
+  const singleAttributed: SwaggerV2.IJsonSchema = convert({
+    oneOf: [{ const: "a", description: "First" }],
+  });
+  TestValidator.equals("single attributed constant branch", singleAttributed, {
+    type: "string",
+    enum: ["a"],
+    description: "First",
+  });
+  TestValidator.predicate(
+    "single attributed constant description",
+    singleAttributed.description === "First",
+  );
+  const nullableAttributed: OpenApi.IJsonSchema = {
+    oneOf: [
+      { const: "a", description: "First" },
+      { type: "null", description: "Absent" },
+    ],
+  };
+  const nullableAttributedDowngraded: SwaggerV2.IJsonSchema =
+    convert(nullableAttributed);
+  TestValidator.equals(
+    "nullable attributed constant branch",
+    nullableAttributedDowngraded,
+    {
+      "x-oneOf": [
+        { type: "string", enum: ["a"], description: "First" },
+        { type: "null", description: "Absent" },
+      ],
+    },
+  );
+  TestValidator.equals(
+    "nullable attributed constant branch round trip",
+    OpenApiConverter.upgradeSchema({
+      definitions: {},
+      schema: nullableAttributedDowngraded,
+    }),
+    nullableAttributed,
+  );
+  const explicitNullable: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    definitions: {},
+    schema: {
+      "x-oneOf": [{ type: "number", description: "Amount" }, { type: "null" }],
+    },
+  });
+  TestValidator.equals(
+    "explicit nullable Swagger branch attributes",
+    explicitNullable,
+    {
+      oneOf: [{ type: "number", description: "Amount" }, { type: "null" }],
+    },
+  );
+  TestValidator.predicate(
+    "explicit nullable Swagger branch description",
+    OpenApiTypeChecker.isOneOf(explicitNullable) &&
+      explicitNullable.oneOf[0]?.description === "Amount",
   );
   TestValidator.equals(
     "nullable constant",

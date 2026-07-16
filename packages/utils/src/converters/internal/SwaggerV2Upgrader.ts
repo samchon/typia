@@ -284,6 +284,11 @@ export namespace SwaggerV2Upgrader {
           type: "string",
           format: "binary",
           description,
+          ...Object.fromEntries(
+            Object.entries(schema).filter(
+              ([key, value]) => key.startsWith("x-") && value !== undefined,
+            ),
+          ),
         };
       const converted: OpenApi.IJsonSchema = convertSchema(definitions)({
         ...schema,
@@ -591,26 +596,29 @@ export namespace SwaggerV2Upgrader {
       const union: OpenApi.IJsonSchema[] = [];
       const getAttribute = (
         schema: SwaggerV2.IJsonSchema,
-      ): IJsonSchemaAttribute => ({
-        title: schema.title,
-        description: schema.description,
-        deprecated: schema.deprecated,
-        readOnly: schema.readOnly,
-        example: schema.example,
-        examples: schema.examples
-          ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
-          : undefined,
-        ...Object.fromEntries(
-          Object.entries(schema).filter(
-            ([key, value]) =>
-              key.startsWith("x-") &&
-              key !== "x-anyOf" &&
-              key !== "x-oneOf" &&
-              key !== "x-nullable" &&
-              value !== undefined,
-          ),
-        ),
-      });
+      ): IJsonSchemaAttribute =>
+        Object.fromEntries(
+          Object.entries({
+            title: schema.title,
+            description: schema.description,
+            deprecated: schema.deprecated,
+            readOnly: schema.readOnly,
+            example: schema.example,
+            examples: schema.examples
+              ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
+              : undefined,
+            ...Object.fromEntries(
+              Object.entries(schema).filter(
+                ([key, value]) =>
+                  key.startsWith("x-") &&
+                  key !== "x-anyOf" &&
+                  key !== "x-oneOf" &&
+                  key !== "x-nullable" &&
+                  value !== undefined,
+              ),
+            ),
+          }).filter(([_, value]) => value !== undefined),
+        ) as IJsonSchemaAttribute;
       const attribute: IJsonSchemaAttribute = getAttribute(input);
       const visit = (schema: SwaggerV2.IJsonSchema): void => {
         // NULLABLE PROPERTY
@@ -778,6 +786,8 @@ export namespace SwaggerV2Upgrader {
         });
       if (
         union.length === 2 &&
+        SwaggerV2TypeChecker.isAnyOf(input) === false &&
+        SwaggerV2TypeChecker.isOneOf(input) === false &&
         union.filter((x) => OpenApiTypeChecker.isNull(x)).length === 1
       ) {
         const type: OpenApi.IJsonSchema = union.filter(

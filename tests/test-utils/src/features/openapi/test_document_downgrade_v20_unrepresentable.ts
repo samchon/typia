@@ -10,7 +10,7 @@ import { OpenApiConverter } from "@typia/utils";
  * silently redirects requests or changes payload contracts.
  *
  * 1. Attempt to downgrade servers with different authorities and server variables.
- * 2. Reject unsupported server metadata, missing request media, and mixed
+ * 2. Reject unsupported server metadata, incomplete request media, and mixed
  *    form/non-form request media.
  * 3. Attempt to downgrade request and response media entries with different
  *    schemas or unrepresentable examples.
@@ -103,6 +103,61 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
           "/items": {
             post: {
               requestBody: { content: {} },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "request media without schema",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: { "application/json": {} },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "form body without fields",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: {
+                  "multipart/form-data": {
+                    schema: { type: "object", properties: {} },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "required undefined form field",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                required: true,
+                content: {
+                  "multipart/form-data": {
+                    schema: {
+                      type: "object",
+                      properties: { file: undefined },
+                      required: ["file"],
+                    } as unknown as OpenApi.IJsonSchema,
+                  },
+                },
+              },
             },
           },
         },

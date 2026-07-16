@@ -227,6 +227,67 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     },
   );
 
+  const hostCase: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(
+    {
+      openapi: "3.2.0",
+      components: {},
+      servers: [
+        { url: "https://API.example.com/v1" },
+        { url: "http://api.example.com/v1" },
+      ],
+      paths: {
+        "/case": {
+          get: {
+            servers: [{ url: "https://Api.Example.Com/v1" }],
+            responses: {},
+          },
+        },
+      },
+      "x-typia-emended-v12": true,
+    },
+    "2.0",
+  );
+  TestValidator.equals(
+    "host authority casing",
+    {
+      schemes: hostCase.schemes,
+      host: hostCase.host,
+      operationSchemes: hostCase.paths!["/case"]!.get!.schemes,
+    },
+    {
+      schemes: ["https", "http"],
+      host: "API.example.com",
+      operationSchemes: ["https"],
+    },
+  );
+  const networkHostCase: SwaggerV2.IDocument =
+    OpenApiConverter.downgradeDocument(
+      {
+        openapi: "3.2.0",
+        components: {},
+        servers: [
+          { url: "//API.example.com/v1" },
+          { url: "//api.example.com/v1" },
+        ],
+        paths: {},
+        "x-typia-emended-v12": true,
+      },
+      "2.0",
+    );
+  TestValidator.equals(
+    "scheme-relative host authority casing",
+    {
+      schemes: networkHostCase.schemes,
+      host: networkHostCase.host,
+      basePath: networkHostCase.basePath,
+    },
+    {
+      schemes: undefined,
+      host: "API.example.com",
+      basePath: "/v1",
+    },
+  );
+
   assertThrows("empty consumes with body schema", () =>
     OpenApiConverter.upgradeDocument({
       ...input,
