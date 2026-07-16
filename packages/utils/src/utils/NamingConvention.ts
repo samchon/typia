@@ -12,7 +12,8 @@
  * - {@link pascal}: Convert to PascalCase (`FooBar`)
  * - {@link snake}: Convert to snake_case (`foo_bar`)
  * - {@link kebab}: Convert to kebab-case (`foo-bar`)
- * - {@link variable}: Test if string is valid JavaScript variable name
+ * - {@link variable}: Test if string is a legal binding identifier
+ * - {@link reserved}: Test if string is a JavaScript reserved word
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -140,14 +141,46 @@ export namespace NamingConvention {
   /**
    * Check if string is valid JavaScript variable name.
    *
+   * Returns `true` only when `str` can be used as a *binding* identifier — a
+   * declaration, parameter, or import name — in the dialect typia generates:
+   * an ES module, which is always strict mode. A string is a valid binding
+   * when it has identifier shape and is neither {@link reserved} nor one of
+   * the strict-mode restricted binding names (`eval`, `arguments`).
+   *
+   * The restricted binding names are why this is not derived from
+   * {@link reserved} alone. `eval` and `arguments` are not reserved words at
+   * all; they are rejected only in binding position under strict mode, so no
+   * reserved-word list can express this predicate.
+   *
+   * Property *access* is a weaker requirement than binding, since dot notation
+   * accepts reserved words (`x.let` is legal). Callers escaping a property key
+   * rather than declaring a name are therefore held to a stricter rule than
+   * they need; that is safe, but they cannot rely on this predicate to mean
+   * "needs bracket notation".
+   *
+   * Identifier shape is restricted to ASCII. JavaScript also admits Unicode
+   * identifiers, so this may report `false` for an otherwise legal name. The
+   * bias is deliberate: it can only cause a name to be escaped, never to leak
+   * an illegal binding.
+   *
    * @param str String to check
    * @returns True if valid variable name
    */
   export const variable = (str: string): boolean =>
-    reserved(str) === false && /^[a-zA-Z_$][a-zA-Z_$0-9]*$/g.test(str);
+    IDENTIFIER.test(str) && RESTRICTED.has(str) === false;
 
   /**
    * Check if string is JavaScript reserved word.
+   *
+   * Covers every ECMAScript `ReservedWord` plus the future reserved words that
+   * apply in strict mode, since typia generates ES modules, which are always
+   * strict. `module` is reserved by typia policy rather than by the language:
+   * it is a legal identifier, but shadowing it would break `module.exports` in
+   * CommonJS output.
+   *
+   * `eval` and `arguments` are deliberately absent. They are not reserved
+   * words — they are merely illegal as binding names in strict code — so
+   * {@link variable} rejects them separately.
    *
    * @param str String to check
    * @returns True if reserved word
@@ -155,7 +188,19 @@ export namespace NamingConvention {
   export const reserved = (str: string): boolean => RESERVED.has(str);
 }
 
-const RESERVED: Set<string> = new Set([
+/**
+ * Identifier shape, ASCII subset.
+ *
+ * Declared without the `g` flag on purpose: a global regular expression
+ * carries `lastIndex` across `test()` calls, which would make
+ * {@link NamingConvention.variable} alternate between answers for the same
+ * input once the pattern is hoisted out of the function body.
+ */
+const IDENTIFIER = /^[a-zA-Z_$][a-zA-Z_$0-9]*$/;
+
+/** ECMAScript `ReservedWord`. */
+const RESERVED_WORDS: string[] = [
+  "await",
   "break",
   "case",
   "catch",
@@ -178,13 +223,8 @@ const RESERVED: Set<string> = new Set([
   "import",
   "in",
   "instanceof",
-  "module",
   "new",
   "null",
-  "package",
-  "public",
-  "private",
-  "protected",
   "return",
   "super",
   "switch",
@@ -197,6 +237,53 @@ const RESERVED: Set<string> = new Set([
   "void",
   "while",
   "with",
+  "yield",
+];
+
+/**
+ * Future reserved words that apply only in strict mode.
+ *
+ * Generated ES modules are always strict, so these are reserved for every name
+ * typia emits.
+ */
+const STRICT_RESERVED_WORDS: string[] = [
+  "implements",
+  "interface",
+  "let",
+  "package",
+  "private",
+  "protected",
+  "public",
+  "static",
+];
+
+/**
+ * Reserved by typia policy rather than by the language.
+ *
+ * `module` is a legal JavaScript identifier, but a generated name that shadows
+ * it would break `module.exports` in CommonJS output.
+ */
+const POLICY_RESERVED_WORDS: string[] = ["module"];
+
+/**
+ * Names that are illegal in binding position under strict mode without being
+ * reserved words.
+ *
+ * These are the reason {@link NamingConvention.variable} cannot be a
+ * reserved-word lookup: `x.eval` and `const { eval: e } = x` are fine, while
+ * `function f(eval) {}` is a `SyntaxError` in strict code.
+ */
+const STRICT_RESTRICTED_BINDINGS: string[] = ["eval", "arguments"];
+
+const RESERVED: Set<string> = new Set([
+  ...RESERVED_WORDS,
+  ...STRICT_RESERVED_WORDS,
+  ...POLICY_RESERVED_WORDS,
+]);
+
+const RESTRICTED: Set<string> = new Set([
+  ...RESERVED,
+  ...STRICT_RESTRICTED_BINDINGS,
 ]);
 
 const unsnake =
