@@ -36,7 +36,7 @@ func TestNotationKebabCaseTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("kebab notation transform failed: code=%d stderr=\n%s", code, errText)
   }
-  for _, key := range []string{`"user-id"`, `"user-name"`, `"_private-value"`, `xmlparser:`, `"inner-value"`} {
+  for _, key := range []string{`"user-id"`, `"user-name"`, `"_private-value"`, `"xmlparser"`, `"inner-value"`} {
     if !strings.Contains(out, key) {
       t.Fatalf("emitted converter should contain kebab key %s:\n%s", key, out)
     }

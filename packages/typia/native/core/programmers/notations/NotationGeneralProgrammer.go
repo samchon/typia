@@ -1017,7 +1017,26 @@ func notationGeneralProgrammer_configure(props struct {
       },
       Joiner: func(next nativeinternal.FeatureProgrammer_ObjectorJoinerProps) *shimast.Node {
         return nativehelpers.NotationJoiner.Object(nativehelpers.NotationJoiner_ObjectProps{
-          Rename:  props.Rename.Func,
+          Rename: props.Rename.Func,
+          DynamicRename: func() *shimast.Node {
+            return notationGeneralProgrammer_internal(props.Context, "notation"+notationGeneralProgrammer_capitalize(props.Rename.Name))
+          },
+          DynamicAssign: func() *shimast.Node {
+            return notationGeneralProgrammer_internal(props.Context, "notationAssign")
+          },
+          ThrowCollision: func(first string, second string, destination string) *shimast.Node {
+            return f.NewCallExpression(
+              notationGeneralProgrammer_internal(props.Context, "notationKeyCollision"),
+              nil,
+              nil,
+              f.NewNodeList([]*shimast.Node{
+                f.NewStringLiteral(first, shimast.TokenFlagsNone),
+                f.NewStringLiteral(second, shimast.TokenFlagsNone),
+                f.NewStringLiteral(destination, shimast.TokenFlagsNone),
+              }),
+              shimast.NodeFlagsNone,
+            )
+          },
           Input:   next.Input,
           Entries: next.Entries,
           Emit:    props.Context.Emit,

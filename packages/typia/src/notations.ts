@@ -23,7 +23,10 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * Converts property names to camelCase.
  *
  * Transforms all property names in the object (including nested) to camelCase
- * convention. Creates a new object with renamed properties.
+ * convention. Creates a new object with renamed properties. Distinct source
+ * keys that become the same destination key are rejected with an error instead
+ * of silently discarding a value. This collision policy also applies to the
+ * assert, is, validate, and factory variants.
  *
  * Does not validate the input. For validation, use:
  *
@@ -34,6 +37,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * @template T Type of input value
  * @param input Object to convert
  * @returns New object with camelCase property names
+ * @throws {Error} When two source keys become the same destination key
  */
 export function camel<T>(input: T): CamelCase<T>;
 
@@ -137,7 +141,10 @@ export function validateCamel(): never {
  * Converts property names to PascalCase.
  *
  * Transforms all property names in the object (including nested) to PascalCase
- * convention. Creates a new object with renamed properties.
+ * convention. Creates a new object with renamed properties. Distinct source
+ * keys that become the same destination key are rejected with an error instead
+ * of silently discarding a value. This collision policy also applies to the
+ * assert, is, validate, and factory variants.
  *
  * Does not validate the input. For validation, use:
  *
@@ -148,6 +155,7 @@ export function validateCamel(): never {
  * @template T Type of input value
  * @param input Object to convert
  * @returns New object with PascalCase property names
+ * @throws {Error} When two source keys become the same destination key
  */
 export function pascal<T>(input: T): PascalCase<T>;
 
@@ -251,7 +259,10 @@ export function validatePascal(): never {
  * Converts property names to snake_case.
  *
  * Transforms all property names in the object (including nested) to snake_case
- * convention. Creates a new object with renamed properties.
+ * convention. Creates a new object with renamed properties. Distinct source
+ * keys that become the same destination key are rejected with an error instead
+ * of silently discarding a value. This collision policy also applies to the
+ * assert, is, validate, and factory variants.
  *
  * Does not validate the input. For validation, use:
  *
@@ -262,6 +273,7 @@ export function validatePascal(): never {
  * @template T Type of input value
  * @param input Object to convert
  * @returns New object with snake_case property names
+ * @throws {Error} When two source keys become the same destination key
  */
 export function snake<T>(input: T): SnakeCase<T>;
 
@@ -365,7 +377,10 @@ export function validateSnake(): never {
  * Converts property names to kebab-case.
  *
  * Transforms all property names in the object (including nested) to kebab-case
- * convention. Creates a new object with renamed properties.
+ * convention. Creates a new object with renamed properties. Distinct source
+ * keys that become the same destination key are rejected with an error instead
+ * of silently discarding a value. This collision policy also applies to the
+ * assert, is, validate, and factory variants.
  *
  * Does not validate the input. For validation, use:
  *
@@ -376,6 +391,7 @@ export function validateSnake(): never {
  * @template T Type of input value
  * @param input Object to convert
  * @returns New object with kebab-case property names
+ * @throws {Error} When two source keys become the same destination key
  */
 export function kebab<T>(input: T): KebabCase<T>;
 
