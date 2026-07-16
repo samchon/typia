@@ -21,17 +21,23 @@ export namespace LangChainToolsRegistrar {
     const tools: DynamicStructuredTool[] = [];
 
     // check duplicate tool names
-    if (prefix === false && props.controllers.length >= 2) {
+    if (props.controllers.length >= 2) {
       const names: Map<string, string> = new Map();
       const duplicates: string[] = [];
       for (const controller of props.controllers) {
         for (const func of controller.application.functions) {
-          const existing: string | undefined = names.get(func.name);
+          const toolName: string = getToolName(
+            controller.name,
+            func.name,
+            prefix,
+          );
+          const existing: string | undefined = names.get(toolName);
+          const origin: string = `${controller.protocol} controller "${controller.name}" function "${func.name}"`;
           if (existing !== undefined)
             duplicates.push(
-              `"${func.name}" in "${controller.name}" (conflicts with "${existing}")`,
+              `"${toolName}" from ${origin} (conflicts with ${existing})`,
             );
-          else names.set(func.name, controller.name);
+          else names.set(toolName, origin);
         }
       }
       if (duplicates.length > 0)
@@ -60,9 +66,7 @@ export namespace LangChainToolsRegistrar {
     const execute: Record<string, unknown> = controller.execute;
 
     for (const func of controller.application.functions) {
-      const toolName: string = prefix
-        ? `${controller.name}_${func.name}`
-        : func.name;
+      const toolName: string = getToolName(controller.name, func.name, prefix);
 
       const method: unknown = execute[func.name];
       if (typeof method !== "function") {
@@ -90,9 +94,7 @@ export namespace LangChainToolsRegistrar {
     const connection = controller.connection;
 
     for (const func of application.functions) {
-      const toolName: string = prefix
-        ? `${controller.name}_${func.name}`
-        : func.name;
+      const toolName: string = getToolName(controller.name, func.name, prefix);
 
       tools.push(
         createTool({
@@ -164,6 +166,12 @@ export namespace LangChainToolsRegistrar {
         schema: entry.function.parameters,
       },
     );
+
+  const getToolName = (
+    controllerName: string,
+    functionName: string,
+    prefix: boolean,
+  ): string => (prefix ? `${controllerName}_${functionName}` : functionName);
 }
 
 type ITryResult =
