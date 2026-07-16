@@ -6,6 +6,6 @@
  */
 export type IsTupleLike<T extends readonly unknown[]> = T extends readonly []
   ? true
-  : Exclude<keyof T, keyof any[]> extends never
+  : Extract<keyof T, `${number}`> extends never
     ? false
     : true;
