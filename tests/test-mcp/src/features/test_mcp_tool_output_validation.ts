@@ -178,7 +178,7 @@ const invalidCases: ReadonlyArray<
 > = [
   ["undefined", "$input"],
   ["null", "$input"],
-  ["array", "$input.value"],
+  ["array", "$input"],
   ["primitive", "$input"],
   ["missing", "$input.value"],
   ["extra", "$input.extra"],
