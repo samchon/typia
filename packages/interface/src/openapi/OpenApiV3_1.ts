@@ -237,6 +237,19 @@ export namespace OpenApiV3_1 {
       /** Whether required. */
       required?: boolean;
 
+      /** Parameter serialization style. */
+      style?:
+        | "matrix"
+        | "label"
+        | "form"
+        | "simple"
+        | "spaceDelimited"
+        | "pipeDelimited"
+        | "deepObject";
+
+      /** Whether arrays and objects are exploded during serialization. */
+      explode?: boolean;
+
       /** Parameter description. */
       description?: string;
 

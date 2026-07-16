@@ -6,8 +6,8 @@
  * Contains the full HTTP context: method, path, status, headers, and response
  * body.
  *
- * The response body is available via {@link message} (raw string) or
- * {@link toJSON} (parsed JSON). For non-throwing behavior, use
+ * The human-readable error text is available via {@link message}, while
+ * {@link toJSON} preserves the parsed response body. For non-throwing behavior, use
  * {@link HttpLlm.propagate} or {@link HttpMigration.propagate} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -32,28 +32,29 @@ export class HttpError extends Error {
   /** Response headers from server. */
   public readonly headers: Record<string, string | string[]>;
 
-  /** @internal */
-  private body_: any = NOT_YET;
+  /** Parsed response body. */
+  private readonly body_: unknown;
 
   /**
    * @param method HTTP method
    * @param path Request path or URL
    * @param status HTTP status code
    * @param headers Response headers
-   * @param message Error message (response body)
+   * @param body Parsed response body
    */
   public constructor(
     method: "GET" | "QUERY" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD",
     path: string,
     status: number,
     headers: Record<string, string | string[]>,
-    message: string,
+    body: unknown,
   ) {
-    super(message);
+    super(stringifyBody(body));
     this.method = method;
     this.path = path;
     this.status = status;
     this.headers = headers;
+    this.body_ = body;
 
     // INHERITANCE POLYFILL
     const proto: HttpError = new.target.prototype;
@@ -64,25 +65,16 @@ export class HttpError extends Error {
   /**
    * Serialize to JSON-compatible object.
    *
-   * Lazily parses JSON message body on first call. If parsing fails, returns
-   * the original string.
-   *
    * @template T Expected response body type
    * @returns Structured HTTP error information
    */
   public toJSON<T>(): HttpError.IProps<T> {
-    if (this.body_ === NOT_YET)
-      try {
-        this.body_ = JSON.parse(this.message);
-      } catch {
-        this.body_ = this.message;
-      }
     return {
       method: this.method,
       path: this.path,
       status: this.status,
       headers: this.headers,
-      message: this.body_,
+      message: this.body_ as T,
     };
   }
 }
@@ -110,5 +102,14 @@ export namespace HttpError {
   }
 }
 
-/** @internal */
-const NOT_YET = {} as any;
+const stringifyBody = (body: unknown): string => {
+  if (typeof body === "string") return body;
+  if (body === undefined) return "";
+  if (body instanceof URLSearchParams) return body.toString();
+  try {
+    const output: string | undefined = JSON.stringify(body);
+    return output ?? String(body);
+  } catch {
+    return String(body);
+  }
+};

@@ -35,13 +35,16 @@ export interface IHttpMigrateRoute {
   /** Combined headers as single object. Null if none. */
   headers: IHttpMigrateRoute.IHeaders | null;
 
+  /** Combined cookies as single object. Null if none. */
+  cookies: IHttpMigrateRoute.ICookies | null;
+
   /** Combined query parameters as single object. Null if none. */
   query: IHttpMigrateRoute.IQuery | null;
 
   /** Request body metadata. Null if none. */
   body: IHttpMigrateRoute.IBody | null;
 
-  /** Success response (200/201). Null if void return. */
+  /** Representative success response for the declared 2xx class. */
   success: IHttpMigrateRoute.ISuccess | null;
 
   /** Exception responses keyed by status code. */
@@ -65,6 +68,12 @@ export namespace IHttpMigrateRoute {
     /** Parameter type schema. */
     schema: OpenApi.IJsonSchema;
 
+    /** Effective serialization style. */
+    style: "matrix" | "label" | "simple";
+
+    /** Effective explode behavior. */
+    explode: boolean;
+
     /** Returns source parameter definition. */
     parameter: () => OpenApi.IOperation.IParameter;
   }
@@ -79,6 +88,12 @@ export namespace IHttpMigrateRoute {
 
     /** Combined headers schema. */
     schema: OpenApi.IJsonSchema;
+
+    /** Whether the combined headers argument is required. */
+    required: boolean;
+
+    /** Source parameter serialization metadata. */
+    parameters: IHttpMigrateRoute.ISerialization[];
 
     /** Returns title. */
     title: () => string | undefined;
@@ -104,6 +119,12 @@ export namespace IHttpMigrateRoute {
     /** Combined query schema. */
     schema: OpenApi.IJsonSchema;
 
+    /** Whether the combined query argument is required. */
+    required: boolean;
+
+    /** Source parameter serialization metadata. */
+    parameters: IHttpMigrateRoute.ISerialization[];
+
     /** Returns title. */
     title: () => string | undefined;
 
@@ -115,6 +136,30 @@ export namespace IHttpMigrateRoute {
 
     /** Returns named examples. */
     examples: () => Record<string, any> | undefined;
+  }
+
+  /** Cookie metadata. */
+  export interface ICookies extends IHeaders {}
+
+  /** Serialization metadata for a grouped request parameter. */
+  export interface ISerialization {
+    /** OpenAPI parameter name sent on the wire. */
+    name: string;
+
+    /** Property key in the grouped argument, or null for an object parameter. */
+    key: string | null;
+
+    /** Object properties owned by an object parameter. */
+    properties: string[] | null;
+
+    /** Effective serialization style. */
+    style: "form" | "simple" | "spaceDelimited" | "pipeDelimited" | "deepObject";
+
+    /** Effective explode behavior. */
+    explode: boolean;
+
+    /** Returns source parameter definition. */
+    parameter: () => OpenApi.IOperation.IParameter;
   }
 
   /** Request body metadata. */
@@ -134,6 +179,9 @@ export namespace IHttpMigrateRoute {
 
     /** Body type schema. */
     schema: OpenApi.IJsonSchema;
+
+    /** Whether the request body is required. */
+    required: boolean;
 
     /** Returns description. */
     description: () => string | undefined;

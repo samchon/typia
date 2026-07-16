@@ -31,6 +31,7 @@ export namespace HttpMigrateRouteComposer {
         schema,
       }),
     )(props.operation.requestBody);
+    const successResponse = selectSuccessResponse(props.operation.responses);
     const success: false | null | IHttpMigrateRoute.ISuccess = (() => {
       const body = emplaceBodySchema(props.document)("response")((schema) =>
         emplaceReference({
@@ -41,19 +42,11 @@ export namespace HttpMigrateRouteComposer {
             EndpointUtil.pascal(`${props.method}/Response`),
           schema,
         }),
-      )(
-        props.operation.responses?.["201"] ??
-          props.operation.responses?.["200"] ??
-          props.operation.responses?.default,
-      );
+      )(successResponse?.[1]);
       return body
         ? {
             ...body,
-            status: props.operation.responses?.["201"]
-              ? "201"
-              : props.operation.responses?.["200"]
-                ? "200"
-                : "default",
+            status: successResponse![0],
           }
         : body;
     })();
@@ -71,7 +64,9 @@ export namespace HttpMigrateRouteComposer {
     //----
     // HEADERS AND QUERY
     //---
-    const [headers, query] = ["header", "query"].map((type) => {
+    const [headers, query, cookies] = (
+      ["header", "query", "cookie"] as const
+    ).map((type) => {
       // FIND TARGET PARAMETERS
       const parameters: OpenApi.IOperation.IParameter[] = (
         props.operation.parameters ?? []
@@ -82,18 +77,37 @@ export namespace HttpMigrateRouteComposer {
       );
       if (parameters.length === 0) return null;
 
+      const canonical = (name: string): string =>
+        type === "header" ? name.toLowerCase() : name;
+      const named = parameters.filter((p) => p.name !== undefined);
+      if (named.length !== parameters.length) {
+        failures.push(`${type} typed parameters must have a name`);
+        return false;
+      }
+      if (
+        new Set(named.map((p) => canonical(p.name!))).size !== named.length
+      ) {
+        failures.push(`${type} typed parameter names must be unique`);
+        return false;
+      }
+
       // CHECK PARAMETER TYPES -> TO BE OBJECT
-      const objects = parameters
+      const objectParameters = parameters
         .map((p) =>
           OpenApiTypeChecker.isObject(p.schema)
-            ? p.schema
+            ? { parameter: p, schema: p.schema }
             : OpenApiTypeChecker.isReference(p.schema) &&
                 OpenApiTypeChecker.isObject(
                   props.document.components.schemas?.[
                     p.schema.$ref.replace(`#/components/schemas/`, ``)
                   ] ?? {},
                 )
-              ? p.schema
+              ? {
+                  parameter: p,
+                  schema: props.document.components.schemas?.[
+                    p.schema.$ref.replace(`#/components/schemas/`, ``)
+                  ]! as OpenApi.IJsonSchema.IObject,
+                }
               : null!,
         )
         .filter((s) => !!s);
@@ -106,6 +120,54 @@ export namespace HttpMigrateRouteComposer {
           OpenApiTypeChecker.isArray(p.schema) ||
           OpenApiTypeChecker.isTuple(p.schema),
       );
+      const serialization: IHttpMigrateRoute.ISerialization[] = parameters.map(
+        (parameter) => {
+          const object = objectParameters.find(
+            (entry) => entry.parameter === parameter,
+          );
+          const style =
+            parameter.style ??
+            (type === "header" ? "simple" : "form");
+          const allowed =
+            type === "header"
+              ? style === "simple"
+              : type === "cookie"
+                ? style === "form"
+                : [
+                    "form",
+                    "spaceDelimited",
+                    "pipeDelimited",
+                    "deepObject",
+                  ].includes(style);
+          if (allowed === false)
+            failures.push(
+              `${type} parameter ${JSON.stringify(parameter.name)} does not support ${JSON.stringify(style)} style`,
+            );
+          if (style === "deepObject" && object === undefined)
+            failures.push(
+              `query parameter ${JSON.stringify(parameter.name)} requires an object schema for deepObject style`,
+            );
+          if (
+            (style === "spaceDelimited" || style === "pipeDelimited") &&
+            !OpenApiTypeChecker.isArray(parameter.schema) &&
+            !OpenApiTypeChecker.isTuple(parameter.schema)
+          )
+            failures.push(
+              `query parameter ${JSON.stringify(parameter.name)} requires an array schema for ${style} style`,
+            );
+          return {
+            name: parameter.name!,
+            key: object === undefined ? parameter.name! : null,
+            properties:
+              object === undefined
+                ? null
+                : Object.keys(object.schema.properties ?? {}),
+            style: style as IHttpMigrateRoute.ISerialization["style"],
+            explode: parameter.explode ?? style === "form",
+            parameter: () => parameter,
+          };
+        },
+      );
       const out = (elem: {
         schema: OpenApi.IJsonSchema;
         title?: string;
@@ -117,38 +179,35 @@ export namespace HttpMigrateRouteComposer {
           ...elem,
           name: type,
           key: type,
+          required: parameters.some((p) => p.required === true),
+          parameters: serialization,
           title: () => elem.title,
           description: () => elem.description,
           example: () => elem.example,
           examples: () => elem.examples,
         }) satisfies IHttpMigrateRoute.IHeaders;
 
-      if (objects.length === 1 && primitives.length === 0)
+      if (objectParameters.length === 1 && primitives.length === 0)
         return out(sanitizeParameter(props.document)(parameters[0]!));
-      else if (objects.length > 1) {
+      else if (objectParameters.length > 1) {
         failures.push(`${type} typed parameters must be only one object type`);
         return false;
       }
 
       // GATHER TO OBJECT TYPE
-      const dto: OpenApi.IJsonSchema.IObject | null = objects[0]
-        ? OpenApiTypeChecker.isObject(objects[0])
-          ? objects[0]
-          : ((props.document.components.schemas ?? {})[
-              (objects[0] as OpenApi.IJsonSchema.IReference).$ref.replace(
-                `#/components/schemas/`,
-                ``,
-              )
-            ] as OpenApi.IJsonSchema.IObject)
-        : null;
-      const entire: OpenApi.IJsonSchema.IObject[] = [
-        ...objects.map((o) =>
-          OpenApiTypeChecker.isObject(o)
-            ? o
-            : (props.document.components.schemas?.[
-                o.$ref.replace(`#/components/schemas/`, ``)
-              ]! as OpenApi.IJsonSchema.IObject),
-        ),
+      const dto: OpenApi.IJsonSchema.IObject | null =
+        objectParameters[0]?.schema ?? null;
+      const primitiveNames = new Set(primitives.map((p) => canonical(p.name!)));
+      const collisions = Object.keys(dto?.properties ?? {}).filter((name) =>
+        primitiveNames.has(canonical(name)),
+      );
+      if (collisions.length !== 0) {
+        failures.push(
+          `${type} typed parameter properties conflict: ${collisions.join(", ")}`,
+        );
+        return false;
+      }
+      const entire: OpenApi.IJsonSchema.IObject =
         OpenApiSchemaSanitizer.omitEmptyRequired({
           type: "object",
           properties: Object.fromEntries([
@@ -167,8 +226,7 @@ export namespace HttpMigrateRouteComposer {
               ...(dto?.required ?? []),
             ]),
           ],
-        }),
-      ];
+        });
       return parameters.length === 0
         ? null
         : out({
@@ -182,26 +240,14 @@ export namespace HttpMigrateRouteComposer {
                 type: "object",
                 properties: Object.fromEntries([
                   ...new Map<string, OpenApi.IJsonSchema>(
-                    entire
-                      .map((o) =>
-                        Object.entries(o.properties ?? {}).map(
-                          ([name, schema]) =>
-                            [
-                              name,
-                              {
-                                ...schema,
-                                description:
-                                  schema.description ?? schema.description,
-                              } as OpenApi.IJsonSchema,
-                            ] as const,
-                        ),
-                      )
-                      .flat(),
+                    Object.entries(entire.properties ?? {}).map(
+                      ([name, schema]) => [
+                        name,
+                        { ...schema } as OpenApi.IJsonSchema,
+                      ] as const),
                   ),
                 ]),
-                required: [
-                  ...new Set(entire.map((o) => o.required ?? []).flat()),
-                ],
+                required: [...new Set(entire.required ?? [])],
               } satisfies OpenApi.IJsonSchema.IObject),
             }),
           });
@@ -210,90 +256,96 @@ export namespace HttpMigrateRouteComposer {
     //----
     // PATH PARAMETERS
     //----
-    const parameterNames: string[] = EndpointUtil.splitWithNormalization(
-      props.emendedPath,
-    )
-      .filter((str) => str[0] === ":")
-      .map((str) => str.substring(1));
+    const parameterNames: string[] = props.path
+      .split("/")
+      .filter((str) => str.startsWith("{") && str.endsWith("}"))
+      .map((str) => str.substring(1, str.length - 1));
+    const uniqueParameterNames: string[] = [...new Set(parameterNames)];
     const pathParameters: OpenApi.IOperation.IParameter[] = (
       props.operation.parameters ?? []
     ).filter((p) => p.in === "path");
-    if (parameterNames.length !== pathParameters.length)
-      if (
-        pathParameters.length < parameterNames.length &&
-        pathParameters.every(
-          (p) => p.name !== undefined && parameterNames.includes(p.name),
-        )
-      ) {
-        for (const name of parameterNames)
-          if (pathParameters.find((p) => p.name === name) === undefined)
-            pathParameters.push({
-              name,
-              in: "path",
-              schema: { type: "string" },
-            });
-        pathParameters.sort(
-          (a, b) =>
-            parameterNames.indexOf(a.name!) - parameterNames.indexOf(b.name!),
-        );
-        props.operation.parameters = [
-          ...pathParameters,
-          ...(props.operation.parameters ?? []).filter((p) => p.in !== "path"),
-        ];
-      } else
-        failures.push(
-          "number of path parameters are not matched with its full path.",
-        );
+    const duplicatePathNames: string[] = pathParameters
+      .map((p) => p.name)
+      .filter(
+        (name, index, array): name is string =>
+          name !== undefined && array.indexOf(name) !== index,
+      );
+    if (duplicatePathNames.length !== 0)
+      failures.push(
+        `path parameter names must be unique: ${[...new Set(duplicatePathNames)].join(", ")}`,
+      );
+    if (
+      pathParameters.some(
+        (p) => p.name === undefined || !uniqueParameterNames.includes(p.name),
+      )
+    )
+      failures.push("path parameter names are not matched with its full path.");
+    else {
+      for (const name of uniqueParameterNames)
+        if (pathParameters.find((p) => p.name === name) === undefined)
+          pathParameters.push({
+            name,
+            in: "path",
+            required: true,
+            schema: { type: "string" },
+          });
+      pathParameters.sort(
+        (a, b) =>
+          uniqueParameterNames.indexOf(a.name!) -
+          uniqueParameterNames.indexOf(b.name!),
+      );
+      for (const parameter of pathParameters) {
+        const style = parameter.style ?? "simple";
+        if (!["matrix", "label", "simple"].includes(style))
+          failures.push(
+            `path parameter ${JSON.stringify(parameter.name)} does not support ${JSON.stringify(style)} style`,
+          );
+      }
+      props.operation.parameters = [
+        ...pathParameters,
+        ...(props.operation.parameters ?? []).filter((p) => p.in !== "path"),
+      ];
+    }
     if (failures.length) return failures;
 
-    const parameters: IHttpMigrateRoute.IParameter[] = (
-      props.operation.parameters ?? []
-    )
-      .filter((p) => p.in === "path")
-      .map((p, i) => ({
-        // FILL KEY NAME IF NOT EXISTS
-        name: parameterNames[i]!,
-        key: (() => {
-          let key: string = EndpointUtil.normalize(parameterNames[i]!);
-          if (NamingConvention.variable(key)) return key;
-          while (true) {
-            key = "_" + key;
-            if (!parameterNames.some((s) => s === key)) return key;
-          }
-        })(),
-        schema: p.schema,
-        parameter: () => p,
-      }));
+    const usedParameterKeys = new Set<string>();
+    const parameters: IHttpMigrateRoute.IParameter[] = pathParameters.map(
+      (parameter) => {
+        let key: string = EndpointUtil.normalize(parameter.name!);
+        while (
+          NamingConvention.variable(key) === false ||
+          usedParameterKeys.has(key)
+        )
+          key = `_${key}`;
+        usedParameterKeys.add(key);
+        const style = parameter.style ?? "simple";
+        return {
+          name: parameter.name!,
+          key,
+          schema: parameter.schema,
+          style: style as IHttpMigrateRoute.IParameter["style"],
+          explode: parameter.explode ?? false,
+          parameter: () => parameter,
+        };
+      },
+    );
     return {
       method: props.method,
       path: props.path,
       emendedPath: props.emendedPath,
       accessor: ["@lazy"],
-      parameters: (props.operation.parameters ?? [])
-        .filter((p) => p.in === "path")
-        .map((p, i) => ({
-          // FILL KEY NAME IF NOT EXISTS
-          name: parameterNames[i]!,
-          key: (() => {
-            let key: string = EndpointUtil.normalize(parameterNames[i]!);
-            if (NamingConvention.variable(key)) return key;
-            while (true) {
-              key = "_" + key;
-              if (!parameterNames.some((s) => s === key)) return key;
-            }
-          })(),
-          schema: p.schema,
-          parameter: () => p,
-        })),
+      parameters,
       headers: headers || null,
+      cookies: cookies || null,
       query: query || null,
       body: body || null,
       success: success || null,
       exceptions: Object.fromEntries(
         Object.entries(props.operation.responses ?? {})
-          .filter(
-            ([key]) => key !== "200" && key !== "201" && key !== "default",
-          )
+          .filter(([key]) => {
+            if (isSuccessStatus(key)) return false;
+            return key !== "default" || successResponse?.[0] !== "default";
+          })
           .map(([status, response]) => {
             const media = findJsonMedia(response.content);
             const schema =
@@ -416,6 +468,7 @@ export namespace HttpMigrateRouteComposer {
     (meta?: {
       description?: string;
       content?: Partial<Record<string, OpenApi.IOperation.IMediaType>>; // ISwaggerRouteBodyContent;
+      required?: boolean;
       "x-nestia-encrypted"?: boolean;
     }): false | null | IHttpMigrateRoute.IBody => {
       if (!meta?.content) return null;
@@ -435,6 +488,7 @@ export namespace HttpMigrateRouteComposer {
               type: "application/json",
               name: "body",
               key: "body",
+              required: from === "request" && meta.required === true,
               schema: isNotObjectLiteral(schema)
                 ? sanitizeSchema(document)(schema)
                 : emplacer(schema),
@@ -455,6 +509,7 @@ export namespace HttpMigrateRouteComposer {
               type: "application/x-www-form-urlencoded",
               name: "body",
               key: "body",
+              required: from === "request" && meta.required === true,
               schema: isNotObjectLiteral(schema)
                 ? sanitizeSchema(document)(schema)
                 : emplacer(schema),
@@ -470,6 +525,7 @@ export namespace HttpMigrateRouteComposer {
           type: "text/plain",
           name: "body",
           key: "body",
+          required: from === "request" && meta.required === true,
           schema: { type: "string" },
           description: () => meta.description,
           media: () => text[1],
@@ -485,6 +541,7 @@ export namespace HttpMigrateRouteComposer {
             type: "multipart/form-data",
             name: "body",
             key: "body",
+            required: meta.required === true,
             schema: schema
               ? isNotObjectLiteral(schema)
                 ? sanitizeSchema(document)(schema)
@@ -632,3 +689,29 @@ export namespace HttpMigrateRouteComposer {
       schema.oneOf.every(isNotObjectLiteral)) ||
     (OpenApiTypeChecker.isArray(schema) && isNotObjectLiteral(schema.items));
 }
+
+const isSuccessStatus = (status: string): boolean =>
+  /^2\d\d$/.test(status) || /^2xx$/i.test(status);
+
+const selectSuccessResponse = (
+  responses: Record<string, OpenApi.IOperation.IResponse> | undefined,
+): [string, OpenApi.IOperation.IResponse] | undefined => {
+  const entries = Object.entries(responses ?? {}).filter(([status]) =>
+    isSuccessStatus(status),
+  );
+  entries.sort(([x], [y]) => {
+    const priority = (status: string): number =>
+      status === "200"
+        ? 0
+        : status === "201"
+          ? 1
+          : /^2\d\d$/.test(status)
+            ? Number(status)
+            : 300;
+    return priority(x) - priority(y) || x.localeCompare(y);
+  });
+  return entries[0] ??
+    (responses?.default
+      ? (["default", responses.default] as const)
+      : undefined);
+};

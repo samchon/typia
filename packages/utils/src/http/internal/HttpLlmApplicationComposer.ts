@@ -149,7 +149,7 @@ export namespace HttpLlmApplicationComposer {
     //----
     // CONSTRUCT SCHEMAS
     //----
-    // merge path parameters, query, and body into a single object schema
+    // merge path parameters and grouped request inputs into one object schema
     const parameters: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: Object.fromEntries([
@@ -164,6 +164,40 @@ export namespace HttpLlmApplicationComposer {
               },
             ] as const,
         ),
+        // header parameters
+        ...(props.route.headers
+          ? [
+              [
+                props.route.headers.key,
+                {
+                  ...props.route.headers.schema,
+                  title:
+                    props.route.headers.title() ??
+                    props.route.headers.schema.title,
+                  description:
+                    props.route.headers.description() ??
+                    props.route.headers.schema.description,
+                },
+              ] as const,
+            ]
+          : []),
+        // cookie parameters
+        ...(props.route.cookies
+          ? [
+              [
+                props.route.cookies.key,
+                {
+                  ...props.route.cookies.schema,
+                  title:
+                    props.route.cookies.title() ??
+                    props.route.cookies.schema.title,
+                  description:
+                    props.route.cookies.description() ??
+                    props.route.cookies.schema.description,
+                },
+              ] as const,
+            ]
+          : []),
         // query parameters
         ...(props.route.query
           ? [
@@ -196,7 +230,14 @@ export namespace HttpLlmApplicationComposer {
           : []),
       ]),
     };
-    parameters.required = Object.keys(parameters.properties ?? {});
+    const required: string[] = [
+      ...props.route.parameters.map((parameter) => parameter.key),
+      ...(props.route.headers?.required ? [props.route.headers.key] : []),
+      ...(props.route.cookies?.required ? [props.route.cookies.key] : []),
+      ...(props.route.query?.required ? [props.route.query.key] : []),
+      ...(props.route.body?.required ? [props.route.body.key] : []),
+    ];
+    if (required.length !== 0) parameters.required = required;
 
     // convert merged object schema to LLM parameters
     const llmParameters: IResult<
