@@ -214,6 +214,13 @@ func transformFileToTypeScript(
 // transformSingleToJavaScript emits a single file's JS through the full node-path
 // emit pipeline and returns the captured text. It only produces; publishing is
 // runTransformSingle's decision, so a diagnostic can withhold the artifact.
+//
+// The emit pass covers every file in the program, so unlike the `ts` mode -- which
+// transforms only the target -- a diagnostic raised by any project source reaches
+// runTransformSingle and withholds this file's artifact. That is deliberate and
+// matches the build host, which fails the whole build on any transform diagnostic:
+// the emit that produced this text is the same one that could not lower the other
+// call, so its success is not independently trustworthy.
 func transformSingleToJavaScript(
   prog *driver.Program,
   typiaTransform driver.PluginTransform,

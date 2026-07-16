@@ -19,6 +19,8 @@ import (
 //  1. Seed `--out` with a byte-sensitive prior artifact beside an unrelated file.
 //  2. Run the single-file transform over a typia-invalid source in `ts` and `js`.
 //  3. Require exit 3, the diagnostic on stderr, and a byte-identical output tree.
+//  4. Require a fresh `--out` parent to stay uncreated, since publishing nothing
+//     must also mean creating no directory for it.
 func TestTransformSingleFileFailurePreservesArtifacts(t *testing.T) {
   for _, output := range []string{"ts", "js"} {
     t.Run(output, func(t *testing.T) {
@@ -58,6 +60,25 @@ func TestTransformSingleFileFailurePreservesArtifacts(t *testing.T) {
       }
       if after := buildReadTree(t, dist); !reflect.DeepEqual(after, before) {
         t.Fatalf("failed single-file transform mutated output tree:\nbefore=%q\nafter=%q", before, after)
+      }
+
+      // writeSingleOutput mkdirs its parent, so a guard placed after publication
+      // would leave the directory behind even with no artifact in it.
+      fresh := filepath.Join(project, "fresh", "nested")
+      _, _, code = ttscTypiaTestCapture(func() int {
+        return runTransform([]string{
+          "--cwd", project,
+          "--tsconfig", "tsconfig.json",
+          "--file", filepath.Join("src", "main.ts"),
+          "--output", output,
+          "--out", filepath.Join(fresh, "main."+output),
+        })
+      })
+      if code != 3 {
+        t.Fatalf("invalid single-file transform should fail with code 3, got %d", code)
+      }
+      if _, err := os.Stat(filepath.Join(project, "fresh")); !os.IsNotExist(err) {
+        t.Fatalf("failed single-file transform created the --out directory: %v", err)
       }
     })
   }
