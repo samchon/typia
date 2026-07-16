@@ -33,6 +33,32 @@ export const test_protobuf_reader_invalid_utf8 = (): void => {
     )
       throw new Error(`${label} bytes payload was changed.`);
   }
+
+  for (const [label, buffer] of TRUNCATED_FRAMES)
+    assertOverflow(label, () => new _ProtobufReader(buffer).string());
+};
+
+/**
+ * Requires a framing fault to keep its own error across the string boundary.
+ *
+ * `string()` must resolve its bytes before entering the decoder's `try`, so a
+ * declared length that overruns the buffer stays a boundary error instead of
+ * being relabelled as an encoding fault. Reporting `invalid UTF-8 string` here
+ * would blame the payload's encoding for a wire-framing defect.
+ */
+const assertOverflow = (label: string, task: () => unknown): void => {
+  try {
+    task();
+  } catch (error) {
+    if (error instanceof Error && error.message === OVERFLOW_ERROR) return;
+    if (error instanceof Error && error.message === INVALID_UTF8_ERROR)
+      throw new Error(
+        `${label} was relabelled as an encoding fault.`,
+        { cause: error },
+      );
+    throw new Error(`${label} raised an unstable error.`, { cause: error });
+  }
+  throw new Error(`${label} was accepted as a Protobuf string.`);
 };
 
 const assertInvalid = (label: string, task: () => unknown): void => {
@@ -60,7 +86,20 @@ const varint = (value: number): number[] => {
 
 const INVALID_UTF8_ERROR =
   "Error on typia.protobuf.decode(): invalid UTF-8 string.";
+const OVERFLOW_ERROR = "Error on typia.protobuf.decode(): buffer overflow.";
 const ENCODER = new TextEncoder();
+
+/**
+ * Length-delimited frames whose declared length overruns the buffer.
+ *
+ * Each payload is valid UTF-8, so the only thing that can fail is the frame's
+ * length. That isolates the boundary contract from the encoding contract.
+ */
+const TRUNCATED_FRAMES = [
+  ["declared length past the buffer", Uint8Array.of(0x08, ...ENCODER.encode("abc"))],
+  ["declared length with no payload", Uint8Array.of(0x04)],
+  ["declared length one byte short", Uint8Array.of(0x05, ...ENCODER.encode("text"))],
+] as const;
 
 const VALID_TEXTS = [
   ["empty", ""],
