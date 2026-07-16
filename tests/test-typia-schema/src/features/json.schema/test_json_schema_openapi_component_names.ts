@@ -1,5 +1,13 @@
 import { TestValidator } from "@nestia/e2e";
-import { OpenApiTypeChecker, OpenApiValidator } from "@typia/utils";
+import { ILlmSchema, OpenApi, OpenApiV3 } from "@typia/interface";
+import {
+  HttpLlm,
+  HttpMigration,
+  LlmSchemaConverter,
+  OpenApiConverter,
+  OpenApiTypeChecker,
+  OpenApiValidator,
+} from "@typia/utils";
 import typia from "typia";
 
 type RecursiveObject<T extends string> = {
@@ -9,12 +17,26 @@ type RecursiveObject<T extends string> = {
 
 type RecursiveArray<T extends string> = Array<T | RecursiveArray<T>>;
 type AliasValue<T extends string> = T | number;
-type Variant<T extends string> = {
-  kind: T;
-  payload: RecursiveObject<T>;
-};
+
+interface CaféVariant {
+  kind: "café";
+  payload: RecursiveObject<"A/B">;
+}
+
+interface 한글Variant {
+  kind: "hangul";
+  payload: RecursiveObject<"T~N">;
+}
+
+namespace Qualified {
+  export interface Member {
+    value: string;
+    child?: Member;
+  }
+}
 
 interface IForward {
+  qualified: Qualified.Member;
   plain: RecursiveObject<"Plain">;
   dot: RecursiveObject<"A.B">;
   dash: RecursiveObject<"A-B">;
@@ -25,23 +47,25 @@ interface IForward {
   hash: RecursiveObject<"A#B">;
   unicode: RecursiveObject<"Café">;
   punctuation: RecursiveObject<"/~%#">;
+  empty: RecursiveObject<"">;
   space: RecursiveObject<"A B">;
   colon: RecursiveObject<"A:B">;
   compact: RecursiveObject<"AB">;
   alias: AliasValue<"A/B">;
   array: RecursiveArray<"A/B">;
-  variant: Variant<"A/B"> | Variant<"T~N">;
+  variant: CaféVariant | 한글Variant;
   createdAt: Date;
 }
 
 interface IReverse {
   createdAt: Date;
-  variant: Variant<"T~N"> | Variant<"A/B">;
+  variant: 한글Variant | CaféVariant;
   array: RecursiveArray<"A/B">;
   alias: AliasValue<"A/B">;
   compact: RecursiveObject<"AB">;
   colon: RecursiveObject<"A:B">;
   space: RecursiveObject<"A B">;
+  empty: RecursiveObject<"">;
   punctuation: RecursiveObject<"/~%#">;
   unicode: RecursiveObject<"Café">;
   hash: RecursiveObject<"A#B">;
@@ -52,6 +76,7 @@ interface IReverse {
   dash: RecursiveObject<"A-B">;
   dot: RecursiveObject<"A.B">;
   plain: RecursiveObject<"Plain">;
+  qualified: Qualified.Member;
 }
 
 interface IApplication {
@@ -97,6 +122,13 @@ export const test_json_schema_openapi_component_names = (): void => {
   TestValidator.equals("dot control", names["A.B"], "RecursiveObjectA.B");
   TestValidator.equals("hyphen control", names["A-B"], "RecursiveObjectA-B");
   TestValidator.equals("underscore control", names.A_B, "RecursiveObjectA_B");
+  TestValidator.predicate(
+    "qualified control",
+    Object.prototype.hasOwnProperty.call(
+      forward31.components.schemas ?? {},
+      "Qualified.Member",
+    ),
+  );
   TestValidator.equals(
     "discovery-order independent names 3.0",
     componentNamesByValue(forward30.components.schemas ?? {}),
@@ -107,13 +139,34 @@ export const test_json_schema_openapi_component_names = (): void => {
     names,
     componentNamesByValue(reverse31.components.schemas ?? {}),
   );
+  TestValidator.equals(
+    "discovery-order independent component set 3.0",
+    Object.keys(forward30.components.schemas ?? {})
+      .filter((key) => key !== "IForward")
+      .sort(),
+    Object.keys(reverse30.components.schemas ?? {})
+      .filter((key) => key !== "IReverse")
+      .sort(),
+  );
+  TestValidator.equals(
+    "discovery-order independent component set 3.1",
+    Object.keys(forward31.components.schemas ?? {})
+      .filter((key) => key !== "IForward")
+      .sort(),
+    Object.keys(reverse31.components.schemas ?? {})
+      .filter((key) => key !== "IReverse")
+      .sort(),
+  );
 
+  const slashReference = {
+    $ref: `#/components/schemas/${names["A/B"]}`,
+  } as const;
   TestValidator.predicate(
     "OpenApiValidator resolves generated names",
     OpenApiValidator.validate({
       components: forward31.components,
-      schema: forward31.schema,
-      value: sample,
+      schema: slashReference,
+      value: sample.slash,
       required: true,
     }).success,
   );
@@ -121,10 +174,105 @@ export const test_json_schema_openapi_component_names = (): void => {
     "OpenApiTypeChecker resolves generated names",
     OpenApiTypeChecker.escape({
       components: forward31.components,
-      schema: forward31.schema,
+      schema: slashReference,
       recursive: 2,
     }).success,
   );
+
+  const $defs: Record<string, ILlmSchema> = {};
+  const llmSchema = LlmSchemaConverter.schema({
+    components: forward31.components,
+    $defs,
+    schema: forward31.schema,
+  });
+  TestValidator.predicate(
+    "LlmSchemaConverter resolves generated names",
+    llmSchema.success,
+  );
+  TestValidator.predicate(
+    "LlmSchemaConverter emits legal definition names",
+    Object.keys($defs).every((key) => /^[a-zA-Z0-9.\-_]+$/.test(key)),
+  );
+
+  const document30: OpenApiV3.IDocument = {
+    openapi: "3.0.4",
+    info: { title: "component names", version: "1.0.0" },
+    components: forward30.components,
+    paths: {
+      "/component": {
+        post: {
+          operationId: "inspectComponent",
+          requestBody: {
+            content: {
+              "application/json": { schema: forward30.schema },
+            },
+          },
+          responses: {
+            200: {
+              description: "success",
+              content: {
+                "application/json": { schema: forward30.schema },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+  const emended31: OpenApi.IDocument = {
+    openapi: "3.2.0",
+    info: { title: "component names", version: "1.0.0" },
+    components: forward31.components,
+    paths: {
+      "/component": {
+        post: {
+          operationId: "inspectComponent",
+          requestBody: {
+            content: {
+              "application/json": { schema: forward31.schema },
+            },
+          },
+          responses: {
+            200: {
+              description: "success",
+              content: {
+                "application/json": { schema: forward31.schema },
+              },
+            },
+          },
+        },
+      },
+    },
+    "x-typia-emended-v12": true,
+  };
+  const document31 = OpenApiConverter.downgradeDocument(emended31, "3.1");
+  for (const [label, document] of [
+    ["3.0", document30],
+    ["3.1", document31],
+  ] as const) {
+    const converted: OpenApi.IDocument =
+      OpenApiConverter.upgradeDocument(document);
+    TestValidator.predicate(
+      `OpenApiConverter ${label}`,
+      Object.keys(converted.components.schemas ?? {}).every((key) =>
+        /^[a-zA-Z0-9.\-_]+$/.test(key),
+      ),
+    );
+    const migration = HttpMigration.application(document);
+    TestValidator.equals(`HttpMigration errors ${label}`, migration.errors, []);
+    TestValidator.equals(
+      `HttpMigration routes ${label}`,
+      migration.routes.length,
+      1,
+    );
+    const httpLlm = HttpLlm.application({ document });
+    TestValidator.equals(`HttpLlm errors ${label}`, httpLlm.errors, []);
+    TestValidator.equals(
+      `HttpLlm functions ${label}`,
+      httpLlm.functions.length,
+      1,
+    );
+  }
 };
 
 interface IUnit {
@@ -182,6 +330,13 @@ const verifyUnit = (unit: IUnit): void => {
     `${unit.label}: references resolve`,
     refs.every((ref) => resolveLocalReference(ref, unit.schemas)),
   );
+  TestValidator.predicate(
+    `${unit.label}: discriminator mappings emitted`,
+    collectDiscriminatorMappings([
+      ...unit.roots,
+      ...Object.values(unit.schemas),
+    ]).length !== 0,
+  );
 };
 
 const collectReferences = (input: unknown): string[] => {
@@ -194,6 +349,26 @@ const collectReferences = (input: unknown): string[] => {
     if (value === null || typeof value !== "object") return;
     const record = value as Record<string, unknown>;
     if (typeof record.$ref === "string") output.push(record.$ref);
+    const discriminator = record.discriminator as
+      | { mapping?: Record<string, string> }
+      | undefined;
+    if (discriminator?.mapping !== undefined)
+      output.push(...Object.values(discriminator.mapping));
+    Object.values(record).forEach(visit);
+  };
+  visit(input);
+  return [...new Set(output)].sort();
+};
+
+const collectDiscriminatorMappings = (input: unknown): string[] => {
+  const output: string[] = [];
+  const visit = (value: unknown): void => {
+    if (Array.isArray(value)) {
+      value.forEach(visit);
+      return;
+    }
+    if (value === null || typeof value !== "object") return;
+    const record = value as Record<string, unknown>;
     const discriminator = record.discriminator as
       | { mapping?: Record<string, string> }
       | undefined;
@@ -251,6 +426,7 @@ const componentNamesByValue = (
   );
 
 const sample: IForward = {
+  qualified: { value: "qualified" },
   plain: { value: "Plain", children: [] },
   dot: { value: "A.B", children: [] },
   dash: { value: "A-B", children: [] },
@@ -261,13 +437,14 @@ const sample: IForward = {
   hash: { value: "A#B", children: [] },
   unicode: { value: "Café", children: [] },
   punctuation: { value: "/~%#", children: [] },
+  empty: { value: "", children: [] },
   space: { value: "A B", children: [] },
   colon: { value: "A:B", children: [] },
   compact: { value: "AB", children: [] },
   alias: "A/B",
   array: ["A/B", ["A/B"]],
   variant: {
-    kind: "A/B",
+    kind: "café",
     payload: { value: "A/B", children: [] },
   },
   createdAt: "2026-07-16T00:00:00.000Z" as unknown as Date,

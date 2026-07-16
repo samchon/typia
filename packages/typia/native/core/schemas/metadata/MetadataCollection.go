@@ -3,6 +3,7 @@ package metadata
 import (
   "maps"
   "slices"
+  "strconv"
   "strings"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
@@ -543,6 +544,72 @@ func MetadataCollection_replace(str string) string {
     str = strings.ReplaceAll(str, pair.Before, pair.After)
   }
   return str
+}
+
+// MetadataCollection_replaceOpenApi converts a metadata display name into an
+// OpenAPI Components Object key. Keep this separate from the general metadata
+// replacement used by LLM `$defs`: OpenAPI restricts keys to an ASCII grammar,
+// while an LLM definition map can own arbitrary JSON object keys.
+func MetadataCollection_replaceOpenApi(str string) string {
+  if len(str) == 0 {
+    return "_"
+  }
+  var escaped strings.Builder
+  var quote rune
+  quotedEscape := false
+  for _, ch := range str {
+    if quote != 0 {
+      if quotedEscape {
+        metadataCollection_writeOpenApiNameRune(&escaped, ch)
+        quotedEscape = false
+        continue
+      }
+      if ch == '\\' {
+        metadataCollection_writeOpenApiNameRune(&escaped, ch)
+        quotedEscape = true
+        continue
+      }
+      if ch == quote {
+        quote = 0
+        continue
+      }
+      metadataCollection_writeOpenApiNameRune(&escaped, ch)
+      continue
+    }
+    if ch == '\'' || ch == '"' || ch == '`' {
+      quote = ch
+      continue
+    }
+    escaped.WriteRune(ch)
+  }
+  normalized := MetadataCollection_replace(escaped.String())
+  if len(normalized) == 0 {
+    return "_"
+  }
+  var builder strings.Builder
+  for _, ch := range normalized {
+    metadataCollection_writeOpenApiNameRune(&builder, ch)
+  }
+  return builder.String()
+}
+
+func metadataCollection_writeOpenApiNameRune(builder *strings.Builder, ch rune) {
+  if metadataCollection_isOpenApiNameRune(ch) {
+    builder.WriteRune(ch)
+    return
+  }
+  builder.WriteString("_x")
+  builder.WriteString(strings.ToUpper(strconv.FormatInt(int64(ch), 16)))
+  builder.WriteByte('_')
+}
+
+func metadataCollection_isOpenApiNameRune(ch rune) bool {
+  return (ch >= 'a' && ch <= 'z') ||
+    (ch >= 'A' && ch <= 'Z') ||
+    (ch >= '0' && ch <= '9') ||
+    ch == '.' ||
+    ch == '-' ||
+    ch == '_'
 }
 
 func MetadataCollection_escape(str string) string {
