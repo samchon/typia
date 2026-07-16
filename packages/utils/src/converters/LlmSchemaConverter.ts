@@ -9,6 +9,7 @@ import {
 import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
 import { LlmReference } from "../utils/internal/LlmReference";
 import { ObjectDictionary } from "../utils/internal/ObjectDictionary";
+import { OpenApiComponentName } from "../utils/internal/OpenApiComponentName";
 import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { LlmTypeChecker } from "../validators/LlmTypeChecker";
 import { OpenApiTypeChecker } from "../validators/OpenApiTypeChecker";
@@ -512,6 +513,25 @@ export namespace LlmSchemaConverter {
     components: OpenApi.IComponents;
     schema: ILlmSchema;
     $defs: Record<string, ILlmSchema>;
+  }): OpenApi.IJsonSchema =>
+    invertInternal({
+      ...props,
+      // One allocation per conversion, seeded with the component names the
+      // caller already owns. Recursive inversion reuses it instead of
+      // recomputing, so a reference and its stored component never disagree.
+      allocation: OpenApiComponentName.allocate({
+        keys: Object.keys(props.$defs ?? {}),
+        reserved: Object.keys(props.components.schemas ?? {}),
+      }),
+      emitted: new Set(),
+    });
+
+  const invertInternal = (props: {
+    components: OpenApi.IComponents;
+    schema: ILlmSchema;
+    $defs: Record<string, ILlmSchema>;
+    allocation: Map<string, string>;
+    emitted: Set<string>;
   }): OpenApi.IJsonSchema => {
     const union: OpenApi.IJsonSchema[] = [];
     const attribute: IJsonSchemaAttribute = {
@@ -530,10 +550,12 @@ export namespace LlmSchemaConverter {
     };
 
     const next = (schema: ILlmSchema): OpenApi.IJsonSchema =>
-      invert({
+      invertInternal({
         components: props.components,
         $defs: props.$defs,
         schema,
+        allocation: props.allocation,
+        emitted: props.emitted,
       });
     const visit = (schema: ILlmSchema): void => {
       if (LlmTypeChecker.isArray(schema))
@@ -567,11 +589,14 @@ export namespace LlmSchemaConverter {
           union.push({ oneOf: [] });
           return;
         }
-        const componentKey: string = resolved.key;
-        if (
-          ObjectDictionary.get(props.components.schemas, componentKey) ===
-          undefined
-        ) {
+        const componentKey: string =
+          props.allocation.get(resolved.key) ?? resolved.key;
+        // Gate on what this conversion has emitted, not on what the components
+        // already contain. A caller's pre-existing component of the same name
+        // is an allocation input, not a cache hit: treating it as one would
+        // silently drop this definition and alias it to an unrelated schema.
+        if (props.emitted.has(componentKey) === false) {
+          props.emitted.add(componentKey);
           props.components.schemas ??= {};
           ObjectDictionary.set(props.components.schemas, componentKey, {});
           ObjectDictionary.set(
@@ -647,6 +672,7 @@ export namespace LlmSchemaConverter {
                           ? invertDiscriminatorMapping(
                               props.$defs,
                               props.schema["x-discriminator"].mapping,
+                              props.allocation,
                             )
                           : undefined,
                     }
@@ -671,6 +697,7 @@ const convertDiscriminatorMapping = (
 const invertDiscriminatorMapping = (
   $defs: Record<string, ILlmSchema>,
   mapping: Record<string, string>,
+  allocation: Map<string, string>,
 ): Record<string, string> | undefined => {
   const entries: [string, string][] = [];
   for (const [discriminator, reference] of Object.entries(mapping)) {
@@ -679,7 +706,10 @@ const invertDiscriminatorMapping = (
       reference,
     );
     if (resolved === undefined) return undefined;
-    entries.push([discriminator, LlmReference.writeOpenApi(resolved.key)]);
+    entries.push([
+      discriminator,
+      LlmReference.writeOpenApi(allocation.get(resolved.key) ?? resolved.key),
+    ]);
   }
   return Object.fromEntries(entries);
 };
