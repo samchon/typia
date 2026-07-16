@@ -106,9 +106,15 @@ const notationDynamicKeysSource = `import typia from "typia";
 type UnderscoreRecord = Record<string, { inner_key: string }>;
 type CamelRecord = Record<string, { innerValue: string }>;
 interface SnakeLiteral { "__proto__": { innerValue: string }; }
+interface CamelMixed {
+  user_id: { inner_key: string };
+  [key: string]: { inner_key: string };
+}
 
 export const snakeLiteral = (input: SnakeLiteral) =>
   typia.notations.snake<SnakeLiteral>(input);
+export const mixedCamel = (input: CamelMixed) =>
+  typia.notations.camel<CamelMixed>(input);
 
 export const camel = {
   direct: (input: UnderscoreRecord) => typia.notations.camel<UnderscoreRecord>(input),
@@ -163,6 +169,24 @@ if (
   !Object.hasOwn(literalMagic.__proto__, "inner_value")
 ) {
   throw new Error("snake literal __proto__ was not emitted as an own data property");
+}
+
+let mixedCollision = null;
+try {
+  mod.mixedCamel({
+    user_id: { inner_key: "literal" },
+    userId: { inner_key: "dynamic" },
+  });
+} catch (error) {
+  mixedCollision = error;
+}
+if (mixedCollision === null) {
+  throw new Error("camel mixed literal/dynamic destination collision was accepted");
+}
+for (const key of ["user_id", "userId", "userId"]) {
+  if (!String(mixedCollision.message).includes(JSON.stringify(key))) {
+    throw new Error("camel mixed collision omitted " + key + ": " + mixedCollision.message);
+  }
 }
 
 const families = [

@@ -23,6 +23,7 @@ export type SpecialFieldsPropertyKeyCases = [
           7: number;
           [match]: number;
           other: string;
+          optional?: string;
           8: string;
           [miss]: string;
         },
