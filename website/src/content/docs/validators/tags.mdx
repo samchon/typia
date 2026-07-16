@@ -114,17 +114,19 @@ The validator matches the template's structural pattern, then re-parses each con
 | `tags.Maximum<N>` | `value <= N` |
 | `tags.ExclusiveMinimum<N>` | `value > N` |
 | `tags.ExclusiveMaximum<N>` | `value < N` |
-| `tags.MultipleOf<N>` | `value % N === 0` |
+| `tags.MultipleOf<N>` | `value / N` has an integer mathematical quotient |
 | `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
+
+For `number`, decimal divisors use exact finite-decimal arithmetic rather than JavaScript remainder rounding. For example, `0.03` satisfies `tags.MultipleOf<0.01>`, while `0.031` does not.
 
 #### `string`
 
 | Tag | Notes |
 |-----|-------|
-| `tags.MinLength<N>` | `value.length >= N` |
-| `tags.MaxLength<N>` | `value.length <= N` |
+| `tags.MinLength<N>` | Unicode code-point count is at least `N` |
+| `tags.MaxLength<N>` | Unicode code-point count is at most `N` |
 | `tags.Pattern<R>` | regex (passed as a string literal) |
 | `tags.Format<F>` | one of the formats below |
 | `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`) |
@@ -133,6 +135,8 @@ For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accep
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
 `byte` validates one complete standard base64 value with required padding, `iri-reference` accepts both absolute IRIs and relative references, and `date` / `date-time` reject impossible Gregorian calendar dates.
+
+String length follows JSON Schema character semantics: an astral character such as `😀` counts as one code point, while a base character and a combining mark count as two. It does not count grapheme clusters.
 
 For `url`, DNS host labels may contain interior hyphen runs such as `example--example`, but leading or trailing label hyphens and private IPv4 hosts are rejected.
 

@@ -1,26 +1,7 @@
 import { OpenApi } from "@typia/interface";
 
-import { _isFormatByte } from "../functional/_isFormatByte";
-import { _isFormatDate } from "../functional/_isFormatDate";
-import { _isFormatDateTime } from "../functional/_isFormatDateTime";
-import { _isFormatDuration } from "../functional/_isFormatDuration";
-import { _isFormatEmail } from "../functional/_isFormatEmail";
-import { _isFormatHostname } from "../functional/_isFormatHostname";
-import { _isFormatIdnEmail } from "../functional/_isFormatIdnEmail";
-import { _isFormatIdnHostname } from "../functional/_isFormatIdnHostname";
-import { _isFormatIpv4 } from "../functional/_isFormatIpv4";
-import { _isFormatIpv6 } from "../functional/_isFormatIpv6";
-import { _isFormatIri } from "../functional/_isFormatIri";
-import { _isFormatIriReference } from "../functional/_isFormatIriReference";
-import { _isFormatJsonPointer } from "../functional/_isFormatJsonPointer";
-import { _isFormatRegex } from "../functional/_isFormatRegex";
-import { _isFormatRelativeJsonPointer } from "../functional/_isFormatRelativeJsonPointer";
-import { _isFormatTime } from "../functional/_isFormatTime";
-import { _isFormatUri } from "../functional/_isFormatUri";
-import { _isFormatUriReference } from "../functional/_isFormatUriReference";
-import { _isFormatUriTemplate } from "../functional/_isFormatUriTemplate";
-import { _isFormatUrl } from "../functional/_isFormatUrl";
-import { _isFormatUuid } from "../functional/_isFormatUuid";
+import { _isStringFormat } from "../functional/_isStringFormat";
+import { _stringLength } from "../functional/_stringLength";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 
 export namespace OpenApiStringValidator {
@@ -28,17 +9,21 @@ export namespace OpenApiStringValidator {
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IString>,
   ): boolean => {
     if (typeof ctx.value !== "string") return ctx.report(ctx);
+    const length: number | null =
+      ctx.schema.minLength !== undefined || ctx.schema.maxLength !== undefined
+        ? _stringLength(ctx.value)
+        : null;
     return (
       [
         ctx.schema.minLength !== undefined
-          ? ctx.value.length >= ctx.schema.minLength ||
+          ? length! >= ctx.schema.minLength ||
             ctx.report({
               ...ctx,
               expected: `string & MinLength<${ctx.schema.minLength}>`,
             })
           : true,
         ctx.schema.maxLength !== undefined
-          ? ctx.value.length <= ctx.schema.maxLength ||
+          ? length! <= ctx.schema.maxLength ||
             ctx.report({
               ...ctx,
               expected: `string & MaxLength<${ctx.schema.maxLength}>`,
@@ -51,8 +36,8 @@ export namespace OpenApiStringValidator {
               expected: `string & Pattern<${JSON.stringify(ctx.schema.pattern)}>`,
             })
           : true,
-        ctx.schema.format && FORMAT[ctx.schema.format as "uuid"]
-          ? FORMAT[ctx.schema.format as "uuid"](ctx.value) ||
+        ctx.schema.format
+          ? _isStringFormat(ctx.schema.format, ctx.value) ||
             ctx.report({
               ...ctx,
               expected: `string & Format<${JSON.stringify(ctx.schema.format)}>`,
@@ -62,27 +47,3 @@ export namespace OpenApiStringValidator {
     );
   };
 }
-
-const FORMAT = {
-  byte: _isFormatByte,
-  regex: _isFormatRegex,
-  uuid: _isFormatUuid,
-  email: _isFormatEmail,
-  hostname: _isFormatHostname,
-  "idn-email": _isFormatIdnEmail,
-  "idn-hostname": _isFormatIdnHostname,
-  iri: _isFormatIri,
-  "iri-reference": _isFormatIriReference,
-  ipv4: _isFormatIpv4,
-  ipv6: _isFormatIpv6,
-  uri: _isFormatUri,
-  "uri-reference": _isFormatUriReference,
-  "uri-template": _isFormatUriTemplate,
-  url: _isFormatUrl,
-  "date-time": _isFormatDateTime,
-  date: _isFormatDate,
-  time: _isFormatTime,
-  duration: _isFormatDuration,
-  "json-pointer": _isFormatJsonPointer,
-  "relative-json-pointer": _isFormatRelativeJsonPointer,
-};
