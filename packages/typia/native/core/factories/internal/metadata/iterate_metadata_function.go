@@ -3,6 +3,7 @@ package metadata
 import (
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativeutils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
 
 func Iterate_metadata_function(props IMetadataIteratorProps) bool {
@@ -36,16 +37,8 @@ func Iterate_metadata_function(props IMetadataIteratorProps) bool {
 
   signature := signatures[0]
   returnType := props.Checker.GetReturnTypeOfSignature(signature)
-  async := false
-  if returnType != nil {
-    if symbol := returnType.Symbol(); symbol != nil && symbol.Name == "Promise" {
-      generic := metadata_get_type_arguments(props.Checker, returnType)
-      if len(generic) != 0 {
-        returnType = generic[0]
-      }
-      async = true
-    }
-  }
+  promised := nativeutils.PromiseTypeFactory.Resolve(props.Checker, returnType)
+  returnType = promised.Type
 
   parameters := make([]*schemametadata.MetadataParameter, 0, len(signature.Parameters()))
   for _, p := range signature.Parameters() {
@@ -87,7 +80,7 @@ func Iterate_metadata_function(props IMetadataIteratorProps) bool {
   props.Metadata.Functions = append(props.Metadata.Functions, schemametadata.MetadataFunction_create(schemametadata.MetadataFunction{
     Parameters: parameters,
     Output:     output,
-    Async:      async,
+    Async:      promised.Async,
   }))
   return true
 }

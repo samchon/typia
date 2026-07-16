@@ -321,10 +321,28 @@ Types with no sound total order (`any`, `Function`, `Set`, `Map`, `WeakSet`, `We
 The `functional` module wraps an existing function with parameter and return-value validation while preserving its call contract. Every wrapper forwards the call-site receiver, so a target with an explicit TypeScript `this` parameter still works through method calls, `.call`, `.apply`, and `.bind`.
 
 ```typescript copy filename="signatures"
+type FunctionalIs<T extends (...args: any[]) => any> = T extends (
+  this: infer This,
+  ...args: infer Args
+) => infer Output
+  ? Output extends Promise<infer R>
+    ? (this: This, ...args: Args) => Promise<R | null>
+    : (this: This, ...args: Args) => Output | null
+  : never;
+
+type FunctionalValidate<T extends (...args: any[]) => any> = T extends (
+  this: infer This,
+  ...args: infer Args
+) => infer Output
+  ? Output extends Promise<infer R>
+    ? (this: This, ...args: Args) => Promise<IValidation<R>>
+    : (this: This, ...args: Args) => IValidation<Output>
+  : never;
+
 namespace functional {
   function assertFunction<T extends (...args: any[]) => any>(func: T): T;
-  function isFunction<This, Args extends any[], Output>(func: (this: This, ...args: Args) => Output): (this: This, ...args: Args) => Output | null;
-  function validateFunction<This, Args extends any[], Output>(func: (this: This, ...args: Args) => Output): (this: This, ...args: Args) => IValidation<Output>;
+  function isFunction<T extends (...args: any[]) => any>(func: T): FunctionalIs<T>;
+  function validateFunction<T extends (...args: any[]) => any>(func: T): FunctionalValidate<T>;
 }
 ```
 
@@ -343,7 +361,7 @@ const checked = typia.functional.assertFunction(add);
 checked.call({ base: 10 }, 2); // 12
 ```
 
-Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return `null`, and validation wrappers return `IValidation`. Async targets retain both their receiver and their `Promise` result shape.
+Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return `null`, and validation wrappers return `IValidation`. Async targets retain both their receiver and their `Promise` result shape, including Promise subclasses, extended interfaces, and branded intersections. `PromiseLike<T>` alone does not satisfy the `Promise<T>` contract used by these wrappers.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
