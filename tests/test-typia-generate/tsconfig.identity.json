@@ -1,0 +1,14 @@
+{
+  "extends": "../../config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../..",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "typeRoots": ["../../packages/typia/node_modules/@types"],
+    "types": ["node"]
+  },
+  "include": [
+    "scripts/identity/**/*.ts",
+    "../../packages/typia/src/executable/FileSystemIdentity.ts"
+  ]
+}
