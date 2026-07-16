@@ -18,37 +18,47 @@ export type CamelCase<T> = unknown extends T
   ? T
   : object extends T
     ? T
-    : Equal<T, CamelizeMain<T>> extends true
-      ? T
-      : CamelizeMain<T>;
+    : T extends readonly unknown[]
+      ? CamelizeMain<T> // avoid eagerly comparing recursive tuple rest aliases
+      : Equal<T, CamelizeMain<T>> extends true
+        ? T
+        : CamelizeMain<T>;
 
-type CamelizeMain<T> = T extends [never]
+// TupleStack closes recursive tuple rest cycles without limiting other nesting.
+type CamelizeMain<T, TupleStack = never> = T extends [never]
   ? never // special trick for (jsonable | null) type
   : T extends { valueOf(): boolean | bigint | number | string }
     ? ValueOf<T>
     : T extends Function
       ? never
       : T extends object
-        ? CamelizeObject<T>
+        ? CamelizeObject<T, TupleStack>
         : T;
 
-type CamelizeObject<T extends object> =
+type CamelizeObject<T extends object, TupleStack> =
   T extends Array<infer U>
     ? IsTupleLike<T> extends true
-      ? CamelizeArray<T>
-      : Array<CamelizeMain<U>>
+      ? T extends TupleStack
+        ? T
+        : CamelizeArray<T, TupleStack | T>
+      : Array<CamelizeMain<U, TupleStack>>
     : T extends ReadonlyArray<infer U>
       ? IsTupleLike<T> extends true
-        ? CamelizeArray<T>
-        : ReadonlyArray<CamelizeMain<U>>
+        ? T extends TupleStack
+          ? T
+          : CamelizeArray<T, TupleStack | T>
+        : ReadonlyArray<CamelizeMain<U, TupleStack>>
       : T extends Set<infer U>
-        ? Set<CamelizeMain<U>>
+        ? Set<CamelizeMain<U, TupleStack>>
         : T extends Map<infer K, infer V>
-          ? Map<CamelizeMain<K>, CamelizeMain<V>>
+          ? Map<CamelizeMain<K, TupleStack>, CamelizeMain<V, TupleStack>>
           : T extends ReadonlyMap<infer K, infer V>
-            ? ReadonlyMap<CamelizeMain<K>, CamelizeMain<V>>
+            ? ReadonlyMap<
+                CamelizeMain<K, TupleStack>,
+                CamelizeMain<V, TupleStack>
+              >
             : T extends ReadonlySet<infer U>
-              ? ReadonlySet<CamelizeMain<U>>
+              ? ReadonlySet<CamelizeMain<U, TupleStack>>
               : T extends WeakSet<any> | WeakMap<any, any>
                 ? never
                 : T extends NativeClass
@@ -58,11 +68,11 @@ type CamelizeObject<T extends object> =
                         ? CamelizeString<Key>
                         : Key extends number
                           ? Key
-                          : never]: CamelizeMain<T[Key]>;
+                          : never]: CamelizeMain<T[Key], TupleStack>;
                     };
 
-type CamelizeArray<T extends readonly unknown[]> = {
-  [P in keyof T]: CamelizeMain<T[P]>;
+type CamelizeArray<T extends readonly unknown[], TupleStack> = {
+  [P in keyof T]: CamelizeMain<T[P], TupleStack>;
 };
 
 type CamelizeString<Key extends string> =

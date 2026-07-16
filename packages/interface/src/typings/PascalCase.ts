@@ -18,37 +18,47 @@ export type PascalCase<T> = unknown extends T
   ? T
   : object extends T
     ? T
-    : Equal<T, PascalizeMain<T>> extends true
-      ? T
-      : PascalizeMain<T>;
+    : T extends readonly unknown[]
+      ? PascalizeMain<T> // avoid eagerly comparing recursive tuple rest aliases
+      : Equal<T, PascalizeMain<T>> extends true
+        ? T
+        : PascalizeMain<T>;
 
-type PascalizeMain<T> = T extends [never]
+// TupleStack closes recursive tuple rest cycles without limiting other nesting.
+type PascalizeMain<T, TupleStack = never> = T extends [never]
   ? never // special trick for (jsonable | null) type
   : T extends { valueOf(): boolean | bigint | number | string }
     ? ValueOf<T>
     : T extends Function
       ? never
       : T extends object
-        ? PascalizeObject<T>
+        ? PascalizeObject<T, TupleStack>
         : T;
 
-type PascalizeObject<T extends object> =
+type PascalizeObject<T extends object, TupleStack> =
   T extends Array<infer U>
     ? IsTupleLike<T> extends true
-      ? PascalizeArray<T>
-      : Array<PascalizeMain<U>>
+      ? T extends TupleStack
+        ? T
+        : PascalizeArray<T, TupleStack | T>
+      : Array<PascalizeMain<U, TupleStack>>
     : T extends ReadonlyArray<infer U>
       ? IsTupleLike<T> extends true
-        ? PascalizeArray<T>
-        : ReadonlyArray<PascalizeMain<U>>
+        ? T extends TupleStack
+          ? T
+          : PascalizeArray<T, TupleStack | T>
+        : ReadonlyArray<PascalizeMain<U, TupleStack>>
       : T extends Set<infer U>
-        ? Set<PascalizeMain<U>>
+        ? Set<PascalizeMain<U, TupleStack>>
         : T extends Map<infer K, infer V>
-          ? Map<PascalizeMain<K>, PascalizeMain<V>>
+          ? Map<PascalizeMain<K, TupleStack>, PascalizeMain<V, TupleStack>>
           : T extends ReadonlyMap<infer K, infer V>
-            ? ReadonlyMap<PascalizeMain<K>, PascalizeMain<V>>
+            ? ReadonlyMap<
+                PascalizeMain<K, TupleStack>,
+                PascalizeMain<V, TupleStack>
+              >
             : T extends ReadonlySet<infer U>
-              ? ReadonlySet<PascalizeMain<U>>
+              ? ReadonlySet<PascalizeMain<U, TupleStack>>
               : T extends WeakSet<any> | WeakMap<any, any>
                 ? never
                 : T extends NativeClass
@@ -58,11 +68,11 @@ type PascalizeObject<T extends object> =
                         ? PascalizeString<Key>
                         : Key extends number
                           ? Key
-                          : never]: PascalizeMain<T[Key]>;
+                          : never]: PascalizeMain<T[Key], TupleStack>;
                     };
 
-type PascalizeArray<T extends readonly unknown[]> = {
-  [P in keyof T]: PascalizeMain<T[P]>;
+type PascalizeArray<T extends readonly unknown[], TupleStack> = {
+  [P in keyof T]: PascalizeMain<T[P], TupleStack>;
 };
 
 type PascalizeString<Key extends string> =

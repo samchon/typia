@@ -22,41 +22,51 @@ export type KebabCase<T> = unknown extends T
   ? T
   : object extends T
     ? T
-    : Equal<T, KebabageMain<T>> extends true
-      ? T
-      : KebabageMain<T>;
+    : T extends readonly unknown[]
+      ? KebabageMain<T> // avoid eagerly comparing recursive tuple rest aliases
+      : Equal<T, KebabageMain<T>> extends true
+        ? T
+        : KebabageMain<T>;
 
 /* -----------------------------------------------------------
     OBJECT CONVERSION
 ----------------------------------------------------------- */
 
-type KebabageMain<T> = T extends [never]
+// TupleStack closes recursive tuple rest cycles without limiting other nesting.
+type KebabageMain<T, TupleStack = never> = T extends [never]
   ? never // special trick for (jsonable | null) type
   : T extends { valueOf(): boolean | bigint | number | string }
     ? ValueOf<T>
     : T extends Function
       ? never
       : T extends object
-        ? KebabageObject<T>
+        ? KebabageObject<T, TupleStack>
         : T;
 
-type KebabageObject<T extends object> =
+type KebabageObject<T extends object, TupleStack> =
   T extends Array<infer U>
     ? IsTupleLike<T> extends true
-      ? KebabageArray<T>
-      : Array<KebabageMain<U>>
+      ? T extends TupleStack
+        ? T
+        : KebabageArray<T, TupleStack | T>
+      : Array<KebabageMain<U, TupleStack>>
     : T extends ReadonlyArray<infer U>
       ? IsTupleLike<T> extends true
-        ? KebabageArray<T>
-        : ReadonlyArray<KebabageMain<U>>
+        ? T extends TupleStack
+          ? T
+          : KebabageArray<T, TupleStack | T>
+        : ReadonlyArray<KebabageMain<U, TupleStack>>
       : T extends Set<infer U>
-        ? Set<KebabageMain<U>>
+        ? Set<KebabageMain<U, TupleStack>>
         : T extends Map<infer K, infer V>
-          ? Map<KebabageMain<K>, KebabageMain<V>>
+          ? Map<KebabageMain<K, TupleStack>, KebabageMain<V, TupleStack>>
           : T extends ReadonlyMap<infer K, infer V>
-            ? ReadonlyMap<KebabageMain<K>, KebabageMain<V>>
+            ? ReadonlyMap<
+                KebabageMain<K, TupleStack>,
+                KebabageMain<V, TupleStack>
+              >
             : T extends ReadonlySet<infer U>
-              ? ReadonlySet<KebabageMain<U>>
+              ? ReadonlySet<KebabageMain<U, TupleStack>>
               : T extends WeakSet<any> | WeakMap<any, any>
                 ? never
                 : T extends NativeClass
@@ -66,14 +76,14 @@ type KebabageObject<T extends object> =
                         ? KebabageString<Key>
                         : Key extends number
                           ? Key
-                          : never]: KebabageMain<T[Key]>;
+                          : never]: KebabageMain<T[Key], TupleStack>;
                     };
 
 /* -----------------------------------------------------------
     SPECIAL CASES
 ----------------------------------------------------------- */
-type KebabageArray<T extends readonly unknown[]> = {
-  [P in keyof T]: KebabageMain<T[P]>;
+type KebabageArray<T extends readonly unknown[], TupleStack> = {
+  [P in keyof T]: KebabageMain<T[P], TupleStack>;
 };
 
 /* -----------------------------------------------------------
