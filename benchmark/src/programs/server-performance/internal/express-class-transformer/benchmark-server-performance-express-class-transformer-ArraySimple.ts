@@ -14,5 +14,5 @@ createExpressServerPerformanceBenchmarkProgram<ArraySimple, any>(
     if (result.length > 0) throw new Error(result[0].toString());
     return output;
   },
-  (input) => JSON.stringify(instanceToPlain(schema)),
+  (input) => JSON.stringify(instanceToPlain(input)),
 );

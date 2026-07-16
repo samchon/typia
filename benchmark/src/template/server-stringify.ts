@@ -137,13 +137,20 @@ const SERVERS: BenchmarkProgrammer.ILibrary[] = [
   },
 ];
 
-BenchmarkProgrammer.generate({
-  name: "server-stringify",
-  features: FEATURES,
-  libraries: CLIENTS,
-});
-BenchmarkProgrammer.generate({
-  name: "server-stringify/internal",
-  features: FEATURES,
-  libraries: SERVERS,
+const main = async (): Promise<void> => {
+  await BenchmarkProgrammer.generate({
+    name: "server-stringify",
+    features: FEATURES,
+    libraries: CLIENTS,
+  });
+  await BenchmarkProgrammer.generate({
+    name: "server-stringify/internal",
+    features: FEATURES,
+    libraries: SERVERS,
+  });
+};
+
+main().catch((exp) => {
+  console.error(exp);
+  process.exit(-1);
 });

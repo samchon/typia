@@ -5,6 +5,8 @@
 > - NodeJS version: v20.18.1
 > - Typia version: v7.6.0
 
+> **Provenance warning:** The `optimizer`, AJV `validate`, and express class-transformer `server-performance` rows were produced before the workload-integrity fixes in #2049. They are retained as historical artifacts and must not be used for comparison until replaced by a fresh quiet-host run.
+
 
 ## is
 ![is benchmark](images/is.svg)
