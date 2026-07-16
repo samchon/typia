@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, SwaggerV2 } from "@typia/interface";
 
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
@@ -872,7 +873,10 @@ export namespace SwaggerV2Upgrader {
 
       if (SwaggerV2TypeChecker.isReference(input))
         return retrieveObject(definitions)(
-          definitions?.[input.$ref.split("/").pop() ?? ""] ?? {},
+          ObjectDictionary.get(
+            definitions,
+            input.$ref.split("/").pop() ?? "",
+          ) ?? {},
           visited,
         );
       return null;

@@ -1,6 +1,7 @@
 import { ILlmSchema } from "@typia/interface";
 
 import { MapUtil } from "../utils/MapUtil";
+import { ObjectDictionary } from "../utils/internal/ObjectDictionary";
 import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase";
 
 /**
@@ -151,7 +152,10 @@ export namespace LlmTypeChecker {
         const key: string = schema.$ref.split("#/$defs/").pop()!;
         if (already.has(key) === true) return;
         already.add(key);
-        const found: ILlmSchema | undefined = props.$defs?.[key];
+        const found: ILlmSchema | undefined = ObjectDictionary.get(
+          props.$defs,
+          key,
+        );
         if (found !== undefined) next(found, `${refAccessor}[${key}]`);
       } else if (LlmTypeChecker.isAnyOf(schema))
         schema.anyOf.forEach((s, i) => next(s, `${accessor}.anyOf[${i}]`));
@@ -330,7 +334,10 @@ export namespace LlmTypeChecker {
     )
       return false;
     return Object.entries(p.y.properties ?? {}).every(([key, b]) => {
-      const a: ILlmSchema | undefined = p.x.properties?.[key];
+      const a: ILlmSchema | undefined = ObjectDictionary.get(
+        p.x.properties,
+        key,
+      );
       if (a === undefined) return false;
       else if (
         (p.x.required?.includes(key) ?? false) === true &&
@@ -397,6 +404,9 @@ export namespace LlmTypeChecker {
     schema: ILlmSchema,
   ): Exclude<ILlmSchema, ILlmSchema.IReference> =>
     isReference(schema)
-      ? escapeReference($defs, $defs![schema.$ref.replace("#/$defs/", "")]!)
+      ? escapeReference(
+          $defs,
+          ObjectDictionary.get($defs, schema.$ref.replace("#/$defs/", ""))!,
+        )
       : schema;
 }

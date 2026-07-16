@@ -1,6 +1,7 @@
 import { IJsonParseResult, ILlmSchema } from "@typia/interface";
 
 import { LlmTypeChecker } from "../../validators/LlmTypeChecker";
+import { ObjectDictionary } from "./ObjectDictionary";
 import { parseLenientJson } from "./parseLenientJson";
 
 /**
@@ -31,12 +32,8 @@ function coerceValue(
 ): unknown {
   // Resolve reference
   if (LlmTypeChecker.isReference(schema)) {
-    const key: string = schema.$ref.replace("#/$defs/", "");
-    const resolved: ILlmSchema | undefined = $defs?.[key];
-    if (resolved !== undefined) {
-      return coerceValue(value, resolved, $defs);
-    }
-    return value;
+    const resolved: ILlmSchema = resolveSchema(schema, $defs);
+    return resolved === schema ? value : coerceValue(value, resolved, $defs);
   }
 
   // Handle anyOf
@@ -162,9 +159,12 @@ function coerceObject(
 
   // Coerce known properties
   for (const [key, propSchema] of Object.entries(schema.properties)) {
-    if (key in value) {
-      result[key] = coerceValue(value[key], propSchema, $defs);
-    }
+    if (ObjectDictionary.has(value, key))
+      ObjectDictionary.set(
+        result,
+        key,
+        coerceValue(value[key], propSchema, $defs),
+      );
   }
 
   // Preserve additional properties - let validation handle rejection
@@ -174,11 +174,14 @@ function coerceObject(
       : undefined;
 
   for (const key of Object.keys(value)) {
-    if (!(key in schema.properties)) {
-      result[key] = additionalSchema
-        ? coerceValue(value[key], additionalSchema, $defs)
-        : coerceLoose(value[key]);
-    }
+    if (!ObjectDictionary.has(schema.properties, key))
+      ObjectDictionary.set(
+        result,
+        key,
+        additionalSchema
+          ? coerceValue(value[key], additionalSchema, $defs)
+          : coerceLoose(value[key]),
+      );
   }
 
   return result;
@@ -208,12 +211,15 @@ function resolveSchema(
   schema: ILlmSchema,
   $defs: Record<string, ILlmSchema> | undefined,
 ): ILlmSchema {
-  if (LlmTypeChecker.isReference(schema)) {
+  const origin: ILlmSchema = schema;
+  const visited: Set<string> = new Set();
+  while (LlmTypeChecker.isReference(schema)) {
     const key: string = schema.$ref.replace("#/$defs/", "");
-    const resolved: ILlmSchema | undefined = $defs?.[key];
-    if (resolved !== undefined) {
-      return resolveSchema(resolved, $defs);
-    }
+    if (visited.has(key)) return origin;
+    visited.add(key);
+    const resolved: ILlmSchema | undefined = ObjectDictionary.get($defs, key);
+    if (resolved === undefined) return origin;
+    schema = resolved;
   }
   return schema;
 }
@@ -228,10 +234,10 @@ function matchesSchemaType(
   $defs: Record<string, ILlmSchema> | undefined,
 ): boolean {
   if (LlmTypeChecker.isReference(schema)) {
-    const key: string = schema.$ref.replace("#/$defs/", "");
-    const resolved: ILlmSchema | undefined = $defs?.[key];
-    if (resolved) return matchesSchemaType(value, resolved, $defs);
-    return false;
+    const resolved: ILlmSchema = resolveSchema(schema, $defs);
+    return resolved === schema
+      ? false
+      : matchesSchemaType(value, resolved, $defs);
   }
   if (LlmTypeChecker.isNull(schema)) return value === null;
   if (LlmTypeChecker.isBoolean(schema)) return typeof value === "boolean";
@@ -319,7 +325,10 @@ function findMatchingObjectInAnyOf(
   for (const s of objectSchemas) {
     const resolved: ILlmSchema = resolveSchema(s, $defs);
     if (!LlmTypeChecker.isObject(resolved)) continue;
-    const propSchema: ILlmSchema | undefined = resolved.properties?.[key];
+    const propSchema: ILlmSchema | undefined = ObjectDictionary.get(
+      resolved.properties,
+      key,
+    );
     if (propSchema === undefined) continue;
     const resolvedProp: ILlmSchema = resolveSchema(propSchema, $defs);
     if (

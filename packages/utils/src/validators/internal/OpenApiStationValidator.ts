@@ -1,5 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiArrayValidator } from "./OpenApiArrayValidator";
@@ -17,6 +18,7 @@ export namespace OpenApiStationValidator {
   export const validate = (
     ctx: Omit<IOpenApiValidatorContext<OpenApi.IJsonSchema>, "expected">,
     expected?: string,
+    references: ReadonlySet<string> = new Set(),
   ): boolean => {
     // THE TYPE NAME
     expected ??= (() => {
@@ -44,22 +46,43 @@ export namespace OpenApiStationValidator {
       );
     // NESTED
     else if (OpenApiTypeChecker.isReference(ctx.schema)) {
-      const schema: OpenApi.IJsonSchema | undefined =
-        ctx.components.schemas?.[ctx.schema.$ref.split("/").pop() ?? ""];
-      if (schema === undefined) return true;
+      let schema: OpenApi.IJsonSchema = ctx.schema;
+      const visited: Set<string> = new Set(references);
+      while (OpenApiTypeChecker.isReference(schema)) {
+        const key: string = schema.$ref.split("/").pop() ?? "";
+        if (visited.has(key))
+          return ctx.report({
+            ...ctx,
+            expected,
+            description: `Circular schema reference ${JSON.stringify(key)} cannot be resolved.`,
+          });
+        visited.add(key);
+        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          ctx.components.schemas,
+          key,
+        );
+        if (found === undefined)
+          return ctx.report({
+            ...ctx,
+            expected,
+            description: `Unable to resolve schema reference ${JSON.stringify(key)}.`,
+          });
+        schema = found;
+      }
       return OpenApiStationValidator.validate(
-        {
-          ...ctx,
-          schema,
-        },
+        { ...ctx, schema },
         expected,
+        visited,
       );
     } else if (OpenApiTypeChecker.isOneOf(ctx.schema))
-      return OpenApiOneOfValidator.validate({
-        ...ctx,
-        schema: ctx.schema,
-        expected,
-      });
+      return OpenApiOneOfValidator.validate(
+        {
+          ...ctx,
+          schema: ctx.schema,
+          expected,
+        },
+        references,
+      );
     // ATOMICS
     else if (OpenApiTypeChecker.isConstant(ctx.schema))
       return OpenApiConstantValidator.validate({

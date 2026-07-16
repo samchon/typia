@@ -7,6 +7,7 @@ import {
 } from "@typia/interface";
 
 import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
+import { ObjectDictionary } from "../utils/internal/ObjectDictionary";
 import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { LlmTypeChecker } from "../validators/LlmTypeChecker";
 import { OpenApiTypeChecker } from "../validators/OpenApiTypeChecker";
@@ -77,7 +78,7 @@ export namespace LlmSchemaConverter {
     });
     if (entity.success === false) return entity;
 
-    const $defs: Record<string, ILlmSchema> = {};
+    const $defs: Record<string, ILlmSchema> = ObjectDictionary.create();
     const result: IResult<ILlmSchema, IJsonSchemaTransformError> = transform({
       ...props,
       config,
@@ -178,7 +179,7 @@ export namespace LlmSchemaConverter {
           const key: string =
             next.$ref.split("#/components/schemas/")[1] ??
             next.$ref.split("/").at(-1)!;
-          if (props.components.schemas?.[key] === undefined)
+          if (ObjectDictionary.get(props.components.schemas, key) === undefined)
             reasons.push({
               schema: next,
               accessor: accessor,
@@ -234,8 +235,10 @@ export namespace LlmSchemaConverter {
         const key: string =
           input.$ref.split("#/components/schemas/")[1] ??
           input.$ref.split("/").at(-1)!;
-        const target: OpenApi.IJsonSchema | undefined =
-          props.components.schemas?.[key];
+        const target: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          props.components.schemas,
+          key,
+        );
         if (target === undefined) return;
         else {
           // KEEP THE REFERENCE TYPE
@@ -245,9 +248,9 @@ export namespace LlmSchemaConverter {
               $ref: `#/$defs/${key}`,
             });
           };
-          if (props.$defs[key] !== undefined) return out();
+          if (ObjectDictionary.has(props.$defs, key)) return out();
 
-          props.$defs[key] = {};
+          ObjectDictionary.set(props.$defs, key, {});
           const converted: IResult<ILlmSchema, IJsonSchemaTransformError> =
             transform({
               config: props.config,
@@ -258,7 +261,7 @@ export namespace LlmSchemaConverter {
               accessor: `${props.refAccessor ?? "$def"}[${JSON.stringify(key)}]`,
             });
           if (converted.success === false) return; // UNREACHABLE
-          props.$defs[key] = converted.value;
+          ObjectDictionary.set(props.$defs, key, converted.value);
           return out();
         }
       } else if (OpenApiTypeChecker.isObject(input)) {
@@ -510,10 +513,14 @@ export namespace LlmSchemaConverter {
       else if (LlmTypeChecker.isReference(schema)) {
         const key: string =
           schema.$ref.split("#/$defs/")[1] ?? schema.$ref.split("/").at(-1)!;
-        if (props.components.schemas?.[key] === undefined) {
-          props.components.schemas ??= {};
-          props.components.schemas[key] = {};
-          props.components.schemas[key] = next(props.$defs[key] ?? {});
+        if (ObjectDictionary.get(props.components.schemas, key) === undefined) {
+          props.components.schemas ??= ObjectDictionary.create();
+          ObjectDictionary.set(props.components.schemas, key, {});
+          ObjectDictionary.set(
+            props.components.schemas,
+            key,
+            next(ObjectDictionary.get(props.$defs, key) ?? {}),
+          );
         }
         union.push({
           ...schema,

@@ -1,12 +1,4 @@
 export const _isUniqueItems = (elements: any[]): boolean => {
-  // EMPTY OR ONLY ONE
-  if (elements.length < 2) return true;
-
-  // SHALLOW COMPARISON
-  if (["boolean", "bigint", "number", "string"].includes(typeof elements[0]))
-    return new Set(elements).size === elements.length;
-
-  // DEEP COMPARISON
   for (let i = 0; i < elements.length; i++)
     for (let j = i + 1; j < elements.length; j++)
       if (equals(new WeakMap())(elements[i], elements[j])) return false;
@@ -15,145 +7,149 @@ export const _isUniqueItems = (elements: any[]): boolean => {
 
 const equals = (visited: WeakMap<object, WeakMap<object, boolean>>) => {
   const next = (a: any, b: any): boolean => {
-    // SHALLOW EQUAL
     if (a === b) return true;
-    else if (typeof a !== typeof b || typeof a !== "object") return false;
-    // COMPARE CONTAINERS
-    else if (Array.isArray(a))
-      return Array.isArray(b) && a.map((x, i) => next(x, b[i])).every((x) => x);
-    else if (a instanceof Set)
+    if (
+      a === null ||
+      b === null ||
+      typeof a !== "object" ||
+      typeof b !== "object"
+    )
+      return false;
+
+    const previous: boolean | undefined = visited.get(a)?.get(b);
+    if (previous !== undefined) return previous;
+    const pairs: WeakMap<object, boolean> =
+      visited.get(a) ?? new WeakMap<object, boolean>();
+    visited.set(a, pairs);
+    pairs.set(b, true);
+
+    const result: boolean = compare(a, b);
+    pairs.set(b, result);
+    return result;
+  };
+
+  const compare = (a: object, b: object): boolean => {
+    if (Array.isArray(a)) {
+      if (!Array.isArray(b) || a.length !== b.length) return false;
+      for (let i = 0; i < a.length; i++) {
+        const aHas: boolean = Object.hasOwn(a, i);
+        if (aHas !== Object.hasOwn(b, i) || (aHas && !next(a[i], b[i])))
+          return false;
+      }
+      return true;
+    }
+    if (Array.isArray(b)) return false;
+
+    if (a instanceof Set) {
+      if (!(b instanceof Set) || a.size !== b.size) return false;
+      const unmatched: any[] = [...b];
+      for (const value of a) {
+        const index: number = unmatched.findIndex((candidate) =>
+          next(value, candidate),
+        );
+        if (index === -1) return false;
+        unmatched.splice(index, 1);
+      }
+      return true;
+    }
+    if (a instanceof Map) {
+      if (!(b instanceof Map) || a.size !== b.size) return false;
+      const unmatched: [any, any][] = [...b];
+      for (const [key, value] of a) {
+        const index: number = unmatched.findIndex(
+          ([candidateKey, candidateValue]) =>
+            next(key, candidateKey) && next(value, candidateValue),
+        );
+        if (index === -1) return false;
+        unmatched.splice(index, 1);
+      }
+      return true;
+    }
+
+    if (a instanceof Boolean)
+      return b instanceof Boolean && a.valueOf() === b.valueOf();
+    if (Object.prototype.toString.call(a) === "[object BigInt]")
       return (
-        b instanceof Set && a.size === b.size && [...a].every((x) => b.has(x))
+        Object.prototype.toString.call(b) === "[object BigInt]" &&
+        a.valueOf() === b.valueOf()
       );
-    else if (a instanceof Map)
+    if (Object.prototype.toString.call(a) === "[object Symbol]")
       return (
-        b instanceof Map &&
-        a.size === b.size &&
-        [...a].every(([k, v]) => b.has(k) && next(v, b.get(k)))
+        Object.prototype.toString.call(b) === "[object Symbol]" &&
+        a.valueOf() === b.valueOf()
       );
-    // ATOMIC CLASSES
-    else if (a instanceof Boolean)
-      return b instanceof Boolean
-        ? a.valueOf() === b.valueOf()
-        : a.valueOf() === b;
-    else if (a instanceof BigInt)
-      return b instanceof BigInt ? a === b : a === BigInt(b);
-    else if (a instanceof Number)
-      return b instanceof Number
-        ? a.valueOf() === b.valueOf()
-        : a.valueOf() === b;
-    else if (a instanceof String)
-      return b instanceof String
-        ? a.valueOf() === b.valueOf()
-        : a.valueOf() === b;
-    else if (a instanceof Date)
+    if (a instanceof Number)
+      return b instanceof Number && a.valueOf() === b.valueOf();
+    if (a instanceof String)
+      return b instanceof String && a.valueOf() === b.valueOf();
+    if (a instanceof Date)
       return b instanceof Date && a.getTime() === b.getTime();
-    // BINARY DATA
-    else if (a instanceof Uint8Array)
+    if (a instanceof RegExp)
       return (
-        b instanceof Uint8Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
+        b instanceof RegExp && a.source === b.source && a.flags === b.flags
       );
-    else if (a instanceof Uint8ClampedArray)
-      return (
-        b instanceof Uint8ClampedArray &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Uint16Array)
-      return (
-        b instanceof Uint16Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Uint32Array)
-      return (
-        b instanceof Uint32Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof BigUint64Array)
-      return (
-        b instanceof BigUint64Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Int8Array)
-      return (
-        b instanceof Int8Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Int16Array)
-      return (
-        b instanceof Int16Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Int32Array)
-      return (
-        b instanceof Int32Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof BigInt64Array)
-      return (
-        b instanceof BigInt64Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Float32Array)
-      return (
-        b instanceof Float32Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof Float64Array)
-      return (
-        b instanceof Float64Array &&
-        a.length === b.length &&
-        a.every((x, i) => x === b[i])
-      );
-    else if (a instanceof ArrayBuffer) {
-      if (!(b instanceof ArrayBuffer) || a.byteLength !== b.byteLength)
-        return false;
-      const x: Uint8Array = new Uint8Array(a);
-      const y: Uint8Array = new Uint8Array(b);
-      return x.every((v, i) => v === y[i]);
-    } else if (a instanceof SharedArrayBuffer) {
-      if (!(b instanceof SharedArrayBuffer) || a.byteLength !== b.byteLength)
-        return false;
-      const x: Uint8Array = new Uint8Array(a);
-      const y: Uint8Array = new Uint8Array(b);
-      return x.every((v, i) => v === y[i]);
-    } else if (a instanceof DataView) {
-      if (!(b instanceof DataView) || a.byteLength !== b.byteLength)
-        return false;
-      const x: Uint8Array = new Uint8Array(a.buffer);
-      const y: Uint8Array = new Uint8Array(b.buffer);
-      return x.every((v, i) => v === y[i]);
-    } else if (a instanceof File)
+
+    if (typeof File !== "undefined" && a instanceof File)
       return (
         b instanceof File &&
         a.name === b.name &&
         a.size === b.size &&
         a.type === b.type &&
-        next(a.slice(), b.slice())
+        a.lastModified === b.lastModified
       );
-    // JUST PLAIN OBJECTS
-    else if (a !== null && b !== null) {
-      if (visited.has(a) && visited.get(a)!.has(b))
-        return visited.get(a)!.get(b)!;
-      if (!visited.has(a)) visited.set(a, new WeakMap());
-      visited.get(a)!.set(b, true);
-      const res: boolean =
-        Object.keys(a).length === Object.keys(b).length &&
-        Object.keys(a).every((x) => next(a[x], b[x]));
-      visited.get(a)!.set(b, res);
-      return res;
+    if (typeof Blob !== "undefined" && a instanceof Blob)
+      return b instanceof Blob && a.size === b.size && a.type === b.type;
+
+    if (a instanceof DataView) {
+      if (!(b instanceof DataView) || a.byteLength !== b.byteLength)
+        return false;
+      return bytes(a.buffer, a.byteOffset, a.byteLength).every(
+        (value, index) =>
+          value === bytes(b.buffer, b.byteOffset, b.byteLength)[index],
+      );
     }
-    return false;
+    if (ArrayBuffer.isView(a)) {
+      if (
+        !ArrayBuffer.isView(b) ||
+        b instanceof DataView ||
+        Object.getPrototypeOf(a) !== Object.getPrototypeOf(b) ||
+        a.byteLength !== b.byteLength
+      )
+        return false;
+      const x: Uint8Array = bytes(a.buffer, a.byteOffset, a.byteLength);
+      const y: Uint8Array = bytes(b.buffer, b.byteOffset, b.byteLength);
+      return x.every((value, index) => value === y[index]);
+    }
+    if (a instanceof ArrayBuffer)
+      return (
+        b instanceof ArrayBuffer &&
+        a.byteLength === b.byteLength &&
+        bytes(a).every((value, index) => value === bytes(b)[index])
+      );
+    if (
+      typeof SharedArrayBuffer !== "undefined" &&
+      a instanceof SharedArrayBuffer
+    )
+      return (
+        b instanceof SharedArrayBuffer &&
+        a.byteLength === b.byteLength &&
+        bytes(a).every((value, index) => value === bytes(b)[index])
+      );
+
+    const keys: string[] = Object.keys(a);
+    return (
+      keys.length === Object.keys(b).length &&
+      keys.every(
+        (key) =>
+          Object.hasOwn(b, key) && next((a as any)[key], (b as any)[key]),
+      )
+    );
   };
   return next;
 };
+
+const bytes = (
+  buffer: ArrayBufferLike,
+  byteOffset: number = 0,
+  byteLength: number = buffer.byteLength,
+): Uint8Array => new Uint8Array(buffer, byteOffset, byteLength);

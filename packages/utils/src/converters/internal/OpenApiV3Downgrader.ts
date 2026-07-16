@@ -1,5 +1,6 @@
 import { OpenApi, OpenApiV3 } from "@typia/interface";
 
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
@@ -204,8 +205,11 @@ export namespace OpenApiV3Downgrader {
       collection.downgraded.schemas = {};
       for (const [key, value] of Object.entries(input.schemas))
         if (value !== undefined)
-          collection.downgraded.schemas[key] =
-            downgradeSchema(collection)(value);
+          ObjectDictionary.set(
+            collection.downgraded.schemas,
+            key,
+            downgradeSchema(collection)(value),
+          );
     }
     return collection;
   };
@@ -363,36 +367,47 @@ export namespace OpenApiV3Downgrader {
       const key: string = schema.$ref.split("/").pop()!;
       if (key.endsWith(".Nullable")) return;
 
-      const found: OpenApi.IJsonSchema | undefined =
-        collection.original.schemas?.[key];
+      const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        collection.original.schemas,
+        key,
+      );
       if (found === undefined) return;
       else if (isNullable(visited)(collection.original)(found) === true) return;
       else if (
-        collection.downgraded.schemas?.[`${key}.Nullable`] === undefined
+        ObjectDictionary.get(
+          collection.downgraded.schemas,
+          `${key}.Nullable`,
+        ) === undefined
       ) {
         collection.downgraded.schemas ??= {};
-        collection.downgraded.schemas[`${key}.Nullable`] = {};
-        collection.downgraded.schemas[`${key}.Nullable`] = downgradeSchema(
-          collection,
-        )(
-          OpenApiTypeChecker.isOneOf(found)
-            ? {
-                ...found,
-                oneOf: [...found.oneOf, { type: "null" }],
-              }
-            : {
-                oneOf: [found, { type: "null" }],
-                title: found.title,
-                description: found.description,
-                example: found.example,
-                examples: found.examples,
-                ...Object.fromEntries(
-                  Object.entries(found).filter(
-                    ([key, value]) =>
-                      key.startsWith("x-") && value !== undefined,
+        ObjectDictionary.set(
+          collection.downgraded.schemas,
+          `${key}.Nullable`,
+          {},
+        );
+        ObjectDictionary.set(
+          collection.downgraded.schemas,
+          `${key}.Nullable`,
+          downgradeSchema(collection)(
+            OpenApiTypeChecker.isOneOf(found)
+              ? {
+                  ...found,
+                  oneOf: [...found.oneOf, { type: "null" }],
+                }
+              : {
+                  oneOf: [found, { type: "null" }],
+                  title: found.title,
+                  description: found.description,
+                  example: found.example,
+                  examples: found.examples,
+                  ...Object.fromEntries(
+                    Object.entries(found).filter(
+                      ([key, value]) =>
+                        key.startsWith("x-") && value !== undefined,
+                    ),
                   ),
-                ),
-              },
+                },
+          ),
         );
       }
       schema.$ref += ".Nullable";
@@ -414,7 +429,10 @@ export namespace OpenApiV3Downgrader {
         if (visited.has(schema.$ref)) return false;
         visited.add(schema.$ref);
         const key: string = schema.$ref.split("/").pop()!;
-        const next: OpenApi.IJsonSchema | undefined = components.schemas?.[key];
+        const next: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          components.schemas,
+          key,
+        );
         return next ? isNullable(visited)(components)(next) : false;
       }
       return (

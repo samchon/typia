@@ -1,5 +1,7 @@
 import { DeepPartial, IJsonParseResult } from "@typia/interface";
 
+import { ObjectDictionary } from "./ObjectDictionary";
+
 /**
  * Parse lenient JSON that may be incomplete or malformed.
  *
@@ -603,7 +605,7 @@ class LenientJsonParser {
       }
 
       const value: unknown = this.parseValue(path + "." + key);
-      result[key] = value;
+      ObjectDictionary.set(result, key, value);
 
       this.skipWhitespace();
 
