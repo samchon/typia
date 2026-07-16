@@ -16,7 +16,7 @@ import (
 // silently discard that contract.
 //
 //  1. Transform all assert, is/equals, and validate parameter/return variants.
-//  2. Exercise sync and async targets through `.call`, binding, and extraction.
+//  2. Exercise sync, async, bound, and receiver-free targets.
 //  3. Preserve validation failures, thrown errors, and receiver-dependent data.
 func TestFunctionalReceiverTransform(t *testing.T) {
   project := compareEqualCoverProject(t, "functional-receiver-", functionalReceiverSource)
@@ -115,6 +115,12 @@ export const asynchronous = {
 
 const boundReceiver: Receiver = { base: 20, calls: 0 };
 export const boundAssert = typia.functional.assertFunction(syncTarget).bind(boundReceiver);
+export const customAssert = typia.functional.assertParameters(
+  syncTarget,
+  (props) => Object.assign(new Error("custom receiver"), props),
+);
+export const receiverFree = typia.functional.isFunction((input: Input): Output => ({ total: input.value }));
+export const receiverFreeResult = receiverFree({ value: 2 });
 export const throwing = typia.functional.assertParameters(function (this: Receiver, input: Input): Output {
   throw new Error(String(this.base + input.value));
 });
@@ -177,6 +183,7 @@ const checkResult = (label, name, result) => {
   const bound = mod.boundAssert.call(ignored, { value: 2 });
   expect("bound wrapper keeps bound receiver", bound.total, 22);
   expect("bound wrapper ignores call receiver", ignored.calls, 0);
+  expect("receiver-free arrow remains directly callable", mod.receiverFreeResult.total, 2);
 
   const receiver = { base: 40, calls: 0 };
   let thrown;
@@ -196,11 +203,28 @@ const checkResult = (label, name, result) => {
     } catch (exp) {
       error = exp;
     }
-    if (assertNames.has(name)) expect("assert invalid throws", Boolean(error), true);
-    else if (validateNames.has(name)) expect("validate invalid fails", result.success, false);
-    else expect("is invalid returns null", result, null);
+    if (assertNames.has(name)) {
+      expect("assert invalid throws", Boolean(error), true);
+      expect("assert invalid path", error.path, "$input.parameters[0].value");
+    } else if (validateNames.has(name)) {
+      expect("validate invalid fails", result.success, false);
+      expect("validate invalid path", result.errors[0].path, "$input.parameters[0].value");
+    } else {
+      expect("is invalid returns null", result, null);
+    }
     expect(name + " invalid does not invoke target", receiver.calls, 0);
   }
+
+  const customReceiver = { base: 40, calls: 0 };
+  let customError;
+  try {
+    mod.customAssert.call(customReceiver, { value: "bad" });
+  } catch (error) {
+    customError = error;
+  }
+  expect("custom error factory message", customError && customError.message, "custom receiver");
+  expect("custom error factory path", customError && customError.path, "$input.parameters[0].value");
+  expect("custom error does not invoke target", customReceiver.calls, 0);
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

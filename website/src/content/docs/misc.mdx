@@ -291,7 +291,7 @@ namespace compare {
 }
 ```
 
-Lexicographic ordering: walks the properties of `T` in declaration order and decides on the first differing scalar leaf (`number` / `boolean` / `string` / `bigint`), with `undefined < null < value`. Arrays compare element-by-element, the shorter prefix preceding. `NaN` follows every ordinary number and equals itself for ordering purposes; an invalid `Date` follows valid dates by the same rule. `less` and `equals` compose into an `Array.prototype.sort` comparator:
+Lexicographic ordering: walks the properties of `T` in declaration order and decides on the first differing scalar leaf (`number` / `boolean` / `string` / `bigint`), with `undefined < null < value`. Arrays compare element-by-element, the shorter prefix preceding. `NaN` follows every ordinary number, and two `NaN` operands are equivalent only for ordering; an invalid `Date` follows valid dates by the same rule. Two directional `less` checks compose into an `Array.prototype.sort` comparator:
 
 ```typescript copy
 const cmp = (a: IPoint, b: IPoint): number =>
