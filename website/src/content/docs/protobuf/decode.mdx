@@ -105,7 +105,7 @@ Wrap the call in `try`/`catch` when the bytes come from an untrusted producer.
 
 ```typescript copy
 try {
-  const user: User = typia.protobuf.assertDecode<User>(buffer);
+  const user = typia.protobuf.assertDecode<User>(bytes);
 } catch (error) {
   // malformed wire bytes, or a failed tag constraint
 }
