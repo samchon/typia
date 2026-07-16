@@ -157,6 +157,36 @@ export const test_json_schema_type_checker_cover_constraints = (): void => {
       x: { $ref: "#/components/schemas/PositiveCent" },
       y: { $ref: "#/components/schemas/InvalidCent" },
     },
+    {
+      name: "numeric schema covers a contradictory numeric range",
+      expected: true,
+      x: { type: "number", minimum: 10 },
+      y: { type: "number", minimum: 1, maximum: 0 },
+    },
+    {
+      name: "numeric schema covers an equal exclusive empty range",
+      expected: true,
+      x: { type: "number", minimum: 10 },
+      y: { type: "number", minimum: 1, exclusiveMaximum: 1 },
+    },
+    {
+      name: "numeric schema does not cover an equal inclusive singleton",
+      expected: false,
+      x: { type: "number", minimum: 10 },
+      y: { type: "number", minimum: 1, maximum: 1 },
+    },
+    {
+      name: "string schema covers a contradictory length range",
+      expected: true,
+      x: { type: "string", minLength: 10 },
+      y: { type: "string", minLength: 2, maxLength: 1 },
+    },
+    {
+      name: "string schema does not cover a non-empty exact length",
+      expected: false,
+      x: { type: "string", minLength: 10 },
+      y: { type: "string", minLength: 1, maxLength: 1 },
+    },
   ];
   for (const test of cases)
     TestValidator.equals(

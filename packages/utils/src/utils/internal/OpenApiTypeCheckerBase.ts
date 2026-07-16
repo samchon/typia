@@ -824,6 +824,7 @@ export namespace OpenApiTypeCheckerBase {
     x: OpenApi.IJsonSchema.IInteger,
     y: OpenApi.IJsonSchema.IConstant | OpenApi.IJsonSchema.IInteger,
   ): boolean => {
+    if (isConstant(y) === false && isEmptyNumericRange(y)) return true;
     if (isConstant(y))
       return (
         typeof y.const === "number" &&
@@ -848,6 +849,7 @@ export namespace OpenApiTypeCheckerBase {
       | OpenApi.IJsonSchema.IInteger
       | OpenApi.IJsonSchema.INumber,
   ): boolean => {
+    if (isConstant(y) === false && isEmptyNumericRange(y)) return true;
     if (isConstant(y))
       return typeof y.const === "number" && coversNumericValue(x, y.const);
     return (
@@ -872,6 +874,12 @@ export namespace OpenApiTypeCheckerBase {
   ): boolean => {
     if (isConstant(y))
       return typeof y.const === "string" && coversStringValue(x, y.const);
+    if (
+      y.minLength !== undefined &&
+      y.maxLength !== undefined &&
+      y.minLength > y.maxLength
+    )
+      return true;
     return [
       x.format === undefined ||
         (y.format !== undefined && coverFormat(x.format, y.format)),
@@ -969,6 +977,17 @@ export namespace OpenApiTypeCheckerBase {
     const yUpper: IBoundary | null = getUpperBoundary(y);
     return (
       coversLowerBoundary(xLower, yLower) && coversUpperBoundary(xUpper, yUpper)
+    );
+  };
+
+  const isEmptyNumericRange = (schema: INumericConstraints): boolean => {
+    const lower: IBoundary | null = getLowerBoundary(schema);
+    const upper: IBoundary | null = getUpperBoundary(schema);
+    return (
+      lower !== null &&
+      upper !== null &&
+      (lower.value > upper.value ||
+        (lower.value === upper.value && (lower.exclusive || upper.exclusive)))
     );
   };
 

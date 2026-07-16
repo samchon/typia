@@ -99,7 +99,7 @@ export namespace TagBase {
      *   `"5 <= $input"`; // For Minimum<5>
      *
      * @example
-     *   `"Array.from($input).length <= 10"`; // For MaxLength<10>
+     *   `"$importInternal(\"_stringLength\")($input) <= 10"`; // For MaxLength<10>
      */
     validate?: Validate;
 
