@@ -117,13 +117,15 @@ const assertOverflow = (
   closure: (reader: _ProtobufReader) => void,
 ): void => {
   const reader: _ProtobufReader = new _ProtobufReader(Uint8Array.from(bytes));
+  const size: number = reader.size();
   try {
     closure(reader);
   } catch (error) {
     if (
       error instanceof Error &&
       error.message === "Error on typia.protobuf.decode(): buffer overflow." &&
-      reader.index() === 0
+      reader.index() === 0 &&
+      reader.size() === size
     )
       return;
     throw new Error(
