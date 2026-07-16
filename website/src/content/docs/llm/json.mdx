@@ -253,6 +253,10 @@ What `coerce` actually does, step by step:
 4. **Recursive descent** — coerce nested objects and arrays based on `properties` and `items`
 5. **Leave unknown extras alone** — extras pass through; validation later decides whether to accept them
 
+A `$ref` must be a local URI-fragment JSON Pointer of the form `#/$defs/TypeName`, where `TypeName` encodes one `$defs` key: `~` becomes `~0`, `/` becomes `~1`, and the result is percent-encoded. A key of `A/B` is therefore referenced as `#/$defs/A~1B`. Definition keys themselves stay unrestricted — only the reference is encoded. See [`llm.schema`](/docs/llm/schema) for the generated form.
+
+A reference that is malformed or points at a missing definition is an error, not an unconstrained schema. `coerce` leaves such a value untouched, and `parse` and `validate` fail instead of accepting it.
+
 ## `LlmJson.validate`
 
 ```typescript copy

@@ -1,6 +1,7 @@
 import { ILlmSchema } from "@typia/interface";
 
 import { MapUtil } from "../utils/MapUtil";
+import { LlmReference } from "../utils/internal/LlmReference";
 import { ObjectDictionary } from "../utils/internal/ObjectDictionary";
 import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase";
 
@@ -149,14 +150,14 @@ export namespace LlmTypeChecker {
     const next = (schema: ILlmSchema, accessor: string): void => {
       props.closure(schema, accessor);
       if (LlmTypeChecker.isReference(schema)) {
-        const key: string = schema.$ref.split("#/$defs/").pop()!;
-        if (already.has(key) === true) return;
-        already.add(key);
-        const found: ILlmSchema | undefined = ObjectDictionary.get(
-          props.$defs,
-          key,
+        const resolved: LlmReference.IResolved | undefined =
+          LlmReference.resolve(props.$defs, schema.$ref);
+        if (resolved === undefined || already.has(resolved.key)) return;
+        already.add(resolved.key);
+        next(
+          resolved.schema,
+          `${refAccessor}[${JSON.stringify(resolved.key)}]`,
         );
-        if (found !== undefined) next(found, `${refAccessor}[${key}]`);
       } else if (LlmTypeChecker.isAnyOf(schema))
         schema.anyOf.forEach((s, i) => next(s, `${accessor}.anyOf[${i}]`));
       else if (LlmTypeChecker.isObject(schema)) {
@@ -221,9 +222,10 @@ export namespace LlmTypeChecker {
     y: ILlmSchema;
   }): boolean => {
     // CHECK EQUALITY
-    if (p.x === p.y) return true;
+    if (p.x === p.y)
+      return isReference(p.x) ? hasReference(p.$defs, p.x) : true;
     else if (isReference(p.x) && isReference(p.y) && p.x.$ref === p.y.$ref)
-      return true;
+      return hasReference(p.$defs, p.x);
 
     // COMPARE WITH FLATTENING
     const alpha: ILlmSchema[] = flatSchema(p.$defs, p.x);
@@ -249,7 +251,8 @@ export namespace LlmTypeChecker {
     y: ILlmSchema;
   }): boolean => {
     // CHECK EQUALITY
-    if (p.x === p.y) return true;
+    if (p.x === p.y)
+      return isReference(p.x) ? hasReference(p.$defs, p.x) : true;
     else if (isUnknown(p.x)) return true;
     else if (isUnknown(p.y)) return false;
     else if (isNull(p.x)) return isNull(p.y);
@@ -402,16 +405,10 @@ export namespace LlmTypeChecker {
   const escapeReference = (
     $defs: Record<string, ILlmSchema> | undefined,
     schema: ILlmSchema,
-  ): ILlmSchema => {
-    const visited: Set<string> = new Set();
-    while (isReference(schema)) {
-      const key: string = schema.$ref.replace("#/$defs/", "");
-      if (visited.has(key)) return schema;
-      visited.add(key);
-      const resolved: ILlmSchema | undefined = ObjectDictionary.get($defs, key);
-      if (resolved === undefined) return schema;
-      schema = resolved;
-    }
-    return schema;
-  };
+  ): ILlmSchema => LlmReference.dereference($defs, schema) ?? schema;
+
+  const hasReference = (
+    $defs: Record<string, ILlmSchema> | undefined,
+    schema: ILlmSchema.IReference,
+  ): boolean => LlmReference.dereference($defs, schema) !== undefined;
 }
