@@ -1,6 +1,7 @@
 import { IJsonParseResult, ILlmSchema } from "@typia/interface";
 
 import { LlmTypeChecker } from "../../validators/LlmTypeChecker";
+import { LlmReference } from "./LlmReference";
 import { ObjectDictionary } from "./ObjectDictionary";
 import { parseLenientJson } from "./parseLenientJson";
 
@@ -211,17 +212,7 @@ function resolveSchema(
   schema: ILlmSchema,
   $defs: Record<string, ILlmSchema> | undefined,
 ): ILlmSchema {
-  const origin: ILlmSchema = schema;
-  const visited: Set<string> = new Set();
-  while (LlmTypeChecker.isReference(schema)) {
-    const key: string = schema.$ref.replace("#/$defs/", "");
-    if (visited.has(key)) return origin;
-    visited.add(key);
-    const resolved: ILlmSchema | undefined = ObjectDictionary.get($defs, key);
-    if (resolved === undefined) return origin;
-    schema = resolved;
-  }
-  return schema;
+  return LlmReference.dereference($defs, schema) ?? schema;
 }
 
 /**

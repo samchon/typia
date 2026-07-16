@@ -22,6 +22,8 @@ namespace llm {
 
 You pass a `$defs` object as the runtime argument. Any named types referenced in `T` will be added to `$defs` and surfaced through `$ref`. So you can call `llm.schema` multiple times against the same `$defs` and the referenced sub-schemas will be deduplicated.
 
+Each `$ref` is a local URI-fragment JSON Pointer such as `#/$defs/Animal`. typia preserves the `$defs` key and encodes `/` as `~1`, `~` as `~0`, and URI-fragment characters with percent encoding. When you construct `ILlmSchema` manually, use that canonical form; malformed references and references to missing definitions fail validation instead of acting as unconstrained schemas.
+
 > Most users want [`parameters`](/docs/llm/parameters), [`structuredOutput`](/docs/llm/structuredOutput), or [`application`](/docs/llm/application) — they all generate full top-level schemas for you. `schema` is the building block.
 
 ## First example

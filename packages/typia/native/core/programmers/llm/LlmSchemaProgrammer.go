@@ -318,7 +318,7 @@ func llmSchemaProgrammer_convert_schema_config(schema nativeiterate.JsonSchema, 
           defs[key] = llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
         }
       }
-      union = append(union, map[string]any{"$ref": "#/$defs/" + key})
+      union = append(union, map[string]any{"$ref": llmSchemaProgrammer_encode_reference(key)})
       return
     }
     if input["type"] == "object" {
@@ -643,6 +643,23 @@ func llmSchemaProgrammer_ref_key(ref string) string {
   return ref[index+1:]
 }
 
+func llmSchemaProgrammer_encode_reference(key string) string {
+  token := strings.NewReplacer("~", "~0", "/", "~1").Replace(key)
+  var output strings.Builder
+  output.WriteString("#/$defs/")
+  for _, value := range []byte(token) {
+    if (value >= 'A' && value <= 'Z') ||
+      (value >= 'a' && value <= 'z') ||
+      (value >= '0' && value <= '9') ||
+      strings.ContainsRune("-_.!~*'()", rune(value)) {
+      output.WriteByte(value)
+    } else {
+      fmt.Fprintf(&output, "%%%02X", value)
+    }
+  }
+  return output.String()
+}
+
 func llmSchemaProgrammer_component(components *nativeiterate.OpenApi_IComponents, key string) (nativeiterate.JsonSchema, bool) {
   if components == nil || components.Schemas == nil {
     return nil, false
@@ -677,7 +694,7 @@ func llmSchemaProgrammer_discriminator(schema nativeiterate.JsonSchema, union []
   if rawMapping, ok := llmSchemaProgrammer_schema_map(discriminator["mapping"]); ok {
     mapping := map[string]any{}
     for key, value := range rawMapping {
-      mapping[key] = "#/$defs/" + llmSchemaProgrammer_ref_key(fmt.Sprint(value))
+      mapping[key] = llmSchemaProgrammer_encode_reference(llmSchemaProgrammer_ref_key(fmt.Sprint(value)))
     }
     output["mapping"] = mapping
   }

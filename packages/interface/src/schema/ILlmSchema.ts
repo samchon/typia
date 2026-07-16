@@ -65,8 +65,9 @@ export namespace ILlmSchema {
      * Named schema definitions for reference.
      *
      * Contains type definitions that can be referenced throughout the schema
-     * using `$ref: "#/$defs/TypeName"`. Essential for recursive types and
-     * shared structures.
+     * using `$ref: "#/$defs/TypeName"`. Definition names are encoded as one RFC
+     * 6901 token in URI-fragment form. Essential for recursive types and shared
+     * structures.
      */
     $defs: Record<string, ILlmSchema>;
 
@@ -394,14 +395,15 @@ export namespace ILlmSchema {
    *
    * Points to a schema defined in the `$defs` map using a JSON pointer. Used to
    * avoid schema duplication and enable recursive type definitions. The
-   * reference path format is `#/$defs/TypeName`.
+   * reference path format is `#/$defs/TypeName`, where `TypeName` is one RFC
+   * 6901 token encoded as a URI fragment.
    */
   export interface IReference extends IJsonSchemaAttribute {
     /**
      * JSON pointer to the referenced schema.
      *
-     * Must be in the format `#/$defs/TypeName` where TypeName is a key in the
-     * parent schema's `$defs` map.
+     * Must be in the format `#/$defs/TypeName`, where `TypeName` decodes to a
+     * key in the parent schema's `$defs` map.
      */
     $ref: string;
   }

@@ -1,5 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
+import { LlmReference } from "../../utils/internal/LlmReference";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
@@ -49,7 +50,13 @@ export namespace OpenApiStationValidator {
       let schema: OpenApi.IJsonSchema = ctx.schema;
       const visited: Set<string> = new Set(references);
       while (OpenApiTypeChecker.isReference(schema)) {
-        const key: string = schema.$ref.split("/").pop() ?? "";
+        const key: string | undefined = LlmReference.readOpenApi(schema.$ref);
+        if (key === undefined)
+          return ctx.report({
+            ...ctx,
+            expected,
+            description: `Malformed schema reference ${JSON.stringify(schema.$ref)}.`,
+          });
         if (visited.has(key))
           return ctx.report({
             ...ctx,
