@@ -52,9 +52,11 @@ func TestJoinerBranchCoverage(t *testing.T) {
 		t.Fatal("clone joiner returned nil")
 	}
 	if NotationJoiner.Object(NotationJoiner_ObjectProps{
-		Rename:  func(str string) string { return str },
-		Input:   input,
-		Entries: entries,
+		Rename:        func(str string) string { return str },
+		DynamicRename: func() *shimast.Node { return factory.NewIdentifier("rename") },
+		DynamicAssign: func() *shimast.Node { return factory.NewIdentifier("assign") },
+		Input:         input,
+		Entries:       entries,
 	}) == nil ||
 		NotationJoiner.Tuple(NotationJoiner_TupleProps{Elements: []*shimast.Expression{value}, Rest: input}) == nil ||
 		NotationJoiner.Array(NotationJoiner_ArrayProps{Input: input, Arrow: value}) == nil {
