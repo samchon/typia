@@ -31,14 +31,12 @@ func TestTransformSingleFileFailureWritesNoStdout(t *testing.T) {
       if code != 3 {
         t.Fatalf("invalid single-file transform should fail with code 3, got %d\nstdout=%s\nstderr=%s", code, outText, errText)
       }
-      if !strings.Contains(filepath.ToSlash(errText), "error TS(typia.is):") {
+      if !strings.Contains(errText, "error TS(typia.is):") {
         t.Fatalf("single-file diagnostic missing from stderr:\n%s", errText)
       }
+      // Before the fix this carried the untransformed `typia.is<T>(input)` call.
       if outText != "" {
         t.Fatalf("failed single-file transform published an artifact on stdout:\n%s", outText)
-      }
-      if strings.Contains(outText, "typia.is<") {
-        t.Fatalf("failed single-file transform leaked the untransformed call:\n%s", outText)
       }
     })
   }

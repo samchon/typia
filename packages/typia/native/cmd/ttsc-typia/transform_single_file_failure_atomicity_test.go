@@ -28,7 +28,7 @@ func TestTransformSingleFileFailurePreservesArtifacts(t *testing.T) {
       dist := filepath.Join(project, "dist")
       outPath := filepath.Join(dist, "main."+output)
       seeds := map[string]string{
-        outPath:                          "previous artifact\n",
+        outPath:                         "previous artifact\n",
         filepath.Join(dist, "keep.txt"): "unrelated output\n",
       }
       for path, body := range seeds {
