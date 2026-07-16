@@ -13,7 +13,7 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * and body group, and serialized every query array as repeated keys.
  *
  * 1. Compose required and optional header, cookie, query, and body inputs.
- * 2. Check the LLM schema required set and validation boundary.
+ * 2. Ignore reserved OpenAPI headers and check the LLM validation boundary.
  * 3. Capture request headers, cookies, body, and style/explode query output.
  */
 export const test_http_migrate_request_contract = async (): Promise<void> => {
@@ -79,6 +79,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
     host: "https://example.com/api/",
     headers: {
       "X-Token": "connection",
+      Authorization: "Bearer connection",
       Cookie: "session=old; inherited=yes",
     },
     fetch: (async (input: string | URL | Request, init?: RequestInit) => {
@@ -100,6 +101,11 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   let headers = new Headers(sent.init.headers);
   TestValidator.equals("path", "/api/users/samchon", sent.url.pathname);
   TestValidator.equals("header override", "request", headers.get("x-token"));
+  TestValidator.equals(
+    "ignored parameter keeps connection authorization",
+    "Bearer connection",
+    headers.get("authorization"),
+  );
   TestValidator.equals("object header", "trace,abc", headers.get("x-meta"));
   TestValidator.equals(
     "cookie merge and override",
@@ -164,7 +170,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   );
   TestValidator.equals(
     "exact query wire format",
-    "?ids=1,2&tags=a%21|b%2A&colors=red~&colors=blue%21&points=1%202&filter[role%21]=admin%21&filter[active]=true",
+    "?ids=1,2&tags=a%21%7Cb%2A&colors=red~&colors=blue%21&points=1%202&filter%5Brole%21%5D=admin%21&filter%5Bactive%5D=true",
     sent.url.search,
   );
   TestValidator.equals(
@@ -229,6 +235,24 @@ const document: OpenApiV3_1.IDocument = {
           {
             name: "userId",
             in: "path",
+            required: true,
+            schema: { type: "string" },
+          },
+          {
+            name: "ACCEPT",
+            in: "header",
+            required: true,
+            schema: { type: "string" },
+          },
+          {
+            name: "content-type",
+            in: "header",
+            required: true,
+            schema: { type: "string" },
+          },
+          {
+            name: "authorization",
+            in: "header",
             required: true,
             schema: { type: "string" },
           },

@@ -70,11 +70,20 @@ export namespace HttpMigrateRouteComposer {
       // FIND TARGET PARAMETERS
       const parameters: OpenApi.IOperation.IParameter[] = (
         props.operation.parameters ?? []
-      ).filter((p) =>
-        type === "query"
-          ? p.in === "query" || p.in === "querystring"
-          : p.in === type,
-      );
+      ).filter((p) => {
+        const matches: boolean =
+          type === "query"
+            ? p.in === "query" || p.in === "querystring"
+            : p.in === type;
+        return (
+          matches &&
+          !(
+            type === "header" &&
+            p.name !== undefined &&
+            IGNORED_HEADER_PARAMETERS.has(p.name.toLowerCase())
+          )
+        );
+      });
       if (parameters.length === 0) return null;
 
       if (type === "query") {
@@ -858,3 +867,9 @@ const selectSuccessResponse = (
     (responses?.default ? (["default", responses.default] as const) : undefined)
   );
 };
+
+const IGNORED_HEADER_PARAMETERS = new Set([
+  "accept",
+  "authorization",
+  "content-type",
+]);

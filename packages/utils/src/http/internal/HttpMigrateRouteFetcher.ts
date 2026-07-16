@@ -362,22 +362,20 @@ const serializeQuery = (
     `${encode(key)}=${encode(elem)}`;
   if (metadata.style === "deepObject")
     return objectEntries(value).map(
-      ([key, elem]) => `${name}[${encode(key)}]=${encode(elem)}`,
+      ([key, elem]) => `${name}%5B${encode(key)}%5D=${encode(elem)}`,
     );
   if (
     metadata.style === "spaceDelimited" ||
     metadata.style === "pipeDelimited"
   ) {
-    const delimiter = metadata.style === "spaceDelimited" ? " " : "|";
+    const delimiter = metadata.style === "spaceDelimited" ? "%20" : "%7C";
     return [
       `${name}=${
         isRecord(value)
           ? objectEntries(value)
               .flatMap(([key, elem]) => [encode(key), encode(elem)])
-              .join(delimiter === " " ? "%20" : delimiter)
-          : arrayValues(value)
-              .map(encode)
-              .join(delimiter === " " ? "%20" : delimiter)
+              .join(delimiter)
+          : arrayValues(value).map(encode).join(delimiter)
       }`,
     ];
   }
