@@ -44,7 +44,7 @@ export class _ProtobufReader {
   }
 
   public int64(): bigint {
-    return this.varint64();
+    return BigInt.asIntN(64, this.varint64());
   }
 
   public sint64(): bigint {
@@ -172,7 +172,7 @@ export class _ProtobufReader {
     if (loaded < BigInt(0x80)) return value;
 
     value |= (this.u8n() & BigInt(0x01)) << BigInt(63);
-    return BigInt.asIntN(64, value);
+    return BigInt.asUintN(64, value);
   }
 
   private u8(): number {
