@@ -74,6 +74,21 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     },
   );
   TestValidator.equals(
+    "attributed constant branches",
+    convert({
+      oneOf: [
+        { const: "a", description: "First" },
+        { const: "b", description: "Second" },
+      ],
+    }),
+    {
+      "x-oneOf": [
+        { type: "string", enum: ["a"], description: "First" },
+        { type: "string", enum: ["b"], description: "Second" },
+      ],
+    },
+  );
+  TestValidator.equals(
     "nullable constant",
     convert({ oneOf: [{ const: "fixed" }, { type: "null" }] }),
     { type: "string", enum: ["fixed"], "x-nullable": true },
@@ -105,5 +120,13 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       enum: ["referenced"],
       "x-nullable": true,
     },
+  );
+  TestValidator.equals(
+    "component definitions",
+    OpenApiConverter.downgradeComponents(
+      { schemas: { Component: { const: "component" } } },
+      "2.0",
+    ),
+    { Component: { type: "string", enum: ["component"] } },
   );
 };

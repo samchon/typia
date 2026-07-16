@@ -323,12 +323,9 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           `SwaggerV2Downgrader: form request object attributes are not representable: ${unsupported.join(", ")}.`,
         );
-      if (
-        object.additionalProperties !== undefined &&
-        object.additionalProperties !== false
-      )
+      if (object.additionalProperties !== undefined)
         throw new TypeError(
-          "SwaggerV2Downgrader: form request schemas cannot have additional properties.",
+          "SwaggerV2Downgrader: form request additionalProperties constraints are not representable.",
         );
       const required: string[] = object.required ?? [];
       if (
@@ -501,7 +498,6 @@ export namespace SwaggerV2Downgrader {
       downgraded: {},
     };
     if (input.schemas) {
-      collection.downgraded.schemas = {};
       for (const [key, value] of Object.entries(input.schemas))
         if (value !== undefined)
           collection.downgraded[key.split("/").pop()!] =
@@ -523,26 +519,42 @@ export namespace SwaggerV2Downgrader {
         | SwaggerV2.IJsonSchema.INumber
         | SwaggerV2.IJsonSchema.IString
       > = new Map();
-      const attribute: SwaggerV2.IJsonSchema.__IAttribute = {
-        title: input.title,
-        description: input.description,
-        deprecated: input.deprecated,
-        readOnly: input.readOnly,
-        example: input.example,
-        examples: input.examples ? Object.values(input.examples) : undefined,
+      const getAttribute = (
+        schema: OpenApi.IJsonSchema,
+      ): SwaggerV2.IJsonSchema.__IAttribute => ({
+        title: schema.title,
+        description: schema.description,
+        deprecated: schema.deprecated,
+        readOnly: schema.readOnly,
+        example: schema.example,
+        examples: schema.examples ? Object.values(schema.examples) : undefined,
         ...Object.fromEntries(
-          Object.entries(input).filter(
+          Object.entries(schema).filter(
             ([key, value]) => key.startsWith("x-") && value !== undefined,
           ),
         ),
-      };
-      const insertConstant = (value: boolean | number | string): void => {
+      });
+      const attribute: SwaggerV2.IJsonSchema.__IAttribute = getAttribute(input);
+      const insertConstant = (schema: OpenApi.IJsonSchema.IConstant): void => {
+        const value: boolean | number | string = schema.const;
         const type: "boolean" | "number" | "string" =
           typeof value === "boolean"
             ? "boolean"
             : typeof value === "number"
               ? "number"
               : "string";
+        const branchAttribute: SwaggerV2.IJsonSchema.__IAttribute =
+          getAttribute(schema);
+        if (
+          schema !== input &&
+          Object.values(branchAttribute).some((value) => value !== undefined)
+        ) {
+          union.push({ type, enum: [value], ...branchAttribute } as
+            | SwaggerV2.IJsonSchema.IBoolean
+            | SwaggerV2.IJsonSchema.INumber
+            | SwaggerV2.IJsonSchema.IString);
+          return;
+        }
         const old = constantGroups.get(type);
         if (old !== undefined) {
           old.enum ??= [];
@@ -561,7 +573,7 @@ export namespace SwaggerV2Downgrader {
         union.push(created);
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isConstant(schema)) insertConstant(schema.const);
+        if (OpenApiTypeChecker.isConstant(schema)) insertConstant(schema);
         else if (
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||

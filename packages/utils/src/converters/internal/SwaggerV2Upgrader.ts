@@ -303,18 +303,24 @@ export namespace SwaggerV2Upgrader {
     ) =>
     (
       input: SwaggerV2.IOperation.IBodyParameter,
-    ): OpenApi.IOperation.IRequestBody => ({
-      description: input.description,
-      ...(input.required !== undefined ? { required: input.required } : {}),
-      content: Object.fromEntries(
-        mediaTypes.map((type) => [
-          type,
-          {
-            schema: convertSchema(definitions)(input.schema),
-          },
-        ]),
-      ),
-    });
+    ): OpenApi.IOperation.IRequestBody => {
+      if (mediaTypes.length === 0)
+        throw new TypeError(
+          "SwaggerV2Upgrader: body parameters require a consumed media type.",
+        );
+      return {
+        description: input.description,
+        ...(input.required !== undefined ? { required: input.required } : {}),
+        content: Object.fromEntries(
+          mediaTypes.map((type) => [
+            type,
+            {
+              schema: convertSchema(definitions)(input.schema),
+            },
+          ]),
+        ),
+      };
+    };
 
   const convertResponse =
     (doc: SwaggerV2.IDocument, mediaTypes: string[]) =>
@@ -330,17 +336,24 @@ export namespace SwaggerV2Upgrader {
         input = found;
       }
       const exampleTypes: string[] = Object.keys(input.examples ?? {});
+      const hasPayload: boolean =
+        input.schema !== undefined ||
+        exampleTypes.length > 0 ||
+        input.example !== undefined;
+      if (hasPayload && mediaTypes.length === 0)
+        throw new TypeError(
+          "SwaggerV2Upgrader: response payloads require a produced media type.",
+        );
       if (exampleTypes.some((type) => mediaTypes.includes(type) === false))
         throw new TypeError(
           "SwaggerV2Upgrader: response examples must match produced media types.",
         );
-      const hasLegacyExample: boolean = input.example !== undefined;
       return {
         description: input.description,
         content:
           input.schema !== undefined ||
           exampleTypes.length > 0 ||
-          hasLegacyExample
+          input.example !== undefined
             ? Object.fromEntries(
                 mediaTypes.map((type) => [
                   type,
@@ -392,6 +405,10 @@ export namespace SwaggerV2Upgrader {
   const convertServers = (
     input: Pick<SwaggerV2.IDocument, "host" | "basePath" | "schemes">,
   ): OpenApi.IServer[] | undefined => {
+    if (/[?#]/.test(input.host ?? "") || /[?#]/.test(input.basePath ?? ""))
+      throw new TypeError(
+        "SwaggerV2Upgrader: host and basePath cannot contain a query or fragment.",
+      );
     const basePath: string = normalizeBasePath(input.basePath);
     if (!input.host) {
       if (input.schemes?.length)

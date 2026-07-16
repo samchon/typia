@@ -177,6 +177,28 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
       }),
     },
     {
+      name: "closed form object",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: {
+                  "multipart/form-data": {
+                    schema: {
+                      type: "object",
+                      properties: {},
+                      additionalProperties: false,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
       name: "request media schemas",
       input: document({
         paths: {
