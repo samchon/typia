@@ -75,10 +75,14 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
 }
 
 const ttscTypiaTestValidateReportStub = `module.exports._validateReport = (array) => {
+  const isAncestor = (ancestor, descendant) =>
+    descendant === ancestor ||
+    descendant.startsWith(ancestor + ".") ||
+    descendant.startsWith(ancestor + "[");
   const reportable = (path) => {
     if (array.length === 0) return true;
     const last = array[array.length - 1].path;
-    return path.length > last.length || last.substring(0, path.length) !== path;
+    return !isAncestor(path, last) && !isAncestor(last, path);
   };
   return (exceptable, error) => {
     if (exceptable && reportable(error.path)) {

@@ -17,7 +17,7 @@ export const _createStandardSchema = <T>(
         } else {
           return {
             issues: result.errors.map((error) => ({
-              message: `expected ${error.expected}, got ${error.value}`,
+              message: `expected ${error.expected}, got ${formatValue(error.value)}`,
               path: typiaPathToStandardSchemaPath(error.path),
             })),
           } satisfies StandardSchemaV1.FailureResult;
@@ -25,6 +25,20 @@ export const _createStandardSchema = <T>(
       },
     },
   } satisfies StandardSchemaV1<T, T>);
+
+const formatValue = (value: unknown): string => {
+  if (typeof value === "object") {
+    if (value === null) return "null";
+    try {
+      if (Array.isArray(value)) return "[object Array]";
+    } catch {
+      // A revoked proxy can throw even for Array.isArray().
+    }
+    return "[object Object]";
+  }
+  if (typeof value === "function") return "[function]";
+  return String(value);
+};
 
 enum PathParserState {
   // Start of a new segment
