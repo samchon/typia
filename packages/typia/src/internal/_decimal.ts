@@ -63,7 +63,7 @@ export const _decimalToNumber = (value: _IDecimal): number =>
 export const _decimalPower = (exponent: number): bigint =>
   BigInt(10) ** BigInt(exponent);
 
-const _decimalGcd = (x: bigint, y: bigint): bigint => {
+export const _decimalGcd = (x: bigint, y: bigint): bigint => {
   while (y !== BigInt(0)) [x, y] = [y, x % y];
   return x < BigInt(0) ? -x : x;
 };

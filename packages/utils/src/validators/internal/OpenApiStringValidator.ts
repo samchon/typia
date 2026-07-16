@@ -9,18 +9,21 @@ export namespace OpenApiStringValidator {
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IString>,
   ): boolean => {
     if (typeof ctx.value !== "string") return ctx.report(ctx);
-    const length: number = _stringLength(ctx.value);
+    const length: number | null =
+      ctx.schema.minLength !== undefined || ctx.schema.maxLength !== undefined
+        ? _stringLength(ctx.value)
+        : null;
     return (
       [
         ctx.schema.minLength !== undefined
-          ? length >= ctx.schema.minLength ||
+          ? length! >= ctx.schema.minLength ||
             ctx.report({
               ...ctx,
               expected: `string & MinLength<${ctx.schema.minLength}>`,
             })
           : true,
         ctx.schema.maxLength !== undefined
-          ? length <= ctx.schema.maxLength ||
+          ? length! <= ctx.schema.maxLength ||
             ctx.report({
               ...ctx,
               expected: `string & MaxLength<${ctx.schema.maxLength}>`,

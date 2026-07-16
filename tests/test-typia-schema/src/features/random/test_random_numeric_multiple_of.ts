@@ -33,6 +33,14 @@ export const test_random_numeric_multiple_of = (): void => {
       tags.Minimum<-9> &
       tags.Maximum<9> &
       tags.MultipleOf<1.5>;
+    large: number &
+      tags.Minimum<10_000_000_000_000_000> &
+      tags.Maximum<10_000_000_001_000_000> &
+      tags.MultipleOf<0.99991>;
+    fractionalLargeQuotient: number &
+      tags.Minimum<0.1> &
+      tags.Maximum<0.2> &
+      tags.MultipleOf<9.9991e-17>;
   }
   type Impossible = number &
     tags.ExclusiveMinimum<0> &
@@ -64,6 +72,16 @@ export const test_random_numeric_multiple_of = (): void => {
       TestValidator.equals(
         `${name} lower-only oracle at ${i}`,
         decimalMultiple(value.lowerOnly, 0.1),
+        true,
+      );
+      TestValidator.equals(
+        `${name} large oracle at ${i}`,
+        decimalMultiple(value.large, 0.99991),
+        true,
+      );
+      TestValidator.equals(
+        `${name} fractional large-quotient oracle at ${i}`,
+        decimalMultiple(value.fractionalLargeQuotient, 9.9991e-17),
         true,
       );
     }
