@@ -146,6 +146,16 @@ export const test_json_schema_type_checker_cover_constraints = (): void => {
       },
     },
     {
+      name: "minimum-length array covers an intrinsic required tuple prefix",
+      expected: true,
+      x: { type: "array", items: {}, minItems: 2 },
+      y: {
+        type: "array",
+        prefixItems: [{}, {}],
+        additionalItems: false,
+      },
+    },
+    {
       name: "reference constraints accept contained reference",
       expected: true,
       x: { $ref: "#/components/schemas/PositiveCent" },

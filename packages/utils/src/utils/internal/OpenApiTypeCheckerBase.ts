@@ -764,7 +764,8 @@ export namespace OpenApiTypeCheckerBase {
   const getArrayRange = (
     schema: OpenApi.IJsonSchema.IArray | OpenApi.IJsonSchema.ITuple,
   ): IArrayRange => ({
-    minimum: schema.minItems ?? 0,
+    minimum:
+      schema.minItems ?? (isTuple(schema) ? schema.prefixItems.length : 0),
     maximum: Math.min(
       schema.maxItems ?? Number.POSITIVE_INFINITY,
       isTuple(schema) &&
