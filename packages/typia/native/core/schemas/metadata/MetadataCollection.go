@@ -1,6 +1,7 @@
 package metadata
 
 import (
+  "hash/fnv"
   "maps"
   "slices"
   "strconv"
@@ -557,15 +558,16 @@ func MetadataCollection_replaceOpenApi(str string) string {
   var escaped strings.Builder
   var quote rune
   quotedEscape := false
+  disambiguate := false
   for _, ch := range str {
     if quote != 0 {
       if quotedEscape {
-        metadataCollection_writeOpenApiNameRune(&escaped, ch)
+        disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
         quotedEscape = false
         continue
       }
       if ch == '\\' {
-        metadataCollection_writeOpenApiNameRune(&escaped, ch)
+        disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
         quotedEscape = true
         continue
       }
@@ -573,14 +575,18 @@ func MetadataCollection_replaceOpenApi(str string) string {
         quote = 0
         continue
       }
-      metadataCollection_writeOpenApiNameRune(&escaped, ch)
+      disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
       continue
     }
     if ch == '\'' || ch == '"' || ch == '`' {
       quote = ch
       continue
     }
-    escaped.WriteRune(ch)
+    if ch == '$' {
+      disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+    } else {
+      escaped.WriteRune(ch)
+    }
   }
   normalized := MetadataCollection_replace(escaped.String())
   if len(normalized) == 0 {
@@ -588,19 +594,31 @@ func MetadataCollection_replaceOpenApi(str string) string {
   }
   var builder strings.Builder
   for _, ch := range normalized {
-    metadataCollection_writeOpenApiNameRune(&builder, ch)
+    disambiguate = metadataCollection_writeOpenApiNameRune(&builder, ch) || disambiguate
+  }
+  if disambiguate {
+    builder.WriteString(".x")
+    builder.WriteString(metadataCollection_openApiNameHash(str))
   }
   return builder.String()
 }
 
-func metadataCollection_writeOpenApiNameRune(builder *strings.Builder, ch rune) {
+func metadataCollection_writeOpenApiNameRune(builder *strings.Builder, ch rune) bool {
   if metadataCollection_isOpenApiNameRune(ch) {
     builder.WriteRune(ch)
-    return
+    return false
   }
   builder.WriteString("_x")
   builder.WriteString(strings.ToUpper(strconv.FormatInt(int64(ch), 16)))
   builder.WriteByte('_')
+  return true
+}
+
+func metadataCollection_openApiNameHash(str string) string {
+  hasher := fnv.New64a()
+  _, _ = hasher.Write([]byte(str))
+  encoded := strings.ToUpper(strconv.FormatUint(hasher.Sum64(), 16))
+  return strings.Repeat("0", 16-len(encoded)) + encoded
 }
 
 func metadataCollection_isOpenApiNameRune(ch rune) bool {

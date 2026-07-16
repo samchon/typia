@@ -28,6 +28,16 @@ interface 한글Variant {
   payload: RecursiveObject<"T~N">;
 }
 
+interface $Named {
+  value: "$Named";
+  child?: $Named;
+}
+
+interface Named {
+  value: "Named";
+  child?: Named;
+}
+
 namespace Qualified {
   export interface Member {
     value: string;
@@ -42,6 +52,7 @@ interface IForward {
   dash: RecursiveObject<"A-B">;
   underscore: RecursiveObject<"A_B">;
   slash: RecursiveObject<"A/B">;
+  escapedSlash: RecursiveObject<"A_x2F_B">;
   tilde: RecursiveObject<"T~N">;
   percent: RecursiveObject<"C%D">;
   hash: RecursiveObject<"A#B">;
@@ -54,11 +65,15 @@ interface IForward {
   alias: AliasValue<"A/B">;
   array: RecursiveArray<"A/B">;
   variant: CaféVariant | 한글Variant;
+  dollarNamed: $Named;
+  plainNamed: Named;
   createdAt: Date;
 }
 
 interface IReverse {
   createdAt: Date;
+  plainNamed: Named;
+  dollarNamed: $Named;
   variant: 한글Variant | CaféVariant;
   array: RecursiveArray<"A/B">;
   alias: AliasValue<"A/B">;
@@ -71,6 +86,7 @@ interface IReverse {
   hash: RecursiveObject<"A#B">;
   percent: RecursiveObject<"C%D">;
   tilde: RecursiveObject<"T~N">;
+  escapedSlash: RecursiveObject<"A_x2F_B">;
   slash: RecursiveObject<"A/B">;
   underscore: RecursiveObject<"A_B">;
   dash: RecursiveObject<"A-B">;
@@ -122,6 +138,21 @@ export const test_json_schema_openapi_component_names = (): void => {
   TestValidator.equals("dot control", names["A.B"], "RecursiveObjectA.B");
   TestValidator.equals("hyphen control", names["A-B"], "RecursiveObjectA-B");
   TestValidator.equals("underscore control", names.A_B, "RecursiveObjectA_B");
+  TestValidator.equals(
+    "escape-shaped legal control",
+    names.A_x2F_B,
+    "RecursiveObjectA_x2F_B",
+  );
+  TestValidator.notEquals(
+    "forbidden input does not alias escape-shaped legal input",
+    names["A/B"],
+    names.A_x2F_B,
+  );
+  TestValidator.notEquals(
+    "dollar identifier does not alias its normalized peer",
+    names.$Named,
+    names.Named,
+  );
   TestValidator.predicate(
     "qualified control",
     Object.prototype.hasOwnProperty.call(
@@ -432,6 +463,7 @@ const sample: IForward = {
   dash: { value: "A-B", children: [] },
   underscore: { value: "A_B", children: [] },
   slash: { value: "A/B", children: [] },
+  escapedSlash: { value: "A_x2F_B", children: [] },
   tilde: { value: "T~N", children: [] },
   percent: { value: "C%D", children: [] },
   hash: { value: "A#B", children: [] },
@@ -447,5 +479,7 @@ const sample: IForward = {
     kind: "café",
     payload: { value: "A/B", children: [] },
   },
+  dollarNamed: { value: "$Named" },
+  plainNamed: { value: "Named" },
   createdAt: "2026-07-16T00:00:00.000Z" as unknown as Date,
 };
