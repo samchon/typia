@@ -55,9 +55,27 @@ export type NotationDynamicKeyTypeCases = [
       Record<number, { "inner-value": string }>
     >
   >,
+  Assert<IsEqual<CamelTemplateActual["itemUserId"], { innerKey: string }>>,
+  Assert<IsEqual<PascalTemplateActual["ItemUserId"], { InnerKey: string }>>,
+  Assert<IsEqual<SnakeTemplateActual["item_user_id"], { inner_value: string }>>,
+  Assert<
+    IsEqual<KebabTemplateActual["item-user-id"], { "inner-value": string }>
+  >,
 ];
 
 type PascalDynamicActual = PascalCase<Record<string, { inner_key: string }>>;
+type CamelTemplateActual = CamelCase<
+  Record<`item_${string}`, { inner_key: string }>
+>;
+type PascalTemplateActual = PascalCase<
+  Record<`item_${string}`, { inner_key: string }>
+>;
+type SnakeTemplateActual = SnakeCase<
+  Record<`item${string}`, { innerValue: string }>
+>;
+type KebabTemplateActual = KebabCase<
+  Record<`item${string}`, { innerValue: string }>
+>;
 
 type Assert<T extends true> = T;
 type IsEqual<X, Y> =

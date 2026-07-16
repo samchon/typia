@@ -1,4 +1,5 @@
 import { Equal } from "./internal/Equal";
+import { IsBroadString } from "./internal/IsBroadString";
 import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
@@ -74,11 +75,12 @@ type SnakageArray<T extends readonly unknown[]> = {
 /* -----------------------------------------------------------
     STRING CONVERTER
 ----------------------------------------------------------- */
-type SnakageString<Key extends string> = string extends Key
-  ? string
-  : Key extends `${infer _}`
-    ? SnakageStringRepeatedly<Key, "">
-    : Key;
+type SnakageString<Key extends string> =
+  IsBroadString<Key> extends true
+    ? string
+    : Key extends `${infer _}`
+      ? SnakageStringRepeatedly<Key, "">
+      : Key;
 type SnakageStringRepeatedly<
   S extends string,
   Previous extends string,

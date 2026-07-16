@@ -8,11 +8,35 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  * array/tuple/set/map mutability and optional or rest tuple positions do not
  * change.
  *
- * 1. Convert readonly arrays and optional/rest tuples in every notation.
- * 2. Convert readonly sets and maps in every notation.
+ * 1. Convert one array/tuple/set/map composite in every notation.
+ * 2. Pin optional-only tuples and mutable sets/maps separately.
  * 3. Keep the transformed nested member keys specific to each naming family.
  */
 export type NotationReadonlyContainerCases = [
+  Assert<
+    IsEqual<
+      CamelCase<ReadonlyContainers<SnakeItem>>,
+      ReadonlyContainers<CamelItem>
+    >
+  >,
+  Assert<
+    IsEqual<
+      PascalCase<ReadonlyContainers<SnakeItem>>,
+      ReadonlyContainers<PascalItem>
+    >
+  >,
+  Assert<
+    IsEqual<
+      SnakeCase<ReadonlyContainers<CamelItem>>,
+      ReadonlyContainers<SnakeItem>
+    >
+  >,
+  Assert<
+    IsEqual<
+      KebabCase<ReadonlyContainers<CamelItem>>,
+      ReadonlyContainers<KebabItem>
+    >
+  >,
   Assert<IsEqual<CamelCase<readonly SnakeItem[]>, readonly CamelItem[]>>,
   Assert<IsEqual<PascalCase<readonly [SnakeItem?]>, readonly [PascalItem?]>>,
   Assert<
@@ -46,6 +70,13 @@ interface PascalItem {
 interface KebabItem {
   "item-id": number;
 }
+
+type ReadonlyContainers<T> = readonly [
+  readonly T[],
+  readonly [T, T?, ...T[]],
+  ReadonlySet<T>,
+  ReadonlyMap<T, T>,
+];
 
 type Assert<T extends true> = T;
 type IsEqual<X, Y> =

@@ -12,7 +12,8 @@ declare const symbolData: unique symbol;
  * non-function data plus accessors.
  *
  * 1. Declare required and optional functions under all property-key kinds.
- * 2. Mix them with optional data, numeric/symbol data, and an accessor.
+ * 2. Mix them with optional data, numeric/symbol data, an accessor, overloads, and
+ *    inherited members.
  * 3. Require the shallow data-only object with modifiers intact.
  */
 export type ClassPropertiesOptionalMethodCases = [
@@ -21,6 +22,7 @@ export type ClassPropertiesOptionalMethodCases = [
       ClassProperties<Example>,
       {
         value: number;
+        inherited: number;
         optional?: string;
         2: boolean;
         [symbolData]: Date;
@@ -30,7 +32,12 @@ export type ClassPropertiesOptionalMethodCases = [
   >,
 ];
 
-class Example {
+class Parent {
+  inherited = 1;
+  inheritedReset?(): void {}
+}
+
+class Example extends Parent {
   value = 1;
   optional?: string;
   callback?: () => void;
@@ -40,6 +47,11 @@ class Example {
   2 = true;
   [symbolMethod]?(): void {}
   [symbolData] = new Date();
+  convert(value: string): number;
+  convert(value: number): string;
+  convert(value: string | number): string | number {
+    return value;
+  }
   get upper(): string {
     return String(this.value);
   }
