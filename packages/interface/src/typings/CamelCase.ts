@@ -1,5 +1,5 @@
 import { Equal } from "./internal/Equal";
-import { IsTuple } from "./internal/IsTuple";
+import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -13,8 +13,13 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type to transform
  */
-export type CamelCase<T> =
-  Equal<T, CamelizeMain<T>> extends true ? T : CamelizeMain<T>;
+export type CamelCase<T> = unknown extends T
+  ? T
+  : object extends T
+    ? T
+    : Equal<T, CamelizeMain<T>> extends true
+      ? T
+      : CamelizeMain<T>;
 
 type CamelizeMain<T> = T extends [never]
   ? never // special trick for (jsonable | null) type
@@ -28,34 +33,34 @@ type CamelizeMain<T> = T extends [never]
 
 type CamelizeObject<T extends object> =
   T extends Array<infer U>
-    ? IsTuple<T> extends true
-      ? CamelizeTuple<T>
-      : CamelizeMain<U>[]
-    : T extends Set<infer U>
-      ? Set<CamelizeMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<CamelizeMain<K>, CamelizeMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<
-                  T[Key]
-                >;
-              };
+    ? IsTupleLike<T> extends true
+      ? CamelizeArray<T>
+      : Array<CamelizeMain<U>>
+    : T extends ReadonlyArray<infer U>
+      ? IsTupleLike<T> extends true
+        ? CamelizeArray<T>
+        : ReadonlyArray<CamelizeMain<U>>
+      : T extends Set<infer U>
+        ? Set<CamelizeMain<U>>
+        : T extends Map<infer K, infer V>
+          ? Map<CamelizeMain<K>, CamelizeMain<V>>
+          : T extends ReadonlyMap<infer K, infer V>
+            ? ReadonlyMap<CamelizeMain<K>, CamelizeMain<V>>
+            : T extends ReadonlySet<infer U>
+              ? ReadonlySet<CamelizeMain<U>>
+              : T extends WeakSet<any> | WeakMap<any, any>
+                ? never
+                : T extends NativeClass
+                  ? T
+                  : {
+                      [Key in keyof T as CamelizeString<
+                        Key & string
+                      >]: CamelizeMain<T[Key]>;
+                    };
 
-type CamelizeTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [CamelizeMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [CamelizeMain<F>, ...CamelizeTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [CamelizeMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [CamelizeMain<F>?, ...CamelizeTuple<Rest>]
-          : [];
+type CamelizeArray<T extends readonly unknown[]> = {
+  [P in keyof T]: CamelizeMain<T[P]>;
+};
 
 type CamelizeString<Key extends string> = Key extends `_${infer R}`
   ? `_${CamelizeString<R>}`

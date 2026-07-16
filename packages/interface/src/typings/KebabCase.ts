@@ -1,4 +1,5 @@
 import { Equal } from "./internal/Equal";
+import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -16,8 +17,13 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type to transform
  */
-export type KebabCase<T> =
-  Equal<T, KebabageMain<T>> extends true ? T : KebabageMain<T>;
+export type KebabCase<T> = unknown extends T
+  ? T
+  : object extends T
+    ? T
+    : Equal<T, KebabageMain<T>> extends true
+      ? T
+      : KebabageMain<T>;
 
 /* -----------------------------------------------------------
     OBJECT CONVERSION
@@ -35,46 +41,37 @@ type KebabageMain<T> = T extends [never]
 
 type KebabageObject<T extends object> =
   T extends Array<infer U>
-    ? IsTuple<T> extends true
-      ? KebabageTuple<T>
-      : KebabageMain<U>[]
-    : T extends Set<infer U>
-      ? Set<KebabageMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<KebabageMain<K>, KebabageMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [Key in keyof T as KebabageString<Key & string>]: KebabageMain<
-                  T[Key]
-                >;
-              };
+    ? IsTupleLike<T> extends true
+      ? KebabageArray<T>
+      : Array<KebabageMain<U>>
+    : T extends ReadonlyArray<infer U>
+      ? IsTupleLike<T> extends true
+        ? KebabageArray<T>
+        : ReadonlyArray<KebabageMain<U>>
+      : T extends Set<infer U>
+        ? Set<KebabageMain<U>>
+        : T extends Map<infer K, infer V>
+          ? Map<KebabageMain<K>, KebabageMain<V>>
+          : T extends ReadonlyMap<infer K, infer V>
+            ? ReadonlyMap<KebabageMain<K>, KebabageMain<V>>
+            : T extends ReadonlySet<infer U>
+              ? ReadonlySet<KebabageMain<U>>
+              : T extends WeakSet<any> | WeakMap<any, any>
+                ? never
+                : T extends NativeClass
+                  ? T
+                  : {
+                      [Key in keyof T as KebabageString<
+                        Key & string
+                      >]: KebabageMain<T[Key]>;
+                    };
 
 /* -----------------------------------------------------------
     SPECIAL CASES
 ----------------------------------------------------------- */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-    ? number extends T["length"]
-      ? false
-      : true
-    : false;
-type KebabageTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [KebabageMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [KebabageMain<F>, ...KebabageTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [KebabageMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [KebabageMain<F>?, ...KebabageTuple<Rest>]
-          : [];
+type KebabageArray<T extends readonly unknown[]> = {
+  [P in keyof T]: KebabageMain<T[P]>;
+};
 
 /* -----------------------------------------------------------
     STRING CONVERTER

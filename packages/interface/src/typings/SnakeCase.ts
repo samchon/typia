@@ -1,4 +1,5 @@
 import { Equal } from "./internal/Equal";
+import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -12,8 +13,13 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type to transform
  */
-export type SnakeCase<T> =
-  Equal<T, SnakageMain<T>> extends true ? T : SnakageMain<T>;
+export type SnakeCase<T> = unknown extends T
+  ? T
+  : object extends T
+    ? T
+    : Equal<T, SnakageMain<T>> extends true
+      ? T
+      : SnakageMain<T>;
 
 /* -----------------------------------------------------------
     OBJECT CONVERSION
@@ -31,46 +37,37 @@ type SnakageMain<T> = T extends [never]
 
 type SnakageObject<T extends object> =
   T extends Array<infer U>
-    ? IsTuple<T> extends true
-      ? SnakageTuple<T>
-      : SnakageMain<U>[]
-    : T extends Set<infer U>
-      ? Set<SnakageMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<SnakageMain<K>, SnakageMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [Key in keyof T as SnakageString<Key & string>]: SnakageMain<
-                  T[Key]
-                >;
-              };
+    ? IsTupleLike<T> extends true
+      ? SnakageArray<T>
+      : Array<SnakageMain<U>>
+    : T extends ReadonlyArray<infer U>
+      ? IsTupleLike<T> extends true
+        ? SnakageArray<T>
+        : ReadonlyArray<SnakageMain<U>>
+      : T extends Set<infer U>
+        ? Set<SnakageMain<U>>
+        : T extends Map<infer K, infer V>
+          ? Map<SnakageMain<K>, SnakageMain<V>>
+          : T extends ReadonlyMap<infer K, infer V>
+            ? ReadonlyMap<SnakageMain<K>, SnakageMain<V>>
+            : T extends ReadonlySet<infer U>
+              ? ReadonlySet<SnakageMain<U>>
+              : T extends WeakSet<any> | WeakMap<any, any>
+                ? never
+                : T extends NativeClass
+                  ? T
+                  : {
+                      [Key in keyof T as SnakageString<
+                        Key & string
+                      >]: SnakageMain<T[Key]>;
+                    };
 
 /* -----------------------------------------------------------
     SPECIAL CASES
 ----------------------------------------------------------- */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-    ? number extends T["length"]
-      ? false
-      : true
-    : false;
-type SnakageTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [SnakageMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [SnakageMain<F>, ...SnakageTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [SnakageMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [SnakageMain<F>?, ...SnakageTuple<Rest>]
-          : [];
+type SnakageArray<T extends readonly unknown[]> = {
+  [P in keyof T]: SnakageMain<T[P]>;
+};
 
 /* -----------------------------------------------------------
     STRING CONVERTER

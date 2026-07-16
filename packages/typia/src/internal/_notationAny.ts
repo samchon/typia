@@ -1,3 +1,5 @@
+import { _notationAssign } from "./_notationAssign";
+
 export const _notationAny = (rename: (str: string) => string) => {
   const main = (input: any): any => {
     if (typeof input === "object")
@@ -29,9 +31,12 @@ export const _notationAny = (rename: (str: string) => string) => {
       else return object(input);
     return input;
   };
-  const object = (input: Record<string, any>) =>
-    Object.fromEntries(
-      Object.entries(input).map(([key, value]) => [rename(key), main(value)]),
-    );
+  const object = (input: Record<string, any>) => {
+    const output: Record<string, any> = {};
+    const sources: Record<string, string> = Object.create(null);
+    for (const [key, value] of Object.entries(input))
+      _notationAssign(output, sources, key, main(value), rename);
+    return output;
+  };
   return main;
 };

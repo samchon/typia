@@ -1,5 +1,5 @@
 import { Equal } from "./internal/Equal";
-import { IsTuple } from "./internal/IsTuple";
+import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -13,8 +13,13 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Target type to transform
  */
-export type PascalCase<T> =
-  Equal<T, PascalizeMain<T>> extends true ? T : PascalizeMain<T>;
+export type PascalCase<T> = unknown extends T
+  ? T
+  : object extends T
+    ? T
+    : Equal<T, PascalizeMain<T>> extends true
+      ? T
+      : PascalizeMain<T>;
 
 type PascalizeMain<T> = T extends [never]
   ? never // special trick for (jsonable | null) type
@@ -28,34 +33,34 @@ type PascalizeMain<T> = T extends [never]
 
 type PascalizeObject<T extends object> =
   T extends Array<infer U>
-    ? IsTuple<T> extends true
-      ? PascalizeTuple<T>
-      : PascalizeMain<U>[]
-    : T extends Set<infer U>
-      ? Set<PascalizeMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<PascalizeMain<K>, PascalizeMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [Key in keyof T as PascalizeString<
-                  Key & string
-                >]: PascalizeMain<T[Key]>;
-              };
+    ? IsTupleLike<T> extends true
+      ? PascalizeArray<T>
+      : Array<PascalizeMain<U>>
+    : T extends ReadonlyArray<infer U>
+      ? IsTupleLike<T> extends true
+        ? PascalizeArray<T>
+        : ReadonlyArray<PascalizeMain<U>>
+      : T extends Set<infer U>
+        ? Set<PascalizeMain<U>>
+        : T extends Map<infer K, infer V>
+          ? Map<PascalizeMain<K>, PascalizeMain<V>>
+          : T extends ReadonlyMap<infer K, infer V>
+            ? ReadonlyMap<PascalizeMain<K>, PascalizeMain<V>>
+            : T extends ReadonlySet<infer U>
+              ? ReadonlySet<PascalizeMain<U>>
+              : T extends WeakSet<any> | WeakMap<any, any>
+                ? never
+                : T extends NativeClass
+                  ? T
+                  : {
+                      [Key in keyof T as PascalizeString<
+                        Key & string
+                      >]: PascalizeMain<T[Key]>;
+                    };
 
-type PascalizeTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [PascalizeMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [PascalizeMain<F>, ...PascalizeTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [PascalizeMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [PascalizeMain<F>?, ...PascalizeTuple<Rest>]
-          : [];
+type PascalizeArray<T extends readonly unknown[]> = {
+  [P in keyof T]: PascalizeMain<T[P]>;
+};
 
 type PascalizeString<Key extends string> = Key extends `_${infer R}`
   ? `_${PascalizeString<R>}`

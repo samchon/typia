@@ -1,5 +1,5 @@
 import { Equal } from "./internal/Equal";
-import { IsTuple } from "./internal/IsTuple";
+import { IsTupleLike } from "./internal/IsTupleLike";
 import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
@@ -15,8 +15,13 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @template T Target type to resolve
  */
-export type Resolved<T> =
-  Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;
+export type Resolved<T> = unknown extends T
+  ? T
+  : object extends T
+    ? T
+    : Equal<T, ResolvedMain<T>> extends true
+      ? T
+      : ResolvedMain<T>;
 
 type ResolvedMain<T> = T extends [never]
   ? never // (special trick for jsonable | null) type
@@ -30,29 +35,29 @@ type ResolvedMain<T> = T extends [never]
 
 type ResolvedObject<T extends object> =
   T extends Array<infer U>
-    ? IsTuple<T> extends true
-      ? ResolvedTuple<T>
-      : ResolvedMain<U>[]
-    : T extends Set<infer U>
-      ? Set<ResolvedMain<U>>
-      : T extends Map<infer K, infer V>
-        ? Map<ResolvedMain<K>, ResolvedMain<V>>
-        : T extends WeakSet<any> | WeakMap<any, any>
-          ? never
-          : T extends NativeClass
-            ? T
-            : {
-                [P in keyof T]: ResolvedMain<T[P]>;
-              };
+    ? IsTupleLike<T> extends true
+      ? ResolvedArray<T>
+      : Array<ResolvedMain<U>>
+    : T extends ReadonlyArray<infer U>
+      ? IsTupleLike<T> extends true
+        ? ResolvedArray<T>
+        : ReadonlyArray<ResolvedMain<U>>
+      : T extends Set<infer U>
+        ? Set<ResolvedMain<U>>
+        : T extends Map<infer K, infer V>
+          ? Map<ResolvedMain<K>, ResolvedMain<V>>
+          : T extends ReadonlyMap<infer K, infer V>
+            ? ReadonlyMap<ResolvedMain<K>, ResolvedMain<V>>
+            : T extends ReadonlySet<infer U>
+              ? ReadonlySet<ResolvedMain<U>>
+              : T extends WeakSet<any> | WeakMap<any, any>
+                ? never
+                : T extends NativeClass
+                  ? T
+                  : {
+                      [P in keyof T]: ResolvedMain<T[P]>;
+                    };
 
-type ResolvedTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [ResolvedMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [ResolvedMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-          : [];
+type ResolvedArray<T extends readonly unknown[]> = {
+  [P in keyof T]: ResolvedMain<T[P]>;
+};

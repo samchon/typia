@@ -30,10 +30,10 @@ export type DeepPartial<T> = T extends
   | null
   | undefined
   ? T
-  : T extends (...args: unknown[]) => unknown
+  : T extends Function
     ? T
-    : T extends Array<infer U>
-      ? Array<DeepPartial<U>>
+    : T extends readonly unknown[]
+      ? { [P in keyof T]: DeepPartial<T[P]> }
       : T extends object
         ? { [P in keyof T]?: DeepPartial<T[P]> }
         : T;
