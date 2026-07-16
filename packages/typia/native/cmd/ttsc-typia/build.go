@@ -55,7 +55,7 @@ func runBuild(args []string) int {
       return 2
     }
   }
-  loadProgram := func(options driver.LoadProgramOptions) (*driver.Program, int) {
+  loadProgram := func(options driver.LoadProgramOptions, diagnose bool) (*driver.Program, int) {
     prog, diags, err := driver.LoadProgram(cwd, *tsconfigPath, options)
     if err != nil {
       fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
@@ -68,10 +68,12 @@ func runBuild(args []string) int {
       driver.WritePrettyDiagnostics(stderr, diags, cwd)
       return nil, 2
     }
-    if diags := prog.Diagnostics(); len(diags) > 0 {
-      prog.Close()
-      driver.WritePrettyDiagnostics(stderr, diags, cwd)
-      return nil, 2
+    if diagnose {
+      if diags := prog.Diagnostics(); len(diags) > 0 {
+        prog.Close()
+        driver.WritePrettyDiagnostics(stderr, diags, cwd)
+        return nil, 2
+      }
     }
     return prog, 0
   }
@@ -79,7 +81,7 @@ func runBuild(args []string) int {
     ForceEmit:   *emit,
     ForceNoEmit: *noEmit,
     OutDir:      *outDir,
-  })
+  }, true)
   if code != 0 {
     return code
   }
@@ -87,12 +89,14 @@ func runBuild(args []string) int {
   if !shouldEmit {
     // The plugin transformer is part of tsgo's emit pipeline. Reload with emit
     // enabled so check/noEmit traverses the exact same source set, then discard
-    // every generated output below.
+    // every generated output below. The original program already proved the
+    // project's diagnostics; diagnosing the private reload would reject valid
+    // analysis-only options such as allowImportingTsExtensions.
     prog.Close()
     prog, code = loadProgram(driver.LoadProgramOptions{
       ForceEmit: true,
       OutDir:    *outDir,
-    })
+    }, false)
     if code != 0 {
       return code
     }
