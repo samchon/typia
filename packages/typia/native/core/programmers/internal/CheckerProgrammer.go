@@ -826,21 +826,27 @@ func (checkerProgrammerNamespace) Decode(props CheckerProgrammer_DecodeProps) *s
         body = checkerProgrammer_explore_tuples(checkerProgrammer_exploreTuplesProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Tuples: props.Metadata.Tuples, Input: props.Input, Explore: explore})
       }
     } else if checkerProgrammer_array_any(props.Metadata.Arrays) {
-      // Any-element arrays need no element exploration, but a sole array's
-      // validating wrapper tags (MinItems, custom predicates, ...) still
-      // constrain the container and survive on the entry conditions. Unions
-      // mixing a tag-constrained any-element array with other array-like
-      // variants keep the historical wholesale acceptance: the union
-      // explorer discriminates by element checks, which an any element
-      // satisfies trivially, so honoring those tags needs branch
-      // backtracking (tracked on #1933).
-      body = nil
+      // A sole any-element array only needs its wrapper predicates. In a
+      // union, however, those predicates participate in branch selection:
+      // a failed tagged-any candidate must backtrack to a concrete array or
+      // tuple candidate instead of accepting or rejecting the whole bucket.
       if len(props.Metadata.Arrays) == 1 && len(props.Metadata.Tuples) == 0 {
+        body = nil
         conditions = nativeiterate.Check_array_length(nativeiterate.Check_array_lengthProps{
           Context: props.Context,
           Array:   props.Metadata.Arrays[0],
           Input:   props.Input,
         }).Conditions
+      } else if checkerProgrammer_has_array_type_tags(props.Metadata.Arrays) {
+        explore := props.Explore
+        explore.From = "array"
+        if len(props.Metadata.Tuples) == 0 {
+          body = checkerProgrammer_explore_arrays(checkerProgrammer_exploreArraysProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Arrays: props.Metadata.Arrays, Input: props.Input, Explore: explore})
+        } else {
+          body = checkerProgrammer_explore_arrays_and_tuples(checkerProgrammer_exploreArraysAndTuplesProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Definitions: checkerProgrammer_array_tuple_definitions(props.Metadata.Arrays, props.Metadata.Tuples), Input: props.Input, Explore: explore})
+        }
+      } else {
+        body = nil
       }
     } else if len(props.Metadata.Tuples) == 0 {
       explore := props.Explore
@@ -1540,14 +1546,18 @@ func checkerProgrammer_explore_arrays(props checkerProgrammer_exploreArraysProps
       for _, value := range next.Definitions {
         arrays = append(arrays, value.(*nativemetadata.MetadataArray))
       }
+      config := checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
+        func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
+          return CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
+        },
+        func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
+          return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
+        })
+      if checkerProgrammer_has_array_type_tags(arrays) {
+        config.Candidate = checkerProgrammer_array_tag_candidate(props.Context)
+      }
       return nativehelpers.UnionExplorer.Array(nativehelpers.UnionExplorer_ArrayProps{
-        Config: checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
-          func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
-            return CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
-          },
-          func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
-            return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
-          }),
+        Config:     config,
         Parameters: next.Parameters,
         Arrays:     arrays,
         Input:      next.Input,
@@ -1562,37 +1572,41 @@ func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_explore
   return checkerProgrammer_explore_array_like_union_types(checkerProgrammer_exploreArrayLikeUnionTypesProps{
     Config: props.Config, Functor: props.Functor, Definitions: props.Definitions, Input: props.Input, Explore: props.Explore, Emit: props.Context.Emit,
     Factory: func(next checkerProgrammer_exploreArrayLikeUnionTypesFactoryProps) *shimast.Node {
+      config := checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
+        func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
+          if tuple, ok := v.Definition.(*nativemetadata.MetadataTuple); ok {
+            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: featureProgrammer_as_explore(v.Explore)})
+          }
+          expected := []string{}
+          for _, elem := range props.Definitions {
+            switch x := elem.(type) {
+            case *nativemetadata.MetadataArray:
+              expected = append(expected, x.GetDisplayName())
+            case *nativemetadata.MetadataTuple:
+              expected = append(expected, x.Type.GetDisplayName())
+            }
+          }
+          return props.Config.Atomist(CheckerProgrammer_AtomistProps{
+            Explore: featureProgrammer_as_explore(v.Explore),
+            Entry: nativehelpers.ICheckEntry{
+              Expected:   strings.Join(expected, " | "),
+              Expression: CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Functor: props.Functor, Context: props.Context, Config: props.Config, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)}),
+              Conditions: [][]nativehelpers.ICheckEntry_ICondition{},
+            },
+            Input: v.Container,
+          })
+        },
+        func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
+          if tuple, ok := v.Definition.(*nativemetadata.MetadataTuple); ok {
+            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: featureProgrammer_as_explore(v.Explore)})
+          }
+          return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Array: v.Definition.(*nativemetadata.MetadataArray), Explore: featureProgrammer_as_explore(v.Explore)})
+        })
+      if checkerProgrammer_definitions_have_array_type_tags(next.Definitions) {
+        config.Candidate = checkerProgrammer_array_tag_candidate(props.Context)
+      }
       return nativehelpers.UnionExplorer.Array_or_tuple(nativehelpers.UnionExplorer_ArrayOrTupleProps{
-        Config: checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
-          func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
-            if tuple, ok := v.Definition.(*nativemetadata.MetadataTuple); ok {
-              return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: featureProgrammer_as_explore(v.Explore)})
-            }
-            expected := []string{}
-            for _, elem := range props.Definitions {
-              switch x := elem.(type) {
-              case *nativemetadata.MetadataArray:
-                expected = append(expected, x.GetDisplayName())
-              case *nativemetadata.MetadataTuple:
-                expected = append(expected, x.Type.GetDisplayName())
-              }
-            }
-            return props.Config.Atomist(CheckerProgrammer_AtomistProps{
-              Explore: featureProgrammer_as_explore(v.Explore),
-              Entry: nativehelpers.ICheckEntry{
-                Expected:   strings.Join(expected, " | "),
-                Expression: CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Functor: props.Functor, Context: props.Context, Config: props.Config, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)}),
-                Conditions: [][]nativehelpers.ICheckEntry_ICondition{},
-              },
-              Input: v.Container,
-            })
-          },
-          func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
-            if tuple, ok := v.Definition.(*nativemetadata.MetadataTuple); ok {
-              return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: featureProgrammer_as_explore(v.Explore)})
-            }
-            return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Array: v.Definition.(*nativemetadata.MetadataArray), Explore: featureProgrammer_as_explore(v.Explore)})
-          }),
+        Config:      config,
         Parameters:  next.Parameters,
         Definitions: next.Definitions,
         Input:       next.Input,
@@ -1785,7 +1799,7 @@ func checkerProgrammer_check_object_reference(props checkerProgrammer_decodeObje
   }
   return checkerProgrammer_and(
     decoded,
-    checkerProgrammer_object_type_tags_condition(tags, props.Context.Emit),
+    checkerProgrammer_entry_condition(tags, props.Context.Emit),
     props.Context.Emit,
   )
 }
@@ -1819,7 +1833,7 @@ func checkerProgrammer_decode_object_reference(props checkerProgrammer_decodeObj
   )
 }
 
-func checkerProgrammer_object_type_tags_condition(entry nativehelpers.ICheckEntry, emit *shimprinter.EmitContext) *shimast.Node {
+func checkerProgrammer_entry_condition(entry nativehelpers.ICheckEntry, emit *shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, emit)
   expressions := []*shimast.Node{}
   if entry.Expression != nil {
@@ -1850,6 +1864,44 @@ func checkerProgrammer_has_object_type_tags(objects []*nativemetadata.MetadataOb
     }
   }
   return false
+}
+
+func checkerProgrammer_has_array_type_tags(arrays []*nativemetadata.MetadataArray) bool {
+  for _, array := range arrays {
+    for _, row := range array.Tags {
+      for _, tag := range row {
+        if tag.Validate != "" {
+          return true
+        }
+      }
+    }
+  }
+  return false
+}
+
+func checkerProgrammer_definitions_have_array_type_tags(definitions []any) bool {
+  arrays := []*nativemetadata.MetadataArray{}
+  for _, definition := range definitions {
+    if array, ok := definition.(*nativemetadata.MetadataArray); ok {
+      arrays = append(arrays, array)
+    }
+  }
+  return checkerProgrammer_has_array_type_tags(arrays)
+}
+
+func checkerProgrammer_array_tag_candidate(context nativecontext.ITypiaContext) func(nativehelpers.UnionExplorer_ArrayLikeCandidateProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, context.Emit)
+  return func(props nativehelpers.UnionExplorer_ArrayLikeCandidateProps) *shimast.Node {
+    array, ok := props.Definition.(*nativemetadata.MetadataArray)
+    if ok == false {
+      return f.NewKeywordExpression(shimast.KindTrueKeyword)
+    }
+    return checkerProgrammer_entry_condition(nativeiterate.Check_array_length(nativeiterate.Check_array_lengthProps{
+      Context: context,
+      Array:   array,
+      Input:   props.Input,
+    }), context.Emit)
+  }
 }
 
 func checkerProgrammer_array_like_config(context nativecontext.ITypiaContext, config CheckerProgrammer_IConfig, functor *nativehelpers.FunctionProgrammer, checker func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node, decoder func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node) nativehelpers.UnionExplorer_ArrayLikeConfig {

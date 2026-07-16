@@ -141,13 +141,35 @@ export const validateConcrete = typia.createValidate<
   string[] & tags.MinItems<2> & ContainsStatus
 >();
 
-// Union branch: a tagged any-element array beside another array variant.
-// The union explorer discriminates by element checks, which an any element
-// satisfies trivially, so these tags are knowingly NOT enforced yet (the
-// residual gap documented on issue #1933).
+// Union branch: a tagged any-element array beside another array variant. The
+// wrapper predicate participates in complete-branch selection (#2040).
 export const validateUnion = typia.createValidate<
   { list: (unknown[] & tags.MinItems<2>) | string[] }
 >();
+export const validateUnionReversed = typia.createValidate<
+  { list: string[] | (unknown[] & tags.MinItems<2>) }
+>();
+export const isUnion = typia.createIs<
+  { list: (unknown[] & tags.MinItems<2>) | string[] }
+>();
+export const assertUnion = typia.createAssert<
+  { list: (unknown[] & tags.MinItems<2>) | string[] }
+>();
+export const equalsUnion = typia.createEquals<
+  { list: (unknown[] & tags.MinItems<2>) | string[] }
+>();
+export const validateTupleUnion = typia.createValidate<
+  { list: (unknown[] & tags.MinItems<2>) | [number] }
+>();
+export const validateTaggedAlternatives = typia.createValidate<
+  { list: (unknown[] & tags.MinItems<2>) | (string[] & tags.MaxItems<1>) }
+>();
+export const stringifyUnion = typia.json.createValidateStringify<
+  { list: (unknown[] & tags.MinItems<2>) | string[] }
+>();
+export const schemaUnion = typia.json.schemas<[
+  (unknown[] & tags.MinItems<2>) | string[],
+]>();
 `
 
 const anyArrayTypeTagsRuntimeRunner = `const mod = require("./main.cjs");
@@ -194,11 +216,43 @@ expectFailure("concrete too short", mod.validateConcrete(["SUCCESS"]), "MinItems
 expectFailure("concrete no status", mod.validateConcrete(["a", "b"]), "ContainsStatus");
 expectSuccess("concrete valid", mod.validateConcrete(["a", "SUCCESS"]));
 
-// 4. Union with a tagged any-element branch: pins the documented residual
-//    gap — the whole bucket keeps the historical wholesale acceptance, so
-//    even [1] (matching neither branch on paper) passes. When union branch
-//    backtracking lands, flip the last expectation to a failure.
+// 4. Complete branches backtrack across wrapper predicates and element types.
 expectSuccess("union via tagged any", mod.validateUnion({ list: [1, 2] }));
 expectSuccess("union via string branch", mod.validateUnion({ list: ["solo"] }));
-expectSuccess("union residual gap", mod.validateUnion({ list: [1] }));
+expectFailure("union no valid branch", mod.validateUnion({ list: [1] }), "MinItems<2>");
+expectSuccess("reversed union via tagged any", mod.validateUnionReversed({ list: [1, 2] }));
+expectSuccess("reversed union via string branch", mod.validateUnionReversed({ list: ["solo"] }));
+expectFailure("reversed union no valid branch", mod.validateUnionReversed({ list: [1] }), "MinItems<2>");
+if (mod.isUnion({ list: [1] }) !== false || mod.isUnion({ list: [1, 2] }) !== true) {
+  throw new Error("is did not honor the complete tagged union branches");
+}
+if (mod.equalsUnion({ list: [1] }) !== false || mod.equalsUnion({ list: ["solo"] }) !== true) {
+  throw new Error("equals did not honor the complete tagged union branches");
+}
+let asserted = false;
+try {
+  mod.assertUnion({ list: [1] });
+} catch (error) {
+  asserted = String(error && error.message).includes("MinItems<2>");
+}
+if (asserted !== true) {
+  throw new Error("assert did not attribute the failed wrapper tag");
+}
+
+expectSuccess("tuple branch", mod.validateTupleUnion({ list: [1] }));
+expectSuccess("tuple union tagged any", mod.validateTupleUnion({ list: [1, 2] }));
+expectSuccess("tagged alternative string", mod.validateTaggedAlternatives({ list: ["solo"] }));
+expectSuccess("tagged alternative any", mod.validateTaggedAlternatives({ list: [1, 2] }));
+expectSuccess("tagged alternative empty", mod.validateTaggedAlternatives({ list: [] }));
+expectFailure("tagged alternatives reject", mod.validateTaggedAlternatives({ list: [1] }), "MinItems<2>");
+
+const stringified = mod.stringifyUnion({ list: ["solo"] });
+if (stringified.success !== true || JSON.parse(stringified.data).list[0] !== "solo") {
+  throw new Error("validated stringify rejected a later valid branch: " + JSON.stringify(stringified));
+}
+expectFailure("validated stringify no valid branch", mod.stringifyUnion({ list: [1] }), "MinItems<2>");
+const unionSchema = JSON.stringify(mod.schemaUnion);
+if (unionSchema.includes('"minItems":2') === false) {
+  throw new Error("array union schema lost MinItems: " + unionSchema);
+}
 `

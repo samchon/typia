@@ -84,10 +84,47 @@ func template_runtime_pattern(row []*nativemetadata.MetadataSchema) (string, []t
   return nativeutils.PatternUtil.Fix(strings.Join(parts, "")), captures
 }
 
+// template_requires_backtracking reports whether a constrained placeholder has
+// an ambiguous boundary. Such a template cannot validate tags from the single
+// greedy capture selected by RegExp.exec; the checker must instead search the
+// possible placeholder boundaries and accept when any complete split satisfies
+// every structural and tag predicate.
+func template_requires_backtracking(row []*nativemetadata.MetadataSchema) bool {
+  for i, meta := range row {
+    if _, _, ok := template_constrained_capture(meta); ok && template_clear_boundary(row, i) == false {
+      return true
+    }
+  }
+  return false
+}
+
+// template_backtracking_pattern is the whole-substring structural predicate
+// used for one placeholder during existential boundary search. Constrained
+// string and bigint placeholders retain the runtime capture semantics from
+// template_runtime_pattern: strings include newlines and bigints are integers.
+func template_backtracking_pattern(meta *nativemetadata.MetadataSchema) string {
+  sub := metadata_to_pattern(struct {
+    top      bool
+    metadata *nativemetadata.MetadataSchema
+  }{
+    top:      false,
+    metadata: meta,
+  })
+  if meta != nil && meta.Bucket() == 1 && len(meta.Atomics) == 1 && meta.Atomics[0].Type == "bigint" {
+    sub = "[+-]?\\d+"
+  } else if _, kind, ok := template_constrained_capture(meta); ok {
+    switch kind {
+    case "string":
+      sub = "[\\s\\S]*"
+    }
+  }
+  return nativeutils.PatternUtil.Fix(sub)
+}
+
 // template_clear_boundary reports whether the placeholder at row[i] is delimited
 // strongly enough that the greedy structural regex assigns it a unique — hence
-// correct — substring. An ambiguous placeholder falls back to structural-only
-// matching (tag unenforced, as before) rather than risking a false negative.
+// correct — substring. Ambiguous placeholders skip direct capture and are
+// validated by the existential matcher in check_template_backtracking.
 //
 // Two adjacent variable-width placeholders slide their shared boundary iff the
 // left one can extend over the first character of the literal between them: a
@@ -100,9 +137,9 @@ func template_runtime_pattern(row []*nativemetadata.MetadataSchema) (string, []t
 //   - `${n}-${n}` (#1965): "-" is not in a number's right-extension set, so both
 //     numbers are pinned and enforced.
 //   - `${number}.${number}` / IP grids: "." extends a number (decimal), so the
-//     split slides ("5.9.1.1.1" splits as 5.9|… or 5|9.1|…) — fall back.
+//     split slides ("5.9.1.1.1" splits as 5.9|… or 5|9.1|…) — backtrack.
 //   - `${string}-${number}` / `${string}X${string}`: a string absorbs any
-//     character, so a string with any sibling falls back.
+//     character, so a string with any sibling needs backtracking.
 //   - `a${string}b` / `prefix${string}suffix` / `${number}%` / `CODE-${string}`:
 //     sole placeholder, the `^`/`$` anchors pin both ends — enforced.
 func template_clear_boundary(row []*nativemetadata.MetadataSchema, i int) bool {
@@ -141,7 +178,7 @@ func template_boundary_safe(row []*nativemetadata.MetadataSchema, i int, dir int
 
 // template_variable_kind returns the base type a variable placeholder matches:
 // "number", "bigint", or "string". Anything else (boolean, unions, constants)
-// is treated as "string" — conservatively absorbing, so its neighbor falls back.
+// is treated as "string" — conservatively absorbing, so its neighbor backtracks.
 func template_variable_kind(meta *nativemetadata.MetadataSchema) string {
   if meta != nil && meta.Bucket() == 1 && len(meta.Atomics) == 1 {
     switch meta.Atomics[0].Type {
@@ -171,14 +208,22 @@ func template_right_extends(kind string, ch rune) bool {
 
 // template_literal_first returns the first character of a literal segment's text.
 func template_literal_first(meta *nativemetadata.MetadataSchema) (rune, bool) {
-  if meta == nil || len(meta.Constants) == 0 || len(meta.Constants[0].Values) == 0 {
+  value, ok := template_literal_value(meta)
+  if ok == false {
     return 0, false
   }
-  runes := []rune(fmt.Sprint(meta.Constants[0].Values[0].Value))
+  runes := []rune(value)
   if len(runes) == 0 {
     return 0, false
   }
   return runes[0], true
+}
+
+func template_literal_value(meta *nativemetadata.MetadataSchema) (string, bool) {
+  if template_is_literal(meta) == false || len(meta.Constants) == 0 || len(meta.Constants[0].Values) == 0 {
+    return "", false
+  }
+  return fmt.Sprint(meta.Constants[0].Values[0].Value), true
 }
 
 // template_is_literal reports whether a row element is a single fixed literal

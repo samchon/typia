@@ -141,10 +141,10 @@ func TestTemplateConstrainedCapture(t *testing.T) {
 //
 //  1. A leading literal plus a constrained number captures at index 1.
 //  2. `${n}-${n}` keeps both numbers ("-" is not number-extendable) at 1 and 2;
-//     a string with a sibling absorbs the separator and falls back entirely.
+//     a string with a sibling absorbs the separator and has no direct capture.
 //  3. A sole constrained string lowers to `([\s\S]*)`, anchored.
 //  4. A constrained bigint lowers to the integer-only `([+-]?\d+)`, anchored.
-//  5. A constrained placeholder adjacent to a variable-width neighbor falls back.
+//  5. An ambiguous placeholder has no direct capture; backtracking owns it.
 //  6. A template with no constrained placeholder yields no captures and the
 //     historical pattern.
 func TestTemplateRuntimePattern(t *testing.T) {
@@ -169,10 +169,10 @@ func TestTemplateRuntimePattern(t *testing.T) {
   }
 
   // A string with a sibling absorbs the "-" (greedy `[\s\S]*`), unpinning both
-  // itself and the number, so the whole template falls back to no captures.
+  // itself and the number, so the direct-capture path stays empty.
   _, captures = template_runtime_pattern([]*nativemetadata.MetadataSchema{str, iterateLiteral("-"), numberB})
   if len(captures) != 0 {
-    t.Fatalf("string-with-sibling template must fall back, got %#v", captures)
+    t.Fatalf("string-with-sibling template must not capture directly, got %#v", captures)
   }
 
   // A constrained string captures every character (newlines included) via
@@ -197,15 +197,15 @@ func TestTemplateRuntimePattern(t *testing.T) {
 
   // A constrained placeholder adjacent to a variable-width neighbor (here an
   // unconstrained string before the number, with no literal between) is
-  // ambiguous under greedy matching, so it falls back to structural-only
-  // matching with no capture — rather than risking a false negative.
+  // ambiguous under greedy matching, so it has no direct capture; the checker
+  // routes the template to existential backtracking instead.
   _, captures = template_runtime_pattern([]*nativemetadata.MetadataSchema{iterateAtomic("string"), number})
   if len(captures) != 0 {
     t.Fatalf("number adjacent to a variable-width neighbor must not be captured, got %#v", captures)
   }
   _, captures = template_runtime_pattern([]*nativemetadata.MetadataSchema{str, numberB})
   if len(captures) != 0 {
-    t.Fatalf("two adjacent constrained placeholders must both fall back, got %#v", captures)
+    t.Fatalf("two adjacent constrained placeholders must not capture directly, got %#v", captures)
   }
 
   pattern, captures = template_runtime_pattern([]*nativemetadata.MetadataSchema{iterateLiteral("plain"), iterateAtomic("string")})
@@ -217,11 +217,43 @@ func TestTemplateRuntimePattern(t *testing.T) {
   }
 }
 
+// TestTemplateRequiresBacktracking separates unique captures from ambiguous
+// boundary searches and keeps each searched placeholder's standalone pattern
+// faithful to its runtime base type.
+func TestTemplateRequiresBacktracking(t *testing.T) {
+  number := iterateTemplateAtomic("number", [][]nativemetadata.IMetadataTypeTag{{{Name: "Minimum<10>", Validate: "10 <= $input"}}})
+  str := iterateTemplateAtomic("string", [][]nativemetadata.IMetadataTypeTag{{{Name: "MinLength<3>", Validate: "$input.length >= 3"}}})
+
+  cases := []struct {
+    name string
+    row  []*nativemetadata.MetadataSchema
+    want bool
+  }{
+    {"unique suffix", []*nativemetadata.MetadataSchema{iterateLiteral("v"), number}, false},
+    {"adjacent placeholders", []*nativemetadata.MetadataSchema{iterateAtomic("string"), number}, true},
+    {"safe numeric fence", []*nativemetadata.MetadataSchema{number, iterateLiteral("-"), number}, false},
+    {"decimal fence", []*nativemetadata.MetadataSchema{number, iterateLiteral("."), iterateAtomic("number")}, true},
+    {"repeated string fence", []*nativemetadata.MetadataSchema{iterateAtomic("string"), iterateLiteral("X"), str}, true},
+  }
+  for _, tc := range cases {
+    if got := template_requires_backtracking(tc.row); got != tc.want {
+      t.Fatalf("template_requires_backtracking(%s) = %v, want %v", tc.name, got, tc.want)
+    }
+  }
+
+  if got := template_backtracking_pattern(str); got != "^[\\s\\S]*$" {
+    t.Fatalf("constrained string backtracking pattern = %q", got)
+  }
+  if got := template_backtracking_pattern(iterateAtomic("bigint")); got != "^[+-]?\\d+$" {
+    t.Fatalf("bigint backtracking pattern = %q", got)
+  }
+}
+
 // TestTemplateClearBoundary gates capture on boundaries the greedy regex pins.
 //
 // A placeholder is captured only when, on each side, the template edge or a
 // literal whose first character its relevant variable neighbor cannot absorb
-// pins it; otherwise the split can slide and it falls back.
+// pins it; otherwise the split can slide and requires backtracking.
 //
 //  1. A single literal segment is a boundary; an atomic, a multi-value constant,
 //     and nil are not.

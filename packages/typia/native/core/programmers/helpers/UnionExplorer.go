@@ -79,11 +79,12 @@ type UnionExplorer_ObjectProps struct {
 }
 
 type UnionExplorer_ArrayLikeConfig struct {
-  Checker func(props UnionExplorer_ArrayLikeCheckerProps) *shimast.Node
-  Decoder func(props UnionExplorer_ArrayLikeDecoderProps) *shimast.Node
-  Empty   *shimast.Node
-  Success *shimast.Expression
-  Failure func(props UnionExplorer_ArrayLikeFailureProps) *shimast.Node
+  Checker   func(props UnionExplorer_ArrayLikeCheckerProps) *shimast.Node
+  Candidate func(props UnionExplorer_ArrayLikeCandidateProps) *shimast.Node
+  Decoder   func(props UnionExplorer_ArrayLikeDecoderProps) *shimast.Node
+  Empty     *shimast.Node
+  Success   *shimast.Expression
+  Failure   func(props UnionExplorer_ArrayLikeFailureProps) *shimast.Node
 }
 
 type UnionExplorer_ArrayLikeCheckerProps struct {
@@ -94,6 +95,12 @@ type UnionExplorer_ArrayLikeCheckerProps struct {
 }
 
 type UnionExplorer_ArrayLikeDecoderProps struct {
+  Input      *shimast.Expression
+  Definition any
+  Explore    any
+}
+
+type UnionExplorer_ArrayLikeCandidateProps struct {
   Input      *shimast.Expression
   Definition any
   Explore    any
@@ -622,46 +629,69 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
       inputType = nativefactories.TypeFactory.Keyword("any", props.Emit)
       postfix = "\"[0]\""
     }
-    return f.NewAsExpression(
-      f.NewArrayLiteralExpression(
+    entries := []*shimast.Node{
+      f.NewArrowFunction(
+        nil,
+        nil,
         f.NewNodeList([]*shimast.Node{
-          f.NewArrowFunction(
+          nativefactories.IdentifierFactory.Parameter("top", inputType, nil, props.Emit),
+        }),
+        nativefactories.TypeFactory.Keyword("any", props.Emit),
+        nil,
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        props.Config.Checker(UnionExplorer_ArrayLikeCheckerProps{
+          Input:      f.NewIdentifier("top"),
+          Definition: props.Accessor.Element(meta),
+          Explore:    unionExplorer_with_postfix(props.Explore, false, postfix),
+          Container:  array,
+        }),
+      ),
+      f.NewArrowFunction(
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter(
+            "entire",
+            f.NewTypeReferenceNode(f.NewIdentifier("any[]"), nil),
             nil,
-            nil,
-            f.NewNodeList([]*shimast.Node{
-              nativefactories.IdentifierFactory.Parameter("top", inputType, nil, props.Emit),
-            }),
-            nativefactories.TypeFactory.Keyword("any", props.Emit),
-            nil,
-            f.NewToken(shimast.KindEqualsGreaterThanToken),
-            props.Config.Checker(UnionExplorer_ArrayLikeCheckerProps{
-              Input:      f.NewIdentifier("top"),
-              Definition: props.Accessor.Element(meta),
-              Explore:    unionExplorer_with_postfix(props.Explore, false, postfix),
-              Container:  array,
-            }),
-          ),
-          f.NewArrowFunction(
-            nil,
-            nil,
-            f.NewNodeList([]*shimast.Node{
-              nativefactories.IdentifierFactory.Parameter(
-                "entire",
-                f.NewTypeReferenceNode(f.NewIdentifier("any[]"), nil),
-                nil,
-                props.Emit,
-              ),
-            }),
-            nativefactories.TypeFactory.Keyword("any", props.Emit),
-            nil,
-            f.NewToken(shimast.KindEqualsGreaterThanToken),
-            props.Config.Decoder(UnionExplorer_ArrayLikeDecoderProps{
-              Input:      f.NewIdentifier("entire"),
-              Definition: meta,
-              Explore:    unionExplorer_with_tracable(props.Explore, true),
-            }),
+            props.Emit,
           ),
         }),
+        nativefactories.TypeFactory.Keyword("any", props.Emit),
+        nil,
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        props.Config.Decoder(UnionExplorer_ArrayLikeDecoderProps{
+          Input:      f.NewIdentifier("entire"),
+          Definition: meta,
+          Explore:    unionExplorer_with_tracable(props.Explore, true),
+        }),
+      ),
+    }
+    if props.Config.Candidate != nil {
+      entries = append(entries, f.NewArrowFunction(
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{
+          nativefactories.IdentifierFactory.Parameter(
+            "entire",
+            f.NewTypeReferenceNode(f.NewIdentifier("any[]"), nil),
+            nil,
+            props.Emit,
+          ),
+        }),
+        nativefactories.TypeFactory.Keyword("boolean", props.Emit),
+        nil,
+        f.NewToken(shimast.KindEqualsGreaterThanToken),
+        props.Config.Candidate(UnionExplorer_ArrayLikeCandidateProps{
+          Input:      f.NewIdentifier("entire"),
+          Definition: meta,
+          Explore:    unionExplorer_with_tracable(props.Explore, false),
+        }),
+      ))
+    }
+    return f.NewAsExpression(
+      f.NewArrayLiteralExpression(
+        f.NewNodeList(entries),
         true,
       ),
       f.NewTypeReferenceNode(f.NewIdentifier("const"), nil),
@@ -709,12 +739,17 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
         "pred",
         f.NewIdentifier("tuplePredicators"),
         f.NewIfStatement(
-          f.NewCallExpression(
-            f.NewIdentifier("pred[0]"),
-            nil,
-            nil,
-            f.NewNodeList([]*shimast.Node{array}),
-            shimast.NodeFlagsNone,
+          unionExplorer_array_candidate_condition(
+            f.NewCallExpression(
+              f.NewIdentifier("pred[0]"),
+              nil,
+              nil,
+              f.NewNodeList([]*shimast.Node{array}),
+              shimast.NodeFlagsNone,
+            ),
+            props.Config.Candidate != nil,
+            array,
+            props.Emit,
           ),
           f.NewReturnStatement(
             f.NewCallExpression(
@@ -741,12 +776,12 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
     for _, x := range arrayList {
       arrayPredicates = append(arrayPredicates, predicate(x))
     }
-    statements = append(statements,
-      nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-        Name:  "top",
-        Value: props.Accessor.Front(props.Input),
-      }, props.Emit),
-      f.NewIfStatement(
+    statements = append(statements, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
+      Name:  "top",
+      Value: props.Accessor.Front(props.Input),
+    }, props.Emit))
+    if props.Config.Candidate == nil {
+      statements = append(statements, f.NewIfStatement(
         f.NewBinaryExpression(
           nil,
           nativefactories.ExpressionFactory.Number(0, props.Emit),
@@ -756,7 +791,9 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
         ),
         unionExplorer_return_or_statement(props.Config.Empty, props.Emit),
         nil,
-      ),
+      ))
+    }
+    statements = append(statements,
       nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
         Name: "arrayPredicators",
         Value: f.NewArrayLiteralExpression(
@@ -780,19 +817,37 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
               nil,
               nil,
               f.NewToken(shimast.KindEqualsGreaterThanToken),
-              f.NewCallExpression(
-                f.NewIdentifier("pred[0]"),
-                nil,
-                nil,
-                f.NewNodeList([]*shimast.Node{top}),
-                shimast.NodeFlagsNone,
-              ),
+              func() *shimast.Node {
+                element := f.NewCallExpression(
+                  f.NewIdentifier("pred[0]"),
+                  nil,
+                  nil,
+                  f.NewNodeList([]*shimast.Node{top}),
+                  shimast.NodeFlagsNone,
+                )
+                if props.Config.Candidate == nil {
+                  return element
+                }
+                return f.NewBinaryExpression(
+                  nil,
+                  f.NewBinaryExpression(
+                    nil,
+                    nativefactories.ExpressionFactory.Number(0, props.Emit),
+                    nil,
+                    f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+                    props.Accessor.Size(props.Input),
+                  ),
+                  nil,
+                  f.NewToken(shimast.KindBarBarToken),
+                  element,
+                )
+              }(),
             ),
           }),
           shimast.NodeFlagsNone,
         ),
       }, props.Emit),
-      unionExplorer_array_if(iterate, array, top, props.Config.Success, props.Emit),
+      unionExplorer_array_if(iterate, array, top, props.Config.Success, props.Config.Candidate != nil, props.Emit),
     )
   }
   names := make([]string, 0, len(targets))
@@ -819,8 +874,75 @@ func unionExplorer_check_union_array_like(props unionExplorer_check_union_array_
   )
 }
 
-func unionExplorer_array_if(iterate func(init string, from *shimast.Expression, ifStatement *shimast.Node) *shimast.Node, array *shimast.Node, top *shimast.Node, success *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
+func unionExplorer_array_if(iterate func(init string, from *shimast.Expression, ifStatement *shimast.Node) *shimast.Node, array *shimast.Node, top *shimast.Node, success *shimast.Expression, candidate bool, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(unionExplorer_factory, emit...)
+  if candidate {
+    elementCondition := f.NewCallExpression(
+      nativefactories.IdentifierFactory.Access(nil, array, "every"),
+      nil,
+      nil,
+      f.NewNodeList([]*shimast.Node{
+        f.NewArrowFunction(
+          nil,
+          nil,
+          f.NewNodeList([]*shimast.Node{
+            nativefactories.IdentifierFactory.Parameter("value", nativefactories.TypeFactory.Keyword("any", emit...), nil, emit...),
+          }),
+          nil,
+          nil,
+          f.NewToken(shimast.KindEqualsGreaterThanToken),
+          f.NewBinaryExpression(
+            nil,
+            success,
+            nil,
+            f.NewToken(shimast.KindEqualsEqualsEqualsToken),
+            f.NewCallExpression(
+              f.NewIdentifier("pred[0]"),
+              nil,
+              nil,
+              f.NewNodeList([]*shimast.Node{f.NewIdentifier("value")}),
+              shimast.NodeFlagsNone,
+            ),
+          ),
+        ),
+      }),
+      shimast.NodeFlagsNone,
+    )
+    return f.NewBlock(f.NewNodeList([]*shimast.Node{
+      iterate(
+        "pred",
+        f.NewIdentifier("passed"),
+        f.NewIfStatement(
+          unionExplorer_array_candidate_condition(elementCondition, true, array, emit...),
+          f.NewReturnStatement(f.NewCallExpression(
+            f.NewIdentifier("pred[1]"),
+            nil,
+            nil,
+            f.NewNodeList([]*shimast.Node{array}),
+            shimast.NodeFlagsNone,
+          )),
+          nil,
+        ),
+      ),
+      f.NewIfStatement(
+        f.NewBinaryExpression(
+          nil,
+          nativefactories.ExpressionFactory.Number(0, emit...),
+          nil,
+          f.NewToken(shimast.KindLessThanToken),
+          f.NewIdentifier("passed.length"),
+        ),
+        f.NewReturnStatement(f.NewCallExpression(
+          f.NewIdentifier("passed[0][1]"),
+          nil,
+          nil,
+          f.NewNodeList([]*shimast.Node{array}),
+          shimast.NodeFlagsNone,
+        )),
+        nil,
+      ),
+    }), true)
+  }
   return f.NewIfStatement(
     f.NewBinaryExpression(
       nil,
@@ -907,6 +1029,26 @@ func unionExplorer_array_if(iterate func(init string, from *shimast.Expression, 
       ),
       nil,
     ),
+  )
+}
+
+func unionExplorer_array_candidate_condition(element *shimast.Node, candidate bool, array *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
+  if candidate == false {
+    return element
+  }
+  f := nativecontext.EmitFactoryOf(unionExplorer_factory, emit...)
+  return f.NewBinaryExpression(
+    nil,
+    f.NewCallExpression(
+      f.NewIdentifier("pred[2]"),
+      nil,
+      nil,
+      f.NewNodeList([]*shimast.Node{array}),
+      shimast.NodeFlagsNone,
+    ),
+    nil,
+    f.NewToken(shimast.KindAmpersandAmpersandToken),
+    element,
   )
 }
 

@@ -100,8 +100,10 @@ func templateInterpolationTypeTagsRunRuntimeCases(t *testing.T, project string, 
   // common stub set covers; stub them before the shared rewrite asserts that no
   // `typia/lib/internal/*` import survives.
   extraStubs := map[string]string{
-    "is-type-int32-stub.cjs": "module.exports._isTypeInt32 = (value) => Number.isInteger(value) && -2147483648 <= value && value <= 2147483647;\n",
-    "random-number-stub.cjs": templateInterpolationTypeTagsRandomNumberStub,
+    "is-type-int32-stub.cjs":         "module.exports._isTypeInt32 = (value) => Number.isInteger(value) && -2147483648 <= value && value <= 2147483647;\n",
+    "random-number-stub.cjs":         templateInterpolationTypeTagsRandomNumberStub,
+    "random-string-stub.cjs":         "module.exports._randomString = () => 'prefix';\n",
+    "json-stringify-string-stub.cjs": "module.exports._jsonStringifyString = (value) => JSON.stringify(value);\n",
   }
   for name, content := range extraStubs {
     if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
@@ -110,6 +112,8 @@ func templateInterpolationTypeTagsRunRuntimeCases(t *testing.T, project string, 
   }
   runtimeJS := strings.ReplaceAll(js, `require("typia/lib/internal/_isTypeInt32")`, `require("./is-type-int32-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_randomNumber")`, `require("./random-number-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_randomString")`, `require("./random-string-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyString")`, `require("./json-stringify-string-stub.cjs")`)
   runtimeJS = ttscTypiaTestRewriteCommonJS(t, runtimeJS)
   if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
     t.Fatalf("write runtime module: %v", err)
@@ -153,8 +157,13 @@ type StrNum = ` + "`${string & tags.MaxLength<2>}-${number}`" + `;
 type NumStr = ` + "`${number & tags.Maximum<9>}-${string & tags.MinLength<2>}`" + `;
 type Dec = ` + "`${number & tags.Maximum<1.2>}.${number}`" + `;
 type BigDot = ` + "`${bigint}.${number & tags.Minimum<5>}`" + `;
+type Triple = ` + "`${string & tags.MaxLength<2>}${string & tags.MinLength<2>}${number & tags.Minimum<10>}`" + `;
+type AmbiguousUnion = Adjacent | NonAdj;
 interface DynKey {
   [key: ` + "`slot${number & tags.Minimum<0> & tags.Maximum<9>}`" + `]: string;
+}
+interface AmbiguousDynKey {
+  [key: ` + "`${string}${number & tags.Minimum<10>}`" + `]: string;
 }
 
 export const isPercent = typia.createIs<Percent>();
@@ -168,14 +177,22 @@ export const isMultiline = typia.createIs<Multiline>();
 export const isBigRange = typia.createIs<BigRange>();
 export const isBigExcl = typia.createIs<BigExcl>();
 export const isAdjacent = typia.createIs<Adjacent>();
+export const validateAdjacent = typia.createValidate<Adjacent>();
+export const assertAdjacent = typia.createAssert<Adjacent>();
 export const isInfix = typia.createIs<Infix>();
 export const isNonAdj = typia.createIs<NonAdj>();
 export const isStrNum = typia.createIs<StrNum>();
 export const isNumStr = typia.createIs<NumStr>();
 export const isDec = typia.createIs<Dec>();
 export const isBigDot = typia.createIs<BigDot>();
+export const isTriple = typia.createIs<Triple>();
+export const isAmbiguousUnion = typia.createIs<AmbiguousUnion>();
 export const equalsDynKey = typia.createEquals<DynKey>();
+export const equalsAmbiguousDynKey = typia.createEquals<AmbiguousDynKey>();
 export const randomPercent = typia.createRandom<Percent>();
+export const randomAdjacent = typia.createRandom<Adjacent>();
+export const stringifyAdjacent = typia.json.createValidateStringify<{ value: Adjacent }>();
+export const schemaAdjacent = typia.json.schemas<[Adjacent]>();
 `
 
 const templateInterpolationTypeTagsRuntimeRunner = `const mod = require("./main.cjs");
@@ -248,11 +265,13 @@ expect("bigint excluded value", mod.isBigExcl("#5"), false);
 expect("bigint allowed value", mod.isBigExcl("#3"), true);
 expect("bigint exclude negative", mod.isBigExcl("#-1"), false);
 
-// Adjacent variable-width placeholders fall back (tag unenforced) rather than a
-// greedy-split false negative: "abc123" is a valid string-then-number(>=10)
-// split (string="abc", number=123). If the number tag were wrongly enforced on
-// the greedy split, the number group would be "3" and this would be false.
-expect("adjacent placeholders fall back", mod.isAdjacent("abc123"), true);
+// Adjacent variable-width placeholders accept a non-greedy split when it is the
+// split that satisfies the number tag.
+expect("adjacent placeholders backtrack", mod.isAdjacent("abc123"), true);
+expect("adjacent placeholders edge split", mod.isAdjacent("123"), true);
+expect("adjacent placeholders no valid split", mod.isAdjacent("abc9"), false);
+expect("adjacent placeholders structural failure", mod.isAdjacent("abc"), false);
+expect("adjacent placeholders long invalid input", mod.isAdjacent("x".repeat(2048) + "9"), false);
 
 // A sole string fenced by literals is enforced: the ^/$ anchors pin "a" and the
 // final "b", so the split string="XbY" (length 3) is unique and exceeds
@@ -260,15 +279,13 @@ expect("adjacent placeholders fall back", mod.isAdjacent("abc123"), true);
 expect("sole string fenced by literals, too long", mod.isInfix("aXbYb"), false);
 expect("sole string fenced by literals, in range", mod.isInfix("aXb"), true);
 
-// A string with a placeholder sibling falls back (greedy ([\s\S]*) could overrun
-// the fence), so its tag is unenforced rather than a false negative: "aXbXcd" is
-// a valid string-X-string(>=3) split (second="bXcd") and stays true.
-expect("string with sibling falls back", mod.isNonAdj("aXbXcd"), true);
+// A repeated literal fence tries each split until the tagged suffix is valid.
+expect("string sibling backtracks", mod.isNonAdj("aXbXcd"), true);
+expect("string sibling no valid split", mod.isNonAdj("aXbc"), false);
 
-// string-first across a separator the number's exponent can absorb: the string
-// falls back (greedy could capture "xy-1e"), so "xy-1e-9" is no longer a false
-// negative (string="xy" length 2 <= 2 is a valid split).
-expect("strnum string-first falls back", mod.isStrNum("xy-1e-9"), true);
+// A separator that can also occur in an exponent is tried at each position.
+expect("strnum string-first backtracks", mod.isStrNum("xy-1e-9"), true);
+expect("strnum no valid bounded prefix", mod.isStrNum("toolong-1"), false);
 
 // number-first: "-" is not number-extendable, so both placeholders are pinned
 // and enforced — number=50 > 9 fails, string="a" length 1 < 2 fails.
@@ -276,15 +293,35 @@ expect("numstr ok", mod.isNumStr("5-ab"), true);
 expect("numstr number violated", mod.isNumStr("50-ab"), false);
 expect("numstr string violated", mod.isNumStr("5-a"), false);
 
-// number-"."-number: "." is a decimal extension, so the split slides ("1.9.0"
-// splits as 1.9|0 or 1|9.0); the placeholder falls back, so the valid first="1"
-// (<= 1.2) split is no longer a false negative.
-expect("dec decimal-separator falls back", mod.isDec("1.9.0"), true);
+// A decimal point can be part of either number; any fully valid split passes.
+expect("dec decimal-separator backtracks", mod.isDec("1.9.0"), true);
+expect("dec no valid bounded first number", mod.isDec("2.0.3"), false);
 
-// An untagged bigint lowers to the decimal NUMBER span, so it absorbs the ".";
-// the number after it falls back, so "1.9.4" (valid as bigint=1 | number=9.4 >=
-// 5) is not a false negative.
-expect("bigint-dot-number falls back", mod.isBigDot("1.9.4"), true);
+// A bigint/number mix keeps the bigint side integral while trying dot fences.
+expect("bigint-dot-number backtracks", mod.isBigDot("1.9.4"), true);
+expect("bigint-dot-number no valid suffix", mod.isBigDot("1.4.0"), false);
+expect("three adjacent placeholders backtrack", mod.isTriple("abcd12"), true);
+expect("three adjacent placeholders no valid split", mod.isTriple("abcd9"), false);
+expect("ambiguous union adjacent branch", mod.isAmbiguousUnion("prefix123"), true);
+expect("ambiguous union fenced branch", mod.isAmbiguousUnion("aXbXcd"), true);
+expect("ambiguous union no valid branch", mod.isAmbiguousUnion("prefix9"), false);
+
+const adjacentFailure = mod.validateAdjacent("abc9");
+if (
+  adjacentFailure.success !== false ||
+  adjacentFailure.errors.every((error) => error.expected.includes("Minimum<10>") === false)
+) {
+  throw new Error("ambiguous validate error should name Minimum<10>: " + JSON.stringify(adjacentFailure));
+}
+let adjacentAsserted = false;
+try {
+  mod.assertAdjacent("abc9");
+} catch (error) {
+  adjacentAsserted = String(error && error.message).includes("Minimum<10>");
+}
+if (adjacentAsserted !== true) {
+  throw new Error("ambiguous assert error should name Minimum<10>");
+}
 
 // A dynamic index key typed as a tagged-interpolation template (the
 // check_dynamic_key path): a key whose number violates the tag no longer
@@ -293,6 +330,8 @@ expect("dynkey in range", mod.equalsDynKey({ slot5: "x" }), true);
 expect("dynkey both ends", mod.equalsDynKey({ slot0: "x", slot9: "y" }), true);
 expect("dynkey out of range", mod.equalsDynKey({ slot50: "x" }), false);
 expect("dynkey non-number", mod.equalsDynKey({ slotABC: "x" }), false);
+expect("ambiguous dynkey valid split", mod.equalsAmbiguousDynKey({ slot123: "x" }), true);
+expect("ambiguous dynkey invalid split", mod.equalsAmbiguousDynKey({ slot9: "x" }), false);
 
 // validate must name the violated placeholder tag, not just the template.
 const tooBig = mod.validatePercent("150%");
@@ -318,5 +357,29 @@ for (let i = 0; i < 100; ++i) {
   if (mod.isPercent(value) !== true) {
     throw new Error("random percent did not round-trip: " + JSON.stringify(value));
   }
+}
+for (let i = 0; i < 25; ++i) {
+  const value = mod.randomAdjacent(generator);
+  if (mod.isAdjacent(value) !== true) {
+    throw new Error("random adjacent template did not round-trip: " + JSON.stringify(value));
+  }
+}
+const stringifiedAdjacent = mod.stringifyAdjacent({ value: "prefix123" });
+if (
+  stringifiedAdjacent.success !== true ||
+  JSON.parse(stringifiedAdjacent.data).value !== "prefix123"
+) {
+  throw new Error("validated stringify rejected an existentially valid split");
+}
+const invalidStringifiedAdjacent = mod.stringifyAdjacent({ value: "prefix9" });
+if (
+  invalidStringifiedAdjacent.success !== false ||
+  invalidStringifiedAdjacent.errors.every((error) => error.expected.includes("Minimum<10>") === false)
+) {
+  throw new Error("validated stringify did not preserve the ambiguous placeholder tag diagnostic");
+}
+const adjacentSchema = JSON.stringify(mod.schemaAdjacent);
+if (adjacentSchema.includes("Minimum<10>")) {
+  throw new Error("template interpolation tags must remain intentionally absent from JSON Schema");
 }
 `
