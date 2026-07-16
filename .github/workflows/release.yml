@@ -96,11 +96,20 @@ jobs:
       # through packages/typia/native/go.work, and the website is a pnpm
       # workspace member consuming catalog: versions, so it must be installed
       # from the workspace root (a standalone npm install cannot resolve it).
+      - name: Install Dependencies
+        run: pnpm install
+
+      # Match the sibling source to the installed browser host. Cloning latest
+      # ttsc master can select a different Go plugin interface than the locked
+      # @ttsc/wasm package used by the website.
       - name: Checkout ttsc sibling
-        run: git clone --depth 1 https://github.com/samchon/ttsc.git ../ttsc
+        run: |
+          TTSC_VERSION="$(node -p "require('./website/node_modules/@ttsc/wasm/package.json').version")"
+          test -n "${TTSC_VERSION}"
+          git clone --branch "v${TTSC_VERSION}" --depth 1 https://github.com/samchon/ttsc.git ../ttsc
+
       - name: Build Packages
         run: |
-          pnpm install
           pnpm run build
           pnpm run package:tgz
       - name: Website Build
