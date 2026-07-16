@@ -7,6 +7,7 @@ import (
   "fmt"
   "os"
   "path/filepath"
+  "sort"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -14,6 +15,7 @@ import (
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
@@ -110,7 +112,11 @@ func runTransform(args []string) int {
 }
 
 // runTransformProject prints every non-declaration project source as transformed
-// TypeScript and encodes the JSON envelope the ttsc host expects.
+// TypeScript and encodes the JSON envelope the ttsc host expects. Alongside the
+// transformed sources it reports, per file, the source files owning the
+// declarations the typia analysis consulted (`dependencies`), which the ttsc
+// consumer registers with the bundler so persistent caches and watch mode
+// invalidate generated validators when a consulted type's file changes.
 func runTransformProject(
   prog *driver.Program,
   cwd string,
@@ -121,6 +127,9 @@ func runTransformProject(
     Diagnostics: []transformCompilerDiagnostic{},
     TypeScript:  map[string]string{},
   }
+  collector := newTransformDependencyCollector(cwd)
+  schemametadata.MetadataDependency_listen(prog.Checker, collector.Touch)
+  defer schemametadata.MetadataDependency_release(prog.Checker)
   for _, sf := range prog.SourceFiles() {
     if sf.IsDeclarationFile {
       continue
@@ -129,8 +138,10 @@ func runTransformProject(
     if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
       continue
     }
+    collector.Begin(key)
     out.TypeScript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
   }
+  out.Dependencies = collector.ToJSON()
   for _, diag := range *transformDiags {
     out.Diagnostics = append(out.Diagnostics, transformDiagnosticToCompilerDiagnostic(diag))
   }
@@ -234,6 +245,89 @@ func defaultTransformOutput() string {
 type transformProjectOutput struct {
   Diagnostics []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
   TypeScript  map[string]string             `json:"typescript"`
+  // Dependencies maps each transformed file (same project-relative keys as
+  // TypeScript) to the source files owning the declarations typia's analysis
+  // consulted for it. Values are project-relative when the file lives under the
+  // project and absolute otherwise; the consumer absolutizes against the
+  // project root and drops the file itself. Default `lib.*.d.ts` files are
+  // excluded (toolchain-versioned, not project inputs); `node_modules`
+  // declaration files are included.
+  Dependencies map[string][]string `json:"dependencies,omitempty"`
+}
+
+// transformDependencyCollector accumulates the consulted-declaration files the
+// metadata dependency listener reports while one project file is transformed,
+// attributing them to that file's envelope key.
+type transformDependencyCollector struct {
+  cwd     string
+  current string
+  files   map[string]map[string]bool
+}
+
+func newTransformDependencyCollector(cwd string) *transformDependencyCollector {
+  return &transformDependencyCollector{
+    cwd:   cwd,
+    files: map[string]map[string]bool{},
+  }
+}
+
+// Begin attributes subsequent touches to the given envelope key.
+func (collector *transformDependencyCollector) Begin(key string) {
+  collector.current = key
+}
+
+// Touch records one consulted declaration file for the current key. Default
+// library files and the transformed file itself are dropped here so the
+// envelope carries only actionable project inputs.
+func (collector *transformDependencyCollector) Touch(fileName string) {
+  if collector.current == "" {
+    return
+  }
+  if transformDependencyDefaultLib(fileName) {
+    return
+  }
+  value := sourceFileKey(collector.cwd, filepath.ToSlash(fileName))
+  if value == collector.current {
+    return
+  }
+  set := collector.files[collector.current]
+  if set == nil {
+    set = map[string]bool{}
+    collector.files[collector.current] = set
+  }
+  set[value] = true
+}
+
+// ToJSON renders the collected sets as the envelope's `dependencies` map with
+// deterministically sorted values, or nil when nothing was collected.
+func (collector *transformDependencyCollector) ToJSON() map[string][]string {
+  if len(collector.files) == 0 {
+    return nil
+  }
+  output := map[string][]string{}
+  for key, set := range collector.files {
+    if len(set) == 0 {
+      continue
+    }
+    values := make([]string, 0, len(set))
+    for value := range set {
+      values = append(values, value)
+    }
+    sort.Strings(values)
+    output[key] = values
+  }
+  if len(output) == 0 {
+    return nil
+  }
+  return output
+}
+
+// transformDependencyDefaultLib reports whether the file is a TypeScript
+// default library (`lib.<target>.d.ts`), identified by base name because the
+// install directory varies by toolchain.
+func transformDependencyDefaultLib(fileName string) bool {
+  base := filepath.Base(filepath.FromSlash(fileName))
+  return strings.HasPrefix(base, "lib.") && strings.HasSuffix(base, ".d.ts")
 }
 
 type transformCompilerDiagnostic struct {

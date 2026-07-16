@@ -76,6 +76,15 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     }
   }
 
+  // Report the `extends` / `implements` chain to the dependency listener. The
+  // apparent-property walk below already registers the declaring file of every
+  // inherited member, but a base that currently contributes no property (an
+  // empty interface or class) would otherwise stay invisible — and gaining its
+  // first property is exactly the change that must invalidate the consumer.
+  if props.Type != nil && schemametadata.MetadataDependency_active(props.Checker) {
+    emplace_metadata_object_touch_heritage(props.Checker, props.Type.Symbol(), map[*nativeast.Symbol]bool{})
+  }
+
   isClass := props.Type != nil && props.Type.IsClass()
   isProperty := emplace_metadata_object_significant(props.Options.Functional, props.Options.Methods)
   pred := func(node *nativeast.Node) bool {
@@ -195,6 +204,75 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     })
   }
   return obj
+}
+
+// emplace_metadata_object_touch_heritage reports every `extends` / `implements`
+// heritage target of `symbol`'s class / interface declarations to the
+// dependency listener, following the chain recursively so intermediate empty
+// bases register too. Import aliases resolve to their final target symbol,
+// whose declarations carry the real declaring files. Walking runs only while a
+// listener is active (see the call site), so ordinary analysis pays nothing.
+func emplace_metadata_object_touch_heritage(
+  checker *nativechecker.Checker,
+  symbol *nativeast.Symbol,
+  visited map[*nativeast.Symbol]bool,
+) {
+  if checker == nil || symbol == nil || visited[symbol] {
+    return
+  }
+  visited[symbol] = true
+  for _, decl := range symbol.Declarations {
+    if decl == nil {
+      continue
+    }
+    var clauses *nativeast.NodeList
+    switch decl.Kind {
+    case nativeast.KindClassDeclaration:
+      if cd := decl.AsClassDeclaration(); cd != nil {
+        clauses = cd.HeritageClauses
+      }
+    case nativeast.KindClassExpression:
+      if ce := decl.AsClassExpression(); ce != nil {
+        clauses = ce.HeritageClauses
+      }
+    case nativeast.KindInterfaceDeclaration:
+      if id := decl.AsInterfaceDeclaration(); id != nil {
+        clauses = id.HeritageClauses
+      }
+    }
+    if clauses == nil {
+      continue
+    }
+    for _, clause := range clauses.Nodes {
+      if clause == nil || clause.Kind != nativeast.KindHeritageClause {
+        continue
+      }
+      hc := clause.AsHeritageClause()
+      if hc == nil || hc.Types == nil {
+        continue
+      }
+      for _, element := range hc.Types.Nodes {
+        if element == nil {
+          continue
+        }
+        expr := element.AsExpressionWithTypeArguments()
+        if expr == nil || expr.Expression == nil {
+          continue
+        }
+        target := checker.GetSymbolAtLocation(expr.Expression)
+        if target == nil {
+          continue
+        }
+        if target.Flags&nativeast.SymbolFlagsAlias != 0 {
+          if resolved := nativechecker.Checker_getAliasedSymbol(checker, target); resolved != nil {
+            target = resolved
+          }
+        }
+        schemametadata.MetadataDependency_touchSymbol(checker, target)
+        emplace_metadata_object_touch_heritage(checker, target, visited)
+      }
+    }
+  }
 }
 
 // emplace_metadata_object_private_fields reports whether `typ` or any class in
