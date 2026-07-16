@@ -43,7 +43,7 @@ func (jsonApplicationTransformerNamespace) Transform(props nativetransform.ITran
 
   typ := props.Context.Checker.GetTypeFromTypeNode(top)
   collection := schemametadata.NewMetadataCollection(&schemametadata.MetadataCollection_IOptions{
-    Replace: schemametadata.MetadataCollection_replace,
+    Replace: schemametadata.MetadataCollection_replaceOpenApi,
   })
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,

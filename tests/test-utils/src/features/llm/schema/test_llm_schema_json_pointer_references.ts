@@ -102,9 +102,19 @@ export const test_llm_schema_json_pointer_references = (): void => {
           (schema) => (schema as { type?: string }).type === "number",
         ),
     );
+    // An unrestricted `$defs` key is not a legal Components Object key, so
+    // inversion allocates one. The definition must survive under that
+    // allocated name, and the emitted reference must resolve to it.
+    const componentKey: string | undefined = Object.keys(
+      components.schemas!,
+    ).find(
+      (name) => (components.schemas![name] as { type?: string }).type ===
+        "number",
+    );
     TestValidator.predicate(
-      `${label}: inversion keeps raw component identity`,
-      () => Object.hasOwn(components.schemas!, key),
+      `${label}: inversion allocates a legal component key`,
+      () =>
+        componentKey !== undefined && /^[a-zA-Z0-9.\-_]+$/.test(componentKey),
     );
     TestValidator.equals(
       `${label}: inverted reference resolves by JSON Pointer`,
@@ -114,7 +124,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
           | OpenApi.IJsonSchema.IReference
           | undefined,
       ),
-      components.schemas![key],
+      components.schemas![componentKey!],
     );
     TestValidator.predicate(
       `${label}: inversion is not accept-all`,
@@ -479,21 +489,38 @@ export const test_llm_schema_json_pointer_references = (): void => {
     schema: discriminatorSchema,
     $defs: discriminatorDefinitions,
   });
-  TestValidator.equals(
-    "inversion preserves encoded discriminator identity",
+  // Inversion allocates a legal Components Object key for each unrestricted
+  // `$defs` key, so the mapping identifies the allocated component rather than
+  // the raw one. What must hold is that each discriminator value still selects
+  // the branch its raw key named.
+  const discriminatorMapping: Record<string, string> | undefined =
     "oneOf" in discriminatorInverted
       ? discriminatorInverted.discriminator?.mapping
-      : undefined,
-    {
-      slash: "#/components/schemas/A~1B",
-      tilde: "#/components/schemas/T~0N",
-    },
-  );
+      : undefined;
   TestValidator.predicate(
-    "discriminator component identities remain raw",
+    "inversion maps every discriminator to a legal component key",
     () =>
-      Object.hasOwn(discriminatorComponents.schemas!, "A/B") &&
-      Object.hasOwn(discriminatorComponents.schemas!, "T~N"),
+      discriminatorMapping !== undefined &&
+      Object.values(discriminatorMapping).every((reference) =>
+        /^#\/components\/schemas\/[a-zA-Z0-9.\-_]+$/.test(reference),
+      ),
+  );
+  TestValidator.equals(
+    "inversion keeps each discriminator on its own branch",
+    Object.fromEntries(
+      Object.entries(discriminatorMapping ?? {}).map(([tag, reference]) => [
+        tag,
+        (
+          discriminatorComponents.schemas![
+            reference.replace("#/components/schemas/", "")
+          ] as OpenApi.IJsonSchema.IObject | undefined
+        )?.properties?.kind,
+      ]),
+    ),
+    {
+      slash: { type: "string", const: "slash" },
+      tilde: { type: "string", const: "tilde" },
+    },
   );
   const validateDiscriminator = LlmJson.validate({
     type: "object",

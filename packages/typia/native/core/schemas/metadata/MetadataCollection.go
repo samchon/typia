@@ -1,8 +1,10 @@
 package metadata
 
 import (
+  "hash/fnv"
   "maps"
   "slices"
+  "strconv"
   "strings"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
@@ -543,6 +545,104 @@ func MetadataCollection_replace(str string) string {
     str = strings.ReplaceAll(str, pair.Before, pair.After)
   }
   return str
+}
+
+// MetadataCollection_replaceOpenApi converts a metadata display name into an
+// OpenAPI Components Object key. Keep this separate from the general metadata
+// replacement used by LLM `$defs`: OpenAPI restricts keys to an ASCII grammar,
+// while an LLM definition map can own arbitrary JSON object keys.
+func MetadataCollection_replaceOpenApi(str string) string {
+  var escaped strings.Builder
+  var quote rune
+  quotedContent := false
+  quotedEscape := false
+  disambiguate := false
+  for _, ch := range str {
+    if quote != 0 {
+      if quotedEscape {
+        disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+        quotedContent = true
+        quotedEscape = false
+        continue
+      }
+      if ch == '\\' {
+        disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+        quotedContent = true
+        quotedEscape = true
+        continue
+      }
+      if ch == quote {
+        if quotedContent == false {
+          disambiguate = true
+        }
+        quote = 0
+        continue
+      }
+      disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+      quotedContent = true
+      continue
+    }
+    if ch == '\'' || ch == '"' || ch == '`' {
+      quote = ch
+      quotedContent = false
+      continue
+    }
+    if ch == '$' {
+      disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+    } else {
+      escaped.WriteRune(ch)
+    }
+  }
+  normalized := MetadataCollection_replace(escaped.String())
+  if len(normalized) == 0 {
+    normalized = "_"
+    disambiguate = true
+  }
+  var builder strings.Builder
+  for _, ch := range normalized {
+    disambiguate = metadataCollection_writeOpenApiNameRune(&builder, ch) || disambiguate
+  }
+  if disambiguate {
+    builder.WriteString(metadataCollection_openApiNameSuffix)
+    builder.WriteString(metadataCollection_openApiNameHash(str))
+  }
+  return builder.String()
+}
+
+// metadataCollection_openApiNameSuffix separates an escaped base name from its
+// disambiguating hash. It must not be ".": JsonDescriptor.cascade reads a dot
+// in a component key as a namespace boundary and inherits the parent
+// component's description, so a dotted suffix would present the escaped base as
+// a fake parent and pull an unrelated type's description into the escaped
+// schema. "-" is in the OpenAPI key alphabet, needs no JSON Pointer or URI
+// escaping, and carries no such meaning.
+const metadataCollection_openApiNameSuffix = "-x"
+
+func metadataCollection_writeOpenApiNameRune(builder *strings.Builder, ch rune) bool {
+  if metadataCollection_isOpenApiNameRune(ch) {
+    builder.WriteRune(ch)
+    return false
+  }
+  builder.WriteString("_x")
+  builder.WriteString(strings.ToUpper(strconv.FormatInt(int64(ch), 16)))
+  builder.WriteByte('_')
+  return true
+}
+
+func metadataCollection_openApiNameHash(str string) string {
+  hasher := fnv.New64a()
+  _, _ = hasher.Write([]byte(str))
+  encoded := strings.ToUpper(strconv.FormatUint(hasher.Sum64(), 16))
+  return strings.Repeat("0", 16-len(encoded)) + encoded
+}
+
+func metadataCollection_isOpenApiNameRune(ch rune) bool {
+  return (ch >= 'a' && ch <= 'z') ||
+    (ch >= 'A' && ch <= 'Z') ||
+    (ch >= '0' && ch <= '9') ||
+    ch == '.' ||
+    ch == '-' ||
+    ch == '_'
 }
 
 func MetadataCollection_escape(str string) string {
