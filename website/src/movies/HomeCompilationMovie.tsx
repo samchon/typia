@@ -45,9 +45,9 @@ const CodePanel = (props: {
       flex: 1,
       minWidth: 0,
       borderRadius: 2,
-      border: "1px solid rgba(255,255,255,0.1)",
+      border: "1px solid #c0d4ed",
       overflow: "hidden",
-      backgroundColor: "rgba(0,0,0,0.3)",
+      backgroundColor: "#0d1f36",
     }}
   >
     <Box
@@ -58,7 +58,7 @@ const CodePanel = (props: {
         px: 2.5,
         py: 1.5,
         borderBottom: "1px solid rgba(255,255,255,0.08)",
-        backgroundColor: "rgba(255,255,255,0.03)",
+        backgroundColor: "rgba(255,255,255,0.06)",
       }}
     >
       <Box
@@ -71,7 +71,7 @@ const CodePanel = (props: {
           textTransform: "uppercase",
           letterSpacing: 0.5,
           backgroundColor: props.labelColor,
-          color: "#fff",
+          color: "#0d1f36",
         }}
       >
         {props.label}
@@ -108,7 +108,7 @@ const CodePanel = (props: {
 );
 
 const HomeCompilationMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
+  <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#ffffff" }}>
     <Container maxWidth="lg">
       <Box sx={{ textAlign: "center", mb: 6 }}>
         <Typography
@@ -117,7 +117,7 @@ const HomeCompilationMovie = () => (
             fontWeight: 700,
             fontSize: { xs: "1.6rem", md: "2.2rem" },
             mb: 2,
-            color: "rgba(255,255,255,0.95)",
+            color: "#0d1f36",
           }}
         >
           AOT Compilation Magic
@@ -125,7 +125,7 @@ const HomeCompilationMovie = () => (
         <Typography
           variant="body1"
           sx={{
-            color: "rgba(255,255,255,0.55)",
+            color: "#50647c",
             fontSize: "1.05rem",
             maxWidth: 650,
             mx: "auto",
@@ -146,14 +146,14 @@ const HomeCompilationMovie = () => (
         <CodePanel
           title="Your TypeScript Code"
           label="Input"
-          labelColor="rgba(0,150,255,0.7)"
+          labelColor="#5aa9f8"
           code={BEFORE_CODE}
         />
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
             alignItems: "center",
-            color: "rgba(255,255,255,0.3)",
+            color: "#c0d4ed",
             fontSize: "2rem",
             px: 1,
           }}
@@ -164,7 +164,7 @@ const HomeCompilationMovie = () => (
           sx={{
             display: { xs: "flex", md: "none" },
             justifyContent: "center",
-            color: "rgba(255,255,255,0.3)",
+            color: "#c0d4ed",
             fontSize: "2rem",
           }}
         >
@@ -173,7 +173,7 @@ const HomeCompilationMovie = () => (
         <CodePanel
           title="Compiled Output"
           label="Output"
-          labelColor="rgba(80,200,0,0.7)"
+          labelColor="#7ac74f"
           code={AFTER_CODE}
         />
       </Box>

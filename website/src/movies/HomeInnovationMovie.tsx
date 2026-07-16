@@ -13,6 +13,7 @@ const ComparisonColumn = (props: {
       sx={{
         borderRadius: 2,
         border: `1px solid ${props.borderColor}`,
+        backgroundColor: "#ffffff",
         overflow: "hidden",
         height: "100%",
       }}
@@ -52,7 +53,7 @@ const ComparisonColumn = (props: {
             <Typography
               variant="body2"
               sx={{
-                color: "rgba(255,255,255,0.7)",
+                color: "#50647c",
                 lineHeight: 1.6,
                 fontSize: "0.9rem",
               }}
@@ -67,7 +68,7 @@ const ComparisonColumn = (props: {
 );
 
 const HomeInnovationMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
+  <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#ffffff" }}>
     <Container maxWidth="lg">
       <Box sx={{ textAlign: "center", mb: 6 }}>
         <Typography
@@ -76,7 +77,7 @@ const HomeInnovationMovie = () => (
             fontWeight: 700,
             fontSize: { xs: "1.6rem", md: "2.2rem" },
             mb: 2,
-            color: "rgba(255,255,255,0.95)",
+            color: "#0d1f36",
           }}
         >
           Why AOT Compilation?
@@ -84,22 +85,22 @@ const HomeInnovationMovie = () => (
         <Typography
           variant="body1"
           sx={{
-            color: "rgba(255,255,255,0.55)",
+            color: "#50647c",
             fontSize: "1.05rem",
             maxWidth: 700,
             mx: "auto",
           }}
         >
           Traditional validators parse schemas at runtime. Typia generates
-          dedicated validation code at compile time — the difference is
-          measured in orders of magnitude.
+          dedicated validation code at compile time — the difference is measured
+          in orders of magnitude.
         </Typography>
       </Box>
       <Grid container spacing={3}>
         <ComparisonColumn
           label="Traditional Approach"
-          labelColor="rgba(255,100,100,0.9)"
-          borderColor="rgba(255,100,100,0.25)"
+          labelColor="#c0392b"
+          borderColor="#f0c4bf"
           items={[
             {
               icon: "✕",
@@ -121,8 +122,8 @@ const HomeInnovationMovie = () => (
         />
         <ComparisonColumn
           label="Typia — AOT Compilation"
-          labelColor="rgba(0,200,100,0.9)"
-          borderColor="rgba(0,200,100,0.25)"
+          labelColor="#1e8449"
+          borderColor="#c7e3d2"
           items={[
             {
               icon: "✓",

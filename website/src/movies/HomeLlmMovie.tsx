@@ -45,7 +45,7 @@ const callouts = [
 ];
 
 const HomeLlmMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
+  <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#e5effa" }}>
     <Container maxWidth="lg">
       <Box sx={{ textAlign: "center", mb: 6 }}>
         <Typography
@@ -54,7 +54,7 @@ const HomeLlmMovie = () => (
             fontWeight: 700,
             fontSize: { xs: "1.6rem", md: "2.2rem" },
             mb: 2,
-            color: "rgba(255,255,255,0.95)",
+            color: "#0d1f36",
           }}
         >
           LLM Function Calling Harness
@@ -62,13 +62,14 @@ const HomeLlmMovie = () => (
         <Typography
           variant="body1"
           sx={{
-            color: "rgba(255,255,255,0.55)",
+            color: "#50647c",
             fontSize: "1.05rem",
             maxWidth: 700,
             mx: "auto",
           }}
         >
-          Schema generation + lenient parsing + type coercion + validation feedback.
+          Schema generation + lenient parsing + type coercion + validation
+          feedback.
           <br />
           The deterministic harness that turns 6.75% LLM accuracy into 100%.
         </Typography>
@@ -79,8 +80,8 @@ const HomeLlmMovie = () => (
             sx={{
               height: "100%",
               borderRadius: 2,
-              border: "1px solid rgba(255,255,255,0.1)",
-              backgroundColor: "rgba(0,0,0,0.3)",
+              border: "1px solid #154279",
+              backgroundColor: "#0d1f36",
               overflow: "hidden",
             }}
           >
@@ -104,7 +105,7 @@ const HomeLlmMovie = () => (
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: 0.5,
-                  backgroundColor: "rgba(180,0,255,0.6)",
+                  backgroundColor: "#b400ff",
                   color: "#fff",
                 }}
               >
@@ -159,8 +160,8 @@ const HomeLlmMovie = () => (
                   gap: 2,
                   p: 2,
                   borderRadius: 2,
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  backgroundColor: "rgba(255,255,255,0.02)",
+                  border: "1px solid #c0d4ed",
+                  backgroundColor: "#f6fafd",
                 }}
               >
                 <Typography sx={{ fontSize: "1.4rem" }}>{c.icon}</Typography>
@@ -170,7 +171,7 @@ const HomeLlmMovie = () => (
                       fontWeight: 700,
                       fontSize: "0.9rem",
                       mb: 0.3,
-                      color: "rgba(255,255,255,0.95)",
+                      color: "#0d1f36",
                     }}
                   >
                     {c.title}
@@ -178,7 +179,7 @@ const HomeLlmMovie = () => (
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "rgba(255,255,255,0.5)",
+                      color: "#50647c",
                       fontSize: "0.82rem",
                       lineHeight: 1.5,
                     }}

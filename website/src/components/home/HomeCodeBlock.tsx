@@ -1,26 +1,31 @@
 import React from "react";
 
-const BRIGHT_BLUE = "rgb(0, 200, 255)";
-const CYAN = "rgb(80, 200, 0)";
+// This snippet renders inline on the light section background, so the colors
+// are a light-background code palette rather than the dark-panel one used by
+// HomeCodeHighlight. Each clears 4.5:1 on white.
+const IDENTIFIER = "#235fa9";
+const GENERIC = "#1e8449";
+const METHOD = "#8a5a00";
+const INPUT = "#50647c";
 
 const HomeCodeBlock = (props: HomeCodeBlock.IProps) => (
   <React.Fragment>
-    <span style={{ color: BRIGHT_BLUE }}>typia</span>
-    <span style={{ color: props.inputColor ?? "gray" }}>{"."}</span>
+    <span style={{ color: IDENTIFIER }}>typia</span>
+    <span style={{ color: props.inputColor ?? INPUT }}>{"."}</span>
     {props.namespace ? (
       <React.Fragment>
-        <span style={{ color: BRIGHT_BLUE }}>{props.namespace}</span>
-        <span style={{ color: props.inputColor ?? "gray" }}>{"."}</span>
+        <span style={{ color: IDENTIFIER }}>{props.namespace}</span>
+        <span style={{ color: props.inputColor ?? INPUT }}>{"."}</span>
       </React.Fragment>
     ) : null}
-    <span style={{ color: props?.color ?? "yellow" }}>{props.method}</span>
-    <span style={{ color: BRIGHT_BLUE }}>{"<"}</span>
-    <span style={{ color: CYAN }}>{props.template ?? "T"}</span>
-    <span style={{ color: BRIGHT_BLUE }}>{">("}</span>
+    <span style={{ color: props?.color ?? METHOD }}>{props.method}</span>
+    <span style={{ color: IDENTIFIER }}>{"<"}</span>
+    <span style={{ color: GENERIC }}>{props.template ?? "T"}</span>
+    <span style={{ color: IDENTIFIER }}>{">("}</span>
     {props.argument ? (
-      <span style={{ color: props.inputColor ?? "gray" }}>{"input"}</span>
+      <span style={{ color: props.inputColor ?? INPUT }}>{"input"}</span>
     ) : null}
-    <span style={{ color: BRIGHT_BLUE }}>{")"}</span>
+    <span style={{ color: IDENTIFIER }}>{")"}</span>
   </React.Fragment>
 );
 namespace HomeCodeBlock {

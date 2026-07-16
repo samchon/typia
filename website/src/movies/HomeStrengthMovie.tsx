@@ -85,12 +85,12 @@ const FeatureCard = (props: FeatureCardProps) => (
       variant="outlined"
       sx={{
         height: "100%",
-        backgroundColor: "rgba(255,255,255,0.02)",
-        borderColor: "rgba(255,255,255,0.08)",
+        backgroundColor: "#ffffff",
+        borderColor: "#c0d4ed",
         transition: "all 0.2s ease",
         "&:hover": {
-          borderColor: "rgba(0,150,255,0.4)",
-          backgroundColor: "rgba(0,150,255,0.03)",
+          borderColor: "#235fa9",
+          backgroundColor: "#f6fafd",
         },
       }}
     >
@@ -117,7 +117,7 @@ const FeatureCard = (props: FeatureCardProps) => (
               fontWeight: 700,
               fontSize: "1.05rem",
               mb: 0.5,
-              color: "rgba(255,255,255,0.95)",
+              color: "#0d1f36",
             }}
           >
             {props.title}
@@ -138,13 +138,11 @@ const FeatureCard = (props: FeatureCardProps) => (
                 mb: 1.5,
               }}
             >
-              <span style={{ color: "rgb(0,180,255)", fontWeight: 600 }}>
+              <span style={{ color: "#235fa9", fontWeight: 600 }}>
                 {props.metric}
               </span>
               {props.metricNote && (
-                <span
-                  style={{ color: "rgba(255,255,255,0.45)", fontWeight: 400 }}
-                >
+                <span style={{ color: "#50647c", fontWeight: 400 }}>
                   {" "}
                   ({props.metricNote})
                 </span>
@@ -154,7 +152,7 @@ const FeatureCard = (props: FeatureCardProps) => (
           <Typography
             variant="body2"
             sx={{
-              color: "rgba(255,255,255,0.55)",
+              color: "#50647c",
               lineHeight: 1.65,
               fontSize: "0.88rem",
             }}
@@ -168,7 +166,7 @@ const FeatureCard = (props: FeatureCardProps) => (
 );
 
 const HomeStrengthMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
+  <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#e5effa" }}>
     <Container maxWidth="lg">
       <Box sx={{ textAlign: "center", mb: 6 }}>
         <Typography
@@ -177,7 +175,7 @@ const HomeStrengthMovie = () => (
             fontWeight: 700,
             fontSize: { xs: "1.6rem", md: "2.2rem" },
             mb: 2,
-            color: "rgba(255,255,255,0.95)",
+            color: "#0d1f36",
           }}
         >
           Key Features
@@ -185,7 +183,7 @@ const HomeStrengthMovie = () => (
         <Typography
           variant="body1"
           sx={{
-            color: "rgba(255,255,255,0.55)",
+            color: "#50647c",
             fontSize: "1.05rem",
             maxWidth: 600,
             mx: "auto",
