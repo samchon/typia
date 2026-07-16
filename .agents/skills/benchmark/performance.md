@@ -12,7 +12,7 @@ The private `@typia/benchmark` workspace measures throughput in megabytes per se
 | `assert` | `typia.assert` on valid input | the same validator libraries |
 | `validate` | `typia.validate` on valid input | the same validator libraries |
 | `assert-error`, `validate-error` | assertion and validation on invalid input | TypeBox, io-ts, Zod, class-validator |
-| `optimizer` | optimized `is` code generation | TypeBox, Ajv, class-validator |
+| `optimizer` | optimized `is` code generation | TypeBox, class-validator |
 | `stringify` | `typia.json.*Stringify` | fast-json-stringify, `JSON.stringify`, class-transformer |
 | `server-assert`, `server-stringify`, `server-performance` | request and response cost in a real server | Express and Fastify, typia versus pure handling and class-transformer |
 
@@ -26,7 +26,7 @@ Node runs all ten categories. Bun runs the seven non-server categories through `
 - **Canonical structures:** keep every compared library on the same structure and equivalent input. A schema shortcut or omitted case invalidates the row.
 - **Competitors:** add library-specific schemas under `benchmark/src/structures/<library>/` and update the templates for every category in scope.
 
-The runner discovers every comparator directory present under a category. `optimizer/ajv` remains a tracked comparator even though the current optimizer template no longer lists Ajv, and template regeneration does not remove a library directory that is absent from the template. When changing the optimizer comparator set, reconcile the template and existing generated directories explicitly before measuring.
+Template regeneration treats each category's declared libraries as authoritative. `BenchmarkProgrammer.generate()` removes non-internal comparator directories that are absent from the category template while preserving the server categories' `internal` subtrees. When changing a comparator set, inspect every generated addition and deletion before measuring.
 
 Each `benchmark/results/<CPU model>/` directory is one machine's committed Node report: `README.md` plus `images/*.svg`. Bun results live under `benchmark/results/<CPU model>/bun/`. A new machine adds its own directory; do not overwrite another machine's results.
 
