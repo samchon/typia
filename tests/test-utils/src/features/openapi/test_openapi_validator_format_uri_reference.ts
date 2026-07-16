@@ -29,7 +29,10 @@ interface ICommentUriReferenceValue {
  * 2. Reject a raw double quote in reg-name, path, query, and fragment, and as a
  *    whole reference.
  * 3. Keep malformed escapes, controls, spaces, and excluded characters rejected.
- * 4. Require iri-reference to cover uri-reference for every probe, since IRI is
+ * 4. Repeat one reference consecutively to expose regular expression state: a
+ *    global pattern resumes from lastIndex and alternates on repeated accepts,
+ *    while an interleaved reject would reset it and hide the regression.
+ * 5. Require iri-reference to cover uri-reference for every probe, since IRI is
  *    declared a superset of URI.
  */
 export const test_openapi_validator_format_uri_reference = (): void => {
@@ -85,6 +88,10 @@ export const test_openapi_validator_format_uri_reference = (): void => {
   for (const value of valids) validate(value, true);
   for (const value of rawQuotes) validate(value, false);
   for (const value of excluded) validate(value, false);
+
+  for (let i: number = 0; i < 3; ++i)
+    validate("https://example.com/path?query=1#fragment", true);
+  for (let i: number = 0; i < 3; ++i) validate('http://a"b/c', false);
 
   TestValidator.equals(
     "iri-reference covers uri-reference",
