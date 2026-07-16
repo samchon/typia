@@ -13,7 +13,7 @@ export const _test_http_assertQuery =
     const encoded: URLSearchParams = create_query(data);
     const decoded: typia.Resolved<T> = decode(encoded);
 
-    const equal: boolean = resolved_equal_to(name)(data, decoded);
+    const equal: boolean = resolved_equal_to(factory)(data, decoded);
     if (equal === false)
       throw new Error(
         `Bug on typia.http.assertQuery(): failed to understand ${name} type.`,

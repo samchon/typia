@@ -10,7 +10,7 @@ export const _test_plain_isClone =
     const data: T = factory.generate();
     const cloned: Resolved<T> | null = clone(data);
 
-    if (resolved_equal_to(name)(data, cloned!) === false) {
+    if (resolved_equal_to(factory)(data, cloned!) === false) {
       throw new Error(
         `Bug on typia.plain.isClone(): failed to understand the ${name} type.`,
       );

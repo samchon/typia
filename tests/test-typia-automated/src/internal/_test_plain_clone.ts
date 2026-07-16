@@ -10,7 +10,7 @@ export const _test_plain_clone =
     const data: T = factory.generate();
     const cloned: Resolved<T> = clone(data);
 
-    if (resolved_equal_to(name)(data, cloned) === false) {
+    if (resolved_equal_to(factory)(data, cloned) === false) {
       throw new Error(
         `Bug on typia.plain.clone(): failed to clone the ${name} type.`,
       );

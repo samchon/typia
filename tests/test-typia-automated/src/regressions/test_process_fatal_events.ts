@@ -14,5 +14,3 @@ import { TestProcessFailureTester } from "@typia/template";
 export const test_process_fatal_events = (): void => {
   TestProcessFailureTester.assert();
 };
-
-test_process_fatal_events();

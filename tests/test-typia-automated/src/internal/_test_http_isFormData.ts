@@ -2,18 +2,21 @@ import { TestStructure } from "@typia/template";
 import typia from "typia";
 
 import { create_form_data } from "../utils/create_form_data";
-import { resolved_equal_to } from "../utils/resolved_equal_to";
+import { resolved_equal_to_async } from "../utils/resolved_equal_to_async";
 
 export const _test_http_isFormData =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
-  (decode: (input: FormData) => typia.Resolved<T> | null): void => {
+  async (
+    decode: (input: FormData) => typia.Resolved<T> | null,
+  ): Promise<void> => {
     const data: T = factory.generate();
     const encoded: FormData = create_form_data(data);
     const decoded: typia.Resolved<T> | null = decode(encoded);
 
     const equal: boolean =
-      decoded !== null && resolved_equal_to(name)(data, decoded);
+      decoded !== null &&
+      (await resolved_equal_to_async(factory)(data, decoded));
     if (equal === false)
       throw new Error(
         `Bug on typia.http.isFormData(): failed to understand ${name} type.`,

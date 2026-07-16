@@ -4,7 +4,7 @@
   "version": "13.1.1",
   "description": "Automated test features of typia.",
   "scripts": {
-    "prestart": "ttsx src/regressions/test_process_fatal_events.ts",
+    "prestart": "ttsx src/regressions/index.ts",
     "start": "ttsx src/index.ts"
   },
   "repository": {

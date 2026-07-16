@@ -2,7 +2,7 @@ import { TestStructure } from "@typia/template";
 import pjs from "protobufjs";
 import typia from "typia";
 
-import { protobuf_equal_to } from "../utils/protobuf_equal_to";
+import { resolved_equal_to } from "../utils/resolved_equal_to";
 
 export const _test_protobuf_encode =
   (name: string) =>
@@ -51,7 +51,7 @@ export const _test_protobuf_encode =
     const again: Uint8Array = functor.encode(decoded as T);
 
     if (
-      protobuf_equal_to(name)(data, decoded) === false ||
+      resolved_equal_to(factory)(data, decoded) === false ||
       equal(result, again) === false
     )
       throw new Error(

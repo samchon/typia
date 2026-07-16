@@ -12,7 +12,7 @@ export const _test_http_query =
     const encoded: URLSearchParams = create_query(data);
     const decoded: typia.Resolved<T> = decode(encoded);
 
-    const equal: boolean = resolved_equal_to(name)(data, decoded);
+    const equal: boolean = resolved_equal_to(factory)(data, decoded);
     if (equal === false)
       throw new Error(
         `Bug on typia.http.query(): failed to understand ${name} type.`,

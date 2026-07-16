@@ -13,7 +13,7 @@ export const _test_http_isQuery =
     const decoded: typia.Resolved<T> | null = decode(encoded);
 
     const equal: boolean =
-      decoded !== null && resolved_equal_to(name)(data, decoded);
+      decoded !== null && resolved_equal_to(factory)(data, decoded);
     if (equal === false)
       throw new Error(
         `Bug on typia.http.isQuery(): failed to understand ${name} type.`,

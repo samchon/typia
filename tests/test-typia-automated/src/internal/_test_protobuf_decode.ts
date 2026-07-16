@@ -1,7 +1,7 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
-import { protobuf_equal_to } from "../utils/protobuf_equal_to";
+import { resolved_equal_to } from "../utils/resolved_equal_to";
 
 export const _test_protobuf_decode =
   (name: string) =>
@@ -16,7 +16,7 @@ export const _test_protobuf_decode =
     const again: Uint8Array = functor.encode(decoded as T);
 
     const equal: boolean =
-      protobuf_equal_to(name)(data, decoded) &&
+      resolved_equal_to(factory)(data, decoded) &&
       encoded.length === again.length &&
       (() => {
         for (let i: number = 0; i < encoded.length; i++)
