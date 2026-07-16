@@ -4,6 +4,7 @@ import (
   "encoding/json"
   "os"
   "path/filepath"
+  "reflect"
   "strings"
   "testing"
 )
@@ -43,22 +44,27 @@ func TestBuildTransactionalEmitPublishesCleanProject(t *testing.T) {
   if len(emitted) == 0 || !strings.Contains(out, "emitted=") {
     t.Fatalf("successful build did not report emitted outputs: %v\n%s", emitted, out)
   }
-  families := map[string]bool{
-    ".js":       false,
-    ".js.map":   false,
-    ".d.ts":     false,
-    ".d.ts.map": false,
+  expected := map[string]bool{
+    "dist/invalid.d.ts":     true,
+    "dist/invalid.d.ts.map": true,
+    "dist/invalid.js":       true,
+    "dist/invalid.js.map":   true,
+    "dist/valid.d.ts":       true,
+    "dist/valid.d.ts.map":   true,
+    "dist/valid.js":         true,
+    "dist/valid.js.map":     true,
   }
+  actual := map[string]bool{}
   for _, path := range emitted {
     if _, err := os.Stat(path); err != nil {
       t.Fatalf("manifest advertised missing output %s: %v", path, err)
     }
-    slash := filepath.ToSlash(path)
-    for suffix := range families {
-      if strings.HasSuffix(slash, suffix) {
-        families[suffix] = true
-      }
+    relative, err := filepath.Rel(project, path)
+    if err != nil {
+      t.Fatalf("relativize emitted output %s: %v", path, err)
     }
+    slash := filepath.ToSlash(relative)
+    actual[slash] = true
     if strings.HasSuffix(slash, ".js") {
       js, err := os.ReadFile(path)
       if err != nil {
@@ -69,9 +75,7 @@ func TestBuildTransactionalEmitPublishesCleanProject(t *testing.T) {
       }
     }
   }
-  for suffix, found := range families {
-    if !found {
-      t.Fatalf("manifest omitted %s output: %v", suffix, emitted)
-    }
+  if !reflect.DeepEqual(actual, expected) {
+    t.Fatalf("manifest output set changed:\nexpected=%v\nactual=%v", expected, actual)
   }
 }
