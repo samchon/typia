@@ -6,18 +6,18 @@ import { createValidateBenchmarkProgram } from "../createValidateBenchmarkProgra
 
 export const createValidateAjvBenchmarkProgram = (
   app: IJsonSchemaCollection<"3.0">,
-) => {
+): Promise<void> => {
   try {
     const validate = AjvFactory.create({
       strict: true,
       strictNumbers: false,
       allErrors: true,
     })(app);
-    createValidateBenchmarkProgram((input) => {
+    return createValidateBenchmarkProgram((input) => {
       validate(input);
       return validate.errors ?? [];
     });
   } catch {
-    createValidateBenchmarkProgram(() => ["failure"]);
+    return createValidateBenchmarkProgram(() => ["failure"]);
   }
 };

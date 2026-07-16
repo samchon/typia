@@ -5,21 +5,21 @@ import { createAssertBenchmarkProgram } from "../createAssertBenchmarkProgram";
 
 export const createAssertAjvBenchmarkProgram = (
   app: IJsonSchemaCollection<"3.0">,
-) => {
+): Promise<void> => {
   try {
     const validate = AjvFactory.create({
       strict: true,
       strictNumbers: false,
       allErrors: false,
     })(app);
-    createAssertBenchmarkProgram((input) => {
+    return createAssertBenchmarkProgram((input) => {
       const success: boolean = validate(input);
       if (!success) throw new Error(validate.errors?.[0].message ?? "unknown");
       return input;
     });
   } catch {
-    createAssertBenchmarkProgram(() => {
-      new Error();
+    return createAssertBenchmarkProgram(() => {
+      throw new Error();
     });
   }
 };
