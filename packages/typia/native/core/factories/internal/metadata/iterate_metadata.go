@@ -9,6 +9,12 @@ func Iterate_metadata(props IMetadataIteratorProps) {
   if props.Type == nil {
     return
   }
+  // Every type the analysis reads funnels through here (top types, union and
+  // intersection members, alias targets, array / tuple elements, generic
+  // arguments, property types), so this single touch reports the declaration
+  // files of the whole consulted type graph to the dependency listener the
+  // project transform host registers (see schemas/metadata/MetadataDependency).
+  schemametadata.MetadataDependency_touchType(props.Checker, props.Type)
   if props.Type.IsTypeParameter() == true {
     if props.Errors != nil {
       *props.Errors = append(*props.Errors, MetadataFactory_IError{

@@ -9,6 +9,7 @@ import (
   nativeprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers"
   nativefunctionalprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/functional"
   nativenotationprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/notations"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
   nativefeatures "github.com/samchon/typia/packages/typia/native/transform/features"
   nativecomparetransformers "github.com/samchon/typia/packages/typia/native/transform/features/compare"
   nativefunctionaltransformers "github.com/samchon/typia/packages/typia/native/transform/features/functional"
@@ -85,6 +86,17 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
   functor, ok := functors[props.Module][props.Method]
   if ok == false {
     return props.Expression.AsNode()
+  }
+  // Report the WRITTEN type arguments of the typia call to the dependency
+  // listener (project transform mode only; a no-op otherwise). The metadata
+  // analysis touches every checker type it reads, but a top-level alias of an
+  // intrinsic (`typia.validate<Id>()` with `type Id = string` elsewhere) leaves
+  // no symbol on the resolved type, so the call site's own syntax is the only
+  // anchor that registers such an alias' declaring file.
+  if props.Expression.TypeArguments != nil {
+    for _, argument := range props.Expression.TypeArguments.Nodes {
+      schemametadata.MetadataDependency_touchTypeNode(props.Context.Checker, argument)
+    }
   }
   // Keep the full callee expression (e.g. `typia.assertEquals`) as the modulo,
   // mirroring the TypeScript transformer. Programmers render it into the

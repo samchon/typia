@@ -171,7 +171,7 @@ func (collection *MetadataCollection) StoreExploreCache(key MetadataCollection_E
 
 func (collection *MetadataCollection) ApparentProperties(checker *nativechecker.Checker, typ *nativechecker.Type) []*nativeast.Symbol {
   if collection == nil {
-    return nativechecker.Checker_getApparentProperties(checker, typ)
+    return metadataCollection_touchProperties(checker, nativechecker.Checker_getApparentProperties(checker, typ))
   }
   if collection.apparent_properties_ == nil {
     collection.apparent_properties_ = map[*nativechecker.Type][]*nativeast.Symbol{}
@@ -179,9 +179,20 @@ func (collection *MetadataCollection) ApparentProperties(checker *nativechecker.
   if value, ok := collection.apparent_properties_[typ]; ok {
     return value
   }
-  value := nativechecker.Checker_getApparentProperties(checker, typ)
+  value := metadataCollection_touchProperties(checker, nativechecker.Checker_getApparentProperties(checker, typ))
   collection.apparent_properties_[typ] = value
   return value
+}
+
+// metadataCollection_touchProperties reports each enumerated property symbol to
+// the dependency listener. Inherited members keep their declaring symbol, so an
+// object type declared in one file registers the base-interface or base-class
+// files its properties actually come from.
+func metadataCollection_touchProperties(checker *nativechecker.Checker, symbols []*nativeast.Symbol) []*nativeast.Symbol {
+  for _, symbol := range symbols {
+    MetadataDependency_touchSymbol(checker, symbol)
+  }
+  return symbols
 }
 
 func (collection *MetadataCollection) IndexInfos(checker *nativechecker.Checker, typ *nativechecker.Type) []*nativechecker.IndexInfo {
