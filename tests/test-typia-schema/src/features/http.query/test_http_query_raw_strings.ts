@@ -88,6 +88,35 @@ export const test_http_query_raw_strings = (): void => {
       decode(rawValues),
     ),
   );
+
+  const keyOnlyDecoders = [
+    (input: string) => typia.http.query<IKeyOnlyQuery>(input),
+    (input: string) => typia.http.assertQuery<IKeyOnlyQuery>(input),
+    (input: string) => typia.http.isQuery<IKeyOnlyQuery>(input),
+    (input: string) => {
+      const result = typia.http.validateQuery<IKeyOnlyQuery>(input);
+      return result.success ? result.data : null;
+    },
+    typia.http.createQuery<IKeyOnlyQuery>(),
+    typia.http.createAssertQuery<IKeyOnlyQuery>(),
+    (input: string) => typia.http.createIsQuery<IKeyOnlyQuery>()(input),
+    (input: string) => {
+      const result = typia.http.createValidateQuery<IKeyOnlyQuery>()(input);
+      return result.success ? result.data : null;
+    },
+  ];
+  for (const [input, expected] of [
+    ["flag", { flag: "" }],
+    ["a%3Fb", { "a?b": "" }],
+    ["flag#tail", { "flag#tail": "" }],
+  ] as const)
+    keyOnlyDecoders.forEach((decode, index) =>
+      TestValidator.equals(
+        `key-only raw decoder ${index} for ${input}`,
+        expected as IKeyOnlyQuery,
+        decode(input),
+      ),
+    );
 };
 
 interface IQuery {
@@ -101,4 +130,10 @@ interface IRawValues {
   path: string;
   url: string;
   fragment: string;
+}
+
+interface IKeyOnlyQuery {
+  flag?: string;
+  "a?b"?: string;
+  "flag#tail"?: string;
 }

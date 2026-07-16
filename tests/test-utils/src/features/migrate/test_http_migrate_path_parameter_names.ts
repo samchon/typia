@@ -77,14 +77,14 @@ export const test_http_migrate_path_parameter_names =
     TestValidator.equals("embedded errors", 0, embedded.errors.length);
     TestValidator.equals(
       "embedded parameter names",
-      [["name", "ext"], ["id"]],
+      [["name", "ext"], ["id"], ["coords!"]],
       embedded.routes.map((route) =>
         route.parameters.map((parameter) => parameter.name),
       ),
     );
     TestValidator.equals(
       "embedded emended paths",
-      ["/files/:name.:ext", "/prefix-:id"],
+      ["/files/:name.:ext", "/prefix-:id", "/matrix/:coords!"],
       embedded.routes.map((route) => route.emendedPath),
     );
     TestValidator.equals(
@@ -92,6 +92,7 @@ export const test_http_migrate_path_parameter_names =
       [
         ["files", "getByNameAndExt"],
         ["prefix_", "getById"],
+        ["matrix", "getByCoords_"],
       ],
       embedded.routes.map((route) => route.accessor),
     );
@@ -107,16 +108,27 @@ export const test_http_migrate_path_parameter_names =
     await HttpMigration.execute({
       connection,
       route: embedded.routes[0]!,
-      parameters: { name: "report", ext: "json" },
+      parameters: { name: "report!", ext: "json" },
     });
     await HttpMigration.execute({
       connection,
       route: embedded.routes[1]!,
       parameters: { id: 7 },
     });
+    const matrix = embedded.routes[2]!;
+    TestValidator.equals(
+      "special parameter key",
+      "coords_",
+      matrix.parameters[0]?.key,
+    );
+    await HttpMigration.execute({
+      connection,
+      route: matrix,
+      parameters: { [matrix.parameters[0]!.key]: "a!" },
+    });
     TestValidator.equals(
       "embedded request paths",
-      ["/files/report.json", "/prefix-7"],
+      ["/files/report%21.json", "/prefix-7", "/matrix/;coords%21=a%21"],
       requests.map((url) => url.pathname),
     );
   };
@@ -153,6 +165,20 @@ const embeddedDocument: OpenApiV3_1.IDocument = {
             in: "path",
             required: true,
             schema: { type: "integer" },
+          },
+        ],
+        responses: { "204": { description: "No Content" } },
+      },
+    },
+    "/matrix/{coords!}": {
+      get: {
+        parameters: [
+          {
+            name: "coords!",
+            in: "path",
+            required: true,
+            style: "matrix",
+            schema: { type: "string" },
           },
         ],
         responses: { "204": { description: "No Content" } },

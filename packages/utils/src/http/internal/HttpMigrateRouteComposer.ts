@@ -113,12 +113,13 @@ export namespace HttpMigrateRouteComposer {
               ?.schema ?? parameter.schema;
           const style =
             parameter.style ?? (type === "header" ? "simple" : "form");
-          const explode = parameter.explode ?? style === "form";
+          const explode =
+            parameter.explode ?? (style === "form" || style === "cookie");
           const allowed =
             type === "header"
               ? style === "simple"
               : type === "cookie"
-                ? style === "form"
+                ? style === "form" || style === "cookie"
                 : [
                     "form",
                     "spaceDelimited",
@@ -333,7 +334,10 @@ export namespace HttpMigrateRouteComposer {
     const usedParameterKeys = new Set<string>();
     const parameters: IHttpMigrateRoute.IParameter[] = pathParameters.map(
       (parameter) => {
-        let key: string = EndpointUtil.normalize(parameter.name!);
+        let key: string = EndpointUtil.normalize(parameter.name!).replace(
+          /[^a-zA-Z0-9_$]/g,
+          "_",
+        );
         while (
           NamingConvention.variable(key) === false ||
           usedParameterKeys.has(key)

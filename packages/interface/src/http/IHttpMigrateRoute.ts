@@ -161,6 +161,7 @@ export namespace IHttpMigrateRoute {
     /** Effective serialization style. */
     style:
       | "form"
+      | "cookie"
       | "simple"
       | "spaceDelimited"
       | "pipeDelimited"

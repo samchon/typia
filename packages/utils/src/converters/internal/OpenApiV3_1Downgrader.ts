@@ -133,11 +133,15 @@ export namespace OpenApiV3_1Downgrader {
     (collection: IComponentsCollection) =>
     (
       input: OpenApi.IOperation.IParameter,
-    ): OpenApiV3_1.IOperation.IParameter => ({
-      ...input,
-      in: input.in === "querystring" ? "query" : input.in,
-      schema: downgradeSchema(collection)(input.schema),
-    });
+    ): OpenApiV3_1.IOperation.IParameter => {
+      const { style, ...rest } = input;
+      return {
+        ...rest,
+        in: input.in === "querystring" ? "query" : input.in,
+        style: style === "cookie" ? "form" : style,
+        schema: downgradeSchema(collection)(input.schema),
+      };
+    };
 
   const downgradeRequestBody =
     (collection: IComponentsCollection) =>
@@ -164,11 +168,12 @@ export namespace OpenApiV3_1Downgrader {
             Object.entries(input.headers)
               .filter(([_, v]) => v !== undefined)
               .map(([key, value]) => {
-                const { name: _name, in: _in, ...rest } = value;
+                const { name: _name, in: _in, style, ...rest } = value;
                 return [
                   key,
                   {
                     ...rest,
+                    style: style === "cookie" ? "form" : style,
                     schema: downgradeSchema(collection)(value.schema),
                   },
                 ];

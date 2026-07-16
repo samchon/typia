@@ -251,6 +251,7 @@ export namespace OpenApiV3_2 {
         | "matrix"
         | "label"
         | "form"
+        | "cookie"
         | "simple"
         | "spaceDelimited"
         | "pipeDelimited"

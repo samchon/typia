@@ -13,7 +13,7 @@ export const _httpQueryParseURLSearchParams = (
       if (index !== -1 && isUrlPrefix(input.substring(0, index))) {
         input = input.substring(index + 1);
         url = true;
-      } else if (index === -1 && isUrlPrefix(input)) {
+      } else if (index === -1 && isExplicitUrlPrefix(input)) {
         input = "";
         url = true;
       }
@@ -28,6 +28,7 @@ export const _httpQueryParseURLSearchParams = (
 };
 
 const isUrlPrefix = (prefix: string): boolean =>
-  /^[a-z][a-z\d+.-]*:/i.test(prefix) ||
-  /^(?:\/\/|\/|\.{1,2}\/)/.test(prefix) ||
-  (prefix.length !== 0 && !/[=&]/.test(prefix));
+  isExplicitUrlPrefix(prefix) || (prefix.length !== 0 && !/[=&]/.test(prefix));
+
+const isExplicitUrlPrefix = (prefix: string): boolean =>
+  /^[a-z][a-z\d+.-]*:/i.test(prefix) || /^(?:\/\/|\/|\.{1,2}\/)/.test(prefix);

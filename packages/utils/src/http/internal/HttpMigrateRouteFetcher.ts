@@ -199,7 +199,12 @@ const requestHeaders =
                   );
                 return [];
               }
-              return serializeCookie(metadata.name, value, metadata.explode);
+              return serializeCookie(
+                metadata.name,
+                value,
+                metadata.explode,
+                metadata.style,
+              );
             });
       if (supplied.length !== 0) {
         const replaced = new Set(supplied.map(([name]) => name));
@@ -361,7 +366,8 @@ const serializePath = (
   metadata: IHttpMigrateRoute.IParameter,
   value: unknown,
 ): string => {
-  const encode = (input: unknown): string => encodeURIComponent(String(input));
+  const encode = encodeRfc3986;
+  const name: string = encode(metadata.name);
   const style = metadata.style ?? "simple";
   const explode = metadata.explode ?? false;
   const array = Array.isArray(value) ? value.map(encode) : null;
@@ -371,13 +377,13 @@ const serializePath = (
   if (style === "matrix") {
     if (array)
       return explode
-        ? array.map((elem) => `;${metadata.name}=${elem}`).join("")
-        : `;${metadata.name}=${array.join(",")}`;
+        ? array.map((elem) => `;${name}=${elem}`).join("")
+        : `;${name}=${array.join(",")}`;
     if (object)
       return explode
         ? object.map(([key, elem]) => `;${key}=${elem}`).join("")
-        : `;${metadata.name}=${object.flat().join(",")}`;
-    return `;${metadata.name}=${encode(value)}`;
+        : `;${name}=${object.flat().join(",")}`;
+    return `;${name}=${encode(value)}`;
   }
   if (style === "label") {
     if (array) return `.${array.join(explode ? "." : ",")}`;
@@ -412,24 +418,29 @@ const serializeCookie = (
   name: string,
   value: unknown,
   explode: boolean,
+  style: IHttpMigrateRoute.ISerialization["style"] = "form",
 ): [string, string][] => {
-  const encode = (input: unknown): string => encodeURIComponent(String(input));
+  const encode = (input: unknown): string =>
+    style === "cookie" ? String(input) : encodeRfc3986(input);
+  const encodedName: string = encode(name);
   if (Array.isArray(value))
     return explode
-      ? value.map((elem) => [name, encode(elem)])
-      : [[name, value.map(encode).join(",")]];
+      ? value.map((elem) => [encodedName, encode(elem)])
+      : [[encodedName, value.map(encode).join(",")]];
   if (isRecord(value)) {
     const entries = objectEntries(value);
     return explode
-      ? entries.map(([key, elem]) => [key, encode(elem)])
+      ? entries.map(([key, elem]) => [encode(key), encode(elem)])
       : [
           [
-            name,
-            entries.flatMap(([key, elem]) => [key, encode(elem)]).join(","),
+            encodedName,
+            entries
+              .flatMap(([key, elem]) => [encode(key), encode(elem)])
+              .join(","),
           ],
         ];
   }
-  return [[name, encode(value)]];
+  return [[encodedName, encode(value)]];
 };
 
 const requestQueryBody = (input: object): URLSearchParams => {
@@ -514,3 +525,9 @@ const objectEntries = (value: unknown): [string, unknown][] =>
   isRecord(value)
     ? Object.entries(value).filter((entry) => entry[1] !== undefined)
     : [];
+
+const encodeRfc3986 = (input: unknown): string =>
+  encodeURIComponent(String(input)).replace(
+    /[!'()*]/g,
+    (character) => `%${character.charCodeAt(0).toString(16).toUpperCase()}`,
+  );

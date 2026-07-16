@@ -191,11 +191,11 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   await HttpMigration.execute({
     connection,
     route: matrix,
-    parameters: [[1, 2]],
+    parameters: [["a!", "b*"]],
   });
   TestValidator.equals(
     "matrix path",
-    "/api/matrix/;coords=1;coords=2",
+    "/api/matrix/;coords=a%21;coords=b%2A",
     captured!.url.pathname,
   );
   const label = migration.routes.find(
@@ -204,11 +204,11 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   await HttpMigration.execute({
     connection,
     route: label,
-    parameters: [{ x: 1, y: 2 }],
+    parameters: [{ "x!": "a!", "y*": "b*" }],
   });
   TestValidator.equals(
     "label path",
-    "/api/label/.x=1.y=2",
+    "/api/label/.x%21=a%21.y%2A=b%2A",
     captured!.url.pathname,
   );
 };
@@ -339,7 +339,7 @@ const document: OpenApiV3_1.IDocument = {
             required: true,
             style: "matrix",
             explode: true,
-            schema: { type: "array", items: { type: "integer" } },
+            schema: { type: "array", items: { type: "string" } },
           },
         ],
         responses: { "200": { description: "OK" } },
@@ -357,10 +357,10 @@ const document: OpenApiV3_1.IDocument = {
             schema: {
               type: "object",
               properties: {
-                x: { type: "integer" },
-                y: { type: "integer" },
+                "x!": { type: "string" },
+                "y*": { type: "string" },
               },
-              required: ["x", "y"],
+              required: ["x!", "y*"],
             },
           },
         ],
