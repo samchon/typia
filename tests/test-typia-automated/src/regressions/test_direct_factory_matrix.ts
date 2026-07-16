@@ -45,6 +45,16 @@ export const test_direct_factory_matrix = async (): Promise<void> => {
     const direct: string = TestAutomationTemplate.directory(tpl, false);
     const factory: string = TestAutomationTemplate.directory(tpl, true);
 
+    // THE TWO HALVES MUST BE DISTINCT BEFORE PARITY MEANS ANYTHING.
+    //
+    // Sharing one directory would let the factory half overwrite the direct one
+    // and still satisfy every check below, because a feature set trivially
+    // covers the same structures as itself.
+    if (direct === factory)
+      throw new Error(
+        `Bug on TestAutomationController: the direct and factory halves of "${direct}" share one feature set.`,
+      );
+
     if (tpl.createOnly === true) {
       if (visited.has(direct) === true)
         throw new Error(
