@@ -631,7 +631,7 @@ func plainClassifyProgrammer_decode_native(props struct {
 }) *shimast.Node {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, props.Context.Emit)
   switch props.Type {
-  case "Date", "Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array", "BigUint64Array", "Int8Array", "Int16Array", "Int32Array", "BigInt64Array", "Float32Array", "Float64Array", "RegExp":
+  case "Date", "Uint8Array", "Uint8ClampedArray", "Uint16Array", "Uint32Array", "BigUint64Array", "Int8Array", "Int16Array", "Int32Array", "BigInt64Array", "Float32Array", "Float64Array":
     return f.NewNewExpression(
       f.NewIdentifier(props.Type),
       nil,
@@ -639,11 +639,13 @@ func plainClassifyProgrammer_decode_native(props struct {
     )
   case "ArrayBuffer", "SharedArrayBuffer":
     return plainClassifyProgrammer_decode_native_buffer(props.Type, props.Input, props.Context.Emit)
-  case "DataView":
-    return f.NewNewExpression(
-      f.NewIdentifier("DataView"),
+  case "DataView", "Blob", "File", "RegExp":
+    return f.NewCallExpression(
+      plainClassifyProgrammer_internal(props.Context, "plainCloneAny"),
       nil,
-      f.NewNodeList([]*shimast.Node{nativefactories.IdentifierFactory.Access(props.Context.Emit, props.Input, "buffer")}),
+      nil,
+      f.NewNodeList([]*shimast.Node{props.Input}),
+      shimast.NodeFlagsNone,
     )
   default:
     return f.NewCallExpression(

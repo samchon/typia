@@ -16,6 +16,9 @@ export interface NativeSimple {
   arrayBuffer: ArrayBuffer;
   sharedArrayBuffer: SharedArrayBuffer;
   dataView: DataView;
+  blob: Blob;
+  file: File;
+  regexp: RegExp;
 }
 export namespace NativeSimple {
   export const ADDABLE = false;
@@ -24,22 +27,32 @@ export namespace NativeSimple {
   export const PRIMITIVE = false;
 
   export function generate(): NativeSimple {
+    const sharedArrayBuffer = new SharedArrayBuffer(4);
+    new Uint8Array(sharedArrayBuffer).set([4, 3, 2, 1]);
     return {
-      date: new Date(),
-      uint8Array: new Uint8Array(),
-      uint8ClampedArray: new Uint8ClampedArray(),
-      uint16Array: new Uint16Array(),
-      uint32Array: new Uint32Array(),
-      bigUint64Array: new BigUint64Array(),
-      int8Array: new Int8Array(),
-      int16Array: new Int16Array(),
-      int32Array: new Int32Array(),
-      bigInt64Array: new BigInt64Array(),
-      float32Array: new Float32Array(),
-      float64Array: new Float64Array(),
-      arrayBuffer: new ArrayBuffer(0),
-      sharedArrayBuffer: new SharedArrayBuffer(0),
-      dataView: new DataView(new ArrayBuffer(0)),
+      date: new Date("2026-07-16T00:00:00.000Z"),
+      uint8Array: new Uint8Array([1, 2]),
+      uint8ClampedArray: new Uint8ClampedArray([3, 4]),
+      uint16Array: new Uint16Array([5, 6]),
+      uint32Array: new Uint32Array([7, 8]),
+      bigUint64Array: new BigUint64Array([9n, 10n]),
+      int8Array: new Int8Array([-1, 1]),
+      int16Array: new Int16Array([-2, 2]),
+      int32Array: new Int32Array([-3, 3]),
+      bigInt64Array: new BigInt64Array([-4n, 4n]),
+      float32Array: new Float32Array([-1.5, 1.5]),
+      float64Array: new Float64Array([-2.5, 2.5]),
+      arrayBuffer: Uint8Array.from([1, 2, 3, 4]).buffer,
+      sharedArrayBuffer,
+      dataView: new DataView(Uint8Array.from([9, 1, 2, 8]).buffer, 1, 2),
+      blob: new Blob([Uint8Array.from([1, 2, 3])], {
+        type: "application/x-typia",
+      }),
+      file: new File([Uint8Array.from([3, 2, 1])], "native.bin", {
+        type: "application/octet-stream",
+        lastModified: 123_456_789,
+      }),
+      regexp: /plain\s+native/giu,
     };
   }
 
@@ -103,6 +116,18 @@ export namespace NativeSimple {
     (input) => {
       input.dataView = 0 as any;
       return ["$input.dataView"];
+    },
+    (input) => {
+      input.blob = {} as any;
+      return ["$input.blob"];
+    },
+    (input) => {
+      input.file = new Blob() as any;
+      return ["$input.file"];
+    },
+    (input) => {
+      input.regexp = {} as any;
+      return ["$input.regexp"];
     },
   ];
 }
