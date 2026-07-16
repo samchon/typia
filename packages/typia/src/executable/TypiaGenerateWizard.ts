@@ -2,12 +2,15 @@ import { createCommand } from "commander";
 import fs from "fs";
 import inquirer from "inquirer";
 import { createRequire } from "module";
+import os from "os";
 import path from "path";
 import { glob, isDynamicPattern } from "tinyglobby";
 import type {
   ITtscCompilerDiagnostic,
   ITtscCompilerTransformation,
 } from "ttsc";
+
+import { FileSystemIdentity } from "./FileSystemIdentity";
 
 export namespace TypiaGenerateWizard {
   export async function generate(): Promise<void> {
@@ -98,24 +101,56 @@ export namespace TypiaGenerateWizard {
     location.output = path.resolve(location.output);
     location.project = resolveProjectConfigFile(location.project);
 
+    const policy = new FileSystemIdentity.Policy();
+    const outputProbe: string = await nearestExistingAncestor(location.output);
+    await ensureExistingDirectoryPath({
+      label: "output parent path",
+      directory: outputProbe,
+    });
+    policy.observe(
+      await FileSystemIdentity.probeDirectory(outputProbe),
+      outputProbe,
+    );
+    policy.observe(
+      await FileSystemIdentity.inspectDirectory(path.dirname(location.project)),
+      path.dirname(location.project),
+    );
+
     const entries: IInputFile[] =
       location.files.length === 0
-        ? await prepareDirectoryInput(location)
-        : await prepareFileInputs(location);
+        ? await prepareDirectoryInput(location, policy)
+        : await prepareFileInputs(location, policy);
+    const identity: FileSystemIdentity.IIdentity = policy.get();
 
     const binary = resolveTsgoBinary();
     const cwd = path.dirname(location.project);
-    const transformed = transformProject({
-      binary,
-      cwd,
-      tsconfig: location.project,
+    const temporaryProject: ITemporaryProject = await createTemporaryProject({
+      entries,
+      project: location.project,
     });
-    const outputByKey: Map<string, string> =
-      indexTransformedOutputs(transformed);
+    let transformed: Record<string, string>;
+    try {
+      transformed = transformProject({
+        binary,
+        cwd,
+        projectRoot: cwd,
+        tsconfig: temporaryProject.config,
+      });
+    } finally {
+      await fs.promises.rm(temporaryProject.directory, {
+        force: true,
+        recursive: true,
+      });
+    }
+    const outputByKey: Map<string, string> = indexTransformedOutputs(
+      transformed,
+      identity,
+    );
     const outputs: IOutputFile[] = entries.map((entry) => {
       const output = getTransformedOutput({
         cwd,
         entry,
+        identity,
         outputByKey,
       });
       if (output === undefined) {
@@ -128,14 +163,19 @@ export namespace TypiaGenerateWizard {
 
     await ensureOutputDirectory(location.output);
     await ensureTargetDirectories({
+      identity,
       output: location.output,
       targets: outputs.map(({ entry }) => entry.target),
     });
     await ensurePhysicalTargets({
+      identity,
       output: location.output,
       entries: outputs.map(({ entry }) => entry),
     });
-    await ensureTargetFiles(outputs.map(({ entry }) => entry));
+    await ensureTargetFiles(
+      outputs.map(({ entry }) => entry),
+      identity,
+    );
     for (const { entry, output } of outputs) {
       await fs.promises.writeFile(entry.target, formatOutput(output), "utf8");
     }
@@ -151,6 +191,45 @@ export namespace TypiaGenerateWizard {
     output: string;
   }
 
+  interface ITraversalEntry {
+    file: string;
+    name: string;
+    stat: fs.Stats;
+  }
+
+  interface ITemporaryProject {
+    config: string;
+    directory: string;
+  }
+
+  async function createTemporaryProject(props: {
+    entries: IInputFile[];
+    project: string;
+  }): Promise<ITemporaryProject> {
+    const directory: string = await fs.promises.mkdtemp(
+      path.join(os.tmpdir(), "typia-generate-project-"),
+    );
+    const config: string = path.join(directory, "tsconfig.json");
+    try {
+      await fs.promises.writeFile(
+        config,
+        JSON.stringify({
+          extends: props.project,
+          exclude: [],
+          files: props.entries.map((entry) => entry.file),
+          include: [],
+        }),
+        "utf8",
+      );
+      return { config, directory };
+    } catch (error) {
+      await fs.promises.rm(directory, { force: true, recursive: true });
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): unable to prepare the bounded input project: ${formatUnknownError(error)}`,
+      );
+    }
+  }
+
   async function ensureOutputDirectory(output: string): Promise<void> {
     if (fs.existsSync(output) === false) {
       await ensureCreatableDirectory(output);
@@ -164,17 +243,19 @@ export namespace TypiaGenerateWizard {
   }
 
   async function ensureTargetDirectories(props: {
+    identity: FileSystemIdentity.IIdentity;
     output: string;
     targets: string[];
   }): Promise<void> {
     const directories: Map<string, string> = new Map();
     for (const target of props.targets) {
       const directory: string = path.dirname(target);
-      directories.set(filesystemKey(directory), directory);
+      directories.set(props.identity.filesystemKey(directory), directory);
     }
 
     for (const directory of directories.values()) {
       await ensureOutputAncestorDirectories({
+        identity: props.identity,
         output: props.output,
         directory,
       });
@@ -223,12 +304,13 @@ export namespace TypiaGenerateWizard {
   }
 
   async function ensureOutputAncestorDirectories(props: {
+    identity: FileSystemIdentity.IIdentity;
     output: string;
     directory: string;
   }): Promise<void> {
     const output: string = path.resolve(props.output);
     const directory: string = path.resolve(props.directory);
-    if (isSameOrChildPath(directory, output) === false) {
+    if (props.identity.contains(directory, output) === false) {
       throw new URIError(
         `Error on TypiaGenerateWizard.generate(): output parent path escapes output directory: ${props.directory}`,
       );
@@ -285,7 +367,7 @@ export namespace TypiaGenerateWizard {
       current = path.join(current, segment);
       await ensureExistingDirectorySegment({
         label:
-          filesystemKey(current) === filesystemKey(directory)
+          path.normalize(current) === path.normalize(directory)
             ? props.label
             : `${props.label} ancestor`,
         directory: current,
@@ -311,26 +393,29 @@ export namespace TypiaGenerateWizard {
   }
 
   async function ensurePhysicalTargets(props: {
+    identity: FileSystemIdentity.IIdentity;
     output: string;
     entries: IInputFile[];
   }): Promise<void> {
     const output: string = await fs.promises.realpath(props.output);
     const inputs: Set<string> = new Set();
     for (const entry of props.entries) {
-      inputs.add(filesystemKey(await fs.promises.realpath(entry.file)));
+      inputs.add(
+        props.identity.filesystemKey(await fs.promises.realpath(entry.file)),
+      );
     }
 
     for (const entry of props.entries) {
       const parent: string = path.dirname(entry.target);
       const directory: string = await fs.promises.realpath(parent);
-      if (isSameOrChildPath(directory, output) === false) {
+      if (props.identity.contains(directory, output) === false) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): output parent path escapes output directory through a symbolic link: ${parent}`,
         );
       }
 
       const target: string = path.join(directory, path.basename(entry.target));
-      if (inputs.has(filesystemKey(target))) {
+      if (inputs.has(props.identity.filesystemKey(target))) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): output file would overwrite input file through a symbolic link: ${entry.target}`,
         );
@@ -338,12 +423,15 @@ export namespace TypiaGenerateWizard {
     }
   }
 
-  async function ensureTargetFiles(entries: IInputFile[]): Promise<void> {
+  async function ensureTargetFiles(
+    entries: IInputFile[],
+    identity: FileSystemIdentity.IIdentity,
+  ): Promise<void> {
     const inputs: Set<string> = new Set();
     const files: Map<string, IInputFile> = new Map();
     for (const entry of entries) {
       inputs.add(fileIdentityKey(await fs.promises.stat(entry.file)));
-      files.set(filesystemKey(entry.target), entry);
+      files.set(identity.filesystemKey(entry.target), entry);
     }
 
     for (const entry of files.values()) {
@@ -378,6 +466,7 @@ export namespace TypiaGenerateWizard {
 
   async function prepareDirectoryInput(
     location: IArguments,
+    policy: FileSystemIdentity.Policy,
   ): Promise<IInputFile[]> {
     if (location.input === undefined) {
       throw new URIError(
@@ -396,15 +485,19 @@ export namespace TypiaGenerateWizard {
       );
     }
 
+    const inputReal: string = await fs.promises.realpath(input);
+    const outputReal: string | undefined = await optionalRealPath(
+      location.output,
+    );
     const files: string[] = [];
     await gather({
-      location: {
-        input,
-        output: location.output,
-      },
       container: files,
       from: input,
-      to: location.output,
+      inputReal,
+      outputReal,
+      policy,
+      visitedDirectories: new Set(),
+      visitedFiles: new Set(),
     });
     return files.map((file) => ({
       file,
@@ -414,14 +507,21 @@ export namespace TypiaGenerateWizard {
 
   async function prepareFileInputs(
     location: IArguments,
+    policy: FileSystemIdentity.Policy,
   ): Promise<IInputFile[]> {
     const targets: Set<string> = new Set();
     const output: IInputFile[] = [];
     for (const input of await expandFileInputs(
       location.files,
       location.output,
+      policy,
     )) {
       const file: string = path.resolve(input);
+      policy.observe(
+        await FileSystemIdentity.inspectDirectory(path.dirname(file)),
+        path.dirname(file),
+      );
+      const identity: FileSystemIdentity.IIdentity = policy.get();
       if (fs.existsSync(file) === false) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): input file does not exist: ${input}`,
@@ -430,21 +530,21 @@ export namespace TypiaGenerateWizard {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): input path is not a file: ${input}`,
         );
-      } else if (isDeclarationFile(file)) {
+      } else if (identity.isDeclarationFile(file)) {
         continue;
-      } else if (isSupportedExtension(file) === false) {
+      } else if (identity.isSupportedExtension(file) === false) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): input file is not a supported TypeScript source: ${input}`,
         );
       }
 
       const target: string = path.join(location.output, path.basename(file));
-      if (isSamePath(file, target)) {
+      if (identity.isSamePath(file, target)) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): output file would overwrite input file: ${input}`,
         );
       }
-      const key: string = filesystemKey(target);
+      const key: string = identity.filesystemKey(target);
       if (targets.has(key)) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): duplicate output filename for ${target}`,
@@ -464,14 +564,21 @@ export namespace TypiaGenerateWizard {
   async function expandFileInputs(
     inputs: string[],
     directory: string,
+    policy: FileSystemIdentity.Policy,
   ): Promise<string[]> {
     const output: string[] = [];
     for (const input of inputs) {
       const pattern: string = toGlobPattern(input);
       if (isDynamicPattern(pattern, { caseSensitiveMatch: true })) {
+        const searchDirectory: string = await globSearchDirectory(input);
+        policy.observe(
+          await FileSystemIdentity.inspectDirectory(searchDirectory),
+          searchDirectory,
+        );
+        const identity: FileSystemIdentity.IIdentity = policy.get();
         const matches: string[] = await glob(pattern, {
           absolute: true,
-          caseSensitiveMatch: isCaseSensitive(),
+          caseSensitiveMatch: identity.caseSensitive,
           cwd: process.cwd(),
           onlyFiles: true,
         });
@@ -481,13 +588,17 @@ export namespace TypiaGenerateWizard {
           );
         }
         output.push(
-          ...excludeOutputFiles(matches, directory).filter(
-            isSupportedExtension,
+          ...excludeOutputFiles(matches, directory, identity).filter((file) =>
+            identity.isSupportedExtension(file),
           ),
         );
       } else {
         const file: string = path.resolve(input);
-        if (isSameOrChildPath(file, directory) === false) {
+        policy.observe(
+          await FileSystemIdentity.inspectDirectory(path.dirname(file)),
+          path.dirname(file),
+        );
+        if (policy.get().contains(file, directory) === false) {
           output.push(file);
         }
       }
@@ -495,8 +606,25 @@ export namespace TypiaGenerateWizard {
     return output;
   }
 
-  function excludeOutputFiles(files: string[], directory: string): string[] {
-    return files.filter((file) => isSameOrChildPath(file, directory) === false);
+  function excludeOutputFiles(
+    files: string[],
+    directory: string,
+    identity: FileSystemIdentity.IIdentity,
+  ): string[] {
+    return files.filter((file) => identity.contains(file, directory) === false);
+  }
+
+  async function globSearchDirectory(input: string): Promise<string> {
+    let current: string = path.resolve(input);
+    while (
+      isDynamicPattern(toGlobPattern(current), { caseSensitiveMatch: true })
+    ) {
+      const parent: string = path.dirname(current);
+      if (parent === current) break;
+      current = parent;
+    }
+    if (fs.existsSync(current) && (await isDirectory(current))) return current;
+    return nearestExistingAncestor(path.dirname(current));
   }
 
   function toGlobPattern(input: string): string {
@@ -506,12 +634,14 @@ export namespace TypiaGenerateWizard {
   function transformProject(props: {
     binary: string;
     cwd: string;
+    projectRoot: string;
     tsconfig: string;
   }): Record<string, string> {
     const TtscCompiler = loadTtscCompiler();
     const result: ITtscCompilerTransformation = new TtscCompiler({
       binary: props.binary,
       cwd: props.cwd,
+      projectRoot: props.projectRoot,
       tsconfig: props.tsconfig,
     }).transform();
     if (result.type === "success") {
@@ -690,47 +820,100 @@ export namespace TypiaGenerateWizard {
   }
 
   async function gather(props: {
-    location: {
-      input: string;
-      output: string;
-    };
     container: string[];
     from: string;
-    to: string;
+    inputReal: string;
+    outputReal: string | undefined;
+    policy: FileSystemIdentity.Policy;
+    visitedDirectories: Set<string>;
+    visitedFiles: Set<string>;
   }): Promise<void> {
-    if (isSamePath(props.from, props.location.output)) return;
+    const currentReal: string = await resolveTraversalPath(props.from);
+    if (
+      props.outputReal !== undefined &&
+      isPhysicalSameOrChildPath(currentReal, props.outputReal)
+    )
+      return;
+    ensurePhysicalInputContainment({
+      file: props.from,
+      input: props.inputReal,
+      real: currentReal,
+    });
 
-    for (const file of await fs.promises.readdir(props.from)) {
-      const next: string = path.join(props.from, file);
-      const stat: fs.Stats = await fs.promises.stat(next);
+    const currentStat: fs.Stats = await fs.promises.stat(props.from);
+    const directoryIdentity: string = fileIdentityKey(currentStat);
+    if (props.visitedDirectories.has(directoryIdentity)) {
+      const lexicalStat: fs.Stats = await fs.promises.lstat(props.from);
+      if (lexicalStat.isSymbolicLink()) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): input directory link revisits a physical directory: ${props.from}.`,
+        );
+      }
+      return;
+    }
+    props.visitedDirectories.add(directoryIdentity);
+
+    props.policy.observe(
+      await FileSystemIdentity.inspectDirectory(props.from),
+      props.from,
+    );
+    const identity: FileSystemIdentity.IIdentity = props.policy.get();
+    const entries: ITraversalEntry[] = await Promise.all(
+      (await fs.promises.readdir(props.from)).map(async (name) => {
+        const file: string = path.join(props.from, name);
+        try {
+          return { file, name, stat: await fs.promises.lstat(file) };
+        } catch (error) {
+          throw new URIError(
+            `Error on TypiaGenerateWizard.generate(): unable to inspect input path ${file}: ${formatUnknownError(error)}`,
+          );
+        }
+      }),
+    );
+    entries.sort((x, y) => {
+      const linkOrder: number =
+        Number(x.stat.isSymbolicLink()) - Number(y.stat.isSymbolicLink());
+      return linkOrder !== 0 ? linkOrder : x.name.localeCompare(y.name);
+    });
+
+    for (const entry of entries) {
+      let stat: fs.Stats;
+      let real: string;
+      try {
+        stat = await fs.promises.stat(entry.file);
+        real = await fs.promises.realpath(entry.file);
+      } catch (error) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): input link target is missing or unreadable: ${entry.file}: ${formatUnknownError(error)}`,
+        );
+      }
+
+      if (
+        props.outputReal !== undefined &&
+        isPhysicalSameOrChildPath(real, props.outputReal)
+      )
+        continue;
+      ensurePhysicalInputContainment({
+        file: entry.file,
+        input: props.inputReal,
+        real,
+      });
 
       if (stat.isDirectory()) {
-        await gather({
-          location: props.location,
-          container: props.container,
-          from: next,
-          to: path.join(props.to, file),
-        });
+        await gather({ ...props, from: entry.file });
         continue;
       }
-      if (isSupportedExtension(file)) {
-        props.container.push(next);
-      }
+      if (
+        stat.isFile() === false ||
+        identity.isSupportedExtension(entry.name) === false
+      )
+        continue;
+
+      const fileIdentity: string = fileIdentityKey(stat);
+      if (props.visitedFiles.has(fileIdentity)) continue;
+      props.visitedFiles.add(fileIdentity);
+      props.container.push(entry.file);
     }
-  }
-
-  function isSupportedExtension(filename: string): boolean {
-    const normalized: string = isCaseSensitive()
-      ? filename
-      : filename.toLowerCase();
-    return TS_PATTERN.test(normalized) && !DTS_PATTERN.test(normalized);
-  }
-
-  function isDeclarationFile(filename: string): boolean {
-    const normalized: string = isCaseSensitive()
-      ? filename
-      : filename.toLowerCase();
-    return DTS_PATTERN.test(normalized);
   }
 
   function formatOutput(output: string): string {
@@ -741,10 +924,17 @@ export namespace TypiaGenerateWizard {
 
   function indexTransformedOutputs(
     outputs: Record<string, string>,
+    identity: FileSystemIdentity.IIdentity,
   ): Map<string, string> {
     const map: Map<string, string> = new Map();
     for (const [file, output] of Object.entries(outputs)) {
-      map.set(projectFileKey(file), output);
+      const key: string = identity.projectFileKey(file);
+      if (map.has(key)) {
+        throw new URIError(
+          `Error on TypiaGenerateWizard.generate(): transformed outputs have ambiguous filesystem identities: ${file}.`,
+        );
+      }
+      map.set(key, output);
     }
     return map;
   }
@@ -752,10 +942,11 @@ export namespace TypiaGenerateWizard {
   function getTransformedOutput(props: {
     cwd: string;
     entry: IInputFile;
+    identity: FileSystemIdentity.IIdentity;
     outputByKey: Map<string, string>;
   }): string | undefined {
     const output = props.outputByKey.get(
-      projectFileKey(projectKey(props.cwd, props.entry.file)),
+      props.identity.projectFileKey(projectKey(props.cwd, props.entry.file)),
     );
     if (output !== undefined) {
       return output;
@@ -763,20 +954,18 @@ export namespace TypiaGenerateWizard {
 
     const real: string = resolveRealPath(props.entry.file);
     if (
-      isSamePath(real, props.entry.file) ||
-      isSameOrChildPath(real, props.cwd) === false
+      props.identity.isSamePath(real, props.entry.file) ||
+      props.identity.contains(real, props.cwd) === false
     ) {
       return undefined;
     }
-    return props.outputByKey.get(projectFileKey(projectKey(props.cwd, real)));
+    return props.outputByKey.get(
+      props.identity.projectFileKey(projectKey(props.cwd, real)),
+    );
   }
 
   function projectKey(root: string, file: string): string {
     return path.relative(root, file).replace(/\\/g, "/");
-  }
-
-  function projectFileKey(file: string): string {
-    return isCaseSensitive() ? file : file.toLowerCase();
   }
 
   function resolveRealPath(file: string): string {
@@ -787,26 +976,46 @@ export namespace TypiaGenerateWizard {
     }
   }
 
-  function isSamePath(x: string, y: string): boolean {
-    return filesystemKey(x) === filesystemKey(y);
+  async function optionalRealPath(file: string): Promise<string | undefined> {
+    try {
+      return await fs.promises.realpath(file);
+    } catch (error) {
+      if (isMissingFileError(error)) return undefined;
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): unable to resolve path ${file}: ${formatUnknownError(error)}`,
+      );
+    }
   }
 
-  function isSameOrChildPath(file: string, directory: string): boolean {
-    const fileKey: string = filesystemKey(path.resolve(file));
-    const directoryKey: string = filesystemKey(path.resolve(directory));
-    const directoryPrefix: string = directoryKey.endsWith(path.sep)
-      ? directoryKey
-      : `${directoryKey}${path.sep}`;
-    return fileKey === directoryKey || fileKey.startsWith(directoryPrefix);
+  async function resolveTraversalPath(file: string): Promise<string> {
+    try {
+      return await fs.promises.realpath(file);
+    } catch (error) {
+      throw new URIError(
+        `Error on TypiaGenerateWizard.generate(): unable to resolve input path ${file}: ${formatUnknownError(error)}`,
+      );
+    }
   }
 
-  function filesystemKey(file: string): string {
-    const normalized: string = path.normalize(file);
-    return isCaseSensitive() ? normalized : normalized.toLowerCase();
+  function ensurePhysicalInputContainment(props: {
+    file: string;
+    input: string;
+    real: string;
+  }): void {
+    if (isPhysicalSameOrChildPath(props.real, props.input)) return;
+    throw new URIError(
+      `Error on TypiaGenerateWizard.generate(): input path resolves outside the input directory: ${props.file}.`,
+    );
   }
 
-  function isCaseSensitive(): boolean {
-    return process.platform !== "win32" && process.platform !== "darwin";
+  function isPhysicalSameOrChildPath(file: string, directory: string): boolean {
+    const relative: string = path.relative(directory, file);
+    return (
+      relative === "" ||
+      (relative !== ".." &&
+        relative.startsWith(`..${path.sep}`) === false &&
+        path.isAbsolute(relative) === false)
+    );
   }
 
   function isMissingFileError(exp: unknown): boolean {
@@ -855,6 +1064,3 @@ export namespace TypiaGenerateWizard {
     return String(error);
   }
 }
-
-const TS_PATTERN = /\.[cm]?tsx?$/;
-const DTS_PATTERN = /\.d\.[cm]?tsx?$/;
