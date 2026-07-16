@@ -18,13 +18,7 @@ export namespace SwaggerV2Upgrader {
             ),
         )
       : undefined,
-    servers: input.host
-      ? [
-          {
-            url: input.host,
-          },
-        ]
-      : undefined,
+    servers: convertServers(input),
     security: input.security,
     tags: input.tags,
     "x-typia-emended-v12": true,
@@ -95,9 +89,7 @@ export namespace SwaggerV2Upgrader {
       const resolve = (
         p: SwaggerV2.IOperation.IParameter | SwaggerV2.IJsonSchema.IReference,
       ): SwaggerV2.IOperation.IParameter | undefined =>
-        SwaggerV2TypeChecker.isReference(p)
-          ? doc.parameters?.[p.$ref.split("/").pop() ?? ""]
-          : p;
+        "$ref" in p ? doc.parameters?.[p.$ref.split("/").pop() ?? ""] : p;
       const pathParameters: SwaggerV2.IOperation.IParameter[] = (
         pathItem.parameters ?? []
       )
@@ -119,32 +111,53 @@ export namespace SwaggerV2Upgrader {
           pathParameters.filter(isGeneralParameter),
           operationParameters.filter(isGeneralParameter),
         );
+      const formData: SwaggerV2.IOperation.IGeneralParameter[] =
+        parameters.filter((parameter) => parameter.in === "formData");
       const body: SwaggerV2.IOperation.IBodyParameter | undefined = [
         ...operationParameters,
         ...pathParameters,
       ].find(isBodyParameter) as
         | SwaggerV2.IOperation.IBodyParameter
         | undefined;
+      if (body !== undefined && formData.length > 0)
+        throw new TypeError(
+          "SwaggerV2Upgrader: body and formData parameters cannot coexist.",
+        );
+      const consumes: string[] = selectMediaTypes(input.consumes, doc.consumes);
+      const produces: string[] = selectMediaTypes(input.produces, doc.produces);
       return {
         ...input,
         parameters:
           pathItem.parameters !== undefined || input.parameters !== undefined
-            ? parameters.map(convertParameter(doc.definitions ?? {}))
+            ? parameters
+                .filter((parameter) => parameter.in !== "formData")
+                .map(convertParameter(doc.definitions ?? {}))
             : undefined,
         requestBody: body
-          ? convertRequestBody(doc.definitions ?? {})(body)
-          : undefined,
+          ? convertRequestBody(doc.definitions ?? {}, consumes)(body)
+          : formData.length > 0
+            ? convertFormData(doc.definitions ?? {}, consumes)(formData)
+            : undefined,
         responses: input.responses
           ? Object.fromEntries(
               Object.entries(input.responses)
                 .filter(([_, v]) => v !== undefined)
                 .map(
                   ([key, value]) =>
-                    [key, convertResponse(doc)(value)!] as const,
+                    [key, convertResponse(doc, produces)(value)!] as const,
                 )
                 .filter(([_, v]) => v !== undefined),
             )
           : undefined,
+        servers:
+          input.schemes !== undefined
+            ? convertServers({ ...doc, schemes: input.schemes })
+            : undefined,
+        ...{
+          consumes: undefined,
+          produces: undefined,
+          schemes: undefined,
+        },
       };
     };
 
@@ -179,6 +192,10 @@ export namespace SwaggerV2Upgrader {
     (
       input: SwaggerV2.IOperation.IGeneralParameter,
     ): OpenApi.IOperation.IParameter => {
+      if (isFileParameter(input))
+        throw new TypeError(
+          "SwaggerV2Upgrader: file parameters must be located in formData.",
+        );
       const {
         name,
         in: location,
@@ -207,43 +224,151 @@ export namespace SwaggerV2Upgrader {
         ...(required !== undefined ? { required } : {}),
       };
     };
-  const convertRequestBody =
+
+  const convertFormData =
+    (
+      definitions: Record<string, SwaggerV2.IJsonSchema>,
+      mediaTypes: string[],
+    ) =>
+    (
+      parameters: SwaggerV2.IOperation.IGeneralParameter[],
+    ): OpenApi.IOperation.IRequestBody => {
+      if (
+        mediaTypes.length === 0 ||
+        mediaTypes.some((type) => isFormMediaType(type) === false)
+      )
+        throw new TypeError(
+          "SwaggerV2Upgrader: formData parameters require only form media types.",
+        );
+      const schema: OpenApi.IJsonSchema.IObject = {
+        type: "object",
+        properties: Object.fromEntries(
+          parameters.map((parameter) => [
+            parameter.name,
+            convertFormDataSchema(definitions)(parameter),
+          ]),
+        ),
+        required: parameters
+          .filter((parameter) => isRequiredParameter(parameter))
+          .map((parameter) => parameter.name),
+      };
+      return {
+        required: schema.required!.length > 0 ? true : undefined,
+        content: Object.fromEntries(
+          mediaTypes.map((type) => [type, { schema }]),
+        ),
+      };
+    };
+
+  const convertFormDataSchema =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
+    (input: SwaggerV2.IOperation.IGeneralParameter): OpenApi.IJsonSchema => {
+      const {
+        name: _name,
+        in: _in,
+        required: _required,
+        description,
+        ...schema
+      } = input as SwaggerV2.IOperation.IGeneralParameter & {
+        required?: boolean | string[];
+      };
+      if ((schema as { type?: string }).type === "file") {
+        const {
+          type: _type,
+          format: _format,
+          ...attributes
+        } = schema as SwaggerV2.IJsonSchema.IString;
+        return {
+          ...attributes,
+          type: "string",
+          format: "binary",
+          description,
+        } as OpenApi.IJsonSchema;
+      }
+      const converted: OpenApi.IJsonSchema = convertSchema(definitions)({
+        ...schema,
+        description:
+          (schema as { description?: string }).description ?? description,
+      } as SwaggerV2.IJsonSchema);
+      if (isFormDataSchema(converted) === false)
+        throw new TypeError(
+          "SwaggerV2Upgrader: formData parameters must use simple schemas.",
+        );
+      return converted;
+    };
+  const convertRequestBody =
+    (
+      definitions: Record<string, SwaggerV2.IJsonSchema>,
+      mediaTypes: string[],
+    ) =>
     (
       input: SwaggerV2.IOperation.IBodyParameter,
-    ): OpenApi.IOperation.IRequestBody => ({
-      description: input.description,
-      ...(input.required !== undefined ? { required: input.required } : {}),
-      content: {
-        "application/json": {
-          schema: convertSchema(definitions)(input.schema),
-        },
-      },
-    });
+    ): OpenApi.IOperation.IRequestBody => {
+      if (mediaTypes.length === 0)
+        throw new TypeError(
+          "SwaggerV2Upgrader: body parameters require a consumed media type.",
+        );
+      return {
+        description: input.description,
+        ...(input.required !== undefined ? { required: input.required } : {}),
+        content: Object.fromEntries(
+          mediaTypes.map((type) => [
+            type,
+            {
+              schema: convertSchema(definitions)(input.schema),
+            },
+          ]),
+        ),
+      };
+    };
 
   const convertResponse =
-    (doc: SwaggerV2.IDocument) =>
+    (doc: SwaggerV2.IDocument, mediaTypes: string[]) =>
     (
       input:
         | SwaggerV2.IOperation.IResponse
         | SwaggerV2.IJsonSchema.IReference<`#/definitions/responses/${string}`>,
     ): OpenApi.IOperation.IResponse | undefined => {
-      if (SwaggerV2TypeChecker.isReference(input)) {
+      if ("$ref" in input) {
         const found: SwaggerV2.IOperation.IResponse | undefined =
           doc.responses?.[input.$ref.split("/").pop() ?? ""]!;
         if (found === undefined) return undefined;
         input = found;
       }
+      const exampleTypes: string[] = Object.keys(input.examples ?? {});
+      const hasPayload: boolean =
+        input.schema !== undefined ||
+        exampleTypes.length > 0 ||
+        input.example !== undefined;
+      if (hasPayload && mediaTypes.length === 0)
+        throw new TypeError(
+          "SwaggerV2Upgrader: response payloads require a produced media type.",
+        );
+      if (exampleTypes.some((type) => mediaTypes.includes(type) === false))
+        throw new TypeError(
+          "SwaggerV2Upgrader: response examples must match produced media types.",
+        );
       return {
         description: input.description,
-        content: input.schema
-          ? {
-              "application/json": {
-                schema: convertSchema(doc.definitions ?? {})(input.schema),
-                example: input.example,
-              },
-            }
-          : undefined,
+        content:
+          input.schema !== undefined ||
+          exampleTypes.length > 0 ||
+          input.example !== undefined
+            ? Object.fromEntries(
+                mediaTypes.map((type) => [
+                  type,
+                  {
+                    schema:
+                      input.schema !== undefined
+                        ? convertSchema(doc.definitions ?? {})(input.schema)
+                        : undefined,
+                    example: Object.hasOwn(input.examples ?? {}, type)
+                      ? input.examples![type]
+                      : input.example,
+                  },
+                ]),
+              )
+            : undefined,
         headers: input.headers
           ? Object.fromEntries(
               Object.entries(input.headers)
@@ -263,6 +388,130 @@ export namespace SwaggerV2Upgrader {
           : undefined,
       };
     };
+
+  const selectMediaTypes = (
+    operation: string[] | undefined,
+    document: string[] | undefined,
+  ): string[] => [
+    ...new Set(
+      operation !== undefined
+        ? operation
+        : document !== undefined
+          ? document
+          : ["application/json"],
+    ),
+  ];
+
+  const convertServers = (
+    input: Pick<SwaggerV2.IDocument, "host" | "basePath" | "schemes">,
+  ): OpenApi.IServer[] | undefined => {
+    if (/[?#]/.test(input.host ?? "") || /[?#]/.test(input.basePath ?? ""))
+      throw new TypeError(
+        "SwaggerV2Upgrader: host and basePath cannot contain a query or fragment.",
+      );
+    const basePath: string = normalizeBasePath(input.basePath);
+    if (!input.host) {
+      if (input.schemes?.length)
+        throw new TypeError(
+          "SwaggerV2Upgrader: schemes require host to compose server URLs.",
+        );
+      return basePath ? [{ url: basePath }] : undefined;
+    }
+
+    const absolute: RegExpMatchArray | null = input.host.match(
+      /^([A-Za-z][A-Za-z0-9+.-]*):\/\/([^/?#]+)(\/[^?#]*)?$/,
+    );
+    const embeddedScheme: string | undefined = absolute?.[1]?.toLowerCase();
+    const host: string = absolute?.[2] ?? input.host.replace(/^\/\//, "");
+    if (host.includes("@"))
+      throw new TypeError(
+        "SwaggerV2Upgrader: host cannot contain user information.",
+      );
+    const hostPath: string = normalizeBasePath(absolute?.[3]);
+    const path: string = joinBasePaths(hostPath, basePath);
+    const schemes: string[] = [
+      ...new Set(
+        input.schemes?.length
+          ? input.schemes
+          : embeddedScheme
+            ? [embeddedScheme]
+            : [],
+      ),
+    ];
+    if (schemes.some((scheme) => isSwaggerScheme(scheme) === false))
+      throw new TypeError(
+        "SwaggerV2Upgrader: schemes must be http, https, ws, or wss.",
+      );
+    return schemes.length
+      ? (schemes as SwaggerV2.Scheme[]).map((scheme) => ({
+          url: `${scheme}://${host}${path}`,
+        }))
+      : [{ url: `//${host}${path}` }];
+  };
+
+  const normalizeBasePath = (path: string | undefined): string => {
+    if (!path || path === "/") return path ?? "";
+    const prefixed: string = path.startsWith("/") ? path : `/${path}`;
+    return prefixed.replace(/\/+$/, "");
+  };
+
+  const joinBasePaths = (x: string, y: string): string =>
+    x.length === 0 && y.length === 0
+      ? ""
+      : normalizeBasePath(`${x}/${y}`.replace(/\/+/g, "/"));
+
+  const isFormMediaType = (type: string): boolean =>
+    type === "application/x-www-form-urlencoded" ||
+    type === "multipart/form-data";
+
+  const isFormDataSchema = (input: OpenApi.IJsonSchema): boolean => {
+    if (isFormDataScalarSchema(input)) return true;
+    if (OpenApiTypeChecker.isArray(input) === false) return false;
+    return isFormDataSchema(input.items);
+  };
+
+  const isFormDataScalarSchema = (input: OpenApi.IJsonSchema): boolean => {
+    if (
+      OpenApiTypeChecker.isBoolean(input) ||
+      OpenApiTypeChecker.isInteger(input) ||
+      OpenApiTypeChecker.isNumber(input)
+    )
+      return true;
+    if (OpenApiTypeChecker.isString(input)) return input.format !== "binary";
+    if (OpenApiTypeChecker.isConstant(input)) return true;
+    if (OpenApiTypeChecker.isOneOf(input) === false) return false;
+    const nonNull: OpenApi.IJsonSchema[] = input.oneOf.filter(
+      (schema) => OpenApiTypeChecker.isNull(schema) === false,
+    );
+    const nullCount: number = input.oneOf.length - nonNull.length;
+    if (nullCount > 1 || nonNull.length === 0) return false;
+    if (nonNull.every(OpenApiTypeChecker.isConstant))
+      return (
+        new Set(
+          nonNull.map(
+            (schema) => typeof (schema as OpenApi.IJsonSchema.IConstant).const,
+          ),
+        ).size === 1
+      );
+    return (
+      nullCount === 1 && nonNull.length === 1 && isFormDataSchema(nonNull[0]!)
+    );
+  };
+
+  const isSwaggerScheme = (input: string): input is SwaggerV2.Scheme =>
+    input === "http" || input === "https" || input === "ws" || input === "wss";
+
+  const isFileParameter = (
+    input: SwaggerV2.IOperation.IGeneralParameter,
+  ): input is SwaggerV2.IOperation.IGeneralParameter.IFile & {
+    name: string;
+    in: string;
+    description?: string;
+  } => (input as { type?: string }).type === "file";
+
+  const isRequiredParameter = (
+    input: SwaggerV2.IOperation.IGeneralParameter,
+  ): boolean => (input as { required?: boolean }).required === true;
 
   /* -----------------------------------------------------------
     DEFINITIONS
@@ -356,21 +605,32 @@ export namespace SwaggerV2Upgrader {
         default: undefined,
       };
       const union: OpenApi.IJsonSchema[] = [];
-      const attribute: IJsonSchemaAttribute = {
-        title: input.title,
-        description: input.description,
-        deprecated: input.deprecated,
-        readOnly: input.readOnly,
-        example: input.example,
-        examples: input.examples
-          ? Object.fromEntries(input.examples.map((v, i) => [`v${i}`, v]))
-          : undefined,
-        ...Object.fromEntries(
-          Object.entries(input).filter(
-            ([key, value]) => key.startsWith("x-") && value !== undefined,
-          ),
-        ),
-      };
+      const getAttribute = (
+        schema: SwaggerV2.IJsonSchema,
+      ): IJsonSchemaAttribute =>
+        Object.fromEntries(
+          Object.entries({
+            title: schema.title,
+            description: schema.description,
+            deprecated: schema.deprecated,
+            readOnly: schema.readOnly,
+            example: schema.example,
+            examples: schema.examples
+              ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
+              : undefined,
+            ...Object.fromEntries(
+              Object.entries(schema).filter(
+                ([key, value]) =>
+                  key.startsWith("x-") &&
+                  key !== "x-anyOf" &&
+                  key !== "x-oneOf" &&
+                  key !== "x-nullable" &&
+                  value !== undefined,
+              ),
+            ),
+          }).filter(([_, value]) => value !== undefined),
+        ) as IJsonSchemaAttribute;
+      const attribute: IJsonSchemaAttribute = getAttribute(input);
       const visit = (schema: SwaggerV2.IJsonSchema): void => {
         // NULLABLE PROPERTY
         if (
@@ -405,14 +665,14 @@ export namespace SwaggerV2Upgrader {
           SwaggerV2TypeChecker.isNumber(schema) ||
           SwaggerV2TypeChecker.isString(schema)
         )
-          if (
-            schema.enum?.length &&
-            schema.enum.filter((e) => e !== null).length
-          )
+          if (schema.enum?.length)
             union.push(
               ...schema.enum
                 .filter((v) => v !== null)
-                .map((value) => ({ const: value })),
+                .map((value) => ({
+                  const: value,
+                  ...(schema === input ? {} : getAttribute(schema)),
+                })),
             );
           else if (
             SwaggerV2TypeChecker.isInteger(schema) ||
@@ -534,6 +794,8 @@ export namespace SwaggerV2Upgrader {
         });
       if (
         union.length === 2 &&
+        SwaggerV2TypeChecker.isAnyOf(input) === false &&
+        SwaggerV2TypeChecker.isOneOf(input) === false &&
         union.filter((x) => OpenApiTypeChecker.isNull(x)).length === 1
       ) {
         const type: OpenApi.IJsonSchema = union.filter(

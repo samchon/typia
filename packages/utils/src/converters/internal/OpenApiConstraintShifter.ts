@@ -76,14 +76,14 @@ export namespace OpenApiConstraintShifter {
       tags.push(`@multipleOf ${schema.multipleOf}`);
       delete schema.multipleOf;
     }
-    schema.description = writeTagWithDescription({
-      description: schema.description,
-      tags,
-    });
     if (schema.default !== undefined) {
       tags.push(`@default ${schema.default}`);
       delete schema.default;
     }
+    schema.description = writeTagWithDescription({
+      description: schema.description,
+      tags,
+    });
     return schema;
   };
 
