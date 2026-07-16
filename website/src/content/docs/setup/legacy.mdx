@@ -1,0 +1,155 @@
+---
+title: Guide Documents > Setup > Legacy
+---
+
+import { Tabs } from "nextra/components";
+
+## Legacy setup (typia 12 / TypeScript 6)
+
+This page is for projects pinned to typia 12 and the JavaScript TypeScript compiler. typia 12 accepts TypeScript versions from 4.8 up to, but not including, 7; its final v12 release is [`v12.1.1`](https://github.com/samchon/typia/tree/v12.1.1).
+
+> [!IMPORTANT]
+>
+> New projects should use [typia 13 with TypeScript 7](/docs/setup). Do not mix typia 12's `ts-patch` or `@typia/unplugin` setup with the current `ttsc` toolchain.
+
+## Install with the setup wizard
+
+Install the v12 release line explicitly, then run its setup wizard:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+npm install typia@12
+npx typia setup
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+pnpm add typia@12
+pnpm typia setup --manager pnpm
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+# Yarn Berry is not supported by the v12 setup wizard.
+yarn add typia@12
+yarn typia setup --manager yarn
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal" showLineNumbers copy
+bun add typia@12
+bun typia setup --manager bun
+```
+  </Tabs.Tab>
+</Tabs>
+
+The wizard installs the matching TypeScript 6 and `ts-patch` releases, adds the typia transform to `tsconfig.json`, and adds a `prepare` script that patches the local compiler after dependency installation. It also enables strict null checking and `skipLibCheck` when needed.
+
+After setup, build with the patched `tsc` command used by your package manager:
+
+```bash filename="Terminal" showLineNumbers copy
+npx tsc
+```
+
+## Manual setup
+
+Use the manual path when an existing project must control its TypeScript version. Keep every package on the v12/TypeScript-below-7 line:
+
+```bash filename="Terminal" showLineNumbers copy
+npm install typia@12
+npm install -D typescript@6 ts-patch@4
+```
+
+Add the transform and strict type semantics to the TypeScript project:
+
+```jsonc filename="tsconfig.json" showLineNumbers copy
+{
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "plugins": [
+      {
+        "transform": "typia/lib/transform",
+      },
+    ],
+  },
+}
+```
+
+Patch TypeScript after every dependency installation:
+
+```json filename="package.json" showLineNumbers copy
+{
+  "scripts": {
+    "prepare": "ts-patch install"
+  }
+}
+```
+
+Run the script once after adding it:
+
+```bash filename="Terminal" showLineNumbers copy
+npm run prepare
+```
+
+> [!WARNING]
+>
+> Install commands that disable lifecycle scripts also skip `ts-patch install`. If CI uses `npm ci --ignore-scripts`, run `npx ts-patch install` explicitly before compiling.
+
+## Bundlers
+
+typia 12 uses [`@typia/unplugin@12`](https://github.com/samchon/typia/tree/v12.1.1/packages/unplugin) when Vite, Next.js, Rollup, esbuild, Webpack, Rspack, Farm, or Bun owns the TypeScript pipeline:
+
+```bash filename="Terminal" showLineNumbers copy
+npm install -D @typia/unplugin@12
+```
+
+For Next.js, wrap the existing configuration:
+
+```js filename="next.config.mjs" showLineNumbers copy
+import unTypiaNext from "@typia/unplugin/next";
+
+/** @type {import("next").NextConfig} */
+const config = {};
+
+export default unTypiaNext(config, {});
+```
+
+For Vite, register the v12 plugin before plugins that consume the transformed source:
+
+```ts filename="vite.config.ts" showLineNumbers copy
+import UnpluginTypia from "@typia/unplugin/vite";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [UnpluginTypia()],
+});
+```
+
+### Next.js cache limitation
+
+`@typia/unplugin@12` does not register type-only source dependencies with Next.js. If a validator module imports a type and only that type's source file changes, Next.js can reuse the validator generated for the older type from `.next/cache` because the unchanged validator module is not recompiled.
+
+Delete `.next/cache` and rebuild after changing an imported type that feeds a typia operation. Deleting the full `.next` directory or changing the validator module also forces regeneration, but neither workaround creates the missing dependency edge.
+
+The verified cause and the current toolchain repair are tracked in [issue #2095](https://github.com/samchon/typia/issues/2095). The v12 workaround remains necessary for legacy Next.js builds.
+
+## Verify the transform
+
+Compile and run a minimal validator through the same command used by the application:
+
+```ts filename="src/check-setup.ts" showLineNumbers copy
+import typia from "typia";
+
+console.log(typia.is<{ id: string }>({ id: "ok" }));
+// true
+```
+
+If it prints `true`, the transform ran. If it throws `Error on typia.<method>(): no transform has been configured.`, the build bypassed the patched TypeScript compiler or the v12 bundler plugin.
+
+## Where to go next
+
+- Current TypeScript 7 setup: [Setup](/docs/setup)
+- First validator after setup: [`is`](/docs/validators/is), [`assert`](/docs/validators/assert), [`validate`](/docs/validators/validate)
+- Why typia needs a transform: [Pure TypeScript](/docs/pure)
