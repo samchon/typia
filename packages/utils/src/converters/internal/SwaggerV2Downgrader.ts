@@ -957,8 +957,7 @@ export namespace SwaggerV2Downgrader {
   };
 
   const normalizeBasePath = (path: string | undefined): string | undefined => {
-    if (!path) return undefined;
-    if (path === "/") return path;
+    if (!path || path === "/") return undefined;
     const prefixed: string = path.startsWith("/") ? path : `/${path}`;
     return prefixed.replace(/\/+$/, "");
   };

@@ -191,6 +191,42 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     ["application/json", "text/plain"],
   );
 
+  const root: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(
+    {
+      openapi: "3.2.0",
+      components: {},
+      servers: [
+        { url: "https://api.example.com" },
+        { url: "http://api.example.com/" },
+      ],
+      paths: {
+        "/root": {
+          get: {
+            servers: [{ url: "https://api.example.com/" }],
+            responses: {},
+          },
+        },
+      },
+      "x-typia-emended-v12": true,
+    },
+    "2.0",
+  );
+  TestValidator.equals(
+    "root server normalization",
+    {
+      schemes: root.schemes,
+      host: root.host,
+      basePath: root.basePath,
+      operationSchemes: root.paths!["/root"]!.get!.schemes,
+    },
+    {
+      schemes: ["https", "http"],
+      host: "api.example.com",
+      basePath: undefined,
+      operationSchemes: ["https"],
+    },
+  );
+
   TestValidator.error("empty consumes with body schema", () =>
     OpenApiConverter.upgradeDocument({
       ...input,

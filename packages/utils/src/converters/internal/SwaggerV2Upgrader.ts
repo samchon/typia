@@ -589,21 +589,29 @@ export namespace SwaggerV2Upgrader {
         default: undefined,
       };
       const union: OpenApi.IJsonSchema[] = [];
-      const attribute: IJsonSchemaAttribute = {
-        title: input.title,
-        description: input.description,
-        deprecated: input.deprecated,
-        readOnly: input.readOnly,
-        example: input.example,
-        examples: input.examples
-          ? Object.fromEntries(input.examples.map((v, i) => [`v${i}`, v]))
+      const getAttribute = (
+        schema: SwaggerV2.IJsonSchema,
+      ): IJsonSchemaAttribute => ({
+        title: schema.title,
+        description: schema.description,
+        deprecated: schema.deprecated,
+        readOnly: schema.readOnly,
+        example: schema.example,
+        examples: schema.examples
+          ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
           : undefined,
         ...Object.fromEntries(
-          Object.entries(input).filter(
-            ([key, value]) => key.startsWith("x-") && value !== undefined,
+          Object.entries(schema).filter(
+            ([key, value]) =>
+              key.startsWith("x-") &&
+              key !== "x-anyOf" &&
+              key !== "x-oneOf" &&
+              key !== "x-nullable" &&
+              value !== undefined,
           ),
         ),
-      };
+      });
+      const attribute: IJsonSchemaAttribute = getAttribute(input);
       const visit = (schema: SwaggerV2.IJsonSchema): void => {
         // NULLABLE PROPERTY
         if (
@@ -645,7 +653,10 @@ export namespace SwaggerV2Upgrader {
             union.push(
               ...schema.enum
                 .filter((v) => v !== null)
-                .map((value) => ({ const: value })),
+                .map((value) => ({
+                  const: value,
+                  ...(schema === input ? {} : getAttribute(schema)),
+                })),
             );
           else if (
             SwaggerV2TypeChecker.isInteger(schema) ||

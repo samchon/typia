@@ -89,6 +89,24 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     },
   );
   TestValidator.equals(
+    "attributed constant branch round trip",
+    OpenApiConverter.upgradeSchema({
+      definitions: {},
+      schema: convert({
+        oneOf: [
+          { const: "a", description: "First" },
+          { const: "b", description: "Second" },
+        ],
+      }),
+    }),
+    {
+      oneOf: [
+        { const: "a", description: "First" },
+        { const: "b", description: "Second" },
+      ],
+    },
+  );
+  TestValidator.equals(
     "nullable constant",
     convert({ oneOf: [{ const: "fixed" }, { type: "null" }] }),
     { type: "string", enum: ["fixed"], "x-nullable": true },
