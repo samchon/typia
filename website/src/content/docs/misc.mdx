@@ -343,7 +343,7 @@ const checked = typia.functional.assertFunction(add);
 checked.call({ base: 10 }, 2); // 12
 ```
 
-Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return `null`, and validation wrappers return `IValidation`. Async targets retain both their receiver and their `Promise` result shape.
+Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return `null`, and validation wrappers return `IValidation`. Async targets retain both their receiver and their `Promise` result shape, including Promise subclasses, extended interfaces, and branded intersections. `PromiseLike<T>` alone does not satisfy the `Promise<T>` contract used by these wrappers.
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
   <Tabs.Tab>
