@@ -8,7 +8,7 @@ const {
 } = require("./fixture.cjs");
 
 /**
- * Verifies repeated directory aliases emit each physical source once.
+ * Verifies repeated directory aliases are rejected before transformation.
  *
  * Locks deterministic directory de-duplication so alias order cannot multiply
  * transformed output or choose different target trees between runs.
@@ -16,7 +16,7 @@ const {
  * 1. Add one real source directory and two links to that directory.
  * 2. Generate and assert aliases are rejected before output is created.
  */
-test("repeated directory aliases are deduplicated", () => {
+test("repeated directory aliases are rejected", () => {
   const fixture = createFixture();
   try {
     const actual = path.join(fixture.input, "actual");
