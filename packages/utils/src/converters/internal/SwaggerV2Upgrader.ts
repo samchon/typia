@@ -470,20 +470,42 @@ export namespace SwaggerV2Upgrader {
     type === "multipart/form-data";
 
   const isFormDataSchema = (input: OpenApi.IJsonSchema): boolean => {
+    if (isFormDataScalarSchema(input)) return true;
+    if (OpenApiTypeChecker.isArray(input) === false) return false;
+    return isFormDataScalarSchema(input.items);
+  };
+
+  const isFormDataScalarSchema = (input: OpenApi.IJsonSchema): boolean => {
     if (
       OpenApiTypeChecker.isBoolean(input) ||
       OpenApiTypeChecker.isInteger(input) ||
-      OpenApiTypeChecker.isNumber(input) ||
-      OpenApiTypeChecker.isString(input)
+      OpenApiTypeChecker.isNumber(input)
     )
       return true;
-    if (OpenApiTypeChecker.isArray(input) === false) return false;
-    const item: OpenApi.IJsonSchema = input.items;
+    if (OpenApiTypeChecker.isString(input)) return input.format !== "binary";
+    if (OpenApiTypeChecker.isConstant(input)) return true;
+    if (OpenApiTypeChecker.isOneOf(input) === false) return false;
+    const nonNull: OpenApi.IJsonSchema[] = input.oneOf.filter(
+      (schema) => OpenApiTypeChecker.isNull(schema) === false,
+    );
+    const nullCount: number = input.oneOf.length - nonNull.length;
+    if (nullCount > 1 || nonNull.length === 0) return false;
+    if (nonNull.every(OpenApiTypeChecker.isConstant))
+      return (
+        new Set(
+          nonNull.map(
+            (schema) => typeof (schema as OpenApi.IJsonSchema.IConstant).const,
+          ),
+        ).size === 1
+      );
     return (
-      OpenApiTypeChecker.isBoolean(item) ||
-      OpenApiTypeChecker.isInteger(item) ||
-      OpenApiTypeChecker.isNumber(item) ||
-      (OpenApiTypeChecker.isString(item) && item.format !== "binary")
+      nullCount === 1 &&
+      nonNull.length === 1 &&
+      (OpenApiTypeChecker.isBoolean(nonNull[0]!) ||
+        OpenApiTypeChecker.isInteger(nonNull[0]!) ||
+        OpenApiTypeChecker.isNumber(nonNull[0]!) ||
+        (OpenApiTypeChecker.isString(nonNull[0]!) &&
+          nonNull[0].format !== "binary"))
     );
   };
 
@@ -654,10 +676,7 @@ export namespace SwaggerV2Upgrader {
           SwaggerV2TypeChecker.isNumber(schema) ||
           SwaggerV2TypeChecker.isString(schema)
         )
-          if (
-            schema.enum?.length &&
-            schema.enum.filter((e) => e !== null).length
-          )
+          if (schema.enum?.length)
             union.push(
               ...schema.enum
                 .filter((v) => v !== null)

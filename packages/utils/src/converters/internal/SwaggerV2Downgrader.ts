@@ -1,6 +1,7 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
+import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 
 export namespace SwaggerV2Downgrader {
   export interface IComponentsCollection {
@@ -379,6 +380,7 @@ export namespace SwaggerV2Downgrader {
       | SwaggerV2.IJsonSchema.INumber
       | SwaggerV2.IJsonSchema.IString
       | SwaggerV2.IJsonSchema.IArray
+      | SwaggerV2.IJsonSchema.IOneOf
       | SwaggerV2.IOperation.IGeneralParameter.IFile => {
       const schema: OpenApi.IJsonSchema | undefined =
         resolveSchema(collection)(input);
@@ -419,10 +421,18 @@ export namespace SwaggerV2Downgrader {
       if (visited.has(input.$ref)) return undefined;
       visited.add(input.$ref);
       const key: string = input.$ref.split("/").pop()!;
-      return resolveSchema(collection)(
-        collection.original.schemas?.[key],
-        visited,
-      );
+      const resolved: OpenApi.IJsonSchema | undefined = resolveSchema(
+        collection,
+      )(collection.original.schemas?.[key], visited);
+      if (resolved === undefined) return undefined;
+      return {
+        ...resolved,
+        ...Object.fromEntries(
+          Object.entries(input).filter(
+            ([property, value]) => property !== "$ref" && value !== undefined,
+          ),
+        ),
+      } as OpenApi.IJsonSchema;
     };
 
   const isFormDataSchema = (
@@ -432,27 +442,46 @@ export namespace SwaggerV2Downgrader {
     | SwaggerV2.IJsonSchema.IInteger
     | SwaggerV2.IJsonSchema.INumber
     | SwaggerV2.IJsonSchema.IString
-    | SwaggerV2.IJsonSchema.IArray => {
-    const type: string | undefined = (input as { type?: string }).type;
-    if (
-      type === "boolean" ||
-      type === "integer" ||
-      type === "number" ||
-      type === "string"
-    )
-      return true;
-    if (type !== "array") return false;
+    | SwaggerV2.IJsonSchema.IArray
+    | SwaggerV2.IJsonSchema.IOneOf => {
+    if (isFormDataScalarSchema(input)) return true;
+    if (SwaggerV2TypeChecker.isArray(input) === false) return false;
     const array: SwaggerV2.IJsonSchema.IArray =
       input as SwaggerV2.IJsonSchema.IArray;
-    const itemType: string | undefined = (array.items as { type?: string })
-      .type;
-    return (
-      itemType === "boolean" ||
-      itemType === "integer" ||
-      itemType === "number" ||
-      (itemType === "string" &&
-        (array.items as SwaggerV2.IJsonSchema.IString).format !== "binary")
+    return isFormDataScalarSchema(array.items);
+  };
+
+  const isFormDataScalarSchema = (input: SwaggerV2.IJsonSchema): boolean => {
+    if (
+      SwaggerV2TypeChecker.isBoolean(input) ||
+      SwaggerV2TypeChecker.isInteger(input) ||
+      SwaggerV2TypeChecker.isNumber(input)
+    )
+      return true;
+    if (SwaggerV2TypeChecker.isString(input)) return input.format !== "binary";
+    if (SwaggerV2TypeChecker.isOneOf(input) === false) return false;
+    const nonNull: SwaggerV2.IJsonSchema[] = input["x-oneOf"].filter(
+      (schema) => (schema as { type?: string }).type !== "null",
     );
+    const nullCount: number = input["x-oneOf"].length - nonNull.length;
+    if (nullCount > 1 || nonNull.length === 0) return false;
+    if (
+      input["x-oneOf"].length === 2 &&
+      nonNull.length === 1 &&
+      isFormDataScalarSchema(nonNull[0]!)
+    )
+      return true;
+    const enumTypes: string[] = nonNull
+      .filter(
+        (schema) =>
+          isFormDataScalarSchema(schema) &&
+          Array.isArray((schema as SwaggerV2.IJsonSchema.IString).enum) &&
+          (schema as SwaggerV2.IJsonSchema.IString).enum!.some(
+            (value) => value !== null,
+          ),
+      )
+      .map((schema) => (schema as { type: string }).type);
+    return enumTypes.length === nonNull.length && new Set(enumTypes).size === 1;
   };
 
   const downgradeResponse =
@@ -463,6 +492,14 @@ export namespace SwaggerV2Downgrader {
           "SwaggerV2Downgrader: encrypted responses are not representable.",
         );
       const media: IDowngradedMedia = downgradeMedia(input.content, "response");
+      if (
+        media.types?.length &&
+        media.schema === undefined &&
+        Object.keys(media.examples ?? {}).length === 0
+      )
+        throw new TypeError(
+          "SwaggerV2Downgrader: response media types require a shared schema or example.",
+        );
       return {
         produces: media.types,
         response: {

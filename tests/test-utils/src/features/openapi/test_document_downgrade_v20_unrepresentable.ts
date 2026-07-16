@@ -257,6 +257,35 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
       }),
     },
     {
+      name: "referenced form object metadata",
+      input: document({
+        components: {
+          schemas: {
+            Form: {
+              type: "object",
+              properties: { name: { type: "string" } },
+            },
+          },
+        },
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {
+                content: {
+                  "multipart/form-data": {
+                    schema: {
+                      $ref: "#/components/schemas/Form",
+                      description: "Upload form",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
       name: "closed form object",
       input: document({
         paths: {
@@ -308,6 +337,20 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
                     "application/xml": { schema: { type: "number" } },
                   },
                 },
+              },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "response media without schema or example",
+      input: document({
+        paths: {
+          "/items": {
+            get: {
+              responses: {
+                "200": { content: { "text/plain": {} } },
               },
             },
           },

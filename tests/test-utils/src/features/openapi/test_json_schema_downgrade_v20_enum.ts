@@ -167,6 +167,17 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     convert({ oneOf: [{ const: "fixed" }, { type: "null" }] }),
     { type: "string", enum: ["fixed"], "x-nullable": true },
   );
+  const nullOnlyEnum: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    definitions: {},
+    schema: { type: "string", enum: [null] },
+  });
+  TestValidator.equals("null-only Swagger enum", nullOnlyEnum, {
+    type: "null",
+  });
+  TestValidator.predicate(
+    "null-only Swagger enum remains null-only",
+    OpenApiTypeChecker.isNull(nullOnlyEnum),
+  );
   TestValidator.equals("null only", convert({ type: "null" }), {
     type: "null",
   });
