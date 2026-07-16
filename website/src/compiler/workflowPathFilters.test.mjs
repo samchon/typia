@@ -39,6 +39,28 @@ const workflowPaths = (text) => {
   return result;
 };
 
+const workflowJob = (text, name) => {
+  const lines = text.split(/\r?\n/);
+  const jobs = lines.findIndex((line) => /^jobs:\s*$/.test(line));
+  assert.notEqual(jobs, -1, "workflow omits jobs");
+
+  const pattern = new RegExp(`^  ${name}:\\s*$`);
+  const index = lines.findIndex(
+    (line, candidate) => candidate > jobs && pattern.test(line),
+  );
+  assert.notEqual(index, -1, `workflow omits ${name} job`);
+
+  const indent = /^\s*/.exec(lines[index])[0].length;
+  let end = index + 1;
+  while (
+    end < lines.length &&
+    (lines[end].trim().length === 0 ||
+      /^\s*/.exec(lines[end])[0].length > indent)
+  )
+    end += 1;
+  return lines.slice(index, end).join("\n");
+};
+
 const assertOrdered = (text, labels) => {
   let previous = -1;
   for (const label of labels) {
@@ -50,18 +72,20 @@ const assertOrdered = (text, labels) => {
 };
 
 /**
- * Verifies pull-request workflows watch every directly consumed input.
+ * Verifies workflows watch their inputs and pin the website compiler source.
  *
  * The website job builds packages, stages tarballs, and installs the complete
- * workspace, while the test job compiles workspaces that extend shared config.
- * Omitting those inputs defers failures until after a pull request merges.
+ * workspace, while the release-only copy must select the same ttsc source as
+ * its installed browser package. Omitting either contract defers failures until
+ * after a pull request merges or until a release has already published.
  *
  * 1. Read the website and test pull-request path filters.
  * 2. Assert each consumed workspace, compiler, and tarball input is present.
  * 3. Assert unrelated benchmark and README changes remain excluded.
- * 4. Verify dependency install, tag selection, compiler tests, and build order.
+ * 4. Verify both website jobs install before selecting the matching ttsc tag.
+ * 5. Verify compiler tests and package/website builds follow that checkout.
  */
-test("workflow path filters match consumed inputs", async () => {
+test("workflow contracts match consumed inputs and compiler provenance", async () => {
   const synthetic = workflowPaths(
     `on:\n  pull_request:\n    paths:\n      - 'inside/**'\njobs:\n  test:\n    strategy:\n      matrix:\n        include:\n          - 'outside/**'\n`,
   );
@@ -123,5 +147,32 @@ test("workflow path filters match consumed inputs", async () => {
   assertOrdered(websiteText, [
     "pnpm run test:compiler",
     "go -C compiler test ./cmd/playground",
+  ]);
+
+  const releaseWebsiteText = workflowJob(
+    await readWorkflow("release"),
+    "website",
+  );
+  assert.match(
+    releaseWebsiteText,
+    /require\('\.\/website\/node_modules\/@ttsc\/wasm\/package\.json'\)\.version/,
+  );
+  assert.match(releaseWebsiteText, /test -n "\$\{TTSC_VERSION\}"/);
+  assert.match(
+    releaseWebsiteText,
+    /git clone --branch "v\$\{TTSC_VERSION\}" --depth 1/,
+  );
+  assert.doesNotMatch(
+    releaseWebsiteText,
+    /git clone --depth 1 https:\/\/github\.com\/samchon\/ttsc\.git/,
+  );
+  assertOrdered(releaseWebsiteText, [
+    "- name: Install Dependencies",
+    "- name: Checkout ttsc sibling",
+    'TTSC_VERSION="$(node -p',
+    'git clone --branch "v${TTSC_VERSION}"',
+    "- name: Build Packages",
+    "- name: Website Build",
+    "- name: Deploy",
   ]);
 });
