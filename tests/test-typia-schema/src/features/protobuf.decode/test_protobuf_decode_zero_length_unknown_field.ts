@@ -15,13 +15,13 @@ import typia from "typia";
  *    embedded message, and decode them through a schema missing that field.
  * 2. Decode the same record hand-built as the leading and the trailing field,
  *    through every direct and factory decoder.
- * 3. Assert the known fields survive that record, an optional one, a packed one,
- *    and one standing between two known fields, and that truncated records are
- *    still rejected.
+ * 3. Assert the record leaves a required, optional, packed, and surrounding known
+ *    field intact, and that a truncated record is still rejected.
  */
 export const test_protobuf_decode_zero_length_unknown_field = (): void => {
-  // field 1 = "a", then field 2 length-delimited declaring a length of zero
+  // field 2 length-delimited declaring a length of zero, around field 1 = "a"
   const trailing: Uint8Array = Uint8Array.of(0x0a, 1, 0x61, 0x12, 0);
+  const leading: Uint8Array = Uint8Array.of(0x12, 0, 0x0a, 1, 0x61);
 
   // an unknown zero-length record is what a newer schema's empty field emits
   const evolved: Array<readonly [string, Uint8Array]> = [
@@ -92,7 +92,7 @@ export const test_protobuf_decode_zero_length_unknown_field = (): void => {
     ],
   ];
   for (const [label, decode] of decoders) {
-    if (decode(Uint8Array.of(0x12, 0, 0x0a, 1, 0x61)).value !== "a")
+    if (decode(leading).value !== "a")
       throw new Error(
         `${label} desynchronized on a leading zero-length record.`,
       );
@@ -103,10 +103,7 @@ export const test_protobuf_decode_zero_length_unknown_field = (): void => {
   }
 
   // optional presence and a record standing between two known fields
-  if (
-    typia.protobuf.decode<IOptional>(Uint8Array.of(0x12, 0, 0x0a, 1, 0x61))
-      .value !== "a"
-  )
+  if (typia.protobuf.decode<IOptional>(leading).value !== "a")
     throw new Error(
       "an optional field lost its value to a zero-length record.",
     );
