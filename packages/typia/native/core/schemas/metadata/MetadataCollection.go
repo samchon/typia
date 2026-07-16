@@ -552,34 +552,39 @@ func MetadataCollection_replace(str string) string {
 // replacement used by LLM `$defs`: OpenAPI restricts keys to an ASCII grammar,
 // while an LLM definition map can own arbitrary JSON object keys.
 func MetadataCollection_replaceOpenApi(str string) string {
-  if len(str) == 0 {
-    return "_"
-  }
   var escaped strings.Builder
   var quote rune
+  quotedContent := false
   quotedEscape := false
   disambiguate := false
   for _, ch := range str {
     if quote != 0 {
       if quotedEscape {
         disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+        quotedContent = true
         quotedEscape = false
         continue
       }
       if ch == '\\' {
         disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+        quotedContent = true
         quotedEscape = true
         continue
       }
       if ch == quote {
+        if quotedContent == false {
+          disambiguate = true
+        }
         quote = 0
         continue
       }
       disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+      quotedContent = true
       continue
     }
     if ch == '\'' || ch == '"' || ch == '`' {
       quote = ch
+      quotedContent = false
       continue
     }
     if ch == '$' {
@@ -590,7 +595,8 @@ func MetadataCollection_replaceOpenApi(str string) string {
   }
   normalized := MetadataCollection_replace(escaped.String())
   if len(normalized) == 0 {
-    return "_"
+    normalized = "_"
+    disambiguate = true
   }
   var builder strings.Builder
   for _, ch := range normalized {
