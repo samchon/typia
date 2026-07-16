@@ -104,10 +104,15 @@ export class _ProtobufReader {
     this.end = previous;
   }
 
+  /** Advance by exactly `length` bytes, for every length including zero. */
   public skip(length: number): void {
+    this.take(length);
+  }
+
+  /** Advance by exactly one varint, which carries no length prefix. */
+  public skipVarint(): void {
     this.atomic(() => {
-      if (length === 0) while (this.u8() & 0x80);
-      else this.take(length);
+      while (this.u8() & 0x80);
     });
   }
 
@@ -115,7 +120,7 @@ export class _ProtobufReader {
     this.atomic(() => {
       switch (wireType) {
         case ProtobufWire.VARIANT:
-          this.skip(0);
+          this.skipVarint();
           break;
         case ProtobufWire.I64:
           this.skip(8);
