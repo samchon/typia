@@ -18,7 +18,7 @@ const path = require("path");
  * 3. Require every fixture to be named by at least one typia diagnostic.
  */
 const SRC = path.join(__dirname, "src");
-const ANSI = /\[[0-9;]*m/g;
+const ANSI = /\x1b\[[0-9;]*m/g;
 
 /** Normalizes a compiler-reported path to a POSIX path relative to `src/`. */
 const normalize = (location) =>
@@ -55,23 +55,24 @@ const build = () => {
 };
 
 /**
- * Splits the build output into typia transform diagnostics and plain TypeScript
- * diagnostics.
+ * Splits the build output into typia transform diagnostics and every other
+ * compiler diagnostic.
  *
- * A typia diagnostic carries its API in the error code, as in
- * `TS(typia.llm.schema)`; a TypeScript diagnostic carries a number, as in
- * `TS2554`. Both are keyed by the fixture they name.
+ * A typia rejection carries its API in the error code, as in
+ * `TS(typia.llm.schema)`. Anything else is a compiler diagnostic, including a
+ * code this parser does not recognize: an error that is not a typia rejection
+ * means the fixtures never reached the transform cleanly, which is exactly what
+ * the suite must notice rather than skip.
  */
 const parse = (output) => {
   const typia = new Map();
   const compiler = [];
   for (const line of output.split(/\r?\n/)) {
-    const match = line.match(
-      /^(\S.*\.ts):\d+:\d+ - error (TS\(typia\.[^)]*\)|TS\d+):/,
-    );
+    const match = line.match(/^(\S.*\.ts):\d+:\d+ - error ([^\s:]+):/);
     if (match === null) continue;
     const file = normalize(match[1]);
-    if (match[2].startsWith("TS(")) typia.set(file, (typia.get(file) ?? 0) + 1);
+    if (match[2].startsWith("TS(typia."))
+      typia.set(file, (typia.get(file) ?? 0) + 1);
     else compiler.push(line.trim());
   }
   return { typia, compiler };
@@ -99,7 +100,7 @@ const main = () => {
   // FIXTURES MUST TYPECHECK, OR THE TRANSFORM NEVER RUNS
   if (compiler.length !== 0)
     fail([
-      `The build reported ${compiler.length} TypeScript error(s), so no fixture was`,
+      `The build reported ${compiler.length} non-typia diagnostic(s), so no fixture was`,
       "checked at all: a type error aborts the build before the typia transform",
       "runs. Every fixture must be valid TypeScript that typia alone rejects.",
       "",
@@ -116,6 +117,14 @@ const main = () => {
       "",
       ...missing.map((file) => `  - src/${file}`),
       "",
+      ...(typia.size !== 0
+        ? []
+        : [
+            "No typia diagnostic was parsed at all, so the build output ends below.",
+            "",
+            ...output.trimEnd().split(/\r?\n/).slice(-15),
+            "",
+          ]),
     ]);
 
   const total = [...typia.values()].reduce((x, y) => x + y, 0);
