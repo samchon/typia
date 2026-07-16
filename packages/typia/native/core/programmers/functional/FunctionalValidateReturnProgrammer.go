@@ -50,10 +50,10 @@ func (functionalValidateReturnProgrammerNamespace) Write(props FunctionalValidat
   f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
   statements := append([]*shimast.Node{}, result.Functions...)
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(result.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      result.Async,
       FunctionalValidateFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -63,8 +63,6 @@ func (functionalValidateReturnProgrammerNamespace) Write(props FunctionalValidat
         Declaration: props.Declaration,
         Async:       result.Async,
       }),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(result.Statements), true),
     ),
   ))
@@ -80,13 +78,7 @@ func (functionalValidateReturnProgrammerNamespace) Decompose(props FunctionalVal
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
   })
-  caller := f.NewCallExpression(
-    props.Expression,
-    nil,
-    nil,
-    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
-    shimast.NodeFlagsNone,
-  )
+  caller := functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)
   value := caller
   if output.Async {
     value = f.NewAwaitExpression(caller)

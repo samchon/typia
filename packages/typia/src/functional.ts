@@ -3,6 +3,24 @@ import { IValidation } from "@typia/interface";
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+type FunctionalIs<T extends (...args: any[]) => any> = T extends (
+  this: infer This,
+  ...args: infer Arguments
+) => infer Output
+  ? Output extends Promise<infer R>
+    ? (this: This, ...args: Arguments) => Promise<R | null>
+    : (this: This, ...args: Arguments) => Output | null
+  : never;
+
+type FunctionalValidate<T extends (...args: any[]) => any> = T extends (
+  this: infer This,
+  ...args: infer Arguments
+) => infer Output
+  ? Output extends Promise<infer R>
+    ? (this: This, ...args: Arguments) => Promise<IValidation<R>>
+    : (this: This, ...args: Arguments) => IValidation<Output>
+  : never;
+
 /* ===========================================================
   FUNCTIONAL
     - ASSERT
@@ -232,11 +250,7 @@ export function assertEqualsReturn(): never {
  */
 export function isFunction<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<R | null>
-    : (...args: Arguments) => Output | null
-  : never;
+): FunctionalIs<T>;
 
 /** @internal */
 export function isFunction(): never {
@@ -263,11 +277,7 @@ export function isFunction(): never {
  */
 export function isParameters<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<R | null>
-    : (...args: Arguments) => Output | null
-  : never;
+): FunctionalIs<T>;
 
 /** @internal */
 export function isParameters(): never {
@@ -294,11 +304,7 @@ export function isParameters(): never {
  */
 export function isReturn<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<R | null>
-    : (...args: Arguments) => Output | null
-  : never;
+): FunctionalIs<T>;
 
 /** @internal */
 export function isReturn(): never {
@@ -325,11 +331,7 @@ export function isReturn(): never {
  */
 export function equalsFunction<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<R | null>
-    : (...args: Arguments) => Output | null
-  : never;
+): FunctionalIs<T>;
 
 /** @internal */
 export function equalsFunction(): never {
@@ -356,11 +358,7 @@ export function equalsFunction(): never {
  */
 export function equalsParameters<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<R | null>
-    : (...args: Arguments) => Output | null
-  : never;
+): FunctionalIs<T>;
 
 /** @internal */
 export function equalsParameters(): never {
@@ -387,11 +385,7 @@ export function equalsParameters(): never {
  */
 export function equalsReturn<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<R | null>
-    : (...args: Arguments) => Output | null
-  : never;
+): FunctionalIs<T>;
 
 /** @internal */
 export function equalsReturn(): never {
@@ -425,11 +419,7 @@ export function equalsReturn(): never {
  */
 export function validateFunction<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<IValidation<R>>
-    : (...args: Arguments) => IValidation<Output>
-  : never;
+): FunctionalValidate<T>;
 
 /** @internal */
 export function validateFunction(): never {
@@ -457,11 +447,7 @@ export function validateFunction(): never {
  */
 export function validateParameters<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<IValidation<R>>
-    : (...args: Arguments) => IValidation<Output>
-  : never;
+): FunctionalValidate<T>;
 
 /** @internal */
 export function validateParameters(): never {
@@ -489,11 +475,7 @@ export function validateParameters(): never {
  */
 export function validateReturn<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<IValidation<R>>
-    : (...args: Arguments) => IValidation<Output>
-  : never;
+): FunctionalValidate<T>;
 
 /** @internal */
 export function validateReturn(): never {
@@ -524,11 +506,7 @@ export function validateReturn(): never {
  */
 export function validateEqualsFunction<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<IValidation<R>>
-    : (...args: Arguments) => IValidation<Output>
-  : never;
+): FunctionalValidate<T>;
 
 /** @internal */
 export function validateEqualsFunction(): never {
@@ -556,11 +534,7 @@ export function validateEqualsFunction(): never {
  */
 export function validateEqualsParameters<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<IValidation<R>>
-    : (...args: Arguments) => IValidation<Output>
-  : never;
+): FunctionalValidate<T>;
 
 /** @internal */
 export function validateEqualsParameters(): never {
@@ -588,11 +562,7 @@ export function validateEqualsParameters(): never {
  */
 export function validateEqualsReturn<T extends (...args: any[]) => any>(
   func: T,
-): T extends (...args: infer Arguments) => infer Output
-  ? Output extends Promise<infer R>
-    ? (...args: Arguments) => Promise<IValidation<R>>
-    : (...args: Arguments) => IValidation<Output>
-  : never;
+): FunctionalValidate<T>;
 
 /** @internal */
 export function validateEqualsReturn(): never {

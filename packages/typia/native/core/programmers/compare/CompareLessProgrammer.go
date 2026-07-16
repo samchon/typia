@@ -219,9 +219,11 @@ func (g *compareLessProgrammerGenerator) core(metadata *schemametadata.MetadataS
 }
 
 // primitive renders the scalar three-way comparator (works for number, string,
-// boolean and bigint via the relational operators).
+// boolean and bigint via the relational operators). Self-inequality detects NaN
+// without coercing other scalar types and places it after every ordinary number.
 func (g *compareLessProgrammerGenerator) primitive(x string, y string) string {
-  return fmt.Sprintf("(%s < %s ? -1 : %s > %s ? 1 : 0)", g.wrap(x), g.wrap(y), g.wrap(x), g.wrap(y))
+  return fmt.Sprintf("(%s !== %s ? (%s !== %s ? 0 : 1) : %s !== %s ? -1 : %s < %s ? -1 : %s > %s ? 1 : 0)",
+    g.wrap(x), g.wrap(x), g.wrap(y), g.wrap(y), g.wrap(y), g.wrap(y), g.wrap(x), g.wrap(y), g.wrap(x), g.wrap(y))
 }
 
 func (g *compareLessProgrammerGenerator) native(name string, x string, y string) string {

@@ -637,10 +637,10 @@ export function createAssertGuard(
  */
 export function createAssertGuard<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => AssertionGuard<T>;
+): AssertionGuard<T>;
 
 /** @internal */
-export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
+export function createAssertGuard<T>(): AssertionGuard<T> {
   NoTransformConfigurationError("createAssertGuard");
 }
 
@@ -809,12 +809,10 @@ export function createAssertGuardEquals(
  */
 export function createAssertGuardEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => AssertionGuard<T>;
+): AssertionGuard<T>;
 
 /** @internal */
-export function createAssertGuardEquals<T>(): (
-  input: unknown,
-) => AssertionGuard<T> {
+export function createAssertGuardEquals<T>(): AssertionGuard<T> {
   NoTransformConfigurationError("createAssertGuardEquals");
 }
 

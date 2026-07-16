@@ -43,10 +43,10 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
   body := append([]*shimast.Node{}, p.Statements...)
   body = append(body, r.Statements...)
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      r.Async,
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -56,8 +56,6 @@ func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionP
         Declaration: props.Declaration,
         Async:       r.Async,
       }),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(body), true),
     ),
   ))
