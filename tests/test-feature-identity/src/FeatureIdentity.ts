@@ -14,12 +14,12 @@ import path from "path";
  * indistinguishable executions.
  *
  * This namespace turns that contract into a checkable invariant.
- * {@link collect} gathers the committed feature files, {@link parse} extracts
+ * {@link collect} gathers the tracked feature files, {@link parse} extracts
  * the `test_*` declarations each one exports, and {@link diagnose} reports
  * every violation.
  */
 export namespace FeatureIdentity {
-  /** A single committed feature-tree source file. */
+  /** A single tracked feature-tree source file. */
   export interface IFeatureFile {
     /** Test workspace directory name, such as `test-utils`. */
     suite: string;
@@ -105,14 +105,16 @@ export namespace FeatureIdentity {
   };
 
   /**
-   * Gather every committed feature file of every test suite.
+   * Gather every tracked feature file of every test suite.
    *
-   * Reads the tree through `git ls-files`, so only **committed** sources are
-   * inspected. That boundary is the point rather than an accident: the
-   * generated matrix suites keep their `src/features` gitignored and rebuild
-   * it on every run, and their generator — not this hand-written-source check
-   * — owns their naming. Working from git also makes the result independent of
-   * whichever suites happen to have run before this one.
+   * Reads the tree through `git ls-files`, so only **tracked** sources are
+   * inspected — including one staged but not yet committed, which is about to
+   * become everyone's problem and should be checked now. That boundary is the
+   * point rather than an accident: the generated matrix suites keep their
+   * `src/features` gitignored and rebuild it on every run, and their generator
+   * — not this hand-written-source check — owns their naming. Working from git
+   * also makes the result independent of whichever suites happen to have run
+   * before this one.
    *
    * `-z` is not decoration. Without it `git ls-files` honors `core.quotePath`
    * and prints a non-ASCII path quoted and octal-escaped, which this scan's
@@ -120,7 +122,7 @@ export namespace FeatureIdentity {
    * is exactly the failure the suite exists to prevent.
    *
    * @param root Repository root; defaults to the enclosing git work tree.
-   * @returns Every committed `tests/<suite>/src/features` source file, parsed.
+   * @returns Every tracked `tests/<suite>/src/features` source file, parsed.
    */
   export const collect = (root: string = toplevel()): IFeatureFile[] =>
     git(["ls-files", "-z", "--", "tests"], root)
@@ -159,7 +161,7 @@ export namespace FeatureIdentity {
   const PREFIX = "test_";
 
   /**
-   * A committed `tests/<suite>/src/features` source file.
+   * A tracked `tests/<suite>/src/features` source file.
    *
    * Declaration files are excluded: they carry no runnable export, so judging
    * them against the naming rule would only invent false diagnostics.
@@ -197,7 +199,7 @@ export namespace FeatureIdentity {
       ).trim();
       throw new Error(
         `Failed to run "git ${args.join(" ")}" in "${cwd}". ` +
-          `The feature-identity check reads the committed tree through git.\n` +
+          `The feature-identity check reads the tracked tree through git.\n` +
           `${(error as Error).message}` +
           `${stderr.length !== 0 ? `\n${stderr}` : ""}`,
       );

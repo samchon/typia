@@ -78,7 +78,7 @@ Use one `Test*` function per test file and mirror a nearby test's package, fixtu
 - **Type compilation:** `test-interface` is a compile-only `ttsc` suite for `@typia/interface` type contracts.
 - **CLI process integration:** `test-typia-cli` creates temporary projects and spawns `pnpm exec ttsc` against them. Its fixtures live outside the workspace, so it explicitly shares the root ttsc cache through `TTSC_CACHE_DIR`.
 - **Focused option behavior:** `test-typia-exact-optional` uses a small explicit runner and a plugin entry with `undefined: false`; keep focused compiler-option scenarios there instead of forcing them into DynamicExecutor.
-- **Repository naming integrity:** `test-feature-identity` reads every suite's committed `src/features` tree through `git ls-files` and asserts each file exports exactly one `test_*` function matching its basename, that helper files export none, and that no two files of one suite export the same name. It owns the hand-written trees only; the generated matrices gitignore `src/features`, so their generator owns their naming.
+- **Repository naming integrity:** `test-feature-identity` reads every suite's tracked `src/features` tree through `git ls-files` and asserts each file exports exactly one `test_*` function matching its basename, that helper files export none, and that no two files of one suite export the same name. It owns the hand-written trees only; the generated matrices gitignore `src/features`, so their generator owns their naming.
 
 Use `TestValidator` and `DynamicExecutor` from `@nestia/e2e`, `@typia/template` structures and `TestServant`, and each suite's local `internal/` helpers. Do not reach into another suite's internals or duplicate a reusable structure inside one test workspace.
 
