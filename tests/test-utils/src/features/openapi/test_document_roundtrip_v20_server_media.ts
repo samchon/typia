@@ -177,6 +177,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
                   "application/json": { schema: { type: "string" } },
                 },
               },
+              "204": { content: {} },
             },
           },
         },
@@ -189,6 +190,13 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     "response media order is not semantic",
     reordered.paths!["/reordered"]!.get!.produces,
     ["application/json", "text/plain"],
+  );
+  const reorderedRoundTrip: OpenApi.IDocument =
+    OpenApiConverter.upgradeDocument(reordered);
+  TestValidator.predicate(
+    "empty response content remains payload-free",
+    reorderedRoundTrip.paths!["/reordered"]!.get!.responses!["204"]!.content ===
+      undefined,
   );
 
   const root: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(

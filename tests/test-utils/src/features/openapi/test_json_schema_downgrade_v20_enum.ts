@@ -178,6 +178,67 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     "null-only Swagger enum remains null-only",
     OpenApiTypeChecker.isNull(nullOnlyEnum),
   );
+  const nullableDefault: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    definitions: {},
+    schema: { type: "number", "x-nullable": true, default: null },
+  });
+  const nullableDefaultRoundTrip: SwaggerV2.IJsonSchema =
+    convert(nullableDefault);
+  TestValidator.equals(
+    "nullable null default round trip",
+    nullableDefaultRoundTrip,
+    { type: "number", "x-nullable": true, default: null },
+  );
+  TestValidator.predicate(
+    "nullable null default remains defined",
+    "default" in nullableDefaultRoundTrip &&
+      nullableDefaultRoundTrip.default === null,
+  );
+  const nullDefault: SwaggerV2.IJsonSchema = convert({
+    type: "null",
+    default: null,
+  });
+  TestValidator.equals("null-only default", nullDefault, {
+    type: "null",
+    default: null,
+  });
+  TestValidator.predicate(
+    "null-only default remains defined",
+    "default" in nullDefault && nullDefault.default === null,
+  );
+  const nullableReferenceDefinitions: Record<string, SwaggerV2.IJsonSchema> =
+    {};
+  const nullableReference: SwaggerV2.IJsonSchema =
+    OpenApiConverter.downgradeSchema({
+      components: { schemas: { Value: { type: "number" } } },
+      downgraded: nullableReferenceDefinitions,
+      schema: {
+        oneOf: [
+          { $ref: "#/components/schemas/Value" },
+          { type: "null", default: null },
+        ],
+      },
+      version: "2.0",
+    });
+  TestValidator.equals("nullable reference null default", nullableReference, {
+    "x-oneOf": [
+      { $ref: "#/definitions/Value" },
+      { type: "null", default: null },
+    ],
+  });
+  TestValidator.equals(
+    "nullable reference null default round trip",
+    OpenApiConverter.upgradeSchema({
+      definitions: nullableReferenceDefinitions,
+      schema: nullableReference,
+    }),
+    {
+      oneOf: [
+        { $ref: "#/components/schemas/Value" },
+        { type: "null", default: null },
+      ],
+    },
+  );
   TestValidator.equals("null only", convert({ type: "null" }), {
     type: "null",
   });

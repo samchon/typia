@@ -501,7 +501,7 @@ export namespace SwaggerV2Downgrader {
           "SwaggerV2Downgrader: response media types require a shared schema or example.",
         );
       return {
-        produces: media.types,
+        produces: media.types?.length ? media.types : undefined,
         response: {
           description: input.description,
           schema:
@@ -635,7 +635,11 @@ export namespace SwaggerV2Downgrader {
         if (schema !== input && Object.keys(getAttribute(schema)).length > 0)
           preserveNullableBranches.value = true;
         if (OpenApiTypeChecker.isNull(schema))
-          nullableBranches.push({ type: "null", ...getAttribute(schema) });
+          nullableBranches.push({
+            type: "null",
+            default: schema.default,
+            ...getAttribute(schema),
+          });
         else if (OpenApiTypeChecker.isConstant(schema)) insertConstant(schema);
         else if (
           OpenApiTypeChecker.isBoolean(schema) ||
@@ -722,7 +726,21 @@ export namespace SwaggerV2Downgrader {
       };
 
       visit(input);
-      if (nullable === true && preserveNullableBranches.value === true) {
+      const nullableDefault: boolean = nullableBranches.some(
+        (branch) =>
+          SwaggerV2TypeChecker.isNullOnly(branch) && branch.default === null,
+      );
+      const canInlineNullableDefault: boolean =
+        union.length === 1 &&
+        (SwaggerV2TypeChecker.isBoolean(union[0]!) ||
+          SwaggerV2TypeChecker.isInteger(union[0]!) ||
+          SwaggerV2TypeChecker.isNumber(union[0]!) ||
+          SwaggerV2TypeChecker.isString(union[0]!));
+      if (
+        nullable === true &&
+        (preserveNullableBranches.value === true ||
+          (nullableDefault === true && canInlineNullableDefault === false))
+      ) {
         const branches: SwaggerV2.IJsonSchema[] = [
           ...union,
           ...(nullableBranches.length > 0
@@ -739,11 +757,21 @@ export namespace SwaggerV2Downgrader {
         for (const u of union)
           if (OpenApiTypeChecker.isReference(u as any))
             downgradeNullableReference(new Set())(collection)(u as any);
-          else (u as SwaggerV2.IJsonSchema.IArray)["x-nullable"] = true;
+          else {
+            (u as SwaggerV2.IJsonSchema.IArray)["x-nullable"] = true;
+            if (nullableDefault === true)
+              (
+                u as
+                  | SwaggerV2.IJsonSchema.IBoolean
+                  | SwaggerV2.IJsonSchema.IInteger
+                  | SwaggerV2.IJsonSchema.INumber
+                  | SwaggerV2.IJsonSchema.IString
+              ).default = null;
+          }
       }
 
       if (nullable === true && union.length === 0)
-        return { type: "null", ...attribute };
+        return { ...(nullableBranches[0] ?? { type: "null" }), ...attribute };
       return {
         ...(union.length === 0
           ? { type: undefined }
