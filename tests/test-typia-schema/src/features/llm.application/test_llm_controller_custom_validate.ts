@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 import typia, { ILlmController, IValidation } from "typia";
 
-export const test_llm_application_custom_validate = (): void => {
+export const test_llm_controller_custom_validate = (): void => {
   interface IApplication {
     hello(): void;
   }

@@ -69,15 +69,16 @@ Use one `Test*` function per test file and mirror a nearby test's package, fixtu
 
 ### TypeScript suites
 
-`pnpm test:packages` starts every `tests/test-*` workspace. They have seven shapes covering all twelve suites:
+`pnpm test:packages` starts every `tests/test-*` workspace. They have these shapes:
 
-- **Function-per-file:** `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, and `test-utils` discover `src/features/**/test_*.ts` through `DynamicExecutor`. Export exactly one `test_<snake_case>` function from a matching filename.
+- **Function-per-file:** `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, and `test-utils` discover `src/features/**/test_*.ts` through `DynamicExecutor`. Export exactly one `test_<snake_case>` function from a matching filename. `DynamicExecutor` selects and reports a test by its exported name, so a name that disagrees with its file makes the test unreachable by that file's name; `test-feature-identity` enforces the agreement.
 - **Generated matrices:** `test-typia-automated` and `test-utils-automated` delete and regenerate `src/features/**` when they run. Do not hand-edit those trees. Change the controller/template metadata or `@typia/template`; keep the committed ObjectSimple composite layer in `test-typia-automated/src/composite/**` hand-maintained.
 - **CLI generation:** `test-typia-generate` owns hand-written inputs under `src/input/**`; its scripts regenerate `src/output/**`, exercise directory, file, explicit-project, implicit-project, and jsconfig modes, then compile and check the output.
 - **Transform-error stripping:** `test-error` compiles invalid call sites and compares source and emitted JavaScript. Add cases beside their feature group and preserve the harness contract.
 - **Type compilation:** `test-interface` is a compile-only `ttsc` suite for `@typia/interface` type contracts.
 - **CLI process integration:** `test-typia-cli` creates temporary projects and spawns `pnpm exec ttsc` against them. Its fixtures live outside the workspace, so it explicitly shares the root ttsc cache through `TTSC_CACHE_DIR`.
 - **Focused option behavior:** `test-typia-exact-optional` uses a small explicit runner and a plugin entry with `undefined: false`; keep focused compiler-option scenarios there instead of forcing them into DynamicExecutor.
+- **Repository naming integrity:** `test-feature-identity` reads every suite's tracked `src/features` tree through `git ls-files` and asserts each file exports exactly one `test_*` function matching its basename, that helper files export none, and that no two files of one suite export the same name. It owns the hand-written trees only; the generated matrices gitignore `src/features`, so their generator owns their naming.
 
 Use `TestValidator` and `DynamicExecutor` from `@nestia/e2e`, `@typia/template` structures and `TestServant`, and each suite's local `internal/` helpers. Do not reach into another suite's internals or duplicate a reusable structure inside one test workspace.
 
