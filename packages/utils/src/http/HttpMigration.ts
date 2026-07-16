@@ -82,13 +82,29 @@ export namespace HttpMigration {
 
     /** Path parameters. */
     parameters:
-      | Array<string | number | boolean | bigint | null>
-      | Record<string, string | number | boolean | bigint | null>;
+      | HttpMigration.ParameterValue[]
+      | Record<string, HttpMigration.ParameterValue>;
 
     /** Query parameters. */
-    query?: object | undefined;
+    query?: unknown;
+
+    /** Request headers declared by the route. */
+    headers?: object | undefined;
+
+    /** Request cookies declared by the route. */
+    cookies?: object | undefined;
 
     /** Request body. */
-    body?: object | undefined;
+    body?: unknown;
   }
+
+  /** OpenAPI path parameter value. */
+  export type ParameterValue =
+    | string
+    | number
+    | boolean
+    | bigint
+    | null
+    | Array<string | number | boolean | bigint | null>
+    | Record<string, string | number | boolean | bigint | null>;
 }

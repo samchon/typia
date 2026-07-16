@@ -6,7 +6,7 @@ import { OpenApi } from "../openapi/OpenApi";
  * `IHttpMigrateRoute` represents a single API endpoint with all
  * request/response schemas resolved and ready for code generation. Contains
  * {@link parameters} for URL path variables, {@link query} for query strings,
- * {@link headers}, {@link body} for request payload, and
+ * {@link headers}, {@link cookies}, {@link body} for request payload, and
  * {@link success}/{@link exceptions} for responses.
  *
  * @author Jeongho Nam - https://github.com/samchon
@@ -35,13 +35,16 @@ export interface IHttpMigrateRoute {
   /** Combined headers as single object. Null if none. */
   headers: IHttpMigrateRoute.IHeaders | null;
 
+  /** Combined cookies as single object. Null if none. */
+  cookies?: IHttpMigrateRoute.ICookies | null;
+
   /** Combined query parameters as single object. Null if none. */
   query: IHttpMigrateRoute.IQuery | null;
 
   /** Request body metadata. Null if none. */
   body: IHttpMigrateRoute.IBody | null;
 
-  /** Success response (200/201). Null if void return. */
+  /** Representative success response for the declared 2xx class. */
   success: IHttpMigrateRoute.ISuccess | null;
 
   /** Exception responses keyed by status code. */
@@ -65,6 +68,12 @@ export namespace IHttpMigrateRoute {
     /** Parameter type schema. */
     schema: OpenApi.IJsonSchema;
 
+    /** Effective serialization style. Defaults to `simple`. */
+    style?: "matrix" | "label" | "simple";
+
+    /** Effective explode behavior. Defaults to `false`. */
+    explode?: boolean;
+
     /** Returns source parameter definition. */
     parameter: () => OpenApi.IOperation.IParameter;
   }
@@ -79,6 +88,12 @@ export namespace IHttpMigrateRoute {
 
     /** Combined headers schema. */
     schema: OpenApi.IJsonSchema;
+
+    /** Whether the combined headers argument is required. */
+    required?: boolean;
+
+    /** Source parameter serialization metadata. */
+    parameters?: IHttpMigrateRoute.ISerialization[];
 
     /** Returns title. */
     title: () => string | undefined;
@@ -104,6 +119,15 @@ export namespace IHttpMigrateRoute {
     /** Combined query schema. */
     schema: OpenApi.IJsonSchema;
 
+    /** Whether the combined query argument is required. */
+    required?: boolean;
+
+    /** Source parameter serialization metadata. */
+    parameters?: IHttpMigrateRoute.ISerialization[];
+
+    /** Whole-query media metadata for OpenAPI 3.2 `querystring`. */
+    querystring?: IHttpMigrateRoute.IQuerystring;
+
     /** Returns title. */
     title: () => string | undefined;
 
@@ -115,6 +139,51 @@ export namespace IHttpMigrateRoute {
 
     /** Returns named examples. */
     examples: () => Record<string, any> | undefined;
+  }
+
+  /** Whole-query media metadata. */
+  export interface IQuerystring {
+    /** Normalized media type used to serialize the complete query string. */
+    type: string;
+
+    /** Returns the source media type definition. */
+    media: () => OpenApi.IOperation.IMediaType;
+  }
+
+  /** Cookie metadata. */
+  export interface ICookies extends IHeaders {}
+
+  /** Serialization metadata for a grouped request parameter. */
+  export interface ISerialization {
+    /** OpenAPI parameter name sent on the wire. */
+    name: string;
+
+    /** Property key in the grouped argument, or null for an object parameter. */
+    key: string | null;
+
+    /** Object properties owned by an object parameter. */
+    properties: string[] | null;
+
+    /** Required properties owned by an object parameter. */
+    requiredProperties?: string[] | null;
+
+    /** Whether the object parameter accepts undeclared properties. */
+    additionalProperties?: boolean;
+
+    /** Effective serialization style. */
+    style:
+      | "form"
+      | "cookie"
+      | "simple"
+      | "spaceDelimited"
+      | "pipeDelimited"
+      | "deepObject";
+
+    /** Effective explode behavior. */
+    explode: boolean;
+
+    /** Returns source parameter definition. */
+    parameter: () => OpenApi.IOperation.IParameter;
   }
 
   /** Request body metadata. */
@@ -129,11 +198,15 @@ export namespace IHttpMigrateRoute {
     type:
       | "text/plain"
       | "application/json"
+      | `application/${string}+json`
       | "application/x-www-form-urlencoded"
       | "multipart/form-data";
 
     /** Body type schema. */
     schema: OpenApi.IJsonSchema;
+
+    /** Whether the request body is required. */
+    required?: boolean;
 
     /** Returns description. */
     description: () => string | undefined;

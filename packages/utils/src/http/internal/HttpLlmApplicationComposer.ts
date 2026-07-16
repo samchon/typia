@@ -6,6 +6,7 @@ import {
   IJsonSchemaTransformError,
   ILlmSchema,
   IResult,
+  IValidation,
   OpenApi,
 } from "@typia/interface";
 
@@ -149,7 +150,7 @@ export namespace HttpLlmApplicationComposer {
     //----
     // CONSTRUCT SCHEMAS
     //----
-    // merge path parameters, query, and body into a single object schema
+    // merge path parameters and grouped request inputs into one object schema
     const parameters: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: Object.fromEntries([
@@ -164,6 +165,40 @@ export namespace HttpLlmApplicationComposer {
               },
             ] as const,
         ),
+        // header parameters
+        ...(props.route.headers
+          ? [
+              [
+                props.route.headers.key,
+                {
+                  ...props.route.headers.schema,
+                  title:
+                    props.route.headers.title() ??
+                    props.route.headers.schema.title,
+                  description:
+                    props.route.headers.description() ??
+                    props.route.headers.schema.description,
+                },
+              ] as const,
+            ]
+          : []),
+        // cookie parameters
+        ...(props.route.cookies
+          ? [
+              [
+                props.route.cookies.key,
+                {
+                  ...props.route.cookies.schema,
+                  title:
+                    props.route.cookies.title() ??
+                    props.route.cookies.schema.title,
+                  description:
+                    props.route.cookies.description() ??
+                    props.route.cookies.schema.description,
+                },
+              ] as const,
+            ]
+          : []),
         // query parameters
         ...(props.route.query
           ? [
@@ -196,7 +231,22 @@ export namespace HttpLlmApplicationComposer {
           : []),
       ]),
     };
-    parameters.required = Object.keys(parameters.properties ?? {});
+    const required: string[] = [
+      ...props.route.parameters.map((parameter) => parameter.key),
+      ...(props.route.headers && props.route.headers.required !== false
+        ? [props.route.headers.key]
+        : []),
+      ...(props.route.cookies && props.route.cookies.required !== false
+        ? [props.route.cookies.key]
+        : []),
+      ...(props.route.query && props.route.query.required !== false
+        ? [props.route.query.key]
+        : []),
+      ...(props.route.body && props.route.body.required !== false
+        ? [props.route.body.key]
+        : []),
+    ];
+    if (required.length !== 0) parameters.required = required;
 
     // convert merged object schema to LLM parameters
     const llmParameters: IResult<
@@ -252,6 +302,46 @@ export namespace HttpLlmApplicationComposer {
       return null;
     }
 
+    const validate = OpenApiValidator.create({
+      components: props.components,
+      schema: parameters,
+      required: true,
+      equals: props.config.equals ?? false,
+    });
+    // The normal non-equals validator intentionally ignores additional
+    // properties. For a flattened optional object, that would let the absent
+    // union branch hide missing fields after any object-owned key is supplied.
+    const conditionalGroups = [
+      props.route.headers,
+      props.route.cookies,
+      props.route.query,
+    ].flatMap((group) => {
+      if (group === null || group === undefined) return [];
+      const serializations = group.parameters ?? [];
+      const object = serializations.find(
+        (parameter) =>
+          parameter.key === null &&
+          parameter.parameter().required !== true &&
+          (parameter.requiredProperties?.length ?? 0) !== 0,
+      );
+      if (object === undefined || serializations.length === 1) return [];
+      const schema = resolveSchema(props.components)(group.schema);
+      if (!("oneOf" in schema) || schema.oneOf[1] === undefined) return [];
+      return [
+        {
+          key: group.key,
+          object,
+          serializations,
+          validate: OpenApiValidator.create({
+            components: props.components,
+            schema: schema.oneOf[1],
+            required: true,
+            equals: props.config.equals ?? false,
+          }),
+        },
+      ];
+    });
+
     // assemble the LLM function
     return {
       method: props.route.method as "get",
@@ -264,15 +354,85 @@ export namespace HttpLlmApplicationComposer {
       tags: operation.tags,
       parse: (input: string) => LlmJson.parse(input, llmParameters.value),
       coerce: (input: unknown) => LlmJson.coerce(input, llmParameters.value),
-      validate: OpenApiValidator.create({
-        components: props.components,
-        schema: parameters,
-        required: true,
-        equals: props.config.equals ?? false,
-      }),
+      validate: (input: unknown): IValidation<unknown> => {
+        const result: IValidation<unknown> = validate(input);
+        if (result.success === false || conditionalGroups.length === 0)
+          return result;
+        const record = result.data as Record<string, unknown>;
+        for (const group of conditionalGroups) {
+          const value = record[group.key];
+          if (
+            typeof value !== "object" ||
+            value === null ||
+            Array.isArray(value)
+          )
+            continue;
+          if (
+            isObjectParameterProvided({
+              input: value as Record<string, unknown>,
+              object: group.object,
+              serializations: group.serializations,
+            }) === false
+          )
+            continue;
+          const exact: IValidation<unknown> = group.validate(value);
+          if (exact.success === false)
+            return {
+              ...exact,
+              data: result.data,
+              errors: exact.errors.map((error) => ({
+                ...error,
+                path: error.path.replace("$input", `$input.${group.key}`),
+              })),
+            };
+        }
+        return result;
+      },
       route: () => props.route as any,
       operation: () => props.route.operation(),
     };
+  };
+
+  const resolveSchema =
+    (components: OpenApi.IComponents) =>
+    (input: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
+      let schema: OpenApi.IJsonSchema = input;
+      const visited: Set<string> = new Set();
+      while ("$ref" in schema) {
+        const key: string = schema.$ref.replace("#/components/schemas/", "");
+        if (
+          key === schema.$ref ||
+          visited.has(key) ||
+          components.schemas?.[key] === undefined
+        )
+          break;
+        visited.add(key);
+        schema = components.schemas[key]!;
+      }
+      return schema;
+    };
+
+  const isObjectParameterProvided = (props: {
+    input: Record<string, unknown>;
+    object: IHttpMigrateRoute.ISerialization;
+    serializations: IHttpMigrateRoute.ISerialization[];
+  }): boolean => {
+    const properties = new Set(props.object.properties ?? []);
+    const occupied = new Set(
+      props.serializations
+        .filter((parameter) => parameter !== props.object)
+        .flatMap((parameter) =>
+          parameter.key !== null
+            ? [parameter.key]
+            : (parameter.properties ?? []),
+        ),
+    );
+    return Object.entries(props.input).some(
+      ([key, value]) =>
+        value !== undefined &&
+        (properties.has(key) ||
+          (props.object.additionalProperties === true && !occupied.has(key))),
+    );
   };
 
   /**
