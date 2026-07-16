@@ -61,9 +61,11 @@ type KebabageObject<T extends object> =
                 : T extends NativeClass
                   ? T
                   : {
-                      [Key in keyof T as KebabageString<
-                        Key & string
-                      >]: KebabageMain<T[Key]>;
+                      [Key in keyof T as Key extends string
+                        ? KebabageString<Key>
+                        : Key extends number
+                          ? Key
+                          : never]: KebabageMain<T[Key]>;
                     };
 
 /* -----------------------------------------------------------

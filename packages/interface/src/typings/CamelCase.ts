@@ -53,9 +53,11 @@ type CamelizeObject<T extends object> =
                 : T extends NativeClass
                   ? T
                   : {
-                      [Key in keyof T as CamelizeString<
-                        Key & string
-                      >]: CamelizeMain<T[Key]>;
+                      [Key in keyof T as Key extends string
+                        ? CamelizeString<Key>
+                        : Key extends number
+                          ? Key
+                          : never]: CamelizeMain<T[Key]>;
                     };
 
 type CamelizeArray<T extends readonly unknown[]> = {

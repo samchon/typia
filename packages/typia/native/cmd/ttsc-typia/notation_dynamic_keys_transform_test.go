@@ -105,6 +105,8 @@ const notationDynamicKeysSource = `import typia from "typia";
 
 type UnderscoreRecord = Record<string, { inner_key: string }>;
 type CamelRecord = Record<string, { innerValue: string }>;
+type NumericRecord = Record<number, { innerValue: string }>;
+type TemplateRecord = Record<` + "`item_${string}`" + `, { inner_key: string }>;
 interface SnakeLiteral { "__proto__": { innerValue: string }; }
 interface CamelMixed {
   user_id: { inner_key: string };
@@ -115,6 +117,10 @@ export const snakeLiteral = (input: SnakeLiteral) =>
   typia.notations.snake<SnakeLiteral>(input);
 export const mixedCamel = (input: CamelMixed) =>
   typia.notations.camel<CamelMixed>(input);
+export const numericSnake = (input: NumericRecord) =>
+  typia.notations.snake<NumericRecord>(input);
+export const templateCamel = (input: TemplateRecord) =>
+  typia.notations.camel<TemplateRecord>(input);
 
 export const camel = {
   direct: (input: UnderscoreRecord) => typia.notations.camel<UnderscoreRecord>(input),
@@ -187,6 +193,16 @@ for (const key of ["user_id", "userId", "userId"]) {
   if (!String(mixedCollision.message).includes(JSON.stringify(key))) {
     throw new Error("camel mixed collision omitted " + key + ": " + mixedCollision.message);
   }
+}
+
+const numeric = mod.numericSnake({ 7: { innerValue: "numeric" } });
+if (!Object.hasOwn(numeric, "7") || !Object.hasOwn(numeric[7], "inner_value")) {
+  throw new Error("snake numeric index key disagreed with its mapped return type");
+}
+
+const template = mod.templateCamel({ item_user_id: { inner_key: "template" } });
+if (!Object.hasOwn(template, "itemUserId") || !Object.hasOwn(template.itemUserId, "innerKey")) {
+  throw new Error("camel template-literal index key was not converted");
 }
 
 const families = [

@@ -53,9 +53,11 @@ type PascalizeObject<T extends object> =
                 : T extends NativeClass
                   ? T
                   : {
-                      [Key in keyof T as PascalizeString<
-                        Key & string
-                      >]: PascalizeMain<T[Key]>;
+                      [Key in keyof T as Key extends string
+                        ? PascalizeString<Key>
+                        : Key extends number
+                          ? Key
+                          : never]: PascalizeMain<T[Key]>;
                     };
 
 type PascalizeArray<T extends readonly unknown[]> = {

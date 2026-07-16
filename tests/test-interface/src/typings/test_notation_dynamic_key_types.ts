@@ -31,6 +31,30 @@ export type NotationDynamicKeyTypeCases = [
       Record<string, { "inner-key": string }>
     >
   >,
+  Assert<
+    IsEqual<
+      CamelCase<{ 0: { inner_key: string } }>,
+      { 0: { innerKey: string } }
+    >
+  >,
+  Assert<
+    IsEqual<
+      PascalCase<Record<number, { inner_key: string }>>,
+      Record<number, { InnerKey: string }>
+    >
+  >,
+  Assert<
+    IsEqual<
+      SnakeCase<Record<number, { innerValue: string }>>,
+      Record<number, { inner_value: string }>
+    >
+  >,
+  Assert<
+    IsEqual<
+      KebabCase<Record<number, { innerValue: string }>>,
+      Record<number, { "inner-value": string }>
+    >
+  >,
 ];
 
 type PascalDynamicActual = PascalCase<Record<string, { inner_key: string }>>;

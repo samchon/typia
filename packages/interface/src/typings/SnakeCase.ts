@@ -57,9 +57,11 @@ type SnakageObject<T extends object> =
                 : T extends NativeClass
                   ? T
                   : {
-                      [Key in keyof T as SnakageString<
-                        Key & string
-                      >]: SnakageMain<T[Key]>;
+                      [Key in keyof T as Key extends string
+                        ? SnakageString<Key>
+                        : Key extends number
+                          ? Key
+                          : never]: SnakageMain<T[Key]>;
                     };
 
 /* -----------------------------------------------------------

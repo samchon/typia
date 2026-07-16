@@ -15,7 +15,8 @@
  * - **Primitives** (`string`, `number`, `boolean`, `bigint`, `symbol`, `null`,
  *   `undefined`): returned as-is
  * - **Functions**: returned as-is
- * - **Arrays**: element type becomes `DeepPartial<U>`
+ * - **Arrays and tuples**: members become deeply partial while mutability and
+ *   tuple positions are preserved
  * - **Objects**: all properties become optional with `DeepPartial` applied
  *
  * @author Michael - https://github.com/8471919
