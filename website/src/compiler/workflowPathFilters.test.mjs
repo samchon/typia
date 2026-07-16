@@ -160,7 +160,7 @@ test("workflow contracts match consumed inputs and compiler provenance", async (
   assert.match(releaseWebsiteText, /test -n "\$\{TTSC_VERSION\}"/);
   assert.match(
     releaseWebsiteText,
-    /git clone --branch "v\$\{TTSC_VERSION\}" --depth 1/,
+    /git clone --branch "v\$\{TTSC_VERSION\}" --depth 1 https:\/\/github\.com\/samchon\/ttsc\.git \.\.\/ttsc/,
   );
   assert.doesNotMatch(
     releaseWebsiteText,
