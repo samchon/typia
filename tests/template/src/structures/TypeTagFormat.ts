@@ -109,7 +109,7 @@ export namespace TypeTagFormat {
       return ["$input.iri"];
     },
     (input) => {
-      input.iriReference = "/네스티아";
+      input.iriReference = "/relative/%2";
       return ["$input.iriReference"];
     },
     ...[_randomFormatIpv6(), "127.0.0.1234", "github.com"].map(
