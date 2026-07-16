@@ -86,7 +86,7 @@ export namespace HttpMigration {
       | Record<string, HttpMigration.ParameterValue>;
 
     /** Query parameters. */
-    query?: object | undefined;
+    query?: unknown;
 
     /** Request headers declared by the route. */
     headers?: object | undefined;

@@ -240,8 +240,11 @@ export namespace OpenApiV3_2 {
       /** Parameter location. */
       in: "path" | "query" | "querystring" | "header" | "cookie";
 
-      /** Parameter schema. */
-      schema: IJsonSchema;
+      /** Parameter schema for every location except `querystring`. */
+      schema?: IJsonSchema;
+
+      /** Media types for a content-backed `querystring` parameter. */
+      content?: Record<string, IMediaType>;
 
       /** Whether required. */
       required?: boolean;

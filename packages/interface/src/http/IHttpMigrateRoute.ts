@@ -125,6 +125,9 @@ export namespace IHttpMigrateRoute {
     /** Source parameter serialization metadata. */
     parameters?: IHttpMigrateRoute.ISerialization[];
 
+    /** Whole-query media metadata for OpenAPI 3.2 `querystring`. */
+    querystring?: IHttpMigrateRoute.IQuerystring;
+
     /** Returns title. */
     title: () => string | undefined;
 
@@ -136,6 +139,15 @@ export namespace IHttpMigrateRoute {
 
     /** Returns named examples. */
     examples: () => Record<string, any> | undefined;
+  }
+
+  /** Whole-query media metadata. */
+  export interface IQuerystring {
+    /** Normalized media type used to serialize the complete query string. */
+    type: string;
+
+    /** Returns the source media type definition. */
+    media: () => OpenApi.IOperation.IMediaType;
   }
 
   /** Cookie metadata. */

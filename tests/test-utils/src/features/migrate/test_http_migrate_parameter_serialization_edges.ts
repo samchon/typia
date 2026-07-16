@@ -75,6 +75,18 @@ export const test_http_migrate_parameter_serialization_edges =
 
     await HttpMigration.execute({
       connection,
+      route: findRoute(migration.routes, "/optional"),
+      parameters: [],
+      query: { limit: 1, nested: "x", arbitrary: "preserved" },
+    });
+    TestValidator.equals(
+      "implicit additional property",
+      "preserved",
+      captured!.searchParams.get("arbitrary"),
+    );
+
+    await HttpMigration.execute({
+      connection,
       route: findRoute(migration.routes, "/required-empty"),
       parameters: [],
       query: {},
@@ -117,6 +129,11 @@ export const test_http_migrate_parameter_serialization_edges =
       optional.validate({ query: { limit: 1, other: "x" } }).success,
     );
     TestValidator.equals(
+      "implicit open object partial input rejected",
+      false,
+      optional.validate({ query: { limit: 1, arbitrary: "x" } }).success,
+    );
+    TestValidator.equals(
       "adapter-style optional object partial input rejected",
       false,
       LlmJson.validateArguments(optional, {
@@ -127,7 +144,7 @@ export const test_http_migrate_parameter_serialization_edges =
       "optional object complete input accepted",
       true,
       optional.validate({
-        query: { limit: 1, nested: "x", other: "y" },
+        query: { limit: 1, nested: "x", other: "y", arbitrary: "z" },
       }).success,
     );
   };

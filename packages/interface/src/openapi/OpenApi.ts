@@ -242,8 +242,11 @@ export namespace OpenApi {
       /** Parameter location. */
       in: "path" | "query" | "querystring" | "header" | "cookie";
 
-      /** Parameter schema. */
+      /** Normalized parameter schema. */
       schema: IJsonSchema;
+
+      /** Source media types for a content-backed querystring parameter. */
+      content?: IContent;
 
       /** Whether required. */
       required?: boolean;

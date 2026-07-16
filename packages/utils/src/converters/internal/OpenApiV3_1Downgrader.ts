@@ -134,7 +134,7 @@ export namespace OpenApiV3_1Downgrader {
     (
       input: OpenApi.IOperation.IParameter,
     ): OpenApiV3_1.IOperation.IParameter => {
-      const { style, ...rest } = input;
+      const { style, content: _content, ...rest } = input;
       return {
         ...rest,
         in: input.in === "querystring" ? "query" : input.in,

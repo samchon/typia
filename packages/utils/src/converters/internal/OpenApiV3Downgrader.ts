@@ -120,7 +120,7 @@ export namespace OpenApiV3Downgrader {
   const downgradeParameter =
     (collection: IComponentsCollection) =>
     (input: OpenApi.IOperation.IParameter): OpenApiV3.IOperation.IParameter => {
-      const { style, ...rest } = input;
+      const { style, content: _content, ...rest } = input;
       return {
         ...rest,
         in: input.in === "querystring" ? "query" : input.in,

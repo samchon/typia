@@ -122,10 +122,10 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
     cookies: { session: "new", theme: "dark" },
     query: {
       ids: [1, 2],
-      tags: ["a", "b"],
+      tags: ["a!", "b*"],
       points: [1, 2],
-      colors: ["red", "blue"],
-      role: "admin",
+      colors: ["red~", "blue!"],
+      "role!": "admin!",
       active: true,
     },
     body: { title: "hello" },
@@ -139,7 +139,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   );
   TestValidator.equals(
     "pipe delimited",
-    "a|b",
+    "a!|b*",
     sent.url.searchParams.get("tags"),
   );
   TestValidator.equals(
@@ -149,18 +149,23 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   );
   TestValidator.equals(
     "form explode true",
-    ["red", "blue"],
+    ["red~", "blue!"],
     sent.url.searchParams.getAll("colors"),
   );
   TestValidator.equals(
     "deep object role",
-    "admin",
-    sent.url.searchParams.get("filter[role]"),
+    "admin!",
+    sent.url.searchParams.get("filter[role!]"),
   );
   TestValidator.equals(
     "deep object active",
     "true",
     sent.url.searchParams.get("filter[active]"),
+  );
+  TestValidator.equals(
+    "exact query wire format",
+    "?ids=1,2&tags=a%21|b%2A&colors=red~&colors=blue%21&points=1%202&filter[role%21]=admin%21&filter[active]=true",
+    sent.url.search,
   );
   TestValidator.equals(
     "content type wins",
@@ -296,7 +301,7 @@ const document: OpenApiV3_1.IDocument = {
             schema: {
               type: "object",
               properties: {
-                role: { type: "string" },
+                "role!": { type: "string" },
                 active: { type: "boolean" },
               },
             },

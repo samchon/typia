@@ -217,10 +217,17 @@ export namespace OpenApiV3_2Upgrader {
       const { required: inputRequired, ...rest } = input;
       const required: boolean | undefined =
         input.in === "path" ? true : inputRequired;
+      const content: OpenApi.IOperation.IContent | undefined = input.content
+        ? convertContent(components)(input.content)
+        : undefined;
       return {
         ...rest,
         ...(required !== undefined ? { required } : {}),
-        schema: convertSchema(components)(input.schema),
+        schema:
+          input.schema !== undefined
+            ? convertSchema(components)(input.schema)
+            : (Object.values(content ?? {})[0]?.schema ?? {}),
+        content,
         examples: input.examples
           ? Object.fromEntries(
               Object.entries(input.examples)

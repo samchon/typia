@@ -135,6 +135,8 @@ flowchart
 
 Path parameters, headers, cookies, query parameters, and request bodies remain separate argument groups in each generated function. OpenAPI `required`, `style`, and `explode` metadata controls both the LLM schema and the executed request, so optional query or body groups may be omitted and arrays or objects use their declared wire format.
 
+Ordinary styled query parameters preserve OpenAPI's structural delimiters while encoding names and values with RFC 3986 rules. An OpenAPI 3.2 `querystring` parameter instead represents the complete query as one content-backed value; for example, `application/x-www-form-urlencoded` uses form encoding, including `+` for spaces.
+
 Connection headers provide defaults, operation arguments override matching headers, and a serialized body selects its final `Content-Type`. Cookie arguments are merged by cookie name with any connection-level `Cookie` header. The default `form` cookie style percent-encodes names and values, while OpenAPI 3.2's `cookie` style passes pre-escaped data through unchanged. Browsers may still prevent JavaScript from setting restricted headers such as `Cookie`.
 
 Every `2xx` response is treated as successful, including bodyless `204` and `205` responses. Failed responses retain their parsed JSON, form, multipart, binary, or text body in `HttpError`, and repeated `Set-Cookie` fields are exposed as separate response-header values when the runtime provides that information.

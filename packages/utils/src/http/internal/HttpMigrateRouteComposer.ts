@@ -77,6 +77,21 @@ export namespace HttpMigrateRouteComposer {
       );
       if (parameters.length === 0) return null;
 
+      if (type === "query") {
+        const querystrings = parameters.filter((p) => p.in === "querystring");
+        const queries = parameters.filter((p) => p.in === "query");
+        if (querystrings.length > 1) {
+          failures.push("querystring parameter must appear at most once");
+          return false;
+        }
+        if (querystrings.length !== 0 && queries.length !== 0) {
+          failures.push(
+            "querystring parameter cannot coexist with query parameters",
+          );
+          return false;
+        }
+      }
+
       const canonical = (name: string): string =>
         type === "header" ? name.toLowerCase() : name;
       const named = parameters.filter((p) => p.name !== undefined);
@@ -87,6 +102,85 @@ export namespace HttpMigrateRouteComposer {
       if (new Set(named.map((p) => canonical(p.name!))).size !== named.length) {
         failures.push(`${type} typed parameter names must be unique`);
         return false;
+      }
+
+      const out = (
+        elem: {
+          schema: OpenApi.IJsonSchema;
+          title?: string;
+          description?: string;
+          example?: any;
+          examples?: Record<string, any>;
+          querystring?: IHttpMigrateRoute.IQuerystring;
+        },
+        serializations: IHttpMigrateRoute.ISerialization[],
+      ) =>
+        ({
+          ...elem,
+          name: type,
+          key: type,
+          required: parameters.some((p) => p.required === true),
+          parameters: serializations,
+          title: () => elem.title,
+          description: () => elem.description,
+          example: () => elem.example,
+          examples: () => elem.examples,
+        }) satisfies IHttpMigrateRoute.IHeaders;
+
+      if (
+        type === "query" &&
+        parameters[0]?.in === "querystring" &&
+        parameters[0].content !== undefined
+      ) {
+        const parameter = parameters[0];
+        const entries = Object.entries(parameter.content ?? {}).filter(
+          (entry): entry is [string, OpenApi.IOperation.IMediaType] =>
+            entry[1] !== undefined,
+        );
+        if (entries.length !== 1) {
+          failures.push(
+            "querystring parameter must define exactly one content media type",
+          );
+          return false;
+        }
+        const [mediaType, media] = entries[0]!;
+        const normalized: string = normalizeMediaType(mediaType);
+        const schema: OpenApi.IJsonSchema = resolveSchema(props.document)(
+          parameter.schema,
+        );
+        if (
+          normalized === "application/x-www-form-urlencoded" &&
+          OpenApiTypeChecker.isObject(schema) === false
+        ) {
+          failures.push(
+            "application/x-www-form-urlencoded querystring parameter requires an object schema",
+          );
+          return false;
+        }
+        if (
+          normalized !== "application/x-www-form-urlencoded" &&
+          isJsonMediaType(normalized) === false &&
+          OpenApiTypeChecker.isBoolean(schema) === false &&
+          OpenApiTypeChecker.isInteger(schema) === false &&
+          OpenApiTypeChecker.isNumber(schema) === false &&
+          OpenApiTypeChecker.isString(schema) === false
+        ) {
+          failures.push(
+            `querystring media type ${JSON.stringify(normalized)} requires a scalar schema or JSON representation`,
+          );
+          return false;
+        }
+        return out(
+          {
+            ...parameter,
+            schema: sanitizeSchema(props.document)(parameter.schema),
+            querystring: {
+              type: normalized,
+              media: () => media,
+            },
+          },
+          [],
+        );
       }
 
       // CHECK PARAMETER TYPES -> TO BE OBJECT
@@ -165,7 +259,6 @@ export namespace HttpMigrateRouteComposer {
               object === undefined ? null : (object.schema.required ?? []),
             additionalProperties:
               object !== undefined &&
-              object.schema.additionalProperties !== undefined &&
               object.schema.additionalProperties !== false,
             style: style as IHttpMigrateRoute.ISerialization["style"],
             explode,
@@ -173,27 +266,11 @@ export namespace HttpMigrateRouteComposer {
           };
         },
       );
-      const out = (elem: {
-        schema: OpenApi.IJsonSchema;
-        title?: string;
-        description?: string;
-        example?: any;
-        examples?: Record<string, any>;
-      }) =>
-        ({
-          ...elem,
-          name: type,
-          key: type,
-          required: parameters.some((p) => p.required === true),
-          parameters: serialization,
-          title: () => elem.title,
-          description: () => elem.description,
-          example: () => elem.example,
-          examples: () => elem.examples,
-        }) satisfies IHttpMigrateRoute.IHeaders;
-
       if (objectParameters.length === 1 && primitives.length === 0)
-        return out(sanitizeParameter(props.document)(parameters[0]!));
+        return out(
+          sanitizeParameter(props.document)(parameters[0]!),
+          serialization,
+        );
       else if (objectParameters.length > 1) {
         failures.push(`${type} typed parameters must be only one object type`);
         return false;
@@ -265,16 +342,19 @@ export namespace HttpMigrateRouteComposer {
           : entire;
       return parameters.length === 0
         ? null
-        : out({
-            schema: emplaceReference({
-              document: props.document,
-              name:
-                EndpointUtil.pascal(`I/Api/${props.path}`) +
-                "." +
-                EndpointUtil.pascal(`${props.method}/${type}`),
-              schema,
-            }),
-          });
+        : out(
+            {
+              schema: emplaceReference({
+                document: props.document,
+                name:
+                  EndpointUtil.pascal(`I/Api/${props.path}`) +
+                  "." +
+                  EndpointUtil.pascal(`${props.method}/${type}`),
+                schema,
+              }),
+            },
+            serialization,
+          );
     });
 
     //----
@@ -594,6 +674,7 @@ export namespace HttpMigrateRouteComposer {
     (operation: OpenApi.IOperation): void => {
       operation.parameters?.forEach((parameter) => {
         parameter.schema = sanitizeSchema(document)(parameter.schema);
+        sanitizeContentSchemas(document)(parameter.content);
       });
       sanitizeContentSchemas(document)(operation.requestBody?.content);
       Object.values(operation.responses ?? {}).forEach((response) =>

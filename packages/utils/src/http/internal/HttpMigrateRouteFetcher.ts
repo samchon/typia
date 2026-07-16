@@ -46,7 +46,12 @@ const propagateRequest = async (
 
   validateGroup(error)("headers", props.route.headers, props.headers);
   validateGroup(error)("cookies", props.route.cookies ?? null, props.cookies);
-  validateGroup(error)("query", props.route.query, props.query);
+  validateGroup(error)(
+    "query",
+    props.route.query,
+    props.query,
+    props.route.query?.querystring === undefined,
+  );
   validateBody(error)(props.route.body, props.body);
 
   const headers: Headers = requestHeaders(error)(props);
@@ -114,7 +119,8 @@ const validateGroup =
       | IHttpMigrateRoute.ICookies
       | IHttpMigrateRoute.IBody
       | null,
-    input: object | undefined,
+    input: unknown,
+    objectOnly: boolean = true,
   ): void => {
     if (metadata === null) {
       if (input !== undefined) throw error(`${name} is not matched.`);
@@ -123,6 +129,7 @@ const validateGroup =
     if ((metadata.required ?? true) && input === undefined)
       throw error(`${name} is not matched.`);
     if (
+      objectOnly &&
       input !== undefined &&
       (typeof input !== "object" || input === null || Array.isArray(input))
     )
@@ -258,9 +265,35 @@ const getPath = (
               : serializePath(found.parameter, found.value);
           },
         );
-  if (props.route.query && props.query)
-    path += getQueryPath(error, props.route.query, props.query);
+  if (props.route.query && props.query !== undefined)
+    path +=
+      props.route.query.querystring !== undefined
+        ? getQuerystringPath(error, props.route.query, props.query)
+        : getQueryPath(error, props.route.query, props.query as object);
   return path;
+};
+
+const getQuerystringPath = (
+  error: (message: string) => Error,
+  route: IHttpMigrateRoute.IQuery,
+  query: unknown,
+): string => {
+  const type: string = route.querystring!.type;
+  let serialized: string;
+  if (type === "application/x-www-form-urlencoded") {
+    if (!isRecord(query)) throw error(`query must be an object for ${type}.`);
+    serialized = requestQueryBody(query).toString();
+  } else if (isJsonMediaType(type)) {
+    const value: string | undefined = JSON.stringify(query);
+    if (value === undefined)
+      throw error(`query cannot be serialized as ${type}.`);
+    serialized = encodeRfc3986(value);
+  } else {
+    if (typeof query === "object" && query !== null)
+      throw error(`query must be a scalar for ${type}.`);
+    serialized = encodeRfc3986(query);
+  }
+  return serialized.length === 0 ? "" : `?${serialized}`;
 };
 
 const getQueryPath = (
@@ -268,8 +301,8 @@ const getQueryPath = (
   route: IHttpMigrateRoute.IQuery,
   query: object,
 ): string => {
-  const variables = new URLSearchParams();
   if (route.parameters === undefined) {
+    const variables = new URLSearchParams();
     for (const [key, value] of Object.entries(query))
       if (value === undefined) continue;
       else if (Array.isArray(value))
@@ -277,6 +310,7 @@ const getQueryPath = (
       else variables.set(key, String(value));
     return variables.size === 0 ? "" : `?${variables.toString()}`;
   }
+  const variables: string[] = [];
   for (const metadata of route.parameters) {
     const value = parameterValue(metadata, query, route.parameters);
     if (value === undefined) {
@@ -284,10 +318,9 @@ const getQueryPath = (
         throw error(`query ${JSON.stringify(metadata.name)} is required.`);
       continue;
     }
-    for (const [key, elem] of serializeQuery(metadata, value))
-      variables.append(key, elem);
+    variables.push(...serializeQuery(metadata, value));
   }
-  return variables.size === 0 ? "" : `?${variables.toString()}`;
+  return variables.length === 0 ? "" : `?${variables.join("&")}`;
 };
 
 const parameterValue = (
@@ -322,44 +355,47 @@ const parameterValue = (
 const serializeQuery = (
   metadata: IHttpMigrateRoute.ISerialization,
   value: unknown,
-): [string, string][] => {
+): string[] => {
+  const encode = encodeRfc3986;
+  const name: string = encode(metadata.name);
+  const pair = (key: unknown, elem: unknown): string =>
+    `${encode(key)}=${encode(elem)}`;
   if (metadata.style === "deepObject")
-    return objectEntries(value).map(([key, elem]) => [
-      `${metadata.name}[${key}]`,
-      String(elem),
-    ]);
+    return objectEntries(value).map(
+      ([key, elem]) => `${name}[${encode(key)}]=${encode(elem)}`,
+    );
   if (
     metadata.style === "spaceDelimited" ||
     metadata.style === "pipeDelimited"
   ) {
     const delimiter = metadata.style === "spaceDelimited" ? " " : "|";
     return [
-      [
-        metadata.name,
+      `${name}=${
         isRecord(value)
           ? objectEntries(value)
-              .flatMap(([key, elem]) => [key, String(elem)])
-              .join(delimiter)
-          : arrayValues(value).map(String).join(delimiter),
-      ],
+              .flatMap(([key, elem]) => [encode(key), encode(elem)])
+              .join(delimiter === " " ? "%20" : delimiter)
+          : arrayValues(value)
+              .map(encode)
+              .join(delimiter === " " ? "%20" : delimiter)
+      }`,
     ];
   }
   if (Array.isArray(value))
     return metadata.explode
-      ? value.map((elem) => [metadata.name, String(elem)])
-      : [[metadata.name, value.map(String).join(",")]];
+      ? value.map((elem) => `${name}=${encode(elem)}`)
+      : [`${name}=${value.map(encode).join(",")}`];
   if (isRecord(value)) {
     const entries = objectEntries(value);
     return metadata.explode
-      ? entries.map(([key, elem]) => [key, String(elem)])
+      ? entries.map(([key, elem]) => pair(key, elem))
       : [
-          [
-            metadata.name,
-            entries.flatMap(([key, elem]) => [key, String(elem)]).join(","),
-          ],
+          `${name}=${entries
+            .flatMap(([key, elem]) => [encode(key), encode(elem)])
+            .join(",")}`,
         ];
   }
-  return [[metadata.name, String(value)]];
+  return [`${name}=${encode(value)}`];
 };
 
 const serializePath = (

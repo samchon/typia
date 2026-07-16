@@ -144,6 +144,7 @@ export namespace SwaggerV2Downgrader {
       const {
         schema,
         required,
+        content: _content,
         style: _style,
         explode: _explode,
         example: _example,
