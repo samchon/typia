@@ -8,11 +8,16 @@ import { toLangChainTools } from "@typia/langchain";
 import typia from "typia";
 
 /**
- * Verifies LangChain consumes generated canonical local references.
+ * Verifies LangChain resolves generated canonical local references.
+ *
+ * LangChain validates tool input against the advertised schema before typia's
+ * own coercion runs, so this boundary is an independent JSON Schema oracle: it
+ * can only reject a violation of the referenced definition after resolving
+ * `#/$defs/RecursiveA~1B`. A fail-open reference would admit both negatives.
  *
  * 1. Advertise a recursive argument whose generated definition key contains `/`.
- * 2. Invoke the real LangChain tool with a valid recursive value.
- * 3. Reject an invalid referenced literal through the adapter boundary.
+ * 2. Execute a valid recursive value through the real LangChain tool.
+ * 3. Reject values violating only the referenced schema at LangChain's own gate.
  */
 export const test_langchain_json_pointer_reference_arguments =
   async (): Promise<void> => {
@@ -29,7 +34,8 @@ export const test_langchain_json_pointer_reference_arguments =
 
     const tree: Recursive<"A/B"> = {
       value: "A/B",
-      children: [{ value: "A/B", children: [] }],
+      count: 42,
+      children: [{ value: "A/B", count: 7, children: [] }],
     };
     const valid = await tool.invoke({ input: tree });
     TestValidator.equals("valid referenced argument executes", valid, {
@@ -37,19 +43,29 @@ export const test_langchain_json_pointer_reference_arguments =
       data: tree,
     });
 
-    try {
-      await tool.invoke({ input: { value: "wrong", children: [] } });
-      throw new Error("Expected referenced argument validation to fail.");
-    } catch (error) {
-      TestValidator.predicate(
-        "invalid referenced argument is rejected",
-        () => error instanceof ToolInputParsingException,
-      );
+    // Both negatives violate only the referenced `Recursive<"A/B">` definition,
+    // so LangChain can reject them only by resolving the encoded reference.
+    for (const [label, input] of [
+      ["referenced numeric property", { value: "A/B", count: "42" }],
+      ["referenced literal property", { value: "wrong", count: 0 }],
+    ] as const) {
+      try {
+        await tool.invoke({ input: { ...input, children: [] } });
+        throw new Error(`Expected ${label} to be rejected.`);
+      } catch (error) {
+        TestValidator.predicate(
+          `LangChain resolves the encoded reference to reject a ${label}`,
+          () =>
+            error instanceof ToolInputParsingException &&
+            error.message.includes("did not match expected schema"),
+        );
+      }
     }
   };
 
 type Recursive<T extends string> = {
   value: T;
+  count: number;
   children: Recursive<T>[];
 };
 

@@ -20,6 +20,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
     ["Plain", "#/$defs/Plain"],
     ["", "#/$defs/"],
     ["A/B", "#/$defs/A~1B"],
+    ["A~1B", "#/$defs/A~01B"],
     ["T~N", "#/$defs/T~0N"],
     ["~1", "#/$defs/~01"],
     ["A B", "#/$defs/A%20B"],
@@ -100,6 +101,20 @@ export const test_llm_schema_json_pointer_references = (): void => {
         Object.values(components.schemas!).some(
           (schema) => (schema as { type?: string }).type === "number",
         ),
+    );
+    TestValidator.predicate(
+      `${label}: inversion keeps raw component identity`,
+      () => Object.hasOwn(components.schemas!, key),
+    );
+    TestValidator.equals(
+      `${label}: inverted reference resolves by JSON Pointer`,
+      resolveLocalReference(
+        { components },
+        (inverted as OpenApi.IJsonSchema.IObject).properties?.value as
+          | OpenApi.IJsonSchema.IReference
+          | undefined,
+      ),
+      components.schemas![key],
     );
     TestValidator.predicate(
       `${label}: inversion is not accept-all`,
@@ -229,7 +244,12 @@ export const test_llm_schema_json_pointer_references = (): void => {
     schema: {
       type: "object",
       properties: Object.fromEntries(
-        valid.map(([key]) => [key, { $ref: `#/components/schemas/${key}` }]),
+        valid.map(([key, $ref]) => [
+          key,
+          {
+            $ref: $ref.replace("#/$defs/", "#/components/schemas/"),
+          },
+        ]),
       ),
       required: valid.map(([key]) => key),
     },
@@ -249,6 +269,133 @@ export const test_llm_schema_json_pointer_references = (): void => {
         refs.includes($ref),
       );
   }
+
+  const collisionDefinitions: Record<string, ILlmSchema> = {};
+  const collision = LlmSchemaConverter.schema({
+    components: {
+      schemas: {
+        "A/B": { type: "number" },
+        "A~1B": {
+          type: "array",
+          prefixItems: [{ type: "string" }],
+        },
+      },
+    },
+    $defs: collisionDefinitions,
+    schema: { $ref: "#/components/schemas/A~1B" },
+  });
+  TestValidator.equals(
+    "encoded reference does not validate the colliding raw key",
+    collision.success,
+    true,
+  );
+  TestValidator.equals(
+    "encoded reference selects the decoded raw component identity",
+    collisionDefinitions,
+    { "A/B": { type: "number" } },
+  );
+
+  const rootParameters = LlmSchemaConverter.parameters({
+    components: {
+      schemas: {
+        "Root/A": {
+          type: "number",
+          description: "parent slash description",
+        },
+        "Root/A.Child": {
+          type: "object",
+          properties: { value: { type: "number" } },
+          required: ["value"],
+          additionalProperties: false,
+        },
+        "Root~1A.Child": { type: "number" },
+      },
+    },
+    schema: { $ref: "#/components/schemas/Root~1A.Child" },
+  });
+  TestValidator.equals(
+    "root parameters decode the raw component identity",
+    rootParameters.success,
+    true,
+  );
+  if (rootParameters.success)
+    TestValidator.predicate(
+      "root parameters cascade the decoded parent description",
+      () =>
+        rootParameters.value.description?.includes(
+          "parent slash description",
+        ) === true,
+    );
+
+  for (const $ref of [
+    "#/components/schemas/A/B",
+    "#/components/schemas/T~N",
+    "#/components/schemas/C%D",
+    "#/components/schemas/A B",
+    "#/components/schemas/A%",
+    "https://example.com/schema.json#/components/schemas/A",
+  ])
+    TestValidator.equals(
+      `${$ref}: malformed OpenAPI reference fails conversion`,
+      LlmSchemaConverter.schema({
+        components: {
+          schemas: {
+            [$ref.replace("#/components/schemas/", "")]: {
+              type: "number",
+            },
+          },
+        },
+        $defs: {},
+        schema: { $ref },
+      }).success,
+      false,
+    );
+
+  const forwardDiscriminatorDefinitions: Record<string, ILlmSchema> = {};
+  const forwardDiscriminator = LlmSchemaConverter.schema({
+    components: {
+      schemas: {
+        "A/B": { type: "number" },
+        "T~N": { type: "string" },
+      },
+    },
+    $defs: forwardDiscriminatorDefinitions,
+    schema: {
+      oneOf: [
+        { $ref: "#/components/schemas/A~1B" },
+        { $ref: "#/components/schemas/T~0N" },
+      ],
+      discriminator: {
+        propertyName: "kind",
+        mapping: {
+          slash: "#/components/schemas/A~1B",
+          tilde: "#/components/schemas/T~0N",
+        },
+      },
+    },
+  });
+  TestValidator.equals(
+    "forward discriminator conversion succeeds",
+    forwardDiscriminator.success,
+    true,
+  );
+  if (forwardDiscriminator.success)
+    TestValidator.equals(
+      "forward discriminator preserves raw component identities",
+      LlmTypeChecker.isAnyOf(forwardDiscriminator.value)
+        ? forwardDiscriminator.value["x-discriminator"]?.mapping
+        : undefined,
+      {
+        slash: "#/$defs/A~1B",
+        tilde: "#/$defs/T~0N",
+      },
+    );
+  TestValidator.predicate(
+    "forward discriminator stores raw component identities",
+    () =>
+      Object.hasOwn(forwardDiscriminatorDefinitions, "A/B") &&
+      Object.hasOwn(forwardDiscriminatorDefinitions, "T~N"),
+  );
 
   const discriminatorDefinitions: Record<string, ILlmSchema> = {
     "A/B": {
@@ -290,4 +437,42 @@ export const test_llm_schema_json_pointer_references = (): void => {
       tilde: "#/components/schemas/T~0N",
     },
   );
+  TestValidator.predicate(
+    "discriminator component identities remain raw",
+    () =>
+      Object.hasOwn(discriminatorComponents.schemas!, "A/B") &&
+      Object.hasOwn(discriminatorComponents.schemas!, "T~N"),
+  );
+  const validateDiscriminator = LlmJson.validate({
+    type: "object",
+    properties: { value: discriminatorSchema },
+    required: ["value"],
+    additionalProperties: false,
+    $defs: discriminatorDefinitions,
+  });
+  TestValidator.equals(
+    "encoded discriminator validates its first branch",
+    validateDiscriminator({ value: { kind: "slash" } }).success,
+    true,
+  );
+  TestValidator.equals(
+    "encoded discriminator validates its later branch",
+    validateDiscriminator({ value: { kind: "tilde" } }).success,
+    true,
+  );
+};
+
+const resolveLocalReference = (
+  document: { components: OpenApi.IComponents },
+  schema: OpenApi.IJsonSchema.IReference | undefined,
+): OpenApi.IJsonSchema | undefined => {
+  if (schema === undefined || schema.$ref.startsWith("#/") === false)
+    return undefined;
+  let current: unknown = document;
+  for (const token of decodeURIComponent(schema.$ref.slice(2)).split("/")) {
+    const key: string = token.replace(/~1/g, "/").replace(/~0/g, "~");
+    if (typeof current !== "object" || current === null) return undefined;
+    current = (current as Record<string, unknown>)[key];
+  }
+  return current as OpenApi.IJsonSchema | undefined;
 };

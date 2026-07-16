@@ -5,6 +5,7 @@ import { ObjectDictionary } from "./ObjectDictionary";
 /** @internal */
 export namespace LlmReference {
   export const PREFIX = "#/$defs/" as const;
+  export const OPENAPI_PREFIX = "#/components/schemas/" as const;
 
   export interface IResolved {
     key: string;
@@ -13,14 +14,26 @@ export namespace LlmReference {
 
   /** Encode one unrestricted `$defs` key as a local URI-fragment reference. */
   export const write = (key: string): `#/$defs/${string}` =>
-    `${PREFIX}${encodeURIComponent(
-      key.replace(/~/g, "~0").replace(/\//g, "~1"),
-    )}`;
+    `${PREFIX}${encode(key)}`;
+
+  /** Encode one component key as an OpenAPI local URI-fragment reference. */
+  export const writeOpenApi = (key: string): `#/components/schemas/${string}` =>
+    `${OPENAPI_PREFIX}${encode(key)}`;
 
   /** Decode one supported local URI-fragment reference into its `$defs` key. */
-  export const read = (reference: string): string | undefined => {
-    if (reference.startsWith(PREFIX) === false) return undefined;
-    const fragment: string = reference.slice(PREFIX.length);
+  export const read = (reference: string): string | undefined =>
+    decode(PREFIX, reference);
+
+  /** Decode one OpenAPI component reference into its component key. */
+  export const readOpenApi = (reference: string): string | undefined =>
+    decode(OPENAPI_PREFIX, reference);
+
+  const encode = (key: string): string =>
+    encodeURIComponent(key.replace(/~/g, "~0").replace(/\//g, "~1"));
+
+  const decode = (prefix: string, reference: string): string | undefined => {
+    if (reference.startsWith(prefix) === false) return undefined;
+    const fragment: string = reference.slice(prefix.length);
     if (
       /^(?:[A-Za-z0-9._~!$&'()*+,;=:@?-]|%[0-9A-Fa-f]{2})*$/.test(fragment) ===
       false
@@ -61,7 +74,10 @@ export namespace LlmReference {
     return schema === undefined ? undefined : { key, schema };
   };
 
-  /** Flatten a reference-only chain, rejecting malformed, missing, or cyclic aliases. */
+  /**
+   * Flatten a reference-only chain, rejecting malformed, missing, or cyclic
+   * aliases.
+   */
   export const dereference = (
     $defs: Record<string, ILlmSchema> | undefined,
     schema: ILlmSchema,
@@ -75,8 +91,4 @@ export namespace LlmReference {
     }
     return schema;
   };
-
-  /** Produce the terminal component key used by LLM-to-OpenAPI inversion. */
-  export const componentKey = (key: string): string =>
-    write(key).slice(PREFIX.length);
 }

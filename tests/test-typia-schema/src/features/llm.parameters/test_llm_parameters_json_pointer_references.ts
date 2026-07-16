@@ -10,7 +10,7 @@ import typia from "typia";
  * reference encodes that key as one RFC 6901 token.
  *
  * 1. Generate recursive definitions containing reserved and Unicode text.
- * 2. Collect every local reference from the root schema and `$defs` graph.
+ * 2. Collect every local reference and discriminator mapping from the graph.
  * 3. Match unchanged keys with their canonical URI-fragment references.
  */
 export const test_llm_parameters_json_pointer_references = (): void => {
@@ -18,6 +18,10 @@ export const test_llm_parameters_json_pointer_references = (): void => {
     value: T;
     children: Recursive<T>[];
   };
+  interface IVariant<T extends string> {
+    kind: T;
+    value: number;
+  }
   interface IArguments {
     slash: Recursive<"A/B">;
     tilde: Recursive<"T~N">;
@@ -26,6 +30,7 @@ export const test_llm_parameters_json_pointer_references = (): void => {
     percent: Recursive<"C%D">;
     unicode: Recursive<"Café">;
     plain: Recursive<"Plain">;
+    discriminated: IVariant<"A/B"> | IVariant<"T~N">;
   }
 
   const parameters: ILlmSchema.IParameters = typia.llm.parameters<IArguments>();
@@ -37,13 +42,19 @@ export const test_llm_parameters_json_pointer_references = (): void => {
     ["RecursiveC%D", "#/$defs/RecursiveC%25D"],
     ["RecursiveCafé", "#/$defs/RecursiveCaf%C3%A9"],
     ["RecursivePlain", "#/$defs/RecursivePlain"],
+    ["IVariantA/B", "#/$defs/IVariantA~1B"],
+    ["IVariantT~N", "#/$defs/IVariantT~0N"],
   ] as const;
 
   const refs: string[] = [];
+  const mappings: Record<string, string>[] = [];
   const collect = (schema: ILlmSchema): void => {
     if ("$ref" in schema) refs.push(schema.$ref);
-    else if ("anyOf" in schema) schema.anyOf.forEach(collect);
-    else if (schema.type === "object") {
+    else if ("anyOf" in schema) {
+      if (schema["x-discriminator"]?.mapping !== undefined)
+        mappings.push(schema["x-discriminator"].mapping);
+      schema.anyOf.forEach(collect);
+    } else if (schema.type === "object") {
       Object.values(schema.properties).forEach(collect);
       if (
         typeof schema.additionalProperties === "object" &&
@@ -63,4 +74,11 @@ export const test_llm_parameters_json_pointer_references = (): void => {
       refs.includes($ref),
     );
   }
+  TestValidator.predicate("encodes discriminator mapping references", () =>
+    mappings.some(
+      (mapping) =>
+        mapping["A/B"] === "#/$defs/IVariantA~1B" &&
+        mapping["T~N"] === "#/$defs/IVariantT~0N",
+    ),
+  );
 };

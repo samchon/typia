@@ -11,7 +11,7 @@ import typia from "typia";
  * Verifies MCP advertises and enforces generated canonical local references.
  *
  * 1. List a recursive slash-key schema through a real in-memory SDK client.
- * 2. Execute and validate a correct referenced result.
+ * 2. Coerce numeric input strings and validate the referenced result.
  * 3. Reject a wrong referenced result through MCP's output error channel.
  */
 export const test_mcp_json_pointer_reference_validation =
@@ -34,10 +34,15 @@ export const test_mcp_json_pointer_reference_validation =
         ),
       );
 
-      const tree: Recursive<"A/B"> = { value: "A/B", children: [] };
+      const raw = { value: "A/B", count: "42", children: [] };
+      const tree: Recursive<"A/B"> = {
+        value: "A/B",
+        count: 42,
+        children: [],
+      };
       const valid = (await client.callTool({
         name,
-        arguments: { input: tree, invalid: false },
+        arguments: { input: raw, invalid: false },
       })) as CallToolResult;
       TestValidator.equals(
         "valid referenced output is structured",
@@ -60,6 +65,7 @@ export const test_mcp_json_pointer_reference_validation =
 
 type Recursive<T extends string> = {
   value: T;
+  count: number;
   children: Recursive<T>[];
 };
 
@@ -69,7 +75,7 @@ class PointerService {
   } {
     return {
       result: props.invalid
-        ? ({ value: "wrong", children: [] } as any)
+        ? ({ value: "wrong", count: 0, children: [] } as any)
         : props.input,
     };
   }

@@ -10,8 +10,10 @@ export namespace JsonDescriptor {
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema.IReference;
     escape: boolean;
+    key?: string;
   }): string | undefined => {
     const accessors: string[] = (
+      props.key ??
       props.schema.$ref.split(props.prefix)[1] ??
       props.schema.$ref.split("/").at(-1)!
     ).split(".");

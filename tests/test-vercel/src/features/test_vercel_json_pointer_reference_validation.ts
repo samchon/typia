@@ -8,7 +8,7 @@ import typia from "typia";
  * Verifies Vercel advertises and enforces generated canonical local references.
  *
  * 1. Convert a recursive slash-key controller through the public adapter.
- * 2. Execute and validate a correct referenced result.
+ * 2. Coerce numeric input strings and validate the referenced result.
  * 3. Reject a wrong referenced result through Vercel's failure branch.
  */
 export const test_vercel_json_pointer_reference_validation =
@@ -22,8 +22,13 @@ export const test_vercel_json_pointer_reference_validation =
       ),
     );
 
-    const tree: Recursive<"A/B"> = { value: "A/B", children: [] };
-    const valid = await execute(tool, tree, false);
+    const raw = { value: "A/B", count: "42", children: [] };
+    const tree: Recursive<"A/B"> = {
+      value: "A/B",
+      count: 42,
+      children: [],
+    };
+    const valid = await execute(tool, raw, false);
     TestValidator.equals("valid referenced output succeeds", valid, {
       success: true,
       data: { result: tree },
@@ -41,6 +46,7 @@ export const test_vercel_json_pointer_reference_validation =
 
 type Recursive<T extends string> = {
   value: T;
+  count: number;
   children: Recursive<T>[];
 };
 
@@ -50,7 +56,7 @@ class PointerService {
   } {
     return {
       result: props.invalid
-        ? ({ value: "wrong", children: [] } as any)
+        ? ({ value: "wrong", count: 0, children: [] } as any)
         : props.input,
     };
   }
@@ -58,7 +64,7 @@ class PointerService {
 
 const execute = (
   tool: Tool,
-  input: Recursive<"A/B">,
+  input: unknown,
   invalid: boolean,
 ): Promise<unknown> =>
   tool.execute!(

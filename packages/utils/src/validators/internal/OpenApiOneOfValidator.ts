@@ -1,6 +1,7 @@
 import { OpenApi } from "@typia/interface";
 
 import { MapUtil } from "../../utils";
+import { LlmReference } from "../../utils/internal/LlmReference";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
@@ -321,17 +322,26 @@ const getFlattened = (props: {
   visited: Set<string>;
 }): IFlatSchema => {
   if (OpenApiTypeChecker.isReference(props.schema)) {
-    const key: string = props.schema.$ref.split("/").pop() ?? "";
-    if (props.visited.has(key))
+    const key: string | undefined = LlmReference.readOpenApi(props.schema.$ref);
+    if (key === undefined || props.visited.has(key))
       return {
         schema: props.schema,
-        escaped: {},
+        escaped: { oneOf: [] },
       };
     props.visited.add(key);
+    const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+      props.components.schemas,
+      key,
+    );
+    if (found === undefined)
+      return {
+        schema: props.schema,
+        escaped: { oneOf: [] },
+      };
     return {
       ...getFlattened({
         components: props.components,
-        schema: ObjectDictionary.get(props.components.schemas, key) ?? {},
+        schema: found,
         visited: props.visited,
       }),
       schema: props.schema,

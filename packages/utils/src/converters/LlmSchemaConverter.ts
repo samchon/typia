@@ -102,6 +102,7 @@ export namespace LlmSchemaConverter {
                 description: result.value.description,
               },
               escape: true,
+              key: LlmReference.readOpenApi(props.schema.$ref)!,
             })
           : result.value.description,
       } satisfies ILlmSchema.IParameters,
@@ -163,36 +164,90 @@ export namespace LlmSchemaConverter {
 
     // VALIDADTE SCHEMA
     const reasons: IJsonSchemaTransformError.IReason[] = [];
-    OpenApiTypeChecker.visit({
-      closure: (next, accessor) => {
-        if (props.config.strict === true) {
-          // STRICT MODE VALIDATION
-          reasons.push(...validateStrict(next, accessor));
-        }
-        if (OpenApiTypeChecker.isTuple(next))
-          reasons.push({
-            accessor,
-            schema: next,
-            message: `LLM does not allow tuple type.`,
-          });
-        else if (OpenApiTypeChecker.isReference(next)) {
-          // UNABLE TO FIND MATCHED REFERENCE
-          const key: string =
-            next.$ref.split("#/components/schemas/")[1] ??
-            next.$ref.split("/").at(-1)!;
-          if (ObjectDictionary.get(props.components.schemas, key) === undefined)
-            reasons.push({
-              schema: next,
-              accessor: accessor,
-              message: `unable to find reference type ${JSON.stringify(key)}.`,
-            });
-        }
-      },
-      components: props.components,
-      schema: props.schema,
-      accessor: props.accessor,
-      refAccessor: props.refAccessor,
-    });
+    const validateReference = (
+      schema: OpenApi.IJsonSchema,
+      reference: string,
+      accessor: string,
+    ): string | undefined => {
+      const key: string | undefined = LlmReference.readOpenApi(reference);
+      if (key === undefined) {
+        reasons.push({
+          schema,
+          accessor,
+          message: `invalid local schema reference ${JSON.stringify(reference)}.`,
+        });
+        return undefined;
+      } else if (
+        ObjectDictionary.get(props.components.schemas, key) === undefined
+      ) {
+        reasons.push({
+          schema,
+          accessor,
+          message: `unable to find reference type ${JSON.stringify(key)}.`,
+        });
+        return undefined;
+      }
+      return key;
+    };
+    const visited: Set<string> = new Set();
+    const validate = (next: OpenApi.IJsonSchema, accessor: string): void => {
+      if (props.config.strict === true)
+        reasons.push(...validateStrict(next, accessor));
+      if (OpenApiTypeChecker.isReference(next)) {
+        const key: string | undefined = validateReference(
+          next,
+          next.$ref,
+          accessor,
+        );
+        if (key === undefined || visited.has(key)) return;
+        visited.add(key);
+        validate(
+          ObjectDictionary.get(props.components.schemas, key)!,
+          `${props.refAccessor ?? "$input.components.schemas"}[${JSON.stringify(key)}]`,
+        );
+      } else if (OpenApiTypeChecker.isOneOf(next)) {
+        if (next.discriminator?.mapping !== undefined)
+          for (const [key, reference] of Object.entries(
+            next.discriminator.mapping,
+          ))
+            validateReference(
+              next,
+              reference,
+              `${accessor}.discriminator.mapping[${JSON.stringify(key)}]`,
+            );
+        next.oneOf.forEach((schema, index) =>
+          validate(schema, `${accessor}.oneOf[${index}]`),
+        );
+      } else if (OpenApiTypeChecker.isObject(next)) {
+        for (const [key, schema] of Object.entries(next.properties ?? {}))
+          validate(schema, `${accessor}.properties[${JSON.stringify(key)}]`);
+        if (
+          typeof next.additionalProperties === "object" &&
+          next.additionalProperties !== null
+        )
+          validate(
+            next.additionalProperties,
+            `${accessor}.additionalProperties`,
+          );
+      } else if (OpenApiTypeChecker.isArray(next))
+        validate(next.items, `${accessor}.items`);
+      else if (OpenApiTypeChecker.isTuple(next)) {
+        reasons.push({
+          accessor,
+          schema: next,
+          message: `LLM does not allow tuple type.`,
+        });
+        (next.prefixItems ?? []).forEach((schema, index) =>
+          validate(schema, `${accessor}.prefixItems[${index}]`),
+        );
+        if (
+          typeof next.additionalItems === "object" &&
+          next.additionalItems !== null
+        )
+          validate(next.additionalItems, `${accessor}.additionalItems`);
+      }
+    };
+    validate(props.schema, props.accessor ?? "$input.schema");
     if (reasons.length > 0)
       return {
         success: false,
@@ -233,9 +288,8 @@ export namespace LlmSchemaConverter {
         input.oneOf.forEach((s, i) => visit(s, `${accessor}.oneOf[${i}]`));
       } else if (OpenApiTypeChecker.isReference(input)) {
         // REFERENCE TYPE
-        const key: string =
-          input.$ref.split("#/components/schemas/")[1] ??
-          input.$ref.split("/").at(-1)!;
+        const key: string | undefined = LlmReference.readOpenApi(input.$ref);
+        if (key === undefined) return; // unreachable after validation
         const target: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
           props.components.schemas,
           key,
@@ -430,16 +484,8 @@ export namespace LlmSchemaConverter {
                 propertyName: props.schema.discriminator.propertyName,
                 mapping:
                   props.schema.discriminator.mapping !== undefined
-                    ? Object.fromEntries(
-                        Object.entries(props.schema.discriminator.mapping).map(
-                          ([key, value]) => [
-                            key,
-                            LlmReference.write(
-                              value.split("#/components/schemas/")[1] ??
-                                value.split("/").at(-1)!,
-                            ),
-                          ],
-                        ),
+                    ? convertDiscriminatorMapping(
+                        props.schema.discriminator.mapping,
                       )
                     : undefined,
               }
@@ -521,7 +567,7 @@ export namespace LlmSchemaConverter {
           union.push({ oneOf: [] });
           return;
         }
-        const componentKey: string = LlmReference.componentKey(resolved.key);
+        const componentKey: string = resolved.key;
         if (
           ObjectDictionary.get(props.components.schemas, componentKey) ===
           undefined
@@ -536,7 +582,7 @@ export namespace LlmSchemaConverter {
         }
         union.push({
           ...schema,
-          $ref: `#/components/schemas/${componentKey}`,
+          $ref: LlmReference.writeOpenApi(componentKey),
         });
       } else if (LlmTypeChecker.isBoolean(schema))
         if (!!schema.enum?.length)
@@ -610,19 +656,30 @@ export namespace LlmSchemaConverter {
   };
 }
 
+const convertDiscriminatorMapping = (
+  mapping: Record<string, string>,
+): Record<string, string> | undefined => {
+  const entries: [string, string][] = [];
+  for (const [discriminator, reference] of Object.entries(mapping)) {
+    const key: string | undefined = LlmReference.readOpenApi(reference);
+    if (key === undefined) return undefined;
+    entries.push([discriminator, LlmReference.write(key)]);
+  }
+  return Object.fromEntries(entries);
+};
+
 const invertDiscriminatorMapping = (
   $defs: Record<string, ILlmSchema>,
   mapping: Record<string, string>,
 ): Record<string, string> | undefined => {
   const entries: [string, string][] = [];
   for (const [discriminator, reference] of Object.entries(mapping)) {
-    const resolved: LlmReference.IResolved | undefined =
-      LlmReference.resolve($defs, reference);
+    const resolved: LlmReference.IResolved | undefined = LlmReference.resolve(
+      $defs,
+      reference,
+    );
     if (resolved === undefined) return undefined;
-    entries.push([
-      discriminator,
-      `#/components/schemas/${LlmReference.componentKey(resolved.key)}`,
-    ]);
+    entries.push([discriminator, LlmReference.writeOpenApi(resolved.key)]);
   }
   return Object.fromEntries(entries);
 };
