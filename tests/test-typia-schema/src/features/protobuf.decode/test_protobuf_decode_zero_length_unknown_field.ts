@@ -13,28 +13,38 @@ import typia from "typia";
  *
  * 1. Round-trip messages whose trailing field is an empty string, bytes value, or
  *    embedded message, and decode them through a schema missing that field.
- * 2. Decode hand-built payloads carrying the same record first, last, and between
- *    two known fields, through every direct and factory decoder.
- * 3. Assert the known fields survive, and that truncated records are still
- *    rejected.
+ * 2. Decode the same record hand-built as the leading and the trailing field,
+ *    through every direct and factory decoder.
+ * 3. Assert the known fields survive that record, an optional one, a packed one,
+ *    and one standing between two known fields, and that truncated records are
+ *    still rejected.
  */
 export const test_protobuf_decode_zero_length_unknown_field = (): void => {
+  // field 1 = "a", then field 2 length-delimited declaring a length of zero
+  const trailing: Uint8Array = Uint8Array.of(0x0a, 1, 0x61, 0x12, 0);
+
   // an unknown zero-length record is what a newer schema's empty field emits
   const evolved: Array<readonly [string, Uint8Array]> = [
-    ["empty string", typia.protobuf.encode<IString>({ value: "a", extra: "" })],
+    [
+      "empty string",
+      typia.protobuf.encode<IEvolvedString>({ value: "a", extra: "" }),
+    ],
     [
       "empty bytes",
-      typia.protobuf.encode<IBytes>({ value: "a", extra: new Uint8Array(0) }),
+      typia.protobuf.encode<IEvolvedBytes>({
+        value: "a",
+        extra: new Uint8Array(0),
+      }),
     ],
     [
       "empty embedded message",
-      typia.protobuf.encode<INested>({ value: "a", extra: {} }),
+      typia.protobuf.encode<IEvolvedNested>({ value: "a", extra: {} }),
     ],
   ];
   for (const [label, encoded] of evolved) {
-    if (encoded.join() !== "10,1,97,18,0")
+    if (encoded.join() !== trailing.join())
       throw new Error(
-        `${label} did not encode to a trailing zero-length record, but to ${encoded.join()}.`,
+        `${label} encoded to ${encoded.join()} instead of ${trailing.join()}.`,
       );
     if (typia.protobuf.decode<IValue>(encoded).value !== "a")
       throw new Error(`${label} did not survive a decoder missing the field.`);
@@ -86,7 +96,7 @@ export const test_protobuf_decode_zero_length_unknown_field = (): void => {
       throw new Error(
         `${label} desynchronized on a leading zero-length record.`,
       );
-    if (decode(Uint8Array.of(0x0a, 1, 0x61, 0x12, 0)).value !== "a")
+    if (decode(trailing).value !== "a")
       throw new Error(
         `${label} desynchronized on a trailing zero-length record.`,
       );
@@ -126,17 +136,17 @@ interface IOptional {
   value?: string;
 }
 
-interface IString {
+interface IEvolvedString {
   value: string;
   extra: string;
 }
 
-interface IBytes {
+interface IEvolvedBytes {
   value: string;
   extra: Uint8Array;
 }
 
-interface INested {
+interface IEvolvedNested {
   value: string;
   extra: {
     text?: string;
