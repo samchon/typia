@@ -121,6 +121,11 @@ export namespace TypiaGenerateWizard {
         ? await prepareDirectoryInput(location, policy)
         : await prepareFileInputs(location, policy);
     const identity: FileSystemIdentity.IIdentity = policy.get();
+    await inspectTargetDirectories({
+      identity,
+      output: location.output,
+      targets: entries.map((entry) => entry.target),
+    });
 
     const binary = resolveTsgoBinary();
     const cwd = path.dirname(location.project);
@@ -247,25 +252,8 @@ export namespace TypiaGenerateWizard {
     output: string;
     targets: string[];
   }): Promise<void> {
-    const directories: Map<string, string> = new Map();
-    for (const target of props.targets) {
-      const directory: string = path.dirname(target);
-      directories.set(props.identity.filesystemKey(directory), directory);
-    }
-
-    for (const directory of directories.values()) {
-      await ensureOutputAncestorDirectories({
-        identity: props.identity,
-        output: props.output,
-        directory,
-      });
-      if (fs.existsSync(directory)) {
-        await ensureExistingDirectory({
-          label: "output parent path",
-          directory,
-        });
-      }
-    }
+    await inspectTargetDirectories(props);
+    const directories: Map<string, string> = targetDirectories(props);
     for (const directory of directories.values()) {
       try {
         await fs.promises.mkdir(directory, { recursive: true });
@@ -279,6 +267,39 @@ export namespace TypiaGenerateWizard {
         directory,
       });
     }
+  }
+
+  async function inspectTargetDirectories(props: {
+    identity: FileSystemIdentity.IIdentity;
+    output: string;
+    targets: string[];
+  }): Promise<void> {
+    const directories: Map<string, string> = targetDirectories(props);
+    for (const directory of directories.values()) {
+      await ensureOutputAncestorDirectories({
+        identity: props.identity,
+        output: props.output,
+        directory,
+      });
+      if (fs.existsSync(directory)) {
+        await ensureExistingDirectory({
+          label: "output parent path",
+          directory,
+        });
+      }
+    }
+  }
+
+  function targetDirectories(props: {
+    identity: FileSystemIdentity.IIdentity;
+    targets: string[];
+  }): Map<string, string> {
+    const directories: Map<string, string> = new Map();
+    for (const target of props.targets) {
+      const directory: string = path.dirname(target);
+      directories.set(props.identity.filesystemKey(directory), directory);
+    }
+    return directories;
   }
 
   async function ensureCreatableDirectory(directory: string): Promise<void> {

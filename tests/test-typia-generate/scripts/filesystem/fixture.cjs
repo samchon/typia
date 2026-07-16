@@ -105,11 +105,16 @@ const expectSuccess = (fixture, expected) => {
   assert.deepEqual(listFiles(fixture.output), [...expected].sort());
 };
 
-const expectFailureWithoutOutput = (fixture, pattern) => {
+const expectFailure = (fixture, pattern) => {
   const result = runGenerate(fixture);
   assert.equal(result.error, undefined, diagnostic(result));
   assert.notEqual(result.status, 0, diagnostic(result));
   assert.match(diagnostic(result), pattern);
+  return result;
+};
+
+const expectFailureWithoutOutput = (fixture, pattern) => {
+  const result = expectFailure(fixture, pattern);
   assert.equal(fs.existsSync(fixture.output), false, diagnostic(result));
 };
 
@@ -127,6 +132,7 @@ const listFiles = (directory, prefix = "") => {
 
 module.exports = {
   createFixture,
+  expectFailure,
   expectFailureWithoutOutput,
   expectSuccess,
   linkDirectory,
