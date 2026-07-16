@@ -1,5 +1,6 @@
 import { OpenApi } from "@typia/interface";
 
+import { _isUniqueItems } from "../functional/_isUniqueItems";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
 
@@ -8,48 +9,57 @@ export namespace OpenApiTupleValidator {
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.ITuple>,
   ): boolean => {
     if (!Array.isArray(ctx.value)) return ctx.report(ctx);
-    else if (!!ctx.schema.additionalItems === false) {
-      if (ctx.value.length !== ctx.schema.prefixItems.length)
-        return ctx.report(ctx);
-      return ctx.value
-        .map((v, i) =>
-          OpenApiStationValidator.validate({
-            ...ctx,
-            schema: ctx.schema.prefixItems[i]!,
-            value: v,
-            path: `${ctx.path}[${i}]`,
-          }),
-        )
-        .every((v) => v);
-    }
 
-    if (ctx.value.length < ctx.schema.prefixItems.length)
+    const array: unknown[] = ctx.value;
+    const length: number = array.length;
+    const minimum: number =
+      ctx.schema.minItems ?? ctx.schema.prefixItems.length;
+    if (length < minimum)
+      return ctx.report({
+        ...ctx,
+        expected: `Array<> & MinItems<${minimum}>`,
+      });
+    if (ctx.schema.maxItems !== undefined && length > ctx.schema.maxItems)
+      return ctx.report({
+        ...ctx,
+        expected: `Array<> & MaxItems<${ctx.schema.maxItems}>`,
+      });
+    if (ctx.schema.uniqueItems === true && !_isUniqueItems(array))
+      return ctx.report({
+        ...ctx,
+        expected: "Array<> & UniqueItems",
+      });
+    if (
+      length > ctx.schema.prefixItems.length &&
+      (ctx.schema.additionalItems === false ||
+        ctx.schema.additionalItems === undefined)
+    )
       return ctx.report(ctx);
-    const next =
-      typeof ctx.schema.additionalItems === "object" &&
-      ctx.schema.additionalItems !== null
-        ? (v: unknown, i: number) =>
-            OpenApiStationValidator.validate({
-              ...ctx,
-              schema: ctx.schema.additionalItems as OpenApi.IJsonSchema,
-              value: v,
-              path: `${ctx.path}[${i}]`,
-            })
-        : () => true;
-    return (
-      ctx.value.length >= ctx.schema.prefixItems.length &&
-      ctx.value
-        .map((v, i) =>
-          i < ctx.schema.prefixItems.length
-            ? OpenApiStationValidator.validate({
-                ...ctx,
-                schema: ctx.schema.prefixItems[i]!,
-                value: v,
-                path: `${ctx.path}[${i}]`,
-              })
-            : next(v, i),
-        )
-        .every((v) => v)
-    );
+
+    return Array.from({ length }, (_, index) => {
+      const schema: OpenApi.IJsonSchema | undefined =
+        index < ctx.schema.prefixItems.length
+          ? ctx.schema.prefixItems[index]
+          : typeof ctx.schema.additionalItems === "object" &&
+              ctx.schema.additionalItems !== null
+            ? ctx.schema.additionalItems
+            : undefined;
+      const value: unknown = array[index];
+      if (Object.hasOwn(array, index) === false || value === undefined)
+        return ctx.report({
+          ...ctx,
+          value,
+          path: `${ctx.path}[${index}]`,
+        });
+      return schema === undefined
+        ? true
+        : OpenApiStationValidator.validate({
+            ...ctx,
+            schema,
+            value,
+            path: `${ctx.path}[${index}]`,
+            required: true,
+          });
+    }).every((value) => value);
   };
 }

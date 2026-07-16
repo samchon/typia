@@ -1,5 +1,6 @@
 import type { OpenApi } from "@typia/interface";
 
+import { _isUniqueItems } from "./_isUniqueItems";
 import { _randomInteger } from "./_randomInteger";
 
 const DEFAULT_MIN_ITEMS = 1;
@@ -27,8 +28,16 @@ export const _randomArray = <T>(
   });
   if (props.uniqueItems !== true)
     return new Array(count).fill(null).map((_, i) => props.element(i, count));
-  const elements: Set<any> = new Set();
-  while (elements.size !== count)
-    elements.add(props.element(elements.size, count));
-  return Array.from(elements);
+  const elements: T[] = [];
+  const maximumAttempts: number = count * 100 + 1000;
+  for (let attempts = 0; elements.length !== count; attempts++) {
+    if (attempts === maximumAttempts)
+      throw new Error(
+        "Unable to generate enough unique items; the element domain may be too small.",
+      );
+    const candidate: T = props.element(elements.length, count);
+    if (elements.every((element) => _isUniqueItems([element, candidate])))
+      elements.push(candidate);
+  }
+  return elements;
 };

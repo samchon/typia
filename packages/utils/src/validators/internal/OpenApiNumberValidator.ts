@@ -6,7 +6,8 @@ export namespace OpenApiNumberValidator {
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.INumber>,
   ): boolean => {
-    if (typeof ctx.value !== "number") return ctx.report(ctx);
+    if (typeof ctx.value !== "number" || Number.isFinite(ctx.value) === false)
+      return ctx.report(ctx);
     return [
       ctx.schema.minimum !== undefined
         ? ctx.value >= ctx.schema.minimum ||

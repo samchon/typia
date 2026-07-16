@@ -6,7 +6,11 @@ export namespace OpenApiIntegerValidator {
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IInteger>,
   ): boolean => {
-    if (typeof ctx.value !== "number" || Math.floor(ctx.value) !== ctx.value)
+    if (
+      typeof ctx.value !== "number" ||
+      Number.isFinite(ctx.value) === false ||
+      Math.floor(ctx.value) !== ctx.value
+    )
       return ctx.report(ctx);
     return [
       ctx.schema.minimum !== undefined

@@ -1,6 +1,7 @@
 import { OpenApi } from "@typia/interface";
 
 import { NamingConvention } from "../../utils/NamingConvention";
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
 
@@ -8,14 +9,19 @@ export namespace OpenApiObjectValidator {
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IObject>,
   ): boolean => {
-    if (typeof ctx.value !== "object" || ctx.value === null)
+    if (
+      typeof ctx.value !== "object" ||
+      ctx.value === null ||
+      Array.isArray(ctx.value) ||
+      isJsonObject(ctx.value) === false
+    )
       return ctx.report(ctx);
     return [
       ...Object.entries(ctx.schema.properties ?? {}).map(([key, value]) =>
         OpenApiStationValidator.validate({
           ...ctx,
           schema: value,
-          value: (ctx.value as Record<string, any>)[key],
+          value: ObjectDictionary.get(ctx.value as Record<string, any>, key),
           path:
             ctx.path +
             (NamingConvention.variable(key)
@@ -51,6 +57,14 @@ export namespace OpenApiObjectValidator {
         ? [validateEquals(ctx)]
         : []),
     ].every((v) => v);
+  };
+
+  const isJsonObject = (value: object): boolean => {
+    try {
+      return Object.prototype.toString.call(value) === "[object Object]";
+    } catch {
+      return false;
+    }
   };
 
   const validateEquals = (
