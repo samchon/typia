@@ -60,7 +60,7 @@ const linkFile = (target, link) => {
   fs.symlinkSync(target, link, process.platform === "win32" ? "file" : "file");
 };
 
-const runGenerate = (fixture, timeout = 180_000) =>
+const runCli = (fixture, args, timeout) =>
   spawnSync(
     process.execPath,
     [
@@ -68,12 +68,11 @@ const runGenerate = (fixture, timeout = 180_000) =>
       "--no-plugins",
       cli,
       "generate",
-      "--input",
-      fixture.input,
       "--output",
       fixture.output,
       "--project",
       path.join(fixture.root, "tsconfig.json"),
+      ...args,
     ],
     {
       cwd: path.join(repository, "packages", "typia"),
@@ -92,6 +91,12 @@ const runGenerate = (fixture, timeout = 180_000) =>
       timeout,
     },
   );
+
+const runGenerate = (fixture, timeout = 180_000) =>
+  runCli(fixture, ["--input", fixture.input], timeout);
+
+const runFileGenerate = (fixture, files, timeout = 180_000) =>
+  runCli(fixture, files, timeout);
 
 const diagnostic = (result) =>
   [result.error?.message, result.stdout, result.stderr]
@@ -132,6 +137,7 @@ const listFiles = (directory, prefix = "") => {
 
 module.exports = {
   createFixture,
+  diagnostic,
   expectFailure,
   expectFailureWithoutOutput,
   expectSuccess,
@@ -139,5 +145,6 @@ module.exports = {
   linkFile,
   listFiles,
   runGenerate,
+  runFileGenerate,
   writeSource,
 };

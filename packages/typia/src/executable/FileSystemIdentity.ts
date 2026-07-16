@@ -110,8 +110,10 @@ export namespace FileSystemIdentity {
           `Error on TypiaGenerateWizard.generate(): unable to probe filesystem case behavior at ${directory}: ${formatUnknownError(error)}`,
         );
       }
+      let closed: boolean = false;
       try {
         await handle.close();
+        closed = true;
         try {
           await fs.promises.lstat(alternate);
           return false;
@@ -120,8 +122,24 @@ export namespace FileSystemIdentity {
           throw error;
         }
       } finally {
-        await handle.close().catch(() => undefined);
-        await fs.promises.unlink(original).catch(() => undefined);
+        let cleanupError: unknown;
+        if (closed === false) {
+          try {
+            await handle.close();
+          } catch (error) {
+            cleanupError = error;
+          }
+        }
+        try {
+          await fs.promises.unlink(original);
+        } catch (error) {
+          if (isMissingFileError(error) === false) cleanupError ??= error;
+        }
+        if (cleanupError !== undefined) {
+          throw new URIError(
+            `Error on TypiaGenerateWizard.generate(): unable to clean filesystem case probe ${original}: ${formatUnknownError(cleanupError)}`,
+          );
+        }
       }
     }
     throw new URIError(

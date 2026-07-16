@@ -451,7 +451,12 @@ export namespace TypiaGenerateWizard {
     const inputs: Set<string> = new Set();
     const files: Map<string, IInputFile> = new Map();
     for (const entry of entries) {
-      inputs.add(fileIdentityKey(await fs.promises.stat(entry.file)));
+      inputs.add(
+        fileIdentityKey(
+          await fs.promises.stat(entry.file),
+          await fs.promises.realpath(entry.file),
+        ),
+      );
       files.set(identity.filesystemKey(entry.target), entry);
     }
 
@@ -472,7 +477,11 @@ export namespace TypiaGenerateWizard {
           `Error on TypiaGenerateWizard.generate(): output file path is not a regular file: ${entry.target}`,
         );
       }
-      if (inputs.has(fileIdentityKey(stat))) {
+      if (
+        inputs.has(
+          fileIdentityKey(stat, await fs.promises.realpath(entry.target)),
+        )
+      ) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): output file would overwrite input file through a physical file alias: ${entry.target}`,
         );
@@ -592,10 +601,14 @@ export namespace TypiaGenerateWizard {
       const pattern: string = toGlobPattern(input);
       if (isDynamicPattern(pattern, { caseSensitiveMatch: true })) {
         const searchDirectory: string = await globSearchDirectory(input);
-        policy.observe(
-          await FileSystemIdentity.inspectDirectory(searchDirectory),
-          searchDirectory,
-        );
+        const caseSensitive: boolean | undefined =
+          await FileSystemIdentity.inspectDirectory(searchDirectory);
+        if (caseSensitive === undefined) {
+          throw new URIError(
+            `Error on TypiaGenerateWizard.generate(): unable to determine filesystem case behavior for input pattern base ${searchDirectory}.`,
+          );
+        }
+        policy.observe(caseSensitive, searchDirectory);
         const identity: FileSystemIdentity.IIdentity = policy.get();
         const matches: string[] = await glob(pattern, {
           absolute: true,
@@ -862,7 +875,7 @@ export namespace TypiaGenerateWizard {
     });
 
     const currentStat: fs.Stats = await fs.promises.stat(props.from);
-    const directoryIdentity: string = fileIdentityKey(currentStat);
+    const directoryIdentity: string = fileIdentityKey(currentStat, currentReal);
     if (props.visitedDirectories.has(directoryIdentity)) {
       const lexicalStat: fs.Stats = await fs.promises.lstat(props.from);
       if (lexicalStat.isSymbolicLink()) {
@@ -930,7 +943,7 @@ export namespace TypiaGenerateWizard {
       )
         continue;
 
-      const fileIdentity: string = fileIdentityKey(stat);
+      const fileIdentity: string = fileIdentityKey(stat, real);
       if (props.visitedFiles.has(fileIdentity)) continue;
       props.visitedFiles.add(fileIdentity);
       props.container.push(entry.file);
@@ -1048,8 +1061,10 @@ export namespace TypiaGenerateWizard {
     );
   }
 
-  function fileIdentityKey(stat: fs.Stats): string {
-    return `${stat.dev}:${stat.ino}`;
+  function fileIdentityKey(stat: fs.Stats, realpath: string): string {
+    return stat.ino === 0
+      ? `path:${path.normalize(realpath)}`
+      : `inode:${stat.dev}:${stat.ino}`;
   }
 
   function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {
