@@ -1,3 +1,6 @@
-export const _isFormatIri = (str: string): boolean => PATTERN.test(str);
+import { _isFormatIriReference } from "./_isFormatIriReference";
 
-const PATTERN = /^[A-Za-z][\d+-.A-Za-z]*:[^\u0000-\u0020"<>\\^`{|}]*$/u;
+export const _isFormatIri = (str: string): boolean =>
+  SCHEME.test(str) && _isFormatIriReference(str);
+
+const SCHEME = /^[A-Za-z][\d+-.A-Za-z]*:/u;
