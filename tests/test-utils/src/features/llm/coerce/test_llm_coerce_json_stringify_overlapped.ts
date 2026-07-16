@@ -1,6 +1,6 @@
 import typia from "typia";
 
-export const test_llm_coerce_json_strignify_overlapped = (): void => {
+export const test_llm_coerce_json_stringify_overlapped = (): void => {
   const circle: ICircle = {
     type: "circle",
     center: JSON.stringify(typia.random<IPoint>()) as any,
