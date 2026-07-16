@@ -23,6 +23,7 @@ export const test_resolved_equal_to_oracle = (): void => {
     const actual: boolean = resolved_equal_to(probe(item.RESOLVE))(
       item.x,
       item.y,
+      { silent: true },
     );
     if (actual !== item.equal) wrong.push(`${item.title} -> ${actual}`);
   }
@@ -30,6 +31,21 @@ export const test_resolved_equal_to_oracle = (): void => {
     throw new Error(
       `Bug on resolved_equal_to(): wrong answers.\n  - ${wrong.join("\n  - ")}`,
     );
+
+  // A BLOB MUST NEVER BE WAVED THROUGH ON THE SYNCHRONOUS PATH.
+  //
+  // Only the awaited pass can read content, so a blob reaching a synchronous
+  // consumer has to be a loud harness error. Silently comparing its metadata
+  // and skipping its bytes is the shape this whole regression exists to end.
+  const blob: Blob = new Blob([Uint8Array.from([1])]);
+  try {
+    resolved_equal_to(probe())({ part: blob }, { part: blob }, { silent: true });
+  } catch {
+    return;
+  }
+  throw new Error(
+    "Bug on resolved_equal_to(): a Blob passed synchronously, with its bytes never read.",
+  );
 };
 
 const probe = (RESOLVE?: (input: any) => unknown): TestStructure<any> => ({
@@ -232,55 +248,6 @@ const CASES: ICase[] = [
     equal: false,
     x: new DataView(buffer(9, 1, 2, 8), 1, 2),
     y: new DataView(buffer(9, 1, 2, 8)),
-  },
-  // BLOB AND FILE METADATA
-  {
-    title: "blob accepts identical metadata",
-    equal: true,
-    x: new Blob([Uint8Array.from([1])], { type: "text/plain" }),
-    y: new Blob([Uint8Array.from([1])], { type: "text/plain" }),
-  },
-  {
-    title: "blob rejects a different media type",
-    equal: false,
-    x: new Blob([Uint8Array.from([1])], { type: "text/plain" }),
-    y: new Blob([Uint8Array.from([1])], { type: "application/json" }),
-  },
-  {
-    title: "blob rejects a different size",
-    equal: false,
-    x: new Blob([Uint8Array.from([1])]),
-    y: new Blob([Uint8Array.from([1, 2])]),
-  },
-  {
-    title: "blob accepts materialization into a file",
-    equal: true,
-    x: new Blob([Uint8Array.from([1])], { type: "text/plain" }),
-    y: new File([Uint8Array.from([1])], "blob", { type: "text/plain" }),
-  },
-  {
-    title: "file rejects demotion into a plain blob",
-    equal: false,
-    x: new File([Uint8Array.from([1])], "a.bin"),
-    y: new Blob([Uint8Array.from([1])]),
-  },
-  {
-    title: "file rejects a different name",
-    equal: false,
-    x: new File([Uint8Array.from([1])], "a.bin", { lastModified: 1 }),
-    y: new File([Uint8Array.from([1])], "b.bin", { lastModified: 1 }),
-  },
-  {
-    title: "file rejects a different last modified time",
-    equal: false,
-    x: new File([Uint8Array.from([1])], "a.bin", { lastModified: 1 }),
-    y: new File([Uint8Array.from([1])], "a.bin", { lastModified: 2 }),
-  },
-  {
-    title: "file accepts identical metadata",
-    equal: true,
-    x: new File([Uint8Array.from([1])], "a.bin", { lastModified: 1 }),
-    y: new File([Uint8Array.from([1])], "a.bin", { lastModified: 1 }),
   },
   // NATIVES THE PROTOCOL BUFFER COPY OF THIS WALK NEVER HAD A BRANCH FOR
   {

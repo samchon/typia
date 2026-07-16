@@ -1,6 +1,7 @@
 import { TestStructure } from "@typia/template";
 import { Resolved } from "typia";
 
+import { resolve_projection } from "./resolve_projection";
 import {
   IStrictEqualContext,
   strict_blobs_equal_to,
@@ -22,14 +23,11 @@ export const resolved_equal_to_async =
   async (
     input: T,
     output: T | Resolved<T>,
-    tracer?: { value?: string },
+    props?: Omit<IStrictEqualContext, "blobs">,
   ): Promise<boolean> => {
-    const ctx: IStrictEqualContext = { tracer, blobs: [] };
+    const ctx: IStrictEqualContext = { ...props, blobs: [] };
     return (
-      strict_equal_to(
-        factory.RESOLVE !== undefined ? factory.RESOLVE(input) : input,
-        output,
-        ctx,
-      ) && (await strict_blobs_equal_to(ctx))
+      strict_equal_to(resolve_projection(factory, input), output, ctx) &&
+      (await strict_blobs_equal_to(ctx))
     );
   };

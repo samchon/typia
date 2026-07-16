@@ -26,11 +26,22 @@ export interface IStrictEqualContext {
   tracer?: { value?: string } | undefined;
 
   /**
+   * Suppresses the console dump of an inequality.
+   *
+   * Only a caller that expects inequality should set it. The oracle regressions
+   * do, because their negative twins would otherwise print dozens of
+   * failure-shaped diagnostics across an entirely passing run.
+   */
+  silent?: boolean | undefined;
+
+  /**
    * Collects the `Blob` pairs whose bytes must be compared asynchronously.
    *
    * `Blob.arrayBuffer()` is asynchronous, so a synchronous oracle can only reach
    * a blob's metadata. Supplying this accumulator lets an asynchronous caller
-   * finish the comparison through {@link strict_blobs_equal_to}.
+   * finish the comparison through {@link strict_blobs_equal_to}; a synchronous
+   * walk that meets a `Blob` without one throws instead of quietly skipping the
+   * content.
    */
   blobs?: Array<[Blob, Blob, string]> | undefined;
 }
@@ -106,18 +117,18 @@ function recursive_equal_to(
       ? number_equal_to(x, y, path, ctx)
       : trace(x, y, path, ctx);
   else if (x === null) return trace(x, y, path, ctx);
+
+  const bx: string = brand(x);
+  const by: string = brand(y);
   // A BLOB MAY MATERIALIZE AS A FILE, SO ITS BRAND IS RULED BY POLICY
-  else if (x instanceof Blob)
+  if (x instanceof Blob)
     return y instanceof Blob
       ? blob_equal_to(x, y, path, ctx)
-      : trace(brand(x), brand(y), path, ctx);
-  else if (y instanceof Blob) return trace(brand(x), brand(y), path, ctx);
+      : trace(bx, by, path, ctx);
+  else if (y instanceof Blob) return trace(bx, by, path, ctx);
   // EVERY OTHER NATIVE MUST REPRODUCE ITS INTRINSIC BRAND EXACTLY
-  else if (
-    brand(x) !== brand(y) &&
-    (NATIVE_BRANDS.has(brand(x)) || NATIVE_BRANDS.has(brand(y)))
-  )
-    return trace(brand(x), brand(y), path, ctx);
+  else if (bx !== by && (NATIVE_BRANDS.has(bx) || NATIVE_BRANDS.has(by)))
+    return trace(bx, by, path, ctx);
   else if (x instanceof Date)
     return trace(x.getTime(), (y as Date).getTime(), `${path}.getTime()`, ctx);
   else if (x instanceof RegExp)
@@ -223,7 +234,8 @@ function blob_equal_to(
   // materialize as a `File`, because that is what appending one to a standard
   // `FormData` does, so only its own contract is required back.
   if (x instanceof File) {
-    if (y instanceof File === false) return trace(brand(x), brand(y), path, ctx);
+    if (y instanceof File === false)
+      return trace(brand(x), brand(y), path, ctx);
     else if (
       trace(x.name, y.name, `${path}.name`, ctx) === false ||
       trace(x.lastModified, y.lastModified, `${path}.lastModified`, ctx) ===
@@ -236,7 +248,16 @@ function blob_equal_to(
     trace(x.type, y.type, `${path}.type`, ctx) === false
   )
     return false;
-  ctx.blobs?.push([x, y, path]);
+  // NEVER PASS A BLOB WHOSE BYTES NOBODY READ.
+  //
+  // The synchronous entry cannot await content, so a fixture that grows a blob
+  // outside the FormData operations must move to `resolved_equal_to_async()`
+  // rather than lose byte coverage the way the old constructor-only check did.
+  if (ctx.blobs === undefined)
+    throw new Error(
+      `Bug on the automated harness: ${path} carries a Blob, whose bytes only resolved_equal_to_async() can compare.`,
+    );
+  ctx.blobs.push([x, y, path]);
   return true;
 }
 
@@ -258,7 +279,8 @@ function trace(
   ctx: IStrictEqualContext,
 ): boolean {
   if (x !== y) {
-    console.log({ x, y, path, typeofX: typeof x, typeofY: typeof y });
+    if (ctx.silent !== true)
+      console.log({ x, y, path, typeofX: typeof x, typeofY: typeof y });
     if (ctx.tracer) ctx.tracer.value = path;
   }
   return x === y;
