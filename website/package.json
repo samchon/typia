@@ -15,7 +15,8 @@
     "build:tgz": "node build/tgz",
     "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
-    "dev": "npm run build:compiler && npm run build:examples && next dev"
+    "dev": "npm run build:compiler && npm run build:examples && next dev",
+    "test:compiler": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test src/compiler/*.test.mjs"
   },
   "repository": {
     "type": "git",
