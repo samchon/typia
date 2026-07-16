@@ -29,9 +29,9 @@ const sharedArrayBufferByteLength =
 const dataViewBuffer = getter(DataView.prototype, "buffer");
 const dataViewByteLength = getter(DataView.prototype, "byteLength");
 const dataViewByteOffset = getter(DataView.prototype, "byteOffset");
-const typedArrayByteLength = getter(
+const typedArrayName = getter(
   Object.getPrototypeOf(Uint8Array.prototype),
-  "byteLength",
+  Symbol.toStringTag,
 );
 const blobSize =
   typeof Blob === "undefined" ? undefined : getter(Blob.prototype, "size");
@@ -45,6 +45,37 @@ const fileLastModified =
     : getter(File.prototype, "lastModified");
 const regexpSource = getter(RegExp.prototype, "source");
 const regexpFlags = getter(RegExp.prototype, "flags");
+
+const nativeTag = (value: object): string | undefined => {
+  let tagged: boolean;
+  try {
+    tagged = Symbol.toStringTag in value;
+  } catch {
+    return undefined;
+  }
+  if (!tagged)
+    try {
+      return objectToString.call(value);
+    } catch {
+      return undefined;
+    }
+
+  const date = tryRead<number>(Date.prototype.getTime, value);
+  if (date.success) return "[object Date]";
+  const typed = tryRead<string>(typedArrayName, value);
+  if (typed.success && typed.value !== undefined)
+    return `[object ${typed.value}]`;
+  if (tryRead<number>(arrayBufferByteLength, value).success)
+    return "[object ArrayBuffer]";
+  if (tryRead<number>(sharedArrayBufferByteLength, value).success)
+    return "[object SharedArrayBuffer]";
+  if (tryRead<ArrayBufferLike>(dataViewBuffer, value).success)
+    return "[object DataView]";
+  if (tryRead<string>(fileName, value).success) return "[object File]";
+  if (tryRead<number>(blobSize, value).success) return "[object Blob]";
+  if (tryRead<string>(regexpSource, value).success) return "[object RegExp]";
+  return undefined;
+};
 
 const cloneMain = (value: any): any => {
   if (value === undefined) return undefined;
@@ -76,60 +107,33 @@ const cloneMain = (value: any): any => {
 };
 
 const cloneNative = (value: object): any | typeof NOT_NATIVE => {
-  let tag: string;
-  try {
-    tag = objectToString.call(value);
-  } catch {
-    return NOT_NATIVE;
-  }
+  const tag: string | undefined = nativeTag(value);
   switch (tag) {
     case "[object Date]": {
       const time = tryRead<number>(Date.prototype.getTime, value);
       return time.success ? new Date(time.value) : NOT_NATIVE;
     }
     case "[object Uint8Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Uint8Array(value as ArrayLike<number>);
     case "[object Uint8ClampedArray]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Uint8ClampedArray(value as ArrayLike<number>);
     case "[object Uint16Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Uint16Array(value as ArrayLike<number>);
     case "[object Uint32Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Uint32Array(value as ArrayLike<number>);
     case "[object BigUint64Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new BigUint64Array(value as ArrayLike<bigint>);
     case "[object Int8Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Int8Array(value as ArrayLike<number>);
     case "[object Int16Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Int16Array(value as ArrayLike<number>);
     case "[object Int32Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Int32Array(value as ArrayLike<number>);
     case "[object BigInt64Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new BigInt64Array(value as ArrayLike<bigint>);
     case "[object Float32Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Float32Array(value as ArrayLike<number>);
     case "[object Float64Array]":
-      if (!tryRead<number>(typedArrayByteLength, value).success)
-        return NOT_NATIVE;
       return new Float64Array(value as ArrayLike<number>);
     case "[object ArrayBuffer]": {
       const byteLength = tryRead<number>(arrayBufferByteLength, value);
