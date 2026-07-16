@@ -519,9 +519,14 @@ export namespace LlmSchemaConverter {
       // One allocation per conversion, seeded with the component names the
       // caller already owns. Recursive inversion reuses it instead of
       // recomputing, so a reference and its stored component never disagree.
+      //
+      // Seed with getOwnPropertyNames, not keys: LlmReference.resolve finds a
+      // definition through ObjectDictionary.get, which keys off
+      // hasOwnProperty. Seeding with the enumerable-only view would let an own
+      // non-enumerable definition resolve without ever being allocated.
       allocation: OpenApiComponentName.allocate({
-        keys: Object.keys(props.$defs ?? {}),
-        reserved: Object.keys(props.components.schemas ?? {}),
+        keys: Object.getOwnPropertyNames(props.$defs ?? {}),
+        reserved: Object.getOwnPropertyNames(props.components.schemas ?? {}),
       }),
       emitted: new Set(),
     });
@@ -589,8 +594,13 @@ export namespace LlmSchemaConverter {
           union.push({ oneOf: [] });
           return;
         }
+        // The allocation seeds from the same own-property view that resolve
+        // uses, so a resolved key is always allocated. Escape rather than fall
+        // back to the raw key regardless: the grammar invariant must hold even
+        // if the two views ever diverge again.
         const componentKey: string =
-          props.allocation.get(resolved.key) ?? resolved.key;
+          props.allocation.get(resolved.key) ??
+          OpenApiComponentName.escape(resolved.key);
         // Gate on what this conversion has emitted, not on what the components
         // already contain. A caller's pre-existing component of the same name
         // is an allocation input, not a cache hit: treating it as one would
@@ -708,7 +718,10 @@ const invertDiscriminatorMapping = (
     if (resolved === undefined) return undefined;
     entries.push([
       discriminator,
-      LlmReference.writeOpenApi(allocation.get(resolved.key) ?? resolved.key),
+      LlmReference.writeOpenApi(
+        allocation.get(resolved.key) ??
+          OpenApiComponentName.escape(resolved.key),
+      ),
     ]);
   }
   return Object.fromEntries(entries);
