@@ -37,6 +37,7 @@ export const test_resolved_equal_to_oracle = (): void => {
   // Only the awaited pass can read content, so a blob reaching a synchronous
   // consumer has to be a loud harness error. Silently comparing its metadata
   // and skipping its bytes is the shape this whole regression exists to end.
+  //
   // The throw must be the guard itself, too: accepting any exception would let
   // an ordinary bug in the helper satisfy this case.
   const blob: Blob = new Blob([Uint8Array.from([1])]);
