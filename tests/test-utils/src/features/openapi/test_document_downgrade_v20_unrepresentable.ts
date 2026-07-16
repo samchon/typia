@@ -10,7 +10,8 @@ import { OpenApiConverter } from "@typia/utils";
  * silently redirects requests or changes payload contracts.
  *
  * 1. Attempt to downgrade servers with different authorities and server variables.
- * 2. Reject unsupported server metadata and mixed form/non-form request media.
+ * 2. Reject unsupported server metadata, missing request media, and mixed
+ *    form/non-form request media.
  * 3. Attempt to downgrade request and response media entries with different
  *    schemas or unrepresentable examples.
  * 4. Assert every lossy case reports an explicit representability error.
@@ -78,6 +79,30 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
                   },
                 },
               },
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "request body without content",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: {},
+            },
+          },
+        },
+      }),
+    },
+    {
+      name: "request body with empty content",
+      input: document({
+        paths: {
+          "/items": {
+            post: {
+              requestBody: { content: {} },
             },
           },
         },
@@ -279,7 +304,17 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
   ];
 
   for (const entry of cases)
-    TestValidator.error(entry.name, () =>
+    assertThrows(entry.name, () =>
       OpenApiConverter.downgradeDocument(entry.input, "2.0"),
     );
+};
+
+const assertThrows = (title: string, task: () => unknown): void => {
+  let thrown: boolean = false;
+  try {
+    task();
+  } catch {
+    thrown = true;
+  }
+  TestValidator.predicate(title, thrown);
 };

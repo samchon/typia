@@ -227,7 +227,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     },
   );
 
-  TestValidator.error("empty consumes with body schema", () =>
+  assertThrows("empty consumes with body schema", () =>
     OpenApiConverter.upgradeDocument({
       ...input,
       paths: {
@@ -243,7 +243,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       },
     }),
   );
-  TestValidator.error("empty produces with response schema", () =>
+  assertThrows("empty produces with response schema", () =>
     OpenApiConverter.upgradeDocument({
       ...input,
       paths: {
@@ -262,11 +262,21 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     { host: "api.example.com?tenant=one" },
     { basePath: "/v1#section" },
   ])
-    TestValidator.error("server query or fragment", () =>
+    assertThrows("server query or fragment", () =>
       OpenApiConverter.upgradeDocument({
         ...input,
         ...endpoint,
         paths: {},
       }),
     );
+};
+
+const assertThrows = (title: string, task: () => unknown): void => {
+  let thrown: boolean = false;
+  try {
+    task();
+  } catch {
+    thrown = true;
+  }
+  TestValidator.predicate(title, thrown);
 };

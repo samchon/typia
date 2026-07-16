@@ -127,7 +127,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
     ],
   );
 
-  TestValidator.error("body and formData", () =>
+  assertThrows("body and formData", () =>
     OpenApiConverter.upgradeDocument({
       ...input,
       paths: {
@@ -143,7 +143,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       },
     }),
   );
-  TestValidator.error("complex formData field", () =>
+  assertThrows("complex formData field", () =>
     OpenApiConverter.upgradeDocument({
       ...input,
       paths: {
@@ -163,7 +163,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       },
     }),
   );
-  TestValidator.error("urlencoded file", () =>
+  assertThrows("urlencoded file", () =>
     OpenApiConverter.upgradeDocument({
       ...input,
       paths: {
@@ -176,4 +176,14 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       },
     }),
   );
+};
+
+const assertThrows = (title: string, task: () => unknown): void => {
+  let thrown: boolean = false;
+  try {
+    task();
+  } catch {
+    thrown = true;
+  }
+  TestValidator.predicate(title, thrown);
 };

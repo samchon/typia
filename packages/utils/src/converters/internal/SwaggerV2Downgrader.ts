@@ -259,7 +259,11 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           "SwaggerV2Downgrader: encrypted request bodies are not representable.",
         );
-      const types: string[] = media.types ?? [];
+      const types: string[] | undefined = media.types;
+      if (!types?.length)
+        throw new TypeError(
+          "SwaggerV2Downgrader: request bodies require at least one media type.",
+        );
       const formTypes: string[] = types.filter(isFormMediaType);
       if (formTypes.length > 0 && formTypes.length !== types.length)
         throw new TypeError(
