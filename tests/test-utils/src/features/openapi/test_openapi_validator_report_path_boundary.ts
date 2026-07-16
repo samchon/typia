@@ -11,7 +11,8 @@ import { OpenApiValidator } from "@typia/utils";
  *
  * 1. Validate the same invalid value against both `a`/`ab` property orders.
  * 2. Require every independent property and array-index failure.
- * 3. Exclude the genuine array-parent failure made redundant by child errors.
+ * 3. Make a failing array constraint suppress its redundant child failures.
+ * 4. Keep a referenced array union's selected indexed failure.
  */
 export const test_openapi_validator_report_path_boundary = (): void => {
   const input = {
@@ -43,14 +44,64 @@ export const test_openapi_validator_report_path_boundary = (): void => {
       value: input,
       required: true,
     });
-    if (result.success)
-      throw new Error(`Expected ${label} input to fail validation.`);
-    TestValidator.equals(
-      label,
-      expected,
-      result.errors.map(({ path }) => path).sort(),
-    );
+    assertPaths(label, result, expected);
   }
+
+  assertPaths(
+    "array constraint owns child failures",
+    OpenApiValidator.validate({
+      components: {},
+      schema: {
+        type: "array",
+        items: { type: "string" },
+        maxItems: 1,
+      },
+      value: [0, 0],
+      required: true,
+    }),
+    ["$input"],
+  );
+
+  assertPaths(
+    "referenced array branch",
+    OpenApiValidator.validate({
+      components: {
+        schemas: {
+          NumberArray: {
+            type: "array",
+            items: { type: "number" },
+          },
+          StringArray: {
+            type: "array",
+            items: { type: "string" },
+          },
+        },
+      },
+      schema: {
+        oneOf: [
+          { $ref: "#/components/schemas/StringArray" },
+          { $ref: "#/components/schemas/NumberArray" },
+        ],
+      },
+      value: [1, "two"],
+      required: true,
+    }),
+    ["$input[1]"],
+  );
+};
+
+const assertPaths = (
+  label: string,
+  result: IValidation<unknown>,
+  expected: string[],
+): void => {
+  if (result.success)
+    throw new Error(`Expected ${label} input to fail validation.`);
+  TestValidator.equals(
+    label,
+    expected,
+    result.errors.map(({ path }) => path).sort(),
+  );
 };
 
 const propertiesOf = (

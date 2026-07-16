@@ -92,17 +92,25 @@ const normalizePaths = (props: {
   schema: OpenApi.IJsonSchema;
   value: unknown;
   paths: string[];
-}): string[] =>
-  [
-    ...new Set(
-      props.paths.map((path) =>
-        normalizePath({
-          ...props,
-          path,
-        }),
-      ),
-    ),
-  ].sort();
+}): string[] => {
+  // Distinct branch leaves can share one ambiguous union owner, but repeated
+  // occurrences of the same raw path must remain visible to the count oracle.
+  const frequencies = new Map<string, Map<string, number>>();
+  for (const original of props.paths) {
+    const normalized = normalizePath({
+      ...props,
+      path: original,
+    });
+    const originals = frequencies.get(normalized) ?? new Map<string, number>();
+    originals.set(original, (originals.get(original) ?? 0) + 1);
+    frequencies.set(normalized, originals);
+  }
+  return [...frequencies.entries()]
+    .flatMap(([path, originals]) =>
+      new Array(Math.max(...originals.values())).fill(path),
+    )
+    .sort();
+};
 
 const normalizePath = (props: {
   components: OpenApi.IComponents;
@@ -160,20 +168,25 @@ const selectOneOf = (props: {
   schema: OpenApi.IJsonSchema.IOneOf;
   value: unknown;
 }): OpenApi.IJsonSchema | undefined => {
-  const branches = props.schema.oneOf.map((schema) => ({
+  const branches: IResolvedBranch[] = props.schema.oneOf.map((schema) => ({
     original: schema,
     resolved: resolve(props.components, schema),
   }));
   const compatible = branches.filter(({ resolved }) =>
-    compatibleWith(resolved, props.value),
+    compatibleWith({
+      components: props.components,
+      schema: resolved,
+      value: props.value,
+    }),
   );
   if (compatible.length === 1) return compatible[0]!.original;
-  if (
-    typeof props.value !== "object" ||
-    props.value === null ||
-    Array.isArray(props.value)
-  )
-    return undefined;
+  if (Array.isArray(props.value))
+    return selectArray({
+      components: props.components,
+      branches: compatible,
+      value: props.value,
+    });
+  if (typeof props.value !== "object" || props.value === null) return undefined;
 
   const objects = compatible.filter(
     (
@@ -186,12 +199,14 @@ const selectOneOf = (props: {
   for (const branch of objects) {
     const candidates: string[] = [];
     for (const key of branch.resolved.required ?? []) {
-      const target = branch.resolved.properties?.[key];
-      if (target === undefined) continue;
+      const targetSchema = branch.resolved.properties?.[key];
+      if (targetSchema === undefined) continue;
+      const target = resolve(props.components, targetSchema);
       const neighbors = objects
         .filter((other) => other !== branch)
         .map(({ resolved }) => resolved.properties?.[key])
-        .filter((schema) => schema !== undefined);
+        .filter((schema) => schema !== undefined)
+        .map((schema) => resolve(props.components, schema));
       const unique = OpenApiTypeChecker.isConstant(target)
         ? neighbors.every(
             (schema) =>
@@ -204,11 +219,18 @@ const selectOneOf = (props: {
     const key =
       candidates.find((candidate) =>
         OpenApiTypeChecker.isConstant(
-          branch.resolved.properties?.[candidate] ?? {},
+          resolve(
+            props.components,
+            branch.resolved.properties?.[candidate] ?? {},
+          ),
         ),
       ) ?? candidates[0];
     if (key === undefined) continue;
-    const target = branch.resolved.properties?.[key];
+    const targetSchema = branch.resolved.properties?.[key];
+    const target =
+      targetSchema === undefined
+        ? undefined
+        : resolve(props.components, targetSchema);
     const matched =
       target !== undefined && OpenApiTypeChecker.isConstant(target)
         ? (props.value as Record<string, unknown>)[key] === target.const
@@ -218,10 +240,42 @@ const selectOneOf = (props: {
   return undefined;
 };
 
-const compatibleWith = (
-  schema: OpenApi.IJsonSchema,
-  value: unknown,
-): boolean => {
+const selectArray = (props: {
+  components: OpenApi.IComponents;
+  branches: IResolvedBranch[];
+  value: unknown[];
+}): OpenApi.IJsonSchema | undefined => {
+  const arrays = props.branches.filter(
+    (
+      branch,
+    ): branch is {
+      original: OpenApi.IJsonSchema;
+      resolved: OpenApi.IJsonSchema.IArray;
+    } => OpenApiTypeChecker.isArray(branch.resolved),
+  );
+  if (
+    arrays.length !== props.branches.length ||
+    arrays.length === 0 ||
+    props.value.length === 0
+  )
+    return undefined;
+  const candidates = arrays.filter(({ resolved }) =>
+    compatibleWith({
+      components: props.components,
+      schema: resolved.items,
+      value: props.value[0],
+    }),
+  );
+  return candidates.length === 1 ? candidates[0]!.original : undefined;
+};
+
+const compatibleWith = (props: {
+  components: OpenApi.IComponents;
+  schema: OpenApi.IJsonSchema;
+  value: unknown;
+}): boolean => {
+  const schema = resolve(props.components, props.schema);
+  const value = props.value;
   if (OpenApiTypeChecker.isUnknown(schema)) return true;
   if (OpenApiTypeChecker.isConstant(schema)) return schema.const === value;
   if (OpenApiTypeChecker.isNull(schema)) return value === null;
@@ -234,6 +288,14 @@ const compatibleWith = (
     return Array.isArray(value);
   if (OpenApiTypeChecker.isObject(schema))
     return typeof value === "object" && value !== null && !Array.isArray(value);
+  if (OpenApiTypeChecker.isOneOf(schema))
+    return schema.oneOf.some((child) =>
+      compatibleWith({
+        components: props.components,
+        schema: child,
+        value,
+      }),
+    );
   return false;
 };
 
@@ -297,4 +359,9 @@ const findBracketClose = (path: string, start: number): number => {
 interface IPathSegment {
   key: string | number;
   accessor: string;
+}
+
+interface IResolvedBranch {
+  original: OpenApi.IJsonSchema;
+  resolved: OpenApi.IJsonSchema;
 }
