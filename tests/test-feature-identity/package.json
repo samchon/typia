@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "@typia/test-feature-identity",
+  "version": "13.1.1",
+  "description": "Naming integrity test of the typia feature test suites.",
+  "scripts": {
+    "start": "ttsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "keywords": [
+    "typia",
+    "test"
+  ],
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "devDependencies": {
+    "@types/node": "catalog:utils"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils"
+  }
+}

@@ -5,7 +5,7 @@ import fs from "fs";
 
 import { TestGlobal } from "../../../TestGlobal";
 
-export const test_http_llm_application = async (): Promise<void> => {
+export const test_http_llm_application_human = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(
     JSON.parse(
       await fs.promises.readFile(`${TestGlobal.ROOT}/swagger.json`, "utf8"),

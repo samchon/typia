@@ -1,0 +1,11 @@
+{
+  "extends": "../config/tsconfig.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "rootDir": "src",
+    // This suite reads the other suites' sources as text and never calls
+    // `typia.*`, so it declares no `typia` dependency and cannot resolve the
+    // shared config's `typia/lib/transform` plugin entry.
+    "plugins": [],
+  },
+}
