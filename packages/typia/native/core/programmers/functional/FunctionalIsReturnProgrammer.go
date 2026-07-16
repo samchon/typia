@@ -50,10 +50,10 @@ func (functionalIsReturnProgrammerNamespace) Write(props FunctionalIsReturnProgr
   })
   statements := append([]*shimast.Node{}, result.Functions...)
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(result.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      result.Async,
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -63,8 +63,6 @@ func (functionalIsReturnProgrammerNamespace) Write(props FunctionalIsReturnProgr
         Declaration: props.Declaration,
         Async:       result.Async,
       }),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(result.Statements), true),
     ),
   ))
@@ -80,13 +78,7 @@ func (functionalIsReturnProgrammerNamespace) Decompose(props FunctionalIsReturnP
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
   })
-  caller := f.NewCallExpression(
-    props.Expression,
-    nil,
-    nil,
-    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
-    shimast.NodeFlagsNone,
-  )
+  caller := functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)
   name := functionalIsProgrammer_escapeDuplicate(functionalIsProgrammer_parameterNames(props.Declaration), "result")
   value := caller
   if output.Async {

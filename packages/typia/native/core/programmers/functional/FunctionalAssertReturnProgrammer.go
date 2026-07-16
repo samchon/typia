@@ -62,14 +62,12 @@ func (functionAssertReturnProgrammerNamespace) Write(props FunctionAssertReturnP
   statements := []*shimast.Node{wrapper.Variable}
   statements = append(statements, result.Functions...)
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(result.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      result.Async,
       functionalAssertProgrammer_returnType(props.Declaration),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
-      result.Value,
+      f.NewBlock(f.NewNodeList([]*shimast.Node{f.NewReturnStatement(result.Value)}), true),
     ),
   ))
   return nativefactories.ExpressionFactory.SelfCall(
@@ -84,13 +82,7 @@ func (functionAssertReturnProgrammerNamespace) Decompose(props FunctionAssertRet
     Checker:     props.Context.Checker,
     Declaration: props.Declaration,
   })
-  caller := f.NewCallExpression(
-    props.Expression,
-    nil,
-    nil,
-    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
-    shimast.NodeFlagsNone,
-  )
+  caller := functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)
   value := caller
   if output.Async {
     value = f.NewAwaitExpression(caller)

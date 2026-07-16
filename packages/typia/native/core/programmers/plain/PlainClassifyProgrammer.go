@@ -1573,14 +1573,9 @@ func plainClassifyProgrammer_seed_type(checker *shimchecker.Checker, sig *shimch
 // the tuple is rejected (nil = field-copy) when it is empty or any element after
 // index 0 is REQUIRED — then `[] extends Rest` fails and ClassifiableSeed is
 // `never`. GetTypeArguments / TargetTupleType require an object reference; the
-// IsTupleType caller guarantees that, but a recover degrades a surprise panic to
-// field-copy (the same safe fallback as a failed seed analysis).
-func plainClassifyProgrammer_tuple_seed(checker *shimchecker.Checker, restParamT *shimchecker.Type) (seed *shimchecker.Type) {
-  defer func() {
-    if recover() != nil {
-      seed = nil
-    }
-  }()
+// IsTupleType caller guarantees that capability. Any failure after that
+// precondition is an internal invariant violation and remains observable.
+func plainClassifyProgrammer_tuple_seed(checker *shimchecker.Checker, restParamT *shimchecker.Type) *shimchecker.Type {
   args := checker.GetTypeArguments(restParamT)
   if len(args) == 0 {
     return nil // `[]` -> ClassifiableSeed is never -> field-copy
