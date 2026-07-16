@@ -22,6 +22,8 @@ func TestMetadataCollectionOpenApiName(t *testing.T) {
     "A-B":              "A-B",
     "A_B":              "A_B",
     "A_x2F_B":          "A_x2F_B",
+    "_":                "_",
+    "Recursive":        "Recursive",
   }
   outputs := map[string]string{}
   for input, expected := range legal {
@@ -36,6 +38,7 @@ func TestMetadataCollectionOpenApiName(t *testing.T) {
     "",
     "$Plain",
     "A/B",
+    `Recursive<"">`,
     `Recursive<"A/B">`,
     `Recursive<"T~N">`,
     `Recursive<"C%D">`,
