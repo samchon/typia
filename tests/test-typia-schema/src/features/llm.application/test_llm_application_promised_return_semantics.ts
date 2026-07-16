@@ -46,6 +46,11 @@ interface IPromisedReturnApplication {
  * 3. Assert reflection, JSON, LLM, and controller output parity.
  */
 export const test_llm_application_promised_return_semantics = (): void => {
+  const promisedNames = [
+    "derivedClass",
+    "derivedInterface",
+    "branded",
+  ] as const;
   const unit = typia.reflect.schema<IPromisedReturnApplication>();
   const application = unit.components.objects.find(
     (object) => object.name === "IPromisedReturnApplication",
@@ -60,24 +65,28 @@ export const test_llm_application_promised_return_semantics = (): void => {
       property.value.functions[0],
     ]),
   );
-  for (const name of ["derivedClass", "derivedInterface", "branded"])
+  for (const name of promisedNames) {
     TestValidator.equals(
       `reflect ${name} async`,
       reflected.get(name)?.async,
       true,
     );
+    TestValidator.predicate(
+      `reflect ${name} output is fulfilled`,
+      () =>
+        reflected
+          .get(name)
+          ?.output.objects.some(
+            (object) => object.name === "IPromisedReturnOutput",
+          ) === true,
+    );
+  }
   for (const name of ["shadowed", "synchronous"])
     TestValidator.equals(
       `reflect ${name} sync`,
       reflected.get(name)?.async,
       false,
     );
-  TestValidator.predicate(
-    "reflected derived output is fulfilled",
-    () =>
-      reflected.get("derivedClass")?.output.objects[0]?.name ===
-      "IPromisedReturnOutput",
-  );
   TestValidator.predicate(
     "reflected fake Promise output is not unwrapped",
     () =>
@@ -89,12 +98,18 @@ export const test_llm_application_promised_return_semantics = (): void => {
 
   const json = typia.json.application<IPromisedReturnApplication>();
   const jsonFunctions = new Map(json.functions.map((fn) => [fn.name, fn]));
-  for (const name of ["derivedClass", "derivedInterface", "branded"])
+  for (const name of promisedNames) {
     TestValidator.equals(
       `json ${name} async`,
       jsonFunctions.get(name)?.async,
       true,
     );
+    TestValidator.predicate(`JSON ${name} output is fulfilled`, () =>
+      JSON.stringify(jsonFunctions.get(name)?.output).includes(
+        "IPromisedReturnOutput",
+      ),
+    );
+  }
   for (const name of ["shadowed", "synchronous"])
     TestValidator.equals(
       `json ${name} sync`,
@@ -111,11 +126,12 @@ export const test_llm_application_promised_return_semantics = (): void => {
   );
 
   const llm = typia.llm.application<IPromisedReturnApplication>();
-  TestValidator.predicate("LLM derived output uses fulfilled schema", () =>
-    JSON.stringify(
-      llm.functions.find((fn) => fn.name === "derivedClass")?.output,
-    ).includes("total"),
-  );
+  for (const name of promisedNames)
+    TestValidator.predicate(`LLM ${name} output uses fulfilled schema`, () =>
+      JSON.stringify(
+        llm.functions.find((fn) => fn.name === name)?.output,
+      ).includes("total"),
+    );
   TestValidator.predicate("LLM fake Promise output retains value", () =>
     JSON.stringify(
       llm.functions.find((fn) => fn.name === "shadowed")?.output,
@@ -127,15 +143,15 @@ export const test_llm_application_promised_return_semantics = (): void => {
     "promised-return",
     executor,
   );
-  TestValidator.predicate(
-    "controller derived output uses fulfilled schema",
-    () =>
-      JSON.stringify(
-        controller.application.functions.find(
-          (fn) => fn.name === "derivedClass",
-        )?.output,
-      ).includes("total"),
-  );
+  for (const name of promisedNames)
+    TestValidator.predicate(
+      `controller ${name} output uses fulfilled schema`,
+      () =>
+        JSON.stringify(
+          controller.application.functions.find((fn) => fn.name === name)
+            ?.output,
+        ).includes("total"),
+    );
   TestValidator.predicate("controller fake Promise output retains value", () =>
     JSON.stringify(
       controller.application.functions.find((fn) => fn.name === "shadowed")
