@@ -1,6 +1,9 @@
 package utils
 
-import shimchecker "github.com/microsoft/typescript-go/shim/checker"
+import (
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimchecker "github.com/microsoft/typescript-go/shim/checker"
+)
 
 type promiseTypeFactoryNamespace struct{}
 
@@ -14,11 +17,7 @@ type PromiseTypeFactory_IOutput struct {
 func (promiseTypeFactoryNamespace) Resolve(checker *shimchecker.Checker, t *shimchecker.Type) PromiseTypeFactory_IOutput {
   if checker != nil && t != nil {
     promised := checker.GetPromisedTypeOfPromise(t)
-    // The checker helper deliberately accepts the weaker PromiseLike/thenable
-    // contract. Public typia functional types discriminate against Promise,
-    // whose baseline ES5 contract additionally requires a callable catch.
-    catch := checker.GetTypeOfPropertyOfType(t, "catch")
-    if promised != nil && catch != nil && len(checker.GetSignaturesOfType(catch, shimchecker.SignatureKindCall)) != 0 {
+    if promised != nil && PromiseTypeFactory.satisfiesGlobalContract(checker, t) {
       return PromiseTypeFactory_IOutput{
         Type:  promised,
         Async: true,
@@ -29,4 +28,32 @@ func (promiseTypeFactoryNamespace) Resolve(checker *shimchecker.Checker, t *shim
     Type:  t,
     Async: false,
   }
+}
+
+func (promiseTypeFactoryNamespace) satisfiesGlobalContract(checker *shimchecker.Checker, t *shimchecker.Type) bool {
+  symbol := checker.GetGlobalSymbol("Promise", shimast.SymbolFlagsType, nil)
+  if symbol == nil {
+    return false
+  }
+  global := checker.GetDeclaredTypeOfSymbol(symbol)
+  if global == nil {
+    return false
+  }
+  for _, property := range checker.GetPropertiesOfType(global) {
+    if property.Name == "then" || (len(property.Name) != 0 && property.Name[0] == 0xfe) {
+      // GetPromisedTypeOfPromise already verifies the complete thenable shape.
+      // Conditional Promise inference ignores well-known-symbol augmentations.
+      continue
+    }
+    required := checker.GetTypeOfPropertyOfType(global, property.Name)
+    candidate := checker.GetTypeOfPropertyOfType(t, property.Name)
+    if candidate == nil {
+      return false
+    }
+    if required != nil && len(checker.GetSignaturesOfType(required, shimchecker.SignatureKindCall)) != 0 &&
+      len(checker.GetSignaturesOfType(candidate, shimchecker.SignatureKindCall)) == 0 {
+      return false
+    }
+  }
+  return true
 }

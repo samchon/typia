@@ -13,12 +13,12 @@ import (
 //
 // Promise identity is structural in the checker rather than a symbol spelling.
 // Derived classes, interfaces, and branded intersections must unwrap while an
-// unrelated class named Promise and the weaker PromiseLike contract must remain
-// synchronous.
+// unrelated class named Promise and weaker PromiseLike contracts must remain
+// synchronous, even when a thenable adds only part of the Promise surface.
 //
-//  1. Load eight return-shape declarations through the real checker.
+//  1. Load nine return-shape declarations through the real checker.
 //  2. Resolve the fulfilled type for every genuine Promise shape.
-//  3. Keep PromiseLike, shadowed-name, and ordinary controls unchanged.
+//  3. Keep plain and catchable PromiseLike, shadowed-name, and ordinary controls unchanged.
 func TestPromiseTypeFactorySemantics(t *testing.T) {
   dir := t.TempDir()
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(`{
@@ -41,6 +41,9 @@ func TestPromiseTypeFactorySemantics(t *testing.T) {
 class DerivedPromise<T> extends Promise<T> {}
 interface InterfacePromise<T> extends Promise<T> {}
 type BrandedPromise<T> = Promise<T> & { readonly __brand: unique symbol };
+type CatchablePromiseLike<T> = PromiseLike<T> & {
+  catch(onrejected?: (reason: any) => any): CatchablePromiseLike<T>;
+};
 namespace Shadow { export class Promise<T> { public constructor(public value: T) {} } }
 let builtin!: Promise<string>;
 let derivedClass!: DerivedPromise<number>;
@@ -50,6 +53,9 @@ let shadowed!: Shadow.Promise<Date>;
 let synchronous!: { value: RegExp };
 let promiseLike!: PromiseLike<string>;
 let structural!: Pick<Promise<URL>, "then" | "catch" | "finally">;
+let catchablePromiseLike!: CatchablePromiseLike<string>;
+const structuralBoundary: Pick<Promise<URL>, "then" | "catch" | "finally"> extends Promise<infer _> ? true : false = true;
+const catchableBoundary: CatchablePromiseLike<string> extends Promise<infer _> ? true : false = false;
 `), 0o644); err != nil {
     t.Fatalf("write source: %v", err)
   }
@@ -63,7 +69,7 @@ let structural!: Pick<Promise<URL>, "then" | "catch" | "finally">;
   defer program.Close()
 
   source := program.SourceFile(filepath.Join(dir, "src", "main.ts"))
-  if source == nil || source.Statements == nil || len(source.Statements.Nodes) != 12 {
+  if source == nil || source.Statements == nil || len(source.Statements.Nodes) != 16 {
     t.Fatal("fixture declarations were not loaded")
   }
   variableType := func(index int) *shimchecker.Type {
@@ -76,14 +82,15 @@ let structural!: Pick<Promise<URL>, "then" | "catch" | "finally">;
     async     bool
     fulfilled string
   }{
-    {"builtin", 4, true, "string"},
-    {"derived-class", 5, true, "number"},
-    {"derived-interface", 6, true, "boolean"},
-    {"branded-intersection", 7, true, "bigint"},
-    {"shadowed-name", 8, false, ""},
-    {"synchronous", 9, false, ""},
-    {"promise-like", 10, false, ""},
-    {"structural", 11, true, "URL"},
+    {"builtin", 5, true, "string"},
+    {"derived-class", 6, true, "number"},
+    {"derived-interface", 7, true, "boolean"},
+    {"branded-intersection", 8, true, "bigint"},
+    {"shadowed-name", 9, false, ""},
+    {"synchronous", 10, false, ""},
+    {"promise-like", 11, false, ""},
+    {"structural", 12, true, "URL"},
+    {"catchable-promise-like", 13, false, ""},
   }
   for _, tc := range tests {
     t.Run(tc.name, func(t *testing.T) {
