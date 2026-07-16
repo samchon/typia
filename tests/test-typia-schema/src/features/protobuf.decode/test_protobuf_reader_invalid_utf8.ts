@@ -61,6 +61,7 @@ const ENCODER = new TextEncoder();
 const VALID_TEXTS = [
   ["empty", ""],
   ["ASCII", "Protocol Buffers"],
+  ["literal replacement character", "\ufffd"],
   ["multibyte", "é水값"],
   ["emoji", "🫢"],
   ["UTF-8 boundaries", "\u0000\u007f\u0080\u07ff\u0800\uffff\u{10000}\u{10ffff}"],
