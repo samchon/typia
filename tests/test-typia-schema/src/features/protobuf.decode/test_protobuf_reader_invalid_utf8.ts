@@ -1,6 +1,16 @@
 import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
 
-/** Verifies Protobuf strings reject malformed UTF-8 without narrowing bytes. */
+/**
+ * Verifies Protobuf strings reject malformed UTF-8 without narrowing bytes.
+ *
+ * Locks the shared reader boundary where proto3 `string` and `bytes` stop
+ * sharing semantics. A regression here either accepts lossy replacement text
+ * or incorrectly rejects arbitrary octets from a bytes field.
+ *
+ * 1. Decode valid empty, ASCII, multibyte, emoji, and boundary strings.
+ * 2. Reject every authoritative malformed UTF-8 class with one stable error.
+ * 3. Read the same malformed octets through `bytes()` without changing them.
+ */
 export const test_protobuf_reader_invalid_utf8 = (): void => {
   for (const [label, text] of VALID_TEXTS) {
     const payload: Uint8Array = ENCODER.encode(text);

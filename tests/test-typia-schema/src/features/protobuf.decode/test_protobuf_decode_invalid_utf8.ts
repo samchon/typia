@@ -1,13 +1,23 @@
 import typia from "typia";
 
-/** Verifies every generated proto3 string position rejects malformed UTF-8. */
+/**
+ * Verifies every generated proto3 string position rejects malformed UTF-8.
+ *
+ * Generated decode wrappers share the reader but add distinct assertion,
+ * predicate, and validation layers. This matrix prevents any wrapper or
+ * structural position from turning replacement text into a successful value.
+ *
+ * 1. Decode valid strings and arbitrary bytes through all eight public paths.
+ * 2. Move each malformed UTF-8 class through every generated string position.
+ * 3. Require one wire error while the identical bytes field remains valid.
+ */
 export const test_protobuf_decode_invalid_utf8 = (): void => {
-  for (const [, text] of VALID_TEXTS) {
+  for (const [label, text] of VALID_TEXTS) {
     const payload: Uint8Array = ENCODER.encode(text);
     const bytes: Uint8Array = Uint8Array.of(0xff, 0x80, 0xc0, 0xaf);
     const wire: Uint8Array = message({ bytes, defaultString: payload });
     for (const [decoder, decode] of DECODERS)
-      assertDecoded(decoder, decode(wire), text, bytes);
+      assertDecoded(`${decoder}: valid ${label}`, decode(wire), text, bytes);
   }
 
   for (const [label, payload] of INVALID_UTF8) {
@@ -16,7 +26,12 @@ export const test_protobuf_decode_invalid_utf8 = (): void => {
       defaultString: ASCII,
     });
     for (const [decoder, decode] of DECODERS)
-      assertDecoded(decoder, decode(bytesOnly), ASCII_TEXT, payload);
+      assertDecoded(
+        `${decoder}: bytes negative twin: ${label}`,
+        decode(bytesOnly),
+        ASCII_TEXT,
+        payload,
+      );
 
     for (const position of STRING_POSITIONS) {
       const wire: Uint8Array = message({
