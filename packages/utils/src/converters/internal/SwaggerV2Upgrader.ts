@@ -240,13 +240,6 @@ export namespace SwaggerV2Upgrader {
         throw new TypeError(
           "SwaggerV2Upgrader: formData parameters require only form media types.",
         );
-      if (
-        parameters.some(isFileParameter) &&
-        mediaTypes.some((type) => type !== "multipart/form-data")
-      )
-        throw new TypeError(
-          "SwaggerV2Upgrader: file parameters require multipart/form-data.",
-        );
       const schema: OpenApi.IJsonSchema.IObject = {
         type: "object",
         properties: Object.fromEntries(
@@ -472,7 +465,7 @@ export namespace SwaggerV2Upgrader {
   const isFormDataSchema = (input: OpenApi.IJsonSchema): boolean => {
     if (isFormDataScalarSchema(input)) return true;
     if (OpenApiTypeChecker.isArray(input) === false) return false;
-    return isFormDataScalarSchema(input.items);
+    return isFormDataSchema(input.items);
   };
 
   const isFormDataScalarSchema = (input: OpenApi.IJsonSchema): boolean => {
@@ -499,13 +492,7 @@ export namespace SwaggerV2Upgrader {
         ).size === 1
       );
     return (
-      nullCount === 1 &&
-      nonNull.length === 1 &&
-      (OpenApiTypeChecker.isBoolean(nonNull[0]!) ||
-        OpenApiTypeChecker.isInteger(nonNull[0]!) ||
-        OpenApiTypeChecker.isNumber(nonNull[0]!) ||
-        (OpenApiTypeChecker.isString(nonNull[0]!) &&
-          nonNull[0].format !== "binary"))
+      nullCount === 1 && nonNull.length === 1 && isFormDataSchema(nonNull[0]!)
     );
   };
 

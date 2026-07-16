@@ -282,11 +282,7 @@ export namespace SwaggerV2Downgrader {
         consumes: media.types,
         parameters:
           formTypes.length > 0
-            ? downgradeFormData(collection)(
-                media.schema,
-                input.required,
-                formTypes,
-              )
+            ? downgradeFormData(collection)(media.schema, input.required)
             : [
                 {
                   name: "body",
@@ -306,7 +302,6 @@ export namespace SwaggerV2Downgrader {
     (
       schema: OpenApi.IJsonSchema | undefined,
       requestRequired: boolean | undefined,
-      mediaTypes: string[],
     ): SwaggerV2.IOperation.IGeneralParameter[] => {
       const resolved: OpenApi.IJsonSchema | undefined =
         resolveSchema(collection)(schema);
@@ -359,10 +354,7 @@ export namespace SwaggerV2Downgrader {
           "SwaggerV2Downgrader: form request body and field requiredness must agree.",
         );
       return properties.map(([name, property]) => ({
-        ...downgradeFormDataSchema(collection)(
-          property,
-          mediaTypes.every((type) => type === "multipart/form-data"),
-        ),
+        ...downgradeFormDataSchema(collection)(property),
         name,
         in: "formData",
         required: required.includes(name) || undefined,
@@ -373,7 +365,6 @@ export namespace SwaggerV2Downgrader {
     (collection: IComponentsCollection) =>
     (
       input: OpenApi.IJsonSchema,
-      allowFile: boolean,
     ):
       | SwaggerV2.IJsonSchema.IBoolean
       | SwaggerV2.IJsonSchema.IInteger
@@ -389,10 +380,6 @@ export namespace SwaggerV2Downgrader {
           "SwaggerV2Downgrader: form property references must resolve.",
         );
       if (OpenApiTypeChecker.isString(schema) && schema.format === "binary") {
-        if (allowFile === false)
-          throw new TypeError(
-            "SwaggerV2Downgrader: file fields require multipart/form-data.",
-          );
         const { format: _format, ...rest } = downgradeSchema(collection)(
           schema,
         ) as SwaggerV2.IJsonSchema.IString;
@@ -448,7 +435,7 @@ export namespace SwaggerV2Downgrader {
     if (SwaggerV2TypeChecker.isArray(input) === false) return false;
     const array: SwaggerV2.IJsonSchema.IArray =
       input as SwaggerV2.IJsonSchema.IArray;
-    return isFormDataScalarSchema(array.items);
+    return isFormDataSchema(array.items);
   };
 
   const isFormDataScalarSchema = (input: SwaggerV2.IJsonSchema): boolean => {
@@ -468,7 +455,7 @@ export namespace SwaggerV2Downgrader {
     if (
       input["x-oneOf"].length === 2 &&
       nonNull.length === 1 &&
-      isFormDataScalarSchema(nonNull[0]!)
+      isFormDataSchema(nonNull[0]!)
     )
       return true;
     const enumTypes: string[] = nonNull

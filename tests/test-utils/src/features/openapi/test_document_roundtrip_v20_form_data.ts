@@ -418,19 +418,6 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       },
     }),
   );
-  assertThrows("urlencoded file", () =>
-    OpenApiConverter.upgradeDocument({
-      ...input,
-      paths: {
-        "/invalid": {
-          post: {
-            parameters: [file],
-            responses: {},
-          },
-        },
-      },
-    }),
-  );
 };
 
 const assertThrows = (title: string, task: () => unknown): void => {

@@ -210,31 +210,6 @@ export const test_document_downgrade_v20_unrepresentable = (): void => {
       }),
     },
     {
-      name: "urlencoded file field",
-      input: document({
-        paths: {
-          "/items": {
-            post: {
-              requestBody: {
-                required: true,
-                content: {
-                  "application/x-www-form-urlencoded": {
-                    schema: {
-                      type: "object",
-                      properties: {
-                        file: { type: "string", format: "binary" },
-                      },
-                      required: ["file"],
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      }),
-    },
-    {
       name: "form object metadata",
       input: document({
         paths: {
