@@ -66,7 +66,7 @@ func (jsonSchemaTransformerNamespace) Transform(props nativetransform.ITransform
         Validate: validator,
       },
       Components: schemametadata.NewMetadataCollection(&schemametadata.MetadataCollection_IOptions{
-        Replace: schemametadata.MetadataCollection_replace,
+        Replace: schemametadata.MetadataCollection_replaceOpenApi,
       }),
       Type: typ,
     })

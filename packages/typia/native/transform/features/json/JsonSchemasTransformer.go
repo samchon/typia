@@ -64,6 +64,9 @@ func (jsonSchemasTransformerNamespace) Transform(props nativetransform.ITransfor
   analyze := func(validate bool) []*schemametadata.MetadataSchema {
     metadatas := []*schemametadata.MetadataSchema{}
     errors := []nativefactories.MetadataFactory_IError{}
+    collection := schemametadata.NewMetadataCollection(&schemametadata.MetadataCollection_IOptions{
+      Replace: schemametadata.MetadataCollection_replaceOpenApi,
+    })
     var validator nativefactories.MetadataFactory_Validator
     if validate {
       validator = jsonTransformer_schemasValidator
@@ -77,10 +80,8 @@ func (jsonSchemasTransformerNamespace) Transform(props nativetransform.ITransfor
           Escape:   true,
           Validate: validator,
         },
-        Components: schemametadata.NewMetadataCollection(&schemametadata.MetadataCollection_IOptions{
-          Replace: schemametadata.MetadataCollection_replace,
-        }),
-        Type: typ,
+        Components: collection,
+        Type:       typ,
       })
       if result.Success == false {
         errors = append(errors, result.Errors...)
