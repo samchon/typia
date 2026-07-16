@@ -21,7 +21,9 @@ export const test_feature_identity_filename_mismatch = (): void => {
   TestValidator.equals(
     "matching",
     [] as string[],
-    FeatureIdentity.diagnose([file("test_llm_schema_enum", ["test_llm_schema_enum"])]),
+    FeatureIdentity.diagnose([
+      file("test_llm_schema_enum", ["test_llm_schema_enum"]),
+    ]),
   );
 
   // 2. THE MISMATCH IS REPORTED

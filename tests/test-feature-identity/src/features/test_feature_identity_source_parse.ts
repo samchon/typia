@@ -54,9 +54,10 @@ export const test_feature_identity_source_parse = (): void => {
     "renamed re-export",
     [] as string[],
     FeatureIdentity.parse(
-      ["const inner = (): void => {};", "export { inner as test_renamed };"].join(
-        "\n",
-      ),
+      [
+        "const inner = (): void => {};",
+        "export { inner as test_renamed };",
+      ].join("\n"),
     ),
   );
 };

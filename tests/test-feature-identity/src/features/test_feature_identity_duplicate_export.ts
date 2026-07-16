@@ -46,7 +46,10 @@ export const test_feature_identity_duplicate_export = (): void => {
   );
 };
 
-const file = (suite: string, basename: string): FeatureIdentity.IFeatureFile => ({
+const file = (
+  suite: string,
+  basename: string,
+): FeatureIdentity.IFeatureFile => ({
   suite,
   path: `tests/${suite}/src/features/${basename}.ts`,
   basename,

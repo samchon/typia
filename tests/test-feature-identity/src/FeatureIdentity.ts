@@ -114,20 +114,31 @@ export namespace FeatureIdentity {
    * — owns their naming. Working from git also makes the result independent of
    * whichever suites happen to have run before this one.
    *
+   * `-z` is not decoration. Without it `git ls-files` honours `core.quotePath`
+   * and prints a non-ASCII path quoted and octal-escaped, which this scan's
+   * anchored pattern would not match — the file would drop out silently, which
+   * is exactly the failure the suite exists to prevent.
+   *
    * @param root Repository root; defaults to the enclosing git work tree.
    * @returns Every committed `tests/<suite>/src/features` source file, parsed.
    */
   export const collect = (root: string = toplevel()): IFeatureFile[] =>
-    git(["ls-files", "--", "tests"], root)
-      .split("\n")
-      .map((line) => line.trim())
+    git(["ls-files", "-z", "--", "tests"], root)
+      .split("\0")
       .map((line) => FEATURE_PATH.exec(line))
       .filter((match) => match !== null)
       .map((match) => ({
+        match,
+        absolute: path.resolve(root, match[0]),
+      }))
+      // `git ls-files` reads the index while the suites read the working tree.
+      // A staged-but-deleted file runs nowhere, so it violates nothing.
+      .filter(({ absolute }) => fs.existsSync(absolute))
+      .map(({ match, absolute }) => ({
         suite: match[1]!,
         path: match[0],
         basename: path.posix.basename(match[0], ".ts"),
-        exports: parse(fs.readFileSync(path.resolve(root, match[0]), "utf8")),
+        exports: parse(fs.readFileSync(absolute, "utf8")),
       }));
 
   /**
@@ -147,29 +158,48 @@ export namespace FeatureIdentity {
 
   const PREFIX = "test_";
 
-  /** A committed `tests/<suite>/src/features` source file. */
-  const FEATURE_PATH = /^tests\/([^/]+)\/src\/features\/.+\.ts$/;
+  /**
+   * A committed `tests/<suite>/src/features` source file.
+   *
+   * Declaration files are excluded: they carry no runnable export, so judging
+   * them against the naming rule would only invent false diagnostics.
+   */
+  const FEATURE_PATH = /^tests\/([^/]+)\/src\/features\/.+(?<!\.d)\.ts$/;
 
   /** A top-level `export const|let|var|function test_*` declaration. */
   const EXPORTED_TEST =
     /^export\s+(?:const|let|var|(?:async\s+)?function)\s+(test_[A-Za-z0-9_]*)/gm;
 
   const describe = (names: string[]): string =>
-    `${names.length} test functions (${names.join(", ")})`;
+    `${names.length} test ${names.length === 1 ? "function" : "functions"} ` +
+    `(${names.join(", ")})`;
 
   const toplevel = (): string =>
     git(["rev-parse", "--show-toplevel"], __dirname).trim();
 
   const git = (args: string[], cwd: string): string => {
     try {
-      return cp.execFileSync("git", args, { cwd, encoding: "utf8" });
+      return cp.execFileSync("git", args, {
+        cwd,
+        encoding: "utf8",
+        // Capture git's own report instead of letting it print itself into
+        // the suite log, so a failure arrives through the throw below.
+        stdio: ["ignore", "pipe", "pipe"],
+        // The default 1 MB would turn repository growth into an ENOBUFS
+        // surfacing from inside a naming check.
+        maxBuffer: 64 * 1024 * 1024,
+      });
     } catch (error) {
       // Never degrade to an empty tree: a vacuous pass would hide the very
       // regressions this suite exists to catch.
+      const stderr: string = String(
+        (error as { stderr?: unknown }).stderr ?? "",
+      ).trim();
       throw new Error(
         `Failed to run "git ${args.join(" ")}" in "${cwd}". ` +
           `The feature-identity check reads the committed tree through git.\n` +
-          `${(error as Error).message}`,
+          `${(error as Error).message}` +
+          `${stderr.length !== 0 ? `\n${stderr}` : ""}`,
       );
     }
   };
