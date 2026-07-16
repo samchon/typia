@@ -1,10 +1,14 @@
 import { IValidation } from "@typia/interface";
 
 export const _validateReport = (array: IValidation.IError[]) => {
+  const isAncestor = (ancestor: string, descendant: string): boolean =>
+    descendant === ancestor ||
+    descendant.startsWith(`${ancestor}.`) ||
+    descendant.startsWith(`${ancestor}[`);
   const reportable = (path: string): boolean => {
     if (array.length === 0) return true;
     const last: string = array[array.length - 1]!.path;
-    return path.length > last.length || last.substring(0, path.length) !== path;
+    return isAncestor(path, last) === false && isAncestor(last, path) === false;
   };
   return (exceptable: boolean, error: IValidation.IError): false => {
     if (exceptable && reportable(error.path)) {

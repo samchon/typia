@@ -10,17 +10,6 @@ export namespace OpenApiArrayValidator {
   ): boolean => {
     if (Array.isArray(ctx.value) === false) return ctx.report(ctx);
     return [
-      ctx.value
-        .map((value, i) =>
-          OpenApiStationValidator.validate({
-            ...ctx,
-            schema: ctx.schema.items,
-            value,
-            path: `${ctx.path}[${i}]`,
-            required: true,
-          }),
-        )
-        .every((v) => v),
       ctx.schema.minItems !== undefined
         ? ctx.value.length >= ctx.schema.minItems ||
           ctx.report({
@@ -44,6 +33,17 @@ export namespace OpenApiArrayValidator {
             })
           : true
         : true,
+      ctx.value
+        .map((value, i) =>
+          OpenApiStationValidator.validate({
+            ...ctx,
+            schema: ctx.schema.items,
+            value,
+            path: `${ctx.path}[${i}]`,
+            required: true,
+          }),
+        )
+        .every((v) => v),
     ].every((v) => v);
   };
 }
