@@ -108,7 +108,7 @@ const result: ChainValues = await executor.invoke({
 });
 ```
 
-Every method on `Calculator` is now a LangChain tool. JSDoc comments become tool descriptions, TypeScript types become JSON schemas. Tool names default to the bare method name; pass `{ prefix: true }` as the second argument to `toLangChainTools` to get `{controllerName}_{methodName}`. The older `toLangChainTools({ controllers: [...] })` form still works when that shape is clearer for multiple controllers.
+Every method on `Calculator` is now a LangChain tool. JSDoc comments become tool descriptions, TypeScript types become JSON schemas. Tool names default to the bare method name; pass `{ prefix: true }` as the second argument to `toLangChainTools` to get `{controllerName}_{methodName}`. Final tool names must be unique even with prefixes enabled, so controllers that still emit the same name are rejected before registration. The older `toLangChainTools({ controllers: [...] })` form still works when that shape is clearer for multiple controllers.
 
 <Tabs items={[
     <code>Calculator</code>,
