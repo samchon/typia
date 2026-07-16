@@ -351,6 +351,12 @@ interface IDiscriminator {
 interface IDiscriminatorBranch {
   schema: OpenApi.IJsonSchema;
   predicator: (value: unknown) => boolean;
+  /**
+   * Whether a failed predicate match may fall through to another candidate.
+   *
+   * Array first-element probes are tentative, while object key discriminators
+   * establish ordered ownership of the value and its validation errors.
+   */
   retryable: boolean;
 }
 
