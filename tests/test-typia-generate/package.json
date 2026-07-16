@@ -15,19 +15,18 @@
     "generate:files:implicit-jsconfig": "pnpm run clean && ttsx --cwd jsconfig-dir/src ../../node_modules/typia/src/executable/typia.ts generate --output ../../src/output generate_jsconfig.ts",
     "generate:files:rerun": "ttsx node_modules/typia/src/executable/typia.ts generate --project tsconfig.files.json --output src/output \"src/**/generate_module.ts\"",
     "check:files:errors": "node scripts/check-file-errors.cjs",
+    "check:files:filesystem": "node --test --test-concurrency=1 scripts/filesystem/*.test.cjs",
+    "check:files:identity": "ttsx --cwd ../../packages/typia --project ../../tests/test-typia-generate/tsconfig.identity.json --no-plugins ../../tests/test-typia-generate/scripts/identity/run.ts",
     "check:files": "node -e \"require('fs').accessSync('src/output/generate_module.ts')\"",
     "check:files:project-directory": "node -e \"require('fs').accessSync('src/output/generate_project.ts')\"",
     "check:files:implicit-jsconfig": "node -e \"require('fs').accessSync('src/output/generate_jsconfig.ts')\"",
-    "start": "pnpm run generate:directory && pnpm run build && pnpm run check:files:errors && pnpm run generate:files && pnpm run check:files && pnpm run generate:files:rerun && pnpm run check:files && pnpm run generate:files:literals && pnpm run check:files && pnpm run generate:files:project-directory && pnpm run check:files:project-directory && pnpm run generate:files:implicit-project && pnpm run check:files:project-directory && pnpm run generate:files:implicit-jsconfig && pnpm run check:files:implicit-jsconfig && pnpm run build"
+    "start": "pnpm run generate:directory && pnpm run build && pnpm run check:files:errors && pnpm run check:files:identity && pnpm run check:files:filesystem && pnpm run generate:files && pnpm run check:files && pnpm run generate:files:rerun && pnpm run check:files && pnpm run generate:files:literals && pnpm run check:files && pnpm run generate:files:project-directory && pnpm run check:files:project-directory && pnpm run generate:files:implicit-project && pnpm run check:files:project-directory && pnpm run generate:files:implicit-jsconfig && pnpm run check:files:implicit-jsconfig && pnpm run build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
-  "keywords": [
-    "typia",
-    "test"
-  ],
+  "keywords": ["typia", "test"],
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {
