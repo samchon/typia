@@ -77,7 +77,15 @@ export class _ProtobufReader {
   }
 
   public string(): string {
-    return utf8.get().decode(this.bytes());
+    const bytes: Uint8Array = this.bytes();
+    const decoder: TextDecoder = utf8.get();
+    try {
+      return decoder.decode(bytes);
+    } catch {
+      throw new Error(
+        "Error on typia.protobuf.decode(): invalid UTF-8 string.",
+      );
+    }
   }
 
   public fork(): number {
@@ -231,4 +239,6 @@ export class _ProtobufReader {
   }
 }
 
-const utf8 = new Singleton(() => new TextDecoder("utf-8"));
+const utf8 = new Singleton(
+  () => new TextDecoder("utf-8", { fatal: true }),
+);
