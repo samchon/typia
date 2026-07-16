@@ -12,10 +12,14 @@ export class _ProtobufReader {
   /** DataView for buffer. */
   private view: DataView;
 
+  /** Current length-delimited boundary. */
+  private end: number;
+
   public constructor(buf: Uint8Array) {
     this.buf = buf;
     this.ptr = 0;
     this.view = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
+    this.end = buf.length;
   }
 
   public index(): number {
@@ -23,7 +27,7 @@ export class _ProtobufReader {
   }
 
   public size(): number {
-    return this.buf.length;
+    return this.end;
   }
 
   public uint32(): number {
@@ -57,58 +61,73 @@ export class _ProtobufReader {
   }
 
   public float(): number {
-    const value: number = this.view.getFloat32(this.ptr, true);
-    this.ptr += 4;
-    return value;
+    return this.view.getFloat32(this.take(4), true);
   }
 
   public double(): number {
-    const value: number = this.view.getFloat64(this.ptr, true);
-    this.ptr += 8;
-    return value;
+    return this.view.getFloat64(this.take(8), true);
   }
 
   public bytes(): Uint8Array {
-    const length: number = this.uint32();
-    const from: number = this.ptr;
-    this.ptr += length;
-    return this.buf.subarray(from, from + length);
+    return this.atomic(() => {
+      const length: number = this.uint32();
+      const from: number = this.take(length);
+      return this.buf.subarray(from, from + length);
+    });
   }
 
   public string(): string {
     return utf8.get().decode(this.bytes());
   }
 
+  public fork(): number {
+    return this.atomic(() => {
+      const previous: number = this.end;
+      const length: number = this.uint32();
+      this.validate(length);
+      this.end = this.ptr + length;
+      return previous;
+    });
+  }
+
+  public close(previous: number): void {
+    if (this.ptr !== this.end)
+      throw new Error("Error on typia.protobuf.decode(): buffer overflow.");
+    this.end = previous;
+  }
+
   public skip(length: number): void {
-    if (length === 0) while (this.u8() & 0x80);
-    else {
-      if (this.index() + length > this.size())
-        throw new Error("Error on typia.protobuf.decode(): buffer overflow.");
-      this.ptr += length;
-    }
+    this.atomic(() => {
+      if (length === 0) while (this.u8() & 0x80);
+      else this.take(length);
+    });
   }
 
   public skipType(wireType: ProtobufWire): void {
-    switch (wireType) {
-      case ProtobufWire.VARIANT:
-        this.skip(0);
-        break;
-      case ProtobufWire.I64:
-        this.skip(8);
-        break;
-      case ProtobufWire.LEN:
-        this.skip(this.uint32());
-        break;
-      case ProtobufWire.START_GROUP:
-        while ((wireType = this.uint32() & 0x07) !== ProtobufWire.END_GROUP)
-          this.skipType(wireType);
-        break;
-      case ProtobufWire.I32:
-        this.skip(4);
-        break;
-      default:
-        throw new Error(`Invalid wire type ${wireType} at offset ${this.ptr}.`);
-    }
+    this.atomic(() => {
+      switch (wireType) {
+        case ProtobufWire.VARIANT:
+          this.skip(0);
+          break;
+        case ProtobufWire.I64:
+          this.skip(8);
+          break;
+        case ProtobufWire.LEN:
+          this.skip(this.uint32());
+          break;
+        case ProtobufWire.START_GROUP:
+          while ((wireType = this.uint32() & 0x07) !== ProtobufWire.END_GROUP)
+            this.skipType(wireType);
+          break;
+        case ProtobufWire.I32:
+          this.skip(4);
+          break;
+        default:
+          throw new Error(
+            `Invalid wire type ${wireType} at offset ${this.ptr}.`,
+          );
+      }
+    });
   }
 
   private varint32(): number {
@@ -176,11 +195,39 @@ export class _ProtobufReader {
   }
 
   private u8(): number {
-    return this.view.getUint8(this.ptr++);
+    return this.view.getUint8(this.take(1));
   }
 
   private u8n(): bigint {
     return BigInt(this.u8());
+  }
+
+  private take(length: number): number {
+    this.validate(length);
+    const from: number = this.ptr;
+    this.ptr += length;
+    return from;
+  }
+
+  private atomic<T>(closure: () => T): T {
+    const index: number = this.ptr;
+    const end: number = this.end;
+    try {
+      return closure();
+    } catch (error) {
+      this.ptr = index;
+      this.end = end;
+      throw error;
+    }
+  }
+
+  private validate(length: number): void {
+    if (
+      Number.isSafeInteger(length) === false ||
+      length < 0 ||
+      length > this.size() - this.ptr
+    )
+      throw new Error("Error on typia.protobuf.decode(): buffer overflow.");
   }
 }
 
