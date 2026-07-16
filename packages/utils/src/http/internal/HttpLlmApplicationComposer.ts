@@ -232,10 +232,18 @@ export namespace HttpLlmApplicationComposer {
     };
     const required: string[] = [
       ...props.route.parameters.map((parameter) => parameter.key),
-      ...(props.route.headers?.required ? [props.route.headers.key] : []),
-      ...(props.route.cookies?.required ? [props.route.cookies.key] : []),
-      ...(props.route.query?.required ? [props.route.query.key] : []),
-      ...(props.route.body?.required ? [props.route.body.key] : []),
+      ...(props.route.headers && props.route.headers.required !== false
+        ? [props.route.headers.key]
+        : []),
+      ...(props.route.cookies && props.route.cookies.required !== false
+        ? [props.route.cookies.key]
+        : []),
+      ...(props.route.query && props.route.query.required !== false
+        ? [props.route.query.key]
+        : []),
+      ...(props.route.body && props.route.body.required !== false
+        ? [props.route.body.key]
+        : []),
     ];
     if (required.length !== 0) parameters.required = required;
 

@@ -95,7 +95,7 @@ export namespace HttpMigration {
     cookies?: object | undefined;
 
     /** Request body. */
-    body?: object | undefined;
+    body?: unknown;
   }
 
   /** OpenAPI path parameter value. */

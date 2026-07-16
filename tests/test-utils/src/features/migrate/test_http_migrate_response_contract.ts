@@ -1,24 +1,34 @@
 import { TestValidator } from "@nestia/e2e";
-import {
-  IHttpMigrateRoute,
-  IHttpResponse,
-  OpenApi,
-} from "@typia/interface";
+import { IHttpMigrateRoute, IHttpResponse, OpenApi } from "@typia/interface";
 import { HttpError, HttpMigration } from "@typia/utils";
 
 /**
- * Verifies migrated HTTP responses preserve the complete status and metadata contract.
+ * Verifies migrated HTTP responses preserve the complete status and metadata
+ * contract.
  *
  * The migration fetcher previously treated only 200 and 201 as successful,
  * widened structured failures into strings, split cookie attributes, and joined
  * base URLs with a duplicate slash.
  *
- * 1. Exercise success statuses, no-content responses, and all supported failure bodies.
+ * 1. Exercise success statuses, no-content responses, and all supported failure
+ *    bodies.
  * 2. Read repeated Set-Cookie fields and structured HttpError JSON.
  * 3. Check every host/path slash boundary without rewriting the base path.
  */
 export const test_http_migrate_response_contract = async (): Promise<void> => {
-  const route: IHttpMigrateRoute = HttpMigration.application(document).routes[0]!;
+  const application = HttpMigration.application(document);
+  const route: IHttpMigrateRoute = application.routes[0]!;
+  TestValidator.equals("representative success", "202", route.success?.status);
+  TestValidator.equals(
+    "2xx excluded from exceptions",
+    false,
+    "204" in route.exceptions,
+  );
+  TestValidator.equals(
+    "declared error retained",
+    true,
+    "400" in route.exceptions,
+  );
   const requests: string[] = [];
   let response: Response = jsonResponse(202, { accepted: true });
   const connection = {
@@ -114,10 +124,14 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
     { code: "BAD" },
     propagated.body as { code: string },
   );
-  TestValidator.equals("set-cookie fields", [
-    "sid=abc; Path=/; HttpOnly",
-    "theme=dark; Expires=Wed, 21 Oct 2026 07:28:00 GMT",
-  ], propagated.headers["set-cookie"] as string[]);
+  TestValidator.equals(
+    "set-cookie fields",
+    [
+      "sid=abc; Path=/; HttpOnly",
+      "theme=dark; Expires=Wed, 21 Oct 2026 07:28:00 GMT",
+    ],
+    propagated.headers["set-cookie"] as string[],
+  );
   let error: HttpError | undefined;
   try {
     await HttpMigration.execute({ connection, route, parameters: [] });
@@ -129,6 +143,29 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
     "HttpError structured body",
     { code: "BAD" },
     error?.toJSON<{ code: string }>().message,
+  );
+  TestValidator.equals(
+    "legacy HttpError JSON string",
+    { legacy: true },
+    new HttpError("GET", "/items", 400, {}, '{"legacy":true}').toJSON<{
+      legacy: boolean;
+    }>().message,
+  );
+
+  response = new Response('{"looks":"json"}', {
+    status: 400,
+    headers: { "Content-Type": "text/plain" },
+  });
+  let textError: HttpError | undefined;
+  try {
+    await HttpMigration.execute({ connection, route, parameters: [] });
+  } catch (exp) {
+    if (exp instanceof HttpError) textError = exp;
+  }
+  TestValidator.equals(
+    "classified text remains text",
+    '{"looks":"json"}',
+    textError?.toJSON<string>().message,
   );
 
   for (const value of [["BAD"], 7, null] as const) {
@@ -145,7 +182,11 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   multipart.set("code", "BAD");
 
   const failureCases: Array<[string, Response, (body: unknown) => boolean]> = [
-    ["text", new Response("failure", { status: 400 }), (body) => body === "failure"],
+    [
+      "text",
+      new Response("failure", { status: 400 }),
+      (body) => body === "failure",
+    ],
     [
       "form",
       new Response("code=BAD", {
@@ -216,7 +257,7 @@ const document: OpenApi.IDocument = {
           "202": {
             description: "Accepted",
             content: {
-              "application/json": {
+              "application/problem+json": {
                 schema: {
                   type: "object",
                   properties: { accepted: { type: "boolean" } },

@@ -28,6 +28,7 @@ export namespace HttpMigrateRouteAccessor {
           ...entry.route.parameters,
           ...(entry.route.body ? [entry.route.body] : []),
           ...(entry.route.headers ? [entry.route.headers] : []),
+          ...(entry.route.cookies ? [entry.route.cookies] : []),
           ...(entry.route.query ? [entry.route.query] : []),
         ];
         parameters.forEach(

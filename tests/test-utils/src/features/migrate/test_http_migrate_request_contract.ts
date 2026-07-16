@@ -20,44 +20,50 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   const migration = HttpMigration.application(document);
   TestValidator.equals("composition errors", 0, migration.errors.length);
   const route: IHttpMigrateRoute = migration.routes[0]!;
-  TestValidator.equals("route groups", {
-    headers: true,
-    cookies: true,
-    query: true,
-    body: true,
-  }, {
-    headers: route.headers !== null,
-    cookies: route.cookies !== null,
-    query: route.query !== null,
-    body: route.body !== null,
-  });
-  TestValidator.equals("group requiredness", {
-    headers: true,
-    cookies: true,
-    query: false,
-    body: false,
-  }, {
-    headers: route.headers!.required,
-    cookies: route.cookies!.required,
-    query: route.query!.required,
-    body: route.body!.required,
-  });
+  TestValidator.equals(
+    "route groups",
+    {
+      headers: true,
+      cookies: true,
+      query: true,
+      body: true,
+    },
+    {
+      headers: route.headers !== null,
+      cookies: route.cookies !== null,
+      query: route.query !== null,
+      body: route.body !== null,
+    },
+  );
+  TestValidator.equals(
+    "group requiredness",
+    {
+      headers: true,
+      cookies: true,
+      query: false,
+      body: false,
+    },
+    {
+      headers: route.headers!.required!,
+      cookies: route.cookies!.required!,
+      query: route.query!.required!,
+      body: route.body!.required!,
+    },
+  );
 
   const application = HttpLlm.application({ document });
   TestValidator.equals("LLM errors", 0, application.errors.length);
   const func: IHttpLlmFunction = application.functions[0]!;
-  TestValidator.equals("LLM properties", [
-    "userId",
-    "header",
-    "cookie",
-    "query",
-    "body",
-  ], Object.keys(func.parameters.properties ?? {}));
-  TestValidator.equals("LLM required groups", [
-    "userId",
-    "header",
-    "cookie",
-  ], func.parameters.required);
+  TestValidator.equals(
+    "LLM properties",
+    ["userId", "header", "cookie", "query", "body"],
+    Object.keys(func.parameters.properties ?? {}),
+  );
+  TestValidator.equals(
+    "LLM required groups",
+    ["userId", "header", "cookie"],
+    func.parameters.required,
+  );
   TestValidator.equals(
     "optional query and body validate",
     true,
@@ -126,14 +132,46 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   });
   sent = captured!;
   headers = new Headers(sent.init.headers);
-  TestValidator.equals("form explode false", "1,2", sent.url.searchParams.get("ids"));
-  TestValidator.equals("pipe delimited", "a|b", sent.url.searchParams.get("tags"));
-  TestValidator.equals("space delimited", "1 2", sent.url.searchParams.get("points"));
-  TestValidator.equals("form explode true", ["red", "blue"], sent.url.searchParams.getAll("colors"));
-  TestValidator.equals("deep object role", "admin", sent.url.searchParams.get("filter[role]"));
-  TestValidator.equals("deep object active", "true", sent.url.searchParams.get("filter[active]"));
-  TestValidator.equals("content type wins", "application/json", headers.get("content-type"));
-  TestValidator.equals("JSON body", '{"title":"hello"}', String(sent.init.body));
+  TestValidator.equals(
+    "form explode false",
+    "1,2",
+    sent.url.searchParams.get("ids"),
+  );
+  TestValidator.equals(
+    "pipe delimited",
+    "a|b",
+    sent.url.searchParams.get("tags"),
+  );
+  TestValidator.equals(
+    "space delimited",
+    "1 2",
+    sent.url.searchParams.get("points"),
+  );
+  TestValidator.equals(
+    "form explode true",
+    ["red", "blue"],
+    sent.url.searchParams.getAll("colors"),
+  );
+  TestValidator.equals(
+    "deep object role",
+    "admin",
+    sent.url.searchParams.get("filter[role]"),
+  );
+  TestValidator.equals(
+    "deep object active",
+    "true",
+    sent.url.searchParams.get("filter[active]"),
+  );
+  TestValidator.equals(
+    "content type wins",
+    "application/json",
+    headers.get("content-type"),
+  );
+  TestValidator.equals(
+    "JSON body",
+    '{"title":"hello"}',
+    String(sent.init.body),
+  );
 
   let requiredError = false;
   try {
@@ -147,16 +185,32 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   }
   TestValidator.equals("required groups rejected", true, requiredError);
 
-  const matrix = migration.routes.find((candidate) => candidate.path === "/matrix/{coords}")!;
-  await HttpMigration.execute({ connection, route: matrix, parameters: [[1, 2]] });
-  TestValidator.equals("matrix path", "/api/matrix/;coords=1;coords=2", captured!.url.pathname);
-  const label = migration.routes.find((candidate) => candidate.path === "/label/{coords}")!;
+  const matrix = migration.routes.find(
+    (candidate) => candidate.path === "/matrix/{coords}",
+  )!;
+  await HttpMigration.execute({
+    connection,
+    route: matrix,
+    parameters: [[1, 2]],
+  });
+  TestValidator.equals(
+    "matrix path",
+    "/api/matrix/;coords=1;coords=2",
+    captured!.url.pathname,
+  );
+  const label = migration.routes.find(
+    (candidate) => candidate.path === "/label/{coords}",
+  )!;
   await HttpMigration.execute({
     connection,
     route: label,
     parameters: [{ x: 1, y: 2 }],
   });
-  TestValidator.equals("label path", "/api/label/.x=1.y=2", captured!.url.pathname);
+  TestValidator.equals(
+    "label path",
+    "/api/label/.x=1.y=2",
+    captured!.url.pathname,
+  );
 };
 
 const document: OpenApiV3_1.IDocument = {

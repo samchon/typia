@@ -7,8 +7,8 @@
  * body.
  *
  * The human-readable error text is available via {@link message}, while
- * {@link toJSON} preserves the parsed response body. For non-throwing behavior, use
- * {@link HttpLlm.propagate} or {@link HttpMigration.propagate} instead.
+ * {@link toJSON} preserves the parsed response body. For non-throwing behavior,
+ * use {@link HttpLlm.propagate} or {@link HttpMigration.propagate} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -33,7 +33,7 @@ export class HttpError extends Error {
   public readonly headers: Record<string, string | string[]>;
 
   /** Parsed response body. */
-  private readonly body_: unknown;
+  private body_: unknown = NOT_YET;
 
   /**
    * @param method HTTP method
@@ -41,6 +41,8 @@ export class HttpError extends Error {
    * @param status HTTP status code
    * @param headers Response headers
    * @param body Parsed response body
+   * @param parsed Whether a string body has already been classified by media
+   *   type
    */
   public constructor(
     method: "GET" | "QUERY" | "DELETE" | "POST" | "PUT" | "PATCH" | "HEAD",
@@ -48,13 +50,14 @@ export class HttpError extends Error {
     status: number,
     headers: Record<string, string | string[]>,
     body: unknown,
+    parsed: boolean = false,
   ) {
     super(stringifyBody(body));
     this.method = method;
     this.path = path;
     this.status = status;
     this.headers = headers;
-    this.body_ = body;
+    if (typeof body !== "string" || parsed) this.body_ = body;
 
     // INHERITANCE POLYFILL
     const proto: HttpError = new.target.prototype;
@@ -69,6 +72,12 @@ export class HttpError extends Error {
    * @returns Structured HTTP error information
    */
   public toJSON<T>(): HttpError.IProps<T> {
+    if (this.body_ === NOT_YET)
+      try {
+        this.body_ = JSON.parse(this.message);
+      } catch {
+        this.body_ = this.message;
+      }
     return {
       method: this.method,
       path: this.path,
@@ -113,3 +122,6 @@ const stringifyBody = (body: unknown): string => {
     return String(body);
   }
 };
+
+/** @internal */
+const NOT_YET = Symbol("not-yet");

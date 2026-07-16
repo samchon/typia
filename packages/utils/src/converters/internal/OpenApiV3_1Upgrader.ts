@@ -175,12 +175,27 @@ export namespace OpenApiV3_1Upgrader {
     operationParameters: OpenApiV3_1.IOperation.IParameter[],
   ): OpenApiV3_1.IOperation.IParameter[] => {
     const map: Map<string, OpenApiV3_1.IOperation.IParameter> = new Map();
+    const duplicates = (
+      parameters: OpenApiV3_1.IOperation.IParameter[],
+    ): OpenApiV3_1.IOperation.IParameter[] => {
+      const seen: Set<string> = new Set();
+      return parameters.filter((parameter) => {
+        const key: string = `${parameter.in}:${parameter.name}`;
+        if (seen.has(key)) return true;
+        seen.add(key);
+        return false;
+      });
+    };
     const emplace = (parameter: OpenApiV3_1.IOperation.IParameter): void => {
       map.set(`${parameter.in}:${parameter.name}`, parameter);
     };
     pathParameters.forEach(emplace);
     operationParameters.forEach(emplace);
-    return [...map.values()];
+    return [
+      ...map.values(),
+      ...duplicates(pathParameters),
+      ...duplicates(operationParameters),
+    ];
   };
 
   const convertParameter =

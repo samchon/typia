@@ -7,7 +7,7 @@ import typia from "typia";
  * The shared runtime parser previously replaced a string without `?` with an
  * empty query, so every direct and factory operation lost normal raw input.
  *
- * 1. Decode raw, prefixed, absolute-URL, relative-URL, and encoded-question inputs.
+ * 1. Decode raw, prefixed, absolute-URL, relative-URL, and URL-valued inputs.
  * 2. Exercise direct and factory forms of query/assert/is/validate.
  * 3. Require identical typed values and preserve encoded question marks.
  */
@@ -24,6 +24,7 @@ export const test_http_query_raw_strings = (): void => {
     `?${raw}`,
     `https://example.com/items?${raw}#fragment`,
     `/items?${raw}#fragment`,
+    `items?${raw}#fragment`,
   ];
   const factories = [
     typia.http.createQuery<IQuery>(),
@@ -44,7 +45,10 @@ export const test_http_query_raw_strings = (): void => {
         return result.success ? result.data : null;
       })(),
     ];
-    for (const [index, value] of [...direct, ...factories.map((fn) => fn(input))].entries())
+    for (const [index, value] of [
+      ...direct,
+      ...factories.map((fn) => fn(input)),
+    ].entries())
       TestValidator.equals(`decoder ${index} for ${input}`, expected, value);
   }
   TestValidator.equals(
@@ -53,6 +57,37 @@ export const test_http_query_raw_strings = (): void => {
     typia.http.isQuery<Partial<IQuery>>("https://example.com/items#fragment")
       ?.name === undefined,
   );
+
+  const rawValues =
+    "path=/users/1&url=https://example.com/items?x=1&fragment=a#b";
+  const rawExpected: IRawValues = {
+    path: "/users/1",
+    url: "https://example.com/items?x=1",
+    fragment: "a#b",
+  };
+  const rawDecoders = [
+    (input: string) => typia.http.query<IRawValues>(input),
+    (input: string) => typia.http.assertQuery<IRawValues>(input),
+    (input: string) => typia.http.isQuery<IRawValues>(input),
+    (input: string) => {
+      const result = typia.http.validateQuery<IRawValues>(input);
+      return result.success ? result.data : null;
+    },
+    typia.http.createQuery<IRawValues>(),
+    typia.http.createAssertQuery<IRawValues>(),
+    (input: string) => typia.http.createIsQuery<IRawValues>()(input),
+    (input: string) => {
+      const result = typia.http.createValidateQuery<IRawValues>()(input);
+      return result.success ? result.data : null;
+    },
+  ];
+  rawDecoders.forEach((decode, index) =>
+    TestValidator.equals(
+      `raw URL-valued decoder ${index}`,
+      rawExpected,
+      decode(rawValues),
+    ),
+  );
 };
 
 interface IQuery {
@@ -60,4 +95,10 @@ interface IQuery {
   count: number;
   tags: string[];
   token: string;
+}
+
+interface IRawValues {
+  path: string;
+  url: string;
+  fragment: string;
 }

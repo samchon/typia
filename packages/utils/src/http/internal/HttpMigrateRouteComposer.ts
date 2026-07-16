@@ -54,11 +54,11 @@ export namespace HttpMigrateRouteComposer {
     const failures: string[] = [];
     if (body === false)
       failures.push(
-        `supports only "application/json", "application/x-www-form-urlencoded", "multipart/form-data" and "text/plain" content type in the request body.`,
+        `supports only JSON, "application/x-www-form-urlencoded", "multipart/form-data" and "text/plain" content types in the request body.`,
       );
     if (success === false)
       failures.push(
-        `supports only "application/json", "application/x-www-form-urlencoded" and "text/plain" content type in the response body.`,
+        `supports only JSON, "application/x-www-form-urlencoded" and "text/plain" content types in the response body.`,
       );
 
     //----
@@ -84,50 +84,36 @@ export namespace HttpMigrateRouteComposer {
         failures.push(`${type} typed parameters must have a name`);
         return false;
       }
-      if (
-        new Set(named.map((p) => canonical(p.name!))).size !== named.length
-      ) {
+      if (new Set(named.map((p) => canonical(p.name!))).size !== named.length) {
         failures.push(`${type} typed parameter names must be unique`);
         return false;
       }
 
       // CHECK PARAMETER TYPES -> TO BE OBJECT
-      const objectParameters = parameters
-        .map((p) =>
-          OpenApiTypeChecker.isObject(p.schema)
-            ? { parameter: p, schema: p.schema }
-            : OpenApiTypeChecker.isReference(p.schema) &&
-                OpenApiTypeChecker.isObject(
-                  props.document.components.schemas?.[
-                    p.schema.$ref.replace(`#/components/schemas/`, ``)
-                  ] ?? {},
-                )
-              ? {
-                  parameter: p,
-                  schema: props.document.components.schemas?.[
-                    p.schema.$ref.replace(`#/components/schemas/`, ``)
-                  ]! as OpenApi.IJsonSchema.IObject,
-                }
-              : null!,
-        )
-        .filter((s) => !!s);
-      const primitives = parameters.filter(
-        (p) =>
-          OpenApiTypeChecker.isBoolean(p.schema) ||
-          OpenApiTypeChecker.isInteger(p.schema) ||
-          OpenApiTypeChecker.isNumber(p.schema) ||
-          OpenApiTypeChecker.isString(p.schema) ||
-          OpenApiTypeChecker.isArray(p.schema) ||
-          OpenApiTypeChecker.isTuple(p.schema),
-      );
+      const parameterEntries = parameters.map((parameter) => ({
+        parameter,
+        schema: resolveSchema(props.document)(parameter.schema),
+      }));
+      const objectParameters = parameterEntries.filter((entry) =>
+        OpenApiTypeChecker.isObject(entry.schema),
+      ) as {
+        parameter: OpenApi.IOperation.IParameter;
+        schema: OpenApi.IJsonSchema.IObject;
+      }[];
+      const primitives = parameterEntries
+        .filter((entry) => !OpenApiTypeChecker.isObject(entry.schema))
+        .map((entry) => entry.parameter);
       const serialization: IHttpMigrateRoute.ISerialization[] = parameters.map(
         (parameter) => {
           const object = objectParameters.find(
             (entry) => entry.parameter === parameter,
           );
+          const schema =
+            parameterEntries.find((entry) => entry.parameter === parameter)
+              ?.schema ?? parameter.schema;
           const style =
-            parameter.style ??
-            (type === "header" ? "simple" : "form");
+            parameter.style ?? (type === "header" ? "simple" : "form");
+          const explode = parameter.explode ?? style === "form";
           const allowed =
             type === "header"
               ? style === "simple"
@@ -143,18 +129,30 @@ export namespace HttpMigrateRouteComposer {
             failures.push(
               `${type} parameter ${JSON.stringify(parameter.name)} does not support ${JSON.stringify(style)} style`,
             );
-          if (style === "deepObject" && object === undefined)
-            failures.push(
-              `query parameter ${JSON.stringify(parameter.name)} requires an object schema for deepObject style`,
-            );
-          if (
-            (style === "spaceDelimited" || style === "pipeDelimited") &&
-            !OpenApiTypeChecker.isArray(parameter.schema) &&
-            !OpenApiTypeChecker.isTuple(parameter.schema)
-          )
-            failures.push(
-              `query parameter ${JSON.stringify(parameter.name)} requires an array schema for ${style} style`,
-            );
+          if (style === "deepObject") {
+            if (object === undefined)
+              failures.push(
+                `query parameter ${JSON.stringify(parameter.name)} requires an object schema for deepObject style`,
+              );
+            if (explode === false)
+              failures.push(
+                `query parameter ${JSON.stringify(parameter.name)} requires explode: true for deepObject style`,
+              );
+          }
+          if (style === "spaceDelimited" || style === "pipeDelimited") {
+            if (
+              !OpenApiTypeChecker.isArray(schema) &&
+              !OpenApiTypeChecker.isTuple(schema) &&
+              !OpenApiTypeChecker.isObject(schema)
+            )
+              failures.push(
+                `query parameter ${JSON.stringify(parameter.name)} requires an array or object schema for ${style} style`,
+              );
+            if (explode)
+              failures.push(
+                `query parameter ${JSON.stringify(parameter.name)} requires explode: false for ${style} style`,
+              );
+          }
           return {
             name: parameter.name!,
             key: object === undefined ? parameter.name! : null,
@@ -162,8 +160,12 @@ export namespace HttpMigrateRouteComposer {
               object === undefined
                 ? null
                 : Object.keys(object.schema.properties ?? {}),
+            additionalProperties:
+              object !== undefined &&
+              object.schema.additionalProperties !== undefined &&
+              object.schema.additionalProperties !== false,
             style: style as IHttpMigrateRoute.ISerialization["style"],
-            explode: parameter.explode ?? style === "form",
+            explode,
             parameter: () => parameter,
           };
         },
@@ -223,9 +225,12 @@ export namespace HttpMigrateRouteComposer {
           required: [
             ...new Set([
               ...primitives.filter((p) => p.required).map((p) => p.name!),
-              ...(dto?.required ?? []),
+              ...(objectParameters[0]?.parameter.required
+                ? (dto?.required ?? [])
+                : []),
             ]),
           ],
+          additionalProperties: dto?.additionalProperties,
         });
       return parameters.length === 0
         ? null
@@ -241,13 +246,13 @@ export namespace HttpMigrateRouteComposer {
                 properties: Object.fromEntries([
                   ...new Map<string, OpenApi.IJsonSchema>(
                     Object.entries(entire.properties ?? {}).map(
-                      ([name, schema]) => [
-                        name,
-                        { ...schema } as OpenApi.IJsonSchema,
-                      ] as const),
+                      ([name, schema]) =>
+                        [name, { ...schema } as OpenApi.IJsonSchema] as const,
+                    ),
                   ),
                 ]),
                 required: [...new Set(entire.required ?? [])],
+                additionalProperties: entire.additionalProperties,
               } satisfies OpenApi.IJsonSchema.IObject),
             }),
           });
@@ -478,14 +483,20 @@ export namespace HttpMigrateRouteComposer {
       ).filter(([_, v]) => !!v) as [string, OpenApi.IOperation.IMediaType][];
       const json = entries.find((e) =>
         meta["x-nestia-encrypted"] === true
-          ? e[0].includes("text/plain") || e[0].includes("application/json")
-          : e[0].includes("application/json") || e[0].includes("*/*"),
+          ? normalizeMediaType(e[0]) === "text/plain" || isJsonMediaType(e[0])
+          : isJsonMediaType(e[0]),
       );
       if (json) {
         const schema = sanitizeMediaSchema(document)(json[1]);
         return schema
           ? {
-              type: "application/json",
+              type:
+                normalizeMediaType(json[0]) === "*/*" ||
+                normalizeMediaType(json[0]) === "text/plain"
+                  ? "application/json"
+                  : (normalizeMediaType(
+                      json[0],
+                    ) as IHttpMigrateRoute.IBody["type"]),
               name: "body",
               key: "body",
               required: from === "request" && meta.required === true,
@@ -591,10 +602,7 @@ export namespace HttpMigrateRouteComposer {
     Object.entries(content ?? {}).find(
       (entry): entry is [string, OpenApi.IOperation.IMediaType] => {
         const [type, media] = entry;
-        return (
-          media !== undefined &&
-          (type.includes("application/json") || type.includes("*/*"))
-        );
+        return media !== undefined && isJsonMediaType(type);
       },
     );
 
@@ -620,6 +628,25 @@ export namespace HttpMigrateRouteComposer {
       ...parameter,
       schema: sanitizeSchema(document)(parameter.schema),
     });
+
+  const resolveSchema =
+    (document: OpenApi.IDocument) =>
+    (input: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
+      let schema: OpenApi.IJsonSchema = input;
+      const visited: Set<string> = new Set();
+      while (OpenApiTypeChecker.isReference(schema)) {
+        const key: string = schema.$ref.replace("#/components/schemas/", "");
+        if (
+          key === schema.$ref ||
+          visited.has(key) ||
+          document.components.schemas?.[key] === undefined
+        )
+          break;
+        visited.add(key);
+        schema = document.components.schemas[key]!;
+      }
+      return schema;
+    };
 
   const sanitizeSchema =
     (document: OpenApi.IDocument) =>
@@ -688,6 +715,18 @@ export namespace HttpMigrateRouteComposer {
     (OpenApiTypeChecker.isOneOf(schema) &&
       schema.oneOf.every(isNotObjectLiteral)) ||
     (OpenApiTypeChecker.isArray(schema) && isNotObjectLiteral(schema.items));
+
+  const normalizeMediaType = (type: string): string =>
+    type.split(";", 1)[0]!.trim().toLowerCase();
+
+  const isJsonMediaType = (type: string): boolean => {
+    const normalized: string = normalizeMediaType(type);
+    return (
+      normalized === "application/json" ||
+      normalized.endsWith("+json") ||
+      normalized === "*/*"
+    );
+  };
 }
 
 const isSuccessStatus = (status: string): boolean =>
@@ -710,8 +749,8 @@ const selectSuccessResponse = (
             : 300;
     return priority(x) - priority(y) || x.localeCompare(y);
   });
-  return entries[0] ??
-    (responses?.default
-      ? (["default", responses.default] as const)
-      : undefined);
+  return (
+    entries[0] ??
+    (responses?.default ? (["default", responses.default] as const) : undefined)
+  );
 };

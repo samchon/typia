@@ -1,7 +1,4 @@
-import {
-  IHttpMigrateRoute,
-  IHttpResponse,
-} from "@typia/interface";
+import { IHttpMigrateRoute, IHttpResponse } from "@typia/interface";
 
 import { HttpError } from "../HttpError";
 import type { HttpMigration } from "../HttpMigration";
@@ -18,6 +15,7 @@ export namespace HttpMigrateRouteFetcher {
         result.status,
         result.headers,
         result.body,
+        true,
       );
     return result.body;
   };
@@ -47,9 +45,9 @@ const propagateRequest = async (
   }
 
   validateGroup(error)("headers", props.route.headers, props.headers);
-  validateGroup(error)("cookies", props.route.cookies, props.cookies);
+  validateGroup(error)("cookies", props.route.cookies ?? null, props.cookies);
   validateGroup(error)("query", props.route.query, props.query);
-  validateGroup(error)("body", props.route.body, props.body);
+  validateBody(error)(props.route.body, props.body);
 
   const headers: Headers = requestHeaders(error)(props);
   const init: RequestInit = {
@@ -60,10 +58,10 @@ const propagateRequest = async (
   if (props.body !== undefined)
     init.body = (
       props.route.body?.type === "application/x-www-form-urlencoded"
-        ? requestQueryBody(props.body)
+        ? requestQueryBody(props.body as object)
         : props.route.body?.type === "multipart/form-data"
           ? requestFormDataBody(props.body as Record<string, any>)
-          : props.route.body?.type === "application/json"
+          : isJsonMediaType(props.route.body?.type)
             ? JSON.stringify(props.body)
             : props.body
     ) as BodyInit;
@@ -122,13 +120,31 @@ const validateGroup =
       if (input !== undefined) throw error(`${name} is not matched.`);
       return;
     }
-    if (metadata.required && input === undefined)
+    if ((metadata.required ?? true) && input === undefined)
       throw error(`${name} is not matched.`);
     if (
       input !== undefined &&
       (typeof input !== "object" || input === null || Array.isArray(input))
     )
       throw error(`${name} must be an object.`);
+  };
+
+const validateBody =
+  (error: (message: string) => Error) =>
+  (metadata: IHttpMigrateRoute.IBody | null, input: unknown): void => {
+    if (metadata === null) {
+      if (input !== undefined) throw error(`body is not matched.`);
+      return;
+    }
+    if ((metadata.required ?? true) && input === undefined)
+      throw error(`body is not matched.`);
+    if (
+      input !== undefined &&
+      (metadata.type === "application/x-www-form-urlencoded" ||
+        metadata.type === "multipart/form-data") &&
+      (typeof input !== "object" || input === null || Array.isArray(input))
+    )
+      throw error(`body must be an object for ${metadata.type}.`);
   };
 
 const requestHeaders =
@@ -141,27 +157,50 @@ const requestHeaders =
         value.forEach((elem) => output.append(key, String(elem)));
       else output.append(key, String(value));
 
-    if (props.route.headers && props.headers)
-      for (const metadata of props.route.headers.parameters) {
-        const value = parameterValue(metadata, props.headers);
-        if (value === undefined) {
-          if (metadata.parameter().required)
-            throw error(`header ${JSON.stringify(metadata.name)} is required.`);
-          continue;
+    if (props.route.headers && props.headers) {
+      const parameters = props.route.headers.parameters;
+      if (parameters === undefined) {
+        for (const [key, value] of Object.entries(props.headers))
+          if (value !== undefined)
+            output.set(key, serializeSimple(value, false));
+      } else {
+        const serializations: IHttpMigrateRoute.ISerialization[] = parameters;
+        for (const metadata of serializations) {
+          const value = parameterValue(metadata, props.headers, serializations);
+          if (value === undefined) {
+            if (metadata.parameter().required)
+              throw error(
+                `header ${JSON.stringify(metadata.name)} is required.`,
+              );
+            continue;
+          }
+          output.set(metadata.name, serializeSimple(value, metadata.explode));
         }
-        output.set(metadata.name, serializeSimple(value, metadata.explode));
       }
+    }
 
     if (props.route.cookies && props.cookies) {
-      const supplied = props.route.cookies.parameters.flatMap((metadata) => {
-        const value = parameterValue(metadata, props.cookies!);
-        if (value === undefined) {
-          if (metadata.parameter().required)
-            throw error(`cookie ${JSON.stringify(metadata.name)} is required.`);
-          return [];
-        }
-        return serializeCookie(metadata.name, value, metadata.explode);
-      });
+      const parameters = props.route.cookies.parameters;
+      const supplied =
+        parameters === undefined
+          ? Object.entries(props.cookies).flatMap(([name, value]) =>
+              value === undefined ? [] : serializeCookie(name, value, true),
+            )
+          : parameters.flatMap((metadata) => {
+              const value = parameterValue(
+                metadata,
+                props.cookies!,
+                parameters,
+              );
+              if (value === undefined) {
+                if (metadata.parameter().required)
+                  throw error(
+                    `cookie ${JSON.stringify(metadata.name)} is required.`,
+                  );
+                return [];
+              }
+              return serializeCookie(metadata.name, value, metadata.explode);
+            });
       if (supplied.length !== 0) {
         const replaced = new Set(supplied.map(([name]) => name));
         const inherited = (output.get("cookie") ?? "")
@@ -178,12 +217,10 @@ const requestHeaders =
       }
     }
 
-    if (
-      props.body !== undefined &&
-      props.route.body?.type &&
-      props.route.body.type !== "multipart/form-data"
-    )
-      output.set("Content-Type", props.route.body.type);
+    if (props.body !== undefined && props.route.body?.type)
+      if (props.route.body.type === "multipart/form-data")
+        output.delete("Content-Type");
+      else output.set("Content-Type", props.route.body.type);
     return output;
   };
 
@@ -223,8 +260,16 @@ const getQueryPath = (
   query: object,
 ): string => {
   const variables = new URLSearchParams();
+  if (route.parameters === undefined) {
+    for (const [key, value] of Object.entries(query))
+      if (value === undefined) continue;
+      else if (Array.isArray(value))
+        value.forEach((elem) => variables.append(key, String(elem)));
+      else variables.set(key, String(value));
+    return variables.size === 0 ? "" : `?${variables.toString()}`;
+  }
   for (const metadata of route.parameters) {
-    const value = parameterValue(metadata, query);
+    const value = parameterValue(metadata, query, route.parameters);
     if (value === undefined) {
       if (metadata.parameter().required)
         throw error(`query ${JSON.stringify(metadata.name)} is required.`);
@@ -239,12 +284,24 @@ const getQueryPath = (
 const parameterValue = (
   metadata: IHttpMigrateRoute.ISerialization,
   input: object,
+  parameters: IHttpMigrateRoute.ISerialization[],
 ): unknown => {
   const record = input as Record<string, unknown>;
   if (metadata.key !== null) return record[metadata.key];
-  const entries = (metadata.properties ?? [])
-    .filter((key) => record[key] !== undefined)
-    .map((key) => [key, record[key]] as const);
+  const properties = new Set(metadata.properties ?? []);
+  const occupied = new Set(
+    parameters
+      .filter((parameter) => parameter !== metadata)
+      .flatMap((parameter) =>
+        parameter.key !== null ? [parameter.key] : (parameter.properties ?? []),
+      ),
+  );
+  const entries = Object.entries(record).filter(
+    ([key, value]) =>
+      value !== undefined &&
+      (properties.has(key) ||
+        (metadata.additionalProperties === true && !occupied.has(key))),
+  );
   return entries.length !== 0 || (metadata.properties?.length ?? 0) === 0
     ? Object.fromEntries(entries)
     : undefined;
@@ -262,15 +319,19 @@ const serializeQuery = (
   if (
     metadata.style === "spaceDelimited" ||
     metadata.style === "pipeDelimited"
-  )
+  ) {
+    const delimiter = metadata.style === "spaceDelimited" ? " " : "|";
     return [
       [
         metadata.name,
-        arrayValues(value)
-          .map(String)
-          .join(metadata.style === "spaceDelimited" ? " " : "|"),
+        isRecord(value)
+          ? objectEntries(value)
+              .flatMap(([key, elem]) => [key, String(elem)])
+              .join(delimiter)
+          : arrayValues(value).map(String).join(delimiter),
       ],
     ];
+  }
   if (Array.isArray(value))
     return metadata.explode
       ? value.map((elem) => [metadata.name, String(elem)])
@@ -294,26 +355,28 @@ const serializePath = (
   value: unknown,
 ): string => {
   const encode = (input: unknown): string => encodeURIComponent(String(input));
+  const style = metadata.style ?? "simple";
+  const explode = metadata.explode ?? false;
   const array = Array.isArray(value) ? value.map(encode) : null;
   const object = isRecord(value)
     ? objectEntries(value).map(([key, elem]) => [encode(key), encode(elem)])
     : null;
-  if (metadata.style === "matrix") {
+  if (style === "matrix") {
     if (array)
-      return metadata.explode
+      return explode
         ? array.map((elem) => `;${metadata.name}=${elem}`).join("")
         : `;${metadata.name}=${array.join(",")}`;
     if (object)
-      return metadata.explode
+      return explode
         ? object.map(([key, elem]) => `;${key}=${elem}`).join("")
         : `;${metadata.name}=${object.flat().join(",")}`;
     return `;${metadata.name}=${encode(value)}`;
   }
-  if (metadata.style === "label") {
-    if (array) return `.${array.join(metadata.explode ? "." : ",")}`;
+  if (style === "label") {
+    if (array) return `.${array.join(explode ? "." : ",")}`;
     if (object)
       return `.${
-        metadata.explode
+        explode
           ? object.map(([key, elem]) => `${key}=${elem}`).join(".")
           : object.flat().join(",")
       }`;
@@ -321,7 +384,7 @@ const serializePath = (
   }
   if (array) return array.join(",");
   if (object)
-    return metadata.explode
+    return explode
       ? object.map(([key, elem]) => `${key}=${elem}`).join(",")
       : object.flat().join(",");
   return encode(value);
@@ -388,6 +451,14 @@ const requestFormDataBody = (input: Record<string, any>): FormData => {
 
 const contentType = (headers: Headers): string =>
   (headers.get("content-type") ?? "").split(";", 1)[0]!.trim().toLowerCase();
+
+const isJsonMediaType = (type: string | undefined): boolean => {
+  const normalized: string = (type ?? "")
+    .split(";", 1)[0]!
+    .trim()
+    .toLowerCase();
+  return normalized === "application/json" || normalized.endsWith("+json");
+};
 
 const parseResponseBody = async (
   response: Response,

@@ -80,9 +80,11 @@ export interface IHttpLlmController {
          * It is an object of key-value pairs of the API function's parameters.
          * The property keys are composed by below rules:
          *
-         * - Parameter names
-         * - Query parameter as an object type if exists
-         * - Body parameter if exists
+         * - Path parameter names
+         * - Header parameter group if it exists
+         * - Cookie parameter group if it exists
+         * - Query parameter group if it exists
+         * - Body parameter if it exists
          */
         arguments: object;
       }) => Promise<IHttpResponse>);
