@@ -89,7 +89,8 @@ export const test_vercel_tool_output_schema = async (): Promise<void> => {
         failure.success === false &&
         typeof failure.error === "string" &&
         failure.error.includes('Type errors in "read" output:') &&
-        failure.error.includes(path)
+        failure.error.includes(path) &&
+        !failure.error.includes("```json\n```json")
       );
     });
   }

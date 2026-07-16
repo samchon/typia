@@ -172,7 +172,7 @@ export namespace VercelToolsRegistrar {
                 success: false,
                 error:
                   `Type errors in "${name}" output:\n\n` +
-                  `\`\`\`json\n${LlmJson.stringify(output)}\n\`\`\``,
+                  LlmJson.stringify(output),
               } satisfies ITryResult);
         } catch (error) {
           return {
