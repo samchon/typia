@@ -1,5 +1,6 @@
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
@@ -224,8 +225,11 @@ export namespace OpenApiV3_1Downgrader {
       collection.downgraded.schemas = {};
       for (const [key, value] of Object.entries(input.schemas))
         if (value !== undefined)
-          collection.downgraded.schemas[key] =
-            downgradeSchema(collection)(value);
+          ObjectDictionary.set(
+            collection.downgraded.schemas,
+            key,
+            downgradeSchema(collection)(value),
+          );
     }
     return collection;
   };

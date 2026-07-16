@@ -2,6 +2,7 @@ import { IHttpMigrateRoute, OpenApi } from "@typia/interface";
 
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
@@ -725,9 +726,11 @@ export namespace HttpMigrateRouteComposer {
     schema: OpenApi.IJsonSchema;
   }): OpenApi.IJsonSchema.IReference => {
     props.document.components.schemas ??= {};
-    props.document.components.schemas[props.name] = sanitizeSchema(
-      props.document,
-    )(props.schema);
+    ObjectDictionary.set(
+      props.document.components.schemas,
+      props.name,
+      sanitizeSchema(props.document)(props.schema),
+    );
     return {
       $ref: `#/components/schemas/${props.name}`,
     } satisfies OpenApi.IJsonSchema.IReference;
@@ -749,14 +752,14 @@ export namespace HttpMigrateRouteComposer {
       const visited: Set<string> = new Set();
       while (OpenApiTypeChecker.isReference(schema)) {
         const key: string = schema.$ref.replace("#/components/schemas/", "");
-        if (
-          key === schema.$ref ||
-          visited.has(key) ||
-          document.components.schemas?.[key] === undefined
-        )
+        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          document.components.schemas,
+          key,
+        );
+        if (key === schema.$ref || visited.has(key) || found === undefined)
           break;
         visited.add(key);
-        schema = document.components.schemas[key]!;
+        schema = found;
       }
       return schema;
     };
@@ -779,12 +782,17 @@ export namespace HttpMigrateRouteComposer {
           ? schema.$ref.replace("#/components/schemas/", "")
           : null;
         if (key === null || visited.has(key)) return schema;
-        const found: OpenApi.IJsonSchema | undefined =
-          document.components.schemas?.[key];
+        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          document.components.schemas,
+          key,
+        );
         if (found !== undefined) {
           visited.add(key);
-          document.components.schemas![key] =
-            sanitizeSchemaRecursively(document)(visited)(found);
+          ObjectDictionary.set(
+            document.components.schemas!,
+            key,
+            sanitizeSchemaRecursively(document)(visited)(found),
+          );
         }
         return schema;
       }

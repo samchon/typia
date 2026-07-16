@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3 } from "@typia/interface";
 
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
@@ -567,7 +568,10 @@ export namespace OpenApiV3Upgrader {
 
       if (OpenApiV3TypeChecker.isReference(input))
         return retrieveObject(components)(
-          components.schemas?.[input.$ref.split("/").pop() ?? ""] ?? {},
+          ObjectDictionary.get(
+            components.schemas,
+            input.$ref.split("/").pop() ?? "",
+          ) ?? {},
           visited,
         );
       return null;

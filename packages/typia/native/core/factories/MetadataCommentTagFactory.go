@@ -237,7 +237,7 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_TagRecord{"array": {{Name: "UniqueItems", Target: "array", Kind: "uniqueItems", Value: true, Validate: "$input.length <= 1 || (new Set($input).size === $input.length)", Exclusive: true, Schema: map[string]any{"uniqueItems": true}}}}
+    return metadataCommentTagFactory_TagRecord{"array": {{Name: "UniqueItems", Target: "array", Kind: "uniqueItems", Value: true, Validate: "$importInternal(\"isUniqueItems\")($input)", Exclusive: true, Schema: map[string]any{"uniqueItems": true}}}}
   },
   "type": metadataCommentTagFactory_parse_type,
   "minimum": func(props struct {

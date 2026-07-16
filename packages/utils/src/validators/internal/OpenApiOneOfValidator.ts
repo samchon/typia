@@ -1,6 +1,7 @@
 import { OpenApi } from "@typia/interface";
 
 import { MapUtil } from "../../utils";
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
@@ -8,37 +9,53 @@ import { OpenApiStationValidator } from "./OpenApiStationValidator";
 export namespace OpenApiOneOfValidator {
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IOneOf>,
+    references: ReadonlySet<string> = new Set(),
   ): boolean => {
     const discriminator: IDiscriminator = getDiscriminator(ctx);
     for (const item of discriminator.branches)
       if (item.predicator(ctx.value))
-        return OpenApiStationValidator.validate({
-          ...ctx,
-          schema: item.schema,
-        });
+        return OpenApiStationValidator.validate(
+          {
+            ...ctx,
+            schema: item.schema,
+          },
+          undefined,
+          references,
+        );
     if (discriminator.branches.length !== 0)
-      return validate({
-        ...ctx,
-        schema: {
-          oneOf: discriminator.remainders,
+      return validate(
+        {
+          ...ctx,
+          schema: {
+            oneOf: discriminator.remainders,
+          },
         },
-      });
+        references,
+      );
     const matched: OpenApi.IJsonSchema | undefined =
       discriminator.remainders.find(
         (schema) =>
-          OpenApiStationValidator.validate({
-            ...ctx,
-            schema,
-            exceptionable: false,
-            equals: false,
-          }) === true,
+          OpenApiStationValidator.validate(
+            {
+              ...ctx,
+              schema,
+              exceptionable: false,
+              equals: false,
+            },
+            undefined,
+            references,
+          ) === true,
       );
     if (matched === undefined) return ctx.report(ctx);
     return ctx.equals === true
-      ? OpenApiStationValidator.validate({
-          ...ctx,
-          schema: matched,
-        })
+      ? OpenApiStationValidator.validate(
+          {
+            ...ctx,
+            schema: matched,
+          },
+          undefined,
+          references,
+        )
       : true;
   };
 
@@ -246,11 +263,12 @@ export namespace OpenApiOneOfValidator {
             ? (value) =>
                 typeof value === "object" &&
                 value !== null &&
-                (value as any)[top] === target.const
+                ObjectDictionary.get(value as Record<string, unknown>, top) ===
+                  target.const
             : (value) =>
                 typeof value === "object" &&
                 value !== null &&
-                (value as any)[top] !== undefined,
+                ObjectDictionary.has(value, top),
         } satisfies IDiscriminatorBranch;
       })
       .filter((b) => b !== null);
@@ -273,7 +291,7 @@ const getFlattened = (props: {
     return {
       ...getFlattened({
         components: props.components,
-        schema: props.components.schemas?.[key] ?? {},
+        schema: ObjectDictionary.get(props.components.schemas, key) ?? {},
         visited: props.visited,
       }),
       schema: props.schema,

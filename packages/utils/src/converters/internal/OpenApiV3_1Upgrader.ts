@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3_1 } from "@typia/interface";
 
+import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
@@ -610,11 +611,11 @@ export namespace OpenApiV3_1Upgrader {
               ...{
                 items: undefined!,
                 prefixItems: schema.prefixItems.map(convertSchema(components)),
+                minItems: schema.minItems ?? 0,
                 additionalItems:
-                  typeof schema.additionalItems === "object" &&
-                  schema.additionalItems !== null
-                    ? convertSchema(components)(schema.additionalItems)
-                    : schema.additionalItems,
+                  typeof schema.items === "object" && schema.items !== null
+                    ? convertSchema(components)(schema.items)
+                    : (schema.items ?? true),
               },
             });
           else if (schema.items === undefined)
@@ -783,13 +784,18 @@ export namespace OpenApiV3_1Upgrader {
 
       if (OpenApiV3_1TypeChecker.isReference(input))
         return retrieveObject(components)(
-          components.schemas?.[input.$ref.split("/").pop() ?? ""] ?? {},
+          ObjectDictionary.get(
+            components.schemas,
+            input.$ref.split("/").pop() ?? "",
+          ) ?? {},
           visited,
         );
       else if (OpenApiV3_1TypeChecker.isRecursiveReference(input))
         return retrieveObject(components)(
-          components.schemas?.[input.$recursiveRef.split("/").pop() ?? ""] ??
-            {},
+          ObjectDictionary.get(
+            components.schemas,
+            input.$recursiveRef.split("/").pop() ?? "",
+          ) ?? {},
           visited,
         );
       return null;

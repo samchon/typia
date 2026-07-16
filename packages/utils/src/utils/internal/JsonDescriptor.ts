@@ -2,6 +2,7 @@ import { OpenApi } from "@typia/interface";
 
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { NamingConvention } from "../NamingConvention";
+import { ObjectDictionary } from "./ObjectDictionary";
 
 export namespace JsonDescriptor {
   export const cascade = (props: {
@@ -19,7 +20,8 @@ export namespace JsonDescriptor {
       .map((_, i, array) => array.slice(0, i + 1).join("."))
       .map((key) => ({
         key,
-        description: props.components.schemas?.[key]?.description,
+        description: ObjectDictionary.get(props.components.schemas, key)
+          ?.description,
       }))
       .reverse()
       .filter(

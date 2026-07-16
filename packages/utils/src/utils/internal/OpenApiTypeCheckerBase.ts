@@ -2,6 +2,7 @@ import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
 
 import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
+import { ObjectDictionary } from "./ObjectDictionary";
 import { OpenApiSchemaSanitizer } from "./OpenApiSchemaSanitizer";
 
 /** @internal */
@@ -202,8 +203,10 @@ export namespace OpenApiTypeCheckerBase {
         const key: string = schema.$ref.split(props.prefix).pop()!;
         if (already.has(key) === true) return;
         already.add(key);
-        const found: OpenApi.IJsonSchema | undefined =
-          props.components.schemas?.[key];
+        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          props.components.schemas,
+          key,
+        );
         if (found !== undefined)
           next(found, `${refAccessor}[${JSON.stringify(key)}]`);
       } else if (isOneOf(schema))
@@ -256,8 +259,10 @@ export namespace OpenApiTypeCheckerBase {
   }): OpenApi.IJsonSchema | null => {
     if (isReference(props.schema) === false) return props.schema;
     const key: string = props.schema.$ref.split(props.prefix).pop()!;
-    const found: OpenApi.IJsonSchema | undefined =
-      props.components.schemas?.[key];
+    const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+      props.components.schemas,
+      key,
+    );
     if (found === undefined) {
       props.reasons.push({
         schema: props.schema,
@@ -296,8 +301,10 @@ export namespace OpenApiTypeCheckerBase {
       const key: string =
         props.schema.$ref.split(props.prefix)[1] ??
         props.schema.$ref.split("/").at(-1)!;
-      const target: OpenApi.IJsonSchema | undefined =
-        props.components.schemas?.[key];
+      const target: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        props.components.schemas,
+        key,
+      );
       if (target === undefined) {
         props.reasons.push({
           schema: props.schema,
@@ -678,7 +685,10 @@ export namespace OpenApiTypeCheckerBase {
     )
       return false;
     return Object.entries(p.y.properties ?? {}).every(([key, b]) => {
-      const a: OpenApi.IJsonSchema | undefined = p.x.properties?.[key];
+      const a: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        p.x.properties,
+        key,
+      );
       if (a === undefined) return false;
       else if (
         p.x.required?.includes(key) === true &&
@@ -774,7 +784,7 @@ export namespace OpenApiTypeCheckerBase {
     const found: OpenApi.IJsonSchema | undefined = escapeReferenceOfFlatSchema({
       prefix: props.prefix,
       components: props.components,
-      schema: props.components.schemas?.[key] ?? {},
+      schema: ObjectDictionary.get(props.components.schemas, key) ?? {},
     });
     if (found === undefined)
       throw new Error(
