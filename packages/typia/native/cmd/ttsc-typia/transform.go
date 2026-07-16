@@ -262,12 +262,16 @@ type transformDependencyCollector struct {
   cwd     string
   current string
   files   map[string]map[string]bool
+  // values memoizes fileName -> envelope value ("" for a dropped file): the
+  // listener reports the same declaration files repeatedly across call sites.
+  values map[string]string
 }
 
 func newTransformDependencyCollector(cwd string) *transformDependencyCollector {
   return &transformDependencyCollector{
-    cwd:   cwd,
-    files: map[string]map[string]bool{},
+    cwd:    cwd,
+    files:  map[string]map[string]bool{},
+    values: map[string]string{},
   }
 }
 
@@ -277,17 +281,19 @@ func (collector *transformDependencyCollector) Begin(key string) {
 }
 
 // Touch records one consulted declaration file for the current key. Default
-// library files and the transformed file itself are dropped here so the
-// envelope carries only actionable project inputs.
+// library files, virtual URI sources (e.g. tsgo's `bundled:///` libraries),
+// and the transformed file itself are dropped so the envelope carries only
+// actionable project inputs.
 func (collector *transformDependencyCollector) Touch(fileName string) {
   if collector.current == "" {
     return
   }
-  if transformDependencyDefaultLib(fileName) {
-    return
+  value, memoized := collector.values[fileName]
+  if memoized == false {
+    value = transformDependencyValue(collector.cwd, fileName)
+    collector.values[fileName] = value
   }
-  value := sourceFileKey(collector.cwd, filepath.ToSlash(fileName))
-  if value == collector.current {
+  if value == "" || value == collector.current {
     return
   }
   set := collector.files[collector.current]
@@ -296,6 +302,15 @@ func (collector *transformDependencyCollector) Touch(fileName string) {
     collector.files[collector.current] = set
   }
   set[value] = true
+}
+
+// transformDependencyValue renders one reported file as its envelope value, or
+// "" when the file must be dropped (default library or virtual URI source).
+func transformDependencyValue(cwd string, fileName string) string {
+  if transformDependencyDefaultLib(fileName) || strings.Contains(fileName, "://") {
+    return ""
+  }
+  return sourceFileKey(cwd, filepath.ToSlash(fileName))
 }
 
 // ToJSON renders the collected sets as the envelope's `dependencies` map with

@@ -124,30 +124,50 @@ func metadataDependency_touchVisited(
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
       listener(src.FileName())
     }
-    if metadataDependency_walkable(declaration.Kind) {
-      metadataDependency_walkNode(checker, listener, declaration, visited)
+    for _, surface := range metadataDependency_typeSurface(declaration) {
+      metadataDependency_walkNode(checker, listener, surface, visited)
     }
   }
 }
 
-// metadataDependency_walkable reports whether a declaration kind carries a
-// written type surface worth walking for references. Interface and class
-// declarations are excluded: their members surface individually through the
-// property enumeration, and walking whole bodies here would only repeat that.
-func metadataDependency_walkable(kind nativeast.Kind) bool {
-  switch kind {
-  case nativeast.KindTypeAliasDeclaration,
-    nativeast.KindPropertySignature,
+// metadataDependency_typeSurface selects the WRITTEN type nodes of a
+// declaration: the whole node for a `type` alias (type parameters + aliased
+// type), the annotation for properties and parameters, and parameter types +
+// return type for methods, accessors, and index signatures. Bodies and
+// initializers are excluded — a reference appearing only there is not part of
+// the type the analysis consulted. Interface and class declarations return
+// nothing: their members surface individually through property enumeration.
+func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.Node {
+  switch declaration.Kind {
+  case nativeast.KindTypeAliasDeclaration:
+    return []*nativeast.Node{declaration}
+  case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
-    nativeast.KindParameter,
-    nativeast.KindMethodSignature,
+    nativeast.KindParameter:
+    if annotation := declaration.Type(); annotation != nil {
+      return []*nativeast.Node{annotation}
+    }
+    return nil
+  case nativeast.KindMethodSignature,
     nativeast.KindMethodDeclaration,
     nativeast.KindGetAccessor,
     nativeast.KindSetAccessor,
     nativeast.KindIndexSignature:
-    return true
+    output := []*nativeast.Node{}
+    for _, parameter := range declaration.Parameters() {
+      if parameter == nil {
+        continue
+      }
+      if annotation := parameter.Type(); annotation != nil {
+        output = append(output, annotation)
+      }
+    }
+    if annotation := declaration.Type(); annotation != nil {
+      output = append(output, annotation)
+    }
+    return output
   }
-  return false
+  return nil
 }
 
 // metadataDependency_walkNode descends a written node and resolves every type
