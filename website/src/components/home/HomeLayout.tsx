@@ -37,7 +37,7 @@ const theme = createTheme({
  * No negative margins here: `global.css` drops Nextra's sidebar spacer and
  * content-width cap for `.typia-landing`, so the article is already full
  * bleed. The old -15rem pull was compensating for that column and would now
- * push the sections off-centre and past the viewport.
+ * push the sections off-center and past the viewport.
  */
 const Root = styled("div")({
   "& > *": {

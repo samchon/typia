@@ -170,7 +170,7 @@ body:has(.typia-docs-page-marker)
    [sidebar spacer | sidebar | toc | article]; the spacer is a 256px w-64/h-0
    div that keeps its width even when the sidebar is hidden, and the toc
    normally balances it on the right. Hiding only the toc would leave the
-   article 256px off-centre, so the spacer has to go with it. */
+   article 256px off-center, so the spacer has to go with it. */
 body:has(.typia-landing) {
   --nextra-content-width: 100%;
 }
