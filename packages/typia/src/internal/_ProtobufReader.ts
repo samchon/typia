@@ -240,5 +240,5 @@ export class _ProtobufReader {
 }
 
 const utf8 = new Singleton(
-  () => new TextDecoder("utf-8", { fatal: true }),
+  () => new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }),
 );

@@ -5,9 +5,11 @@ import typia from "typia";
  *
  * Generated decode wrappers share the reader but add distinct assertion,
  * predicate, and validation layers. This matrix prevents any wrapper or
- * structural position from turning replacement text into a successful value.
+ * structural position from turning replacement text into a successful value, or
+ * from silently dropping a leading U+FEFF that the writer encoded verbatim.
  *
- * 1. Decode valid strings and arbitrary bytes through all eight public paths.
+ * 1. Decode valid strings, byte order marks, and arbitrary bytes through all eight
+ *    public paths.
  * 2. Move each malformed UTF-8 class through every generated string position.
  * 3. Require one wire error while the identical bytes field remains valid.
  */
@@ -65,9 +67,7 @@ const directIs = (input: Uint8Array): typia.Resolved<IUtf8Surface> => {
   if (value === null) throw new Error("direct isDecode returned null");
   return value;
 };
-const directValidate = (
-  input: Uint8Array,
-): typia.Resolved<IUtf8Surface> =>
+const directValidate = (input: Uint8Array): typia.Resolved<IUtf8Surface> =>
   unwrap(
     "direct validateDecode",
     typia.protobuf.validateDecode<IUtf8Surface>(input),
@@ -165,11 +165,7 @@ const message = (props: {
 };
 
 const field = (sequence: number, payload: Uint8Array): Uint8Array =>
-  Uint8Array.from([
-    (sequence << 3) | 2,
-    ...varint(payload.length),
-    ...payload,
-  ]);
+  Uint8Array.from([(sequence << 3) | 2, ...varint(payload.length), ...payload]);
 
 const concat = (...arrays: readonly Uint8Array[]): Uint8Array =>
   Uint8Array.from(arrays.flatMap((array) => [...array]));
@@ -203,9 +199,15 @@ const VALID_TEXTS = [
   ["empty", ""],
   ["ASCII", "Protocol Buffers"],
   ["literal replacement character", "\ufffd"],
+  ["leading byte order mark", "\ufefftext"],
+  ["byte order mark only", "\ufeff"],
+  ["interior byte order mark", "a\ufeffb"],
   ["multibyte", "é水값"],
   ["emoji", "🫢"],
-  ["UTF-8 boundaries", "\u0000\u007f\u0080\u07ff\u0800\uffff\u{10000}\u{10ffff}"],
+  [
+    "UTF-8 boundaries",
+    "\u0000\u007f\u0080\u07ff\u0800\uffff\u{10000}\u{10ffff}",
+  ],
 ] as const;
 
 const INVALID_UTF8 = [

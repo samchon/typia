@@ -4,10 +4,14 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * Verifies Protobuf strings reject malformed UTF-8 without narrowing bytes.
  *
  * Locks the shared reader boundary where proto3 `string` and `bytes` stop
- * sharing semantics. A regression here either accepts lossy replacement text
- * or incorrectly rejects arbitrary octets from a bytes field.
+ * sharing semantics. A regression here either accepts lossy replacement text or
+ * incorrectly rejects arbitrary octets from a bytes field. The byte order mark
+ * cases pin the decoder's second lossy branch: a payload is a length-delimited
+ * byte string with no encoding preamble to strip, so a leading U+FEFF must
+ * survive exactly as the writer's `TextEncoder` emitted it.
  *
- * 1. Decode valid empty, ASCII, multibyte, emoji, and boundary strings.
+ * 1. Decode valid empty, ASCII, byte order mark, multibyte, emoji, and boundary
+ *    strings without altering a single code point.
  * 2. Reject every authoritative malformed UTF-8 class with one stable error.
  * 3. Read the same malformed octets through `bytes()` without changing them.
  */
@@ -62,9 +66,15 @@ const VALID_TEXTS = [
   ["empty", ""],
   ["ASCII", "Protocol Buffers"],
   ["literal replacement character", "\ufffd"],
+  ["leading byte order mark", "\ufefftext"],
+  ["byte order mark only", "\ufeff"],
+  ["interior byte order mark", "a\ufeffb"],
   ["multibyte", "é水값"],
   ["emoji", "🫢"],
-  ["UTF-8 boundaries", "\u0000\u007f\u0080\u07ff\u0800\uffff\u{10000}\u{10ffff}"],
+  [
+    "UTF-8 boundaries",
+    "\u0000\u007f\u0080\u07ff\u0800\uffff\u{10000}\u{10ffff}",
+  ],
 ] as const;
 
 const INVALID_UTF8 = [
