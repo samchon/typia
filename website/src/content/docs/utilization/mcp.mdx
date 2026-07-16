@@ -160,6 +160,8 @@ When a method's return type is reflected (`ILlmFunction.output`), the tool adver
 
 as its `outputSchema`, and a call returns `structuredContent: { value: 15 }` — once, with no duplicate rendering.
 
+Before returning a successful structured result, `@typia/mcp` validates the controller value against that reflected schema, including required fields, nested types, and additional properties. A mismatch returns `isError: true` with annotated validation paths and no `structuredContent`, so the client receives an in-band tool error instead of rejecting a malformed protocol response.
+
 The MCP spec also recommends serializing the same JSON into a text block, as a fallback for clients that ignore `outputSchema`. But that doubles every result on the wire, and a client that caps tool-result size counts both copies — a large result gets rejected at double its real size even though the payload itself fits. So the fallback is opt-in:
 
 ```typescript filename="src/main.ts" showLineNumbers {3}
@@ -188,12 +190,13 @@ For the mechanics of `parse` / `coerce` / `validate` / `stringify`, see [`LlmJso
 
 ## Runtime errors
 
-There are two distinct failure modes when a tool is called, and the server keeps the MCP conversation alive through both:
+There are three distinct failure modes when a tool is called, and the server keeps the MCP conversation alive through all of them:
 
 - **Validation error** — the LLM passed arguments that don't match the schema. The tool returns `isError: true` with the annotated input (the same `// ❌` markers as above) so the model can fix it.
+- **Output validation error** — the controller returned a value that doesn't match its reflected return type. The tool returns `isError: true` with annotated output paths instead of sending invalid `structuredContent`.
 - **Runtime error** — the tool itself threw (e.g. divide-by-zero, network failure, business-rule violation). The tool returns `isError: true` with the error name and message, instead of letting the exception propagate and crash the server.
 
-In both cases the model sees the failure and can either retry with different inputs or report back to the user, so a single bad call never tears down the session.
+In all three cases the model sees the failure and can either retry with different inputs or report back to the user, so a single bad call never tears down the session.
 
 ## Where to go next
 

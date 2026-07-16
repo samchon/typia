@@ -35,6 +35,10 @@ export namespace McpControllerRegistrar {
       registry.set(func.name, {
         function: func,
         execute: composeExecute(controller, func),
+        validateOutput:
+          func.output === undefined
+            ? undefined
+            : LlmJson.validate(func.output, true),
       });
     }
 
@@ -126,29 +130,38 @@ export namespace McpControllerRegistrar {
 
     try {
       const result: unknown = await entry.execute(validation.data);
-      if (result === undefined) {
-        return { content: [{ type: "text" as const, text: "Success" }] };
-      }
+      if (entry.validateOutput === undefined)
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: result === undefined ? "Success" : JSON.stringify(result),
+            },
+          ],
+        };
+      const output: IValidation<unknown> = entry.validateOutput(result);
+      if (!output.success)
+        return {
+          isError: true,
+          content: [
+            {
+              type: "text" as const,
+              text:
+                `Type errors in "${entry.function.name}" output:\n\n` +
+                LlmJson.stringify(output),
+            },
+          ],
+        };
       // When the reflected return type schema exists, ship the result as
       // structured output, once. The spec's duplicate text fallback for
       // clients that ignore `outputSchema` doubles the payload, so it is
       // opt-in through `textFallback: true`.
       //
-      // A result that cannot ship as `structuredContent` keeps its text
-      // block regardless — dropping it would leave the call empty.
-      const structured: boolean =
-        entry.function.output !== undefined &&
-        typeof result === "object" &&
-        result !== null &&
-        !Array.isArray(result);
       return {
-        content:
-          structured && !textFallback
-            ? []
-            : [{ type: "text" as const, text: JSON.stringify(result) }],
-        ...(structured
-          ? { structuredContent: result as Record<string, unknown> }
-          : {}),
+        content: textFallback
+          ? [{ type: "text" as const, text: JSON.stringify(result) }]
+          : [],
+        structuredContent: output.data as Record<string, unknown>,
       };
     } catch (error) {
       return {
@@ -181,4 +194,5 @@ export namespace McpControllerRegistrar {
 interface IToolEntry {
   function: ILlmFunction;
   execute: (args: unknown) => Promise<unknown>;
+  validateOutput?: ((output: unknown) => IValidation<unknown>) | undefined;
 }

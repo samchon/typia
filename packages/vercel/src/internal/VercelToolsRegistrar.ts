@@ -130,6 +130,12 @@ export namespace VercelToolsRegistrar {
     execute: (args: unknown) => Promise<unknown>;
   }): Tool => {
     const { name, func, execute } = props;
+    const validateOutput:
+      | ((output: unknown) => IValidation<unknown>)
+      | undefined =
+      func.output === undefined
+        ? undefined
+        : LlmJson.validate(func.output, true);
 
     return tool({
       description: func.description ?? "",
@@ -155,15 +161,19 @@ export namespace VercelToolsRegistrar {
           } satisfies ITryResult;
         try {
           const result: unknown = await execute(validation.data);
-          if (result === undefined) {
-            return func.output === undefined
+          if (validateOutput === undefined)
+            return result === undefined
               ? ({ success: true } satisfies ITryResult)
-              : ({
-                  success: false,
-                  error: `Function "${name}" returned undefined despite declaring an output schema`,
-                } satisfies ITryResult);
-          }
-          return { success: true, data: result } satisfies ITryResult;
+              : ({ success: true, data: result } satisfies ITryResult);
+          const output: IValidation<unknown> = validateOutput(result);
+          return output.success
+            ? ({ success: true, data: output.data } satisfies ITryResult)
+            : ({
+                success: false,
+                error:
+                  `Type errors in "${name}" output:\n\n` +
+                  LlmJson.stringify(output),
+              } satisfies ITryResult);
         } catch (error) {
           return {
             success: false,
