@@ -152,6 +152,9 @@ export namespace IHttpMigrateRoute {
     /** Object properties owned by an object parameter. */
     properties: string[] | null;
 
+    /** Required properties owned by an object parameter. */
+    requiredProperties?: string[] | null;
+
     /** Whether the object parameter accepts undeclared properties. */
     additionalProperties?: boolean;
 

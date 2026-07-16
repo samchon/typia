@@ -476,7 +476,7 @@ namespace http {
 
 `http.query` decodes a query string (or any `IReadableURLSearchParams`-shaped object — the standard `URLSearchParams` works, as does Hono's and other duck-typed shims) into a typed object. Numeric and boolean properties are coerced from their string form automatically.
 
-String inputs may be a raw query (`id=1`), a question-prefixed query (`?id=1`), or a complete URL. A literal `#` starts a URL fragment and is excluded from parsing, while percent-encoded data such as `%3F` remains part of the query value.
+String inputs may be a raw query (`id=1`), a question-prefixed query (`?id=1`), or a complete URL. In question-prefixed or URL-shaped inputs, a literal `#` starts a fragment and is excluded from parsing; in raw query text it remains part of the value. Percent-encoded data such as `%3F` remains part of the query value in every form.
 
 **Restrictions** (typia rejects at compile time):
 

@@ -160,6 +160,8 @@ export namespace HttpMigrateRouteComposer {
               object === undefined
                 ? null
                 : Object.keys(object.schema.properties ?? {}),
+            requiredProperties:
+              object === undefined ? null : (object.schema.required ?? []),
             additionalProperties:
               object !== undefined &&
               object.schema.additionalProperties !== undefined &&
@@ -209,22 +211,29 @@ export namespace HttpMigrateRouteComposer {
         );
         return false;
       }
+      const primitiveProperties: Record<string, OpenApi.IJsonSchema> =
+        Object.fromEntries(
+          primitives.map((p) => [
+            p.name,
+            {
+              ...p.schema,
+              description: p.schema.description ?? p.description,
+            },
+          ]),
+        );
+      const primitiveRequired: string[] = primitives
+        .filter((p) => p.required)
+        .map((p) => p.name!);
       const entire: OpenApi.IJsonSchema.IObject =
         OpenApiSchemaSanitizer.omitEmptyRequired({
           type: "object",
           properties: Object.fromEntries([
-            ...primitives.map((p) => [
-              p.name,
-              {
-                ...p.schema,
-                description: p.schema.description ?? p.description,
-              },
-            ]),
+            ...Object.entries(primitiveProperties),
             ...(dto ? Object.entries(dto.properties ?? {}) : []),
           ]),
           required: [
             ...new Set([
-              ...primitives.filter((p) => p.required).map((p) => p.name!),
+              ...primitiveRequired,
               ...(objectParameters[0]?.parameter.required
                 ? (dto?.required ?? [])
                 : []),
@@ -232,6 +241,27 @@ export namespace HttpMigrateRouteComposer {
           ],
           additionalProperties: dto?.additionalProperties,
         });
+      const schema: OpenApi.IJsonSchema =
+        objectParameters[0] !== undefined &&
+        objectParameters[0].parameter.required !== true &&
+        (dto?.required?.length ?? 0) !== 0
+          ? {
+              // Omission is valid, but once an object-owned key is supplied
+              // the object's own required fields apply again.
+              oneOf: [
+                OpenApiSchemaSanitizer.omitEmptyRequired({
+                  type: "object",
+                  properties: primitiveProperties,
+                  required: primitiveRequired,
+                  additionalProperties: false,
+                }),
+                OpenApiSchemaSanitizer.omitEmptyRequired({
+                  ...entire,
+                  required: [...primitiveRequired, ...(dto?.required ?? [])],
+                }),
+              ],
+            }
+          : entire;
       return parameters.length === 0
         ? null
         : out({
@@ -241,19 +271,7 @@ export namespace HttpMigrateRouteComposer {
                 EndpointUtil.pascal(`I/Api/${props.path}`) +
                 "." +
                 EndpointUtil.pascal(`${props.method}/${type}`),
-              schema: OpenApiSchemaSanitizer.omitEmptyRequired({
-                type: "object",
-                properties: Object.fromEntries([
-                  ...new Map<string, OpenApi.IJsonSchema>(
-                    Object.entries(entire.properties ?? {}).map(
-                      ([name, schema]) =>
-                        [name, { ...schema } as OpenApi.IJsonSchema] as const,
-                    ),
-                  ),
-                ]),
-                required: [...new Set(entire.required ?? [])],
-                additionalProperties: entire.additionalProperties,
-              } satisfies OpenApi.IJsonSchema.IObject),
+              schema,
             }),
           });
     });
@@ -261,10 +279,9 @@ export namespace HttpMigrateRouteComposer {
     //----
     // PATH PARAMETERS
     //----
-    const parameterNames: string[] = props.path
-      .split("/")
-      .filter((str) => str.startsWith("{") && str.endsWith("}"))
-      .map((str) => str.substring(1, str.length - 1));
+    const parameterNames: string[] = [
+      ...props.path.matchAll(/\{([^{}]+)\}/g),
+    ].map((match) => match[1]!);
     const uniqueParameterNames: string[] = [...new Set(parameterNames)];
     const pathParameters: OpenApi.IOperation.IParameter[] = (
       props.operation.parameters ?? []
@@ -510,8 +527,8 @@ export namespace HttpMigrateRouteComposer {
           : null;
       }
 
-      const query = entries.find((e) =>
-        e[0].includes("application/x-www-form-urlencoded"),
+      const query = entries.find(
+        (e) => normalizeMediaType(e[0]) === "application/x-www-form-urlencoded",
       );
       if (query) {
         const schema = sanitizeMediaSchema(document)(query[1]);
@@ -530,7 +547,9 @@ export namespace HttpMigrateRouteComposer {
           : null;
       }
 
-      const text = entries.find((e) => e[0].includes("text/plain"));
+      const text = entries.find(
+        (e) => normalizeMediaType(e[0]) === "text/plain",
+      );
       if (text)
         return {
           type: "text/plain",
@@ -543,8 +562,8 @@ export namespace HttpMigrateRouteComposer {
         };
 
       if (from === "request") {
-        const multipart = entries.find((e) =>
-          e[0].includes("multipart/form-data"),
+        const multipart = entries.find(
+          (e) => normalizeMediaType(e[0]) === "multipart/form-data",
         );
         if (multipart) {
           const schema = sanitizeMediaSchema(document)(multipart[1]);

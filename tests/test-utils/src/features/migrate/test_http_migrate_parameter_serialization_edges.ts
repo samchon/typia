@@ -4,7 +4,7 @@ import {
   IHttpMigrateRoute,
   OpenApiV3_1,
 } from "@typia/interface";
-import { HttpLlm, HttpMigration } from "@typia/utils";
+import { HttpLlm, HttpMigration, LlmJson } from "@typia/utils";
 
 /**
  * Verifies parameter schemas and style metadata survive edge-case migration.
@@ -20,7 +20,7 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
 export const test_http_migrate_parameter_serialization_edges =
   async (): Promise<void> => {
     const migration = HttpMigration.application(document);
-    TestValidator.equals("valid routes", 3, migration.routes.length);
+    TestValidator.equals("valid routes", 5, migration.routes.length);
     TestValidator.equals("invalid style routes", 2, migration.errors.length);
     TestValidator.equals(
       "invalid style diagnostics",
@@ -73,6 +73,30 @@ export const test_http_migrate_parameter_serialization_edges =
       captured!.searchParams.get("count"),
     );
 
+    await HttpMigration.execute({
+      connection,
+      route: findRoute(migration.routes, "/required-empty"),
+      parameters: [],
+      query: {},
+    });
+    TestValidator.equals("required empty object", "", captured!.search);
+    let requiredMemberError = false;
+    try {
+      await HttpMigration.execute({
+        connection,
+        route: findRoute(migration.routes, "/required-member"),
+        parameters: [],
+        query: {},
+      });
+    } catch {
+      requiredMemberError = true;
+    }
+    TestValidator.equals(
+      "required object member remains required",
+      true,
+      requiredMemberError,
+    );
+
     const llm = HttpLlm.application({ document });
     TestValidator.equals("LLM errors", 2, llm.errors.length);
     const delimited = findFunction(llm.functions, "/delimited");
@@ -86,6 +110,25 @@ export const test_http_migrate_parameter_serialization_edges =
       "optional object omitted",
       true,
       optional.validate({ query: { limit: 1 } }).success,
+    );
+    TestValidator.equals(
+      "optional object partial input rejected",
+      false,
+      optional.validate({ query: { limit: 1, other: "x" } }).success,
+    );
+    TestValidator.equals(
+      "adapter-style optional object partial input rejected",
+      false,
+      LlmJson.validateArguments(optional, {
+        query: { limit: "1", other: "x" },
+      }).success,
+    );
+    TestValidator.equals(
+      "optional object complete input accepted",
+      true,
+      optional.validate({
+        query: { limit: 1, nested: "x", other: "y" },
+      }).success,
     );
   };
 
@@ -163,7 +206,10 @@ const document: OpenApiV3_1.IDocument = {
             required: false,
             schema: {
               type: "object",
-              properties: { nested: { type: "string" } },
+              properties: {
+                nested: { type: "string" },
+                other: { type: "string" },
+              },
               required: ["nested"],
             },
           },
@@ -172,6 +218,43 @@ const document: OpenApiV3_1.IDocument = {
             in: "query",
             required: true,
             schema: { type: "integer" },
+          },
+        ],
+        responses: { "204": { description: "No Content" } },
+      },
+    },
+    "/required-empty": {
+      get: {
+        parameters: [
+          {
+            name: "filter",
+            in: "query",
+            required: true,
+            style: "deepObject",
+            explode: true,
+            schema: {
+              type: "object",
+              properties: { term: { type: "string" } },
+            },
+          },
+        ],
+        responses: { "204": { description: "No Content" } },
+      },
+    },
+    "/required-member": {
+      get: {
+        parameters: [
+          {
+            name: "filter",
+            in: "query",
+            required: true,
+            style: "deepObject",
+            explode: true,
+            schema: {
+              type: "object",
+              properties: { term: { type: "string" } },
+              required: ["term"],
+            },
           },
         ],
         responses: { "204": { description: "No Content" } },

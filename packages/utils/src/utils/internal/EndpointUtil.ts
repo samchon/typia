@@ -17,14 +17,7 @@ export namespace EndpointUtil {
       .filter((str) => !!str.length);
 
   export const reJoinWithDecimalParameters = (path: string) => {
-    path = path
-      .split("/")
-      .map((str) =>
-        str[0] === "{" && str[str.length - 1] === "}"
-          ? `:${str.substring(1, str.length - 1)}`
-          : str,
-      )
-      .join("/");
+    path = path.replace(/\{([^{}]+)\}/g, ":$1");
     return `${path.startsWith("/") ? "" : "/"}${path}`;
   };
 

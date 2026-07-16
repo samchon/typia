@@ -92,6 +92,35 @@ export const test_http_migrate_body_media_contract =
       "properties" in suffix.exceptions["400"]!.schema &&
         suffix.exceptions["400"]!.schema.properties?.error !== undefined,
     );
+
+    await execute("/mixed-text", "hello");
+    TestValidator.equals(
+      "mixed-case text canonicalized",
+      "text/plain",
+      contentType(captured),
+    );
+    TestValidator.equals(
+      "mixed-case response canonicalized",
+      "text/plain",
+      findRoute(application.routes, "/mixed-text").success?.type,
+    );
+    await execute("/mixed-form", { name: "typia" });
+    TestValidator.equals(
+      "mixed-case form canonicalized",
+      "application/x-www-form-urlencoded",
+      contentType(captured),
+    );
+    TestValidator.equals(
+      "mixed-case form body",
+      "name=typia",
+      String(captured!.init.body),
+    );
+    await execute("/mixed-multipart", { name: "typia" });
+    TestValidator.equals(
+      "mixed-case multipart delegates boundary",
+      true,
+      contentType(captured) === null,
+    );
   };
 
 const contentType = (
@@ -160,12 +189,26 @@ const document: OpenApiV3_1.IDocument = {
         },
       },
     },
+    "/mixed-text": operation(
+      "Text/Plain; Charset=UTF-8",
+      { type: "string" },
+      "Text/Plain; Charset=UTF-8",
+    ),
+    "/mixed-form": operation("Application/X-WWW-Form-Urlencoded", {
+      type: "object",
+      properties: { name: { type: "string" } },
+    }),
+    "/mixed-multipart": operation("Multipart/Form-Data", {
+      type: "object",
+      properties: { name: { type: "string" } },
+    }),
   },
 };
 
 function operation(
   type: string,
   schema: OpenApiV3_1.IJsonSchema,
+  responseType?: string,
 ): OpenApiV3_1.IPath {
   return {
     post: {
@@ -173,7 +216,14 @@ function operation(
         required: true,
         content: { [type]: { schema } },
       },
-      responses: { "200": { description: "OK" } },
+      responses: {
+        "200": {
+          description: "OK",
+          ...(responseType
+            ? { content: { [responseType]: { schema: { type: "string" } } } }
+            : {}),
+        },
+      },
     },
   };
 }

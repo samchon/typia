@@ -239,16 +239,20 @@ const getPath = (
       },
     ]),
   );
-  let path: string = props.route.emendedPath
-    .split("/")
-    .map((segment) => {
-      if (!segment.startsWith(":")) return segment;
-      const found = byName.get(segment.substring(1));
-      return found === undefined
-        ? segment
-        : serializePath(found.parameter, found.value);
-    })
-    .join("/");
+  let path: string =
+    // Preserve legacy/custom emended static paths, while parameterized paths
+    // use source expressions so embedded and repeated names stay unambiguous.
+    props.route.parameters.length === 0
+      ? props.route.emendedPath
+      : props.route.path.replace(
+          /\{([^{}]+)\}/g,
+          (expression, name: string) => {
+            const found = byName.get(name);
+            return found === undefined
+              ? expression
+              : serializePath(found.parameter, found.value);
+          },
+        );
   if (props.route.query && props.query)
     path += getQueryPath(error, props.route.query, props.query);
   return path;
@@ -302,7 +306,10 @@ const parameterValue = (
       (properties.has(key) ||
         (metadata.additionalProperties === true && !occupied.has(key))),
   );
-  return entries.length !== 0 || (metadata.properties?.length ?? 0) === 0
+  return entries.length !== 0 ||
+    (metadata.properties?.length ?? 0) === 0 ||
+    (metadata.parameter().required === true &&
+      metadata.requiredProperties?.length === 0)
     ? Object.fromEntries(entries)
     : undefined;
 };
