@@ -128,6 +128,8 @@ const normalizePath = (props: {
       if (selected === undefined) return path;
       schema = resolve(props.components, selected);
     }
+    if (OpenApiTypeChecker.isObject(schema) && isJsonObject(value) === false)
+      return path;
     if (OpenApiTypeChecker.isObject(schema) && typeof segment.key === "string")
       schema =
         schema.properties?.[segment.key] ??
@@ -312,8 +314,7 @@ const compatibleWith = (props: {
   if (OpenApiTypeChecker.isString(schema)) return typeof value === "string";
   if (OpenApiTypeChecker.isArray(schema) || OpenApiTypeChecker.isTuple(schema))
     return Array.isArray(value);
-  if (OpenApiTypeChecker.isObject(schema))
-    return typeof value === "object" && value !== null && !Array.isArray(value);
+  if (OpenApiTypeChecker.isObject(schema)) return isJsonObject(value);
   if (OpenApiTypeChecker.isOneOf(schema))
     return schema.oneOf.some((child) =>
       compatibleWith({
@@ -338,6 +339,16 @@ const resolve = (
     schema = components.schemas?.[key] ?? {};
   }
   return schema;
+};
+
+const isJsonObject = (value: unknown): value is Record<string, unknown> => {
+  if (typeof value !== "object" || value === null || Array.isArray(value))
+    return false;
+  try {
+    return Object.prototype.toString.call(value) === "[object Object]";
+  } catch {
+    return false;
+  }
 };
 
 const parsePath = (path: string): IPathSegment[] => {

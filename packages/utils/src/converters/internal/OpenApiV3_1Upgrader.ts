@@ -611,6 +611,7 @@ export namespace OpenApiV3_1Upgrader {
               ...{
                 items: undefined!,
                 prefixItems: schema.prefixItems.map(convertSchema(components)),
+                minItems: schema.minItems ?? 0,
                 additionalItems:
                   typeof schema.items === "object" && schema.items !== null
                     ? convertSchema(components)(schema.items)

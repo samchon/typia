@@ -42,6 +42,7 @@ export const test_json_schema_upgrade_v31_tuple_items = (): void => {
     items: false,
   } as unknown as OpenApiV3_1.IJsonSchema);
   assertTupleRest("false rest", falseRest, false);
+  expectValidation("false rest permits omitted prefix", falseRest, [], true);
   expectValidation("false rest accepts prefix", falseRest, ["x"], true);
   expectValidation("false rest rejects extra", falseRest, ["x", 1], false);
 

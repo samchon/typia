@@ -13,7 +13,7 @@ export namespace OpenApiObjectValidator {
       typeof ctx.value !== "object" ||
       ctx.value === null ||
       Array.isArray(ctx.value) ||
-      isPlainObject(ctx.value) === false
+      isJsonObject(ctx.value) === false
     )
       return ctx.report(ctx);
     return [
@@ -59,10 +59,9 @@ export namespace OpenApiObjectValidator {
     ].every((v) => v);
   };
 
-  const isPlainObject = (value: object): boolean => {
+  const isJsonObject = (value: object): boolean => {
     try {
-      const prototype: object | null = Object.getPrototypeOf(value);
-      return prototype === null || Object.getPrototypeOf(prototype) === null;
+      return Object.prototype.toString.call(value) === "[object Object]";
     } catch {
       return false;
     }

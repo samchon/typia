@@ -29,13 +29,16 @@ export const test_openapi_validator_intrinsic_object_tuple_invariants =
       objectSchema,
       Object.assign(Object.create(null), { name: "typia" }),
     );
+    class Payload {
+      public name = "typia";
+    }
+    expectSuccess("serializable class object", objectSchema, new Payload());
     const emptyObjectSchema: OpenApi.IJsonSchema.IObject = { type: "object" };
     for (const [label, value] of [
       ["array", []],
       ["date", new Date(0)],
       ["map", new Map()],
       ["set", new Set()],
-      ["class", new (class Payload {})()],
     ] as const)
       expectFailure(`${label} is not a JSON object`, emptyObjectSchema, value);
     expectFailure(

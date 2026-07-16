@@ -12,10 +12,12 @@ export namespace OpenApiTupleValidator {
 
     const array: unknown[] = ctx.value;
     const length: number = array.length;
-    if (ctx.schema.minItems !== undefined && length < ctx.schema.minItems)
+    const minimum: number =
+      ctx.schema.minItems ?? ctx.schema.prefixItems.length;
+    if (length < minimum)
       return ctx.report({
         ...ctx,
-        expected: `Array<> & MinItems<${ctx.schema.minItems}>`,
+        expected: `Array<> & MinItems<${minimum}>`,
       });
     if (ctx.schema.maxItems !== undefined && length > ctx.schema.maxItems)
       return ctx.report({
