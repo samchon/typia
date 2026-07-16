@@ -6,7 +6,11 @@ export const _isFormatDateTime = (str: string): boolean => {
   if (match[7] !== "60") return true;
 
   const instant: Date = new Date(0);
-  instant.setUTCFullYear(Number(match[2]), Number(match[3]) - 1, Number(match[4]));
+  instant.setUTCFullYear(
+    Number(match[2]),
+    Number(match[3]) - 1,
+    Number(match[4]),
+  );
   instant.setUTCHours(Number(match[5]), Number(match[6]), 0, 0);
   const offset: number =
     match[8] === undefined
