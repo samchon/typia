@@ -60,7 +60,7 @@ const user = typia.protobuf.assertDecode<User>(bytes);
 >
 > **What the `*Decode` validators actually verify.**
 >
-> They check **custom tag constraints** — `tags.Format<"uuid">`, `tags.Minimum<0>`, etc. They do **not** re-verify that the bytes were structurally valid Protocol Buffer for `T` — the decoder already did that decoding work. So you can rely on these to catch "the producer encoded a UUID that's actually not a UUID" but not "someone fed me random bytes."
+> They check **custom tag constraints** — `tags.Format<"uuid">`, `tags.Minimum<0>`, etc. They do **not** re-verify that the bytes were structurally valid Protocol Buffer for `T` — the decoder already did that decoding work. So you can rely on these to catch "the producer encoded a UUID that's actually not a UUID", but not to tell you that someone fed you random bytes that happen to parse.
 >
 > The safe pattern is: producer uses `protobuf.assertEncode` (or `validateEncode`), consumer uses `protobuf.assertDecode` (or `validateDecode`). Then both ends of the wire are checked.
 
@@ -96,6 +96,24 @@ export namespace protobuf {
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
+
+## Wire errors
+
+The table above describes what happens when **validation** fails. A malformed payload is different: the binary reader raises an `Error` while reading the bytes, before any validator runs. That error propagates out of every variant, including `isDecode` and `validateDecode`, so it is not reported as a `null` or as an unsuccessful `IValidation`.
+
+Wrap the call in `try`/`catch` when the bytes come from an untrusted producer.
+
+```typescript copy
+try {
+  const user: User = typia.protobuf.assertDecode<User>(buffer);
+} catch (error) {
+  // malformed wire bytes, or a failed tag constraint
+}
+```
+
+`string` fields are one source of these errors. proto3 requires a `string` to hold valid UTF-8, so typia rejects a payload containing a lone continuation byte, an overlong encoding, a truncated multi-byte sequence, an encoded surrogate, or an out-of-range code point, instead of substituting `U+FFFD` replacement characters and returning text the producer never sent.
+
+Use `Uint8Array` when a field must carry arbitrary octets. It maps to proto3 `bytes`, which has no encoding requirement and accepts the same octets a `string` field rejects.
 
 ## Reusable factories
 
