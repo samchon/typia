@@ -18,20 +18,22 @@ import (
 // addresses tuples by fixed leading positions, so the honest resolution is
 // a compile-time rejection, mirroring the json.schemas bigint precedent.
 //
-//  1. Require leading-rest and middle-rest tuples to be rejected: the call
-//     stays untransformed and a transform diagnostic is recorded (the same
-//     convention the duplicate-Sequence protobuf fixture pins; in build and
-//     project modes these diagnostics fail the compilation).
+//  1. Require leading-rest and middle-rest tuples to be rejected: the transform
+//     records a diagnostic naming the offending tuple, which every host --
+//     single-file included since samchon/typia#2117 -- reports while refusing to
+//     publish an artifact.
 //  2. Require trailing-rest tuples to keep compiling and validating
 //     correctly at every length.
 func TestNonTrailingRestTupleTransform(t *testing.T) {
   t.Run("leading rest rejected", func(t *testing.T) {
     nonTrailingRestExpectRejection(t, "leading-",
-      "export const validate = typia.createValidate<[...unknown[], string]>();")
+      "export const validate = typia.createValidate<[...unknown[], string]>();",
+      "[...unknown[], string]")
   })
   t.Run("middle rest rejected", func(t *testing.T) {
     nonTrailingRestExpectRejection(t, "middle-",
-      "export const validate = typia.createValidate<[number, ...boolean[], string]>();")
+      "export const validate = typia.createValidate<[number, ...boolean[], string]>();",
+      "[number, ...boolean[], string]")
   })
   t.Run("trailing rest keeps working", func(t *testing.T) {
     nonTrailingRestTrailingControl(t)
@@ -66,7 +68,12 @@ func nonTrailingRestProject(t *testing.T, prefix string, body string) string {
   return dir
 }
 
-func nonTrailingRestExpectRejection(t *testing.T, prefix string, body string) {
+// nonTrailingRestExpectRejection requires the rejection to reach the caller as a
+// diagnostic naming `tuple`, with no artifact published. This previously asserted
+// code 0 and inspected the untransformed call in stdout; that success code was
+// the samchon/typia#2117 defect, and in `js` mode the surviving `.createValidate()`
+// was only type erasure, so the diagnostic is the load-bearing evidence anyway.
+func nonTrailingRestExpectRejection(t *testing.T, prefix string, body string, tuple string) {
   t.Helper()
   project := nonTrailingRestProject(t, prefix, body)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -77,11 +84,16 @@ func nonTrailingRestExpectRejection(t *testing.T, prefix string, body string) {
       "--output", "js",
     })
   })
-  if code != 0 {
-    t.Fatalf("single-file transform should stay inspectable: code=%d stderr=\n%s", code, errText)
+  if code != 3 {
+    t.Fatalf("non-trailing rest tuple should be rejected with code 3: code=%d stdout=\n%s\nstderr=\n%s", code, out, errText)
   }
-  if !strings.Contains(out, ".createValidate()") {
-    t.Fatalf("non-trailing rest tuple call should stay untransformed:\n%s", out)
+  if !strings.Contains(errText, "error TS(typia.createValidate):") ||
+    !strings.Contains(errText, tuple) ||
+    !strings.Contains(errText, "non-trailing rest element in tuple type is not supported.") {
+    t.Fatalf("rejection diagnostic did not name the tuple and cause:\n%s", errText)
+  }
+  if out != "" {
+    t.Fatalf("rejected transform published an artifact:\n%s", out)
   }
 }
 

@@ -26,6 +26,10 @@ import (
 // transformers), so injected namespace imports stay as ES imports the caller
 // can type-strip per file. With no --file it emits a JSON envelope of every
 // project source keyed by its cwd-relative path; with --file it prints one file.
+//
+// Every host here consults the same transformDiags before choosing its exit code
+// and before publishing anything: runTransformProject encodes them and returns 3,
+// runTransformSingle reports them and withholds the artifact.
 func runTransform(args []string) int {
   fs := flag.NewFlagSet("transform", flag.ContinueOnError)
   fs.SetOutput(stderr)
@@ -104,11 +108,39 @@ func runTransform(args []string) int {
     fmt.Fprintf(stderr, "ttsc-typia transform: source file is not in program: %s\n", absFile)
     return 2
   }
-  if *output == "js" {
-    return runTransformSingleJS(prog, typiaTransform, target, absFile, *out)
+  return runTransformSingle(cwd, *out, &transformDiags, func() (string, int) {
+    if *output == "js" {
+      return transformSingleToJavaScript(prog, typiaTransform, absFile)
+    }
+    return transformFileToTypeScript(prog, typiaTransform, target), 0
+  })
+}
+
+// runTransformSingle is the single-file counterpart of runTransformProject's
+// diagnostic decision: produce the artifact into memory, then publish it only
+// when typia's analysis reported nothing. Every single-file output mode routes
+// through this one commit point, so a mode cannot exit 0 over a diagnostic and
+// publish an untransformed `typia.is<T>(input)` call by forgetting its own check
+// (samchon/typia#2117).
+//
+// Diagnostics outrank the producer's own failure code: when typia could not
+// lower a call, that diagnostic is the cause a caller needs, not the "no output
+// produced" symptom it leaves behind.
+func runTransformSingle(
+  cwd string,
+  outPath string,
+  transformDiags *[]typiaTransformDiagnostic,
+  produce func() (string, int),
+) int {
+  text, code := produce()
+  if len(*transformDiags) > 0 {
+    writeTypiaTransformDiagnostics(stderr, *transformDiags, cwd)
+    return 3
   }
-  text := transformFileToTypeScript(prog, typiaTransform, target)
-  return writeSingleOutput(text, *out)
+  if code != 0 {
+    return code
+  }
+  return writeSingleOutput(text, outPath)
 }
 
 // runTransformProject prints every non-declaration project source as transformed
@@ -179,15 +211,14 @@ func transformFileToTypeScript(
   return writer.String()
 }
 
-// runTransformSingleJS emits a single file's JS through the full node-path emit
-// pipeline and writes it to stdout or --out.
-func runTransformSingleJS(
+// transformSingleToJavaScript emits a single file's JS through the full node-path
+// emit pipeline and returns the captured text. It only produces; publishing is
+// runTransformSingle's decision, so a diagnostic can withhold the artifact.
+func transformSingleToJavaScript(
   prog *driver.Program,
   typiaTransform driver.PluginTransform,
-  target *shimast.SourceFile,
   absFile string,
-  outPath string,
-) int {
+) (string, int) {
   var captured string
   found := false
   targetKey := filepath.ToSlash(absFile)
@@ -201,13 +232,13 @@ func runTransformSingleJS(
   })
   if _, err := prog.EmitWithPluginTransformers([]driver.PluginTransform{typiaTransform}, writeFile); err != nil {
     fmt.Fprintf(stderr, "ttsc-typia transform: emit: %v\n", err)
-    return 3
+    return "", 3
   }
   if !found {
     fmt.Fprintf(stderr, "ttsc-typia transform: no output produced for %s\n", absFile)
-    return 3
+    return "", 3
   }
-  return writeSingleOutput(captured, outPath)
+  return captured, 0
 }
 
 // sameSourceStem reports whether an emitted .js path corresponds to a .ts source
