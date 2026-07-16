@@ -182,6 +182,58 @@ export const test_llm_schema_json_pointer_references = (): void => {
     );
   }
 
+  // A percent-encoded separator is a well-formed triplet, so it passes the
+  // fragment regex and decodes to the multi-token pointer `/$defs/A/B` rather
+  // than the single `$defs` key `A/B`. Only rejecting it keeps one canonical
+  // spelling per key, so the raw target must be present for this to bite.
+  const extraSegment: ILlmSchema.IParameters = {
+    type: "object",
+    properties: { value: { $ref: "#/$defs/A%2FB" } },
+    required: ["value"],
+    additionalProperties: false,
+    $defs: { "A/B": { type: "number" } },
+  };
+  TestValidator.equals(
+    "percent-encoded pointer separator does not resolve its raw key",
+    LlmJson.coerce<{ value: unknown }>({ value: "42" }, extraSegment).value,
+    "42",
+  );
+  TestValidator.equals(
+    "percent-encoded pointer separator fails closed",
+    LlmJson.validate(extraSegment)({ value: 42 }).success,
+    false,
+  );
+  TestValidator.equals(
+    "percent-encoded pointer separator fails OpenAPI conversion",
+    LlmSchemaConverter.schema({
+      components: { schemas: { "A/B": { type: "number" } } },
+      $defs: {},
+      schema: { $ref: "#/components/schemas/A%2FB" },
+    }).success,
+    false,
+  );
+
+  // Percent-decoding precedes token-decoding, so these are alternate spellings
+  // of the same keys and must still resolve.
+  for (const [$ref, key] of [
+    ["#/$defs/A%7E1B", "A/B"],
+    ["#/$defs/A%7E0B", "A~B"],
+  ] as const)
+    TestValidator.equals(
+      `${$ref}: percent-encoded tilde resolves ${key}`,
+      LlmJson.coerce<{ value: unknown }>(
+        { value: "42" },
+        {
+          type: "object",
+          properties: { value: { $ref } },
+          required: ["value"],
+          additionalProperties: false,
+          $defs: Object.fromEntries([[key, { type: "number" }]]),
+        },
+      ).value,
+      42,
+    );
+
   const chained: ILlmSchema.IParameters = {
     type: "object",
     properties: { value: { $ref: "#/$defs/Alias" } },
