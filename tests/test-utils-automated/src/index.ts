@@ -1,4 +1,4 @@
-import { TestServant } from "@typia/template";
+import { TestProcessFailure, TestServant } from "@typia/template";
 import { WorkerConnector } from "tgrid";
 
 import { TestAutomation } from "./TestAutomation";
@@ -27,7 +27,7 @@ async function main(): Promise<void> {
     await connector.close();
   }
 
-  if (exceptions.length === 0) {
+  if (exceptions.length === 0 && failure.failed() === false) {
     console.log("Success");
   } else {
     for (const exp of exceptions) console.log(exp);
@@ -36,12 +36,7 @@ async function main(): Promise<void> {
   }
 }
 
-global.process.on("uncaughtException", (error) => {
-  console.log("exception", error);
-});
-global.process.on("unhandledRejection", (error) => {
-  console.log("rejection", error);
-});
+const failure: TestProcessFailure.IListener = TestProcessFailure.listen();
 main().catch((error) => {
   console.log("critical error", error);
   process.exit(-1);
