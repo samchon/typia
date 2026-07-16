@@ -23,7 +23,7 @@ func (numericRangeFactoryNamespace) Number(t string, input *shimast.Expression, 
   case "uint64":
     return numericRangeFactory_number_uint64(input, emit...)
   case "float":
-    return numericRangeFactory_between("-1.175494351e38", "3.4028235e38", emit...)(input)
+    return numericRangeFactory_between("-3.4028235e38", "3.4028235e38", emit...)(input)
   default:
     return nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...).NewKeywordExpression(shimast.KindTrueKeyword)
   }
