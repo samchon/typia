@@ -9,7 +9,7 @@ Discussion explores a topic without changing code or turning the exchange into a
 
 ## Team
 
-Form the largest practical team, up to six agents. Give every agent a self-contained brief with the topic, constraints, known evidence, output expectations, and the exact repository instructions and skills to read. Do not give a preferred conclusion or divide the topic into assigned slices.
+Form the largest practical team, up to nine agents so the lead and participants fit the ten-agent session limit. Give every agent a self-contained brief with the topic, constraints, known evidence, output expectations, and the exact repository instructions and skills to read. Do not give a preferred conclusion or divide the topic into assigned slices.
 
 ## Knowledge Base
 

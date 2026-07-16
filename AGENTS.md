@@ -11,6 +11,7 @@ Follow the literal request; it is the contract, not a hint at what the user "rea
 - **Evidence precedes correction.** Treat issue reports, review proposals, and claims that something is wrong or missing as hypotheses. Verify the real code path, tests, generated artifacts, upstream ownership, and history before accepting the premise or changing behavior.
 - **Trace the consequence surface.** A named file or failing case is the starting point, not the investigation boundary. Follow the same cause through downstream consumers, side effects, state transitions, platforms, and boundary cases, then address the whole verified class of failure within the requested goal.
 - **Default over ask.** On an ambiguous detail, pick the sensible default and say what you chose; reserve questions for forks only the user can settle.
+- **Fill the available agent pool when parallel work is independent.** Use up to ten concurrent agents in total, including the lead, when the runtime provides that capacity; keep at most nine child agents active so the lead retains one coordination slot.
 
 ## Skills
 

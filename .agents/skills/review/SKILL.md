@@ -32,7 +32,7 @@ Self-Review does not authorize creating, pushing, updating, or merging a pull re
 
 Use Review Cycle only when the user explicitly asks for a team or multi-agent review.
 
-1. Form the largest practical team, up to six review agents. Give every agent the same complete surface and require an independent complete round. Different analytical lenses are welcome; divided coverage is forbidden.
+1. Form the largest practical team, up to nine review agents so the lead and reviewers fit the ten-agent session limit. Give every agent the same complete surface and require an independent complete round. Different analytical lenses are welcome; divided coverage is forbidden.
 2. Agents submit independent findings to the lead. They do not negotiate a consensus or use discussion transcripts.
 3. The lead independently reproduces and validates every proposal against the repository. Apply only technically sound, in-scope improvements; rewrite, combine, partially accept, or reject proposals as the evidence warrants.
 4. If the lead applies any improvement, replace the team and begin another complete cycle. Stop only after a full cycle yields no accepted improvement.
@@ -49,7 +49,7 @@ The lead validates every proposal and applies the Team Review Cycle stop rule. E
 
 Use issue discovery only as part of the issue-campaign skill.
 
-1. Form the largest practical review team, up to six agents, and apply the briefing rules below. Give every agent the entire campaign scope and require the issue-campaign, project, development, and review skills in its brief.
+1. Form the largest practical review team, up to nine agents so the lead and reviewers fit the ten-agent session limit, and apply the briefing rules below. Give every agent the entire campaign scope and require the issue-campaign, project, development, and review skills in its brief.
 2. Every agent independently audits source, tests, documentation, CI, packaging, generated artifacts, platform behavior, upstream or downstream provenance, and open and closed issue or pull-request history. Audit the current implementation and history against the repository development skill's **Forbidden** section; a verified violation remains a meaningful candidate even when existing tests pass. Never divide the repository by package, file, concern, agent, or round.
 3. Each agent submits its own evidence-backed candidates without discussion or a shared list.
 4. The lead reopens the evidence, reproduces the behavior, checks ownership, provenance, and any claimed **Forbidden** classification, and compares existing issues and pull requests. Reject, rewrite, combine, partially accept, or return a proposal as the evidence requires.
