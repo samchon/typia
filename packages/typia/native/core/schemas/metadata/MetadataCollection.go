@@ -603,11 +603,20 @@ func MetadataCollection_replaceOpenApi(str string) string {
     disambiguate = metadataCollection_writeOpenApiNameRune(&builder, ch) || disambiguate
   }
   if disambiguate {
-    builder.WriteString(".x")
+    builder.WriteString(metadataCollection_openApiNameSuffix)
     builder.WriteString(metadataCollection_openApiNameHash(str))
   }
   return builder.String()
 }
+
+// metadataCollection_openApiNameSuffix separates an escaped base name from its
+// disambiguating hash. It must not be ".": JsonDescriptor.cascade reads a dot
+// in a component key as a namespace boundary and inherits the parent
+// component's description, so a dotted suffix would present the escaped base as
+// a fake parent and pull an unrelated type's description into the escaped
+// schema. "-" is in the OpenAPI key alphabet, needs no JSON Pointer or URI
+// escaping, and carries no such meaning.
+const metadataCollection_openApiNameSuffix = "-x"
 
 func metadataCollection_writeOpenApiNameRune(builder *strings.Builder, ch rune) bool {
   if metadataCollection_isOpenApiNameRune(ch) {
