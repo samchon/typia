@@ -21,15 +21,21 @@ func TestMetadataCollectionOpenApiName(t *testing.T) {
     "Qualified.Member": "Qualified.Member",
     "A-B":              "A-B",
     "A_B":              "A_B",
+    "A_x2F_B":          "A_x2F_B",
   }
+  outputs := map[string]string{}
   for input, expected := range legal {
-    if actual := MetadataCollection_replaceOpenApi(input); actual != expected {
+    actual := MetadataCollection_replaceOpenApi(input)
+    if actual != expected {
       t.Fatalf("legal OpenAPI component name changed: input=%q actual=%q expected=%q", input, actual, expected)
     }
+    outputs[actual] = input
   }
 
   inputs := []string{
     "",
+    "$Plain",
+    "A/B",
     `Recursive<"A/B">`,
     `Recursive<"T~N">`,
     `Recursive<"C%D">`,
@@ -42,7 +48,6 @@ func TestMetadataCollectionOpenApiName(t *testing.T) {
     "한글",
   }
   grammar := regexp.MustCompile(`^[a-zA-Z0-9.\-_]+$`)
-  outputs := map[string]string{}
   for _, input := range inputs {
     first := MetadataCollection_replaceOpenApi(input)
     second := MetadataCollection_replaceOpenApi(input)
