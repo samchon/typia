@@ -221,7 +221,7 @@ export namespace TypiaGenerateWizard {
         JSON.stringify({
           extends: props.project,
           exclude: [],
-          files: props.entries.map((entry) => resolveRealPath(entry.file)),
+          files: props.entries.map((entry) => compilerInputPath(entry.file)),
           include: [],
         }),
         "utf8",
@@ -986,6 +986,17 @@ export namespace TypiaGenerateWizard {
       return output;
     }
 
+    const compilerFile: string = compilerInputPath(props.entry.file);
+    if (
+      props.identity.isSamePath(compilerFile, props.entry.file) === false &&
+      props.identity.contains(compilerFile, props.cwd)
+    ) {
+      const compiled: string | undefined = props.outputByKey.get(
+        props.identity.projectFileKey(projectKey(props.cwd, compilerFile)),
+      );
+      if (compiled !== undefined) return compiled;
+    }
+
     const real: string = resolveRealPath(props.entry.file);
     if (
       props.identity.isSamePath(real, props.entry.file) ||
@@ -1008,6 +1019,20 @@ export namespace TypiaGenerateWizard {
     } catch {
       return file;
     }
+  }
+
+  function compilerInputPath(file: string): string {
+    try {
+      if (fs.lstatSync(file).isSymbolicLink()) {
+        return path.join(
+          resolveRealPath(path.dirname(file)),
+          path.basename(file),
+        );
+      }
+    } catch {
+      return file;
+    }
+    return resolveRealPath(file);
   }
 
   async function optionalRealPath(file: string): Promise<string | undefined> {

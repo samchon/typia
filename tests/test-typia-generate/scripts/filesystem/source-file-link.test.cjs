@@ -19,7 +19,7 @@ const {
 test("in-root source-file links remain supported", (context) => {
   const fixture = createFixture();
   try {
-    const source = path.join(fixture.input, "source.ts");
+    const source = path.join(fixture.input, "source.txt");
     writeSource(source);
     try {
       linkFile(source, path.join(fixture.input, "source-link.ts"));
@@ -30,7 +30,7 @@ test("in-root source-file links remain supported", (context) => {
       }
       throw error;
     }
-    expectSuccess(fixture, ["source.ts"]);
+    expectSuccess(fixture, ["source-link.ts"]);
   } finally {
     fixture.cleanup();
   }
