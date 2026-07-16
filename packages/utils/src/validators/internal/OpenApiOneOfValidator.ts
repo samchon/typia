@@ -12,29 +12,30 @@ export namespace OpenApiOneOfValidator {
     references: ReadonlySet<string> = new Set(),
   ): boolean => {
     const discriminator: IDiscriminator = getDiscriminator(ctx);
-    for (const item of discriminator.branches)
-      if (item.predicator(ctx.value))
-        return OpenApiStationValidator.validate(
+    const candidates: IDiscriminatorBranch[] = discriminator.branches.filter(
+      (item) => item.predicator(ctx.value),
+    );
+    let matched: OpenApi.IJsonSchema | undefined;
+    for (const item of candidates)
+      if (
+        OpenApiStationValidator.validate(
           {
             ...ctx,
             schema: item.schema,
+            exceptionable: false,
+            equals: false,
           },
           undefined,
           references,
-        );
-    if (discriminator.branches.length !== 0)
-      return validate(
-        {
-          ...ctx,
-          schema: {
-            oneOf: discriminator.remainders,
-          },
-        },
-        references,
-      );
-    const matched: OpenApi.IJsonSchema | undefined =
-      discriminator.remainders.find(
-        (schema) =>
+        )
+      ) {
+        matched = item.schema;
+        break;
+      }
+
+    if (matched === undefined)
+      for (const schema of discriminator.remainders)
+        if (
           OpenApiStationValidator.validate(
             {
               ...ctx,
@@ -44,9 +45,23 @@ export namespace OpenApiOneOfValidator {
             },
             undefined,
             references,
-          ) === true,
-      );
-    if (matched === undefined) return ctx.report(ctx);
+          )
+        ) {
+          matched = schema;
+          break;
+        }
+
+    if (matched === undefined)
+      return candidates.length !== 0
+        ? OpenApiStationValidator.validate(
+            {
+              ...ctx,
+              schema: candidates[0]!.schema,
+            },
+            undefined,
+            references,
+          )
+        : ctx.report(ctx);
     return ctx.equals === true
       ? OpenApiStationValidator.validate(
           {

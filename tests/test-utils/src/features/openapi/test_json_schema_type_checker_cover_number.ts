@@ -143,8 +143,8 @@ export const test_json_schema_type_checker_cover_number = (): void => {
     }),
   );
   TestValidator.equals(
-    "exclusiveMinimum can cover equal",
-    true,
+    "exclusiveMinimum can't cover equal inclusive boundary",
+    false,
     OpenApiTypeChecker.covers({
       components: {},
       x: { type: "number", exclusiveMinimum: 1 },
@@ -163,8 +163,8 @@ export const test_json_schema_type_checker_cover_number = (): void => {
     }),
   );
   TestValidator.equals(
-    "exclusiveMaximum can cover equal",
-    true,
+    "exclusiveMaximum can't cover equal inclusive boundary",
+    false,
     OpenApiTypeChecker.covers({
       components: {},
       x: { type: "number", exclusiveMaximum: 2 },

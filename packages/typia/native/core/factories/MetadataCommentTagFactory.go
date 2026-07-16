@@ -268,7 +268,7 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$input % "+props.Value+" === 0", "$input % "+props.Value+"n === 0n", true)
+    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+props.Value+")", "$input % "+props.Value+"n === 0n", true)
   },
   "format": func(props struct {
     Report func(msg string) any
@@ -292,8 +292,8 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
     return metadataCommentTagFactory_TagRecord{"string": {
-      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $input.length", Exclusive: true, Schema: map[string]any{"minLength": value}},
-      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$input.length <= " + props.Value, Exclusive: true, Schema: map[string]any{"maxLength": value}},
+      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= Array.from($input).length", Exclusive: true, Schema: map[string]any{"minLength": value}},
+      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "Array.from($input).length <= " + props.Value, Exclusive: true, Schema: map[string]any{"maxLength": value}},
     }}
   },
   "minLength": func(props struct {
@@ -301,14 +301,14 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $input.length", Exclusive: true, Schema: map[string]any{"minLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= Array.from($input).length", Exclusive: true, Schema: map[string]any{"minLength": value}}}}
   },
   "maxLength": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$input.length <= " + props.Value, Exclusive: true, Schema: map[string]any{"maxLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "Array.from($input).length <= " + props.Value, Exclusive: true, Schema: map[string]any{"maxLength": value}}}}
   },
 }
 
@@ -378,15 +378,14 @@ func metadataCommentTagFactory_numeric(props struct {
     Report   func(msg string) any
     Unsigned bool
     Value    string
-  }{Report: props.Report, Value: props.Value, Unsigned: false})
-  var bigint any
-  if integer != nil {
-    bigint = int64(*integer)
-  }
-  return metadataCommentTagFactory_TagRecord{
+  }{Report: func(string) any { return nil }, Value: props.Value, Unsigned: false})
+  record := metadataCommentTagFactory_TagRecord{
     "number": {{Name: name + "<" + props.Value + ">", Target: "number", Kind: kind, Value: number, Validate: numberValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}},
-    "bigint": {{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: bigint, Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}},
   }
+  if integer != nil {
+    record["bigint"] = []schemametadata.IMetadataTypeTag{{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: int64(*integer), Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}}
+  }
+  return record
 }
 
 func metadataCommentTagFactory_parse_number(props struct {

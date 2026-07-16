@@ -1,7 +1,7 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Divisibility constraint (value % divisor === 0).
+ * Mathematical divisibility constraint.
  *
  * `MultipleOf<N>` is a type tag that validates numeric values are exactly
  * divisible by the specified divisor with no remainder. Apply it to `number` or
@@ -37,9 +37,9 @@ export type MultipleOf<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";
   kind: "multipleOf";
   value: Value;
-  validate: `$input % ${Cast<Value>} === ${Value extends bigint
-    ? Cast<0n>
-    : 0}`;
+  validate: Value extends bigint
+    ? `$input % ${Cast<Value>} === ${Cast<0n>}`
+    : `$importInternal("_isMultipleOf")($input, ${Value})`;
   exclusive: true;
   schema: Value extends bigint
     ? { multipleOf: Numeric<Value> }
