@@ -49,13 +49,7 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
     Declaration: props.Declaration,
   })
   f := nativecontext.EmitFactoryOf(functionalValidateProgrammer_factory, props.Context.Emit)
-  caller := f.NewCallExpression(
-    props.Expression,
-    nil,
-    nil,
-    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
-    shimast.NodeFlagsNone,
-  )
+  caller := functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)
   data := caller
   if output.Async {
     data = f.NewAwaitExpression(caller)
@@ -68,10 +62,10 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
     f.NewPropertyAssignment(nil, nativefactories.IdentifierFactory.Identifier("errors", props.Context.Emit), nil, nil, f.NewArrayLiteralExpression(f.NewNodeList(nil), false)),
   }), true)))
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(output.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      output.Async,
       FunctionalValidateFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -81,8 +75,6 @@ func (functionalValidateParametersProgrammerNamespace) Write(props FunctionalVal
         Declaration: props.Declaration,
         Async:       output.Async,
       }),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(body), true),
     ),
   ))

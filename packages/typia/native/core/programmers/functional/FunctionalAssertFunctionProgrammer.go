@@ -66,13 +66,11 @@ func (functionalAssertFunctionProgrammerNamespace) Write(props FunctionalAssertF
   }
   body = append(body, f.NewReturnStatement(r.Value))
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(r.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      r.Async,
       functionalAssertProgrammer_returnType(props.Declaration),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(body), true),
     ),
   ))

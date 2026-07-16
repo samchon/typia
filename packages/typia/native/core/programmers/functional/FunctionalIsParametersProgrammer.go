@@ -54,10 +54,10 @@ func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParamet
   })
   statements := append([]*shimast.Node{}, result.Functions...)
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(output.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      output.Async,
       FunctionalIsFunctionProgrammer.GetReturnTypeNode(struct {
         Context     nativecontext.ITypiaContext
         Declaration *shimast.Node
@@ -67,17 +67,9 @@ func (functionalIsParametersProgrammerNamespace) Write(props FunctionalIsParamet
         Declaration: props.Declaration,
         Async:       output.Async,
       }),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(append(
         append([]*shimast.Node{}, result.Statements...),
-        f.NewReturnStatement(f.NewCallExpression(
-          props.Expression,
-          nil,
-          nil,
-          f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
-          shimast.NodeFlagsNone,
-        )),
+        f.NewReturnStatement(functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)),
       )), true),
     ),
   ))
@@ -139,9 +131,52 @@ func functionalIsProgrammer_parameters(declaration *shimast.Node, emit ...*shimp
 
 func functionalIsProgrammer_parameterNodes(declaration *shimast.Node) []*shimast.Node {
   if params := functionalIsProgrammer_parameters(declaration); params != nil {
-    return params.Nodes
+    output := make([]*shimast.Node, 0, len(params.Nodes))
+    for _, param := range params.Nodes {
+      // TypeScript's explicit `this` parameter declares a receiver type but is
+      // erased at runtime. It is neither validated nor forwarded as an argument.
+      if functionalIsProgrammer_parameterName(param) != "this" {
+        output = append(output, param)
+      }
+    }
+    return output
   }
   return nil
+}
+
+func functionalIsProgrammer_function(
+  context nativecontext.ITypiaContext,
+  declaration *shimast.Node,
+  async bool,
+  returnType *shimast.Node,
+  body *shimast.Node,
+) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, context.Emit)
+  return f.NewFunctionExpression(
+    functionalIsProgrammer_asyncModifiers(async, context.Emit),
+    nil,
+    nil,
+    nil,
+    functionalIsProgrammer_parameters(declaration, context.Emit),
+    returnType,
+    nil,
+    body,
+  )
+}
+
+func functionalIsProgrammer_call(context nativecontext.ITypiaContext, expression *shimast.Node, declaration *shimast.Node) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, context.Emit)
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(context.Emit, f.NewIdentifier("Reflect"), "apply"),
+    nil,
+    nil,
+    f.NewNodeList([]*shimast.Node{
+      expression,
+      f.NewKeywordExpression(shimast.KindThisKeyword),
+      f.NewArrayLiteralExpression(f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(declaration, context.Emit)), false),
+    }),
+    shimast.NodeFlagsNone,
+  )
 }
 
 func functionalIsProgrammer_parameterIdentifiers(declaration *shimast.Node, emit ...*shimprinter.EmitContext) []*shimast.Node {

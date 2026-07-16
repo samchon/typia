@@ -66,21 +66,13 @@ func (functionalAssertParametersProgrammerNamespace) Write(props FunctionalAsser
   for _, exp := range result.Expressions {
     body = append(body, f.NewExpressionStatement(exp))
   }
-  body = append(body, f.NewReturnStatement(f.NewCallExpression(
-    props.Expression,
-    nil,
-    nil,
-    f.NewNodeList(functionalIsProgrammer_parameterIdentifiers(props.Declaration, props.Context.Emit)),
-    shimast.NodeFlagsNone,
-  )))
+  body = append(body, f.NewReturnStatement(functionalIsProgrammer_call(props.Context, props.Expression, props.Declaration)))
   statements = append(statements, f.NewReturnStatement(
-    f.NewArrowFunction(
-      functionalIsProgrammer_asyncModifiers(output.Async, props.Context.Emit),
-      nil,
-      functionalIsProgrammer_parameters(props.Declaration, props.Context.Emit),
+    functionalIsProgrammer_function(
+      props.Context,
+      props.Declaration,
+      output.Async,
       functionalAssertProgrammer_returnType(props.Declaration),
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
       f.NewBlock(f.NewNodeList(body), true),
     ),
   ))

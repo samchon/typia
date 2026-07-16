@@ -9,7 +9,7 @@ import LocalSource from '../../components/LocalSource';
 
 # Miscellaneous
 
-Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `compare` (structural equality / ordering), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
+Small modules that share the typia transform but don't fit anywhere else: `plain` (clone / prune), `compare` (structural equality / ordering), `functional` (validated function wrappers), `notations` (case conversion), `http` (form data / query / headers / route parameters), and `reflect` (type metadata introspection and literal unions).
 
 ## `plain`
 
@@ -291,7 +291,7 @@ namespace compare {
 }
 ```
 
-Lexicographic ordering: walks the properties of `T` in declaration order and decides on the first differing scalar leaf (`number` / `boolean` / `string` / `bigint`), with `undefined < null < value`. Arrays compare element-by-element, the shorter prefix preceding. `less` and `equals` compose into an `Array.prototype.sort` comparator:
+Lexicographic ordering: walks the properties of `T` in declaration order and decides on the first differing scalar leaf (`number` / `boolean` / `string` / `bigint`), with `undefined < null < value`. Arrays compare element-by-element, the shorter prefix preceding. `NaN` follows every ordinary number, and two `NaN` operands are equivalent only for ordering; an invalid `Date` follows valid dates by the same rule. Two directional `less` checks compose into an `Array.prototype.sort` comparator:
 
 ```typescript copy
 const cmp = (a: IPoint, b: IPoint): number =>
@@ -312,6 +312,50 @@ Types with no sound total order (`any`, `Function`, `Set`, `Map`, `WeakSet`, `We
     <LocalSource
       path="examples/bin/compare/less.js"
       filename="examples/bin/compare/less.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## `functional`
+
+The `functional` module wraps an existing function with parameter and return-value validation while preserving its call contract. Every wrapper forwards the call-site receiver, so a target with an explicit TypeScript `this` parameter still works through method calls, `.call`, `.apply`, and `.bind`.
+
+```typescript copy filename="signatures"
+namespace functional {
+  function assertFunction<T extends (...args: any[]) => any>(func: T): T;
+  function isFunction<This, Args extends any[], Output>(func: (this: This, ...args: Args) => Output): (this: This, ...args: Args) => Output | null;
+  function validateFunction<This, Args extends any[], Output>(func: (this: This, ...args: Args) => Output): (this: This, ...args: Args) => IValidation<Output>;
+}
+```
+
+The `Function` variants validate both parameters and the return value. Choose `Parameters` or `Return` to validate only that boundary, and choose the `Equals` variants when extra object properties must also be rejected.
+
+```typescript copy
+interface Counter {
+  base: number;
+}
+
+function add(this: Counter, value: number): number {
+  return this.base + value;
+}
+
+const checked = typia.functional.assertFunction(add);
+checked.call({ base: 10 }, 2); // 12
+```
+
+Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return `null`, and validation wrappers return `IValidation`. Async targets retain both their receiver and their `Promise` result shape.
+
+<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/functional/assertFunction.ts"
+      filename="examples/src/functional/assertFunction.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/functional/assertFunction.js"
+      filename="examples/bin/functional/assertFunction.js"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>

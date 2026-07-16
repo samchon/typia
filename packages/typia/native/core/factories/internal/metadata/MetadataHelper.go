@@ -129,15 +129,13 @@ func metadata_explore_symbol_name(node *nativeast.Node, name string) string {
   return name
 }
 
-func metadata_get_type_arguments(checker *nativechecker.Checker, typ *nativechecker.Type) (output []*nativechecker.Type) {
+func metadata_get_type_arguments(checker *nativechecker.Checker, typ *nativechecker.Type) []*nativechecker.Type {
   if checker == nil || typ == nil {
     return nil
   }
-  defer func() {
-    if recover() != nil {
-      output = nil
-    }
-  }()
+  if typ.Flags()&nativechecker.TypeFlagsObject == 0 || typ.ObjectFlags()&nativechecker.ObjectFlagsReference == 0 {
+    return nil
+  }
   return checker.GetTypeArguments(typ)
 }
 

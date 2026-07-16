@@ -44,7 +44,14 @@ func (protobufFactoryNamespace) Metadata(props ProtobufFactory_IProps) *schemame
       Errors: protobufFactory_errors(result.Errors),
     }))
   }
+  protobufFactory_emplaceObjects(props.Components.Objects())
   return result.Data
+}
+
+func protobufFactory_emplaceObjects(objects []*schemametadata.MetadataObjectType) {
+  for _, object := range objects {
+    ProtobufFactory.EmplaceObject(object)
+  }
 }
 
 func (protobufFactoryNamespace) EmplaceObject(object *schemametadata.MetadataObjectType) {
@@ -335,10 +342,6 @@ func protobufFactory_validate() MetadataFactory_Validator {
       }
       visited[obj.Type] = true
       protobufFactory_validateObject(obj.Type, &errors)
-      func() {
-        defer func() { _ = recover() }()
-        ProtobufFactory.EmplaceObject(obj.Type)
-      }()
     }
     noSupport := func(msg string) { insert("does not support " + msg) }
     if props.Metadata.Any {

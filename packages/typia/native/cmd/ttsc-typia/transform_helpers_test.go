@@ -3,11 +3,25 @@ package main
 import (
   "bytes"
   "os"
+  "os/exec"
   "path/filepath"
   "runtime"
   "strings"
   "testing"
 )
+
+func ttscTypiaTestTypecheck(t *testing.T, project string) {
+  t.Helper()
+  pnpm, err := exec.LookPath("pnpm")
+  if err != nil {
+    t.Skip("pnpm executable not found")
+  }
+  cmd := exec.Command(pnpm, "exec", "ttsc", "--noEmit", "-p", "tsconfig.json")
+  cmd.Dir = project
+  if output, err := cmd.CombinedOutput(); err != nil {
+    t.Fatalf("fixture typecheck failed: %v\n%s", err, output)
+  }
+}
 
 func ttscTypiaTestRepoRoot(t *testing.T) string {
   t.Helper()
@@ -50,6 +64,7 @@ func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
     "validate-report-stub.cjs":   ttscTypiaTestValidateReportStub,
     "standard-schema-stub.cjs":   ttscTypiaTestStandardSchemaStub,
     "assert-guard-stub.cjs":      ttscTypiaTestAssertGuardStub,
+    "functional-error-stub.cjs":  ttscTypiaTestFunctionalErrorStub,
     "access-expression-stub.cjs": ttscTypiaTestAccessExpressionStub,
   }
   for name, content := range files {
@@ -65,6 +80,7 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_validateReport")`, `require("./validate-report-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_createStandardSchema")`, `require("./standard-schema-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_functionalTypeGuardErrorFactory")`, `require("./functional-error-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
   for _, needle := range []string{`require("typia")`, `require('typia')`, `from "typia"`, `from 'typia'`, `typia/lib/internal/`} {
     if strings.Contains(runtimeJS, needle) {
@@ -110,6 +126,10 @@ const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionab
   }
   return false;
 };
+`
+
+const ttscTypiaTestFunctionalErrorStub = `module.exports._functionalTypeGuardErrorFactory = (props) =>
+  Object.assign(new Error(props.expected), props);
 `
 
 const ttscTypiaTestAccessExpressionStub = `const reserved = new Set([
