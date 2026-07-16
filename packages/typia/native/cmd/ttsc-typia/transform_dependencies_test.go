@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"slices"
+	"strings"
 	"testing"
 )
 
@@ -51,6 +52,10 @@ func TestTransformProjectReportsTypeDependencies(t *testing.T) {
 		if !seen[expected] {
 			t.Fatalf("validator dependency set omitted %s: %v", expected, dependencies)
 		}
+	}
+	external := filepath.ToSlash(transformDependenciesExternalPath(project))
+	if !seen[external] {
+		t.Fatalf("validator dependency set omitted outside-root declaration %s: %v", external, dependencies)
 	}
 	if _, ok := first.Dependencies["src/unrelated.ts"]; ok {
 		t.Fatalf("an unchanged non-typia source received a dependency list: %+v", first.Dependencies)
@@ -109,7 +114,13 @@ func transformDependenciesProject(t *testing.T) string {
 	if err := os.MkdirAll(src, 0o755); err != nil {
 		t.Fatalf("mkdir fixture src: %v", err)
 	}
-	if err := os.WriteFile(filepath.Join(project, "tsconfig.json"), []byte(transformDependenciesTSConfig), 0o644); err != nil {
+	external := transformDependenciesExternalPath(project)
+	t.Cleanup(func() { _ = os.Remove(external) })
+	if err := os.WriteFile(external, []byte("export interface External { outside: boolean }\n"), 0o644); err != nil {
+		t.Fatalf("write outside-root declaration: %v", err)
+	}
+	tsconfig := strings.ReplaceAll(transformDependenciesTSConfig, "__EXTERNAL__", filepath.ToSlash(filepath.Join("..", filepath.Base(external))))
+	if err := os.WriteFile(filepath.Join(project, "tsconfig.json"), []byte(tsconfig), 0o644); err != nil {
 		t.Fatalf("write tsconfig: %v", err)
 	}
 	transformDiagnosticWriteTypiaStub(t, project)
@@ -128,7 +139,8 @@ export type Alias = Box<ImportedModel>;
 `,
 		"validator.ts": `import typia from "typia";
 import type { Reexported } from "@model/barrel";
-type Product<T> = { payload: T; meta: DeclaredMetadata };
+import type { External } from "@external";
+type Product<T> = { payload: T; meta: DeclaredMetadata; external: External };
 export const check = (input: unknown): boolean => typia.is<Product<Reexported>>(input);
 `,
 	}
@@ -140,6 +152,10 @@ export const check = (input: unknown): boolean => typia.is<Product<Reexported>>(
 	return project
 }
 
+func transformDependenciesExternalPath(project string) string {
+	return filepath.Join(filepath.Dir(project), filepath.Base(project)+"-external.d.ts")
+}
+
 const transformDependenciesTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -148,7 +164,10 @@ const transformDependenciesTSConfig = `{
 		"ignoreDeprecations": "6.0",
 		"types": ["*"],
 		"baseUrl": ".",
-		"paths": { "@model/*": ["src/*"] },
+		"paths": {
+			"@external": ["__EXTERNAL__"],
+			"@model/*": ["src/*"]
+		},
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
