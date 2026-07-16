@@ -7,6 +7,7 @@ import {
 } from "@typia/interface";
 
 import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
+import { LlmReference } from "../utils/internal/LlmReference";
 import { ObjectDictionary } from "../utils/internal/ObjectDictionary";
 import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { LlmTypeChecker } from "../validators/LlmTypeChecker";
@@ -245,7 +246,7 @@ export namespace LlmSchemaConverter {
           const out = () => {
             union.push({
               ...input,
-              $ref: `#/$defs/${key}`,
+              $ref: LlmReference.write(key),
             });
           };
           if (ObjectDictionary.has(props.$defs, key)) return out();
@@ -433,7 +434,10 @@ export namespace LlmSchemaConverter {
                         Object.entries(props.schema.discriminator.mapping).map(
                           ([key, value]) => [
                             key,
-                            `#/$defs/${value.split("/").at(-1)}`,
+                            LlmReference.write(
+                              value.split("#/components/schemas/")[1] ??
+                                value.split("/").at(-1)!,
+                            ),
                           ],
                         ),
                       )
@@ -511,20 +515,28 @@ export namespace LlmSchemaConverter {
         );
       else if (LlmTypeChecker.isAnyOf(schema)) schema.anyOf.forEach(visit);
       else if (LlmTypeChecker.isReference(schema)) {
-        const key: string =
-          schema.$ref.split("#/$defs/")[1] ?? schema.$ref.split("/").at(-1)!;
-        if (ObjectDictionary.get(props.components.schemas, key) === undefined) {
+        const resolved: LlmReference.IResolved | undefined =
+          LlmReference.resolve(props.$defs, schema.$ref);
+        if (resolved === undefined) {
+          union.push({ oneOf: [] });
+          return;
+        }
+        const componentKey: string = LlmReference.componentKey(resolved.key);
+        if (
+          ObjectDictionary.get(props.components.schemas, componentKey) ===
+          undefined
+        ) {
           props.components.schemas ??= {};
-          ObjectDictionary.set(props.components.schemas, key, {});
+          ObjectDictionary.set(props.components.schemas, componentKey, {});
           ObjectDictionary.set(
             props.components.schemas,
-            key,
-            next(ObjectDictionary.get(props.$defs, key) ?? {}),
+            componentKey,
+            next(resolved.schema),
           );
         }
         union.push({
           ...schema,
-          $ref: `#/components/schemas/${key}`,
+          $ref: `#/components/schemas/${componentKey}`,
         });
       } else if (LlmTypeChecker.isBoolean(schema))
         if (!!schema.enum?.length)
@@ -586,13 +598,9 @@ export namespace LlmSchemaConverter {
                         props.schema["x-discriminator"].propertyName,
                       mapping:
                         props.schema["x-discriminator"].mapping !== undefined
-                          ? Object.fromEntries(
-                              Object.entries(
-                                props.schema["x-discriminator"].mapping,
-                              ).map(([key, value]) => [
-                                key,
-                                `#/components/schemas/${value.split("/").at(-1)}`,
-                              ]),
+                          ? invertDiscriminatorMapping(
+                              props.$defs,
+                              props.schema["x-discriminator"].mapping,
                             )
                           : undefined,
                     }
@@ -601,6 +609,23 @@ export namespace LlmSchemaConverter {
     } satisfies OpenApi.IJsonSchema;
   };
 }
+
+const invertDiscriminatorMapping = (
+  $defs: Record<string, ILlmSchema>,
+  mapping: Record<string, string>,
+): Record<string, string> | undefined => {
+  const entries: [string, string][] = [];
+  for (const [discriminator, reference] of Object.entries(mapping)) {
+    const resolved: LlmReference.IResolved | undefined =
+      LlmReference.resolve($defs, reference);
+    if (resolved === undefined) return undefined;
+    entries.push([
+      discriminator,
+      `#/components/schemas/${LlmReference.componentKey(resolved.key)}`,
+    ]);
+  }
+  return Object.fromEntries(entries);
+};
 
 const validateStrict = (
   schema: OpenApi.IJsonSchema,
