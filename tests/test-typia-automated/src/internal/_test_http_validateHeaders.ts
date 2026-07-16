@@ -24,7 +24,7 @@ export const _test_http_validateHeaders =
     typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
-      result !== null && resolved_equal_to(name)(data, result.data);
+      result !== null && resolved_equal_to(factory)(data, result.data);
     if (equal === false)
       throw new Error(
         `Bug on typia.http.validateHeaders(): failed to understand ${name} type.`,

@@ -18,7 +18,9 @@ export const write_common =
           : p.method,
       })}";
 
-      export const ${file(p)}_${structure} = (): void => _${file({
+      export const ${file(p)}_${structure} = (): ${
+        p.asynchronous === true ? "Promise<void>" : "void"
+      } => _${file({
         ...p,
         method: p.method.startsWith("create")
           ? NamingConvention.localize(p.method.replace("create", ""))
@@ -43,4 +45,11 @@ interface IProps {
   module: string | null;
   prefix?: string | undefined;
   method: string;
+  /**
+   * Whether the internal returns a promise the generated case must hand back.
+   *
+   * Returning `void` from an asynchronous internal would turn a failed oracle
+   * into an unhandled rejection instead of a reported test failure.
+   */
+  asynchronous?: boolean | undefined;
 }

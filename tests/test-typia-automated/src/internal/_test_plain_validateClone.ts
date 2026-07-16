@@ -15,7 +15,7 @@ export const _test_plain_validateClone =
       );
 
     typia.assertEquals<typia.IValidation.ISuccess<unknown>>(valid);
-    if (resolved_equal_to(name)(input, valid.data) === false) {
+    if (resolved_equal_to(factory)(input, valid.data) === false) {
       throw new Error(
         `Bug on typia.plain.validateClone(): failed to understand the ${name} type.`,
       );

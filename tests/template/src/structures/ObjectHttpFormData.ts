@@ -20,14 +20,35 @@ export namespace ObjectHttpFormData {
   export const JSONABLE = false;
 
   export function generate(): ObjectHttpFormData {
+    // EVERY BINARY PART CARRIES CONTENT AND METADATA.
+    //
+    // These parts used to be `new Blob()` and `new File([], "file")`, so a
+    // `FormData` oracle that lost every byte and every media type still
+    // compared equal. Distinct bytes, media types, names, and modification
+    // times give the round trip something it can actually corrupt.
+    const bytes = (): Uint8Array<ArrayBuffer> =>
+      Uint8Array.from(
+        TestRandomGenerator.array(() => TestRandomGenerator.integer(0, 255)),
+      );
     return {
       id: v4(),
       number: TestRandomGenerator.number(),
       integers: TestRandomGenerator.array(() => TestRandomGenerator.integer()),
-      blob: new Blob(),
-      blobs: TestRandomGenerator.array(() => new Blob()),
-      file: new File([], "file"),
-      files: TestRandomGenerator.array(() => new File([], "file")),
+      blob: new Blob([bytes()], { type: "application/x-typia" }),
+      blobs: TestRandomGenerator.array(
+        () => new Blob([bytes()], { type: "application/octet-stream" }),
+      ),
+      file: new File([bytes()], `${TestRandomGenerator.string()}.bin`, {
+        type: "application/octet-stream",
+        lastModified: TestRandomGenerator.integer(1, 1_000_000_000),
+      }),
+      files: TestRandomGenerator.array(
+        () =>
+          new File([bytes()], `${TestRandomGenerator.string()}.bin`, {
+            type: "text/plain",
+            lastModified: TestRandomGenerator.integer(1, 1_000_000_000),
+          }),
+      ),
     };
   }
 

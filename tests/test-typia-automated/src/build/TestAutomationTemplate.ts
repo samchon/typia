@@ -1,3 +1,5 @@
+import { NamingConvention } from "@typia/utils";
+
 // import { write_functional } from "./writers/write_functional";
 // import { write_functionalAsync } from "./writers/write_functionalAsync";
 // import { write_notation } from "./writers/write_notation";
@@ -23,9 +25,41 @@ export interface TestAutomationTemplate {
   strict?: true;
   explicit?: true;
   dynamic?: false;
+  /**
+   * Whether the `_test_*` internal returns a promise the case must be awaited
+   * on. The generated function then declares `Promise<void>` so that a rejected
+   * oracle reaches `DynamicExecutor` instead of becoming an unhandled rejection.
+   */
+  asynchronous?: true;
   programmer?: (create: boolean) => (structure: string) => string;
 }
 export namespace TestAutomationTemplate {
+  /**
+   * The public method a template's direct or factory half exercises.
+   */
+  export const method = (
+    tpl: TestAutomationTemplate,
+    create: boolean,
+  ): string =>
+    create ? `create${NamingConvention.capitalize(tpl.method)}` : tpl.method;
+
+  /**
+   * The `src/features` directory that half of a template generates into.
+   *
+   * The direct/factory matrix backstop reads the same composition, so a renamed
+   * family cannot leave the backstop asserting against a stale name.
+   */
+  export const directory = (
+    tpl: TestAutomationTemplate,
+    create: boolean,
+  ): string =>
+    [
+      tpl.prefix ? `${tpl.prefix}.` : "",
+      tpl.module ? `${tpl.module}.` : "",
+      method(tpl, create),
+      tpl.custom === true ? "Custom" : "",
+    ].join("");
+
   export const DATA: TestAutomationTemplate[] = [
     //----
     // RUNTIME VALIDATORS
@@ -310,6 +344,7 @@ export namespace TestAutomationTemplate {
       formData: true,
       resolved: true,
       spoilable: false,
+      asynchronous: true,
     },
     // {
     //   module: "http",

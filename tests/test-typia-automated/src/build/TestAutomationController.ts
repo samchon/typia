@@ -60,21 +60,12 @@ export namespace TestAutomationController {
     metadata: TestAutomationMetadata<any>[],
     create: boolean,
   ): Promise<void> {
-    if (create === false) return;
-
-    const method: string = create
-      ? `create${NamingConvention.capitalize(template.method)}`
-      : template.method;
+    const method: string = TestAutomationTemplate.method(template, create);
     const path: string = [
       TestGlobal.ROOT,
       "src",
       "features",
-      [
-        template.prefix ? `${template.prefix}.` : "",
-        template.module ? `${template.module}.` : "",
-        method,
-        template.custom === true ? "Custom" : "",
-      ].join(""),
+      TestAutomationTemplate.directory(template, create),
     ].join("/");
 
     if (fs.existsSync(path))
@@ -104,11 +95,12 @@ export namespace TestAutomationController {
       else if (template.dynamic === false && s.name.startsWith("Dynamic"))
         continue;
 
-      const location: string = `${path}/test_${
-        template.prefix ? `${template.prefix}_` : ""
-      }${
-        template.module ? `${template.module}_` : ""
-      }${method}${template.custom === true ? "Custom" : ""}_${s.name}.ts`;
+      const location: string = `${path}/test_${TestAutomationTemplate.directory(
+        template,
+        create,
+      )
+        .split(".")
+        .join("_")}_${s.name}.ts`;
       await fs.promises.writeFile(
         location,
         writeScript(template, method, s, create),
@@ -130,6 +122,7 @@ export namespace TestAutomationController {
           module: feat.module,
           prefix: feat.prefix,
           method,
+          asynchronous: feat.asynchronous,
         })(create)(struct.name);
     if (false === method.toLowerCase().includes("assert")) return content;
 

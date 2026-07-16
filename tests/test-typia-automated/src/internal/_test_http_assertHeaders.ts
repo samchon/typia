@@ -18,7 +18,7 @@ export const _test_http_assertHeaders =
       headers_to_string(data);
     const decoded: typia.Resolved<T> = decode(encoded);
 
-    const equal: boolean = resolved_equal_to(name)(data, decoded);
+    const equal: boolean = resolved_equal_to(factory)(data, decoded);
     if (equal === false)
       throw new Error(
         `Bug on typia.http.assertHeaders(): failed to understand ${name} type.`,

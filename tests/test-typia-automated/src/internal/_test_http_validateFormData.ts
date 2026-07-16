@@ -2,12 +2,14 @@ import { TestStructure } from "@typia/template";
 import typia from "typia";
 
 import { create_form_data } from "../utils/create_form_data";
-import { resolved_equal_to } from "../utils/resolved_equal_to";
+import { resolved_equal_to_async } from "../utils/resolved_equal_to_async";
 
 export const _test_http_validateFormData =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
-  (decode: (input: FormData) => typia.IValidation<typia.Resolved<T>>): void => {
+  async (
+    decode: (input: FormData) => typia.IValidation<typia.Resolved<T>>,
+  ): Promise<void> => {
     const data: T = factory.generate();
     const encoded: FormData = create_form_data(data);
 
@@ -19,7 +21,8 @@ export const _test_http_validateFormData =
     typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
-      result !== null && resolved_equal_to(name)(data, result.data);
+      result !== null &&
+      (await resolved_equal_to_async(factory)(data, result.data));
     if (equal === false)
       throw new Error(
         `Bug on typia.http.validateFormData(): failed to understand ${name} type.`,
