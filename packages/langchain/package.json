@@ -27,7 +27,7 @@
     "@typia/utils": "workspace:^"
   },
   "peerDependencies": {
-    "@langchain/core": ">=1.0.0"
+    "@langchain/core": ">=1.1.30"
   },
   "devDependencies": {
     "@langchain/core": "^1.1.31",

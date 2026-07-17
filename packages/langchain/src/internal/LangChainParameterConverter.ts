@@ -22,6 +22,11 @@ import { IHttpLlmFunction, ILlmFunction } from "@typia/interface";
  * whose `validate` is likewise left undefined so that `safeValidateTypes`
  * short-circuits its own validation.
  *
+ * `toJsonSchema` only reads `~standard.jsonSchema` from `@langchain/core@1.1.30`
+ * onwards; older versions return the wrapper itself and would advertise it to the
+ * model in place of the parameters. That is what the package's `@langchain/core`
+ * peer range is pinned to.
+ *
  * @see https://github.com/standard-schema/standard-schema
  */
 export namespace LangChainParameterConverter {
