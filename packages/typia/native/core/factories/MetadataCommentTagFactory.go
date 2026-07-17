@@ -342,9 +342,13 @@ func metadataCommentTagFactory_parse_type(props struct {
   } else if value == "uint32" {
     validate = "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295"
   } else if value == "int64" {
-    validate = "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807"
+    // Delegate to the runtime helper instead of restating the bound. The 64-bit
+    // maxima are not representable as JavaScript numbers, so an inline literal
+    // here silently rounds up and admits an out-of-range value; the helper owns
+    // the one correct spelling and documents why it is exclusive.
+    validate = "$importInternal(\"isTypeInt64\")($input)"
   } else if value == "uint64" {
-    validate = "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615"
+    validate = "$importInternal(\"isTypeUint64\")($input)"
   } else if value == "float" {
     validate = "-3.4028235e38 <= $input && $input <= 3.4028235e38"
   }
@@ -362,8 +366,16 @@ func metadataCommentTagFactory_parse_type(props struct {
     "number": {{Name: "Type<" + strconv.Quote(value) + ">", Target: "number", Kind: "type", Value: value, Validate: validate, Exclusive: true, Schema: numberSchema}},
   }
   if value == "int64" || value == "uint64" {
+    // The bigint form used to emit `true` for int64 and a lower bound only for
+    // uint64, so `bigint & Type<"int64">` -- the spelling the documentation
+    // recommends -- certified any magnitude at all. Both now delegate to the
+    // helper that holds the exact inclusive bound a bigint can represent.
+    bigintValidate := "$importInternal(\"isTypeUint64Bigint\")($input)"
+    if value == "int64" {
+      bigintValidate = "$importInternal(\"isTypeInt64Bigint\")($input)"
+    }
     record["bigint"] = []schemametadata.IMetadataTypeTag{
-      {Name: "Type<" + strconv.Quote(value) + ">", Target: "bigint", Kind: "type", Value: value, Validate: map[bool]string{true: "true", false: "BigInt(0) <= $input"}[value == "int64"], Exclusive: true, Schema: bigintSchema},
+      {Name: "Type<" + strconv.Quote(value) + ">", Target: "bigint", Kind: "type", Value: value, Validate: bigintValidate, Exclusive: true, Schema: bigintSchema},
     }
   }
   return record
