@@ -231,7 +231,7 @@ func transformFileToTypeScript(
 // basename in different directories resolve to different artifacts instead of
 // collapsing onto one. Deriving the path instead of matching stems is what fixed
 // samchon/typia#2134, where a whole-path-stem match asked whether `dist/main`
-// equalled `src/main` and so reported "no output produced" for every project
+// equaled `src/main` and so reported "no output produced" for every project
 // with an `outDir`.
 func transformSingleToJavaScript(
   prog *driver.Program,

@@ -14,7 +14,7 @@ import (
 // can belong to the program and still have no JavaScript of its own, and the
 // caller needs exit 3 rather than an empty file behind exit 0. Every probe puts
 // a real artifact for a sibling source through the same write callback, so a
-// check that stopped discriminating would capture that neighbour and report
+// check that stopped discriminating would capture that neighbor and report
 // success. The three probes reach the outcome by different routes -- an emit
 // that skips the file, an emit that withholds it, and a file the resolution
 // gives no output path at all -- so no one of them stands in for the others.

@@ -175,6 +175,8 @@ func TestCommandRoutesAndDiagnosticsCoverage(t *testing.T) {
 				"--rewrite-mode", "none",
 			})
 		}, 0},
+		// Publishes, rather than the 3 this expected while samchon/typia#2134
+		// made `--output js` miss its own artifact under the fixture's `outDir`.
 		{"transform_js_out", func(t *testing.T) int {
 			return runTransform([]string{
 				"--cwd", primitives,
@@ -184,7 +186,7 @@ func TestCommandRoutesAndDiagnosticsCoverage(t *testing.T) {
 				"--out", filepath.Join(t.TempDir(), "main.js"),
 				"--rewrite-mode", "none",
 			})
-		}, 3},
+		}, 0},
 		{"transform_ts_stdout_write_error", func(t *testing.T) int {
 			return commandRoutesWithFailingStdout(func() int {
 				return runTransform([]string{
