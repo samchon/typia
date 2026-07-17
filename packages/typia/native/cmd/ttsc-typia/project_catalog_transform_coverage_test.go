@@ -1,4 +1,4 @@
-//go:build typia_native_internal
+﻿//go:build typia_native_internal
 // +build typia_native_internal
 
 package main
@@ -16,10 +16,19 @@ import (
 // Running them through the same project transform mode gives Go coverage for
 // those native branches without duplicating that TypeScript corpus here.
 //
+// Each project is held to what its purpose guarantees, never to what its sources
+// happen to contain today. The feature projects exist to compile accepted typia
+// call sites, so they must transform without a diagnostic. `tests/test-error`
+// exists to hold call sites typia rejects, so it must report them. `tests/debug`
+// is a scratchpad whose contents are arbitrary by design (samchon/typia#2141): a
+// valid sample and a deliberately broken one are equally legitimate states, so
+// only the envelope contract itself is asserted for it. Asserting that the
+// scratchpad reports diagnostics is asserting that it always holds broken code.
+//
 // 1. Resolve existing TypeScript catalog projects from the repository root.
 // 2. Run project transform mode so every source file contributes call sites.
 // 3. Require JSON project output to include a TypeScript map.
-// 4. Fail on any native transform diagnostic from the catalog project.
+// 4. Hold each project to its own purpose's diagnostic contract.
 func TestProjectCatalogTransformCoverage(t *testing.T) {
 	root := transformCoverageRepoRoot(t)
 	for _, project := range []string{
@@ -35,14 +44,7 @@ func TestProjectCatalogTransformCoverage(t *testing.T) {
 	} {
 		project := project
 		t.Run(project, func(t *testing.T) {
-			cwd := filepath.Join(root, "tests", project)
-			out, errText, code := transformCoverageCapture(func() int {
-				return runTransform([]string{
-					"--cwd", cwd,
-					"--tsconfig", "tsconfig.json",
-					"--output", "ts",
-				})
-			})
+			out, errText, code := transformCatalogProject(root, project)
 			if code != 0 {
 				t.Fatalf("%s transform failed: code=%d stderr=\n%s", project, code, errText)
 			}
@@ -51,23 +53,48 @@ func TestProjectCatalogTransformCoverage(t *testing.T) {
 			}
 		})
 	}
-	for _, project := range []string{"debug", "test-error"} {
-		project := project
-		t.Run(project, func(t *testing.T) {
-			cwd := filepath.Join(root, "tests", project)
-			out, _, code := transformCoverageCapture(func() int {
-				return runTransform([]string{
-					"--cwd", cwd,
-					"--tsconfig", "tsconfig.json",
-					"--output", "ts",
-				})
-			})
-			if code != 3 {
-				t.Fatalf("%s transform should report diagnostics with code 3, got %d", project, code)
-			}
-			if !strings.Contains(out, `"diagnostics"`) || !strings.Contains(out, `"typescript"`) {
-				t.Fatalf("%s output should include diagnostics and TypeScript map:\n%s", project, out)
-			}
+	// tests/test-error compiles deliberately invalid call sites, and reporting them
+	// is that workspace's entire reason to exist. Its diagnostics are a contract,
+	// not an accident of what it currently holds.
+	t.Run("test-error", func(t *testing.T) {
+		out, _, code := transformCatalogProject(root, "test-error")
+		if code != 3 {
+			t.Fatalf("test-error transform should report diagnostics with code 3, got %d", code)
+		}
+		if !strings.Contains(out, `"diagnostics"`) || !strings.Contains(out, `"typescript"`) {
+			t.Fatalf("test-error output should include diagnostics and TypeScript map:\n%s", out)
+		}
+	})
+	// tests/debug is a one-off repro scratchpad, so nothing about its sources is
+	// promised: it holds valid code between investigations and invalid code during
+	// one. What survives both states is the project transform's own envelope
+	// contract, so that is what this pins. The project must resolve and reach a
+	// transform decision rather than fail to load (exit 2), every source must land
+	// in the TypeScript map, and the exit code must agree with the envelope it
+	// published.
+	t.Run("debug", func(t *testing.T) {
+		out, errText, code := transformCatalogProject(root, "debug")
+		if code != 0 && code != 3 {
+			t.Fatalf("debug transform should load and transform the project, got code=%d stderr=\n%s", code, errText)
+		}
+		if !strings.Contains(out, `"typescript"`) {
+			t.Fatalf("debug project output should include TypeScript map:\n%s", out)
+		}
+		if diagnosed := strings.Contains(out, `"diagnostics"`); diagnosed != (code == 3) {
+			t.Fatalf("debug exit code %d disagrees with its envelope (diagnostics present: %v):\n%s", code, diagnosed, out)
+		}
+	})
+}
+
+// transformCatalogProject runs project transform mode over one repository test
+// project and returns its captured stdout, stderr, and exit code.
+func transformCatalogProject(root string, project string) (string, string, int) {
+	cwd := filepath.Join(root, "tests", project)
+	return transformCoverageCapture(func() int {
+		return runTransform([]string{
+			"--cwd", cwd,
+			"--tsconfig", "tsconfig.json",
+			"--output", "ts",
 		})
-	}
+	})
 }
