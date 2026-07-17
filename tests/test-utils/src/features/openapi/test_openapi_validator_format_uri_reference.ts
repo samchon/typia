@@ -18,10 +18,10 @@ interface ICommentUriReferenceValue {
  * RFC 3986 builds every component of a URI-reference from unreserved
  * characters, sub-delims (`!$&'()*+,;=`), and pct-encoded octets, so a raw
  * double quote is legal in none of them and `%22` is its only spelling. It also
- * splits `URI-reference` into `URI / relative-ref`, and only the scheme-ful side
- * may use `path-rootless`; a scheme-less relative reference takes
- * `path-noscheme`, whose first segment is `segment-nz-nc` and excludes `:`,
- * while every later segment is `*pchar` and includes it. Sharing one
+ * splits `URI-reference` into `URI / relative-ref`, and only the side that
+ * carries a scheme may use `path-rootless`; a scheme-less relative reference
+ * takes `path-noscheme`, whose first segment is `segment-nz-nc` and excludes
+ * `:`, while every later segment is `*pchar` and includes it. Sharing one
  * `path-rootless` alternative across both sides therefore accepts
  * `1bad:relative`, which is neither a URI (`1bad` cannot be a scheme, which must
  * begin with ALPHA) nor a relative-ref. The same expression is copied into the
