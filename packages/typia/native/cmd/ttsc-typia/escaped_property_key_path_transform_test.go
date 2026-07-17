@@ -10,12 +10,12 @@ import (
 // TestEscapedPropertyKeyPathTransform verifies emits with hostile keys parse.
 //
 // Sole-literal property keys are folded into the emit as accessor path text, and
-// no build step reads the file back, so a mis-escaped key shipped as a broken
-// artifact while ttsc still exited 0. A `"` in a key terminated the path string
-// early and the emitted module stopped being JavaScript; a control character
-// stayed raw and the reported path became unparseable. Only running node against
-// a real emit can catch that, which is why this asserts on the transform output
-// rather than on the factory in isolation.
+// no build step reads the file back, so a wrongly escaped key shipped as a
+// broken artifact while ttsc still exited 0. A `"` in a key terminated the path
+// string early and the emitted module stopped being JavaScript; a control
+// character stayed raw and the reported path could not be parsed. Only running
+// node against a real emit can catch that, which is why this asserts on the
+// transform output rather than on the factory in isolation.
 //
 //  1. Transform a fixture whose keys carry quotes, backslashes, and control
 //     characters.
