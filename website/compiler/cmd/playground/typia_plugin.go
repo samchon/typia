@@ -7,11 +7,12 @@
 // invocation-owned `Stdout` / `Stderr` writers: `Run` threads that pair down
 // through each helper, and nothing here ever touches `os.Stdout` /
 // `os.Stderr`. Concurrent invocations therefore never share output state.
-// Filesystem access (`os.Getwd`, `os.ReadFile`, …) is unaffected.
+// Filesystem access (`os.Getwd`, `os.WriteFile`, …) is unaffected.
 //
 // Public surface this delegates into (all live under `packages/typia/native/`):
 //
-//   - `adapter`         — call-site walker and per-feature `PluginOptions`.
+//   - `adapter`         — call-site walker, per-feature `PluginOptions`, and the
+//     `--plugins-json` reader every typia host shares.
 //   - `core/context`    — the `ITypiaContext_Extras` diagnostic sink.
 //   - `transform`       — the AST-integration node transformer.
 //   - `driver`          — Program loader + `EmitWithPluginTransformers`.
