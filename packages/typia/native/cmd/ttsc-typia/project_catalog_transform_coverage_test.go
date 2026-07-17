@@ -1,9 +1,10 @@
-﻿//go:build typia_native_internal
+//go:build typia_native_internal
 // +build typia_native_internal
 
 package main
 
 import (
+	"encoding/json"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -69,18 +70,30 @@ func TestProjectCatalogTransformCoverage(t *testing.T) {
 	// promised: it holds valid code between investigations and invalid code during
 	// one. What survives both states is the project transform's own envelope
 	// contract, so that is what this pins. The project must resolve and reach a
-	// transform decision rather than fail to load (exit 2), every source must land
-	// in the TypeScript map, and the exit code must agree with the envelope it
-	// published.
+	// transform decision rather than fail to load (exit 2), it must still
+	// contribute transformed sources, and its exit code must agree with the
+	// envelope it published.
+	//
+	// The envelope is decoded rather than substring-matched because `"typescript"`
+	// carries no `omitempty` and runTransformProject initializes the map before its
+	// source loop: the key is present even when the workspace resolved no source at
+	// all. That empty envelope is the shape a `rootDir` or `include` rot leaves
+	// behind, and this workspace is the one that already shipped such a rot
+	// (samchon/typia#2132), so a key-presence check would pass over the one failure
+	// worth catching here.
 	t.Run("debug", func(t *testing.T) {
 		out, errText, code := transformCatalogProject(root, "debug")
 		if code != 0 && code != 3 {
 			t.Fatalf("debug transform should load and transform the project, got code=%d stderr=\n%s", code, errText)
 		}
-		if !strings.Contains(out, `"typescript"`) {
-			t.Fatalf("debug project output should include TypeScript map:\n%s", out)
+		var envelope transformProjectOutput
+		if err := json.Unmarshal([]byte(out), &envelope); err != nil {
+			t.Fatalf("debug project output should be a transform envelope: %v\n%s", err, out)
 		}
-		if diagnosed := strings.Contains(out, `"diagnostics"`); diagnosed != (code == 3) {
+		if len(envelope.TypeScript) == 0 {
+			t.Fatalf("debug project should contribute transformed sources, got an empty TypeScript map:\n%s", out)
+		}
+		if diagnosed := len(envelope.Diagnostics) > 0; diagnosed != (code == 3) {
 			t.Fatalf("debug exit code %d disagrees with its envelope (diagnostics present: %v):\n%s", code, diagnosed, out)
 		}
 	})
