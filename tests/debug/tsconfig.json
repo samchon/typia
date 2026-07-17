@@ -1,4 +1,14 @@
 {
   "extends": "../config/tsconfig.json",
   "include": ["src"],
+  "compilerOptions": {
+    // The shared base sets `rootDir: "../.."` (the repository root), which puts
+    // typia's own sources inside this workspace's root. `ttsx` then remaps them
+    // alongside `src` and loads a second copy of every typia module next to the
+    // one resolved through `node_modules`, so module identity breaks at runtime
+    // (`_ProtobufWriter_1._ProtobufWriter is not a constructor`). Scoping the
+    // root to `src` keeps typia outside it, exactly as every other `tests/*`
+    // workspace does.
+    "rootDir": "src",
+  },
 }
