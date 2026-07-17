@@ -118,8 +118,10 @@ export namespace LlmJson {
    * auto-correction feedback.
    *
    * @param parameters LLM function parameters schema
-   * @param equals If `true`, reject extraneous properties not defined in the
-   *   schema. Otherwise, extra properties are ignored.
+   * @param equals If `true`, reject extraneous properties on a closed object.
+   *   Otherwise, extra properties are ignored. An object whose
+   *   `additionalProperties` opens it declares undeclared keys to be legitimate
+   *   members, so this flag does not close it.
    * @returns Validator function that checks data against the schema
    */
   export function validate(
@@ -187,8 +189,10 @@ export namespace LlmJson {
    *
    * @template T The expected output type
    * @param parameters LLM parameters schema
-   * @param equals If `true`, reject extraneous properties not defined in the
-   *   schema during validation. Otherwise, extra properties are ignored.
+   * @param equals If `true`, reject extraneous properties on a closed object
+   *   during validation. Otherwise, extra properties are ignored. An object
+   *   whose `additionalProperties` opens it declares undeclared keys to be
+   *   legitimate members, so this flag does not close it.
    * @returns Structured output interface with parse, coerce, and validate
    */
   export function structuredOutput<T>(
