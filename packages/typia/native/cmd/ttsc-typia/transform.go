@@ -14,6 +14,7 @@ import (
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   "github.com/samchon/ttsc/packages/ttsc/driver"
+  typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
@@ -39,7 +40,7 @@ func runTransform(args []string) int {
   out := fs.String("out", "", "write single-file output to PATH instead of stdout")
   rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
   output := fs.String("output", defaultTransformOutput(), "single-file output kind: js or ts")
-  _ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
+  pluginsJSON := fs.String("plugins-json", "", "ordered ttsc plugin payload")
   if err := fs.Parse(args); err != nil {
     return 2
   }
@@ -49,6 +50,14 @@ func runTransform(args []string) int {
   }
   if *output != "js" && *output != "ts" {
     fmt.Fprintf(stderr, "ttsc-typia transform: unknown --output value %q\n", *output)
+    return 2
+  }
+  // Resolve the options before loading the program: they come from the payload
+  // alone, so an unreadable manifest is a usage error to report now rather than
+  // after a full transform has already run under the wrong configuration.
+  pluginOptions, err := typiaadapter.ReadPluginOptions(*pluginsJSON)
+  if err != nil {
+    fmt.Fprintf(stderr, "ttsc-typia transform: %v\n", err)
     return 2
   }
   cwd := *cwdOverride
@@ -75,7 +84,6 @@ func runTransform(args []string) int {
   defer prog.Close()
 
   transformDiags := []typiaTransformDiagnostic{}
-  pluginOptions := readTypiaPluginOptions(cwd, *tsconfigPath)
   transformOptions := pluginOptions.TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
     AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {

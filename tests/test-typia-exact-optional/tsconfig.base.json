@@ -1,0 +1,22 @@
+{
+  // This base exists to declare typia's plugin entry one `extends` hop away
+  // from the tsconfig the compiler is actually pointed at. Do not flatten it
+  // back into the leaf.
+  //
+  // Declaring a plugin option in a base config and inheriting it is the
+  // standard monorepo layout, and it is the shape that had no coverage
+  // anywhere in this repository: every workspace that needed a non-default
+  // typia option re-declared the plugin inline in its own leaf. That gap is
+  // what let samchon/typia#1887 sit open while every suite stayed green --
+  // typia read the leaf file's raw text instead of the plugin entry ttsc
+  // resolved for it, so an inherited option was silently dropped and the whole
+  // exact-optional behavior below quietly reverted to its default.
+  //
+  // Keeping `undefined: false` here means this suite fails if that regresses:
+  // the option only reaches typia if the `extends` chain is resolved by the
+  // host and delivered on `--plugins-json`.
+  "extends": "../config/tsconfig.json",
+  "compilerOptions": {
+    "plugins": [{ "transform": "typia/lib/transform", "undefined": false }],
+  },
+}

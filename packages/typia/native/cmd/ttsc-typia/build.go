@@ -7,7 +7,6 @@ import (
   "io"
   "os"
   "path/filepath"
-  "regexp"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
@@ -30,7 +29,7 @@ func runBuild(args []string) int {
   outDir := fs.String("outDir", "", "override compilerOptions.outDir")
   manifestPath := fs.String("manifest", "", "write emitted file list as JSON")
   rewriteMode := fs.String("rewrite-mode", "typia", "native rewrite backend id")
-  _ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
+  pluginsJSON := fs.String("plugins-json", "", "ordered ttsc plugin payload")
   if err := fs.Parse(args); err != nil {
     return 2
   }
@@ -43,6 +42,14 @@ func runBuild(args []string) int {
   }
   if *rewriteMode != "none" && *rewriteMode != "typia" {
     fmt.Fprintf(stderr, "ttsc-typia build: unknown --rewrite-mode value %q\n", *rewriteMode)
+    return 2
+  }
+  // Resolve the options before loading the program: they come from the payload
+  // alone, so an unreadable manifest is a usage error to report now rather than
+  // after a full compile has already run under the wrong configuration.
+  pluginOptions, err := typiaadapter.ReadPluginOptions(*pluginsJSON)
+  if err != nil {
+    fmt.Fprintf(stderr, "ttsc-typia build: %v\n", err)
     return 2
   }
 
@@ -104,7 +111,6 @@ func runBuild(args []string) int {
   defer prog.Close()
 
   transformDiags := []typiaTransformDiagnostic{}
-  pluginOptions := readTypiaPluginOptions(cwd, *tsconfigPath)
   transformOptions := pluginOptions.TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
     AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
@@ -198,34 +204,4 @@ func writeTypiaTransformDiagnostics(out io.Writer, diagnostics []typiaTransformD
   for _, diag := range diagnostics {
     fmt.Fprintln(out, diag.String(cwd))
   }
-}
-
-func readTypiaPluginOptions(cwd, tsconfigPath string) typiaadapter.PluginOptions {
-  path := tsconfigPath
-  if !filepath.IsAbs(path) {
-    path = filepath.Join(cwd, path)
-  }
-  data, err := os.ReadFile(path)
-  if err != nil {
-    return typiaadapter.PluginOptions{}
-  }
-  text := string(data)
-  if !regexp.MustCompile(`(?s)"transform"\s*:\s*"typia/lib/transform"`).MatchString(text) {
-    return typiaadapter.PluginOptions{}
-  }
-  return typiaadapter.PluginOptions{
-    Functional: regexp.MustCompile(`(?s)"functional"\s*:\s*true`).MatchString(text),
-    Numeric:    regexp.MustCompile(`(?s)"numeric"\s*:\s*true`).MatchString(text),
-    Finite:     regexp.MustCompile(`(?s)"finite"\s*:\s*true`).MatchString(text),
-    Undefined:  readBooleanPluginOption(text, "undefined"),
-  }
-}
-
-func readBooleanPluginOption(text string, name string) *bool {
-  matched := regexp.MustCompile(`(?s)"` + regexp.QuoteMeta(name) + `"\s*:\s*(true|false)`).FindStringSubmatch(text)
-  if matched == nil {
-    return nil
-  }
-  value := matched[1] == "true"
-  return &value
 }
