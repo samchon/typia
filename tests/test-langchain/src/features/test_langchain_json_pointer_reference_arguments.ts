@@ -21,10 +21,11 @@ import typia from "typia";
  *
  * 1. Advertise a recursive argument whose generated definition key contains `/`.
  * 2. Resolve the advertised schema with an independent JSON Schema validator and
- *    confirm it accepts a conforming value and rejects a violation of the
+ *    confirm it accepts a conforming value and rejects violations of the
  *    referenced definition alone.
  * 3. Execute a valid recursive value through the real LangChain tool.
- * 4. Reject a value violating only the referenced schema, with typia's feedback.
+ * 4. Reject both a referenced numeric and a referenced literal violation, each
+ *    with typia's feedback naming the path under the reference.
  */
 export const test_langchain_json_pointer_reference_arguments =
   async (): Promise<void> => {
@@ -58,6 +59,9 @@ export const test_langchain_json_pointer_reference_arguments =
       () =>
         validator.validate({
           input: { value: "wrong", count: 0, children: [] },
+        }).valid === false &&
+        validator.validate({
+          input: { value: "A/B", count: "not a number", children: [] },
         }).valid === false,
     );
 
@@ -67,19 +71,34 @@ export const test_langchain_json_pointer_reference_arguments =
       data: tree,
     });
 
-    // Violates only the referenced `Recursive<"A/B">` definition, and survives
-    // coercion, so typia can reject it only by resolving the encoded reference.
-    const error: unknown = await tool
-      .invoke({ input: { value: "wrong", count: 0, children: [] } })
-      .then(() => undefined)
-      .catch((exp: unknown) => exp);
-    TestValidator.predicate(
-      "typia resolves the encoded reference to reject a referenced literal",
-      () =>
-        error instanceof ToolInputParsingException &&
-        error.message.includes('Type errors in "echo" arguments:') &&
-        error.message.includes('"path":"$input.input.value"'),
-    );
+    // Each negative violates only the referenced `Recursive<"A/B">` definition
+    // and survives coercion — `"42"` would not, since typia coerces it to `42`
+    // and accepts the call — so typia can reject them only by resolving the
+    // encoded reference.
+    for (const [label, input, path] of [
+      [
+        "referenced numeric property",
+        { value: "A/B", count: "not a number" },
+        "$input.input.count",
+      ],
+      [
+        "referenced literal property",
+        { value: "wrong", count: 0 },
+        "$input.input.value",
+      ],
+    ] as const) {
+      const error: unknown = await tool
+        .invoke({ input: { ...input, children: [] } })
+        .then(() => undefined)
+        .catch((exp: unknown) => exp);
+      TestValidator.predicate(
+        `typia resolves the encoded reference to reject a ${label}`,
+        () =>
+          error instanceof ToolInputParsingException &&
+          error.message.includes('Type errors in "echo" arguments:') &&
+          error.message.includes(`"path":"${path}"`),
+      );
+    }
   };
 
 type Recursive<T extends string> = {
