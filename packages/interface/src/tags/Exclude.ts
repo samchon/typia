@@ -8,11 +8,9 @@ import { TagBase } from "./TagBase";
  * tuple — the tag is exclusive, so a second `Exclude` on the same type is a
  * compile error (their JSON schema fragments could not merge).
  *
- * In JSON schema the constraint appears as `not: { enum: [...] }`. Note that
- * OpenAI strict mode (and therefore `typia.llm.*` with a strict model
- * configuration) cannot express `not`, so strict LLM schemas reject this tag.
- * `typia.random` does not consult it either: generated values may collide with
- * the excluded list.
+ * In JSON schema the constraint appears as `not: { enum: [...] }`. Strict LLM
+ * schemas reject this tag. `typia.random` does not consult it either: generated
+ * values may collide with the excluded list.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @example
