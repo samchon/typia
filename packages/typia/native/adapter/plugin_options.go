@@ -13,7 +13,7 @@ import (
 // typia's descriptor declares it (`packages/typia/src/transform.ts` ->
 // `name: "typia"`) and the playground wasm plugin registers the same string
 // with the ttsc wasm host. ttsc echoes it back on every payload entry, so it is
-// how typia recognises its own entry among the sibling plugins that ride in the
+// how typia recognizes its own entry among the sibling plugins that ride in the
 // same payload: a transform host carries the entries of every transform-stage
 // plugin, not just its own.
 const PluginName = "typia"
@@ -27,14 +27,15 @@ const PluginName = "typia"
 // entry is the only authority on typia's options, so this reads it and nothing
 // else -- there is deliberately no fallback that re-reads tsconfig.json.
 //
-// The fallback is what made samchon/typia#1887: the previous reader took the
-// leaf file's raw bytes and regex-matched the option names over the whole text.
-// It therefore dropped an option inherited through `extends` (the host resolved
-// it, typia never saw it), and adopted an option the user had commented out or
-// one that belonged to a sibling plugin's entry (the text matched, the entry
-// did not). Re-reading the file cannot be made correct without re-implementing
-// the host's JSONC parse and `extends` walk, and duplicating that work is how
-// the two readers disagreed in the first place.
+// Re-reading the file is what made samchon/typia#1887: the previous reader took
+// the leaf file's raw bytes and regex-matched the option names over the whole
+// text. It therefore dropped an option inherited through `extends` (the host
+// resolved it, typia never saw it), and adopted an option the user had commented
+// out or one that belonged to a sibling plugin's entry (the text matched, the
+// entry did not). Reading the file back cannot be made correct without
+// re-implementing the host's JSONC parse and `extends` walk, so a fallback that
+// tried would either duplicate that work or keep the defect on whichever path
+// took it.
 //
 // An absent or empty payload yields the zero options, which are typia's
 // documented defaults. That is not a guess: a host that hands typia no entry

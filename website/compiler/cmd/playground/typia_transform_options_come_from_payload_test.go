@@ -18,7 +18,7 @@ import (
 //
 //  1. Materialize each matrix row as a project plus the payload the site sends.
 //  2. Run the playground transform verb over it.
-//  3. Assert the rewritten TypeScript honours the entry, not the file text.
+//  3. Assert the rewritten TypeScript honors the entry, not the file text.
 func TestTypiaTransformOptionsComeFromPayload(t *testing.T) {
   for _, tc := range playgroundPayloadCases() {
     t.Run(tc.name, func(t *testing.T) {

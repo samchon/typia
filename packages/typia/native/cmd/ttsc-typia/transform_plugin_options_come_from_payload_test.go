@@ -18,7 +18,7 @@ import (
 //
 //  1. Materialize each matrix row as a project plus the payload ttsc resolves it into.
 //  2. Run the transform host over it.
-//  3. Assert the emitted validator honours the entry, not the file text.
+//  3. Assert the emitted validator honors the entry, not the file text.
 func TestTransformPluginOptionsComeFromPayload(t *testing.T) {
   for _, tc := range pluginOptionsPayloadCases() {
     t.Run(tc.name, func(t *testing.T) {

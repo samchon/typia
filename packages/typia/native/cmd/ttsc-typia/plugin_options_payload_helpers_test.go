@@ -41,7 +41,7 @@ func pluginOptionsPayloadCases() []pluginOptionsPayloadCase {
   return []pluginOptionsPayloadCase{
     {
       // The documented shape, and the only one the old scrape read correctly.
-      // Pins behaviour that must not change.
+      // Pins behavior that must not change.
       name:        "option inline on typia's entry",
       leafPlugins: `[{ "transform": "typia/lib/transform", "functional": true }]`,
       payload:     `[{"config":{"transform":"typia/lib/transform","functional":true},"name":"typia","stage":"transform"}]`,

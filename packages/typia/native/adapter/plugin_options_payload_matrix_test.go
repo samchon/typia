@@ -29,7 +29,7 @@ func TestReadPluginOptionsPayloadMatrix(t *testing.T) {
   }{
     {
       // The documented shape: options inline on typia's own entry. This is the
-      // one case the old regex scrape got right, so it pins behaviour that must
+      // one case the old regex scrape got right, so it pins behavior that must
       // not change.
       name:     "options on typia's own entry",
       payload:  `[{"config":{"transform":"typia/lib/transform","functional":true,"numeric":true,"finite":true},"name":"typia","stage":"transform"}]`,
