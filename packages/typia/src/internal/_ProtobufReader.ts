@@ -166,7 +166,8 @@ export class _ProtobufReader {
     value |= ((loaded = this.u8()) & 0xf) << 28;
     if (loaded < 0x80) return value;
 
-    // increment position until there is no continuation bit or until we read 10 bytes
+    // increment position until there is no continuation bit, or until this read
+    // reaches VARINT_MAX_BYTES and the value can hold no further bits
     if (this.u8() < 0x80) return value;
     if (this.u8() < 0x80) return value;
     if (this.u8() < 0x80) return value;
