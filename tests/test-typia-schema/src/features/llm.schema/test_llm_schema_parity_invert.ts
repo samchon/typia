@@ -57,11 +57,7 @@ export const test_llm_schema_parity_invert = (): void => {
   );
 
   const strict = typia.llm.schema<
-    string &
-      tags.Format<"uuid"> &
-      tags.MinLength<36> &
-      tags.MaxLength<36> &
-      tags.Pattern<"^[0-9a-f-]+$">,
+    string & tags.Format<"uuid"> & tags.MinLength<36> & tags.MaxLength<36>,
     { strict: true }
   >({});
   const strictInverted = LlmSchemaConverter.invert({
@@ -77,19 +73,46 @@ export const test_llm_schema_parity_invert = (): void => {
       format: strictInverted.format,
       minLength: strictInverted.minLength,
       maxLength: strictInverted.maxLength,
-      pattern: strictInverted.pattern,
     }),
     clean({
       type: "string",
       format: "uuid",
       minLength: 36,
       maxLength: 36,
-      pattern: "^[0-9a-f-]+$",
     } satisfies typeof strictTargetSchema),
   );
   TestValidator.equals(
     "strict descriptor tags consumed",
     strictInverted.description,
+    undefined,
+  );
+
+  // Format and Pattern are mutually exclusive tags, so the pattern round-trips
+  // through strict inversion on its own string.
+  const strictPattern = typia.llm.schema<
+    string & tags.Pattern<"^[0-9a-f-]+$">,
+    { strict: true }
+  >({});
+  const strictPatternInverted = LlmSchemaConverter.invert({
+    config: { strict: true },
+    components: {},
+    schema: strictPattern,
+    $defs: {},
+  }) as OpenApi.IJsonSchema.IString;
+  TestValidator.equals(
+    "strict description inversion pattern",
+    clean({
+      type: strictPatternInverted.type,
+      pattern: strictPatternInverted.pattern,
+    }),
+    clean({
+      type: "string",
+      pattern: "^[0-9a-f-]+$",
+    } satisfies { type: "string"; pattern: string }),
+  );
+  TestValidator.equals(
+    "strict pattern descriptor tags consumed",
+    strictPatternInverted.description,
     undefined,
   );
 };
@@ -99,7 +122,6 @@ declare const strictTargetSchema: {
   format: "uuid";
   minLength: 36;
   maxLength: 36;
-  pattern: "^[0-9a-f-]+$";
 };
 
 const stripXDiscriminator = <T>(value: T): T => {
