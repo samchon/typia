@@ -5,6 +5,25 @@ import { NamingConvention } from "../NamingConvention";
 import { ObjectDictionary } from "./ObjectDictionary";
 
 export namespace JsonDescriptor {
+  /**
+   * Describe a reference by its own description and its namespace ancestors'.
+   *
+   * A dot in a component key is read here as a namespace boundary, so
+   * `IShoppingSale.ISummary` inherits the description of the `IShoppingSale`
+   * component. Nothing in a rendered key distinguishes a real qualification
+   * from one a producer invented, and this is handed documents typia did not
+   * generate, so the reading cannot be verified from the key: every producer of
+   * a key owes the invariant that its dots are the type's own qualification and
+   * nothing else.
+   *
+   * typia's own producers keep it. `MetadataCollection.getName` joins a
+   * duplicate's counter with `-o` and `MetadataCollection_replaceOpenApi`
+   * rewrites a flattened nested type's dots, both in
+   * `packages/typia/native/core/schemas/metadata/MetadataCollection.go`;
+   * `OpenApiComponentName` joins an escaped key's counter with `-x`. Each
+   * carries the same reason: a dot they minted would be inherited from here as
+   * an unrelated type's prose, straight into what an LLM reads.
+   */
   export const cascade = (props: {
     prefix: string;
     components: OpenApi.IComponents;

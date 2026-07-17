@@ -16,13 +16,13 @@ import (
 // covers the happy path and then flips one property to optional to prove the
 // same object no longer qualifies.
 //
-// 1. Build a literal `__type.*` object with required atomic properties.
+// 1. Build a literal anonymous object with required atomic properties.
 // 2. Assert it is treated as both plain and literal.
 // 3. Make one property optional.
 // 4. Assert the object is no longer plain.
 func TestMetadataObjectTypePlainObjectDetection(t *testing.T) {
 	object := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
-		Name: "__type.member",
+		Name: "__type-o1",
 		Properties: []*metadata.MetadataProperty{
 			testutil.Property("id", testutil.AtomicMetadata("string")),
 			testutil.Property("age", testutil.AtomicMetadata("number")),
@@ -33,7 +33,7 @@ func TestMetadataObjectTypePlainObjectDetection(t *testing.T) {
 		t.Fatal("object with required literal atomic properties should be plain")
 	}
 	if !object.IsLiteral() {
-		t.Fatal("__type.* object names should be treated as literal object types")
+		t.Fatal("anonymous object names should be treated as literal object types")
 	}
 
 	object.Properties[1].Value.Optional = true
