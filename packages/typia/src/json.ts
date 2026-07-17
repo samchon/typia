@@ -101,10 +101,10 @@ export function application(): never;
  *
  * - Custom LLM function calling schema formats
  * - API documentation or code generation tools
- * - Alternative LLM integrations beyond built-in providers
+ * - Alternative LLM integrations that need full JSON Schema
  *
  * For standard LLM function calling, use {@link llm.application} instead, which
- * provides provider-specific schemas (ChatGPT, Claude, Gemini, etc.).
+ * builds the LLM-optimized function schema directly.
  *
  * @template Class Target class or interface type
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
