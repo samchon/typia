@@ -1,11 +1,12 @@
 {
-  "extends": "../config/tsconfig.json",
+  // typia's plugin entry, and its `undefined: false` option, live one `extends`
+  // hop away in `tsconfig.base.json` on purpose -- see the comment there.
+  // Declaring a `plugins` array here would replace the inherited one and take
+  // this suite back to the inline shape that hid samchon/typia#1887.
+  "extends": "./tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
     "rootDir": "src",
-    "exactOptionalPropertyTypes": true,
-    "plugins": [
-      { "transform": "typia/lib/transform", "undefined": false }
-    ]
+    "exactOptionalPropertyTypes": true
   }
 }

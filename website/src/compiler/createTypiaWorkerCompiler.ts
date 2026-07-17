@@ -56,6 +56,17 @@ interface ITypiaBuildPipelineProps {
   tsconfigPath: string;
   entryFile: string;
   typiaPluginName: string;
+  /**
+   * The `--plugins-json` manifest describing typia's resolved plugin entry, or
+   * `""` when typia is disabled.
+   *
+   * This site is typia's host, so it owes typia the same plugin manifest ttsc's
+   * CLI sends: the plugin reads its options from the entry its host resolved,
+   * never by re-reading the tsconfig itself (samchon/typia#1887). We already
+   * hold the resolved entry — it is the one written into the MemFS tsconfig —
+   * so it is passed through rather than re-derived.
+   */
+  typiaPluginsJSON: string;
 }
 
 export function createTypiaWorkerCompiler(
@@ -98,19 +109,13 @@ export function createTypiaWorkerCompiler(
 
   const buildTsconfig = (
     module: ModuleKind,
-    transformOptions: ITransformOptions | undefined,
+    entry: TypiaPluginEntry | null,
   ): string =>
     buildTsconfigJSON({
       module,
       compilerOptions: {
         ...(options.extraCompilerOptions ?? {}),
-        ...(typiaPlugin
-          ? {
-              plugins: [
-                createTypiaPluginEntry(typiaTransformModule, transformOptions),
-              ],
-            }
-          : {}),
+        ...(entry ? { plugins: [entry] } : {}),
       },
     });
 
@@ -138,10 +143,13 @@ export function createTypiaWorkerCompiler(
   ): Promise<ICompilerService.IResult> => {
     try {
       const { api, host } = await getBoot();
-      writeProject(
-        host,
-        projectFiles(source, buildTsconfig(module, transformOptions)),
-      );
+      // One resolved entry, used twice: written into the tsconfig so tsgo sees
+      // the same project the user configured, and handed to the plugin as its
+      // manifest so it never has to read that tsconfig back.
+      const entry = typiaPlugin
+        ? createTypiaPluginEntry(typiaTransformModule, transformOptions)
+        : null;
+      writeProject(host, projectFiles(source, buildTsconfig(module, entry)));
       return runTypiaBuildPipeline({
         api,
         host,
@@ -151,6 +159,8 @@ export function createTypiaWorkerCompiler(
         tsconfigPath,
         entryFile,
         typiaPluginName,
+        typiaPluginsJSON:
+          entry === null ? "" : serializeTypiaPlugins(typiaPluginName, entry),
       });
     } catch (error) {
       return {
@@ -260,6 +270,9 @@ async function applyTypiaTransform(
     cwd: props.workDir,
     tsconfig: props.tsconfigPath,
     output: "ts",
+    // Extra keys become `--key=value` argv entries, so this reaches the plugin
+    // as the `--plugins-json` flag ttsc's CLI hosts already pass.
+    "plugins-json": props.typiaPluginsJSON,
   });
   if (raw.stdout.trim().length === 0) {
     const message =
@@ -329,6 +342,22 @@ export function createTypiaPluginEntry(
     if (value !== undefined) entry[key] = value;
   }
   return entry;
+}
+
+/**
+ * Serialize a resolved typia plugin entry into ttsc's `--plugins-json` manifest.
+ *
+ * The shape — `{ config, name, stage }[]` — is ttsc's native plugin protocol,
+ * and `config` is the plugin entry verbatim. `name` is what the plugin matches
+ * its own entry on, so it must be the id the plugin registered with the wasm
+ * host; that is the same id `api.plugin` dispatches on, so a mismatch could not
+ * have reached the plugin at all.
+ */
+export function serializeTypiaPlugins(
+  name: string,
+  entry: TypiaPluginEntry,
+): string {
+  return JSON.stringify([{ config: entry, name, stage: "transform" }]);
 }
 
 function shouldRunTypia(options?: ITransformOptions): boolean {

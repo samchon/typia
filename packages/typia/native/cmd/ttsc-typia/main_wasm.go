@@ -74,6 +74,7 @@ func jsVersion(this js.Value, args []js.Value) any {
 //     file?:    string,   // absolute path of the .ts file to rewrite. Omit
 //                         // for project-wide JSON output.
 //     output?:  "ts"|"js",
+//     "plugins-json"?: string, // ttsc's resolved plugin manifest; see buildArgs
 //   }
 //
 // JS output: Promise<{ code: number, stdout: string, stderr: string }>.
@@ -154,9 +155,11 @@ func transformArgs(opts js.Value) []string {
   } else {
     out = append(out, "--output=ts")
   }
-  return out
+  return append(out, pluginsJSONArgs(opts)...)
 }
 
+// buildArgs renders the JS options object into `runBuild`'s argv. Input mirrors
+// jsTransform but carries `outDir`/`emit`/`noEmit` instead of `file`/`output`.
 func buildArgs(opts js.Value) []string {
   out := []string{}
   if v := stringProp(opts, "cwd"); v != "" {
@@ -176,7 +179,23 @@ func buildArgs(opts js.Value) []string {
   if boolProp(opts, "noEmit") {
     out = append(out, "--noEmit")
   }
-  return out
+  return append(out, pluginsJSONArgs(opts)...)
+}
+
+// pluginsJSONArgs forwards ttsc's resolved plugin manifest, when the caller
+// supplied one.
+//
+// typia's options come from the entry its host resolved and handed it, never
+// from re-reading tsconfig.json (samchon/typia#1887). A JS host driving this
+// wasm is that host: it owns the virtual filesystem the tsconfig lives in, so it
+// is the one that knows the resolved entry. Without this pass-through the wasm
+// could only ever run typia at its defaults, because there would be no channel
+// left to state anything else.
+func pluginsJSONArgs(opts js.Value) []string {
+  if v := stringProp(opts, "plugins-json"); v != "" {
+    return []string{"--plugins-json=" + v}
+  }
+  return nil
 }
 
 func runWithCapturedIO(task func() int) any {
