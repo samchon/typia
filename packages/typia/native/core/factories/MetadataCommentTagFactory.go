@@ -274,11 +274,11 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    matched, ok := metadataCommentTagFactory_FORMATS[props.Value]
+    name, validate, ok := formatCheatSheet_resolve(props.Value)
     if ok == false {
       return metadataCommentTagFactory_TagRecord{}
     }
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "Format<" + strconv.Quote(matched[0]) + ">", Target: "string", Kind: "format", Value: matched[0], Validate: matched[1], Exclusive: true, Schema: map[string]any{"format": matched[0]}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "Format<" + strconv.Quote(name) + ">", Target: "string", Kind: "format", Value: name, Validate: validate, Exclusive: true, Schema: map[string]any{"format": name}}}}
   },
   "pattern": func(props struct {
     Report func(msg string) any
@@ -436,16 +436,6 @@ func metadataCommentTagFactory_parse_integer(props struct {
   value := int(parsed)
   return &value
 }
-
-var metadataCommentTagFactory_FORMATS = func() map[string][2]string {
-  output := map[string][2]string{}
-  for key, value := range FormatCheatSheet {
-    output[key] = [2]string{key, value}
-  }
-  output["datetime"] = [2]string{"date-time", "!isNaN(new Date($input).getTime())"}
-  output["dateTime"] = [2]string{"date-time", "!isNaN(new Date($input).getTime())"}
-  return output
-}()
 
 func metadataCommentTagFactory_includes(values []string, target string) bool {
   for _, value := range values {

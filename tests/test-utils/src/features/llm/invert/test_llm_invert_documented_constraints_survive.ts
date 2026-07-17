@@ -12,7 +12,9 @@ import typia, { ILlmSchema, tags } from "typia";
  * object for every non-strict leaf, and spreading it over the schema erased the
  * real keywords. Only a leaf carrying a `description` reached that spread, so
  * documenting a property silently disabled its validation. This pins all
- * thirteen keywords across the numeric, string, and array inverters.
+ * thirteen keywords across the numeric, string, and array inverters. `format`
+ * and `pattern` are mutually exclusive tags, so they live on separate string
+ * leaves (`thumbnail` and `homepage`).
  *
  * Each keyword is asserted on its own rather than as one object, because
  * `TestValidator.equals` walks the keys of its first argument and skips the
@@ -36,9 +38,10 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
     thumbnail: string &
       tags.Format<"uri"> &
       tags.ContentMediaType<"image/png"> &
-      tags.Pattern<"^https://"> &
       tags.MinLength<8> &
       tags.MaxLength<255>;
+    /** The member's homepage. */
+    homepage: string & tags.Pattern<"^https://">;
     /** What the member likes. */
     hobbies: Array<string> &
       tags.MinItems<1> &
@@ -51,9 +54,9 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
     thumbnail: string &
       tags.Format<"uri"> &
       tags.ContentMediaType<"image/png"> &
-      tags.Pattern<"^https://"> &
       tags.MinLength<8> &
       tags.MaxLength<255>;
+    homepage: string & tags.Pattern<"^https://">;
     hobbies: Array<string> &
       tags.MinItems<1> &
       tags.MaxItems<10> &
@@ -77,6 +80,7 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
   const age = properties.age as OpenApi.IJsonSchema.INumber;
   const score = properties.score as OpenApi.IJsonSchema.INumber;
   const thumbnail = properties.thumbnail as OpenApi.IJsonSchema.IString;
+  const homepage = properties.homepage as OpenApi.IJsonSchema.IString;
   const hobbies = properties.hobbies as OpenApi.IJsonSchema.IArray;
 
   TestValidator.equals("documented minimum", 0, age.minimum);
@@ -98,7 +102,7 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
     "image/png",
     thumbnail.contentMediaType,
   );
-  TestValidator.equals("documented pattern", "^https://", thumbnail.pattern);
+  TestValidator.equals("documented pattern", "^https://", homepage.pattern);
   TestValidator.equals("documented minLength", 8, thumbnail.minLength);
   TestValidator.equals("documented maxLength", 255, thumbnail.maxLength);
   TestValidator.equals("documented minItems", 1, hobbies.minItems);

@@ -246,9 +246,21 @@ func (metadataTypeTagFactoryNamespace) Validate(props struct {
         }{Property: nil, Message: "kind '" + tag.Kind + "' can't be duplicated"})
       }
     case []string:
+      // The `exclusive` list names every kind this tag may not share a property
+      // with, itself included, and it is the authoritative spec. Reject when any
+      // other tag's kind appears in the list, matching kinds against kinds.
+      //
+      // Two bugs made this inert: it compared the list of kinds against
+      // `opposite.Name` ("minimum" against "Minimum<0>"), which never matched,
+      // and it also required `opposite.Kind == tag.Kind`, which excluded the
+      // cross-kind partners the list exists to catch. Both must go, or a
+      // forbidden combination keeps compiling: `Minimum<5> & Minimum<0>` emits
+      // `{"minimum":0}` yet its validator requires 5, and `Minimum<0> &
+      // ExclusiveMinimum<5>` or `Format<"uuid"> & Pattern<...>` coexist though
+      // the declarations forbid it.
       var some *schemametadata.IMetadataTypeTag
       for j, opposite := range props.Tags {
-        if i != j && opposite.Kind == tag.Kind && metadataTypeTagFactory_includes(exclusive, opposite.Name) {
+        if i != j && metadataTypeTagFactory_includes(exclusive, opposite.Kind) {
           copied := opposite
           some = &copied
           break

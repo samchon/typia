@@ -11,7 +11,8 @@ import typia, { tags } from "typia";
  * the only thing that can put them back. Gating the read on `strict` — the same
  * gate the write uses — must not weaken that half: all thirteen keywords have
  * to survive the round trip, and the consumed tags must leave the description
- * behind as plain prose.
+ * behind as plain prose. `format` and `pattern` are mutually exclusive tags, so
+ * they live on separate string leaves (`thumbnail` and `homepage`).
  *
  * Each keyword is asserted on its own rather than as one object, because
  * `TestValidator.equals` walks the keys of its first argument and skips the
@@ -33,9 +34,10 @@ export const test_llm_invert_strict_constraints_restored = (): void => {
     thumbnail: string &
       tags.Format<"uri"> &
       tags.ContentMediaType<"image/png"> &
-      tags.Pattern<"^https://"> &
       tags.MinLength<8> &
       tags.MaxLength<255>;
+    /** The member's homepage. */
+    homepage: string & tags.Pattern<"^https://">;
     /** What the member likes. */
     hobbies: Array<string> &
       tags.MinItems<1> &
@@ -54,6 +56,7 @@ export const test_llm_invert_strict_constraints_restored = (): void => {
   const age = properties.age as OpenApi.IJsonSchema.INumber;
   const score = properties.score as OpenApi.IJsonSchema.INumber;
   const thumbnail = properties.thumbnail as OpenApi.IJsonSchema.IString;
+  const homepage = properties.homepage as OpenApi.IJsonSchema.IString;
   const hobbies = properties.hobbies as OpenApi.IJsonSchema.IArray;
 
   TestValidator.equals("strict minimum", 0, age.minimum);
@@ -67,7 +70,7 @@ export const test_llm_invert_strict_constraints_restored = (): void => {
     "image/png",
     thumbnail.contentMediaType,
   );
-  TestValidator.equals("strict pattern", "^https://", thumbnail.pattern);
+  TestValidator.equals("strict pattern", "^https://", homepage.pattern);
   TestValidator.equals("strict minLength", 8, thumbnail.minLength);
   TestValidator.equals("strict maxLength", 255, thumbnail.maxLength);
   TestValidator.equals("strict minItems", 1, hobbies.minItems);
@@ -88,6 +91,11 @@ export const test_llm_invert_strict_constraints_restored = (): void => {
     "strict thumbnail description",
     "Where to reach the member.",
     thumbnail.description,
+  );
+  TestValidator.equals(
+    "strict homepage description",
+    "The member's homepage.",
+    homepage.description,
   );
   TestValidator.equals(
     "strict hobbies description",

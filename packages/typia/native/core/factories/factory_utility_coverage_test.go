@@ -499,8 +499,14 @@ export let inner!: Outer.Inner;
 		Report: typeTagReport,
 		Type:   "string",
 		Tags: []schemametadata.IMetadataTypeTag{
-			{Target: "string", Kind: "range", Name: "minimum", Exclusive: []string{"maximum"}},
-			{Target: "string", Kind: "range", Name: "maximum", Exclusive: []string{"minimum"}},
+			// Format and Pattern as they are actually declared: both list the
+			// kinds `["format", "pattern"]`, so intersecting them on one property
+			// is forbidden. The cross-kind conflict fires on the opposite's kind,
+			// not its name, and without a same-kind guard. The previous fixture
+			// named the opposite in `exclusive` by tag name, the only shape the
+			// doubly-broken check could fire on and no real declaration produces.
+			{Target: "string", Kind: "format", Name: "Format<\"uuid\">", Exclusive: []string{"format", "pattern"}},
+			{Target: "string", Kind: "pattern", Name: "Pattern<\"^x$\">", Exclusive: []string{"format", "pattern"}},
 		},
 	})
 	invalidExclusiveReports := []string{}
