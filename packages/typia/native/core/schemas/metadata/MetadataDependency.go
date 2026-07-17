@@ -135,12 +135,34 @@ func metadataDependency_touchVisited(
 // type), the annotation for properties and parameters, and parameter types +
 // return type for methods, accessors, and index signatures. Bodies and
 // initializers are excluded — a reference appearing only there is not part of
-// the type the analysis consulted. Interface and class declarations return
-// nothing: their members surface individually through property enumeration.
+// the type the analysis consulted. Interface, class, and type-literal
+// declarations contribute only their index signatures: every other member
+// surfaces individually through property enumeration.
 func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.Node {
   switch declaration.Kind {
   case nativeast.KindTypeAliasDeclaration:
     return []*nativeast.Node{declaration}
+  case nativeast.KindInterfaceDeclaration,
+    nativeast.KindClassDeclaration,
+    nativeast.KindClassExpression,
+    nativeast.KindTypeLiteral:
+    // An index signature has no property symbol, so — unlike every other
+    // member — it never reaches the apparent-property walk that registers a
+    // member's declaring files. Its written key and value types are consulted
+    // (the analysis reads both off each index info), so an alias used there
+    // must register its file like any other consulted alias; without this the
+    // aliased file changed the generated validator with no reported edge for a
+    // bundler cache to invalidate (samchon/typia#2126). Members are surfaced
+    // through this same selector, which keeps an index signature's own body-
+    // free key/value contract as the boundary.
+    output := []*nativeast.Node{}
+    for _, member := range declaration.Members() {
+      if member == nil || member.Kind != nativeast.KindIndexSignature {
+        continue
+      }
+      output = append(output, metadataDependency_typeSurface(member)...)
+    }
+    return output
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
     nativeast.KindParameter:
@@ -204,7 +226,7 @@ func metadataDependency_walkNode(
     }
   }
   if name != nil {
-    metadataDependency_touchVisited(checker, listener, metadataDependency_resolve(checker, name), visited)
+    metadataDependency_touchVisited(checker, listener, metadataDependency_resolve(checker, listener, name), visited)
   }
   node.ForEachChild(func(child *nativeast.Node) bool {
     metadataDependency_walkNode(checker, listener, child, visited)
@@ -214,8 +236,14 @@ func metadataDependency_walkNode(
 
 // metadataDependency_resolve resolves a written reference name to its final
 // symbol, following import aliases so the touched declarations are the real
-// declaring files rather than the local import specifier.
-func metadataDependency_resolve(checker *nativechecker.Checker, name *nativeast.Node) *nativeast.Symbol {
+// declaring files rather than the local import specifier. Every module the
+// alias path traverses is reported on the way, because those intermediates
+// SELECT which declaration the terminus is (see metadataDependency_touchPath).
+func metadataDependency_resolve(
+  checker *nativechecker.Checker,
+  listener func(fileName string),
+  name *nativeast.Node,
+) *nativeast.Symbol {
   if checker == nil || name == nil {
     return nil
   }
@@ -224,9 +252,137 @@ func metadataDependency_resolve(checker *nativechecker.Checker, name *nativeast.
     return nil
   }
   if symbol.Flags&nativeast.SymbolFlagsAlias != 0 {
+    metadataDependency_touchPath(checker, listener, symbol)
     if resolved := nativechecker.Checker_getAliasedSymbol(checker, symbol); resolved != nil {
       symbol = resolved
     }
   }
   return symbol
+}
+
+// metadataDependency_touchPath reports every module an alias path traverses on
+// its way to the declaration it finally names.
+//
+// Resolving an alias straight to its terminus reports where the type is
+// declared, not what was consulted to find it. A barrel (`export { Alpha } from
+// "./alpha"`) never holds the declaration, yet re-pointing that line at another
+// module changes the generated validator — so a consumer that watches only the
+// terminus has no edge to invalidate and serves a stale validator
+// (samchon/typia#2126). Walking the path hop by hop reports each intermediate.
+//
+// Only the modules actually traversed for THIS reference are reported: the walk
+// steps through the single named export it followed, never the rest of a
+// barrel's exports, keeping unrelated siblings out of the envelope.
+func metadataDependency_touchPath(
+  checker *nativechecker.Checker,
+  listener func(fileName string),
+  symbol *nativeast.Symbol,
+) {
+  visited := map[*nativeast.Symbol]bool{}
+  for symbol != nil && symbol.Flags&nativeast.SymbolFlagsAlias != 0 && visited[symbol] == false {
+    visited[symbol] = true
+    declaration := nativechecker.Checker_getDeclarationOfAliasSymbol(checker, symbol)
+    if declaration == nil {
+      return
+    }
+    // The file that WRITES this hop (the barrel's own `export ... from` line).
+    if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
+      listener(src.FileName())
+    }
+    specifier := metadataDependency_moduleSpecifier(declaration)
+    if specifier == nil {
+      // A `from`-less `export { Alpha }` re-publishes a LOCAL binding, which is
+      // itself an alias when the file imported the name first (`import { Alpha }
+      // from "./mid"; export { Alpha };`). Continuing from that local keeps the
+      // module it reads (`./mid`) on the path instead of ending the walk here.
+      symbol = metadataDependency_local(declaration)
+      continue
+    }
+    // A module specifier's symbol is its resolved module, whose declaration is
+    // the target source file. Reporting it keeps the next module registered
+    // even when the hop cannot be stepped through below (`export *` publishes
+    // no local specifier symbol to follow).
+    module := checker.GetSymbolAtLocation(specifier)
+    if module == nil {
+      return
+    }
+    for _, moduleDeclaration := range module.Declarations {
+      if src := nativeast.GetSourceFileOfNode(moduleDeclaration); src != nil {
+        listener(src.FileName())
+      }
+    }
+    symbol = metadataDependency_exported(module, declaration)
+  }
+}
+
+// metadataDependency_exported steps one alias hop to the member `module`
+// publishes under the name this declaration reads: `default` for an import
+// clause, and for a named import / export specifier its property name when the
+// hop renames (`export { Beta as Alpha }`) or its own name otherwise.
+//
+// Only those kinds are stepped. Any other alias binds the whole module rather
+// than one export — a namespace import above all — so its local name is not an
+// export name at all; looking one up would land on whatever member happens to
+// share that name and report files the reference never consults. Returning nil
+// stops the walk at the module already reported, which loses no edge: the
+// terminus is resolved separately by the checker.
+func metadataDependency_exported(module *nativeast.Symbol, declaration *nativeast.Node) *nativeast.Symbol {
+  if module.Exports == nil {
+    return nil
+  }
+  switch declaration.Kind {
+  case nativeast.KindImportClause:
+    // ast.InternalSymbolNameDefault, which the shim does not re-export.
+    return module.Exports["default"]
+  case nativeast.KindImportSpecifier, nativeast.KindExportSpecifier:
+    name := declaration.PropertyNameOrName()
+    if name == nil {
+      return nil
+    }
+    switch name.Kind {
+    case nativeast.KindIdentifier, nativeast.KindStringLiteral:
+      return module.Exports[name.Text()]
+    }
+  }
+  return nil
+}
+
+// metadataDependency_local returns the local binding a `from`-less export
+// specifier re-publishes, so a walk that reaches one can continue through the
+// import that bound the name. Other declaration kinds have no such local to
+// resume from.
+func metadataDependency_local(declaration *nativeast.Node) *nativeast.Symbol {
+  if declaration.Kind != nativeast.KindExportSpecifier {
+    return nil
+  }
+  name := declaration.PropertyNameOrName()
+  if name == nil || name.Kind != nativeast.KindIdentifier {
+    return nil
+  }
+  source := nativeast.GetSourceFileOfNode(declaration)
+  if source == nil {
+    return nil
+  }
+  locals := source.AsNode().LocalsContainerData()
+  if locals == nil {
+    return nil
+  }
+  return locals.Locals[name.Text()]
+}
+
+// metadataDependency_moduleSpecifier returns the module specifier of the
+// import / export declaration an alias declaration belongs to, or nil when the
+// alias has no module specifier to traverse (a local `import X = Y`, an
+// `export =`, or an export clause with no `from`). Node.ModuleSpecifier panics
+// on other kinds, so every kind is matched explicitly.
+func metadataDependency_moduleSpecifier(declaration *nativeast.Node) *nativeast.Node {
+  for node := declaration; node != nil; node = node.Parent {
+    switch node.Kind {
+    case nativeast.KindImportDeclaration, nativeast.KindExportDeclaration:
+      return node.ModuleSpecifier()
+    case nativeast.KindSourceFile:
+      return nil
+    }
+  }
+  return nil
 }

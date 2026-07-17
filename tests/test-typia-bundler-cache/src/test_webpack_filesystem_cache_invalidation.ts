@@ -204,24 +204,79 @@ const writeFixture = (project: string): void => {
     path.join(project, "src", "lib.custom.d.ts"),
     fixtureAmbientV1,
   );
+  fs.writeFileSync(path.join(project, "src", "barrel.ts"), fixtureBarrelV1);
+  fs.writeFileSync(path.join(project, "src", "nested.ts"), fixtureNested);
+  fs.writeFileSync(path.join(project, "src", "alt.ts"), fixtureAlt);
+  fs.writeFileSync(path.join(project, "src", "dynamic.ts"), fixtureDynamic);
+  fs.writeFileSync(path.join(project, "src", "cell.ts"), fixtureCellV1);
 };
 
 const fixtureTypeV1: string = [
+  `import { Nested } from "./barrel";`,
+  `import { Dynamic } from "./dynamic";`,
+  ``,
   `export interface MyType {`,
   `  id: string;`,
   `  ambient: CustomLabel;`,
+  `  nested: Nested;`,
+  `  dynamic: Dynamic;`,
   `}`,
   ``,
 ].join("\n");
 
 const fixtureTypeV2: string = [
+  `import { Nested } from "./barrel";`,
+  `import { Dynamic } from "./dynamic";`,
+  ``,
   `export interface MyType {`,
   `  id: string;`,
   `  age: number;`,
   `  ambient: CustomLabel;`,
+  `  nested: Nested;`,
+  `  dynamic: Dynamic;`,
   `}`,
   ``,
 ].join("\n");
+
+// The barrel holds no declaration: it only SELECTS which module `Nested`
+// resolves to, so re-pointing it must invalidate the consumer (#2126).
+const fixtureBarrelV1: string = [`export { Nested } from "./nested";`, ``].join(
+  "\n",
+);
+
+const fixtureBarrelV2: string = [`export { Nested } from "./alt";`, ``].join(
+  "\n",
+);
+
+const fixtureNested: string = [
+  `export interface Nested {`,
+  `  code: string;`,
+  `}`,
+  ``,
+].join("\n");
+
+const fixtureAlt: string = [
+  `export interface Nested {`,
+  `  code: string;`,
+  `  extra: boolean;`,
+  `}`,
+  ``,
+].join("\n");
+
+// `Cell` is reached only through the index signature, which carries no property
+// symbol for the member walk to register (#2126).
+const fixtureDynamic: string = [
+  `import { Cell } from "./cell";`,
+  ``,
+  `export interface Dynamic {`,
+  `  [key: string]: Cell;`,
+  `}`,
+  ``,
+].join("\n");
+
+const fixtureCellV1: string = [`export type Cell = string;`, ``].join("\n");
+
+const fixtureCellV2: string = [`export type Cell = number;`, ``].join("\n");
 
 const fixtureAmbientV1: string = [
   `declare interface CustomLabel {`,
@@ -251,15 +306,28 @@ const fixtureAmbientV2: string = [
  * participate in invalidation instead of being dropped as a default library by
  * its basename.
  *
+ * The barrel and index-signature steps pin samchon/typia#2126. Both files are
+ * intermediates that hold no declaration of their own but SELECT which one the
+ * analysis reaches, and both were omitted from the reported dependencies while
+ * demonstrably changing the generated validator — the defect survived #2100 and
+ * #2109 precisely because no end-to-end pin covered these two shapes.
+ *
  * 1. Bundle a fixture where `index.ts` calls `typia.validate<MyType>()`,
- *    `mytype.ts` declares `MyType`, and the ambient `lib.custom.d.ts` declares
- *    a consumed `CustomLabel`; assert the validator accepts a valid input and
- *    rejects a broken one.
+ *    `mytype.ts` declares `MyType`, the ambient `lib.custom.d.ts` declares a
+ *    consumed `CustomLabel`, `barrel.ts` re-exports `Nested` from `nested.ts`,
+ *    and `dynamic.ts` reaches `Cell` (`cell.ts`) through an index signature;
+ *    assert the validator accepts a valid input and rejects a broken one.
  * 2. Add a required `age` property to `MyType` and rebuild with the cache kept;
  *    assert the previously valid input now fails at `$input.age`.
  * 3. Add a required `flag` property to `CustomLabel` inside `lib.custom.d.ts` and
  *    rebuild with the cache kept; assert the previous input now fails at
  *    `$input.ambient.flag` and a fully updated input succeeds.
+ * 4. Re-point `barrel.ts` at `alt.ts`, whose `Nested` adds a required `extra`,
+ *    and rebuild with the cache kept; assert the previous input now fails at
+ *    `$input.nested.extra`.
+ * 5. Retype `Cell` from `string` to `number` in `cell.ts` and rebuild with the
+ *    cache kept; assert the previous string-valued dynamic entry now fails and a
+ *    numeric one succeeds.
  */
 export const test_webpack_filesystem_cache_invalidation =
   async (): Promise<void> => {
@@ -273,11 +341,20 @@ export const test_webpack_filesystem_cache_invalidation =
       build(project, "on the cold run");
       assertSuccess(
         "cold build with a valid input",
-        validate(project, { id: "a", ambient: { tag: "t" } }),
+        validate(project, {
+          id: "a",
+          ambient: { tag: "t" },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
       );
       assertErrorPath(
         "cold build with a broken input",
-        validate(project, { ambient: { tag: "t" } }),
+        validate(project, {
+          ambient: { tag: "t" },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
         "$input.id",
       );
 
@@ -286,12 +363,23 @@ export const test_webpack_filesystem_cache_invalidation =
       build(project, "after changing mytype.ts");
       assertErrorPath(
         "cached rebuild after adding MyType.age",
-        validate(project, { id: "a", ambient: { tag: "t" } }),
+        validate(project, {
+          id: "a",
+          ambient: { tag: "t" },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
         "$input.age",
       );
       assertSuccess(
         "cached rebuild with the updated input",
-        validate(project, { id: "a", age: 1, ambient: { tag: "t" } }),
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t" },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
       );
 
       // 3. type-only change in the project-owned lib.custom.d.ts (#2108).
@@ -302,7 +390,13 @@ export const test_webpack_filesystem_cache_invalidation =
       build(project, "after changing lib.custom.d.ts");
       assertErrorPath(
         "cached rebuild after adding CustomLabel.flag",
-        validate(project, { id: "a", age: 1, ambient: { tag: "t" } }),
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t" },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
         "$input.ambient.flag",
       );
       assertSuccess(
@@ -311,6 +405,62 @@ export const test_webpack_filesystem_cache_invalidation =
           id: "a",
           age: 1,
           ambient: { tag: "t", flag: true },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
+      );
+
+      // 4. re-point the barrel at a different module (#2126). Only barrel.ts
+      // changes; it declares nothing, so an envelope without the barrel edge
+      // leaves the cache serving the old Nested validator.
+      await mutate(path.join(project, "src", "barrel.ts"), fixtureBarrelV2);
+      build(project, "after re-pointing barrel.ts");
+      assertErrorPath(
+        "cached rebuild after re-pointing the barrel at alt.ts",
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t", flag: true },
+          nested: { code: "c" },
+          dynamic: { k: "v" },
+        }),
+        "$input.nested.extra",
+      );
+      assertSuccess(
+        "cached rebuild with the re-pointed input",
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t", flag: true },
+          nested: { code: "c", extra: true },
+          dynamic: { k: "v" },
+        }),
+      );
+
+      // 5. retype the index signature's value alias (#2126). `cell.ts` is
+      // reached only through `Dynamic`'s index signature, which carries no
+      // property symbol for the member walk to register.
+      await mutate(path.join(project, "src", "cell.ts"), fixtureCellV2);
+      build(project, "after retyping cell.ts");
+      assertErrorPath(
+        "cached rebuild after retyping the index-signature value alias",
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t", flag: true },
+          nested: { code: "c", extra: true },
+          dynamic: { k: "v" },
+        }),
+        "$input.dynamic.k",
+      );
+      assertSuccess(
+        "cached rebuild with the retyped input",
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t", flag: true },
+          nested: { code: "c", extra: true },
+          dynamic: { k: 1 },
         }),
       );
     } finally {
