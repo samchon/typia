@@ -1,11 +1,10 @@
 ---
 title: Guide Documents > Runtime Validators > shallow() function
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
-import LocalSource from '../../../components/LocalSource';
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
 
 # `typia.shallow()` — depth-limited type check
 
@@ -18,34 +17,38 @@ function shallow<T, N extends number = 2>(input: unknown): input is T;
 
 It is meant for **discrimination** rather than full validation. When you only need to know which branch of a union an input belongs to, a deep structural check of every leaf is wasteful: the discriminating information usually lives in a key near the surface.
 
-| Scenario | Pick |
-|----------|------|
-| Full structural guarantee | [`is`](/docs/validators/is) |
-| Just pick the union branch / discriminator, cheaply | **`shallow`** *(you are here)* |
-| One field is wrong → throw an exception | [`assert`](/docs/validators/assert) |
-| Need every field error at once | [`validate`](/docs/validators/validate) |
+| Scenario                                            | Pick                                    |
+| --------------------------------------------------- | --------------------------------------- |
+| Full structural guarantee                           | [`is`](/docs/validators/is)             |
+| Just pick the union branch / discriminator, cheaply | **`shallow`** _(you are here)_          |
+| One field is wrong → throw an exception             | [`assert`](/docs/validators/assert)     |
+| Need every field error at once                      | [`validate`](/docs/validators/validate) |
 
-<Alert severity="warning">
-  <AlertTitle>`shallow` is not a soundness guarantee</AlertTitle>
-  A `true` result only means the value matched `T` **down to depth `N`**. Anything deeper is accepted structurally without being checked. The predicate still narrows to `T` for ergonomics, but use [`is`](/docs/validators/is) when you need the value to actually conform.
-</Alert>
+<Callout type="warning">
+**`shallow` is not a soundness guarantee**
+
+A `true` result only means the value matched `T` **down to depth `N`**. Anything deeper is accepted structurally without being checked. The predicate still narrows to `T` for ergonomics, but use [`is`](/docs/validators/is) when you need the value to actually conform.
+
+</Callout>
 
 ## First example
 
 Only the discriminator and the top-level shape are checked, so the deeply nested fields never enter the emitted guard.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/shallow.ts"
       filename="examples/src/validators/shallow.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/shallow.js"
       filename="examples/bin/validators/shallow.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -53,18 +56,20 @@ Only the discriminator and the top-level shape are checked, so the deeply nested
 
 `N` is a non-negative integer literal (default `2`). Each level of nesting into an object, array element, or tuple member spends one unit of budget. Once the budget reaches `0`, a composite value is accepted with a bare `typeof input === "object" && input !== null` guard instead of being descended.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/shallow-depth.ts"
       filename="examples/src/validators/shallow-depth.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/shallow-depth.js"
       filename="examples/bin/validators/shallow-depth.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -74,18 +79,20 @@ Because the budget is finite, `shallow` also terminates on recursive types — a
 
 Like [`createIs`](/docs/validators/is#reusable-checkers), you can hoist a `shallow` checker so the type-specific code is emitted once and reused. `typia.createShallow<T, N>()` takes no arguments and returns a plain `(input: unknown) => input is T` function carrying the same depth bound.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/createShallow.ts"
       filename="examples/src/validators/createShallow.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/createShallow.js"
       filename="examples/bin/validators/createShallow.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

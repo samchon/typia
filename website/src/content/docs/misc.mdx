@@ -1,11 +1,10 @@
 ---
 title: Guide Documents > Miscellaneous
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
-import LocalSource from '../../components/LocalSource';
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../components/LocalSource";
 
 # Miscellaneous
 
@@ -20,9 +19,9 @@ Plain-data operations that reshape a value to its declared type `T`: `clone` dee
 ```typescript copy filename="signatures"
 namespace plain {
   function clone<T>(input: T): Resolved<T>;
-  function assertClone<T>(input: unknown): Resolved<T>;  // + assert
-  function isClone<T>(input: unknown): Resolved<T> | null;  // + is
-  function validateClone<T>(input: unknown): IValidation<Resolved<T>>;  // + validate
+  function assertClone<T>(input: unknown): Resolved<T>; // + assert
+  function isClone<T>(input: unknown): Resolved<T> | null; // + is
+  function validateClone<T>(input: unknown): IValidation<Resolved<T>>; // + validate
 }
 ```
 
@@ -32,9 +31,9 @@ Same family pattern as the validators — `clone` trusts you, the others wrap th
 const copy = typia.plain.clone<User>(user);
 
 // Type-safe variants
-const maybe = typia.plain.isClone<User>(input);        // null if `input` isn't a User
+const maybe = typia.plain.isClone<User>(input); // null if `input` isn't a User
 const result = typia.plain.validateClone<User>(input); // IValidation<User>
-const checked = typia.plain.assertClone<User>(input);  // throws if invalid
+const checked = typia.plain.assertClone<User>(input); // throws if invalid
 ```
 
 The pairing rule is the same as elsewhere:
@@ -52,13 +51,14 @@ export namespace plain {
   export function isClone<T>(input: T | unknown): Resolved<T> | null;
   export function validateClone<T>(input: T | unknown): IValidation<Resolved<T>>;
 
-  // Factories (Resolved<T> = T projected for the JS runtime)
-  export function createClone<T>(): (input: T) => Resolved<T>;
-  export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
-  export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
-  export function createValidateClone<T>(): (input: T | unknown) => IValidation<Resolved<T>>;
+// Factories (Resolved<T> = T projected for the JS runtime)
+export function createClone<T>(): (input: T) => Resolved<T>;
+export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
+export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
+export function createValidateClone<T>(): (input: T | unknown) => IValidation<Resolved<T>>;
 }
-```
+
+````
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
@@ -104,7 +104,7 @@ namespace plain {
   function isPrune<T>(input: unknown): input is T;            // + is; prunes & returns true on match, false (no mutation) on mismatch
   function validatePrune<T>(input: unknown): IValidation<T>;  // + validate
 }
-```
+````
 
 **`prune` and `assertPrune` walk the input object and delete any property not declared on `T` — they mutate `input` in place.** `prune` returns `void`; `assertPrune` returns the now-mutated `input` typed as `T`. The `isPrune` and `validatePrune` variants only mutate once they're sure the input matches `T`, so they're safe on values you weren't expecting.
 
@@ -129,18 +129,20 @@ const r = typia.plain.validatePrune<User>(input);
 
 Useful when you receive a JSON document with extra fields you'd rather not pass around (e.g. logging, persisting to a DB that's strict about schema).
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/plain/assertPrune.ts"
       filename="examples/src/plain/assertPrune.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/plain/assertPrune.js"
       filename="examples/bin/plain/assertPrune.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -149,8 +151,10 @@ Useful when you receive a JSON document with extra fields you'd rather not pass 
 ```typescript copy filename="signatures"
 namespace plain {
   function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
-  function assertClassify<T>(input: Classifiable<T>): ClassifyResult<T>;  // + assert
-  function validateClassify<T>(input: Classifiable<T>): IValidation<ClassifyResult<T>>;  // + validate
+  function assertClassify<T>(input: Classifiable<T>): ClassifyResult<T>; // + assert
+  function validateClassify<T>(
+    input: Classifiable<T>,
+  ): IValidation<ClassifyResult<T>>; // + validate
 }
 ```
 
@@ -167,7 +171,7 @@ user.greet(); // works — the method comes from User.prototype
 const point = typia.plain.classify<typeof Point>({ x: 1, y: 2 });
 
 // validated variants for untrusted input
-const checked = typia.plain.assertClassify<User>(input);  // throws if invalid
+const checked = typia.plain.assertClassify<User>(input); // throws if invalid
 const result = typia.plain.validateClassify<User>(input); // IValidation<User>
 ```
 
@@ -187,14 +191,15 @@ export namespace plain {
     input: Classifiable<T> | unknown,
   ): IValidation<ClassifyResult<T>>;
 
-  // Factories (ClassifyResult<T> = the instance of a class-type T, else T)
-  export function createClassify<T>(): (input: Classifiable<T>) => ClassifyResult<T>;
-  export function createAssertClassify<T>(): (input: unknown) => ClassifyResult<T>;
-  export function createValidateClassify<T>(): (
-    input: unknown,
-  ) => IValidation<ClassifyResult<T>>;
+// Factories (ClassifyResult<T> = the instance of a class-type T, else T)
+export function createClassify<T>(): (input: Classifiable<T>) => ClassifyResult<T>;
+export function createAssertClassify<T>(): (input: unknown) => ClassifyResult<T>;
+export function createValidateClassify<T>(): (
+input: unknown,
+) => IValidation<ClassifyResult<T>>;
 }
-```
+
+````
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
@@ -235,7 +240,7 @@ Type-directed structural comparison of two values of the same type `T`. All thre
 namespace compare {
   function equals<T>(x: T, y: T): boolean;
 }
-```
+````
 
 Deep equality by the structure of `T`. Extra runtime properties outside `T` are not part of the comparison.
 
@@ -243,18 +248,20 @@ Deep equality by the structure of `T`. Extra runtime properties outside `T` are 
 typia.compare.equals<IPoint>(x, y); // true when every declared field matches
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/compare/equals.ts"
       filename="examples/src/compare/equals.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/compare/equals.js"
       filename="examples/bin/compare/equals.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -268,18 +275,20 @@ namespace compare {
 
 Asymmetric match: whether `x` covers the (partial) `y`. Object properties whose value is `undefined` in `y` are ignored; arrays and tuples still require identical lengths.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/compare/cover.ts"
       filename="examples/src/compare/cover.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/compare/cover.js"
       filename="examples/bin/compare/cover.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -295,24 +304,30 @@ Lexicographic ordering: walks the properties of `T` in declaration order and dec
 
 ```typescript copy
 const cmp = (a: IPoint, b: IPoint): number =>
-  typia.compare.less<IPoint>(a, b) ? -1 : typia.compare.less<IPoint>(b, a) ? 1 : 0;
+  typia.compare.less<IPoint>(a, b)
+    ? -1
+    : typia.compare.less<IPoint>(b, a)
+      ? 1
+      : 0;
 items.sort(cmp);
 ```
 
 Types with no sound total order (`any`, `Function`, `Set`, `Map`, `WeakSet`, `WeakMap`, or a union of multiple object types) are rejected at compile time.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/compare/less.ts"
       filename="examples/src/compare/less.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/compare/less.js"
       filename="examples/bin/compare/less.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -341,8 +356,12 @@ type FunctionalValidate<T extends (...args: any[]) => any> = T extends (
 
 namespace functional {
   function assertFunction<T extends (...args: any[]) => any>(func: T): T;
-  function isFunction<T extends (...args: any[]) => any>(func: T): FunctionalIs<T>;
-  function validateFunction<T extends (...args: any[]) => any>(func: T): FunctionalValidate<T>;
+  function isFunction<T extends (...args: any[]) => any>(
+    func: T,
+  ): FunctionalIs<T>;
+  function validateFunction<T extends (...args: any[]) => any>(
+    func: T,
+  ): FunctionalValidate<T>;
 }
 ```
 
@@ -363,24 +382,26 @@ checked.call({ base: 10 }, 2); // 12
 
 Assertion wrappers throw on the first mismatch, `is` / `equals` wrappers return `null`, and validation wrappers return `IValidation`. Async targets retain both their receiver and their `Promise` result shape, including Promise subclasses, extended interfaces, and branded intersections. `PromiseLike<T>` alone does not satisfy the `Promise<T>` contract used by these wrappers.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/functional/assertFunction.ts"
       filename="examples/src/functional/assertFunction.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/functional/assertFunction.js"
       filename="examples/bin/functional/assertFunction.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
 ## `notations`
 
-Four case converters: `camel`, `pascal`, `snake`, `kebab`. Each one walks the object and rewrites property names to that case at type *and* runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
+Four case converters: `camel`, `pascal`, `snake`, `kebab`. Each one walks the object and rewrites property names to that case at type _and_ runtime. Same four-variant family as everywhere else (`name`, `assertName`, `isName`, `validateName`, plus `create*` factories).
 
 Every enumerable string key is converted, including keys supplied by an index signature. If declared literal properties or runtime index-signature entries become the same destination key, every direct and factory variant throws an `Error` naming both source keys and the destination instead of discarding one value. The `isName` and `validateName` variants reserve `null` and `IValidation.IFailure` for input type mismatches; a key collision is a conversion error and still throws.
 
@@ -403,18 +424,20 @@ typia.notations.camel<{ user_id: string; user_name: string }>({
 // → { userId: "1", userName: "John" }
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/notations/camel.ts"
       filename="examples/src/notations/camel.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/notations/camel.js"
       filename="examples/bin/notations/camel.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -429,18 +452,20 @@ namespace notations {
 }
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/notations/pascal.ts"
       filename="examples/src/notations/pascal.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/notations/pascal.js"
       filename="examples/bin/notations/pascal.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -463,18 +488,20 @@ typia.notations.snake<{ userId: string; userName: string }>({
 // → { user_id: "1", user_name: "John" }
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/notations/snake.ts"
       filename="examples/src/notations/snake.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/notations/snake.js"
       filename="examples/bin/notations/snake.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -499,18 +526,20 @@ typia.notations.kebab<{ userId: string; user_name: string }>({
 
 `kebab` derives the snake_case form first and then rewrites the word separators to hyphens, keeping leading underscores untouched.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/notations/kebab.ts"
       filename="examples/src/notations/kebab.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/notations/kebab.js"
       filename="examples/bin/notations/kebab.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -518,23 +547,29 @@ typia.notations.kebab<{ userId: string; user_name: string }>({
 
 The `http` module turns HTTP-shaped inputs (`URLSearchParams`, headers object, route parameter strings, `FormData`) into typed objects, with automatic string-to-number / string-to-boolean coercion.
 
-<Alert severity="success">
-  <AlertTitle>
-    **Designed for Nestia**
-  </AlertTitle>
+<Callout type="default">
+**Designed for Nestia**
 
 These functions back [Nestia](https://nestia.io)'s HTTP decorators — [`@TypedQuery()`](https://nestia.io/docs/core/TypedQuery/), [`@TypedHeaders()`](https://nestia.io/docs/core/TypedHeaders/), [`@TypedParam()`](https://nestia.io/docs/core/TypedParam/), and friends. They also work standalone for hand-rolled Express / Fastify / Hono handlers.
 
-</Alert>
+</Callout>
 
 ### `http.query` — URL query strings
 
 ```typescript copy filename="signatures"
 namespace http {
-  function query<T extends object>(input: string | IReadableURLSearchParams): Resolved<T>;
-  function assertQuery<T extends object>(input: string | IReadableURLSearchParams): Resolved<T>;
-  function isQuery<T extends object>(input: string | IReadableURLSearchParams): Resolved<T> | null;
-  function validateQuery<T extends object>(input: string | IReadableURLSearchParams): IValidation<Resolved<T>>;
+  function query<T extends object>(
+    input: string | IReadableURLSearchParams,
+  ): Resolved<T>;
+  function assertQuery<T extends object>(
+    input: string | IReadableURLSearchParams,
+  ): Resolved<T>;
+  function isQuery<T extends object>(
+    input: string | IReadableURLSearchParams,
+  ): Resolved<T> | null;
+  function validateQuery<T extends object>(
+    input: string | IReadableURLSearchParams,
+  ): IValidation<Resolved<T>>;
 }
 ```
 
@@ -551,18 +586,20 @@ String inputs may be a raw query (`id=1`), a question-prefixed query (`?id=1`), 
 
 `http.query` itself doesn't validate constraint tags (`Format`, `Minimum`, …). The `assertQuery` / `isQuery` / `validateQuery` variants do.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/http/query.ts"
       filename="examples/src/http/query.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/http/query.js"
       filename="examples/bin/http/query.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -587,7 +624,6 @@ namespace http {
 6. No unions
 7. `set-cookie` must be an array
 8. **These headers cannot be array-typed** (the HTTP spec mandates a single value):
-
    - `age`
    - `authorization`
    - `content-length`
@@ -609,18 +645,20 @@ namespace http {
 
 If you trip one of these rules, typia rejects the call at compile time with a clear error.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/http/headers.ts"
       filename="examples/src/http/headers.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/http/headers.js"
       filename="examples/bin/http/headers.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -628,7 +666,9 @@ If you trip one of these rules, typia rejects the call at compile time with a cl
 
 ```typescript copy filename="signature"
 namespace http {
-  function parameter<T extends boolean | bigint | number | string | null>(input: string): Resolved<T>;
+  function parameter<T extends boolean | bigint | number | string | null>(
+    input: string,
+  ): Resolved<T>;
 }
 ```
 
@@ -639,18 +679,20 @@ const id: number = typia.http.parameter<number>(request.params.id);
 // throws if `request.params.id` isn't a valid number string
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/http/parameter.ts"
       filename="examples/src/http/parameter.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/http/parameter.js"
       filename="examples/bin/http/parameter.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -681,17 +723,17 @@ namespace reflect {
 
 `reflect.schema<T>()` returns an `IMetadataSchemaUnit`: the `schema` of the target type plus a `components` dictionary holding every named object, alias, array, and tuple definition it references (recursive types reference themselves through here). `reflect.schemas<[A, B]>()` is the multi-type variant returning an `IMetadataSchemaCollection` with one entry per type over a shared `components`.
 
-An `IMetadataSchema` is a *union of buckets* with top-level flags:
+An `IMetadataSchema` is a _union of buckets_ with top-level flags:
 
-| Member | Meaning |
-| --- | --- |
-| `required` / `optional` / `nullable` / `any` | `undefined` · `?` modifier · `null` · `any` participation |
-| `atomics` | primitive members (`boolean`, `bigint`, `number`, `string`), each with its type-tag matrix |
-| `constants` | literal members, grouped by base type |
-| `templates` | template literal members |
-| `arrays` / `tuples` / `objects` / `aliases` | references into `components` by name |
-| `natives` | built-in classes (`Date`, `Uint8Array`, …) |
-| `sets` / `maps` / `functions` / `escaped` / `rest` | `Set` · `Map` · function members · `toJSON()` projection · variadic tuple rest |
+| Member                                             | Meaning                                                                                    |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `required` / `optional` / `nullable` / `any`       | `undefined` · `?` modifier · `null` · `any` participation                                  |
+| `atomics`                                          | primitive members (`boolean`, `bigint`, `number`, `string`), each with its type-tag matrix |
+| `constants`                                        | literal members, grouped by base type                                                      |
+| `templates`                                        | template literal members                                                                   |
+| `arrays` / `tuples` / `objects` / `aliases`        | references into `components` by name                                                       |
+| `natives`                                          | built-in classes (`Date`, `Uint8Array`, …)                                                 |
+| `sets` / `maps` / `functions` / `escaped` / `rest` | `Set` · `Map` · function members · `toJSON()` projection · variadic tuple rest             |
 
 Type tags survive with full fidelity — for `string & tags.Format<"uuid">` the atomic's tag matrix carries the kind, the JSON-schema fragment, and the validation expression:
 
@@ -743,7 +785,7 @@ Everything is a plain literal embedded at compile time — there is no runtime r
 `reflect.name<T>()` embeds the display name typia uses for `T` in error messages and component keys:
 
 ```typescript copy
-typia.reflect.name<IMember[]>();              // "IMember[]"
+typia.reflect.name<IMember[]>(); // "IMember[]"
 typia.reflect.name<{ value: string } | null>(); // "{ value: string } | null"
 ```
 
@@ -761,18 +803,20 @@ If you have a string-literal union (`"red" | "green" | "blue"`) and you want the
 
 Handy for select-box options, discriminated-union test matrices, etc.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/reflect/literals.ts"
       filename="examples/src/reflect/literals.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/reflect/literals.js"
       filename="examples/bin/reflect/literals.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

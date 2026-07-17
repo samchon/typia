@@ -1,11 +1,10 @@
 ---
 title: Guide Documents > Runtime Validators > is() function
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
-import LocalSource from '../../../components/LocalSource';
+import { Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
 
 # `typia.is()` — quick yes / no type check
 
@@ -18,10 +17,10 @@ function is<T>(input: unknown): input is T;
 
 It is also a [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates), so on the `true` branch TypeScript narrows the variable to `T` automatically — you don't have to cast.
 
-| Scenario | Pick |
-|----------|------|
-| Just a yes/no answer | **`is`** *(you are here)* |
-| One field is wrong → throw an exception | [`assert`](/docs/validators/assert) |
+| Scenario                                                 | Pick                                    |
+| -------------------------------------------------------- | --------------------------------------- |
+| Just a yes/no answer                                     | **`is`** _(you are here)_               |
+| One field is wrong → throw an exception                  | [`assert`](/docs/validators/assert)     |
 | Need every field error at once (form, LLM feedback loop) | [`validate`](/docs/validators/validate) |
 
 ## First example
@@ -46,18 +45,20 @@ That's the whole API. Behind the scenes, typia rewrites `typia.is<User>` at comp
 
 The tabs below show the same example as a full source file (left) and the JavaScript typia actually emits (right). The "Compiled JavaScript" side is what your bundler ships — there's no schema interpreter at runtime, just the inline checks. (You'll see this same source/compiled-output tab pattern on every validator page.)
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is.ts"
       filename="examples/src/validators/is.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is.js"
       filename="examples/bin/validators/is.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -73,26 +74,31 @@ If a yes/no answer is all you need, `is` is the right pick because the emitted c
 ## Strict (`equals`)
 
 ```typescript
-interface Point { x: number; y: number; }
+interface Point {
+  x: number;
+  y: number;
+}
 
-typia.is<Point>({ x: 1, y: 2, z: 3 });      // → true  (z is ignored)
-typia.equals<Point>({ x: 1, y: 2, z: 3 });  // → false (z is rejected)
+typia.is<Point>({ x: 1, y: 2, z: 3 }); // → true  (z is ignored)
+typia.equals<Point>({ x: 1, y: 2, z: 3 }); // → false (z is rejected)
 ```
 
 `typia.equals<T>` has exactly the same signature as `typia.is<T>` but also rejects any property that isn't declared on `T`. Use it when extra fields should be a hard error — for example, when validating data that someone else might have over-populated.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/equals.ts"
       filename="examples/src/validators/equals.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/equals.js"
       filename="examples/bin/validators/equals.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -106,23 +112,27 @@ import typia from "typia";
 const isUser = typia.createIs<User>();
 
 // ...elsewhere
-if (isUser(input)) { /* ... */ }
+if (isUser(input)) {
+  /* ... */
+}
 ```
 
 `typia.createEquals<T>()` is the strict counterpart. Both factories take no arguments and return a plain `(input: unknown) => input is T` function.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/createIs.ts"
       filename="examples/src/validators/createIs.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/createIs.js"
       filename="examples/bin/validators/createIs.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -133,7 +143,8 @@ Because `typia.is<T>` is declared as a TypeScript type predicate (`input is T`),
 <LocalSource
   path="examples/src/validators/is-cast.ts"
   filename="examples/src/validators/is-cast.ts"
-  showLineNumbers />
+  showLineNumbers
+/>
 
 You will see this pattern a lot in HTTP handlers, message bus consumers, and anywhere a value enters the program with type `unknown`.
 
@@ -159,18 +170,20 @@ You will see this pattern a lot in HTTP handlers, message bus consumers, and any
 
 Built-in classes — `Date`, `Uint8Array`, `Set<T>`, `Map<K, V>` — are checked properly, including their elements:
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is-map.ts"
       filename="examples/src/validators/is-map.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is-map.js"
       filename="examples/bin/validators/is-map.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -180,18 +193,20 @@ So the rule is "skip user-defined classes and functions; check everything else",
 
 `number` is a useful type. `number & tags.Type<"uint32"> & tags.Minimum<1>` is much more useful. typia lets you intersect [type tags](/docs/validators/tags) into a base type to express constraints like "non-negative integer", "valid email", "1-100 string". They participate in `is`, `assert`, `validate`, `random` — every validator-shaped function.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is-custom-tags.ts"
       filename="examples/src/validators/is-custom-tags.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is-custom-tags.js"
       filename="examples/bin/validators/is-custom-tags.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -205,25 +220,25 @@ See [Special Tags](/docs/validators/tags) for the full catalogue.
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#is)
 
-| Components | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.` |
-|------------|---------|-----------|-------|---------|-------|--------|
-| **Easy to use** | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
-| [Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
-| [Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts) | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ |
-| [Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ |
-| [Object (additional tags)](https://github.com/samchon/typia/#comment-tags) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
-| [Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌ |
-| [Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌ |
-| [Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ |
-| [Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ |
-| [Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌ |
-| [Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/test/src/structures/UltimateUnion.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Components                                                                                                                  | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.` |
+| --------------------------------------------------------------------------------------------------------------------------- | ------- | --------- | ----- | ------- | ----- | ------ |
+| **Easy to use**                                                                                                             | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
+| [Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts)                         | ✔       | ✔         | ✔     | ✔       | ✔     | ✔      |
+| [Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts)             | ✔       | ✔         | ✔     | ✔       | ✔     | ✔      |
+| [Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts)                   | ✔       | ❌        | ✔     | ✔       | ✔     | ✔      |
+| [Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts)         | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
+| [Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts)         | ✔       | ✔         | ✔     | ✔       | ✔     | ❌     |
+| [Object (additional tags)](https://github.com/samchon/typia/#comment-tags)                                                  | ✔       | ✔         | ✔     | ✔       | ✔     | ✔      |
+| [Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts)        | ✔       | ✔         | ✔     | ❌      | ❌    | ❌     |
+| [Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts)          | ✔       | ✔         | ✔     | ❌      | ❌    | ❌     |
+| [Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts)                   | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
+| [Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts)               | ✔       | ✔         | ✔     | ✔       | ✔     | ✔      |
+| [Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts)                     | ✔       | ✔         | ✔     | ✔       | ✔     | ❌     |
+| [Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔       | ✔         | ❌    | ✔       | ✔     | ❌     |
+| [Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts)    | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
+| [Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts)               | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
+| [Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts)  | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
+| [**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/test/src/structures/UltimateUnion.ts)                | ✅      | ❌        | ❌    | ❌      | ❌    | ❌     |
 
 > `C.V.` means `class-validator`.
 

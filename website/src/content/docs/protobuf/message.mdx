@@ -1,8 +1,7 @@
 ---
 title: Guide Documents > Protobuf > Message Schema
 ---
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
@@ -15,7 +14,7 @@ If you only encode and decode within TypeScript, you don't need this — the [`e
 
 ```typescript copy filename="signature"
 namespace protobuf {
-  function message<T>(): string;  // returns .proto schema text
+  function message<T>(): string; // returns .proto schema text
 }
 ```
 
@@ -46,13 +45,15 @@ console.log(proto);
     <LocalSource
       path="examples/src/protobuf/message.ts"
       filename="examples/src/protobuf/message.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/message.js"
       filename="examples/bin/protobuf/message.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -77,13 +78,15 @@ If you don't tag a `number`, typia treats it as `double`. If you don't tag a `bi
     <LocalSource
       path="examples/src/protobuf/message-type-tag.ts"
       filename="examples/src/protobuf/message-type-tag.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/message-type-tag.js"
       filename="examples/bin/protobuf/message-type-tag.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -110,13 +113,15 @@ interface User {
     <LocalSource
       path="examples/src/protobuf/message-comment-tag.ts"
       filename="examples/src/protobuf/message-comment-tag.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/message-comment-tag.js"
       filename="examples/bin/protobuf/message-comment-tag.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -133,15 +138,16 @@ Protocol Buffer's type system is much narrower than TypeScript's. The following 
 ```typescript showLineNumbers copy
 import typia from "typia";
 
-interface Cat { type: "cat";  name: string; ribbon: boolean }
-interface Dog { type: "dog";  name: string; hunt: boolean }
+interface Cat { type: "cat"; name: string; ribbon: boolean }
+interface Dog { type: "dog"; name: string; hunt: boolean }
 
 typia.protobuf.message<bigint>();
 typia.protobuf.createDecode<Record<string, number>>();
 typia.protobuf.createDecode<Map<number & typia.tags.Type<"float">, Dog>>();
 typia.protobuf.createEncode<boolean[]>();
 typia.protobuf.createEncode<Cat | Dog>();
-```
+
+````
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
@@ -169,7 +175,8 @@ main.ts:10:1 - error TS(typia.protobuf.createEncode): unsupported type detected
 
 - (Cat | Dog)
   - target type must be a sole and static object type
-```
+````
+
   </Tabs.Tab>
 </Tabs>
 
@@ -195,7 +202,8 @@ typia.protobuf.createEncode<IPointer<Record<string, string[]>>>();
 typia.protobuf.createDecode<IPointer<Map<string, Cat | Dog>>>();
 typia.protobuf.message<IPointer<Map<Cat, string>>>();
 typia.protobuf.message<IPointer<Map<number | string, Dog>>>();
-```
+
+````
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
@@ -224,7 +232,8 @@ main.ts:11:1 - error TS(typia.protobuf.message): unsupported type detected
 - IPointer<Map<string | number, Dog>>[key]: Map<(number | string), Dog>
   - does not support union key typed map
   - does not support non-atomic key typed map
-```
+````
+
   </Tabs.Tab>
 </Tabs>
 
@@ -244,17 +253,18 @@ These are rejected outright:
 import typia from "typia";
 
 interface Something {
-  any: any;
-  unknown: unknown;
-  closure: () => void;
-  dict: Set<string> | WeakSet<Something> | WeakMap<Something, string>;
-  date: Date;
-  classic: String;
-  buffer: ArrayBuffer;
+any: any;
+unknown: unknown;
+closure: () => void;
+dict: Set<string> | WeakSet<Something> | WeakMap<Something, string>;
+date: Date;
+classic: String;
+buffer: ArrayBuffer;
 }
 
 typia.protobuf.message<Something>();
-```
+
+````
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
@@ -282,7 +292,8 @@ main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - Something.buffer: ArrayBuffer
   - does not support ArrayBuffer type. Use Uint8Array type instead.
-```
+````
+
   </Tabs.Tab>
 </Tabs>
 

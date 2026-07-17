@@ -1,105 +1,65 @@
 "use client";
 
-import { Box, Container, Grid, Typography } from "@mui/material";
-
 const ComparisonColumn = (props: {
   label: string;
   labelColor: string;
   items: { icon: string; text: string }[];
   borderColor: string;
 }) => (
-  <Grid item xs={12} md={6}>
-    <Box
-      sx={{
-        borderRadius: 2,
-        border: `1px solid ${props.borderColor}`,
-        overflow: "hidden",
-        height: "100%",
+  <div
+    className="h-full overflow-hidden rounded-lg border bg-[#ffffff]"
+    style={{ borderColor: props.borderColor }}
+  >
+    <div
+      className="border-b px-6 py-3"
+      style={{
+        backgroundColor: `${props.borderColor}15`,
+        borderBottomColor: props.borderColor,
       }}
     >
-      <Box
-        sx={{
-          px: 3,
-          py: 1.5,
-          backgroundColor: `${props.borderColor}15`,
-          borderBottom: `1px solid ${props.borderColor}`,
-        }}
+      <p
+        className="text-[0.95rem] leading-[1.5] font-bold"
+        style={{ color: props.labelColor }}
       >
-        <Typography
-          sx={{
-            fontWeight: 700,
-            color: props.labelColor,
-            fontSize: "0.95rem",
-          }}
+        {props.label}
+      </p>
+    </div>
+    <ul className="m-0 list-none p-6">
+      {props.items.map((item, i) => (
+        <li
+          key={i}
+          className={`flex items-start gap-3 ${
+            i < props.items.length - 1 ? "mb-5" : "mb-0"
+          }`}
         >
-          {props.label}
-        </Typography>
-      </Box>
-      <Box sx={{ p: 3 }}>
-        {props.items.map((item, i) => (
-          <Box
-            key={i}
-            sx={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: 1.5,
-              mb: i < props.items.length - 1 ? 2.5 : 0,
-            }}
-          >
-            <Typography sx={{ fontSize: "1.1rem", lineHeight: 1.6 }}>
-              {item.icon}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "rgba(255,255,255,0.7)",
-                lineHeight: 1.6,
-                fontSize: "0.9rem",
-              }}
-            >
-              {item.text}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  </Grid>
+          <span className="text-[1.1rem] leading-[1.6]">{item.icon}</span>
+          <p className="text-[0.9rem] leading-[1.6] text-[#4c5e76]">
+            {item.text}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
 );
 
 const HomeInnovationMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
-    <Container maxWidth="lg">
-      <Box sx={{ textAlign: "center", mb: 6 }}>
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: "1.6rem", md: "2.2rem" },
-            mb: 2,
-            color: "rgba(255,255,255,0.95)",
-          }}
-        >
+  <section className="bg-[#ffffff] py-12 md:py-20">
+    <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+      <div className="mb-12 text-center">
+        <h3 className="mb-4 text-[1.6rem] leading-[1.167] font-bold text-[#0c1c32] md:text-[2.2rem]">
           Why AOT Compilation?
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: "rgba(255,255,255,0.55)",
-            fontSize: "1.05rem",
-            maxWidth: 700,
-            mx: "auto",
-          }}
-        >
+        </h3>
+        <p className="mx-auto max-w-[700px] text-[1.05rem] leading-[1.5] text-[#4c5e76]">
           Traditional validators parse schemas at runtime. Typia generates
-          dedicated validation code at compile time — the difference is
-          measured in orders of magnitude.
-        </Typography>
-      </Box>
-      <Grid container spacing={3}>
+          dedicated validation code at compile time — the difference is measured
+          in orders of magnitude.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <ComparisonColumn
           label="Traditional Approach"
-          labelColor="rgba(255,100,100,0.9)"
-          borderColor="rgba(255,100,100,0.25)"
+          labelColor="#c0392b"
+          borderColor="#f0c4bf"
           items={[
             {
               icon: "✕",
@@ -121,8 +81,8 @@ const HomeInnovationMovie = () => (
         />
         <ComparisonColumn
           label="Typia — AOT Compilation"
-          labelColor="rgba(0,200,100,0.9)"
-          borderColor="rgba(0,200,100,0.25)"
+          labelColor="#1e8449"
+          borderColor="#c7e3d2"
           items={[
             {
               icon: "✓",
@@ -142,8 +102,8 @@ const HomeInnovationMovie = () => (
             },
           ]}
         />
-      </Grid>
-    </Container>
-  </Box>
+      </div>
+    </div>
+  </section>
 );
 export default HomeInnovationMovie;

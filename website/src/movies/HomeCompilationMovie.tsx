@@ -1,6 +1,5 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
 import HomeCodeHighlight from "../components/home/HomeCodeHighlight";
 
 const BEFORE_CODE = `import typia, { tags } from "typia";
@@ -18,21 +17,17 @@ interface IMember {
 const check: boolean = typia.is<IMember>(input);`;
 
 const AFTER_CODE = `// compiled JavaScript — no schema overhead
-((input) => {
-  return (
-    "object" === typeof input &&
-    null !== input &&
-    "string" === typeof input.id &&
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5].*$/.test(input.id) &&
-    "string" === typeof input.email &&
-    /^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$/.test(input.email) &&
-    "number" === typeof input.age &&
-    Number.isInteger(input.age) &&
-    input.age >= 0 &&
-    19 < input.age &&
-    100 >= input.age
-  );
-})`;
+((input) =>
+  "object" === typeof input &&
+  null !== input &&
+  "string" === typeof input.id &&
+  isFormatUuid(input.id) &&
+  "string" === typeof input.email &&
+  isFormatEmail(input.email) &&
+  "number" === typeof input.age &&
+  Number.isInteger(input.age) &&
+  19 < input.age &&
+  100 >= input.age)`;
 
 const CodePanel = (props: {
   title: string;
@@ -40,144 +35,64 @@ const CodePanel = (props: {
   labelColor: string;
   code: string;
 }) => (
-  <Box
-    sx={{
-      flex: 1,
-      minWidth: 0,
-      borderRadius: 2,
-      border: "1px solid rgba(255,255,255,0.1)",
-      overflow: "hidden",
-      backgroundColor: "rgba(0,0,0,0.3)",
-    }}
-  >
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: 1.5,
-        px: 2.5,
-        py: 1.5,
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
-        backgroundColor: "rgba(255,255,255,0.03)",
-      }}
-    >
-      <Box
-        sx={{
-          px: 1.5,
-          py: 0.3,
-          borderRadius: 1,
-          fontSize: "0.7rem",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: 0.5,
-          backgroundColor: props.labelColor,
-          color: "#fff",
-        }}
+  <div className="min-w-0 flex-1 overflow-hidden rounded-lg border border-[#c1d3eb] bg-[#0c1c32]">
+    <div className="flex items-center gap-3 border-b border-b-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] px-5 py-3">
+      <span
+        className="rounded-sm px-3 py-[2.4px] text-[0.7rem] font-bold tracking-[0.5px] text-white uppercase"
+        style={{ backgroundColor: props.labelColor }}
       >
         {props.label}
-      </Box>
-      <Typography
-        variant="body2"
-        sx={{ color: "rgba(255,255,255,0.6)", fontWeight: 500 }}
-      >
+      </span>
+      <p className="m-0 text-[0.875rem] leading-[1.43] font-medium text-[rgba(255,255,255,0.6)]">
         {props.title}
-      </Typography>
-    </Box>
-    <Box
-      component="pre"
-      sx={{
-        p: 2.5,
-        m: 0,
-        overflow: "auto",
-        fontSize: { xs: "0.72rem", md: "0.8rem" },
-        lineHeight: 1.7,
+      </p>
+    </div>
+    <pre
+      className="m-0 overflow-auto p-5 text-[0.72rem] leading-[1.7] text-[rgba(255,255,255,0.85)] [&::-webkit-scrollbar-thumb]:rounded-[3px] [&::-webkit-scrollbar-thumb]:bg-[rgba(255,255,255,0.15)] [&::-webkit-scrollbar]:h-[6px] md:text-[0.8rem]"
+      style={{
         fontFamily: "'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace",
-        color: "rgba(255,255,255,0.85)",
-        "&::-webkit-scrollbar": { height: 6 },
-        "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "rgba(255,255,255,0.15)",
-          borderRadius: 3,
-        },
       }}
     >
       <code>
         <HomeCodeHighlight>{props.code}</HomeCodeHighlight>
       </code>
-    </Box>
-  </Box>
+    </pre>
+  </div>
 );
 
 const HomeCompilationMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
-    <Container maxWidth="lg">
-      <Box sx={{ textAlign: "center", mb: 6 }}>
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: "1.6rem", md: "2.2rem" },
-            mb: 2,
-            color: "rgba(255,255,255,0.95)",
-          }}
-        >
+  <section className="bg-white py-12 md:py-20">
+    <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+      <div className="mb-12 text-center">
+        <h3 className="m-0 mb-4 text-[1.6rem] leading-[1.167] font-bold text-[#0c1c32] md:text-[2.2rem]">
           AOT Compilation Magic
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: "rgba(255,255,255,0.55)",
-            fontSize: "1.05rem",
-            maxWidth: 650,
-            mx: "auto",
-          }}
-        >
+        </h3>
+        <p className="m-0 mx-auto max-w-[650px] text-[1.05rem] leading-[1.5] font-normal text-[#4c5e76]">
           Write TypeScript types as you normally would. At compile time, typia
           analyzes the AST and generates dedicated, optimized validation code.
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          gap: 3,
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "stretch",
-        }}
-      >
+        </p>
+      </div>
+      <div className="flex flex-col items-stretch gap-6 md:flex-row">
         <CodePanel
           title="Your TypeScript Code"
           label="Input"
           labelColor="rgba(0,150,255,0.7)"
           code={BEFORE_CODE}
         />
-        <Box
-          sx={{
-            display: { xs: "none", md: "flex" },
-            alignItems: "center",
-            color: "rgba(255,255,255,0.3)",
-            fontSize: "2rem",
-            px: 1,
-          }}
-        >
+        <div className="hidden items-center px-2 text-[2rem] text-[#c1d3eb] md:flex">
           →
-        </Box>
-        <Box
-          sx={{
-            display: { xs: "flex", md: "none" },
-            justifyContent: "center",
-            color: "rgba(255,255,255,0.3)",
-            fontSize: "2rem",
-          }}
-        >
+        </div>
+        <div className="flex justify-center text-[2rem] text-[#c1d3eb] md:hidden">
           ↓
-        </Box>
+        </div>
         <CodePanel
           title="Compiled Output"
           label="Output"
           labelColor="rgba(80,200,0,0.7)"
           code={AFTER_CODE}
         />
-      </Box>
-    </Container>
-  </Box>
+      </div>
+    </div>
+  </section>
 );
 export default HomeCompilationMovie;

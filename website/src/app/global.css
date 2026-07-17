@@ -7,6 +7,194 @@
 @source "../app/**/*.{ts,tsx,jsx,mdx}";
 @source "../../node_modules/@ttsc/playground/lib/**/*.js";
 
+/* ── Palette ──────────────────────────────────────────────────────────────
+   Blue/white two-tone, several shades deeper than ttsc's TypeScript blue
+   (#3178c6) so the two sites read as siblings rather than copies.
+
+   deep/blue/mid are the three stops of the blue band, spread evenly around
+   the base: hsl lightness 24% / 34% / 40% at one hue. White text stays
+   readable across the whole sweep -- 6.54:1 even on `mid`, the lightest
+   stop -- so no part of the band is a weak spot.
+
+   --typia-blue is the exact hex of hsl(214, 72%, 34%), the same triple fed
+   to Nextra via <Head color> in app/layout.jsx. Nextra derives its own
+   primary ramp from that HSL, so keeping the two literals in sync matters:
+   change one and you must recompute the other, or links and buttons drift
+   apart by a shade. Contrast on white is 8.19:1 (WCAG AAA). */
+:root {
+  --typia-blue: #184e95;
+  --typia-blue-deep: #0f376c;
+  --typia-blue-mid: #235da9;
+  --typia-blue-ink: #0c1c32;
+  --typia-blue-soft: #e5eefa;
+  --typia-blue-wash: #f6f9fd;
+  --typia-blue-border: #c1d3eb;
+  --typia-muted: #4c5e76;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: #ffffff;
+  color: var(--typia-blue-ink);
+}
+
+::selection {
+  background: rgba(24, 78, 149, 0.22);
+}
+
+/* Badge rows: shields.io images are wrapped in links, but Preflight resets
+   `img` to `display: block`, so each badge would stack on its own line. */
+:is(.nextra-content, article) a img {
+  display: inline-block;
+}
+
+/* ── Navigation bar: one blue band across every surface ── */
+.nextra-navbar-blur {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  background: linear-gradient(
+    110deg,
+    var(--typia-blue-deep) 0%,
+    var(--typia-blue) 58%,
+    var(--typia-blue-mid) 100%
+  ) !important;
+  box-shadow: 0 8px 24px rgba(12, 28, 50, 0.18);
+}
+
+.nextra-navbar,
+.nextra-navbar a,
+.nextra-navbar button {
+  color: var(--typia-blue-wash) !important;
+}
+
+.nextra-navbar nav > div a[aria-current="true"] {
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.nextra-navbar input {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.13) !important;
+  color: white !important;
+}
+
+.nextra-navbar input::placeholder {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.nextra-navbar kbd {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: rgba(255, 255, 255, 0.84) !important;
+}
+
+/* The logo mark is a dark-on-transparent PNG; on the blue band it needs a
+   white chip behind it to stay legible. */
+.typia-site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.nextra-navbar .typia-site-logo {
+  color: white !important;
+}
+
+.typia-site-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.35rem;
+  padding: 0.15rem;
+  background: white;
+  box-shadow: 0 6px 18px rgba(12, 28, 50, 0.18);
+}
+
+/* ── Sidebar: blue wash fading into the white content column ── */
+body:has(.typia-docs-page-marker) .nextra-sidebar {
+  border-right: 1px solid var(--typia-blue-border);
+  background: linear-gradient(
+    180deg,
+    var(--typia-blue-soft) 0%,
+    var(--typia-blue-wash) 48%,
+    white 100%
+  );
+}
+
+body:has(.typia-docs-page-marker) :is(.nextra-sidebar, .nextra-mobile-nav) a,
+body:has(.typia-docs-page-marker)
+  :is(.nextra-sidebar, .nextra-mobile-nav)
+  button {
+  color: var(--typia-blue-ink) !important;
+}
+
+body:has(.typia-docs-page-marker)
+  :is(.nextra-sidebar, .nextra-mobile-nav)
+  li.active
+  > a {
+  background: var(--typia-blue) !important;
+  color: white !important;
+  box-shadow: 0 7px 18px rgba(24, 78, 149, 0.2);
+}
+
+body:has(.typia-docs-page-marker)
+  :is(.nextra-sidebar, .nextra-mobile-nav)
+  li:not(.active)
+  > a:hover,
+body:has(.typia-docs-page-marker)
+  :is(.nextra-sidebar, .nextra-mobile-nav)
+  li:not(.active)
+  > button:hover {
+  background: var(--typia-blue-soft) !important;
+  color: var(--typia-blue-deep) !important;
+}
+
+body:has(.typia-docs-page-marker)
+  :is(.nextra-sidebar, .nextra-mobile-nav)
+  li[class*="font-semibold"]:not(.active) {
+  color: var(--typia-blue-deep) !important;
+}
+
+body:has(.typia-docs-page-marker)
+  :is(.nextra-sidebar, .nextra-mobile-nav)
+  ul
+  ul::before {
+  background: var(--typia-blue-border) !important;
+}
+
+/* ── Landing page: full-bleed canvas ──
+   The landing carries its own full-width sections, so it opts out of the
+   docs content column entirely. Nextra lays the page out as a flex row of
+   [sidebar spacer | sidebar | toc | article]; the spacer is a 256px w-64/h-0
+   div that keeps its width even when the sidebar is hidden, and the toc
+   normally balances it on the right. Hiding only the toc would leave the
+   article 256px off-center, so the spacer has to go with it. */
+body:has(.typia-landing) {
+  --nextra-content-width: 100%;
+}
+:has(.typia-landing) article {
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+:has(.typia-landing) main {
+  max-width: 100% !important;
+}
+body:has(.typia-landing) div[class~="x:h-0"][class~="x:w-64"] {
+  display: none !important;
+}
+:has(.typia-landing) .nextra-toc,
+:has(.typia-landing) .nextra-breadcrumb {
+  display: none !important;
+}
+
 /* ── Playground page: hide Nextra chrome so the playground gets the full viewport ── */
 .typia-playground-page .nextra-sidebar-container,
 .typia-playground-page .nextra-sidebar,

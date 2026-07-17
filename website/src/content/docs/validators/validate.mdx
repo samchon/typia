@@ -1,8 +1,7 @@
 ---
 title: Guide Documents > Runtime Validators > validate() function
 ---
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
@@ -16,12 +15,12 @@ function validate<T>(input: unknown): IValidation<T>;
 
 `typia.validate<T>` walks the entire structure and reports **every** field that doesn't match `T`, instead of stopping at the first one like [`assert`](/docs/validators/assert).
 
-| Scenario | Pick |
-|----------|------|
-| Need to render every field error to the user (form, request body) | **`validate`** *(you are here)* |
-| One field is wrong → throw an exception | [`assert`](/docs/validators/assert) |
+| Scenario                                                               | Pick                                                   |
+| ---------------------------------------------------------------------- | ------------------------------------------------------ |
+| Need to render every field error to the user (form, request body)      | **`validate`** _(you are here)_                        |
+| One field is wrong → throw an exception                                | [`assert`](/docs/validators/assert)                    |
 | LLM function-calling feedback loop ("tell the model all its mistakes") | **`validate`** + [`LlmJson.stringify`](/docs/llm/json) |
-| Just a yes/no answer | [`is`](/docs/validators/is) |
+| Just a yes/no answer                                                   | [`is`](/docs/validators/is)                            |
 
 ## First example
 
@@ -55,18 +54,20 @@ $input.age: expected "number & Type<\"uint32\">", got 20.75
 
 Both errors arrive in a single pass. `assert` would have thrown on `id` and stopped.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/validate.ts"
       filename="examples/src/validators/validate.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/validate.js"
       filename="examples/bin/validators/validate.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -86,9 +87,9 @@ namespace IValidation {
     errors: IError[];
   }
   interface IError {
-    path: string;       // "$input.user.age"
-    expected: string;   // "number & Minimum<19>"
-    value: unknown;     // the bad value
+    path: string; // "$input.user.age"
+    expected: string; // "number & Minimum<19>"
+    value: unknown; // the bad value
     description?: string;
   }
 }
@@ -115,7 +116,7 @@ The two halves of the union share a `success` boolean — TypeScript narrows the
 const result: IValidation<string> = typia.validate<string>(something);
 
 if (result.success) {
-  result.data;   // string
+  result.data; // string
 } else {
   result.errors; // IValidation.IError[]
 }
@@ -133,18 +134,20 @@ const r = typia.validateEquals<User>({ id: "uuid…", age: 25, sex: 1 });
 // r.errors[0] = { path: "$input.sex", expected: "undefined", value: 1 }
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/validateEquals.ts"
       filename="examples/src/validators/validateEquals.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/validateEquals.js"
       filename="examples/bin/validators/validateEquals.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -181,18 +184,20 @@ await upfetch("https://jsonplaceholder.typicode.com/todos/1", { schema });
 await upfetch("https://jsonplaceholder.typicode.com/todos/10", { schema });
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/createValidate.ts"
       filename="examples/src/validators/createValidate.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/createValidate.js"
       filename="examples/bin/validators/createValidate.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -200,18 +205,20 @@ await upfetch("https://jsonplaceholder.typicode.com/todos/10", { schema });
 
 Same rules as the rest of the validator family — see [`is` § What it doesn't check](/docs/validators/is#what-it-doesnt-check). User-defined classes are walked by property, function types are skipped unless `functional` is on, native classes (`Date`, `Set`, `Map`, `Uint8Array`) are inspected end-to-end.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/validate-map.ts"
       filename="examples/src/validators/validate-map.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/validate-map.js"
       filename="examples/bin/validators/validate-map.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -219,18 +226,20 @@ Same rules as the rest of the validator family — see [`is` § What it doesn't 
 
 Intersect [type tags](/docs/validators/tags) (formats, ranges, lengths) into the type. The error `expected` field repeats the same intersection syntax, so users see exactly what was required:
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/validate-custom-tags.ts"
       filename="examples/src/validators/validate-custom-tags.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/validate-custom-tags.js"
       filename="examples/bin/validators/validate-custom-tags.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

@@ -1,8 +1,7 @@
 ---
 title: Guide Documents > Runtime Validators > assert() function
 ---
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
@@ -12,18 +11,20 @@ import LocalSource from "../../../components/LocalSource";
 ```typescript copy filename="signature"
 function assert<T>(input: T): T;
 function assert<T>(input: unknown): T;
-function assert<T>(input: unknown,
-                   errorFactory?: (props: TypeGuardError.IProps) => Error): T;
+function assert<T>(
+  input: unknown,
+  errorFactory?: (props: TypeGuardError.IProps) => Error,
+): T;
 ```
 
 `typia.assert<T>` is the throwing variant of [`is`](/docs/validators/is). If `input` matches `T`, it returns `input` unchanged. If it doesn't, it throws a `TypeGuardError` that points at exactly **one** failing property — the first one it encounters.
 
 Use it when you want an exception to propagate up the stack (HTTP request handlers, message queue consumers, boot-time config loading).
 
-| Scenario | Pick |
-|----------|------|
-| One field is wrong → throw an exception | **`assert`** *(you are here)* |
-| Just a yes/no answer | [`is`](/docs/validators/is) |
+| Scenario                                                 | Pick                                    |
+| -------------------------------------------------------- | --------------------------------------- |
+| One field is wrong → throw an exception                  | **`assert`** _(you are here)_           |
+| Just a yes/no answer                                     | [`is`](/docs/validators/is)             |
 | Need every field error at once (form, LLM feedback loop) | [`validate`](/docs/validators/validate) |
 
 ## First example
@@ -43,27 +44,29 @@ const user = typia.assert<User>(await loadUserFromRequest());
 
 If `age` is `18`, you get a `TypeGuardError` carrying:
 
-| Field | Value |
-|-------|-------|
-| `method` | `"typia.assert"` |
-| `path` | `"$input.age"` |
+| Field      | Value                    |
+| ---------- | ------------------------ |
+| `method`   | `"typia.assert"`         |
+| `path`     | `"$input.age"`           |
 | `expected` | `"number & Minimum<19>"` |
-| `value` | `18` |
+| `value`    | `18`                     |
 
 The error includes a default `message` ready for logging, but the structured fields above are usually what you want to surface to clients.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/assert.ts"
       filename="examples/src/validators/assert.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/assert.js"
       filename="examples/bin/validators/assert.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -71,10 +74,10 @@ The error includes a default `message` ready for logging, but the structured fie
 
 ```typescript copy
 class TypeGuardError<T = any> extends Error {
-  readonly method: string;       // "typia.assert", "typia.assertEquals", …
-  readonly path: string | undefined;  // e.g. "$input.user.age"
-  readonly expected: string;     // e.g. "string & Format<\"uuid\">"
-  readonly value: unknown;       // the offending value
+  readonly method: string; // "typia.assert", "typia.assertEquals", …
+  readonly path: string | undefined; // e.g. "$input.user.age"
+  readonly expected: string; // e.g. "string & Format<\"uuid\">"
+  readonly value: unknown; // the offending value
   readonly description?: string; // hint when the value is `undefined`
 }
 ```
@@ -84,7 +87,8 @@ class TypeGuardError<T = any> extends Error {
     <LocalSource
       path="packages/typia/src/TypeGuardError.ts"
       filename="@samchon/typia"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -98,13 +102,18 @@ Pass an `errorFactory` second argument to throw whatever your framework expects 
 import typia from "typia";
 
 class HttpException extends Error {
-  constructor(message: string, public readonly status: number) {
+  constructor(
+    message: string,
+    public readonly status: number,
+  ) {
     super(message);
   }
 }
 
-typia.assert<User>(input, (info) =>
-  new HttpException(`Invalid ${info.path}: expected ${info.expected}`, 400),
+typia.assert<User>(
+  input,
+  (info) =>
+    new HttpException(`Invalid ${info.path}: expected ${info.expected}`, 400),
 );
 ```
 
@@ -115,31 +124,33 @@ The factory receives the same `TypeGuardError.IProps` and its return value is th
 `assert` allows properties not declared on `T`. `assertEquals` rejects them — the first extra key becomes the thrown error:
 
 ```typescript copy
-typia.assert<User>({ id: "...", age: 25, sex: 1 });       // ok (sex ignored)
+typia.assert<User>({ id: "...", age: 25, sex: 1 }); // ok (sex ignored)
 typia.assertEquals<User>({ id: "...", age: 25, sex: 1 }); // throws on `sex`
 ```
 
 The thrown `TypeGuardError` for the extra property has `expected: "undefined"` and `path` pointing at the extra key:
 
-| Field | Value |
-|-------|-------|
-| `method` | `"typia.assertEquals"` |
-| `path` | `"$input.sex"` |
-| `expected` | `"undefined"` |
-| `value` | `1` |
+| Field      | Value                  |
+| ---------- | ---------------------- |
+| `method`   | `"typia.assertEquals"` |
+| `path`     | `"$input.sex"`         |
+| `expected` | `"undefined"`          |
+| `value`    | `1`                    |
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/assertEquals.ts"
       filename="examples/src/validators/assertEquals.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/assertEquals.js"
       filename="examples/bin/validators/assertEquals.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -151,7 +162,7 @@ The thrown `TypeGuardError` for the extra property has `expected: "undefined"` a
 const user: User = typia.assert<User>(input);
 ```
 
-That's convenient but it makes you assign to a new variable. If you'd rather **narrow the original variable in place**, use `typia.assertGuard<T>`. It returns nothing — but its return type is `asserts input is T`, which is TypeScript's *assertion guard* syntax: when a function with that signature returns without throwing, the compiler treats the argument as narrowed to `T` on every subsequent line. So you keep using the same variable instead of binding a new one:
+That's convenient but it makes you assign to a new variable. If you'd rather **narrow the original variable in place**, use `typia.assertGuard<T>`. It returns nothing — but its return type is `asserts input is T`, which is TypeScript's _assertion guard_ syntax: when a function with that signature returns without throwing, the compiler treats the argument as narrowed to `T` on every subsequent line. So you keep using the same variable instead of binding a new one:
 
 ```typescript copy
 import typia from "typia";
@@ -168,7 +179,8 @@ console.log(input.age);
 <LocalSource
   path="examples/src/validators/assertGuard.ts"
   filename="examples/src/validators/assertGuard.ts"
-  showLineNumbers />
+  showLineNumbers
+/>
 
 ## Reusable factories
 
@@ -181,7 +193,8 @@ export const assertUser = typia.createAssert<User>();
 export const assertUserEquals = typia.createAssertEquals<User>();
 
 export const guardUser: AssertionGuard<User> = typia.createAssertGuard<User>();
-export const guardUserEquals: AssertionGuard<User> = typia.createAssertGuardEquals<User>();
+export const guardUserEquals: AssertionGuard<User> =
+  typia.createAssertGuardEquals<User>();
 ```
 
 > [!IMPORTANT]
@@ -193,22 +206,25 @@ export const guardUserEquals: AssertionGuard<User> = typia.createAssertGuardEqua
 <LocalSource
   path="examples/src/validators/createAssertGuard.ts"
   filename="examples/src/validators/createAssertGuard.ts"
-  showLineNumbers />
+  showLineNumbers
+/>
 
 `createAssert*` factories accept an optional `errorFactory` that applies to every call.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/createAssert.ts"
       filename="examples/src/validators/createAssert.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/createAssert.js"
       filename="examples/bin/validators/createAssert.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -218,18 +234,20 @@ Same rules as [`is`](/docs/validators/is#what-it-doesnt-check): user-defined cla
 
 Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-to-end, including their elements:
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/is-map.ts"
       filename="examples/src/validators/is-map.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/is-map.js"
       filename="examples/bin/validators/is-map.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -237,18 +255,20 @@ Built-in classes (`Date`, `Set<T>`, `Map<K, V>`, `Uint8Array`) are checked end-t
 
 Intersect [type tags](/docs/validators/tags) into the type to express formats, ranges, and length limits:
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/validators/assert-custom-tags.ts"
       filename="examples/src/validators/assert-custom-tags.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/validators/assert-custom-tags.js"
       filename="examples/bin/validators/assert-custom-tags.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

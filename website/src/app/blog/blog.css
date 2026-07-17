@@ -29,27 +29,24 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(127, 127, 127, 0.2);
+  border: 1px solid var(--typia-blue-border);
   border-radius: 1.25rem;
-  background: color-mix(in srgb, rgb(var(--nextra-bg)) 92%, white 8%);
+  background: var(--typia-blue-wash);
   text-decoration: none;
   color: inherit;
-}
-
-.dark .typia-blog-card {
-  background: color-mix(in srgb, rgb(var(--nextra-bg)) 94%, white 6%);
 }
 
 .typia-blog-card:hover {
   transform: translateY(-2px);
   transition: transform 0.18s ease;
+  border-color: var(--typia-blue);
 }
 
 .typia-blog-card-image {
   width: 100%;
   aspect-ratio: 1.91 / 1;
   object-fit: cover;
-  background: rgba(127, 127, 127, 0.08);
+  background: var(--typia-blue-soft);
 }
 
 .typia-blog-card-body {
@@ -68,12 +65,8 @@
 
 .typia-blog-card-description {
   margin: 0;
-  color: rgb(95 95 95);
+  color: var(--typia-muted);
   line-height: 1.6;
-}
-
-.dark .typia-blog-card-description {
-  color: rgb(170 170 170);
 }
 
 .typia-blog-card-meta {
@@ -82,11 +75,7 @@
   gap: 0.65rem;
   margin-top: auto;
   font-size: 0.9rem;
-  color: rgb(110 110 110);
-}
-
-.dark .typia-blog-card-meta {
-  color: rgb(155 155 155);
+  color: var(--typia-muted);
 }
 
 .typia-blog-card-tags {
@@ -101,7 +90,8 @@
   align-items: center;
   padding: 0.24rem 0.6rem;
   border-radius: 999px;
-  background: rgba(127, 127, 127, 0.12);
+  background: var(--typia-blue-soft);
+  color: var(--typia-blue-deep);
   font-size: 0.84rem;
 }
 
@@ -111,7 +101,7 @@
   object-fit: cover;
   border-radius: 1.5rem;
   margin: 0 0 1.5rem;
-  background: rgba(127, 127, 127, 0.08);
+  background: var(--typia-blue-soft);
 }
 
 .typia-blog-meta,
@@ -123,18 +113,14 @@
 }
 
 .typia-blog-meta {
-  color: rgb(110 110 110);
+  color: var(--typia-muted);
   font-size: 0.95rem;
-}
-
-.dark .typia-blog-meta {
-  color: rgb(160 160 160);
 }
 
 .typia-blog-comments {
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(127, 127, 127, 0.18);
+  border-top: 1px solid var(--typia-blue-border);
 }
 
 .typia-blog-post-page {
@@ -168,7 +154,7 @@
   flex-direction: column;
   gap: 0.6rem;
   padding-left: 1rem;
-  border-left: 1px solid rgba(127, 127, 127, 0.18);
+  border-left: 1px solid var(--typia-blue-border);
 }
 
 .typia-blog-toc-title {
@@ -176,11 +162,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgb(115 115 115);
-}
-
-.dark .typia-blog-toc-title {
-  color: rgb(165 165 165);
+  color: var(--typia-muted);
 }
 
 .typia-blog-toc-list,
@@ -208,18 +190,14 @@
 
 .typia-blog-toc-link {
   display: inline-block;
-  color: rgb(90 90 90);
+  color: var(--typia-muted);
   text-decoration: none;
   line-height: 1.45;
   font-size: 0.95rem;
 }
 
-.dark .typia-blog-toc-link {
-  color: rgb(175 175 175);
-}
-
 .typia-blog-toc-link:hover {
-  color: inherit;
+  color: var(--typia-blue);
 }
 
 .typia-blog-toc-depth-3 {
@@ -242,6 +220,6 @@
     margin-top: 1rem;
     padding: 1rem 0 0;
     border-left: 0;
-    border-top: 1px solid rgba(127, 127, 127, 0.18);
+    border-top: 1px solid var(--typia-blue-border);
   }
 }

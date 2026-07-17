@@ -1,9 +1,8 @@
 ---
 title: Guide Documents > Introduction
 ---
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
-import { Tabs } from 'nextra/components';
+
+import { Callout } from "nextra/components";
 
 ## What is typia?
 
@@ -11,88 +10,60 @@ import { Tabs } from 'nextra/components';
 
 Other libraries make you write your types twice — once in TypeScript and once as a schema, decorators, or guards. typia reads the type you already wrote and emits the validator, JSON serializer, schema, or decoder for you. One line, pure types, no duplication.
 
-Here it is in action — the left tab is the source you write, the right tab is what typia generates for you at compile time:
+Here it is in action — on the left is the source you write, on the right is what typia generates for you at compile time:
 
-<Tabs items={['TypeScript source', 'Compiled JavaScript']}>
-  <Tabs.Tab>
-```ts copy filename="src/check.ts"
-import typia, { tags } from "typia";
+![Write a TypeScript type and typia compiles it into a dedicated validator](/images/concepts/transform.svg)
 
-interface User {
-  id: string & tags.Format<"uuid">;
-  email: string & tags.Format<"email">;
-  age: number & tags.Type<"uint32"> & tags.Minimum<19>;
-}
+No reflection at runtime, no schema file to maintain — just the exact comparisons your `IMember` type implies, inlined into the build. This is the core trick that every other typia feature builds on; see [Pure TypeScript](/docs/pure) for the long story.
 
-// One line, pure TypeScript types. No schema, no decorators.
-export const check = typia.createIs<User>();
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```js copy filename="dist/check.js"
-import * as __typia_uuid from "typia/lib/_isFormatUuid.js";
-import * as __typia_email from "typia/lib/_isFormatEmail.js";
-
-export const check = (input) =>
-  "object" === typeof input &&
-  null !== input &&
-  "string" === typeof input.id &&
-  __typia_uuid._isFormatUuid(input.id) &&
-  "string" === typeof input.email &&
-  __typia_email._isFormatEmail(input.email) &&
-  "number" === typeof input.age &&
-  Number.isFinite(input.age) &&
-  Math.floor(input.age) === input.age &&
-  0 <= input.age &&
-  input.age <= 4294967295 &&
-  19 <= input.age;
-```
-  </Tabs.Tab>
-</Tabs>
-
-No reflection at runtime, no schema file to maintain — just the exact comparisons your `User` type implies, inlined into the build. This is the core trick that every other typia feature builds on; see [Pure TypeScript](/docs/pure) for the long story.
-
-> The right-hand "Compiled JavaScript" tab is produced by typia's compile-time transform — **stock `tsc` will not produce it**. To enable the transform, install the TypeScript 7 toolchain in [Setup](/docs/setup) and build with `ttsc`, `ttsx`, or `@ttsc/unplugin`. Without setup, your `typia.is<T>()` call sites throw at runtime instead.
+> The right-hand "Compiled Output" is produced by typia's compile-time transform — **stock `tsc` will not produce it**. To enable the transform, install the TypeScript 7 toolchain in [Setup](/docs/setup) and build with `ttsc`, `ttsx`, or `@ttsc/unplugin`. Without setup, your `typia.is<T>()` call sites throw at runtime instead.
 
 ![Typia Logo](/logo.png)
 
-<span style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "6px" }}>
-{[
-  [
-    "MIT License",
-    "https://img.shields.io/badge/license-MIT-blue.svg",
-    "https://github.com/samchon/typia/blob/master/LICENSE",
-  ],
-  [
-    "NPM Version",
-    "https://img.shields.io/npm/v/typia.svg",
-    "https://www.npmjs.com/package/typia",
-  ],
-  [
-    "NPM Downloads",
-    "https://img.shields.io/npm/dm/typia.svg",
-    "https://www.npmjs.com/package/typia",
-  ],
-  [
-    "Build Status",
-    "https://github.com/samchon/typia/workflows/test/badge.svg",
-    "https://github.com/samchon/typia/actions?query=workflow%3Atest",
-  ],
-  [
-    "Gurubase",
-    "https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF",
-    "https://gurubase.io/g/typia",
-  ],
-  [
-    "Discord",
-    "https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ",
-    "https://discord.gg/E94XhzrUCZ",
-  ]
-].map(([alt, image, url]) => (
-  <a href={url} style={{ marginTop: "20px" }} key={alt}>
+<span
+  style={{
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: "6px",
+  }}
+>
+  {[
+    [
+      "MIT License",
+      "https://img.shields.io/badge/license-MIT-blue.svg",
+      "https://github.com/samchon/typia/blob/master/LICENSE",
+    ],
+    [
+      "NPM Version",
+      "https://img.shields.io/npm/v/typia.svg",
+      "https://www.npmjs.com/package/typia",
+    ],
+    [
+      "NPM Downloads",
+      "https://img.shields.io/npm/dm/typia.svg",
+      "https://www.npmjs.com/package/typia",
+    ],
+    [
+      "Build Status",
+      "https://github.com/samchon/typia/workflows/test/badge.svg",
+      "https://github.com/samchon/typia/actions?query=workflow%3Atest",
+    ],
+    [
+      "Gurubase",
+      "https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF",
+      "https://gurubase.io/g/typia",
+    ],
+    [
+      "Discord",
+      "https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ",
+      "https://discord.gg/E94XhzrUCZ",
+    ],
+  ].map(([alt, image, url]) => (
+    <a href={url} style={{ marginTop: "20px" }} key={alt}>
       <img src={image} alt={alt} />
-  </a>
-))}
+    </a>
+  ))}
 </span>
 
 ## API surface
@@ -107,55 +78,62 @@ typia covers five feature areas, all driven by the same TypeScript-type-to-runti
 
 ```ts
 // Runtime validators — write a type, get a checker
-typia.is<T>(input);          // boolean
-typia.assert<T>(input);      // throws TypeGuardError, otherwise returns input
+typia.is<T>(input); // boolean
+typia.assert<T>(input); // throws TypeGuardError, otherwise returns input
 typia.assertGuard<T>(input); // narrows the variable (`asserts input is T`)
-typia.validate<T>(input);    // returns IValidation<T> with every error path
+typia.validate<T>(input); // returns IValidation<T> with every error path
 
 // JSON — same idea, plus performance
-typia.json.assertParse<T>(text);    // safe JSON.parse + assert
+typia.json.assertParse<T>(text); // safe JSON.parse + assert
 typia.json.assertStringify<T>(obj); // ~10x faster JSON.stringify with type safety
-typia.json.schemas<[T]>();          // emit OpenAPI/JSON Schema
+typia.json.schemas<[T]>(); // emit OpenAPI/JSON Schema
 
 // LLM function calling — turn a TypeScript class into tools
-typia.llm.application<MyService>();    // full ILlmApplication with parse/coerce/validate
-typia.llm.structuredOutput<T>();       // schema + parser + coercer + validator
-typia.llm.parameters<T>();             // just the JSON schema
+typia.llm.application<MyService>(); // full ILlmApplication with parse/coerce/validate
+typia.llm.structuredOutput<T>(); // schema + parser + coercer + validator
+typia.llm.parameters<T>(); // just the JSON schema
 
 // Protocol Buffer — same again, in binary
 typia.protobuf.assertEncode<T>(obj);
 typia.protobuf.assertDecode<T>(bytes);
-typia.protobuf.message<T>();           // emit .proto schema text
+typia.protobuf.message<T>(); // emit .proto schema text
 
 // Test data
-typia.random<T>();                     // generate a value that satisfies T
+typia.random<T>(); // generate a value that satisfies T
 ```
 
-<br/>
-<Stack spacing={1}>
-  <Alert severity="warning">
-    Only **one line** required, with pure TypeScript types
-  </Alert>
-  <Alert severity="success">
-    Runtime validator up to **20,000× faster** than `class-validator` ([benchmark](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics))
-  </Alert>
-  <Alert severity="info">
-    JSON serialization up to **200× faster** than `class-transformer` ([benchmark](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify))
-  </Alert>
-  <Alert severity="success">
-    LLM function calling success rate: **6.75% → 100%** with the typia harness ([story](https://github.com/wrtnlabs/autobe))
-  </Alert>
-</Stack>
+<br />
+<Callout type="warning">
+  Only **one line** required, with pure TypeScript types
+</Callout>
+
+<Callout type="default">
+  Runtime validator up to **20,000× faster** than `class-validator`
+  ([benchmark](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics))
+</Callout>
+
+<Callout type="info">
+  JSON serialization up to **200× faster** than `class-transformer`
+  ([benchmark](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify))
+</Callout>
+
+<Callout type="default">
+  LLM function calling success rate: **6.75% → 100%** with the typia harness
+  ([story](https://github.com/wrtnlabs/autobe))
+</Callout>
 
 ## Build setup
 
-<br/>
-<iframe src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE"
-        title="Typia Tutorial Video"
-        width="100%"
-        height="500"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen></iframe>
+<br />
+<iframe
+  src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE"
+  title="Typia Tutorial Video"
+  width="100%"
+  height="500"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerPolicy="strict-origin-when-cross-origin"
+  allowFullScreen
+></iframe>
 
 The transformation above happens at compile time, so typia needs to be wired into the TypeScript build. Use [`ttsc`](/docs/setup) for TypeScript 7 builds, [`ttsx`](/docs/setup) when running a TypeScript entrypoint directly, and [`@ttsc/unplugin`](/docs/setup#bundlers) for bundlers such as Vite, Next.js, Webpack, esbuild, Rollup, and Bun.
 

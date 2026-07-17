@@ -31,23 +31,19 @@ export default async function BlogLayout(props) {
       navbar={
         <Navbar
           logo={
-            <>
-              <img
-                src="/favicon/android-chrome-192x192.png"
-                width={32}
-                height={32}
-              />
-              <span
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "1.2rem",
-                  paddingLeft: 15,
-                  paddingRight: 10,
-                }}
-              >
+            <span className="typia-site-logo">
+              <span className="typia-site-logo-mark" aria-hidden="true">
+                <img
+                  src="/favicon/android-chrome-192x192.png"
+                  width={32}
+                  height={32}
+                  alt=""
+                />
+              </span>
+              <span style={{ fontSize: "1.2rem", paddingRight: 10 }}>
                 Typia
               </span>
-            </>
+            </span>
           }
           projectLink="https://github.com/samchon/typia"
         />
@@ -58,7 +54,8 @@ export default async function BlogLayout(props) {
       navigation={false}
       sidebar={{ toggleButton: false }}
       nextThemes={{
-        defaultTheme: "dark",
+        defaultTheme: "light",
+        forcedTheme: "light",
       }}
       darkMode={false}
       footer={footer}

@@ -23,9 +23,13 @@ export default async function Page(props) {
 
   const result = await importPage(params.mdxPath);
   const { default: MDXContent, toc, metadata } = result;
+  const isDocsPage = params.mdxPath?.[0] === "docs";
 
   return (
     <Wrapper toc={toc} metadata={metadata}>
+      {isDocsPage ? (
+        <span className="typia-docs-page-marker" aria-hidden="true" hidden />
+      ) : null}
       <MDXContent {...props} params={params} />
     </Wrapper>
   );

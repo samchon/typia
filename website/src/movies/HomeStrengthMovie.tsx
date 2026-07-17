@@ -1,14 +1,5 @@
 "use client";
 
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
 import HomeCodeBlock from "../components/home/HomeCodeBlock";
 
 interface FeatureCardProps {
@@ -79,127 +70,68 @@ const features: FeatureCardProps[] = [
   },
 ];
 
+/**
+ * The card is its own grid child, so it stretches to the row height the way
+ * `<Grid item>` + `height: "100%"` did. `rounded-sm` is 4px in Tailwind 4 --
+ * the value MUI's Card took from the untouched `shape.borderRadius`, not the
+ * 8px the other sections set explicitly via `borderRadius: 2`.
+ */
 const FeatureCard = (props: FeatureCardProps) => (
-  <Grid item xs={12} sm={6} md={4}>
-    <Card
-      variant="outlined"
-      sx={{
-        height: "100%",
-        backgroundColor: "rgba(255,255,255,0.02)",
-        borderColor: "rgba(255,255,255,0.08)",
-        transition: "all 0.2s ease",
-        "&:hover": {
-          borderColor: "rgba(0,150,255,0.4)",
-          backgroundColor: "rgba(0,150,255,0.03)",
-        },
-      }}
+  <div className="h-full overflow-hidden rounded-sm border border-[#c1d3eb] bg-white transition-all duration-200 ease-[ease] hover:border-[#184e95] hover:bg-[#f6f9fd]">
+    <a
+      href={props.href}
+      className="flex h-full w-full flex-col items-start text-inherit no-underline"
     >
-      <CardActionArea
-        href={props.href}
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          p: 0,
-        }}
-      >
-        <CardContent sx={{ p: 3, width: "100%" }}>
-          <Box
-            component="img"
-            src={props.icon}
-            alt={props.title}
-            sx={{ height: 72, width: 72, objectFit: "contain", mb: 2 }}
-          />
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 700,
-              fontSize: "1.05rem",
-              mb: 0.5,
-              color: "rgba(255,255,255,0.95)",
-            }}
-          >
-            {props.title}
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "'Fira Code', 'JetBrains Mono', monospace",
-              fontSize: "0.82rem",
-              mb: 1,
-            }}
-          >
-            <HomeCodeBlock {...props.code} />
-          </Typography>
-          {props.metric && (
-            <Typography
-              sx={{
-                fontSize: "0.85rem",
-                mb: 1.5,
-              }}
-            >
-              <span style={{ color: "rgb(0,180,255)", fontWeight: 600 }}>
-                {props.metric}
+      <div className="w-full p-6">
+        <img
+          src={props.icon}
+          alt={props.title}
+          className="mb-4 h-18 w-18 object-contain"
+        />
+        <h6 className="mb-1 text-[1.05rem] leading-[1.6] font-bold tracking-[0.0075em] text-[#0c1c32]">
+          {props.title}
+        </h6>
+        <p className="mb-2 text-[0.82rem] leading-[1.5] font-normal tracking-[0.00938em] [font-family:'Fira_Code','JetBrains_Mono',monospace]">
+          <HomeCodeBlock {...props.code} />
+        </p>
+        {props.metric && (
+          <p className="mb-3 text-[0.85rem] leading-[1.5] font-normal tracking-[0.00938em]">
+            <span style={{ color: "#184e95", fontWeight: 600 }}>
+              {props.metric}
+            </span>
+            {props.metricNote && (
+              <span style={{ color: "#4c5e76", fontWeight: 400 }}>
+                {" "}
+                ({props.metricNote})
               </span>
-              {props.metricNote && (
-                <span
-                  style={{ color: "rgba(255,255,255,0.45)", fontWeight: 400 }}
-                >
-                  {" "}
-                  ({props.metricNote})
-                </span>
-              )}
-            </Typography>
-          )}
-          <Typography
-            variant="body2"
-            sx={{
-              color: "rgba(255,255,255,0.55)",
-              lineHeight: 1.65,
-              fontSize: "0.88rem",
-            }}
-          >
-            {props.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
+            )}
+          </p>
+        )}
+        <p className="text-[0.88rem] leading-[1.65] font-normal tracking-[0.01071em] text-[#4c5e76]">
+          {props.description}
+        </p>
+      </div>
+    </a>
+  </div>
 );
 
 const HomeStrengthMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 } }}>
-    <Container maxWidth="lg">
-      <Box sx={{ textAlign: "center", mb: 6 }}>
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: "1.6rem", md: "2.2rem" },
-            mb: 2,
-            color: "rgba(255,255,255,0.95)",
-          }}
-        >
+  <section className="bg-[#e5eefa] py-12 md:py-20">
+    <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+      <div className="mb-12 text-center">
+        <h3 className="mb-4 text-[1.6rem] leading-[1.167] font-bold tracking-[0] text-[#0c1c32] md:text-[2.2rem]">
           Key Features
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: "rgba(255,255,255,0.55)",
-            fontSize: "1.05rem",
-            maxWidth: 600,
-            mx: "auto",
-          }}
-        >
+        </h3>
+        <p className="mx-auto max-w-[600px] text-[1.05rem] leading-[1.5] font-normal tracking-[0.00938em] text-[#4c5e76]">
           One library. Pure TypeScript types. Every runtime feature you need.
-        </Typography>
-      </Box>
-      <Grid container spacing={3}>
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         {features.map((f) => (
           <FeatureCard key={f.title} {...f} />
         ))}
-      </Grid>
-    </Container>
-  </Box>
+      </div>
+    </div>
+  </section>
 );
 export default HomeStrengthMovie;
