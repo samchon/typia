@@ -291,7 +291,12 @@ func metadataDependency_touchPath(
     }
     specifier := metadataDependency_moduleSpecifier(declaration)
     if specifier == nil {
-      return
+      // A `from`-less `export { Alpha }` re-publishes a LOCAL binding, which is
+      // itself an alias when the file imported the name first (`import { Alpha }
+      // from "./mid"; export { Alpha };`). Continuing from that local keeps the
+      // module it reads (`./mid`) on the path instead of ending the walk here.
+      symbol = metadataDependency_local(declaration)
+      continue
     }
     // A module specifier's symbol is its resolved module, whose declaration is
     // the target source file. Reporting it keeps the next module registered
@@ -310,23 +315,59 @@ func metadataDependency_touchPath(
   }
 }
 
-// metadataDependency_exported steps one alias hop: the member `module` exports
-// under the name the alias declaration reads (`propertyName` when the hop
-// renames, e.g. `export { Beta as Alpha }`). Returns nil when the export cannot
-// be named locally, which stops the walk at an already-reported module.
+// metadataDependency_exported steps one alias hop to the member `module`
+// publishes under the name this declaration reads: `default` for an import
+// clause, and for a named import / export specifier its property name when the
+// hop renames (`export { Beta as Alpha }`) or its own name otherwise.
+//
+// Only those kinds are stepped. Any other alias binds the whole module rather
+// than one export — a namespace import above all — so its local name is not an
+// export name at all; looking one up would land on whatever member happens to
+// share that name and report files the reference never consults. Returning nil
+// stops the walk at the module already reported, which loses no edge: the
+// terminus is resolved separately by the checker.
 func metadataDependency_exported(module *nativeast.Symbol, declaration *nativeast.Node) *nativeast.Symbol {
   if module.Exports == nil {
     return nil
   }
-  name := declaration.PropertyNameOrName()
-  if name == nil {
-    return nil
-  }
-  switch name.Kind {
-  case nativeast.KindIdentifier, nativeast.KindStringLiteral:
-    return module.Exports[name.Text()]
+  switch declaration.Kind {
+  case nativeast.KindImportClause:
+    // ast.InternalSymbolNameDefault, which the shim does not re-export.
+    return module.Exports["default"]
+  case nativeast.KindImportSpecifier, nativeast.KindExportSpecifier:
+    name := declaration.PropertyNameOrName()
+    if name == nil {
+      return nil
+    }
+    switch name.Kind {
+    case nativeast.KindIdentifier, nativeast.KindStringLiteral:
+      return module.Exports[name.Text()]
+    }
   }
   return nil
+}
+
+// metadataDependency_local returns the local binding a `from`-less export
+// specifier re-publishes, so a walk that reaches one can continue through the
+// import that bound the name. Other declaration kinds have no such local to
+// resume from.
+func metadataDependency_local(declaration *nativeast.Node) *nativeast.Symbol {
+  if declaration.Kind != nativeast.KindExportSpecifier {
+    return nil
+  }
+  name := declaration.PropertyNameOrName()
+  if name == nil || name.Kind != nativeast.KindIdentifier {
+    return nil
+  }
+  source := nativeast.GetSourceFileOfNode(declaration)
+  if source == nil {
+    return nil
+  }
+  locals := source.AsNode().LocalsContainerData()
+  if locals == nil {
+    return nil
+  }
+  return locals.Locals[name.Text()]
 }
 
 // metadataDependency_moduleSpecifier returns the module specifier of the
