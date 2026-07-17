@@ -17,9 +17,12 @@ import (
 // of returning a successful but blank result.
 //
 // The file name deliberately spells out "javascript". Go reads a trailing `_js`
-// on a source file name as a `GOOS=js` build constraint, so this case sat in the
-// tree under the name `..._produces_no_js_test.go` and compiled on no platform
-// the suite ever runs -- the tag it carries was never the reason it did not run.
+// on a source file name as a `GOOS=js` build constraint, so under the earlier
+// name `..._produces_no_js_test.go` this case built only for `GOOS=js` -- where
+// `main.go` (`//go:build !js`) drops out and the test package does not compile
+// at all. It therefore ran on no platform whatsoever, and the tag it carries was
+// never the reason. Keep a `_js`, `_windows`, `_linux`, or `_darwin` ending off
+// a Go file name unless that constraint is meant.
 //
 // 1. Create a project that includes only a declaration source file.
 // 2. Run single-file transform with JavaScript output.

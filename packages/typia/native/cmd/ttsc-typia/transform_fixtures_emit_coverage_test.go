@@ -23,7 +23,7 @@ import (
 // The `_js` lane asserted the opposite of this until samchon/typia#2134 was
 // fixed: it required every fixture to report "no output produced". These
 // projects all set `rootDir`/`outDir`, and the old identity check compared whole
-// path stems, so it asked whether `dist/main` equalled `src/main` and never
+// path stems, so it asked whether `dist/main` equaled `src/main` and never
 // found the artifact the emit had just written. Reading those exit 3s as the
 // specification turned this suite into the defect's own guard rail -- it would
 // have failed the repair -- and left the JS emit path it exists to cover
