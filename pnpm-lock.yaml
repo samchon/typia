@@ -308,6 +308,9 @@ importers:
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.1.0
+      '@ttsc/unplugin':
+        specifier: '>=0.19.2'
+        version: 0.19.2(ttsc@0.19.2)
       '@typia/interface':
         specifier: workspace:^
         version: link:../interface
