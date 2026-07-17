@@ -70,9 +70,11 @@ func TestIdentifierFactoryPostfixEscapesEveryKey(t *testing.T) {
     // decoded to a plain "a" and silently changed the key.
     {"bell", "a\x07b", `"[\"a\\u0007b\"]"`},
     {"vertical tab", "a\x0bb", `"[\"a\\u000bb\"]"`},
-    // Line separators are only legal raw in a JavaScript string since ES2019.
-    {"line separator", "a\u2028b", `"[\"a\\u2028b\"]"`},
-    {"paragraph separator", "a\u2029b", `"[\"a\\u2029b\"]"`},
+    // A line terminator to JavaScript but an ordinary character to JSON, so the
+    // escape belongs in the source and must not reach the path itself: the
+    // emitted `\u2028` decodes back to the raw character JSON.stringify writes.
+    {"line separator", "a\u2028b", `"[\"a\u2028b\"]"`},
+    {"paragraph separator", "a\u2029b", `"[\"a\u2029b\"]"`},
     // Printable non-ASCII stays raw, exactly as JSON.stringify leaves it.
     {"non ascii", "한글", `"[\"한글\"]"`},
     {"emoji", "a\U0001F600b", "\"[\\\"a\U0001F600b\\\"]\""},

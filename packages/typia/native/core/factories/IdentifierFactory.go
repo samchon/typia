@@ -82,33 +82,47 @@ func (identifierFactoryNamespace) GetName(input *shimast.Expression) string {
 // here at compile time. Both must produce one path grammar, which
 // `typia/lib/internal/_createStandardSchema` parses back with JSON.parse.
 //
-// So there are two nested levels of escaping: the key becomes a JSON literal,
-// and that literal is embedded in the JavaScript literal returned here. Both
-// levels go through identifierFactory_literal; a level that escapes only some
-// characters emits a file that does not parse.
+// So there are two nested levels, and they escape for different readers. The
+// key becomes JSON text, which is part of the path a user sees and JSON.parse
+// reads. That text is then embedded in JavaScript source. Escaping only one
+// level emits a file that does not parse; escaping both for the same reader
+// makes the reported path disagree with the runtime helper.
 func (identifierFactoryNamespace) Postfix(str string) string {
   if identifierFactory_variable(str) {
-    return identifierFactory_literal("." + str)
+    return identifierFactory_source("." + str)
   }
-  return identifierFactory_literal("[" + identifierFactory_literal(str) + "]")
+  return identifierFactory_source("[" + identifierFactory_json(str) + "]")
 }
 
-// identifierFactory_literal renders `str` as JavaScript source for a string
+// identifierFactory_json renders `str` as JSON text, matching JSON.stringify so
+// that the path this lands in is the one _accessExpressionAsString builds for
+// the same key at runtime, and so JSON.parse in _createStandardSchema reads the
+// key back out.
+func identifierFactory_json(str string) string {
+  return identifierFactory_quote(str, false)
+}
+
+// identifierFactory_source renders `str` as JavaScript source for a string
 // literal whose value is exactly `str`.
 //
-// The escape set is JSON.stringify's, so that a literal built here reads back
-// through JSON.parse in _createStandardSchema and matches what
-// _accessExpressionAsString produces at runtime. JSON string syntax is a subset
-// of JavaScript string syntax, so one escaper satisfies both the JavaScript
-// parser that loads the emitted file and the JSON parser that reads a key out
-// of a reported path.
+// This is JSON's escape set plus the line separators. JSON string syntax is
+// otherwise a subset of JavaScript's: both forbid a raw `"` and `\`, and JSON
+// already escapes every character below U+0020, which covers the CR and LF that
+// JavaScript also forbids raw. U+2028 and U+2029 are the whole difference, being
+// line terminators to JavaScript but ordinary characters to JSON.
+func identifierFactory_source(str string) string {
+  return identifierFactory_quote(str, true)
+}
+
+// identifierFactory_quote writes a quoted literal, escaping the line separators
+// only when the reader is a JavaScript parser.
 //
-// strconv.Quote cannot serve this role: it escapes for Go, and Go and
+// strconv.Quote cannot serve either role: it escapes for Go, and Go and
 // JavaScript disagree. Quote renders U+0007 as `\a` and a non-printable astral
 // rune as `\U0001d173`; JavaScript has neither escape and decodes them as the
 // identity escapes `a` and `U`, silently corrupting the key, while JSON.parse
 // rejects both outright.
-func identifierFactory_literal(str string) string {
+func identifierFactory_quote(str string, source bool) string {
   var builder strings.Builder
   builder.Grow(len(str) + 2)
   builder.WriteByte('"')
@@ -158,10 +172,10 @@ func identifierFactory_literal(str string) string {
       i++
       continue
     }
-    if rune_ == '\u2028' || rune_ == '\u2029' {
-      // Legal in a JavaScript string only since ES2019, and JSON.stringify
-      // leaves them raw. Escaping costs nothing and keeps the emit parseable
-      // on an older target.
+    if source && (rune_ == '\u2028' || rune_ == '\u2029') {
+      // A line terminator to JavaScript, so a raw one would end the literal on
+      // a target below ES2019. Escaping it in the source is invisible to the
+      // reader of the path, because JavaScript decodes it straight back.
       builder.WriteString(identifierFactory_unicode_escape(rune_))
       i += size
       continue
