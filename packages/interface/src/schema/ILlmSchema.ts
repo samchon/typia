@@ -16,11 +16,8 @@ import { IJsonSchemaAttribute } from "./IJsonSchemaAttribute";
  * mode: every property becomes `required` and `additionalProperties` is forced
  * to `false`.
  *
- * For how a specific provider consumes these schemas, see
- * https://typia.io/docs/llm/application and the provider's own function calling
- * documentation.
- *
  * @author Jeongho Nam - https://github.com/samchon
+ * @see https://typia.io/docs/llm/application
  */
 export type ILlmSchema =
   | ILlmSchema.IBoolean
