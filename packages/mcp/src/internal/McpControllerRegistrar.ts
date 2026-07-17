@@ -42,7 +42,11 @@ export namespace McpControllerRegistrar {
               // schema. A `strict` application carries its constraints as
               // description tags instead of keywords, and only that config
               // tells the inverter to read them back.
-              LlmJson.validate(func.output, true, controller.application.config),
+              LlmJson.validate(
+                func.output,
+                true,
+                controller.application.config,
+              ),
       });
     }
 

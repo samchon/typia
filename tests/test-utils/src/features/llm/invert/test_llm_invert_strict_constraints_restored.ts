@@ -6,22 +6,21 @@ import typia, { tags } from "typia";
 /**
  * Verifies strict inversion still restores every shifted constraint keyword.
  *
- * Under `strict`, `OpenApiConstraintShifter` deletes the constraint keywords and
- * writes them into the description as `@minimum 3` tags, so the inverter is the
- * only thing that can put them back. Gating the read on `strict` — the same gate
- * the write uses — must not weaken that half: all thirteen keywords have to
- * survive the round trip, and the consumed tags must leave the description
+ * Under `strict`, `OpenApiConstraintShifter` deletes the constraint keywords
+ * and writes them into the description as `@minimum 3` tags, so the inverter is
+ * the only thing that can put them back. Gating the read on `strict` — the same
+ * gate the write uses — must not weaken that half: all thirteen keywords have
+ * to survive the round trip, and the consumed tags must leave the description
  * behind as plain prose.
  *
  * Each keyword is asserted on its own rather than as one object, because
- * `TestValidator.equals` walks the keys of its first argument and skips the ones
- * holding `undefined`: an unrestored leaf compared as an object matches anything
- * and passes vacuously.
+ * `TestValidator.equals` walks the keys of its first argument and skips the
+ * ones holding `undefined`: an unrestored leaf compared as an object matches
+ * anything and passes vacuously.
  *
  * 1. Convert a fully tagged interface to strict LLM parameters.
  * 2. Invert it back with `config.strict` set, matching the conversion.
- * 3. Assert each of the thirteen numeric, string, and array keywords is
- *    restored.
+ * 3. Assert each of the thirteen numeric, string, and array keywords is restored.
  * 4. Assert each leaf's description keeps its prose and drops its tags.
  */
 export const test_llm_invert_strict_constraints_restored = (): void => {

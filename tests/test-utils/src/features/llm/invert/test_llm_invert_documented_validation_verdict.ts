@@ -12,12 +12,12 @@ import typia, { tags } from "typia";
  * comment must produce the same verdict — the model is told about both
  * constraints, so both must be checked.
  *
- * 1. Declare a member type whose documented and undocumented properties carry
- *    the same tags.
+ * 1. Declare a member type whose documented and undocumented properties carry the
+ *    same tags.
  * 2. Build the non-strict validator from its LLM parameters.
  * 3. Assert a value violating only the documented property is rejected.
- * 4. Assert the undocumented twin's violation is rejected identically, and that
- *    a conforming value still passes.
+ * 4. Assert the undocumented twin's violation is rejected identically, and that a
+ *    conforming value still passes.
  */
 export const test_llm_invert_documented_validation_verdict = (): void => {
   interface IMember {
@@ -36,7 +36,11 @@ export const test_llm_invert_documented_validation_verdict = (): void => {
     undocumentedEmail: "member@typia.io",
   };
 
-  TestValidator.equals("conforming value accepted", validate(valid).success, true);
+  TestValidator.equals(
+    "conforming value accepted",
+    validate(valid).success,
+    true,
+  );
   TestValidator.equals(
     "documented minimum enforced",
     validate({ ...valid, documentedAge: -5 }).success,

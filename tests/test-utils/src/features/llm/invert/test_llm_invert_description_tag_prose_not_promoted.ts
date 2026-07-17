@@ -9,8 +9,8 @@ import { LlmSchemaConverter } from "@typia/utils";
  * put it there. Without `strict`, nothing shifted, so the same text is the
  * author's prose: promoting it to a real keyword would invent a constraint the
  * type never declared, and stripping the line would silently edit the doc the
- * model reads. This is the inverse witness of the erasure defect — the read must
- * do nothing at all when the write did nothing.
+ * model reads. This is the inverse witness of the erasure defect — the read
+ * must do nothing at all when the write did nothing.
  *
  * The inverted leaf is the first argument here, unlike the sibling cases that
  * assert a keyword is present: `TestValidator.equals` walks its first argument

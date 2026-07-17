@@ -317,17 +317,20 @@ strict({ name: "John", age: 25, extra: "ignored" });  // success: false
 `config` is a different flag from `equals` above. Pass the same config the schema was generated with:
 
 ```typescript copy
-const application = typia.llm.application<IBbsArticleController, { strict: true }>();
-const validate = LlmJson.validate(
-  application.functions[0].output!,
-  true,
-  application.config,
-);
+const parameters = typia.llm.parameters<IMember, { strict: true }>();
+const validate = LlmJson.validate(parameters, false, { strict: true });
 ```
 
-A `strict` schema cannot carry the constraint keywords itself, so `typia.llm.*` moves them into the description as `@minimum 3` tags. `config` is what tells the validator to read them back; without it, a `strict` schema's constraints go unchecked. Schemas built without `strict` — the default — keep their keywords and need no config.
+A `strict` schema may not carry the constraint keywords itself, so `typia.llm.*` moves them into the description as `@minimum 3` tags. `config` is what tells the validator to read them back; without it, a `strict` schema's constraints go unchecked. Schemas built without `strict` — the default — keep their keywords and need no config.
 
-`createMcpServer` and the Vercel AI SDK adapter pass the controller's own config for you.
+When the schema came from an application, pass its own config rather than a literal:
+
+```typescript copy
+const app = typia.llm.application<IMemberController, { strict: true }>();
+const validate = LlmJson.validate(app.functions[0].output!, true, app.config);
+```
+
+`createMcpServer` and the Vercel AI SDK adapter do this for you.
 
 <Callout type="info">
 **Prefer the compile-time validator when you can.**

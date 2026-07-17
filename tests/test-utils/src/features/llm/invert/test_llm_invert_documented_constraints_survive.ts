@@ -8,15 +8,15 @@ import typia, { ILlmSchema, tags } from "typia";
  *
  * `invert` restores constraints that `OpenApiConstraintShifter` moved into the
  * description, but the shift only happens under `strict`. Reading the tags back
- * unconditionally made `LlmDescriptionInverter` return an all-`undefined` object
- * for every non-strict leaf, and spreading it over the schema erased the real
- * keywords. Only a leaf carrying a `description` reached that spread, so
+ * unconditionally made `LlmDescriptionInverter` return an all-`undefined`
+ * object for every non-strict leaf, and spreading it over the schema erased the
+ * real keywords. Only a leaf carrying a `description` reached that spread, so
  * documenting a property silently disabled its validation. This pins all
  * thirteen keywords across the numeric, string, and array inverters.
  *
  * Each keyword is asserted on its own rather than as one object, because
- * `TestValidator.equals` walks the keys of its first argument and skips the ones
- * holding `undefined`: a wholly erased leaf compared as an object matches
+ * `TestValidator.equals` walks the keys of its first argument and skips the
+ * ones holding `undefined`: a wholly erased leaf compared as an object matches
  * anything and passes vacuously.
  *
  * 1. Declare two identical interfaces whose only difference is property JSDoc.
@@ -82,7 +82,11 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
   TestValidator.equals("documented minimum", 0, age.minimum);
   TestValidator.equals("documented maximum", 100, age.maximum);
   TestValidator.equals("documented multipleOf", 5, age.multipleOf);
-  TestValidator.equals("documented exclusiveMinimum", 0, score.exclusiveMinimum);
+  TestValidator.equals(
+    "documented exclusiveMinimum",
+    0,
+    score.exclusiveMinimum,
+  );
   TestValidator.equals(
     "documented exclusiveMaximum",
     100,
