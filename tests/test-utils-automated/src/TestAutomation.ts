@@ -78,16 +78,20 @@ export namespace TestAutomation {
    * Eight entries fail today if admitted. Failing is not by itself a validator
    * gap, and for `DynamicNever`, `DynamicUndefined`, and `ObjectUndefined` the
    * reasons below used to say it was — under three different causes, none of
-   * them the real one (#2145). All three fail for one shared reason, and it is
-   * the emitter's: a member or index-signature value typed `never` or
-   * `undefined` has no JSON form, so typia erases it and emits a plain closed
-   * object. `OpenApiValidator` sees only that schema. `DynamicNever`'s spoiler
-   * is a type error against the erased `[key: string]: never` signature, and
-   * `ObjectUndefined`'s spoilers are type errors against its erased `nothing`
-   * and `never` members; the emitted schema states neither, so the non-equals
-   * matrix cannot detect either and no schema-driven validator could. This is
-   * the same emitter over-approximation the other index-signature entries hit,
-   * not an index-signature gap and not a validator gap.
+   * them the real one (#2145). All three share one cause, and it is a schema
+   * collision, not a validator gap.
+   *
+   * A member or index-signature value typed `never` or `undefined` has no JSON
+   * form, so typia erases it. What is left is byte-identical to the schema of a
+   * type that never declared it: `DynamicNever` and an empty interface both
+   * emit `{properties: {}, required: [], additionalProperties: false}`. Their
+   * spoilers do not agree, though — `typia.validate<DynamicNever>` reports a
+   * stray key as a type error against `[key: string]: never`, while the same
+   * key against the empty interface is simply extra, and non-equals validation
+   * ignores extras by design. Two types, one schema, two answers: no
+   * schema-driven validator can give both, whatever it does with
+   * `additionalProperties`. `ObjectUndefined` collides the same way, through
+   * its erased `nothing` and `never` members.
    *
    * `ObjectUndefined` did also carry a real validator defect — an
    * `undefined`-valued key was reported as superfluous, which `typia.equals`
@@ -107,14 +111,14 @@ export namespace TestAutomation {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
     DynamicComposite: "index signature",
-    DynamicNever: "index signature erased; no `never` in schema",
+    DynamicNever: "index signature erased; schema collides with `{}`",
     DynamicSimple: "index signature; passes today",
     DynamicTemplate: "index signature",
-    DynamicUndefined: "index signature erased; no `undefined` in schema",
+    DynamicUndefined: "index signature erased; schema collides with `{}`",
     DynamicUnion: "index signature",
     ObjectDynamic: "index signature; passes today",
-    // members erased from the emitted schema, so the validate matrix cannot see
-    // their spoilers; the equality matrix passes since #2145
+    // erased members, so the validate matrix cannot see their spoilers; the
+    // equality matrix passes since #2145
     ObjectUndefined: "`undefined` and `never` members erased",
     // integer format tags the validator does not enforce
     ConstantAtomicTagged: "uint32 tag; passes today",
