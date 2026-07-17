@@ -40,19 +40,7 @@ func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_
     Components: collection,
     Type:       props.Type,
   })
-  hierarchies := map[string]*protobufMessageProgrammer_Hierarchy{}
-  order := []string{}
-  for _, object := range collection.Objects() {
-    if protobufMessageProgrammer_is_dynamic_object(object) {
-      continue
-    }
-    order = protobufMessageProgrammer_emplace(hierarchies, order, object)
-  }
-  bodies := []string{}
-  for _, key := range order {
-    bodies = append(bodies, protobufMessageProgrammer_write_hierarchy(hierarchies[key]))
-  }
-  content := "syntax = \"proto3\";\n\n" + strings.Join(bodies, "\n\n")
+  content := ProtobufMessageProgrammer.Document(collection.Objects())
   lines := strings.Split(content, "\n")
   elements := make([]*shimast.Node, 0, len(lines))
   for _, line := range lines {
@@ -71,6 +59,28 @@ func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_
     }),
     shimast.NodeFlagsNone,
   )
+}
+
+// Document renders the `.proto` text for the given protobuf metadata objects.
+//
+// The rendered text is the artifact `typia.protobuf.message<T>()` hands to
+// another language, so it is kept separate from the AST wrapping above: a
+// document is testable against a real Protobuf compiler, an emitted call
+// expression is not.
+func (protobufMessageProgrammerNamespace) Document(objects []*schemametadata.MetadataObjectType) string {
+  hierarchies := map[string]*protobufMessageProgrammer_Hierarchy{}
+  order := []string{}
+  for _, object := range objects {
+    if protobufMessageProgrammer_is_dynamic_object(object) {
+      continue
+    }
+    order = protobufMessageProgrammer_emplace(hierarchies, order, object)
+  }
+  bodies := []string{}
+  for _, key := range order {
+    bodies = append(bodies, protobufMessageProgrammer_write_hierarchy(hierarchies[key]))
+  }
+  return "syntax = \"proto3\";\n\n" + strings.Join(bodies, "\n\n")
 }
 
 func protobufMessageProgrammer_emplace(hierarchies map[string]*protobufMessageProgrammer_Hierarchy, order []string, object *schemametadata.MetadataObjectType) []string {
@@ -136,11 +146,9 @@ func protobufMessageProgrammer_write_object(obj *schemametadata.MetadataObjectTy
     }
     lines = append(lines, protobufMessageProgrammer_decodeProperty(struct {
       Key   string
-      Value *schemametadata.MetadataSchema
       Union []schemaprotobuf.IProtobufPropertyType
     }{
       Key:   key,
-      Value: p.Value,
       Union: p.Of_protobuf_.Union,
     }))
   }
@@ -149,18 +157,29 @@ func protobufMessageProgrammer_write_object(obj *schemametadata.MetadataObjectTy
 
 func protobufMessageProgrammer_decodeProperty(props struct {
   Key   string
-  Value *schemametadata.MetadataSchema
   Union []schemaprotobuf.IProtobufPropertyType
 }) string {
   if len(props.Union) == 1 {
     top := props.Union[0]
     words := []string{}
+    // Every singular field carries proto3 explicit presence.
+    //
+    // proto3 removed `required`, so a required non-nullable property cannot keep
+    // that label; a compiler rejects the whole document over it. `optional` is
+    // the label that matches what the codecs already do, rather than the merely
+    // legal one: ProtobufEncodeProgrammer writes a required non-nullable field
+    // unguarded, so it emits the field even when the value equals the scalar
+    // default, and ProtobufDecodeProgrammer defaults an absent required number
+    // or boolean to `undefined`. A bare field means implicit presence, which
+    // licenses a peer to drop default values from the wire and would decode back
+    // into a property the declared type says is always there. `optional` keeps
+    // that presence explicit on both sides.
+    //
+    // Requiredness itself is a TypeScript-level guarantee that proto3 has no
+    // label for; `protobuf.assertEncode` / `assertDecode` remain the place it is
+    // enforced.
     if protobufMessageProgrammer_schemaType(top) != "array" && protobufMessageProgrammer_schemaType(top) != "map" {
-      if props.Value.IsRequired() && props.Value.Nullable == false {
-        words = append(words, "required")
-      } else {
-        words = append(words, "optional")
-      }
+      words = append(words, "optional")
     }
     words = append(words, protobufMessageProgrammer_decodeSchema(top), props.Key, "=", protobufMessageProgrammer_index(top)+";")
     return strings.Join(words, " ")
