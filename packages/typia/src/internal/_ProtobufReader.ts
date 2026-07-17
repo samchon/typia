@@ -82,9 +82,7 @@ export class _ProtobufReader {
     try {
       return decoder.decode(bytes);
     } catch {
-      throw new Error(
-        "Error on typia.protobuf.decode(): invalid UTF-8 string.",
-      );
+      throw error("invalid UTF-8 string.");
     }
   }
 
@@ -99,8 +97,7 @@ export class _ProtobufReader {
   }
 
   public close(previous: number): void {
-    if (this.ptr !== this.end)
-      throw new Error("Error on typia.protobuf.decode(): buffer overflow.");
+    if (this.ptr !== this.end) throw error("buffer overflow.");
     this.end = previous;
   }
 
@@ -109,10 +106,19 @@ export class _ProtobufReader {
     this.take(length);
   }
 
-  /** Advance by exactly one varint, which carries no length prefix. */
+  /**
+   * Advance by exactly one varint, which carries no length prefix.
+   *
+   * A varint terminates at its first byte without the continuation bit, and may
+   * occupy no more than {@link VARINT_MAX_BYTES}. Reading past that limit would
+   * accept a varint that `varint32` and `varint64` could not, making the limit
+   * depend on which method happens to consume the value.
+   */
   public skipVarint(): void {
     this.atomic(() => {
-      while (this.u8() & 0x80);
+      for (let i: number = 0; i < VARINT_MAX_BYTES; ++i)
+        if ((this.u8() & 0x80) === 0) return;
+      throw error(`varint exceeds ${VARINT_MAX_BYTES} bytes.`);
     });
   }
 
@@ -136,9 +142,7 @@ export class _ProtobufReader {
           this.skip(4);
           break;
         default:
-          throw new Error(
-            `Invalid wire type ${wireType} at offset ${this.ptr}.`,
-          );
+          throw error(`invalid wire type ${wireType} at offset ${this.ptr}.`);
       }
     });
   }
@@ -227,10 +231,10 @@ export class _ProtobufReader {
     const end: number = this.end;
     try {
       return closure();
-    } catch (error) {
+    } catch (thrown) {
       this.ptr = index;
       this.end = end;
-      throw error;
+      throw thrown;
     }
   }
 
@@ -240,9 +244,28 @@ export class _ProtobufReader {
       length < 0 ||
       length > this.size() - this.ptr
     )
-      throw new Error("Error on typia.protobuf.decode(): buffer overflow.");
+      throw error("buffer overflow.");
   }
 }
+
+/**
+ * Builds every fault this reader raises, so each one names typia as its source.
+ *
+ * Every decode error a caller can see must be attributable, and the prefix is
+ * what attributes it. Composing it here rather than at each throw keeps a new
+ * fault from silently shipping without it.
+ */
+const error = (message: string): Error =>
+  new Error(`Error on typia.protobuf.decode(): ${message}`);
+
+/**
+ * The most bytes a varint may occupy: a 64-bit value in seven-bit groups.
+ *
+ * `varint32` and `varint64` hold this same limit structurally, by reading no
+ * further than their tenth byte. This constant is what a loop-driven consumer
+ * holds it by.
+ */
+const VARINT_MAX_BYTES = 10;
 
 const utf8 = new Singleton(
   () => new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }),
