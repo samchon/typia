@@ -53,6 +53,7 @@ interface IForward {
   underscore: RecursiveObject<"A_B">;
   slash: RecursiveObject<"A/B">;
   escapedSlash: RecursiveObject<"A_x2F_B">;
+  escapedDot: RecursiveObject<"A_x2E_B">;
   tilde: RecursiveObject<"T~N">;
   percent: RecursiveObject<"C%D">;
   hash: RecursiveObject<"A#B">;
@@ -86,6 +87,7 @@ interface IReverse {
   hash: RecursiveObject<"A#B">;
   percent: RecursiveObject<"C%D">;
   tilde: RecursiveObject<"T~N">;
+  escapedDot: RecursiveObject<"A_x2E_B">;
   escapedSlash: RecursiveObject<"A_x2F_B">;
   slash: RecursiveObject<"A/B">;
   underscore: RecursiveObject<"A_B">;
@@ -105,7 +107,9 @@ interface IApplication {
  * Metadata names feed component keys, recursive references, and discriminator
  * mappings across all three public JSON generators. The same allocator must
  * preserve legal controls, separate normalization collisions independently of
- * discovery order, and keep typia's validators aligned with an RFC oracle.
+ * discovery order, and keep typia's validators aligned with an RFC oracle. A
+ * dot is legal in a key but is not a preserved control: it is read back as a
+ * namespace boundary, so only a real qualification may carry one.
  *
  * 1. Generate schema, schemas, and application output for OAS 3.0 and 3.1.
  * 2. Check legal/illegal names, recursive alias/array/object refs, and mappings.
@@ -135,7 +139,6 @@ export const test_json_schema_openapi_component_names = (): void => {
 
   const names = componentNamesByValue(forward31.components.schemas ?? {});
   TestValidator.equals("ordinary control", names.Plain, "RecursiveObjectPlain");
-  TestValidator.equals("dot control", names["A.B"], "RecursiveObjectA.B");
   TestValidator.equals("hyphen control", names["A-B"], "RecursiveObjectA-B");
   TestValidator.equals("underscore control", names.A_B, "RecursiveObjectA_B");
   TestValidator.equals(
@@ -147,6 +150,27 @@ export const test_json_schema_openapi_component_names = (): void => {
     "forbidden input does not alias escape-shaped legal input",
     names["A/B"],
     names.A_x2F_B,
+  );
+  // A dot inside a quoted literal argument is content, not the namespace
+  // boundary a component key's dot denotes, so it is escaped rather than
+  // preserved: keeping it produced `RecursiveObjectA.B`, which claims a parent
+  // named `RecursiveObjectA` and would inherit that component's description if
+  // one were ever declared. Escaping it must not merge it with the peers it
+  // differs from only by that rune.
+  TestValidator.notEquals(
+    "dotted literal does not alias its hyphenated peer",
+    names["A.B"],
+    names["A-B"],
+  );
+  TestValidator.notEquals(
+    "dotted literal does not alias its escape-shaped legal peer",
+    names["A.B"],
+    names.A_x2E_B,
+  );
+  TestValidator.equals(
+    "escape-shaped legal dot control",
+    names.A_x2E_B,
+    "RecursiveObjectA_x2E_B",
   );
   TestValidator.notEquals(
     "dollar identifier does not alias its normalized peer",
@@ -464,6 +488,7 @@ const sample: IForward = {
   underscore: { value: "A_B", children: [] },
   slash: { value: "A/B", children: [] },
   escapedSlash: { value: "A_x2F_B", children: [] },
+  escapedDot: { value: "A_x2E_B", children: [] },
   tilde: { value: "T~N", children: [] },
   percent: { value: "C%D", children: [] },
   hash: { value: "A#B", children: [] },
