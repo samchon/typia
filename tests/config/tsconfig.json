@@ -30,7 +30,13 @@
     "module": "nodenext",                                /* Specify what module code is generated. */
     "moduleResolution": "nodenext",                       /* Specify how TypeScript looks up a file from a given module specifier. */
     // "ignoreDeprecations": "6.0",
-    "rootDir": "../..",
+    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
+    // Leave `rootDir` unset here. A value in this file resolves against
+    // `tests/config`, never against the workspace that extends it, so any value
+    // is the wrong root for every extender: `"../.."` resolved to the
+    // repository root, which put typia's own sources inside the extending
+    // workspace's root and broke module identity at runtime. Each workspace
+    // pins its own `rootDir: "src"` instead.
     // "baseUrl": "./",
     // "paths": {
     //   "typia/lib/internal/*": ["../../packages/typia/src/internal/*"],
