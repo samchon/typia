@@ -10,9 +10,9 @@ import { OpenApiValidator } from "@typia/utils";
  * value, or a schema constraining it — declares undeclared keys to be
  * legitimate members, so `equals` has nothing left to decide. The validator
  * tested `typeof additionalProperties !== "object"`, which reads whether the
- * keyword is a schema but never reads the boolean, so `true` was indistinguish-
- * able from `false` and from an absent keyword, and `equals: true` closed an
- * object that had explicitly declared itself open.
+ * keyword is a schema but never reads the boolean. `true` was therefore no
+ * different from `false` or from an absent keyword, and `equals: true` closed
+ * an object that had explicitly declared itself open.
  *
  * The case that pins this is a document mixing an open and a closed object: no
  * value of a single global option can answer both halves, so the keyword must
