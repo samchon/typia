@@ -16,6 +16,7 @@ on:
       - 'pnpm-workspace.yaml'
   pull_request:
     paths:
+      - .github/workflows/release.yml
       - .github/workflows/website.yml
       - 'config/**'
       - 'examples/**'
