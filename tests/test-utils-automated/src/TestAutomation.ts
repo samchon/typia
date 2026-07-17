@@ -60,26 +60,28 @@ export namespace TestAutomation {
   };
 
   /**
-   * Structures the OpenAPI validate matrix cannot cover yet.
+   * Structures held out of the OpenAPI validate matrix, and the type feature
+   * each was held out for.
    *
-   * Each entry names a `typia.json.schema` output that `OpenApiValidator` does
-   * not round-trip faithfully, so the fixture is skipped rather than asserted.
-   * The reason is recorded per fixture because it is a property of the
-   * validator's coverage, not of the fixture: nothing about `DynamicSimple`
-   * makes it unfit to be a fixture, only the validator's handling of the
-   * `additionalProperties` schema its type produces.
+   * This replaces three source-text scans (`"never"`, `"[key: "`, `'<"uint32">'`)
+   * that the selector ran over each fixture's raw file. Matching source text
+   * means prose decides coverage: a doc comment that merely mentioned one of
+   * those words dropped a structure from the matrix silently, with nothing to
+   * observe (#2136). The set below reproduces those three scans exactly — the
+   * same 148 structures resolve to the same 83 validate and 80 equality cases.
    *
-   * These replace the source-text scans (`"never"`, `"[key: "`, `'<"uint32">'`)
-   * this selector used to run over each fixture's raw file, where a doc comment
-   * that merely mentioned one of those words silently changed matrix membership
-   * (#2136). Membership is byte-identical to those scans.
+   * The reason belongs here rather than on the fixture because it describes
+   * `OpenApiValidator`'s coverage, not the fixture: nothing about
+   * `DynamicSimple` makes it unfit to be a fixture, only what the validator
+   * does with the `additionalProperties` schema its type produces.
    *
-   * Four entries are marked `passes today`: they were excluded when the matrix
-   * was introduced (#1736) and now validate cleanly against their own spoilers.
-   * They stay listed because admitting them changes *which* structures the
-   * matrix covers, which is a separate decision from *how* they are selected.
+   * Eight entries fail today if admitted, so they are genuine validator gaps.
+   * The four marked `passes today` are measured to validate cleanly against
+   * their own spoilers, and are held out only because admitting them changes
+   * *which* structures the matrix covers — a separate decision from *how* they
+   * are selected, left to #2136's follow-up.
    */
-  const UNVALIDATABLE: Record<string, string> = {
+  const HELD_OUT: Record<string, string> = {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
     DynamicComposite: "index signature",
@@ -121,7 +123,7 @@ export namespace TestAutomation {
       // decide the matrix. `JSONABLE === false` marks a type whose value has no
       // faithful JSON form.
       if (structure.JSONABLE === false) continue;
-      else if (UNVALIDATABLE[name] !== undefined) continue;
+      else if (HELD_OUT[name] !== undefined) continue;
       // `ADDABLE` is still read from source text, and deliberately so: four
       // fixtures spell it `ADDABLE: boolean = false`, which this scan does not
       // match, so they sit in the equality matrix despite declaring otherwise.
