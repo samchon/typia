@@ -14,7 +14,7 @@ import (
 //
 // `typia.protobuf.message<T>()` exists to hand a schema to another language, so
 // the document must compile under the syntax it declares. It declared
-// `syntax = "proto3"` while labelling required non-nullable scalars `required`,
+// `syntax = "proto3"` while labeling required non-nullable scalars `required`,
 // a label proto3 removed; because a Protobuf compiler rejects the whole file
 // rather than the field, one required scalar invalidated the entire document.
 // The substring assertions in the sibling suites cannot see this — a compiler

@@ -36,7 +36,7 @@ export namespace OpenApiSchemaNamingRule {
     // `minimum`, `maximum`, `exclusiveMinimum`, and `exclusiveMaximum` are all
     // numbers in the declaration, each an independent bound rather than a
     // boolean modifier on another. Read every one on its own value, so an
-    // exclusive bound is never dropped (including the falsy `0`) nor labelled
+    // exclusive bound is never dropped (including the falsy `0`) nor labeled
     // with a sibling's value.
     //
     // The normalized integer schema does not model `format`, but
