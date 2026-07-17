@@ -23,8 +23,10 @@
 
 ```bash
 npm install @typia/mcp @modelcontextprotocol/sdk typia
-npx typia setup
+npm install -D ttsc typescript@rc
 ```
+
+Build with `ttsc`, or run TypeScript directly with `ttsx`.
 
 ## Usage
 
