@@ -1,22 +1,30 @@
 // Build the typia native compiler as a browser-loadable wasm module and
 // stage the matching wasm_exec.js into website/public/compiler/.
 //
-// Usage: node build/wasm.js [--force]
+// Usage: node build/wasm.js [--force] [--allow-prebuilt]
 //
 // Behavior:
-//   * If `public/compiler/ttsc-typia.wasm` already exists and is newer than
-//     every Go source under `packages/typia/native` and `packages/ttsc/...`,
-//     the build is skipped (instant). Pass `--force` or set
-//     `WEBSITE_WASM_FORCE=1` to rebuild unconditionally.
-//   * If the Go toolchain / native dir / ttsc shim tree is unavailable and a
-//     prebuilt wasm already lives in `public/compiler/`, we leave the existing
-//     artifact in place and log a notice instead of failing the dev server.
-//   * Hard failure only when the wasm is missing AND we cannot build it.
+//   * If the Go toolchain is available and `public/compiler/ttsc-typia.wasm`
+//     already exists and is newer than every Go source under
+//     `packages/typia/native` and `packages/ttsc/...`, the build is skipped
+//     (instant). Pass `--force` or set `WEBSITE_WASM_FORCE=1` to rebuild
+//     unconditionally.
+//   * If the Go toolchain / native dir / ttsc shim tree is unavailable, the
+//     build FAILS by default. A missing toolchain cannot rebuild or verify the
+//     wasm against its source, so returning success while leaving whatever
+//     artifact is on disk would ship a silently stale playground. The mtime
+//     fast-path above is skipped for the same reason: it is a build accelerant
+//     only when the toolchain that produced the artifact is present.
+//   * To reuse an existing prebuilt artifact deliberately — an explicitly
+//     UNVERIFIED, possibly-stale state — set `WEBSITE_WASM_ALLOW_PREBUILT=1`
+//     (or pass `--allow-prebuilt`). It logs a notice and does not rebuild.
 //
 // Inputs (env overrides):
-//   TYPIA_NATIVE_DIR    path to packages/typia/native
-//   GOROOT              Go install root (default: `go env GOROOT`)
-//   WEBSITE_WASM_FORCE  any truthy value forces a rebuild
+//   TYPIA_NATIVE_DIR             path to packages/typia/native
+//   GOROOT                       Go install root (default: `go env GOROOT`)
+//   WEBSITE_WASM_FORCE           any truthy value forces a rebuild
+//   WEBSITE_WASM_ALLOW_PREBUILT  reuse an existing prebuilt wasm when the Go
+//                                toolchain is unavailable, instead of failing
 
 const cp = require("child_process");
 const fs = require("fs");
@@ -38,6 +46,12 @@ const wasmOut = path.join(outDir, "ttsc-typia.wasm");
 const wasmExecOut = path.join(outDir, "wasm_exec.js");
 const forceRebuild =
   process.argv.includes("--force") || !!process.env.WEBSITE_WASM_FORCE;
+// Opt-in to reusing an existing prebuilt wasm when the Go toolchain is
+// unavailable. Without it, a missing toolchain is a hard build failure rather
+// than a silent success over a possibly-stale artifact.
+const allowPrebuilt =
+  process.argv.includes("--allow-prebuilt") ||
+  !!process.env.WEBSITE_WASM_ALLOW_PREBUILT;
 
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -116,7 +130,12 @@ function buildWasm() {
 const wasmExecSrc = locateWasmExec();
 const hasNativeDir = fs.existsSync(compilerDir) && fs.existsSync(nativeDir);
 
-if (!forceRebuild && fs.existsSync(wasmOut)) {
+// The mtime fast-path only applies when the toolchain that could rebuild the
+// artifact is present; otherwise a stale-but-newer-mtime wasm (e.g. after a
+// clone or cache restore that stamps every file at restore time) would let a
+// toolchain-less run return success. When the toolchain is absent, fall through
+// to the single deliberate decision point below.
+if (!forceRebuild && hasNativeDir && wasmExecSrc && fs.existsSync(wasmOut)) {
   const wasmMtime = fs.statSync(wasmOut).mtimeMs;
   const sourceMtime = newestMtime(compilerDir, nativeDir, ttscDir);
   if (sourceMtime > 0 && wasmMtime >= sourceMtime) {
@@ -135,9 +154,13 @@ if (!forceRebuild && fs.existsSync(wasmOut)) {
 }
 
 if (!hasNativeDir || !wasmExecSrc) {
-  if (fs.existsSync(wasmOut) && fs.existsSync(wasmExecOut)) {
+  const prebuiltExists =
+    fs.existsSync(wasmOut) && fs.existsSync(wasmExecOut);
+  if (prebuiltExists && allowPrebuilt) {
     console.warn(
-      "build/wasm.js: Go toolchain or typia native dir missing; reusing existing prebuilt artifacts.",
+      "build/wasm.js: Go toolchain or typia native dir missing; " +
+        "WEBSITE_WASM_ALLOW_PREBUILT is set, so reusing the existing prebuilt " +
+        "artifacts WITHOUT rebuilding. They are unverified and may be stale.",
     );
     return;
   }
@@ -150,6 +173,14 @@ if (!hasNativeDir || !wasmExecSrc) {
   if (!wasmExecSrc) {
     console.error(
       "build/wasm.js: wasm_exec.js not located. Install Go 1.26+ or pre-stage `public/compiler/ttsc-typia.wasm` + `wasm_exec.js`.",
+    );
+  }
+  if (prebuiltExists) {
+    console.error(
+      "build/wasm.js: a prebuilt wasm exists but cannot be verified against " +
+        "source without the Go toolchain. Set WEBSITE_WASM_ALLOW_PREBUILT=1 " +
+        "(or pass --allow-prebuilt) to reuse it deliberately, or install " +
+        "Go 1.26+ to rebuild.",
     );
   }
   process.exit(1);
