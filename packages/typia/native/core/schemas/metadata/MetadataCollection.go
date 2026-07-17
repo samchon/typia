@@ -636,8 +636,11 @@ func metadataCollection_isIdentifierRune(ch rune) bool {
 
 // MetadataCollection_replaceOpenApi converts a metadata display name into an
 // OpenAPI Components Object key. Keep this separate from the general metadata
-// replacement used by LLM `$defs`: OpenAPI restricts keys to an ASCII grammar,
-// while an LLM definition map can own arbitrary JSON object keys.
+// replacement used by LLM `$defs`, for two reasons. OpenAPI restricts keys to
+// an ASCII grammar, while an LLM definition map can own arbitrary JSON object
+// keys. And an OpenAPI key is structure a consumer reads back — a dot in one is
+// a namespace boundary to `JsonDescriptor.cascade` — so this replacer also owes
+// `metadataCollection_qualifyOpenApiName`'s rule, which an LLM key does not.
 func MetadataCollection_replaceOpenApi(str string) string {
   var escaped strings.Builder
   var quote rune

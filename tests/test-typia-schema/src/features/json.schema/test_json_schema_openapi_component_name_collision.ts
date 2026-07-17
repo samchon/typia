@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
 import { Foo as Alpha } from "./ComponentNameCollisionAlpha";
@@ -25,8 +26,10 @@ interface IArguments {
  *
  * 1. Reference three same-named-or-colliding types plus their container.
  * 2. Assert the document holds one distinct key per distinct type.
- * 3. Assert every `$ref` resolves to a schema carrying its own property and
- *    its own description, so no type is documented as another type's shape.
+ * 3. Assert every `$ref` resolves to a schema carrying its own property, so no
+ *    type is documented as another type's shape.
+ * 4. Assert the minted id is not read back as a member of the name it
+ *    disambiguates, which would inherit that name's description.
  */
 export const test_json_schema_openapi_component_name_collision = (): void => {
   const collection = typia.json.schema<IArguments, "3.1">();
@@ -72,4 +75,40 @@ export const test_json_schema_openapi_component_name_collision = (): void => {
         Object.prototype.hasOwnProperty.call(schema.properties ?? {}, property),
     );
   }
+
+  // 4. THE INVENTED ID IS NOT READ AS A NAMESPACE MEMBER
+  //
+  // A dotted counter made the id minted for the duplicate `Foo` look like a
+  // member of `Foo`, so `JsonDescriptor.cascade` inherited the unrelated ALPHA
+  // interface's prose into BETA's escaped schema.
+  const minted: string = $ref("b").split("/").at(-1)!;
+  TestValidator.predicate(
+    "the minted id claims no allocated component as a namespace parent",
+    () =>
+      minted
+        .split(".")
+        .slice(0, -1)
+        .map((_, i, array) => array.slice(0, i + 1).join("."))
+        .every(
+          (parent) =>
+            Object.prototype.hasOwnProperty.call(schemas, parent) === false,
+        ),
+  );
+  const escaped = OpenApiTypeChecker.escape({
+    components,
+    schema: { $ref: `#/components/schemas/${minted}` },
+    recursive: 1,
+  });
+  TestValidator.predicate(
+    "the minted id inherits no description from the name it disambiguates",
+    () =>
+      escaped.success &&
+      (escaped.value?.description ?? "").includes("ALPHA") === false,
+  );
+  TestValidator.predicate(
+    "the disambiguated type keeps its own description",
+    () =>
+      escaped.success &&
+      (escaped.value?.description ?? "").includes("BETA type:"),
+  );
 };

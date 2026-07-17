@@ -53,8 +53,9 @@ interface IArguments {
  * 1. Reference a generic instantiated with a qualified argument, an unrelated
  *    interface named exactly after the flattened prefix, and a genuinely
  *    merged interface-plus-namespace pair.
- * 2. Assert the flattened key claims no allocated component as a parent and
- *    that its escaped description never mentions the unrelated interface.
+ * 2. Assert every reference escapes, that the flattened key claims no
+ *    allocated component as a parent, and that its escaped description never
+ *    mentions the unrelated interface.
  * 3. Assert the real namespace member still inherits its real parent's
  *    description, so the cascade itself is intact.
  */
@@ -81,7 +82,7 @@ export const test_json_schema_openapi_component_name_generic_argument =
         schema: { $ref: `#/components/schemas/${key(accessor)}` },
         recursive: 1,
       });
-      return escaped.success ? (escaped.value?.description ?? "") : "FAILED";
+      return escaped.success ? (escaped.value?.description ?? "") : FAILED;
     };
 
     // 1. THE FLATTENED KEY OWNS NO ALLOCATED PARENT
@@ -100,6 +101,17 @@ export const test_json_schema_openapi_component_name_generic_argument =
     );
 
     // 2. AND INHERITS NO UNRELATED PROSE
+    //
+    // Resolution is asserted first: "inherits no unrelated description" is a
+    // negative, and a reference that stopped escaping at all would satisfy it
+    // without meaning anything.
+    TestValidator.predicate(
+      "every reference escapes",
+      () =>
+        ["flattened", "unrelated", "parent", "member"].every(
+          (accessor) => describe(accessor) !== FAILED,
+        ),
+    );
     TestValidator.predicate(
       "the flattened generic inherits no unrelated description",
       () => describe("flattened").includes("DANGER") === false,
@@ -119,3 +131,5 @@ export const test_json_schema_openapi_component_name_generic_argument =
       () => describe("member").includes("MERGED PARENT"),
     );
   };
+
+const FAILED = "<the reference did not escape>";
