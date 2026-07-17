@@ -110,7 +110,7 @@ func runTransform(args []string) int {
   }
   return runTransformSingle(cwd, *out, &transformDiags, func() (string, int) {
     if *output == "js" {
-      return transformSingleToJavaScript(prog, typiaTransform, absFile)
+      return transformSingleToJavaScript(prog, typiaTransform, target)
     }
     return transformFileToTypeScript(prog, typiaTransform, target), 0
   })
@@ -221,17 +221,35 @@ func transformFileToTypeScript(
 // matches the build host, which fails the whole build on any transform diagnostic:
 // the emit that produced this text is the same one that could not lower the other
 // call, so its success is not independently trustworthy.
+//
+// The emit writes every project output through one callback, so the target's own
+// artifact has to be identified among them. That identity comes from the
+// compiler's output-path resolution rather than from a resemblance between the
+// source and emitted paths, because the emit chooses its write path with that
+// same resolution: `outDir`, `rootDir`, and nested source directories may move
+// the artifact anywhere without the two disagreeing, and two sources sharing a
+// basename in different directories resolve to different artifacts instead of
+// collapsing onto one. Deriving the path instead of matching stems is what fixed
+// samchon/typia#2134, where a whole-path-stem match asked whether `dist/main`
+// equalled `src/main` and so reported "no output produced" for every project
+// with an `outDir`.
 func transformSingleToJavaScript(
   prog *driver.Program,
   typiaTransform driver.PluginTransform,
-  absFile string,
+  target *shimast.SourceFile,
 ) (string, int) {
+  // The resolution answers with an empty path for a source that has no
+  // JavaScript lane of its own -- a JSON module that would be emitted over
+  // itself. Nothing the emit writes is then this file's artifact, so guard the
+  // comparison rather than let an empty expectation match anything.
+  expected := ""
+  if paths := shimcompiler.GetOutputPathsFor(target, prog.TSProgram.Options(), prog.TSProgram, false); paths != nil {
+    expected = filepath.ToSlash(paths.JsFilePath())
+  }
   var captured string
   found := false
-  targetKey := filepath.ToSlash(absFile)
   writeFile := shimcompiler.WriteFile(func(fileName, text string, _ *shimcompiler.WriteFileData) error {
-    // The emitted .js maps back to its .ts; match on basename stem.
-    if sameSourceStem(targetKey, fileName) {
+    if expected != "" && filepath.ToSlash(fileName) == expected {
       captured = text
       found = true
     }
@@ -242,17 +260,10 @@ func transformSingleToJavaScript(
     return "", 3
   }
   if !found {
-    fmt.Fprintf(stderr, "ttsc-typia transform: no output produced for %s\n", absFile)
+    fmt.Fprintf(stderr, "ttsc-typia transform: no output produced for %s\n", target.FileName())
     return "", 3
   }
   return captured, 0
-}
-
-// sameSourceStem reports whether an emitted .js path corresponds to a .ts source
-// path by comparing their extension-stripped values.
-func sameSourceStem(tsPath, jsPath string) bool {
-  return strings.TrimSuffix(filepath.ToSlash(jsPath), filepath.Ext(jsPath)) ==
-    strings.TrimSuffix(tsPath, filepath.Ext(tsPath))
 }
 
 func writeSingleOutput(text, outPath string) int {
