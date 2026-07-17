@@ -44,7 +44,7 @@ function isTestPackageRoot(candidate: string): boolean {
     const pack = JSON.parse(
       fs.readFileSync(path.join(candidate, "package.json"), "utf8"),
     ) as { name?: unknown };
-    return pack.name === "@typia/test-openapiautomated";
+    return pack.name === "@typia/test-utils-automated";
   } catch {
     return false;
   }

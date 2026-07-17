@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@typia/test-openapiautomated",
+  "name": "@typia/test-utils-automated",
   "version": "13.1.1",
   "description": "Automated test features of openapi.",
   "scripts": {
