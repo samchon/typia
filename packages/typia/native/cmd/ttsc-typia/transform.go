@@ -145,10 +145,22 @@ func runTransformSingle(
 
 // runTransformProject prints every non-declaration project source as transformed
 // TypeScript and encodes the JSON envelope the ttsc host expects. Alongside the
-// transformed sources it reports, per file, the source files owning the
-// declarations the typia analysis consulted (`dependencies`), which the ttsc
-// consumer registers with the bundler so persistent caches and watch mode
-// invalidate generated validators when a consulted type's file changes.
+// transformed sources it reports two invalidation channels the ttsc consumer
+// registers with the bundler so persistent caches and watch mode invalidate
+// generated validators soundly:
+//
+//   - `graph`, the host-owned reference graph of the loaded program (direct
+//     resolved edges, ambient globals, tsconfig extends chain) computed by the
+//     ttsc driver SDK. It is the plugin-agnostic sound baseline under `tsc
+//     --incremental` semantics; the consumer registers, per file F,
+//     reach(edges, F) ∪ globals ∪ configs.
+//   - `dependencies`, typia's precise per-file list of the source files owning
+//     the declarations the typia analysis consulted for each transformed file.
+//
+// The consumer unions the two (reach(edges, F) ∪ globals ∪ configs ∪
+// dependencies[F]), so graph is added alongside dependencies, not a replacement.
+// Every section keys through driver.TransformOutputKey, so the consumer joins
+// them by key.
 func runTransformProject(
   prog *driver.Program,
   cwd string,
@@ -159,6 +171,11 @@ func runTransformProject(
     Diagnostics: []transformCompilerDiagnostic{},
     TypeScript:  map[string]string{},
   }
+  // Compute the reference graph from the loaded program before the transform
+  // loop runs typia's per-file node transformer: the graph must describe the
+  // original source's resolved references (the transform's inputs), matching
+  // ttsc's own `api-transform` host.
+  out.Graph = driver.NewTransformGraph(prog, cwd)
   collector := newTransformDependencyCollector(cwd, func(fileName string) bool {
     sf := prog.SourceFile(fileName)
     return sf != nil && prog.TSProgram.IsLibFile(sf)
@@ -169,7 +186,7 @@ func runTransformProject(
     if sf.IsDeclarationFile {
       continue
     }
-    key := sourceFileKey(cwd, filepath.ToSlash(sf.FileName()))
+    key := driver.TransformOutputKey(cwd, sf.FileName())
     if filepath.IsAbs(key) || key == ".." || strings.HasPrefix(key, "../") {
       continue
     }
@@ -297,6 +314,14 @@ func defaultTransformOutput() string {
 type transformProjectOutput struct {
   Diagnostics []transformCompilerDiagnostic `json:"diagnostics,omitempty"`
   TypeScript  map[string]string             `json:"typescript"`
+  // Graph is the host-owned reference graph of the loaded program produced by
+  // the ttsc driver SDK (driver.NewTransformGraph): direct resolved reference
+  // edges, ambient global-scope files, and the tsconfig extends chain, keyed
+  // like TypeScript through driver.TransformOutputKey. It is the plugin-agnostic
+  // sound invalidation baseline; the consumer unions it with Dependencies.
+  // Omitted only when the program is nil (never here — a nil program returns
+  // earlier).
+  Graph *driver.TransformGraph `json:"graph,omitempty"`
   // Dependencies maps each transformed file (same project-relative keys as
   // TypeScript) to the source files owning the declarations typia's analysis
   // consulted for it. Values are project-relative when the file lives under the
@@ -375,7 +400,7 @@ func (collector *transformDependencyCollector) value(fileName string) string {
   if strings.Contains(fileName, "://") || collector.isLibraryFile(fileName) {
     return ""
   }
-  return sourceFileKey(collector.cwd, filepath.ToSlash(fileName))
+  return driver.TransformOutputKey(collector.cwd, fileName)
 }
 
 // ToJSON renders the collected sets as the envelope's `dependencies` map with
@@ -409,14 +434,6 @@ type transformCompilerDiagnostic struct {
   Line        int     `json:"line,omitempty"`
   Character   int     `json:"character,omitempty"`
   MessageText string  `json:"messageText"`
-}
-
-func sourceFileKey(cwd string, file string) string {
-  rel, err := filepath.Rel(cwd, filepath.FromSlash(file))
-  if err != nil {
-    return filepath.ToSlash(file)
-  }
-  return filepath.ToSlash(rel)
 }
 
 func transformDiagnosticToCompilerDiagnostic(diag typiaTransformDiagnostic) transformCompilerDiagnostic {

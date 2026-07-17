@@ -42,6 +42,18 @@
     "randexp": "^0.5.3",
     "tinyglobby": "^0.2.12"
   },
+  "peerDependencies": {
+    "@ttsc/unplugin": ">=0.19.2",
+    "ttsc": ">=0.19.2"
+  },
+  "peerDependenciesMeta": {
+    "@ttsc/unplugin": {
+      "optional": true
+    },
+    "ttsc": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@types/inquirer": "^8.2.5",
     "@types/node": "catalog:utils",

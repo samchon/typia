@@ -18,7 +18,7 @@
     "@typia/utils": "file:../tarballs/utils.tgz",
     "@typia/vercel": "file:../tarballs/vercel.tgz",
     "ai": "^6.0.116",
-    "ttsc": "^0.17.3",
+    "ttsc": "^0.19.2",
     "typescript": "^7.0.2",
     "typia": "file:../tarballs/typia.tgz"
   }
