@@ -4,6 +4,39 @@ func formatCheatSheet_RegexCall(text string) string {
   return text + ".test($input)"
 }
 
+// formatCheatSheet_ALIASES maps an alternative `@format` spelling onto the
+// canonical FormatCheatSheet key it means.
+//
+// An alias owns no validator. It resolves to the cheat sheet entry through
+// formatCheatSheet_resolve, so FormatCheatSheet stays the single owner of every
+// format's validator and a correction to one reaches every spelling of it. The
+// aliases previously carried validator strings of their own, which made each of
+// them a second implementation sharing a name and free to drift: `datetime`
+// emitted `format: "date-time"` while validating with `new Date`, so it accepted
+// February 30th and rejected the RFC 3339 leap second the cheat sheet handles.
+//
+// Aliases live beside the cheat sheet so that enumerating this file enumerates
+// every owner of the `@format` contract.
+var formatCheatSheet_ALIASES = map[string]string{
+  "datetime": "date-time",
+  "dateTime": "date-time",
+}
+
+// formatCheatSheet_resolve resolves a written `@format` value to the canonical
+// format name and the validator FormatCheatSheet owns for it, reporting whether
+// the value names a supported format at all.
+func formatCheatSheet_resolve(value string) (string, string, bool) {
+  name := value
+  if canonical, ok := formatCheatSheet_ALIASES[value]; ok {
+    name = canonical
+  }
+  validate, ok := FormatCheatSheet[name]
+  if ok == false {
+    return "", "", false
+  }
+  return name, validate, true
+}
+
 var FormatCheatSheet = map[string]string{
   "byte":                  `/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test($input)`,
   "password":              "true",
