@@ -1,8 +1,21 @@
 name: website
 on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/website.yml
+      - 'config/**'
+      - 'examples/**'
+      - 'experiments/tarballs/**'
+      - 'packages/**'
+      - 'website/**'
+      - 'website/package.json'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
   pull_request:
     paths:
-      - .github/workflows/release.yml
       - .github/workflows/website.yml
       - 'config/**'
       - 'examples/**'
@@ -71,3 +84,11 @@ jobs:
       - name: Build
         working-directory: website
         run: pnpm run build
+
+      # A pull request stops at the build above; only a master push publishes.
+      - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./website/out
