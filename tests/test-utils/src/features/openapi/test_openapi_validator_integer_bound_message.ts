@@ -92,4 +92,23 @@ export const test_openapi_validator_integer_bound_message = (): void => {
         true,
       );
     }
+
+  // `format` is read defensively because the schema type does not declare it,
+  // and `OpenApiConverter` copies an external document's value through as-is.
+  // A non-string must name no width rather than reach the message.
+  const malformed: IValidation<unknown> = OpenApiValidator.validate({
+    components: {},
+    schema: {
+      type: "integer",
+      minimum: 0,
+      format: 32,
+    } as unknown as OpenApi.IJsonSchema.IInteger,
+    value: -1,
+    required: true,
+  });
+  TestValidator.equals(
+    "a non-string format names no width",
+    malformed.success === false ? malformed.errors.map((e) => e.expected) : [],
+    ["number & Minimum<0>"],
+  );
 };

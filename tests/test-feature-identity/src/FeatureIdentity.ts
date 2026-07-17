@@ -125,8 +125,8 @@ export namespace FeatureIdentity {
    * @param root Repository root; defaults to the enclosing git work tree.
    * @returns Every tracked `tests/<suite>/src/features` source file, parsed.
    */
-  export const collect = (root: string = toplevel()): IFeatureFile[] =>
-    git(["ls-files", "-z", "--", "tests"], root)
+  export const collect = (root: string = Git.toplevel()): IFeatureFile[] =>
+    Git.run(["ls-files", "-z", "--", "tests"], root)
       .split("\0")
       .map((line) => FEATURE_PATH.exec(line))
       .filter((match) => match !== null)
@@ -176,8 +176,4 @@ export namespace FeatureIdentity {
   const describe = (names: string[]): string =>
     `${names.length} test ${names.length === 1 ? "function" : "functions"} ` +
     `(${names.join(", ")})`;
-
-  const toplevel = (): string => Git.toplevel();
-
-  const git = Git.run;
 }
