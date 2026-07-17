@@ -4,6 +4,7 @@ import { test_feature_identity_filename_mismatch } from "./features/test_feature
 import { test_feature_identity_helper_file } from "./features/test_feature_identity_helper_file";
 import { test_feature_identity_repository } from "./features/test_feature_identity_repository";
 import { test_feature_identity_source_parse } from "./features/test_feature_identity_source_parse";
+import { test_feature_identity_workspace_name } from "./features/test_feature_identity_workspace_name";
 
 /**
  * Runs the cases through explicit imports rather than `DynamicExecutor`.
@@ -27,6 +28,10 @@ const main = (): void => {
     ],
     ["test_feature_identity_helper_file", test_feature_identity_helper_file],
     ["test_feature_identity_source_parse", test_feature_identity_source_parse],
+    [
+      "test_feature_identity_workspace_name",
+      test_feature_identity_workspace_name,
+    ],
   ];
 
   const exceptions: Error[] = [];
