@@ -32,42 +32,59 @@ export namespace OpenApiSchemaNamingRule {
     return "unknown";
   };
 
-  const getNameOfInteger = (schema: OpenApi.IJsonSchema.IInteger): string[] => [
-    "number",
-    ...(schema.minimum !== undefined
-      ? [
-          schema.exclusiveMinimum
-            ? `tags.ExclusiveMinimum<${schema.minimum}>`
-            : `tags.Minimum<${schema.minimum}>`,
-        ]
-      : []),
-    ...(schema.maximum !== undefined
-      ? [
-          schema.exclusiveMaximum
-            ? `tags.ExclusiveMaximum<${schema.maximum}>`
-            : `tags.Maximum<${schema.maximum}>`,
-        ]
-      : []),
-    ...(schema.multipleOf !== undefined
-      ? [`tags.MultipleOf<${schema.multipleOf}>`]
-      : []),
-  ];
+  const getNameOfInteger = (schema: OpenApi.IJsonSchema.IInteger): string[] => {
+    // `minimum`, `maximum`, `exclusiveMinimum`, and `exclusiveMaximum` are all
+    // numbers in the declaration, each an independent bound rather than a
+    // boolean modifier on another. Read every one on its own value, so an
+    // exclusive bound is never dropped (including the falsy `0`) nor labelled
+    // with a sibling's value.
+    //
+    // The normalized integer schema does not model `format`, but
+    // `OpenApiConverter` passes an external document's `format` (`"int32"` /
+    // `"int64"`) straight through, so read it defensively and echo only what is
+    // there as `tags.Type<...>` — mirroring `OpenApiIntegerValidator.describeType`,
+    // which names the same declared width and invents none.
+    const format: unknown = (schema as { format?: unknown }).format;
+    return [
+      "number",
+      ...(typeof format === "string"
+        ? [`tags.Type<${JSON.stringify(format)}>`]
+        : []),
+      ...(schema.minimum !== undefined
+        ? [`tags.Minimum<${schema.minimum}>`]
+        : []),
+      ...(schema.exclusiveMinimum !== undefined
+        ? [`tags.ExclusiveMinimum<${schema.exclusiveMinimum}>`]
+        : []),
+      ...(schema.maximum !== undefined
+        ? [`tags.Maximum<${schema.maximum}>`]
+        : []),
+      ...(schema.exclusiveMaximum !== undefined
+        ? [`tags.ExclusiveMaximum<${schema.exclusiveMaximum}>`]
+        : []),
+      ...(schema.multipleOf !== undefined
+        ? [`tags.MultipleOf<${schema.multipleOf}>`]
+        : []),
+    ];
+  };
 
+  // Read each numeric bound on its own value, as in `getNameOfInteger`. Unlike
+  // integers, no `format` is echoed: `OpenApiNumberValidator` reports a bare
+  // `number & ...` and never names a number's `format`, so echoing one here
+  // would disagree with the validator on what the schema declares.
   const getNameOfNumber = (schema: OpenApi.IJsonSchema.INumber): string[] => [
     "number",
     ...(schema.minimum !== undefined
-      ? [
-          schema.exclusiveMinimum
-            ? `tags.ExclusiveMinimum<${schema.minimum}>`
-            : `tags.Minimum<${schema.minimum}>`,
-        ]
+      ? [`tags.Minimum<${schema.minimum}>`]
+      : []),
+    ...(schema.exclusiveMinimum !== undefined
+      ? [`tags.ExclusiveMinimum<${schema.exclusiveMinimum}>`]
       : []),
     ...(schema.maximum !== undefined
-      ? [
-          schema.exclusiveMaximum
-            ? `tags.ExclusiveMaximum<${schema.maximum}>`
-            : `tags.Maximum<${schema.maximum}>`,
-        ]
+      ? [`tags.Maximum<${schema.maximum}>`]
+      : []),
+    ...(schema.exclusiveMaximum !== undefined
+      ? [`tags.ExclusiveMaximum<${schema.exclusiveMaximum}>`]
       : []),
     ...(schema.multipleOf !== undefined
       ? [`tags.MultipleOf<${schema.multipleOf}>`]
