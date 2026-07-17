@@ -74,6 +74,12 @@ func TestProjectCatalogTransformCoverage(t *testing.T) {
 	// contribute transformed sources, and its exit code must agree with the
 	// envelope it published.
 	//
+	// Accepting either 0 or 3 is derived, not observed: transform mode never
+	// typechecks, so exit 2 is reachable only from a flag, cwd, or tsconfig-load
+	// failure (semantic diagnostics belong to the build route). No source content a
+	// repro leaves behind can produce it -- even an outright type error still exits
+	// 0 here -- which is what makes the band content-agnostic.
+	//
 	// The envelope is decoded rather than substring-matched because `"typescript"`
 	// carries no `omitempty` and runTransformProject initializes the map before its
 	// source loop: the key is present even when the workspace resolved no source at
