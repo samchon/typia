@@ -1,8 +1,9 @@
 package factories
 
 import (
-  "strconv"
+  "fmt"
   "strings"
+  "unicode/utf8"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
@@ -71,12 +72,138 @@ func (identifierFactoryNamespace) GetName(input *shimast.Expression) string {
   return "unknown"
 }
 
+// Postfix renders the accessor for `str` as JavaScript source for a string
+// literal, because callers splice the result straight into emitted text (see
+// AssertProgrammer and ValidateProgrammer building `_path + <postfix>`).
+//
+// The value of that literal must equal what the runtime helper
+// `typia/lib/internal/_accessExpressionAsString` computes for the same key,
+// since dynamic keys take that runtime path while sole-literal keys are folded
+// here at compile time. Both must produce one path grammar, which
+// `typia/lib/internal/_createStandardSchema` parses back with JSON.parse.
+//
+// So there are two nested levels, and they escape for different readers. The
+// key becomes JSON text, which is part of the path a user sees and JSON.parse
+// reads. That text is then embedded in JavaScript source. Escaping only one
+// level emits a file that does not parse; escaping both for the same reader
+// makes the reported path disagree with the runtime helper.
 func (identifierFactoryNamespace) Postfix(str string) string {
   if identifierFactory_variable(str) {
-    return "\"." + str + "\""
+    return identifierFactory_source("." + str)
   }
-  quoted := strings.ReplaceAll(strconv.Quote(str), "\"", "\\\"")
-  return "\"[" + quoted + "]\""
+  return identifierFactory_source("[" + identifierFactory_json(str) + "]")
+}
+
+// identifierFactory_json renders `str` as JSON text, matching JSON.stringify so
+// that the path this lands in is the one _accessExpressionAsString builds for
+// the same key at runtime, and so JSON.parse in _createStandardSchema reads the
+// key back out.
+func identifierFactory_json(str string) string {
+  return identifierFactory_quote(str, false)
+}
+
+// identifierFactory_source renders `str` as JavaScript source for a string
+// literal whose value is exactly `str`.
+//
+// This is JSON's escape set plus the line separators. JSON string syntax is
+// otherwise a subset of JavaScript's: both forbid a raw `"` and `\`, and JSON
+// already escapes every character below U+0020, which covers the CR and LF that
+// JavaScript also forbids raw. U+2028 and U+2029 are the whole difference, being
+// line terminators to JavaScript but ordinary characters to JSON.
+func identifierFactory_source(str string) string {
+  return identifierFactory_quote(str, true)
+}
+
+// identifierFactory_quote writes a quoted literal, escaping the line separators
+// only when the reader is a JavaScript parser.
+//
+// strconv.Quote cannot serve either role: it escapes for Go, and Go and
+// JavaScript disagree. Quote renders U+0007 as `\a` and a non-printable astral
+// rune as `\U0001d173`; JavaScript has neither escape and decodes them as the
+// identity escapes `a` and `U`, silently corrupting the key, while JSON.parse
+// rejects both outright.
+func identifierFactory_quote(str string, source bool) string {
+  var builder strings.Builder
+  builder.Grow(len(str) + 2)
+  builder.WriteByte('"')
+  for i := 0; i < len(str); {
+    if char := str[i]; char < utf8.RuneSelf {
+      i++
+      switch char {
+      case '"':
+        builder.WriteString("\\\"")
+      case '\\':
+        builder.WriteString("\\\\")
+      case '\b':
+        builder.WriteString("\\b")
+      case '\f':
+        builder.WriteString("\\f")
+      case '\n':
+        builder.WriteString("\\n")
+      case '\r':
+        builder.WriteString("\\r")
+      case '\t':
+        builder.WriteString("\\t")
+      default:
+        // JSON forbids a raw control character in a string, and JSON.parse
+        // throws on one rather than reporting the validation issue that the
+        // path belongs to. Every other ASCII byte is safe verbatim.
+        if char < 0x20 {
+          builder.WriteString(identifierFactory_unicode_escape(rune(char)))
+        } else {
+          builder.WriteByte(char)
+        }
+      }
+      continue
+    }
+    if unit, size := identifierFactory_surrogate(str[i:]); size != 0 {
+      // A lone surrogate reaches here WTF-8 encoded and has no valid UTF-8
+      // form, so it survives only as an escape. JSON.stringify does the same.
+      builder.WriteString(identifierFactory_unicode_escape(unit))
+      i += size
+      continue
+    }
+    rune_, size := utf8.DecodeRuneInString(str[i:])
+    if rune_ == utf8.RuneError && size == 1 {
+      // Not UTF-8 at all. No escape can denote the byte, so spend the
+      // replacement character and keep the literal well-formed; the
+      // alternative is emitting a file that does not parse.
+      builder.WriteString(identifierFactory_unicode_escape(utf8.RuneError))
+      i++
+      continue
+    }
+    if source && (rune_ == '\u2028' || rune_ == '\u2029') {
+      // A line terminator to JavaScript, so a raw one would end the literal on
+      // a target below ES2019. Escaping it in the source is invisible to the
+      // reader of the path, because JavaScript decodes it straight back.
+      builder.WriteString(identifierFactory_unicode_escape(rune_))
+      i += size
+      continue
+    }
+    builder.WriteString(str[i : i+size])
+    i += size
+  }
+  builder.WriteByte('"')
+  return builder.String()
+}
+
+// identifierFactory_unicode_escape writes the `\uXXXX` form, which denotes one
+// UTF-16 code unit and so only spans the Basic Multilingual Plane. Every caller
+// passes a control character, a surrogate, or the replacement character; an
+// astral rune needs no escape and must keep taking the verbatim path, because
+// four hex digits cannot spell it.
+func identifierFactory_unicode_escape(value rune) string {
+  return fmt.Sprintf("\\u%04x", value)
+}
+
+// identifierFactory_surrogate decodes a leading WTF-8 encoded surrogate code
+// unit, which utf8.DecodeRuneInString reports as an error because no valid
+// UTF-8 sequence denotes one.
+func identifierFactory_surrogate(str string) (rune, int) {
+  if len(str) < 3 || str[0] != 0xed || str[1] < 0xa0 || str[1] > 0xbf || str[2] < 0x80 || str[2] > 0xbf {
+    return 0, 0
+  }
+  return rune(str[0]&0x0f)<<12 | rune(str[1]&0x3f)<<6 | rune(str[2]&0x3f), 3
 }
 
 func (identifierFactoryNamespace) Parameter(name any, typeNode *shimast.TypeNode, init *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
