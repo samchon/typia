@@ -60,6 +60,22 @@ func TestTransformSingleFileJSLocatesOutputAcrossLayouts(t *testing.T) {
       extra: []string{`"rootDirs": ["src", "generated"]`, `"outDir": "dist"`},
       file:  "src/main.ts",
     },
+    // One source, three writes through the one callback: `dist/main.js`,
+    // `dist/main.js.map`, and `dist/main.d.ts`. Finding the artifact is not
+    // enough here -- the check has to tell it apart from its own siblings. The
+    // map is the trap, since its `sourcesContent` embeds the original
+    // TypeScript, so capturing it would publish text still carrying
+    // `typia.is<` behind exit 0.
+    {
+      name: "declaration_and_source_map",
+      extra: []string{
+        `"rootDir": "src"`,
+        `"outDir": "dist"`,
+        `"declaration": true`,
+        `"sourceMap": true`,
+      },
+      file: "src/main.ts",
+    },
     // The one layout that already worked, because the emit lands beside its
     // source. It must keep working.
     {
