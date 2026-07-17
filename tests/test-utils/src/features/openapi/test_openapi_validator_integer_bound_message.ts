@@ -18,6 +18,7 @@ import { OpenApiValidator } from "@typia/utils";
  *    the declared width is still reported.
  * 3. Assert a differing declared width is echoed rather than flattened to
  *    `int32`, and that the verdict itself never changes.
+ * 4. Assert a `format` that is not a string names no width at all.
  */
 export const test_openapi_validator_integer_bound_message = (): void => {
   // Each case isolates one bound: the reporter keeps only the first error at a
