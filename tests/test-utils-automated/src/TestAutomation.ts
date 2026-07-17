@@ -75,7 +75,29 @@ export namespace TestAutomation {
    * `DynamicSimple` makes it unfit to be a fixture, only what the validator
    * does with the `additionalProperties` schema its type produces.
    *
-   * Eight entries fail today if admitted, so they are genuine validator gaps.
+   * Eight entries fail today if admitted. Failing is not by itself a validator
+   * gap, and for `DynamicNever`, `DynamicUndefined`, and `ObjectUndefined` the
+   * reasons below used to say it was — under three different causes, none of
+   * them the real one (#2145). All three fail for one shared reason, and it is
+   * the emitter's: a member or index-signature value typed `never` or
+   * `undefined` has no JSON form, so typia erases it and emits a plain closed
+   * object. `OpenApiValidator` sees only that schema. `DynamicNever`'s spoiler
+   * is a type error against the erased `[key: string]: never` signature, and
+   * `ObjectUndefined`'s spoilers are type errors against its erased `nothing`
+   * and `never` members; the emitted schema states neither, so the non-equals
+   * matrix cannot detect either and no schema-driven validator could. This is
+   * the same emitter over-approximation the other index-signature entries hit,
+   * not an index-signature gap and not a validator gap.
+   *
+   * `ObjectUndefined` did also carry a real validator defect — an
+   * `undefined`-valued key was reported as superfluous, which `typia.equals`
+   * accepts — and #2145 fixed it, so it now passes the equality matrix. It
+   * stays held out only because this one set feeds both matrices and it still
+   * fails the validate matrix above. Splitting the set per matrix is #2136's
+   * follow-up, which would also admit `TemplateInterpolationTagged` and
+   * `TypeTagType`; both pass the equality matrix and are held out for a
+   * validate-matrix reason.
+   *
    * The four marked `passes today` are measured to validate cleanly against
    * their own spoilers, and are held out only because admitting them changes
    * *which* structures the matrix covers — a separate decision from *how* they
@@ -85,14 +107,15 @@ export namespace TestAutomation {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
     DynamicComposite: "index signature",
-    DynamicNever: "index signature over a `never` member",
+    DynamicNever: "index signature erased; schema states no `never` value",
     DynamicSimple: "index signature; passes today",
     DynamicTemplate: "index signature",
-    DynamicUndefined: "index signature",
+    DynamicUndefined: "index signature erased; schema states no `undefined` value",
     DynamicUnion: "index signature",
     ObjectDynamic: "index signature; passes today",
-    // a `never` member erased from the emitted schema
-    ObjectUndefined: "`never` member",
+    // members erased from the emitted schema, so the validate matrix cannot see
+    // their spoilers; the equality matrix passes since #2145
+    ObjectUndefined: "`undefined` and `never` members erased",
     // integer format tags the validator does not enforce
     ConstantAtomicTagged: "uint32 tag; passes today",
     TemplateInterpolationTagged: "uint32 tag",

@@ -52,8 +52,19 @@ export namespace OpenApiObjectValidator {
               }),
             )
         : []),
-      ...(ctx.equals === true &&
-      typeof ctx.schema.additionalProperties !== "object"
+      // Whether a stray property is superfluous is asked only of a closed
+      // object. An `additionalProperties` that opens the object — `true` for
+      // any value, or a schema constraining it — declares that undeclared keys
+      // are legitimate members, so they are never superfluous and `equals` has
+      // nothing to decide. `typia.equals` agrees: it accepts an extra key on a
+      // type carrying an index signature and rejects one on a type without.
+      //
+      // The previous `typeof !== "object"` test read only whether the keyword
+      // was a schema, so it excluded `{ ... }` but not `true`, and closed an
+      // object that had explicitly declared itself open. Reading the boolean is
+      // what lets one document mix an open and a closed object under a single
+      // `equals`, which no option value could otherwise satisfy.
+      ...(ctx.equals === true && !ctx.schema.additionalProperties
         ? [validateEquals(ctx)]
         : []),
     ].every((v) => v);
@@ -76,6 +87,12 @@ export namespace OpenApiObjectValidator {
     return Object.entries(ctx.value as object)
       .map(([key, value]) => {
         if (regular.has(key) === true) return true;
+        // A key whose value is `undefined` has no JSON form — `JSON.stringify`
+        // erases it — so the value does not carry it as a property and it
+        // cannot be superfluous. `typia.equals` agrees, and typia's own emitter
+        // erases `undefined` and `never` members from the schema while the
+        // generated value still spells the keys out.
+        if (value === undefined) return true;
         return ctx.report({
           ...ctx,
           path:
