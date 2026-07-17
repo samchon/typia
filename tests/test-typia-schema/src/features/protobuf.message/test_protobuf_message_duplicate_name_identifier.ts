@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import pjs from "protobufjs";
 import typia from "typia";
 
 import { Foo as Alpha } from "../json.schema/ComponentNameCollisionAlpha";
@@ -20,16 +21,29 @@ interface IArguments {
  * identifier, so the separator has to survive `ProtobufNameEncoder`, or the
  * emitted schema is text no Protobuf parser accepts.
  *
+ * The grammar is the oracle rather than a hand-written pattern: the document is
+ * handed to protobuf.js, which is what a consumer would do with it.
+ *
  * 1. Reference two distinct types that share the declared name `Foo`.
- * 2. Assert every declared message name is a legal Protobuf identifier.
- * 3. Assert every field type resolves to a message the document declares, and
- *    that the duplicate is a sibling rather than a child.
+ * 2. Parse the emitted document with protobuf.js and resolve every message.
+ * 3. Assert the duplicate is a sibling rather than a child, and that each of
+ *    the two `Foo` types keeps its own field.
  */
 export const test_protobuf_message_duplicate_name_identifier = (): void => {
   const message: string = typia.protobuf.message<IArguments>();
 
-  // 1. EVERY DECLARED NAME IS AN IDENTIFIER
-  const identifier = /^[A-Za-z_][A-Za-z0-9_]*$/;
+  // 1. THE GRAMMAR ACCEPTS THE DOCUMENT
+  const parsed = (): pjs.IParserResult => pjs.parse(message, { keepCase: true });
+  TestValidator.predicate("protobuf.js parses the emitted document", () => {
+    try {
+      parsed();
+      return true;
+    } catch {
+      return false;
+    }
+  });
+
+  const root: pjs.Root = parsed().root;
   const declared: string[] = [...message.matchAll(/message\s+(\S+)\s*\{/gu)].map(
     (m) => m[1]!,
   );
@@ -38,30 +52,24 @@ export const test_protobuf_message_duplicate_name_identifier = (): void => {
     3,
     declared.length,
   );
-  for (const name of declared)
-    TestValidator.predicate(
-      `message name ${JSON.stringify(name)} is a legal Protobuf identifier`,
-      () => identifier.test(name),
-    );
 
-  // 2. AND EVERY FIELD TYPE RESOLVES TO ONE OF THEM
-  const referenced: string[] = [...message.matchAll(/required\s+(\S+)\s+\w+\s*=/gu)]
-    .map((m) => m[1]!)
-    .filter((type) => scalars.has(type) === false);
-  TestValidator.equals(
-    "both duplicates are referenced, and distinctly",
-    2,
-    new Set(referenced).size,
+  // 2. EACH DUPLICATE KEEPS ITS OWN FIELD
+  const root$: pjs.Type = root.lookupType("IArguments");
+  const fieldType = (field: string): pjs.Type =>
+    root.lookupType(root$.fields[field]!.type);
+  TestValidator.predicate(
+    "the first Foo keeps its own string field",
+    () => fieldType("a").fields.a?.type === "string",
   );
-  for (const type of referenced)
-    TestValidator.predicate(
-      `field type ${JSON.stringify(type)} resolves to a declared message`,
-      () =>
-        type
-          .split(".")
-          .every((segment) => identifier.test(segment)) &&
-        declared.includes(type.split(".").at(-1)!),
-    );
+  TestValidator.predicate(
+    "the disambiguated Foo keeps its own numeric field",
+    () => fieldType("b").fields.b?.type === "double",
+  );
+  TestValidator.notEquals(
+    "the two types resolve to different messages",
+    root$.fields.a!.type,
+    root$.fields.b!.type,
+  );
 
   // 3. THE DUPLICATE IS A SIBLING, NOT A CHILD
   //
@@ -72,21 +80,3 @@ export const test_protobuf_message_duplicate_name_identifier = (): void => {
     () => /message\s+Foo\s*\{[^}]*message\s/u.test(message) === false,
   );
 };
-
-const scalars: Set<string> = new Set([
-  "double",
-  "float",
-  "int32",
-  "int64",
-  "uint32",
-  "uint64",
-  "sint32",
-  "sint64",
-  "fixed32",
-  "fixed64",
-  "sfixed32",
-  "sfixed64",
-  "bool",
-  "string",
-  "bytes",
-]);
