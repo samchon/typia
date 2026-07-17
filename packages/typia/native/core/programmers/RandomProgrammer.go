@@ -1407,6 +1407,16 @@ func randomProgrammer_is_typed_array(name string) bool {
   }
 }
 
+// randomProgrammer_typed_array_range reports the type tag and range a TypedArray's
+// elements are generated from.
+//
+// These bounds are a generation hint, not a validation gate, and they are the one
+// copy of the 64-bit bound that is deliberately inexact. They become `minimum` and
+// `maximum` comment tags on a number-typed JSON schema, and `number` cannot
+// represent 2**63 - 1 or 2**64 - 1 -- both arrive rounded up to the next power of
+// two. That costs nothing here: the generator only picks a value from the range,
+// and the TypedArray constructor wraps whatever it is handed. Validation owns
+// exactness instead, in _isTypeInt64Bigint and its siblings.
 func randomProgrammer_typed_array_range(name string) (string, string, string) {
   switch name {
   case "Uint8Array", "Uint8ClampedArray":
@@ -1424,7 +1434,7 @@ func randomProgrammer_typed_array_range(name string) (string, string, string) {
   case "Int32Array":
     return "int32", "-2147483648", "2147483647"
   case "BigInt64Array":
-    return "uint64", "-9223372036854775808", "9223372036854775807"
+    return "int64", "-9223372036854775808", "9223372036854775807"
   case "Float32Array":
     return "float", "-3.4028235e38", "3.4028235e38"
   default:
