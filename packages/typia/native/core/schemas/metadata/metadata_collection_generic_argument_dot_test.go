@@ -90,20 +90,25 @@ func TestMetadataCollectionGenericArgumentDot(t *testing.T) {
   // A qualified type argument and a quoted literal owning the separator do
   // normalize alike. Escaping out of that would cost every `IPage<IShop.ISum>`
   // key a hash, to separate names no real program declares together. The
-  // allocator is the layer that bounds it: uniqueness is checked against every
-  // id already handed out, so both types survive with their own key and neither
-  // schema is dropped. Uniqueness must never rest on the separator alone.
+  // allocator is the layer that bounds it instead, so both types survive with
+  // their own key and neither schema is dropped. Uniqueness must never rest on
+  // the separator alone.
   if MetadataCollection_replaceOpenApi("Recursive<A.B>") !=
     MetadataCollection_replaceOpenApi(`Recursive<"A-B">`) {
     t.Fatalf("this case no longer documents the residual; re-derive the note above")
   }
   taken := map[string]bool{}
+  counters := map[string]int{}
   for _, input := range []string{"Recursive<A.B>", `Recursive<"A-B">`} {
-    allocated := metadataCollection_allocateName(taken, MetadataCollection_replaceOpenApi(input))
+    // Allocate exactly as `getName` does, counter and all, so this pins the
+    // real path rather than a convenient approximation of it.
+    name := MetadataCollection_replaceOpenApi(input)
+    allocated, index := metadataCollection_allocateName(taken, name, counters[name])
     if taken[allocated] {
       t.Fatalf("a normalization collision dropped a type: input=%q id=%q", input, allocated)
     }
     taken[allocated] = true
+    counters[name] = index + 1
   }
 
   // 6. THE LLM KEY SPACE IS DELIBERATELY UNTOUCHED

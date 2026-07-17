@@ -33,6 +33,7 @@ type MetadataCollection struct {
 
   names_                 map[*nativechecker.Type]string
   allocated_names_       map[string]bool
+  name_counters_         map[string]int
   type_full_names_       map[*nativechecker.Type]string
   full_names_            map[*nativechecker.Type]string
   display_names_         map[*nativechecker.Type]string
@@ -102,6 +103,7 @@ func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCol
 
     names_:                 map[*nativechecker.Type]string{},
     allocated_names_:       map[string]bool{},
+    name_counters_:         map[string]int{},
     object_index_:          0,
     recursive_array_index_: 0,
     recursive_tuple_index_: 0,
@@ -133,6 +135,7 @@ func (collection *MetadataCollection) Clone() *MetadataCollection {
 
     names_:                 maps.Clone(collection.names_),
     allocated_names_:       maps.Clone(collection.allocated_names_),
+    name_counters_:         maps.Clone(collection.name_counters_),
     type_full_names_:       maps.Clone(collection.type_full_names_),
     full_names_:            maps.Clone(collection.full_names_),
     display_names_:         maps.Clone(collection.display_names_),
@@ -314,8 +317,13 @@ func (collection *MetadataCollection) getName(checker *nativechecker.Checker, ty
   if oldbie, ok := collection.names_[typ]; ok {
     return oldbie, display
   }
-  addicted := metadataCollection_allocateName(collection.allocated_names_, name)
+  addicted, index := metadataCollection_allocateName(
+    collection.allocated_names_,
+    name,
+    collection.name_counters_[name],
+  )
   collection.allocated_names_[addicted] = true
+  collection.name_counters_[name] = index + 1
   collection.names_[typ] = addicted
   return addicted, display
 }
@@ -334,21 +342,40 @@ func (collection *MetadataCollection) getName(checker *nativechecker.Checker, ty
 // escaping; `metadataCollection_openApiNameSuffix` picks it for the same reason.
 const metadataCollection_duplicateSuffix = "-o"
 
-// metadataCollection_allocateName mints the first id for `name` that no other
-// type in the collection has already been given.
+// metadataCollection_allocateName mints the first id at or after `from` that no
+// other type in the collection has already been given, and reports the counter
+// it settled on.
 //
 // `taken` is the whole collection's allocated-id set, not one base name's
-// bucket. Bucketing by base name cannot see that another base name already
-// minted, or genuinely owns, the id being handed out, so two distinct types
-// received one id and one of them silently disappeared from every generated
-// document. Consulting the whole set is what makes an id unique; the separator
-// only keeps that id from being *read* as something it is not.
-func metadataCollection_allocateName(taken map[string]bool, name string) string {
-  allocated := name
-  for index := 1; taken[allocated]; index++ {
-    allocated = name + metadataCollection_duplicateSuffix + metadataCollection_itoa(index)
+// bucket. Bucketing by base name alone cannot see that another base name
+// already minted, or genuinely owns, the id being handed out, so two distinct
+// types received one id and one of them silently disappeared from every
+// generated document. Consulting the whole set is what makes an id unique; the
+// separator only keeps that id from being *read* as something it is not.
+//
+// `from` is the caller's per-base-name counter and is an optimization, never
+// the uniqueness argument: the set is still checked, so a wrong `from` costs a
+// scan rather than a collision. It exists because every anonymous type shares
+// the name `__type`. Always starting at zero rescans the whole run of previous
+// `__type` ids for each new one, which is quadratic in a program's anonymous
+// type count and cost 87s at 20k where resuming costs milliseconds.
+func metadataCollection_allocateName(taken map[string]bool, name string, from int) (string, int) {
+  index := from
+  allocated := metadataCollection_composeName(name, index)
+  for taken[allocated] {
+    index++
+    allocated = metadataCollection_composeName(name, index)
   }
-  return allocated
+  return allocated, index
+}
+
+// metadataCollection_composeName renders a base name at a counter. Counter zero
+// is the base name itself, so the first type of a name keeps it unchanged.
+func metadataCollection_composeName(name string, index int) string {
+  if index == 0 {
+    return name
+  }
+  return name + metadataCollection_duplicateSuffix + metadataCollection_itoa(index)
 }
 
 func (collection *MetadataCollection) getFullName(checker *nativechecker.Checker, typ *nativechecker.Type) string {

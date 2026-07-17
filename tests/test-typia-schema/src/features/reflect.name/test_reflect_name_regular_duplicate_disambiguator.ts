@@ -34,16 +34,14 @@ export const test_reflect_name_regular_duplicate_disambiguator = (): void => {
   const duplicated: string = typia.reflect.name<Alpha | Beta, true>();
 
   // 3. THE MINTED ID IS NOT THE REAL NAME
-  TestValidator.predicate(
+  const members: string[] = duplicated.replace(/[()]/gu, "").split(" | ");
+  TestValidator.equals(
     "both duplicates are named, and distinctly",
-    () => duplicated.split(" | ").length === 2,
+    2,
+    new Set(members).size,
   );
   TestValidator.predicate(
     "the minted duplicate id never squats the real member's qualified name",
-    () =>
-      duplicated
-        .replace(/[()]/gu, "")
-        .split(" | ")
-        .includes(real) === false,
+    () => members.includes(real) === false,
   );
 };

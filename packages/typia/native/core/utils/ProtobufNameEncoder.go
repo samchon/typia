@@ -44,4 +44,12 @@ var protobufNameEncoder_replacers = []protobufNameEncoder_replacer{
   {Before: "'", After: "_singlequote_"},
   {Before: "\"", After: "_doublequote_"},
   {Before: " ", After: "_space_"},
+  // A Protocol Buffers message name is an identifier, so a hyphen has to be
+  // encoded like any other rune the grammar rejects. It is not exotic: the
+  // metadata collection joins a duplicated name's counter with one, and a
+  // quoted type argument can carry one of its own, as `Gen<"a-b">` does. The
+  // dot is deliberately absent from this table — `protobufMessageProgrammer_emplace`
+  // splits a name on it to nest a namespace member in its parent's message, and
+  // a qualified reference is legal in the grammar.
+  {Before: "-", After: "_hyphen_"},
 }
