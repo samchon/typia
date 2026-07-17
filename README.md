@@ -58,6 +58,9 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 > - JSON serialization is **200x faster** than `class-transformer`
 > - LLM function calling harness turns **6.75% → 100%** accuracy
 
+Write the type on the left, and `typia` compiles it into the validator on the right — at build time, with no schema and no runtime reflection.
+
+![Write a TypeScript type and typia compiles it into a dedicated validator](https://typia.io/images/concepts/transform.svg)
 
 ## Setup
 

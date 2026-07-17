@@ -1,8 +1,7 @@
 ---
 title: Guide Documents > JSON > stringify() functions
 ---
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
+
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
@@ -13,9 +12,9 @@ import LocalSource from "../../../components/LocalSource";
 
 ```typescript copy filename="signatures"
 namespace json {
-  function stringify<T>(input: T): string;                          // dedicated stringifier
-  function isStringify<T>(input: T | unknown): string | null;       // is + stringify
-  function assertStringify<T>(input: T | unknown): string;          // assert + stringify
+  function stringify<T>(input: T): string; // dedicated stringifier
+  function isStringify<T>(input: T | unknown): string | null; // is + stringify
+  function assertStringify<T>(input: T | unknown): string; // assert + stringify
   function validateStringify<T>(input: T | unknown): IValidation<string>; // validate + stringify
 }
 ```
@@ -43,12 +42,12 @@ The output is identical to `JSON.stringify({ id, age, hobbies })`. The speed com
 
 ## Variants
 
-| Function | Validates input? | On failure |
-|----------|------------------|------------|
-| `json.stringify<T>` | **No** | undefined behavior (don't pass wrong-typed values) |
-| `json.isStringify<T>` | Yes ([`is`](/docs/validators/is)) | returns `null` |
-| `json.assertStringify<T>` | Yes ([`assert`](/docs/validators/assert)) | throws `TypeGuardError` |
-| `json.validateStringify<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<string>` |
+| Function                    | Validates input?                              | On failure                                         |
+| --------------------------- | --------------------------------------------- | -------------------------------------------------- |
+| `json.stringify<T>`         | **No**                                        | undefined behavior (don't pass wrong-typed values) |
+| `json.isStringify<T>`       | Yes ([`is`](/docs/validators/is))             | returns `null`                                     |
+| `json.assertStringify<T>`   | Yes ([`assert`](/docs/validators/assert))     | throws `TypeGuardError`                            |
+| `json.validateStringify<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<string>`                      |
 
 > [!CAUTION]
 >
@@ -56,18 +55,20 @@ The output is identical to `JSON.stringify({ id, age, hobbies })`. The speed com
 >
 > The generated code assumes its input already matches `T`. If you hand it a wrong-typed value, the output will be garbage (missing fields, fields with the wrong contents). Use it only when the type of the input is statically guaranteed — for example, you just built the object inside the same function. Otherwise, pick `isStringify` / `assertStringify` / `validateStringify`.
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/json/isStringify.ts"
       filename="examples/src/json/isStringify.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/json/isStringify.js"
       filename="examples/bin/json/isStringify.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
@@ -105,18 +106,20 @@ const stringifyUser = typia.json.createStringify<User>();
 const safeStringifyUser = typia.json.createAssertStringify<User>();
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/json/createAssertStringify.ts"
       filename="examples/src/json/createAssertStringify.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/json/createAssertStringify.js"
       filename="examples/bin/json/createAssertStringify.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

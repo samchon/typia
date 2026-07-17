@@ -18,7 +18,10 @@ export const metadata = {
 export default function RootLayout(props) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
-      <Head>
+      <Head
+        color={{ hue: 214, saturation: 72, lightness: 34 }}
+        backgroundColor={{ light: "#ffffff", dark: "#ffffff" }}
+      >
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <link
           rel="apple-touch-icon"
@@ -34,6 +37,7 @@ export default function RootLayout(props) {
             href={`/favicon/favicon-${size}x${size}.png`}
           />
         ))}
+        <meta name="theme-color" content="#184e95" />
         <meta name="og:type" content="object" />
         <meta name="og:site_name" content={title} />
         <meta name="og:url" content="https://typia.io" />

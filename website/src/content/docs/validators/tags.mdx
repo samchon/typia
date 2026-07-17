@@ -2,8 +2,6 @@
 title: Guide Documents > Runtime Validators > Special Tags
 ---
 
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
@@ -124,15 +122,15 @@ When adjacent placeholders or repeated separators make the boundary ambiguous, t
 
 #### `number` and `bigint`
 
-| Tag | Notes |
-|-----|-------|
+| Tag                                                                                                                        | Notes                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `tags.Type<"int8" \| "uint8" \| "int16" \| "uint16" \| "int32" \| "uint32" \| "int64" \| "uint64" \| "float" \| "double">` | Sub-type of `number` (or, for `int64`/`uint64`, of `bigint`); `float` accepts the finite float32 range from `-3.4028235e38` through `3.4028235e38` |
-| `tags.Minimum<N>` | `value >= N` |
-| `tags.Maximum<N>` | `value <= N` |
-| `tags.ExclusiveMinimum<N>` | `value > N` |
-| `tags.ExclusiveMaximum<N>` | `value < N` |
-| `tags.MultipleOf<N>` | `value / N` has an integer mathematical quotient |
-| `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
+| `tags.Minimum<N>`                                                                                                          | `value >= N`                                                                                                                                       |
+| `tags.Maximum<N>`                                                                                                          | `value <= N`                                                                                                                                       |
+| `tags.ExclusiveMinimum<N>`                                                                                                 | `value > N`                                                                                                                                        |
+| `tags.ExclusiveMaximum<N>`                                                                                                 | `value < N`                                                                                                                                        |
+| `tags.MultipleOf<N>`                                                                                                       | `value / N` has an integer mathematical quotient                                                                                                   |
+| `tags.Exclude<[V1, V2, …]>`                                                                                                | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema)                                                                     |
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
 
@@ -140,13 +138,13 @@ For `number`, decimal divisors use exact finite-decimal arithmetic rather than J
 
 #### `string`
 
-| Tag | Notes |
-|-----|-------|
-| `tags.MinLength<N>` | Unicode code-point count is at least `N` |
-| `tags.MaxLength<N>` | Unicode code-point count is at most `N` |
-| `tags.Pattern<R>` | regex (passed as a string literal) |
-| `tags.Format<F>` | one of the formats below |
-| `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`) |
+| Tag                         | Notes                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| `tags.MinLength<N>`         | Unicode code-point count is at least `N`                                       |
+| `tags.MaxLength<N>`         | Unicode code-point count is at most `N`                                        |
+| `tags.Pattern<R>`           | regex (passed as a string literal)                                             |
+| `tags.Format<F>`            | one of the formats below                                                       |
+| `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`)                                |
 | `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.

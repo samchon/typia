@@ -1,11 +1,10 @@
 ---
 title: Guide Documents > Protobuf > decode() functions
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
-import LocalSource from '../../../components/LocalSource';
+import { Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
 
 # `typia.protobuf.*Decode` — Protocol Buffer bytes → TypeScript object
 
@@ -25,36 +24,42 @@ The decoder reads `T` at compile time and emits a hand-rolled binary reader for 
 ```typescript copy filename="hello-decode.ts"
 import typia from "typia";
 
-interface User { id: string; age: number; hobbies: string[] }
+interface User {
+  id: string;
+  age: number;
+  hobbies: string[];
+}
 
 const bytes: Uint8Array = await fetchBytesSomehow();
 const user = typia.protobuf.assertDecode<User>(bytes);
 // → User, with type tag constraints validated. Throws on mismatch.
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/protobuf/decode.ts"
       filename="examples/src/protobuf/decode.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/decode.js"
       filename="examples/bin/protobuf/decode.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
 ## Variants
 
-| Function | Validates result? | On failure |
-|----------|-------------------|------------|
-| `protobuf.decode<T>` | **No** | output is whatever fell out of the binary reader |
-| `protobuf.isDecode<T>` | Yes ([`is`](/docs/validators/is)) | returns `null` |
-| `protobuf.assertDecode<T>` | Yes ([`assert`](/docs/validators/assert)) | throws `TypeGuardError` |
-| `protobuf.validateDecode<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<Resolved<T>>` |
+| Function                     | Validates result?                             | On failure                                       |
+| ---------------------------- | --------------------------------------------- | ------------------------------------------------ |
+| `protobuf.decode<T>`         | **No**                                        | output is whatever fell out of the binary reader |
+| `protobuf.isDecode<T>`       | Yes ([`is`](/docs/validators/is))             | returns `null`                                   |
+| `protobuf.assertDecode<T>`   | Yes ([`assert`](/docs/validators/assert))     | throws `TypeGuardError`                          |
+| `protobuf.validateDecode<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<Resolved<T>>`               |
 
 > [!IMPORTANT]
 >
@@ -121,18 +126,20 @@ Use `Uint8Array` when a field must carry arbitrary octets. It maps to proto3 `by
 const decodeUser = typia.protobuf.createAssertDecode<User>();
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/protobuf/createDecode.ts"
       filename="examples/src/protobuf/createDecode.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/createDecode.js"
       filename="examples/bin/protobuf/createDecode.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
