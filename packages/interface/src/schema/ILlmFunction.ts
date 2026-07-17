@@ -24,8 +24,8 @@ export interface ILlmFunction {
    * The identifier used by the LLM to call this function. Must be unique within
    * the application.
    *
-   * Limited to 64 characters: `typia.llm.application` rejects a longer name, and
-   * {@link IHttpLlmApplication.IConfig.maxLength} shortens one.
+   * Limited to 64 characters: `typia.llm.application` rejects a longer name,
+   * and {@link IHttpLlmApplication.IConfig.maxLength} shortens one.
    */
   name: string & tags.MaxLength<64>;
 
