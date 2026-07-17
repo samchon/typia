@@ -1,20 +1,19 @@
 ---
 title: Guide Documents > Protobuf > encode() functions
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
 
-import LocalSource from '../../../components/LocalSource';
+import { Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
 
 # `typia.protobuf.*Encode` — TypeScript object → Protocol Buffer bytes
 
 ```typescript copy filename="signatures"
 namespace protobuf {
-  function encode<T>(input: T): Uint8Array;                          // no validation
-  function isEncode<T>(input: T): Uint8Array | null;                 // is + encode
-  function assertEncode<T>(input: T): Uint8Array;                    // assert + encode
-  function validateEncode<T>(input: T): IValidation<Uint8Array>;     // validate + encode
+  function encode<T>(input: T): Uint8Array; // no validation
+  function isEncode<T>(input: T): Uint8Array | null; // is + encode
+  function assertEncode<T>(input: T): Uint8Array; // assert + encode
+  function validateEncode<T>(input: T): IValidation<Uint8Array>; // validate + encode
 }
 ```
 
@@ -25,7 +24,11 @@ The encoder reads your type at compile time and emits a hand-rolled binary write
 ```typescript copy filename="hello-encode.ts"
 import typia from "typia";
 
-interface User { id: string; age: number; hobbies: string[] }
+interface User {
+  id: string;
+  age: number;
+  hobbies: string[];
+}
 
 const bytes: Uint8Array = typia.protobuf.assertEncode<User>({
   id: "1",
@@ -34,29 +37,31 @@ const bytes: Uint8Array = typia.protobuf.assertEncode<User>({
 });
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/protobuf/encode.ts"
       filename="examples/src/protobuf/encode.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/encode.js"
       filename="examples/bin/protobuf/encode.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
 ## Variants
 
-| Function | Validates input? | On failure |
-|----------|------------------|------------|
-| `protobuf.encode<T>` | **No** | output is undefined — typically the bytes will not decode |
-| `protobuf.isEncode<T>` | Yes ([`is`](/docs/validators/is)) | returns `null` |
-| `protobuf.assertEncode<T>` | Yes ([`assert`](/docs/validators/assert)) | throws `TypeGuardError` |
-| `protobuf.validateEncode<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<Uint8Array>` |
+| Function                     | Validates input?                              | On failure                                                |
+| ---------------------------- | --------------------------------------------- | --------------------------------------------------------- |
+| `protobuf.encode<T>`         | **No**                                        | output is undefined — typically the bytes will not decode |
+| `protobuf.isEncode<T>`       | Yes ([`is`](/docs/validators/is))             | returns `null`                                            |
+| `protobuf.assertEncode<T>`   | Yes ([`assert`](/docs/validators/assert))     | throws `TypeGuardError`                                   |
+| `protobuf.validateEncode<T>` | Yes ([`validate`](/docs/validators/validate)) | returns `IValidation<Uint8Array>`                         |
 
 > [!CAUTION]
 >
@@ -103,18 +108,20 @@ Same pattern as the other namespaces — hoist the per-type code once:
 const encodeUser = typia.protobuf.createAssertEncode<User>();
 ```
 
-<Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
       path="examples/src/protobuf/createEncode.ts"
       filename="examples/src/protobuf/createEncode.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/protobuf/createEncode.js"
       filename="examples/bin/protobuf/createEncode.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 

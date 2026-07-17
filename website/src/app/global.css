@@ -8,23 +8,28 @@
 @source "../../node_modules/@ttsc/playground/lib/**/*.js";
 
 /* ── Palette ──────────────────────────────────────────────────────────────
-   Blue/white two-tone, one shade deeper than ttsc's TypeScript blue
+   Blue/white two-tone, several shades deeper than ttsc's TypeScript blue
    (#3178c6) so the two sites read as siblings rather than copies.
 
-   --typia-blue is the exact hex of hsl(213, 66%, 40%), the same triple fed
+   deep/blue/mid are the three stops of the blue band, spread evenly around
+   the base: hsl lightness 24% / 34% / 40% at one hue. White text stays
+   readable across the whole sweep -- 6.54:1 even on `mid`, the lightest
+   stop -- so no part of the band is a weak spot.
+
+   --typia-blue is the exact hex of hsl(214, 72%, 34%), the same triple fed
    to Nextra via <Head color> in app/layout.jsx. Nextra derives its own
    primary ramp from that HSL, so keeping the two literals in sync matters:
    change one and you must recompute the other, or links and buttons drift
-   apart by a shade. Contrast on white is 6.40:1 (WCAG AA). */
+   apart by a shade. Contrast on white is 8.19:1 (WCAG AAA). */
 :root {
-  --typia-blue: #235fa9;
-  --typia-blue-deep: #154279;
-  --typia-blue-mid: #2d73be;
-  --typia-blue-ink: #0d1f36;
-  --typia-blue-soft: #e5effa;
-  --typia-blue-wash: #f6fafd;
-  --typia-blue-border: #c0d4ed;
-  --typia-muted: #50647c;
+  --typia-blue: #184e95;
+  --typia-blue-deep: #0f376c;
+  --typia-blue-mid: #235da9;
+  --typia-blue-ink: #0c1c32;
+  --typia-blue-soft: #e5eefa;
+  --typia-blue-wash: #f6f9fd;
+  --typia-blue-border: #c1d3eb;
+  --typia-muted: #4c5e76;
 }
 
 html {
@@ -37,7 +42,7 @@ body {
 }
 
 ::selection {
-  background: rgba(35, 95, 169, 0.22);
+  background: rgba(24, 78, 149, 0.22);
 }
 
 /* Badge rows: shields.io images are wrapped in links, but Preflight resets
@@ -55,7 +60,7 @@ body {
     var(--typia-blue) 58%,
     var(--typia-blue-mid) 100%
   ) !important;
-  box-shadow: 0 8px 24px rgba(21, 66, 121, 0.18);
+  box-shadow: 0 8px 24px rgba(12, 28, 50, 0.18);
 }
 
 .nextra-navbar,
@@ -109,7 +114,7 @@ body {
   border-radius: 0.35rem;
   padding: 0.15rem;
   background: white;
-  box-shadow: 0 6px 18px rgba(21, 66, 121, 0.18);
+  box-shadow: 0 6px 18px rgba(12, 28, 50, 0.18);
 }
 
 /* ── Sidebar: blue wash fading into the white content column ── */
@@ -136,7 +141,7 @@ body:has(.typia-docs-page-marker)
   > a {
   background: var(--typia-blue) !important;
   color: white !important;
-  box-shadow: 0 7px 18px rgba(35, 95, 169, 0.2);
+  box-shadow: 0 7px 18px rgba(24, 78, 149, 0.2);
 }
 
 body:has(.typia-docs-page-marker)

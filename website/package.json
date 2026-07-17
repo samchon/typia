@@ -28,12 +28,7 @@
     "url": "https://github.com/samchon/typia/issues"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
     "@monaco-editor/react": "^4.6.0",
-    "@mui/icons-material": "^5.15.4",
-    "@mui/material": "^5.12.0",
-    "@mui/system": "^5.18.0",
     "@rollup/browser": "4.13.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@ttsc/playground": "catalog:typescript",

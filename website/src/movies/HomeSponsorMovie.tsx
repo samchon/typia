@@ -1,81 +1,42 @@
 "use client";
 
-import { Box, Container, Typography } from "@mui/material";
-
 const HomeSponsorMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#ffffff" }}>
-    <Container maxWidth="md">
-      <Box sx={{ textAlign: "center", mb: 4 }}>
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: "1.6rem", md: "2.2rem" },
-            mb: 2,
-            color: "#0d1f36",
-          }}
-        >
+  <section className="bg-white py-12 md:py-20">
+    <div className="mx-auto w-full max-w-[900px] px-4 sm:px-6">
+      <div className="mb-8 text-center">
+        <h3 className="mb-4 text-[1.6rem] leading-[1.167] font-bold text-[#0c1c32] md:text-[2.2rem]">
           Sponsors
-        </Typography>
-      </Box>
-      <Box sx={{ textAlign: "center", mb: 4 }}>
+        </h3>
+      </div>
+      <div className="mb-8 text-center">
         {/* The OpenCollective strip draws its avatars as near-white plates
             (#e6f3ff letter circles, #f0f1f2 guest circles) that sat on the
             old dark background. On white they measure ~1.13:1 and read as
             loose marks, so the strip gets a tinted plate of its own. */}
-        <Box
-          component="a"
+        <a
           href="https://opencollective.com/typia"
-          sx={{
-            display: "inline-block",
-            p: { xs: 1.5, md: 2 },
-            borderRadius: 2,
-            backgroundColor: "#f6fafd",
-            border: "1px solid #c0d4ed",
-            lineHeight: 0,
-          }}
+          className="inline-block rounded-lg border border-[#c1d3eb] bg-[#f6f9fd] p-3 leading-[0] md:p-4"
         >
-          <Box
-            component="img"
+          <img
             src="https://opencollective.com/typia/backers.svg?avatarHeight=75&width=600"
             alt="Backers"
-            sx={{
-              maxWidth: "100%",
-              borderRadius: 2,
-            }}
+            className="max-w-full rounded-lg"
           />
-        </Box>
-      </Box>
-      <Box sx={{ textAlign: "center" }}>
-        <Typography
-          variant="body1"
-          sx={{
-            color: "#50647c",
-            fontSize: "1.05rem",
-            lineHeight: 1.8,
-            maxWidth: 550,
-            mx: "auto",
-          }}
-        >
+        </a>
+      </div>
+      <div className="text-center">
+        <p className="mx-auto max-w-[550px] text-[1.05rem] leading-[1.8] text-[#4c5e76]">
           Thanks for your support. Your{" "}
-          <Box
-            component="a"
+          <a
             href="https://opencollective.com/typia"
-            sx={{
-              color: "#235fa9",
-              textDecoration: "underline",
-              transition: "color 0.2s",
-              "&:hover": {
-                color: "#154279",
-              },
-            }}
+            className="text-[#184e95] underline transition-colors duration-200 hover:text-[#0f376c]"
           >
             donation
-          </Box>{" "}
+          </a>{" "}
           encourages typia development.
-        </Typography>
-      </Box>
-    </Container>
-  </Box>
+        </p>
+      </div>
+    </div>
+  </section>
 );
 export default HomeSponsorMovie;

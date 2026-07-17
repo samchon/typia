@@ -1,6 +1,5 @@
 "use client";
 
-import { Box, Container, Grid, Typography } from "@mui/material";
 import HomeCodeHighlight from "../components/home/HomeCodeHighlight";
 
 const LLM_CODE = `import { LlmJson } from "@typia/utils";
@@ -45,154 +44,69 @@ const callouts = [
 ];
 
 const HomeLlmMovie = () => (
-  <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#e5effa" }}>
-    <Container maxWidth="lg">
-      <Box sx={{ textAlign: "center", mb: 6 }}>
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: 700,
-            fontSize: { xs: "1.6rem", md: "2.2rem" },
-            mb: 2,
-            color: "#0d1f36",
-          }}
-        >
+  <section className="bg-[#e5eefa] py-12 md:py-20">
+    <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+      <div className="mb-12 text-center">
+        <h3 className="mb-4 text-[1.6rem] leading-[1.167] font-bold text-[#0c1c32] md:text-[2.2rem]">
           LLM Function Calling Harness
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            color: "#50647c",
-            fontSize: "1.05rem",
-            maxWidth: 700,
-            mx: "auto",
-          }}
-        >
+        </h3>
+        <p className="mx-auto max-w-[700px] text-[1.05rem] leading-[1.5] text-[#4c5e76]">
           Schema generation + lenient parsing + type coercion + validation
           feedback.
           <br />
           The deterministic harness that turns 6.75% LLM accuracy into 100%.
-        </Typography>
-      </Box>
-      <Grid container spacing={4} alignItems="stretch">
-        <Grid item xs={12} md={7}>
-          <Box
-            sx={{
-              height: "100%",
-              borderRadius: 2,
-              border: "1px solid #154279",
-              backgroundColor: "#0d1f36",
-              overflow: "hidden",
-            }}
-          >
-            <Box
-              sx={{
-                px: 2.5,
-                py: 1.5,
-                borderBottom: "1px solid rgba(255,255,255,0.08)",
-                backgroundColor: "rgba(255,255,255,0.03)",
-                display: "flex",
-                alignItems: "center",
-                gap: 1.5,
-              }}
-            >
-              <Box
-                sx={{
-                  px: 1.5,
-                  py: 0.3,
-                  borderRadius: 1,
-                  fontSize: "0.7rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: 0.5,
-                  backgroundColor: "#b400ff",
-                  color: "#fff",
-                }}
-              >
+        </p>
+      </div>
+      <div className="grid items-stretch gap-8 md:grid-cols-12">
+        {/* min-w-0: a grid item defaults to min-width:auto, so the long code
+            lines in the <pre> below would set the track's floor and push the
+            whole section past the viewport on narrow screens. MUI's <Grid>
+            capped this with flex-basis/max-width; CSS grid needs it said. */}
+        <div className="min-w-0 md:col-span-7">
+          <div className="h-full overflow-hidden rounded-lg border border-[#0f376c] bg-[#0c1c32]">
+            <div className="flex items-center gap-3 border-b border-b-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] px-5 py-3">
+              <span className="rounded px-3 py-[2.4px] text-[0.7rem] font-bold tracking-[0.5px] text-white uppercase bg-[rgba(180,0,255,0.6)]">
                 AI
-              </Box>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.6)", fontWeight: 500 }}
-              >
+              </span>
+              <p className="text-sm leading-[1.43] font-medium text-[rgba(255,255,255,0.6)]">
                 LLM Integration
-              </Typography>
-            </Box>
-            <Box
-              component="pre"
-              sx={{
-                p: 2.5,
-                m: 0,
-                overflow: "auto",
-                fontSize: { xs: "0.72rem", md: "0.8rem" },
-                lineHeight: 1.7,
+              </p>
+            </div>
+            <pre
+              className="m-0 overflow-auto p-5 text-[0.72rem] leading-[1.7] text-[rgba(255,255,255,0.85)] md:text-[0.8rem] [&::-webkit-scrollbar]:h-[6px] [&::-webkit-scrollbar-thumb]:rounded-[3px] [&::-webkit-scrollbar-thumb]:bg-[rgba(255,255,255,0.15)]"
+              style={{
                 fontFamily:
                   "'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace",
-                color: "rgba(255,255,255,0.85)",
-                "&::-webkit-scrollbar": { height: 6 },
-                "&::-webkit-scrollbar-thumb": {
-                  backgroundColor: "rgba(255,255,255,0.15)",
-                  borderRadius: 3,
-                },
               }}
             >
               <code>
                 <HomeCodeHighlight>{LLM_CODE}</HomeCodeHighlight>
               </code>
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={5}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 2.5,
-              height: "100%",
-              justifyContent: "center",
-            }}
-          >
+            </pre>
+          </div>
+        </div>
+        <div className="min-w-0 md:col-span-5">
+          <div className="flex h-full flex-col justify-center gap-5">
             {callouts.map((c) => (
-              <Box
+              <div
                 key={c.title}
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  p: 2,
-                  borderRadius: 2,
-                  border: "1px solid #c0d4ed",
-                  backgroundColor: "#f6fafd",
-                }}
+                className="flex gap-4 rounded-lg border border-[#c1d3eb] bg-[#f6f9fd] p-4"
               >
-                <Typography sx={{ fontSize: "1.4rem" }}>{c.icon}</Typography>
-                <Box>
-                  <Typography
-                    sx={{
-                      fontWeight: 700,
-                      fontSize: "0.9rem",
-                      mb: 0.3,
-                      color: "#0d1f36",
-                    }}
-                  >
+                <span className="text-[1.4rem] leading-[1.5]">{c.icon}</span>
+                <div>
+                  <p className="mb-[2.4px] text-[0.9rem] leading-[1.5] font-bold text-[#0c1c32]">
                     {c.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#50647c",
-                      fontSize: "0.82rem",
-                      lineHeight: 1.5,
-                    }}
-                  >
+                  </p>
+                  <p className="text-[0.82rem] leading-[1.5] text-[#4c5e76]">
                     {c.desc}
-                  </Typography>
-                </Box>
-              </Box>
+                  </p>
+                </div>
+              </div>
             ))}
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
-  </Box>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 );
 export default HomeLlmMovie;
