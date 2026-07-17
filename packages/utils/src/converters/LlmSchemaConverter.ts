@@ -504,18 +504,27 @@ export namespace LlmSchemaConverter {
    * Restores constraint information from description tags and converts `$defs`
    * references to `#/components/schemas`.
    *
+   * Only `strict` conversions move constraints into the description, so only a
+   * `strict` inversion reads them back. Pass the same `config` the schema was
+   * converted with; the default is the same non-strict default {@link getConfig}
+   * applies, under which the constraint keywords are still on the schema and a
+   * description is only ever prose.
+   *
+   * @param props.config Configuration the schema was converted with
    * @param props.components Target components (mutated with definitions)
    * @param props.schema LLM schema to invert
    * @param props.$defs LLM schema definitions
    * @returns OpenAPI JSON schema
    */
   export const invert = (props: {
+    config?: Partial<ILlmSchema.IConfig>;
     components: OpenApi.IComponents;
     schema: ILlmSchema;
     $defs: Record<string, ILlmSchema>;
   }): OpenApi.IJsonSchema =>
     invertInternal({
       ...props,
+      config: getConfig(props.config),
       // One allocation per conversion, seeded with the component names the
       // caller already owns. Recursive inversion reuses it instead of
       // recomputing, so a reference and its stored component never disagree.
@@ -532,6 +541,7 @@ export namespace LlmSchemaConverter {
     });
 
   const invertInternal = (props: {
+    config: ILlmSchema.IConfig;
     components: OpenApi.IComponents;
     schema: ILlmSchema;
     $defs: Record<string, ILlmSchema>;
@@ -556,6 +566,7 @@ export namespace LlmSchemaConverter {
 
     const next = (schema: ILlmSchema): OpenApi.IJsonSchema =>
       invertInternal({
+        config: props.config,
         components: props.components,
         $defs: props.$defs,
         schema,
@@ -566,7 +577,10 @@ export namespace LlmSchemaConverter {
       if (LlmTypeChecker.isArray(schema))
         union.push({
           ...schema,
-          ...LlmDescriptionInverter.array(schema.description),
+          ...LlmDescriptionInverter.array({
+            config: props.config,
+            description: schema.description,
+          }),
           items: next(schema.items),
         });
       else if (LlmTypeChecker.isObject(schema))
@@ -640,7 +654,10 @@ export namespace LlmSchemaConverter {
         else
           union.push({
             ...schema,
-            ...LlmDescriptionInverter.numeric(schema.description),
+            ...LlmDescriptionInverter.numeric({
+              config: props.config,
+              description: schema.description,
+            }),
             ...{ enum: undefined },
           });
       else if (LlmTypeChecker.isString(schema))
@@ -653,7 +670,10 @@ export namespace LlmSchemaConverter {
         else
           union.push({
             ...schema,
-            ...LlmDescriptionInverter.string(schema.description),
+            ...LlmDescriptionInverter.string({
+              config: props.config,
+              description: schema.description,
+            }),
             ...{ enum: undefined },
           });
       else

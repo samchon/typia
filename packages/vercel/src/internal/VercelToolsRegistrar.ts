@@ -3,6 +3,7 @@ import {
   IHttpLlmFunction,
   ILlmController,
   ILlmFunction,
+  ILlmSchema,
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
@@ -83,6 +84,7 @@ export namespace VercelToolsRegistrar {
       tools[toolName] = createTool({
         name: toolName,
         func,
+        config: controller.application.config,
         execute: async (args: unknown) => method.call(execute, args),
       });
     }
@@ -103,6 +105,7 @@ export namespace VercelToolsRegistrar {
       tools[toolName] = createTool({
         name: toolName,
         func,
+        config: application.config,
         execute: async (args: unknown) => {
           if (controller.execute !== undefined) {
             const response = await controller.execute({
@@ -127,6 +130,7 @@ export namespace VercelToolsRegistrar {
   const createTool = (props: {
     name: string;
     func: ILlmFunction | IHttpLlmFunction;
+    config: ILlmSchema.IConfig;
     execute: (args: unknown) => Promise<unknown>;
   }): Tool => {
     const { name, func, execute } = props;
@@ -135,7 +139,19 @@ export namespace VercelToolsRegistrar {
       | undefined =
       func.output === undefined
         ? undefined
-        : LlmJson.validate(func.output, true);
+        : // Validate the output against the config that produced its schema. A
+          // `strict` application carries its constraints as description tags
+          // instead of keywords, and only that config tells the inverter to
+          // read them back.
+          //
+          // An HttpLlm application reports the config it was composed with, so
+          // this is exact for it. A typia.llm.controller reports
+          // `strict: false` whatever its Config generic said — a transform
+          // defect, not a reason to guess here: guessing is what erased the
+          // non-strict constraints in the first place. This reads the declared
+          // config and becomes exact for class controllers too the moment the
+          // transform reports it truthfully.
+          LlmJson.validate(func.output, true, props.config);
 
     return tool({
       description: func.description ?? "",

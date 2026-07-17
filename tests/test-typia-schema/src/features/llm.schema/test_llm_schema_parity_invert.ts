@@ -65,6 +65,7 @@ export const test_llm_schema_parity_invert = (): void => {
     { strict: true }
   >({});
   const strictInverted = LlmSchemaConverter.invert({
+    config: { strict: true },
     components: {},
     schema: strict,
     $defs: {},
