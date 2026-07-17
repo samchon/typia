@@ -3,6 +3,12 @@ _pagefind/
 node_modules/
 out/
 packages/
+
+# `go build ./cmd/playground` drops its binary beside the module; only
+# `go run` / `go test` and the wasm output in public/compiler/ are wanted.
+compiler/playground
+compiler/playground.exe
+
 public/api/
 public/blog/rss.xml
 public/compiler/
