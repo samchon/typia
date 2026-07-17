@@ -11,14 +11,14 @@ catalogs:
       version: 1.1.5
   typescript:
     '@ttsc/playground':
-      specifier: ^0.19.2
-      version: 0.19.2
+      specifier: ^0.18.4
+      version: 0.18.4
     '@ttsc/unplugin':
       specifier: ^0.19.2
       version: 0.19.2
     '@ttsc/wasm':
-      specifier: ^0.19.2
-      version: 0.19.2
+      specifier: ^0.18.4
+      version: 0.18.4
     ttsc:
       specifier: ^0.19.2
       version: 0.19.2
@@ -820,10 +820,10 @@ importers:
         version: 4.3.0
       '@ttsc/playground':
         specifier: catalog:typescript
-        version: 0.19.2(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.19.2)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
+        version: 0.18.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.18.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)
       '@ttsc/wasm':
         specifier: catalog:typescript
-        version: 0.19.2
+        version: 0.18.4
       '@typia/interface':
         specifier: workspace:^
         version: link:../packages/interface
@@ -2851,11 +2851,11 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/playground@0.19.2':
-    resolution: {integrity: sha512-QYzQCTWOpXfMgj+hHqSjbaU2WHbcy2NvjCXpCZPG1TzefnPoDy+TvJgdm1wp3tmh1HtYpSZhegjJLXJE8NkTkQ==}
+  '@ttsc/playground@0.18.4':
+    resolution: {integrity: sha512-hyhVzAml/ENAw/Dgj60Vu0gdcrdPRcKZpBDSMt6GpQn5we7AMLr/1scJtS94yDwXwwXMaNH6ieY2iAmIBYDN+A==}
     peerDependencies:
       '@monaco-editor/react': ^4.6.0
-      '@ttsc/wasm': ^0.19.2
+      '@ttsc/wasm': ^0.18.4
       monaco-editor: ^0.52.0
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -2866,8 +2866,8 @@ packages:
     peerDependencies:
       ttsc: 0.19.2
 
-  '@ttsc/wasm@0.19.2':
-    resolution: {integrity: sha512-eW7orjOOVkIg71C0CcDoV9ayUD5mblihXM83VDGCundsjCCjRAoI5/yMHC6924NdMnJN6Tvou7TfYBpXu0K8Xw==}
+  '@ttsc/wasm@0.18.4':
+    resolution: {integrity: sha512-WVyaZBpjd1tC3Xj7AEcSUqhjqWipyhSgxQyzgvzVG8rzmEl2rZLxQmQ1MC7mgh8izyk+LAmrgSpghZo94nLicQ==}
 
   '@ttsc/win32-arm64@0.19.2':
     resolution: {integrity: sha512-SEkMh77Jx4RtThidhZi46GMoFePxoUuaybTo0Es2vKDMId6ntQTXrfgx7lhxEHs5HK6Q+O1Mzmq4rdY8YJsezg==}
@@ -9518,10 +9518,10 @@ snapshots:
   '@ttsc/linux-x64@0.19.2':
     optional: true
 
-  '@ttsc/playground@0.19.2(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.19.2)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
+  '@ttsc/playground@0.18.4(@monaco-editor/react@4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@ttsc/wasm@0.18.4)(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tgrid@1.2.1)':
     dependencies:
       '@monaco-editor/react': 4.7.0(monaco-editor@0.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@ttsc/wasm': 0.19.2
+      '@ttsc/wasm': 0.18.4
       lz-string: 1.5.0
       monaco-editor: 0.50.0
       react: 18.3.1
@@ -9533,7 +9533,7 @@ snapshots:
       ttsc: 0.19.2
       unplugin: 2.3.11
 
-  '@ttsc/wasm@0.19.2': {}
+  '@ttsc/wasm@0.18.4': {}
 
   '@ttsc/win32-arm64@0.19.2':
     optional: true

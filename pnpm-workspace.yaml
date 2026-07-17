@@ -13,10 +13,19 @@ overrides:
   zod@4: 4.1.12
 catalogs:
   typescript:
-    ttsc: &ttsc ^0.19.2
-    '@ttsc/playground': *ttsc
-    '@ttsc/unplugin': *ttsc
-    '@ttsc/wasm': *ttsc
+    # typia's native transform consults ttsc's reference-graph SDK (ttsc >=
+    # 0.19.2), and @ttsc/unplugin reads the resulting `graph` envelope, so both
+    # move to 0.19.2 together (@ttsc/unplugin 0.19.2 peers on ttsc 0.19.2).
+    ttsc: ^0.19.2
+    '@ttsc/unplugin': ^0.19.2
+    # @ttsc/wasm / @ttsc/playground drive only the website's in-browser
+    # playground, which links ttsc's wasm host Go API — unrelated to the graph
+    # SDK. website.yml clones the ttsc sibling at the installed @ttsc/wasm
+    # version to build that host, so bumping wasm here would force the
+    # playground onto ttsc 0.19.2's reworked host.Plugin contract. Keep them on
+    # 0.18.4 until that host migration lands on its own.
+    '@ttsc/playground': ^0.18.4
+    '@ttsc/wasm': ^0.18.4
     ts-node: ^10.9.2
     typescript: ^7.0.2
   rolldown:
