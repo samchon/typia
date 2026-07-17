@@ -182,7 +182,9 @@ For the mechanics see [`LlmJson`](/docs/llm/json).
 
 A LangChain tool's `schema` normally does two jobs: it becomes the parameters the model is shown, and LangChain validates arguments against it with [`@cfworker/json-schema`](https://github.com/cfworker/cfworker) before the tool body runs. That second job would preempt typia — a stringified `"42"` would be rejected instead of coerced to `42`, and the model would get LangChain's `Received tool input did not match expected schema` instead of the annotated feedback above.
 
-So `@typia/langchain` registers the parameters as a [Standard JSON Schema](https://github.com/standard-schema/standard-schema): a schema for the model, with no validator attached. LangChain reads it back through its own `toJsonSchema`, so the model sees the same parameters document either way, and typia's coerce-then-validate path is the only one that runs. `@typia/vercel` says the same thing to the AI SDK through `jsonSchema()`, and `@typia/mcp` through the tool's `inputSchema` — all three adapters answer identical arguments identically.
+So `@typia/langchain` registers the parameters as a [Standard JSON Schema](https://github.com/standard-schema/standard-schema): a schema for the model, with no validator attached. LangChain reads it back through its own `toJsonSchema`, so the model sees the same parameters document either way, and typia's coerce-then-validate path is the only one that runs. `@typia/vercel` states the same contract to the AI SDK through `jsonSchema()`, whose absent `validate` makes the SDK skip its own check; `@typia/mcp` needs no such statement, because the low-level MCP server never validates a call's `arguments` for itself. Byte-identical arguments now get byte-identical answers from all three.
+
+This is why `@typia/langchain` requires `@langchain/core@1.1.30` or newer — that is the release whose `toJsonSchema` reads a Standard JSON Schema back.
 </Callout>
 
 ## Runtime errors
