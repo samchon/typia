@@ -56,8 +56,7 @@ func json_schema_discriminator(metadata *nativemetadata.MetadataSchema) JsonSche
 // a union, or another alias -- exports a `$ref` to the alias itself rather than
 // to an object, so it is not resolvable here.
 func json_schema_discriminator_objects(metadata *nativemetadata.MetadataSchema) []*nativemetadata.MetadataObjectType {
-  if metadata.Size() == 0 ||
-    metadata.Size() != len(metadata.Objects)+len(metadata.Aliases) {
+  if metadata.Size() != len(metadata.Objects)+len(metadata.Aliases) {
     return nil
   }
   objects := make([]*nativemetadata.MetadataObjectType, 0, metadata.Size())

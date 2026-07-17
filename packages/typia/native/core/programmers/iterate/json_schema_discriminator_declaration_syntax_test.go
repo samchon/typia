@@ -96,6 +96,20 @@ func TestJsonSchemaDiscriminatorDeclarationSyntax(t *testing.T) {
       }),
     }),
   })
+  // an alias naming another alias exports a $ref to the outer alias rather than
+  // to an object, so resolving through it would target a name `oneOf` never
+  // emits -- a wrong mapping instead of a missing one
+  nestedValue := nativemetadata.MetadataSchema_initialize()
+  nestedValue.Aliases = append(nestedValue.Aliases, discriminatorAlias("Square", square()))
+  nestedAlias := discriminatorSchema(nil, []*nativemetadata.MetadataAlias{
+    discriminatorAlias("Circle", circle()),
+    nativemetadata.MetadataAlias_create(nativemetadata.MetadataAlias{
+      Type: nativemetadata.MetadataAliasType_create(nativemetadata.MetadataAliasType{
+        Name:  "SquareAlias",
+        Value: nestedValue,
+      }),
+    }),
+  })
   withAtomic := discriminatorSchema(nil, []*nativemetadata.MetadataAlias{
     discriminatorAlias("Circle", circle()),
     discriminatorAlias("Square", square()),
@@ -124,6 +138,10 @@ func TestJsonSchemaDiscriminatorDeclarationSyntax(t *testing.T) {
     {
       label:    "alias naming a non-object value",
       metadata: nonObjectAlias,
+    },
+    {
+      label:    "alias naming another alias",
+      metadata: nestedAlias,
     },
     {
       label: "literal (inline) alias member",
