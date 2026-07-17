@@ -107,10 +107,10 @@ export namespace TestAutomation {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
     DynamicComposite: "index signature",
-    DynamicNever: "index signature erased; schema states no `never` value",
+    DynamicNever: "index signature erased; no `never` in schema",
     DynamicSimple: "index signature; passes today",
     DynamicTemplate: "index signature",
-    DynamicUndefined: "index signature erased; schema states no `undefined` value",
+    DynamicUndefined: "index signature erased; no `undefined` in schema",
     DynamicUnion: "index signature",
     ObjectDynamic: "index signature; passes today",
     // members erased from the emitted schema, so the validate matrix cannot see

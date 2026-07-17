@@ -20,9 +20,15 @@ interface IUndefined {
  * `typia.equals` is an independent code generator, which makes it the oracle
  * here rather than the validator's own output.
  *
+ * Both branches that walk `Object.entries` must agree on this: the closure
+ * check, and the one constraining extras against an `additionalProperties`
+ * schema, which would otherwise validate the key as a required value.
+ *
  * 1. Confirm an `undefined`-valued key is not superfluous under `equals: true`,
  *    and that a defined extra key still is.
- * 2. Round-trip a type whose members erase from the emitted schema and require
+ * 2. Confirm an `additionalProperties` schema does not constrain a key with no
+ *    JSON form, under either `equals` value.
+ * 3. Round-trip a type whose members erase from the emitted schema and require
  *    the emitter's own schema to accept the emitter's own value.
  */
 export const test_openapi_validator_object_undefined_property = (): void => {
@@ -68,6 +74,44 @@ export const test_openapi_validator_object_undefined_property = (): void => {
     "typia.equals rejects a defined extra key",
     typia.equals<{ a: string }>({ a: "value", b: 1 }),
     false,
+  );
+
+  // The sibling branch: an `additionalProperties` schema constrains the extra
+  // values, but a key with no JSON form is not one of them. `typia` accepts it
+  // on an index-signature type under both `is` and `equals`.
+  const constrained: OpenApi.IJsonSchema.IObject = {
+    type: "object",
+    properties: { a: { type: "string" } },
+    required: ["a"],
+    additionalProperties: { type: "string" },
+  };
+  const constrains = (value: unknown, equals: boolean): boolean =>
+    OpenApiValidator.validate({
+      components: {},
+      schema: constrained,
+      value,
+      required: true,
+      equals,
+    }).success;
+  for (const equals of [false, true]) {
+    TestValidator.equals(
+      `equals: ${equals} - a constrained object ignores an undefined-valued key`,
+      constrains({ a: "value", b: undefined }, equals),
+      true,
+    );
+    TestValidator.equals(
+      `equals: ${equals} - a constrained object still checks a defined extra key`,
+      constrains({ a: "value", b: 1 }, equals),
+      false,
+    );
+  }
+  TestValidator.equals(
+    "typia accepts an undefined-valued key on an index-signature type",
+    typia.equals<{ a: string; [key: string]: string }>({
+      a: "value",
+      b: undefined,
+    } as any),
+    true,
   );
 
   // The emitter's own round trip. `nothing` and an `undefined` union member

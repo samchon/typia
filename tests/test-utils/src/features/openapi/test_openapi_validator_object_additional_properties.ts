@@ -42,8 +42,20 @@ export const test_openapi_validator_object_additional_properties = (): void => {
 
     // An open object never has a superfluous property. This is the row the
     // unread boolean got wrong: `true` closed under `equals: true`.
-    expect(label("open accepts a clean value"), build(true), clean, equals, true);
-    expect(label("open accepts an extra property"), build(true), extra, equals, true);
+    expect(
+      label("open accepts a clean value"),
+      build(true),
+      clean,
+      equals,
+      true,
+    );
+    expect(
+      label("open accepts an extra property"),
+      build(true),
+      extra,
+      equals,
+      true,
+    );
 
     // A schema value opens the object too, and constrains what may enter it.
     expect(
@@ -63,7 +75,13 @@ export const test_openapi_validator_object_additional_properties = (): void => {
 
     // A closed object is the only one `equals` speaks for, and an absent
     // keyword is closed for this purpose.
-    expect(label("closed accepts a clean value"), build(false), clean, equals, true);
+    expect(
+      label("closed accepts a clean value"),
+      build(false),
+      clean,
+      equals,
+      true,
+    );
     expect(
       label("closed leaves an extra property to equals"),
       build(false),
@@ -111,6 +129,14 @@ export const test_openapi_validator_object_additional_properties = (): void => {
     true,
     false,
   );
+
+  // `null` sits outside the published `boolean | IJsonSchema` type, but this
+  // validator guards against it, so pin it: it constrains nothing and so cannot
+  // open the object. `OpenApiTypeCheckerBase.coverObject` reads it the same way.
+  const nulled = build(null as unknown as false);
+  expect("a null keyword accepts a clean value", nulled, clean, true, true);
+  expect("a null keyword does not open the object", nulled, extra, true, false);
+  expect("a null keyword is still lenient", nulled, extra, false, true);
 
   // The rejection names the offending property, not the object holding it.
   const validation = OpenApiValidator.validate({

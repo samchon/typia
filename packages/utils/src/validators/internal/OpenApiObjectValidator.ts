@@ -32,11 +32,16 @@ export namespace OpenApiObjectValidator {
       ),
       ...(typeof ctx.schema.additionalProperties === "object" &&
       ctx.schema.additionalProperties !== null
-        ? Object.entries(ctx.value)
+        ? // A key whose value is `undefined` has no JSON form, so it is not an
+          // additional property to constrain. Validating it as a required value
+          // would reject what `typia.is` and `typia.equals` both accept on an
+          // index-signature type.
+          Object.entries(ctx.value)
             .filter(
-              ([key]) =>
+              ([key, value]) =>
+                value !== undefined &&
                 Object.keys(ctx.schema.properties ?? {}).includes(key) ===
-                false,
+                  false,
             )
             .map(([key, value]) =>
               OpenApiStationValidator.validate({
