@@ -21,8 +21,14 @@ interface IArguments {
  * identifier, so the separator has to survive `ProtobufNameEncoder`, or the
  * emitted schema is text no Protobuf parser accepts.
  *
- * The grammar is the oracle rather than a hand-written pattern: the document is
- * handed to protobuf.js, which is what a consumer would do with it.
+ * protobuf.js resolves the document the way a consumer would, which is what
+ * makes it a fair witness for *name resolution*: a collision or a broken
+ * separator shows up as a lookup failure rather than a pattern mismatch. It is
+ * not a witness for legality. protobuf.js is lenient — it accepts a proto3
+ * document containing `required`, reports its syntax as proto3, and records the
+ * label — so it agrees with documents a real compiler rejects. Whether the
+ * emitted document actually compiles is pinned separately, by
+ * `TestProtobufMessageDocumentCompiles`, against a strict compiler front end.
  *
  * 1. Reference two distinct types that share the declared name `Foo`.
  * 2. Parse the emitted document with protobuf.js and resolve every message.

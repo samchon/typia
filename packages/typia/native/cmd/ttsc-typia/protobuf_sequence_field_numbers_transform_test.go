@@ -29,10 +29,15 @@ func TestProtobufSequenceFieldNumbersTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("protobuf sequence transform failed: code=%d stderr=\n%s", code, errText)
   }
+  // The subject is the explicit `Sequence<5>` / `Sequence<7>` field numbers and
+  // the auto-numbered `8` after them; the presence label is `optional` because
+  // proto3 has no `required`, and emitting it would make the document reject
+  // under a Protobuf compiler (samchon/typia#2155). Compiler legality itself is
+  // pinned by TestProtobufMessageDocumentCompiles.
   for _, line := range []string{
-    "required string id = 5;",
-    "required double age = 7;",
-    "required bool flag = 8;",
+    "optional string id = 5;",
+    "optional double age = 7;",
+    "optional bool flag = 8;",
   } {
     if !strings.Contains(out, line) {
       t.Fatalf("emitted proto message should contain %q:\n%s", line, out)
