@@ -10,11 +10,10 @@ import { Calculator } from "../structures/Calculator";
  *
  * `LlmJson.stringify` already wraps its output in a ```` ```json ```` fence, so
  * a caller that adds a second one hands the model ```` ```json\n```json ````.
- * The arguments and output paths of `VercelToolsRegistrar` format the same
- * `LlmJson.stringify` result fifteen lines apart, and only the output path
- * leaves it alone — so the invariant has to be asserted on both paths at once,
- * and by counting the fence rather than by testing for the doubled form, which
- * an `includes("```json")` check cannot see.
+ * `VercelToolsRegistrar` formats that same result on two separate paths — once
+ * for invalid arguments and once for an invalid output — and a fence added back
+ * to either one is invisible to an `includes("```json")` check, which passes
+ * with one fence or two. Counting the fence on both paths is what pins it.
  *
  * 1. Build a controller whose method both takes and returns a typed value.
  * 2. Force an argument failure and count the fences in its feedback.

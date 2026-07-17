@@ -42,7 +42,9 @@ export const test_langchain_tool_error_single_json_fence =
       .invoke(args)
       .then(() => undefined)
       .catch((exp: unknown) => exp);
-    const message: string = (error as Error).message;
+    if (error instanceof Error === false)
+      throw new Error("Expected invalid arguments to be rejected.");
+    const message: string = error.message;
 
     TestValidator.equals(
       "argument feedback opens exactly one json fence",
