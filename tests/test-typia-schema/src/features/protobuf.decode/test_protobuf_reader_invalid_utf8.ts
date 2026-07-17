@@ -43,7 +43,7 @@ export const test_protobuf_reader_invalid_utf8 = (): void => {
  *
  * `string()` must resolve its bytes before entering the decoder's `try`, so a
  * declared length that overruns the buffer stays a boundary error instead of
- * being relabelled as an encoding fault. Reporting `invalid UTF-8 string` here
+ * being relabeled as an encoding fault. Reporting `invalid UTF-8 string` here
  * would blame the payload's encoding for a wire-framing defect.
  */
 const assertOverflow = (label: string, task: () => unknown): void => {
@@ -53,7 +53,7 @@ const assertOverflow = (label: string, task: () => unknown): void => {
     if (error instanceof Error && error.message === OVERFLOW_ERROR) return;
     if (error instanceof Error && error.message === INVALID_UTF8_ERROR)
       throw new Error(
-        `${label} was relabelled as an encoding fault.`,
+        `${label} was relabeled as an encoding fault.`,
         { cause: error },
       );
     throw new Error(`${label} raised an unstable error.`, { cause: error });
