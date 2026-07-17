@@ -143,6 +143,14 @@ export namespace VercelToolsRegistrar {
           // `strict` application carries its constraints as description tags
           // instead of keywords, and only that config tells the inverter to
           // read them back.
+          //
+          // An HttpLlm application reports the config it was composed with, so
+          // this is exact for it. A typia.llm.controller reports
+          // `strict: false` whatever its Config generic said — a transform
+          // defect, not a reason to guess here: guessing is what erased the
+          // non-strict constraints in the first place. This reads the declared
+          // config and becomes exact for class controllers too the moment the
+          // transform reports it truthfully.
           LlmJson.validate(func.output, true, props.config);
 
     return tool({

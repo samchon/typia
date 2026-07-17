@@ -321,16 +321,16 @@ const parameters = typia.llm.parameters<IMember, { strict: true }>();
 const validate = LlmJson.validate(parameters, false, { strict: true });
 ```
 
-A `strict` schema may not carry the constraint keywords itself, so `typia.llm.*` moves them into the description as `@minimum 3` tags. `config` is what tells the validator to read them back; without it, a `strict` schema's constraints go unchecked. Schemas built without `strict` — the default — keep their keywords and need no config.
+In `strict` mode `typia.llm.*` moves the constraint keywords into the description as `@minimum 3` tags instead of leaving them on the schema. `config` is what tells the validator to read them back; without it, a `strict` schema's constraints go unchecked. Schemas built without `strict` — the default — keep their keywords and need no config.
 
-When the schema came from an application, pass its own config rather than a literal:
+An application generated from an OpenAPI document carries its own config, so pass that:
 
 ```typescript copy
-const app = typia.llm.application<IMemberController, { strict: true }>();
+const app = HttpLlm.application({ document, config: { strict: true } });
 const validate = LlmJson.validate(app.functions[0].output!, true, app.config);
 ```
 
-`createMcpServer` and the Vercel AI SDK adapter do this for you.
+For `typia.llm.application` and `typia.llm.controller`, pass the same value you wrote in the generic instead — their `config.strict` currently reports `false` even when the application was generated in `strict` mode.
 
 <Callout type="info">
 **Prefer the compile-time validator when you can.**

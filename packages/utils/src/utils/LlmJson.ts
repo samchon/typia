@@ -122,11 +122,14 @@ export namespace LlmJson {
    *   Otherwise, extra properties are ignored. An object whose
    *   `additionalProperties` opens it declares undeclared keys to be legitimate
    *   members, so this flag does not close it.
-   * @param config Configuration `parameters` was generated with, e.g.
-   *   `application.config` from `typia.llm.application`. Only `strict` schemas
-   *   carry their constraints as `@minimum 3` description tags rather than as
-   *   keywords, so only a `strict` inversion reads them back. Defaults to
-   *   non-strict, matching `ILlmSchema.IConfig.strict`.
+   * @param config Configuration `parameters` was generated with. Only a
+   *   `strict` schema carries its constraints as `@minimum 3` description tags
+   *   rather than as keywords, so only a `strict` inversion reads them back.
+   *   Defaults to non-strict, matching {@link ILlmSchema.IConfig.strict}. An
+   *   `HttpLlm.application` reports its own config, so pass that; for
+   *   `typia.llm.application` and `typia.llm.controller` pass the same value
+   *   their `Config` generic was given, because their emitted `config.strict`
+   *   is `false` even when the schema was generated in `strict` mode.
    * @returns Validator function that checks data against the schema
    */
   export function validate(

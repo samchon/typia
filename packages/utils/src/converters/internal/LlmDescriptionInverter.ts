@@ -7,10 +7,9 @@ import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
  * description.
  *
  * The shifter and this reader are one pair, so they share one gate. The shifter
- * only runs under `strict` — the mode whose schema may not carry the constraint
- * keywords itself — and therefore this reader only runs under `strict` too:
- * every function here takes the config that produced the schema and reports
- * nothing outside that mode.
+ * moves constraints into the description only under `strict`, so this reader
+ * reads them back only under `strict` too: every function here takes the config
+ * that produced the schema and reports nothing outside that mode.
  *
  * Without that gate an `@minimum 3` written by a documentation author would be
  * promoted to a constraint the type never declared, and, because these results
