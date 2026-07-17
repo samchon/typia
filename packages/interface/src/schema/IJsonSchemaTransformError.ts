@@ -11,10 +11,9 @@ import { OpenApi } from "../openapi";
  * Common transformation failures include:
  *
  * - **Missing references**: `$ref` pointing to non-existent schema definitions
- * - **Unsupported tuple types**: All LLM providers reject tuple schemas
- * - **Unsupported union types**: Gemini does not support `oneOf` schemas
- * - **Unsupported dynamic objects**: ChatGPT and Gemini reject
- *   `additionalProperties`
+ * - **Unsupported tuple types**: {@link ILlmSchema} has no tuple variant
+ * - **Strict mode violations**: `additionalProperties` or an optional property
+ *   under {@link ILlmSchema.IConfig.strict}
  *
  * The {@link reasons} array provides detailed information about each failure,
  * including the problematic schema, its location path, and a human-readable

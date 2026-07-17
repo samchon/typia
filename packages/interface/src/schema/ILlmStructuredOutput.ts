@@ -31,12 +31,10 @@ export interface ILlmStructuredOutput<T = unknown> {
   /**
    * JSON schema for the structured output.
    *
-   * Pass this schema to LLM providers (OpenAI, Anthropic, Google, etc.) to
-   * constrain the output format. The schema includes `$defs` for shared type
-   * definitions and `properties` for the output structure.
-   *
-   * Most LLM providers accept this directly in their structured output or
-   * response format configuration.
+   * Pass this schema to LLM providers (OpenAI, Anthropic, Google, etc.) through
+   * their structured output or response format configuration to constrain the
+   * output format. The schema includes `$defs` for shared type definitions and
+   * `properties` for the output structure.
    */
   parameters: ILlmSchema.IParameters;
 
