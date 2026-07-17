@@ -69,12 +69,12 @@ export type Type<
               : Value extends "int64"
                 ? {
                     number: `$importInternal("isTypeInt64")($input)`;
-                    bigint: `true`;
+                    bigint: `$importInternal("isTypeInt64Bigint")($input)`;
                   }
                 : Value extends "uint64"
                   ? {
                       number: `$importInternal("isTypeUint64")($input)`;
-                      bigint: `BigInt(0) <= $input`;
+                      bigint: `$importInternal("isTypeUint64Bigint")($input)`;
                     }
                   : Value extends "float"
                     ? `$importInternal("isTypeFloat")($input)`
