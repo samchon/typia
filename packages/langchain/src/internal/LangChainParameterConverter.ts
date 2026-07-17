@@ -1,3 +1,4 @@
+import { StandardJSONSchemaV1 } from "@standard-schema/spec";
 import { IHttpLlmFunction, ILlmFunction } from "@typia/interface";
 
 /**
@@ -22,17 +23,18 @@ import { IHttpLlmFunction, ILlmFunction } from "@typia/interface";
  * whose `validate` is likewise left undefined so that `safeValidateTypes`
  * short-circuits its own validation.
  *
- * `toJsonSchema` only reads `~standard.jsonSchema` from `@langchain/core@1.1.30`
- * onwards; older versions return the wrapper itself and would advertise it to the
- * model in place of the parameters. That is what the package's `@langchain/core`
- * peer range is pinned to.
+ * Two version floors hold this together, and both are pinned in the package
+ * manifest. `toJsonSchema` only reads `~standard.jsonSchema` from
+ * `@langchain/core@1.1.30` onwards — older versions return the wrapper itself and
+ * would advertise *that* to the model in place of the parameters — and
+ * `StandardJSONSchemaV1` only exists from `@standard-schema/spec@1.1.0`.
  *
  * @see https://github.com/standard-schema/standard-schema
  */
 export namespace LangChainParameterConverter {
   export const convert = (
     func: ILlmFunction | IHttpLlmFunction,
-  ): IStandardJsonSchema => {
+  ): StandardJSONSchemaV1 => {
     // Coercion never changes the shape a value must end up in, so the input and
     // output schemas are the same document.
     const jsonSchema = (): Record<string, unknown> =>
@@ -46,22 +48,6 @@ export namespace LangChainParameterConverter {
           output: jsonSchema,
         },
       },
-    };
-  };
-}
-
-/**
- * The `StandardJSONSchemaV1` interface of `@standard-schema/spec`, declared here
- * so that `@typia/langchain` states the contract without taking a dependency on
- * a package whose types would leak into its own public declarations.
- */
-export interface IStandardJsonSchema {
-  "~standard": {
-    version: 1;
-    vendor: string;
-    jsonSchema: {
-      input: () => Record<string, unknown>;
-      output: () => Record<string, unknown>;
     };
   };
 }

@@ -249,6 +249,9 @@ importers:
 
   packages/langchain:
     dependencies:
+      '@standard-schema/spec':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@typia/interface':
         specifier: workspace:^
         version: link:../interface
