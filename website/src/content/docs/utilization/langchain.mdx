@@ -178,9 +178,11 @@ Every tool carries the harness: type coercion, validation, and model-readable fe
 For the mechanics see [`LlmJson`](/docs/llm/json).
 
 <Callout type="info">
-**How LangChain validation fits**
+**Why LangChain doesn't validate first**
 
-LangChain may reject malformed tool inputs before the adapter body runs. For inputs that reach the tool body, `@typia/langchain` still runs typia's coerce-then-validate path, so TypeScript constraints and typia tags become the feedback the model sees.
+A LangChain tool's `schema` normally does two jobs: it becomes the parameters the model is shown, and LangChain validates arguments against it with [`@cfworker/json-schema`](https://github.com/cfworker/cfworker) before the tool body runs. That second job would preempt typia — a stringified `"42"` would be rejected instead of coerced to `42`, and the model would get LangChain's `Received tool input did not match expected schema` instead of the annotated feedback above.
+
+So `@typia/langchain` registers the parameters as a [Standard JSON Schema](https://github.com/standard-schema/standard-schema): a schema for the model, with no validator attached. LangChain reads it back through its own `toJsonSchema`, so the model sees the same parameters document either way, and typia's coerce-then-validate path is the only one that runs. `@typia/vercel` says the same thing to the AI SDK through `jsonSchema()`, and `@typia/mcp` through the tool's `inputSchema` — all three adapters answer identical arguments identically.
 </Callout>
 
 ## Runtime errors
