@@ -32,7 +32,9 @@ func TestTypiaBuildOptionsComeFromPayload(t *testing.T) {
         "--tsconfig", "tsconfig.json",
         "--emit",
         "--outDir", dist,
-        "--plugins-json", tc.payload,
+        // `=`-joined, the shape @ttsc/wasm's buildPluginArgv renders every
+        // option key into.
+        "--plugins-json=" + tc.payload,
       }, &stdout, &stderr)
       if code != 0 {
         t.Fatalf("build failed with code %d\nstdout=%s\nstderr=%s", code, stdout.String(), stderr.String())

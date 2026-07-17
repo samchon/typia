@@ -30,7 +30,9 @@ func TestTypiaTransformOptionsComeFromPayload(t *testing.T) {
         "--tsconfig", "tsconfig.json",
         "--file", filepath.Join("src", "main.ts"),
         "--output", "ts",
-        "--plugins-json", tc.payload,
+        // `=`-joined, the shape @ttsc/wasm's buildPluginArgv renders every
+        // option key into.
+        "--plugins-json=" + tc.payload,
       }, &stdout, &stderr)
       if code != 0 {
         t.Fatalf("transform failed with code %d\nstdout=%s\nstderr=%s", code, stdout.String(), stderr.String())

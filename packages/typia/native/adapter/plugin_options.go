@@ -52,7 +52,7 @@ func ReadPluginOptions(pluginsJSON string) (PluginOptions, error) {
     Functional: pluginOptionEnabled(entry.Config, "functional"),
     Numeric:    pluginOptionEnabled(entry.Config, "numeric"),
     Finite:     pluginOptionEnabled(entry.Config, "finite"),
-    Undefined:  PluginOptionBoolean(entry.Config, "undefined"),
+    Undefined:  pluginOptionBoolean(entry.Config, "undefined"),
   }, nil
 }
 
@@ -92,18 +92,18 @@ func findPluginEntry(entries []driver.PluginEntry, name string) *driver.PluginEn
 // Omitted, explicitly false, and non-boolean all mean off, matching how typia
 // has always treated its three on/off options.
 func pluginOptionEnabled(config map[string]any, name string) bool {
-  value := PluginOptionBoolean(config, name)
+  value := pluginOptionBoolean(config, name)
   return value != nil && *value
 }
 
-// PluginOptionBoolean reads one boolean option out of a resolved plugin entry's
+// pluginOptionBoolean reads one boolean option out of a resolved plugin entry's
 // config, distinguishing "omitted" (nil) from "explicitly false".
 //
 // The distinction is load-bearing for `undefined`: `undefined: false` drives the
 // exactOptionalPropertyTypes workflow and must not collapse into the omitted
 // default. A present-but-non-boolean value is treated as omitted rather than
 // coerced, so a typo cannot silently turn an option on.
-func PluginOptionBoolean(config map[string]any, name string) *bool {
+func pluginOptionBoolean(config map[string]any, name string) *bool {
   raw, ok := config[name]
   if !ok {
     return nil

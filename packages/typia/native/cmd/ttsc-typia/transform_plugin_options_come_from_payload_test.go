@@ -29,7 +29,9 @@ func TestTransformPluginOptionsComeFromPayload(t *testing.T) {
           "--tsconfig", "tsconfig.json",
           "--file", filepath.Join("src", "main.ts"),
           "--output", "ts",
-          "--plugins-json", tc.payload,
+          // `=`-joined, the exact shape ttsc's createNativeBuildArgs and the
+          // wasm hosts put on the wire.
+          "--plugins-json=" + tc.payload,
         })
       })
       if code != 0 {

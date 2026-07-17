@@ -30,7 +30,9 @@ func TestBuildPluginOptionsComeFromPayload(t *testing.T) {
           "--tsconfig", "tsconfig.json",
           "--emit",
           "--outDir", dist,
-          "--plugins-json", tc.payload,
+          // `=`-joined, the exact shape ttsc's createNativeBuildArgs and the
+          // wasm hosts put on the wire.
+          "--plugins-json=" + tc.payload,
         })
       })
       if code != 0 {
