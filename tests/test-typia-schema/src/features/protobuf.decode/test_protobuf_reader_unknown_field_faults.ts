@@ -7,39 +7,51 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *
  * Skipping unknown fields is the one reader surface a payload author fully
  * controls, so both of these faults are reachable from `typia.protobuf.decode`.
- * A reserved wire type must not report an anonymous error that leaves the caller
- * unable to attribute the failure, and a varint must not be consumed past the
- * ten bytes a 64-bit value can legally occupy merely because the skip path
- * discards the bytes it reads. `varint32` and `varint64` are already
+ * A reserved wire type must not report an anonymous error that leaves the
+ * caller unable to attribute the failure, and a varint must not be consumed
+ * past the ten bytes a 64-bit value can legally occupy merely because the skip
+ * path discards the bytes it reads. `varint32` and `varint64` are already
  * structurally bounded at ten, so a skip that is not makes the limit depend on
  * which method happens to consume the varint.
  *
- * 1. Reject every wire type that carries no skip semantics, including the
- *    reserved 6 and 7 and a bare END_GROUP, directly, from a non-zero offset,
- *    and nested inside a group.
+ * 1. Reject every wire type that carries no skip semantics, including the reserved
+ *    6 and 7 and a bare END_GROUP, directly, from a non-zero offset, and nested
+ *    inside a group.
  * 2. Skip varints up to the ten-byte limit and reject the eleventh byte, while a
  *    varint the buffer truncates before that limit still reports overflow.
- * 3. Assert every fault carries the standard prefix and restores the reader,
- *    and that the legal wire types and `uint32` are left untouched.
+ * 3. Assert every fault carries the standard prefix and restores the reader, and
+ *    that the legal wire types and `uint32` are left untouched.
  */
 export const test_protobuf_reader_unknown_field_faults = (): void => {
   //----
   // RESERVED AND NON-SKIPPABLE WIRE TYPES
   //----
   // the generated decoder passes `tag & 0x07`, so every one of these is reachable
-  assertMessage("reserved wire type 6", [], `${PREFIX}invalid wire type 6 at offset 0.`, (r) =>
-    r.skipType(6 as ProtobufWire),
+  assertMessage(
+    "reserved wire type 6",
+    [],
+    `${PREFIX}invalid wire type 6 at offset 0.`,
+    (r) => r.skipType(6 as ProtobufWire),
   );
-  assertMessage("reserved wire type 7", [], `${PREFIX}invalid wire type 7 at offset 0.`, (r) =>
-    r.skipType(7 as ProtobufWire),
+  assertMessage(
+    "reserved wire type 7",
+    [],
+    `${PREFIX}invalid wire type 7 at offset 0.`,
+    (r) => r.skipType(7 as ProtobufWire),
   );
   // END_GROUP closes a group and carries no payload, so it is not skippable
-  assertMessage("bare END_GROUP", [], `${PREFIX}invalid wire type 4 at offset 0.`, (r) =>
-    r.skipType(ProtobufWire.END_GROUP),
+  assertMessage(
+    "bare END_GROUP",
+    [],
+    `${PREFIX}invalid wire type 4 at offset 0.`,
+    (r) => r.skipType(ProtobufWire.END_GROUP),
   );
   // a group member may itself declare a reserved wire type: field 6, wire type 6
-  assertMessage("reserved wire type inside a group", [0x36], `${PREFIX}invalid wire type 6 at offset 1.`, (r) =>
-    r.skipType(ProtobufWire.START_GROUP),
+  assertMessage(
+    "reserved wire type inside a group",
+    [0x36],
+    `${PREFIX}invalid wire type 6 at offset 1.`,
+    (r) => r.skipType(ProtobufWire.START_GROUP),
   );
 
   // the reported offset is the reader's own position rather than always zero,
@@ -49,8 +61,9 @@ export const test_protobuf_reader_unknown_field_faults = (): void => {
   );
   advanced.skipType(ProtobufWire.VARIANT);
   advanced.skipType(ProtobufWire.VARIANT);
-  const raised: Error = expect("a reserved wire type at a non-zero offset", () =>
-    advanced.skipType(6 as ProtobufWire),
+  const raised: Error = rejection(
+    "a reserved wire type at a non-zero offset",
+    () => advanced.skipType(6 as ProtobufWire),
   );
   if (raised.message !== `${PREFIX}invalid wire type 6 at offset 2.`)
     throw new Error(
@@ -65,18 +78,28 @@ export const test_protobuf_reader_unknown_field_faults = (): void => {
   // THE TEN-BYTE VARINT LIMIT
   //----
   // ten bytes is the maximum a 64-bit value occupies in seven-bit groups
-  assertSkip("single-byte varint", [0x00, 0x0a], 1);
-  assertSkip("two-byte varint", [0x80, 0x01, 0x0a], 2);
-  assertSkip("nine-byte varint", [...continuations(8), 0x01, 0x0a], 9);
-  assertSkip("ten-byte varint", [...continuations(9), 0x01, 0x0a], 10);
-
-  // the eleventh byte is one past the limit and must be rejected, not skipped
-  assertMessage("eleven-byte varint", [...continuations(10), 0x01, 0x0a], OVERLONG, (r) =>
+  assertSkip("single-byte varint", [0x00, 0x0a], 1, (r) => r.skipVarint());
+  assertSkip("two-byte varint", [0x80, 0x01, 0x0a], 2, (r) => r.skipVarint());
+  assertSkip("nine-byte varint", [...continuations(8), 0x01, 0x0a], 9, (r) =>
     r.skipVarint(),
   );
-  // the issue's witness: a thirteen-byte varint was accepted, leaving ptr at 13
-  assertMessage("thirteen-byte varint", [...continuations(12), 0x01], OVERLONG, (r) =>
+  assertSkip("ten-byte varint", [...continuations(9), 0x01, 0x0a], 10, (r) =>
     r.skipVarint(),
+  );
+
+  // the eleventh byte is one past the limit and must be rejected, not skipped
+  assertMessage(
+    "eleven-byte varint",
+    [...continuations(10), 0x01, 0x0a],
+    OVERLONG,
+    (r) => r.skipVarint(),
+  );
+  // the issue's witness: a thirteen-byte varint was accepted, leaving ptr at 13
+  assertMessage(
+    "thirteen-byte varint",
+    [...continuations(12), 0x01],
+    OVERLONG,
+    (r) => r.skipVarint(),
   );
   // a runaway of continuation bytes is a length fault, decided at byte ten
   assertMessage("runaway varint", continuations(64), OVERLONG, (r) =>
@@ -95,11 +118,25 @@ export const test_protobuf_reader_unknown_field_faults = (): void => {
   );
 
   // the same limit applies through the public unknown-field entry point
-  assertSkip("ten-byte varint through skipType", [...continuations(9), 0x01], 10, (r) =>
-    r.skipType(ProtobufWire.VARIANT),
+  assertSkip(
+    "ten-byte varint through skipType",
+    [...continuations(9), 0x01],
+    10,
+    (r) => r.skipType(ProtobufWire.VARIANT),
   );
-  assertMessage("eleven-byte varint through skipType", [...continuations(10), 0x01], OVERLONG, (r) =>
-    r.skipType(ProtobufWire.VARIANT),
+  assertMessage(
+    "eleven-byte varint through skipType",
+    [...continuations(10), 0x01],
+    OVERLONG,
+    (r) => r.skipType(ProtobufWire.VARIANT),
+  );
+  // a group member's varint is bound alike, and unwinding two nested skips
+  // still restores the reader to where the outer skip began: field 1, wire 0
+  assertMessage(
+    "eleven-byte varint inside a group",
+    [0x08, ...continuations(10), 0x01],
+    OVERLONG,
+    (r) => r.skipType(ProtobufWire.START_GROUP),
   );
 
   //----
@@ -139,7 +176,7 @@ const assertSkip = (
   label: string,
   bytes: number[],
   expected: number,
-  closure: (reader: _ProtobufReader) => void = (r) => r.skipVarint(),
+  closure: (reader: _ProtobufReader) => void,
 ): void => {
   const reader: _ProtobufReader = new _ProtobufReader(Uint8Array.from(bytes));
   closure(reader);
@@ -150,7 +187,7 @@ const assertSkip = (
 };
 
 /** Requires the closure to reject, and hands its error back for inspection. */
-const expect = (label: string, closure: () => void): Error => {
+const rejection = (label: string, closure: () => void): Error => {
   try {
     closure();
   } catch (error) {
@@ -175,7 +212,7 @@ const assertMessage = (
 ): void => {
   const reader: _ProtobufReader = new _ProtobufReader(Uint8Array.from(bytes));
   const size: number = reader.size();
-  const error: Error = expect(label, () => closure(reader));
+  const error: Error = rejection(label, () => closure(reader));
   if (error.message !== expected)
     throw new Error(
       `${label} reported ${JSON.stringify(error.message)} instead of ${JSON.stringify(expected)}.`,

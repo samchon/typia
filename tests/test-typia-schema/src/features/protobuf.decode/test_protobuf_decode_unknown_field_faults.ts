@@ -2,22 +2,22 @@ import typia from "typia";
 
 /**
  * Verifies generated Protobuf decoders attribute every unknown-field fault to
- * typia and bound an unknown varint at ten bytes.
+ * typia and bind an unknown varint to ten bytes.
  *
  * A generated decoder routes every field it does not know to the reader's
  * `skipType` with `tag & 0x07`, so a payload author reaches wire types 6 and 7
- * and a bare END_GROUP, none of which are skippable, and reaches the varint skip
- * with as many continuation bytes as they like. The first case must not surface
- * an anonymous error that no user can trace back to typia, and the second must
- * not accept a varint longer than a 64-bit value can occupy while `uint32` on
- * the very same buffer stops at ten.
+ * and a bare END_GROUP, none of which are skippable, and reaches the varint
+ * skip with as many continuation bytes as they like. The first case must not
+ * surface an anonymous error that no user can trace back to typia, and the
+ * second must not accept a varint longer than a 64-bit value can occupy while
+ * `uint32` on the very same buffer stops at ten.
  *
- * 1. Decode payloads whose unknown field declares each non-skippable wire type
- *    and assert the error names typia and the wire type.
+ * 1. Decode payloads whose unknown field declares each non-skippable wire type and
+ *    assert the error names typia and the wire type.
  * 2. Decode an unknown varint field of ten bytes and of eleven, asserting the
  *    first skips and the second is rejected.
- * 3. Assert every known field still survives an unknown field, and that the
- *    prefixed error reaches each throwing decoder factory alike.
+ * 3. Assert both faults surface identically from every decoder variant, and that a
+ *    known field, a valid payload, and the merged contracts are untouched.
  */
 export const test_protobuf_decode_unknown_field_faults = (): void => {
   // IValue field 1 = "a", then an unknown field 2 with the given wire type
