@@ -10,17 +10,25 @@ import (
 	"testing"
 )
 
-// TestTransformDeclarationSourceProducesNoJS verifies JS transform reports empty emission.
+// TestTransformDeclarationSourceProducesNoJavaScript verifies JS transform reports empty emission.
 //
 // Declaration files can belong to the program while producing no JavaScript
 // output. The single-file transform path must detect that empty capture instead
 // of returning a successful but blank result.
 //
+// The file name deliberately spells out "javascript". Go reads a trailing `_js`
+// on a source file name as a `GOOS=js` build constraint, so under the earlier
+// name `..._produces_no_js_test.go` this case built only for `GOOS=js` -- where
+// `main.go` (`//go:build !js`) drops out and the test package does not compile
+// at all. It therefore ran on no platform whatsoever, and the tag it carries was
+// never the reason. Keep a `_js`, `_windows`, `_linux`, or `_darwin` ending off
+// a Go file name unless that constraint is meant.
+//
 // 1. Create a project that includes only a declaration source file.
 // 2. Run single-file transform with JavaScript output.
 // 3. Capture the command diagnostics.
 // 4. Assert the command reports that no output was produced.
-func TestTransformDeclarationSourceProducesNoJS(t *testing.T) {
+func TestTransformDeclarationSourceProducesNoJavaScript(t *testing.T) {
 	root := transformCoverageRepoRoot(t)
 	base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
 	if err := os.MkdirAll(base, 0o755); err != nil {

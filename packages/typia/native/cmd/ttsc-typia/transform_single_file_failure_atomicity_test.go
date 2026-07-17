@@ -87,12 +87,6 @@ func TestTransformSingleFileFailurePreservesArtifacts(t *testing.T) {
 // transformSingleFileProject writes a one-source project whose `src/main.ts`
 // carries the given body, sharing the typia stub the other transform diagnostic
 // fixtures use.
-//
-// It deliberately omits `outDir`/`rootDir`. `--output js` locates its result
-// through `sameSourceStem`, which compares whole path stems, so an emitted
-// `dist/main.js` never matches its `src/main.ts` and the mode reports "no output
-// produced" instead of an artifact. Emitting beside the source keeps `js` mode
-// genuinely exercisable here rather than passing for the wrong reason.
 func transformSingleFileProject(t *testing.T, source string) string {
   t.Helper()
   project := t.TempDir()
@@ -100,7 +94,7 @@ func transformSingleFileProject(t *testing.T, source string) string {
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }
-  if err := os.WriteFile(filepath.Join(project, "tsconfig.json"), []byte(transformSingleFileTSConfig), 0o644); err != nil {
+  if err := os.WriteFile(filepath.Join(project, "tsconfig.json"), []byte(transformDiagnosticTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
   transformDiagnosticWriteTypiaStub(t, project)
@@ -116,22 +110,5 @@ func transformSingleFileProject(t *testing.T, source string) string {
 const transformSingleFileValidSource = `import typia from "typia";
 export function check(input: unknown): boolean {
   return typia.is<{ value: number }>(input);
-}
-`
-
-// transformSingleFileTSConfig mirrors transformDiagnosticTSConfig without the
-// `rootDir`/`outDir` redirection, so `--output js` emits beside the source.
-const transformSingleFileTSConfig = `{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
-    "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
-    "types": ["*"],
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true
-  },
-  "include": ["src"]
 }
 `
