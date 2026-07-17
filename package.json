@@ -5,11 +5,11 @@
   "description": "Typia Station",
   "scripts": {
     "build": "pnpm run build:packages",
-    "build:packages": "pnpm --filter=./packages/* -r build",
+    "build:packages": "pnpm --filter=./packages/* --fail-if-no-match -r build",
     "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
     "format:go": "node scripts/format-go.cjs",
     "test": "pnpm run test:packages && pnpm run test:toolchain",
-    "test:packages": "pnpm --filter=./tests/test-* -r start",
+    "test:packages": "pnpm --filter=./tests/test-* --fail-if-no-match -r start",
     "test:go": "pnpm run test:go:public && pnpm run test:go:native",
     "test:go:public": "go -C packages/typia/test test ./...",
     "test:go:native": "go -C packages/typia/test test ../native/...",

@@ -60,8 +60,7 @@ export namespace TestAutomation {
   };
 
   /**
-   * Structures held out of the OpenAPI validate matrix, and the type feature
-   * each was held out for.
+   * Structures held out of the OpenAPI validate matrix, and why each is out.
    *
    * This replaces three source-text scans (`"never"`, `"[key: "`, `'<"uint32">'`)
    * that the selector ran over each fixture's raw file. Matching source text
@@ -70,16 +69,22 @@ export namespace TestAutomation {
    * observe (#2136). The set below reproduces those three scans exactly — the
    * same 148 structures resolve to the same 83 validate and 80 equality cases.
    *
-   * The reason belongs here rather than on the fixture because it describes
-   * `OpenApiValidator`'s coverage, not the fixture: nothing about
-   * `DynamicSimple` makes it unfit to be a fixture, only what the validator
-   * does with the `additionalProperties` schema its type produces.
+   * The reason belongs here rather than on the fixture because it describes the
+   * emitted schema, not the fixture: nothing about `DynamicSimple` makes it
+   * unfit to be a fixture, only what `typia.json.schema` produces for its index
+   * signature and what `OpenApiValidator` can therefore see.
    *
-   * Eight entries fail today if admitted. Failing is not by itself a validator
-   * gap, and for `DynamicNever`, `DynamicUndefined`, and `ObjectUndefined` the
-   * reasons below used to say it was — under three different causes, none of
-   * them the real one (#2145). All three share one cause, and it is a schema
-   * collision, not a validator gap.
+   * Eight entries fail today if admitted, and four pass. Failing is not by
+   * itself a validator gap, and the reasons here once said all eight were. Each
+   * was measured by admitting it rather than reasoned about from its type.
+   * `OpenApiValidator` sees only the emitted JSON schema, and every remaining
+   * miss belongs to that schema rather than to the validator: either two types
+   * emit one schema, or the schema is weaker than the type it came from.
+   *
+   * **Two types, one schema.** For `DynamicNever`, `DynamicUndefined`, and
+   * `ObjectUndefined` the reasons below used to name three different causes,
+   * none of them the real one (#2145). All three share one, and it is a schema
+   * collision.
    *
    * A member or index-signature value typed `never` or `undefined` has no JSON
    * form, so typia erases it. What is left is byte-identical to the schema of a
@@ -102,6 +107,28 @@ export namespace TestAutomation {
    * `TypeTagType`; both pass the equality matrix and are held out for a
    * validate-matrix reason.
    *
+   * **Schemas weaker than their types.** The remaining five carry no collision;
+   * their schema simply states less than the type does, so no validator could
+   * reject the fixture's spoiler and the miss is the emitter's:
+   *
+   * - `DynamicComposite`, `DynamicTemplate`, `DynamicUnion` — an index
+   *   signature emits `additionalProperties`, a single schema shared by every
+   *   key. The normalized object schema has no `patternProperties`, so distinct
+   *   key patterns and their distinct value types collapse into one union:
+   *   `DynamicTemplate` becomes `additionalProperties: string | number |
+   *   boolean`, which permits the spoiler `prefix_wrong: false` that its
+   *   `` [key: `prefix_${string}`]: string `` member forbids. The
+   *   over-approximation is forced by the target format, not a validator gap.
+   * - `TypeTagType` — an integer width tag emits no range: `Type<"uint32">`
+   *   becomes `{ type: "integer", minimum: 0 }` and `Type<"int32">` becomes a
+   *   bare `{ type: "integer" }`. No upper bound is ever emitted, so the
+   *   spoiler `uint = 4294967296` is inside every constraint the schema states.
+   * - `TemplateInterpolationTagged` — a template literal emits a `pattern` for
+   *   its structural shape alone, and the interpolated tags never reach it.
+   *   `` percent: `${number & Minimum<0> & Maximum<100>}%` `` emits
+   *   `^([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?%)$`, which `"150%"` matches. The
+   *   first miss is that `Maximum<100>`, not a `uint32` tag.
+   *
    * The four marked `passes today` are measured to validate cleanly against
    * their own spoilers, and are held out only because admitting them changes
    * *which* structures the matrix covers — a separate decision from *how* they
@@ -110,20 +137,20 @@ export namespace TestAutomation {
   const HELD_OUT: Record<string, string> = {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
-    DynamicComposite: "index signature",
+    DynamicComposite: "index signature; schema over-approximates the key types",
     DynamicNever: "index signature erased; schema collides with `{}`",
     DynamicSimple: "index signature; passes today",
-    DynamicTemplate: "index signature",
+    DynamicTemplate: "index signature; schema over-approximates the key types",
     DynamicUndefined: "index signature erased; schema collides with `{}`",
-    DynamicUnion: "index signature",
+    DynamicUnion: "index signature; schema over-approximates the key types",
     ObjectDynamic: "index signature; passes today",
     // erased members, so the validate matrix cannot see their spoilers; the
     // equality matrix passes since #2145
     ObjectUndefined: "`undefined` and `never` members erased",
-    // integer format tags the validator does not enforce
+    // tag ranges that never reach the emitted schema
     ConstantAtomicTagged: "uint32 tag; passes today",
-    TemplateInterpolationTagged: "uint32 tag",
-    TypeTagType: "uint32 and uint64 tags",
+    TemplateInterpolationTagged: "interpolated tags absent from the pattern",
+    TypeTagType: "integer width tags emit no range",
   };
 
   export const getStructures = async (equals: boolean): Promise<string[]> => {

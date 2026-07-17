@@ -1,6 +1,7 @@
-import cp from "child_process";
 import fs from "fs";
 import path from "path";
+
+import { Git } from "./Git";
 
 /**
  * Naming-identity model of the hand-written feature test files.
@@ -124,8 +125,8 @@ export namespace FeatureIdentity {
    * @param root Repository root; defaults to the enclosing git work tree.
    * @returns Every tracked `tests/<suite>/src/features` source file, parsed.
    */
-  export const collect = (root: string = toplevel()): IFeatureFile[] =>
-    git(["ls-files", "-z", "--", "tests"], root)
+  export const collect = (root: string = Git.toplevel()): IFeatureFile[] =>
+    Git.run(["ls-files", "-z", "--", "tests"], root)
       .split("\0")
       .map((line) => FEATURE_PATH.exec(line))
       .filter((match) => match !== null)
@@ -175,34 +176,4 @@ export namespace FeatureIdentity {
   const describe = (names: string[]): string =>
     `${names.length} test ${names.length === 1 ? "function" : "functions"} ` +
     `(${names.join(", ")})`;
-
-  const toplevel = (): string =>
-    git(["rev-parse", "--show-toplevel"], __dirname).trim();
-
-  const git = (args: string[], cwd: string): string => {
-    try {
-      return cp.execFileSync("git", args, {
-        cwd,
-        encoding: "utf8",
-        // Capture git's own report instead of letting it print itself into
-        // the suite log, so a failure arrives through the throw below.
-        stdio: ["ignore", "pipe", "pipe"],
-        // The default 1 MB would turn repository growth into an ENOBUFS
-        // surfacing from inside a naming check.
-        maxBuffer: 64 * 1024 * 1024,
-      });
-    } catch (error) {
-      // Never degrade to an empty tree: a vacuous pass would hide the very
-      // regressions this suite exists to catch.
-      const stderr: string = String(
-        (error as { stderr?: unknown }).stderr ?? "",
-      ).trim();
-      throw new Error(
-        `Failed to run "git ${args.join(" ")}" in "${cwd}". ` +
-          `The feature-identity check reads the tracked tree through git.\n` +
-          `${(error as Error).message}` +
-          `${stderr.length !== 0 ? `\n${stderr}` : ""}`,
-      );
-    }
-  };
 }

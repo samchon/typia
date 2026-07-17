@@ -38,7 +38,7 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
   - `test-interface`: compile-time tests for the exported `@typia/interface` types.
   - `test-typia-cli`, `test-typia-generate`: CLI and project-layout integration suites, including the `typia generate` command.
   - `test-typia-exact-optional`: focused `exactOptionalPropertyTypes` behavior.
-  - `test-feature-identity`: repository check that every suite's tracked `src/features` file exports exactly one `test_*` function named after the file, and that one suite never exports a name twice.
+  - `test-feature-identity`: repository check that every suite's tracked `src/features` file exports exactly one `test_*` function named after the file, that one suite never exports a name twice, and that every `tests/*` workspace declares the package name `@typia/<directory>`.
   - `test-error`: transform-rejection verification; the build must fail and every fixture must be named by a typia diagnostic.
 - `tests/debug`: `@typia/debug`, a one-off `ttsx` runner for ad-hoc local repros.
 - `benchmark/`: `@typia/benchmark`, performance generators with archived results under `benchmark/results/**`. See `.agents/skills/benchmark/SKILL.md`.
