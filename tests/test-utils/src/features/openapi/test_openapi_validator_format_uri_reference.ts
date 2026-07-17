@@ -72,7 +72,8 @@ export const test_openapi_validator_format_uri_reference = (): void => {
     "path/(parens)",
     "path/with-!$&'()*+,;=~_.-",
     "git://github.com/samchon/typia.git/../nestia.git",
-    // a colon is legal wherever a scheme precedes it or the first segment ends
+    // a colon is legal after a real scheme, on a rooted path, from the second
+    // segment on, and in query and fragment; only segment-nz-nc excludes it
     "a:b",
     "A:b",
     "foo+bar:baz",
@@ -87,6 +88,8 @@ export const test_openapi_validator_format_uri_reference = (): void => {
     "#f:1",
   ];
   const schemelessColons: string[] = [
+    // no valid scheme precedes these, so the first segment is segment-nz-nc,
+    // and none of them parses as a URI or as any relative-ref alternative
     "1bad:relative",
     "1bad:relative/x",
     "1bad:relative?q",
