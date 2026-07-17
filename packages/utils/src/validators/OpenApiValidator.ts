@@ -18,7 +18,10 @@ import { OpenApiStationValidator } from "./internal/OpenApiStationValidator";
  * - {@link create}: Create reusable validator function from schema
  * - {@link validate}: One-shot validation with inline schema
  *
- * Set `equals: true` to reject objects with extra properties (strict mode).
+ * Set `equals: true` to reject extra properties on a closed object (strict
+ * mode). An object whose `additionalProperties` opens it — `true`, or a schema
+ * constraining the extra values — declares undeclared keys to be legitimate
+ * members, so `equals` does not close it.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
