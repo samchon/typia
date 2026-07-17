@@ -7,9 +7,26 @@ import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
 import { HttpLlm } from "@typia/utils";
 
+/**
+ * Verifies typia — not LangChain — rejects an HTTP tool's invalid arguments.
+ *
+ * The class and HTTP controllers share one `createTool`, so whichever framework
+ * owns argument validation owns it for both protocols. LangChain's
+ * `StructuredTool.call` validates a registered JSON Schema with
+ * `@cfworker/json-schema` and throws before the tool body, which would replace
+ * typia's correctable feedback with its generic "Received tool input did not
+ * match expected schema" here too. Asserting only that
+ * `ToolInputParsingException` is thrown accepts either source and so pins
+ * neither; this pins the message.
+ *
+ * 1. Build an OpenAPI document whose request body needs two numbers.
+ * 2. Convert its HTTP controller to LangChain tools.
+ * 3. Invoke the operation with a non-numeric operand.
+ * 4. Assert the throw carries typia's annotated feedback for the body path and
+ *    never LangChain's schema message.
+ */
 export const test_langchain_http_controller_validation =
   async (): Promise<void> => {
-    // 1. Create minimal OpenApi document with a simple numeric schema
     const bodySchema: OpenApi.IJsonSchema.IObject = {
       type: "object",
       properties: {
@@ -56,38 +73,45 @@ export const test_langchain_http_controller_validation =
       },
     };
 
-    // 2. Create controller
     const controller: IHttpLlmController = HttpLlm.controller({
       name: "calculator",
       document,
       connection: { host: "http://localhost:3000" },
     });
-
-    // 3. Convert to LangChain tools
     const tools: DynamicStructuredTool[] = toLangChainTools({
       controllers: [controller],
     });
-
-    // 4. Find the add tool
-    const addTool = tools.find((t) => t.name === "calculate_add_post");
-    if (!addTool) {
+    const addTool: DynamicStructuredTool | undefined = tools.find(
+      (t) => t.name === "calculate_add_post",
+    );
+    if (addTool === undefined)
       throw new Error("Missing calculate_add_post tool");
-    }
 
-    // 5. Test validation failure: wrong type (string instead of number)
-    //    (may be thrown by LangChain's JSON Schema validation or typia's validation)
-    try {
-      await addTool.invoke({
-        body: {
-          x: "not a number",
-          y: 5,
-        },
-      });
-      throw new Error("Expected ToolInputParsingException to be thrown.");
-    } catch (error) {
-      TestValidator.predicate(
-        "should throw ToolInputParsingException",
-        () => error instanceof ToolInputParsingException,
-      );
-    }
+    const error: unknown = await addTool
+      .invoke({ body: { x: "not a number", y: 5 } })
+      .then(() => undefined)
+      .catch((exp: unknown) => exp);
+    TestValidator.predicate(
+      "invalid arguments throw ToolInputParsingException",
+      () => error instanceof ToolInputParsingException,
+    );
+
+    const message: string = (error as Error).message;
+    TestValidator.predicate(
+      "feedback comes from typia, not LangChain's JSON Schema validation",
+      () =>
+        message.includes(
+          "Received tool input did not match expected schema",
+        ) === false,
+    );
+    TestValidator.predicate("feedback is titled by the registrar", () =>
+      message.includes('Type errors in "calculate_add_post" arguments:'),
+    );
+    TestValidator.predicate(
+      "feedback annotates the offending body property",
+      () =>
+        message.includes("// ❌") &&
+        message.includes('"path":"$input.body.x"') &&
+        message.includes('"expected":"number"'),
+    );
   };

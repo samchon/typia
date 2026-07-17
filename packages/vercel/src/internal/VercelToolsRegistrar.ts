@@ -157,7 +157,7 @@ export namespace VercelToolsRegistrar {
             success: false,
             error:
               `Type errors in "${name}" arguments:\n\n` +
-              `\`\`\`json\n${LlmJson.stringify(validation)}\n\`\`\``,
+              LlmJson.stringify(validation),
           } satisfies ITryResult;
         try {
           const result: unknown = await execute(validation.data);

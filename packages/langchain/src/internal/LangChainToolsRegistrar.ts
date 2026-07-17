@@ -3,6 +3,7 @@ import {
   ToolInputParsingException,
   tool,
 } from "@langchain/core/tools";
+import type { JSONSchema } from "@langchain/core/utils/json_schema";
 import {
   IHttpLlmController,
   IHttpLlmFunction,
@@ -11,6 +12,8 @@ import {
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
+
+import { LangChainParameterConverter } from "./LangChainParameterConverter";
 
 export namespace LangChainToolsRegistrar {
   export const convert = (props: {
@@ -136,7 +139,7 @@ export namespace LangChainToolsRegistrar {
         if (valid.success === false)
           throw new ToolInputParsingException(
             `Type errors in "${entry.name}" arguments:\n\n` +
-              `\`\`\`json\n${LlmJson.stringify(valid)}\n\`\`\``,
+              LlmJson.stringify(valid),
             JSON.stringify(args ?? {}),
           );
         try {
@@ -163,7 +166,15 @@ export namespace LangChainToolsRegistrar {
       {
         name: entry.name,
         description: entry.function.description ?? "",
-        schema: entry.function.parameters,
+        // Declares the model-facing schema without a validator, so the
+        // coerce-and-validate step above is the only one that runs; see
+        // `LangChainParameterConverter`. The cast is needed because `tool()`
+        // still types `schema` as Zod-or-JSON-Schema, even though the
+        // `toJsonSchema` it reads that schema back with accepts Standard JSON
+        // Schema by its own public signature.
+        schema: LangChainParameterConverter.convert(
+          entry.function,
+        ) as JSONSchema,
       },
     );
 

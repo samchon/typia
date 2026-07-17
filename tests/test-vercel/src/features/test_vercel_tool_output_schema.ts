@@ -18,6 +18,10 @@ import { Calculator } from "../structures/Calculator";
  * 2. Preserve a valid nested object in the typed success branch.
  * 3. Route undefined, null, array, primitive, and wrong-shaped values through the
  *    schema-conforming failure branch with actionable paths.
+ *
+ * The markdown fencing of that feedback is asserted by
+ * `test_vercel_tool_error_single_json_fence`, which counts the fence on both the
+ * arguments and output paths.
  */
 export const test_vercel_tool_output_schema = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =
@@ -89,8 +93,7 @@ export const test_vercel_tool_output_schema = async (): Promise<void> => {
         failure.success === false &&
         typeof failure.error === "string" &&
         failure.error.includes('Type errors in "read" output:') &&
-        failure.error.includes(path) &&
-        !failure.error.includes("```json\n```json")
+        failure.error.includes(path)
       );
     });
   }
