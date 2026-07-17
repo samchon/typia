@@ -13,7 +13,7 @@ import { Calculator } from "../structures/Calculator";
  *
  * A LangChain tool's `schema` is read for two different purposes: LangChain
  * validates arguments against it, and `toJsonSchema` turns it into the
- * parameters the provider is sent. Because typia validates arguments itself, the
+ * parameters the model is shown. Because typia validates arguments itself, the
  * registrar declines the first role by registering Standard JSON Schema — and
  * the whole point of that shape is that it does not cost the second. Nothing
  * else asserts the model-facing artifact, so a regression that traded the schema
