@@ -8,7 +8,7 @@ import (
   testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
 )
 
-// TestProtobufMessageDocumentExplicitPresence verifies singular fields stay labelled.
+// TestProtobufMessageDocumentExplicitPresence verifies singular fields stay labeled.
 //
 // A Protobuf compiler accepts both `optional int32 id = 1;` and a bare
 // `int32 id = 1;`, so the compiler oracle cannot tell the two apart — but the
@@ -21,7 +21,7 @@ import (
 //
 // 1. Render a document whose scalars are required, optional, and nullable.
 // 2. Require every singular field to keep an explicit presence label.
-// 3. Require `required` to be gone, and repeated fields to stay unlabelled.
+// 3. Require `required` to be gone, and repeated fields to stay unlabeled.
 func TestProtobufMessageDocumentExplicitPresence(t *testing.T) {
   document := protobufMessageDocumentRender([]*schemametadata.MetadataObjectType{
     protobufMessageDocumentObject("IPresence",

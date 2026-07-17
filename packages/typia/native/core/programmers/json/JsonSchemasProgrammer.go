@@ -104,7 +104,7 @@ func (jsonSchemasProgrammerNamespace) WriteSchemas(props struct {
 
 // jsonSchemasProgrammer_writeV3_0 builds the emended 3.1 document and rewrites
 // it into the OpenAPI 3.0 dialect. The version string is a claim about the
-// content, so relabelling the 3.1 document alone would emit `const`,
+// content, so relabeling the 3.1 document alone would emit `const`,
 // `prefixItems`, and 3.1 nullable type unions under a "3.0" banner that no
 // conformant 3.0 consumer can read.
 func jsonSchemasProgrammer_writeV3_0(metadataList []*nativemetadata.MetadataSchema) JsonSchemasProgrammer_IJsonSchemaCollection {

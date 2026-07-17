@@ -40,7 +40,7 @@ console.log(proto);
 // }
 ```
 
-Every singular field is labelled `optional`, and array or map fields carry `repeated` or `map<...>` with no label. proto3 removed the `required` label, so a `.proto` that declares `syntax = "proto3"` and then writes `required` is rejected by `protoc` for the whole file. `optional` is proto3 explicit presence, which matches how `encode` writes the field — it emits the field even when the value equals the scalar default — so a consumer reading the schema in another language stays byte-compatible with typia's own codec.
+Every singular field is labeled `optional`, and array or map fields carry `repeated` or `map<...>` with no label. proto3 removed the `required` label, so a `.proto` that declares `syntax = "proto3"` and then writes `required` is rejected by `protoc` for the whole file. `optional` is proto3 explicit presence, which matches how `encode` writes the field — it emits the field even when the value equals the scalar default — so a consumer reading the schema in another language stays byte-compatible with typia's own codec.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>

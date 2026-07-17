@@ -6,7 +6,7 @@ import typia from "typia";
  *
  * `json.schema` routes through the same collection writer as `json.schemas`, so
  * the dialect defect was shared: fixing one entry point and leaving the others
- * would still ship a 3.1 document labelled "3.0". This pins the singular entry
+ * would still ship a 3.1 document labeled "3.0". This pins the singular entry
  * point, whose root schema is additionally dereferenced out of the components.
  *
  * 1. Declare a type carrying a nullable atomic, a literal union, and a tuple.
