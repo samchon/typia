@@ -8,9 +8,12 @@
 //
 // Most shared playground scaffolding lives inside `@ttsc/playground`. The
 // website worker uses a typia-specific compiler wrapper so each compile can
-// serialize the current transform toggles into `compilerOptions.plugins`; the
-// in-page Execute lane resolves typia's runtime from a prebuilt pack in
-// `PlaygroundMovie`'s `executeBundle`.
+// resolve the current transform toggles into a typia plugin entry, write it
+// into `compilerOptions.plugins`, and hand that same entry to the plugin as its
+// `--plugins-json` manifest — this worker is typia's host here, and a plugin
+// reads its options from the entry its host resolved rather than by parsing the
+// tsconfig back (samchon/typia#1887). The in-page Execute lane resolves typia's
+// runtime from a prebuilt pack in `PlaygroundMovie`'s `executeBundle`.
 
 import { createTypiaSourcePackMount } from "@ttsc/playground";
 import { WorkerServer } from "tgrid";

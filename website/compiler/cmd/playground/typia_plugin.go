@@ -7,11 +7,12 @@
 // invocation-owned `Stdout` / `Stderr` writers: `Run` threads that pair down
 // through each helper, and nothing here ever touches `os.Stdout` /
 // `os.Stderr`. Concurrent invocations therefore never share output state.
-// Filesystem access (`os.Getwd`, `os.ReadFile`, …) is unaffected.
+// Filesystem access (`os.Getwd`, `os.WriteFile`, …) is unaffected.
 //
 // Public surface this delegates into (all live under `packages/typia/native/`):
 //
-//   - `adapter`         — call-site walker and per-feature `PluginOptions`.
+//   - `adapter`         — call-site walker, per-feature `PluginOptions`, and the
+//     `--plugins-json` reader every typia host shares.
 //   - `core/context`    — the `ITypiaContext_Extras` diagnostic sink.
 //   - `transform`       — the AST-integration node transformer.
 //   - `driver`          — Program loader + `EmitWithPluginTransformers`.
@@ -29,7 +30,6 @@ import (
   "io"
   "os"
   "path/filepath"
-  "regexp"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -107,7 +107,7 @@ func runTypiaBuild(args []string, stdout io.Writer, stderr io.Writer) int {
   emit := fs.Bool("emit", false, "force emitted .js files")
   noEmit := fs.Bool("noEmit", false, "force analysis-only run with no file writes")
   outDir := fs.String("outDir", "", "override compilerOptions.outDir")
-  _ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
+  pluginsJSON := fs.String("plugins-json", "", "ordered ttsc plugin payload")
   if err := fs.Parse(args); err != nil {
     return 2
   }
@@ -118,12 +118,15 @@ func runTypiaBuild(args []string, stdout io.Writer, stderr io.Writer) int {
   if *verbose {
     *quiet = false
   }
+  pluginOptions, err := typiaadapter.ReadPluginOptions(*pluginsJSON)
+  if err != nil {
+    fmt.Fprintf(stderr, "typia build: %v\n", err)
+    return 2
+  }
 
   cwd := *cwdOverride
   if cwd == "" {
-    var err error
-    cwd, err = os.Getwd()
-    if err != nil {
+    if cwd, err = os.Getwd(); err != nil {
       fmt.Fprintf(stderr, "typia build: cwd: %v\n", err)
       return 2
     }
@@ -149,7 +152,7 @@ func runTypiaBuild(args []string, stdout io.Writer, stderr io.Writer) int {
 
   shouldEmit := !prog.ParsedConfig.ParsedConfig.CompilerOptions.NoEmit.IsTrue()
   transformDiags := []typiaPlaygroundDiag{}
-  typiaTransform := newTypiaTransform(prog, cwd, *tsconfigPath, &transformDiags)
+  typiaTransform := newTypiaTransform(prog, pluginOptions, &transformDiags)
   if !*quiet {
     fmt.Fprintf(stdout, "// typia build: tsconfig=%s cwd=%s emit=%v\n", *tsconfigPath, cwd, shouldEmit)
   }
@@ -190,7 +193,7 @@ func runTypiaTransform(args []string, stdout io.Writer, stderr io.Writer) int {
   cwdOverride := fs.String("cwd", "", "override the working directory")
   out := fs.String("out", "", "write output to PATH")
   output := fs.String("output", "ts", "transform output kind: js or ts")
-  _ = fs.String("plugins-json", "", "ordered ttsc plugin payload")
+  pluginsJSON := fs.String("plugins-json", "", "ordered ttsc plugin payload")
   if err := fs.Parse(args); err != nil {
     return 2
   }
@@ -198,11 +201,14 @@ func runTypiaTransform(args []string, stdout io.Writer, stderr io.Writer) int {
     fmt.Fprintf(stderr, "typia transform: unknown --output value %q\n", *output)
     return 2
   }
+  pluginOptions, err := typiaadapter.ReadPluginOptions(*pluginsJSON)
+  if err != nil {
+    fmt.Fprintf(stderr, "typia transform: %v\n", err)
+    return 2
+  }
   cwd := *cwdOverride
   if cwd == "" {
-    var err error
-    cwd, err = os.Getwd()
-    if err != nil {
+    if cwd, err = os.Getwd(); err != nil {
       fmt.Fprintf(stderr, "typia transform: cwd: %v\n", err)
       return 2
     }
@@ -222,7 +228,7 @@ func runTypiaTransform(args []string, stdout io.Writer, stderr io.Writer) int {
   defer prog.Close()
 
   transformDiags := []typiaPlaygroundDiag{}
-  typiaTransform := newTypiaTransform(prog, cwd, *tsconfigPath, &transformDiags)
+  typiaTransform := newTypiaTransform(prog, pluginOptions, &transformDiags)
 
   if *file == "" {
     if *out != "" {
@@ -340,11 +346,10 @@ func writeTypiaTransformProjectOutput(
 // transform diagnostics into `sink`.
 func newTypiaTransform(
   prog *driver.Program,
-  cwd string,
-  tsconfigPath string,
+  pluginOptions typiaadapter.PluginOptions,
   sink *[]typiaPlaygroundDiag,
 ) driver.PluginTransform {
-  transformOptions := readTypiaPluginOptions(cwd, tsconfigPath).TransformOptions()
+  transformOptions := pluginOptions.TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
     AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
       *sink = append(*sink, typiaPlaygroundDiagFrom(diag))
@@ -466,37 +471,4 @@ func typiaSourceFileKey(cwd, file string) string {
     return filepath.ToSlash(file)
   }
   return filepath.ToSlash(rel)
-}
-
-// readTypiaPluginOptions mirrors typia's CLI flag-reading helper: it scans
-// tsconfig.json for the typia plugin entry and toggles per-feature options.
-// Returns the zero value when the project doesn't list typia/lib/transform.
-func readTypiaPluginOptions(cwd, tsconfigPath string) typiaadapter.PluginOptions {
-  path := tsconfigPath
-  if !filepath.IsAbs(path) {
-    path = filepath.Join(cwd, path)
-  }
-  data, err := os.ReadFile(path)
-  if err != nil {
-    return typiaadapter.PluginOptions{}
-  }
-  text := string(data)
-  if !regexp.MustCompile(`(?s)"transform"\s*:\s*"typia/lib/transform"`).MatchString(text) {
-    return typiaadapter.PluginOptions{}
-  }
-  return typiaadapter.PluginOptions{
-    Functional: regexp.MustCompile(`(?s)"functional"\s*:\s*true`).MatchString(text),
-    Numeric:    regexp.MustCompile(`(?s)"numeric"\s*:\s*true`).MatchString(text),
-    Finite:     regexp.MustCompile(`(?s)"finite"\s*:\s*true`).MatchString(text),
-    Undefined:  readBooleanTypiaPluginOption(text, "undefined"),
-  }
-}
-
-func readBooleanTypiaPluginOption(text string, name string) *bool {
-  matched := regexp.MustCompile(`(?s)"` + regexp.QuoteMeta(name) + `"\s*:\s*(true|false)`).FindStringSubmatch(text)
-  if matched == nil {
-    return nil
-  }
-  value := matched[1] == "true"
-  return &value
 }
