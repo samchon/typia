@@ -62,9 +62,7 @@ func runTransform(args []string) int {
   }
   cwd := *cwdOverride
   if cwd == "" {
-    var err error
-    cwd, err = os.Getwd()
-    if err != nil {
+    if cwd, err = os.Getwd(); err != nil {
       fmt.Fprintf(stderr, "ttsc-typia transform: cwd: %v\n", err)
       return 2
     }

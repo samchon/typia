@@ -125,9 +125,7 @@ func runTypiaBuild(args []string, stdout io.Writer, stderr io.Writer) int {
 
   cwd := *cwdOverride
   if cwd == "" {
-    var err error
-    cwd, err = os.Getwd()
-    if err != nil {
+    if cwd, err = os.Getwd(); err != nil {
       fmt.Fprintf(stderr, "typia build: cwd: %v\n", err)
       return 2
     }
@@ -209,9 +207,7 @@ func runTypiaTransform(args []string, stdout io.Writer, stderr io.Writer) int {
   }
   cwd := *cwdOverride
   if cwd == "" {
-    var err error
-    cwd, err = os.Getwd()
-    if err != nil {
+    if cwd, err = os.Getwd(); err != nil {
       fmt.Fprintf(stderr, "typia transform: cwd: %v\n", err)
       return 2
     }
