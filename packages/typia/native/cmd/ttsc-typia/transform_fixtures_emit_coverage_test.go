@@ -20,9 +20,19 @@ import (
 // directly, which makes transformer, adapter, and programmer code visible to
 // `-coverpkg`.
 //
+// The `_js` lane asserted the opposite of this until samchon/typia#2134 was
+// fixed: it required every fixture to report "no output produced". These
+// projects all set `rootDir`/`outDir`, and the old identity check compared whole
+// path stems, so it asked whether `dist/main` equaled `src/main` and never
+// found the artifact the emit had just written. Reading those exit 3s as the
+// specification turned this suite into the defect's own guard rail -- it would
+// have failed the repair -- and left the JS emit path it exists to cover
+// unreached, since the run stopped at the identity check.
+//
 // 1. Create isolated temporary TypeScript projects under the native package.
 // 2. Transform each project's `src/main.ts` to TypeScript output in memory.
-// 3. Exercise JavaScript single-file output error handling for synthetic projects.
+// 3. Transform each project's `src/main.ts` to JavaScript and require emitted
+//    CommonJS, which is what reaches the printer and the emit path.
 // 4. Cover reflect metadata, protobuf maps, and object-union emit paths.
 // 5. Run build/check/project-transform command paths against the same project.
 func TestTransformSyntheticEmitCoverage(t *testing.T) {
@@ -63,7 +73,7 @@ func TestTransformSyntheticEmitCoverage(t *testing.T) {
   for _, tc := range cases {
     tc := tc
     t.Run(tc.name+"_js", func(t *testing.T) {
-      _, errText, code := transformCoverageCapture(func() int {
+      out, errText, code := transformCoverageCapture(func() int {
         return runTransform([]string{
           "--cwd", projects[tc.name],
           "--tsconfig", "tsconfig.json",
@@ -71,8 +81,15 @@ func TestTransformSyntheticEmitCoverage(t *testing.T) {
           "--output", "js",
         })
       })
-      if code != 3 || !strings.Contains(errText, "no output produced") {
-        t.Fatalf("transform js should report no output for %s: code=%d stderr=\n%s", tc.name, code, errText)
+      if code != 0 {
+        t.Fatalf("transform js failed for %s: code=%d stderr=\n%s", tc.name, code, errText)
+      }
+      // These fixtures compile as `commonjs`, so a real emit is module-wrapped
+      // JavaScript. The lowering itself is pinned by the dedicated single-file
+      // `js` cases; what this lane adds is that every fixture's shape reaches
+      // the printer at all.
+      if !strings.Contains(out, `"use strict"`) || !strings.Contains(out, "exports.") {
+        t.Fatalf("transform js output for %s is not emitted CommonJS:\n%s", tc.name, out)
       }
     })
   }
