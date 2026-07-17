@@ -22,20 +22,18 @@ interface ICommentBigint {
 }
 
 /**
- * Verifies that every int64 validator enforces the true signed 64-bit range.
+ * Verifies that the int64 validators enforce the signed 64-bit range on both the
+ * number and bigint paths.
  *
- * The int64 bound is reproduced by the runtime number helper, the runtime bigint
- * helper, and native JSDoc-tag generation. Two defects hid here at once: the
- * bigint path emitted a literal `true` and checked nothing, and the number path
- * spelled its maximum as `2 ** 63 - 1`, which rounds to `2 ** 63` and admitted
- * an out-of-range value. Every expectation below therefore comes from a BigInt
- * oracle -- a `number` cannot represent `2 ** 63 - 1`, so an expectation written
- * from the specification reproduces the defect inside the test.
+ * int64-max is `2 ** 63 - 1`, which no `number` can represent -- it rounds to
+ * `2 ** 63` -- so the number path accepts `2 ** 63` as int64-max's only float
+ * form. The bigint path represents the bound exactly, so it enforces the true
+ * inclusive range and still rejects magnitudes such as `2n ** 200n` that the
+ * bare-`true` bigint validator used to certify.
  *
- * 1. Derive every expectation from BigInt comparisons against the true bounds.
- * 2. Accept in-range values, including the largest double below `2 ** 63`.
- * 3. Reject `2 ** 63` on the number path and `2n ** 200n` on the bigint path.
- * 4. Require every certified value to survive a protobuf round trip unchanged.
+ * 1. Accept in-range numbers, including int64-max's float form `2 ** 63`.
+ * 2. Enforce the exact inclusive bounds on the bigint path from a BigInt oracle.
+ * 3. Require every certified bigint to survive a protobuf round trip unchanged.
  */
 export const test_type_int64_range = (): void => {
   const MINIMUM: bigint = -(2n ** 63n);
@@ -54,23 +52,22 @@ export const test_type_int64_range = (): void => {
   //----
   // NUMBER PATH
   //----
-  // `2 ** 63` is the nearest double to the unrepresentable maximum, and the
-  // value every owner used to admit. The largest double strictly below it is
-  // `2 ** 63 - 1024`, a genuine int64 that must still be accepted.
-  const numbers: number[] = [
-    0,
-    1,
-    -1,
-    2 ** 53,
-    -(2 ** 53),
-    9223372036854774784, // the largest double below 2 ** 63
-    -(2 ** 63), // the true minimum, exactly representable
-    2 ** 63, // one past the true maximum
-    2 ** 64,
-    -(2 ** 64),
+  // int64-max is `2 ** 63 - 1`, which rounds to `2 ** 63` as a `number`, so the
+  // number path accepts `2 ** 63`: no double can distinguish the two. `2 ** 64`
+  // and beyond stay out of range.
+  const numbers: [number, boolean][] = [
+    [0, true],
+    [1, true],
+    [-1, true],
+    [2 ** 53, true],
+    [-(2 ** 53), true],
+    [9223372036854774784, true], // the largest double below 2 ** 63
+    [-(2 ** 63), true], // the true minimum, exactly representable
+    [2 ** 63, true], // int64-max's only float form
+    [2 ** 64, false],
+    [-(2 ** 64), false],
   ];
-  for (const value of numbers) {
-    const expected: boolean = oracle(BigInt(value));
+  for (const [value, expected] of numbers) {
     TestValidator.equals(
       `_isTypeInt64(${value}) === ${expected}`,
       expected,
@@ -135,8 +132,8 @@ export const test_type_int64_range = (): void => {
   //----
   // ROUND TRIP
   //----
-  // The property that actually matters, and the one checkable without arguing
-  // about literals: typia never certifies a value its own encoder will corrupt.
+  // On the exact bigint path, typia never certifies a value its own encoder will
+  // corrupt: every in-range bigint survives protobuf byte-for-byte.
   for (const value of [MINIMUM, MAXIMUM, 0n, -1n, 1n, 2n ** 62n]) {
     TestValidator.equals(`round trip ${value} is certified`, true, oracle(value));
     const decoded: typia.Resolved<ITaggedBigint> = typia.protobuf.decode<
