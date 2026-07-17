@@ -116,14 +116,17 @@ export namespace TestAutomation {
       )
         continue;
       const name: string = file.substring(0, file.length - 3);
-      const structure: IStructureDeclaration | undefined = declarations[name];
-      if (structure === undefined)
+      // `Object.hasOwn`, not a truthiness test: a fixture named after an
+      // `Object.prototype` member would otherwise resolve against the prototype
+      // and be held out silently — the very failure this selector is shedding.
+      if (Object.hasOwn(declarations, name) === false)
         throw new Error(`@typia/template does not export ${name}`);
+      const structure: IStructureDeclaration = declarations[name]!;
       // Read what the fixture declares about itself, so that prose cannot
       // decide the matrix. `JSONABLE === false` marks a type whose value has no
       // faithful JSON form.
       if (structure.JSONABLE === false) continue;
-      else if (HELD_OUT[name] !== undefined) continue;
+      else if (Object.hasOwn(HELD_OUT, name)) continue;
       // `ADDABLE` is still read from source text, and deliberately so: four
       // fixtures spell it `ADDABLE: boolean = false`, which this scan does not
       // match, so they sit in the equality matrix despite declaring otherwise.

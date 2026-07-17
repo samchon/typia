@@ -21,26 +21,28 @@ import { TestGlobal } from "../TestGlobal";
  * 2. Resolve the validate and the equality matrices.
  * 3. Require the witness to remain in both.
  */
-export const test_structure_selection_ignores_prose = async (): Promise<void> => {
-  const WITNESS = "TypeTagRange";
-  const source: string = await fs.promises.readFile(
-    `${TestGlobal.ROOT}/../template/src/structures/${WITNESS}.ts`,
-    "utf-8",
-  );
-  // Exactly the condition the removed `content.includes("never")` scan tested,
-  // so the guard tracks the real trigger rather than a paraphrase of it.
-  TestValidator.equals(
-    `${WITNESS} still carries prose the old selector matched`,
-    source.includes("never") && WITNESS.includes("never") === false,
-    true,
-  );
-  for (const equals of [false, true])
+export const test_structure_selection_ignores_prose =
+  async (): Promise<void> => {
+    const WITNESS = "TypeTagRange";
+    const source: string = await fs.promises.readFile(
+      `${TestGlobal.ROOT}/../template/src/structures/${WITNESS}.ts`,
+      "utf-8",
+    );
+    // The witness word must come from the fixture's prose, not from its type:
+    // `must never` appears only in the doc comment, while the removed scan
+    // tested `includes("never")` and so matched that sentence.
     TestValidator.equals(
-      `${WITNESS} stays in the ${equals ? "equality" : "validate"} matrix`,
-      (await TestAutomation.getStructures(equals)).includes(WITNESS),
+      `${WITNESS} still carries prose the old selector matched`,
+      source.includes("must never"),
       true,
     );
-};
+    for (const equals of [false, true])
+      TestValidator.equals(
+        `${WITNESS} stays in the ${equals ? "equality" : "validate"} matrix`,
+        (await TestAutomation.getStructures(equals)).includes(WITNESS),
+        true,
+      );
+  };
 
 test_structure_selection_ignores_prose().catch((error) => {
   console.log(error);
