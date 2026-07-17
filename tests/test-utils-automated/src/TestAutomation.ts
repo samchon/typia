@@ -1,3 +1,4 @@
+import * as template from "@typia/template";
 import { dedent } from "@typia/utils";
 import fs from "fs";
 
@@ -58,10 +59,50 @@ export namespace TestAutomation {
     );
   };
 
-  const getStructures = async (equals: boolean): Promise<string[]> => {
+  /**
+   * Structures the OpenAPI validate matrix cannot cover yet.
+   *
+   * Each entry names a `typia.json.schema` output that `OpenApiValidator` does
+   * not round-trip faithfully, so the fixture is skipped rather than asserted.
+   * The reason is recorded per fixture because it is a property of the
+   * validator's coverage, not of the fixture: nothing about `DynamicSimple`
+   * makes it unfit to be a fixture, only the validator's handling of the
+   * `additionalProperties` schema its type produces.
+   *
+   * These replace the source-text scans (`"never"`, `"[key: "`, `'<"uint32">'`)
+   * this selector used to run over each fixture's raw file, where a doc comment
+   * that merely mentioned one of those words silently changed matrix membership
+   * (#2136). Membership is byte-identical to those scans.
+   *
+   * Four entries are marked `passes today`: they were excluded when the matrix
+   * was introduced (#1736) and now validate cleanly against their own spoilers.
+   * They stay listed because admitting them changes *which* structures the
+   * matrix covers, which is a separate decision from *how* they are selected.
+   */
+  const UNVALIDATABLE: Record<string, string> = {
+    // `additionalProperties` from an index signature
+    DynamicArray: "index signature; passes today",
+    DynamicComposite: "index signature",
+    DynamicNever: "index signature over a `never` member",
+    DynamicSimple: "index signature; passes today",
+    DynamicTemplate: "index signature",
+    DynamicUndefined: "index signature",
+    DynamicUnion: "index signature",
+    ObjectDynamic: "index signature; passes today",
+    // a `never` member erased from the emitted schema
+    ObjectUndefined: "`never` member",
+    // integer format tags the validator does not enforce
+    ConstantAtomicTagged: "uint32 tag; passes today",
+    TemplateInterpolationTagged: "uint32 tag",
+    TypeTagType: "uint32 and uint64 tags",
+  };
+
+  export const getStructures = async (equals: boolean): Promise<string[]> => {
     const directory: string[] = await fs.promises.readdir(
       `${TestGlobal.ROOT}/../template/src/structures`,
     );
+    const declarations: Record<string, IStructureDeclaration> =
+      template as unknown as Record<string, IStructureDeclaration>;
     const result: string[] = [];
     for (const file of directory) {
       if (
@@ -72,23 +113,43 @@ export namespace TestAutomation {
         file.startsWith("ToJson")
       )
         continue;
-      const content: string = await fs.promises.readFile(
-        `${TestGlobal.ROOT}/../template/src/structures/${file}`,
-        "utf-8",
-      );
-      if (
-        content.includes("JSONABLE = false") ||
-        content.includes("JSONABLE: boolean = false") ||
-        content.includes("[key: ") ||
-        content.includes("never") ||
-        content.includes("toJSON") ||
-        content.includes('<"uint32">') ||
-        content.includes('<"uint64">') ||
-        (equals === true && content.includes("ADDABLE = false"))
-      )
-        continue;
-      result.push(file.substring(0, file.length - 3));
+      const name: string = file.substring(0, file.length - 3);
+      const structure: IStructureDeclaration | undefined = declarations[name];
+      if (structure === undefined)
+        throw new Error(`@typia/template does not export ${name}`);
+      // Read what the fixture declares about itself, so that prose cannot
+      // decide the matrix. `JSONABLE === false` marks a type whose value has no
+      // faithful JSON form.
+      if (structure.JSONABLE === false) continue;
+      else if (UNVALIDATABLE[name] !== undefined) continue;
+      // `ADDABLE` is still read from source text, and deliberately so: four
+      // fixtures spell it `ADDABLE: boolean = false`, which this scan does not
+      // match, so they sit in the equality matrix despite declaring otherwise.
+      // Reading the declaration instead would drop them — and two of the four
+      // (ArrayRepeatedUnion, ArrayRepeatedUnionWithTuple) assert 270 superfluous
+      // paths each, so the "faithful" read silently deletes real coverage. That
+      // is a decision about *which* structures the matrix covers, so it is left
+      // to #2136's follow-up rather than smuggled in behind a refactor.
+      else if (equals === true) {
+        const content: string = await fs.promises.readFile(
+          `${TestGlobal.ROOT}/../template/src/structures/${file}`,
+          "utf-8",
+        );
+        if (content.includes("ADDABLE = false")) continue;
+      }
+      result.push(name);
     }
     return result;
   };
+}
+
+/**
+ * The part of a `@typia/template` structure this selector reads.
+ *
+ * Mirrors `TestAutomationMetadata` in `test-typia-automated`, which narrows the
+ * same namespaces to the flags its own matrix consumes. Only declared members
+ * belong here: a flag this selector does not read would be dead configuration.
+ */
+interface IStructureDeclaration {
+  JSONABLE?: boolean;
 }
