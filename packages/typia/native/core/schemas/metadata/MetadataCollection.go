@@ -6,6 +6,7 @@ import (
   "slices"
   "strconv"
   "strings"
+  "unicode"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
@@ -30,7 +31,8 @@ type MetadataCollection struct {
   arrays_order_        []*nativechecker.Type
   tuples_order_        []*nativechecker.Type
 
-  names_                 map[string]map[*nativechecker.Type]string
+  names_                 map[*nativechecker.Type]string
+  allocated_names_       map[string]bool
   type_full_names_       map[*nativechecker.Type]string
   full_names_            map[*nativechecker.Type]string
   display_names_         map[*nativechecker.Type]string
@@ -98,7 +100,8 @@ func NewMetadataCollection(options ...*MetadataCollection_IOptions) *MetadataCol
     arrays_order_:        []*nativechecker.Type{},
     tuples_order_:        []*nativechecker.Type{},
 
-    names_:                 map[string]map[*nativechecker.Type]string{},
+    names_:                 map[*nativechecker.Type]string{},
+    allocated_names_:       map[string]bool{},
     object_index_:          0,
     recursive_array_index_: 0,
     recursive_tuple_index_: 0,
@@ -128,7 +131,8 @@ func (collection *MetadataCollection) Clone() *MetadataCollection {
     arrays_order_:        slices.Clone(collection.arrays_order_),
     tuples_order_:        slices.Clone(collection.tuples_order_),
 
-    names_:                 make(map[string]map[*nativechecker.Type]string, len(collection.names_)),
+    names_:                 maps.Clone(collection.names_),
+    allocated_names_:       maps.Clone(collection.allocated_names_),
     type_full_names_:       maps.Clone(collection.type_full_names_),
     full_names_:            maps.Clone(collection.full_names_),
     display_names_:         maps.Clone(collection.display_names_),
@@ -143,9 +147,6 @@ func (collection *MetadataCollection) Clone() *MetadataCollection {
   }
   for k, v := range collection.object_unions_ {
     output.object_unions_[k] = slices.Clone(v)
-  }
-  for k, v := range collection.names_ {
-    output.names_[k] = maps.Clone(v)
   }
   return output
 }
@@ -310,20 +311,44 @@ func (collection *MetadataCollection) getName(checker *nativechecker.Checker, ty
   if collection.Options != nil && collection.Options.Replace != nil {
     name = collection.Options.Replace(name)
   }
-  duplicates := collection.names_[name]
-  if duplicates == nil {
-    duplicates = map[*nativechecker.Type]string{}
-    collection.names_[name] = duplicates
-  }
-  if oldbie, ok := duplicates[typ]; ok {
+  if oldbie, ok := collection.names_[typ]; ok {
     return oldbie, display
   }
-  addicted := name
-  if len(duplicates) != 0 {
-    addicted = name + ".o" + metadataCollection_itoa(len(duplicates))
-  }
-  duplicates[typ] = addicted
+  addicted := metadataCollection_allocateName(collection.allocated_names_, name)
+  collection.allocated_names_[addicted] = true
+  collection.names_[typ] = addicted
   return addicted, display
+}
+
+// metadataCollection_duplicateSuffix separates a duplicated base name from its
+// disambiguating counter.
+//
+// It must not be ".", which is how a qualified name separates a namespace from
+// its member. Two consumers read that meaning back out of an allocated id:
+// `JsonDescriptor.cascade` inherits the prefix component's description into the
+// child, and a reader of `reflect.name` sees a member of a namespace that never
+// declared it. A dotted counter also let an invented id land on the real full
+// name of a `namespace Foo { interface o1 }` member, and the loser was dropped
+// from the document outright. "-" cannot occur in a qualified name, is in the
+// OpenAPI Components Object key alphabet, and needs no JSON Pointer or URI
+// escaping; `metadataCollection_openApiNameSuffix` picks it for the same reason.
+const metadataCollection_duplicateSuffix = "-o"
+
+// metadataCollection_allocateName mints the first id for `name` that no other
+// type in the collection has already been given.
+//
+// `taken` is the whole collection's allocated-id set, not one base name's
+// bucket. Bucketing by base name cannot see that another base name already
+// minted, or genuinely owns, the id being handed out, so two distinct types
+// received one id and one of them silently disappeared from every generated
+// document. Consulting the whole set is what makes an id unique; the separator
+// only keeps that id from being *read* as something it is not.
+func metadataCollection_allocateName(taken map[string]bool, name string) string {
+  allocated := name
+  for index := 1; taken[allocated]; index++ {
+    allocated = name + metadataCollection_duplicateSuffix + metadataCollection_itoa(index)
+  }
+  return allocated
 }
 
 func (collection *MetadataCollection) getFullName(checker *nativechecker.Checker, typ *nativechecker.Type) string {
@@ -343,7 +368,7 @@ func (collection *MetadataCollection) getFullName(checker *nativechecker.Checker
 // getDisplayName renders the structural form (checker.TypeToString) of types
 // whose sanitized identifier name carries the anonymous "__type" marker, so
 // human-facing expected strings can show `{ id: string; name: string; }`
-// instead of `__type.o1`. Named types return "": their identifier name is
+// instead of `__type-o1`. Named types return "": their identifier name is
 // already the best display, and so is the degenerate case where the rendering
 // brings no extra information.
 func (collection *MetadataCollection) getDisplayName(checker *nativechecker.Checker, typ *nativechecker.Type, sanitized string) string {
@@ -547,6 +572,68 @@ func MetadataCollection_replace(str string) string {
   return str
 }
 
+// metadataCollection_qualifyOpenApiName keeps the dots of a type's own
+// namespace qualification and rewrites every other dot in a rendered name.
+//
+// A dot in a Components Object key is read back as a namespace boundary:
+// `JsonDescriptor.cascade` looks the dotted prefix up as a component and
+// inherits its description into the child. Deleting a rendered name's angle
+// brackets flattens a nested type into the key and used to leave that nested
+// type's dots behind, so `Gen<Ns.Inner>` became `GenNs.Inner` and claimed the
+// unrelated `GenNs` interface as its parent. The dots of a nested rendering —
+// a type argument, a union member — belong to the nested type, never to the
+// whole.
+//
+// Only the leading run of identifier runes is the type's own name, because
+// `metadataCollection_exploreName` builds exactly that prefix from the
+// declaration's enclosing module blocks. Once a structural rune appears the
+// rendering has descended into another type, so no later dot can be this type's
+// namespace boundary.
+//
+// This owns the OpenAPI key space alone. Deliberately not `MetadataCollection_replace`:
+// the LLM `$defs` and `reflect.name` key spaces carry no namespace meaning, and
+// no consumer reads a parent relation out of them.
+func metadataCollection_qualifyOpenApiName(str string) string {
+  var builder strings.Builder
+  qualified := true
+  for _, ch := range str {
+    if ch == '.' {
+      if qualified {
+        builder.WriteRune('.')
+      } else {
+        builder.WriteString(metadataCollection_qualifySeparator)
+      }
+      continue
+    }
+    if metadataCollection_isIdentifierRune(ch) == false {
+      qualified = false
+    }
+    builder.WriteRune(ch)
+  }
+  return builder.String()
+}
+
+// metadataCollection_qualifySeparator renders a flattened nested type's
+// boundary. "-" is in the OpenAPI key alphabet and cannot occur in a qualified
+// name, so it can never be mistaken for the namespace boundary a dot denotes.
+//
+// A quoted literal argument can contain "-" of its own, so this alone is not
+// injective; `metadataCollection_writeOpenApiQuotedRune` is what keeps a
+// literal dot from colliding with it, and `metadataCollection_allocateName`
+// bounds whatever remains.
+const metadataCollection_qualifySeparator = "-"
+
+// metadataCollection_isIdentifierRune reports whether a rune can appear in a
+// TypeScript identifier, and therefore in a qualified name. Unicode letters
+// count: `Café.Member` is a real qualification whose dot must survive, even
+// though the final key escapes the accented rune.
+func metadataCollection_isIdentifierRune(ch rune) bool {
+  return unicode.IsLetter(ch) ||
+    unicode.IsDigit(ch) ||
+    ch == '_' ||
+    ch == '$'
+}
+
 // MetadataCollection_replaceOpenApi converts a metadata display name into an
 // OpenAPI Components Object key. Keep this separate from the general metadata
 // replacement used by LLM `$defs`: OpenAPI restricts keys to an ASCII grammar,
@@ -560,13 +647,13 @@ func MetadataCollection_replaceOpenApi(str string) string {
   for _, ch := range str {
     if quote != 0 {
       if quotedEscape {
-        disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+        disambiguate = metadataCollection_writeOpenApiQuotedRune(&escaped, ch) || disambiguate
         quotedContent = true
         quotedEscape = false
         continue
       }
       if ch == '\\' {
-        disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+        disambiguate = metadataCollection_writeOpenApiQuotedRune(&escaped, ch) || disambiguate
         quotedContent = true
         quotedEscape = true
         continue
@@ -578,7 +665,7 @@ func MetadataCollection_replaceOpenApi(str string) string {
         quote = 0
         continue
       }
-      disambiguate = metadataCollection_writeOpenApiNameRune(&escaped, ch) || disambiguate
+      disambiguate = metadataCollection_writeOpenApiQuotedRune(&escaped, ch) || disambiguate
       quotedContent = true
       continue
     }
@@ -593,7 +680,7 @@ func MetadataCollection_replaceOpenApi(str string) string {
       escaped.WriteRune(ch)
     }
   }
-  normalized := MetadataCollection_replace(escaped.String())
+  normalized := MetadataCollection_replace(metadataCollection_qualifyOpenApiName(escaped.String()))
   if len(normalized) == 0 {
     normalized = "_"
     disambiguate = true
@@ -623,10 +710,32 @@ func metadataCollection_writeOpenApiNameRune(builder *strings.Builder, ch rune) 
     builder.WriteRune(ch)
     return false
   }
+  metadataCollection_writeOpenApiEscapedRune(builder, ch)
+  return true
+}
+
+// metadataCollection_writeOpenApiQuotedRune writes one rune of a quoted literal
+// type argument, such as the `A.B` of `Recursive<"A.B">`.
+//
+// A dot inside a quote is literal content, never the namespace boundary a
+// component key's dot denotes, so it is escaped like every other rune the key
+// alphabet cannot carry unaltered. Escaping is also what keeps the rewrite
+// injective: an escaped name earns the disambiguating hash of its original
+// text, so `Recursive<"A.B">` can neither collide with the `Recursive<"A-B">`
+// that `metadataCollection_qualifySeparator` would otherwise have shared, nor
+// squat the name `Recursive<"A_x2E_B">` legally owns.
+func metadataCollection_writeOpenApiQuotedRune(builder *strings.Builder, ch rune) bool {
+  if ch == '.' {
+    metadataCollection_writeOpenApiEscapedRune(builder, ch)
+    return true
+  }
+  return metadataCollection_writeOpenApiNameRune(builder, ch)
+}
+
+func metadataCollection_writeOpenApiEscapedRune(builder *strings.Builder, ch rune) {
   builder.WriteString("_x")
   builder.WriteString(strings.ToUpper(strconv.FormatInt(int64(ch), 16)))
   builder.WriteByte('_')
-  return true
 }
 
 func metadataCollection_openApiNameHash(str string) string {

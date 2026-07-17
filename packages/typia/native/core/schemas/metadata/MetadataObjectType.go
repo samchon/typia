@@ -165,14 +165,27 @@ func (obj *MetadataObjectType) IsLiteral() bool {
   if obj.Recursive == false {
     name := strings.ToValidUTF8(obj.Name, "__")
     name = strings.ReplaceAll(name, "\uFFFD", "__")
-    value = name == "__type" ||
-      name == "__object" ||
-      strings.HasPrefix(name, "__type.") ||
-      strings.HasPrefix(name, "__object.") ||
+    value = metadataObjectType_isAnonymousName(name, "__type") ||
+      metadataObjectType_isAnonymousName(name, "__object") ||
       strings.Contains(name, "readonly [")
   }
   obj.literal_ = &value
   return value
+}
+
+// metadataObjectType_isAnonymousName reports whether an allocated id names an
+// anonymous type literal, which the schema generators inline instead of
+// emitting as a component.
+//
+// A second anonymous type is a duplicate of the first, so its id carries the
+// collection's disambiguating counter and the bare marker is not enough to
+// recognize it. This reads that counter back out of an id, which is why it must
+// track `metadataCollection_duplicateSuffix` rather than spell the separator
+// again: when the two disagreed, every anonymous type after the first stopped
+// being recognized and was emitted as a `__type`-keyed component.
+func metadataObjectType_isAnonymousName(name string, marker string) bool {
+  return name == marker ||
+    strings.HasPrefix(name, marker+metadataCollection_duplicateSuffix)
 }
 
 func (obj *MetadataObjectType) ToJSON() IMetadataSchema_IObjectType {
