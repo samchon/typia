@@ -62,28 +62,22 @@ func numericRangeFactory_number_uint32(input *shimast.Expression, emit ...*shimp
   )
 }
 
-// numericRangeFactory_number_int64 bounds a `number` candidate at 2**63, exclusively.
-//
-// The true maximum, 2**63 - 1, is not a representable JavaScript number, so the
-// inclusive literal this used to emit rounded up to 2**63 and admitted a value
-// outside int64. The exclusive power-of-two bound is exact rather than merely
-// safer: doubles of this magnitude are 1024 apart, so none exists between
-// 2**63 - 1 and 2**63, and the largest double below it is a genuine int64. The
-// minimum stays inclusive because -(2**63) is a power of two, hence exact.
+// numericRangeFactory_number_int64 bounds a `number` candidate to the int64 range.
+// The maximum is 2**63 - 1, the int64 upper bound.
 func numericRangeFactory_number_int64(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
   return numericRangeFactory_logical_and(
     numericRangeFactory_integer(input, emit...),
-    numericRangeFactory_between_exclusive_maximum("-9223372036854775808", "9223372036854775808", emit...)(input),
+    numericRangeFactory_between("-9223372036854775808", "9223372036854775807", emit...)(input),
     emit...,
   )
 }
 
-// numericRangeFactory_number_uint64 bounds a `number` candidate at 2**64, exclusively.
-// See numericRangeFactory_number_int64; 2**64 - 1 is unrepresentable for the same reason.
+// numericRangeFactory_number_uint64 bounds a `number` candidate to the uint64 range.
+// The maximum is 2**64 - 1, the uint64 upper bound.
 func numericRangeFactory_number_uint64(input *shimast.Expression, emit ...*shimprinter.EmitContext) *shimast.Node {
   return numericRangeFactory_logical_and(
     numericRangeFactory_integer(input, emit...),
-    numericRangeFactory_between_exclusive_maximum("0", "18446744073709551616", emit...)(input),
+    numericRangeFactory_between("0", "18446744073709551615", emit...)(input),
     emit...,
   )
 }
@@ -121,34 +115,6 @@ func numericRangeFactory_between(x string, y string, emit ...*shimprinter.EmitCo
         input,
         nil,
         f.NewToken(shimast.KindLessThanEqualsToken),
-        f.NewIdentifier(y),
-      ),
-      emit...,
-    )
-  }
-}
-
-// numericRangeFactory_between_exclusive_maximum emits `x <= input && input < y`.
-//
-// Use this instead of numericRangeFactory_between whenever the true maximum is
-// not a representable JavaScript number: pass the next power of two as y, so the
-// exclusive comparison reads as the rounding boundary it actually is.
-func numericRangeFactory_between_exclusive_maximum(x string, y string, emit ...*shimprinter.EmitContext) func(input *shimast.Expression) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(numericRangeFactory_factory, emit...)
-  return func(input *shimast.Expression) *shimast.Node {
-    return numericRangeFactory_logical_and(
-      f.NewBinaryExpression(
-        nil,
-        f.NewIdentifier(x),
-        nil,
-        f.NewToken(shimast.KindLessThanEqualsToken),
-        input,
-      ),
-      f.NewBinaryExpression(
-        nil,
-        input,
-        nil,
-        f.NewToken(shimast.KindLessThanToken),
         f.NewIdentifier(y),
       ),
       emit...,
