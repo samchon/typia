@@ -21,11 +21,11 @@ catalogs:
     # @ttsc/wasm / @ttsc/playground drive only the website's in-browser
     # playground, which links ttsc's wasm host Go API — unrelated to the graph
     # SDK. website.yml clones the ttsc sibling at the installed @ttsc/wasm
-    # version to build that host, so bumping wasm here would force the
-    # playground onto ttsc 0.19.2's reworked host.Plugin contract. Keep them on
-    # 0.18.4 until that host migration lands on its own.
-    '@ttsc/playground': ^0.18.4
-    '@ttsc/wasm': ^0.18.4
+    # version to build that host, so these two pin the Go host API the
+    # playground compiles against: they move only together with
+    # website/compiler/cmd/playground, which implements host.Plugin.
+    '@ttsc/playground': ^0.19.2
+    '@ttsc/wasm': ^0.19.2
     ts-node: ^10.9.2
     typescript: ^7.0.2
   rolldown:
