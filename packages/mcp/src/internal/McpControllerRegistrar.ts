@@ -38,7 +38,11 @@ export namespace McpControllerRegistrar {
         validateOutput:
           func.output === undefined
             ? undefined
-            : LlmJson.validate(func.output, true),
+            : // Validate the output against the config that produced its
+              // schema. A `strict` application carries its constraints as
+              // description tags instead of keywords, and only that config
+              // tells the inverter to read them back.
+              LlmJson.validate(func.output, true, controller.application.config),
       });
     }
 

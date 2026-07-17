@@ -122,16 +122,23 @@ export namespace LlmJson {
    *   Otherwise, extra properties are ignored. An object whose
    *   `additionalProperties` opens it declares undeclared keys to be legitimate
    *   members, so this flag does not close it.
+   * @param config Configuration `parameters` was generated with, e.g.
+   *   `application.config` from `typia.llm.application`. Only `strict` schemas
+   *   carry their constraints as `@minimum 3` description tags rather than as
+   *   keywords, so only a `strict` inversion reads them back. Defaults to
+   *   non-strict, matching `ILlmSchema.IConfig.strict`.
    * @returns Validator function that checks data against the schema
    */
   export function validate(
     parameters: ILlmSchema.IParameters,
     equals?: boolean | undefined,
+    config?: Partial<ILlmSchema.IConfig> | undefined,
   ): (input: unknown) => IValidation<unknown> {
     const components: OpenApi.IComponents = {
       schemas: {},
     };
     const schema: OpenApi.IJsonSchema = LlmSchemaConverter.invert({
+      config,
       components,
       schema: parameters,
       $defs: parameters.$defs,
@@ -193,13 +200,16 @@ export namespace LlmJson {
    *   during validation. Otherwise, extra properties are ignored. An object
    *   whose `additionalProperties` opens it declares undeclared keys to be
    *   legitimate members, so this flag does not close it.
+   * @param config Configuration `parameters` was generated with. See
+   *   {@link validate}.
    * @returns Structured output interface with parse, coerce, and validate
    */
   export function structuredOutput<T>(
     parameters: ILlmSchema.IParameters,
     equals?: boolean | undefined,
+    config?: Partial<ILlmSchema.IConfig> | undefined,
   ): ILlmStructuredOutput<T> {
-    const validator = validate(parameters, equals);
+    const validator = validate(parameters, equals, config);
     return {
       parameters,
       parse: (str: string): IJsonParseResult<T> => parse(str, parameters),

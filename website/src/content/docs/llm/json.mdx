@@ -46,6 +46,7 @@ export namespace LlmJson {
   function validate(
     parameters: ILlmSchema.IParameters,
     equals?: boolean,
+    config?: Partial<ILlmSchema.IConfig>,
   ): (value: unknown) => IValidation<unknown>;
 
   // Coerce one function's raw arguments, then validate them. Returns IValidation<T>.
@@ -72,6 +73,7 @@ export namespace LlmJson {
   export function validate(
     parameters: ILlmSchema.IParameters,
     equals?: boolean,
+    config?: Partial<ILlmSchema.IConfig>,
   ): (value: unknown) => IValidation<unknown>;
   export function validateArguments<T>(
     func: Pick<ILlmFunction, "parameters" | "validate">,
@@ -260,8 +262,11 @@ A reference that is malformed or points at a missing definition is an error, not
 ## `LlmJson.validate`
 
 ```typescript copy
-LlmJson.validate(parameters: ILlmSchema.IParameters, equals?: boolean)
-  : (value: unknown) => IValidation<unknown>
+LlmJson.validate(
+  parameters: ILlmSchema.IParameters,
+  equals?: boolean,
+  config?: Partial<ILlmSchema.IConfig>,
+): (value: unknown) => IValidation<unknown>
 ```
 
 ```typescript filename="@typia/utils - LlmJson.validate" showLineNumbers {10-17}
@@ -306,6 +311,23 @@ lenient({ name: "John", age: 25, extra: "ignored" }); // success: true
 const strict = LlmJson.validate(parameters, true);
 strict({ name: "John", age: 25, extra: "ignored" });  // success: false
 ```
+
+### Constraint tags in `strict` schemas
+
+`config` is a different flag from `equals` above. Pass the same config the schema was generated with:
+
+```typescript copy
+const application = typia.llm.application<IBbsArticleController, { strict: true }>();
+const validate = LlmJson.validate(
+  application.functions[0].output!,
+  true,
+  application.config,
+);
+```
+
+A `strict` schema cannot carry the constraint keywords itself, so `typia.llm.*` moves them into the description as `@minimum 3` tags. `config` is what tells the validator to read them back; without it, a `strict` schema's constraints go unchecked. Schemas built without `strict` — the default — keep their keywords and need no config.
+
+`createMcpServer` and the Vercel AI SDK adapter pass the controller's own config for you.
 
 <Callout type="info">
 **Prefer the compile-time validator when you can.**

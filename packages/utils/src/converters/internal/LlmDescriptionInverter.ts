@@ -1,11 +1,27 @@
-import { OpenApi } from "@typia/interface";
+import { ILlmSchema, OpenApi } from "@typia/interface";
 
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
+/**
+ * Reader for the constraints `OpenApiConstraintShifter` moved into a
+ * description.
+ *
+ * The shifter and this reader are one pair, so they share one gate. The shifter
+ * only runs under `strict` — the mode whose schema may not carry the constraint
+ * keywords itself — and therefore this reader only runs under `strict` too:
+ * every function here takes the config that produced the schema and reports
+ * nothing outside that mode.
+ *
+ * Without that gate an `@minimum 3` written by a documentation author would be
+ * promoted to a constraint the type never declared, and, because these results
+ * are spread over the live schema, the lookups that found nothing would delete
+ * the real keywords a non-strict schema still carries.
+ */
 export namespace LlmDescriptionInverter {
-  export const numeric = (
-    description: string | undefined,
-  ): Pick<
+  export const numeric = (props: {
+    config: ILlmSchema.IConfig;
+    description: string | undefined;
+  }): Pick<
     OpenApi.IJsonSchema.INumber,
     | "minimum"
     | "maximum"
@@ -14,35 +30,40 @@ export namespace LlmDescriptionInverter {
     | "multipleOf"
     | "description"
   > => {
+    const description: string | undefined = read(props);
     if (description === undefined) return {};
 
     const lines: string[] = description.split("\n");
-    return OpenApiExclusiveEmender.emend({
-      minimum: find({
-        type: "number",
-        name: "minimum",
-        lines,
-      }),
-      maximum: find({
-        type: "number",
-        name: "maximum",
-        lines,
-      }),
-      exclusiveMinimum: find({
-        type: "number",
-        name: "exclusiveMinimum",
-        lines,
-      }),
-      exclusiveMaximum: find({
-        type: "number",
-        name: "exclusiveMaximum",
-        lines,
-      }),
-      multipleOf: find({
-        type: "number",
-        name: "multipleOf",
-        lines,
-      }),
+    return {
+      ...compact(
+        OpenApiExclusiveEmender.emend({
+          minimum: find({
+            type: "number",
+            name: "minimum",
+            lines,
+          }),
+          maximum: find({
+            type: "number",
+            name: "maximum",
+            lines,
+          }),
+          exclusiveMinimum: find({
+            type: "number",
+            name: "exclusiveMinimum",
+            lines,
+          }),
+          exclusiveMaximum: find({
+            type: "number",
+            name: "exclusiveMaximum",
+            lines,
+          }),
+          multipleOf: find({
+            type: "number",
+            name: "multipleOf",
+            lines,
+          }),
+        }),
+      ),
       description: describe(lines, [
         "minimum",
         "maximum",
@@ -50,12 +71,13 @@ export namespace LlmDescriptionInverter {
         "exclusiveMaximum",
         "multipleOf",
       ]),
-    });
+    };
   };
 
-  export const string = (
-    description: string | undefined,
-  ): Pick<
+  export const string = (props: {
+    config: ILlmSchema.IConfig;
+    description: string | undefined;
+  }): Pick<
     OpenApi.IJsonSchema.IString,
     | "format"
     | "pattern"
@@ -64,34 +86,37 @@ export namespace LlmDescriptionInverter {
     | "maxLength"
     | "description"
   > => {
+    const description: string | undefined = read(props);
     if (description === undefined) return {};
 
     const lines: string[] = description.split("\n");
     return {
-      format: find({
-        type: "string",
-        name: "format",
-        lines,
-      }),
-      pattern: find({
-        type: "string",
-        name: "pattern",
-        lines,
-      }),
-      contentMediaType: find({
-        type: "string",
-        name: "contentMediaType",
-        lines,
-      }),
-      minLength: find({
-        type: "number",
-        name: "minLength",
-        lines,
-      }),
-      maxLength: find({
-        type: "number",
-        name: "maxLength",
-        lines,
+      ...compact({
+        format: find({
+          type: "string",
+          name: "format",
+          lines,
+        }),
+        pattern: find({
+          type: "string",
+          name: "pattern",
+          lines,
+        }),
+        contentMediaType: find({
+          type: "string",
+          name: "contentMediaType",
+          lines,
+        }),
+        minLength: find({
+          type: "number",
+          name: "minLength",
+          lines,
+        }),
+        maxLength: find({
+          type: "number",
+          name: "maxLength",
+          lines,
+        }),
       }),
       description: describe(lines, [
         "format",
@@ -103,34 +128,66 @@ export namespace LlmDescriptionInverter {
     };
   };
 
-  export const array = (
-    description: string | undefined,
-  ): Pick<
+  export const array = (props: {
+    config: ILlmSchema.IConfig;
+    description: string | undefined;
+  }): Pick<
     OpenApi.IJsonSchema.IArray,
     "minItems" | "maxItems" | "uniqueItems" | "description"
   > => {
+    const description: string | undefined = read(props);
     if (description === undefined) return {};
 
     const lines: string[] = description.split("\n");
     return {
-      minItems: find({
-        type: "number",
-        name: "minItems",
-        lines,
-      }),
-      maxItems: find({
-        type: "number",
-        name: "maxItems",
-        lines,
-      }),
-      uniqueItems: find({
-        type: "boolean",
-        name: "uniqueItems",
-        lines,
+      ...compact({
+        minItems: find({
+          type: "number",
+          name: "minItems",
+          lines,
+        }),
+        maxItems: find({
+          type: "number",
+          name: "maxItems",
+          lines,
+        }),
+        uniqueItems: find({
+          type: "boolean",
+          name: "uniqueItems",
+          lines,
+        }),
       }),
       description: describe(lines, ["minItems", "maxItems", "uniqueItems"]),
     };
   };
+
+  /**
+   * Yield the description to read, or nothing when this mode wrote no tags.
+   *
+   * Only a `strict` conversion shifts constraints into the description. Under
+   * any other config there is nothing to read back, whatever the description
+   * happens to say.
+   */
+  const read = (props: {
+    config: ILlmSchema.IConfig;
+    description: string | undefined;
+  }): string | undefined =>
+    props.config.strict === true ? props.description : undefined;
+
+  /**
+   * Drop the keys whose tag lookup found nothing.
+   *
+   * Every value returned from here is spread over a real schema, so a key
+   * present with an `undefined` value does not mean "no constraint" — it is an
+   * instruction to delete the schema's own constraint. Only a tag that was
+   * actually found may reach that spread. `description` is exempt and stays on
+   * the result even when `undefined`, because rewriting it to drop the consumed
+   * tag lines is the point rather than an accident of a failed lookup.
+   */
+  const compact = <T extends object>(record: T): Partial<T> =>
+    Object.fromEntries(
+      Object.entries(record).filter(([, value]) => value !== undefined),
+    ) as Partial<T>;
 
   const find = <Type extends "boolean" | "number" | "string">(props: {
     type: Type;
