@@ -27,6 +27,7 @@ export namespace LlmDescriptionInverter {
     | "exclusiveMinimum"
     | "exclusiveMaximum"
     | "multipleOf"
+    | "default"
     | "description"
   > => {
     const description: string | undefined = read(props);
@@ -34,8 +35,8 @@ export namespace LlmDescriptionInverter {
 
     const lines: string[] = description.split("\n");
     return {
-      ...compact(
-        OpenApiExclusiveEmender.emend({
+      ...compact({
+        ...OpenApiExclusiveEmender.emend({
           minimum: find({
             type: "number",
             name: "minimum",
@@ -62,13 +63,22 @@ export namespace LlmDescriptionInverter {
             lines,
           }),
         }),
-      ),
+        // The write half shifts `default` into the description as `@default 7`
+        // just like every other numeric keyword; restore it here so the numeric
+        // path round-trips symmetrically with the string path.
+        default: find({
+          type: "number",
+          name: "default",
+          lines,
+        }),
+      }),
       description: describe(lines, [
         "minimum",
         "maximum",
         "exclusiveMinimum",
         "exclusiveMaximum",
         "multipleOf",
+        "default",
       ]),
     };
   };
@@ -83,6 +93,7 @@ export namespace LlmDescriptionInverter {
     | "contentMediaType"
     | "minLength"
     | "maxLength"
+    | "default"
     | "description"
   > => {
     const description: string | undefined = read(props);
@@ -116,6 +127,14 @@ export namespace LlmDescriptionInverter {
           name: "maxLength",
           lines,
         }),
+        // The write half shifts `default` into the description as
+        // `@default value`; restore it here so a documented string default is
+        // read back rather than left behind as prose.
+        default: find({
+          type: "string",
+          name: "default",
+          lines,
+        }),
       }),
       description: describe(lines, [
         "format",
@@ -123,6 +142,7 @@ export namespace LlmDescriptionInverter {
         "contentMediaType",
         "minLength",
         "maxLength",
+        "default",
       ]),
     };
   };

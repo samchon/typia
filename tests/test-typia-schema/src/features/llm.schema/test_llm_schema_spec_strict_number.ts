@@ -16,9 +16,12 @@ export const test_llm_schema_spec_strict_number = (): void => {
     ),
     {
       type: "number",
-      description: ["@minimum 1", "@exclusiveMaximum 10", "@multipleOf 1"].join(
-        "\n",
-      ),
+      description: [
+        "@minimum 1",
+        "@exclusiveMaximum 10",
+        "@multipleOf 1",
+        "@default 3",
+      ].join("\n"),
     },
   );
 };

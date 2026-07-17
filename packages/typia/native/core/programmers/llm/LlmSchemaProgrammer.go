@@ -154,8 +154,9 @@ func (llmSchemaProgrammerNamespace) Validate(props struct {
         }
       }
     }
-    // OpenAI strict structured outputs cannot express the `not` keyword the
-    // exclude tag compiles to (supported subset: types, enum, anyOf, $defs).
+    // The strict schema subset typia emits has no `not` keyword, which is what
+    // the exclude tag compiles to, so an exclude tag has no representation here
+    // and is rejected.
     excluded := false
     scan := func(matrix [][]schemametadata.IMetadataTypeTag) {
       for _, row := range matrix {
@@ -729,14 +730,13 @@ func llmSchemaProgrammer_shift_numeric(schema map[string]any) map[string]any {
   output := llmSchemaProgrammer_clone(schema)
   llmSchemaProgrammer_emend_exclusive(output)
   tags := []string{}
-  for _, key := range []string{"minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "multipleOf"} {
+  for _, key := range []string{"minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "multipleOf", "default"} {
     if value, ok := output[key]; ok {
       tags = append(tags, "@"+key+" "+fmt.Sprint(value))
       delete(output, key)
     }
   }
   llmSchemaProgrammer_write_tag_with_description(output, tags)
-  delete(output, "default")
   return output
 }
 
