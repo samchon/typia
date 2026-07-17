@@ -1,6 +1,7 @@
 package main
 
 import (
+  "os"
   "path/filepath"
   "strings"
   "testing"
@@ -24,7 +25,8 @@ import (
 //     land outside `outDir` and is therefore withheld by the emit.
 //  3. Ask for the JavaScript of a JSON module that would be emitted over
 //     itself, which resolves to no JavaScript output path.
-//  4. Require exit 3 and the "no output produced" report in all three.
+//  4. Require exit 3, the "no output produced" report, and an unwritten `--out`
+//     in all three.
 func TestTransformSingleFileJSEmptyEmitReportsNoOutput(t *testing.T) {
   for _, probe := range []struct {
     name    string
@@ -86,6 +88,12 @@ func TestTransformSingleFileJSEmptyEmitReportsNoOutput(t *testing.T) {
       }
       if !strings.Contains(errText, "no output produced") {
         t.Fatalf("an empty emit must still report the cause:\n%s", errText)
+      }
+      // An empty emit leaves runTransformSingle through `if code != 0`, a
+      // different branch than the diagnostic route the atomicity case pins, so
+      // withholding the artifact needs its own check here.
+      if _, err := os.Stat(outPath); !os.IsNotExist(err) {
+        t.Fatalf("an empty emit must publish nothing, but --out exists: %v", err)
       }
     })
   }
