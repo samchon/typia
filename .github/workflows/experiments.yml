@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/experiments.yml'
+      - 'config/**'
       - 'packages/**'
       - 'experiments/**'
       - 'package.json'
