@@ -1,9 +1,14 @@
 import typia from "typia";
 
 // Scratchpad for ad-hoc local repros: replace this with whatever you are
-// debugging and run `pnpm --filter ./tests/debug start`. The committed sample
-// stays runnable so that a failure here is always your own, never the
-// workspace's.
+// debugging, then run `pnpm --filter ./tests/debug start`.
+//
+// Keep the committed sample runnable. This workspace is not a `test-*` package,
+// so `pnpm test:packages` never runs it and this sample is the only signal that
+// the workspace itself still works -- any `typia.*` call here surfaces a
+// module-identity break like the one it shipped with when its `rootDir`
+// drifted. A failure here should always be your own, never the workspace's.
+
 interface IApplication {
   array(props: { values: number[] }): void;
 }
