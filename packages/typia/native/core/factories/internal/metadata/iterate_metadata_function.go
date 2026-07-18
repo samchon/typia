@@ -7,7 +7,7 @@ import (
 )
 
 func Iterate_metadata_function(props IMetadataIteratorProps) bool {
-  declaration := metadata_get_function_node(props.Type)
+  declaration := metadata_get_function_node(props.Checker, props.Type)
   if declaration == nil {
     return false
   }

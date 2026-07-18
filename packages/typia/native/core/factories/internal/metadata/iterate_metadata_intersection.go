@@ -481,7 +481,7 @@ func iterate_metadata_intersection_is_removable_object_constraint(
   if nativechecker.IsTupleType(typ) || nativechecker.Checker_isArrayType(checker, typ) {
     return false
   }
-  if metadata_get_function_node(typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
+  if metadata_get_function_node(checker, typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
     return false
   }
   name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
@@ -685,7 +685,7 @@ func iterate_metadata_intersection_is_plain_object_only(
   if nativechecker.IsTupleType(typ) || nativechecker.Checker_isArrayType(checker, typ) {
     return false
   }
-  if metadata_get_function_node(typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
+  if metadata_get_function_node(checker, typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
     return false
   }
 
@@ -1007,7 +1007,7 @@ func iterate_metadata_intersection_category(
   if name == "Map" || name == "ReadonlyMap" || name == "Set" || name == "ReadonlySet" {
     return "object"
   }
-  if metadata_get_function_node(typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
+  if metadata_get_function_node(checker, typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
     return "object"
   }
   if typ.Flags()&nativechecker.TypeFlagsObject != 0 {
