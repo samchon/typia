@@ -292,6 +292,12 @@ func protobufDecodeProgrammer_write_property_default_value(value *schemametadata
     )
   } else if protobufDecodeProgrammer_hasStringDefault(value) {
     expression = f.NewStringLiteral("", shimast.TokenFlagsNone)
+  } else if protobufDecodeProgrammer_hasAtomicDefault(value, "number") {
+    expression = f.NewNumericLiteral("0", shimast.TokenFlagsNone)
+  } else if protobufDecodeProgrammer_hasAtomicDefault(value, "boolean") {
+    expression = f.NewKeywordExpression(shimast.KindFalseKeyword)
+  } else if protobufDecodeProgrammer_hasAtomicDefault(value, "bigint") {
+    expression = f.NewBigIntLiteral("0n", shimast.TokenFlagsNone)
   } else if protobufDecodeProgrammer_hasDynamicObject(value) {
     expression = f.NewObjectLiteralExpression(nil, false)
   } else {
@@ -620,6 +626,21 @@ func protobufDecodeProgrammer_hasStringDefault(value *schemametadata.MetadataSch
   }
   for _, template := range value.Templates {
     if len(template.Row) == 1 && template.Row[0].GetName() == "string" {
+      return true
+    }
+  }
+  return false
+}
+
+// protobufDecodeProgrammer_hasAtomicDefault reports whether an absent required
+// field of this schema decodes to the proto3 typed default of the given atomic
+// kind. proto3 does not write a singular scalar equal to its default, so an
+// absent number/boolean/bigint must seed 0/false/0n the same way an absent
+// string seeds "" through protobufDecodeProgrammer_hasStringDefault; the atomic
+// kind is read exactly as hasStringDefault reads its own atomic branch.
+func protobufDecodeProgrammer_hasAtomicDefault(value *schemametadata.MetadataSchema, typ string) bool {
+  for _, atomic := range value.Atomics {
+    if atomic.Type == typ {
       return true
     }
   }
