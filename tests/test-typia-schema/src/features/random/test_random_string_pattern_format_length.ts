@@ -13,6 +13,12 @@ import typia, { tags } from "typia";
  * with a throw the way an impossible numeric range already is, never silently
  * produced. This round trip pins both directions.
  *
+ * The `idn-hostname`/`idn-email` cases below cover a narrower regression of the
+ * same class (issue #2215): the length path delegated to the laxer non-idn
+ * generators, which emit a one-character TLD (and, for the hostname, a dotless
+ * single label), but the idn checkers require a dot plus a `>=2`-character TLD,
+ * so every length-tagged draw failed the type's own `is`.
+ *
  * 1. Draw a large sample of each satisfiable pattern/format + length type.
  * 2. Require every draw to pass `is` of the same type and honor the bounds.
  * 3. Require an unsatisfiable pattern/format + length type to throw on draw.
@@ -132,6 +138,94 @@ export const test_random_string_pattern_format_length = (): void => {
     );
   }
 
+  // IDN formats (issue #2215): the length path must yield a dot plus a
+  // >=2-character TLD so the stricter idn checker accepts every draw.
+  {
+    type T = string & tags.Format<"idn-hostname"> & tags.MinLength<40>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname & minLength",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string &
+      tags.Format<"idn-hostname"> &
+      tags.MinLength<40> &
+      tags.MaxLength<64>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname & minLength & maxLength",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    // A minLength beyond a single 63-char label exercises multi-label building.
+    type T = string & tags.Format<"idn-hostname"> & tags.MinLength<80>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname & multi-label minLength",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    // A short window near the idn-hostname minimum (`x.yy`) forces the short path.
+    type T = string &
+      tags.Format<"idn-hostname"> &
+      tags.MinLength<4> &
+      tags.MaxLength<8>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname & short window",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string & tags.Format<"idn-email"> & tags.MinLength<40>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-email & minLength",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string &
+      tags.Format<"idn-email"> &
+      tags.MinLength<40> &
+      tags.MaxLength<64>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-email & minLength & maxLength",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    // A short window near the idn-email minimum (`x@x.yy`) forces the short path.
+    type T = string &
+      tags.Format<"idn-email"> &
+      tags.MinLength<6> &
+      tags.MaxLength<9>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-email & short window",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+
   // BOUNDARY: an exactly-pinned length window still round-trips.
   {
     type T = string &
@@ -141,6 +235,32 @@ export const test_random_string_pattern_format_length = (): void => {
     const create = typia.createRandom<T>();
     roundTrip(
       "pattern exact length",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string &
+      tags.Format<"idn-hostname"> &
+      tags.MinLength<12> &
+      tags.MaxLength<12>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname exact length",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string &
+      tags.Format<"idn-email"> &
+      tags.MinLength<12> &
+      tags.MaxLength<12>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-email exact length",
       (v) => typia.is<T>(v),
       () => typia.random<T>(),
       () => create(),
@@ -169,6 +289,27 @@ export const test_random_string_pattern_format_length = (): void => {
     );
   }
   {
+    // Unconstrained idn formats already passed; pin that they still do.
+    type T = string & tags.Format<"idn-hostname">;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname only",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string & tags.Format<"idn-email">;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-email only",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
     type T = string & tags.MinLength<10>;
     const create = typia.createRandom<T>();
     roundTrip(
@@ -188,6 +329,14 @@ export const test_random_string_pattern_format_length = (): void => {
   );
   assertThrows("fixed-length format & conflicting maxLength", () =>
     typia.random<string & tags.Format<"uuid"> & tags.MaxLength<10>>(),
+  );
+  // Below the idn minimums (`x@x.yy` = 6, `x.yy` = 4) there is no matching value
+  // to emit, so the draw must throw rather than yield a `is`-rejected string.
+  assertThrows("idn-email & impossible maxLength", () =>
+    typia.random<string & tags.Format<"idn-email"> & tags.MaxLength<5>>(),
+  );
+  assertThrows("idn-hostname & impossible maxLength", () =>
+    typia.random<string & tags.Format<"idn-hostname"> & tags.MaxLength<3>>(),
   );
 };
 
