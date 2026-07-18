@@ -7,7 +7,7 @@ export const _randomFormatHostname = (props?: _ILengthProps): string => {
     return `${random(10)}.${random(3)}`;
   // A hostname is dot-joined labels of 1..63 chars whose total is capped at 253,
   // so the requested length is realized by splitting it across enough labels.
-  return ofLength(pickLength(props));
+  return _randomHostnameLabels(pickLength(props));
 };
 
 const MAX_TOTAL = 253;
@@ -27,7 +27,12 @@ const pickLength = (props: _ILengthProps): number => {
   return _randomInteger({ type: "integer", minimum: low, maximum: high });
 };
 
-const ofLength = (length: number): string => {
+/**
+ * Builds dot-joined hostname labels totaling exactly `length` characters, each
+ * label within 63 chars. Shared with the idn-hostname generator, which reserves
+ * a fixed `.<tld>` suffix and realizes the rest as these leading labels.
+ */
+export const _randomHostnameLabels = (length: number): string => {
   const parts: string[] = [];
   let remaining: number = length;
   while (remaining > MAX_LABEL + 1) {
