@@ -1,22 +1,4 @@
-export const _notationSnake = (str: string): string => {
-  if (str.length === 0) return str;
-
-  // PREFIX
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let prefix: string = "";
-  for (let i: number = 0; i < str.length; i++) {
-    if (str[i] === "_") prefix += "_";
-    else break;
-  }
-  if (prefix.length !== 0) str = str.substring(prefix.length);
-
-  const out = (s: string) => `${prefix}${s}`;
-
-  // SNAKE CASE
-  const items: string[] = str.split("_");
-  if (items.length > 1) return out(items.map((s) => s.toLowerCase()).join("_"));
-
-  // CAMEL OR PASCAL CASE
+const _notationSnakeWord = (str: string): string => {
   const indexes: number[] = [];
   for (let i: number = 0; i < str.length; i++) {
     const code: number = str.charCodeAt(i);
@@ -28,7 +10,7 @@ export const _notationSnake = (str: string): string => {
     if (now - prev === 1) indexes.splice(i, 1);
   }
   if (indexes.length !== 0 && indexes[0] === 0) indexes.splice(0, 1);
-  if (indexes.length === 0) return out(str.toLowerCase());
+  if (indexes.length === 0) return str.toLowerCase();
 
   let ret: string = "";
   for (let i: number = 0; i < indexes.length; i++) {
@@ -39,5 +21,26 @@ export const _notationSnake = (str: string): string => {
     ret += "_";
   }
   ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
-  return out(ret);
+  return ret;
+};
+
+export const _notationSnake = (str: string): string => {
+  if (str.length === 0) return str;
+
+  // PREFIX
+  let prefix: string = "";
+  for (let i: number = 0; i < str.length; i++) {
+    if (str[i] === "_") prefix += "_";
+    else break;
+  }
+  if (prefix.length !== 0) str = str.substring(prefix.length);
+
+  // SNAKE CASE
+  //
+  // Run the case-boundary walk within each underscore-delimited segment, not
+  // over the whole segment at once. Lowercasing a segment atomically would drop
+  // the camelCase boundary inside it (`["fooBar", "baz"]` -> `["foobar", "baz"]`
+  // -> `foobar_baz`), diverging from `SnakeCase<T>`; the per-segment walk keeps
+  // it (`["foo_bar", "baz"]` -> `foo_bar_baz`).
+  return `${prefix}${str.split("_").map(_notationSnakeWord).join("_")}`;
 };

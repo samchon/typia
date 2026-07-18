@@ -1339,51 +1339,84 @@ var NotationGeneralProgrammer_Pascal = NotationGeneralProgrammer_IRename{Name: "
 var NotationGeneralProgrammer_Snake = NotationGeneralProgrammer_IRename{Name: "snake", Func: notationGeneralProgrammer_snake}
 var NotationGeneralProgrammer_Kebab = NotationGeneralProgrammer_IRename{Name: "kebab", Func: notationGeneralProgrammer_kebab}
 
-func notationGeneralProgrammer_camel(str string) string {
-  return notationGeneralProgrammer_unsnake(str, func(value string) string {
-    if value == "" {
-      return value
-    }
-    if value == strings.ToUpper(value) {
-      return strings.ToLower(value)
-    }
-    return strings.ToLower(value[:1]) + value[1:]
-  }, func(value string, index int) string {
-    if index == 0 {
-      return strings.ToLower(value)
-    }
-    return notationGeneralProgrammer_capitalize(strings.ToLower(value))
-  })
-}
-
-func notationGeneralProgrammer_pascal(str string) string {
-  return notationGeneralProgrammer_unsnake(str, func(value string) string {
-    if value == "" {
-      return value
-    }
-    return strings.ToUpper(value[:1]) + value[1:]
-  }, func(value string, index int) string {
-    return notationGeneralProgrammer_capitalize(strings.ToLower(value))
-  })
-}
-
-func notationGeneralProgrammer_snake(str string) string {
-  if str == "" {
-    return str
-  }
+// notationGeneralProgrammer_rename is the shared outer walk for the
+// camel/pascal notations. It mirrors the `CamelCase<T>` / `PascalCase<T>`
+// typings: leading underscores are preserved verbatim, an all-underscore key
+// stays untouched, and the presence of any remaining underscore — not the
+// number of non-empty segments — selects the snake conversion. Routing on
+// underscore presence keeps a trailing or doubled underscore (`fooBar_`) on the
+// same path the type takes, instead of collapsing it to the plain path.
+func notationGeneralProgrammer_rename(str string, plain func(string) string, snake func(string) string) string {
   prefix := ""
   for len(str) != 0 && str[0] == '_' {
     prefix += "_"
     str = str[1:]
   }
-  out := func(value string) string { return prefix + value }
-  items := strings.Split(str, "_")
-  if len(items) > 1 {
-    for i, item := range items {
-      items[i] = strings.ToLower(item)
-    }
-    return out(strings.Join(items, "_"))
+  if str == "" {
+    return prefix
   }
+  if strings.Contains(str, "_") {
+    return prefix + snake(str)
+  }
+  return prefix + plain(str)
+}
+
+func notationGeneralProgrammer_camel(str string) string {
+  return notationGeneralProgrammer_rename(str, func(value string) string {
+    if value == strings.ToUpper(value) {
+      return strings.ToLower(value)
+    }
+    return strings.ToLower(value[:1]) + value[1:]
+  }, notationGeneralProgrammer_camel_snake)
+}
+
+// notationGeneralProgrammer_camel_snake mirrors `CamelizeSnakeString`: the
+// character after each underscore is uppercased and everything else lowercased.
+// A trailing underscore leaves no character to uppercase, so the whole key is
+// lowercased; a doubled underscore collapses to a single one before continuing.
+func notationGeneralProgrammer_camel_snake(str string) string {
+  for len(str) != 0 && str[0] == '_' {
+    str = str[1:]
+  }
+  if str == "" {
+    return ""
+  }
+  index := strings.IndexByte(str, '_')
+  if index < 0 || index+1 >= len(str) {
+    return strings.ToLower(str)
+  }
+  if str[index+1] == '_' {
+    return notationGeneralProgrammer_camel_snake(str[:index] + "_" + str[index+2:])
+  }
+  return strings.ToLower(str[:index]) + strings.ToUpper(str[index+1:index+2]) + notationGeneralProgrammer_camel_snake(str[index+2:])
+}
+
+func notationGeneralProgrammer_pascal(str string) string {
+  return notationGeneralProgrammer_rename(str, func(value string) string {
+    return strings.ToUpper(value[:1]) + value[1:]
+  }, notationGeneralProgrammer_pascal_snake)
+}
+
+// notationGeneralProgrammer_pascal_snake mirrors `PascalizeSnakeString`: each
+// underscore-delimited segment is capitalized and its tail lowercased
+// (`MAX_COUNT` -> `MaxCount`), with a trailing underscore dropped.
+func notationGeneralProgrammer_pascal_snake(str string) string {
+  for len(str) != 0 && str[0] == '_' {
+    str = str[1:]
+  }
+  if str == "" {
+    return ""
+  }
+  index := strings.IndexByte(str, '_')
+  if index < 0 {
+    return strings.ToUpper(str[:1]) + strings.ToLower(str[1:])
+  }
+  return strings.ToUpper(str[:1]) + strings.ToLower(str[1:index]) + notationGeneralProgrammer_pascal_snake(str[index+1:])
+}
+
+// notationGeneralProgrammer_snake_word runs the case-boundary walk over one
+// underscore-free segment, inserting a separator at every camelCase boundary.
+func notationGeneralProgrammer_snake_word(str string) string {
   indexes := []int{}
   for i := 0; i < len(str); i++ {
     code := str[i]
@@ -1402,7 +1435,7 @@ func notationGeneralProgrammer_snake(str string) string {
     indexes = indexes[1:]
   }
   if len(indexes) == 0 {
-    return out(strings.ToLower(str))
+    return strings.ToLower(str)
   }
   ret := ""
   for i, last := range indexes {
@@ -1414,7 +1447,27 @@ func notationGeneralProgrammer_snake(str string) string {
     ret += "_"
   }
   ret += strings.ToLower(str[indexes[len(indexes)-1]:])
-  return out(ret)
+  return ret
+}
+
+func notationGeneralProgrammer_snake(str string) string {
+  if str == "" {
+    return str
+  }
+  prefix := ""
+  for len(str) != 0 && str[0] == '_' {
+    prefix += "_"
+    str = str[1:]
+  }
+  // Run the case-boundary walk within each underscore-delimited segment, not
+  // over the whole segment at once. Lowercasing a segment atomically would drop
+  // the camelCase boundary inside it (`fooBar_baz` -> `foobar_baz`), diverging
+  // from `SnakeCase<T>`; the per-segment walk keeps it (`foo_bar_baz`).
+  segments := strings.Split(str, "_")
+  for i, segment := range segments {
+    segments[i] = notationGeneralProgrammer_snake_word(segment)
+  }
+  return prefix + strings.Join(segments, "_")
 }
 
 // notationGeneralProgrammer_kebab derives the snake_case form first and then
@@ -1428,33 +1481,4 @@ func notationGeneralProgrammer_kebab(str string) string {
     snaked = snaked[1:]
   }
   return prefix + strings.ReplaceAll(snaked, "_", "-")
-}
-
-func notationGeneralProgrammer_unsnake(str string, plain func(string) string, snake func(string, int) string) string {
-  prefix := ""
-  for len(str) != 0 && str[0] == '_' {
-    prefix += "_"
-    str = str[1:]
-  }
-  out := func(value string) string { return prefix + value }
-  if str == "" {
-    return out("")
-  }
-  raw := strings.Split(str, "_")
-  items := []string{}
-  for _, item := range raw {
-    if item != "" {
-      items = append(items, item)
-    }
-  }
-  if len(items) == 0 {
-    return out("")
-  }
-  if len(items) == 1 {
-    return out(plain(items[0]))
-  }
-  for i, item := range items {
-    items[i] = snake(item, i)
-  }
-  return out(strings.Join(items, ""))
 }
