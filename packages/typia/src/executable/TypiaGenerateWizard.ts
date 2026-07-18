@@ -835,7 +835,7 @@ export namespace TypiaGenerateWizard {
   function resolveFromRoots(request: string, roots: string[]): string | null {
     for (const root of roots) {
       try {
-        return require.resolve(request, { paths: [root] });
+        return createRequire(path.join(root, "package.json")).resolve(request);
       } catch {
         continue;
       }
