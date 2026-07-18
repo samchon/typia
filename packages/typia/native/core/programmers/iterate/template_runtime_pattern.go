@@ -25,6 +25,17 @@ type templateCapture struct {
   Atomic *nativemetadata.MetadataAtomic
 }
 
+// TemplateRuntimePattern returns the structural regular-expression pattern the
+// runtime template checker uses for one template-literal row.
+//
+// Consumers that only need template membership can share the checker's exact
+// pattern without duplicating its lowering. Runtime tag conditions remain owned
+// by Check_template because they require the checker context and capture map.
+func TemplateRuntimePattern(row []*nativemetadata.MetadataSchema) string {
+  pattern, _ := template_runtime_pattern(row)
+  return pattern
+}
+
 // template_runtime_pattern builds the structural regex of a template literal for
 // the runtime checker and, alongside it, the capture map of every constrained
 // interpolation placeholder.
