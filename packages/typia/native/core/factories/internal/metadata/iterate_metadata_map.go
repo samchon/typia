@@ -10,6 +10,15 @@ func Iterate_metadata_map(props IMetadataIteratorProps) bool {
   if metadata_type_symbol_base_name(typ) != "Map" {
     return false
   }
+  // Classify the native Map only when the type actually is the built-in, not
+  // merely a user type of the same name. A real Map is declared in a `.d.ts`
+  // library, so a module-scoped user `interface Map<K, V> { brandMap; ... }` in a
+  // `.ts` module falls through to the structural object path and is validated
+  // against its own members instead of `input instanceof Map` — the collection
+  // half of the #2200 identity gate (#2212).
+  if !metadata_symbol_from_declaration_file(typ.Symbol()) {
+    return false
+  }
   generic := metadata_get_type_arguments(props.Checker, typ)
   if len(generic) != 2 {
     return false
