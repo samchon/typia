@@ -43,9 +43,7 @@ func TestNotationGeneralHelpers(t *testing.T) {
 		{NotationGeneralProgrammer_Snake.Func("helloWorldAgain"), "hello_world_again"},
 		{NotationGeneralProgrammer_Snake.Func("XMLHttp"), "xmlhttp"},
 		{NotationGeneralProgrammer_Snake.Func("__"), "__"},
-		{notationGeneralProgrammer_unsnake("__", strings.ToLower, func(value string, _ int) string {
-			return strings.ToUpper(value)
-		}), "__"},
+		{notationGeneralProgrammer_rename("__", strings.ToLower, strings.ToUpper), "__"},
 	}
 	for _, c := range cases {
 		if c.actual != c.expected {
