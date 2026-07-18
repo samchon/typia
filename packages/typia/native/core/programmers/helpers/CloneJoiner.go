@@ -28,6 +28,13 @@ type CloneJoiner_TupleProps struct {
   Emit     *shimprinter.EmitContext
 }
 
+type CloneJoiner_OptionalElementProps struct {
+  Input *shimast.Expression
+  Value *shimast.Expression
+  Index int
+  Emit  *shimprinter.EmitContext
+}
+
 type CloneJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression
@@ -187,6 +194,31 @@ func (cloneJoinerNamespace) Tuple(props CloneJoiner_TupleProps) *shimast.Node {
       true,
     ),
     nativefactories.TypeFactory.Keyword("any", props.Emit),
+  )
+}
+
+// OptionalTupleElement wraps a cloned tuple element in a presence-gated spread
+// so an omitted optional trailing element is never materialized as a phantom
+// `undefined`. It mirrors `is`, whose length range accepts the shorter tuple:
+// the element is spread in only when `index < input.length`, so `clone(["a"])`
+// for `[string, number?]` stays `["a"]` (length 1) and round-trips under
+// `compare.equals`, while a present optional keeps its value.
+func (cloneJoinerNamespace) OptionalTupleElement(props CloneJoiner_OptionalElementProps) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(cloneJoiner_factory, props.Emit)
+  condition := f.NewBinaryExpression(
+    nil,
+    nativefactories.ExpressionFactory.Number(props.Index, props.Emit),
+    nil,
+    f.NewToken(shimast.KindLessThanToken),
+    nativefactories.IdentifierFactory.Access(props.Emit, props.Input, "length"),
+  )
+  return f.NewSpreadElement(
+    f.NewParenthesizedExpression(nativefactories.ExpressionFactory.Conditional(
+      condition,
+      f.NewArrayLiteralExpression(f.NewNodeList([]*shimast.Node{props.Value}), false),
+      f.NewArrayLiteralExpression(f.NewNodeList(nil), false),
+      props.Emit,
+    )),
   )
 }
 

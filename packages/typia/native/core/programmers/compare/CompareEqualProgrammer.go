@@ -244,7 +244,27 @@ func (g *compareEqualProgrammerGenerator) tupleInline(tuple *schemametadata.Meta
     g.same(g.access(x, "length"), g.access(y, "length")),
   }
   if rest == nil {
-    checks = append(checks, g.same(g.access(x, "length"), strconv.Itoa(fixed)))
+    // An omitted optional trailing element makes the tuple's length a range
+    // [required, fixed] — exactly the gate `is` emits. A hard `=== fixed`
+    // rejects a value `is` accepts and breaks reflexivity of `equals`; the
+    // per-element `x[i] === y[i]` prefix already treats both-absent as equal,
+    // so only the length gate needs the range. A fully-required tuple keeps
+    // its byte-identical `x.length === fixed`.
+    required := 0
+    allRequired := true
+    for i := 0; i < fixed; i++ {
+      if tuple.Elements[i].Optional {
+        allRequired = false
+      } else {
+        required++
+      }
+    }
+    if allRequired {
+      checks = append(checks, g.same(g.access(x, "length"), strconv.Itoa(fixed)))
+    } else {
+      length := g.access(x, "length")
+      checks = append(checks, fmt.Sprintf("%d <= %s && %d >= %s", required, length, fixed, length))
+    }
   } else {
     checks = append(checks, fmt.Sprintf("%s.length >= %d", g.wrap(x), fixed))
   }

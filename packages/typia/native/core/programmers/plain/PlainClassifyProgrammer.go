@@ -571,7 +571,7 @@ func plainClassifyProgrammer_decode_tuple_inline(props plainClassifyProgrammer_d
     explore := props.Explore
     explore.From = "array"
     explore.Postfix = postfix
-    elements = append(elements, plainClassifyProgrammer_decode(struct {
+    value := plainClassifyProgrammer_decode(struct {
       Context  nativecontext.ITypiaContext
       Config   nativeinternal.FeatureProgrammer_IConfig
       Functor  *nativehelpers.FunctionProgrammer
@@ -585,7 +585,18 @@ func plainClassifyProgrammer_decode_tuple_inline(props plainClassifyProgrammer_d
       Input:    f.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index, props.Context.Emit), shimast.NodeFlagsNone),
       Metadata: elem,
       Explore:  explore,
-    }))
+    })
+    if elem.Optional {
+      // An omitted optional trailing element must not become a phantom
+      // `undefined`; gate it on presence so `classify(["a"])` stays `["a"]`.
+      value = nativehelpers.CloneJoiner.OptionalTupleElement(nativehelpers.CloneJoiner_OptionalElementProps{
+        Input: props.Input,
+        Value: value,
+        Index: index,
+        Emit:  props.Context.Emit,
+      })
+    }
+    elements = append(elements, value)
   }
   var rest *shimast.Node
   if len(props.Tuple.Elements) != 0 {
