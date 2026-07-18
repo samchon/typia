@@ -139,7 +139,7 @@ func metadata_get_type_arguments(checker *nativechecker.Checker, typ *nativechec
   return checker.GetTypeArguments(typ)
 }
 
-func metadata_get_function_node(typ *nativechecker.Type) *nativeast.Node {
+func metadata_get_function_node(checker *nativechecker.Checker, typ *nativechecker.Type) *nativeast.Node {
   if typ == nil {
     return nil
   }
@@ -164,6 +164,9 @@ func metadata_get_function_node(typ *nativechecker.Type) *nativeast.Node {
   // already uses for `() => void` members: a lenient pass under default options
   // and a signature-based check under `functional`.
   if metadata_is_global_function_interface(symbol, node) {
+    return node
+  }
+  if metadata_is_pure_function_interface(checker, typ, node) {
     return node
   }
   if nativeast.IsPropertyAssignment(node) {
@@ -287,8 +290,7 @@ func metadata_node_type_js_doc_tags(symbol *nativeast.Symbol) []schemametadata.I
 // first declaration is an `InterfaceDeclaration`, and that declaration lives in a
 // `lib.*.d.ts` — so it recognizes only the lib `Function` and never a
 // user-declared `interface Function`, a `function Function()` value, or any
-// other callable object type (a hybrid `interface Foo { (): void; x: number }`
-// keeps its data properties). See metadata_get_function_node for why the lib
+// other callable object type. See metadata_get_function_node for why the lib
 // `Function` must be treated as a function type (#2178).
 func metadata_is_global_function_interface(symbol *nativeast.Symbol, node *nativeast.Node) bool {
   if symbol == nil || symbol.Name != "Function" {
@@ -298,6 +300,29 @@ func metadata_is_global_function_interface(symbol *nativeast.Symbol, node *nativ
     return false
   }
   return metadata_symbol_from_default_lib(symbol)
+}
+
+// metadata_is_pure_function_interface reports whether an interface describes
+// only call and/or construct signatures. TypeScript augments every callable
+// object's apparent properties with the global Function members, so the raw
+// properties and index infos are the boundary: a hybrid interface keeps its
+// declared data shape, while a property-free callable or constructable
+// interface follows the same metadata path as its mutually assignable function
+// type alias (#2238).
+func metadata_is_pure_function_interface(
+  checker *nativechecker.Checker,
+  typ *nativechecker.Type,
+  node *nativeast.Node,
+) bool {
+  if checker == nil || typ == nil || node == nil || node.Kind != nativeast.KindInterfaceDeclaration {
+    return false
+  }
+  if len(nativechecker.Checker_getPropertiesOfType(checker, typ)) != 0 ||
+    len(nativechecker.Checker_getIndexInfosOfType(checker, typ)) != 0 {
+    return false
+  }
+  return len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 ||
+    len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindConstruct)) != 0
 }
 
 // metadata_symbol_from_default_lib reports whether the symbol's first locatable
