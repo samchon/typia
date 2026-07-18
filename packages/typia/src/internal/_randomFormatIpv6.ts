@@ -1,7 +1,8 @@
 import { _randomInteger } from "./_randomInteger";
+import { _ILengthProps, _randomFormatLength } from "./_randomStringLength";
 
-export const _randomFormatIpv6 = (): string =>
-  new Array(8).fill(0).map(random).join(":");
+export const _randomFormatIpv6 = (props?: _ILengthProps): string =>
+  _randomFormatLength(props, () => new Array(8).fill(0).map(random).join(":"));
 
 const random = () =>
   _randomInteger({
