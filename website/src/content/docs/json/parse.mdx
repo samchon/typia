@@ -17,13 +17,15 @@ namespace json {
 }
 ```
 
-Each function maps to one of the [runtime validators](/docs/validators/is):
+Each function maps to one of the [runtime validators](/docs/validators/is), but validation starts only after native `JSON.parse` succeeds:
 
-| Function | If JSON is valid AND matches `T` | If anything is wrong |
-|----------|----------------------------------|----------------------|
-| `json.isParse<T>` | returns the parsed value | returns `null` |
-| `json.assertParse<T>` | returns the parsed value | throws `TypeGuardError` |
-| `json.validateParse<T>` | returns `IValidation.ISuccess<T>` | returns `IValidation.IFailure` |
+| Function | Valid JSON matching `T` | Valid JSON not matching `T` | Malformed JSON |
+|----------|-------------------------|-----------------------------|----------------|
+| `json.isParse<T>` | returns the parsed value | returns `null` | throws `SyntaxError` |
+| `json.assertParse<T>` | returns the parsed value | throws `TypeGuardError` | throws `SyntaxError` |
+| `json.validateParse<T>` | returns `IValidation.ISuccess<T>` | returns `IValidation.IFailure` | throws `SyntaxError` |
+
+The factory functions `createIsParse`, `createAssertParse`, and `createValidateParse` produce parsers with the same outcomes.
 
 ## First example
 
@@ -37,7 +39,8 @@ interface User {
 
 const text: string = await fetch("/me").then((r) => r.text());
 const user = typia.json.assertParse<User>(text);
-// → parsed User, validated. Throws if either parse or validation fails.
+// → parsed User when text is valid JSON matching User.
+// Throws SyntaxError for malformed JSON or TypeGuardError for a type mismatch.
 ```
 
 <Tabs items={['TypeScript Source', 'Compiled JavaScript']}>
