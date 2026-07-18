@@ -615,27 +615,36 @@ type randomProgrammer_composedAtomic struct {
 func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) randomProgrammer_composedAtomic {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, emit)
   if atomicType == "string" {
+    // A string leaf that also carries a length tag needs the bounds forwarded
+    // to the format and pattern generators; only the plain-string fall-through
+    // used to receive the full schema, so a format or pattern combined with
+    // minLength/maxLength was generated at the wrong length and failed its own
+    // validator (issue #2189).
+    lengthArgs := randomProgrammer_length_argument(schema, emit)
     if raw, ok := schema["format"].(string); ok && raw != "" {
       if raw == "date-time" {
-        return randomProgrammer_composedAtomic{Method: "datetime", Internal: "randomFormatDatetime"}
+        return randomProgrammer_composedAtomic{Method: "datetime", Internal: "randomFormatDatetime", Arguments: lengthArgs}
       }
       method := randomProgrammer_format_method(raw)
       return randomProgrammer_composedAtomic{
-        Method:   method,
-        Internal: "randomFormat" + randomProgrammer_format_pascal(raw),
+        Method:    method,
+        Internal:  "randomFormat" + randomProgrammer_format_pascal(raw),
+        Arguments: lengthArgs,
       }
     }
     if pattern, ok := schema["pattern"].(string); ok && pattern != "" {
+      arguments := []*shimast.Node{
+        f.NewNewExpression(
+          f.NewIdentifier("RegExp"),
+          nil,
+          f.NewNodeList([]*shimast.Node{f.NewStringLiteral(pattern, shimast.TokenFlagsNone)}),
+        ),
+      }
+      arguments = append(arguments, lengthArgs...)
       return randomProgrammer_composedAtomic{
-        Method:   "pattern",
-        Internal: "randomPattern",
-        Arguments: []*shimast.Node{
-          f.NewNewExpression(
-            f.NewIdentifier("RegExp"),
-            nil,
-            f.NewNodeList([]*shimast.Node{f.NewStringLiteral(pattern, shimast.TokenFlagsNone)}),
-          ),
-        },
+        Method:    "pattern",
+        Internal:  "randomPattern",
+        Arguments: arguments,
       }
     }
   } else if atomicType == "number" {
@@ -657,6 +666,24 @@ func randomProgrammer_compose_atomic(atomicType string, schema nativeiterate.Jso
     Internal:  "random" + randomProgrammer_capitalize(atomicType),
     Arguments: []*shimast.Node{nativefactories.LiteralFactory.Write(schema, emit)},
   }
+}
+
+// randomProgrammer_length_argument forwards the minLength/maxLength bounds of a
+// string leaf to the format and pattern generators as a
+// `{ minLength?, maxLength? }` object literal, or nil when the leaf carries no
+// length tag so the format-only and pattern-only emission stays byte-identical.
+func randomProgrammer_length_argument(schema nativeiterate.JsonSchema, emit *shimprinter.EmitContext) []*shimast.Node {
+  length := map[string]any{}
+  if value, ok := schema["minLength"]; ok {
+    length["minLength"] = value
+  }
+  if value, ok := schema["maxLength"]; ok {
+    length["maxLength"] = value
+  }
+  if len(length) == 0 {
+    return nil
+  }
+  return []*shimast.Node{nativefactories.LiteralFactory.Write(length, emit)}
 }
 
 func randomProgrammer_decode_template(props struct {
