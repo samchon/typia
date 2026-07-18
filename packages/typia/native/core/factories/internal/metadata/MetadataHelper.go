@@ -158,7 +158,7 @@ func metadata_get_function_node(typ *nativechecker.Type) *nativeast.Node {
   // `extends Object`. Its symbol resolves to an `InterfaceDeclaration` rather
   // than a function-like node, so without this branch it is expanded
   // structurally (`{ prototype, length, arguments, caller, name }`) and its
-  // `typeof` is mis-checked as `"object"` even though a real function reports
+  // `typeof` is checked as `"object"` even though a real function reports
   // `"function"`, making `is<Object>` universally false (#2178). Returning the
   // interface declaration routes the member through the same function path typia
   // already uses for `() => void` members: a lenient pass under default options

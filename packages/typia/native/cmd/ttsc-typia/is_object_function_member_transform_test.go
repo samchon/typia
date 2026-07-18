@@ -8,13 +8,13 @@ import (
   "testing"
 )
 
-// TestIsObjectFunctionMemberTransform pins the runtime behaviour of typia.is /
+// TestIsObjectFunctionMemberTransform pins the runtime behavior of typia.is /
 // assert / validate for the global `Object` interface and for `Function`-typed
 // members (#2178).
 //
 // The global TS `Object` interface carries `constructor: Function`. The global
 // `Function` interface is declared as an `InterfaceDeclaration`, so before the
-// fix typia failed to recognise it as a function type and expanded it
+// fix typia failed to recognize it as a function type and expanded it
 // structurally to `{ prototype, length, arguments, caller, name }`. That made
 // the `constructor` member emit `"object" === typeof input.constructor`, which
 // is never satisfied by a real constructor (`typeof === "function"`), so
