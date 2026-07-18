@@ -34,6 +34,10 @@ type compareEqualProgrammerGenerator struct {
   Config    CompareEqualProgrammer_IConfig
   Recursive bool
   Counter   int
+  // Member-resolution checkers (`_ui<index>`) emitted on demand for the object
+  // unions that need the is-match ladder, keyed by the object's collection index.
+  Matchers     []string
+  MatcherIndex map[int]bool
 }
 
 var compareEqualProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -71,8 +75,9 @@ func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps
   }
 
   generator := &compareEqualProgrammerGenerator{
-    Config:    props.Config,
-    Recursive: nativeinternal.FeatureProgrammer.CollectionRecursive(collection),
+    Config:       props.Config,
+    Recursive:    nativeinternal.FeatureProgrammer.CollectionRecursive(collection),
+    MatcherIndex: map[int]bool{},
   }
   body := generator.schema(result.Data, "x", "y")
   statements := []string{}
@@ -89,6 +94,12 @@ func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps
       statements = append(statements, generator.tupleFunction(tuple))
     }
   }
+  // The member matchers are collected last because every generation step above
+  // may request one. They are `const` arrow functions in the same scope as the
+  // `_eo`/`_ea`/`_et` helpers and are only ever called after this IIFE returns,
+  // so declaring them at the end is free of temporal-dead-zone hazards — the
+  // same placement `is` uses for the `_io` checkers it appends after `_cu`.
+  statements = append(statements, generator.Matchers...)
   if generator.Recursive {
     statements = append(statements, "return (x, y) => { const _vctx = {}; return "+body+"; };")
   } else {
@@ -162,20 +173,17 @@ func (g *compareEqualProgrammerGenerator) schema(metadata *schemametadata.Metada
   // branch and its absent payload keys compare `undefined === undefined`. The
   // discrimination reuses the shared UnionPredicator specialization the sibling
   // programmers (is/clone/classify/...) route through, so `equals` agrees with
-  // `is` on which member a value is.
+  // `is` on which member a value is. A union no discriminant can split (every
+  // distinguishing key optional, e.g. `{ a?: number } | { b?: string }`) routes
+  // through the first-is-match ladder instead — never a flat OR, which admits
+  // the same spurious match through absent keys comparing
+  // `undefined === undefined` (issue #2225).
   if len(metadata.Objects) >= 2 {
-    if expr, ok := g.objectUnion(metadata.Objects, x, y); ok {
-      if guard := g.notNatives(metadata.Natives, x, y); guard != "" {
-        expr = g.and(guard, expr)
-      }
-      branches = append(branches, expr)
-    } else {
-      // Not discriminable by a supported predicate (e.g. an all-optional union
-      // with no unique required key): fall back to the prior per-member OR.
-      for _, object := range metadata.Objects {
-        branches = append(branches, g.objectFlatBranch(object.Type, metadata.Natives, x, y))
-      }
+    expr := g.objectUnion(metadata.Objects, x, y)
+    if guard := g.notNatives(metadata.Natives, x, y); guard != "" {
+      expr = g.and(guard, expr)
     }
+    branches = append(branches, expr)
   } else {
     for _, object := range metadata.Objects {
       branches = append(branches, g.objectFlatBranch(object.Type, metadata.Natives, x, y))
@@ -319,16 +327,48 @@ func (g *compareEqualProgrammerGenerator) objectFlatBranch(object *schemametadat
 
 // objectUnion renders a discriminated comparison for a union of two or more
 // object types. It mirrors the is/clone/classify discrimination: each operand is
-// routed to exactly one member through the shared UnionPredicator discriminants,
-// and only when both land on the same member does that member's comparator run.
-// This replaces the flat OR whose wrong-member comparator could match spuriously.
-// It returns ok=false when the members are not discriminable by a supported
-// predicate, leaving the caller to fall back to the prior flat OR.
-func (g *compareEqualProgrammerGenerator) objectUnion(objects []*schemametadata.MetadataObject, x string, y string) (string, bool) {
+// routed to exactly one member, and only when both land on the same member does
+// that member's comparator run. This replaces the flat OR whose wrong-member
+// comparator could match spuriously.
+//
+// Routing prefers the shared UnionPredicator discriminants (issue #2214). When
+// no discriminant splits the members — every distinguishing key is optional, so
+// UnionPredicator yields no specialization, or more than one member is left
+// unspecialized — routing falls back to the first-is-match ladder that
+// clone/classify/prune reach through Decode_union_object (issue #2225). There is
+// no flat-OR fallback: the flat OR is the defect both issues describe.
+func (g *compareEqualProgrammerGenerator) objectUnion(objects []*schemametadata.MetadataObject, x string, y string) string {
   types := make([]*schemametadata.MetadataObjectType, 0, len(objects))
   for _, object := range objects {
     types = append(types, object.Type)
   }
+  ladder, ok := g.discriminantLadder(types)
+  if ok == false {
+    ladder = g.matchLadder(types)
+  }
+
+  tag := g.local("utag")
+  tx := g.local("utx")
+  // Dispatch: with the shared member index, run only that member's comparator.
+  dispatch := "false"
+  for i := len(types) - 1; i >= 0; i-- {
+    dispatch = fmt.Sprintf("%s === %d ? %s : %s", tx, types[i].Index, g.objectCall(types[i], "x", "y"), dispatch)
+  }
+  body := fmt.Sprintf(
+    "((x, y) => { const %s = (v) => (%s) ? (%s) : -1; const %s = %s(x); return %s !== -1 && %s === %s(y) && (%s); })(%s, %s)",
+    tag, g.isObject("v"), ladder, tx, tag, tx, tx, tag, dispatch, g.wrap(x), g.wrap(y),
+  )
+  return body
+}
+
+// discriminantLadder renders the routing ternary from the shared UnionPredicator
+// specialization: `<discriminant of member i> ? <index of member i> : ...`,
+// ending in the lone unspecialized member (the unconditional else the
+// discriminant ladder leaves) or -1 for "no member". It reports ok=false when
+// the members carry no usable discriminant, when more than one member is left
+// unspecialized, or when a discriminant value cannot be rendered as a check —
+// the caller then routes by is-match instead.
+func (g *compareEqualProgrammerGenerator) discriminantLadder(types []*schemametadata.MetadataObjectType) (string, bool) {
   specs := nativehelpers.UnionPredicator.Object(types)
   if len(specs) == 0 {
     return "", false
@@ -344,15 +384,8 @@ func (g *compareEqualProgrammerGenerator) objectUnion(objects []*schemametadata.
     }
   }
   if len(remained) > 1 {
-    // A non-discriminable remainder needs the full is-check ladder the sibling
-    // programmers reach through Decode_union_object; that machinery is AST-only,
-    // so leave these members to the caller's flat OR.
     return "", false
   }
-
-  // Routing ladder: a ternary that returns the member's collection index, or -1
-  // when the value matches no member. The innermost fallback is the lone
-  // remainder (the unconditional else the discriminant ladder leaves) or -1.
   fallback := "-1"
   if len(remained) == 1 {
     fallback = strconv.Itoa(remained[0].Index)
@@ -365,19 +398,187 @@ func (g *compareEqualProgrammerGenerator) objectUnion(objects []*schemametadata.
     }
     ladder = fmt.Sprintf("%s ? %d : %s", check, specs[i].Object.Index, ladder)
   }
+  return ladder, true
+}
 
-  tag := g.local("utag")
-  tx := g.local("utx")
-  // Dispatch: with the shared member index, run only that member's comparator.
-  dispatch := "false"
-  for i := len(types) - 1; i >= 0; i-- {
-    dispatch = fmt.Sprintf("%s === %d ? %s : %s", tx, types[i].Index, g.objectCall(types[i], "x", "y"), dispatch)
+// matchLadder renders the routing ternary for a union no discriminant splits:
+// the first member the value is-matches wins, exactly as `clone`/`classify`/
+// `prune` resolve membership through Decode_union_object's `if (_io0(input))
+// return ...; if (_io1(input)) ...` ladder. A value matching no member yields
+// -1, which makes `equals` false rather than letting a wrong member's comparator
+// decide.
+func (g *compareEqualProgrammerGenerator) matchLadder(types []*schemametadata.MetadataObjectType) string {
+  calls := make([]string, 0, len(types))
+  for _, object := range types {
+    // Declared in member order so the emitted matchers read in the same order
+    // as the ladder that calls them; the ladder itself is folded back to front.
+    calls = append(calls, g.matchCall(object, "v"))
   }
-  body := fmt.Sprintf(
-    "((x, y) => { const %s = (v) => (%s) ? (%s) : -1; const %s = %s(x); return %s !== -1 && %s === %s(y) && (%s); })(%s, %s)",
-    tag, g.isObject("v"), ladder, tx, tag, tx, tx, tag, dispatch, g.wrap(x), g.wrap(y),
-  )
-  return body, true
+  ladder := "-1"
+  for i := len(types) - 1; i >= 0; i-- {
+    ladder = fmt.Sprintf("%s ? %d : %s", calls[i], types[i].Index, ladder)
+  }
+  return ladder
+}
+
+// matchCall returns a call to the member's `_ui<index>` matcher, declaring the
+// matcher on first request. The index is registered before the body is rendered
+// so a recursive member refers to its own matcher instead of recursing forever
+// at generation time.
+func (g *compareEqualProgrammerGenerator) matchCall(object *schemametadata.MetadataObjectType, v string) string {
+  name := fmt.Sprintf("_ui%d", object.Index)
+  if g.MatcherIndex[object.Index] == false {
+    g.MatcherIndex[object.Index] = true
+    g.Matchers = append(g.Matchers, fmt.Sprintf("const %s = (v) => %s;", name, g.matchObject(object, "v")))
+  }
+  return fmt.Sprintf("%s(%s)", name, g.wrap(v))
+}
+
+// matchObject renders the structural is-check of one object member: every
+// declared regular key must hold a value of its declared type (an optional key
+// may be absent), and every extra key a dynamic index signature declares must
+// hold a value of the signature's type. It mirrors the `_io` checkers `is`
+// emits, at the abstraction level the rest of this programmer works at — shape
+// and typeof, not the value constraints (`typia.tags.*`, template patterns)
+// `compare` deliberately ignores.
+func (g *compareEqualProgrammerGenerator) matchObject(object *schemametadata.MetadataObjectType, v string) string {
+  checks := []string{}
+  regularKeys := []string{}
+  dynamic := []*schemametadata.MetadataProperty{}
+  for _, property := range object.Properties {
+    if compareProgrammer_isMethod(property) {
+      continue // methods carry no comparable data, so they do not route either
+    }
+    if sole := property.Key.GetSoleLiteral(); sole != nil {
+      regularKeys = append(regularKeys, *sole)
+      checks = append(checks, g.matchSlot(property.Value, g.property(v, *sole)))
+    } else {
+      dynamic = append(dynamic, property)
+    }
+  }
+  if len(dynamic) != 0 {
+    key := g.local("key")
+    regularCheck := compareEqualProgrammer_regularKeyCheck(regularKeys)
+    conditions := []string{}
+    for _, property := range dynamic {
+      conditions = append(conditions, g.and(g.dynamicKey(property.Key, key), g.matchSlot(property.Value, g.index(v, key))))
+    }
+    checks = append(checks, fmt.Sprintf("Object.keys(%s).every((%s) => %s)", g.wrap(v), key, g.or(regularCheck(key), g.or(conditions...))))
+  }
+  return g.and(checks...)
+}
+
+// matchSlot renders the is-check of a value slot — an object property or a tuple
+// element — allowing the slot to be absent when it is optional.
+func (g *compareEqualProgrammerGenerator) matchSlot(metadata *schemametadata.MetadataSchema, v string) string {
+  check := g.match(metadata, v)
+  if metadata != nil && metadata.IsRequired() == false {
+    return g.or(g.same(v, "undefined"), check)
+  }
+  return check
+}
+
+// match renders the structural is-check of one metadata schema as the OR of its
+// buckets, the same bucket walk `schema` compares over. An unconstrained bucket
+// (anything the compare feature already rejects, or a bucket carrying no shape
+// to test) renders as "true", which keeps the ladder's first-match order the
+// deciding factor exactly as it is in `is`.
+func (g *compareEqualProgrammerGenerator) match(metadata *schemametadata.MetadataSchema, v string) string {
+  if metadata == nil {
+    return "true"
+  }
+  metadata = schemametadata.MetadataSchema_unalias(metadata)
+  if metadata.Any {
+    return "true"
+  }
+  branches := []string{}
+  if metadata.Nullable {
+    branches = append(branches, g.same(v, "null"))
+  }
+  for _, constant := range metadata.Constants {
+    for _, value := range constant.Values {
+      branches = append(branches, g.same(v, compareEqualProgrammer_literal(value.Value, constant.Type)))
+    }
+  }
+  for _, atomic := range metadata.Atomics {
+    branches = append(branches, g.typeof(v, atomic.Type))
+  }
+  if len(metadata.Templates) != 0 {
+    branches = append(branches, g.typeof(v, "string"))
+  }
+  if len(metadata.Functions) != 0 {
+    branches = append(branches, g.typeof(v, "function"))
+  }
+  for _, native := range metadata.Natives {
+    branches = append(branches, g.instanceof(v, native.Name))
+  }
+  for _, tuple := range metadata.Tuples {
+    branches = append(branches, g.matchTuple(tuple.Type, v))
+  }
+  for _, array := range metadata.Arrays {
+    elem := g.local("elem")
+    branches = append(branches, g.and(g.isArray(v), fmt.Sprintf("%s.every((%s) => %s)", g.wrap(v), elem, g.match(array.Type.Value, elem))))
+  }
+  if len(metadata.Objects) != 0 {
+    calls := []string{}
+    for _, object := range metadata.Objects {
+      calls = append(calls, g.matchCall(object.Type, v))
+    }
+    branches = append(branches, g.and(g.isObject(v), g.or(calls...)))
+  }
+  for _, alias := range metadata.Aliases {
+    branches = append(branches, g.match(alias.Type.Value, v))
+  }
+  if metadata.Escaped != nil {
+    branches = append(branches, g.match(metadata.Escaped.Original, v))
+  }
+  if metadata.Rest != nil {
+    branches = append(branches, g.match(metadata.Rest, v))
+  }
+  if len(branches) == 0 {
+    return "true"
+  }
+  return g.or(branches...)
+}
+
+// matchTuple renders the is-check of a tuple: the array gate, the length range
+// an omitted optional trailing element makes legal (the same range `tupleInline`
+// compares over), and each element's own check.
+func (g *compareEqualProgrammerGenerator) matchTuple(tuple *schemametadata.MetadataTupleType, v string) string {
+  fixed := len(tuple.Elements)
+  var rest *schemametadata.MetadataSchema
+  if fixed != 0 && tuple.Elements[fixed-1].Rest != nil {
+    rest = tuple.Elements[fixed-1].Rest
+    fixed--
+  }
+  checks := []string{g.isArray(v)}
+  length := g.access(v, "length")
+  if rest == nil {
+    required := 0
+    allRequired := true
+    for i := 0; i < fixed; i++ {
+      if tuple.Elements[i].Optional {
+        allRequired = false
+      } else {
+        required++
+      }
+    }
+    if allRequired {
+      checks = append(checks, g.same(length, strconv.Itoa(fixed)))
+    } else {
+      checks = append(checks, fmt.Sprintf("%d <= %s && %d >= %s", required, length, fixed, length))
+    }
+  } else {
+    checks = append(checks, fmt.Sprintf("%s >= %d", length, fixed))
+  }
+  for i := 0; i < fixed; i++ {
+    checks = append(checks, g.matchSlot(tuple.Elements[i], g.index(v, strconv.Itoa(i))))
+  }
+  if rest != nil {
+    elem := g.local("elem")
+    checks = append(checks, fmt.Sprintf("%s.slice(%d).every((%s) => %s)", g.wrap(v), fixed, elem, g.match(rest, elem)))
+  }
+  return g.and(checks...)
 }
 
 // discriminant renders the routing predicate for one specialized union member,

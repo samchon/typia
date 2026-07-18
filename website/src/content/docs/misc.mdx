@@ -244,6 +244,8 @@ namespace compare {
 
 Deep equality by the structure of `T`. Extra runtime properties outside `T` are not part of the comparison.
 
+When `T` is a union of object types, each value first resolves to a single member — by its discriminator, or by the first member it matches when no discriminator distinguishes them, exactly as `plain.clone` resolves it. Two values that land on different members are never equal, and the one member they share decides the rest.
+
 ```typescript copy
 typia.compare.equals<IPoint>(x, y); // true when every declared field matches
 ```
