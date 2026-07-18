@@ -313,13 +313,27 @@ func plainPruneProgrammer_decode(props struct {
     })
   }
 
-  statements := make([]*shimast.Node, 0, len(unions))
-  for _, u := range unions {
-    statements = append(statements, f.NewIfStatement(
+  // Compose the arms as a mutually exclusive `if / else if` ladder rather than
+  // independent `if`s. The object arm is appended last and its guard is
+  // `IsObject` with CheckArray:false, which also matches arrays and native
+  // instances; with independent `if`s an array or native runs both its own arm
+  // and the object arm, and the object arm then deletes the keys of a value
+  // another arm already owns (a typed array throws, a plain array collapses to
+  // holes, a native loses its own properties). The ladder reaches the object
+  // arm only when every earlier arm missed, so each input is pruned by exactly
+  // one arm — the same shape clone/classify use.
+  var chain *shimast.Node
+  for i := len(unions) - 1; i >= 0; i-- {
+    u := unions[i]
+    chain = f.NewIfStatement(
       u.Is(),
       plainPruneProgrammer_to_statement(u.Value(), props.Context.Emit),
-      nil,
-    ))
+      chain,
+    )
+  }
+  statements := []*shimast.Node{}
+  if chain != nil {
+    statements = append(statements, chain)
   }
   return f.NewBlock(f.NewNodeList(statements), true)
 }
