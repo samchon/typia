@@ -139,16 +139,18 @@ func (llmApplicationProgrammerNamespace) Validate(props struct {
       }
       least = true
       name := fmt.Sprintf("%q", *rawName)
-      if isValidType == false {
-        if len(value.Functions) != 1 || value.Size() != 1 {
-          output = append(output, "LLM application's function ("+name+") type does not allow union type.")
-        }
-        if value.IsRequired() == false {
-          output = append(output, "LLM application's function ("+name+") type must be required.")
-        }
-        if value.Nullable {
-          output = append(output, "LLM application's function ("+name+") type must not be nullable.")
-        }
+      // These per-function shape checks must run for every function property,
+      // independent of the top-level `isValidType`: otherwise a malformed
+      // function (union/optional/nullable) is silently dropped by
+      // WriteApplication with no diagnostic at all (issue #2195).
+      if len(value.Functions) != 1 || value.Size() != 1 {
+        output = append(output, "LLM application's function ("+name+") type does not allow union type.")
+      }
+      if value.IsRequired() == false {
+        output = append(output, "LLM application's function ("+name+") type must be required.")
+      }
+      if value.Nullable {
+        output = append(output, "LLM application's function ("+name+") type must not be nullable.")
       }
       prefix := "LLM application's function (" + name + ")"
       output = append(output, llmApplicationProgrammer_validateName(prefix, *rawName)...)

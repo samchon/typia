@@ -54,16 +54,18 @@ func (jsonApplicationProgrammerNamespace) Validate(props struct {
       value := p.Value
       if len(value.Functions) != 0 {
         least = true
-        if valid == false {
-          if len(value.Functions) != 1 || value.Size() != 1 {
-            output = append(output, "JSON application's function type does not allow union type.")
-          }
-          if value.IsRequired() == false {
-            output = append(output, "JSON application's function type must be required.")
-          }
-          if value.Nullable == true {
-            output = append(output, "JSON application's function type must not be nullable.")
-          }
+        // These per-function shape checks must run for every function
+        // property, independent of the top-level `valid`: otherwise a
+        // malformed function (union/optional/nullable) is silently dropped by
+        // WriteApplication with no diagnostic at all (issue #2195).
+        if len(value.Functions) != 1 || value.Size() != 1 {
+          output = append(output, "JSON application's function type does not allow union type.")
+        }
+        if value.IsRequired() == false {
+          output = append(output, "JSON application's function type must be required.")
+        }
+        if value.Nullable == true {
+          output = append(output, "JSON application's function type must not be nullable.")
         }
       }
     }
