@@ -18,7 +18,7 @@ const pickLength = (props: _ILengthProps, base: number): number => {
   let low: number = props.minLength === undefined ? base : props.minLength;
   if (low < base) low = base;
   const high: number =
-    props.maxLength === undefined ? Math.max(low, base + 14) : props.maxLength;
+    props.maxLength === undefined ? low + 14 : props.maxLength;
   if (high < low)
     throw new Error(
       "unable to generate a random URL satisfying both the format and the length constraints.",

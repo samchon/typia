@@ -18,7 +18,7 @@ const pickLength = (props: _ILengthProps): number => {
   if (low < 1) low = 1;
   const high: number =
     props.maxLength === undefined
-      ? Math.min(MAX_TOTAL, Math.max(low, 14))
+      ? Math.min(MAX_TOTAL, low + 14)
       : Math.min(MAX_TOTAL, props.maxLength);
   if (high < low)
     throw new Error(

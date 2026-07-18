@@ -32,10 +32,10 @@ export const _randomSegmentLength = (
   let low: number =
     props?.minLength === undefined ? minimum : props.minLength - fixed;
   if (low < minimum) low = minimum;
+  // With only a lower bound, spread the segment across `fallback` extra
+  // characters so the generated length varies, mirroring `_randomString`.
   const high: number =
-    props?.maxLength === undefined
-      ? Math.max(low, fallback)
-      : props.maxLength - fixed;
+    props?.maxLength === undefined ? low + fallback : props.maxLength - fixed;
   if (high < low || high < minimum)
     throw new Error(
       "unable to generate a random string satisfying both the format and the length constraints.",

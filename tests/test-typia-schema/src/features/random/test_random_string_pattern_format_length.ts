@@ -76,6 +76,51 @@ export const test_random_string_pattern_format_length = (): void => {
     );
   }
   {
+    // A short window near the email minimum exercises the shrink path.
+    type T = string & tags.Format<"email"> & tags.MinLength<5> & tags.MaxLength<9>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "email & short window",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    // A minLength beyond a single 63-char label exercises multi-label building.
+    type T = string & tags.Format<"hostname"> & tags.MinLength<80>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "hostname & multi-label minLength",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string & tags.Format<"url"> & tags.MinLength<40> & tags.MaxLength<60>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "url & length window",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string &
+      tags.Format<"password"> &
+      tags.MinLength<40> &
+      tags.MaxLength<50>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "password & length window",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
     // A fixed-length format whose natural length already satisfies the bound.
     type T = string & tags.Format<"uuid"> & tags.MinLength<10>;
     const create = typia.createRandom<T>();
