@@ -490,7 +490,7 @@ func iterate_metadata_intersection_is_removable_object_constraint(
     return false
   }
   for _, generic := range iterate_metadata_native_generics {
-    if strings.HasPrefix(name, generic.Name) {
+    if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
       return false
     }
   }
@@ -563,7 +563,7 @@ func iterate_metadata_intersection_identify(
     return iterate_metadata_intersection_identity{Kind: "native", Name: name}
   }
   for _, generic := range iterate_metadata_native_generics {
-    if strings.HasPrefix(name, generic.Name) {
+    if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
       return iterate_metadata_intersection_identity{Kind: "native", Name: generic.Name}
     }
   }
@@ -678,7 +678,7 @@ func iterate_metadata_intersection_is_plain_object_only(
     return false
   }
   for _, generic := range iterate_metadata_native_generics {
-    if strings.HasPrefix(name, generic.Name) {
+    if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
       return false
     }
   }
@@ -987,7 +987,7 @@ func iterate_metadata_intersection_category(
     return "native:" + name
   }
   for _, generic := range iterate_metadata_native_generics {
-    if strings.HasPrefix(name, generic.Name) {
+    if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
       return "object"
     }
   }
