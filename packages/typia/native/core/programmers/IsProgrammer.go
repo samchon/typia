@@ -18,6 +18,7 @@ var IsProgrammer = isProgrammerNamespace{}
 
 type IsProgrammer_CONFIG_IOptions struct {
   Numeric   *bool
+  Finite    *bool
   Undefined *bool
   Object    func(props IsProgrammer_CONFIG_IOptions_ObjectProps) *shimast.Node
 }
@@ -182,6 +183,7 @@ func (isProgrammerNamespace) Decompose(props IsProgrammer_DecomposeProps) native
   f := nativecontext.EmitFactoryOf(isProgrammer_factory, props.Context.Emit)
   options := &IsProgrammer_CONFIG_IOptions{
     Numeric: props.Context.Options.Numeric,
+    Finite:  props.Context.Options.Finite,
     Object: func(v IsProgrammer_CONFIG_IOptions_ObjectProps) *shimast.Node {
       return nativeiterate.Check_object(nativeiterate.Check_objectProps{
         Config: nativeiterate.Check_object_IConfig{
@@ -397,8 +399,20 @@ func isProgrammer_binary(left *shimast.Expression, operator shimast.Kind, right 
   )
 }
 
+// isProgrammer_option_numeric reports whether the number leaf gate must be
+// emitted at all. It opens on `finite` as well as `numeric` so that `finite:true`
+// alone rejects NaN and Infinity, matching how assert/validate open the same gate
+// via OptionPredicator.Numeric (which is likewise finite || numeric) and the
+// documented independence of the two flags (samchon/typia#2196). The gate only
+// decides whether check_number emits a guard; check_number's own inner selection
+// then picks Number.isFinite for `finite` or !Number.isNaN for `numeric`.
 func isProgrammer_option_numeric(options *IsProgrammer_CONFIG_IOptions) bool {
-  return options != nil && options.Numeric != nil && *options.Numeric
+  if options == nil {
+    return false
+  }
+  finite := options.Finite != nil && *options.Finite
+  numeric := options.Numeric != nil && *options.Numeric
+  return finite || numeric
 }
 
 func isProgrammer_option_undefined(options *IsProgrammer_CONFIG_IOptions) bool {
