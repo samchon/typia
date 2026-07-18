@@ -2,9 +2,14 @@
  * String naming convention converters.
  *
  * `NamingConvention` converts between common code naming conventions:
- * camelCase, PascalCase, and snake_case. Handles edge cases like consecutive
- * uppercase letters (e.g., `XMLParser` → `xml_parser`) and leading
- * underscores.
+ * camelCase, PascalCase, snake_case, and kebab-case. The four converters share
+ * the case-conversion contract of `typia.notations.*` and the `CamelCase<T>` /
+ * `PascalCase<T>` / `SnakeCase<T>` / `KebabCase<T>` typings, and are kept in
+ * step with them: each runs the case-boundary walk within every
+ * underscore-delimited segment (`fooBar_baz` → `foo_bar_baz`), lowercases the
+ * inner characters of an all-caps run (`MAX_COUNT` → `MaxCount` under pascal),
+ * collapses an acronym run (`XMLParser` → `xmlparser` under snake), and
+ * preserves leading underscores.
  *
  * Functions:
  *
@@ -24,16 +29,18 @@ export namespace NamingConvention {
    * @param str Input string
    * @returns CamelCase string
    */
-  export function camel(str: string) {
-    return unsnake({
+  export function camel(str: string): string {
+    return renameOuter({
+      // `CamelCase<T>` lowercases an all-caps key and otherwise lowercases only
+      // the first character of an underscore-free key (`HTTP` → `http`, `userID`
+      // stays).
       plain: (str) =>
-        str.length
-          ? str === str.toUpperCase()
-            ? str.toLocaleLowerCase()
-            : `${str[0]!.toLowerCase()}${str.substring(1)}`
-          : str,
-      snake: (str, i) =>
-        i === 0 ? str.toLowerCase() : capitalize(str.toLowerCase()),
+        str === str.toUpperCase()
+          ? str.toLowerCase()
+          : `${str[0]!.toLowerCase()}${str.substring(1)}`,
+      // With an underscore present, the character after each underscore is
+      // uppercased and the rest lowercased, matching `CamelizeSnakeString`.
+      snake: camelSnake,
     })(str);
   }
 
@@ -43,11 +50,14 @@ export namespace NamingConvention {
    * @param str Input string
    * @returns PascalCase string
    */
-  export function pascal(str: string) {
-    return unsnake({
-      plain: (str) =>
-        str.length ? `${str[0]!.toUpperCase()}${str.substring(1)}` : str,
-      snake: capitalize,
+  export function pascal(str: string): string {
+    return renameOuter({
+      // `PascalCase<T>` capitalizes the first character of an underscore-free
+      // key and keeps the rest verbatim (`userID` → `UserID`).
+      plain: (str) => `${str[0]!.toUpperCase()}${str.substring(1)}`,
+      // With an underscore present, each segment is capitalized and its tail is
+      // lowercased (`MAX_COUNT` → `MaxCount`), matching `PascalizeSnakeString`.
+      snake: pascalSnake,
     })(str);
   }
 
@@ -61,7 +71,6 @@ export namespace NamingConvention {
     if (str.length === 0) return str;
 
     // PREFIX
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let prefix: string = "";
     for (let i: number = 0; i < str.length; i++) {
       if (str[i] === "_") prefix += "_";
@@ -69,37 +78,14 @@ export namespace NamingConvention {
     }
     if (prefix.length !== 0) str = str.substring(prefix.length);
 
-    const out = (s: string) => `${prefix}${s}`;
-
     // SNAKE CASE
-    const items: string[] = str.split("_");
-    if (items.length > 1)
-      return out(items.map((s) => s.toLowerCase()).join("_"));
-
-    // CAMEL OR PASCAL CASE
-    const indexes: number[] = [];
-    for (let i: number = 0; i < str.length; i++) {
-      const code: number = str.charCodeAt(i);
-      if (65 <= code && code <= 90) indexes.push(i);
-    }
-    for (let i: number = indexes.length - 1; i > 0; --i) {
-      const now: number = indexes[i]!;
-      const prev: number = indexes[i - 1]!;
-      if (now - prev === 1) indexes.splice(i, 1);
-    }
-    if (indexes.length !== 0 && indexes[0] === 0) indexes.splice(0, 1);
-    if (indexes.length === 0) return out(str.toLowerCase());
-
-    let ret: string = "";
-    for (let i: number = 0; i < indexes.length; i++) {
-      const first: number = i === 0 ? 0 : indexes[i - 1]!;
-      const last: number = indexes[i]!;
-
-      ret += str.substring(first, last).toLowerCase();
-      ret += "_";
-    }
-    ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
-    return out(ret);
+    //
+    // Run the case-boundary walk within each underscore-delimited segment, not
+    // over the whole segment at once. Lowercasing a segment atomically would
+    // drop the camelCase boundary inside it (`["fooBar", "baz"]` →
+    // `["foobar", "baz"]` → `foobar_baz`), diverging from `SnakeCase<T>`; the
+    // per-segment walk keeps it (`["foo_bar", "baz"]` → `foo_bar_baz`).
+    return `${prefix}${str.split("_").map(snakeWord).join("_")}`;
   }
 
   /**
@@ -112,13 +98,13 @@ export namespace NamingConvention {
    * @returns Kebab-case string
    */
   export function kebab(str: string): string {
-    const snaked: string = snake(str);
+    let snaked: string = snake(str);
     let prefix: string = "";
-    for (let i: number = 0; i < snaked.length; i++) {
-      if (snaked[i] === "_") prefix += "_";
-      else break;
+    while (snaked.startsWith("_")) {
+      prefix += "_";
+      snaked = snaked.substring(1);
     }
-    return prefix + snaked.substring(prefix.length).split("_").join("-");
+    return `${prefix}${snaked.replaceAll("_", "-")}`;
   }
 
   /**
@@ -287,27 +273,101 @@ const RESTRICTED: Set<string> = new Set([
   ...STRICT_RESTRICTED_BINDINGS,
 ]);
 
-const unsnake =
+/**
+ * Shared outer walk for {@link NamingConvention.camel} and
+ * {@link NamingConvention.pascal}.
+ *
+ * Mirrors the `CamelCase<T>` / `PascalCase<T>` typings: leading underscores are
+ * preserved verbatim, an all-underscore key stays untouched, and the presence
+ * of any remaining underscore — not the number of non-empty segments — selects
+ * the `snake` conversion. Routing on underscore presence keeps a trailing or
+ * doubled underscore (`fooBar_`) on the same path the type takes, instead of
+ * collapsing it to the underscore-free `plain` path.
+ */
+const renameOuter =
   (props: {
     plain: (str: string) => string;
-    snake: (str: string, index: number) => string;
+    snake: (str: string) => string;
   }) =>
   (str: string): string => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let prefix: string = "";
-    for (let i: number = 0; i < str.length; i++) {
-      if (str[i] === "_") prefix += "_";
-      else break;
+    while (str.startsWith("_")) {
+      prefix += "_";
+      str = str.substring(1);
     }
-    if (prefix.length !== 0) str = str.substring(prefix.length);
-
-    const out = (s: string) => `${prefix}${s}`;
-    if (str.length === 0) return out("");
-
-    const items: string[] = str.split("_").filter((s) => s.length !== 0);
-    return items.length === 0
-      ? out("")
-      : items.length === 1
-        ? out(props.plain(items[0]!))
-        : out(items.map(props.snake).join(""));
+    if (str.length === 0) return prefix;
+    return `${prefix}${str.includes("_") ? props.snake(str) : props.plain(str)}`;
   };
+
+/**
+ * snake_case conversion of one underscore-free segment.
+ *
+ * Splits on case boundaries, collapsing an acronym run into a single word
+ * (`XMLParser` → `xmlparser`, `toHTML` → `to_html`).
+ */
+const snakeWord = (str: string): string => {
+  const indexes: number[] = [];
+  for (let i: number = 0; i < str.length; i++) {
+    const code: number = str.charCodeAt(i);
+    if (65 <= code && code <= 90) indexes.push(i);
+  }
+  for (let i: number = indexes.length - 1; i > 0; --i) {
+    const now: number = indexes[i]!;
+    const prev: number = indexes[i - 1]!;
+    if (now - prev === 1) indexes.splice(i, 1);
+  }
+  if (indexes.length !== 0 && indexes[0] === 0) indexes.splice(0, 1);
+  if (indexes.length === 0) return str.toLowerCase();
+
+  let ret: string = "";
+  for (let i: number = 0; i < indexes.length; i++) {
+    const first: number = i === 0 ? 0 : indexes[i - 1]!;
+    const last: number = indexes[i]!;
+
+    ret += str.substring(first, last).toLowerCase();
+    ret += "_";
+  }
+  ret += str.substring(indexes[indexes.length - 1]!).toLowerCase();
+  return ret;
+};
+
+/**
+ * camelCase conversion of a key that contains at least one underscore.
+ *
+ * Uppercases the character after each underscore and lowercases the rest,
+ * matching `CamelizeSnakeString`. A trailing underscore has no character to
+ * uppercase, so it falls through to lowercasing the whole key (`foo_` → `foo_`),
+ * and a doubled underscore collapses to a single one before continuing.
+ */
+const camelSnake = (str: string): string => {
+  while (str.startsWith("_")) str = str.substring(1);
+  if (str.length === 0) return "";
+  const index: number = str.indexOf("_");
+  if (index < 0) return str.toLowerCase();
+  const middle: string | undefined = str[index + 1];
+  if (middle === undefined) return str.toLowerCase();
+  return middle === "_"
+    ? camelSnake(`${str.substring(0, index)}_${str.substring(index + 2)}`)
+    : `${str
+        .substring(0, index)
+        .toLowerCase()}${middle.toUpperCase()}${camelSnake(
+        str.substring(index + 2),
+      )}`;
+};
+
+/**
+ * PascalCase conversion of a key that contains at least one underscore.
+ *
+ * Capitalizes each underscore-delimited segment and lowercases its tail
+ * (`MAX_COUNT` → `MaxCount`), matching `PascalizeSnakeString`.
+ */
+const pascalSnake = (str: string): string => {
+  while (str.startsWith("_")) str = str.substring(1);
+  if (str.length === 0) return "";
+  const index: number = str.indexOf("_");
+  return index < 0
+    ? `${str[0]!.toUpperCase()}${str.substring(1).toLowerCase()}`
+    : `${str[0]!.toUpperCase()}${str
+        .substring(1, index)
+        .toLowerCase()}${pascalSnake(str.substring(index + 1))}`;
+};
