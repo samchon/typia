@@ -3,6 +3,7 @@ package helpers
 import (
   "encoding/json"
   "sort"
+  "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
@@ -143,8 +144,13 @@ func stringifyJoiner_regular_properties(regular []IExpressionEntry, dynamic []IE
     if err != nil {
       encoded = []byte("\"" + *key + "\"")
     }
+    // encoded is escaped for a JSON string, but the literal becomes a part of a
+    // template literal (TemplateFactory.Generate). The two contexts disagree, so
+    // re-escape the JSON bytes for the template-literal context: otherwise `\"`
+    // decays to `"`, `\\` to `\`, a control-char escape's backslash is dropped, a
+    // raw backtick closes the template, and `${` starts a live interpolation.
     base := []*shimast.Node{
-      f.NewStringLiteral(string(encoded)+":", shimast.TokenFlagsNone),
+      f.NewStringLiteral(stringifyJoiner_escape_template(string(encoded))+":", shimast.TokenFlagsNone),
       entry.Expression,
     }
     if index != len(regular)-1 || len(dynamic) != 0 {
@@ -395,6 +401,31 @@ func stringifyJoiner_all_string_literals(elements []*shimast.Expression) bool {
     }
   }
   return true
+}
+
+// stringifyJoiner_escape_template escapes an already-JSON-encoded key so that,
+// spliced verbatim into a backtick template literal, it reproduces the exact
+// JSON bytes at runtime. It doubles every backslash (so JSON escapes such as
+// `\"`, `\\`, `\t`, `<` survive), escapes a backtick (which would close the
+// template), and escapes the `$` of a `${` pair (which would start a live
+// interpolation). A `$` not followed by `{` and every ordinary character stay
+// byte-identical, so keys that need none of these are unchanged.
+func stringifyJoiner_escape_template(text string) string {
+  var builder strings.Builder
+  builder.Grow(len(text))
+  for i := 0; i < len(text); i++ {
+    switch c := text[i]; {
+    case c == '\\':
+      builder.WriteString("\\\\")
+    case c == '`':
+      builder.WriteString("\\`")
+    case c == '$' && i+1 < len(text) && text[i+1] == '{':
+      builder.WriteString("\\$")
+    default:
+      builder.WriteByte(c)
+    }
+  }
+  return builder.String()
 }
 
 func joinStrings(values []string, sep string) string {
