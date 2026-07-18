@@ -111,7 +111,7 @@ func json_schema_create_object_schema(props struct {
       if pattern == nativeutils.PatternUtil.STRING {
         extraMeta.additionalProperties = &pair
       } else {
-        extraMeta.patternProperties[pattern] = pair
+        extraMeta.setPatternProperty(pattern, pair)
       }
     }
   }
@@ -152,8 +152,8 @@ func json_schema_join(props struct {
   extra      json_schema_superfluous
 }) JsonSchema {
   elements := []json_schema_metadata_schema_pair{}
-  for _, value := range props.extra.patternProperties {
-    elements = append(elements, value)
+  for _, key := range props.extra.patternPropertyKeys {
+    elements = append(elements, props.extra.patternProperties[key])
   }
   if props.extra.additionalProperties != nil {
     elements = append(elements, *props.extra.additionalProperties)
@@ -179,6 +179,16 @@ func json_schema_join(props struct {
 type json_schema_superfluous struct {
   additionalProperties *json_schema_metadata_schema_pair
   patternProperties    map[string]json_schema_metadata_schema_pair
+  // patternPropertyKeys preserves the first-insertion order of the map while
+  // later assignments to an existing pattern replace its value in place.
+  patternPropertyKeys []string
+}
+
+func (superfluous *json_schema_superfluous) setPatternProperty(pattern string, pair json_schema_metadata_schema_pair) {
+  if _, exists := superfluous.patternProperties[pattern]; exists == false {
+    superfluous.patternPropertyKeys = append(superfluous.patternPropertyKeys, pattern)
+  }
+  superfluous.patternProperties[pattern] = pair
 }
 
 type json_schema_metadata_schema_pair struct {
