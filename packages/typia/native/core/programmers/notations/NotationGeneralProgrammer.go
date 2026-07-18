@@ -3,6 +3,7 @@ package notations
 import (
   "fmt"
   "strings"
+  "unicode/utf8"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
@@ -14,6 +15,8 @@ import (
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
   nativeiterate "github.com/samchon/typia/packages/typia/native/core/programmers/iterate"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  "golang.org/x/text/cases"
+  "golang.org/x/text/language"
 )
 
 type notationGeneralProgrammerNamespace struct{}
@@ -1339,6 +1342,67 @@ var NotationGeneralProgrammer_Pascal = NotationGeneralProgrammer_IRename{Name: "
 var NotationGeneralProgrammer_Snake = NotationGeneralProgrammer_IRename{Name: "snake", Func: notationGeneralProgrammer_snake}
 var NotationGeneralProgrammer_Kebab = NotationGeneralProgrammer_IRename{Name: "kebab", Func: notationGeneralProgrammer_kebab}
 
+// notationGeneralProgrammer_toUpper and notationGeneralProgrammer_toLower
+// reproduce JavaScript's `String.prototype.toUpperCase` / `toLowerCase`, which
+// is the case operation the runtime helpers (`_notationCamel`,
+// `_notationPascal`, `_notationSnake`) and the `CamelCase<T>` / `PascalCase<T>`
+// typings both apply. JavaScript performs Unicode *full* case conversion, while
+// `strings.ToUpper` / `strings.ToLower` perform the *simple* per-rune mapping,
+// so the two disagree wherever a code point maps to a different number of code
+// points or depends on context: `ß` -> `SS`, `İ` -> `i` + U+0307, `ﬁ` -> `FI`,
+// and the word-final sigma `ΑΣ` -> `ας`. Emitting a key through the simple
+// mapping would make the compile-time emit disagree with the runtime helper and
+// with the declared `*Case<T>` return type. `language.Und` selects the
+// locale-independent root mapping, matching JavaScript's locale-independent
+// `toUpperCase` / `toLowerCase` (as opposed to `toLocaleUpperCase`).
+//
+// A `cases.Caser` carries mutable state and must not be shared across
+// goroutines, so each call builds its own; notation renaming runs once per
+// object key at compile time, not on a hot path.
+func notationGeneralProgrammer_toUpper(str string) string {
+  return cases.Upper(language.Und).String(str)
+}
+
+func notationGeneralProgrammer_toLower(str string) string {
+  return cases.Lower(language.Und).String(str)
+}
+
+// notationGeneralProgrammer_head splits str after the character a JavaScript
+// `str[0]` expression addresses, returning that head and the remainder.
+//
+// The runtime helpers and the `*Case<T>` typings capitalize a key by indexing
+// its first character, so the emit has to slice at the same boundary. Slicing
+// by byte (`str[:1]`) instead splits a multi-byte UTF-8 rune and hands a lone
+// lead byte to the case operation, which cannot decode it and substitutes
+// U+FFFD — `École` was emitted as `��cole`.
+func notationGeneralProgrammer_head(str string) (string, string) {
+  _, size := utf8.DecodeRuneInString(str)
+  return str[:size], str[size:]
+}
+
+// notationGeneralProgrammer_upperHead and notationGeneralProgrammer_lowerHead
+// case-convert a head produced by notationGeneralProgrammer_head the way
+// `str[0].toUpperCase()` / `str[0].toLowerCase()` does.
+//
+// JavaScript indexes a string by UTF-16 code unit, so `str[0]` of an astral
+// character is its lone high surrogate, and no case mapping applies to an
+// unpaired surrogate. Such a head is therefore returned verbatim rather than
+// case-mapped, which is what keeps a Deseret or Adlam key stable across the
+// emit, the runtime helper, and the type.
+func notationGeneralProgrammer_upperHead(head string) string {
+  if r, _ := utf8.DecodeRuneInString(head); r > 0xFFFF {
+    return head
+  }
+  return notationGeneralProgrammer_toUpper(head)
+}
+
+func notationGeneralProgrammer_lowerHead(head string) string {
+  if r, _ := utf8.DecodeRuneInString(head); r > 0xFFFF {
+    return head
+  }
+  return notationGeneralProgrammer_toLower(head)
+}
+
 // notationGeneralProgrammer_rename is the shared outer walk for the
 // camel/pascal notations. It mirrors the `CamelCase<T>` / `PascalCase<T>`
 // typings: leading underscores are preserved verbatim, an all-underscore key
@@ -1363,10 +1427,11 @@ func notationGeneralProgrammer_rename(str string, plain func(string) string, sna
 
 func notationGeneralProgrammer_camel(str string) string {
   return notationGeneralProgrammer_rename(str, func(value string) string {
-    if value == strings.ToUpper(value) {
-      return strings.ToLower(value)
+    if value == notationGeneralProgrammer_toUpper(value) {
+      return notationGeneralProgrammer_toLower(value)
     }
-    return strings.ToLower(value[:1]) + value[1:]
+    head, tail := notationGeneralProgrammer_head(value)
+    return notationGeneralProgrammer_lowerHead(head) + tail
   }, notationGeneralProgrammer_camel_snake)
 }
 
@@ -1383,17 +1448,22 @@ func notationGeneralProgrammer_camel_snake(str string) string {
   }
   index := strings.IndexByte(str, '_')
   if index < 0 || index+1 >= len(str) {
-    return strings.ToLower(str)
+    return notationGeneralProgrammer_toLower(str)
   }
   if str[index+1] == '_' {
     return notationGeneralProgrammer_camel_snake(str[:index] + "_" + str[index+2:])
   }
-  return strings.ToLower(str[:index]) + strings.ToUpper(str[index+1:index+2]) + notationGeneralProgrammer_camel_snake(str[index+2:])
+  // The character after the underscore is one whole rune, not one byte; `_` is
+  // ASCII so it never falls inside a multi-byte sequence and `index` stays a
+  // valid boundary.
+  middle, rest := notationGeneralProgrammer_head(str[index+1:])
+  return notationGeneralProgrammer_toLower(str[:index]) + notationGeneralProgrammer_upperHead(middle) + notationGeneralProgrammer_camel_snake(rest)
 }
 
 func notationGeneralProgrammer_pascal(str string) string {
   return notationGeneralProgrammer_rename(str, func(value string) string {
-    return strings.ToUpper(value[:1]) + value[1:]
+    head, tail := notationGeneralProgrammer_head(value)
+    return notationGeneralProgrammer_upperHead(head) + tail
   }, notationGeneralProgrammer_pascal_snake)
 }
 
@@ -1407,11 +1477,14 @@ func notationGeneralProgrammer_pascal_snake(str string) string {
   if str == "" {
     return ""
   }
+  head, tail := notationGeneralProgrammer_head(str)
   index := strings.IndexByte(str, '_')
   if index < 0 {
-    return strings.ToUpper(str[:1]) + strings.ToLower(str[1:])
+    return notationGeneralProgrammer_upperHead(head) + notationGeneralProgrammer_toLower(tail)
   }
-  return strings.ToUpper(str[:1]) + strings.ToLower(str[1:index]) + notationGeneralProgrammer_pascal_snake(str[index+1:])
+  // `index` counts bytes from the start of `str`; the tail it delimits starts
+  // after the whole leading rune, hence the `len(head)` offset.
+  return notationGeneralProgrammer_upperHead(head) + notationGeneralProgrammer_toLower(tail[:index-len(head)]) + notationGeneralProgrammer_pascal_snake(str[index+1:])
 }
 
 // notationGeneralProgrammer_snake_word runs the case-boundary walk over one
@@ -1435,7 +1508,7 @@ func notationGeneralProgrammer_snake_word(str string) string {
     indexes = indexes[1:]
   }
   if len(indexes) == 0 {
-    return strings.ToLower(str)
+    return notationGeneralProgrammer_toLower(str)
   }
   ret := ""
   for i, last := range indexes {
@@ -1443,10 +1516,10 @@ func notationGeneralProgrammer_snake_word(str string) string {
     if i != 0 {
       first = indexes[i-1]
     }
-    ret += strings.ToLower(str[first:last])
+    ret += notationGeneralProgrammer_toLower(str[first:last])
     ret += "_"
   }
-  ret += strings.ToLower(str[indexes[len(indexes)-1]:])
+  ret += notationGeneralProgrammer_toLower(str[indexes[len(indexes)-1]:])
   return ret
 }
 

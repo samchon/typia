@@ -195,54 +195,96 @@ module.exports._accessExpressionAsString = (key) => {
 };
 `
 
-const ttscTypiaTestNotationStub = `const capitalize = (str) =>
-  str.length === 0 ? str : str[0].toUpperCase() + str.substring(1);
-const unsnake = ({ plain, snake }) => (str) => {
+// ttscTypiaTestNotationStub stands in for typia/lib/internal/_notation*, which
+// the emitted converter requires for dynamic (index-signature) keys.
+//
+// These tests assert that the statically emitted key and the runtime helper
+// agree, so this stub is that assertion's oracle and has to stay a faithful
+// transcription of packages/typia/src/internal/_notation{Camel,Pascal,Snake,
+// Kebab}.ts and private/__notationRename.ts — an approximation turns "emit ==
+// runtime" into "emit == whatever this file happens to say". Keep it a direct
+// transcription: same routing on underscore presence (not on segment count),
+// the same CamelizeSnakeString/PascalizeSnakeString recursions, and the same
+// per-segment case-boundary walk in snake. It deliberately uses string
+// concatenation rather than template literals because it is embedded in a Go
+// raw string literal, which is backtick-delimited.
+const ttscTypiaTestNotationStub = `const __notationRename = (props) => (str) => {
   let prefix = "";
   while (str.startsWith("_")) {
     prefix += "_";
     str = str.substring(1);
   }
-  const items = str.split("_").filter((item) => item.length !== 0);
-  if (items.length === 0) return prefix;
-  return prefix + (items.length === 1 ? plain(items[0]) : items.map(snake).join(""));
+  if (str.length === 0) return prefix;
+  return prefix + (str.includes("_") ? props.snake(str) : props.plain(str));
 };
-const snake = (source) => {
-  if (source.length === 0) return source;
-  let prefix = "";
-  while (source.startsWith("_")) {
-    prefix += "_";
-    source = source.substring(1);
-  }
-  const items = source.split("_");
-  if (items.length > 1) return prefix + items.map((item) => item.toLowerCase()).join("_");
+
+const _notationCamelSnake = (str) => {
+  while (str.startsWith("_")) str = str.substring(1);
+  if (str.length === 0) return "";
+  const index = str.indexOf("_");
+  if (index < 0) return str.toLowerCase();
+  const middle = str[index + 1];
+  if (middle === undefined) return str.toLowerCase();
+  return middle === "_"
+    ? _notationCamelSnake(str.substring(0, index) + "_" + str.substring(index + 2))
+    : str.substring(0, index).toLowerCase() +
+      middle.toUpperCase() +
+      _notationCamelSnake(str.substring(index + 2));
+};
+
+const _notationPascalSnake = (str) => {
+  while (str.startsWith("_")) str = str.substring(1);
+  if (str.length === 0) return "";
+  const index = str.indexOf("_");
+  return index < 0
+    ? str[0].toUpperCase() + str.substring(1).toLowerCase()
+    : str[0].toUpperCase() +
+      str.substring(1, index).toLowerCase() +
+      _notationPascalSnake(str.substring(index + 1));
+};
+
+const _notationSnakeWord = (str) => {
   const indexes = [];
-  for (let i = 0; i < source.length; i++) {
-    const code = source.charCodeAt(i);
+  for (let i = 0; i < str.length; i++) {
+    const code = str.charCodeAt(i);
     if (65 <= code && code <= 90) indexes.push(i);
   }
   for (let i = indexes.length - 1; i > 0; --i)
     if (indexes[i] - indexes[i - 1] === 1) indexes.splice(i, 1);
-  if (indexes[0] === 0) indexes.splice(0, 1);
-  if (indexes.length === 0) return prefix + source.toLowerCase();
-  let output = "";
+  if (indexes.length !== 0 && indexes[0] === 0) indexes.splice(0, 1);
+  if (indexes.length === 0) return str.toLowerCase();
+  let ret = "";
   for (let i = 0; i < indexes.length; i++) {
-    output += source.substring(i === 0 ? 0 : indexes[i - 1], indexes[i]).toLowerCase() + "_";
+    ret += str.substring(i === 0 ? 0 : indexes[i - 1], indexes[i]).toLowerCase();
+    ret += "_";
   }
-  return prefix + output + source.substring(indexes[indexes.length - 1]).toLowerCase();
+  ret += str.substring(indexes[indexes.length - 1]).toLowerCase();
+  return ret;
 };
 
-module.exports._notationCamel = unsnake({
-  plain: (str) => str === str.toUpperCase() ? str.toLowerCase() : str[0].toLowerCase() + str.substring(1),
-  snake: (str, index) => index === 0 ? str.toLowerCase() : capitalize(str.toLowerCase()),
+module.exports._notationCamel = __notationRename({
+  plain: (str) =>
+    str === str.toUpperCase()
+      ? str.toLowerCase()
+      : str[0].toLowerCase() + str.substring(1),
+  snake: _notationCamelSnake,
 });
-module.exports._notationPascal = unsnake({
-  plain: capitalize,
-  snake: (str) => capitalize(str.toLowerCase()),
+module.exports._notationPascal = __notationRename({
+  plain: (str) => str[0].toUpperCase() + str.substring(1),
+  snake: _notationPascalSnake,
 });
-module.exports._notationSnake = snake;
-module.exports._notationKebab = (source) => {
-  let snaked = snake(source);
+module.exports._notationSnake = (str) => {
+  if (str.length === 0) return str;
+  let prefix = "";
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === "_") prefix += "_";
+    else break;
+  }
+  if (prefix.length !== 0) str = str.substring(prefix.length);
+  return prefix + str.split("_").map(_notationSnakeWord).join("_");
+};
+module.exports._notationKebab = (str) => {
+  let snaked = module.exports._notationSnake(str);
   let prefix = "";
   while (snaked.startsWith("_")) {
     prefix += "_";
