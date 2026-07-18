@@ -83,12 +83,16 @@ func OpenApiV3Downgrader_downgrade_schema(collection *OpenApiV3Downgrader_ICompo
 
   var visit func(schema JsonSchema)
   visit = func(schema JsonSchema) {
-    if openApiV3Downgrader_is_boolean(schema) {
-      union = append(union, JsonSchema{"type": "boolean"})
-    } else if openApiV3Downgrader_is_integer(schema) ||
+    if openApiV3Downgrader_is_boolean(schema) ||
+      openApiV3Downgrader_is_integer(schema) ||
       openApiV3Downgrader_is_number(schema) ||
       openApiV3Downgrader_is_string(schema) ||
       openApiV3Downgrader_is_reference(schema) {
+      // A boolean carries the same declared keywords through the downgrade as
+      // the other primitives do (at minimum `default`, plus every attribute
+      // OpenApiV3.IJsonSchema.IBoolean allows); rebuilding it as
+      // `{"type": "boolean"}` dropped them. `omit_examples` keeps the legal
+      // 3.0 keys and strips only `examples`, which 3.0 does not define.
       union = append(union, openApiV3Downgrader_omit_examples(schema))
     } else if openApiV3Downgrader_is_array(schema) {
       next := openApiV3Downgrader_omit_examples(schema)
