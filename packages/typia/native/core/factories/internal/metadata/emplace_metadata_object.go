@@ -67,9 +67,12 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
       // plain.classify cannot soundly field-copy (Object.create + assign) a class
       // that has them — and the PROTOTYPE CHAIN matters: a field-copied subclass
       // of a #private-bearing base would equally throw "Cannot read private
-      // member". The type system hides #private from ApparentProperties, so detect
-      // it on the class declaration(s), walking the `extends` chain. Additive flag,
-      // read only by the classify programmer.
+      // member". A `#private` member DOES surface in ApparentProperties (as a
+      // mangled key), so the member filter below must drop it from the validated
+      // shape; here it is detected on the class declaration(s) — where its
+      // KindPrivateIdentifier name is unambiguous and statics are skippable —
+      // walking the `extends` chain. Additive flag, read only by the classify
+      // programmer.
       if emplace_metadata_object_private_fields(props.Checker, props.Type, map[*nativechecker.Type]bool{}) {
         obj.PrivateFields = true
       }
@@ -92,6 +95,16 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
       return true
     }
     if isClass && node.ModifierFlags()&(nativeast.ModifierFlagsPrivate|nativeast.ModifierFlagsProtected) != 0 {
+      return false
+    }
+    // An ES `#private` member (field, method, or accessor) carries no
+    // Private/Protected modifier — its identity is a KindPrivateIdentifier name.
+    // It is installed only by the constructor and is unreachable via index
+    // access, so it is not part of the structural shape; exclude it exactly as a
+    // `private`/`protected` keyword member (see ClassNonPublic). ApparentProperties
+    // otherwise surfaces it as a mangled key that no runtime object carries, so
+    // every real instance would fail its own guard (#2213).
+    if isClass && node.Name() != nil && node.Name().Kind == nativeast.KindPrivateIdentifier {
       return false
     }
     return isProperty(node)
