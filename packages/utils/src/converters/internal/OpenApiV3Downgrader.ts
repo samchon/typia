@@ -243,9 +243,12 @@ export namespace OpenApiV3Downgrader {
         ),
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isBoolean(schema))
-          union.push({ type: "boolean" });
-        else if (
+        if (
+          // A boolean carries its declared keywords (at minimum `default`,
+          // plus every attribute OpenApiV3.IJsonSchema.IBoolean allows) through
+          // the downgrade like the other primitives. Rebuilding it as a bare
+          // `{ type: "boolean" }` dropped them; `omitSchemaExamples` keeps the
+          // legal 3.0 keys and strips only `examples`, which 3.0 does not define.
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
           OpenApiTypeChecker.isNumber(schema) ||
