@@ -32,6 +32,10 @@ const main = async (): Promise<void> => {
     const info = client.getServerVersion();
     assert("handshake reports server name 'calc'", info?.name === "calc");
     assert(
+      "handshake reports server version '2.3.4'",
+      info?.version === "2.3.4",
+    );
+    assert(
       "instructions reflect the class JSDoc",
       (client.getInstructions() ?? "").includes("Arithmetic tools"),
     );

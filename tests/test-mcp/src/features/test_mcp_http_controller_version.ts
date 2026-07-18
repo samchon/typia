@@ -1,3 +1,5 @@
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController } from "@typia/interface";
@@ -17,8 +19,8 @@ import { CalculatorApi } from "../structures/CalculatorApi";
  * `"1.0.0"` class-controller default.
  *
  * 1. Build an HTTP controller from a document whose `info.version` is known.
- * 2. Create a server over it.
- * 3. Assert the SDK server's `serverInfo.version` matches the document.
+ * 2. Connect an SDK client through the public in-memory transport.
+ * 3. Assert the initialize handshake inherits the document version.
  */
 export const test_mcp_http_controller_version = async (): Promise<void> => {
   const controller: IHttpLlmController = HttpLlm.controller({
@@ -27,9 +29,19 @@ export const test_mcp_http_controller_version = async (): Promise<void> => {
     connection: { host: "http://localhost:0" },
   });
   const server: McpServer = createMcpServer(controller);
-  TestValidator.equals(
-    "handshake version should mirror the document info.version",
-    ((server.server as any)._serverInfo as { version: string }).version,
-    CalculatorApi.VERSION,
-  );
+  const client: Client = new Client({ name: "version-test", version: "1.0" });
+  const [clientTransport, serverTransport] =
+    InMemoryTransport.createLinkedPair();
+
+  try {
+    await server.connect(serverTransport);
+    await client.connect(clientTransport);
+    TestValidator.equals(
+      "handshake version should mirror the document info.version",
+      client.getServerVersion(),
+      { name: "calculator", version: CalculatorApi.VERSION },
+    );
+  } finally {
+    await Promise.allSettled([client.close(), server.close()]);
+  }
 };
