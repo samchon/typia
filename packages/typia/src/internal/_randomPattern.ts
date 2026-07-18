@@ -24,9 +24,9 @@ export const _randomPattern = (regex: RegExp, props?: _ILengthProps): string => 
     )
       return str;
   }
-  if (bounded)
-    throw new Error(
-      "unable to generate a random string matching the pattern within the length range.",
-    );
-  return r.gen();
+  throw new Error(
+    bounded
+      ? "unable to generate a random string matching the pattern within the length range."
+      : "unable to generate a random string matching the pattern.",
+  );
 };
