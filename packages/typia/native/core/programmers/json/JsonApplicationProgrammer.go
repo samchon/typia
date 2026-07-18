@@ -51,20 +51,30 @@ func (jsonApplicationProgrammerNamespace) Validate(props struct {
     }
     least := false
     for _, p := range object.Properties {
-      value := p.Value
+      // Resolve the function through any `type` alias exactly as
+      // WriteApplication does, so an aliased function is recognized as a
+      // function property here too. Otherwise `p.Value.Functions` is empty for
+      // an aliased member and every check below is skipped, letting
+      // WriteApplication silently drop the malformed function (issue #2216,
+      // reopening #2195 for aliased members).
+      value := jsonApplicationProgrammer_unaliasFunctions(p.Value)
       if len(value.Functions) != 0 {
         least = true
         // These per-function shape checks must run for every function
         // property, independent of the top-level `valid`: otherwise a
         // malformed function (union/optional/nullable) is silently dropped by
-        // WriteApplication with no diagnostic at all (issue #2195).
+        // WriteApplication with no diagnostic at all (issue #2195). The union
+        // shape comes from the unaliased value, while the reference-site
+        // optional/nullable modifiers stay on the raw property value: an
+        // optional or nullable alias is not unwrapped by MetadataSchema_unalias,
+        // so those two checks must read `p.Value`, not the unaliased schema.
         if len(value.Functions) != 1 || value.Size() != 1 {
           output = append(output, "JSON application's function type does not allow union type.")
         }
-        if value.IsRequired() == false {
+        if p.Value.IsRequired() == false {
           output = append(output, "JSON application's function type must be required.")
         }
-        if value.Nullable == true {
+        if p.Value.Nullable == true {
           output = append(output, "JSON application's function type must not be nullable.")
         }
       }
@@ -370,6 +380,28 @@ func jsonApplicationProgrammer_descriptionFromParam(tags []nativemetadata.IJsDoc
   }
   text := strings.TrimPrefix(*description, param.Name)
   return &text
+}
+
+// jsonApplicationProgrammer_unaliasFunctions resolves the metadata schema whose
+// `Functions` decide whether a property is a function slot and how that function
+// is shaped. WriteApplication reads `len(MetadataSchema_unalias(value).Functions)`
+// for the same decision, but MetadataSchema_unalias preserves a reference-site
+// optional or nullable modifier and so stops before an optional/nullable alias.
+// This peels a pure single-alias chain past those modifiers too (guarded by
+// Size == 1 so a union stays visible), so an aliased function that is optional,
+// nullable, or a union of functions is still recognized and reported instead of
+// being silently dropped (issue #2216). A non-function alias resolves to a
+// schema with no functions and is therefore ignored, exactly as before.
+func jsonApplicationProgrammer_unaliasFunctions(value *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  visited := map[*nativemetadata.MetadataSchema]struct{}{}
+  for len(value.Functions) == 0 && len(value.Aliases) == 1 && value.Size() == 1 {
+    if _, ok := visited[value]; ok {
+      break
+    }
+    visited[value] = struct{}{}
+    value = value.Aliases[0].Type.Value
+  }
+  return value
 }
 
 func jsonApplicationProgrammer_hidden(tags []nativemetadata.IJsDocTagInfo) bool {
