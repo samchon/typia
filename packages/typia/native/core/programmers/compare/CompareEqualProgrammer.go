@@ -12,6 +12,7 @@ import (
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativeinternal "github.com/samchon/typia/packages/typia/native/core/programmers/internal"
+  nativeiterate "github.com/samchon/typia/packages/typia/native/core/programmers/iterate"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -307,9 +308,8 @@ func (g *compareEqualProgrammerGenerator) objectCall(object *schemametadata.Meta
   return fmt.Sprintf("_eo%d(%s, %s)", object.Index, g.wrap(x), g.wrap(y))
 }
 
-// objectFlatBranch renders one member of an object union as a guarded member
-// comparator (the pre-discrimination form). It is used for a single-object
-// "union" and as the fallback for a union no supported predicate can split.
+// objectFlatBranch renders a single object member as a guarded comparator. A
+// multi-object union always uses objectUnion's member dispatch instead.
 func (g *compareEqualProgrammerGenerator) objectFlatBranch(object *schemametadata.MetadataObjectType, natives []*schemametadata.MetadataNative, x string, y string) string {
   // Guard the object branch against the sibling native instances. `_eo` admits
   // any `typeof === "object" && !Array.isArray` value, so a native (a Date is
@@ -439,8 +439,8 @@ func (g *compareEqualProgrammerGenerator) matchCall(object *schemametadata.Metad
 // may be absent), and every extra key a dynamic index signature declares must
 // hold a value of the signature's type. It mirrors the `_io` checkers `is`
 // emits, at the abstraction level the rest of this programmer works at — shape
-// and typeof, not the value constraints (`typia.tags.*`, template patterns)
-// `compare` deliberately ignores.
+// and typeof, plus structural template patterns. It deliberately ignores
+// `typia.tags.*` constraints.
 func (g *compareEqualProgrammerGenerator) matchObject(object *schemametadata.MetadataObjectType, v string) string {
   checks := []string{}
   regularKeys := []string{}
@@ -504,7 +504,7 @@ func (g *compareEqualProgrammerGenerator) match(metadata *schemametadata.Metadat
     branches = append(branches, g.typeof(v, atomic.Type))
   }
   if len(metadata.Templates) != 0 {
-    branches = append(branches, g.typeof(v, "string"))
+    branches = append(branches, g.and(g.typeof(v, "string"), g.template(metadata.Templates, v)))
   }
   if len(metadata.Functions) != 0 {
     branches = append(branches, g.typeof(v, "function"))
@@ -763,6 +763,19 @@ func (g *compareEqualProgrammerGenerator) dynamicKey(metadata *schemametadata.Me
   }
   if len(checks) == 0 {
     return "true"
+  }
+  return g.or(checks...)
+}
+
+// template renders the structural membership test shared with the authoritative
+// runtime template checker. Compare still ignores typia tag predicates when it
+// compares values, but it must retain the template-literal domain while routing
+// an object union to a declared member.
+func (g *compareEqualProgrammerGenerator) template(templates []*schemametadata.MetadataTemplate, input string) string {
+  checks := make([]string, 0, len(templates))
+  for _, template := range templates {
+    pattern := nativeiterate.TemplateRuntimePattern(template.Row)
+    checks = append(checks, fmt.Sprintf("RegExp(%s).test(%s)", strconv.Quote(pattern), g.wrap(input)))
   }
   return g.or(checks...)
 }
