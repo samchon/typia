@@ -36,6 +36,16 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   }
   for _, generic := range iterate_metadata_native_generics {
     if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
+      // Classify the native generic (WeakMap/WeakSet) only when the type
+      // actually is the built-in, not merely a user type of the same name. A
+      // real WeakMap/WeakSet is declared in a `.d.ts` library, so a module-scoped
+      // user `interface WeakMap<K, V> { brandWeak }` in a `.ts` module falls
+      // through to the structural object path — the same identity gate the
+      // simples path above uses (#2200), applied to the collection generics the
+      // `+"<"` arity guard (#2181) alone left ungated (#2212).
+      if !metadata_symbol_from_declaration_file(symbol) {
+        return false
+      }
       iterate_metadata_native_take(props.Metadata, generic.Name)
       return true
     }
