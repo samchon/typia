@@ -182,6 +182,14 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   }
 
   for _, index := range props.Components.IndexInfos(props.Checker, props.Type) {
+    // IndexInfo keeps union domains separate, but a branded symbol key remains
+    // an intersection. Only string/number domains can describe properties seen
+    // through Object.keys or JSON Schema additionalProperties; walk nested
+    // intersections so every symbol-only form stays outside typia's structural
+    // JSON shape, just like an explicit symbol-keyed member (#2240).
+    if emplace_metadata_object_is_symbol_index_key(index.KeyType()) {
+      continue
+    }
     analyzer := func(typ *nativechecker.Type) func(any) *schemametadata.MetadataSchema {
       return func(property any) *schemametadata.MetadataSchema {
         explore := MetadataFactory_IExplore{
@@ -679,6 +687,23 @@ func emplace_metadata_object_valid_dynamic_key(key *schemametadata.MetadataSchem
     }
   }
   return total == key.Size()
+}
+
+func emplace_metadata_object_is_symbol_index_key(key *nativechecker.Type) bool {
+  if key == nil {
+    return false
+  }
+  if key.Flags()&nativechecker.TypeFlagsESSymbolLike != 0 {
+    return true
+  }
+  if key.IsIntersection() {
+    for _, child := range key.Types() {
+      if emplace_metadata_object_is_symbol_index_key(child) {
+        return true
+      }
+    }
+  }
+  return false
 }
 
 func iterate_optional_coalesce(props struct {
