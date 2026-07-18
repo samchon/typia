@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "ttsc",
+    "build": "npm run test:types && ttsc",
     "start": "npm run build && npm test",
-    "test": "node lib/index.js"
+    "test": "node lib/index.js",
+    "test:types": "node test-adapter-peer-types.mjs"
   },
   "devDependencies": {
     "@langchain/core": "^1.1.31",

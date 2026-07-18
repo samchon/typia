@@ -8,7 +8,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rimraf lib && ttsc && rolldown -c",
+    "build": "rimraf lib && ttsc && node ../../scripts/create-conditional-declarations.cjs lib/index.d.ts && rolldown -c",
     "dev": "ttsc --watch",
     "prepack": "pnpm run build"
   },
@@ -66,8 +66,15 @@
     "types": "lib/index.d.ts",
     "exports": {
       ".": {
+        "import": {
+          "types": "./lib/index.d.mts",
+          "default": "./lib/index.mjs"
+        },
+        "require": {
+          "types": "./lib/index.d.cts",
+          "default": "./lib/index.js"
+        },
         "types": "./lib/index.d.ts",
-        "import": "./lib/index.mjs",
         "default": "./lib/index.js"
       },
       "./package.json": "./package.json"
