@@ -3,19 +3,34 @@ package metadata
 import (
   "strings"
 
+  nativeast "github.com/microsoft/typescript-go/shim/ast"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 func Iterate_metadata_native(props IMetadataIteratorProps) bool {
+  var symbol *nativeast.Symbol
   name := ""
   if props.Type != nil {
+    symbol = props.Type.Symbol()
     name = metadata_type_symbol_base_name(props.Type)
   }
   if name == "" && props.Checker != nil && props.Type != nil {
-    name = metadata_type_symbol_base_name(props.Checker.GetApparentType(props.Type))
+    apparent := props.Checker.GetApparentType(props.Type)
+    if apparent != nil {
+      symbol = apparent.Symbol()
+    }
+    name = metadata_type_symbol_base_name(apparent)
   }
   name = iterate_metadata_native_getNativeName(name)
   if _, ok := iterate_metadata_native_simples[name]; ok {
+    // Match the built-in only when the type actually is the built-in, not merely
+    // a user type of the same name. A real native is declared in a `.d.ts`
+    // library, so a user `interface File { name; size }` in a `.ts` module falls
+    // through to the structural object path and is validated against its own
+    // members instead of `input instanceof File` (#2200).
+    if !metadata_symbol_from_declaration_file(symbol) {
+      return false
+    }
     iterate_metadata_native_take(props.Metadata, name)
     return true
   }
