@@ -11,6 +11,8 @@ experiment runs sources through `ttsx` and never touches the built `.mjs`;
 this project exists precisely because a broken `.mjs` (lost named exports,
 facade chunks) once shipped while every source-level suite stayed green.
 
+The build also assigns the packed LangChain, MCP, and Vercel adapter results to their peer-owned public types under Node16 ESM, NodeNext ESM, Node16 CommonJS, and Bundler ESM. It verifies that the consumer and adapter resolve each peer from one physical installation before compiling the matrix.
+
 ```bash
 pnpm run package:tgz   # from the repository root
 npm install
