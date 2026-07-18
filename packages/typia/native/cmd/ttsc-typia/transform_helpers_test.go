@@ -238,7 +238,7 @@ module.exports._notationCamel = unsnake({
 });
 module.exports._notationPascal = unsnake({
   plain: capitalize,
-  snake: capitalize,
+  snake: (str) => capitalize(str.toLowerCase()),
 });
 module.exports._notationSnake = snake;
 module.exports._notationKebab = (source) => {
