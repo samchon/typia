@@ -1,0 +1,58 @@
+---
+title: Tutorial > Drift
+---
+
+# Drift — the schema that stopped telling the truth
+
+Someone renamed `created_at` to `createdAt` on the interface. The compiler followed every reference and the build stayed green.
+
+The OpenAPI schema did not follow. It lives in another file, written by hand months ago, and nothing forces the two to agree:
+
+```json
+{
+  "properties": {
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}
+```
+
+Now the generated client sends `created_at`, the server wants `createdAt`, and the documentation confidently describes a field that no longer exists. Nobody wrote a bug — the two definitions simply stopped agreeing, quietly, the way they always do.
+
+## Generate the schema instead of writing it
+
+`typia.json.schemas<[T]>()` produces the JSON Schema from the type itself:
+
+```typescript
+const collection = typia.json.schemas<[IBbsArticle]>();
+```
+
+The tags you added in [Bad Request](/tutorial/bad-request) come along as schema fields — `Format<"uuid">` becomes `"format": "uuid"`, `MinLength<5>` becomes `"minLength": 5`:
+
+```json
+{
+  "id":         { "type": "string", "format": "uuid" },
+  "title":      { "type": "string", "minLength": 5, "maxLength": 100 },
+  "body":       { "type": "string" },
+  "created_at": { "type": "string", "format": "date-time" }
+}
+```
+
+Rename the field now and the schema renames itself on the next build. Drift is not fixed by discipline here; it is impossible, because there is only one definition.
+
+## The same at the serialization boundary
+
+JSON text is the other place types quietly stop being true. `JSON.parse` hands back `any` and trusts the string it was given:
+
+```typescript
+const article = typia.json.assertParse<IBbsArticle>(text);   // parse + validate
+const text2 = typia.json.assertStringify<IBbsArticle>(article); // validate + serialize
+```
+
+`assertParse` throws with a path instead of letting `any` leak into your program. `assertStringify` is specialized to the type at compile time, which also makes it far faster than a general-purpose serializer — the benchmark is in the [reference](/docs/json/stringify).
+
+One type, and from it: the validator, the schema, the parser, the serializer. None of them can disagree with each other.
+
+## Where to go next
+
+- **The next failure: fixtures that test impossible data** → [Fixtures](/tutorial/fixtures)
+- **Reference** → [`json.schemas`](/docs/json/schema) · [`json.stringify`](/docs/json/stringify) · [`json.parse`](/docs/json/parse)

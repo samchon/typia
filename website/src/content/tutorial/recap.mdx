@@ -1,0 +1,34 @@
+---
+title: Tutorial > Recap
+---
+
+# Recap — five failures, one definition
+
+Look at what the five cases had in common.
+
+| The failure | What fixed it |
+| --- | --- |
+| A malformed body walked past `as IBbsArticle` | [`assert`](/docs/validators/assert) / [`validate`](/docs/validators/validate) at the boundary |
+| `"42"` and `"yesterday"` passed as strings | [type tags](/docs/validators/tags) — the rule lives on the field |
+| The hand-written schema stopped matching the type | [`json.schemas`](/docs/json/schema) generated from the type |
+| Fixtures tested data the API would reject | [`random`](/docs/random) reading the same tags |
+| The model returned the right value in the wrong type | the [function-calling harness](/docs/llm/json) — parse, validate, feed back |
+| An agent read forty files to answer one question | an [MCP server](/docs/utilization/mcp) whose contract is one interface |
+
+Every one of them is the same failure wearing different clothes: **a second definition drifting away from the first.** A cast that claims a type without checking. A schema written by hand beside the type it describes. A fixture factory frozen at the shape of last year. A prompt describing arguments the code already declares.
+
+typia removes the second definition. The type is the validator, the schema, the fixture generator, and the tool contract, because all of them are compiled from it — so they cannot disagree.
+
+## Where to go from here
+
+**Look things up.** The tutorial took the happy path through each case; the guides have every option and edge case.
+
+- [Runtime Validators](/docs/validators/is) · [Special Tags](/docs/validators/tags) · [Enhanced JSON](/docs/json/schema)
+- [LLM Function Calling](/docs/llm/application) · [Protocol Buffer](/docs/protobuf/message) · [Random](/docs/random) · [Miscellaneous](/docs/misc)
+
+**Drop it into your stack.** Ready-made recipes for the frameworks you already run.
+
+- [NestJS](/docs/utilization/nestjs) · [Hono](/docs/utilization/hono) · [tRPC](/docs/utilization/trpc)
+- [MCP](/docs/utilization/mcp) · [Vercel AI SDK](/docs/utilization/vercel) · [LangChain](/docs/utilization/langchain)
+
+**Go deeper.** [dev.to articles](https://dev.to/samchon/series/22474) for the stories behind the design, the [playground](/playground) to keep experimenting, and [Discord](https://discord.gg/E94XhzrUCZ) to ask.

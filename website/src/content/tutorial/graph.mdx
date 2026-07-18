@@ -1,0 +1,77 @@
+---
+title: Tutorial > @ttsc/graph
+---
+
+# `@ttsc/graph` — the real answer to the forty reads
+
+You built a server on the last page. This one is shipping, it solves the exact problem [40 Reads](/tutorial/mcp) opened with, and it is worth reading closely because two techniques in it are the difference between a tool an agent tolerates and one it trusts.
+
+[`@ttsc/graph`](https://github.com/samchon/ttsc/tree/master/packages/graph) indexes a TypeScript codebase into a compiler-built graph and answers code questions from that index — names, signatures, relationships, spans, never file bodies. An agent that believes the answer stops opening files. Measured across real repositories, one model answers the same onboarding question for **4%** of what it spends without the server, and the saving holds flat as the repository grows.
+
+## One interface is the whole server
+
+It exposes exactly **one tool**, and the entire contract is a single TypeScript interface:
+
+```typescript
+export interface ITtscGraphApplication {
+  /**
+   * Answer a TypeScript question from the compiler's own index of this
+   * repository. … Submit exactly one request: `tour`, `trace`, `details`,
+   * `lookup`, `entrypoints`, `overview`.
+   */
+  inspect_typescript_graph(
+    props: ITtscGraphApplication.IProps,
+  ): Promise<ITtscGraphApplication.IOutput>;
+}
+```
+
+Assembled exactly the way yours was — `typia.llm.controller<ITtscGraphApplication>(…)` handed to `createMcpServer`, with no hand-written schema anywhere. The interface's JSDoc becomes the handshake instructions, the method's becomes the tool description, and every property's becomes that field's description.
+
+Which means that doc comment is not for the next person to open the file. It is the operating manual the agent receives on connect — when to use the graph, what its results mean, and when to stop calling it.
+
+## Technique 1 — an answer that does not need checking
+
+Every result carries an `audit` field stating what the server verified before returning: each name, span, edge, and signature resolves to the type-checked program, nothing matched or inferred. That is the ["42"](/tutorial/llm) harness at the other end — validation feedback is what lets the agent accept a result instead of re-deriving it with three more calls.
+
+This is the technique that took a naive model from **6.75% to 100%** correct calls, measured end to end in [Function calling harness, part 1 — validation feedback](https://dev.to/samchon/qwen-meetup-function-calling-harness-from-675-to-100-3830).
+
+Its lesson: a model does not need to be accurate if it can be **corrected**.
+
+## Technique 2 — make the model think, by making it a field
+
+Here is the move worth stealing. The tool's input does not just carry the request — it *requires* the reasoning first:
+
+```typescript
+export interface IProps {
+  /** The code question, in the user's own words. */
+  question: string;
+
+  /** The smallest request that could answer, and why. */
+  draft: IDraft;
+
+  /** Correct the draft. Escape if the graph already answered. */
+  review: string;
+
+  /** Final request chosen after review, or a no-op escape. */
+  request: ITtscGraphTour.IRequest | ITtscGraphTrace.IRequest | /* … */ ITtscGraphEscape.IRequest;
+}
+```
+
+`question`, `draft`, and `review` are required, so the model must state the question, draft the smallest request that could answer it, and review that draft before it is allowed to submit one. And because `review` may overturn the draft, an agent that entered with a question the graph cannot answer backs out for the price of one small call instead of a derailed session.
+
+A prompt line saying "think step by step" can be ignored. **A required field cannot** — the schema will not accept the call without it.
+
+That is chain of thought enforced by the type system, and it closed the last gap from **99.1% to 100%**: [Function calling harness, part 2 — CoT compliance](https://dev.to/samchon/function-calling-harness-2-cot-compliance-from-991-to-100-4f0h).
+
+## What it did not do
+
+It forbids nothing. There is no wall of injected instructions telling the agent not to grep, no dozens of overlapping tools to pick wrong from. Grep and file reads stay available and the agent still uses them when they fit. What keeps it on the graph is precision: answers resolved by the compiler, small enough that a large repository cannot inflate them.
+
+One typed contract, enforced by schema instead of pleaded for in prose.
+
+The same doctrine scales up: [`autobe-mcp`](https://github.com/wrtnlabs/autobe) exposes an entire backend-generation pipeline as one MCP server from a single application class, on the principle that *LLMs don't need to be accurate, they need to be correctable*. Worth reading when you want to see it at pipeline size.
+
+## Where to go next
+
+- **What you solved, and where to take it** → [Recap](/tutorial/recap)
+- **The production source** → [`@ttsc/graph`](https://github.com/samchon/ttsc/tree/master/packages/graph)

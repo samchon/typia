@@ -1,0 +1,99 @@
+---
+title: Tutorial > 40 Reads
+---
+
+# 40 Reads — the agent that read your repository to answer one question
+
+You ask a coding agent a plain question: *how does authentication flow through this service?*
+
+It greps. It opens a file, then another, then the file that one imported. Forty reads later it answers — well, usually — and most of what you paid for was file bodies scrolling through its context. Ask again tomorrow and it pays again. On a big repository the cost grows with the repository, not with the question.
+
+The reading is not the answer. It is what the agent does because it has no better way to ask.
+
+## Give it a tool instead
+
+The [Model Context Protocol](https://modelcontextprotocol.io) is how agents discover and call tools. Build one and the agent asks instead of reads.
+
+```bash
+npm install @typia/mcp @modelcontextprotocol/sdk
+```
+
+The class from ["42"](/tutorial/llm) *is* the server — nothing else to write:
+
+```typescript
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { createMcpServer } from "@typia/mcp";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const server = createMcpServer(
+  typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+);
+await server.connect(new StdioServerTransport());
+```
+
+`typia.llm.controller` is the application from the last page bound to a live instance, so the server can actually run the calls. Every method becomes a tool, the parameter type becomes its input schema, and the return type becomes its `outputSchema` — results arrive as structured data, not prose the agent has to re-parse.
+
+## The JSDoc is the manual
+
+Most people miss this one. Whatever you write as a doc comment on the class becomes the server's **handshake instructions** — the briefing every agent reads on connect:
+
+```typescript
+/**
+ * Bulletin board article service.
+ *
+ * ## Which tool to call
+ * - Browsing, or "show me the articles" → `recent`
+ * - Writing or posting a new article → `create`
+ *
+ * ## Rules
+ * - Never invent an article id; only use one the user gave you.
+ */
+class BbsArticleService {
+  /** Create a new article. */
+  create(props: { input: { title: string; body: string } }): Promise<{ id: string }>;
+
+  /** List the most recent articles. */
+  recent(props: { limit: number }): Promise<{ items: Array<{ id: string }> }>;
+}
+```
+
+That comment is not documentation for whoever opens the file next. It is the agent's operating contract, written once, on the type, delivered to every client automatically.
+
+## Connect it
+
+Point an MCP client at the server — in an agent like Claude Code or Codex, that is one entry in its config:
+
+```json
+{
+  "mcpServers": {
+    "bbs": {
+      "command": "npx",
+      "args": ["ttsx", "src/main.ts"]
+    }
+  }
+}
+```
+
+Now ask it to *"post an article titled Hello about my first typia server."* It calls `create`.
+
+## Watch it correct itself
+
+Here is the payoff, and it is the ["42"](/tutorial/llm) loop running live between a real agent and your server. The model sends a wrong-typed argument; typia validates and answers in-band:
+
+```json
+{
+  "title": "Hello",
+  "body": 12345   // ❌ [{"path":"$input.body","expected":"string"}]
+}
+```
+
+The agent reads the annotation, fixes `body`, and retries — without tearing down the session. Three different failures behave this way: bad arguments, a return value that does not match its declared type, and an exception thrown inside your tool. All three come back as an in-band error the model can act on, so one bad call never kills the connection.
+
+You wrote none of that. It came from the types.
+
+## Where to go next
+
+- **A production MCP server, read closely** → [`@ttsc/graph`](/tutorial/graph)
+- **Reference** — HTTP controllers, structured output, options → [MCP](/docs/utilization/mcp)

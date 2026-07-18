@@ -1,0 +1,78 @@
+---
+title: Tutorial > "42"
+---
+
+# `"42"` — the model that answered with the right value in the wrong type
+
+You gave an LLM a tool and asked it to file an article. It called the tool. The arguments came back like this:
+
+```json
+{ "title": "Hello", "body": "...", "readingTime": "42" }
+```
+
+`42` as a string. The model was not wrong about the answer — it was wrong about the type, which is the failure mode that eats agent projects. Sometimes it is a quoted number, sometimes a markdown fence around the JSON, sometimes an object serialized twice: `"{\"x\":1}"`.
+
+Retrying costs a round trip and often produces a different flavour of the same mistake. Prompting harder does not fix a distribution.
+
+## Tools from a class
+
+Write the service as a plain class with plain types and JSDoc:
+
+```typescript
+class BbsArticleService {
+  /** Create a new article. */
+  create(props: {
+    input: { title: string; body: string; readingTime: number };
+  }): Promise<{ id: string }> {
+    /* … */
+  }
+}
+
+const app = typia.llm.application<BbsArticleService>();
+```
+
+Each method is now a tool: the JSDoc became its description, the parameter type became the JSON schema the model fills in, and typia attached the machinery below.
+
+One rule, because it is how LLMs call functions and the only thing that trips people up: **one keyworded-object parameter, and an object (or `void`) return.** `create(title, body)` is rejected at compile time — better than at 3am.
+
+## The loop that fixes the model
+
+Each generated tool carries `parse`, `coerce`, and `validate`:
+
+```typescript
+const fn = app.functions[0];
+
+const args = fn.parse(text);        // lenient JSON + coercion: "42" → 42
+const result = fn.validate(args);   // the IValidation you already know
+
+if (result.success === false) {
+  // hand the errors back to the model
+}
+```
+
+`parse` is what rescues `"42"`. It reads the schema, sees `readingTime` wants a number, and coerces — the same for a fenced block or a double-stringified object.
+
+What survives coercion goes to `validate`, and that returns the exact `{ path, expected, value }` list from [Bad Request](/tutorial/bad-request). Formatted back to the model, it reads like this:
+
+```json
+{
+  "title": "Hello",
+  "price": -100,        // ❌ [{"path":"$input.price","expected":"number & Minimum<0>"}]
+  "email": "not-mail"   // ❌ [{"path":"$input.email","expected":"string & Format<\"email\">"}]
+}
+```
+
+The model reads its own output annotated with what was wrong and corrects on the next turn. No prompt engineering — the type did the correcting.
+
+## It is not a small effect
+
+In [AutoBE](https://github.com/wrtnlabs/autobe), a model producing correct function calls **6.75%** of the time on a hard recursive schema reached **100%** once wrapped in this harness — four models, all to 100%.
+
+The write-up measures it end to end: [Function calling harness, part 1 — validation feedback](https://dev.to/samchon/qwen-meetup-function-calling-harness-from-675-to-100-3830).
+
+The lesson it lands on: a model does not need to be accurate if it can be **corrected**.
+
+## Where to go next
+
+- **The next failure: an agent burns its context reading files** → [40 Reads](/tutorial/mcp)
+- **Reference** → [`llm.application`](/docs/llm/application) · [harness internals](/docs/llm/json)

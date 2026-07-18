@@ -1,0 +1,42 @@
+---
+title: Tutorial > Fixtures
+---
+
+# Fixtures — tests that pass on impossible data
+
+Every codebase grows one of these:
+
+```typescript
+export const makeArticle = (over = {}) => ({
+  id: "1",
+  title: "t",
+  body: "b",
+  created_at: "2020-01-01",
+  ...over,
+});
+```
+
+It was written before the tags existed. Today `id` must be a UUID, `title` must be at least five characters, and `created_at` must be a full date-time. This fixture satisfies none of that — and the suite is green, because the tests never validate; they just pass the object around.
+
+So the tests prove the code works on data the API would reject at the door. The one shape that matters — what a real request looks like — is the shape they never try.
+
+## Ask the type for a value
+
+```typescript
+const article = typia.random<IBbsArticle>();
+```
+
+`id` comes out a real UUID. `title` lands between 5 and 100 characters. `created_at` parses as a date-time. `random` reads the same tags the validator reads, so what it produces is exactly what the validator accepts:
+
+```typescript
+typia.assert<IBbsArticle>(typia.random<IBbsArticle>()); // never throws
+```
+
+That is not a coincidence worth admiring — it is the point. Generator and validator are compiled from one definition, so they cannot drift apart. Tighten `MinLength<5>` to `MinLength<20>` and the generated titles grow while the validator tightens, in the same build, with no second file to remember.
+
+Delete the factory. Use it for seeds, for load tests, for a thousand varied-but-valid rows.
+
+## Where to go next
+
+- **The next failure: a model returns `"42"` where a number belongs** → [`"42"`](/tutorial/llm)
+- **Reference** → [`random`](/docs/random)

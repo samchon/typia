@@ -1,0 +1,99 @@
+---
+title: Tutorial > Bad Request
+---
+
+# Bad Request — the annotation that lied
+
+Here is a handler that shipped, and the bug it carried to production:
+
+```typescript
+app.post("/articles", async (req, res) => {
+  const article = req.body as IBbsArticle; // ← the lie
+  await db.articles.insert(article);
+  res.json(article);
+});
+```
+
+`req.body` is whatever arrived over the wire. `as IBbsArticle` does not check it — it just silences the compiler. A client posted `{ "title": 12345 }`, the row went into the database, and the failure surfaced days later in a report that could not render.
+
+TypeScript trusts you up to the boundary. Past it, a type annotation is a promise nobody verifies.
+
+## Check it at the door
+
+`typia.assert<T>` returns the value when it matches and throws when it doesn't:
+
+```typescript
+const article = typia.assert<IBbsArticle>(req.body);
+// past this line, `article` really is an IBbsArticle
+```
+
+The thrown `TypeGuardError` names the exact field:
+
+```
+Error on typia.assert(): invalid type on $input.title, expect to be string
+```
+
+`$input.title` — not "validation failed", not a stack trace to read. The path.
+
+## One error is not enough for a 400
+
+`assert` stops at the first problem. An API answering a client should report all of them at once, so use `typia.validate<T>`, which never throws:
+
+```typescript
+app.post("/articles", async (req, res) => {
+  const result = typia.validate<IBbsArticle>(req.body);
+  if (result.success === false)
+    return res.status(400).json({ errors: result.errors });
+
+  await db.articles.insert(result.data); // typed IBbsArticle
+  res.json(result.data);
+});
+```
+
+`result.errors` is a list of `{ path, expected, value }` — everything wrong, in one response:
+
+```json
+[
+  { "path": "$input.title", "expected": "string", "value": 12345 },
+  { "path": "$input.created_at", "expected": "string", "value": null }
+]
+```
+
+That is a usable 400. Remember this shape — an LLM will read it later in ["42"](/tutorial/llm).
+
+## The value that passed and still was garbage
+
+Now a subtler version of the same bug. This request is *valid* by the type:
+
+```json
+{ "id": "42", "title": "hi", "body": "...", "created_at": "yesterday" }
+```
+
+`id` is a `string`. `title` is a `string`. `created_at` is a `string`. Every check passes, and every value is wrong.
+
+TypeScript can say "string". It cannot say "a UUID", "at least 5 characters", "an ISO timestamp". typia adds that with **type tags** — ordinary types you intersect with `&`:
+
+```typescript
+interface IBbsArticle {
+  id: string & tags.Format<"uuid">;
+  title: string & tags.MinLength<5> & tags.MaxLength<100>;
+  body: string;
+  created_at: string & tags.Format<"date-time">;
+}
+```
+
+Same handler, no code change. Now that request is rejected, and the reason reads like the type:
+
+```json
+[
+  { "path": "$input.id", "expected": "string & Format<\"uuid\">", "value": "42" },
+  { "path": "$input.title", "expected": "string & MinLength<5>", "value": "hi" }
+]
+```
+
+Tags are real types, so the compiler polices them too — `number & tags.MinLength<3>` will not compile. The constraint lives with the field it constrains, and every validator enforces it.
+
+## Where to go next
+
+- **The next failure: your schema disagrees with your type** → [Drift](/tutorial/drift)
+- **Reference** → [`assert`](/docs/validators/assert) · [`validate`](/docs/validators/validate) · [Special Tags](/docs/validators/tags)

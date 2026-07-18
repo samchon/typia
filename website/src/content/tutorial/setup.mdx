@@ -1,0 +1,39 @@
+---
+title: Tutorial > Setup
+---
+
+# Setup — one compiler swap
+
+typia transforms your code at compile time, so it has to run inside the TypeScript build. That means one substitution: [`ttsc`](https://github.com/samchon/ttsc) instead of `tsc`.
+
+```bash
+npm install typia
+npm install -D ttsc typescript
+```
+
+Keep `strict` on — typia relies on it to read nullability honestly:
+
+```json
+{
+  "compilerOptions": { "strict": true }
+}
+```
+
+Nothing goes under `plugins`; `ttsc` finds typia on its own.
+
+## Run it
+
+```bash
+npx ttsx src/index.ts   # run a TypeScript file directly
+npx ttsc               # build
+```
+
+> [!IMPORTANT]
+>
+> `tsc`, `ts-node`, and `tsx` strip TypeScript before typia can see it, so your `typia.*` calls throw at runtime instead. Use `ttsc` / `ttsx`.
+
+Bundlers (Vite, Next.js, Webpack, esbuild, Bun) run their own pipeline — install [`@ttsc/unplugin`](/docs/setup#bundlers) and add one plugin line. Everything else, including the legacy TypeScript path, is in [Setup](/docs/setup).
+
+## Where to go next
+
+- **The first real problem** → [Bad Request](/tutorial/bad-request)

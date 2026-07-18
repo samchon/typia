@@ -1,0 +1,39 @@
+---
+title: Tutorial > The Idea
+---
+
+# The Idea — your type is the source of truth
+
+You already write TypeScript types. typia reads them at compile time and writes the runtime code they imply — the validator, the schema, the serializer, the LLM tool. No second definition to keep in sync.
+
+```typescript
+import typia, { tags } from "typia";
+
+interface IBbsArticle {
+  id: string & tags.Format<"uuid">;
+  title: string & tags.MinLength<5> & tags.MaxLength<100>;
+  body: string;
+  created_at: string & tags.Format<"date-time">;
+}
+```
+
+That one interface is enough to check untrusted input, generate an OpenAPI schema, produce valid test data, and describe a function to an LLM. You write it once.
+
+## How this tutorial works
+
+This is not a tour of the API — the [guide documents](/docs) already do that, function by function. Here you learn from **real problems**, the kind that reach production:
+
+- **[Bad Request](/tutorial/bad-request)** — a malformed body sailed past a type annotation
+- **[Drift](/tutorial/drift)** — the schema said one thing, the type said another
+- **[Fixtures](/tutorial/fixtures)** — test data nobody maintained, testing shapes that can't exist
+- **["42"](/tutorial/llm)** — the model returned a string where a number belonged
+- **[40 Reads](/tutorial/mcp)** — an agent burned its context reading files to answer one question
+
+Each page opens with the failure, then fixes it. The features show up because the problem needs them. The last case ends at [`@ttsc/graph`](/tutorial/graph), a production MCP server you can read line by line.
+
+Two pages of setup first, then straight into the cases. You need basic TypeScript and Node; nothing else.
+
+## Where to go next
+
+- **See it run, nothing to install** → [Playground](/tutorial/playground)
+- **Why a type can produce runtime code** → [Pure TypeScript](/docs/pure)

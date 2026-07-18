@@ -1,0 +1,50 @@
+---
+title: Tutorial > Playground
+---
+
+# Playground — see it run, nothing to install
+
+Open [typia.io/playground](/playground) and replace the editor contents with this:
+
+```typescript
+import typia, { tags } from "typia";
+
+interface IMember {
+  id: string & tags.Format<"uuid">;
+  name: string;
+  age: number & tags.Type<"uint32"> & tags.Minimum<19>;
+}
+
+console.log(
+  typia.is<IMember>({
+    id: "5aaeb8fc-8f19-4a44-b5f2-1a1b1e2f3a4b",
+    name: "Samchon",
+    age: 24,
+  }),
+); // true
+```
+
+## Read the right-hand panel
+
+Your `typia.is<IMember>` call is gone from the compiled output. In its place sits a plain function of comparisons — roughly:
+
+```javascript
+"object" === typeof input && null !== input &&
+"string" === typeof input.id && /* uuid check */ &&
+"string" === typeof input.name &&
+"number" === typeof input.age &&
+Number.isInteger(input.age) && 0 <= input.age && 19 <= input.age;
+```
+
+No schema object, no reflection, no interpreter — just the exact checks `IMember` implies, inlined. That is the entire trick, and the reason typia is fast.
+
+## Break it
+
+Change `age` to `15` and run again: `false`. `Minimum<19>` rejected it. Put back `24`, then set `id` to `"not-a-uuid"`: `false` again.
+
+The rules lived in the type. You wrote no `if`.
+
+## Where to go next
+
+- **Get it running locally** → [Setup](/tutorial/setup)
+- **The full tag catalogue** → [Special Tags](/docs/validators/tags)

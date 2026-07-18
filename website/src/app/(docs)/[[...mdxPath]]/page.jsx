@@ -23,7 +23,9 @@ export default async function Page(props) {
 
   const result = await importPage(params.mdxPath);
   const { default: MDXContent, toc, metadata } = result;
-  const isDocsPage = params.mdxPath?.[0] === "docs";
+  // The tutorial is a top-level section but shares the docs sidebar styling.
+  const section = params.mdxPath?.[0];
+  const isDocsPage = section === "docs" || section === "tutorial";
 
   return (
     <Wrapper toc={toc} metadata={metadata}>
