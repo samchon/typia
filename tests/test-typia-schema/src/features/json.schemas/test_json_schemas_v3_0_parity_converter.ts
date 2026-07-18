@@ -44,6 +44,12 @@ export const test_json_schemas_v3_0_parity_converter = (): void => {
     literal: "alpha" | "beta";
     mixedLiteral: 1 | 2 | "three";
     booleanValue: boolean;
+    /**
+     * A boolean keyword must survive the downgrade in both owners. Rebuilding a
+     * boolean as a bare `{ type: "boolean" }` dropped it and drifted the two
+     * owners apart wherever a boolean carried one.
+     */
+    booleanDefault: boolean & tags.Default<true>;
     tuple: [string, number];
     restTuple: [string, ...number[]];
     dictionary: Record<string, number>;
