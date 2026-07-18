@@ -267,6 +267,32 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
 			t.Fatal("protobuf decode default value returned nil")
 		}
 	}
+	// #2179: an absent required number/boolean/bigint seeds its proto3 typed
+	// default (0/false/0n), just as an absent required string seeds "". Each
+	// seed is wrapped in an `as any`, so unwrap it and pin the literal so a
+	// regression to `undefined` cannot pass.
+	for _, expected := range []struct {
+		typ  string
+		kind shimast.Kind
+		text string
+	}{
+		{typ: "number", kind: shimast.KindNumericLiteral, text: "0"},
+		{typ: "boolean", kind: shimast.KindFalseKeyword, text: ""},
+		{typ: "bigint", kind: shimast.KindBigIntLiteral, text: "0n"},
+		{typ: "string", kind: shimast.KindStringLiteral, text: ""},
+	} {
+		seed := protobufDecodeProgrammer_write_property_default_value(protobufProgrammerAtomic(expected.typ), emit)
+		if seed == nil || seed.Kind != shimast.KindAsExpression {
+			t.Fatalf("protobuf %s default should be an as-expression", expected.typ)
+		}
+		inner := seed.Expression()
+		if inner == nil || inner.Kind != expected.kind {
+			t.Fatalf("protobuf %s default seeded the wrong node kind", expected.typ)
+		}
+		if expected.text != "" && inner.Text() != expected.text {
+			t.Fatalf("protobuf %s default seeded %q instead of %q", expected.typ, inner.Text(), expected.text)
+		}
+	}
 	if protobufDecodeProgrammer_write_object_function_body(protobufDecodeProgrammer_objectBodyProps{
 		Context: nativecontext.ITypiaContext{},
 		Condition: protobufDecodeProgrammer_factory.NewKeywordExpression(
