@@ -30,7 +30,7 @@ Build with `ttsc`, or run TypeScript directly with `ttsx`.
 
 ## Usage
 
-`createMcpServer(controller, options?)` — pass a `typia.llm.controller` (or an `HttpLlm.controller` over an OpenAPI document), connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions. The handshake version is the OpenAPI `info.version` for HTTP controllers, `"1.0.0"` otherwise.
+`createMcpServer(controller, options?)` — pass a `typia.llm.controller` (or an `HttpLlm.controller` over an OpenAPI document), connect a transport. Every method of the class becomes an MCP tool; the controller's `name` is the server name and its class JSDoc becomes the handshake instructions. Pass the deployed application's version through `options.version`; when omitted, the handshake version is the OpenAPI `info.version` for HTTP controllers and `"1.0.0"` otherwise.
 
 ```typescript
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -47,6 +47,7 @@ class Calculator {
 
 const server = createMcpServer(
   typia.llm.controller<Calculator>("calculator", new Calculator()),
+  { version: "2.3.4" },
 );
 await server.connect(new StdioServerTransport());
 ```

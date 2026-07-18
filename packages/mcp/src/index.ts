@@ -6,6 +6,17 @@ import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
 /** Options of {@link createMcpServer}. */
 export interface IMcpServerOptions {
   /**
+   * Version of the MCP server implementation announced in the handshake.
+   *
+   * Set this to the version of the application that assembles and deploys the
+   * server. When omitted, an HTTP controller inherits its OpenAPI
+   * `info.version`, while a class controller keeps the `"1.0.0"` fallback.
+   *
+   * @default OpenAPI info.version or "1.0.0"
+   */
+  version?: string | undefined;
+
+  /**
    * Whether to add a serialized JSON text block next to `structuredContent` in
    * every tool result.
    *
@@ -29,12 +40,16 @@ export interface IMcpServerOptions {
  * Every method of the `controller`'s class becomes an MCP tool, with its input
  * schema, `outputSchema` / `structuredContent`, and argument validation all
  * reflected from the TypeScript types and JSDoc. No hand-written JSON schema.
- * The controller's `name` becomes the server name, and the class JSDoc
- * (`application.description`) becomes the MCP handshake instructions.
+ * The controller's `name` becomes the server name,
+ * {@link IMcpServerOptions.version} can identify the deployed implementation,
+ * and the class JSDoc (`application.description`) becomes the MCP handshake
+ * instructions.
  *
  * An {@link IHttpLlmController} from `HttpLlm.controller()` works the same way:
  * every OpenAPI operation becomes an MCP tool that calls the actual endpoint,
- * and the document's `info.version` becomes the handshake version.
+ * and the document's `info.version` becomes the default handshake version. An
+ * explicit {@link IMcpServerOptions.version} takes precedence when the MCP
+ * implementation and served API have different release versions.
  *
  * Every tool call is validated by typia. If the LLM provides invalid arguments,
  * it receives an {@link IValidation.IFailure} formatted by
@@ -79,9 +94,11 @@ export function createMcpServer<Class extends object = any>(
       ? undefined
       : controller.application.description?.trim() || undefined;
   const version: string =
+    options?.version ??
     (controller.protocol === "http"
       ? controller.application.version
-      : undefined) ?? "1.0.0";
+      : undefined) ??
+    "1.0.0";
   const server: McpServer = new McpServer(
     { name: controller.name, version },
     {

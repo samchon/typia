@@ -37,5 +37,6 @@ class Calculator {
 
 const server = createMcpServer(
   typia.llm.controller<Calculator>("calc", new Calculator()),
+  { version: "2.3.4" },
 );
 await server.connect(new StdioServerTransport());
