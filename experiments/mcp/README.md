@@ -24,9 +24,9 @@ npm test          # MCP client <-> server over stdio (spawns lib/server.js)
 node lib/interop.js   # guards the rollup esmExternals fix against CJS externals
 ```
 
-`npm test` performs a real MCP handshake, lists the tools, and calls them with
-valid, coerced (`"40"` → `40`), invalid (validation feedback), and
-exception-raising arguments.
+`npm test` performs a real MCP handshake, verifies the explicit server version,
+lists the tools, and calls them with valid, coerced (`"40"` → `40`), invalid
+(validation feedback), and exception-raising arguments.
 
 ## Drive it with Claude Code
 

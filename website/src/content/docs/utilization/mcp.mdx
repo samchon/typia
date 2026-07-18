@@ -20,6 +20,7 @@ export function createMcpServer<Class extends object = any>(
 ): McpServer;
 
 export interface IMcpServerOptions {
+  version?: string;
   textFallback?: boolean; // default false
 }
 ```
@@ -35,9 +36,12 @@ import { BbsArticleService } from "./BbsArticleService";
 
 const server = createMcpServer(
   typia.llm.controller<BbsArticleService>("bbs", new BbsArticleService()),
+  { version: "2.3.4" },
 );
 await server.connect(new StdioServerTransport());
 ```
+
+`version` identifies the deployed MCP server implementation in the initialize handshake. Supply the host application's release version when it has one. Without this option, an HTTP controller inherits OpenAPI `info.version` and a class controller keeps the backward-compatible `"1.0.0"` fallback.
 
 ## Setup
 
@@ -112,7 +116,7 @@ const server = createMcpServer(
 );
 ```
 
-The handshake version is the document's `info.version` (a class controller announces `"1.0.0"`). Argument validation, structured output, and error feedback behave exactly as with class controllers.
+The handshake version defaults to the document's `info.version` (a class controller defaults to `"1.0.0"`). An explicit `options.version` takes precedence when the deployed MCP server version differs from the served API version. Argument validation, structured output, and error feedback behave exactly as with class controllers.
 
 ## Server instructions
 
