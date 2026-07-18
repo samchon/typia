@@ -156,7 +156,18 @@ func (g *compareEqualProgrammerGenerator) schema(metadata *schemametadata.Metada
     branches = append(branches, g.array(array, x, y))
   }
   for _, object := range metadata.Objects {
-    branches = append(branches, g.objectCall(object.Type, x, y))
+    // Guard the object branch against the sibling native instances. `_eo`
+    // admits any `typeof === "object" && !Array.isArray` value, so a native
+    // (a Date is an object) would be compared by the object's declared keys,
+    // which the native lacks — two different Dates then look equal on their
+    // absent keys and the OR wrongly accepts. Excluding what a native branch
+    // owns makes the arms mutually exclusive, matching the clone/classify
+    // ladder whose object arm is unreachable once a native arm matches.
+    call := g.objectCall(object.Type, x, y)
+    if guard := g.notNatives(metadata.Natives, x, y); guard != "" {
+      call = g.and(guard, call)
+    }
+    branches = append(branches, call)
   }
   for _, alias := range metadata.Aliases {
     branches = append(branches, g.schema(alias.Type.Value, x, y))
@@ -407,6 +418,21 @@ func (g *compareEqualProgrammerGenerator) bytes(x string, y string) string {
 
 func (g *compareEqualProgrammerGenerator) objectGuard(x string, y string) string {
   return g.and(g.isObject(x), g.isObject(y))
+}
+
+// notNatives builds "neither x nor y is one of the union's native instances",
+// so the object branch never claims a value a native branch owns. Empty when
+// the union declares no native, keeping the object-only output unchanged.
+func (g *compareEqualProgrammerGenerator) notNatives(natives []*schemametadata.MetadataNative, x string, y string) string {
+  if len(natives) == 0 {
+    return ""
+  }
+  checks := []string{}
+  for _, native := range natives {
+    checks = append(checks, "!"+g.wrap(g.instanceof(x, native.Name)))
+    checks = append(checks, "!"+g.wrap(g.instanceof(y, native.Name)))
+  }
+  return g.and(checks...)
 }
 
 func (g *compareEqualProgrammerGenerator) isObject(input string) string {
