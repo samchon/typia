@@ -20,7 +20,7 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
     return true
   }
   for _, generic := range iterate_metadata_native_generics {
-    if strings.HasPrefix(name, generic.Name) {
+    if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
       iterate_metadata_native_take(props.Metadata, generic.Name)
       return true
     }
