@@ -155,19 +155,31 @@ func (g *compareEqualProgrammerGenerator) schema(metadata *schemametadata.Metada
   for _, array := range metadata.Arrays {
     branches = append(branches, g.array(array, x, y))
   }
-  for _, object := range metadata.Objects {
-    // Guard the object branch against the sibling native instances. `_eo`
-    // admits any `typeof === "object" && !Array.isArray` value, so a native
-    // (a Date is an object) would be compared by the object's declared keys,
-    // which the native lacks — two different Dates then look equal on their
-    // absent keys and the OR wrongly accepts. Excluding what a native branch
-    // owns makes the arms mutually exclusive, matching the clone/classify
-    // ladder whose object arm is unreachable once a native arm matches.
-    call := g.objectCall(object.Type, x, y)
-    if guard := g.notNatives(metadata.Natives, x, y); guard != "" {
-      call = g.and(guard, call)
+  // A union of two or more object types must discriminate: route each operand
+  // to exactly one member and compare within that single member. A flat OR of
+  // member comparators lets a wrong member's comparator match spuriously — its
+  // literal discriminant is satisfied by the always-present `x[k] === y[k]`
+  // branch and its absent payload keys compare `undefined === undefined`. The
+  // discrimination reuses the shared UnionPredicator specialization the sibling
+  // programmers (is/clone/classify/...) route through, so `equals` agrees with
+  // `is` on which member a value is.
+  if len(metadata.Objects) >= 2 {
+    if expr, ok := g.objectUnion(metadata.Objects, x, y); ok {
+      if guard := g.notNatives(metadata.Natives, x, y); guard != "" {
+        expr = g.and(guard, expr)
+      }
+      branches = append(branches, expr)
+    } else {
+      // Not discriminable by a supported predicate (e.g. an all-optional union
+      // with no unique required key): fall back to the prior per-member OR.
+      for _, object := range metadata.Objects {
+        branches = append(branches, g.objectFlatBranch(object.Type, metadata.Natives, x, y))
+      }
     }
-    branches = append(branches, call)
+  } else {
+    for _, object := range metadata.Objects {
+      branches = append(branches, g.objectFlatBranch(object.Type, metadata.Natives, x, y))
+    }
   }
   for _, alias := range metadata.Aliases {
     branches = append(branches, g.schema(alias.Type.Value, x, y))
@@ -285,6 +297,135 @@ func (g *compareEqualProgrammerGenerator) objectCall(object *schemametadata.Meta
     return fmt.Sprintf("_eo%d(%s, %s, _vctx)", object.Index, g.wrap(x), g.wrap(y))
   }
   return fmt.Sprintf("_eo%d(%s, %s)", object.Index, g.wrap(x), g.wrap(y))
+}
+
+// objectFlatBranch renders one member of an object union as a guarded member
+// comparator (the pre-discrimination form). It is used for a single-object
+// "union" and as the fallback for a union no supported predicate can split.
+func (g *compareEqualProgrammerGenerator) objectFlatBranch(object *schemametadata.MetadataObjectType, natives []*schemametadata.MetadataNative, x string, y string) string {
+  // Guard the object branch against the sibling native instances. `_eo` admits
+  // any `typeof === "object" && !Array.isArray` value, so a native (a Date is
+  // an object) would be compared by the object's declared keys, which the
+  // native lacks — two different Dates then look equal on their absent keys and
+  // the OR wrongly accepts. Excluding what a native branch owns makes the arms
+  // mutually exclusive, matching the clone/classify ladder whose object arm is
+  // unreachable once a native arm matches.
+  call := g.objectCall(object, x, y)
+  if guard := g.notNatives(natives, x, y); guard != "" {
+    call = g.and(guard, call)
+  }
+  return call
+}
+
+// objectUnion renders a discriminated comparison for a union of two or more
+// object types. It mirrors the is/clone/classify discrimination: each operand is
+// routed to exactly one member through the shared UnionPredicator discriminants,
+// and only when both land on the same member does that member's comparator run.
+// This replaces the flat OR whose wrong-member comparator could match spuriously.
+// It returns ok=false when the members are not discriminable by a supported
+// predicate, leaving the caller to fall back to the prior flat OR.
+func (g *compareEqualProgrammerGenerator) objectUnion(objects []*schemametadata.MetadataObject, x string, y string) (string, bool) {
+  types := make([]*schemametadata.MetadataObjectType, 0, len(objects))
+  for _, object := range objects {
+    types = append(types, object.Type)
+  }
+  specs := nativehelpers.UnionPredicator.Object(types)
+  if len(specs) == 0 {
+    return "", false
+  }
+  specialized := map[*schemametadata.MetadataObjectType]bool{}
+  for _, spec := range specs {
+    specialized[spec.Object] = true
+  }
+  remained := []*schemametadata.MetadataObjectType{}
+  for _, object := range types {
+    if specialized[object] == false {
+      remained = append(remained, object)
+    }
+  }
+  if len(remained) > 1 {
+    // A non-discriminable remainder needs the full is-check ladder the sibling
+    // programmers reach through Decode_union_object; that machinery is AST-only,
+    // so leave these members to the caller's flat OR.
+    return "", false
+  }
+
+  // Routing ladder: a ternary that returns the member's collection index, or -1
+  // when the value matches no member. The innermost fallback is the lone
+  // remainder (the unconditional else the discriminant ladder leaves) or -1.
+  fallback := "-1"
+  if len(remained) == 1 {
+    fallback = strconv.Itoa(remained[0].Index)
+  }
+  ladder := fallback
+  for i := len(specs) - 1; i >= 0; i-- {
+    check, ok := g.discriminant(specs[i], "v")
+    if ok == false {
+      return "", false
+    }
+    ladder = fmt.Sprintf("%s ? %d : %s", check, specs[i].Object.Index, ladder)
+  }
+
+  tag := g.local("utag")
+  tx := g.local("utx")
+  // Dispatch: with the shared member index, run only that member's comparator.
+  dispatch := "false"
+  for i := len(types) - 1; i >= 0; i-- {
+    dispatch = fmt.Sprintf("%s === %d ? %s : %s", tx, types[i].Index, g.objectCall(types[i], "x", "y"), dispatch)
+  }
+  body := fmt.Sprintf(
+    "((x, y) => { const %s = (v) => (%s) ? (%s) : -1; const %s = %s(x); return %s !== -1 && %s === %s(y) && (%s); })(%s, %s)",
+    tag, g.isObject("v"), ladder, tx, tag, tx, tx, tag, dispatch, g.wrap(x), g.wrap(y),
+  )
+  return body, true
+}
+
+// discriminant renders the routing predicate for one specialized union member,
+// matching how `is` decides membership: presence (`v[key] !== undefined`) for a
+// key unique to this member, or a value check (literal equality for constants,
+// typeof for atomics/templates) for a shared key whose value distinguishes it.
+// It returns ok=false for any discriminant value it cannot render as such a
+// check, so the caller falls back rather than emit a weaker predicate.
+func (g *compareEqualProgrammerGenerator) discriminant(spec nativehelpers.UnionPredicator_ISpecialized, v string) (string, bool) {
+  sole := spec.Property.Key.GetSoleLiteral()
+  if sole == nil {
+    return "", false
+  }
+  access := g.property(v, *sole)
+  if spec.Neighbor == false {
+    return fmt.Sprintf("%s !== undefined", g.wrap(access)), true
+  }
+  meta := schemametadata.MetadataSchema_unalias(spec.Property.Value)
+  if meta == nil || meta.Any {
+    return "", false
+  }
+  if len(meta.Objects) != 0 || len(meta.Arrays) != 0 || len(meta.Tuples) != 0 ||
+    len(meta.Natives) != 0 || len(meta.Sets) != 0 || len(meta.Maps) != 0 ||
+    len(meta.Aliases) != 0 || len(meta.Functions) != 0 || meta.Escaped != nil || meta.Rest != nil {
+    return "", false
+  }
+  checks := []string{}
+  if meta.Nullable {
+    // A nullable discriminant (e.g. `type: "a" | null`) routes a null value to
+    // this member exactly as `is` does, so `equals(null-arm, null-arm)` stays
+    // reflexive rather than falling through to no member.
+    checks = append(checks, g.same(access, "null"))
+  }
+  for _, constant := range meta.Constants {
+    for _, value := range constant.Values {
+      checks = append(checks, g.same(access, compareEqualProgrammer_literal(value.Value, constant.Type)))
+    }
+  }
+  for _, atomic := range meta.Atomics {
+    checks = append(checks, g.typeof(access, atomic.Type))
+  }
+  if len(meta.Templates) != 0 {
+    checks = append(checks, g.typeof(access, "string"))
+  }
+  if len(checks) == 0 {
+    return "", false
+  }
+  return g.or(checks...), true
 }
 
 func (g *compareEqualProgrammerGenerator) arrayCall(array *schemametadata.MetadataArrayType, x string, y string) string {
