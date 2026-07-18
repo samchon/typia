@@ -90,7 +90,22 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
 
   isClass := props.Type != nil && props.Type.IsClass()
   isProperty := emplace_metadata_object_significant(props.Options.Functional, props.Options.Methods)
-  pred := func(node *nativeast.Node) bool {
+  pred := func(symbol *nativeast.Symbol, node *nativeast.Node) bool {
+    // A `symbol`-keyed member (`[uniqueSymbol]: T`, `[Symbol.toStringTag]: T`,
+    // ...) is not a string / number key: it is unreachable through the string
+    // index access typia emits, `JSON.stringify` ignores it, and JSON Schema has
+    // no representation for it. So it is not part of the structural,
+    // externally-observable shape — exclude it exactly as a `private`/`protected`
+    // keyword member and an ES `#private` one. The checker escapes such a member
+    // name with the 0xFE `InternalSymbolNamePrefix`, and ApparentProperties
+    // otherwise surfaces it under that mangled name, which no runtime object
+    // carries: every real value would fail its own guard, and the emitted schema
+    // would declare an uninhabitable required property (#2226). Checked on the
+    // SYMBOL rather than a declaration node so a late-bound member with no
+    // reachable declaration is excluded too.
+    if symbol != nil && iterate_metadata_intersection_is_symbol_name(symbol.Name) {
+      return false
+    }
     if node == nil {
       return true
     }
@@ -133,7 +148,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     } else {
       typ = nativechecker.Checker_getTypeOfPropertyOfType(props.Checker, props.Type, symbol.Name)
     }
-    if (node != nil && pred(node) == false) || typ == nil {
+    if pred(symbol, node) == false || typ == nil {
       continue
     }
 
@@ -443,7 +458,7 @@ func emplace_metadata_object_intersection(
   props IMetadataIteratorProps,
   obj *schemametadata.MetadataObjectType,
   insert func(emplace_metadata_object_insert) *schemametadata.MetadataProperty,
-  pred func(node *nativeast.Node) bool,
+  pred func(symbol *nativeast.Symbol, node *nativeast.Node) bool,
 ) bool {
   if props.Checker == nil ||
     props.Type == nil ||
@@ -517,7 +532,7 @@ func emplace_metadata_object_intersection_append(
   props IMetadataIteratorProps,
   child *nativechecker.Type,
   insert func(emplace_metadata_object_insert) *schemametadata.MetadataProperty,
-  pred func(node *nativeast.Node) bool,
+  pred func(symbol *nativeast.Symbol, node *nativeast.Node) bool,
 ) bool {
   if props.Checker == nil || child == nil || len(props.Components.IndexInfos(props.Checker, child)) != 0 {
     return false
@@ -536,7 +551,7 @@ func emplace_metadata_object_intersection_append(
     } else {
       typ = nativechecker.Checker_getTypeOfPropertyOfType(props.Checker, child, symbol.Name)
     }
-    if (node != nil && pred(node) == false) || typ == nil {
+    if pred(symbol, node) == false || typ == nil {
       continue
     }
 

@@ -357,8 +357,10 @@ func iterate_metadata_intersection_is_symbol_key(key *schemametadata.MetadataSch
 // name is a computed `symbol` member. The TypeScript checker prefixes such names
 // with a 0xFE byte (`InternalSymbolNamePrefix`), an invalid UTF-8 lead unit that
 // never begins a real string property name. This runs on the raw checker symbol
-// name (`is_removable_object_constraint`) as well as the metadata key literal
-// (`is_symbol_key`), so both the type-level and schema-level brand checks agree.
+// name (`is_removable_object_constraint`, and the member filter in
+// `Emplace_metadata_object` that keeps such a member out of the validated shape)
+// as well as the metadata key literal (`is_symbol_key`), so the type-level,
+// member-level, and schema-level checks all agree on what a symbol key is.
 func iterate_metadata_intersection_is_symbol_name(name string) bool {
   return len(name) != 0 && name[0] == 0xFE
 }
