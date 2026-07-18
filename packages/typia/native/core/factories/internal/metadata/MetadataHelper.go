@@ -151,6 +151,21 @@ func metadata_get_function_node(typ *nativechecker.Type) *nativeast.Node {
   if nativeast.IsFunctionLike(node) {
     return node
   }
+  // The global `Function` interface (declared in a default `lib.*.d.ts`) is
+  // callable and newable at runtime, so a `Function`-typed member is a function,
+  // not a structural object: `constructor: Function` on the global `Object`
+  // interface, an explicit `x: Function`, or any member inherited through
+  // `extends Object`. Its symbol resolves to an `InterfaceDeclaration` rather
+  // than a function-like node, so without this branch it is expanded
+  // structurally (`{ prototype, length, arguments, caller, name }`) and its
+  // `typeof` is mis-checked as `"object"` even though a real function reports
+  // `"function"`, making `is<Object>` universally false (#2178). Returning the
+  // interface declaration routes the member through the same function path typia
+  // already uses for `() => void` members: a lenient pass under default options
+  // and a signature-based check under `functional`.
+  if metadata_is_global_function_interface(symbol, node) {
+    return node
+  }
   if nativeast.IsPropertyAssignment(node) {
     initializer := node.AsPropertyAssignment().Initializer
     if nativeast.IsFunctionLike(initializer) {
@@ -264,6 +279,25 @@ func metadata_node_type_js_doc_tags(symbol *nativeast.Symbol) []schemametadata.I
     return []schemametadata.IJsDocTagInfo{}
   }
   return metadata_node_js_doc_tags(symbol)
+}
+
+// metadata_is_global_function_interface reports whether the type behind `symbol`
+// is the global `Function` interface from a TypeScript default library. The
+// match is intentionally narrow — the symbol name is exactly `"Function"`, its
+// first declaration is an `InterfaceDeclaration`, and that declaration lives in a
+// `lib.*.d.ts` — so it recognizes only the lib `Function` and never a
+// user-declared `interface Function`, a `function Function()` value, or any
+// other callable object type (a hybrid `interface Foo { (): void; x: number }`
+// keeps its data properties). See metadata_get_function_node for why the lib
+// `Function` must be treated as a function type (#2178).
+func metadata_is_global_function_interface(symbol *nativeast.Symbol, node *nativeast.Node) bool {
+  if symbol == nil || symbol.Name != "Function" {
+    return false
+  }
+  if node == nil || node.Kind != nativeast.KindInterfaceDeclaration {
+    return false
+  }
+  return metadata_symbol_from_default_lib(symbol)
 }
 
 // metadata_symbol_from_default_lib reports whether the symbol's first locatable
