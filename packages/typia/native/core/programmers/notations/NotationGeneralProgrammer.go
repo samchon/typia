@@ -1363,7 +1363,7 @@ func notationGeneralProgrammer_pascal(str string) string {
     }
     return strings.ToUpper(value[:1]) + value[1:]
   }, func(value string, index int) string {
-    return notationGeneralProgrammer_capitalize(value)
+    return notationGeneralProgrammer_capitalize(strings.ToLower(value))
   })
 }
 
