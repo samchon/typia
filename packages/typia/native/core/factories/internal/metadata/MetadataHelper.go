@@ -315,26 +315,17 @@ func metadata_symbol_from_default_lib(symbol *nativeast.Symbol) bool {
   return false
 }
 
-// metadata_symbol_from_declaration_file reports whether the symbol's first
-// locatable declaration lives in a `.d.ts` declaration file. It widens
-// metadata_symbol_from_default_lib beyond the TypeScript default libraries
-// (lib.*.d.ts) to any ambient declaration file, because a built-in native can be
-// declared by an ambient package rather than a default lib — the `File` and
-// `Blob` globals Node adds through @types/node are declared in `.d.ts` files that
-// are not `lib.*.d.ts`. Native classification uses this to keep a real built-in
-// native (declared in a `.d.ts`, whichever library) native, while a user type
-// that merely shares a native's name — an `interface File { name; size }` in a
-// `.ts` module — is not a declaration and falls through to the structural object
-// path (#2200).
-func metadata_symbol_from_declaration_file(symbol *nativeast.Symbol) bool {
-  for _, node := range metadata_node_declarations(symbol) {
-    src := nativeast.GetSourceFileOfNode(node)
-    if src == nil {
-      continue
-    }
-    return src.IsDeclarationFile
+// metadata_symbol_is_global_type reports whether symbol is the type that the
+// checker resolves from its global symbol table under name. Pointer identity is
+// deliberate: default-library natives and ambient-package globals such as
+// Node's File and Blob resolve to that shared global symbol, while an exported
+// package declaration remains a distinct module symbol even when its name and
+// `.d.ts` source form are identical (#2239).
+func metadata_symbol_is_global_type(checker *nativechecker.Checker, symbol *nativeast.Symbol, name string) bool {
+  if checker == nil || symbol == nil || name == "" {
+    return false
   }
-  return false
+  return checker.ResolveName(name, nil, nativeast.SymbolFlagsType, false) == symbol
 }
 
 func metadata_is_default_lib_file_name(fileName string) bool {

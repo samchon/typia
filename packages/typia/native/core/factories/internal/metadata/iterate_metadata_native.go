@@ -23,12 +23,11 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   }
   name = iterate_metadata_native_getNativeName(name)
   if _, ok := iterate_metadata_native_simples[name]; ok {
-    // Match the built-in only when the type actually is the built-in, not merely
-    // a user type of the same name. A real native is declared in a `.d.ts`
-    // library, so a user `interface File { name; size }` in a `.ts` module falls
-    // through to the structural object path and is validated against its own
-    // members instead of `input instanceof File` (#2200).
-    if !metadata_symbol_from_declaration_file(symbol) {
+    // Match the built-in only when the checker resolves this exact symbol from
+    // the global type table. A colliding package declaration then falls through
+    // to its structural members regardless of whether it was authored in `.ts`
+    // or published through `.d.ts` (#2200, #2239).
+    if !metadata_symbol_is_global_type(props.Checker, symbol, name) {
       return false
     }
     iterate_metadata_native_take(props.Metadata, name)
@@ -36,14 +35,9 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   }
   for _, generic := range iterate_metadata_native_generics {
     if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
-      // Classify the native generic (WeakMap/WeakSet) only when the type
-      // actually is the built-in, not merely a user type of the same name. A
-      // real WeakMap/WeakSet is declared in a `.d.ts` library, so a module-scoped
-      // user `interface WeakMap<K, V> { brandWeak }` in a `.ts` module falls
-      // through to the structural object path — the same identity gate the
-      // simples path above uses (#2200), applied to the collection generics the
-      // `+"<"` arity guard (#2181) alone left ungated (#2212).
-      if !metadata_symbol_from_declaration_file(symbol) {
+      // Use the same global-symbol identity gate for WeakMap/WeakSet. The
+      // `+"<"` arity guard (#2181) and generic metadata remain unchanged.
+      if !metadata_symbol_is_global_type(props.Checker, symbol, generic.Name) {
         return false
       }
       iterate_metadata_native_take(props.Metadata, generic.Name)
