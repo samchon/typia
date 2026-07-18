@@ -38,6 +38,19 @@ func (patternUtilNamespace) Escape(str string) string {
       builder.WriteRune(ch)
     case '-':
       builder.WriteString("\\x2d")
+    // The four ECMAScript LineTerminators cannot appear raw inside a regex
+    // literal (`RegExp(/.../)`) -- the sink every structural pattern feeds -- so a
+    // raw one turns the emitted module into a SyntaxError. Emit the regex escape
+    // instead; it stays valid in the literal and keeps matching the terminator
+    // (#2211).
+    case '\n':
+      builder.WriteString("\\n")
+    case '\r':
+      builder.WriteString("\\r")
+    case '\u2028':
+      builder.WriteString("\\u2028")
+    case '\u2029':
+      builder.WriteString("\\u2029")
     default:
       builder.WriteRune(ch)
     }
