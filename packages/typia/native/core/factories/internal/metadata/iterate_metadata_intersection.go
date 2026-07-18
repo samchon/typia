@@ -484,11 +484,8 @@ func iterate_metadata_intersection_is_removable_object_constraint(
   if metadata_get_function_node(typ) != nil || len(checker.GetSignaturesOfType(typ, nativechecker.SignatureKindCall)) != 0 {
     return false
   }
-  name := iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(typ))
-  if name == "" {
-    name = iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(checker.GetApparentType(typ)))
-  }
-  if _, ok := iterate_metadata_native_simples[name]; ok {
+  name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
     return false
   }
   for _, generic := range iterate_metadata_native_generics {
@@ -524,6 +521,29 @@ type iterate_metadata_intersection_identity struct {
   Shareable bool
 }
 
+// iterate_metadata_intersection_type_name_and_symbol keeps the normalized name
+// paired with the symbol that supplied it, including the apparent-type fallback.
+// Intersection classifiers can then apply the same global-symbol identity gate
+// as direct native metadata without re-resolving either half independently.
+func iterate_metadata_intersection_type_name_and_symbol(
+  checker *nativechecker.Checker,
+  typ *nativechecker.Type,
+) (string, *nativeast.Symbol) {
+  if typ == nil {
+    return "", nil
+  }
+  symbol := typ.Symbol()
+  name := iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(typ))
+  if name == "" && checker != nil {
+    apparent := checker.GetApparentType(typ)
+    if apparent != nil {
+      symbol = apparent.Symbol()
+      name = iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(apparent))
+    }
+  }
+  return name, symbol
+}
+
 func iterate_metadata_intersection_identify(
   checker *nativechecker.Checker,
   collection *schemametadata.MetadataCollection,
@@ -543,10 +563,7 @@ func iterate_metadata_intersection_identify(
       return iterate_metadata_intersection_identity{Kind: "primitive", Name: info.name}
     }
   }
-  name := iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(typ))
-  if name == "" {
-    name = iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(checker.GetApparentType(typ)))
-  }
+  name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
   if atomic, ok := schemametadata.MetadataSchema_atomicLikeNative(name); ok {
     return iterate_metadata_intersection_identity{Kind: "primitive", Name: atomic}
   }
@@ -561,7 +578,7 @@ func iterate_metadata_intersection_identify(
       return iterate_metadata_intersection_identity{Kind: "tag"}
     }
   }
-  if _, ok := iterate_metadata_native_simples[name]; ok {
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
     return iterate_metadata_intersection_identity{Kind: "native", Name: name}
   }
   for _, generic := range iterate_metadata_native_generics {
@@ -672,11 +689,8 @@ func iterate_metadata_intersection_is_plain_object_only(
     return false
   }
 
-  name := iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(typ))
-  if name == "" {
-    name = iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(checker.GetApparentType(typ)))
-  }
-  if _, ok := iterate_metadata_native_simples[name]; ok {
+  name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
     return false
   }
   for _, generic := range iterate_metadata_native_generics {
@@ -975,17 +989,14 @@ func iterate_metadata_intersection_category(
       return "tag"
     }
   }
-  name := iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(typ))
-  if name == "" {
-    name = iterate_metadata_native_getNativeName(metadata_type_symbol_base_name(checker.GetApparentType(typ)))
-  }
+  name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
   if atomic, ok := schemametadata.MetadataSchema_atomicLikeNative(name); ok {
     return "primitive:" + atomic
   }
   if name == "Array" || name == "ReadonlyArray" {
     return "array"
   }
-  if _, ok := iterate_metadata_native_simples[name]; ok {
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
     return "native:" + name
   }
   for _, generic := range iterate_metadata_native_generics {
