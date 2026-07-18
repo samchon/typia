@@ -531,7 +531,7 @@ func plainCloneProgrammer_decode_tuple_inline(props plainCloneProgrammer_decodeT
     explore := props.Explore
     explore.From = "array"
     explore.Postfix = postfix
-    elements = append(elements, plainCloneProgrammer_decode(struct {
+    value := plainCloneProgrammer_decode(struct {
       Context  nativecontext.ITypiaContext
       Config   nativeinternal.FeatureProgrammer_IConfig
       Functor  *nativehelpers.FunctionProgrammer
@@ -545,7 +545,18 @@ func plainCloneProgrammer_decode_tuple_inline(props plainCloneProgrammer_decodeT
       Input:    f.NewElementAccessExpression(props.Input, nil, nativefactories.ExpressionFactory.Number(index, props.Context.Emit), shimast.NodeFlagsNone),
       Metadata: elem,
       Explore:  explore,
-    }))
+    })
+    if elem.Optional {
+      // An omitted optional trailing element must not become a phantom
+      // `undefined`; gate it on presence so `clone(["a"])` stays `["a"]`.
+      value = nativehelpers.CloneJoiner.OptionalTupleElement(nativehelpers.CloneJoiner_OptionalElementProps{
+        Input: props.Input,
+        Value: value,
+        Index: index,
+        Emit:  props.Context.Emit,
+      })
+    }
+    elements = append(elements, value)
   }
   var rest *shimast.Node
   if len(props.Tuple.Elements) != 0 {
