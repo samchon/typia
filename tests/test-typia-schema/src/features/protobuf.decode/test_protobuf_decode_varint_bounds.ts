@@ -1,5 +1,7 @@
 import typia from "typia";
 
+import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
+
 /**
  * Verifies generated Protobuf decoders reject malformed varints before
  * validation.
@@ -10,12 +12,18 @@ import typia from "typia";
  * wrapper must therefore surface the same wire error instead of returning a
  * product-shaped value, `null`, or an `IValidation` result.
  *
- * 1. Cross all eight direct and factory wrappers with malformed 32-bit, 64-bit,
- *    boolean, packed, map, and nested values.
- * 2. Reject malformed top-level and group tags plus bytes, string, packed, map,
- *    nested, unknown-field, and group-contained length prefixes.
- * 3. Preserve truncation errors, canonical maxima, non-canonical in-range
- *    encodings, trailing fields, and encoder round trips.
+ * Every byte string and every verdict below comes from
+ * `packages/typia/test/protobuf_varint_corpus.json`, which the Go test
+ * `TestProtobufVarintCorpusMatchesProtowire` holds against
+ * `google.golang.org/protobuf`. Nothing here is transcribed, so a decoder that
+ * disagreed with the official parser could not also agree with this file.
+ *
+ * 1. Cross all eight direct and factory wrappers with every malformed corpus
+ *    row placed as a 32-bit, 64-bit, boolean, packed, map, and nested value.
+ * 2. Reject the same rows as top-level and group tags and as bytes, string,
+ *    packed, map, nested, unknown-field, and group-contained length prefixes.
+ * 3. Preserve every accepted row's decoded value, trailing fields, and encoder
+ *    round trips.
  */
 export const test_protobuf_decode_varint_bounds = (): void => {
   const baseline: Uint8Array = typia.protobuf.encode<ISurface>({
@@ -33,139 +41,160 @@ export const test_protobuf_decode_varint_bounds = (): void => {
     strings: ["x"],
   });
 
-  for (const malformed of [NO_TERMINATOR, EXCESS_TENTH]) {
+  //----
+  // EVERY MALFORMED ROW, EVERY PLACEMENT
+  //----
+  // a valid message follows each malformed varint, so a decoder that rejected
+  // the payload for running out of bytes rather than for the varint itself
+  // would report a different fault here
+  const malformed: ProtobufVarintCorpus.IEntry[] =
+    ProtobufVarintCorpus.malformed();
+  if (malformed.length === 0)
+    throw new Error("the shared varint corpus carries no malformed row.");
+  for (const entry of malformed) {
+    const bytes: number[] = ProtobufVarintCorpus.bytes(entry);
+    const expected: string = ProtobufVarintCorpus.message(entry);
+    const label = (what: string): string => `${what} of ${entry.name}`;
+
     for (const field of VARINT_FIELDS)
       assertAll(
-        `${field.name} scalar`,
-        Uint8Array.from([field.tag, ...malformed, ...baseline]),
-        OVERLONG,
+        label(`${field.name} scalar`),
+        Uint8Array.from([field.tag, ...bytes, ...baseline]),
+        expected,
       );
 
     assertAll(
-      "packed uint64 value",
-      Uint8Array.from([0x32, malformed.length, ...malformed, ...baseline]),
-      OVERLONG,
+      label("packed uint64 value"),
+      Uint8Array.from([0x32, bytes.length, ...bytes, ...baseline]),
+      expected,
     );
     assertAll(
-      "unpacked repeated uint64 value",
-      Uint8Array.from([0x30, ...malformed, ...baseline]),
-      OVERLONG,
+      label("unpacked repeated uint64 value"),
+      Uint8Array.from([0x30, ...bytes, ...baseline]),
+      expected,
     );
     assertAll(
-      "map uint64 value",
-      Uint8Array.from([
-        0x4a,
-        malformed.length + 1,
-        0x10,
-        ...malformed,
-        ...baseline,
-      ]),
-      OVERLONG,
+      label("map uint64 value"),
+      Uint8Array.from([0x4a, bytes.length + 1, 0x10, ...bytes, ...baseline]),
+      expected,
     );
     assertAll(
-      "map string key length",
-      Uint8Array.from([
-        0x4a,
-        malformed.length + 1,
-        0x0a,
-        ...malformed,
-        ...baseline,
-      ]),
-      OVERLONG,
+      label("map string key length"),
+      Uint8Array.from([0x4a, bytes.length + 1, 0x0a, ...bytes, ...baseline]),
+      expected,
     );
     assertAll(
-      "nested uint64 value",
-      Uint8Array.from([
-        0x52,
-        malformed.length + 1,
-        0x08,
-        ...malformed,
-        ...baseline,
-      ]),
-      OVERLONG,
+      label("nested uint64 value"),
+      Uint8Array.from([0x52, bytes.length + 1, 0x08, ...bytes, ...baseline]),
+      expected,
     );
     assertAll(
-      "nested string length",
-      Uint8Array.from([
-        0x52,
-        malformed.length + 1,
-        0x12,
-        ...malformed,
-        ...baseline,
-      ]),
-      OVERLONG,
+      label("nested string length"),
+      Uint8Array.from([0x52, bytes.length + 1, 0x12, ...bytes, ...baseline]),
+      expected,
     );
 
     for (const [name, tag] of LENGTH_FIELDS)
       assertAll(
-        `${name} length`,
-        Uint8Array.from([tag, ...malformed, ...baseline]),
-        OVERLONG,
+        label(`${name} length`),
+        Uint8Array.from([tag, ...bytes, ...baseline]),
+        expected,
       );
     assertAll(
-      "unknown field length",
-      Uint8Array.from([0x6a, ...malformed, ...baseline]),
-      OVERLONG,
+      label("unknown field length"),
+      Uint8Array.from([0x6a, ...bytes, ...baseline]),
+      expected,
     );
     assertAll(
-      "length inside a group",
-      Uint8Array.from([0x6b, 0x72, ...malformed, 0x6c, ...baseline]),
-      OVERLONG,
+      label("length inside a group"),
+      Uint8Array.from([0x6b, 0x72, ...bytes, 0x6c, ...baseline]),
+      expected,
     );
 
-    const malformedTag: readonly number[] = [0x88, ...malformed.slice(1)];
+    const tag: number[] = ProtobufVarintCorpus.asTag(entry);
     assertAll(
-      "top-level field tag",
-      Uint8Array.from([...malformedTag, 0x01, ...baseline]),
-      OVERLONG,
+      label("top-level field tag"),
+      Uint8Array.from([...tag, 0x01, ...baseline]),
+      expected,
     );
     assertAll(
-      "field tag inside a group",
-      Uint8Array.from([0x6b, ...malformedTag, 0x01, 0x6c, ...baseline]),
-      OVERLONG,
+      label("field tag inside a group"),
+      Uint8Array.from([0x6b, ...tag, 0x01, 0x6c, ...baseline]),
+      expected,
     );
   }
 
-  for (let count: number = 1; count < 10; ++count) {
+  //----
+  // EVERY TRUNCATED ROW
+  //----
+  // nothing follows a truncated varint, so the payload really does end inside
+  // it and the decoder must report the framing fault rather than a value
+  for (const entry of ProtobufVarintCorpus.truncated()) {
+    const bytes: number[] = ProtobufVarintCorpus.bytes(entry);
+    const expected: string = ProtobufVarintCorpus.message(entry);
     assertAll(
-      `scalar truncated after ${count} byte${count === 1 ? "" : "s"}`,
-      Uint8Array.from([0x08, ...continuations(count)]),
-      OVERFLOW,
+      `scalar ${entry.name}`,
+      Uint8Array.from([0x08, ...bytes]),
+      expected,
     );
     assertAll(
-      `length truncated after ${count} byte${count === 1 ? "" : "s"}`,
-      Uint8Array.from([0x3a, ...continuations(count)]),
-      OVERFLOW,
+      `length ${entry.name}`,
+      Uint8Array.from([0x3a, ...bytes]),
+      expected,
     );
-    assertAll(
-      `tag truncated after ${count} byte${count === 1 ? "" : "s"}`,
-      Uint8Array.from([0x88, ...continuations(count - 1)]),
-      OVERFLOW,
-    );
+    if (bytes.length !== 0)
+      assertAll(
+        `tag ${entry.name}`,
+        Uint8Array.from(ProtobufVarintCorpus.asTag(entry)),
+        expected,
+      );
   }
 
+  //----
+  // EVERY ACCEPTED ROW STILL DECODES
+  //----
   for (const [label, decode] of DECODERS) {
-    const nonCanonical: typia.Resolved<ISurface> = decode(
+    for (const entry of ProtobufVarintCorpus.accepted()) {
+      const decoded: typia.Resolved<ISurface> = decode(
+        Uint8Array.from([
+          ...baseline,
+          0x18,
+          ...ProtobufVarintCorpus.bytes(entry),
+        ]),
+      );
+      const expected: bigint = ProtobufVarintCorpus.value(entry);
+      if (decoded.uint64 !== expected)
+        throw new Error(
+          `${label} decoded ${entry.name} as ${decoded.uint64} instead of ${expected}.`,
+        );
+    }
+
+    // a trailing field behind an accepted varint is still read
+    const trailing: typia.Resolved<ISurface> = decode(
       Uint8Array.from([
         ...baseline,
         0x08,
-        ...continuations(9),
-        0x00,
+        ...ProtobufVarintCorpus.bytes(
+          ProtobufVarintCorpus.find("non-canonical ten-byte zero"),
+        ),
         0x28,
         0x01,
       ]),
     );
-    if (nonCanonical.uint32 !== 0 || nonCanonical.boolean !== true)
+    if (trailing.uint32 !== 0 || trailing.boolean !== true)
       throw new Error(
         `${label} lost a valid non-canonical value or trailing field.`,
       );
 
     const maximum: typia.Resolved<ISurface> = decode(
-      Uint8Array.from([...baseline, 0x18, ...UINT64_MAX]),
+      Uint8Array.from([
+        ...baseline,
+        0x18,
+        ...ProtobufVarintCorpus.bytes(
+          ProtobufVarintCorpus.find("canonical 64-bit maximum"),
+        ),
+      ]),
     );
-    if (maximum.uint64 !== (1n << 64n) - 1n)
-      throw new Error(`${label} decoded uint64 maximum as ${maximum.uint64}.`);
-
     const roundTrip: typia.Resolved<ISurface> = decode(
       typia.protobuf.encode<ISurface>(maximum as ISurface),
     );
@@ -264,14 +293,6 @@ const assertAll = (
   }
 };
 
-const continuations = (count: number): number[] =>
-  new Array(count).fill(0x80) as number[];
-
-const NO_TERMINATOR = continuations(10);
-const EXCESS_TENTH = [...continuations(9), 0x02] as const;
-const UINT64_MAX = [
-  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01,
-] as const;
 const VARINT_FIELDS = [
   { name: "uint32", tag: 0x08 },
   { name: "int32", tag: 0x10 },
@@ -288,6 +309,3 @@ const LENGTH_FIELDS = [
   ["nested", 0x52],
   ["repeated string", 0x62],
 ] as const;
-const PREFIX = "Error on typia.protobuf.decode(): ";
-const OVERFLOW = `${PREFIX}buffer overflow.`;
-const OVERLONG = `${PREFIX}varint exceeds 10 bytes.`;
