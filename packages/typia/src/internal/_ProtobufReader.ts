@@ -116,9 +116,9 @@ export class _ProtobufReader {
    */
   public skipVarint(): void {
     this.atomic(() => {
-      for (let i: number = 0; i < VARINT_MAX_BYTES; ++i)
+      for (let i: number = 1; i < VARINT_MAX_BYTES; ++i)
         if ((this.u8() & 0x80) === 0) return;
-      throw error(`varint exceeds ${VARINT_MAX_BYTES} bytes.`);
+      this.lastVarintByte();
     });
   }
 
@@ -172,8 +172,7 @@ export class _ProtobufReader {
     if (this.u8() < 0x80) return value;
     if (this.u8() < 0x80) return value;
     if (this.u8() < 0x80) return value;
-    if (this.u8() < 0x80) return value;
-
+    this.lastVarintByte();
     return value;
   }
 
@@ -208,8 +207,16 @@ export class _ProtobufReader {
     value |= ((loaded = this.u8n()) & BigInt(0x7f)) << BigInt(56);
     if (loaded < BigInt(0x80)) return value;
 
-    value |= (this.u8n() & BigInt(0x01)) << BigInt(63);
+    value |= BigInt(this.lastVarintByte()) << BigInt(63);
     return BigInt.asUintN(64, value);
+  }
+
+  /** Read the only byte whose varint payload is limited to bit 63. */
+  private lastVarintByte(): number {
+    const loaded: number = this.u8();
+    if ((loaded & 0xfe) !== 0)
+      throw error(`varint exceeds ${VARINT_MAX_BYTES} bytes.`);
+    return loaded;
   }
 
   private u8(): number {
@@ -262,9 +269,8 @@ const error = (message: string): Error =>
 /**
  * The most bytes a varint may occupy: a 64-bit value in seven-bit groups.
  *
- * `varint32` and `varint64` hold this same limit structurally, by reading no
- * further than their tenth byte. This constant is what a loop-driven consumer
- * holds it by.
+ * Every path reads no further than its tenth byte and accepts only bit 63 from
+ * that byte. This constant keeps the loop-driven skip path on the same limit.
  */
 const VARINT_MAX_BYTES = 10;
 
