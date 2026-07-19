@@ -135,6 +135,6 @@ Verification shape depends on the change type:
 
 Treat tests, fixtures, snapshots, CI workflows, package wiring, dependencies, core algorithms, generated baselines, and benchmark results as part of the specification. Changing them requires an explicit user request or a clear product reason, and the final report must call it out.
 
-When Go source under `packages/typia/native` changes, bump the `typia` package version in the same commit or pull request. The npm package ships `native/`, and ttsc compiles that source on first use; without a new package version, npm consumers continue to install the previous native source tree.
+Go source under `packages/typia/native` must ship under a `typia` version newer than the latest published package because npm consumers otherwise continue to install the previous native source tree. Assign that version once in a maintainer-owned release change; multiple unreleased native changes belong to the same future release instead of consuming one patch number each. Issue implementation pull requests never change package versions. A maintainer-owned release change may begin only after campaign completion, or after the user explicitly suspends the campaign and lifts the freeze, and it uses the version the user assigned.
 
 For mechanical ports, migrations, or broad rewrites, preserve the existing algorithm and public behavior in reviewable slices. Prefer a concrete exemplar over abstract instructions, and inspect the diff before trusting a green test run.

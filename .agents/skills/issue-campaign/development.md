@@ -12,11 +12,12 @@ Read this document in full when the user authorizes implementation pull requests
 - [Repeat A Campaign Cycle](#repeat-a-campaign-cycle)
 - [Post-Campaign Cleanup](#post-campaign-cleanup)
 
-Three rules govern the entire implementation phase:
+Four rules govern the entire implementation phase:
 
-- Local tests, lead verification, and solo Self-Review are the implementation gates.
+- Local and package verification, solo Self-Review, independent verification, lead readback, and every applicable integration gate are mandatory implementation gates.
 - Do not run `pnpm format` during discovery, issue publication, or implementation. Post-Campaign Cleanup owns the repository-wide formatter result.
-- Never disable repository Actions or any workflow for a campaign. After every campaign push and pull-request creation, immediately cancel only the runs for that campaign commit and verify cancellation before continuing.
+- Never disable repository Actions or any workflow for a campaign. After every campaign push and pull-request creation, immediately cancel only the runs for that campaign commit and verify cancellation before continuing, except when the user designated that exact integration SHA before its push.
+- Campaign branches and pull requests freeze package versions, release tags, and publication state throughout campaign implementation. They never choose a release number or publish a package. A maintainer release may begin only after campaign completion, or after the user explicitly suspends the campaign and lifts the freeze; it remains a separate task and does not relax this rule for campaign changes.
 
 ## Cancel Campaign CI After Every Push
 
@@ -26,8 +27,8 @@ Every push gets its own cancellation gate:
 
 1. Record the campaign branch and pushed commit SHA.
 2. List runs for that exact SHA with `gh run list --commit <sha> --limit 100 --json databaseId,headBranch,headSha,status,conclusion,url`.
-3. Cancel every `queued`, `in_progress`, `waiting`, `pending`, or `requested` run for that SHA with `gh run cancel <run-id>`. Never cancel by broad repository, workflow, or contributor filters.
-4. Poll again because push, pull-request, chained, and ruleset runs can appear after the first query. Continue until two consecutive polls find no new run and every observed run is terminal; every run observed as active must end `cancelled`, while a run already terminal when first observed is only recorded.
+3. Cancel every `queued`, `in_progress`, `waiting`, `pending`, or `requested` run for that SHA with `gh run cancel <run-id>`. Never cancel by broad repository, workflow, or contributor filters. For an exact integration SHA the user designated before its push, do not cancel; record every run and poll it to a terminal result.
+4. Poll again because push, pull-request, chained, and ruleset runs can appear after the first query. Continue until two consecutive polls find no new run and every observed run is terminal; every ordinary campaign run observed as active must end `cancelled`, while a run already terminal when first observed or a designated integration run is recorded with its actual conclusion.
 5. Record the run IDs and final states in `.wiki/<campaign>/ci-state.md`. Stop further pushes or pull-request mutations if enumeration, cancellation, or readback fails.
 
 Opening or updating a pull request can enqueue additional runs for the already-pushed SHA. Run the same gate immediately after pull-request creation and after any operation that retriggers checks. The exact-SHA boundary is mandatory: never cancel unrelated contributors' runs.
@@ -35,6 +36,8 @@ Opening or updating a pull request can enqueue additional runs for the already-p
 ## Plan And Claim A Pull Request Wave
 
 Build the issue dependency DAG before assigning implementation. Use it to form cohesive batches, not to create one worktree per issue.
+
+Before claiming the first wave, freeze the campaign knowledge base's integration-command manifest. Record its content hash and exact commands, environment, tool versions, triggering change classes, expected artifacts, and clean-consumer setup. Any later correction to the manifest is a reviewed campaign-state change and invalidates integration evidence recorded under the previous hash.
 
 Batching follows these rules:
 
@@ -57,7 +60,9 @@ The draft pull request reserves the whole batch before code is written, preventi
 
 Analyze the full consequence and case surface across every issue in the batch. Follow the repository development skill for implementation, tests, documentation, generated artifacts, and narrow-then-broad local verification.
 
-An implementation agent may find that an issue is false or too broad. The lead must independently validate that conclusion before changing campaign state:
+Before editing, turn each issue invariant into an executed consequence matrix. Enumerate every owning helper and caller, public operation and direct/factory/nested form, equivalent TypeScript spelling and declaration provenance, union/intersection/generic and transform-option interaction, input context, positive and one-axis negative twin, boundary and malformed case, generated artifact, workspace and packed consumer, and supported platform affected by the owner. The issue's examples are seeds, not the matrix boundary. Record the matrix and every non-applicable cell with evidence in the campaign knowledge base and pull request.
+
+An implementation agent may find that an issue is false or too broad. The lead and an independent critic must validate that conclusion in separate fresh worktrees before changing campaign state. Any disagreement keeps the original issue and batch state active:
 
 - For a narrowed issue, record the evidence on the issue and pull-request thread, then update the batch scope.
 - For a confirmed-invalid issue, record the evidence and close the issue.
@@ -65,7 +70,11 @@ An implementation agent may find that an issue is false or too broad. The lead m
 
 Commit and push every coherent implementation increment to the claimed branch. Immediately pass the exact-SHA cancellation gate after each push; do not hold a completed implementation locally until handoff or continue working while that gate is unresolved.
 
-Before merge, complete solo Self-Review, opening each round by commenting its findings and remediation plan on the pull request before acting on them so the thread records why every follow-up change happened. The implementing agent then merges its own pull request with the repository's established method — no separate lead approval — once implementation, that Self-Review, and the batch's package-scoped local verification all pass. Under an ordinary campaign it waits for explicit user authorization; under a standing autonomous mandate — an autonomous or remote-control campaign, or an instruction to carry the campaign through merge — it merges as soon as those gates pass, without a per-pull-request request.
+Before merge, complete solo Self-Review, opening each round by commenting its findings and remediation plan on the pull request before acting on them so the thread records why every follow-up change happened. Then require an independent verifier who did not implement the batch to use fresh base and head worktrees, inspect the complete tree and diff including file modes, links, ignored generated output, worktree status, and packed contents, reproduce fail-before, inspect pass-after emitted or packed behavior, execute every applicable consequence-matrix cell, validate every non-applicable disposition, confirm the negative twins and boundaries, and prove the regression test is sensitive by reverting or mutating only the product fix while retaining the test in a disposable worktree; the expected assertion must fail while adjacent controls still pass. The implementing agent may merge only after implementation, Self-Review, independent verification, package-scoped verification, and the full integration-sensitive gate when the change triggers one. Under an ordinary campaign it waits for explicit user authorization; under a standing autonomous mandate it merges as soon as those gates pass, without a per-pull-request request.
+
+Treat native emitters, shared metadata, common runtime helpers, package manifests or declarations, CLI or generator code, and test or oracle infrastructure as integration-sensitive. Immediately before its integration gate, record the exact `origin/master` and pull-request head SHAs plus the integration-command manifest hash, construct their prospective merge result in a disposable worktree, and run the complete frozen canonical command set for root build, test, static analysis, generated artifacts, and clean packed consumers; the lead may add gates but may not omit one based on a narrower consequence claim. An unavailable or failed mandatory gate blocks merge. Re-read `origin/master` before merge and restart the gate if it changed. After GitHub merges, verify the exact merge SHA with the same command set and manifest hash before any later campaign pull request merges. Do not turn master red or stack another batch on a package-only-tested integration state. If campaign CI is deliberately cancelled, record the equivalent local integration gates; when the user authorizes one designated integration SHA before its push, allow only that exact commit's runs to finish.
+
+Promote every reproduced defect class, consequence-matrix boundary, and mutation that caught an implementation error into a permanent regression discoverable by and executed from a canonical package or root command. A maintained repository probe is acceptable only when its exact command is a required, non-skippable coverage-matrix cell and mutation evidence proves that command fails. A dormant or one-off scratch witness is not enough when the same class could recur after the campaign.
 
 ## Remove Every Finished Worktree
 
@@ -86,19 +95,21 @@ Apply this rule to every campaign-created worktree, including one used for Post-
 
 ## While Campaign CI Is Cancelled
 
-- Record local verification for each pull request. Do not dispatch replacement CI.
-- Keep repository Actions and workflow settings unchanged. Cancel only exact-SHA campaign runs after every push or pull-request retrigger.
+- Record local verification for each pull request. Do not dispatch replacement CI unless the user designated one exact integration SHA before its push.
+- Keep repository Actions and workflow settings unchanged. Cancel only exact-SHA campaign runs after every push or pull-request retrigger, and let only a pre-designated exact integration SHA run to its actual conclusion.
 - If work pauses, report local verification and the final state of every run for the latest campaign SHAs.
 
 ## Repeat A Campaign Cycle
 
 Report the wave after every surviving issue is covered by its assigned batch pull request.
 
-When the user requests another discovery cycle, return to the parent skill's Discover Issues phase and start new unlimited full rounds over the entire campaign scope. Earlier rounds are not coverage. Repository Actions remains unchanged, and discovery alone does not authorize issue publication, pull requests, or merging.
+After every integrated implementation wave that resolves a discovery round's accepted issues, return automatically to the parent skill's Discover Issues phase and start new unlimited full rounds over the entire repository scope. Earlier rounds are not coverage. If the user authorized discovery but not implementation, preserve the `NOT CLEAN` campaign state and wait for implementation authority; never treat the absence of authority as completion. Repository Actions remains unchanged, and discovery alone does not authorize issue publication, pull requests, or merging.
+
+Freeze one integrated commit before briefing the next round, and give every reviewer that same commit, full repository scope, provisioning contract, and mandatory matrix. A surviving issue or recent implementation never permits lane assignment or a residual-only review: every reviewer starts again from the entire repository and continues after finding candidates until the full census is complete.
 
 ## Post-Campaign Cleanup
 
-Run this phase only after the user ends the campaign, every campaign pull request is resolved, every campaign worktree is removed, and no campaign branch needs another push.
+Run normal completion cleanup only after the terminal repository-wide round satisfies the review skill's stop rule, every campaign pull request is resolved, every campaign worktree is removed, and no campaign branch needs another push. If the user ends the campaign before that terminal clean round, record the campaign as `CANCELLED` or `INCOMPLETE`, apply Remove Every Finished Worktree to disposable campaign state, remove other safe campaign artifacts, then stop. The early-termination path skips steps 1-11 below, performs no format commit, push, or merge, and is never presented as campaign completion.
 
 1. Return to `master` in the main checkout and confirm it contains no unrelated user changes.
 2. Pull the final campaign result with `git pull --ff-only origin master`.
