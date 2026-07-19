@@ -353,6 +353,44 @@ func metadata_symbol_is_global_type(checker *nativechecker.Checker, symbol *nati
   return checker.ResolveName(name, nil, nativeast.SymbolFlagsType, false) == symbol
 }
 
+// metadata_symbol_is_runtime_native_type applies the shared identity boundary
+// for simple runtime-native classes. Most natives are the exact symbol resolved
+// from the checker's global type table. Node's Blob and File module exports are
+// a second symbol for those same runtime constructors, so their declarations
+// qualify through the value-bearing shape shared by the supported Node type
+// definitions (#1568, #2239).
+func metadata_symbol_is_runtime_native_type(checker *nativechecker.Checker, symbol *nativeast.Symbol, name string) bool {
+  return metadata_symbol_is_global_type(checker, symbol, name) ||
+    metadata_symbol_is_node_buffer_native_export(symbol, name)
+}
+
+func metadata_symbol_is_node_buffer_native_export(symbol *nativeast.Symbol, name string) bool {
+  if symbol == nil || symbol.ValueDeclaration == nil || (name != "Blob" && name != "File") {
+    return false
+  }
+  declaration := symbol.ValueDeclaration
+  if declaration.Kind != nativeast.KindClassDeclaration && declaration.Kind != nativeast.KindVariableDeclaration {
+    return false
+  }
+  // @types/node 18/20 declare these constructor values as classes and 25
+  // declares merged interface/var pairs. The value declaration and exact core
+  // module together distinguish those runtime constructors from structural
+  // same-name interfaces without depending on node_modules placement, custom
+  // typeRoots, symlink targets, or virtualized package paths.
+  for node := declaration; node != nil; node = node.Parent {
+    if node.Kind == nativeast.KindModuleDeclaration && node.Name() != nil {
+      module := strings.Trim(node.Name().Text(), "\"'")
+      if module == "node:buffer" || module == "buffer" {
+        return true
+      }
+    }
+    if node.Kind == nativeast.KindSourceFile {
+      break
+    }
+  }
+  return false
+}
+
 func metadata_is_default_lib_file_name(fileName string) bool {
   slash := strings.ReplaceAll(fileName, "\\", "/")
   base := slash

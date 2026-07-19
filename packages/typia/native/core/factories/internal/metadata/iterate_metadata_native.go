@@ -26,8 +26,11 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
     // Match the built-in only when the checker resolves this exact symbol from
     // the global type table. A colliding package declaration then falls through
     // to its structural members regardless of whether it was authored in `.ts`
-    // or published through `.d.ts` (#2200, #2239).
-    if !metadata_symbol_is_global_type(props.Checker, symbol, name) {
+    // or published through `.d.ts` (#2200, #2239). Node's authoritative Blob
+    // and File module exports are distinct symbols for the same runtime globals,
+    // so admit only their value-bearing exact core-module declaration shape as
+    // the second identity path (#1568).
+    if !metadata_symbol_is_runtime_native_type(props.Checker, symbol, name) {
       return false
     }
     iterate_metadata_native_take(props.Metadata, name)
@@ -62,6 +65,11 @@ func iterate_metadata_native_take(metadata *schemametadata.MetadataSchema, name 
 func iterate_metadata_native_getNativeName(name string) string {
   if index := strings.Index(name, "<"); index != -1 {
     name = name[:index]
+  }
+  for _, module := range []string{"node:buffer.", "buffer."} {
+    if strings.HasPrefix(name, module) {
+      return strings.TrimPrefix(name, module)
+    }
   }
   if strings.HasPrefix(name, "\"") && strings.Contains(name, "\".") {
     if index := strings.Index(name[1:], "\"."); index != -1 {

@@ -485,7 +485,7 @@ func iterate_metadata_intersection_is_removable_object_constraint(
     return false
   }
   name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
-  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_runtime_native_type(checker, symbol, name) {
     return false
   }
   for _, generic := range iterate_metadata_native_generics {
@@ -523,7 +523,7 @@ type iterate_metadata_intersection_identity struct {
 
 // iterate_metadata_intersection_type_name_and_symbol keeps the normalized name
 // paired with the symbol that supplied it, including the apparent-type fallback.
-// Intersection classifiers can then apply the same global-symbol identity gate
+// Intersection classifiers can then apply the same runtime-native identity gate
 // as direct native metadata without re-resolving either half independently.
 func iterate_metadata_intersection_type_name_and_symbol(
   checker *nativechecker.Checker,
@@ -578,7 +578,7 @@ func iterate_metadata_intersection_identify(
       return iterate_metadata_intersection_identity{Kind: "tag"}
     }
   }
-  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_runtime_native_type(checker, symbol, name) {
     return iterate_metadata_intersection_identity{Kind: "native", Name: name}
   }
   for _, generic := range iterate_metadata_native_generics {
@@ -690,7 +690,7 @@ func iterate_metadata_intersection_is_plain_object_only(
   }
 
   name, symbol := iterate_metadata_intersection_type_name_and_symbol(checker, typ)
-  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_runtime_native_type(checker, symbol, name) {
     return false
   }
   for _, generic := range iterate_metadata_native_generics {
@@ -996,7 +996,7 @@ func iterate_metadata_intersection_category(
   if name == "Array" || name == "ReadonlyArray" {
     return "array"
   }
-  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_global_type(checker, symbol, name) {
+  if _, ok := iterate_metadata_native_simples[name]; ok && metadata_symbol_is_runtime_native_type(checker, symbol, name) {
     return "native:" + name
   }
   for _, generic := range iterate_metadata_native_generics {
