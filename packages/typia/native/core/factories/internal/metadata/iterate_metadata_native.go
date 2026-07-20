@@ -66,7 +66,21 @@ func iterate_metadata_native_getNativeName(name string) string {
   if index := strings.Index(name, "<"); index != -1 {
     name = name[:index]
   }
-  for _, module := range []string{"node:buffer.", "buffer."} {
+  // `global.` is the qualifier `metadata_symbol_name` produces for a symbol
+  // declared inside a `declare global` block, which is how @types/node declares
+  // the bare `Blob` and `File` globals. A project that includes the DOM library
+  // never showed it, because the DOM declares those names at file scope and the
+  // DOM declaration won the name; drop the DOM library — an ordinary Node
+  // service compiled with `"lib": ["ES2022"]` — and the only declaration left is
+  // the augmented one, so the name arrives as `global.Blob` and this lookup
+  // misses before any identity question is asked. Stripping the qualifier only
+  // restores the question; whether the declaration is a runtime-provided native
+  // or a same-named user global stays the identity gate's answer to give.
+  //
+  // An ambient module's qualifier is deliberately not stripped here: a lookalike
+  // published as `declare module "user-buffer-lookalike"` arrives as
+  // `user-buffer-lookalike.Blob` and must keep failing this lookup.
+  for _, module := range []string{"node:buffer.", "buffer.", "global."} {
     if strings.HasPrefix(name, module) {
       return strings.TrimPrefix(name, module)
     }
