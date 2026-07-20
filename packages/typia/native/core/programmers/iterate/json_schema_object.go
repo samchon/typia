@@ -55,10 +55,16 @@ func json_schema_create_object_schema(props struct {
   required := []string{}
 
   for _, property := range props.object.Type.Properties {
-    if len(property.Value.Functions) != 0 &&
-      property.Value.Nullable == false &&
-      property.Value.IsRequired() &&
-      property.Value.Size() == 0 {
+    // A member that is only a function has no JSON to describe, so the schema
+    // drops it exactly as the serializer does. The condition has to match the
+    // serializer's (`StringifyJoiner`) or the two disagree about the same type:
+    // `Size()` counts `Functions`, so a pure function member is size 1 and a
+    // `Size() == 0` test could never fire for the case it was written to catch,
+    // leaving the member described as a `$ref` to an empty component — a schema
+    // for a document `json.stringify` never produces. Optionality is not part of
+    // the question either; an optional function member has no JSON either
+    // (samchon/typia#2270).
+    if json_schema_object_function_only(property.Value) {
       continue
     }
     if json_schema_has_any_tag(property.JsDocTags, []string{"hidden", "ignore", "internal"}) {
@@ -194,4 +200,30 @@ func (superfluous *json_schema_superfluous) setPatternProperty(pattern string, p
 type json_schema_metadata_schema_pair struct {
   metadata *nativemetadata.MetadataSchema
   schema   JsonSchema
+}
+
+// json_schema_object_function_only reports whether a member has no JSON to
+// describe because it is only a function, so the schema drops it exactly as the
+// serializer does.
+//
+// The condition has to agree with the serializer's (`StringifyJoiner`) or the
+// two describe the same type differently. Two ways it disagreed: `Size()` counts
+// `Functions`, so a pure function member is size 1 and the previous
+// `Size() == 0` test could never fire for the case it was written to catch; and
+// a named alias of a function type carries `Aliases`, not `Functions`, so the
+// same type reached through `type Consumer = (v: number) => string` survived as
+// a `$ref` to an empty component while the interface spelling of it vanished —
+// two documents for one type, and neither `json.stringify` ever produces
+// (samchon/typia#2270).
+//
+// Optionality is deliberately not part of the question: an optional function
+// member has no JSON either.
+func json_schema_object_function_only(value *nativemetadata.MetadataSchema) bool {
+  if value == nil {
+    return false
+  }
+  resolved := nativemetadata.MetadataSchema_unalias(value)
+  return len(resolved.Functions) != 0 &&
+    resolved.Nullable == false &&
+    resolved.Size() == 1
 }
