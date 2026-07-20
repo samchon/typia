@@ -1,0 +1,256 @@
+{
+  "specification": "https://protobuf.dev/programming-guides/encoding/#varints",
+  "oracle": "google.golang.org/protobuf/encoding/protowire.ConsumeVarint",
+  "purpose": "Single source of truth for the Protobuf varint boundary. The Go test pins these verdicts against the reference Go parser; the TypeScript regressions read the same bytes through typia's runtime reader and generated decoders. Neither side may transcribe a byte string or a verdict of its own.",
+  "strictness": "The specification fixes the ten-byte maximum and says nothing about a tenth byte carrying payload above bit 63, and the runtimes disagree there: protowire rejects such a varint, while the Java runtime's CodedInputStream.readRawVarint64 accepts it and discards the excess bits. typia follows protowire, so it never accepts bytes that google.golang.org/protobuf would refuse. No encoder emits that form, so the stricter reading costs no interoperability.",
+  "consumers": [
+    "packages/typia/test/protobuf_varint_corpus_matches_protowire_test.go",
+    "tests/test-typia-schema/src/features/protobuf.decode/test_protobuf_reader_varint_bounds.ts",
+    "tests/test-typia-schema/src/features/protobuf.decode/test_protobuf_decode_varint_bounds.ts"
+  ],
+  "fields": {
+    "name": "Unique label, used as the Go subtest name and the TypeScript failure label.",
+    "bytes": "Lowercase hexadecimal varint bytes, standing alone at the start of a buffer.",
+    "consumed": "Bytes protowire.ConsumeVarint consumes: the varint width when it accepts, -1 when the buffer truncates it, -3 when it overflows the 64-bit wire domain.",
+    "value": "Decimal unsigned 64-bit value protowire decodes, as a string because it exceeds an IEEE-754 double. Null whenever the oracle rejects.",
+    "fault": "Null when the oracle accepts, otherwise the wire fault class both readers must report."
+  },
+  "faults": {
+    "truncated": "The buffer ends before the varint terminates.",
+    "overlong": "The tenth byte still carries the continuation bit, so the varint would occupy an eleventh.",
+    "overflow": "The tenth byte terminates but carries payload above bit 63, outside the 64-bit wire domain."
+  },
+  "entries": [
+    {
+      "name": "zero",
+      "bytes": "00",
+      "consumed": 1,
+      "value": "0",
+      "fault": null
+    },
+    {
+      "name": "single-byte maximum",
+      "bytes": "7f",
+      "consumed": 1,
+      "value": "127",
+      "fault": null
+    },
+    {
+      "name": "two-byte canonical three hundred",
+      "bytes": "ac02",
+      "consumed": 2,
+      "value": "300",
+      "fault": null
+    },
+    {
+      "name": "two-byte maximum",
+      "bytes": "ff7f",
+      "consumed": 2,
+      "value": "16383",
+      "fault": null
+    },
+    {
+      "name": "non-canonical two-byte zero",
+      "bytes": "8000",
+      "consumed": 2,
+      "value": "0",
+      "fault": null
+    },
+    {
+      "name": "three-byte maximum",
+      "bytes": "ffff7f",
+      "consumed": 3,
+      "value": "2097151",
+      "fault": null
+    },
+    {
+      "name": "four-byte maximum",
+      "bytes": "ffffff7f",
+      "consumed": 4,
+      "value": "268435455",
+      "fault": null
+    },
+    {
+      "name": "five-byte 32-bit maximum",
+      "bytes": "ffffffff0f",
+      "consumed": 5,
+      "value": "4294967295",
+      "fault": null
+    },
+    {
+      "name": "five-byte maximum",
+      "bytes": "ffffffff7f",
+      "consumed": 5,
+      "value": "34359738367",
+      "fault": null
+    },
+    {
+      "name": "six-byte maximum",
+      "bytes": "ffffffffff7f",
+      "consumed": 6,
+      "value": "4398046511103",
+      "fault": null
+    },
+    {
+      "name": "seven-byte maximum",
+      "bytes": "ffffffffffff7f",
+      "consumed": 7,
+      "value": "562949953421311",
+      "fault": null
+    },
+    {
+      "name": "eight-byte maximum",
+      "bytes": "ffffffffffffff7f",
+      "consumed": 8,
+      "value": "72057594037927935",
+      "fault": null
+    },
+    {
+      "name": "nine-byte maximum",
+      "bytes": "ffffffffffffffff7f",
+      "consumed": 9,
+      "value": "9223372036854775807",
+      "fault": null
+    },
+    {
+      "name": "non-canonical ten-byte zero",
+      "bytes": "80808080808080808000",
+      "consumed": 10,
+      "value": "0",
+      "fault": null
+    },
+    {
+      "name": "ten-byte bit sixty-three only",
+      "bytes": "80808080808080808001",
+      "consumed": 10,
+      "value": "9223372036854775808",
+      "fault": null
+    },
+    {
+      "name": "canonical 64-bit maximum",
+      "bytes": "ffffffffffffffffff01",
+      "consumed": 10,
+      "value": "18446744073709551615",
+      "fault": null
+    },
+    {
+      "name": "empty buffer",
+      "bytes": "",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 1 continuation byte",
+      "bytes": "80",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 2 continuation bytes",
+      "bytes": "8080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 3 continuation bytes",
+      "bytes": "808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 4 continuation bytes",
+      "bytes": "80808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 5 continuation bytes",
+      "bytes": "8080808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 6 continuation bytes",
+      "bytes": "808080808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 7 continuation bytes",
+      "bytes": "80808080808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 8 continuation bytes",
+      "bytes": "8080808080808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after 9 continuation bytes",
+      "bytes": "808080808080808080",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "truncated after nine payload-carrying bytes",
+      "bytes": "ffffffffffffffffff",
+      "consumed": -1,
+      "value": null,
+      "fault": "truncated"
+    },
+    {
+      "name": "ten continuation bytes",
+      "bytes": "80808080808080808080",
+      "consumed": -3,
+      "value": null,
+      "fault": "overlong"
+    },
+    {
+      "name": "continuing tenth byte carrying payload",
+      "bytes": "80808080808080808082",
+      "consumed": -3,
+      "value": null,
+      "fault": "overlong"
+    },
+    {
+      "name": "eleven-byte varint",
+      "bytes": "8080808080808080808001",
+      "consumed": -3,
+      "value": null,
+      "fault": "overlong"
+    },
+    {
+      "name": "excess tenth payload",
+      "bytes": "80808080808080808002",
+      "consumed": -3,
+      "value": null,
+      "fault": "overflow"
+    },
+    {
+      "name": "payload-carrying prefix with excess tenth payload",
+      "bytes": "ffffffffffffffffff02",
+      "consumed": -3,
+      "value": null,
+      "fault": "overflow"
+    },
+    {
+      "name": "tenth byte carrying every payload bit",
+      "bytes": "8080808080808080807f",
+      "consumed": -3,
+      "value": null,
+      "fault": "overflow"
+    }
+  ]
+}
