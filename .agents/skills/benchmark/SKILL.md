@@ -33,3 +33,14 @@ Benchmark READMEs and prose follow AGENTS.md `## Maintenance` and the documentat
 Every result table reported in chat or committed to the result archive must be preserved for the active pull request. When the user has authorized PR updates under the pull-request skill, maintain one sticky comment beginning with `<!-- typia-benchmark-results -->`; update it with the latest table, report paths, and known invalid or missing categories.
 
 If no pull request exists or no update is authorized, keep the result in the final report and mark the comment as pending. Post it only after the user creates or authorizes updating the pull request.
+
+## Campaign Cleanup
+
+When a benchmark campaign uses a disposable worktree or an isolated measurement root, finish cleanup before marking that assignment complete. Preserve the committed result archive and compact command evidence, but remove every disposable worktree and its assigned mutable roots: `GOCACHE`, `GOTMPDIR`, `TTSC_CACHE_DIR`, generated-program scratch tree, dependency install tree, and temporary consumer or report staging tree. Go temporary assets are never reusable campaign evidence.
+
+1. Record the measured commit, command, result paths and hashes, environment, and any retained published result archive.
+2. Confirm the worktree and mutable roots contain no unreported source or result artifact.
+3. Remove the mutable roots and, for an assigned disposable worktree, run `git worktree remove --force <path>` for its exact path.
+4. Verify every removed root and, when applicable, worktree path no longer exists, run `git worktree prune`, delete the associated disposable local topic branch when one was created, and confirm no worktree registration remains.
+
+If a measurement is abandoned or invalid, retain only the diagnostic record needed to explain it; remove its worktree and Go temporary assets by the same procedure.
