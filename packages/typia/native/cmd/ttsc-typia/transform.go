@@ -80,6 +80,8 @@ func runTransform(args []string) int {
     return 2
   }
   defer prog.Close()
+  registerTypiaDefaultLibraryClassifier(prog)
+  defer schemametadata.MetadataDefaultLibrary_release(prog.Checker)
 
   transformDiags := []typiaTransformDiagnostic{}
   transformOptions := pluginOptions.TransformOptions()
@@ -119,6 +121,27 @@ func runTransform(args []string) int {
       return transformSingleToJavaScript(prog, typiaTransform, target)
     }
     return transformFileToTypeScript(prog, typiaTransform, target), 0
+  })
+}
+
+// registerTypiaDefaultLibraryClassifier hands metadata analysis the program's
+// own default-library classification, which runtime-native identity is decided
+// from: a global is the JavaScript built-in only when a runtime authority
+// declares it (#2200). `prog.TSProgram.IsLibFile` is the same oracle the
+// dependency collector above uses, and for the same reason — a default library
+// is not recognizable from its file name under `bundled:///`, `noembed`, or
+// `libReplacement` (#2108).
+//
+// Every program-loading host registers it against the checker whose types the
+// analysis reads, and releases it when that program closes, so no closed
+// program's checker stays reachable from the registry.
+func registerTypiaDefaultLibraryClassifier(prog *driver.Program) {
+  if prog == nil || prog.TSProgram == nil {
+    return
+  }
+  program := prog.TSProgram
+  schemametadata.MetadataDefaultLibrary_register(prog.Checker, func(source *shimast.SourceFile) bool {
+    return source != nil && program.IsLibFile(source)
   })
 }
 

@@ -24,12 +24,14 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   name = iterate_metadata_native_getNativeName(name)
   if _, ok := iterate_metadata_native_simples[name]; ok {
     // Match the built-in only when the checker resolves this exact symbol from
-    // the global type table. A colliding package declaration then falls through
-    // to its structural members regardless of whether it was authored in `.ts`
-    // or published through `.d.ts` (#2200, #2239). Node's authoritative Blob
-    // and File module exports are distinct symbols for the same runtime globals,
-    // so admit only their value-bearing exact core-module declaration shape as
-    // the second identity path (#1568).
+    // the global type table *and* a runtime authority provides its constructor.
+    // A colliding package declaration then falls through to its structural
+    // members regardless of whether it was authored in `.ts` or published
+    // through `.d.ts` (#2239), and so does a purely user-authored global that
+    // merely wins the same global lookup (#2200). Node's authoritative Blob and
+    // File module exports are distinct symbols for the same runtime globals, so
+    // admit only their value-bearing exact core-module declaration shape as the
+    // second identity path (#1568).
     if !metadata_symbol_is_runtime_native_type(props.Checker, symbol, name) {
       return false
     }
@@ -38,9 +40,9 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   }
   for _, generic := range iterate_metadata_native_generics {
     if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
-      // Use the same global-symbol identity gate for WeakMap/WeakSet. The
+      // Use the same runtime-provenance identity gate for WeakMap/WeakSet. The
       // `+"<"` arity guard (#2181) and generic metadata remain unchanged.
-      if !metadata_symbol_is_global_type(props.Checker, symbol, generic.Name) {
+      if !metadata_symbol_is_runtime_global_type(props.Checker, symbol, generic.Name) {
         return false
       }
       iterate_metadata_native_take(props.Metadata, generic.Name)
