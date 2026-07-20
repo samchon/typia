@@ -11,7 +11,13 @@ import (
 )
 
 // TestProtobufVarintCorpusMatchesProtowire verifies the shared varint corpus
-// still describes the official Protobuf parser.
+// still describes the reference Go Protobuf parser.
+//
+// `protowire` is the oracle, not every runtime. The specification fixes the
+// ten-byte maximum and is silent on a tenth byte carrying payload above bit
+// 63, where `protowire` rejects and the Java runtime discards the excess bits.
+// The corpus records that in its `strictness` field; typia follows `protowire`
+// so it never accepts bytes `google.golang.org/protobuf` would refuse.
 //
 // This test pins the third-party oracle, and only that. Go cannot execute
 // typia's TypeScript reader — the transform suites that run emitted JavaScript

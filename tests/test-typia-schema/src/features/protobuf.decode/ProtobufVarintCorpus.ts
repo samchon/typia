@@ -8,12 +8,17 @@ import { TestGlobal } from "../../TestGlobal";
  *
  * `packages/typia/test/protobuf_varint_corpus.json` is the single source of
  * truth for the varint boundary: every byte string that exercises it, and the
- * verdict the official Protobuf parser returns for it. The Go test
+ * verdict the reference Go Protobuf parser returns for it. The Go test
  * `TestProtobufVarintCorpusMatchesProtowire` proves those verdicts still match
  * `google.golang.org/protobuf`, and the regressions here read the very same
  * rows through typia's runtime reader and generated decoders. Neither side
  * transcribes a byte string or a verdict of its own, so the two cannot drift
  * apart while both stay green.
+ *
+ * The corpus is `protowire`'s verdict rather than every runtime's, and its
+ * `strictness` field records where that matters: on a tenth byte carrying
+ * payload above bit 63 the specification is silent and the Java runtime is
+ * lenient, while `protowire` rejects. typia follows `protowire`.
  *
  * A fault class, not a message, is what the corpus records. The mapping from a
  * class to the exact text typia raises lives in {@link message} — one table,
@@ -123,6 +128,7 @@ export namespace ProtobufVarintCorpus {
     specification: string;
     oracle: string;
     purpose: string;
+    strictness: string;
     consumers: string[];
     fields: Record<string, string>;
     faults: Record<string, string>;
