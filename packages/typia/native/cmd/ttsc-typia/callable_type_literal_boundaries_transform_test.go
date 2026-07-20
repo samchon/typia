@@ -228,7 +228,7 @@ func callableTypeLiteralShapes() []callableTypeLiteralShape {
 // callableTypeLiteralPositions places the shape where a validator can meet it.
 // Top level and a nested property are the two the issue reproduces; the optional
 // property, union arm, generic instantiation, and semantically empty
-// intersection are the neighbouring routes that reach the same classification
+// intersection are the neighboring routes that reach the same classification
 // through a different iterator, and each of them once produced a different
 // answer for a function type than for an object type.
 func callableTypeLiteralPositions() []struct {
@@ -989,8 +989,8 @@ const call = (mode, name, input) => {
 const callable = (value) => String(value);
 class Constructable { constructor(value) { this.value = value; } }
 const methoded = Object.assign((value) => String(value), { method: () => undefined });
-const labelled = Object.assign((value) => String(value), { label: "present" });
-const misLabelled = Object.assign((value) => String(value), { label: 123 });
+const labeled = Object.assign((value) => String(value), { label: "present" });
+const mislabeled = Object.assign((value) => String(value), { label: 123 });
 const indexed = Object.assign((value) => String(value), { extra: 1 });
 // An object carrying every apparent member TypeScript gives a callable object
 // type — the global Function interface's apply/call/bind/toString/prototype/
@@ -1024,8 +1024,8 @@ const values = [
   ["callable", callable],
   ["constructable", Constructable],
   ["methoded", methoded],
-  ["labelled", labelled],
-  ["misLabelled", misLabelled],
+  ["labeled", labeled],
+  ["mislabeled", mislabeled],
   ["indexed", indexed],
   ["apparent", apparent],
   ["placeholder", {}],
@@ -1118,8 +1118,8 @@ const anchorRows = [
   ["functional", "directPureCall", "UnionArm", { kind: "data", value: 1 }, true],
   ["functional", "directPureCall", "UnionArm", { kind: "data", value: "bad" }, false],
 
-  ["default", "directRequiredMember", "Top", labelled, false],
-  ["functional", "directRequiredMember", "Top", labelled, false],
+  ["default", "directRequiredMember", "Top", labeled, false],
+  ["functional", "directRequiredMember", "Top", labeled, false],
   ["default", "directRequiredMember", "Top", {}, false],
   ["default", "directRequiredMember", "Top", apparent, true],
   ["functional", "directRequiredMember", "Top", apparent, true],
@@ -1149,9 +1149,9 @@ for (const [mode, prefix, position, value, expected] of anchorRows) {
 // member is still checked" from "the member is gone", and the interface spelling
 // is the oracle #2250 merged for them.
 for (const [label, value] of [
-  ["present-valid", labelled],
+  ["present-valid", labeled],
   ["omitted", callable],
-  ["present-invalid", misLabelled],
+  ["present-invalid", mislabeled],
   ["data-only", { label: "present" }],
 ]) {
   for (const mode of ["default", "functional"]) {
