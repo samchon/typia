@@ -6,6 +6,7 @@ import (
   "os/exec"
   "path/filepath"
   "runtime"
+  "sort"
   "strings"
   "testing"
 )
@@ -71,6 +72,7 @@ func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
     "json-stringify-array-stub.cjs":    ttscTypiaTestJsonStringifyArrayStub,
     "json-stringify-property-stub.cjs": ttscTypiaTestJsonStringifyPropertyStub,
     "json-stringify-element-stub.cjs":  ttscTypiaTestJsonStringifyElementStub,
+    "random-string-stub.cjs":           ttscTypiaTestRandomStringStub,
   }
   for name, content := range files {
     if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
@@ -91,6 +93,7 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyArray")`, `require("./json-stringify-array-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyProperty")`, `require("./json-stringify-property-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyElement")`, `require("./json-stringify-element-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_randomString")`, `require("./random-string-stub.cjs")`)
   for _, helper := range []string{"_notationAssign", "_notationCamel", "_notationKebab", "_notationKeyCollision", "_notationPascal", "_notationSnake"} {
     runtimeJS = strings.ReplaceAll(
       runtimeJS,
@@ -99,9 +102,29 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
     )
   }
   for _, needle := range []string{`require("typia")`, `require('typia')`, `from "typia"`, `from 'typia'`, `typia/lib/internal/`} {
-    if strings.Contains(runtimeJS, needle) {
-      t.Fatalf("runtime module still contains unresolved typia import %q", needle)
+    if !strings.Contains(runtimeJS, needle) {
+      continue
     }
+    // Name the modules that are actually unmapped. Reporting only the needle
+    // makes every new internal helper look like the same failure and sends the
+    // reader hunting through the emit for it.
+    if needle == `typia/lib/internal/` {
+      unresolved := map[string]bool{}
+      for _, part := range strings.Split(runtimeJS, needle)[1:] {
+        end := strings.IndexAny(part, "\"')")
+        if end < 0 {
+          end = len(part)
+        }
+        unresolved[part[:end]] = true
+      }
+      names := make([]string, 0, len(unresolved))
+      for name := range unresolved {
+        names = append(names, name)
+      }
+      sort.Strings(names)
+      t.Fatalf("runtime module has no stub for typia internal helpers: %s", strings.Join(names, ", "))
+    }
+    t.Fatalf("runtime module still contains unresolved typia import %q", needle)
   }
   return runtimeJS
 }
@@ -172,6 +195,20 @@ const ttscTypiaTestJsonStringifyPropertyStub = `module.exports._jsonStringifyPro
 
 const ttscTypiaTestJsonStringifyElementStub = `module.exports._jsonStringifyElement = (text) =>
   text === undefined ? "null" : text;
+`
+
+// Deterministic rather than random: these runtimes assert observable behaviour
+// of the emitted validators, so a generated string only has to satisfy the
+// declared bounds, and a stable one keeps a failure reproducible.
+const ttscTypiaTestRandomStringStub = `module.exports._randomString = (props) => {
+  const minimum =
+    props.minLength !== undefined
+      ? props.minLength
+      : Math.min(props.maxLength !== undefined ? props.maxLength : 5, 5);
+  const maximum = props.maxLength !== undefined ? props.maxLength : minimum + 5;
+  const length = Math.max(minimum, Math.min(minimum, maximum));
+  return "a".repeat(length);
+};
 `
 
 const ttscTypiaTestStringLengthStub = `module.exports._stringLength = (value) => {
