@@ -103,14 +103,15 @@ After a pull request merges:
 
 1. Verify GitHub records it as merged into the intended target. This works for merge, squash, and rebase strategies.
 2. Confirm the worktree has no unpushed or uncommitted work worth preserving.
-3. Run `git worktree remove --force <path>` so ignored build artifacts are deleted too.
-4. Verify the directory no longer exists.
-5. Run `git worktree prune` and delete the local topic branch.
-6. Confirm `git worktree list --porcelain` contains no record of the removed path.
+3. Preserve compact command evidence and result hashes in the campaign knowledge base, then remove every disposable mutable root assigned to that worktree: `GOCACHE`, `GOTMPDIR`, `TTSC_CACHE_DIR`, generated-output root, tarballs, and clean-consumer install root. Never retain a Go temporary cache after its assignment ends; logs and recorded hashes are evidence, not a reason to retain compiled cache contents.
+4. Run `git worktree remove --force <path>` so ignored build artifacts are deleted too.
+5. Verify the worktree directory and every assigned Go temporary root no longer exist.
+6. Run `git worktree prune` and delete the local topic branch.
+7. Confirm `git worktree list --porcelain` contains no record of the removed path.
 
-If an assignment ends without a merge, first record retained evidence and confirm the remaining contents are disposable. Then remove its worktree and local branch by the same standard.
+If an assignment ends without a merge, first record retained evidence and confirm the remaining contents are disposable. Then remove its worktree, assigned Go temporary roots, and local branch by the same standard.
 
-Apply this rule to every campaign-created worktree, including one used for Post-Campaign Cleanup. Do not mark an assignment complete while its worktree remains on disk.
+Apply this rule to every campaign-created worktree, including one used for Post-Campaign Cleanup and every verifier or mutation worktree. Do not mark an assignment complete while its worktree or assigned Go temporary assets remain on disk.
 
 ## While Campaign CI Is Cancelled
 
