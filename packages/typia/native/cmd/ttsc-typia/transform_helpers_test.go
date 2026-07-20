@@ -72,6 +72,7 @@ func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
     "json-stringify-array-stub.cjs":    ttscTypiaTestJsonStringifyArrayStub,
     "json-stringify-property-stub.cjs": ttscTypiaTestJsonStringifyPropertyStub,
     "json-stringify-element-stub.cjs":  ttscTypiaTestJsonStringifyElementStub,
+    "json-stringify-tail-stub.cjs":     ttscTypiaTestJsonStringifyTailStub,
     "random-string-stub.cjs":           ttscTypiaTestRandomStringStub,
   }
   for name, content := range files {
@@ -93,6 +94,7 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyArray")`, `require("./json-stringify-array-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyProperty")`, `require("./json-stringify-property-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyElement")`, `require("./json-stringify-element-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyTail")`, `require("./json-stringify-tail-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_randomString")`, `require("./random-string-stub.cjs")`)
   for _, helper := range []string{"_notationAssign", "_notationCamel", "_notationKebab", "_notationKeyCollision", "_notationPascal", "_notationSnake"} {
     runtimeJS = strings.ReplaceAll(
@@ -200,6 +202,10 @@ const ttscTypiaTestJsonStringifyElementStub = `module.exports._jsonStringifyElem
 // Deterministic rather than random: these runtimes assert observable behavior
 // of the emitted validators, so a generated string only has to satisfy the
 // declared bounds, and a stable one keeps a failure reproducible.
+const ttscTypiaTestJsonStringifyTailStub = `module.exports._jsonStringifyTail = (str) =>
+  str[str.length - 1] === "," ? str.substring(0, str.length - 1) : str;
+`
+
 const ttscTypiaTestRandomStringStub = `module.exports._randomString = (props) => {
   const minimum =
     props.minLength !== undefined
