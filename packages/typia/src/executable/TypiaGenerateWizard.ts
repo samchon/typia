@@ -875,8 +875,11 @@ export namespace TypiaGenerateWizard {
     });
 
     const currentStat: fs.Stats = await fs.promises.stat(props.from);
-    const directoryIdentity: string = fileIdentityKey(currentStat, currentReal);
-    if (props.visitedDirectories.has(directoryIdentity)) {
+    const directoryIdentities: readonly string[] = directoryIdentityKeys(
+      currentStat,
+      currentReal,
+    );
+    if (directoryIdentities.some((key) => props.visitedDirectories.has(key))) {
       const lexicalStat: fs.Stats = await fs.promises.lstat(props.from);
       if (lexicalStat.isSymbolicLink()) {
         throw new URIError(
@@ -885,7 +888,7 @@ export namespace TypiaGenerateWizard {
       }
       return;
     }
-    props.visitedDirectories.add(directoryIdentity);
+    for (const key of directoryIdentities) props.visitedDirectories.add(key);
 
     props.policy.observe(
       await FileSystemIdentity.inspectDirectory(props.from),
@@ -907,7 +910,9 @@ export namespace TypiaGenerateWizard {
     entries.sort((x, y) => {
       const linkOrder: number =
         Number(x.stat.isSymbolicLink()) - Number(y.stat.isSymbolicLink());
-      return linkOrder !== 0 ? linkOrder : x.name.localeCompare(y.name);
+      return linkOrder !== 0
+        ? linkOrder
+        : Buffer.compare(Buffer.from(x.name), Buffer.from(y.name));
     });
 
     for (const entry of entries) {
@@ -1090,6 +1095,16 @@ export namespace TypiaGenerateWizard {
     return stat.ino === 0
       ? `path:${path.normalize(realpath)}`
       : `inode:${stat.dev}:${stat.ino}`;
+  }
+
+  function directoryIdentityKeys(
+    stat: fs.Stats,
+    realpath: string,
+  ): readonly string[] {
+    const canonical: string = `path:${path.normalize(realpath)}`;
+    return stat.ino === 0
+      ? [canonical]
+      : [`inode:${stat.dev}:${stat.ino}`, canonical];
   }
 
   function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {
