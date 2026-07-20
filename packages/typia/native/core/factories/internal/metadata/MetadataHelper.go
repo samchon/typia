@@ -166,7 +166,7 @@ func metadata_get_function_node(checker *nativechecker.Checker, typ *nativecheck
   if metadata_is_global_function_interface(symbol, node) {
     return node
   }
-  if metadata_is_pure_function_interface(checker, typ, node) {
+  if metadata_is_pure_function_declaration(checker, typ, node) {
     return node
   }
   if nativeast.IsPropertyAssignment(node) {
@@ -302,19 +302,43 @@ func metadata_is_global_function_interface(symbol *nativeast.Symbol, node *nativ
   return metadata_symbol_from_default_lib(symbol)
 }
 
-// metadata_is_pure_function_interface reports whether an interface describes
-// only call and/or construct signatures. TypeScript augments every callable
-// object's apparent properties with the global Function members, so the raw
-// properties and index infos are the boundary: a hybrid interface keeps its
-// declared data shape, while a property-free callable or constructable
-// interface follows the same metadata path as its mutually assignable function
-// type alias (#2238).
-func metadata_is_pure_function_interface(
+// metadata_is_pure_function_declaration reports whether an object-type
+// declaration describes only call and/or construct signatures. TypeScript
+// augments every callable object's apparent properties with the global Function
+// members, so the raw properties and index infos are the boundary: a declaration
+// that carries members of its own keeps its declared data shape, while a
+// member-free callable or constructable one follows the same metadata path as
+// the function type alias it is mutually assignable with (#2238).
+//
+// An interface body and a type literal are the two spellings TypeScript has for
+// one object-type body, and `interface F { (v: number): string }`, `type F = { (v:
+// number): string }`, and the anonymous `{ (v: number): string }` written at a
+// call site are one type. The declaration's node kind is the only thing that
+// separates them, so answering them differently is exactly the
+// declaration-spelling dependency this predicate exists to remove. Both kinds
+// are admitted and nothing else is: a function type or constructor type is
+// already `IsFunctionLike` and never reaches here, and every other declaration
+// kind that can back a callable type carries a runtime value binding whose
+// declared shape is a different question.
+//
+// No member class is admitted, not even one the emitted validator ignores.
+// #2238's invariant is that mutually assignable spellings agree, and a
+// member-carrying callable has no plain function type to be assignable with:
+// `{ (): void; cancel(): void }` accepts no bare `() => void`, so routing it
+// through the function path would answer against no twin while erasing `cancel`
+// from the declaration. It would also split two spellings that are mutually
+// assignable with each other — `cancel(): void` and `cancel: () => void` are the
+// same type, and only the first carries SymbolFlagsMethod — so admitting methods
+// would make the method form a function while the property form stayed
+// structural. Hybrid callables are #2250's merged boundary and #2238's declared
+// negative boundary; both leave them structural.
+func metadata_is_pure_function_declaration(
   checker *nativechecker.Checker,
   typ *nativechecker.Type,
   node *nativeast.Node,
 ) bool {
-  if checker == nil || typ == nil || node == nil || node.Kind != nativeast.KindInterfaceDeclaration {
+  if checker == nil || typ == nil || node == nil ||
+    (node.Kind != nativeast.KindInterfaceDeclaration && node.Kind != nativeast.KindTypeLiteral) {
     return false
   }
   if len(nativechecker.Checker_getPropertiesOfType(checker, typ)) != 0 ||
