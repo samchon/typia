@@ -10,9 +10,9 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * A reserved wire type must not report an anonymous error that leaves the
  * caller unable to attribute the failure, and a varint must not be consumed
  * past the ten bytes a 64-bit value can legally occupy merely because the skip
- * path discards the bytes it reads. `varint32` and `varint64` are already
- * structurally bounded at ten, so a skip that is not makes the limit depend on
- * which method happens to consume the varint.
+ * path discards the bytes it reads. Value and skip paths must enforce the same
+ * tenth-byte payload boundary so the limit does not depend on which method
+ * happens to consume the varint.
  *
  * 1. Reject every wire type that carries no skip semantics, including the reserved
  *    6 and 7 and a bare END_GROUP, directly, from a non-zero offset, and nested
@@ -20,7 +20,7 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 2. Skip varints up to the ten-byte limit and reject the eleventh byte, while a
  *    varint the buffer truncates before that limit still reports overflow.
  * 3. Assert every fault carries the standard prefix and restores the reader, and
- *    that the legal wire types and `uint32` are left untouched.
+ *    that legal wire types and legal ten-byte values are left untouched.
  */
 export const test_protobuf_reader_unknown_field_faults = (): void => {
   //----
@@ -157,15 +157,22 @@ export const test_protobuf_reader_unknown_field_faults = (): void => {
     r.skipType(ProtobufWire.START_GROUP),
   );
 
-  // `varint32` keeps capping at ten bytes rather than throwing: the reader's
-  // value paths are unchanged, and only the skip path gained the limit it lacked
-  const capped: _ProtobufReader = new _ProtobufReader(
-    Uint8Array.from([...continuations(10), 0x01]),
+  const malformed: _ProtobufReader = new _ProtobufReader(
+    Uint8Array.from(continuations(10)),
   );
-  if (capped.uint32() !== 0 || capped.index() !== 10)
+  const malformedError: Error = rejection(
+    "ten continuation bytes through uint32",
+    () => malformed.uint32(),
+  );
+  if (malformedError.message !== OVERLONG)
     throw new Error(
-      `uint32 stopped at index ${capped.index()} instead of its ten-byte cap.`,
+      `ten continuation bytes through uint32 reported ${JSON.stringify(malformedError.message)}.`,
     );
+  const maximum: _ProtobufReader = new _ProtobufReader(
+    Uint8Array.from([...new Array(9).fill(0xff), 0x01]),
+  );
+  if (maximum.uint32() !== 0xffffffff || maximum.index() !== 10)
+    throw new Error("uint32 no longer accepts a legal ten-byte wire value.");
 };
 
 /** Bytes carrying only the continuation bit, so a varint never terminates. */

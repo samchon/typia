@@ -907,7 +907,9 @@ export namespace TypiaGenerateWizard {
     entries.sort((x, y) => {
       const linkOrder: number =
         Number(x.stat.isSymbolicLink()) - Number(y.stat.isSymbolicLink());
-      return linkOrder !== 0 ? linkOrder : x.name.localeCompare(y.name);
+      return linkOrder !== 0
+        ? linkOrder
+        : Buffer.compare(Buffer.from(x.name), Buffer.from(y.name));
     });
 
     for (const entry of entries) {
