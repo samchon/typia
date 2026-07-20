@@ -1,5 +1,3 @@
-/// <reference lib="dom" />
-
 /**
  * HTTP connection configuration for remote server communication.
  *
@@ -59,9 +57,43 @@ export interface IHttpConnection {
    *     fetch: fetch as any,
    *   };
    */
-  fetch?: typeof fetch;
+  fetch?: IHttpConnection.IFetch;
 }
 export namespace IHttpConnection {
+  /**
+   * The runtime's `fetch`, or a minimal stand-in where none is declared.
+   *
+   * This resolves to exactly `typeof globalThis.fetch` in any project that
+   * declares it — through the DOM library, `@types/node`, or a polyfill's own
+   * typings — so the member's type is unchanged wherever it was previously
+   * usable. Where nothing declares it, it degrades to a callable shape instead
+   * of failing to resolve.
+   *
+   * The indirection exists because this package's emitted declarations must be
+   * self-contained. Naming `fetch` directly required a `/// <reference
+   * lib="dom" />` that the declaration emit does not carry into `lib/**`, so
+   * consumers installed a declaration whose types could not resolve, and the
+   * repository's own transform fixtures silently loaded the DOM library while
+   * believing they had excluded it (samchon/typia#2267, samchon/typia#2268).
+   */
+  export type IFetch = typeof globalThis extends { fetch: infer T }
+    ? T
+    : (input: any, init?: any) => Promise<any>;
+
+  /**
+   * The runtime's `AbortSignal`, or a minimal stand-in where none is declared.
+   *
+   * Resolves to the real `AbortSignal` instance type wherever one is declared,
+   * so a value read from here stays assignable back to `RequestInit["signal"]`
+   * and a real signal stays assignable into it. See {@link IFetch} for why the
+   * indirection exists.
+   */
+  export type IAbortSignal = typeof globalThis extends {
+    AbortSignal: abstract new (...args: any) => infer T;
+  }
+    ? T
+    : { readonly aborted: boolean };
+
   /**
    * Fetch API request options.
    *
@@ -178,7 +210,7 @@ export namespace IHttpConnection {
      *   const options = { signal: controller.signal };
      *   // Later: controller.abort();
      */
-    signal?: AbortSignal | null;
+    signal?: IHttpConnection.IAbortSignal | null;
   }
 
   /**
