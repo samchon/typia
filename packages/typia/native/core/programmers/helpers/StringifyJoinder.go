@@ -22,9 +22,10 @@ type StringifyJoiner_ObjectProps struct {
 }
 
 type StringifyJoiner_ArrayProps struct {
-  Input *shimast.Expression
-  Arrow *shimast.Expression
-  Emit  *shimprinter.EmitContext
+  Context nativecontext.ITypiaContext
+  Input   *shimast.Expression
+  Arrow   *shimast.Expression
+  Emit    *shimprinter.EmitContext
 }
 
 type StringifyJoiner_TupleProps struct {
@@ -49,17 +50,22 @@ func (stringifyJoinerNamespace) Object(props StringifyJoiner_ObjectProps) *shima
       dynamic = append(dynamic, entry)
     }
   }
-  expressions := stringifyJoiner_regular_properties(regular, dynamic, props.Context.Emit)
+  expressions := stringifyJoiner_regular_properties(props.Context, regular, dynamic, props.Context.Emit)
   if len(dynamic) != 0 {
     keys := make([]string, 0, len(regular))
     for _, entry := range regular {
       keys = append(keys, *entry.Key.GetSoleLiteral())
     }
-    expressions = append(expressions, stringifyJoiner_dynamic_properties(dynamic, keys, props.Context.Emit))
+    expressions = append(expressions, stringifyJoiner_dynamic_properties(props.Context, dynamic, keys, props.Context.Emit))
   }
 
+  // The tail helper removes the separator left behind when the last written
+  // member drops out at runtime, so it may only be skipped when the last regular
+  // member cannot drop. Required is not the same as cannot-drop: a required
+  // `any` member is omitted whenever its value serializes to `undefined`, which
+  // without this produced a trailing comma before `}` (#2253).
   filtered := expressions
-  if !((len(regular) != 0 && regular[len(regular)-1].Meta.IsRequired() && len(dynamic) == 0) ||
+  if !((len(regular) != 0 && !stringifyJoiner_entry_omittable(regular[len(regular)-1]) && len(dynamic) == 0) ||
     (len(regular) == 0 && len(dynamic) != 0)) {
     filtered = []*shimast.Node{
       f.NewCallExpression(
@@ -79,27 +85,26 @@ func (stringifyJoinerNamespace) Object(props StringifyJoiner_ObjectProps) *shima
   return nativefactories.TemplateFactory.Generate(output, props.Context.Emit)
 }
 
+// Array serializes elements through the `_jsonStringifyArray` helper rather than
+// `input.map(...).join(",")`.
+//
+// `map` never visits a hole and leaves one behind, and `join` renders both a
+// hole and a mapped `undefined` as empty text, so the two cases ECMAScript's
+// SerializeJSONArray answers with `null` were emitted as nothing at all: a
+// sparse array produced the malformed text `[,1]`, and an element serializing to
+// `undefined` — a function, a symbol, or a `toJSON` returning nothing in an
+// `any` or `unknown` slot — silently collapsed its position. A hole exists at
+// runtime whatever the element type declares, so this is not confined to `any`
+// (#2253).
 func (stringifyJoinerNamespace) Array(props StringifyJoiner_ArrayProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, props.Emit)
   return nativefactories.TemplateFactory.Generate([]*shimast.Node{
     f.NewStringLiteral("[", shimast.TokenFlagsNone),
     f.NewCallExpression(
-      nativefactories.IdentifierFactory.Access(
-        nil,
-        f.NewCallExpression(
-          nativefactories.IdentifierFactory.Access(nil, props.Input, "map"),
-          nil,
-          nil,
-          f.NewNodeList([]*shimast.Node{props.Arrow}),
-          shimast.NodeFlagsNone,
-        ),
-        "join",
-      ),
+      stringifyJoiner_internal(props.Context, "jsonStringifyArray"),
       nil,
       nil,
-      f.NewNodeList([]*shimast.Node{
-        f.NewStringLiteral(",", shimast.TokenFlagsNone),
-      }),
+      f.NewNodeList([]*shimast.Node{props.Input, props.Arrow}),
       shimast.NodeFlagsNone,
     ),
     f.NewStringLiteral("]", shimast.TokenFlagsNone),
@@ -132,7 +137,7 @@ func (stringifyJoinerNamespace) Tuple(props StringifyJoiner_TupleProps) *shimast
   return nativefactories.TemplateFactory.Generate(expressions, props.Emit)
 }
 
-func stringifyJoiner_regular_properties(regular []IExpressionEntry, dynamic []IExpressionEntry, emit ...*shimprinter.EmitContext) []*shimast.Node {
+func stringifyJoiner_regular_properties(context nativecontext.ITypiaContext, regular []IExpressionEntry, dynamic []IExpressionEntry, emit ...*shimprinter.EmitContext) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
   output := []*shimast.Node{}
   sort.Slice(regular, func(i int, j int) bool {
@@ -149,19 +154,44 @@ func stringifyJoiner_regular_properties(regular []IExpressionEntry, dynamic []IE
     // re-escape the JSON bytes for the template-literal context: otherwise `\"`
     // decays to `"`, `\\` to `\`, a control-char escape's backslash is dropped, a
     // raw backtick closes the template, and `${` starts a live interpolation.
+    separator := ""
+    if index != len(regular)-1 || len(dynamic) != 0 {
+      separator = ","
+    }
     base := []*shimast.Node{
       f.NewStringLiteral(stringifyJoiner_escape_template(string(encoded))+":", shimast.TokenFlagsNone),
       entry.Expression,
     }
-    if index != len(regular)-1 || len(dynamic) != 0 {
-      base = append(base, f.NewStringLiteral(",", shimast.TokenFlagsNone))
+    if separator != "" {
+      base = append(base, f.NewStringLiteral(separator, shimast.TokenFlagsNone))
     }
     empty := (!entry.Meta.IsRequired() && !entry.Meta.Nullable && entry.Meta.Size() == 0) ||
       (len(entry.Meta.Functions) != 0 && !entry.Meta.Nullable && entry.Meta.Size() == 1)
     if empty {
       continue
     }
-    if !entry.Meta.IsRequired() || len(entry.Meta.Functions) != 0 || entry.Meta.Any {
+    if stringifyJoiner_result_undefinable(entry.Meta) {
+      // An `any` or `unknown` member is serialized by JSON.stringify, which
+      // answers `undefined` for a function, a symbol, and a `toJSON` returning
+      // nothing while the value itself is present. Only the serialized result
+      // distinguishes those from a value that has text, so the member is written
+      // through the helper that reads that result — once, because a `toJSON` may
+      // answer differently on a second call (#2253). The input tests below stay
+      // for members whose serializer must not run on a missing value at all.
+      output = append(output, f.NewCallExpression(
+        stringifyJoiner_internal(context, "jsonStringifyProperty"),
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{
+          f.NewStringLiteral(string(encoded)+":", shimast.TokenFlagsNone),
+          entry.Expression,
+          f.NewStringLiteral(separator, shimast.TokenFlagsNone),
+        }),
+        shimast.NodeFlagsNone,
+      ))
+      continue
+    }
+    if !entry.Meta.IsRequired() || len(entry.Meta.Functions) != 0 {
       output = append(output, nativefactories.ExpressionFactory.Conditional(
         stringifyJoiner_regular_condition(entry, emit...),
         f.NewStringLiteral("", shimast.TokenFlagsNone),
@@ -173,6 +203,39 @@ func stringifyJoiner_regular_properties(regular []IExpressionEntry, dynamic []IE
     }
   }
   return output
+}
+
+// stringifyJoiner_entry_omittable reports whether a member can be absent from
+// the emitted object at runtime, which is exactly the set of members that are
+// written through a conditional or through the property helper.
+func stringifyJoiner_entry_omittable(entry IExpressionEntry) bool {
+  return !entry.Meta.IsRequired() || len(entry.Meta.Functions) != 0 ||
+    stringifyJoiner_result_undefinable(entry.Meta)
+}
+
+// stringifyJoiner_result_undefinable reports whether a value that is present can
+// still serialize to nothing, which is the case an input test cannot see.
+//
+// `any` and `unknown` are serialized by JSON.stringify, which answers
+// `undefined` for a function, a symbol, and a `toJSON` returning nothing. A
+// declared `toJSON` is the same case without `any`: the member's text is its
+// return value, so a return type that admits `undefined` admits a member with no
+// text (#2253).
+// StringifyJoiner_ResultUndefinable exposes the same question to the element
+// positions the joiner does not build itself, so a tuple slot and an object
+// member classify a value identically.
+func StringifyJoiner_ResultUndefinable(meta *nativemetadata.MetadataSchema) bool {
+  return stringifyJoiner_result_undefinable(meta)
+}
+
+func stringifyJoiner_result_undefinable(meta *nativemetadata.MetadataSchema) bool {
+  if meta == nil {
+    return false
+  }
+  if meta.Any {
+    return true
+  }
+  return meta.Escaped != nil && meta.Escaped.Returns != nil && !meta.Escaped.Returns.IsRequired()
 }
 
 func stringifyJoiner_regular_condition(entry IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
@@ -199,7 +262,7 @@ func stringifyJoiner_regular_condition(entry IExpressionEntry, emit ...*shimprin
   return stringifyJoiner_reduce(conditions, shimast.KindBarBarToken, emit...)
 }
 
-func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []string, emit ...*shimprinter.EmitContext) *shimast.Node {
+func stringifyJoiner_dynamic_properties(context nativecontext.ITypiaContext, dynamic []IExpressionEntry, regular []string, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
   statements := []*shimast.Node{
     f.NewIfStatement(
@@ -298,7 +361,7 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
   }
   simple := len(dynamic) == 1 && dynamic[0].Key.Size() == 1 && len(dynamic[0].Key.Atomics) != 0 && dynamic[0].Key.Atomics[0].Type == "string"
   if simple {
-    statements = append(statements, stringifyJoiner_stringify(dynamic[0], emit...))
+    statements = append(statements, stringifyJoiner_stringify(context, dynamic[0], emit...))
     return output()
   }
   for _, entry := range dynamic {
@@ -313,7 +376,7 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
         f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}),
         shimast.NodeFlagsNone,
       ),
-      stringifyJoiner_stringify(entry, emit...),
+      stringifyJoiner_stringify(context, entry, emit...),
       nil,
     ))
   }
@@ -321,20 +384,39 @@ func stringifyJoiner_dynamic_properties(dynamic []IExpressionEntry, regular []st
   return output()
 }
 
-func stringifyJoiner_stringify(entry IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
+func stringifyJoiner_stringify(context nativecontext.ITypiaContext, entry IExpressionEntry, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
+  head := nativefactories.TemplateFactory.Generate([]*shimast.Node{
+    f.NewCallExpression(
+      f.NewIdentifier("JSON.stringify"),
+      nil,
+      f.NewNodeList(nil),
+      f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}),
+      shimast.NodeFlagsNone,
+    ),
+    f.NewStringLiteral(":", shimast.TokenFlagsNone),
+  }, emit...)
+  if entry.Meta.Any {
+    // An index-signature member takes the same contextual decision a static one
+    // takes: `any` and `unknown` values are serialized by JSON.stringify, which
+    // answers `undefined` for a present function, symbol, or empty `toJSON`.
+    // Returning the empty string hands the surrounding filter the same sentinel
+    // it already uses for a missing value, so the member and its separator drop
+    // together instead of rendering the literal `undefined` (#2253).
+    return f.NewReturnStatement(f.NewCallExpression(
+      stringifyJoiner_internal(context, "jsonStringifyProperty"),
+      nil,
+      nil,
+      f.NewNodeList([]*shimast.Node{
+        head,
+        entry.Expression,
+        f.NewStringLiteral("", shimast.TokenFlagsNone),
+      }),
+      shimast.NodeFlagsNone,
+    ))
+  }
   return f.NewReturnStatement(
-    nativefactories.TemplateFactory.Generate([]*shimast.Node{
-      f.NewCallExpression(
-        f.NewIdentifier("JSON.stringify"),
-        nil,
-        f.NewNodeList(nil),
-        f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}),
-        shimast.NodeFlagsNone,
-      ),
-      f.NewStringLiteral(":", shimast.TokenFlagsNone),
-      entry.Expression,
-    }, emit...),
+    nativefactories.TemplateFactory.Generate([]*shimast.Node{head, entry.Expression}, emit...),
   )
 }
 
