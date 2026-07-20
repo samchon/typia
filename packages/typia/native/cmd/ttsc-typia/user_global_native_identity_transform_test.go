@@ -116,7 +116,13 @@ func TestUserGlobalNativeIdentityTransform(t *testing.T) {
   if runtimeErr != nil {
     failures = append(failures, fmt.Sprintf("user global runtime matrix failed: %v\n%s", runtimeErr, output))
   }
-  if expected := "RAN 26 USER GLOBAL CASES"; !strings.Contains(output, expected) {
+  // Counted from the runner's own table, which is the ground truth: 11 rows for
+  // the is/assert/assertGuard/validate/equals/random matrix, 15 for the
+  // createIs forms across direct, alias, re-export, branded intersection, union,
+  // and nested positions, and 2 near-miss name controls. The count is asserted
+  // rather than the exit code so a row that silently stops running cannot pass
+  // as a row that ran and agreed.
+  if expected := "RAN 28 USER GLOBAL CASES"; !strings.Contains(output, expected) {
     failures = append(failures, fmt.Sprintf("user global runner did not report %q; got:\n%s", expected, output))
   }
   providedOutput, providedErr := userGlobalNativeIdentityProvidedRun(t, providedProject, providedJS)
@@ -321,7 +327,7 @@ export const jsonStringify = typia.json.createStringify<File>();
 export const jsonIsStringify = typia.json.createIsStringify<File>();
 export const protobufMessage = typia.protobuf.message<Blob>();
 export const protobufEncode = typia.protobuf.createIsEncode<Blob>();
-export const llmSchema = typia.llm.schema<File, "chatgpt">();
+export const llmSchema = typia.llm.schema<File>({});
 `
 
 const userGlobalNativeIdentityControlSource = `import typia from "typia";
