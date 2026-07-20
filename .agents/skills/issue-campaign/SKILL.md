@@ -20,6 +20,7 @@ Keep concise, current Markdown documents for:
 - repository provenance, architecture, and ownership boundaries;
 - experiments, reproductions, dogfooding, and related issue or pull-request history;
 - candidates, evidence, dependencies, and lead disposition;
+- the published-issue DAG, batch admission results, owned surfaces, grouping and split reasons, pre-batch and post-batch pull-request unit counts, and official GitHub `createdAt`-to-`mergedAt` claimed-batch timing;
 - implementation pull requests, local verification, and cancelled campaign-run records when those phases apply;
 - the exact commit, dependency lock, provisioning command, supported environment contract, and tracked-file census for each discovery round;
 - a mandatory coverage matrix that crosses public operations, owners, consumers, declaration spellings and provenance, composition, transform options, input contexts and boundaries, generated artifacts, packaging, CLI, and supported platforms;

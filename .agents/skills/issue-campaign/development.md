@@ -38,16 +38,36 @@ A live cancellation record does not block reading source, changing code, writing
 
 ## Plan And Claim A Pull Request Wave
 
-Build the issue dependency DAG before assigning implementation. Use it to form cohesive batches, not to create one worktree per issue.
+Recompute the published-issue dependency DAG after publication and before every implementation wave. A published issue is an evidence and acceptance unit, not a default pull-request boundary. Form the smallest number of maximal cohesive batches that the verified dependencies and implementation surfaces permit.
 
 Before claiming the first wave, freeze the campaign knowledge base's integration-command manifest. Record its content hash and exact commands, environment, tool versions, triggering change classes, expected artifacts, and clean-consumer setup. Any later correction to the manifest is a reviewed campaign-state change and invalidates integration evidence recorded under the previous hash.
 
-Batching follows these rules:
+Admit two or more dependency-ready issues to one batch only when every row below supports the same implementation unit:
 
-- Group dependency-ready issues when their change surfaces and verification are compatible.
-- Assign one batch to one agent, worktree, branch, and pull request.
-- Split jointly implementable issues only for a concrete dependency, ownership, atomicity, or validation reason. Record that reason in the campaign knowledge base.
-- Immediately before claiming a batch, check again for an overlapping implementation pull request or branch.
+| Decision axis | Group when | Split when |
+| --- | --- | --- |
+| Dependency readiness | Every issue is ready on the same DAG frontier and the batch can finish without waiting for another member or an external state transition. | An issue has a different prerequisite, external blocker, release gate, or target-branch timing. |
+| Owner and root cause | The issues repair the same verified root cause or closely coupled invariants under one architectural owner. | They belong to different repositories, target branches, product owners, independently releasable contracts, or unrelated root causes. |
+| Change and consequence surface | The owned files overlap, must move together, or form one traceable consequence surface. Disjoint files may still group when one invariant requires all of them. | The changes can land and roll back independently without leaving either issue incomplete. |
+| Shared verification | The issues share most setup, focused harnesses, generated consequences, broad validation lanes, and clean-consumer gates. | They require materially different environments, validation owners, or merge gates, or one failure would unnecessarily block the others. |
+| Atomicity and review | One diff can keep every issue's acceptance matrix explicit and can be reviewed, reverted, and diagnosed as one coherent change. | Combining them obscures root cause, issue-level acceptance, rollback, or failure attribution. |
+
+Topic, label, package proximity, reporter, and issue count do not justify a batch by themselves. File disjointness does not require a split when the same root cause and verification lane bind the files, and file overlap does not justify grouping issues with different readiness, ownership, or atomicity.
+
+Apply merge pressure only after admission. Among partitions for which every row still supports grouping, choose fewer pull-request units because each extra batch adds a claim, rebase, cancellation, integration, and merge gate. A split result on any row wins; reducing pull-request count never overrides correctness, rollback, failure attribution, or a dependency.
+
+Build each wave in this order:
+
+1. Take every published, admitted, unclaimed node on the current dependency frontier.
+2. Partition the nodes by architectural owner and verified root cause.
+3. Merge partitions that share a change surface and most verification work while preserving issue-level acceptance and rollback.
+4. Split only for a named dependency, ownership, root cause, atomicity, or validation reason from the table.
+5. Check open pull requests and remote branches for overlapping implementation immediately before claiming.
+6. Freeze the batch once its empty claim pull request exists. Do not close, move, split, or combine an active claim merely to improve throughput statistics; change it only when correctness, overlap, or invalidated evidence requires a lead decision.
+
+Run disjoint dependency-ready batches concurrently up to practical capacity and serialize batches that overlap or depend on one another. Assign one batch to one agent, worktree, branch, and pull request.
+
+Record the DAG edges, the issues in each batch, the owned change and consequence surfaces, the shared verification lane, every grouping reason, and every split reason in the campaign knowledge base. Report the pull-request unit count before batching and after batching before opening claims.
 
 The agent assigned a batch claims it as its first action, before installing dependencies or writing implementation code:
 
@@ -58,6 +78,8 @@ The agent assigned a batch claims it as its first action, before installing depe
 5. Start `pnpm install` asynchronously in the worktree, then begin the source, consequence-surface, and test-design work immediately.
 
 The draft pull request reserves the whole batch before code is written, preventing another contributor from starting overlapping work.
+
+Measure the official duration of a claimed batch from the empty claim pull request's GitHub `createdAt` timestamp through its `mergedAt` timestamp. Use the GitHub timestamps, not commit dates or a local stopwatch, and include installation, implementation, validation, review, dependency waiting, rebases, cancellation completion, and merge. Do not remove outliers from the official mean. Record the issue count beside the duration so batch density remains visible, but do not replace the official per-pull-request measure with a commit-to-merge or per-issue metric. A claim that never merges has no official duration; record it separately as cancelled or unresolved instead of substituting `closedAt`.
 
 ## Keep Working While Commands Run
 
