@@ -516,10 +516,10 @@ func callableTypeLiteralDiagnosticTwins(t *testing.T) []string {
       failures = append(failures, fmt.Sprintf(
         "%s: interface spelling reported %s; expected %s", shape.Name, observed["Interface"], supported))
     }
+    // A member-free shape's function-type spelling is a plain function type, so
+    // it is inside this change's contract and must agree with the declaration
+    // spellings.
     if shape.Alias != "" {
-      // A member-free shape's function-type spelling is a plain function type,
-      // not an intersection, so it is inside this change's contract and must
-      // agree with the declaration spellings.
       if observed["Alias"] != observed["Interface"] {
         failures = append(failures, fmt.Sprintf(
           "%s: alias spelling reported %s but the interface spelling reported %s",
@@ -527,18 +527,20 @@ func callableTypeLiteralDiagnosticTwins(t *testing.T) []string {
       }
       continue
     }
-    // A member-carrying shape's only function-type spelling is an intersection
-    // of runtime callability with a further obligation, which typia rejects as
-    // nonsensible. That rejection is typia's intersection contract, not this
-    // change's, so it is pinned as the declared hand-over point: the assertion
-    // is that the intersection spelling is rejected and the declaration
-    // spellings are not, without hard-coding a message count that would freeze
-    // an unrelated diagnostic's wording.
-    if strings.HasPrefix(observed["Alias"], "code=0 ") || strings.Contains(observed["Alias"], "nonsensible=0") {
-      failures = append(failures, fmt.Sprintf(
-        "%s: the intersection spelling reported %s; expected a nonzero exit with at least one nonsensible-intersection diagnostic",
-        shape.Name, observed["Alias"]))
-    }
+    // A member-carrying shape's only function-type spelling is an intersection,
+    // and typia's intersection contract answers those inconsistently: measured
+    // on this same matrix, six such shapes are accepted and agree with the
+    // declaration spellings while six structurally analogous ones are rejected
+    // as nonsensible — `cancel(): void` accepted against `cancel: () => void`
+    // rejected, an optional member accepted against the same member required.
+    // That split is samchon/typia#2276 and belongs to the intersection contract,
+    // not to declaration identity.
+    //
+    // Nothing is asserted about it here on purpose. An earlier version of this
+    // check expected every such intersection to be rejected, which was written
+    // from source reading and is wrong for half of them; restating it in the
+    // other direction would be equally wrong, and pinning the observed split
+    // would freeze the defect into this regression.
   }
   return failures
 }
