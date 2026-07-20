@@ -35,7 +35,7 @@ interface AliasHolder {
  *    equal.
  * 3. Require the member itself to be absent, so the parity cannot be satisfied
  *    by all three describing it wrongly in the same way.
- * 4. Require the neighbouring data member to survive, so omission is confined to
+ * 4. Require the neighboring data member to survive, so omission is confined to
  *    the function.
  */
 export const test_json_schema_function_member_spelling_parity = (): void => {
