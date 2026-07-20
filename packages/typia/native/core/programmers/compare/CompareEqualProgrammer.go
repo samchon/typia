@@ -32,9 +32,10 @@ type CompareEqualProgrammer_IProps struct {
 }
 
 type compareEqualProgrammerGenerator struct {
-  Config    CompareEqualProgrammer_IConfig
-  Recursive bool
-  Counter   int
+  Config     CompareEqualProgrammer_IConfig
+  Functional bool
+  Recursive  bool
+  Counter    int
   // Member-resolution checkers (`_ui<index>`) emitted on demand for the object
   // unions that need the is-match ladder, keyed by the object's collection index.
   Matchers     []string
@@ -77,6 +78,7 @@ func (compareEqualProgrammerNamespace) Write(props CompareEqualProgrammer_IProps
 
   generator := &compareEqualProgrammerGenerator{
     Config:       props.Config,
+    Functional:   nativehelpers.OptionPredicator.Functional(props.Context.Options),
     Recursive:    nativeinternal.FeatureProgrammer.CollectionRecursive(collection),
     MatcherIndex: map[int]bool{},
   }
@@ -439,16 +441,15 @@ func (g *compareEqualProgrammerGenerator) matchCall(object *schemametadata.Metad
 // may be absent), and every extra key a dynamic index signature declares must
 // hold a value of the signature's type. It mirrors the `_io` checkers `is`
 // emits, at the abstraction level the rest of this programmer works at — shape
-// and typeof, plus structural template patterns. It deliberately ignores
-// `typia.tags.*` constraints.
+// and typeof, plus structural template patterns. Function-valued properties
+// participate in this routing check whenever `is` makes them meaningful; they
+// remain excluded from object value comparison after a member is selected. It
+// deliberately ignores `typia.tags.*` constraints.
 func (g *compareEqualProgrammerGenerator) matchObject(object *schemametadata.MetadataObjectType, v string) string {
   checks := []string{}
   regularKeys := []string{}
   dynamic := []*schemametadata.MetadataProperty{}
   for _, property := range object.Properties {
-    if compareProgrammer_isMethod(property) {
-      continue // methods carry no comparable data, so they do not route either
-    }
     if sole := property.Key.GetSoleLiteral(); sole != nil {
       regularKeys = append(regularKeys, *sole)
       checks = append(checks, g.matchSlot(property.Value, g.property(v, *sole)))
@@ -506,7 +507,7 @@ func (g *compareEqualProgrammerGenerator) match(metadata *schemametadata.Metadat
   if len(metadata.Templates) != 0 {
     branches = append(branches, g.and(g.typeof(v, "string"), g.template(metadata.Templates, v)))
   }
-  if len(metadata.Functions) != 0 {
+  if len(metadata.Functions) != 0 && (g.Functional || metadata.Size() != 1) {
     branches = append(branches, g.typeof(v, "function"))
   }
   for _, native := range metadata.Natives {
