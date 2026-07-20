@@ -439,7 +439,7 @@ const CASES = [
   // throw where their contract is to answer. That is a callability rule, not the
   // contextual "decide omission from the serialized result" rule this regression
   // pins, and fixing it here would mix two root causes into one diff. It is
-  // tracked separately and keeps its own twin there.
+  // tracked in samchon/typia#2271 and keeps its own twin there.
   ["maybeJsonableProperty", "toJSON returning undefined", () => ({
     keep: 1,
     value: { toJSON: () => undefined },
