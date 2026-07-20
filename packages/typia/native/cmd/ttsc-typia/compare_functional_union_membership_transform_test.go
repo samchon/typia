@@ -24,7 +24,10 @@ import (
 //     equals, cover, clone, prune, and nested equality calls over both union
 //     orders.
 //  2. Execute distinct valid, invalid, same-reference, reversed-order, nested,
-//     and actual-function-member controls against the emitted JavaScript.
+//     and actual-function-member controls against the emitted JavaScript. The
+//     order-symmetric pair makes the function member the later declaration and
+//     changes only its later-member label, so member routing rather than
+//     function identity decides the result.
 //  3. Require compare.less to retain its existing multi-object-union diagnostic.
 func TestCompareFunctionalUnionMembershipTransform(t *testing.T) {
 	project := compareFunctionalUnionMembershipProject(t)
@@ -169,7 +172,7 @@ func compareFunctionalUnionMembershipRunRuntimeCases(t *testing.T, project strin
 	if err != nil {
 		t.Fatalf("functional union membership runtime cases failed: %v\n%s", err, output)
 	}
-	if strings.Contains(string(output), "RAN 24 CASES") == false {
+	if strings.Contains(string(output), "RAN 52 CASES") == false {
 		t.Fatalf("functional union membership runner skipped cases:\n%s", output)
 	}
 }
@@ -252,7 +255,16 @@ type FunctionUnion =
 type StringFirstUnion =
   | { handler: string; common: string; label: string }
   | { handler: (value: number) => string; common: string };
+type FunctionSecondUnion =
+  | { handler: string; common: string }
+  | { handler: (value: number) => string; common: string; label: string };
+type CoverPartial = { common: string; label: string };
 type Nested = { value: FunctionUnion };
+type FunctionSecondNested = { value: FunctionSecondUnion };
+interface Delegated {
+  value: string;
+  equals(input: Delegated): boolean;
+}
 
 export const directIs = (input: unknown): input is FunctionUnion =>
   typia.is<FunctionUnion>(input);
@@ -269,6 +281,24 @@ export const factoryClone = typia.plain.createClone<FunctionUnion>();
 export const prune = typia.plain.createPrune<FunctionUnion>();
 
 export const reversedEquals = typia.compare.createEquals<StringFirstUnion>();
+export const functionSecondDirectIs = (input: unknown): input is FunctionSecondUnion =>
+  typia.is<FunctionSecondUnion>(input);
+export const functionSecondFactoryIs = typia.createIs<FunctionSecondUnion>();
+export const functionSecondDirectEquals = (x: FunctionSecondUnion, y: FunctionSecondUnion): boolean =>
+  typia.compare.equals<FunctionSecondUnion>(x, y);
+export const functionSecondFactoryEquals = typia.compare.createEquals<FunctionSecondUnion>();
+export const functionSecondDirectCover = (x: FunctionSecondUnion, y: unknown): boolean =>
+  typia.compare.cover<FunctionSecondUnion>(x, y as typia.compare.Cover<FunctionSecondUnion>);
+export const functionSecondFactoryCover = typia.compare.createCover<FunctionSecondUnion>();
+export const coverPartialDirect = (x: CoverPartial, y: unknown): boolean =>
+  typia.compare.cover<CoverPartial>(x, y as typia.compare.Cover<CoverPartial>);
+export const coverPartialFactory = typia.compare.createCover<CoverPartial>();
+export const functionSecondNestedDirectEquals = (x: FunctionSecondNested, y: FunctionSecondNested): boolean =>
+  typia.compare.equals<FunctionSecondNested>(x, y);
+export const functionSecondNestedFactoryEquals = typia.compare.createEquals<FunctionSecondNested>();
+export const delegatedDirectEquals = (x: Delegated, y: Delegated): boolean =>
+  typia.compare.equals<Delegated>(x, y);
+export const delegatedFactoryEquals = typia.compare.createEquals<Delegated>();
 export const nestedEquals = typia.compare.createEquals<Nested>();
 export const nestedDirectEquals = (x: Nested, y: Nested): boolean =>
   typia.compare.equals<Nested>(x, y);
@@ -287,10 +317,11 @@ const compareFunctionalUnionMembershipRuntimeRunner = `const functional = requir
 const defaults = require("./default.cjs");
 
 let ran = 0;
+const failures = [];
 const expect = (name, actual, expected) => {
   ran += 1;
   if (actual !== expected)
-    throw new Error(name + ": expected " + expected + ", got " + actual);
+    failures.push(name + ": expected " + expected + ", got " + actual);
 };
 const expectJson = (name, actual, expected) =>
   expect(name, JSON.stringify(actual), JSON.stringify(expected));
@@ -333,11 +364,71 @@ const functionDifferentCommon = { handler: (value) => String(value), common: "di
 expect("functional actual functions keep method identity ignored", functional.factoryEquals(functionLeft, functionRight), true);
 expect("functional actual function member still compares data", functional.factoryEquals(functionLeft, functionDifferentCommon), false);
 
+// This is the order-symmetric public-behavior control. The function arm follows
+// the strict string arm and alone owns label. The string matcher must reject an
+// actual function before the later arm is selected, then equality compares label.
+const functionSecondHandler = (value) => String(value);
+const functionSecondLeft = {
+  common: "same",
+  handler: functionSecondHandler,
+  label: "left",
+};
+const functionSecondRight = {
+  common: "same",
+  handler: functionSecondHandler,
+  label: "right",
+};
+const functionSecondEqual = {
+  common: "same",
+  handler: (value) => "!" + value,
+  label: "left",
+};
+const functionSecondString = { handler: "text", common: "same" };
+const functionSecondExtra = { ...functionSecondLeft, extra: "ignored" };
+const functionSecondInvalidLeft = { common: "same", handler: 1, label: "same" };
+const functionSecondInvalidRight = { common: "same", handler: 1, label: "same" };
+const coverPartialFull = { common: "same", label: "left" };
+const coverPartialOmitted = { common: "same" };
+const coverPartialUndefined = { common: "same", label: undefined };
+expect("functional second function arm direct is accepts", functional.functionSecondDirectIs(functionSecondLeft), true);
+expect("functional second function arm factory is accepts", functional.functionSecondFactoryIs(functionSecondRight), true);
+expect("functional second function arm direct is rejects invalid handler", functional.functionSecondDirectIs(functionSecondInvalidLeft), false);
+expect("functional second function arm factory is rejects invalid handler", functional.functionSecondFactoryIs(functionSecondInvalidRight), false);
+expect("functional second function arm direct equals compares label", functional.functionSecondDirectEquals(functionSecondLeft, functionSecondRight), false);
+expect("functional second function arm factory equals compares label", functional.functionSecondFactoryEquals(functionSecondLeft, functionSecondRight), false);
+expect("functional second function arm direct equals rejects invalid equal-label handlers", functional.functionSecondDirectEquals(functionSecondInvalidLeft, functionSecondInvalidRight), false);
+expect("functional second function arm factory equals rejects invalid equal-label handlers", functional.functionSecondFactoryEquals(functionSecondInvalidLeft, functionSecondInvalidRight), false);
+expect("functional second function arm direct cover compares label", functional.functionSecondDirectCover(functionSecondLeft, functionSecondRight), false);
+expect("functional second function arm factory cover compares label", functional.functionSecondFactoryCover(functionSecondLeft, functionSecondRight), false);
+expect("functional second function arm nested direct equals compares label", functional.functionSecondNestedDirectEquals({ value: functionSecondLeft }, { value: functionSecondRight }), false);
+expect("functional second function arm nested factory equals compares label", functional.functionSecondNestedFactoryEquals({ value: functionSecondLeft }, { value: functionSecondRight }), false);
+expect("functional second function arm direct equals keeps equal label", functional.functionSecondDirectEquals(functionSecondLeft, functionSecondEqual), true);
+expect("functional second function arm factory equals keeps equal label", functional.functionSecondFactoryEquals(functionSecondLeft, functionSecondEqual), true);
+expect("functional function-first direct cross-member equals rejects", functional.directEquals(functionLeft, left), false);
+expect("functional function-first factory cross-member equals rejects", functional.factoryEquals(functionLeft, left), false);
+expect("functional function-second direct cross-member equals rejects", functional.functionSecondDirectEquals(functionSecondLeft, functionSecondString), false);
+expect("functional function-second factory cross-member equals rejects", functional.functionSecondFactoryEquals(functionSecondLeft, functionSecondString), false);
+expect("functional direct cover accepts omitted right property", functional.coverPartialDirect(coverPartialFull, coverPartialOmitted), true);
+expect("functional factory cover accepts omitted right property", functional.coverPartialFactory(coverPartialFull, coverPartialOmitted), true);
+expect("functional direct cover accepts undefined right property", functional.coverPartialDirect(coverPartialFull, coverPartialUndefined), true);
+expect("functional factory cover accepts undefined right property", functional.coverPartialFactory(coverPartialFull, coverPartialUndefined), true);
+expect("functional second function arm direct equals ignores extra key", functional.functionSecondDirectEquals(functionSecondLeft, functionSecondExtra), true);
+expect("functional second function arm factory equals ignores extra key", functional.functionSecondFactoryEquals(functionSecondLeft, functionSecondExtra), true);
+
+const delegatedLeft = { value: "left", equals: () => true };
+const delegatedRight = { value: "right", equals: () => true };
+expect("functional direct equals delegates declared method", functional.delegatedDirectEquals(delegatedLeft, delegatedRight), true);
+expect("functional factory equals delegates declared method", functional.delegatedFactoryEquals(delegatedLeft, delegatedRight), true);
+
 // Default mode deliberately treats a sole function-valued member as lenient.
 // The option boundary must stay visible rather than changing compare globally.
 expect("default direct is keeps function member lenient", defaults.directIs(invalidLeft), true);
 expect("default factory is keeps function member lenient", defaults.factoryIs(invalidRight), true);
 expect("default equals keeps function member ignored", defaults.factoryEquals(invalidLeft, invalidRight), true);
+expect("default second function arm direct equals retains later label", defaults.functionSecondDirectEquals(functionSecondLeft, functionSecondRight), false);
+expect("default second function arm factory equals retains later label", defaults.functionSecondFactoryEquals(functionSecondLeft, functionSecondRight), false);
 
+if (failures.length !== 0)
+  throw new Error(failures.join("\n"));
 console.log("RAN " + ran + " CASES");
 `
