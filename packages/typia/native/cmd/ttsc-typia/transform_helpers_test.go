@@ -197,7 +197,7 @@ const ttscTypiaTestJsonStringifyElementStub = `module.exports._jsonStringifyElem
   text === undefined ? "null" : text;
 `
 
-// Deterministic rather than random: these runtimes assert observable behaviour
+// Deterministic rather than random: these runtimes assert observable behavior
 // of the emitted validators, so a generated string only has to satisfy the
 // declared bounds, and a stable one keeps a failure reproducible.
 const ttscTypiaTestRandomStringStub = `module.exports._randomString = (props) => {
