@@ -68,6 +68,9 @@ func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
     "access-expression-stub.cjs": ttscTypiaTestAccessExpressionStub,
     "string-length-stub.cjs":     ttscTypiaTestStringLengthStub,
     "notation-stub.cjs":          ttscTypiaTestNotationStub,
+    "json-stringify-array-stub.cjs":    ttscTypiaTestJsonStringifyArrayStub,
+    "json-stringify-property-stub.cjs": ttscTypiaTestJsonStringifyPropertyStub,
+    "json-stringify-element-stub.cjs":  ttscTypiaTestJsonStringifyElementStub,
   }
   for name, content := range files {
     if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
@@ -85,6 +88,9 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_functionalTypeGuardErrorFactory")`, `require("./functional-error-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_stringLength")`, `require("./string-length-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyArray")`, `require("./json-stringify-array-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyProperty")`, `require("./json-stringify-property-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyElement")`, `require("./json-stringify-element-stub.cjs")`)
   for _, helper := range []string{"_notationAssign", "_notationCamel", "_notationKebab", "_notationKeyCollision", "_notationPascal", "_notationSnake"} {
     runtimeJS = strings.ReplaceAll(
       runtimeJS,
@@ -140,6 +146,32 @@ const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionab
 
 const ttscTypiaTestFunctionalErrorStub = `module.exports._functionalTypeGuardErrorFactory = (props) =>
   Object.assign(new Error(props.expected), props);
+`
+
+// The two JSON stringify stubs mirror packages/typia/src/internal exactly. They
+// are runtime doubles for the emit these tests execute; the shipped helpers
+// themselves are exercised by the TypeScript suites against the real package.
+const ttscTypiaTestJsonStringifyArrayStub = `module.exports._jsonStringifyArray = (elements, mapper) => {
+  const length = Math.min(
+    Math.max(Math.trunc(elements.length) || 0, 0),
+    Number.MAX_SAFE_INTEGER,
+  );
+  let output = "";
+  for (let i = 0; i < length; ++i) {
+    const elem = elements[i];
+    const text = elem === undefined ? undefined : mapper(elem, i);
+    output += (i === 0 ? "" : ",") + (text === undefined ? "null" : text);
+  }
+  return output;
+};
+`
+
+const ttscTypiaTestJsonStringifyPropertyStub = `module.exports._jsonStringifyProperty = (head, text, tail) =>
+  text === undefined ? "" : head + text + tail;
+`
+
+const ttscTypiaTestJsonStringifyElementStub = `module.exports._jsonStringifyElement = (text) =>
+  text === undefined ? "null" : text;
 `
 
 const ttscTypiaTestStringLengthStub = `module.exports._stringLength = (value) => {

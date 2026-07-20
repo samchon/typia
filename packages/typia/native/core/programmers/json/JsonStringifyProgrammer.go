@@ -697,9 +697,10 @@ func jsonStringifyProgrammer_decode_array_inline(props jsonStringifyProgrammer_d
       Arrow *shimast.Node
     }) *shimast.Node {
       return nativehelpers.StringifyJoiner.Array(nativehelpers.StringifyJoiner_ArrayProps{
-        Input: next.Input,
-        Arrow: next.Arrow,
-        Emit:  props.Context.Emit,
+        Context: props.Context,
+        Input:   next.Input,
+        Arrow:   next.Arrow,
+        Emit:    props.Context.Emit,
       })
     },
     Array:   props.Array,
@@ -772,7 +773,7 @@ func jsonStringifyProgrammer_decode_tuple_inline(props jsonStringifyProgrammer_d
     } else {
       explore.Postfix = fmt.Sprintf("\"[%d]\"", index)
     }
-    elements = append(elements, jsonStringifyProgrammer_decode(struct {
+    code := jsonStringifyProgrammer_decode(struct {
       Context   nativecontext.ITypiaContext
       Config    nativeinternal.FeatureProgrammer_IConfig
       Functor   *nativehelpers.FunctionProgrammer
@@ -788,7 +789,20 @@ func jsonStringifyProgrammer_decode_tuple_inline(props jsonStringifyProgrammer_d
       Metadata:  elem,
       Explore:   explore,
       Validated: props.Validated,
-    }))
+    })
+    if nativehelpers.StringifyJoiner_ResultUndefinable(elem) {
+      // A tuple slot holds its position, so an element that serializes to
+      // nothing is `null` rather than omitted; without this its text was the
+      // literal `undefined` (#2253).
+      code = f.NewCallExpression(
+        jsonStringifyProgrammer_internal(props.Context, "jsonStringifyElement"),
+        nil,
+        nil,
+        f.NewNodeList([]*shimast.Node{code}),
+        shimast.NodeFlagsNone,
+      )
+    }
+    elements = append(elements, code)
   }
   var rest *shimast.Node
   if len(props.Tuple.Elements) != 0 {
