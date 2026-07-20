@@ -326,16 +326,20 @@ func metadata_is_pure_function_interface(
 }
 
 // metadata_symbol_from_default_lib reports whether the symbol's first locatable
-// declaration lives in a TypeScript default library file. Default library files
-// are always named `lib.<target>.d.ts` regardless of the install directory, so
-// the base name alone is a stable signal.
+// declaration lives in a TypeScript default library file, judged by file name
+// alone because its callers answer without a checker. Default library files are
+// conventionally named `lib.<target>.d.ts`, which is enough for the JSDoc and
+// global-`Function` questions that use this: both are about what a library
+// declaration means, and neither grants a type an identity a lookalike could
+// claim. Runtime-native identity does grant one, so it asks the program instead
+// through schemametadata.MetadataDefaultLibrary_is.
 func metadata_symbol_from_default_lib(symbol *nativeast.Symbol) bool {
   for _, node := range metadata_node_declarations(symbol) {
     src := nativeast.GetSourceFileOfNode(node)
     if src == nil {
       continue
     }
-    return metadata_is_default_lib_file_name(src.FileName())
+    return schemametadata.MetadataDefaultLibrary_isFileNamed(src.FileName())
   }
   return false
 }
@@ -353,15 +357,108 @@ func metadata_symbol_is_global_type(checker *nativechecker.Checker, symbol *nati
   return checker.ResolveName(name, nil, nativeast.SymbolFlagsType, false) == symbol
 }
 
+// metadata_symbol_is_runtime_global_type reports whether a global name is the
+// runtime built-in rather than a user-authored global of the same name.
+//
+// Global-table resolution alone answers a weaker question than the one native
+// classification asks. `declare global { interface File { ... } }` in a project
+// with neither DOM nor Node declarations also wins that lookup, so a
+// resolution-only gate promotes a purely user-authored type to native identity:
+// its members are erased, `input instanceof File` replaces them, and the check
+// throws `ReferenceError` wherever no runtime provides that constructor (#2200).
+//
+// The added question is therefore provenance of the runtime constructor, not the
+// existence of a declaration: a global qualifies only when one of the two
+// authorities that actually describe a JavaScript runtime — a TypeScript default
+// library, or Node's `node:buffer` / `buffer` core module — puts it in scope.
+func metadata_symbol_is_runtime_global_type(checker *nativechecker.Checker, symbol *nativeast.Symbol, name string) bool {
+  return metadata_symbol_is_global_type(checker, symbol, name) &&
+    metadata_symbol_has_runtime_provider(checker, symbol)
+}
+
 // metadata_symbol_is_runtime_native_type applies the shared identity boundary
-// for simple runtime-native classes. Most natives are the exact symbol resolved
-// from the checker's global type table. Node's Blob and File module exports are
-// a second symbol for those same runtime constructors, so their declarations
-// qualify through the value-bearing shape shared by the supported Node type
-// definitions (#1568, #2239).
+// for simple runtime-native classes. Most natives are the runtime-provided
+// symbol resolved from the checker's global type table. Node's Blob and File
+// module exports are a second symbol for those same runtime constructors, so
+// their declarations qualify through the value-bearing shape shared by the
+// supported Node type definitions (#1568, #2200, #2239).
 func metadata_symbol_is_runtime_native_type(checker *nativechecker.Checker, symbol *nativeast.Symbol, name string) bool {
-  return metadata_symbol_is_global_type(checker, symbol, name) ||
+  return metadata_symbol_is_runtime_global_type(checker, symbol, name) ||
     metadata_symbol_is_node_buffer_native_export(symbol, name)
+}
+
+// metadata_symbol_has_runtime_provider reports whether a runtime authority is
+// what puts this symbol's constructor in scope.
+//
+// A provider does not have to declare the interface itself. @types/node bridges
+// its module classes to the bare globals with `interface Blob extends _Blob {}`
+// plus `var Blob: ... typeof buffer.Blob` in an ordinary package `.d.ts`, so the
+// interface declaration carries no runtime provenance at all while the value
+// binding resolves straight into the ambient `node:buffer` module. Reading the
+// constructor binding therefore recognizes that bridge — and every respelling of
+// it, including the 18/20 `typeof NodeBlob` class alias and the 25 `typeof
+// buffer.Blob` variable alias — without matching declaration text or package
+// paths, which node_modules placement, custom typeRoots, symlinks, and
+// virtualized package layouts all make unreliable.
+//
+// A user-authored global fails both halves: its interface lives in the user's
+// own file, and any `declare var` it pairs with resolves to the user's own type
+// literal rather than into a default library or the Node core module.
+func metadata_symbol_has_runtime_provider(checker *nativechecker.Checker, symbol *nativeast.Symbol) bool {
+  if symbol == nil {
+    return false
+  }
+  for _, declaration := range metadata_node_declarations(symbol) {
+    if metadata_declaration_is_runtime_provided(checker, declaration) {
+      return true
+    }
+  }
+  if checker == nil || symbol.Flags&nativeast.SymbolFlagsValue == 0 {
+    return false
+  }
+  constructor := checker.GetTypeOfSymbol(symbol)
+  if constructor == nil {
+    return false
+  }
+  for _, declaration := range metadata_node_declarations(constructor.Symbol()) {
+    if metadata_declaration_is_runtime_provided(checker, declaration) {
+      return true
+    }
+  }
+  return false
+}
+
+// metadata_declaration_is_runtime_provided reports whether a declaration belongs
+// to one of the two authorities that describe a runtime-native global: a
+// TypeScript default library file, or the `node:buffer` / `buffer` core module
+// that owns Node's Blob and File constructors. The default-library half comes
+// from the program (see schemametadata.MetadataDefaultLibrary) rather than from
+// the declaration's file name, which under `libReplacement` is an ordinary
+// `node_modules/@typescript/lib-*/index.d.ts` and which any dependency may
+// otherwise imitate.
+func metadata_declaration_is_runtime_provided(checker *nativechecker.Checker, declaration *nativeast.Node) bool {
+  if declaration == nil {
+    return false
+  }
+  if schemametadata.MetadataDefaultLibrary_is(checker, nativeast.GetSourceFileOfNode(declaration)) {
+    return true
+  }
+  return metadata_node_in_node_buffer_module(declaration)
+}
+
+func metadata_node_in_node_buffer_module(node *nativeast.Node) bool {
+  for current := node; current != nil; current = current.Parent {
+    if current.Kind == nativeast.KindModuleDeclaration && current.Name() != nil {
+      module := strings.Trim(current.Name().Text(), "\"'")
+      if module == "node:buffer" || module == "buffer" {
+        return true
+      }
+    }
+    if current.Kind == nativeast.KindSourceFile {
+      return false
+    }
+  }
+  return false
 }
 
 func metadata_symbol_is_node_buffer_native_export(symbol *nativeast.Symbol, name string) bool {
@@ -377,27 +474,7 @@ func metadata_symbol_is_node_buffer_native_export(symbol *nativeast.Symbol, name
   // module together distinguish those runtime constructors from structural
   // same-name interfaces without depending on node_modules placement, custom
   // typeRoots, symlink targets, or virtualized package paths.
-  for node := declaration; node != nil; node = node.Parent {
-    if node.Kind == nativeast.KindModuleDeclaration && node.Name() != nil {
-      module := strings.Trim(node.Name().Text(), "\"'")
-      if module == "node:buffer" || module == "buffer" {
-        return true
-      }
-    }
-    if node.Kind == nativeast.KindSourceFile {
-      break
-    }
-  }
-  return false
-}
-
-func metadata_is_default_lib_file_name(fileName string) bool {
-  slash := strings.ReplaceAll(fileName, "\\", "/")
-  base := slash
-  if idx := strings.LastIndex(slash, "/"); idx >= 0 {
-    base = slash[idx+1:]
-  }
-  return strings.HasPrefix(base, "lib.") && strings.HasSuffix(base, ".d.ts")
+  return metadata_node_in_node_buffer_module(declaration)
 }
 
 func metadata_is_internal(symbol *nativeast.Symbol) bool {
