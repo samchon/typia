@@ -14,6 +14,7 @@ import (
   "github.com/samchon/ttsc/packages/ttsc/driver"
   typiaadapter "github.com/samchon/typia/packages/typia/native/adapter"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
@@ -107,6 +108,8 @@ func runBuild(args []string) int {
     }
   }
   defer prog.Close()
+  registerTypiaDefaultLibraryClassifier(prog)
+  defer schemametadata.MetadataDefaultLibrary_release(prog.Checker)
 
   transformDiags := []typiaTransformDiagnostic{}
   transformOptions := pluginOptions.TransformOptions()
