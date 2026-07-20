@@ -16,12 +16,13 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  * `packages/typia/test/protobuf_varint_corpus.json`, which the Go test
  * `TestProtobufVarintCorpusMatchesProtowire` holds against
  * `google.golang.org/protobuf`. Nothing here is transcribed, so a decoder that
- * disagreed with the official parser could not also agree with this file.
+ * disagreed with the reference Go parser could not also agree with this file.
  *
  * 1. Cross all eight direct and factory wrappers with every malformed corpus
  *    row placed as a 32-bit, 64-bit, boolean, packed, map, and nested value.
- * 2. Reject the same rows as top-level and group tags and as bytes, string,
- *    packed, map, nested, unknown-field, and group-contained length prefixes.
+ * 2. Reject the same rows as top-level and group tags, as bytes, string,
+ *    packed, map, nested, unknown-field, and group-contained length prefixes,
+ *    and as the value of an unknown varint field the decoder only skips.
  * 3. Preserve every accepted row's decoded value, trailing fields, and encoder
  *    round trips.
  */
@@ -103,6 +104,14 @@ export const test_protobuf_decode_varint_bounds = (): void => {
     assertAll(
       label("unknown field length"),
       Uint8Array.from([0x6a, ...bytes, ...baseline]),
+      expected,
+    );
+    // the skip path discards the bytes it reads, so it is the one consumer
+    // that could accept a varint no value reader would; #2139 pinned only its
+    // over-long half, and the tenth-byte payload half arrives with this fix
+    assertAll(
+      label("unknown varint field"),
+      Uint8Array.from([0x68, ...bytes, ...baseline]),
       expected,
     );
     assertAll(

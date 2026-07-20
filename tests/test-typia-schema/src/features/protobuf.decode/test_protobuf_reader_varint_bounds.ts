@@ -4,13 +4,19 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
 import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
 
 /**
- * Verifies every runtime Protobuf varint reader matches the official parser
- * over the shared corpus.
+ * Verifies every runtime Protobuf varint reader matches the reference Go
+ * parser over the shared corpus.
  *
  * A ten-byte varint has room for only one payload bit in its final byte. The
  * scalar readers, length readers, and unknown-field skipper must reject both a
  * continuing tenth byte and a terminating tenth byte with any higher payload
  * bit, instead of returning a truncated value or accepting a zero length.
+ *
+ * Rejecting is only half of it. The corpus also carries the canonical maximum
+ * that terminates at each width from one byte through ten, so every early
+ * return in `varint32` and `varint64` keeps a positive control. The nine-byte
+ * row matters most: it is the legal encoding of `9223372036854775807`, the
+ * very value the issue's malformed ten-byte witness used to fabricate.
  *
  * Every byte string and every verdict below comes from
  * `packages/typia/test/protobuf_varint_corpus.json`, which the Go test

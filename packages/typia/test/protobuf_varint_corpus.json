@@ -1,7 +1,8 @@
 {
   "specification": "https://protobuf.dev/programming-guides/encoding/#varints",
   "oracle": "google.golang.org/protobuf/encoding/protowire.ConsumeVarint",
-  "purpose": "Single source of truth for the Protobuf varint boundary. The Go test pins these verdicts against the official parser; the TypeScript regressions read the same bytes through typia's runtime reader and generated decoders. Neither side may transcribe a byte string or a verdict of its own.",
+  "purpose": "Single source of truth for the Protobuf varint boundary. The Go test pins these verdicts against the reference Go parser; the TypeScript regressions read the same bytes through typia's runtime reader and generated decoders. Neither side may transcribe a byte string or a verdict of its own.",
+  "strictness": "The specification fixes the ten-byte maximum and says nothing about a tenth byte carrying payload above bit 63, and the runtimes disagree there: protowire rejects such a varint, while the Java runtime's CodedInputStream.readRawVarint64 accepts it and discards the excess bits. typia follows protowire, so it never accepts bytes that google.golang.org/protobuf would refuse. No encoder emits that form, so the stricter reading costs no interoperability.",
   "consumers": [
     "packages/typia/test/protobuf_varint_corpus_matches_protowire_test.go",
     "tests/test-typia-schema/src/features/protobuf.decode/test_protobuf_reader_varint_bounds.ts",
@@ -49,10 +50,59 @@
       "fault": null
     },
     {
+      "name": "three-byte maximum",
+      "bytes": "ffff7f",
+      "consumed": 3,
+      "value": "2097151",
+      "fault": null
+    },
+    {
+      "name": "four-byte maximum",
+      "bytes": "ffffff7f",
+      "consumed": 4,
+      "value": "268435455",
+      "fault": null
+    },
+    {
       "name": "five-byte 32-bit maximum",
       "bytes": "ffffffff0f",
       "consumed": 5,
       "value": "4294967295",
+      "fault": null
+    },
+    {
+      "name": "five-byte maximum",
+      "bytes": "ffffffff7f",
+      "consumed": 5,
+      "value": "34359738367",
+      "fault": null
+    },
+    {
+      "name": "six-byte maximum",
+      "bytes": "ffffffffff7f",
+      "consumed": 6,
+      "value": "4398046511103",
+      "fault": null
+    },
+    {
+      "name": "seven-byte maximum",
+      "bytes": "ffffffffffff7f",
+      "consumed": 7,
+      "value": "562949953421311",
+      "fault": null
+    },
+    {
+      "name": "eight-byte maximum",
+      "bytes": "ffffffffffffff7f",
+      "consumed": 8,
+      "value": "72057594037927935",
+      "fault": null
+    },
+    {
+      "name": "nine-byte maximum",
+      "bytes": "ffffffffffffffff7f",
+      "consumed": 9,
+      "value": "9223372036854775807",
       "fault": null
     },
     {
