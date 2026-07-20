@@ -26,6 +26,7 @@ These four are never acceptable; choosing any one means the approach is already 
 
 ## Work Rules
 
+- Choose the principled course. Time, difficulty, and the breadth of consequences require more careful analysis and validation; they never justify a shortcut, leaving a verified consequence unaddressed, or a weaker acceptance standard.
 - Match existing conventions. Before adding a file, function, or test, open a nearby peer and mirror its naming, location, and code style; don't create parallel structures.
 - Respect package boundaries. The shared native transform lives under `packages/typia/native`; don't fork a second transform into an adapter package or reintroduce a TypeScript-side transformer.
 - Keep package detection installation-safe. Resolve the target package root, as `packages/typia/src/transform.ts` does with `require.resolve("typia/package.json")`; workspace path substrings and hard-coded fixture names fail for npm consumers.

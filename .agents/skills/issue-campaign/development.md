@@ -4,8 +4,9 @@ Read this document in full when the user authorizes implementation pull requests
 
 ## Flow
 
-- [Cancel Campaign CI After Every Push](#cancel-campaign-ci-after-every-push)
+- [Cancel Campaign CI](#cancel-campaign-ci)
 - [Plan And Claim A Pull Request Wave](#plan-and-claim-a-pull-request-wave)
+- [Keep Working While Commands Run](#keep-working-while-commands-run)
 - [Implement And Revalidate A Batch](#implement-and-revalidate-a-batch)
 - [Remove Every Finished Worktree](#remove-every-finished-worktree)
 - [While Campaign CI Is Cancelled](#while-campaign-ci-is-cancelled)
@@ -16,22 +17,24 @@ Four rules govern the entire implementation phase:
 
 - Local and package verification, solo Self-Review, independent verification, lead readback, and every applicable integration gate are mandatory implementation gates.
 - Do not run `pnpm format` during discovery, issue publication, or implementation. Post-Campaign Cleanup owns the repository-wide formatter result.
-- Never disable repository Actions or any workflow for a campaign. After every campaign push and pull-request creation, immediately cancel only the runs for that campaign commit and verify cancellation before continuing, except when the user designated that exact integration SHA before its push.
+- Never disable repository Actions or any workflow for a campaign. After every campaign push and pull-request creation, immediately start an exact-SHA cancellation record for only the runs caused by that campaign commit, except when the user designated that exact integration SHA before its push. Keep the record current and complete it before merge, but never make local development wait for it.
 - Campaign branches and pull requests freeze package versions, release tags, and publication state throughout campaign implementation. They never choose a release number or publish a package. A maintainer release may begin only after campaign completion, or after the user explicitly suspends the campaign and lifts the freeze; it remains a separate task and does not relax this rule for campaign changes.
 
-## Cancel Campaign CI After Every Push
+## Cancel Campaign CI
 
 Repository-wide Actions and workflow settings must remain unchanged. Before the first push, record `gh api repos/{owner}/{repo}/actions/permissions` and `gh workflow list --all --limit 1000 --json id,name,path,state` in `.wiki/<campaign>/ci-state.md` so the lead can prove the campaign did not alter them.
 
-Every push gets its own cancellation gate:
+Every push gets its own cancellation record. Start it immediately in a background supervisor rather than leaving an implementation agent to poll it:
 
 1. Record the campaign branch and pushed commit SHA.
 2. List runs for that exact SHA with `gh run list --commit <sha> --limit 100 --json databaseId,headBranch,headSha,status,conclusion,url`.
 3. Cancel every `queued`, `in_progress`, `waiting`, `pending`, or `requested` run for that SHA with `gh run cancel <run-id>`. Never cancel by broad repository, workflow, or contributor filters. For an exact integration SHA the user designated before its push, do not cancel; record every run and poll it to a terminal result.
 4. Poll again because push, pull-request, chained, and ruleset runs can appear after the first query. Continue until two consecutive polls find no new run and every observed run is terminal; every ordinary campaign run observed as active must end `cancelled`, while a run already terminal when first observed or a designated integration run is recorded with its actual conclusion.
-5. Record the run IDs and final states in `.wiki/<campaign>/ci-state.md`. Stop further pushes or pull-request mutations if enumeration, cancellation, or readback fails.
+5. Record the run IDs and final states in `.wiki/<campaign>/ci-state.md`. If enumeration, cancellation, or readback fails, surface the failure and suspend later remote mutations and merge until it is repaired.
 
-Opening or updating a pull request can enqueue additional runs for the already-pushed SHA. Run the same gate immediately after pull-request creation and after any operation that retriggers checks. The exact-SHA boundary is mandatory: never cancel unrelated contributors' runs.
+Opening or updating a pull request can enqueue additional runs for the already-pushed SHA. Start the same background record immediately after pull-request creation and after any operation that retriggers checks. The exact-SHA boundary is mandatory: never cancel unrelated contributors' runs.
+
+A live cancellation record does not block reading source, changing code, writing tests, starting local commands, committing, or Self-Review. It is a remote-progression and merge gate, not an excuse to idle. The initial claim push and the immediately following claim pull request are one reservation transaction, so opening that pull request does not wait for the first poll. Before merge, read every campaign SHA record back and require the final terminal state described above.
 
 ## Plan And Claim A Pull Request Wave
 
@@ -46,15 +49,31 @@ Batching follows these rules:
 - Split jointly implementable issues only for a concrete dependency, ownership, atomicity, or validation reason. Record that reason in the campaign knowledge base.
 - Immediately before claiming a batch, check again for an overlapping implementation pull request or branch.
 
-The agent assigned a batch claims it as its first action, before writing any code:
+The agent assigned a batch claims it as its first action, before installing dependencies or writing implementation code:
 
 1. Create one isolated worktree and topic branch.
 2. Create one implementation-free claim commit with `git commit --allow-empty`.
-3. Push the branch and pass the exact-SHA cancellation gate.
-4. Open a draft pull request that overviews the batch scope and links every batched issue, then pass the gate again for runs triggered by pull-request creation.
-5. Mark verification as pending, and record the batch, worktree, branch, issues, pull request, and cancelled run IDs in the campaign knowledge base.
+3. Push the branch, start its exact-SHA cancellation record, and immediately open a draft pull request that overviews the batch scope and links every batched issue. This is an empty reservation pull request, not a request to wait for setup or validation.
+4. Start the pull-request-triggered cancellation record, mark verification as pending, and record the batch, worktree, branch, issues, pull request, and cancellation records in the campaign knowledge base.
+5. Start `pnpm install` asynchronously in the worktree, then begin the source, consequence-surface, and test-design work immediately.
 
 The draft pull request reserves the whole batch before code is written, preventing another contributor from starting overlapping work.
+
+## Keep Working While Commands Run
+
+Start every long command asynchronously and continue with work that does not depend on its result. `pnpm install`, package builds, compiler downloads, and test suites are all background work. Watching a CLI process, repeatedly polling it without a decision to make, or reserving an agent solely to wait is not campaign work.
+
+Maintain a compact command record containing the command, worktree, source snapshot, start time, dependent decision, and final result. Check a running command at a genuine decision boundary, when it exits, or before merge. Do not use sleep loops or foreground waits merely to discover that a command is still running.
+
+The usual overlap follows the state of the batch. While installation runs, read the batched issue and nearby implementation, map the consequence surface, and write the implementation and regression test. Once a stable source-and-test snapshot is committed and pushed, launch the narrow package-scoped tests and begin Self-Review at once. A test process may run during review because it does not change the snapshot. When several independent checks are needed, start them together rather than serially discovering that each needs the same environment.
+
+Some boundaries remain strict because overlap would destroy the evidence:
+
+- **A Self-Review round must not race a source change.** Freeze and commit the snapshot before opening the round, then inspect its complete diff while tests run. If review or a test result requires a change, commit the correction and restart from a fresh complete round over the new snapshot.
+- **A merge must not precede its evidence.** Every required local and independent verification result, integration gate, and cancellation or designated-integration record must be final before merge.
+- **A failed cancellation record stops remote progression, not local thought.** Repair it before the next remote mutation or merge, while the agent continues the local work that is still safe and useful.
+
+Report any command still running, its dependency, and its last observed state when handing work off. Waiting is only justified when the next decision genuinely depends on the completed result and no safe, independent work remains.
 
 ## Implement And Revalidate A Batch
 
@@ -68,9 +87,9 @@ An implementation agent may find that an issue is false or too broad. The lead a
 - For a confirmed-invalid issue, record the evidence and close the issue.
 - If no issue remains in the batch, close the claim pull request instead of leaving an orphan reservation.
 
-Commit and push every coherent implementation increment to the claimed branch. Immediately pass the exact-SHA cancellation gate after each push; do not hold a completed implementation locally until handoff or continue working while that gate is unresolved.
+Commit and push every coherent implementation increment to the claimed branch as soon as its source and test program are complete. Do not hold a completed snapshot locally while waiting for the tests it already launched. Start the exact-SHA cancellation record immediately after the push, consume the test results when they become available, and make any correction in a new commit with the same discipline.
 
-Before merge, complete solo Self-Review, opening each round by commenting its findings and remediation plan on the pull request before acting on them so the thread records why every follow-up change happened. Then require an independent verifier who did not implement the batch to use fresh base and head worktrees, inspect the complete tree and diff including file modes, links, ignored generated output, worktree status, and packed contents, reproduce fail-before, inspect pass-after emitted or packed behavior, execute every applicable consequence-matrix cell, validate every non-applicable disposition, confirm the negative twins and boundaries, and prove the regression test is sensitive by reverting or mutating only the product fix while retaining the test in a disposable worktree; the expected assertion must fail while adjacent controls still pass. The implementing agent may merge only after implementation, Self-Review, independent verification, package-scoped verification, and the full integration-sensitive gate when the change triggers one. Under an ordinary campaign it waits for explicit user authorization; under a standing autonomous mandate it merges as soon as those gates pass, without a per-pull-request request.
+Before merge, complete solo Self-Review, opening each round by commenting its findings and remediation plan on the pull request before acting on them so the thread records why every follow-up change happened. A pending narrow test never delays the start of that review, but its final result is required before merge. Then require an independent verifier who did not implement the batch to use fresh base and head worktrees, inspect the complete tree and diff including file modes, links, ignored generated output, worktree status, and packed contents, reproduce fail-before, inspect pass-after emitted or packed behavior, execute every applicable consequence-matrix cell, validate every non-applicable disposition, confirm the negative twins and boundaries, and prove the regression test is sensitive by reverting or mutating only the product fix while retaining the test in a disposable worktree; the expected assertion must fail while adjacent controls still pass. The implementing agent may merge only after implementation, Self-Review, independent verification, package-scoped verification, and the full integration-sensitive gate when the change triggers one. Under an ordinary campaign it waits for explicit user authorization; under a standing autonomous mandate it merges as soon as those gates pass, without a per-pull-request request.
 
 Treat native emitters, shared metadata, common runtime helpers, package manifests or declarations, CLI or generator code, and test or oracle infrastructure as integration-sensitive. Immediately before its integration gate, record the exact `origin/master` and pull-request head SHAs plus the integration-command manifest hash, construct their prospective merge result in a disposable worktree, and run the complete frozen canonical command set for root build, test, static analysis, generated artifacts, and clean packed consumers; the lead may add gates but may not omit one based on a narrower consequence claim. An unavailable or failed mandatory gate blocks merge. Re-read `origin/master` before merge and restart the gate if it changed. After GitHub merges, verify the exact merge SHA with the same command set and manifest hash before any later campaign pull request merges. Do not turn master red or stack another batch on a package-only-tested integration state. If campaign CI is deliberately cancelled, record the equivalent local integration gates; when the user authorizes one designated integration SHA before its push, allow only that exact commit's runs to finish.
 
