@@ -9,6 +9,8 @@ description: Defines exhaustive solo and team review workflows for typia changes
 
 Every review mode uses the same unit of work: one reviewer performs one complete, from-scratch review of the entire declared surface. A team adds independent complete reviews; it never divides one review among agents.
 
+Choose the principled conclusion. Review duration, difficulty, and consequence surface are reasons to inspect more deeply and verify more carefully, never reasons to overlook a sound improvement, accept an unsupported claim, or lower the completion standard.
+
 A complete round must satisfy all six rules:
 
 - **Whole surface:** read every changed file and hunk. For issue discovery, audit the entire campaign scope. Never partition by file, package, concern, platform, agent, or round, and never substitute another reviewer's coverage.

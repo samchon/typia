@@ -7,6 +7,8 @@ description: Defines repository-wide issue discovery, lead-vetted issue publicat
 
 An issue campaign is a repeatable sequence of exhaustive discovery, issue publication, implementation pull requests, and final repository cleanup. The user's requested phase boundary controls how far to proceed; do not infer permission to publish issues, push branches, open pull requests, or merge from an audit-only request.
 
+Choose the principled course throughout the campaign. Its scale, duration, and consequence surface require stronger evidence, deeper consequence analysis, and complete verification; they never justify accepting an unverified candidate, a shortcut, or a weaker implementation or review standard.
+
 Read the project, development, and review skills before starting, and require every discovery-agent brief to do the same. Use the review skill's Issue Discovery Rounds; issue discovery is independent review, not discussion.
 
 ## Campaign Knowledge Base
@@ -77,6 +79,6 @@ Before publication, require a critic who did not draft the issue to reproduce th
 
 ## Develop And Repeat The Campaign
 
-Read [development.md](development.md) in full when the user authorizes implementation pull requests or ends a campaign that entered implementation. It owns per-push campaign CI cancellation, DAG-based batching, claim pull requests, implementation waves, worktree cleanup, renewed discovery, the no-format rule, and Post-Campaign Cleanup. Do not continue after a push until its cancellation gate passes.
+Read [development.md](development.md) in full when the user authorizes implementation pull requests or ends a campaign that entered implementation. It owns per-push campaign CI cancellation, DAG-based batching, claim pull requests, non-idling implementation and review, worktree cleanup, renewed discovery, the no-format rule, and Post-Campaign Cleanup. Start cancellation immediately after every implementation-wave remote mutation, but a pending local command or cancellation poll must never make an implementation agent idle; every cancellation record must be complete before merge.
 
 An audit or issue-publication-only campaign does not load this campaign's [implementation procedure](development.md) or mutate repository Actions.
