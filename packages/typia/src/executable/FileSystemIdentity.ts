@@ -147,30 +147,6 @@ export namespace FileSystemIdentity {
     );
   }
 
-  function alternateCase(name: string): string | undefined {
-    let changed: boolean = false;
-    let output: string = "";
-    for (const character of name) {
-      if (character >= "a" && character <= "z") {
-        output += character.toUpperCase();
-        changed = true;
-      } else if (character >= "A" && character <= "Z") {
-        output += character.toLowerCase();
-        changed = true;
-      } else output += character;
-    }
-    return changed ? output : undefined;
-  }
-
-  function isAlreadyExistsError(error: unknown): boolean {
-    return (
-      typeof error === "object" &&
-      error !== null &&
-      "code" in error &&
-      error.code === "EEXIST"
-    );
-  }
-
   /**
    * Builds the key that decides whether two paths are the same filesystem
    * object.
@@ -202,6 +178,30 @@ export namespace FileSystemIdentity {
     return stat.ino === BigInt(0)
       ? `path:${path.normalize(realpath)}`
       : `inode:${stat.dev}:${stat.ino}`;
+  }
+
+  function alternateCase(name: string): string | undefined {
+    let changed: boolean = false;
+    let output: string = "";
+    for (const character of name) {
+      if (character >= "a" && character <= "z") {
+        output += character.toUpperCase();
+        changed = true;
+      } else if (character >= "A" && character <= "Z") {
+        output += character.toLowerCase();
+        changed = true;
+      } else output += character;
+    }
+    return changed ? output : undefined;
+  }
+
+  function isAlreadyExistsError(error: unknown): boolean {
+    return (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "EEXIST"
+    );
   }
 
   function isMissingFileError(error: unknown): boolean {
