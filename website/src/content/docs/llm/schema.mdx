@@ -154,7 +154,7 @@ typia.llm.schema<[number, string]>({});
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-src/examples/llm.schema.bigint-and-tuple.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
+src/examples/llm.schema.bigint-and-tuple.ts:3:1 - error TS(typia.llm.schema): typia transform error: unsupported type detected
 
 - bigint
   - LLM schema does not support bigint type.
@@ -162,9 +162,10 @@ src/examples/llm.schema.bigint-and-tuple.ts:3:1 - error TS(typia.llm.schema): un
 3 typia.llm.schema<bigint>({});
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-src/examples/llm.schema.bigint-and-tuple.ts:4:1 - error TS(typia.llm.schema): failed to convert JSON schema to LLM schema.
+src/examples/llm.schema.bigint-and-tuple.ts:4:1 - error TS(typia.llm.schema): typia transform error: unsupported type detected
 
-  - $input.schema: LLM does not allow tuple type.
+- numberstring
+  - LLM schema does not support tuple type.
 
 4 typia.llm.schema<[number, string]>({});
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -172,38 +173,64 @@ src/examples/llm.schema.bigint-and-tuple.ts:4:1 - error TS(typia.llm.schema): fa
   </Tabs.Tab>
 </Tabs>
 
-### No dynamic object keys
+### Dynamic object keys
 
-`Record<string, T>` is not allowed. Convert it to an array of `{ key, value }` pairs:
+`Record<string, T>` compiles, and the emitted definition carries the value type as `additionalProperties`:
+
+<Tabs items={["TypeScript Source", "Emitted Schema"]}>
+  <Tabs.Tab>
+```typescript filename="src/examples/llm.schema.additionalProperties.ts" showLineNumbers
+import typia, { ILlmSchema } from "typia";
+
+const $defs: Record<string, ILlmSchema> = {};
+const schema = typia.llm.schema<Record<string, number>>($defs);
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```json
+{
+  "schema": { "$ref": "#/$defs/Recordstringnumber" },
+  "$defs": {
+    "Recordstringnumber": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": { "type": "number" }
+    }
+  }
+}
+```
+  </Tabs.Tab>
+</Tabs>
+
+How far that travels depends on the provider, since a model that ignores `additionalProperties` sees an object with no properties at all. When you want the keys to reach the model, convert the record to an array of `{ key, value }` pairs:
 
 ```typescript
-// not allowed
-typia.llm.schema<Record<string, number>>({});
-
-// recommended
 typia.llm.schema<Array<{ key: string; value: number }>>({});
 ```
 
+Under `strict: true` the record is rejected instead, because the OpenAI structured-output subset the strict schema targets has no `additionalProperties` form to carry it:
+
 <Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
-```typescript filename="src/examples/llm.schema.additionalProperties.ts" showLineNumbers
+```typescript filename="src/examples/llm.schema.additionalProperties.strict.ts" showLineNumbers
 import typia from "typia";
 
-typia.llm.schema<Record<string, number>>({});
+typia.llm.schema<Record<string, number>, { strict: true }>({});
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-src/examples/llm.schema.additionalProperties.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
+src/examples/llm.schema.additionalProperties.strict.ts:3:1 - error TS(typia.llm.schema): typia transform error: unsupported type detected
 
 - Recordstringnumber
-  - LLM schema does not support dynamic property in object.
+  - Strict mode does not allow dynamic property in object.
 
 - Recordstringnumber: Recordstringnumber
-  - LLM schema does not support dynamic property in object.
+  - Strict mode does not allow dynamic property in object.
 
-3 typia.llm.schema<Record<string, number>>({});
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 typia.llm.schema<Record<string, number>, { strict: true }>({});
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
   </Tabs.Tab>
 </Tabs>

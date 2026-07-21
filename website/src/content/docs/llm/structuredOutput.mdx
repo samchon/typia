@@ -219,41 +219,33 @@ Same as [`parameters`](/docs/llm/parameters) and [`schema`](/docs/llm/schema):
 - No dynamic keys (`Record<string, V>`)
 - `T` may not be nullable or optional
 
+A primitive `T` is rejected by TypeScript itself (`TS2344`) before the transform runs, because the signature constrains it to `Record<string, any>`.
+
 <Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
 ```typescript filename="src/examples/llm.structuredOutput.violation.ts" showLineNumbers
 import typia from "typia";
 
-typia.llm.structuredOutput<string>();
 typia.llm.structuredOutput<Record<string, boolean>>();
 typia.llm.structuredOutput<Array<number>>();
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal"
-src/examples/llm.structuredOutput.violation.ts:3:1 - error TS(typia.llm.structuredOutput): unsupported type detected
-
-- string
-  - LLM parameters must be an object type.
-
-3 typia.llm.structuredOutput<string>();
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-src/examples/llm.structuredOutput.violation.ts:4:1 - error TS(typia.llm.structuredOutput): unsupported type detected
+src/examples/llm.structuredOutput.violation.ts:3:1 - error TS(typia.llm.structuredOutput): typia transform error: unsupported type detected
 
 - Recordstringboolean
-  - LLM parameters must be an object type.
   - LLM parameters must not have dynamic keys.
 
-4 typia.llm.structuredOutput<Record<string, boolean>>();
+3 typia.llm.structuredOutput<Record<string, boolean>>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-src/examples/llm.structuredOutput.violation.ts:5:1 - error TS(typia.llm.structuredOutput): unsupported type detected
+src/examples/llm.structuredOutput.violation.ts:4:1 - error TS(typia.llm.structuredOutput): typia transform error: unsupported type detected
 
 - Arraynumber
   - LLM parameters must be an object type.
 
-5 typia.llm.structuredOutput<Array<number>>();
+4 typia.llm.structuredOutput<Array<number>>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
   </Tabs.Tab>

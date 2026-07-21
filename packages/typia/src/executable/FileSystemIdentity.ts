@@ -152,17 +152,17 @@ export namespace FileSystemIdentity {
    * object.
    *
    * The identity is read from `fs.BigIntStats` rather than `fs.Stats`, because
-   * `fs.Stats.ino` is a JavaScript number. An NTFS file ID is
-   * `(sequenceNumber << 48) | mftRecordIndex` and routinely exceeds
-   * `Number.MAX_SAFE_INTEGER` — in a 4000-directory probe, 1879 of them did —
-   * where the spacing between representable doubles is 8 or more. Two entries
-   * sharing a sequence number with MFT record indices within that spacing round
-   * to one double. The traversal callers would then treat a distinct directory
-   * or file as already visited and skip it with no diagnostic, and the overwrite
-   * guard would refuse a legitimate output (samchon/typia#2269).
+   * `fs.Stats.ino` is a JavaScript number. An NTFS file ID is `(sequenceNumber
+   * << 48) | mftRecordIndex` and routinely exceeds `Number.MAX_SAFE_INTEGER` —
+   * in a 4000-directory probe, 1879 of them did — where the spacing between
+   * representable doubles is 8 or more. Two entries sharing a sequence number
+   * with MFT record indices within that spacing round to one double. The
+   * traversal callers would then treat a distinct directory or file as already
+   * visited and skip it with no diagnostic, and the overwrite guard would
+   * refuse a legitimate output (samchon/typia#2269).
    *
-   * A filesystem that reports no inode at all keeps the canonical path fallback,
-   * which is the only identity available there.
+   * A filesystem that reports no inode at all keeps the canonical path
+   * fallback, which is the only identity available there.
    *
    * @param stat Stats read with `{ bigint: true }`.
    * @param realpath Canonical path of the same object.
