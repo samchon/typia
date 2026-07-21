@@ -5,10 +5,11 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const cache = fs.mkdtempSync(path.join(os.tmpdir(), "typia-generate-errors-"));
+// This workspace declares ttsc, so its own node_modules/.bin owns the
+// launcher. Reaching up to the repository root instead would depend on the
+// root manifest happening to declare ttsc for everyone.
 const ttsx = path.resolve(
   root,
-  "..",
-  "..",
   "node_modules",
   ".bin",
   process.platform === "win32" ? "ttsx.CMD" : "ttsx",

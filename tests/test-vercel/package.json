@@ -15,7 +15,8 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "catalog:utils"
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^2.0.35",

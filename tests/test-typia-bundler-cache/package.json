@@ -25,6 +25,7 @@
     "@ttsc/unplugin": "catalog:typescript",
     "@types/node": "catalog:utils",
     "esbuild-loader": "^4.5.0",
+    "ttsc": "catalog:typescript",
     "webpack": "^5.107.2"
   },
   "dependencies": {

@@ -23,7 +23,8 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "rimraf": "catalog:utils"
+    "rimraf": "catalog:utils",
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "tstl": "catalog:utils",

@@ -13,7 +13,8 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "catalog:utils"
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",

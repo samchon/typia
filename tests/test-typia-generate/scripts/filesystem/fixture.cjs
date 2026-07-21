@@ -6,8 +6,10 @@ const path = require("node:path");
 
 const workspace = path.resolve(__dirname, "..", "..");
 const repository = path.resolve(workspace, "..", "..");
+// Resolve from the workspace that declares ttsc, not from the repository
+// root, which carries only what the root manifest itself declares.
 const ttscRoot = path.dirname(
-  require.resolve("ttsc/package.json", { paths: [repository] }),
+  require.resolve("ttsc/package.json", { paths: [workspace] }),
 );
 const executable = path.join(ttscRoot, "lib", "launcher", "ttsx.js");
 const cli = path.join(

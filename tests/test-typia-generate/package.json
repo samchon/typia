@@ -34,7 +34,8 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "typia": "workspace:^"
