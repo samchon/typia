@@ -16,16 +16,16 @@ catalogs:
     # typia's native transform consults ttsc's reference-graph SDK (ttsc >=
     # 0.19.2), and @ttsc/unplugin reads the resulting `graph` envelope, so both
     # move to 0.19.2 together (@ttsc/unplugin 0.19.2 peers on ttsc 0.19.2).
-    ttsc: ^0.19.2
-    '@ttsc/unplugin': ^0.19.2
+    ttsc: ^0.19.3
+    '@ttsc/unplugin': ^0.19.3
     # @ttsc/wasm / @ttsc/playground drive only the website's in-browser
     # playground, which links ttsc's wasm host Go API — unrelated to the graph
     # SDK. website.yml clones the ttsc sibling at the installed @ttsc/wasm
     # version to build that host, so these two pin the Go host API the
     # playground compiles against: they move only together with
     # website/compiler/cmd/playground, which implements host.Plugin.
-    '@ttsc/playground': ^0.19.2
-    '@ttsc/wasm': ^0.19.2
+    '@ttsc/playground': ^0.19.3
+    '@ttsc/wasm': ^0.19.3
     ts-node: ^10.9.2
     typescript: ^7.0.2
   rolldown:
