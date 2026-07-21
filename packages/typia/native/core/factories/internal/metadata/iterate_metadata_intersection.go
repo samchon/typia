@@ -161,6 +161,12 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
       // pair, or two constructors. That is a member-free callable, which is what
       // the interface spelling of the same type produces, so this iterator has
       // nothing to merge and hands the type back rather than refusing it.
+      //
+      // Widening this to "signatures were dropped and only brands remain" was
+      // tried and is wrong: `call & Record<never, never>` must reach the
+      // phantom-brand pass below, which drops the brand and leaves the call arm.
+      // Escaping instead makes the emitted validator refuse a function, which
+      // the `directPureCall*EmptyIntersection` anchors catch.
       return escape(false)
     }
   }
