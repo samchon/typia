@@ -1,4 +1,8 @@
+import { _randomInteger } from "./_randomInteger";
 import { _randomString } from "./_randomString";
+
+export const _RANDOM_LENGTH_ERROR =
+  "unable to generate a random string satisfying both the format and the length constraints.";
 
 /**
  * Length bounds forwarded to a string format or pattern generator.
@@ -36,21 +40,63 @@ export const _randomSegmentLength = (
   // characters so the generated length varies, mirroring `_randomString`.
   const high: number =
     props?.maxLength === undefined ? low + fallback : props.maxLength - fixed;
-  if (high < low || high < minimum)
-    throw new Error(
-      "unable to generate a random string satisfying both the format and the length constraints.",
-    );
+  if (high < low || high < minimum) throw new Error(_RANDOM_LENGTH_ERROR);
   return _randomString({ type: "string", minLength: low, maxLength: high });
 };
 
 /**
- * Wraps a fixed- or narrow-length format generator (uuid, ipv4, date, ...) with
- * the requested length window.
+ * Intersects the requested length window with the lengths a format's grammar
+ * can express, and draws one of them.
  *
- * These formats cannot grow an arbitrary segment, so the generator is retried a
- * bounded number of times and the first draw inside the window is returned. A
- * window that excludes every length the format can produce is unsatisfiable and
- * throws instead of silently yielding an out-of-range value.
+ * `minimum` and `maximum` are the shortest and longest values the format admits
+ * — omit `maximum` when the grammar is open above — and `spread` is how far
+ * past the floor an unbounded request may reach, so an open side still varies
+ * the way `_randomString` does. The caller draws from the returned window and
+ * applies whatever step its grammar has (base64 lengths are multiples of four,
+ * a fractional second needs at least one digit).
+ *
+ * Throws only when the window and the grammar do not overlap at all. That is
+ * the distinction the retry driver below cannot make: it redraws one shape, so
+ * it gives up on every length that shape never emits even when the format
+ * itself accepts one (issue #2284).
+ */
+export const _randomLengthWindow = (
+  props: _ILengthProps | undefined,
+  format: { minimum: number; maximum?: number; spread?: number },
+): { low: number; high: number } => {
+  const ceiling: number = format.maximum ?? Number.MAX_SAFE_INTEGER;
+  const low: number = Math.max(
+    props?.minLength ?? format.minimum,
+    format.minimum,
+  );
+  const high: number = Math.min(
+    props?.maxLength ?? low + (format.spread ?? 0),
+    ceiling,
+  );
+  if (low > high) throw new Error(_RANDOM_LENGTH_ERROR);
+  return { low, high };
+};
+
+/** Draws a length inside a window produced by {@link _randomLengthWindow}. */
+export const _randomLengthPick = (window: {
+  low: number;
+  high: number;
+}): number =>
+  _randomInteger({
+    type: "integer",
+    minimum: window.low,
+    maximum: window.high,
+  });
+
+/**
+ * Wraps a fixed-length format generator (uuid, date) with the requested length
+ * window.
+ *
+ * Use it only where the grammar admits exactly one length, so a window that
+ * excludes it is genuinely unsatisfiable. A format that can express more than
+ * one length must build its value at a length drawn from
+ * {@link _randomLengthWindow} instead; redrawing one shape cannot reach a length
+ * that shape never emits.
  */
 export const _randomFormatLength = (
   props: _ILengthProps | undefined,
@@ -66,7 +112,5 @@ export const _randomFormatLength = (
     )
       return value;
   }
-  throw new Error(
-    "unable to generate a random string satisfying both the format and the length constraints.",
-  );
+  throw new Error(_RANDOM_LENGTH_ERROR);
 };
