@@ -67,7 +67,7 @@ interface IExotic {
  * 1. Serialize optional members declared before, between and after required ones,
  *    present and absent.
  * 2. Repeat for all-optional, `any`-typed, dynamic-keyed and nested shapes, and
- *    for every stringify flavour and factory.
+ *    for every stringify flavor and factory.
  * 3. Require each result to equal `JSON.stringify` of the same value and to parse.
  */
 export const test_json_stringify_declaration_order = (): void => {
@@ -142,7 +142,7 @@ export const test_json_stringify_declaration_order = (): void => {
   };
   same("nested shapes", typia.json.stringify<INested>(nested), nested);
 
-  // Every flavour shares the emitter.
+  // Every flavor shares the emitter.
   same("assertStringify", typia.json.assertStringify<IPositions>(full), full);
   same("isStringify", typia.json.isStringify<IPositions>(full)!, full);
   const validated = typia.json.validateStringify<IPositions>(full);
