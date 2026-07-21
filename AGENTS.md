@@ -13,7 +13,6 @@ Follow the literal request; it is the contract, not a hint at what the user "rea
 - **Evidence precedes correction.** Treat issue reports, review proposals, and claims that something is wrong or missing as hypotheses. Verify the real code path, tests, generated artifacts, upstream ownership, and history before accepting the premise or changing behavior.
 - **Trace the consequence surface.** A named file or failing case is the starting point, not the investigation boundary. Follow the same cause through downstream consumers, side effects, state transitions, platforms, and boundary cases, then address the whole verified class of failure within the requested goal.
 - **Default over ask.** On an ambiguous detail, pick the sensible default and say what you chose; reserve questions for forks only the user can settle.
-- **Fill the available agent pool when parallel work is independent.** Use up to ten concurrent agents in total, including the lead, when the runtime provides that capacity; keep at most nine child agents active so the lead retains one coordination slot.
 
 ## Skills
 
@@ -29,15 +28,19 @@ Work rules, testing, validation, consequence analysis, and change integrity, `.a
 
 ### Documentation
 
-README and website guide authoring rules, `.agents/skills/documentation/SKILL.md`. Read before writing or modifying documentation.
+README, website guide, and agent-instruction authoring rules, `.agents/skills/documentation/SKILL.md`. Read before writing or modifying documentation.
 
 ### Issue Campaigns
 
-Repository-wide issue discovery, lead-verified issue writing, CI-suspended DAG-batched implementation, and cleanup, `.agents/skills/issue-campaign/SKILL.md`. Read when the user asks for a broad audit, many issue candidates, or an issue-to-implementation campaign; do not use it for one already-defined issue.
+Default solo repository-wide issue discovery, issue publication, one CI-validated implementation pull request per cycle, and renewed discovery, `.agents/skills/issue-campaign/SKILL.md`. Read when the user asks for a broad audit, many issue candidates, or an issue-to-implementation campaign without explicitly requesting parallel agents; do not use it for one already-defined issue.
 
 ### Review
 
-Solo review, team Review Cycle, research review, and exhaustive issue-discovery rounds, `.agents/skills/review/SKILL.md`. Every agent inspects the whole declared surface independently, and rounds continue until a complete pass produces no sound improvement or meaningful issue candidate. Self-Review and any unqualified review request are always solo.
+Default solo Self-Review, unqualified review, and exhaustive issue-discovery rounds, `.agents/skills/review/SKILL.md`. The reviewer inspects the whole declared surface and repeats fresh rounds until a complete pass produces no sound improvement or meaningful issue candidate.
+
+### Multi-Agent Workflows
+
+Explicitly parallel review and issue-campaign variants live under one entry point, `.agents/skills/multi-agent/SKILL.md`. Read it only when the user explicitly asks for a team, parallel, or multi-agent workflow. Multi-agent issue campaigns parallelize discovery and implementation by default and switch to solo implementation only on an explicit discovery-only parallel request; Self-Review remains solo.
 
 ### Discussion
 
@@ -55,15 +58,7 @@ Benchmark runners, fixture integrity, measurement integrity, result archives, an
 
 ### Writing style
 
-AGENTS.md and SKILL.md files are read by humans as well as agents.
-
-- **Optimize for comprehension, not minimum length.** A shorter document that forces the reader to infer prerequisites, reasons, exceptions, or stop conditions is not concise. Add the context needed to execute correctly.
-- **Remove repetition, not substance.** State a rule once at its owner and link to it elsewhere. Keep the rationale when it prevents a plausible mistake.
-- **Give each paragraph one job.** Split purpose, rule, rationale, procedure, and consequence when combining them would make the reader unpack a dense block.
-- **Use structure as compression.** Use numbered lists for ordered procedures, bullets for choices or checklists, tables for repeated mappings, and code blocks for exact commands. Do not hide a workflow inside one long sentence.
-- **State the rule before its reason.** Use negative phrasing only for a named failure mode that the affirmative rule does not already exclude.
-- **Skills point, not paraphrase.** Do not restate what the website, READMEs, or source comments already say; link to them.
-- **Source lines are not paragraphs.** Keep each prose paragraph on one source line and never hard-wrap it, but insert as many blank-line paragraph boundaries as the ideas require.
+`AGENTS.md` and `SKILL.md` files are operational documents for humans as well as agents. Read the documentation skill before editing either; it defines concise, clear agent-instruction writing and the prose-line rule.
 
 ### AGENTS.md
 
@@ -77,5 +72,6 @@ Update AGENTS.md only for repository-contract changes: a new skill area, a renam
 - **Core in SKILL.md, conditional topics as sibling documents.** Keep always-applicable procedure in SKILL.md. Move a topic needed only under a specific condition to a one-level-deep sibling document and link it with that read condition.
 - **Two trigger surfaces, one scope.** The frontmatter description is the full trigger contract, including exclusions. The AGENTS.md pointer mirrors that scope more briefly. Correct the frontmatter first when the scope changes.
 - **Create or merge.** Add a skill when a substantial repository concern would otherwise inflate AGENTS.md beyond an index. Merge sibling concerns when they share most of their structure.
+- **Repository skill files only.** Keep repository skills to `SKILL.md` and conditionally loaded sibling documents. Do not add separate `multi-agent-*` skills; the parallel variants live under the one `multi-agent` skill.
 - **Headings are plain.** No chapter numbers in skill or AGENTS.md headings. Use descriptive titles.
-- **Current set.** The repository skills are `project`, `development`, `documentation`, `issue-campaign`, `review`, `discussion`, `pull-request`, and `benchmark`.
+- **Current set.** The repository skills are `project`, `development`, `documentation`, `issue-campaign`, `review`, `multi-agent`, `discussion`, `pull-request`, and `benchmark`.

@@ -36,7 +36,7 @@ If no pull request exists or no update is authorized, keep the result in the fin
 
 ## Campaign Batching
 
-When benchmark findings produce multiple implementation issues, load the issue-campaign skill and use [Plan And Claim A Pull Request Wave](../issue-campaign/development.md#plan-and-claim-a-pull-request-wave) unchanged for the dependency DAG, batch admission test, merge pressure, grouping and split ledger, claim freeze, and official GitHub `createdAt`-to-`mergedAt` duration. This benchmark skill continues to own workload, fixture, measurement, result, and publication integrity; do not redefine pull-request batching here.
+When benchmark findings produce multiple implementation issues, load the issue-campaign skill and use its planning and claim procedure unchanged for the dependency DAG, claim freeze, and official GitHub `createdAt`-to-`mergedAt` duration: [Plan One Cycle Pull Request](../issue-campaign/development.md#plan-one-cycle-pull-request) for a solo campaign, or [Plan And Claim A Pull Request Wave](../multi-agent/issue-campaign.md#plan-and-claim-a-pull-request-wave) with its batch admission test, merge pressure, and grouping and split ledger when the user explicitly requested a parallel campaign. This benchmark skill continues to own workload, fixture, measurement, result, and publication integrity; do not redefine pull-request batching here.
 
 ## Campaign Cleanup
 

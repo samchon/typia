@@ -34,7 +34,7 @@ These four are never acceptable; choosing any one means the approach is already 
 - Keep local outputs local. Do not commit `.env` files or the `.tgz` artifacts generated under `experiments/tarballs/`.
 - Preserve the public contract in `.agents/skills/project/SKILL.md`. Renaming or removing `typia.*`, `@typia/interface` types, CLI flags, or the plugin descriptor shape is a deliberate product change, not incidental cleanup.
 - When public behavior changes, update the matching page under `website/src/content/docs/**` in the same change. Follow `.agents/skills/documentation/SKILL.md`.
-- Run `pnpm format` before every ordinary commit and stage the result; never commit unformatted output. The sole exception is an active issue campaign: campaign issue pull requests must not run the repository-wide formatter, and the issue-campaign skill performs one dedicated Post-Campaign Cleanup format pull request after the campaign ends.
+- Run `pnpm format` before every ordinary commit and stage the result; never commit unformatted output. A solo issue campaign formats its unified cycle pull request. The sole exception is an active multi-agent issue campaign implementation batch: those pull requests must not run the repository-wide formatter, and that procedure performs one dedicated Post-Campaign Cleanup format pull request after the campaign ends.
 
 ## Consequence Analysis
 
