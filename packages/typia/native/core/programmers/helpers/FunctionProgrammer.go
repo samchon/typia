@@ -15,12 +15,11 @@ type FunctionProgrammer struct {
   unions_        map[string]*functionProgrammer_union
   unionOrder_    []string
   variables_     map[string]*shimast.Node
-  variableKeys_   map[string]string
+  variableKeys_  map[string]string
   variableOrder_ []string
-  nameIndexes_    map[string]int
-  reservedNames_  map[string]bool
+  nameIndexes_   map[string]int
+  reservedNames_ map[string]bool
   sequence_      int
-  disableDeclare bool
   // visited_ turns on per-invocation visit tracking: set after metadata
   // analysis when the type graph carries a recursive component, so generated
   // functions thread a `_vctx` context and recursive ones guard against
@@ -54,10 +53,10 @@ func NewFunctionProgrammer(method string, emit ...*shimprinter.EmitContext) *Fun
     unions_:        map[string]*functionProgrammer_union{},
     unionOrder_:    []string{},
     variables_:     map[string]*shimast.Node{},
-    variableKeys_:   map[string]string{},
+    variableKeys_:  map[string]string{},
     variableOrder_: []string{},
-    nameIndexes_:    map[string]int{},
-    reservedNames_:  map[string]bool{},
+    nameIndexes_:   map[string]int{},
+    reservedNames_: map[string]bool{},
   }
   if len(emit) != 0 {
     p.emit_ = emit[0]
@@ -93,9 +92,6 @@ func (p *FunctionProgrammer) HasLocal(name string) bool {
 }
 
 func (p *FunctionProgrammer) Declare(includeUnions ...bool) []*shimast.Node {
-  if p.disableDeclare {
-    return []*shimast.Node{}
-  }
   output := []*shimast.Node{}
   for _, name := range p.variableOrder_ {
     value := p.variables_[name]
@@ -121,9 +117,6 @@ func (p *FunctionProgrammer) Declare(includeUnions ...bool) []*shimast.Node {
 }
 
 func (p *FunctionProgrammer) DeclareUnions() []*shimast.Node {
-  if p.disableDeclare {
-    return []*shimast.Node{}
-  }
   output := []*shimast.Node{}
   for _, key := range p.unionOrder_ {
     tuple := p.unions_[key]
