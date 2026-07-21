@@ -23,7 +23,8 @@ import { FileSystemIdentity } from "../../../../packages/typia/src/executable/Fi
  * 1. Assert the premise — the two IDs collide as doubles and differ as bigints.
  * 2. Assert the keys built from them stay distinct.
  * 3. Assert one object still answers one key, so exactness did not break dedup.
- * 4. Assert the `ino === 0` filesystems keep the canonical path fallback.
+ * 4. Assert the `ino === 0` fallback keys by path and ignores the device, with
+ *    both rows able to fail.
  */
 export function testInodePrecisionIdentity(): void {
   const dev: bigint = BigInt(2723597423);
@@ -32,31 +33,39 @@ export function testInodePrecisionIdentity(): void {
 
   // The premise, asserted rather than assumed: these are two objects that a
   // number-typed identity cannot tell apart.
-  assert.notEqual(first, second);
-  assert.equal(Number(first), Number(second));
+  assert.notStrictEqual(first, second);
+  assert.strictEqual(Number(first), Number(second));
 
-  const stats = (ino: bigint): Pick<fs.BigIntStats, "dev" | "ino"> =>
-    ({ dev, ino }) as Pick<fs.BigIntStats, "dev" | "ino">;
+  const stats = (
+    ino: bigint,
+    device: bigint = dev,
+  ): Pick<fs.BigIntStats, "dev" | "ino"> => ({ dev: device, ino });
 
-  assert.notEqual(
+  assert.notStrictEqual(
     FileSystemIdentity.identityKey(stats(first), "/real/first.ts"),
     FileSystemIdentity.identityKey(stats(second), "/real/second.ts"),
   );
 
   // Exactness must not turn one object into two: the same identity reached
   // through two paths still answers one key.
-  assert.equal(
+  assert.strictEqual(
     FileSystemIdentity.identityKey(stats(first), "/real/first.ts"),
     FileSystemIdentity.identityKey(stats(first), "/alias/first.ts"),
   );
 
-  // A filesystem reporting no inode keeps the canonical path fallback.
-  assert.equal(
-    FileSystemIdentity.identityKey(stats(BigInt(0)), "/real/first.ts"),
-    FileSystemIdentity.identityKey(stats(BigInt(0)), "/real/first.ts"),
-  );
-  assert.notEqual(
+  // A filesystem reporting no inode falls back to the canonical path, so there
+  // the path decides and the device does not. Both rows have to be able to fail:
+  // one varies the path with the device fixed, the other varies the device with
+  // the path fixed.
+  assert.notStrictEqual(
     FileSystemIdentity.identityKey(stats(BigInt(0)), "/real/first.ts"),
     FileSystemIdentity.identityKey(stats(BigInt(0)), "/real/second.ts"),
+  );
+  assert.strictEqual(
+    FileSystemIdentity.identityKey(stats(BigInt(0)), "/real/first.ts"),
+    FileSystemIdentity.identityKey(
+      stats(BigInt(0), dev + BigInt(1)),
+      "/real/first.ts",
+    ),
   );
 }
