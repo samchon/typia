@@ -240,7 +240,15 @@ func (llmApplicationProgrammerNamespace) WriteApplication(props struct {
       functions = append(functions, written)
     }
   }
-  result := map[string]any{"functions": functions}
+  // The call site's schema configuration is resolved here and nowhere else, so
+  // it travels with the emitted application; the runtime finalizer only adds
+  // the validate hook to it. Rebuilding it at runtime reported `strict: false`
+  // for a strict build (issue #2293).
+  strict, _ := props.Config["strict"].(bool)
+  result := map[string]any{
+    "config":    map[string]any{"strict": strict},
+    "functions": functions,
+  }
   if len(metadata.Objects) != 0 {
     if object := metadata.Objects[0].Type; object != nil {
       if description := llmApplicationProgrammer_describe(object.Description, object.JsDocTags); description != nil && len(*description) != 0 {
