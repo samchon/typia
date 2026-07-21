@@ -212,16 +212,16 @@ typia.json.schemas<[Something]>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-main.ts:12:1 - error TS(typia.json.schemas): unsupported type detected
+main.ts:12:1 - error TS(typia.json.schemas): typia transform error: unsupported type detected
 
 - Something.bigint: bigint
-  - JSON does not support bigint type.
+  - JSON schema does not support bigint type.
 
 - Something.array: bigint
-  - JSON does not support bigint type.
+  - JSON schema does not support bigint type.
 
-- Nested.uint64: (bigint & Type<"uint64">)
-  - JSON does not support bigint type.
+- Nested.uint64: (bigint & Typeuint64)
+  - JSON schema does not support bigint type.
 ```
   </Tabs.Tab>
 </Tabs>
