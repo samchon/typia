@@ -426,6 +426,9 @@ importers:
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/template:
     dependencies:
@@ -470,6 +473,9 @@ importers:
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-feature-identity:
     dependencies:
@@ -480,6 +486,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-interface:
     dependencies:
@@ -533,6 +542,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-mcp:
     dependencies:
@@ -561,6 +573,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-typia-automated:
     dependencies:
@@ -601,6 +616,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-typia-bundler-cache:
     dependencies:
@@ -617,6 +635,9 @@ importers:
       esbuild-loader:
         specifier: ^4.5.0
         version: 4.5.0(webpack@5.107.2)
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
       webpack:
         specifier: ^5.107.2
         version: 5.107.2
@@ -626,6 +647,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-typia-exact-optional:
     dependencies:
@@ -639,6 +663,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-typia-generate:
     dependencies:
@@ -649,6 +676,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-typia-schema:
     dependencies:
@@ -686,6 +716,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-utils:
     dependencies:
@@ -720,6 +753,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-utils-automated:
     dependencies:
@@ -751,6 +787,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   tests/test-vercel:
     dependencies:
@@ -788,6 +827,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.19.2
 
   website:
     dependencies:
