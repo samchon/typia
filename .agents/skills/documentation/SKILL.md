@@ -1,6 +1,6 @@
 ---
 name: documentation
-description: Defines README and website-guide structure, audience, prose formatting, and voice for typia. Use before writing, modifying, renaming, or moving repository documentation.
+description: Defines README, website-guide, and agent-instruction structure, audience, prose formatting, and voice for typia. Use before writing, modifying, renaming, or moving repository documentation.
 ---
 
 # Documentation
@@ -24,6 +24,19 @@ The current tree is organized by feature area:
 The root and each guide folder use `_meta.ts` for sidebar order and labels. Nextra reads keys in declaration order; `{ display: "hidden" }` keeps a page reachable while removing it from the sidebar. Update the matching `_meta.ts` whenever a guide is added, renamed, moved, hidden, or exposed.
 
 When emitted code is the point, pair the TypeScript source with its compiled JavaScript in side-by-side tabs so the reader can see what the transform replaces. Back performance claims with a specific benchmark result instead of an adjective. Follow the fresh website-build prerequisites in `.agents/skills/development/SKILL.md`.
+
+## Agent Instructions
+
+`AGENTS.md` and `SKILL.md` files are operational documents for humans and agents. Keep only the product-wide contract in `AGENTS.md`, the always-applicable procedure in `SKILL.md`, and conditional detail in a linked sibling document.
+
+Concise and clear means:
+
+- Include the context needed to act correctly. Do not make the reader infer prerequisites, exceptions, reasons, or stop conditions merely to shorten the document.
+- State each rule at its owning document and link to it elsewhere. Remove repeated wording, not necessary substance.
+- Give each paragraph one job. Separate purpose, rule, rationale, procedure, and consequence when combining them obscures the action.
+- Use structure to compress meaning: ordered lists for procedures, bullets for choices and checks, tables for repeated mappings, and code blocks for exact commands.
+- State the rule before its reason. Use a negative rule only when it prevents a named failure the affirmative rule does not already exclude.
+- Link to website guides, READMEs, or source comments instead of paraphrasing them.
 
 ## Prose line breaks
 

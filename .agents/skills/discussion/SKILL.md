@@ -1,6 +1,6 @@
 ---
 name: discussion
-description: Runs structured multi-agent discussions for open-ended typia topics. Use only when the user explicitly asks for Discussion or a team debate with transcripts and conclusions; do not use for Self-Review, Review Cycle, research review, or issue discovery.
+description: Runs structured multi-agent discussions for open-ended typia topics. Use only when the user explicitly asks for Discussion or a team debate with transcripts and conclusions; do not use for Self-Review, a solo or multi-agent review, research review, or issue discovery.
 ---
 
 # Discussion
