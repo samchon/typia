@@ -13,25 +13,25 @@ type IMetadataSchema_IObjectType struct {
 }
 
 type MetadataObjectType struct {
-  Name              string
-  DisplayName       string
+  Name        string
+  DisplayName string
   // Source is the absolute-or-as-declared path of the file declaring a named
   // class, captured at analysis time so plain.classify can value-import a
   // cross-module class it reconstructs (Object.create / new / from). nil for
   // anonymous/literal shapes and types with no locatable declaration. Read
   // in-process by the classify programmer; not serialized (classify is
   // single-pass), and ignored by clone/prune.
-  Source            *string
+  Source *string
   // SourceDefault is true when the class is the default export of Source, so a
   // cross-module classify value-import uses a default (not named) import.
-  SourceDefault     bool
+  SourceDefault bool
   // PrivateFields is true when the named class declaration carries at least one
   // ES `#private` member (a member named with a PrivateIdentifier). Such slots
   // are installed only by running the constructor; plain.classify's field-copy
   // (Object.create + assign) cannot restore them, so classify rejects any such
   // class at a field-copied position. Read in-process by the classify
   // programmer; ignored by clone/prune, not serialized.
-  PrivateFields     bool
+  PrivateFields bool
   // IsClass is true when this object's declaration is a `class` (declaration or
   // expression), so it has a runtime VALUE binding plain.classify can
   // `Object.create(<name>.prototype)`/`new` against. False for an interface, a
@@ -39,7 +39,7 @@ type MetadataObjectType struct {
   // value, so classify field-copies a plain {} instead of referencing a
   // type-only name. Read in-process by the classify programmer; ignored by
   // clone/prune, not serialized.
-  IsClass           bool
+  IsClass bool
   // ValueRef overrides the runtime VALUE-binding name plain.classify uses when
   // the class's metadata Name is not a usable runtime constructor reference —
   // namely a NAMED class EXPRESSION (`const X = class Beast {...}`), whose Name
@@ -56,7 +56,7 @@ type MetadataObjectType struct {
   Validated         bool
   Recursive         bool
   Nullables         []bool
-  Parent_objects_  []*MetadataObject
+  Parent_objects_   []*MetadataObject
   Check_properties_ []*MetadataProperty
   Tagged_           bool
   literal_          *bool
@@ -203,17 +203,6 @@ func (obj *MetadataObjectType) ToJSON() IMetadataSchema_IObjectType {
     Recursive:   obj.Recursive,
     Nullables:   append([]bool{}, obj.Nullables...),
   }
-}
-
-func MetadataObjectType_intersects(x *MetadataObjectType, y *MetadataObjectType) bool {
-  for _, prop := range x.Properties {
-    for _, oppo := range y.Properties {
-      if prop.Key.GetName() == oppo.Key.GetName() {
-        return true
-      }
-    }
-  }
-  return false
 }
 
 func MetadataObjectType_covers(x *MetadataObjectType, y *MetadataObjectType) bool {
