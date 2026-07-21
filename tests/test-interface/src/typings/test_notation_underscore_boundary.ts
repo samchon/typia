@@ -1,7 +1,8 @@
 import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
 
 /**
- * Pins the `*Case<T>` typings on keys mixing an underscore with a case boundary.
+ * Pins the `*Case<T>` typings on keys mixing an underscore with a case
+ * boundary.
  *
  * Issue #2190: the `snake`/`kebab` runtime and their Go compile-time twins
  * lowercased each underscore-delimited segment atomically (`fooBar_baz` ->

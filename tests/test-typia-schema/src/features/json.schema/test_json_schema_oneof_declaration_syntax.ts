@@ -11,9 +11,9 @@ import typia from "typia";
  * declared it. The generator files an `interface` member under metadata
  * `Objects` and a `type` alias of an object literal under `Aliases`, and the
  * eligibility gate used to accept only the former, so one alias member silently
- * dropped the discriminator for the whole union while `oneOf` kept the very same
- * `$ref` targets. Negative shapes are pinned beside the positives so resolving
- * aliases cannot start over-emitting.
+ * dropped the discriminator for the whole union while `oneOf` kept the very
+ * same `$ref` targets. Negative shapes are pinned beside the positives so
+ * resolving aliases cannot start over-emitting.
  *
  * 1. Declare one tagged union three ways: all `interface`, all `type` alias, and
  *    mixed.
@@ -66,7 +66,9 @@ export const test_json_schema_oneof_declaration_syntax = (): void => {
     TestValidator.predicate(`${label} union is oneOf`, () => value !== null);
 
   // every declaration syntax must carry the same discriminator
-  const expected = (prefix: string): OpenApi.IJsonSchema.IOneOf.IDiscriminator => ({
+  const expected = (
+    prefix: string,
+  ): OpenApi.IJsonSchema.IOneOf.IDiscriminator => ({
     propertyName: "type",
     mapping: {
       circle: `#/components/schemas/${prefix}Circle`,

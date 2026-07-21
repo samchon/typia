@@ -285,10 +285,7 @@ const RESTRICTED: Set<string> = new Set([
  * collapsing it to the underscore-free `plain` path.
  */
 const renameOuter =
-  (props: {
-    plain: (str: string) => string;
-    snake: (str: string) => string;
-  }) =>
+  (props: { plain: (str: string) => string; snake: (str: string) => string }) =>
   (str: string): string => {
     let prefix: string = "";
     while (str.startsWith("_")) {
@@ -300,7 +297,7 @@ const renameOuter =
   };
 
 /**
- * snake_case conversion of one underscore-free segment.
+ * Snake_case conversion of one underscore-free segment.
  *
  * Splits on case boundaries, collapsing an acronym run into a single word
  * (`XMLParser` → `xmlparser`, `toHTML` → `to_html`).
@@ -332,12 +329,13 @@ const snakeWord = (str: string): string => {
 };
 
 /**
- * camelCase conversion of a key that contains at least one underscore.
+ * CamelCase conversion of a key that contains at least one underscore.
  *
  * Uppercases the character after each underscore and lowercases the rest,
  * matching `CamelizeSnakeString`. A trailing underscore has no character to
- * uppercase, so it falls through to lowercasing the whole key (`foo_` → `foo_`),
- * and a doubled underscore collapses to a single one before continuing.
+ * uppercase, so it falls through to lowercasing the whole key (`foo_` →
+ * `foo_`), and a doubled underscore collapses to a single one before
+ * continuing.
  */
 const camelSnake = (str: string): string => {
   while (str.startsWith("_")) str = str.substring(1);

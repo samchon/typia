@@ -28,8 +28,8 @@ const KEYS: readonly string[] = [
  * Verifies Standard Schema reports issues for keys that need escaping.
  *
  * The transform folds a sole-literal key into the emitted path as source text,
- * and `~standard.validate()` parses that path back with JSON.parse. Escaping the
- * key for Go rather than for JavaScript left a raw control character in the
+ * and `~standard.validate()` parses that path back with JSON.parse. Escaping
+ * the key for Go rather than for JavaScript left a raw control character in the
  * path, so JSON.parse threw and destroyed the whole result instead of reporting
  * the one property that failed. A quote-only fix leaves that throw live, which
  * is why the control characters are pinned here beside the quote.
@@ -50,14 +50,11 @@ export const test_standard_schema_escaped_key_paths = (): void => {
 
   TestValidator.equals("issue count", KEYS.length, result.issues.length);
   for (const key of KEYS)
-    TestValidator.predicate(
-      `issue path for ${JSON.stringify(key)}`,
-      () =>
-        result.issues!.some(
-          (issue) =>
-            issue.path?.length === 1 &&
-            segmentKey(issue.path[0]) === key,
-        ),
+    TestValidator.predicate(`issue path for ${JSON.stringify(key)}`, () =>
+      result.issues!.some(
+        (issue) =>
+          issue.path?.length === 1 && segmentKey(issue.path[0]) === key,
+      ),
     );
 };
 

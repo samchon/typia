@@ -322,12 +322,12 @@ const fixtureAmbientV2: string = [
  * 3. Add a required `flag` property to `CustomLabel` inside `lib.custom.d.ts` and
  *    rebuild with the cache kept; assert the previous input now fails at
  *    `$input.ambient.flag` and a fully updated input succeeds.
- * 4. Re-point `barrel.ts` at `alt.ts`, whose `Nested` adds a required `extra`,
- *    and rebuild with the cache kept; assert the previous input now fails at
+ * 4. Re-point `barrel.ts` at `alt.ts`, whose `Nested` adds a required `extra`, and
+ *    rebuild with the cache kept; assert the previous input now fails at
  *    `$input.nested.extra`.
  * 5. Retype `Cell` from `string` to `number` in `cell.ts` and rebuild with the
- *    cache kept; assert the previous string-valued dynamic entry now fails and a
- *    numeric one succeeds.
+ *    cache kept; assert the previous string-valued dynamic entry now fails and
+ *    a numeric one succeeds.
  */
 export const test_webpack_filesystem_cache_invalidation =
   async (): Promise<void> => {

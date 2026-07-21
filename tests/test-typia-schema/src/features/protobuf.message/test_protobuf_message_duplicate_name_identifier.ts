@@ -15,14 +15,14 @@ interface IArguments {
  *
  * `protobuf.message` splits a metadata name on `.` and nests each segment as a
  * child message, so it reads the same dot the OpenAPI key space does. Two
- * unrelated `Foo` types therefore used to emit the second one *inside* the
+ * unrelated `Foo` types therefore used to emit the second one _inside_ the
  * first, as `message Foo { message o1 { ... } }`. The counter is no longer
  * joined with a dot, which separates them — but a message name is an
  * identifier, so the separator has to survive `ProtobufNameEncoder`, or the
  * emitted schema is text no Protobuf parser accepts.
  *
- * protobuf.js resolves the document the way a consumer would, which is what
- * makes it a fair witness for *name resolution*: a collision or a broken
+ * Protobuf.js resolves the document the way a consumer would, which is what
+ * makes it a fair witness for _name resolution_: a collision or a broken
  * separator shows up as a lookup failure rather than a pattern mismatch. It is
  * not a witness for legality. protobuf.js is lenient — it accepts a proto3
  * document containing `required`, reports its syntax as proto3, and records the
@@ -32,14 +32,15 @@ interface IArguments {
  *
  * 1. Reference two distinct types that share the declared name `Foo`.
  * 2. Parse the emitted document with protobuf.js and resolve every message.
- * 3. Assert the duplicate is a sibling rather than a child, and that each of
- *    the two `Foo` types keeps its own field.
+ * 3. Assert the duplicate is a sibling rather than a child, and that each of the
+ *    two `Foo` types keeps its own field.
  */
 export const test_protobuf_message_duplicate_name_identifier = (): void => {
   const message: string = typia.protobuf.message<IArguments>();
 
   // 1. THE GRAMMAR ACCEPTS THE DOCUMENT
-  const parsed = (): pjs.IParserResult => pjs.parse(message, { keepCase: true });
+  const parsed = (): pjs.IParserResult =>
+    pjs.parse(message, { keepCase: true });
   TestValidator.predicate("protobuf.js parses the emitted document", () => {
     try {
       parsed();
@@ -50,9 +51,9 @@ export const test_protobuf_message_duplicate_name_identifier = (): void => {
   });
 
   const root: pjs.Root = parsed().root;
-  const declared: string[] = [...message.matchAll(/message\s+(\S+)\s*\{/gu)].map(
-    (m) => m[1]!,
-  );
+  const declared: string[] = [
+    ...message.matchAll(/message\s+(\S+)\s*\{/gu),
+  ].map((m) => m[1]!);
   TestValidator.equals(
     "every distinct type declares its own message",
     3,

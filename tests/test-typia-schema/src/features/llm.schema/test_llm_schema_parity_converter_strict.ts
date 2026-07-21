@@ -6,12 +6,13 @@ import typia, { tags } from "typia";
 /**
  * Verifies the native strict LLM schema agrees with `@typia/utils`' converter.
  *
- * Under `strict`, constraint keywords are shifted out of the schema and into the
- * description as `@tag value` lines. Two owners implement that shift — the Go
- * emitter `typia.llm.*` calls, and `OpenApiConstraintShifter` in `@typia/utils`
- * — and they once disagreed on `default`, which the numeric path deleted instead
- * of shifting. The oracle below was already correct when that shipped; only the
- * fixture was blind, because it omitted the single tag they disagreed on.
+ * Under `strict`, constraint keywords are shifted out of the schema and into
+ * the description as `@tag value` lines. Two owners implement that shift — the
+ * Go emitter `typia.llm.*` calls, and `OpenApiConstraintShifter` in
+ * `@typia/utils` — and they once disagreed on `default`, which the numeric path
+ * deleted instead of shifting. The oracle below was already correct when that
+ * shipped; only the fixture was blind, because it omitted the single tag they
+ * disagreed on.
  *
  * The fixture therefore exercises every tag both shift functions handle rather
  * than a sample: a correct comparison over an incomplete input proves nothing
@@ -25,7 +26,10 @@ export const test_llm_schema_parity_converter_strict = (): void => {
   interface IStrictChild {
     // The complete string shift set: minLength, maxLength, format, pattern,
     // contentMediaType, default.
-    code: string & tags.MinLength<2> & tags.MaxLength<8> & tags.Pattern<"^[a-z]+$">;
+    code: string &
+      tags.MinLength<2> &
+      tags.MaxLength<8> &
+      tags.Pattern<"^[a-z]+$">;
     media: string & tags.ContentMediaType<"text/plain"> & tags.Default<"body">;
     id: string & tags.Format<"uuid">;
     // The complete numeric shift set: minimum, maximum, exclusiveMinimum,

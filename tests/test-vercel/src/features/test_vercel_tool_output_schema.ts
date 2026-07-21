@@ -20,8 +20,8 @@ import { Calculator } from "../structures/Calculator";
  *    schema-conforming failure branch with actionable paths.
  *
  * The markdown fencing of that feedback is asserted by
- * `test_vercel_tool_error_single_json_fence`, which counts the fence on both the
- * arguments and output paths.
+ * `test_vercel_tool_error_single_json_fence`, which counts the fence on both
+ * the arguments and output paths.
  */
 export const test_vercel_tool_output_schema = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =

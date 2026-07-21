@@ -18,10 +18,10 @@ export interface _ILengthProps {
  * length `fixed + segment.length` lands inside the requested window.
  *
  * `fixed` is the number of characters the format always contributes around the
- * segment, `fallback` is the segment length used when the leaf is
- * unconstrained on that side, and `minimum` is the smallest segment the format
- * still validates with. Throws when the window cannot be satisfied by this
- * format's shape (e.g. `Format<"email"> & MaxLength<3>`).
+ * segment, `fallback` is the segment length used when the leaf is unconstrained
+ * on that side, and `minimum` is the smallest segment the format still
+ * validates with. Throws when the window cannot be satisfied by this format's
+ * shape (e.g. `Format<"email"> & MaxLength<3>`).
  */
 export const _randomSegmentLength = (
   props: _ILengthProps | undefined,

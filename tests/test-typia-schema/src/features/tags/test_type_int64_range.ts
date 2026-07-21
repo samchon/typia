@@ -22,10 +22,10 @@ interface ICommentBigint {
 }
 
 /**
- * Verifies that the int64 validators enforce the signed 64-bit range on both the
- * number and bigint paths.
+ * Verifies that the int64 validators enforce the signed 64-bit range on both
+ * the number and bigint paths.
  *
- * int64-max is `2 ** 63 - 1`, which no `number` can represent -- it rounds to
+ * Int64-max is `2 ** 63 - 1`, which no `number` can represent -- it rounds to
  * `2 ** 63` -- so the number path accepts `2 ** 63` as int64-max's only float
  * form. The bigint path represents the bound exactly, so it enforces the true
  * inclusive range and still rejects magnitudes such as `2n ** 200n` that the
@@ -42,7 +42,11 @@ export const test_type_int64_range = (): void => {
     MINIMUM <= value && value <= MAXIMUM;
 
   // The oracle must be able to represent the boundary the validators cannot.
-  TestValidator.equals("2 ** 63 is not an int64", false, oracle(BigInt(2 ** 63)));
+  TestValidator.equals(
+    "2 ** 63 is not an int64",
+    false,
+    oracle(BigInt(2 ** 63)),
+  );
   TestValidator.equals(
     "the largest double below 2 ** 63 is an int64",
     true,
@@ -135,7 +139,11 @@ export const test_type_int64_range = (): void => {
   // On the exact bigint path, typia never certifies a value its own encoder will
   // corrupt: every in-range bigint survives protobuf byte-for-byte.
   for (const value of [MINIMUM, MAXIMUM, 0n, -1n, 1n, 2n ** 62n]) {
-    TestValidator.equals(`round trip ${value} is certified`, true, oracle(value));
+    TestValidator.equals(
+      `round trip ${value} is certified`,
+      true,
+      oracle(value),
+    );
     const decoded: typia.Resolved<ITaggedBigint> = typia.protobuf.decode<
       typia.Resolved<ITaggedBigint>
     >(typia.protobuf.encode<ITaggedBigint>({ value }));

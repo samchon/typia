@@ -25,7 +25,7 @@ interface ICommentBigint {
  * Verifies that the uint64 validators enforce the unsigned 64-bit range on both
  * the number and bigint paths.
  *
- * uint64-max is `2 ** 64 - 1`, which no `number` can represent -- it rounds to
+ * Uint64-max is `2 ** 64 - 1`, which no `number` can represent -- it rounds to
  * `2 ** 64` -- so the number path accepts `2 ** 64` as uint64-max's only float
  * form. The bigint path represents the bound exactly, so it enforces the true
  * inclusive range and still rejects magnitudes such as `2n ** 64n` that the
@@ -90,7 +90,11 @@ export const test_type_uint64_range = (): void => {
 
   // A non-integer is never a uint64, whatever its magnitude.
   for (const value of [0.5, 1.5]) {
-    TestValidator.equals(`_isTypeUint64(${value})`, false, _isTypeUint64(value));
+    TestValidator.equals(
+      `_isTypeUint64(${value})`,
+      false,
+      _isTypeUint64(value),
+    );
     TestValidator.equals(
       `number type tag on ${value}`,
       false,
@@ -136,7 +140,11 @@ export const test_type_uint64_range = (): void => {
   // On the exact bigint path, typia never certifies a value its own encoder will
   // corrupt: every in-range bigint survives protobuf byte-for-byte.
   for (const value of [MINIMUM, MAXIMUM, 1n, 2n ** 63n]) {
-    TestValidator.equals(`round trip ${value} is certified`, true, oracle(value));
+    TestValidator.equals(
+      `round trip ${value} is certified`,
+      true,
+      oracle(value),
+    );
     const decoded: typia.Resolved<ITaggedBigint> = typia.protobuf.decode<
       typia.Resolved<ITaggedBigint>
     >(typia.protobuf.encode<ITaggedBigint>({ value }));

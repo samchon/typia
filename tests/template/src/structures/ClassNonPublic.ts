@@ -44,8 +44,9 @@ export namespace ClassNonPublic {
    * constructor-assigned `heritage` and `hidden`, but the declared type exposes
    * neither, so `typia.protobuf.message<ClassNonPublic>()` describes exactly
    * `implicit` and `shown` and a decode gives only those back. Declaring the
-   * projection lets the oracle demand that shape exactly: injecting a non-public
-   * member into the output now fails instead of being waved through.
+   * projection lets the oracle demand that shape exactly: injecting a
+   * non-public member into the output now fails instead of being waved
+   * through.
    */
   export const RESOLVE = (input: ClassNonPublic) => ({
     implicit: input.implicit,

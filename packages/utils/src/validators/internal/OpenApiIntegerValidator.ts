@@ -56,15 +56,15 @@ export namespace OpenApiIntegerValidator {
   /**
    * Name the integer type a schema declares, in typia's tag notation.
    *
-   * Every bounds message used to hardcode `Type<"int32">`, so a plain
-   * `{ type: "integer", minimum: 0 }` reported a 32-bit width the schema never
-   * stated. The width has to come from the schema instead. OpenAPI spells it as
+   * Every bounds message used to hardcode `Type<"int32">`, so a plain `{ type:
+   * "integer", minimum: 0 }` reported a 32-bit width the schema never stated.
+   * The width has to come from the schema instead. OpenAPI spells it as
    * `format` (`"int32"` / `"int64"`), which the normalized schema type does not
-   * model for integers — typia's own emitter writes a bare
-   * `{ type: "integer" }` for `Type<"int32">` — but `OpenApiConverter` passes an
-   * external document's `format` straight through, so it does reach this
-   * validator at runtime. Read it defensively and echo only what is there,
-   * mirroring how {@link OpenApiStringValidator} reports a string's `format`.
+   * model for integers — typia's own emitter writes a bare `{ type: "integer"
+   * }` for `Type<"int32">` — but `OpenApiConverter` passes an external
+   * document's `format` straight through, so it does reach this validator at
+   * runtime. Read it defensively and echo only what is there, mirroring how
+   * {@link OpenApiStringValidator} reports a string's `format`.
    */
   const describeType = (schema: OpenApi.IJsonSchema.IInteger): string => {
     const format: unknown = (schema as { format?: unknown }).format;

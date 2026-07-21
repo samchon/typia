@@ -3,8 +3,7 @@ import { TestValidator } from "@nestia/e2e";
 import { FeatureIdentity } from "../FeatureIdentity";
 
 /**
- * Verifies every tracked feature test file is named after the test it
- * exports.
+ * Verifies every tracked feature test file is named after the test it exports.
  *
  * This is the backstop for the whole class. `DynamicExecutor` keys its
  * `--include` / `--exclude` filter and its report entries on the **exported**
@@ -14,8 +13,8 @@ import { FeatureIdentity } from "../FeatureIdentity";
  * invisible today because every test body still runs; only this scan fails.
  *
  * 1. Collect every tracked `tests/<suite>/src/features` source file.
- * 2. Assert the scan actually reached the trees, so a broken collector cannot
- *    pass vacuously.
+ * 2. Assert the scan actually reached the trees, so a broken collector cannot pass
+ *    vacuously.
  * 3. Assert the tree yields no identity or uniqueness diagnostic.
  */
 export const test_feature_identity_repository = (): void => {

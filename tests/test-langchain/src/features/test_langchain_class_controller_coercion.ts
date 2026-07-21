@@ -13,9 +13,9 @@ import { Calculator } from "../structures/Calculator";
  * registrar runs the shared `LlmJson.validateArguments` (coerce, then validate)
  * and dispatches its coerced `data`. That coercion is unreachable whenever
  * LangChain validates the registered `schema` itself, because
- * `@cfworker/json-schema` rejects the string before the tool body runs and never
- * coerces. `@typia/mcp` and `@typia/vercel` both accept this exact input; this
- * pins `@typia/langchain` to the same answer.
+ * `@cfworker/json-schema` rejects the string before the tool body runs and
+ * never coerces. `@typia/mcp` and `@typia/vercel` both accept this exact input;
+ * this pins `@typia/langchain` to the same answer.
  *
  * 1. Build a class controller and convert it to LangChain tools.
  * 2. Invoke `add` with a stringified operand `{ x: "42", y: 5 }`.

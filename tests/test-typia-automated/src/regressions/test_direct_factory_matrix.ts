@@ -5,17 +5,19 @@ import { TestAutomationController } from "../build/TestAutomationController";
 import { TestAutomationTemplate } from "../build/TestAutomationTemplate";
 
 /**
- * Verifies every eligible template generates both a direct and a factory matrix.
+ * Verifies every eligible template generates both a direct and a factory
+ * matrix.
  *
  * `TestAutomationController` asks for the direct visit of each runtime template
  * and then for its factory visit, but a `create === false` early return used to
  * discard the first request. Twenty public operation families therefore shipped
  * only their `createX` half, and nothing failed to say so. This backstop reads
- * the controller's real output, so the same suppression cannot return silently.
+ * the controller's real output, so the same suppression cannot return
+ * silently.
  *
  * 1. Drive the controller with a collecting, non-executing visit.
- * 2. Require both halves of every creatable template, and require the
- *    create-only Standard Schema family to still have no direct half.
+ * 2. Require both halves of every creatable template, and require the create-only
+ *    Standard Schema family to still have no direct half.
  * 3. Require the two halves of a family to cover an identical structure set.
  */
 export const test_direct_factory_matrix = async (): Promise<void> => {

@@ -2,7 +2,10 @@ import RandExp from "randexp";
 
 import { _ILengthProps } from "./_randomStringLength";
 
-export const _randomPattern = (regex: RegExp, props?: _ILengthProps): string => {
+export const _randomPattern = (
+  regex: RegExp,
+  props?: _ILengthProps,
+): string => {
   const r: RandExp = new RandExp(regex);
   const min: number | undefined = props?.minLength;
   const max: number | undefined = props?.maxLength;

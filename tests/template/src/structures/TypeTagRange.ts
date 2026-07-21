@@ -65,9 +65,10 @@ export namespace TypeTagRange {
    * Boundary spoilers, one step outside each tag's bound.
    *
    * Every spoiled value is the nearest integer a correct validator must never
-   * accept: `3` against `ExclusiveMinimum<3>`, `7` against `ExclusiveMaximum<7>`,
-   * and `9` against the `equal` pair. A validator that compares with the wrong
-   * strictness passes the ordinary generated value and fails only here.
+   * accept: `3` against `ExclusiveMinimum<3>`, `7` against
+   * `ExclusiveMaximum<7>`, and `9` against the `equal` pair. A validator that
+   * compares with the wrong strictness passes the ordinary generated value and
+   * fails only here.
    */
   export const SPOILERS: Spoiler<TypeTagRange>[] = [
     (input) => {

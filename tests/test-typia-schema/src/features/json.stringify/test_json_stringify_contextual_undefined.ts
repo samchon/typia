@@ -63,7 +63,11 @@ export const test_json_stringify_contextual_undefined = (): void => {
     oracle(`${label} / stringify`, raw(input), input);
 
     const isText: string | null = guarded(input);
-    TestValidator.equals(`${label} / isStringify accepts`, isText !== null, true);
+    TestValidator.equals(
+      `${label} / isStringify accepts`,
+      isText !== null,
+      true,
+    );
     if (isText !== null) oracle(`${label} / isStringify`, isText, input);
 
     oracle(`${label} / assertStringify`, asserted(input), input);

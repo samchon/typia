@@ -14,8 +14,8 @@ import { ILlmSchema } from "typia";
  * silently dropping one of the two. Escaping the stray key is not enough: it
  * produces exactly the name the legal definition holds.
  *
- * 1. Give `$defs` an own non-enumerable forbidden key whose escaped form
- *    collides with a second, legal, enumerable key.
+ * 1. Give `$defs` an own non-enumerable forbidden key whose escaped form collides
+ *    with a second, legal, enumerable key.
  * 2. Invert references to both.
  * 3. Assert each resolves to a distinct component carrying its own content.
  */
@@ -27,7 +27,10 @@ export const test_llm_invert_non_enumerable_definition = (): void => {
     configurable: true,
     enumerable: false,
     writable: true,
-    value: { type: "string", description: "forbidden non-enumerable definition" },
+    value: {
+      type: "string",
+      description: "forbidden non-enumerable definition",
+    },
   });
 
   const components: OpenApi.IComponents = { schemas: {} };
@@ -46,9 +49,8 @@ export const test_llm_invert_non_enumerable_definition = (): void => {
   });
 
   const schemas: Record<string, OpenApi.IJsonSchema> = components.schemas ?? {};
-  TestValidator.predicate(
-    "every allocated component key is legal",
-    () => Object.keys(schemas).every((key) => /^[a-zA-Z0-9.\-_]+$/.test(key)),
+  TestValidator.predicate("every allocated component key is legal", () =>
+    Object.keys(schemas).every((key) => /^[a-zA-Z0-9.\-_]+$/.test(key)),
   );
   TestValidator.equals(
     "the legal definition keeps its exact name",
@@ -62,7 +64,10 @@ export const test_llm_invert_non_enumerable_definition = (): void => {
     )
       ? inverted.properties?.[property]
       : undefined;
-    if (schema === undefined || OpenApiTypeChecker.isReference(schema) === false)
+    if (
+      schema === undefined ||
+      OpenApiTypeChecker.isReference(schema) === false
+    )
       return undefined;
     const target: OpenApi.IJsonSchema | undefined =
       schemas[schema.$ref.replace("#/components/schemas/", "")];

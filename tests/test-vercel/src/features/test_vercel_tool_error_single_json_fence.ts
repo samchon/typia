@@ -8,8 +8,8 @@ import { Calculator } from "../structures/Calculator";
 /**
  * Verifies Vercel tool feedback fences typia's annotated JSON exactly once.
  *
- * `LlmJson.stringify` already wraps its output in a ```` ```json ```` fence, so
- * a caller that adds a second one hands the model ```` ```json\n```json ````.
+ * `LlmJson.stringify` already wraps its output in a ````json` fence, so a
+ * caller that adds a second one hands the model ````json\n```json`.
  * `VercelToolsRegistrar` formats that same result on two separate paths — once
  * for invalid arguments and once for an invalid output — and a fence added back
  * to either one is invisible to an `includes("```json")` check, which passes

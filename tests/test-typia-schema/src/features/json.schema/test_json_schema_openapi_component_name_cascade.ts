@@ -28,13 +28,13 @@ interface IArguments {
  * therefore never join its disambiguating suffix with a dot: the escaped base
  * of `RecursiveObject<"A/B">` is exactly the legal name of the unrelated
  * `RecursiveObjectA_x2F_B` interface, so a dotted suffix would present that
- * interface as a parent and leak its description into the escaped schema an
- * LLM reads.
+ * interface as a parent and leak its description into the escaped schema an LLM
+ * reads.
  *
  * 1. Declare an interface owning the escaped base name of a forbidden type.
  * 2. Generate the schema so both land in `components.schemas`.
- * 3. Assert the escaped name exposes no allocated component as a parent, and
- *    that its escaped description never mentions the unrelated interface.
+ * 3. Assert the escaped name exposes no allocated component as a parent, and that
+ *    its escaped description never mentions the unrelated interface.
  */
 export const test_json_schema_openapi_component_name_cascade = (): void => {
   const collection = typia.json.schema<IArguments, "3.1">();
@@ -79,10 +79,8 @@ export const test_json_schema_openapi_component_name_cascade = (): void => {
     "the escaped schema does not inherit the unrelated description",
     () => (escaped.value?.description ?? "").includes("UNRELATED") === false,
   );
-  TestValidator.predicate(
-    "the escaped schema keeps its own description",
-    () =>
-      (escaped.value?.description ?? "").includes("GENERIC RECURSIVE OBJECT"),
+  TestValidator.predicate("the escaped schema keeps its own description", () =>
+    (escaped.value?.description ?? "").includes("GENERIC RECURSIVE OBJECT"),
   );
 };
 

@@ -8,11 +8,11 @@ import { test_resolved_equal_to_oracle } from "./test_resolved_equal_to_oracle";
 /**
  * Runs the harness regressions that guard the generated matrix itself.
  *
- * These cases cannot live under `src/features`, which the controller deletes and
- * regenerates on every run, and they are not typia feature tests: they assert
- * that the harness generates what it claims and that its oracles can fail. The
- * suite's `prestart` runs them, so a broken harness stops the run before four
- * thousand generated cases report against it.
+ * These cases cannot live under `src/features`, which the controller deletes
+ * and regenerates on every run, and they are not typia feature tests: they
+ * assert that the harness generates what it claims and that its oracles can
+ * fail. The suite's `prestart` runs them, so a broken harness stops the run
+ * before four thousand generated cases report against it.
  */
 async function main(): Promise<void> {
   await test_process_fatal_events();

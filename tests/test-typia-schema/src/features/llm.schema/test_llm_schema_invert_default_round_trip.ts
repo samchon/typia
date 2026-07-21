@@ -49,7 +49,11 @@ export const test_llm_schema_invert_default_round_trip = (): void => {
     schema: string,
     $defs: {},
   }) as OpenApi.IJsonSchema.IString;
-  TestValidator.equals("string default restored", stringInverted.default, "body");
+  TestValidator.equals(
+    "string default restored",
+    stringInverted.default,
+    "body",
+  );
   TestValidator.equals(
     "string minLength restored",
     stringInverted.minLength,

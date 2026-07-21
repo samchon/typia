@@ -16,7 +16,7 @@ export namespace JsonDescriptor {
    * a key owes the invariant that its dots are the type's own qualification and
    * nothing else.
    *
-   * typia's own producers keep it. `MetadataCollection.getName` joins a
+   * Typia's own producers keep it. `MetadataCollection.getName` joins a
    * duplicate's counter with `-o` and `MetadataCollection_replaceOpenApi`
    * rewrites a flattened nested type's dots, both in
    * `packages/typia/native/core/schemas/metadata/MetadataCollection.go`;

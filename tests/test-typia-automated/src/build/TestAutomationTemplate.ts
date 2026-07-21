@@ -28,15 +28,14 @@ export interface TestAutomationTemplate {
   /**
    * Whether the `_test_*` internal returns a promise the case must be awaited
    * on. The generated function then declares `Promise<void>` so that a rejected
-   * oracle reaches `DynamicExecutor` instead of becoming an unhandled rejection.
+   * oracle reaches `DynamicExecutor` instead of becoming an unhandled
+   * rejection.
    */
   asynchronous?: true;
   programmer?: (create: boolean) => (structure: string) => string;
 }
 export namespace TestAutomationTemplate {
-  /**
-   * The public method a template's direct or factory half exercises.
-   */
+  /** The public method a template's direct or factory half exercises. */
   export const method = (
     tpl: TestAutomationTemplate,
     create: boolean,

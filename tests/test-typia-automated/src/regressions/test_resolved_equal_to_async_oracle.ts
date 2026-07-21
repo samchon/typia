@@ -9,10 +9,10 @@ import { resolved_equal_to_async } from "../utils/resolved_equal_to_async";
  * The resolving oracle used to answer `x instanceof File ? y instanceof File :
  * true` for a blob, so two blobs of any size, media type, name, modification
  * time, and content compared equal. Metadata is now synchronous, and because
- * `Blob.arrayBuffer()` is not, byte equality lives in this asynchronous variant,
- * which the four FormData internals use. The last cases pin the projection a
- * real `FormData` performs, so the oracle cannot be tightened into rejecting
- * correct product output.
+ * `Blob.arrayBuffer()` is not, byte equality lives in this asynchronous
+ * variant, which the four FormData internals use. The last cases pin the
+ * projection a real `FormData` performs, so the oracle cannot be tightened into
+ * rejecting correct product output.
  *
  * 1. Reject a changed size, media type, name, and modification time.
  * 2. Reject same-size different bytes, which only the awaited pass can see.

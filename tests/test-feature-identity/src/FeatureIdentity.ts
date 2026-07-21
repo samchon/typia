@@ -14,10 +14,9 @@ import { Git } from "./Git";
  * name, and two files exporting the same name inside one suite report two
  * indistinguishable executions.
  *
- * This namespace turns that contract into a checkable invariant.
- * {@link collect} gathers the tracked feature files, {@link parse} extracts
- * the `test_*` declarations each one exports, and {@link diagnose} reports
- * every violation.
+ * This namespace turns that contract into a checkable invariant. {@link collect}
+ * gathers the tracked feature files, {@link parse} extracts the `test_*`
+ * declarations each one exports, and {@link diagnose} reports every violation.
  */
 export namespace FeatureIdentity {
   /** A single tracked feature-tree source file. */
@@ -40,14 +39,14 @@ export namespace FeatureIdentity {
    *
    * The invariant has two halves:
    *
-   * 1. **Identity** — a `test_`-named file exports exactly one `test_*`
-   *    function, and that name equals the file's basename. A file *not* named
-   *    `test_*` is a helper and must export no `test_*` function at all,
-   *    because `DynamicExecutor` would otherwise run a test that no file name
+   * 1. **Identity** — a `test_`-named file exports exactly one `test_*` function,
+   *    and that name equals the file's basename. A file _not_ named `test_*` is
+   *    a helper and must export no `test_*` function at all, because
+   *    `DynamicExecutor` would otherwise run a test that no file name
    *    announces.
-   * 2. **Uniqueness** — no two files in the **same suite** export the same
-   *    name. Suites run as separate processes with separate reports, so the
-   *    same name in two different suites is legal and is not reported.
+   * 2. **Uniqueness** — no two files in the **same suite** export the same name.
+   *    Suites run as separate processes with separate reports, so the same name
+   *    in two different suites is legal and is not reported.
    *
    * @param files Feature files to inspect.
    * @returns One human-readable diagnostic per violation; empty when the tree
@@ -149,9 +148,9 @@ export namespace FeatureIdentity {
    *
    * Deliberately recognizes only top-level `export const|let|var|function`
    * declarations, the form every feature file uses. An exotic export — a
-   * renamed re-export or a default export — yields no match, so
-   * {@link diagnose} reports the file as exporting nothing rather than passing
-   * it unchecked. The check fails closed.
+   * renamed re-export or a default export — yields no match, so {@link diagnose}
+   * reports the file as exporting nothing rather than passing it unchecked. The
+   * check fails closed.
    *
    * @param code TypeScript source text.
    * @returns Exported `test_*` names in source order.

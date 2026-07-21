@@ -221,9 +221,9 @@ export class _ProtobufReader {
    * Two distinct faults meet on this byte, and each is named for what it is. A
    * continuation bit means the varint would occupy an eleventh byte, which no
    * 64-bit value can reach. Any other payload bit means the varint terminates
-   * within its ten bytes but carries a value bit above 63. Reporting the
-   * second as a length fault would tell the caller something untrue about a
-   * payload that is exactly ten bytes long.
+   * within its ten bytes but carries a value bit above 63. Reporting the second
+   * as a length fault would tell the caller something untrue about a payload
+   * that is exactly ten bytes long.
    */
   private lastVarintByte(): number {
     const loaded: number = this.u8();
@@ -292,7 +292,8 @@ const VARINT_MAX_BYTES = 10;
  * The widest value a varint may carry: the 64-bit Protocol Buffer wire domain.
  *
  * The tenth byte reaches only bit 63, so a payload bit above it belongs to no
- * representable value. This names the overflow fault apart from the length one.
+ * representable value. This names the overflow fault apart from the length
+ * one.
  */
 const VARINT_MAX_BITS = 64;
 

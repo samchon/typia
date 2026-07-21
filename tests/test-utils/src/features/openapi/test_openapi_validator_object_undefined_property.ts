@@ -28,8 +28,8 @@ interface IUndefined {
  *    and that a defined extra key still is.
  * 2. Confirm an `additionalProperties` schema does not constrain a key with no
  *    JSON form, under either `equals` value.
- * 3. Round-trip a type whose members erase from the emitted schema and require
- *    the emitter's own schema to accept the emitter's own value.
+ * 3. Round-trip a type whose members erase from the emitted schema and require the
+ *    emitter's own schema to accept the emitter's own value.
  */
 export const test_openapi_validator_object_undefined_property = (): void => {
   const schema: OpenApi.IJsonSchema.IObject = {

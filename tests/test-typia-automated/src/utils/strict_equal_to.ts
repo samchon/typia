@@ -9,13 +9,13 @@
  *
  * The walk is deliberately strict:
  *
- * - own enumerable keys are compared symmetrically, so an unexpected output
+ * - Own enumerable keys are compared symmetrically, so an unexpected output
  *   property fails instead of hiding behind a one-sided traversal;
- * - a native compares its intrinsic brand rather than a realm-local constructor
+ * - A native compares its intrinsic brand rather than a realm-local constructor
  *   identity, so a `Uint16Array` never satisfies a `Uint8Array`;
- * - `ArrayBuffer`, `SharedArrayBuffer`, and `DataView` compare visible bytes,
- *   not only a byte length;
- * - functions compare by reference identity.
+ * - `ArrayBuffer`, `SharedArrayBuffer`, and `DataView` compare visible bytes, not
+ *   only a byte length;
+ * - Functions compare by reference identity.
  *
  * The one deliberate looseness is inherited from the operations themselves: a
  * `null`, `undefined`, empty array, or empty `Map` on either side satisfies a
@@ -37,11 +37,11 @@ export interface IStrictEqualContext {
   /**
    * Collects the `Blob` pairs whose bytes must be compared asynchronously.
    *
-   * `Blob.arrayBuffer()` is asynchronous, so a synchronous oracle can only reach
-   * a blob's metadata. Supplying this accumulator lets an asynchronous caller
-   * finish the comparison through {@link strict_blobs_equal_to}; a synchronous
-   * walk that meets a `Blob` without one throws instead of quietly skipping the
-   * content.
+   * `Blob.arrayBuffer()` is asynchronous, so a synchronous oracle can only
+   * reach a blob's metadata. Supplying this accumulator lets an asynchronous
+   * caller finish the comparison through {@link strict_blobs_equal_to}; a
+   * synchronous walk that meets a `Blob` without one throws instead of quietly
+   * skipping the content.
    */
   blobs?: Array<[Blob, Blob, string]> | undefined;
 }
@@ -52,9 +52,7 @@ export const strict_equal_to = (
   ctx: IStrictEqualContext,
 ): boolean => recursive_equal_to(x, y, "$input", ctx);
 
-/**
- * Compares the byte content of every `Blob` pair the walk collected.
- */
+/** Compares the byte content of every `Blob` pair the walk collected. */
 export const strict_blobs_equal_to = async (
   ctx: IStrictEqualContext,
 ): Promise<boolean> => {

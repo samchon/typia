@@ -11,13 +11,14 @@ import typia from "typia";
  * boundary the snake/kebab copy lowercased each underscore-delimited segment
  * atomically (`fooBar_baz` -> `foobar_baz`) and the pascal copy dropped the
  * inner-character lowercasing of an all-caps run (`MAX_COUNT` -> `MAXCOUNT`),
- * both diverging from the notation contract (#2186, #2190). This asserts the two
- * producers agree over the exact #2190 witness matrix by comparing each
+ * both diverging from the notation contract (#2186, #2190). This asserts the
+ * two producers agree over the exact #2190 witness matrix by comparing each
  * `NamingConvention` output to the live `typia.notations.*` conversion of the
  * same key, so the copy can never silently diverge from the contract again.
  *
  * 1. Convert a witness object of underscore-boundary, all-caps, and plain keys
- *    through each `typia.notations.*` transform and read the produced key list.
+ *    through each `typia.notations.*` transform and read the produced key
+ *    list.
  * 2. Convert every source key through the matching `NamingConvention` helper.
  * 3. Require each helper output to equal the notation-produced key.
  */

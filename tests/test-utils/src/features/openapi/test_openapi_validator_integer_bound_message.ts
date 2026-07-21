@@ -12,12 +12,12 @@ import { OpenApiValidator } from "@typia/utils";
  * the schema: OpenAPI spells it as `format`, and `OpenApiConverter` passes an
  * external document's `format` straight through to this validator.
  *
- * 1. Violate each of the five bounds on a schema declaring no `format`, and
- *    assert no width is invented.
- * 2. Violate the same five on a schema declaring `format: "int32"`, and assert
- *    the declared width is still reported.
- * 3. Assert a differing declared width is echoed rather than flattened to
- *    `int32`, and that the verdict itself never changes.
+ * 1. Violate each of the five bounds on a schema declaring no `format`, and assert
+ *    no width is invented.
+ * 2. Violate the same five on a schema declaring `format: "int32"`, and assert the
+ *    declared width is still reported.
+ * 3. Assert a differing declared width is echoed rather than flattened to `int32`,
+ *    and that the verdict itself never changes.
  * 4. Assert a `format` that is not a string names no width at all.
  */
 export const test_openapi_validator_integer_bound_message = (): void => {

@@ -24,8 +24,8 @@ import { Calculator } from "../structures/Calculator";
  *
  * 1. Build a class controller and convert it to LangChain tools.
  * 2. Invoke `add` with a non-numeric operand.
- * 3. Assert the throw carries typia's annotated feedback for `$input.x` and
- *    never LangChain's schema message.
+ * 3. Assert the throw carries typia's annotated feedback for `$input.x` and never
+ *    LangChain's schema message.
  * 4. Assert valid arguments still execute.
  */
 export const test_langchain_class_controller_validation =

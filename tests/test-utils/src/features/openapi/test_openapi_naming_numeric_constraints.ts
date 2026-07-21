@@ -7,20 +7,22 @@ import { OpenApiValidator } from "@typia/utils";
  * declares, with its own value.
  *
  * `OpenApiSchemaNamingRule` used to read `exclusiveMinimum`/`exclusiveMaximum`
- * as booleans gating the `minimum`/`maximum` branch, so an exclusive bound alone
- * named itself just `number`, a paired `minimum` leaked its value under the
- * exclusive name, and the falsy-but-declared `exclusiveMinimum: 0` vanished. The
- * declaration (`OpenApi.IJsonSchema.IInteger`/`INumber`) is authoritative: those
- * fields are numbers. A declared integer `format` — carried through an external
- * document by `OpenApiConverter` — is likewise dropped; it must echo as
- * `tags.Type<...>`, agreeing with `OpenApiIntegerValidator.describeType`.
+ * as booleans gating the `minimum`/`maximum` branch, so an exclusive bound
+ * alone named itself just `number`, a paired `minimum` leaked its value under
+ * the exclusive name, and the falsy-but-declared `exclusiveMinimum: 0`
+ * vanished. The declaration (`OpenApi.IJsonSchema.IInteger`/`INumber`) is
+ * authoritative: those fields are numbers. A declared integer `format` —
+ * carried through an external document by `OpenApiConverter` — is likewise
+ * dropped; it must echo as `tags.Type<...>`, agreeing with
+ * `OpenApiIntegerValidator.describeType`.
  *
- * 1. For each schema, validate a wrong-typed value so the report's `expected`
- *    is exactly the top-level type name the naming rule produced.
+ * 1. For each schema, validate a wrong-typed value so the report's `expected` is
+ *    exactly the top-level type name the naming rule produced.
  * 2. Assert that name states every declared constraint with its own value,
- *    including the `exclusiveMinimum: 0` boundary and a declared integer format.
- * 3. Keep the negative regressions: a bare integer/number invents no format,
- *    and a number never echoes a format its validator does not report.
+ *    including the `exclusiveMinimum: 0` boundary and a declared integer
+ *    format.
+ * 3. Keep the negative regressions: a bare integer/number invents no format, and a
+ *    number never echoes a format its validator does not report.
  */
 export const test_openapi_naming_numeric_constraints = (): void => {
   const matrix: Array<{
@@ -57,7 +59,10 @@ export const test_openapi_naming_numeric_constraints = (): void => {
     // INTEGER — declared format echoed as tags.Type<...>
     {
       title: "integer declared format int32",
-      schema: { type: "integer", format: "int32" } as OpenApi.IJsonSchema.IInteger,
+      schema: {
+        type: "integer",
+        format: "int32",
+      } as OpenApi.IJsonSchema.IInteger,
       expected: 'number & tags.Type<"int32">',
     },
     {
@@ -106,7 +111,10 @@ export const test_openapi_naming_numeric_constraints = (): void => {
     // NUMBER — regression: number never echoes a format (its validator does not)
     {
       title: "number ignores format its validator never reports",
-      schema: { type: "number", format: "double" } as OpenApi.IJsonSchema.INumber,
+      schema: {
+        type: "number",
+        format: "double",
+      } as OpenApi.IJsonSchema.INumber,
       expected: "number",
     },
     {
@@ -124,7 +132,9 @@ export const test_openapi_naming_numeric_constraints = (): void => {
       required: true,
     });
     if (result.success)
-      throw new Error(`Expected "${title}" to fail against a non-number value.`);
+      throw new Error(
+        `Expected "${title}" to fail against a non-number value.`,
+      );
     TestValidator.equals(title, expected, result.errors[0]?.expected);
   }
 };

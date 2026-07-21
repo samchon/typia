@@ -18,11 +18,11 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  * `google.golang.org/protobuf`. Nothing here is transcribed, so a decoder that
  * disagreed with the reference Go parser could not also agree with this file.
  *
- * 1. Cross all eight direct and factory wrappers with every malformed corpus
- *    row placed as a 32-bit, 64-bit, boolean, packed, map, and nested value.
- * 2. Reject the same rows as top-level and group tags, as bytes, string,
- *    packed, map, nested, unknown-field, and group-contained length prefixes,
- *    and as the value of an unknown varint field the decoder only skips.
+ * 1. Cross all eight direct and factory wrappers with every malformed corpus row
+ *    placed as a 32-bit, 64-bit, boolean, packed, map, and nested value.
+ * 2. Reject the same rows as top-level and group tags, as bytes, string, packed,
+ *    map, nested, unknown-field, and group-contained length prefixes, and as
+ *    the value of an unknown varint field the decoder only skips.
  * 3. Preserve every accepted row's decoded value, trailing fields, and encoder
  *    round trips.
  */

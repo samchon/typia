@@ -19,10 +19,10 @@ interface IArguments {
  * through a different replacer than the OpenAPI generator, so it is a genuinely
  * independent surface for the same root cause rather than a second view of one
  * document. The allocator used to mint `<Base>.o<N>` without checking that id
- * against the ids already handed out, which collapsed the real
- * `namespace Foo { interface o1 }` member and a second `Foo` onto one `$defs`
- * key. The model was then handed one type's shape under two parameters, and
- * typia's own runtime validator rejected what the model produced for the other.
+ * against the ids already handed out, which collapsed the real `namespace Foo {
+ * interface o1 }` member and a second `Foo` onto one `$defs` key. The model was
+ * then handed one type's shape under two parameters, and typia's own runtime
+ * validator rejected what the model produced for the other.
  *
  * 1. Generate LLM parameters referencing three colliding types.
  * 2. Assert each parameter carries a distinct local reference.

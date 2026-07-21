@@ -4,8 +4,8 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
 import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
 
 /**
- * Verifies every runtime Protobuf varint reader matches the reference Go
- * parser over the shared corpus.
+ * Verifies every runtime Protobuf varint reader matches the reference Go parser
+ * over the shared corpus.
  *
  * A ten-byte varint has room for only one payload bit in its final byte. The
  * scalar readers, length readers, and unknown-field skipper must reject both a
@@ -15,8 +15,8 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  * Rejecting is only half of it. The corpus also carries the canonical maximum
  * that terminates at each width from one byte through ten, so every early
  * return in `varint32` and `varint64` keeps a positive control. The nine-byte
- * row matters most: it is the legal encoding of `9223372036854775807`, the
- * very value the issue's malformed ten-byte witness used to fabricate.
+ * row matters most: it is the legal encoding of `9223372036854775807`, the very
+ * value the issue's malformed ten-byte witness used to fabricate.
  *
  * Every byte string and every verdict below comes from
  * `packages/typia/test/protobuf_varint_corpus.json`, which the Go test
@@ -24,12 +24,12 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  * `google.golang.org/protobuf`. Nothing here is transcribed, so this regression
  * cannot quietly disagree with the oracle that justifies it.
  *
- * 1. Cross every public integer and boolean reader, and the unknown-field
- *    skipper, with every corpus row.
+ * 1. Cross every public integer and boolean reader, and the unknown-field skipper,
+ *    with every corpus row.
  * 2. Read the rejected rows again as byte, string, fork, unknown-field, and
  *    group-contained lengths and as a group's field tag.
- * 3. Preserve the decoded value of every accepted row, exact pointer
- *    advancement, and the trailing byte behind it.
+ * 3. Preserve the decoded value of every accepted row, exact pointer advancement,
+ *    and the trailing byte behind it.
  */
 export const test_protobuf_reader_varint_bounds = (): void => {
   const entries: ProtobufVarintCorpus.IEntry[] = ProtobufVarintCorpus.entries();
@@ -114,10 +114,12 @@ export const test_protobuf_reader_varint_bounds = (): void => {
   // one varint would continue into an eleventh byte, the other terminates and
   // carries a value bit above 63. The loops above assert each row's own text,
   // and this pins the distinction the corpus draws between them.
-  const overlong: ProtobufVarintCorpus.IEntry =
-    ProtobufVarintCorpus.find("ten continuation bytes");
-  const overflow: ProtobufVarintCorpus.IEntry =
-    ProtobufVarintCorpus.find("excess tenth payload");
+  const overlong: ProtobufVarintCorpus.IEntry = ProtobufVarintCorpus.find(
+    "ten continuation bytes",
+  );
+  const overflow: ProtobufVarintCorpus.IEntry = ProtobufVarintCorpus.find(
+    "excess tenth payload",
+  );
   if (
     ProtobufVarintCorpus.bytes(overlong).length !==
     ProtobufVarintCorpus.bytes(overflow).length
@@ -166,10 +168,10 @@ interface IValueReader {
 /**
  * Every public varint consumer, with the projection the wire format demands.
  *
- * A field narrower than the varint keeps the low bits, which is what a
- * Protocol Buffer parser does with a 64-bit varint on a 32-bit field, so each
- * 32-bit expectation is the oracle value reduced rather than an independent
- * guess. `bool` is excluded from the value column and covered separately.
+ * A field narrower than the varint keeps the low bits, which is what a Protocol
+ * Buffer parser does with a 64-bit varint on a 32-bit field, so each 32-bit
+ * expectation is the oracle value reduced rather than an independent guess.
+ * `bool` is excluded from the value column and covered separately.
  */
 const VALUE_READERS: IValueReader[] = [
   {
@@ -216,8 +218,8 @@ const zigzag = (value: bigint): bigint =>
 /**
  * Require the reader to decode an accepted row exactly.
  *
- * A trailing byte follows the varint so that consuming one byte too many or
- * too few is visible as a wrong index rather than as an accidental buffer end.
+ * A trailing byte follows the varint so that consuming one byte too many or too
+ * few is visible as a wrong index rather than as an accidental buffer end.
  */
 const assertAccepted = (
   entry: ProtobufVarintCorpus.IEntry,

@@ -51,11 +51,11 @@ interface IArguments {
  * `IPage<IShoppingSale.ISummary>` idiom, so it needs no contrived naming.
  *
  * 1. Reference a generic instantiated with a qualified argument, an unrelated
- *    interface named exactly after the flattened prefix, and a genuinely
- *    merged interface-plus-namespace pair.
- * 2. Assert every reference escapes, that the flattened key claims no
- *    allocated component as a parent, and that its escaped description never
- *    mentions the unrelated interface.
+ *    interface named exactly after the flattened prefix, and a genuinely merged
+ *    interface-plus-namespace pair.
+ * 2. Assert every reference escapes, that the flattened key claims no allocated
+ *    component as a parent, and that its escaped description never mentions the
+ *    unrelated interface.
  * 3. Assert the real namespace member still inherits its real parent's
  *    description, so the cascade itself is intact.
  */
@@ -70,9 +70,11 @@ export const test_json_schema_openapi_component_name_generic_argument =
 
     const key = (accessor: string): string =>
       (
-        (root.properties?.[accessor] as
-          | OpenApi.IJsonSchema.IReference
-          | undefined)?.$ref ?? ""
+        (
+          root.properties?.[accessor] as
+            | OpenApi.IJsonSchema.IReference
+            | undefined
+        )?.$ref ?? ""
       )
         .split("/")
         .at(-1)!;
@@ -105,12 +107,10 @@ export const test_json_schema_openapi_component_name_generic_argument =
     // Resolution is asserted first: "inherits no unrelated description" is a
     // negative, and a reference that stopped escaping at all would satisfy it
     // without meaning anything.
-    TestValidator.predicate(
-      "every reference escapes",
-      () =>
-        ["flattened", "unrelated", "parent", "member"].every(
-          (accessor) => describe(accessor) !== FAILED,
-        ),
+    TestValidator.predicate("every reference escapes", () =>
+      ["flattened", "unrelated", "parent", "member"].every(
+        (accessor) => describe(accessor) !== FAILED,
+      ),
     );
     TestValidator.predicate(
       "the flattened generic inherits no unrelated description",

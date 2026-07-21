@@ -14,8 +14,7 @@ import { FeatureIdentity } from "../FeatureIdentity";
  *
  * 1. Assert one name exported by two files of the same suite is reported once,
  *    naming both files.
- * 2. Assert the same name exported by two files of different suites is
- *    silent.
+ * 2. Assert the same name exported by two files of different suites is silent.
  */
 export const test_feature_identity_duplicate_export = (): void => {
   // 1. SAME SUITE: A COLLISION
