@@ -2,7 +2,6 @@ package helpers
 
 import (
   "encoding/json"
-  "sort"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -140,9 +139,14 @@ func (stringifyJoinerNamespace) Tuple(props StringifyJoiner_TupleProps) *shimast
 func stringifyJoiner_regular_properties(context nativecontext.ITypiaContext, regular []IExpressionEntry, dynamic []IExpressionEntry, emit ...*shimprinter.EmitContext) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(stringifyJoiner_factory, emit...)
   output := []*shimast.Node{}
-  sort.Slice(regular, func(i int, j int) bool {
-    return stringifyJoiner_sequence(regular[i].Meta) < stringifyJoiner_sequence(regular[j].Meta)
-  })
+  // Members keep their declaration order, which is what the guide promises and
+  // what `JSON.stringify` produces for a value assigned in that order. They used
+  // to be sorted so every omissible member sat ahead of the required ones,
+  // because the separator is appended to every entry but the last and a last
+  // member that drops at runtime would leave a trailing comma. The caller
+  // already repairs exactly that with `_jsonStringifyTail`, whose condition
+  // reads the last member and now sees the declared one, so the ordering
+  // constraint the sort existed for no longer applies (#2295).
   for index, entry := range regular {
     key := entry.Key.GetSoleLiteral()
     encoded, err := json.Marshal(*key)
@@ -460,13 +464,6 @@ func stringifyJoiner_reduce(expressions []*shimast.Node, operator shimast.Kind, 
     output = f.NewBinaryExpression(nil, output, nil, f.NewToken(operator), next)
   }
   return output
-}
-
-func stringifyJoiner_sequence(meta *nativemetadata.MetadataSchema) int {
-  if meta.Any || !meta.IsRequired() || len(meta.Functions) != 0 {
-    return 0
-  }
-  return 1
 }
 
 func stringifyJoiner_internal(context nativecontext.ITypiaContext, name string) *shimast.Node {
