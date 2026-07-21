@@ -43,13 +43,12 @@ export namespace McpControllerRegistrar {
               // description tags instead of keywords, and only that config
               // tells the inverter to read them back.
               //
-              // An HttpLlm application reports the config it was composed with,
-              // so this is exact for it. A typia.llm.controller reports
-              // `strict: false` whatever its Config generic said — a transform
-              // defect, not a reason to guess here: guessing is what erased the
-              // non-strict constraints in the first place. This reads the
-              // declared config and becomes exact for class controllers too the
-              // moment the transform reports it truthfully.
+              // Both application kinds report the config they were built with:
+              // an HttpLlm application the one it was composed with, and a
+              // typia.llm.application or .controller the one its `Config`
+              // generic declared (issue #2293 — until that landed, a strict
+              // class controller reported `strict: false` and every constraint
+              // vanished from this check).
               LlmJson.validate(
                 func.output,
                 true,

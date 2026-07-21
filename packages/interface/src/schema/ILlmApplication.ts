@@ -109,6 +109,16 @@ export namespace ILlmApplication {
     ILlmApplication<Class>,
     "config" | "functions"
   > {
+    /**
+     * Schema configuration the call site declared.
+     *
+     * The transform resolves it from the `Config` generic and emits it here,
+     * because it is the only place that knows it. The runtime finalizer widens
+     * it into {@link ILlmApplication.config} by adding the `validate` hook, so a
+     * consumer reading `application.config.strict` sees what the schemas were
+     * actually built with.
+     */
+    config: ILlmSchema.IConfig;
     functions: Omit<ILlmFunction, "parse" | "coerce">[];
   }
 }

@@ -7,7 +7,12 @@ export const _llmApplicationFinalize = <Class extends object = any>(
 ): ILlmApplication<Class> => ({
   ...app,
   config: {
-    ...LlmSchemaConverter.getConfig(),
+    // The schema configuration comes from the emitted application, which is
+    // where the `Config` generic was resolved. Rebuilding it from the
+    // converter's defaults reported `strict: false` for a strict build, and
+    // `@typia/mcp` then inverted a strict output schema without strict, which
+    // drops every constraint it carries as a description tag (issue #2293).
+    ...LlmSchemaConverter.getConfig(app.config),
     validate: config?.validate ?? null,
   },
   functions: app.functions.map((func) => ({
