@@ -784,15 +784,6 @@ func metadataCollection_isOpenApiNameRune(ch rune) bool {
     ch == '_'
 }
 
-func MetadataCollection_escape(str string) string {
-  for _, pair := range metadataCollection_replacers {
-    if pair.After != "" {
-      str = strings.ReplaceAll(str, pair.After, pair.Before)
-    }
-  }
-  return str
-}
-
 type metadataCollection_replacer struct {
   Before string
   After  string
