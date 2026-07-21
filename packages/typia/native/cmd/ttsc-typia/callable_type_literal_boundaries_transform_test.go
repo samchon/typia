@@ -527,20 +527,22 @@ func callableTypeLiteralDiagnosticTwins(t *testing.T) []string {
       }
       continue
     }
-    // A member-carrying shape's only function-type spelling is an intersection,
-    // and typia's intersection contract answers those inconsistently: measured
-    // on this same matrix, six such shapes are accepted and agree with the
-    // declaration spellings while six structurally analogous ones are rejected
-    // as nonsensible — `cancel(): void` accepted against `cancel: () => void`
-    // rejected, an optional member accepted against the same member required.
-    // That split is samchon/typia#2276 and belongs to the intersection contract,
-    // not to declaration identity.
+    // Every function-type spelling must report what the declaration spellings
+    // report, including a member-carrying shape's, whose only such spelling is an
+    // intersection of a call signature with the rest.
     //
-    // Nothing is asserted about it here on purpose. An earlier version of this
-    // check expected every such intersection to be rejected, which was written
-    // from source reading and is wrong for half of them; restating it in the
-    // other direction would be equally wrong, and pinning the observed split
-    // would freeze the defect into this regression.
+    // This row is what samchon/typia#2276 closed. Before it, six of the twelve
+    // shapes disagreed here — `cancel(): void` was accepted while
+    // `cancel: () => void` was refused, and an optional member was accepted while
+    // the same member required was not — because a call-signature-only arm was
+    // neither an object nor a phantom brand, so the intersection was called
+    // nonsensible while the interface spelling of the same type, which is one
+    // object carrying a call signature, was accepted.
+    if observed["Alias"] != observed["Interface"] {
+      failures = append(failures, fmt.Sprintf(
+        "%s: alias spelling reported %s but the interface spelling reported %s",
+        shape.Name, observed["Alias"], observed["Interface"]))
+    }
   }
   return failures
 }
