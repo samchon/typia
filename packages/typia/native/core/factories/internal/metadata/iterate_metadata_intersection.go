@@ -126,6 +126,50 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   if onlyObjects && len(tagObjects) == 0 {
     return escape(false)
   }
+  // A call-signature-only arm is dropped before the phantom-brand pass, and only
+  // while something else survives. It cannot join that pass: the "every arm was
+  // removable" guard below exists to refuse an intersection of nothing but
+  // brands, and an arm such as `Record<never, never>` is vacuously a phantom
+  // brand, so counting signatures as removable would turn
+  // `call & Record<never, never>` — which the interface spelling accepts — into a
+  // rejection.
+  if len(metadatas) > 1 {
+    kept := make([]*schemametadata.MetadataSchema, 0, len(metadatas))
+    keptIndexes := make([]int, 0, len(indexes))
+    for i, m := range metadatas {
+      if iterate_metadata_intersection_is_call_signature_only(m) {
+        continue
+      }
+      kept = append(kept, m)
+      keptIndexes = append(keptIndexes, indexes[i])
+    }
+    substantial := false
+    for _, m := range kept {
+      if iterate_metadata_intersection_is_removable_brand(m) == false {
+        substantial = true
+        break
+      }
+    }
+    if substantial {
+      // Something that carries real obligations survives, so the signatures are
+      // the part with nothing to describe and the members are what both
+      // spellings must answer for.
+      metadatas = kept
+      indexes = keptIndexes
+    } else if len(kept) == 0 {
+      // Every arm was signatures only — an overload set, a call-and-construct
+      // pair, or two constructors. That is a member-free callable, which is what
+      // the interface spelling of the same type produces, so this iterator has
+      // nothing to merge and hands the type back rather than refusing it.
+      //
+      // Widening this to "signatures were dropped and only brands remain" was
+      // tried and is wrong: `call & Record<never, never>` must reach the
+      // phantom-brand pass below, which drops the brand and leaves the call arm.
+      // Escaping instead makes the emitted validator refuse a function, which
+      // the `directPureCall*EmptyIntersection` anchors catch.
+      return escape(false)
+    }
+  }
   if len(metadatas) != 1 {
     removable := []int{}
     for i, m := range metadatas {
@@ -297,6 +341,29 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   return true
 }
 
+// iterate_metadata_intersection_is_call_signature_only reports whether an arm
+// contributes nothing but call or construct signatures, which the intersection
+// can drop the way it drops a phantom brand.
+//
+// `((v: number) => string) & { label: string }` and
+// `interface T { (v: number): string; label: string }` are the same type, and
+// only the first reaches this function — the second is one object carrying a
+// call signature. Without this the first was refused as a nonsensible
+// intersection while the second was accepted, so the answer depended on the
+// spelling (samchon/typia#2276).
+//
+// Dropping the arm loses nothing the interface spelling keeps. #2250 settled
+// that a member-carrying callable stays structural, so neither spelling
+// validates the call signature; the members are what both must describe. An arm
+// that carries any data alongside its signatures is not this case and stays,
+// because dropping it would erase a declared obligation.
+func iterate_metadata_intersection_is_call_signature_only(m *schemametadata.MetadataSchema) bool {
+  return m != nil &&
+    len(m.Functions) != 0 &&
+    m.Nullable == false &&
+    m.Size() == len(m.Functions)
+}
+
 // iterate_metadata_intersection_is_removable_brand reports whether an explored
 // member schema is a phantom "brand" object that an intersection with a
 // non-object member may drop. A value intersected with a non-object survivor is
@@ -314,6 +381,8 @@ func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
 // a symbol-keyed property is never observable on a JSON value. Any required
 // string-keyed property (literal or not) might be real data, so it keeps the
 // intersection nonsensible rather than silently dropping a declared constraint.
+
+
 func iterate_metadata_intersection_is_removable_brand(m *schemametadata.MetadataSchema) bool {
   if m == nil || m.Size() != 1 || len(m.Objects) != 1 {
     return false
