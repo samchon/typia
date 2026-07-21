@@ -2,8 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     # experiments/* are not pnpm workspace members, so their manifests are
-    # invisible to the root scan; list them so the ttsc family cannot drift
-    # there again (grouping spans directories, keeping one PR per family bump).
+    # invisible to the root scan; list them so ttsc cannot drift there again.
     directories:
       - "/"
       - "/experiments/mcp"
@@ -11,14 +10,18 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
+    # The @ttsc/* companions (playground, unplugin, wasm) are deliberately
+    # absent. pnpm-workspace.yaml binds the whole family to the &ttsc anchor,
+    # so their catalog entries are YAML aliases carrying no version to rewrite;
+    # asking Dependabot to bump them made it give up on the workspace file and
+    # write the version into the lockfile alone. Allowing ttsc by itself leaves
+    # the anchor line as the single edit, and the aliases follow it.
     allow:
       - dependency-name: "typescript"
       - dependency-name: "ttsc"
-      - dependency-name: "@ttsc/*"
-    # ttsc and the @ttsc/* companions (playground, unplugin, wasm) release in
-    # lockstep; bumping them separately leaves the catalog on mixed versions.
+    # ttsc is declared in the root catalog and in both experiments manifests;
+    # group it so one release opens one pull request across all three.
     groups:
       ttsc:
         patterns:
           - "ttsc"
-          - "@ttsc/*"
