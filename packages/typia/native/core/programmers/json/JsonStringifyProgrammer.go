@@ -278,7 +278,34 @@ func jsonStringifyProgrammer_decode(props struct {
       Value: func() *shimast.Node {
         next := props
         next.Metadata = metadata
-        return jsonStringifyProgrammer_decode_to_json(next)
+        resolved := jsonStringifyProgrammer_decode_to_json(next)
+        if isDate {
+          return resolved
+        }
+        // The arm's own test is `typeof input.toJSON === "function"`, but an arm
+        // test is not always emitted — a sole arm needs no choice, and a final
+        // arm is the else — while this value *calls* `toJSON`. Leaving the call
+        // to be guarded by the arm meant a value whose `toJSON` is not callable
+        // threw `input.toJSON is not a function` from inside the serializer,
+        // including under `isStringify` and `validateStringify`, whose contract
+        // is to answer rather than throw (samchon/typia#2271).
+        //
+        // The guard therefore belongs to the call. `JSON.stringify` ignores a
+        // non-callable `toJSON` and serializes the object itself, and the
+        // metadata already carries that shape, so the fallback describes the
+        // original rather than inventing an answer. `Date` keeps the plain form:
+        // its arm is `instanceof Date`, and a real Date's `toJSON` is callable.
+        original := props
+        original.Metadata = props.Metadata.Escaped.Original
+        return nativefactories.ExpressionFactory.Conditional(
+          nativeprogrammers.IsProgrammer.Decode_to_json(struct {
+            Input     *shimast.Expression
+            CheckNull bool
+          }{Input: props.Input, CheckNull: false}),
+          resolved,
+          jsonStringifyProgrammer_decode(original),
+          props.Context.Emit,
+        )
       },
     })
   } else if len(props.Metadata.Functions) != 0 {
