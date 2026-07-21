@@ -17,10 +17,10 @@ The base issue-campaign skill owns authorization, the knowledge base, candidate 
 - [Repeat A Campaign Cycle](#repeat-a-campaign-cycle)
 - [Post-Campaign Cleanup](#post-campaign-cleanup)
 
-Four rules govern the entire parallel implementation phase:
+Four rules govern the parallel implementation phase, which is the wave of concurrent batch pull requests. A campaign whose implementation returns to the solo procedure has no such phase, so its cycle pull request follows the solo rules and ordinary CI instead:
 
 - Local and package verification, solo Self-Review, independent verification, lead readback, and every applicable integration gate are mandatory implementation gates.
-- Do not run `pnpm format` during discovery, issue publication, or implementation. Post-Campaign Cleanup owns the repository-wide formatter result.
+- Do not run `pnpm format` during discovery, issue publication, or parallel batch implementation. Post-Campaign Cleanup owns the repository-wide formatter result. A campaign that returns implementation to the solo procedure formats its cycle pull request there instead, and then needs no cleanup format pull request.
 - Never disable repository Actions or any workflow for a campaign. After every campaign push and pull-request creation, immediately start an exact-SHA cancellation record for only the runs caused by that campaign commit, except when the user designated that exact integration SHA before its push. Keep the record current and complete it before merge, but never make local development wait for it.
 - Campaign branches and pull requests freeze package versions, release tags, and publication state throughout campaign implementation. They never choose a release number or publish a package. A maintainer release may begin only after campaign completion, or after the user explicitly suspends the campaign and lifts the freeze; it remains a separate task and does not relax this rule for campaign changes.
 
