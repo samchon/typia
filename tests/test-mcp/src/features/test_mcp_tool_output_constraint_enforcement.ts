@@ -18,13 +18,12 @@ import typia, { tags } from "typia";
  * application's own config — and every property here is documented, because a
  * description is exactly what used to make the non-strict keywords disappear.
  *
- * The strict controller's `config.strict` is corrected before it is served.
- * `typia.llm.application`/`controller` emit `config: { strict: false }`
- * whatever the `Config` generic says, even while shifting the constraints into
- * the description — the emitted config contradicts the schema beside it,
- * against `ILlmApplication.config`'s own contract. That is a separate transform
- * defect; this case pins the registrar's plumbing against the config the
- * contract promises rather than the one typia currently emits.
+ * The strict controller is served exactly as typia emits it. It used to need
+ * its `config.strict` corrected by hand, because the emitted application
+ * reported `strict: false` whatever the `Config` generic said while shifting
+ * the constraints into the description — the config contradicted the schema
+ * beside it (issue #2293). With the reported config truthful, that correction
+ * would hide the very regression this case exists to catch.
  *
  * 1. Serve the same documented controller twice, once non-strict and once strict.
  * 2. Assert a conforming result is accepted and shipped as structured content.
@@ -38,7 +37,11 @@ export const test_mcp_tool_output_constraint_enforcement =
       ConstraintController,
       { strict: true }
     >("constraint", new ConstraintController());
-    strict.application.config.strict = true;
+    TestValidator.equals(
+      "a strict controller reports the config it was built with",
+      strict.application.config.strict,
+      true,
+    );
 
     const controllers: [string, ILlmController][] = [
       [
