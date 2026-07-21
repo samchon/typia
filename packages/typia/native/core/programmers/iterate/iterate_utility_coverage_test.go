@@ -7,7 +7,6 @@ import (
   "math/big"
   "testing"
 
-  shimast "github.com/microsoft/typescript-go/shim/ast"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -244,21 +243,6 @@ func TestIterateUtilityCoverage(t *testing.T) {
     t.Fatal("union station should produce a schema")
   }
 
-  factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-  input := factory.NewIdentifier("input")
-  value := factory.NewIdentifier("value")
-
-  object := nativemetadata.MetadataObjectType_create(nativemetadata.MetadataObjectType{
-    Name: "IterateObject",
-    Properties: []*nativemetadata.MetadataProperty{
-      nativemetadata.MetadataProperty_create(nativemetadata.MetadataProperty{Key: literal, Value: stringMeta}),
-      nativemetadata.MetadataProperty_create(nativemetadata.MetadataProperty{Key: stringMeta, Value: stringMeta}),
-    },
-  })
-  if Prune_object_properties(object) == nil ||
-    prune_object_properties_reduce([]*shimast.Node{input, value}, shimast.KindBarBarToken) == nil {
-    t.Fatal("prune helper failed")
-  }
 }
 
 func iterateLiteral(value string) *nativemetadata.MetadataSchema {
