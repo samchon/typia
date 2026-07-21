@@ -11,13 +11,13 @@ Act on this skill only when the user explicitly requests the corresponding remot
 
 Branch from the pull-request target (`master` unless stated otherwise); never commit or push directly to the target. Name the branch for the merged outcome with the repository's established type and scope, such as `feat/<scope>`, `fix/<scope>`, `docs/<scope>`, or `ci/<scope>`.
 
-If the current checkout contains unrelated or protected work, create an isolated worktree from the target branch instead of stashing, reverting, or mixing it.
+Solo work never creates a clone or worktree. If the current checkout contains unrelated or protected work, stage only the authorized paths; if that cannot keep the pull request isolated, report the conflict rather than stashing, reverting, mixing, or relocating the work.
 
 ## Commit Logical Units
 
 Use one commit per coherent unit when the diff is large. Follow the repository's `<type>(<scope>): <subject>` history with an imperative lowercase subject and no trailing period.
 
-Run the validation required by the development skill. Run `pnpm format` before ordinary commits. During an issue campaign, do not run `pnpm format` on implementation branches; the campaign's dedicated Post-Campaign Cleanup pull request owns the repository-wide formatter result.
+Run the validation required by the development skill. Run `pnpm format` before ordinary commits. A solo issue campaign formats its unified cycle pull request. Only an explicit multi-agent campaign implementation batch defers the repository-wide formatter result to its Post-Campaign Cleanup pull request.
 
 Stage explicit paths when the worktree is mixed. Never include unrelated user changes silently.
 
@@ -31,7 +31,7 @@ Push only the topic branch with upstream tracking. Use a file-backed body for mu
 
 ## Issue Campaign Override
 
-Before any issue-campaign push or pull request, complete `.agents/skills/issue-campaign/development.md`. Its no-format, local-verification, suspended-Actions, and Post-Campaign Cleanup rules override the ordinary commit and check flow here; cleanup returns to the ordinary check loop after restoring Actions.
+Before any issue-campaign push or pull request, complete `.agents/skills/issue-campaign/development.md`. A solo campaign uses one formatted cycle pull request and the ordinary check loop, plus its integration-sensitive gate. Only `.agents/skills/multi-agent/issue-campaign.md` overrides that flow with worktree batches, exact-SHA campaign-run cancellation, local implementation gates, and Post-Campaign Cleanup.
 
 ## Watch Checks After Every Ordinary Push
 
@@ -41,4 +41,4 @@ After each ordinary push, including every Post-Campaign Cleanup push, monitor th
 
 Do not merge, squash-merge, rebase, or update the target branch on unprompted initiative. Merge when the user explicitly asks, or when a standing autonomous mandate authorizes end-to-end delivery; use the repository's established merge method unless another is specified. Under an autonomous mandate the author that owns the pull request merges it themselves once the merge gate below passes, without separate approval.
 
-Before merging an ordinary or Post-Campaign Cleanup pull request, confirm required checks pass. For a campaign implementation pull request whose automatic CI is deliberately suspended, confirm the issue-campaign local-verification and lead-review gates instead. If branch protection blocks the requested merge, report the blocker rather than bypassing it.
+Before merging an ordinary or Post-Campaign Cleanup pull request, confirm required checks pass. For a multi-agent campaign implementation pull request whose automatic CI is deliberately suspended, confirm its local-verification, independent-verification, and integration gates instead. If branch protection blocks the requested merge, report the blocker rather than bypassing it.
