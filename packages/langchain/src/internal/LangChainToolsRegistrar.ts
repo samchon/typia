@@ -9,6 +9,7 @@ import {
   IHttpLlmFunction,
   ILlmController,
   ILlmFunction,
+  ILlmSchema,
   IValidation,
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
@@ -82,6 +83,7 @@ export namespace LangChainToolsRegistrar {
         createTool({
           name: toolName,
           function: func,
+          config: controller.application.config,
           execute: async (args: unknown) => method.call(execute, args),
         }),
       );
@@ -103,6 +105,7 @@ export namespace LangChainToolsRegistrar {
         createTool({
           name: toolName,
           function: func,
+          config: application.config,
           execute: async (args: unknown) => {
             if (controller.execute !== undefined) {
               const response = await controller.execute({
@@ -128,9 +131,25 @@ export namespace LangChainToolsRegistrar {
   const createTool = (entry: {
     name: string;
     function: ILlmFunction | IHttpLlmFunction;
+    config: ILlmSchema.IConfig;
     execute: (args: unknown) => Promise<unknown>;
-  }): DynamicStructuredTool =>
-    tool(
+  }): DynamicStructuredTool => {
+    // A declared return type is a promise to the model, so a result that breaks
+    // it is reported rather than delivered. `@typia/mcp` and `@typia/vercel`
+    // already refuse one; this tool consulted `output` for its existence alone,
+    // so a method returning nothing was reported while a method returning the
+    // wrong shape was not (#2302).
+    //
+    // The application's own config decides how the schema is read back: a
+    // strict application carries its constraints as description tags instead of
+    // keywords, and only that config tells the inverter to read them.
+    const validateOutput:
+      | ((output: unknown) => IValidation<unknown>)
+      | undefined =
+      entry.function.output === undefined
+        ? undefined
+        : LlmJson.validate(entry.function.output, true, entry.config);
+    return tool(
       async (args: unknown): Promise<unknown> => {
         const valid: IValidation<unknown> = LlmJson.validateArguments(
           entry.function,
@@ -145,12 +164,24 @@ export namespace LangChainToolsRegistrar {
         try {
           const result: unknown = await entry.execute(valid.data);
           if (result === undefined) {
-            return entry.function.output === undefined
+            return validateOutput === undefined
               ? ({ success: true } satisfies ITryResult)
               : ({
                   success: false,
                   error: `Function "${entry.name}" returned undefined despite declaring an output schema`,
                 } satisfies ITryResult);
+          }
+          if (validateOutput !== undefined) {
+            const output: IValidation<unknown> = validateOutput(result);
+            if (output.success === false)
+              return {
+                success: false,
+                error:
+                  `Type errors in "${entry.name}" output:
+
+` + LlmJson.stringify(output),
+              } satisfies ITryResult;
+            return { success: true, data: output.data } satisfies ITryResult;
           }
           return { success: true, data: result } satisfies ITryResult;
         } catch (error) {
@@ -177,6 +208,7 @@ export namespace LangChainToolsRegistrar {
         ) as JSONSchema,
       },
     );
+  };
 
   const getToolName = (
     controllerName: string,
