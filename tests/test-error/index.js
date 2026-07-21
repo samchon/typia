@@ -16,6 +16,12 @@ const path = require("path");
  *    build before the transform runs and would leave this suite with nothing to
  *    observe.
  * 3. Require every fixture to be named by at least one typia diagnostic.
+ * 4. Require every diagnostic code to name an accessor the fixture actually
+ *    writes. The code is the only machine-readable identity a rejection carries,
+ *    and accepting anything that merely starts with `TS(typia.` let
+ *    `TS(typia.protobuf.typia.protobuf.encode)` pass for sixteen entry points
+ *    (#2285). The fixture source is the oracle: a code composed by
+ *    concatenation, or misspelled, names no call site in it.
  */
 const SRC = path.join(__dirname, "src");
 const ANSI = /\x1b\[[0-9;]*m/g;
@@ -66,22 +72,25 @@ const build = () => {
  */
 const parse = (output) => {
   const typia = new Map();
+  const codes = new Map();
   const compiler = [];
   for (const line of output.split(/\r?\n/)) {
     const match = line.match(/^(\S.*\.ts):\d+:\d+ - error ([^\s:]+):/);
     if (match === null) continue;
     const file = normalize(match[1]);
-    if (match[2].startsWith("TS(typia."))
+    if (match[2].startsWith("TS(typia.")) {
       typia.set(file, (typia.get(file) ?? 0) + 1);
-    else compiler.push(line.trim());
+      if (codes.has(file) === false) codes.set(file, new Set());
+      codes.get(file).add(match[2].slice("TS(".length, -1));
+    } else compiler.push(line.trim());
   }
-  return { typia, compiler };
+  return { typia, codes, compiler };
 };
 
 const main = () => {
   const list = fixtures();
   const { code, output } = build();
-  const { typia, compiler } = parse(output);
+  const { typia, codes, compiler } = parse(output);
 
   const fail = (reasons) => {
     for (const reason of reasons) console.error(reason);
@@ -127,9 +136,27 @@ const main = () => {
           ]),
     ]);
 
+  // EVERY DIAGNOSTIC CODE MUST NAME AN ACCESSOR ITS FIXTURE WRITES
+  const unnamed = [];
+  for (const [file, reported] of codes) {
+    const source = fs.readFileSync(path.join(SRC, file), "utf8");
+    for (const name of reported)
+      if (source.includes(name) === false) unnamed.push(`src/${file}: ${name}`);
+  }
+  if (unnamed.length !== 0)
+    fail([
+      `${unnamed.length} diagnostic code(s) name no call site in their fixture.`,
+      "A typia rejection must be identified by the API that was invoked, so the",
+      "code has to be an accessor the fixture writes.",
+      "",
+      ...unnamed.sort(),
+      "",
+    ]);
+
   const total = [...typia.values()].reduce((x, y) => x + y, 0);
   console.log(
-    `Every fixture rejected: ${list.length} files, ${total} typia diagnostics.`,
+    `Every fixture rejected: ${list.length} files, ${total} typia diagnostics, ` +
+      `${[...codes.values()].reduce((x, y) => x + y.size, 0)} distinct codes named.`,
   );
 };
 main();

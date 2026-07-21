@@ -35,7 +35,7 @@ func (protobufMessageProgrammerNamespace) Write(props ProtobufMessageProgrammer_
   f := nativecontext.EmitFactoryOf(protobufMessageProgrammer_factory, props.Context.Emit)
   collection := schemametadata.NewMetadataCollection()
   nativefactories.ProtobufFactory.Metadata(nativefactories.ProtobufFactory_IProps{
-    Method:     "message",
+    Method:     "typia.protobuf.message",
     Checker:    props.Context.Checker,
     Components: collection,
     Type:       props.Type,
