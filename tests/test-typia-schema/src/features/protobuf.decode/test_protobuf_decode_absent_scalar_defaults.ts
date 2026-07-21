@@ -6,22 +6,24 @@ import typia from "typia";
  *
  * In proto3 a singular scalar equal to its default is not written on the wire,
  * so a conformant peer encodes an all-defaults message as the empty payload and
- * an absent scalar must decode to its type default: `number -> 0`,
- * `boolean -> false`, `bigint -> 0n`, `string -> ""`. typia seeded an absent
- * required `number`/`boolean`/`bigint` with `undefined` instead, so `decode`
- * returned `undefined` and every validating decoder threw `invalid type` on a
- * valid peer message. The typia encoder writes every required non-nullable
- * field unconditionally even at the default, so this never surfaced in a
- * typia-only round-trip; the oracle here is a hand-built absent-field payload,
- * not typia's own encode output.
+ * an absent scalar must decode to its type default: `number -> 0`, `boolean ->
+ * false`, `bigint -> 0n`, `string -> ""`. typia seeded an absent required
+ * `number`/`boolean`/`bigint` with `undefined` instead, so `decode` returned
+ * `undefined` and every validating decoder threw `invalid type` on a valid peer
+ * message. The typia encoder writes every required non-nullable field
+ * unconditionally even at the default, so this never surfaced in a typia-only
+ * round-trip; the oracle here is a hand-built absent-field payload, not typia's
+ * own encode output.
  *
  * 1. Decode the empty payload for a message of required `number`, `boolean`,
  *    `bigint`, and `string` through every direct and factory decoder, asserting
- *    each field takes its typed default and every validating decoder accepts it.
+ *    each field takes its typed default and every validating decoder accepts
+ *    it.
  * 2. Assert an absent optional scalar stays `undefined` and an absent nullable
- *    scalar stays `null`, so the new seed touches only the required scalar case.
- * 3. Assert a constrained scalar at the default is judged by its constraint on
- *    the seeded `0`, the precise diagnostic, not an `invalid type` on `undefined`.
+ *    scalar stays `null`, so the new seed touches only the required scalar
+ *    case.
+ * 3. Assert a constrained scalar at the default is judged by its constraint on the
+ *    seeded `0`, the precise diagnostic, not an `invalid type` on `undefined`.
  */
 export const test_protobuf_decode_absent_scalar_defaults = (): void => {
   // an all-defaults proto3 message: a conformant peer omits every field equal
@@ -49,7 +51,10 @@ export const test_protobuf_decode_absent_scalar_defaults = (): void => {
     [
       "validateDecode",
       (input) =>
-        unwrap("validateDecode", typia.protobuf.validateDecode<IScalars>(input)),
+        unwrap(
+          "validateDecode",
+          typia.protobuf.validateDecode<IScalars>(input),
+        ),
     ],
     [
       "createValidateDecode",

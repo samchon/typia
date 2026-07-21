@@ -108,8 +108,8 @@ export const test_llm_schema_json_pointer_references = (): void => {
     const componentKey: string | undefined = Object.keys(
       components.schemas!,
     ).find(
-      (name) => (components.schemas![name] as { type?: string }).type ===
-        "number",
+      (name) =>
+        (components.schemas![name] as { type?: string }).type === "number",
     );
     TestValidator.predicate(
       `${label}: inversion allocates a legal component key`,

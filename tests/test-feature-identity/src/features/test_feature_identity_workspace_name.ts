@@ -59,7 +59,8 @@ interface IWorkspace {
  * scan in `FeatureIdentity` does: only a tracked manifest can mislead another
  * contributor, and reading git keeps the result independent of whichever suites
  * have run before this one. `tests/config` carries no manifest and is simply
- * not a workspace, so matching nothing there is correct rather than an omission.
+ * not a workspace, so matching nothing there is correct rather than an
+ * omission.
  */
 const collect = (root: string = Git.toplevel()): IWorkspace[] =>
   // Run from the repository root: `git ls-files -- tests` resolves its

@@ -62,12 +62,13 @@ export namespace TestAutomation {
   /**
    * Structures held out of the OpenAPI validate matrix, and why each is out.
    *
-   * This replaces three source-text scans (`"never"`, `"[key: "`, `'<"uint32">'`)
-   * that the selector ran over each fixture's raw file. Matching source text
-   * means prose decides coverage: a doc comment that merely mentioned one of
-   * those words dropped a structure from the matrix silently, with nothing to
-   * observe (#2136). The set below reproduces those three scans exactly — the
-   * same 148 structures resolve to the same 83 validate and 80 equality cases.
+   * This replaces three source-text scans (`"never"`, `"[key: "`,
+   * `'<"uint32">'`) that the selector ran over each fixture's raw file.
+   * Matching source text means prose decides coverage: a doc comment that
+   * merely mentioned one of those words dropped a structure from the matrix
+   * silently, with nothing to observe (#2136). The set below reproduces those
+   * three scans exactly — the same 148 structures resolve to the same 83
+   * validate and 80 equality cases.
    *
    * The reason belongs here rather than on the fixture because it describes the
    * emitted schema, not the fixture: nothing about `DynamicSimple` makes it
@@ -111,27 +112,28 @@ export namespace TestAutomation {
    * their schema simply states less than the type does, so no validator could
    * reject the fixture's spoiler and the miss is the emitter's:
    *
-   * - `DynamicComposite`, `DynamicTemplate`, `DynamicUnion` — an index
-   *   signature emits `additionalProperties`, a single schema shared by every
-   *   key. The normalized object schema has no `patternProperties`, so distinct
-   *   key patterns and their distinct value types collapse into one union:
+   * - `DynamicComposite`, `DynamicTemplate`, `DynamicUnion` — an index signature
+   *   emits `additionalProperties`, a single schema shared by every key. The
+   *   normalized object schema has no `patternProperties`, so distinct key
+   *   patterns and their distinct value types collapse into one union:
    *   `DynamicTemplate` becomes `additionalProperties: string | number |
-   *   boolean`, which permits the spoiler `prefix_wrong: false` that its
-   *   `` [key: `prefix_${string}`]: string `` member forbids. The
-   *   over-approximation is forced by the target format, not a validator gap.
+   *   boolean`, which permits the spoiler `prefix_wrong: false` that its `[key:
+   *   `prefix_${string}`]: string` member forbids. The over-approximation is
+   *   forced by the target format, not a validator gap.
    * - `TypeTagType` — an integer width tag emits no range: `Type<"uint32">`
    *   becomes `{ type: "integer", minimum: 0 }` and `Type<"int32">` becomes a
    *   bare `{ type: "integer" }`. No upper bound is ever emitted, so the
-   *   spoiler `uint = 4294967296` is inside every constraint the schema states.
+   *   spoiler `uint = 4294967296` is inside every constraint the schema
+   *   states.
    * - `TemplateInterpolationTagged` — a template literal emits a `pattern` for
    *   its structural shape alone, and the interpolated tags never reach it.
-   *   `` percent: `${number & Minimum<0> & Maximum<100>}%` `` emits
+   *   `percent: `${number & Minimum<0> & Maximum<100>}%`` emits
    *   `^([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?%)$`, which `"150%"` matches. The
    *   first miss is that `Maximum<100>`, not a `uint32` tag.
    *
    * The four marked `passes today` are measured to validate cleanly against
    * their own spoilers, and are held out only because admitting them changes
-   * *which* structures the matrix covers — a separate decision from *how* they
+   * _which_ structures the matrix covers — a separate decision from _how_ they
    * are selected, left to #2136's follow-up.
    */
   const HELD_OUT: Record<string, string> = {

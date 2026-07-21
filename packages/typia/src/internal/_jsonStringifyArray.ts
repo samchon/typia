@@ -5,13 +5,13 @@
  * writes `null` wherever the element serializes to `undefined`. Neither
  * `Array.prototype.map` nor `Array.prototype.join` reproduces that:
  *
- * - `map` never visits a hole and leaves one behind, and `join` renders a hole
- *   as empty text, so a sparse array joined into malformed text such as
- *   `[,1]`. A hole exists at runtime whatever the element type declares, so
- *   this is not an `any` concern.
- * - `join` renders a mapped `undefined` as empty text too, which is what an
- *   `any` or `unknown` element holding a function, a symbol, or a `toJSON`
- *   that returns nothing serializes to.
+ * - `map` never visits a hole and leaves one behind, and `join` renders a hole as
+ *   empty text, so a sparse array joined into malformed text such as `[,1]`. A
+ *   hole exists at runtime whatever the element type declares, so this is not
+ *   an `any` concern.
+ * - `join` renders a mapped `undefined` as empty text too, which is what an `any`
+ *   or `unknown` element holding a function, a symbol, or a `toJSON` that
+ *   returns nothing serializes to.
  *
  * The length is converted with `ToLength` and read once, which is both what
  * `JSON.stringify` does and what `Array.prototype.every` - the traversal

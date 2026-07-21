@@ -11,17 +11,16 @@ import { Calculator } from "../structures/Calculator";
  * Verifies a LangChain argument failure fences typia's feedback exactly once.
  *
  * `LlmJson.stringify` owns the markdown fence around its annotated JSON, so a
- * caller that wraps the return value in a second ```` ```json ```` fence hands
- * the model ```` ```json\n```json ```` — broken markdown, in the one payload
- * whose whole purpose is to be read back and corrected. Counting the fence is
- * what pins this, because asserting the feedback merely `includes("```json")`
- * passes with one fence or two; asserting the body is `LlmJson.stringify`'s
- * output verbatim additionally pins that the registrar wraps it in nothing at
- * all.
+ * caller that wraps the return value in a second ````json` fence hands the
+ * model ````json\n```json` — broken markdown, in the one payload whose whole
+ * purpose is to be read back and corrected. Counting the fence is what pins
+ * this, because asserting the feedback merely `includes("```json")` passes with
+ * one fence or two; asserting the body is `LlmJson.stringify`'s output verbatim
+ * additionally pins that the registrar wraps it in nothing at all.
  *
  * 1. Build a class controller and convert it to LangChain tools.
  * 2. Invoke `add` with a non-numeric operand to force typia's feedback.
- * 3. Assert the message opens exactly one ```` ```json ```` fence.
+ * 3. Assert the message opens exactly one ````json` fence.
  * 4. Assert the message is the registrar's title followed by `LlmJson.stringify`
  *    verbatim.
  */
@@ -52,9 +51,8 @@ export const test_langchain_tool_error_single_json_fence =
       1,
     );
 
-    const func: ILlmFunction | undefined = controller.application.functions.find(
-      (f) => f.name === "add",
-    );
+    const func: ILlmFunction | undefined =
+      controller.application.functions.find((f) => f.name === "add");
     if (func === undefined) throw new Error("Missing add function");
     const validation: IValidation<unknown> = LlmJson.validateArguments(
       func,

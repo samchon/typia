@@ -9,10 +9,7 @@
  * collapsing it to the underscore-free `plain` path.
  */
 export const __notationRename =
-  (props: {
-    plain: (str: string) => string;
-    snake: (str: string) => string;
-  }) =>
+  (props: { plain: (str: string) => string; snake: (str: string) => string }) =>
   (str: string): string => {
     let prefix: string = "";
     while (str.startsWith("_")) {

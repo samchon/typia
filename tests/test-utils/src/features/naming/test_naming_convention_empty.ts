@@ -6,9 +6,9 @@ import { NamingConvention } from "@typia/utils";
  *
  * The helpers are siblings of one contract, so a caller that picks one by name
  * must not discover that a single member throws where the rest return `""`.
- * `localize` was exactly that outlier (#2136). Asserting the whole family in one
- * place makes the shared boundary a property of the namespace rather than of
- * whichever helper happened to be tested, so a future helper cannot quietly
+ * `localize` was exactly that outlier (#2136). Asserting the whole family in
+ * one place makes the shared boundary a property of the namespace rather than
+ * of whichever helper happened to be tested, so a future helper cannot quietly
  * reintroduce a partial member.
  *
  * 1. Collect every helper that maps a string to a string.

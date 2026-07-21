@@ -2,15 +2,16 @@
  * Writes one object member the way ECMAScript `JSON.stringify` writes it.
  *
  * `SerializeJSONObject` serializes each member first and drops the member
- * entirely when that result is `undefined`. Deciding omission from the *input*
+ * entirely when that result is `undefined`. Deciding omission from the _input_
  * instead cannot reach the same answer: a symbol and a `toJSON` returning
  * nothing are both present, non-`undefined`, non-function values whose
  * serialization is `undefined`, so the member's text became the literal
  * `"k":undefined` — output that is not JSON at all.
  *
  * The serialized text is passed in already evaluated, so the member's value is
- * serialized exactly once. Testing the input and then serializing would evaluate
- * a `toJSON` twice, and a `toJSON` is free to answer differently each call.
+ * serialized exactly once. Testing the input and then serializing would
+ * evaluate a `toJSON` twice, and a `toJSON` is free to answer differently each
+ * call.
  *
  * The trailing separator belongs to the member because a dropped member must
  * take its comma with it; `_jsonStringifyTail` removes the one that is left

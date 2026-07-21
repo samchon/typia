@@ -7,8 +7,8 @@ import { resolved_equal_to } from "../utils/resolved_equal_to";
  *
  * `resolved_equal_to` used to answer `true` whenever the fixture name contained
  * `Class` or either side was a function, and it walked only the input's own
- * keys. Whole fixture classes therefore executed with no oracle at all, while an
- * unexpected output property, a mismatched native brand, and same-length but
+ * keys. Whole fixture classes therefore executed with no oracle at all, while
+ * an unexpected output property, a mismatched native brand, and same-length but
  * different buffer bytes all passed. Each case below is a negative twin of a
  * positive one, so an oracle that answered `true` unconditionally, or one that
  * lost a branch, cannot survive the table.
@@ -42,7 +42,11 @@ export const test_resolved_equal_to_oracle = (): void => {
   // an ordinary bug in the helper satisfy this case.
   const blob: Blob = new Blob([Uint8Array.from([1])]);
   try {
-    resolved_equal_to(probe())({ part: blob }, { part: blob }, { silent: true });
+    resolved_equal_to(probe())(
+      { part: blob },
+      { part: blob },
+      { silent: true },
+    );
   } catch (exp) {
     const message: string = (exp as Error).message;
     if (message.includes("resolved_equal_to_async()") === true) return;

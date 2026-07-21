@@ -40,7 +40,11 @@ export const test_json_schema_v3_0_dialect = (): void => {
 
   const serialized: string = JSON.stringify(unit);
   for (const keyword of ["const", "prefixItems", '"type":"null"'])
-    TestValidator.equals(`no ${keyword} under 3.0`, serialized.includes(keyword), false);
+    TestValidator.equals(
+      `no ${keyword} under 3.0`,
+      serialized.includes(keyword),
+      false,
+    );
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));

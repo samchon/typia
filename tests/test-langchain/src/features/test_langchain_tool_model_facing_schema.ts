@@ -16,14 +16,14 @@ import { Calculator } from "../structures/Calculator";
  * parameters the model is shown. Because typia validates arguments itself, the
  * registrar declines the first role by registering Standard JSON Schema — and
  * the whole point of that shape is that it does not cost the second. Nothing
- * else asserts the model-facing artifact, so a regression that traded the schema
- * away to reclaim validation would leave the model calling tools blind, with
- * every other test still green.
+ * else asserts the model-facing artifact, so a regression that traded the
+ * schema away to reclaim validation would leave the model calling tools blind,
+ * with every other test still green.
  *
  * 1. Build a class controller and convert it to LangChain tools.
  * 2. Assert `toJsonSchema` yields typia's parameters document unchanged.
- * 3. Assert the OpenAI tool definition LangChain sends carries the same
- *    document, with the properties and required list the model needs.
+ * 3. Assert the OpenAI tool definition LangChain sends carries the same document,
+ *    with the properties and required list the model needs.
  */
 export const test_langchain_tool_model_facing_schema =
   async (): Promise<void> => {
@@ -35,9 +35,8 @@ export const test_langchain_tool_model_facing_schema =
     const addTool: DynamicStructuredTool | undefined = tools.find(
       (t) => t.name === "add",
     );
-    const func: ILlmFunction | undefined = controller.application.functions.find(
-      (f) => f.name === "add",
-    );
+    const func: ILlmFunction | undefined =
+      controller.application.functions.find((f) => f.name === "add");
     if (addTool === undefined) throw new Error("Missing add tool");
     if (func === undefined) throw new Error("Missing add function");
 
