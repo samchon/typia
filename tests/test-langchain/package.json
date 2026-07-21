@@ -15,7 +15,8 @@
   "author": "Jeongho Nam",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "catalog:utils"
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
   },
   "dependencies": {
     "@langchain/core": "^1.1.31",
