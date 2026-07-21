@@ -532,10 +532,10 @@ func callableTypeLiteralDiagnosticTwins(t *testing.T) []string {
     // intersection of a call signature with the rest.
     //
     // This row is what samchon/typia#2276 closed. Before it, six of the twelve
-    // shapes disagreed here — `cancel(): void` was accepted while
-    // `cancel: () => void` was refused, and an optional member was accepted while
-    // the same member required was not — because a call-signature-only arm was
-    // neither an object nor a phantom brand, so the intersection was called
+    // shapes disagreed here — `{ method(): void }` was accepted while
+    // `{ method: () => void }` was refused, and `{ label?: string }` was accepted
+    // while `{ label: string }` was refused — because a call-signature-only arm
+    // was neither an object nor a phantom brand, so the intersection was called
     // nonsensible while the interface spelling of the same type, which is one
     // object carrying a call signature, was accepted.
     if observed["Alias"] != observed["Interface"] {
