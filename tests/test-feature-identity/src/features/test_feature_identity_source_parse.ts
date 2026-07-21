@@ -14,8 +14,8 @@ import { FeatureIdentity } from "../FeatureIdentity";
  * contributor's `export function` is understood rather than condemned.
  *
  * 1. Assert each top-level declaration form is recognized.
- * 2. Assert an indented declaration, a comment, and a non-`test_` export are
- *    not mistaken for tests.
+ * 2. Assert an indented declaration, a comment, and a non-`test_` export are not
+ *    mistaken for tests.
  * 3. Assert a renamed re-export yields nothing, so the file fails closed.
  */
 export const test_feature_identity_source_parse = (): void => {

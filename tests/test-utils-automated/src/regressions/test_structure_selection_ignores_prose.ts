@@ -12,7 +12,8 @@ import { TestGlobal } from "../TestGlobal";
  * `uint32`/`uint64` tag silently left the validate matrix with no signal —
  * coverage loss that no assertion could observe (#2136). `TypeTagRange` carries
  * a doc comment that legitimately reads "must never accept", which the old
- * `content.includes("never")` scan would match, dropping it from both matrices.
+ * `content.includes("never")` scan would match, dropping it from both
+ * matrices.
  *
  * The guard runs first on purpose: it fails if that prose ever disappears, so
  * this case cannot quietly decay into an oracle that proves nothing.

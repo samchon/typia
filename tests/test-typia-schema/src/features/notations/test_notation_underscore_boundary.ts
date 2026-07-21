@@ -2,7 +2,8 @@ import { TestValidator } from "@nestia/e2e";
 import typia from "typia";
 
 /**
- * Verifies notation runtime output equals the `*Case<T>` type on underscore keys.
+ * Verifies notation runtime output equals the `*Case<T>` type on underscore
+ * keys.
  *
  * Issue #2190: on a key mixing an underscore with a case boundary the
  * `snake`/`kebab` conversion lowercased each underscore-delimited segment
@@ -32,7 +33,8 @@ export const test_notation_underscore_boundary = (): void => {
   };
 
   // ---- static keys: soundness against the declared *Case<T> type ----
-  const snaked: typia.SnakeCase<Battery> = typia.notations.snake<Battery>(value);
+  const snaked: typia.SnakeCase<Battery> =
+    typia.notations.snake<Battery>(value);
   TestValidator.equals("snake foo_bar_baz", snaked.foo_bar_baz, 1);
   TestValidator.equals("snake open_ai_key", snaked.open_ai_key, 2);
   TestValidator.equals("snake http_foo_bar", snaked.http_foo_bar, 3);

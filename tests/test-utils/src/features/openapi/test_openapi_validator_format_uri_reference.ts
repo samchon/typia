@@ -23,9 +23,9 @@ interface ICommentUriReferenceValue {
  * takes `path-noscheme`, whose first segment is `segment-nz-nc` and excludes
  * `:`, while every later segment is `*pchar` and includes it. Sharing one
  * `path-rootless` alternative across both sides therefore accepts
- * `1bad:relative`, which is neither a URI (`1bad` cannot be a scheme, which must
- * begin with ALPHA) nor a relative-ref. The same expression is copied into the
- * typia runtime helper, the native code generator, and the @typia/utils
+ * `1bad:relative`, which is neither a URI (`1bad` cannot be a scheme, which
+ * must begin with ALPHA) nor a relative-ref. The same expression is copied into
+ * the typia runtime helper, the native code generator, and the @typia/utils
  * validator, so the matrix runs through every owner rather than trusting one of
  * them — they agree with each other even when all three are wrong, so every
  * expectation here comes from RFC 3986 rather than from current output. It also

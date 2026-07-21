@@ -6,8 +6,8 @@ import { NamingConvention } from "@typia/utils";
  *
  * `localize` asserted `str[0]!` without ever checking for it, so the empty
  * string raised a `TypeError` while all five sibling helpers returned `""`
- * (#2136). No in-repo caller could reach that branch — every call site guards on
- * `method.startsWith("create")` — but `@typia/utils` is published, and an
+ * (#2136). No in-repo caller could reach that branch — every call site guards
+ * on `method.startsWith("create")` — but `@typia/utils` is published, and an
  * external caller has no such guard. Pins the boundary alongside the ordinary
  * conversions so the total contract cannot regress to a partial one.
  *

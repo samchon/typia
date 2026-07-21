@@ -53,7 +53,11 @@ export const test_json_schemas_v3_0_dialect = (): void => {
   // The negative twin: no 3.1-only keyword may appear anywhere in the document.
   const serialized: string = JSON.stringify(collection);
   for (const keyword of ["const", "prefixItems", '"type":"null"'])
-    TestValidator.equals(`no ${keyword} under 3.0`, serialized.includes(keyword), false);
+    TestValidator.equals(
+      `no ${keyword} under 3.0`,
+      serialized.includes(keyword),
+      false,
+    );
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));

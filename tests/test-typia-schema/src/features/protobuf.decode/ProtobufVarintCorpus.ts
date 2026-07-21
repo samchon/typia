@@ -21,8 +21,8 @@ import { TestGlobal } from "../../TestGlobal";
  * lenient, while `protowire` rejects. typia follows `protowire`.
  *
  * A fault class, not a message, is what the corpus records. The mapping from a
- * class to the exact text typia raises lives in {@link message} — one table,
- * in one place, rather than a string repeated across the regressions.
+ * class to the exact text typia raises lives in {@link message} — one table, in
+ * one place, rather than a string repeated across the regressions.
  */
 export namespace ProtobufVarintCorpus {
   /** The wire fault classes the corpus distinguishes. */

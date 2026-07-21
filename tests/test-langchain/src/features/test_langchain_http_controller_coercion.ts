@@ -10,10 +10,10 @@ import { HttpLlm } from "@typia/utils";
  * The class and HTTP controllers share one `createTool`, which dispatches the
  * `data` of `LlmJson.validateArguments` — the coerced arguments — rather than
  * what the model sent. Registering a schema LangChain validates itself defeats
- * that for both protocols at once: `@cfworker/json-schema` rejects a stringified
- * `"42"` before the tool body, so the request is never issued at all. Injecting
- * the controller's own `execute` observes the dispatched arguments without a
- * live server.
+ * that for both protocols at once: `@cfworker/json-schema` rejects a
+ * stringified `"42"` before the tool body, so the request is never issued at
+ * all. Injecting the controller's own `execute` observes the dispatched
+ * arguments without a live server.
  *
  * 1. Build an OpenAPI document whose request body needs two numbers.
  * 2. Inject an `execute` that records the arguments it receives.

@@ -9,14 +9,14 @@ import { NamingConvention } from "@typia/utils";
  * contract. Issue #2186/#2193: the converter capitalized each underscore
  * segment without lowercasing its inner characters, so an all-caps key
  * (`MAX_COUNT`) produced `MAXCOUNT` and an underscore-plus-case-boundary key
- * (`fooBar_baz`) kept its inner boundary as `FooBarBaz`, both diverging from the
- * `PascalCase<T>` results `MaxCount` and `FoobarBaz`. Each segment's first
+ * (`fooBar_baz`) kept its inner boundary as `FooBarBaz`, both diverging from
+ * the `PascalCase<T>` results `MaxCount` and `FoobarBaz`. Each segment's first
  * character is uppercased and its tail lowercased, while a trailing underscore
  * is dropped (`fooBar_` → `Foobar`) — the asymmetry against camelCase.
  *
  * 1. Convert camelCase, PascalCase, and snake_case inputs.
- * 2. Convert underscore-plus-case-boundary, all-caps, and trailing-underscore
- *    keys (#2186/#2193), including the `a_b_c` single-char-segment run.
+ * 2. Convert underscore-plus-case-boundary, all-caps, and trailing-underscore keys
+ *    (#2186/#2193), including the `a_b_c` single-char-segment run.
  * 3. Convert degenerate inputs (empty, underscores only, single word).
  */
 export const test_naming_convention_pascal = (): void => {

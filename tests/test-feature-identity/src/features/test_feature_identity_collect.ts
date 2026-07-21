@@ -20,8 +20,8 @@ import { FeatureIdentity } from "../FeatureIdentity";
  *    helper, a declaration file, a file outside `features`, and a staged file
  *    deleted from the working tree.
  * 2. Assert the collector returns the three real sources and nothing else.
- * 3. Assert the non-ASCII file is parsed and its mismatch reported, so the
- *    quoting path stays wired end to end.
+ * 3. Assert the non-ASCII file is parsed and its mismatch reported, so the quoting
+ *    path stays wired end to end.
  */
 export const test_feature_identity_collect = (): void => {
   const root: string = fs.mkdtempSync(path.join(os.tmpdir(), "typia-fid-"));

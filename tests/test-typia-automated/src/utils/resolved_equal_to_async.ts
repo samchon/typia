@@ -11,10 +11,10 @@ import {
 /**
  * {@link resolved_equal_to} plus asynchronous `Blob` and `File` byte equality.
  *
- * `Blob.arrayBuffer()` is asynchronous, so a synchronous oracle can compare only
- * a blob's metadata. This variant exists for the `FormData` operations, the only
- * ones whose fixtures carry binary parts: it runs the same strict walk and then
- * awaits the content of every blob pair that walk collected.
+ * `Blob.arrayBuffer()` is asynchronous, so a synchronous oracle can compare
+ * only a blob's metadata. This variant exists for the `FormData` operations,
+ * the only ones whose fixtures carry binary parts: it runs the same strict walk
+ * and then awaits the content of every blob pair that walk collected.
  *
  * Keeping it separate keeps the fourteen synchronous consumers synchronous:
  * eight HTTP query and header internals, four plain-clone internals, and the

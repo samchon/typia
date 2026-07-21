@@ -9,7 +9,7 @@ import { FeatureIdentity } from "../FeatureIdentity";
  * Feature trees legitimately hold shared helpers —
  * `test-typia-schema/src/features/plain/PlainNativeClone.ts` is one — so the
  * rule must not demand that every file be a test. The converse still bites:
- * `DynamicExecutor` requires *every* module in the tree and runs *any*
+ * `DynamicExecutor` requires _every_ module in the tree and runs _any_
  * `test_`-prefixed export it finds, so a test hidden in a helper file would run
  * under a name no file announces, which is the same identity defect from the
  * other direction.

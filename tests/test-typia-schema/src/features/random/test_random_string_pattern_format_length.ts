@@ -83,7 +83,10 @@ export const test_random_string_pattern_format_length = (): void => {
   }
   {
     // A short window near the email minimum exercises the shrink path.
-    type T = string & tags.Format<"email"> & tags.MinLength<5> & tags.MaxLength<9>;
+    type T = string &
+      tags.Format<"email"> &
+      tags.MinLength<5> &
+      tags.MaxLength<9>;
     const create = typia.createRandom<T>();
     roundTrip(
       "email & short window",
@@ -104,7 +107,10 @@ export const test_random_string_pattern_format_length = (): void => {
     );
   }
   {
-    type T = string & tags.Format<"url"> & tags.MinLength<40> & tags.MaxLength<60>;
+    type T = string &
+      tags.Format<"url"> &
+      tags.MinLength<40> &
+      tags.MaxLength<60>;
     const create = typia.createRandom<T>();
     roundTrip(
       "url & length window",

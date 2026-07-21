@@ -4,10 +4,11 @@ import typia from "typia";
 /**
  * Verifies typia.json.application emits the OpenAPI 3.0 dialect under "3.0".
  *
- * `json.application` is the third entry point sharing the collection writer that
- * relabeled a 3.1 document as "3.0". Its function parameter and return schemas
- * are filled from that same collection, so an application document is exactly as
- * mislabeled as a bare schema — and no test knew the dialect here either.
+ * `json.application` is the third entry point sharing the collection writer
+ * that relabeled a 3.1 document as "3.0". Its function parameter and return
+ * schemas are filled from that same collection, so an application document is
+ * exactly as mislabeled as a bare schema — and no test knew the dialect here
+ * either.
  *
  * 1. Declare a controller whose method takes a tuple and a literal union and
  *    returns a nullable type.
@@ -40,7 +41,11 @@ export const test_json_application_v3_0_dialect = (): void => {
 
   const serialized: string = JSON.stringify(app);
   for (const keyword of ["const", "prefixItems", '"type":"null"'])
-    TestValidator.equals(`no ${keyword} under 3.0`, serialized.includes(keyword), false);
+    TestValidator.equals(
+      `no ${keyword} under 3.0`,
+      serialized.includes(keyword),
+      false,
+    );
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));
