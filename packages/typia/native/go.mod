@@ -5,10 +5,10 @@ go 1.26
 // Build-time floor: the driver reference-graph SDK
 // (driver.NewTransformGraph / driver.TransformGraph / driver.TransformOutputKey)
 // this plugin consumes exists only in ttsc >= 0.19.2. That floor is enforced
-// through typia's package.json peerDependencies (ttsc / @ttsc/unplugin), not
-// here: ttsc builds this plugin from source on the user's machine and its
-// buildSourcePlugin generates `replace github.com/samchon/ttsc/packages/ttsc
-// v0.0.0 => <installed ttsc root>`, so the require below must stay v0.0.0 or the
+// through typia's package.json `ttsc` peerDependency, not here: ttsc builds
+// this plugin from source on the user's machine and its buildSourcePlugin
+// generates `replace github.com/samchon/ttsc/packages/ttsc v0.0.0 =>
+// <installed ttsc root>`, so the require below must stay v0.0.0 or the
 // generated replace no longer matches and the plugin build fails to resolve.
 require (
 	github.com/microsoft/typescript-go/shim/ast v0.0.0
