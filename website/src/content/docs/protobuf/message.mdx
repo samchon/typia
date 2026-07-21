@@ -153,27 +153,30 @@ typia.protobuf.createEncode<Cat | Dog>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-main.ts:6:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:6:1 - error TS(typia.protobuf.message): typia transform error: unsupported type detected
 
 - bigint
   - target type must be a sole and static object type
 
-main.ts:7:1 - error TS(typia.protobuf.createDecode): unsupported type detected
+main.ts:7:1 - error TS(typia.protobuf.createDecode): typia transform error: unsupported type detected
 
 - Record<string, number>
   - target type must be a sole and static object type
 
-main.ts:8:1 - error TS(typia.protobuf.createDecode): unsupported type detected
+main.ts:8:1 - error TS(typia.protobuf.createDecode): typia transform error: unsupported type detected
 
 - Map<(number & Type<"float">), Dog>
   - target type must be a sole and static object type
 
-main.ts:9:1 - error TS(typia.protobuf.createEncode): unsupported type detected
-
-- Array<boolean>
+- (number & Type<"float">)
   - target type must be a sole and static object type
 
-main.ts:10:1 - error TS(typia.protobuf.createEncode): unsupported type detected
+main.ts:9:1 - error TS(typia.protobuf.createEncode): typia transform error: unsupported type detected
+
+- Array<false | true>
+  - target type must be a sole and static object type
+
+main.ts:10:1 - error TS(typia.protobuf.createEncode): typia transform error: unsupported type detected
 
 - (Cat | Dog)
   - target type must be a sole and static object type
@@ -209,29 +212,32 @@ typia.protobuf.message<IPointer<Map<number | string, Dog>>>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-main.ts:7:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:7:1 - error TS(typia.protobuf.message): typia transform error: unsupported type detected
 
-- IPointer<Array<Array<number>>>[key]: Array<Array<number>>
+- IPointer<Array<Array<number>>>.value: Array<Array<number>>
   - does not support over two dimensional array type
 
-main.ts:8:1 - error TS(typia.protobuf.createEncode): unsupported type detected
+main.ts:8:1 - error TS(typia.protobuf.createEncode): typia transform error: unsupported type detected
 
-- IPointer<Record<string, Array<string>>>[key]: Record<string, Array<string>>
+- IPointer<Record<string, string[]>>.value: Record<string, string[]>
   - does not support dynamic object with array value type
 
-main.ts:9:1 - error TS(typia.protobuf.createDecode): unsupported type detected
+- Record<string, string[]>: Record<string, string[]>
+  - does not support dynamic object with array value type
 
-- IPointer<Map<string, Cat | Dog>>[key]: Map<string, (Cat | Dog)>
+main.ts:9:1 - error TS(typia.protobuf.createDecode): typia transform error: unsupported type detected
+
+- IPointer<Map<string, Cat | Dog>>.value: Map<string, (Cat | Dog)>
   - does not support union type in map value type
 
-main.ts:10:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:10:1 - error TS(typia.protobuf.message): typia transform error: unsupported type detected
 
-- IPointer<Map<Cat, string>>[key]: Map<Cat, string>
+- IPointer<Map<Cat, string>>.value: Map<Cat, string>
   - does not support non-atomic key typed map
 
-main.ts:11:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:11:1 - error TS(typia.protobuf.message): typia transform error: unsupported type detected
 
-- IPointer<Map<string | number, Dog>>[key]: Map<(number | string), Dog>
+- IPointer<Map<string | number, Dog>>.value: Map<(number | string), Dog>
   - does not support union key typed map
   - does not support non-atomic key typed map
 ````
@@ -270,7 +276,7 @@ typia.protobuf.message<Something>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash
-main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
+main.ts:13:1 - error TS(typia.protobuf.message): typia transform error: unsupported type detected
 
 - Something.any: any
   - does not support any type
@@ -283,8 +289,8 @@ main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - Something.dict: (Set<string> | WeakMap | WeakSet)
   - does not support Set type
-  - does not support WeakSet type. Use Array type instead.
   - does not support WeakMap type. Use Map type instead.
+  - does not support WeakSet type. Use Array type instead.
 
 - Something.date: Date
   - does not support Date type. Use string type instead.

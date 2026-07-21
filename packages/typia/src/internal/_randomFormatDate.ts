@@ -1,23 +1,7 @@
-import { _randomInteger } from "./_randomInteger";
-import { _randomFormatLength } from "./_randomStringLength";
+import { _ILengthProps, _randomFormatLength } from "./_randomStringLength";
+import { __IEpochProps, __randomEpoch } from "./private/__randomEpoch";
 
-export const _randomFormatDate = (props?: {
-  minimum?: number;
-  maximum?: number;
-  minLength?: number;
-  maxLength?: number;
-}) =>
+export const _randomFormatDate = (props?: __IEpochProps & _ILengthProps) =>
   _randomFormatLength(props, () =>
-    new Date(
-      _randomInteger({
-        type: "integer",
-        minimum: props?.minimum ?? 0,
-        maximum:
-          (props?.maximum ?? props?.minimum === undefined)
-            ? Date.now()
-            : props.minimum + 365 * 24 * 60 * 60 * 1_000,
-      }),
-    )
-      .toISOString()
-      .substring(0, 10),
+    new Date(__randomEpoch(props)).toISOString().substring(0, 10),
   );

@@ -237,41 +237,33 @@ LLMs use keyworded arguments. typia enforces this at compile time:
 - No dynamic keys (`Record<string, V>`)
 - `T` may not be nullable or optional
 
+`T` is also constrained by the signature itself (`Parameters extends Record<string, any>`), so a primitive such as `typia.llm.parameters<string>()` is rejected by TypeScript with `TS2344` before the transform runs, and no typia diagnostic appears for it.
+
 <Tabs items={["Source That Won't Compile", "Compiler Errors"]}>
   <Tabs.Tab>
 ```typescript filename="src/examples/llm.parameters.violation.ts" showLineNumbers
 import typia from "typia";
 
-typia.llm.parameters<string>();
 typia.llm.parameters<Record<string, boolean>>();
 typia.llm.parameters<Array<number>>();
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal"
-src/examples/llm.parameters.violation.ts:3:1 - error TS(typia.llm.parameters): unsupported type detected
-
-- string
-  - LLM parameters must be an object type.
-
-3 typia.llm.parameters<string>();
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-src/examples/llm.parameters.violation.ts:4:1 - error TS(typia.llm.parameters): unsupported type detected
+src/examples/llm.parameters.violation.ts:3:1 - error TS(typia.llm.parameters): typia transform error: unsupported type detected
 
 - Recordstringboolean
-  - LLM parameters must be an object type.
   - LLM parameters must not have dynamic keys.
 
-4 typia.llm.parameters<Record<string, boolean>>();
+3 typia.llm.parameters<Record<string, boolean>>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-src/examples/llm.parameters.violation.ts:5:1 - error TS(typia.llm.parameters): unsupported type detected
+src/examples/llm.parameters.violation.ts:4:1 - error TS(typia.llm.parameters): typia transform error: unsupported type detected
 
 - Arraynumber
   - LLM parameters must be an object type.
 
-5 typia.llm.parameters<Array<number>>();
+4 typia.llm.parameters<Array<number>>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
   </Tabs.Tab>

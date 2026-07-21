@@ -17,6 +17,11 @@ type protobufFactoryNamespace struct{}
 var ProtobufFactory = protobufFactoryNamespace{}
 
 type ProtobufFactory_IProps struct {
+  // Method is the fully qualified typia API the call site invoked, exactly as
+  // it must appear in the diagnostic code (`typia.protobuf.encode`). It is the
+  // sole source of that code: composing the code here from a shorter spelling
+  // let the encode and decode programmers, which already pass the whole call
+  // accessor, report `typia.protobuf.typia.protobuf.encode`.
   Method     string
   Checker    *shimchecker.Checker
   Components *schemametadata.MetadataCollection
@@ -40,7 +45,7 @@ func (protobufFactoryNamespace) Metadata(props ProtobufFactory_IProps) *schemame
       Code   string
       Errors []nativecontext.TransformerError_MetadataFactory_IError
     }{
-      Code:   "typia.protobuf." + props.Method,
+      Code:   props.Method,
       Errors: protobufFactory_errors(result.Errors),
     }))
   }

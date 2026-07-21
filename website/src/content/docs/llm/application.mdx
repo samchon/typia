@@ -142,16 +142,16 @@ const app: ILlmApplication = typia.llm.application<BbsArticleController>();
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal"
-examples/src/llm/application.violation.ts:15:30 - error TS(typia.llm.application): unsupported type detected
+examples/src/llm/application.violation.ts:15:30 - error TS(typia.llm.application): typia transform error: unsupported type detected
 
 - BbsArticleController.create: unknown
-  - LLM application's function ("create")'s return type must not be union type with undefined.
+  - LLM application's function ("create") return type cannot be optional (union with undefined).
 
 - BbsArticleController.add: unknown
-  - LLM application's function ("add")'s return type must be an object type.
+  - LLM application's function ("add") return type must be a single object type.
 
 - BbsArticleController.erase: unknown
-  - LLM application's function ("erase")'s parameter must be an object type.
+  - LLM application's function ("erase") parameter must be a single object type.
 ```
   </Tabs.Tab>
 </Tabs>

@@ -16,9 +16,9 @@ import { FileSystemIdentity } from "../../../../packages/typia/src/executable/Fi
  * no diagnostic. The identity is therefore read as a `bigint`.
  *
  * The pair below is chosen so the defect is unambiguous: both IDs sit between
- * 2^55 and 2^56 and differ by 2, which is inside the ulp of 8, so
- * `Number(a) === Number(b)` while `a !== b`. Deriving the key from the number
- * makes them one identity; deriving it from the `bigint` keeps them two.
+ * 2^55 and 2^56 and differ by 2, which is inside the ulp of 8, so `Number(a)
+ * === Number(b)` while `a !== b`. Deriving the key from the number makes them
+ * one identity; deriving it from the `bigint` keeps them two.
  *
  * 1. Assert the premise — the two IDs collide as doubles and differ as bigints.
  * 2. Assert the keys built from them stay distinct.

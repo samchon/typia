@@ -20,7 +20,7 @@ func (protobufMessageTransformerNamespace) Transform(props nativetransform.ITran
   typ := props.Context.Checker.GetTypeFromTypeNode(props.Expression.TypeArguments.Nodes[0])
   if typ != nil && typ.IsTypeParameter() {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
-      Code:    "tyipa.protobuf.message",
+      Code:    "typia.protobuf.message",
       Message: "non-specified generic argument.",
     }))
   }
