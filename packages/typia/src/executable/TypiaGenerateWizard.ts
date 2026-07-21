@@ -453,7 +453,7 @@ export namespace TypiaGenerateWizard {
     for (const entry of entries) {
       inputs.add(
         fileIdentityKey(
-          await fs.promises.stat(entry.file),
+          await fs.promises.stat(entry.file, { bigint: true }),
           await fs.promises.realpath(entry.file),
         ),
       );
@@ -461,9 +461,9 @@ export namespace TypiaGenerateWizard {
     }
 
     for (const entry of files.values()) {
-      let stat: fs.Stats;
+      let stat: fs.BigIntStats;
       try {
-        stat = await fs.promises.lstat(entry.target);
+        stat = await fs.promises.lstat(entry.target, { bigint: true });
       } catch (exp) {
         if (isMissingFileError(exp)) {
           continue;
@@ -486,7 +486,7 @@ export namespace TypiaGenerateWizard {
           `Error on TypiaGenerateWizard.generate(): output file would overwrite input file through a physical file alias: ${entry.target}`,
         );
       }
-      if (stat.nlink > 1) {
+      if (stat.nlink > BigInt(1)) {
         throw new URIError(
           `Error on TypiaGenerateWizard.generate(): output file has multiple hard links: ${entry.target}`,
         );
@@ -874,7 +874,9 @@ export namespace TypiaGenerateWizard {
       real: currentReal,
     });
 
-    const currentStat: fs.Stats = await fs.promises.stat(props.from);
+    const currentStat: fs.BigIntStats = await fs.promises.stat(props.from, {
+      bigint: true,
+    });
     const directoryIdentity: string = fileIdentityKey(currentStat, currentReal);
     if (props.visitedDirectories.has(directoryIdentity)) {
       const lexicalStat: fs.Stats = await fs.promises.lstat(props.from);
@@ -913,10 +915,10 @@ export namespace TypiaGenerateWizard {
     });
 
     for (const entry of entries) {
-      let stat: fs.Stats;
+      let stat: fs.BigIntStats;
       let real: string;
       try {
-        stat = await fs.promises.stat(entry.file);
+        stat = await fs.promises.stat(entry.file, { bigint: true });
         real = await fs.promises.realpath(entry.file);
       } catch (error) {
         throw new URIError(
@@ -1088,10 +1090,12 @@ export namespace TypiaGenerateWizard {
     );
   }
 
-  function fileIdentityKey(stat: fs.Stats, realpath: string): string {
-    return stat.ino === 0
-      ? `path:${path.normalize(realpath)}`
-      : `inode:${stat.dev}:${stat.ino}`;
+  /**
+   * Delegates to {@link FileSystemIdentity.identityKey}, which owns the rule and
+   * carries the reasoning for reading the identity as a `bigint`.
+   */
+  function fileIdentityKey(stat: fs.BigIntStats, realpath: string): string {
+    return FileSystemIdentity.identityKey(stat, realpath);
   }
 
   function formatDiagnostics(diagnostics: ITtscCompilerDiagnostic[]): string {
