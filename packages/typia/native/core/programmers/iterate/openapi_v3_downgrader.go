@@ -454,7 +454,40 @@ func openApiV3Downgrader_omit_examples(schema JsonSchema) JsonSchema {
     }
     output[key] = value
   }
-  return output
+  return openApiV3Downgrader_exclusive_bounds(output)
+}
+
+// openApiV3Downgrader_exclusive_bounds rewrites an exclusive numeric bound into
+// the form the 3.0 dialect defines.
+//
+// 3.0's Schema Object descends from JSON Schema draft-04, where
+// `exclusiveMinimum` and `exclusiveMaximum` are booleans qualifying `minimum`
+// and `maximum`; the numeric spelling belongs to 3.1. Carrying the number
+// through left a document that declares itself 3.0 with a 3.1 keyword, and a
+// 3.0 reader taking the value as the boolean its dialect declares finds no
+// `minimum` beside it and drops the bound entirely (#2300).
+//
+// The upgrader already performs the inverse — a boolean `exclusiveMinimum: true`
+// becomes the numeric bound and the redundant `minimum` is dropped — so this
+// makes the pair a round trip.
+func openApiV3Downgrader_exclusive_bounds(schema JsonSchema) JsonSchema {
+  for _, pair := range [][2]string{
+    {"exclusiveMinimum", "minimum"},
+    {"exclusiveMaximum", "maximum"},
+  } {
+    value, ok := schema[pair[0]]
+    if ok == false {
+      continue
+    }
+    if _, boolean := value.(bool); boolean {
+      continue
+    }
+    if openApiV3Downgrader_is_nil(value) == false {
+      schema[pair[1]] = value
+      schema[pair[0]] = true
+    }
+  }
+  return schema
 }
 
 // openApiV3Downgrader_shallow_clone copies a schema's own keys, leaving nested
