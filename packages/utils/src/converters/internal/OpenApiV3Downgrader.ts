@@ -420,7 +420,34 @@ export namespace OpenApiV3Downgrader {
     schema: Schema,
   ): Omit<Schema, "examples"> => {
     const { examples: _examples, ...rest } = schema;
-    return rest;
+    return exclusiveBounds(rest);
+  };
+
+  /**
+   * Rewrites an exclusive numeric bound into the form the 3.0 dialect defines.
+   *
+   * 3.0's Schema Object descends from JSON Schema draft-04, where
+   * `exclusiveMinimum` and `exclusiveMaximum` are booleans qualifying `minimum`
+   * and `maximum`; the numeric spelling belongs to 3.1. Carrying the number
+   * through left a document that declares itself 3.0 with a 3.1 keyword, and a
+   * 3.0 reader taking the value as the boolean its dialect declares finds no
+   * `minimum` beside it and drops the bound entirely (#2300).
+   *
+   * {@link OpenApiV3Upgrader} already performs the inverse, so this makes the
+   * pair a round trip.
+   */
+  const exclusiveBounds = <Schema extends object>(schema: Schema): Schema => {
+    const target = schema as Record<string, unknown>;
+    for (const [exclusive, inclusive] of [
+      ["exclusiveMinimum", "minimum"],
+      ["exclusiveMaximum", "maximum"],
+    ] as const) {
+      const value: unknown = target[exclusive];
+      if (typeof value !== "number") continue;
+      target[inclusive] = value;
+      target[exclusive] = true;
+    }
+    return schema;
   };
 
   const isNullable =
