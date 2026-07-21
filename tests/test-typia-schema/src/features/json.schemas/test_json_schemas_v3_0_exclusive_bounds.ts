@@ -23,7 +23,7 @@ interface IBounds {
  * The 3.0 Schema Object descends from JSON Schema draft-04, where
  * `exclusiveMinimum` and `exclusiveMaximum` are booleans qualifying `minimum`
  * and `maximum`; the numeric spelling belongs to 3.1. The downgrader carried
- * the number through, so a document labelled 3.0 held a 3.1 keyword with no
+ * the number through, so a document labeled 3.0 held a 3.1 keyword with no
  * `minimum` beside it — and a 3.0 reader taking the value as the boolean its
  * dialect declares drops the bound entirely (#2300).
  *
