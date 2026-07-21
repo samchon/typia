@@ -25,6 +25,7 @@
     "typia": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "catalog:utils"
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
   }
 }

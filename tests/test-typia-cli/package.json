@@ -21,6 +21,7 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "@types/node": "catalog:utils"
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
   }
 }
