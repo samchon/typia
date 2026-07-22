@@ -180,13 +180,14 @@ export const test_random_format_length_window = (): void => {
     );
   }
   {
-    // Fourteen is the mirror: a full offset with no fraction at all.
+    // Fourteen is the only length the offset shape reaches with no fraction at
+    // all; the `Z` shape reaches it with four digits, so the draw picks one.
     type T = string &
       tags.Format<"time"> &
       tags.MinLength<14> &
       tags.MaxLength<14>;
     roundTrip(
-      "time at a bare offset clock",
+      "time at the length a bare offset reaches",
       (v) => typia.is<T>(v),
       () => typia.random<T>(),
     );

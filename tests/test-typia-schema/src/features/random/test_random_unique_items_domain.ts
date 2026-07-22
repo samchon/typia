@@ -37,12 +37,15 @@ const DRAWS = 128;
  * domains that had collapsed to one value; neither changed how the count is
  * chosen.
  *
- * The negative and the control are what keep the class sealed: a floor above
- * the domain must still fail, and a wide domain must keep varying its length,
- * so neither "never throw" nor "always return the minimum" can pass this.
+ * What keeps the class sealed is that each row bounds the draw from both sides.
+ * A floor above the domain must still fail, so "never throw" cannot pass; every
+ * small domain must be reached in full, so a generator that gave up after one
+ * element cannot; and a wide domain must keep varying its length, so a clamp
+ * applied to every unique array cannot either.
  *
- * 1. Draw each small-domain declaration many times and require every value to
- *    satisfy its own type, with no throw.
+ * 1. Draw each small-domain declaration many times, requiring every value to
+ *    satisfy its own type, no draw to exceed the domain, and some draw to reach
+ *    all of it.
  * 2. Require a window whose floor exceeds the domain to throw every time, naming
  *    the domain.
  * 3. Require a wide domain to still produce several distinct lengths.
@@ -117,8 +120,9 @@ export const test_random_unique_items_domain = (): void => {
     );
   }
 
-  // CONTROL: a wide domain must keep the length spread it always had. A fix
-  // that clamped every unique array to its floor would satisfy every row above.
+  // CONTROL: a wide domain must keep the length spread it always had. The rows
+  // above bound a draw by its domain, which a domain of a hundred never
+  // reaches, so this is the only row a uniform clamp would fail.
   const lengths: Set<number> = new Set();
   const isWide = typia.createIs<Wide>();
   for (let i = 0; i < DRAWS; ++i) {
@@ -157,5 +161,8 @@ const produces = <T extends unknown[]>(
     );
     longest = Math.max(longest, value.length);
   }
-  TestValidator.equals(`${name} reaches its whole domain`, longest, domain);
+  TestValidator.predicate(
+    `${name} reaches its whole domain (${longest} of ${domain})`,
+    longest === domain,
+  );
 };
