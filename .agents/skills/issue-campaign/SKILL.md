@@ -9,9 +9,9 @@ An issue campaign is a repeatable solo sequence of exhaustive discovery, issue p
 
 Use the [multi-agent skill](../multi-agent/SKILL.md) and its issue-campaign procedure instead only when the user explicitly asks for a parallel or multi-agent issue campaign.
 
-The user's requested phase boundary controls how far to proceed; do not infer permission to publish issues, push branches, open pull requests, or merge from an audit-only request.
+The user's requested phase boundary controls how far to proceed. Do not infer permission to publish issues, push branches, open pull requests, or merge from an audit-only request.
 
-Choose the principled course throughout the campaign. Its scale, duration, and consequence surface require stronger evidence, deeper consequence analysis, and complete verification; they never justify accepting an unverified candidate, a shortcut, or a weaker implementation or review standard.
+Apply [AGENTS.md's **Choose the principled course** rule](../../../AGENTS.md#attitude) to every admission, disposition, implementation, and review decision.
 
 Read the project, development, and review skills before starting. Use the review skill's Solo Issue Discovery Rounds; issue discovery is independent review, not discussion. Read [development.md](development.md) in full only when implementation is authorized.
 
@@ -40,7 +40,7 @@ The knowledge base supports the campaign but is not the final issue body. A publ
 
 Freeze one exact commit before every discovery round. Derive the supported environment contract from package engines, public documentation, repository CI, peer requirements, published package behavior, and explicit user decisions; do not narrow it ad hoc, and treat an unresolved conflict as a blocker on `CLEAN`. Work from that commit with a recorded lockfile and provisioning command, and require the review skill's full tracked-file census and mandatory coverage matrix. Never combine results from different commits or accept a stale, unprovisioned, skipped, contaminated, sampled, or missing-type harness whose tags or declarations collapse to `any` or `unknown` as full-round evidence.
 
-Perform one complete Solo Issue Discovery Round over every tracked repository surface. Never divide it by package, file, concern, platform, candidate class, or pass. Only an explicit user instruction or existing public product contract can exclude a surface or environment; the campaign cannot narrow itself, and an unresolved support-policy question makes the round `INCOMPLETE`.
+Perform one complete Solo Issue Discovery Round over every tracked repository surface. Only an explicit user instruction or existing public product contract can exclude a surface or environment; the campaign cannot narrow itself, and an unresolved support-policy question makes the round `INCOMPLETE`.
 
 Source is only one evidence layer. Exercise real workflows and inspect relevant upstream behavior, history, generated artifacts, consumers, fixtures, public documentation, and closed decisions.
 
@@ -48,13 +48,21 @@ The coverage matrix is a minimum experiment contract, not a task list to trim. I
 
 Continue after finding a candidate until the complete census and matrix are finished. A round with an unexecuted required cell is `INCOMPLETE`; it cannot support a `CLEAN` state. Record negative results and killed hypotheses so a later round knows which exact experiment was run, but do not let earlier coverage replace a fresh full round.
 
-Treat the development skill's **Forbidden** section as an explicit retrospective audit contract, not only a rule for future changes. In every complete round, inspect the current implementation and its history for violations, including code that predates the campaign or passes every test. A verified violation is a meaningful issue candidate. Prove the classification from purpose, control flow, consequence, and history; resemblance or stylistic preference alone is not evidence.
+Treat the development skill's [Forbidden](../development/SKILL.md#forbidden) section as an explicit retrospective audit contract, not only a rule for future changes. In every complete round, inspect the current implementation and its history for violations, including code that predates the campaign or passes every test. A verified violation is a meaningful issue candidate. Prove the classification from purpose, control flow, consequence, and history; resemblance or stylistic preference alone is not evidence.
 
 Do not stop after finding enough work for a pull request. Complete the entire scope, adjudicate the full candidate pool, and publish only the surviving issues when authorized.
 
 A verified in-repository correctness, contract, data-integrity, build, test-oracle, documentation, packaging, workflow, or **Forbidden** violation is meaningful regardless of severity, rarity, legacy status, or malformed-input trigger. Do not downgrade a proved defect to an observation to satisfy the stop rule. An unresolved, deferred, or unimplemented verified defect blocks campaign completion.
 
-After the cycle pull request merges, begin a fresh full-scope round against the integrated repository. Earlier rounds are not coverage. Discovery ends only when a complete fresh round produces no meaningful candidate that survives verification.
+### Every Round Is Full-Scope
+
+Every round re-audits the entire declared scope against the current integrated state from one frozen commit. A round is never partitioned: not by package, file, concern, platform, candidate class, validation lane, or pass, not by the areas the last cycle happened to touch, and not by splitting the scope across rounds so that each one covers a slice. A merged cycle changes the state every earlier conclusion rested on, so what an earlier round read is not coverage for this one. The [review skill's Non-Negotiable Review Law](../review/SKILL.md#non-negotiable-review-law) states the same rule for every round and review the campaign runs.
+
+### Discovery Ends Only On An Empty Round
+
+A merged cycle does not end the campaign. It produces one more round: begin a fresh full-scope round against the integrated repository. Discovery continues cycle after cycle, with no round limit, and ends only when one complete fresh round finishes its entire census and matrix, is not `INCOMPLETE`, and produces no meaningful candidate that survives verification while no accepted issue remains unresolved.
+
+Report the campaign complete only from a round that actually came up empty. Ending after a cycle that merely felt thorough leaves the issues the next round would have found unrecorded.
 
 ## Vet And Publish Issues
 

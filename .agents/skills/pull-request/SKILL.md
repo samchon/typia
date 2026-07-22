@@ -25,7 +25,7 @@ Stage explicit paths when the worktree is mixed. Never include unrelated user ch
 
 Write the body at open as the historical intent statement. Include the intent, scope, deferred items, and exact local verification. State skipped checks and disabled campaign CI honestly.
 
-Do not rewrite the body after every follow-up push. Record later CI fixes, newly discovered design issues, and promoted deferred work as comments so the thread preserves chronology. The title describes the merged outcome in Conventional Commits style, not the work process.
+Do not rewrite the body after every follow-up push. Record later CI fixes, newly discovered design issues, promoted deferred work, and Self-Review results as formal GitHub pull-request reviews with the `COMMENT` event so the thread preserves chronology. Use inline review comments when an observation belongs to a changed line and the review body for commit-wide or round-wide results. Do not use ordinary issue-style pull-request comments for this ledger, and never `APPROVE` or `REQUEST_CHANGES` on your own pull request. The title describes the merged outcome in Conventional Commits style, not the work process.
 
 Push only the topic branch with upstream tracking. Use a file-backed body for multiline Markdown when opening through `gh`.
 
