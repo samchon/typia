@@ -97,7 +97,7 @@ Commit and push the formatted integrated snapshot, then let every ordinary pull-
 
 Submit every Self-Review finding round and the final clean round as a formal GitHub pull-request review with the `COMMENT` event. Attach line-specific findings as inline review comments and summarize round-wide findings or the clean conclusion in the review body; do not post ordinary issue-style pull-request comments for Self-Review.
 
-Read CI once per settled head. It gates the cycle, not each commit. Only `nestia.yml` sets `cancel-in-progress`, so an intermediate commit's other lanes run to completion against a snapshot the cycle has already moved past; waiting on that result stalls implementation and proves nothing about the head that will merge.
+Read CI once per settled head. It gates the cycle, not each commit. No lane sets `cancel-in-progress`, so an intermediate commit's lanes all run to completion against a snapshot the cycle has already moved past; waiting on that result stalls implementation and proves nothing about the head that will merge.
 
 CI and review are independent gates:
 

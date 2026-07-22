@@ -5,6 +5,12 @@ on:
       - '.github/workflows/build.yml'
       - 'config/**'
       - 'packages/**'
+      # `packages/{langchain,mcp}`'s build shells out to
+      # `scripts/create-conditional-declarations.cjs`, so `pnpm run build`
+      # exercises it. `scripts/format-go.cjs` is reached only by
+      # `pnpm run format`, which no lane runs, so this trigger covers one of the
+      # two files rather than the directory.
+      - 'scripts/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
       - 'package.json'
