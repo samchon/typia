@@ -51,7 +51,7 @@ The knowledge base supports the campaign but is not the final issue body. A publ
 
 ## Discover Issues
 
-Run the review skill's [Solo Issue Discovery Rounds](../review/SKILL.md#solo-issue-discovery-rounds) over the entire declared campaign scope. That procedure owns the frozen commit, environment contract, tracked-file census, mandatory coverage matrix, `COMPLETE` and `INCOMPLETE` states, and the stop rule. This section adds only what the campaign itself owns.
+Run the review skill's [Solo Issue Discovery Rounds](../review/SKILL.md#solo-issue-discovery-rounds) over the entire declared campaign scope. That procedure owns the frozen commit, environment contract, tracked-file census, mandatory coverage matrix, and the `COMPLETE` and `INCOMPLETE` round states. This section adds only what the campaign itself owns.
 
 Only an explicit user instruction or existing public product contract can exclude a surface or environment. The campaign cannot narrow itself, and an unresolved support-policy question makes the round `INCOMPLETE`.
 
@@ -65,7 +65,7 @@ Do not stop after finding enough work for a pull request. Complete the entire sc
 
 ### Every Round Is Full-Scope
 
-Every round re-audits the entire declared scope against the current integrated state. A round is never partitioned: not by package, file, concern, platform, candidate class, validation lane, or pass, not by the areas the last cycle happened to touch, and not by splitting the scope across rounds so that each one covers a slice. A merged cycle changes the state every earlier conclusion rested on, so what an earlier round read is not coverage for this one. The [review skill's Non-Negotiable Review Law](../review/SKILL.md#non-negotiable-review-law) states the same rule for every round and review the campaign runs.
+Every round re-audits the entire declared scope from scratch against the state it was frozen on. A round is never partitioned: not by package, file, concern, platform, candidate class, validation lane, or pass, not by the areas the last cycle or the last round happened to touch, and not by splitting the scope across rounds so that each one covers a slice. What an earlier round read is never coverage for this one, whether it ran in an earlier cycle against a state a merge has since changed, or earlier in this cycle against the same commit. The [review skill's Non-Negotiable Review Law](../review/SKILL.md#non-negotiable-review-law) states the same rule for every round and review the campaign runs.
 
 ### Discovery Ends Only On An Empty Round
 
