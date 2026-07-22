@@ -132,12 +132,22 @@ export const test_random_unique_items_domain = (): void => {
   );
 };
 
+/**
+ * Draws `name` many times and requires the result to stay inside its element
+ * domain and to reach all of it.
+ *
+ * `domain` is both bounds at once: no draw may exceed it, because the elements
+ * are distinct, and some draw must hit it, because every window here reaches at
+ * least that far. Without the second half, a generator that gave up after one
+ * element would satisfy every other assertion in this file.
+ */
 const produces = <T extends unknown[]>(
   name: string,
   random: () => T,
   is: (input: unknown) => boolean,
   domain: number,
 ): void => {
+  let longest: number = 0;
   for (let i = 0; i < DRAWS; ++i) {
     const value: T = random();
     TestValidator.predicate(`${name} draws a valid value`, is(value));
@@ -145,5 +155,7 @@ const produces = <T extends unknown[]>(
       `${name} draws no more than its domain holds`,
       value.length <= domain,
     );
+    longest = Math.max(longest, value.length);
   }
+  TestValidator.equals(`${name} reaches its whole domain`, longest, domain);
 };
