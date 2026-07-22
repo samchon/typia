@@ -35,7 +35,7 @@ Self-Review does not authorize creating, pushing, updating, or merging a pull re
 
 ## Commit Early-Warning Pass
 
-A commit early-warning pass is not a review under this skill. It is the read-only per-commit reader a solo campaign author may run while still implementing, defined by the [solo campaign development document](../issue-campaign/development.md#implement-and-write-tests).
+A commit early-warning pass is not a review under this skill. It is the read-only per-commit reader a solo campaign author runs over every landed commit while still implementing, required and defined by the [solo campaign development document](../issue-campaign/development.md#implement-and-write-tests).
 
 It delegates nothing the Non-Negotiable Review Law governs. The law governs the author's own round, which still runs alone over the whole surface before merge under all six rules. One commit is not a declared surface, a reported candidate is not an accepted finding, and the passes do not add up to a round.
 

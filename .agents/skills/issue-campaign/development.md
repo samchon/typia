@@ -14,7 +14,7 @@ Read this document in full when the user authorizes implementation pull requests
 
 Five rules govern the implementation phase:
 
-- The main agent performs all implementation, test authoring, CI diagnosis, review, and cleanup. Spawn no subagent except the read-only [commit early-warning pass](#implement-and-write-tests).
+- The main agent performs all implementation, test authoring, CI diagnosis, review, and cleanup. Spawn no subagent except the read-only [commit early-warning pass](#implement-and-write-tests), which every landed commit requires.
 - Put every accepted, implementation-ready issue in the current cycle into one pull request. The issue DAG controls implementation order inside that pull request, not pull-request count.
 - Work in the current checkout and one topic branch. Do not create a clone or worktree for a solo campaign or its Self-Review; a disposable checkout for a mutation experiment is a verification tool, not a second implementation home.
 - The pull request's ordinary CI, a clean solo Self-Review, and every applicable integration gate are the acceptance gates. Repair every red CI lane in that same pull request, even when the failure predates the campaign or is unrelated to its original issues.
@@ -64,9 +64,11 @@ Implement without interruption. Write each piece's tests as that piece lands ins
 
 Close each issue from the commit that earns it. End the commit message with one `Close #n: <issue title>` line per resolved issue, so a commit that resolves several issues carries several lines. GitHub matches the keyword and the number and ignores the title tail, so the line closes the issue normally while the log stays legible without opening each number.
 
-Post a pull-request comment after each commit naming what that commit landed and which issues it resolved. The comment is the running ledger for a reader who does not read the diff, not a closing mechanism: GitHub closes an issue only from a commit message or the pull-request body.
+A revert inside the pull request must not carry the closing keyword forward: `git revert` quotes the original subject, so rewrite its default `Revert "Close #n: ..."` without the closing phrase, and drop any `Closes #n` line for that issue from the pull-request body. That does not spare the issue by itself. A squash merge concatenates every commit message into the merge commit body, where the reverted commit's own `Close #n` line still sits, so the merge closes an issue whose fix no longer exists at `HEAD` and [the merge gate](#merge-and-clean-up) has to reopen it.
 
-Once a commit lands, the main agent may spawn one read-only subagent as a commit early-warning pass over that commit and keep implementing while it runs. The pass reads that one commit and reports candidates. It never edits, commits, pushes, or makes an implementation decision. Its value is timing: a defect named while that code is the newest thing written costs little to correct, and nothing has been built on top of it yet.
+After each pushed commit, submit a formal GitHub pull-request review with the `COMMENT` event naming the commit, what it landed, and which issues it resolved. The review is the running ledger for a reader who does not read the diff, not a closing mechanism: GitHub closes an issue only from a commit message or the pull-request body. Follow the [pull-request skill](../pull-request/SKILL.md#write-the-pull-request) for inline comments, review bodies, and self-review restrictions; do not replace this ledger with ordinary issue-style pull-request comments.
+
+Every landed commit gets a commit early-warning pass. Spawn one read-only subagent over that commit as soon as it lands and keep implementing while it runs; do not defer the pass, batch several commits into one, or skip a commit because it looks small. The pass reads that one commit and reports candidates. It never edits, commits, pushes, or makes an implementation decision. Its value is timing: a defect named while that code is the newest thing written costs little to correct, and nothing has been built on top of it yet.
 
 The pass never reduces the [Self-Review](#validate-with-ci-and-self-review) that gates the merge. A reader holding one commit cannot see what appears only across files: a helper that duplicates one the package already has, a native transform branch whose emitted output no test workspace exercises, or a guide claiming a behavior the descriptor no longer performs. The main agent's own complete round over the whole base-to-head diff is what finds those, and no number of passes substitutes for it. The [review skill](../review/SKILL.md#commit-early-warning-pass) owns that boundary and the name the pass must not take.
 
@@ -92,6 +94,8 @@ Two boundaries remain strict because overlap would destroy the evidence:
 ## Validate With CI And Self-Review
 
 Commit and push the formatted integrated snapshot, then let every ordinary pull-request check run. Start solo Self-Review immediately over that exact base-to-head diff while CI executes.
+
+Submit every Self-Review finding round and the final clean round as a formal GitHub pull-request review with the `COMMENT` event. Attach line-specific findings as inline review comments and summarize round-wide findings or the clean conclusion in the review body; do not post ordinary issue-style pull-request comments for Self-Review.
 
 Read CI once per settled head. It gates the cycle, not each commit. Only `nestia.yml` sets `cancel-in-progress`, so an intermediate commit's other lanes run to completion against a snapshot the cycle has already moved past; waiting on that result stalls implementation and proves nothing about the head that will merge.
 
@@ -120,9 +124,11 @@ Do not merge a head whose green checks belong to an older SHA or whose clean rev
 
 Merge only with user authorization, including a campaign-local standing authorization that explicitly covers merge.
 
+Before merging, reconcile the closing keywords against what survives at `HEAD`. `git log origin/master..HEAD` shows every message the squash will concatenate, including commits a later one reverted, so read the whole range and confirm each issue the merge will close has a surviving fix.
+
 After merge:
 
-1. Verify GitHub records the pull request as merged into the intended target and every linked issue has the correct final state.
+1. Verify GitHub records the pull request as merged into the intended target and every linked issue has the correct final state. Reopen any issue the squash merge closed without a surviving fix, and comment that the merge closed it mechanically.
 2. Confirm the checkout has no unpushed or uncommitted work worth preserving.
 3. Switch back to `master`, pull with `git pull --ff-only`, and delete the local topic branch.
 4. Preserve compact command evidence and result hashes in the campaign knowledge base, then remove every disposable mutable root the cycle created: disposable mutation checkouts, `GOCACHE`, `GOTMPDIR`, `TTSC_CACHE_DIR`, generated-output roots, tarballs under `experiments/tarballs/`, and clean-consumer install roots. Confirm no live process uses a path before deleting it, delete only the exact proven path, and verify it is absent.
