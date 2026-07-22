@@ -121,8 +121,9 @@ export const test_random_unique_items_domain = (): void => {
   }
 
   // CONTROL: a wide domain must keep the length spread it always had. The rows
-  // above bound a draw by its domain, which a domain of a hundred never
-  // reaches, so this is the only row a uniform clamp would fail.
+  // above catch a clamp by requiring their whole domain, which only works where
+  // the domain is smaller than the drawn count; this is the row that catches
+  // one on a domain wider than anything the count reaches.
   const lengths: Set<number> = new Set();
   const isWide = typia.createIs<Wide>();
   for (let i = 0; i < DRAWS; ++i) {
