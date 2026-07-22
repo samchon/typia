@@ -69,11 +69,11 @@ Every round re-audits the entire declared scope from scratch against the state i
 
 ### Discovery Ends Only On An Empty Round
 
-Discovery repeats in two nested loops, and both end on the same condition.
+Discovery repeats in two nested loops, and neither ends until a complete round comes up empty.
 
 Inside one cycle, accepting a candidate does not end discovery. Begin another complete full-scope round against the same frozen commit and repeat until one round produces no meaningful candidate that survives verification. Only that empty round settles the cycle's issue set. Publishing or implementing from the first round that found something freezes the cycle around whatever that round happened to reach first, and the issues the next round would have added arrive too late to join it.
 
-Across cycles, a merged cycle does not end the campaign. It produces one more round against the integrated repository, with no round limit, and the campaign ends only when a complete fresh round is not `INCOMPLETE`, produces no meaningful candidate that survives verification, and leaves no accepted issue unresolved.
+Across cycles, a merged cycle does not end the campaign. It produces one more discovery phase against the integrated repository, and that phase runs the inner loop to its own empty round. There is no limit on either loop, and the campaign ends only when a complete fresh round is not `INCOMPLETE`, produces no meaningful candidate that survives verification, and leaves no accepted issue unresolved.
 
 Report the campaign complete only from a round that actually came up empty. Ending after a cycle that merely felt thorough leaves the issues the next round would have found unrecorded.
 
