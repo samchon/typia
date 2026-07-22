@@ -34,6 +34,30 @@ export const __randomComposition = (props: {
   return parts;
 };
 
+/**
+ * Draws `length` characters of the base64 alphabet.
+ *
+ * The caller passes a multiple of four, which `format: "byte"` accepts without
+ * padding; every character below is in the alphabet its validator spells out,
+ * so the result needs no encoding step.
+ */
+export const __randomBase64 = (length: number): string => {
+  let text: string = "";
+  for (let i: number = 0; i < length; ++i)
+    text +=
+      BASE64[
+        _randomInteger({
+          type: "integer",
+          minimum: 0,
+          maximum: BASE64.length - 1,
+        })
+      ];
+  return text;
+};
+
+const BASE64 =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
 /** Draws `length` decimal digits, leading zeros included. */
 export const __randomDigits = (length: number): string => {
   let text: string = "";
