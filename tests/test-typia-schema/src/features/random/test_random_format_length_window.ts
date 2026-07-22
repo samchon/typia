@@ -153,14 +153,40 @@ export const test_random_format_length_window = (): void => {
     );
   }
   {
-    // RFC 3339 leaves `time-secfrac` open above, so no length past the offset
-    // form is out of reach; this one is thirty fraction digits with `Z`.
+    // RFC 3339 leaves `time-secfrac` open above, so nothing past the offset
+    // form is out of reach either: thirty fraction digits with `Z`, or
+    // twenty-five with an offset.
     type T = string &
       tags.Format<"time"> &
       tags.MinLength<40> &
       tags.MaxLength<40>;
     roundTrip(
-      "time past the offset form",
+      "time far past the offset form",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+    );
+  }
+  {
+    // Fifteen is the one length above the gap that only the `Z` form reaches:
+    // an offset would leave a dot with no digit after it.
+    type T = string &
+      tags.Format<"time"> &
+      tags.MinLength<15> &
+      tags.MaxLength<15>;
+    roundTrip(
+      "time at the length only the Z form reaches",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+    );
+  }
+  {
+    // Fourteen is the mirror: a full offset with no fraction at all.
+    type T = string &
+      tags.Format<"time"> &
+      tags.MinLength<14> &
+      tags.MaxLength<14>;
+    roundTrip(
+      "time at a bare offset clock",
       (v) => typia.is<T>(v),
       () => typia.random<T>(),
     );
