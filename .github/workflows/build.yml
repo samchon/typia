@@ -5,6 +5,11 @@ on:
       - '.github/workflows/build.yml'
       - 'config/**'
       - 'packages/**'
+      # `packages/{langchain,mcp}`'s build shells out to
+      # `scripts/create-conditional-declarations.cjs`, so this lane is the one
+      # that runs it. It used to be claimed by `nestia.yml`, which triggered on
+      # `scripts/**` and ran `pnpm test` -- a command that never loads it.
+      - 'scripts/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
       - 'package.json'
