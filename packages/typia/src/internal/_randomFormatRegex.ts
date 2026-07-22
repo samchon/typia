@@ -6,11 +6,12 @@ import {
 } from "./_randomStringLength";
 
 export const _randomFormatRegex = (props?: _ILengthProps): string => {
-  if (props?.minLength === undefined && props?.maxLength === undefined)
-    return FIXED;
   // Every character `_randomString` emits is a literal in regular expression
   // syntax, so a source of any length — including the empty source `new
-  // RegExp("")` accepts — compiles.
+  // RegExp("")` accepts — compiles. An unconstrained draw is therefore an
+  // unconstrained string, and a constrained one fixes the length first.
+  if (props?.minLength === undefined && props?.maxLength === undefined)
+    return _randomString({ type: "string" });
   const length: number = _randomLengthPick(
     _randomLengthWindow(props, { minimum: 0, spread: 16 }),
   );
@@ -20,6 +21,3 @@ export const _randomFormatRegex = (props?: _ILengthProps): string => {
     maxLength: length,
   });
 };
-
-const FIXED =
-  "/^(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)$/";
