@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-feature-identity",
-  "version": "13.1.19",
+  "version": "13.2.0",
   "description": "Naming integrity test of the typia feature test suites.",
   "scripts": {
     "start": "ttsx src/index.ts"
