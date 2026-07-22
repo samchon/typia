@@ -125,11 +125,12 @@ export namespace LlmJson {
    * @param config Configuration `parameters` was generated with. Only a
    *   `strict` schema carries its constraints as `@minimum 3` description tags
    *   rather than as keywords, so only a `strict` inversion reads them back.
-   *   Defaults to non-strict, matching {@link ILlmSchema.IConfig.strict}. An
-   *   `HttpLlm.application` reports its own config, so pass that; for
-   *   `typia.llm.application` and `typia.llm.controller` pass the same value
-   *   their `Config` generic was given, because their emitted `config.strict`
-   *   is `false` even when the schema was generated in `strict` mode.
+   *   Defaults to non-strict, matching {@link ILlmSchema.IConfig.strict}. Every
+   *   application reports the config it was built with — an
+   *   `HttpLlm.application` the one it was composed with, a
+   *   `typia.llm.application` or `typia.llm.controller` the one its `Config`
+   *   generic declared — so pass `application.config` rather than restating
+   *   it.
    * @returns Validator function that checks data against the schema
    */
   export function validate(
