@@ -138,7 +138,7 @@ Formatting belongs to the unified cycle pull request, so a separate post-campaig
 
 ## Repeat Until A Clean Round
 
-After every merged cycle, return to the parent skill's Discover Issues phase and perform another complete fresh round over the entire declared scope against one frozen integrated commit. Earlier rounds are not coverage, and a surviving issue or recent implementation never permits a residual-only review.
+After every merged cycle, return to the parent skill's Discover Issues phase and run it again in full against one frozen integrated commit. That phase owns its own loop and repeats complete full-scope rounds until one comes up empty, so a merged cycle buys one more discovery phase, not one more round. Earlier rounds are not coverage, and a surviving issue or recent implementation never permits a residual-only review.
 
 If any meaningful candidate survives fact-checking, adjudicate and publish it when authorized, then claim the next single cycle pull request containing every implementation-ready issue. Repeat discovery, implementation, CI, review, merge, and cleanup without a fixed round limit. If the user authorized discovery but not implementation, preserve the `NOT CLEAN` campaign state and wait for implementation authority; never treat the absence of authority as completion.
 

@@ -32,27 +32,36 @@ Keep concise, current Markdown documents for:
 
 Record raw candidates before fact-checking. The knowledge base is the durable place to collect overlapping observations, then combine, split, rewrite, reject, or defer them without losing why.
 
-Give every tracked path and matrix cell a stable ID. Record `round`, `base SHA`, `matrix hash`, `path or cell ID`, `status`, `evidence`, and `candidate` for each row, with status limited to `PASS`, `FAIL`, `N/A`, or `UNTESTED`. For a path, `PASS` means its contents, history, owner, and linked cells were audited; `FAIL` means a candidate remains; `N/A` requires evidence that the path is outside an explicitly authorized contract; and `UNTESTED` means the audit is absent. For an executable cell, `PASS` means the recorded oracle and controls passed; `FAIL` means they did not; `N/A` requires a product-contract reason; and `UNTESTED` means it did not run. Reconcile the path census with `git ls-files` and verify that the matrix covers every public operation and known historical dimension before the round begins. When the round discovers a missing owner, consumer, axis, or interaction, version and re-hash the canonical matrix and execute the added cells. Reconcile the finished rows against the frozen census and final matrix; any missing row, `UNTESTED`, unsupported `N/A`, or absent evidence makes the round `INCOMPLETE`.
+Give every tracked path and matrix cell a stable ID, and record one row per ID with `round`, `base SHA`, `matrix hash`, `path or cell ID`, `status`, `evidence`, and `candidate`.
+
+A status is one of four values, and it means something different for a path than for an executable cell:
+
+| Status | Tracked path | Executable matrix cell |
+| --- | --- | --- |
+| `PASS` | contents, history, owner, and linked cells were audited | the recorded oracle and controls passed |
+| `FAIL` | a candidate remains | the oracle or a control failed |
+| `N/A` | evidence that the path is outside an explicitly authorized contract | a product-contract reason |
+| `UNTESTED` | the audit is absent | the cell did not run |
+
+Reconcile the path census with `git ls-files` and verify that the matrix covers every public operation and known historical dimension before the round begins. When the round discovers a missing owner, consumer, axis, or interaction, version and re-hash the canonical matrix and execute the added cells.
+
+Reconcile the finished rows against the frozen census and final matrix. Any missing row, `UNTESTED`, unsupported `N/A`, or absent evidence makes the round `INCOMPLETE`.
 
 The knowledge base supports the campaign but is not the final issue body. A published issue must stand alone without access to `.wiki`.
 
 ## Discover Issues
 
-Freeze one exact commit before every discovery round. Derive the supported environment contract from package engines, public documentation, repository CI, peer requirements, published package behavior, and explicit user decisions; do not narrow it ad hoc, and treat an unresolved conflict as a blocker on `CLEAN`. Work from that commit with a recorded lockfile and provisioning command, and require the review skill's full tracked-file census and mandatory coverage matrix. Never combine results from different commits or accept a stale, unprovisioned, skipped, contaminated, sampled, or missing-type harness whose tags or declarations collapse to `any` or `unknown` as full-round evidence.
+Run the review skill's [Solo Issue Discovery Rounds](../review/SKILL.md#solo-issue-discovery-rounds) over the entire declared campaign scope. That procedure owns the frozen commit, environment contract, tracked-file census, mandatory coverage matrix, `COMPLETE` and `INCOMPLETE` states, and the stop rule. This section adds only what the campaign itself owns.
 
-Perform one complete Solo Issue Discovery Round over every tracked repository surface. Only an explicit user instruction or existing public product contract can exclude a surface or environment; the campaign cannot narrow itself, and an unresolved support-policy question makes the round `INCOMPLETE`.
+Only an explicit user instruction or existing public product contract can exclude a surface or environment. The campaign cannot narrow itself, and an unresolved support-policy question makes the round `INCOMPLETE`.
 
 Source is only one evidence layer. Exercise real workflows and inspect relevant upstream behavior, history, generated artifacts, consumers, fixtures, public documentation, and closed decisions.
 
-The coverage matrix is a minimum experiment contract, not a task list to trim. It must include all applicable direct, factory, and nested operation forms; equivalent aliases, interfaces, call or construct type literals, classes, intersections, unions, generics, and re-exported or ambient declarations; user-global, default-library, module, package, and runtime-native provenance; transform-option interactions; static, dynamic, array, `any`, and `unknown` value contexts; valid, invalid, malformed, maximum-width, and one-past-boundary inputs; repeated generated-byte identity; clean tarball consumers; and supported Node, module-resolution, operating-system, CLI, and deployment paths. Every interaction that reaches shared control flow is a separate cell, and every positive cell has a one-axis negative twin. Add repository-specific dimensions discovered from source and history instead of treating this list as exhaustive.
-
-Continue after finding a candidate until the complete census and matrix are finished. A round with an unexecuted required cell is `INCOMPLETE`; it cannot support a `CLEAN` state. Record negative results and killed hypotheses so a later round knows which exact experiment was run, but do not let earlier coverage replace a fresh full round.
+Never combine results from different commits, and never accept a stale, unprovisioned, skipped, contaminated, sampled, or missing-type harness whose tags or declarations collapse to `any` or `unknown` as full-round evidence.
 
 Treat the development skill's [Forbidden](../development/SKILL.md#forbidden) section as an explicit retrospective audit contract, not only a rule for future changes. In every complete round, inspect the current implementation and its history for violations, including code that predates the campaign or passes every test. A verified violation is a meaningful issue candidate. Prove the classification from purpose, control flow, consequence, and history; resemblance or stylistic preference alone is not evidence.
 
 Do not stop after finding enough work for a pull request. Complete the entire scope, adjudicate the full candidate pool, and publish only the surviving issues when authorized.
-
-A verified in-repository correctness, contract, data-integrity, build, test-oracle, documentation, packaging, workflow, or **Forbidden** violation is meaningful regardless of severity, rarity, legacy status, or malformed-input trigger. Do not downgrade a proved defect to an observation to satisfy the stop rule. An unresolved, deferred, or unimplemented verified defect blocks campaign completion.
 
 ### Every Round Is Full-Scope
 
@@ -60,7 +69,11 @@ Every round re-audits the entire declared scope against the current integrated s
 
 ### Discovery Ends Only On An Empty Round
 
-A merged cycle does not end the campaign. It produces one more round: begin a fresh full-scope round against the integrated repository. Discovery continues cycle after cycle, with no round limit, and ends only when one complete fresh round finishes its entire census and matrix, is not `INCOMPLETE`, produces no meaningful candidate that survives verification, and leaves no accepted issue unresolved.
+Discovery repeats in two nested loops, and both end on the same condition.
+
+Inside one cycle, accepting a candidate does not end discovery. Begin another complete full-scope round against the same frozen commit and repeat until one round produces no meaningful candidate that survives verification. Only that empty round settles the cycle's issue set. Publishing or implementing from the first round that found something freezes the cycle around whatever that round happened to reach first, and the issues the next round would have added arrive too late to join it.
+
+Across cycles, a merged cycle does not end the campaign. It produces one more round against the integrated repository, with no round limit, and the campaign ends only when a complete fresh round is not `INCOMPLETE`, produces no meaningful candidate that survives verification, and leaves no accepted issue unresolved.
 
 Report the campaign complete only from a round that actually came up empty. Ending after a cycle that merely felt thorough leaves the issues the next round would have found unrecorded.
 
