@@ -10,9 +10,15 @@ on:
       - 'package.json'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
+  workflow_dispatch:
 jobs:
   Ubuntu:
     runs-on: ubuntu-latest
+    # `pnpm test` is the repository's longest command, and the lane that used to
+    # run it a second time carried the only timeout in `.github/workflows`.
+    # Without one a hung suite would burn GitHub's 360-minute default instead of
+    # failing; 60 minutes is the bound that lane used.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

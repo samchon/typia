@@ -330,7 +330,9 @@ const app = HttpLlm.application({ document, config: { strict: true } });
 const validate = LlmJson.validate(app.functions[0].output!, true, app.config);
 ```
 
-`typia.llm.application` and `typia.llm.controller` report their own config the same way, so pass `application.config` there too. Only a bare schema from `typia.llm.parameters` or `typia.llm.structuredOutput` carries no config of its own, which is why the first example above restates the generic.
+`typia.llm.application` and `typia.llm.controller` report their own config the same way. Read it off the application — `app.config`, or `controller.application.config`, since a controller has no `config` member of its own.
+
+A schema that arrives on its own carries nothing to read back: `typia.llm.parameters` returns the bare document, and so does a registry or a generic library that accepts any LLM schema. That is the case the `strict: true` example at the top of this section is written for — state the config the schema was generated with, because omitting it is silently read as non-strict and every description tag goes unchecked.
 
 <Callout type="info">
 **Prefer the compile-time validator when you can.**

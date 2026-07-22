@@ -6,9 +6,10 @@ on:
       - 'config/**'
       - 'packages/**'
       # `packages/{langchain,mcp}`'s build shells out to
-      # `scripts/create-conditional-declarations.cjs`, so this lane is the one
-      # that runs it. It used to be claimed by `nestia.yml`, which triggered on
-      # `scripts/**` and ran `pnpm test` -- a command that never loads it.
+      # `scripts/create-conditional-declarations.cjs`, so `pnpm run build`
+      # exercises it. `scripts/format-go.cjs` is reached only by
+      # `pnpm run format`, which no lane runs, so this trigger covers one of the
+      # two files rather than the directory.
       - 'scripts/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
