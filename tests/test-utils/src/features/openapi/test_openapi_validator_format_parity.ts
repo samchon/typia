@@ -7,6 +7,7 @@ import { _isFormatDateTime } from "typia/lib/internal/_isFormatDateTime";
 import { _isFormatIpv6 } from "typia/lib/internal/_isFormatIpv6";
 import { _isFormatIri } from "typia/lib/internal/_isFormatIri";
 import { _isFormatIriReference } from "typia/lib/internal/_isFormatIriReference";
+import { _isFormatTime } from "typia/lib/internal/_isFormatTime";
 
 interface ICommentByte {
   /** @format byte */
@@ -32,6 +33,10 @@ interface ICommentDateTime {
   /** @format date-time */
   value: string;
 }
+interface ICommentTime {
+  /** @format time */
+  value: string;
+}
 
 type IChecker = {
   direct: (value: string) => boolean;
@@ -45,7 +50,11 @@ type IChecker = {
  * Format checks are emitted through runtime imports for type tags, inline
  * native expressions for JSDoc tags, and copied helpers in @typia/utils. The
  * matrix exercises whole-string base64, IPv6 compression, absolute and relative
- * IRIs, Gregorian dates, and RFC 3339 date-times through every path.
+ * IRIs, Gregorian dates, RFC 3339 date-times, and RFC 3339 clocks through every
+ * path. `time` and `date-time` share the `partial-time` production, so the
+ * clock rows repeat the leap-second cases at every offset that shifts them onto
+ * and off 23:59:60 UTC: the two formats disagreed about that production while
+ * only one of them was covered here.
  *
  * 1. Check representative valid and invalid values through all validators.
  * 2. Repeat base64 checks in alternating order to expose regular-expression state.
@@ -94,6 +103,13 @@ export const test_openapi_validator_format_parity = (): void => {
         value: string & tags.Format<"date-time">;
       }>(),
       comment: typia.createIs<ICommentDateTime>(),
+    },
+    time: {
+      direct: _isFormatTime,
+      tagged: typia.createIs<{
+        value: string & tags.Format<"time">;
+      }>(),
+      comment: typia.createIs<ICommentTime>(),
     },
   } satisfies Record<string, IChecker>;
   const matrices: Record<keyof typeof checks, IMatrix> = {
@@ -208,6 +224,32 @@ export const test_openapi_validator_format_parity = (): void => {
         "2024-01-01T00:00:00.Z",
       ],
     },
+    time: {
+      valids: [
+        "23:59:59Z",
+        "23:59:59z",
+        "00:00:00.1234567890Z",
+        "12:34:56+23:59",
+        "12:34:56-23:59",
+        "23:59:60Z",
+        "23:59:60+00:00",
+        "15:59:60-08:00",
+        "01:29:60+01:30",
+        "23:29:60+23:30",
+      ],
+      invalids: [
+        "22:59:60Z",
+        "23:58:60Z",
+        "23:59:60+01:00",
+        "23:59:61Z",
+        "24:00:00Z",
+        "23:60:00Z",
+        "23:59:59",
+        "23:59:59.Z",
+        "23:59:59+24:00",
+        "1:59:59Z",
+      ],
+    },
   };
 
   for (const [format, matrix] of Object.entries(matrices) as [
@@ -255,6 +297,11 @@ export const test_openapi_validator_format_parity = (): void => {
     "date-time",
     (typia.json.schema<dateTime>().schema as { format?: string }).format,
   );
+  TestValidator.equals(
+    "time schema",
+    "time",
+    (typia.json.schema<time>().schema as { format?: string }).format,
+  );
 };
 
 interface IMatrix {
@@ -268,6 +315,7 @@ type iri = string & tags.Format<"iri">;
 type iriReference = string & tags.Format<"iri-reference">;
 type date = string & tags.Format<"date">;
 type dateTime = string & tags.Format<"date-time">;
+type time = string & tags.Format<"time">;
 
 const validate = (
   format: string,

@@ -140,13 +140,54 @@ export const test_random_format_length_window = (): void => {
     );
   }
   {
-    // Nine fraction digits cap the `Z` form, so this length needs an offset.
+    // Reachable as either shape: fourteen fraction digits with `Z`, or nine
+    // with a `+HH:MM` offset.
     type T = string &
       tags.Format<"time"> &
       tags.MinLength<24> &
       tags.MaxLength<24>;
     roundTrip(
-      "time longest with offset",
+      "time at a length both clock forms reach",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+    );
+  }
+  {
+    // RFC 3339 leaves `time-secfrac` open above, so nothing past the offset
+    // form is out of reach either: thirty fraction digits with `Z`, or
+    // twenty-five with an offset.
+    type T = string &
+      tags.Format<"time"> &
+      tags.MinLength<40> &
+      tags.MaxLength<40>;
+    roundTrip(
+      "time far past the offset form",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+    );
+  }
+  {
+    // Fifteen is the one length above the gap that only the `Z` form reaches:
+    // an offset would leave a dot with no digit after it.
+    type T = string &
+      tags.Format<"time"> &
+      tags.MinLength<15> &
+      tags.MaxLength<15>;
+    roundTrip(
+      "time at the length only the Z form reaches",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+    );
+  }
+  {
+    // Fourteen is the only length the offset shape reaches with no fraction at
+    // all; the `Z` shape reaches it with four digits, so the draw picks one.
+    type T = string &
+      tags.Format<"time"> &
+      tags.MinLength<14> &
+      tags.MaxLength<14>;
+    roundTrip(
+      "time at the length a bare offset reaches",
       (v) => typia.is<T>(v),
       () => typia.random<T>(),
     );
@@ -303,8 +344,10 @@ export const test_random_format_length_window = (): void => {
       string & tags.Format<"time"> & tags.MinLength<10> & tags.MaxLength<10>
     >(),
   );
-  assertThrows("time longer than a full offset clock", () =>
-    typia.random<string & tags.Format<"time"> & tags.MinLength<25>>(),
+  // The fraction is open above, so a clock's only unreachable lengths are the
+  // ones below `HH:MM:SSZ` and the single gap at 10.
+  assertThrows("time shorter than the shortest clock", () =>
+    typia.random<string & tags.Format<"time"> & tags.MaxLength<8>>(),
   );
   assertThrows("duration shorter than one designator", () =>
     typia.random<string & tags.Format<"duration"> & tags.MaxLength<2>>(),

@@ -32,8 +32,9 @@ interface IEntry {
    * quad runs from `0.0.0.0` to `255.255.255.255`; an IPv6 address runs from
    * the compressed `::` to a padded dotted-quad tail; an instant is either
    * seconds-precise or carries a dot plus at least one digit, which is why 21
-   * is missing; a clock adds `Z` or a six-character offset to those, capped at
-   * nine fraction digits; a duration is `P` plus one designator.
+   * is missing; a clock adds `Z` or a six-character offset to those, and RFC
+   * 3339 puts no ceiling on the fraction between them, so it is open above; a
+   * duration is `P` plus one designator.
    */
   realizable: (length: number) => boolean;
 }
@@ -73,7 +74,7 @@ const ENTRIES: IEntry[] = [
     name: "time",
     random: _randomFormatTime,
     is: _isFormatTime,
-    realizable: (n) => n === 9 || (n >= 11 && n <= 24),
+    realizable: (n) => n === 9 || n >= 11,
   },
   {
     name: "duration",

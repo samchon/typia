@@ -15,12 +15,11 @@ export const _randomFormatTime = (props?: _ILengthProps): string => {
   if (props?.minLength === undefined && props?.maxLength === undefined)
     return clock().substring(11);
   // `HH:MM:SS` carries a mandatory offset — one character as `Z`, six as
-  // `+HH:MM` — and an optional fraction of one to nine digits between them.
-  // Together they express 9 and every length from 11 through 24; 10 is the one
-  // gap, because a fraction needs both a dot and a digit.
+  // `+HH:MM` — and an optional fraction between them that RFC 3339 leaves
+  // open above. Together they express 9 and every length from 11 upward; 10 is
+  // the one gap, because a fraction needs both a dot and a digit.
   const window = _randomLengthWindow(props, {
     minimum: CLOCK + 1,
-    maximum: CLOCK + 1 + FRACTION_MAX + OFFSET,
     spread: 6,
   });
   let length: number = _randomLengthPick(window);
@@ -30,17 +29,23 @@ export const _randomFormatTime = (props?: _ILengthProps): string => {
     throw new Error(_RANDOM_LENGTH_ERROR);
   const base: string = clock().substring(11, 11 + CLOCK);
   if (length === CLOCK + 1) return `${base}Z`;
-  // Nine fraction digits cap the `Z` form at 19 characters, so anything longer
-  // spends the extra five on a numeric offset instead.
-  return length <= CLOCK + 2 + FRACTION_MAX
-    ? `${base}.${__randomDigits(length - CLOCK - 2)}Z`
-    : `${base}.${__randomDigits(length - CLOCK - 1 - OFFSET)}${offset()}`;
+  // The `Z` form reaches every remaining length by itself, so the numeric
+  // offset is a choice rather than a fallback: it spends six characters, which
+  // leaves either nothing (14, `HH:MM:SS+HH:MM`) or a whole fraction (16 and
+  // up). At 15 only the `Z` form fits, since the offset would demand a dot
+  // with no digit after it.
+  const fraction: number = length - CLOCK - OFFSET - 1;
+  return (fraction === -1 || fraction >= 1) &&
+    _randomInteger({ type: "integer", minimum: 0, maximum: 1 }) === 1
+    ? fraction === -1
+      ? `${base}${offset()}`
+      : `${base}.${__randomDigits(fraction)}${offset()}`
+    : `${base}.${__randomDigits(length - CLOCK - 2)}Z`;
 };
 
 const DAY = 86_400_000;
 const CLOCK = "00:00:00".length;
 const OFFSET = "+00:00".length;
-const FRACTION_MAX = 9;
 
 const offset = (): string =>
   `${_randomInteger({ type: "integer", minimum: 0, maximum: 1 }) === 0 ? "+" : "-"}${pad(
