@@ -330,7 +330,7 @@ const app = HttpLlm.application({ document, config: { strict: true } });
 const validate = LlmJson.validate(app.functions[0].output!, true, app.config);
 ```
 
-For `typia.llm.application` and `typia.llm.controller`, pass the same value you wrote in the generic instead — their `config.strict` currently reports `false` even when the application was generated in `strict` mode.
+`typia.llm.application` and `typia.llm.controller` report their own config the same way, so pass `application.config` there too. Only a bare schema from `typia.llm.parameters` or `typia.llm.structuredOutput` carries no config of its own, which is why the first example above restates the generic.
 
 <Callout type="info">
 **Prefer the compile-time validator when you can.**

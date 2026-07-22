@@ -129,8 +129,10 @@ export namespace LlmJson {
    *   application reports the config it was built with — an
    *   `HttpLlm.application` the one it was composed with, a
    *   `typia.llm.application` or `typia.llm.controller` the one its `Config`
-   *   generic declared — so pass `application.config` rather than restating
-   *   it.
+   *   generic declared — so pass `application.config` there rather than
+   *   restating it. A bare schema from `typia.llm.parameters` or
+   *   `typia.llm.structuredOutput` carries no config, so that caller passes the
+   *   value its own `Config` generic was given.
    * @returns Validator function that checks data against the schema
    */
   export function validate(
