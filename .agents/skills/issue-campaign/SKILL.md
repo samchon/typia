@@ -5,7 +5,7 @@ description: "Defines the default solo repository-wide issue campaign for typia:
 
 # Issue Campaign
 
-An issue campaign is a repeatable solo sequence of exhaustive discovery, issue publication, one unified implementation pull request, and renewed discovery. The main agent owns every phase and spawns no subagent other than the read-only commit early-warning pass that [development.md](development.md#implement-and-write-tests) defines.
+An issue campaign is a repeatable solo sequence of exhaustive discovery, issue publication, one unified implementation pull request, and renewed discovery. The main agent owns every phase and spawns no subagent other than the read-only commit early-warning pass that [development.md](development.md#implement-and-write-tests) requires for every landed commit.
 
 Use the [multi-agent skill](../multi-agent/SKILL.md) and its issue-campaign procedure instead only when the user explicitly asks for a parallel or multi-agent issue campaign.
 
@@ -56,11 +56,11 @@ A verified in-repository correctness, contract, data-integrity, build, test-orac
 
 ### Every Round Is Full-Scope
 
-Every round re-audits the entire declared scope against the current integrated state from one frozen commit. A round is never partitioned: not by package, file, concern, platform, candidate class, validation lane, or pass, not by the areas the last cycle happened to touch, and not by splitting the scope across rounds so that each one covers a slice. A merged cycle changes the state every earlier conclusion rested on, so what an earlier round read is not coverage for this one. The [review skill's Non-Negotiable Review Law](../review/SKILL.md#non-negotiable-review-law) states the same rule for every round and review the campaign runs.
+Every round re-audits the entire declared scope against the current integrated state. A round is never partitioned: not by package, file, concern, platform, candidate class, validation lane, or pass, not by the areas the last cycle happened to touch, and not by splitting the scope across rounds so that each one covers a slice. A merged cycle changes the state every earlier conclusion rested on, so what an earlier round read is not coverage for this one. The [review skill's Non-Negotiable Review Law](../review/SKILL.md#non-negotiable-review-law) states the same rule for every round and review the campaign runs.
 
 ### Discovery Ends Only On An Empty Round
 
-A merged cycle does not end the campaign. It produces one more round: begin a fresh full-scope round against the integrated repository. Discovery continues cycle after cycle, with no round limit, and ends only when one complete fresh round finishes its entire census and matrix, is not `INCOMPLETE`, and produces no meaningful candidate that survives verification while no accepted issue remains unresolved.
+A merged cycle does not end the campaign. It produces one more round: begin a fresh full-scope round against the integrated repository. Discovery continues cycle after cycle, with no round limit, and ends only when one complete fresh round finishes its entire census and matrix, is not `INCOMPLETE`, produces no meaningful candidate that survives verification, and leaves no accepted issue unresolved.
 
 Report the campaign complete only from a round that actually came up empty. Ending after a cycle that merely felt thorough leaves the issues the next round would have found unrecorded.
 

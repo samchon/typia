@@ -14,7 +14,7 @@ Read this document in full when the user authorizes implementation pull requests
 
 Five rules govern the implementation phase:
 
-- The main agent performs all implementation, test authoring, CI diagnosis, review, and cleanup. Spawn no subagent except the read-only [commit early-warning pass](#implement-and-write-tests).
+- The main agent performs all implementation, test authoring, CI diagnosis, review, and cleanup. Spawn no subagent except the read-only [commit early-warning pass](#implement-and-write-tests), which every landed commit requires.
 - Put every accepted, implementation-ready issue in the current cycle into one pull request. The issue DAG controls implementation order inside that pull request, not pull-request count.
 - Work in the current checkout and one topic branch. Do not create a clone or worktree for a solo campaign or its Self-Review; a disposable checkout for a mutation experiment is a verification tool, not a second implementation home.
 - The pull request's ordinary CI, a clean solo Self-Review, and every applicable integration gate are the acceptance gates. Repair every red CI lane in that same pull request, even when the failure predates the campaign or is unrelated to its original issues.
@@ -68,7 +68,7 @@ A revert inside the pull request must not carry the closing keyword forward: `gi
 
 After each pushed commit, submit a formal GitHub pull-request review with the `COMMENT` event naming the commit, what it landed, and which issues it resolved. The review is the running ledger for a reader who does not read the diff, not a closing mechanism: GitHub closes an issue only from a commit message or the pull-request body. Follow the [pull-request skill](../pull-request/SKILL.md#write-the-pull-request) for inline comments, review bodies, and self-review restrictions; do not replace this ledger with ordinary issue-style pull-request comments.
 
-Once a commit lands, the main agent may spawn one read-only subagent as a commit early-warning pass over that commit and keep implementing while it runs. The pass reads that one commit and reports candidates. It never edits, commits, pushes, or makes an implementation decision. Its value is timing: a defect named while that code is the newest thing written costs little to correct, and nothing has been built on top of it yet.
+Every landed commit gets a commit early-warning pass. Spawn one read-only subagent over that commit as soon as it lands and keep implementing while it runs; do not defer the pass, batch several commits into one, or skip a commit because it looks small. The pass reads that one commit and reports candidates. It never edits, commits, pushes, or makes an implementation decision. Its value is timing: a defect named while that code is the newest thing written costs little to correct, and nothing has been built on top of it yet.
 
 The pass never reduces the [Self-Review](#validate-with-ci-and-self-review) that gates the merge. A reader holding one commit cannot see what appears only across files: a helper that duplicates one the package already has, a native transform branch whose emitted output no test workspace exercises, or a guide claiming a behavior the descriptor no longer performs. The main agent's own complete round over the whole base-to-head diff is what finds those, and no number of passes substitutes for it. The [review skill](../review/SKILL.md#commit-early-warning-pass) owns that boundary and the name the pass must not take.
 
