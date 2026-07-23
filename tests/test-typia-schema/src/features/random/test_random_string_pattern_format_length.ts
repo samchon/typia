@@ -144,8 +144,36 @@ export const test_random_string_pattern_format_length = (): void => {
     );
   }
 
-  // IDN formats (issue #2215): the length path must yield a dot plus a
-  // >=2-character TLD so the stricter idn checker accepts every draw.
+  // IDN formats (issue #2215): the length path must yield a value the stricter
+  // idn checker accepts at every draw. idn-hostname shares hostname's structure
+  // since #2317, so a single label of one or more characters is valid — the
+  // short cases below pin that the generator realizes them instead of throwing
+  // (issue #2319).
+  {
+    // A single label at lengths 1..3, valid since #2317, which the generator
+    // used to refuse because it reserved a `.<2-char TLD>` suffix.
+    type T = string & tags.Format<"idn-hostname"> & tags.MaxLength<3>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname & short single label",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
+  {
+    type T = string &
+      tags.Format<"idn-hostname"> &
+      tags.MinLength<1> &
+      tags.MaxLength<1>;
+    const create = typia.createRandom<T>();
+    roundTrip(
+      "idn-hostname single character",
+      (v) => typia.is<T>(v),
+      () => typia.random<T>(),
+      () => create(),
+    );
+  }
   {
     type T = string & tags.Format<"idn-hostname"> & tags.MinLength<40>;
     const create = typia.createRandom<T>();
@@ -181,7 +209,7 @@ export const test_random_string_pattern_format_length = (): void => {
     );
   }
   {
-    // A short window near the idn-hostname minimum (`x.yy`) forces the short path.
+    // A short window forces the short path; a single label fills it.
     type T = string &
       tags.Format<"idn-hostname"> &
       tags.MinLength<4> &
@@ -336,13 +364,15 @@ export const test_random_string_pattern_format_length = (): void => {
   assertThrows("fixed-length format & conflicting maxLength", () =>
     typia.random<string & tags.Format<"uuid"> & tags.MaxLength<10>>(),
   );
-  // Below the idn minimums (`x@x.yy` = 6, `x.yy` = 4) there is no matching value
-  // to emit, so the draw must throw rather than yield a `is`-rejected string.
+  // Below the idn-email minimum (`x@x.yy` = 6) there is no matching value to
+  // emit, so the draw must throw rather than yield a `is`-rejected string.
   assertThrows("idn-email & impossible maxLength", () =>
     typia.random<string & tags.Format<"idn-email"> & tags.MaxLength<5>>(),
   );
+  // idn-hostname now accepts a single label of any length, so the only
+  // unsatisfiable window is the empty one: `MaxLength<0>` admits no value.
   assertThrows("idn-hostname & impossible maxLength", () =>
-    typia.random<string & tags.Format<"idn-hostname"> & tags.MaxLength<3>>(),
+    typia.random<string & tags.Format<"idn-hostname"> & tags.MaxLength<0>>(),
   );
 };
 

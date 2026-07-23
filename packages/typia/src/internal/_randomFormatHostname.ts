@@ -29,8 +29,8 @@ const pickLength = (props: _ILengthProps): number => {
 
 /**
  * Builds dot-joined hostname labels totaling exactly `length` characters, each
- * label within 63 chars. Shared with the idn-hostname generator, which reserves
- * a fixed `.<tld>` suffix and realizes the rest as these leading labels.
+ * label within 63 chars. Shared with the idn-hostname generator, which realizes
+ * its length the same way since #2317 gave the two formats one structure.
  */
 export const _randomHostnameLabels = (length: number): string => {
   const parts: string[] = [];
