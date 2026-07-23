@@ -1,15 +1,14 @@
 name: build
-on: 
+on:
   pull_request:
     paths:
       - '.github/workflows/build.yml'
+      - 'benchmark/**'
       - 'config/**'
       - 'packages/**'
       # `packages/{langchain,mcp}`'s build shells out to
       # `scripts/create-conditional-declarations.cjs`, so `pnpm run build`
-      # exercises it. `scripts/format-go.cjs` is reached only by
-      # `pnpm run format`, which no lane runs, so this trigger covers one of the
-      # two files rather than the directory.
+      # exercises it. `scripts/format-go.cjs` is run by `format.yml`.
       - 'scripts/**'
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
@@ -26,9 +25,33 @@ jobs:
         with:
           go-version: 1.26.x
       - uses: pnpm/action-setup@v4
-      
+
       - name: Install Dependencies
         run: pnpm install
 
+      # ttsc compiles the typia Go plugin on first use into
+      # node_modules/.cache/ttsc, keyed by content (plugin source + ttsc/tsgo
+      # versions). Restoring a stale cache is safe: a changed source misses the
+      # binary key but still reuses the incremental go-build objects. Restored
+      # after `pnpm install` so an install-time node_modules rebuild cannot
+      # discard it.
+      - name: Restore ttsc Plugin Cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/ttsc
+          key: ttsc-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
+          restore-keys: ttsc-cache-${{ runner.os }}-
+
       - name: Build Packages
         run: pnpm run build
+
+      # `benchmark/` is a compiled workspace of ~780 sources that no lane
+      # compiled, so a transform, interface, or utils change could break every
+      # benchmark program and stay green until someone next ran a benchmark
+      # (issue #2316). It is the only workspace here that applies the typia
+      # transform, so this step is what builds the Go plugin -- the restore
+      # above lets it reuse a prior run's cache instead of a cold build.
+      # `--fail-if-no-match` because a `--filter` selecting nothing exits 0,
+      # which would report success without compiling anything.
+      - name: Build Benchmark
+        run: pnpm --filter ./benchmark --fail-if-no-match run build

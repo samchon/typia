@@ -4,6 +4,8 @@ import typia, { tags } from "typia";
 import { _isFormatByte } from "typia/lib/internal/_isFormatByte";
 import { _isFormatDate } from "typia/lib/internal/_isFormatDate";
 import { _isFormatDateTime } from "typia/lib/internal/_isFormatDateTime";
+import { _isFormatHostname } from "typia/lib/internal/_isFormatHostname";
+import { _isFormatIdnHostname } from "typia/lib/internal/_isFormatIdnHostname";
 import { _isFormatIpv6 } from "typia/lib/internal/_isFormatIpv6";
 import { _isFormatIri } from "typia/lib/internal/_isFormatIri";
 import { _isFormatIriReference } from "typia/lib/internal/_isFormatIriReference";
@@ -35,6 +37,14 @@ interface ICommentDateTime {
 }
 interface ICommentTime {
   /** @format time */
+  value: string;
+}
+interface ICommentHostname {
+  /** @format hostname */
+  value: string;
+}
+interface ICommentIdnHostname {
+  /** @format idn-hostname */
   value: string;
 }
 
@@ -110,6 +120,20 @@ export const test_openapi_validator_format_parity = (): void => {
         value: string & tags.Format<"time">;
       }>(),
       comment: typia.createIs<ICommentTime>(),
+    },
+    hostname: {
+      direct: _isFormatHostname,
+      tagged: typia.createIs<{
+        value: string & tags.Format<"hostname">;
+      }>(),
+      comment: typia.createIs<ICommentHostname>(),
+    },
+    "idn-hostname": {
+      direct: _isFormatIdnHostname,
+      tagged: typia.createIs<{
+        value: string & tags.Format<"idn-hostname">;
+      }>(),
+      comment: typia.createIs<ICommentIdnHostname>(),
     },
   } satisfies Record<string, IChecker>;
   const matrices: Record<keyof typeof checks, IMatrix> = {
@@ -250,6 +274,37 @@ export const test_openapi_validator_format_parity = (): void => {
         "1:59:59Z",
       ],
     },
+    // Every valid ASCII host name is a valid IDN host name; the two share one
+    // structure and differ only in the permitted label characters, so the same
+    // ASCII rows appear under both, and the IDN column adds unicode labels.
+    hostname: {
+      valids: [
+        "hostname",
+        "localhost",
+        "a",
+        "a.b",
+        "x.y.z",
+        "example.com",
+        "sub.domain.co.kr",
+        "host.",
+      ],
+      invalids: ["", "-a", "a-", "a..b", ".a", "a.-b", "a_b", "실례"],
+    },
+    "idn-hostname": {
+      valids: [
+        "hostname",
+        "localhost",
+        "a",
+        "a.b",
+        "x.y.z",
+        "example.com",
+        "실례",
+        "실례.테스트",
+        "a.실례",
+        "host.",
+      ],
+      invalids: ["", "-a", "a-", "a..b", ".a", "a.-b", "a_b"],
+    },
   };
 
   for (const [format, matrix] of Object.entries(matrices) as [
@@ -302,6 +357,38 @@ export const test_openapi_validator_format_parity = (): void => {
     "time",
     (typia.json.schema<time>().schema as { format?: string }).format,
   );
+  TestValidator.equals(
+    "hostname schema",
+    "hostname",
+    (typia.json.schema<hostname>().schema as { format?: string }).format,
+  );
+  TestValidator.equals(
+    "idn-hostname schema",
+    "idn-hostname",
+    (typia.json.schema<idnHostname>().schema as { format?: string }).format,
+  );
+
+  // The superset property proved directly: every value the ASCII host-name
+  // validator accepts, the IDN one accepts too. idn-hostname used to require a
+  // dotted name with a two-plus character trailing label, so it rejected the
+  // single-label and single-character-final-label hosts hostname admits (#2317).
+  for (const value of [
+    "hostname",
+    "localhost",
+    "a",
+    "a.b",
+    "x.y.z",
+    "a1.b2",
+    "example.com",
+    "under_score-is.rejected",
+    "-bad",
+    "",
+  ])
+    TestValidator.predicate(
+      `idn-hostname is a superset of hostname for ${JSON.stringify(value)}`,
+      _isFormatHostname(value) === false ||
+        _isFormatIdnHostname(value) === true,
+    );
 };
 
 interface IMatrix {
@@ -316,6 +403,8 @@ type iriReference = string & tags.Format<"iri-reference">;
 type date = string & tags.Format<"date">;
 type dateTime = string & tags.Format<"date-time">;
 type time = string & tags.Format<"time">;
+type hostname = string & tags.Format<"hostname">;
+type idnHostname = string & tags.Format<"idn-hostname">;
 
 const validate = (
   format: string,
