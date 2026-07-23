@@ -1,0 +1,40 @@
+name: format
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/format.yml'
+      - '**/*.ts'
+      - '**/*.go'
+      - 'prettier.config.js'
+      - '**/prettier.config.js'
+      - '.prettierignore'
+      - '**/.prettierignore'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+jobs:
+  Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.26.x
+      - uses: pnpm/action-setup@v4
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      # `pnpm format` is the command every commit is required to run
+      # (.agents/skills/development/SKILL.md), yet no other lane ran it, so a
+      # tree the formatter would rewrite could merge unnoticed -- and the
+      # rewrite is not always harmless: prettier-plugin-jsdoc deletes the space
+      # beside a doc-comment code span that itself contains a backtick, gluing
+      # prose together (issue #2315). This lane makes the tree and the formatter
+      # agree: format writes, and any resulting change fails the diff.
+      - name: Formatting is idempotent
+        run: |
+          pnpm run format
+          git diff --exit-code
