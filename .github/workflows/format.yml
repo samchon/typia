@@ -5,6 +5,9 @@ on:
       - '.github/workflows/format.yml'
       - '**/*.ts'
       - '**/*.go'
+      # `format:go` is `node scripts/format-go.cjs`, so a change to the
+      # formatter script itself must re-run the gate.
+      - 'scripts/**'
       - 'prettier.config.js'
       - '**/prettier.config.js'
       - '.prettierignore'

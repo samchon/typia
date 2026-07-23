@@ -48,8 +48,10 @@ jobs:
       # `benchmark/` is a compiled workspace of ~780 sources that no lane
       # compiled, so a transform, interface, or utils change could break every
       # benchmark program and stay green until someone next ran a benchmark
-      # (issue #2316). `pnpm run build` above warms the plugin cache, so this is
-      # just the compile. `--fail-if-no-match` because a `--filter` selecting
-      # nothing exits 0, which would report success without compiling anything.
+      # (issue #2316). It is the only workspace here that applies the typia
+      # transform, so this step is what builds the Go plugin -- the restore
+      # above lets it reuse a prior run's cache instead of a cold build.
+      # `--fail-if-no-match` because a `--filter` selecting nothing exits 0,
+      # which would report success without compiling anything.
       - name: Build Benchmark
         run: pnpm --filter ./benchmark --fail-if-no-match run build
