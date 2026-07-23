@@ -101,7 +101,11 @@ export namespace TypeTagFormat {
       return ["$input.idnEmail"];
     },
     (input) => {
-      input.idnHostname = "깃허브";
+      // A leading hyphen is not a legal label start. `"깃허브"` was the spoiler
+      // here until #2317 made single-label hosts valid — which is what
+      // idn-hostname is for — so the invalid case had to move to one that stays
+      // invalid.
+      input.idnHostname = "-깃허브";
       return ["$input.idnHostname"];
     },
     (input) => {

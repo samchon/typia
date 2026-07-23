@@ -45,7 +45,7 @@ var FormatCheatSheet = map[string]string{
   "email":                 "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test($input)",
   "hostname":              "/^(?=.{1,253}\\.?$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\\.[a-z0-9](?:[-0-9a-z]{0,61}[0-9a-z])?)*\\.?$/i.test($input)",
   "idn-email":             "/^(([^<>()[\\]\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$/i.test($input)",
-  "idn-hostname":          "/^([a-z0-9\\u00a1-\\uffff0-9]+(-[a-z0-9\\u00a1-\\uffff0-9]+)*\\.)+[a-z\\u00a1-\\uffff]{2,}$/i.test($input)",
+  "idn-hostname":          "/^(?=.{1,253}\\.?$)[a-z0-9\\u00a1-\\uffff](?:[a-z0-9\\u00a1-\\uffff-]{0,61}[a-z0-9\\u00a1-\\uffff])?(?:\\.[a-z0-9\\u00a1-\\uffff](?:[a-z0-9\\u00a1-\\uffff-]{0,61}[a-z0-9\\u00a1-\\uffff])?)*\\.?$/i.test($input)",
   "iri":                   `(() => !/[\u0000-\u0020\u007f-\u009f\ud800-\udfff"<>\\^\x60{|}]/u.test($input) && !/%(?![0-9A-Fa-f]{2})/u.test($input) && /^[A-Za-z][A-Za-z0-9+.-]*:/u.test($input))()`,
   "iri-reference":         `(() => { if (/[\u0000-\u0020\u007f-\u009f\ud800-\udfff"<>\\^\x60{|}]/u.test($input) || /%(?![0-9A-Fa-f]{2})/u.test($input)) return false; const colon = $input.indexOf(":"); const boundary = $input.search(/[/?#]/u); return colon === -1 || (boundary !== -1 && boundary < colon) || /^[A-Za-z][A-Za-z0-9+.-]*:/u.test($input); })()`,
   "ipv4":                  "/^(?:(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)$/.test($input)",
