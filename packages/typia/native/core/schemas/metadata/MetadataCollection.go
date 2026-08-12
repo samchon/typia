@@ -810,7 +810,35 @@ var metadataCollection_replacers = []metadataCollection_replacer{
 }
 
 func metadataCollection_getFullName(checker *nativechecker.Checker, typ *nativechecker.Type) string {
+  return metadataCollection_getFullNameOf(checker, typ, nil)
+}
+
+// metadataCollection_getFullNameOf carries the types whose name is still being
+// composed on the current path. A recursive type graph reaches the same *Type
+// again before its name is finished: `type Rec<T> = T extends Date ? string : T
+// extends (infer U)[] ? Rec<U>[] : never` instantiated at `Date | Node[]`
+// resolves to the union `string | Rec<Node>[]`, whose array member is a
+// reference whose sole type argument is that very union. Walking union member ->
+// array reference -> type argument returns to the union, so the unguarded walk
+// never terminates and overflows the plugin's stack instead of naming the type
+// (#2331). A type reached a second time on one path is therefore named by its
+// own symbol with its arguments left unexpanded -- the recursion's placeholder,
+// `Array<string | Array>` for the example above -- and a symbol-less one by the
+// anonymous marker the collection already allocates unique names from. Expanding
+// the checker's elided rendering there instead would name every such component
+// after a several-hundred-character structural dump.
+func metadataCollection_getFullNameOf(
+  checker *nativechecker.Checker,
+  typ *nativechecker.Type,
+  visiting map[*nativechecker.Type]bool,
+) string {
   if checker == nil || typ == nil {
+    return "__type"
+  }
+  if visiting[typ] {
+    if symbol := metadataCollection_nameSymbol(typ); symbol != nil {
+      return metadataCollection_getName(symbol)
+    }
     return "__type"
   }
   rendered := metadataCollection_sanitizeName(checker.TypeToString(typ))
@@ -834,9 +862,11 @@ func metadataCollection_getFullName(checker *nativechecker.Checker, typ *nativec
       }
       children := typ.Types()
       names := make([]string, 0, len(children))
+      visiting = metadataCollection_markVisiting(visiting, typ)
       for _, child := range children {
-        names = append(names, metadataCollection_getFullName(checker, child))
+        names = append(names, metadataCollection_getFullNameOf(checker, child, visiting))
       }
+      delete(visiting, typ)
       return strings.Join(names, joiner)
     }
     if rendered != "" {
@@ -864,14 +894,36 @@ func metadataCollection_getFullName(checker *nativechecker.Checker, typ *nativec
     }
     return name
   }
+  visiting = metadataCollection_markVisiting(visiting, typ)
+  defer delete(visiting, typ)
   if name == "Promise" {
-    return metadataCollection_getFullName(checker, generic[0])
+    return metadataCollection_getFullNameOf(checker, generic[0], visiting)
   }
   names := make([]string, 0, len(generic))
   for _, child := range generic {
-    names = append(names, metadataCollection_getFullName(checker, child))
+    names = append(names, metadataCollection_getFullNameOf(checker, child, visiting))
   }
   return name + "<" + strings.Join(names, ", ") + ">"
+}
+
+// metadataCollection_nameSymbol picks the same symbol the main body does: the
+// alias symbol first, then the type's own.
+func metadataCollection_nameSymbol(typ *nativechecker.Type) *nativeast.Symbol {
+  if symbol := nativechecker.Type_getTypeNameSymbol(typ); symbol != nil {
+    return symbol
+  }
+  return typ.Symbol()
+}
+
+func metadataCollection_markVisiting(
+  visiting map[*nativechecker.Type]bool,
+  typ *nativechecker.Type,
+) map[*nativechecker.Type]bool {
+  if visiting == nil {
+    visiting = map[*nativechecker.Type]bool{}
+  }
+  visiting[typ] = true
+  return visiting
 }
 
 func metadataCollection_getName(symbol *nativeast.Symbol) string {

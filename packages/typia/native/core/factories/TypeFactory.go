@@ -77,12 +77,35 @@ func (typeFactoryNamespace) GetReturnTypeOfClassMethod(props TypeFactory_GetRetu
 }
 
 func (typeFactoryNamespace) GetFullName(props TypeFactory_GetFullNameProps) string {
+  return typeFactory_get_full_name(props, nil)
+}
+
+// typeFactory_get_full_name carries the set of types whose name is still being
+// composed on the current path. A recursive type graph revisits the very same
+// *Type while its own name is unfinished -- `Rec<Node>` resolving to
+// `string | Rec<Node>[]` walks union member -> array reference -> type argument
+// -> the same union -- so an unguarded walk never terminates and overflows the
+// plugin's stack instead of naming the type (#2331). A type reached a second
+// time on one path is therefore named by its own symbol with its arguments left
+// unexpanded -- the recursion's placeholder, `Array<string | Array>` for the
+// example above -- and a symbol-less one by the checker's own rendering, which
+// already collapses the cycle into an elided form.
+func typeFactory_get_full_name(
+  props TypeFactory_GetFullNameProps,
+  visiting map[*shimchecker.Type]bool,
+) string {
   if props.Checker == nil || props.Type == nil {
     return ""
   }
   symbol := props.Symbol
   if symbol == nil {
     symbol = props.Type.Symbol()
+  }
+  if visiting[props.Type] {
+    if symbol != nil {
+      return typeFactory_get_name(symbol)
+    }
+    return props.Checker.TypeToString(props.Type)
   }
   if symbol == nil {
     if props.Type.IsUnion() || props.Type.IsIntersection() {
@@ -92,12 +115,14 @@ func (typeFactoryNamespace) GetFullName(props TypeFactory_GetFullNameProps) stri
       }
       children := props.Type.Types()
       names := make([]string, 0, len(children))
+      visiting = typeFactory_mark_visiting(visiting, props.Type)
       for _, child := range children {
-        names = append(names, TypeFactory.GetFullName(TypeFactory_GetFullNameProps{
+        names = append(names, typeFactory_get_full_name(TypeFactory_GetFullNameProps{
           Checker: props.Checker,
           Type:    child,
-        }))
+        }, visiting))
       }
+      delete(visiting, props.Type)
       return strings.Join(names, joiner)
     }
     return props.Checker.TypeToString(props.Type)
@@ -107,20 +132,33 @@ func (typeFactoryNamespace) GetFullName(props TypeFactory_GetFullNameProps) stri
   if len(generic) == 0 {
     return name
   }
+  visiting = typeFactory_mark_visiting(visiting, props.Type)
+  defer delete(visiting, props.Type)
   if name == "Promise" {
-    return TypeFactory.GetFullName(TypeFactory_GetFullNameProps{
+    return typeFactory_get_full_name(TypeFactory_GetFullNameProps{
       Checker: props.Checker,
       Type:    generic[0],
-    })
+    }, visiting)
   }
   names := make([]string, 0, len(generic))
   for _, child := range generic {
-    names = append(names, TypeFactory.GetFullName(TypeFactory_GetFullNameProps{
+    names = append(names, typeFactory_get_full_name(TypeFactory_GetFullNameProps{
       Checker: props.Checker,
       Type:    child,
-    }))
+    }, visiting))
   }
   return name + "<" + strings.Join(names, ", ") + ">"
+}
+
+func typeFactory_mark_visiting(
+  visiting map[*shimchecker.Type]bool,
+  typ *shimchecker.Type,
+) map[*shimchecker.Type]bool {
+  if visiting == nil {
+    visiting = map[*shimchecker.Type]bool{}
+  }
+  visiting[typ] = true
+  return visiting
 }
 
 func typeFactory_explore_name(node *shimast.Node, name string) string {
