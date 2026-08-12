@@ -12,11 +12,11 @@ import (
 // whose resolved graph names itself (issue #2331).
 //
 // `Primitive<T>` instantiated at the self-recursive union `type Node = Date |
-// Node[]` resolves to `string & Format<"date-time"> | X[]`, where the array's
-// sole type argument is that very union. The name builders walked union member
-// -> array reference -> type argument and arrived back at the type whose name
-// was still being composed, so they recursed until the plugin process died of a
-// Go stack overflow: no diagnostic, no emit, and ttsc itself taken down with it.
+// Node[]` resolves to a union `X = string & Format<"date-time"> | X[]`, whose
+// array member's sole type argument is `X` itself. The name builders walked
+// union member -> array reference -> type argument and arrived back at the type
+// whose name was still being composed, so they recursed until the plugin process
+// died of a Go stack overflow: no diagnostic, no emit, and ttsc taken with it.
 // `Primitive` is only one witness -- any self-recursive conditional alias
 // produces the same graph -- so the fixture pins the bare `Rec<T>` form too.
 //
@@ -36,14 +36,18 @@ import (
 //     through a bounded component name.
 func TestRecursiveConditionalAliasNameTransform(t *testing.T) {
   project := recursiveConditionalAliasNameProject(t)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
+  transform := func() (string, string, int) {
+    return ttscTypiaTestCapture(func() int {
+      return runTransform([]string{
+        "--cwd", project,
+        "--tsconfig", "tsconfig.json",
+        "--file", "src/main.ts",
+        "--output", "js",
+      })
     })
-  })
+  }
+
+  out, errText, code := transform()
   if code != 0 {
     t.Fatalf("recursive conditional alias transform failed: code=%d stderr=\n%s", code, errText)
   }
@@ -54,14 +58,7 @@ func TestRecursiveConditionalAliasNameTransform(t *testing.T) {
   // The cycle guard is a map, and the name it settles on becomes a helper
   // identifier and a schema component key. Map iteration order must not reach
   // either, so the same source has to emit the same bytes.
-  repeat, repeatErr, repeatCode := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
-    })
-  })
+  repeat, repeatErr, repeatCode := transform()
   if repeatCode != 0 {
     t.Fatalf("recursive conditional alias repeat transform failed: code=%d stderr=\n%s", repeatCode, repeatErr)
   }
