@@ -17,7 +17,8 @@ import typia, { Primitive, tags } from "typia";
  * 1. Validate values against the recursive `Primitive<Node>` union.
  * 2. Read the emitted JSON schema and require the array component to reference
  *    itself under a bounded name.
- * 3. Compare against a named recursive union, which must keep its declared name.
+ * 3. Compare against a named recursive union, which must keep validating and must
+ *    still name its component from the declaration.
  */
 export const test_validate_recursive_conditional_alias = (): void => {
   type Node = Date | Node[];
@@ -98,5 +99,16 @@ export const test_validate_recursive_conditional_alias = (): void => {
     "named recursion rejects",
     typia.is<Named>([["nope"]]),
     false,
+  );
+
+  // Every component this recursion emits is reached through the declaration, so
+  // each name must be built from it -- the cycle placeholder never applies.
+  const namedKeys: string[] = Object.keys(
+    typia.json.schema<Named>().components.schemas ?? {},
+  );
+  TestValidator.predicate(
+    "named recursion names every component from the declaration",
+    () =>
+      namedKeys.length !== 0 && namedKeys.every((key) => key.includes("Named")),
   );
 };
