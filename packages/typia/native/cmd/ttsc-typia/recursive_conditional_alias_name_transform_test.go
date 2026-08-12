@@ -202,6 +202,16 @@ expect("primitive flat array", mod.isPrimitiveNode([DATE, DATE]), true);
 expect("primitive flat array bad member", mod.isPrimitiveNode([DATE, "nope"]), false);
 expect("primitive nested array", mod.isPrimitiveNode([[[DATE]], []]), true);
 expect("primitive nested bad leaf", mod.isPrimitiveNode([[[1]]]), false);
+expect("primitive nested Date instance", mod.isPrimitiveNode([[new Date(0)]]), false);
+
+// depth boundary: the emitted validator recurses through one function, so a
+// deep value must not need a deeper emit
+let deep = [DATE];
+for (let i = 0; i < 64; ++i) deep = [deep];
+expect("primitive deeply nested", mod.isPrimitiveNode(deep), true);
+let deepBad = [1];
+for (let i = 0; i < 64; ++i) deepBad = [deepBad];
+expect("primitive deeply nested bad leaf", mod.isPrimitiveNode(deepBad), false);
 
 // the emitted recursive validator must not be fooled by a self-referencing value
 const cyclic = [];
@@ -251,15 +261,17 @@ const unit = mod.schemaPrimitiveNode;
 const keys = Object.keys(unit.components.schemas || {});
 expect("schema has one component", keys.length, 1);
 const key = keys[0];
-// The pre-fix walk could only have produced a name built from the checker's
-// elided rendering, which runs to several hundred characters; the placeholder
-// keeps it in the same range as an ordinary named component.
-expect("component name is bounded", key !== undefined && key.length <= 64, true);
-expect("component is an array", unit.components.schemas[key].type, "array");
-const items = unit.components.schemas[key].items;
-const refs = (items.oneOf || []).filter((elem) => elem.$ref !== undefined);
-expect("array items reference the component itself", refs.length === 1 && refs[0].$ref === "#/components/schemas/" + key, true);
-expect("array items keep the date-time arm", (items.oneOf || []).some((elem) => elem.format === "date-time"), true);
+if (key !== undefined) {
+  // The pre-fix walk could only have produced a name built from the checker's
+  // elided rendering, which runs to several hundred characters; the placeholder
+  // keeps it in the same range as an ordinary named component.
+  expect("component name is bounded", key.length <= 64, true);
+  expect("component is an array", unit.components.schemas[key].type, "array");
+  const items = unit.components.schemas[key].items;
+  const refs = (items.oneOf || []).filter((elem) => elem.$ref !== undefined);
+  expect("array items reference the component itself", refs.length === 1 && refs[0].$ref === "#/components/schemas/" + key, true);
+  expect("array items keep the date-time arm", (items.oneOf || []).some((elem) => elem.format === "date-time"), true);
+}
 
 // control: a named recursion still uses its declared name
 expect("category component name", Object.keys(mod.schemaCategory.components.schemas || {})[0], "ICategory");
