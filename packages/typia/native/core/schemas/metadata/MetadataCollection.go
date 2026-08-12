@@ -835,14 +835,6 @@ func metadataCollection_getFullNameOf(
   if checker == nil || typ == nil {
     return "__type"
   }
-  if visiting[typ] {
-    if symbol := metadataCollection_nameSymbol(typ); symbol != nil {
-      return metadataCollection_getName(symbol)
-    }
-    return "__type"
-  }
-  rendered := metadataCollection_sanitizeName(checker.TypeToString(typ))
-
   // Mirror TypeFactory.getFullName: prefer the alias symbol, then the type's
   // own symbol. getTypeNameSymbol already returns t.alias.symbol first (the
   // alias symbol), so a non-nil result that differs from typ.Symbol() means the
@@ -854,6 +846,13 @@ func metadataCollection_getFullNameOf(
   if symbol == nil {
     symbol = rawSymbol
   }
+  if visiting[typ] {
+    if symbol != nil {
+      return metadataCollection_getName(symbol)
+    }
+    return "__type"
+  }
+  rendered := metadataCollection_sanitizeName(checker.TypeToString(typ))
   if symbol == nil {
     if typ.IsUnion() || typ.IsIntersection() {
       joiner := " | "
@@ -904,15 +903,6 @@ func metadataCollection_getFullNameOf(
     names = append(names, metadataCollection_getFullNameOf(checker, child, visiting))
   }
   return name + "<" + strings.Join(names, ", ") + ">"
-}
-
-// metadataCollection_nameSymbol picks the same symbol the main body does: the
-// alias symbol first, then the type's own.
-func metadataCollection_nameSymbol(typ *nativechecker.Type) *nativeast.Symbol {
-  if symbol := nativechecker.Type_getTypeNameSymbol(typ); symbol != nil {
-    return symbol
-  }
-  return typ.Symbol()
 }
 
 func metadataCollection_markVisiting(
