@@ -109,6 +109,7 @@ export const test_validate_recursive_conditional_alias = (): void => {
   TestValidator.predicate(
     "named recursion names every component from the declaration",
     () =>
-      namedKeys.length !== 0 && namedKeys.every((key) => key.includes("Named")),
+      namedKeys.length !== 0 &&
+      namedKeys.every((elem) => elem.includes("Named")),
   );
 };
