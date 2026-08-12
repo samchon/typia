@@ -50,6 +50,25 @@ func TestRecursiveConditionalAliasNameTransform(t *testing.T) {
   if strings.Contains(out, "_ia0") == false {
     t.Fatalf("expected a recursive array validator in the emit, got:\n%s", out)
   }
+
+  // The cycle guard is a map, and the name it settles on becomes a helper
+  // identifier and a schema component key. Map iteration order must not reach
+  // either, so the same source has to emit the same bytes.
+  repeat, repeatErr, repeatCode := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", "js",
+    })
+  })
+  if repeatCode != 0 {
+    t.Fatalf("recursive conditional alias repeat transform failed: code=%d stderr=\n%s", repeatCode, repeatErr)
+  }
+  if repeat != out {
+    t.Fatalf("repeat transform emitted different bytes:\nfirst:\n%s\nsecond:\n%s", out, repeat)
+  }
+
   recursiveConditionalAliasNameRunRuntimeCases(t, project, out)
 }
 
