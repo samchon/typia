@@ -183,6 +183,7 @@ export const isOutput = typia.createIs<Primitive<Output>>();
 // declaration must keep transforming and must not take the cycle placeholder
 type Named = (string & tags.Format<"date-time">) | Named[];
 export const isNamed = typia.createIs<Named>();
+export const schemaNamed = typia.json.schema<Named>();
 
 type SelfArray = SelfArray[];
 export const isSelfArray = typia.createIs<SelfArray>();
@@ -289,8 +290,15 @@ if (key !== undefined) {
   expect("array items keep the date-time arm", (items.oneOf || []).some((elem) => elem.format === "date-time"), true);
 }
 
-// control: a named recursion still uses its declared name
+// controls: a recursion reached through a declaration names every component it
+// emits from that declaration, so the placeholder never applies to one
 expect("category component name", Object.keys(mod.schemaCategory.components.schemas || {})[0], "ICategory");
+const namedKeys = Object.keys(mod.schemaNamed.components.schemas || {});
+expect(
+  "named recursion names every component from its declaration",
+  namedKeys.length !== 0 && namedKeys.every((elem) => elem.includes("Named")),
+  true,
+);
 
 if (failures > 0) {
   throw new Error(failures + " assertion(s) failed");
