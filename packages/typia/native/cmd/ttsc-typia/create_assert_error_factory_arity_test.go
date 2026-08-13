@@ -91,7 +91,11 @@ func createAssertErrorFactoryAssertEmittedArity(t *testing.T, js string) {
       t.Fatalf("emitted members are out of source order at %s", name)
     }
     segment := js[starts[i]:end]
-    carries := strings.Contains(segment, "(input, errorFactory)")
+    // The returned function is the public one. Every composed member also
+    // builds a private `__assert` that takes the parameter, so matching the
+    // parameter list anywhere in the segment would keep passing after the
+    // returned arrow lost it.
+    carries := strings.Contains(segment, "return (input, errorFactory)")
     if strings.HasPrefix(name, "m") && carries == false {
       t.Fatalf("%s lost its errorFactory parameter:\n%s", name, segment)
     }
