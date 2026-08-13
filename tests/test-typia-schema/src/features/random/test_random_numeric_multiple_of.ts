@@ -9,15 +9,17 @@ import typia, { tags } from "typia";
  * exact decimal oracle for its divisor. The generator divides exact decimals
  * while the generated validator spells `MultipleOf` as `$input % N === 0`,
  * which divides the binary doubles actually stored, so a generated value can
- * fail its own validator wherever the two representations part company — a
- * divisor with no exact binary double such as `0.01`, or a value past
+ * fail its own validator wherever an operand does not equal the decimal it
+ * prints back — a divisor such as `0.01`, or any value past
  * `Number.MAX_SAFE_INTEGER`. `typia.is` on a divisor is therefore asserted only
- * for the small binary-exact ones; issue #2335 owns closing that gap in a
- * major. Empty discrete ranges must also fail without an unbounded retry.
+ * for the small divisors that do print back exactly; issue #2335 owns closing
+ * that gap in a major. Empty discrete ranges must also fail without an
+ * unbounded retry.
  *
  * 1. Generate decimal, integer, one-sided, and exclusive-bound values repeatedly.
  * 2. Revalidate every bound and compare every value with an exact decimal oracle.
- * 3. Revalidate the binary-exact divisors through the generated validator.
+ * 3. Revalidate the divisors that print back exactly through the generated
+ *    validator.
  * 4. Require both random APIs to reject an impossible multiple range promptly.
  */
 export const test_random_numeric_multiple_of = (): void => {
