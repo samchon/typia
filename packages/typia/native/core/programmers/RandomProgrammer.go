@@ -1444,9 +1444,9 @@ func randomProgrammer_is_typed_array(name string) bool {
 // two. That costs nothing here: the generator only picks a value from the range,
 // and the TypedArray constructor wraps whatever it is handed. On the `number`
 // path validation owns exactness instead, in _isTypeInt64 and _isTypeUint64. The
-// `bigint` path owns none: its type tag declares no width check at all, so that
-// the declaration names no runtime helper an older `typia` cannot resolve
-// (#2330), and #2338 owns restoring the bound.
+// `bigint` path owns none: Type<"int64"> declares no check and Type<"uint64">
+// only a lower bound, so that neither declaration names a runtime helper an
+// older `typia` cannot resolve (#2330). #2338 owns restoring the bound.
 func randomProgrammer_typed_array_range(name string) (string, string, string) {
   switch name {
   case "Uint8Array", "Uint8ClampedArray":

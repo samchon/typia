@@ -24,7 +24,7 @@ interface ICommentBigint {
 /**
  * Verifies uint64 bounds the number path and only rejects negatives on bigint.
  *
- * The bigint arm may not name a `typia/lib/internal/*` helper. It is declared
+ * The bigint arm must not name a `typia/lib/internal/*` helper. It is declared
  * in `@typia/interface`, which `typia` admits through a caret range that only
  * floats upward, so a named helper makes an older `typia` emit an import it
  * never shipped (#2330). The arm is therefore the `BigInt(0) <= $input` it

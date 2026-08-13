@@ -411,7 +411,7 @@ func metadataCommentTagFactory_parse_type(props struct {
     // `Type<"uint64">` declare them, because `@type int64` and
     // `bigint & Type<"int64">` are two spellings of one constraint.
     //
-    // That declaration may not name a runtime helper the way the `number` arms
+    // That declaration must not name a runtime helper the way the `number` arms
     // above do. A `$importInternal(...)` in a tag template makes the emitted
     // validator import a `typia/lib/internal/*` module, and the declaration
     // lives in `@typia/interface`, which `typia` depends on through a caret
