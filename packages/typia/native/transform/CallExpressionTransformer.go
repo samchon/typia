@@ -43,6 +43,7 @@ type callExpressionTransformerTask func(props ITransformProps) *shimast.Node
 type callExpressionTransformerFunctor func() callExpressionTransformerTask
 
 var callExpressionTransformer_functors = callExpressionTransformer_createFunctors()
+var callExpressionTransformer_functorNames = callExpressionTransformer_createFunctorNames()
 
 func (callExpressionTransformerNamespace) Transform(props CallExpressionTransformer_TransformProps) *shimast.Node {
   if props.Expression == nil {
@@ -63,6 +64,7 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
   location, _ := filepath.Abs(sourceFile.FileName())
   module, ok := callExpressionTransformer_targetModule(location)
   if ok == false {
+    callExpressionTransformer_rejectShadowedTypia(props, location)
     return props.Expression.AsNode()
   }
   typ := props.Context.Checker.GetTypeAtLocation(declaration)
@@ -125,6 +127,121 @@ func callExpressionTransformer_targetModule(location string) (string, bool) {
     }
   }
   return "", false
+}
+
+// callExpressionTransformer_rejectShadowedTypia raises a diagnostic when a call
+// the file-path identity test rejected is nevertheless a typia call the author
+// expects to be transformed, and names the file that redeclared it.
+//
+// Attribution by declaration file is deliberate: accepting a callee declared
+// anywhere else would let any package claim typia's transform, which is the
+// boundary default_library_spoof_native_identity_transform_test.go and
+// lib_replacement_native_identity_transform_test.go protect. That check is not
+// relaxed here. Silence is what needs correcting. A project-local `declare
+// module "typia"` moves the resolved signature's declaration out of typia's own
+// files, so the call is left untransformed with no diagnostic at all and the
+// failure surfaces only at run time as `no transform has been configured`
+// (samchon/typia#2328).
+//
+// Three conditions have to hold together, so an unrelated local function that
+// happens to share a name with a typia operation cannot trip this:
+//
+//  1. the called name is one this transformer owns;
+//  2. the root of the callee expression resolves to an import binding; and
+//  3. that import's module specifier is typia's own.
+func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransformer_TransformProps, location string) {
+  if props.Context.Checker == nil || props.Expression == nil {
+    return
+  }
+  method := callExpressionTransformer_calleeMethod(props.Expression.Expression)
+  if method == "" || callExpressionTransformer_FUNCTOR_NAMES()[method] == false {
+    return
+  }
+  root := callExpressionTransformer_calleeRoot(props.Expression.Expression)
+  if root == nil || root.Kind != shimast.KindIdentifier {
+    return
+  }
+  symbol := props.Context.Checker.GetSymbolAtLocation(root)
+  if symbol == nil || symbol.Flags&shimast.SymbolFlagsAlias == 0 {
+    return
+  }
+  for _, declaration := range symbol.Declarations {
+    if callExpressionTransformer_importsTypia(declaration) == false {
+      continue
+    }
+    panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
+      Code: "typia." + method,
+      Message: "this call resolved to a declaration in " +
+        filepath.ToSlash(location) +
+        " instead of typia's own, so no transform was applied. Remove the `declare module \"typia\"` that redeclares it, or give the redeclaration another module name.",
+    }))
+  }
+}
+
+// callExpressionTransformer_calleeMethod returns the called name of a callee
+// expression: the property for `typia.json.assertParse`, the identifier itself
+// for a named import called bare. Other callee shapes (element access, a call
+// returning a function) are not attributable by name and yield "".
+func callExpressionTransformer_calleeMethod(callee *shimast.Node) string {
+  if callee == nil {
+    return ""
+  }
+  switch callee.Kind {
+  case shimast.KindIdentifier:
+    return callee.Text()
+  case shimast.KindPropertyAccessExpression:
+    name := callee.AsPropertyAccessExpression().Name()
+    if name == nil || name.Kind != shimast.KindIdentifier {
+      return ""
+    }
+    return name.Text()
+  }
+  return ""
+}
+
+// callExpressionTransformer_calleeRoot walks a property-access chain down to the
+// expression it starts from, which is the binding that has to come from typia.
+func callExpressionTransformer_calleeRoot(callee *shimast.Node) *shimast.Node {
+  current := callee
+  for current != nil && current.Kind == shimast.KindPropertyAccessExpression {
+    current = current.AsPropertyAccessExpression().Expression
+  }
+  return current
+}
+
+// callExpressionTransformer_importsTypia answers whether an alias declaration
+// belongs to an import declaration whose module specifier is typia's own. Only
+// `import ... from "..."` is matched; the walk stops at the source file so a
+// local declaration can never reach an unrelated import above it.
+func callExpressionTransformer_importsTypia(declaration *shimast.Node) bool {
+  for node := declaration; node != nil; node = node.Parent {
+    switch node.Kind {
+    case shimast.KindImportDeclaration:
+      specifier := node.ModuleSpecifier()
+      if specifier == nil || specifier.Kind != shimast.KindStringLiteral {
+        return false
+      }
+      text := specifier.AsStringLiteral().Text
+      return text == "typia" || strings.HasPrefix(text, "typia/")
+    case shimast.KindSourceFile:
+      return false
+    }
+  }
+  return false
+}
+
+func callExpressionTransformer_FUNCTOR_NAMES() map[string]bool {
+  return callExpressionTransformer_functorNames
+}
+
+func callExpressionTransformer_createFunctorNames() map[string]bool {
+  names := map[string]bool{}
+  for _, methods := range callExpressionTransformer_FUNCTORS() {
+    for name := range methods {
+      names[name] = true
+    }
+  }
+  return names
 }
 
 func callExpressionTransformer_sourceFile(node *shimast.Node) *shimast.SourceFile {
