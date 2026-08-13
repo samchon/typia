@@ -25,6 +25,10 @@ import { TagBase } from "./TagBase";
  * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates appropriate `type` in JSON Schema.
  *
+ * On a `bigint`, `"int64"` and `"uint64"` select the protobuf scalar type but
+ * do not check the 64-bit width: `"int64"` enforces nothing, and `"uint64"`
+ * enforces only `0n <= value`. Their `number` forms do enforce their range.
+ *
  * @author Jeongho Nam - https://github.com/samchon
  * @example
  *   interface Message {
@@ -69,12 +73,12 @@ export type Type<
               : Value extends "int64"
                 ? {
                     number: `$importInternal("isTypeInt64")($input)`;
-                    bigint: `$importInternal("isTypeInt64Bigint")($input)`;
+                    bigint: `true`;
                   }
                 : Value extends "uint64"
                   ? {
                       number: `$importInternal("isTypeUint64")($input)`;
-                      bigint: `$importInternal("isTypeUint64Bigint")($input)`;
+                      bigint: `BigInt(0) <= $input`;
                     }
                   : Value extends "float"
                     ? `$importInternal("isTypeFloat")($input)`

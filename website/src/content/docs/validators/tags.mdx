@@ -134,6 +134,8 @@ When adjacent placeholders or repeated separators make the boundary ambiguous, t
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
 
+On a `bigint` those two tags do not check the 64-bit width: `Type<"int64">` enforces nothing, and `Type<"uint64">` enforces only `0n <= value`. `typia.protobuf.encode` still writes the field as a 64-bit varint, so a value past the width is truncated on the wire rather than rejected by the validator. Restoring the bound would reject data that validates today, so it waits for a major release; it is tracked in [issue #2338](https://github.com/samchon/typia/issues/2338). On a `number` the same two tags do bound their range.
+
 #### `string`
 
 | Tag                         | Notes                                                                          |
