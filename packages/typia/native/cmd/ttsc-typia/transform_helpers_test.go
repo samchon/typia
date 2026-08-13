@@ -61,14 +61,14 @@ func ttscTypiaTestCapture(run func() int) (string, string, int) {
 func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
   t.Helper()
   files := map[string]string{
-    "typia-stub.cjs":             "module.exports = {};\n",
-    "validate-report-stub.cjs":   ttscTypiaTestValidateReportStub,
-    "standard-schema-stub.cjs":   ttscTypiaTestStandardSchemaStub,
-    "assert-guard-stub.cjs":      ttscTypiaTestAssertGuardStub,
-    "functional-error-stub.cjs":  ttscTypiaTestFunctionalErrorStub,
-    "access-expression-stub.cjs": ttscTypiaTestAccessExpressionStub,
-    "string-length-stub.cjs":     ttscTypiaTestStringLengthStub,
-    "notation-stub.cjs":          ttscTypiaTestNotationStub,
+    "typia-stub.cjs":                   "module.exports = {};\n",
+    "validate-report-stub.cjs":         ttscTypiaTestValidateReportStub,
+    "standard-schema-stub.cjs":         ttscTypiaTestStandardSchemaStub,
+    "assert-guard-stub.cjs":            ttscTypiaTestAssertGuardStub,
+    "functional-error-stub.cjs":        ttscTypiaTestFunctionalErrorStub,
+    "access-expression-stub.cjs":       ttscTypiaTestAccessExpressionStub,
+    "string-length-stub.cjs":           ttscTypiaTestStringLengthStub,
+    "notation-stub.cjs":                ttscTypiaTestNotationStub,
     "json-stringify-array-stub.cjs":    ttscTypiaTestJsonStringifyArrayStub,
     "json-stringify-property-stub.cjs": ttscTypiaTestJsonStringifyPropertyStub,
     "json-stringify-element-stub.cjs":  ttscTypiaTestJsonStringifyElementStub,
@@ -160,9 +160,17 @@ const ttscTypiaTestValidateReportStub = `module.exports._validateReport = (array
 const ttscTypiaTestStandardSchemaStub = `module.exports._createStandardSchema = (validate) => validate;
 `
 
+// A faithful double for packages/typia/src/internal/_assertGuard.ts, including
+// its callable-factory requirement: the generated function's second parameter
+// is caller-supplied, so a pointwise hand-off (`rows.map(assertUser)`) fills it
+// with the element index. Testing truthiness here instead would let this stub
+// report `factory is not a function` for a case the shipped helper handles.
 const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionable, props, factory) => {
   if (exceptionable) {
-    const error = factory ? factory(props) : Object.assign(new Error(props.expected), props);
+    const error =
+      typeof factory === "function"
+        ? factory(props)
+        : Object.assign(new Error(props.expected), props);
     throw error;
   }
   return false;
