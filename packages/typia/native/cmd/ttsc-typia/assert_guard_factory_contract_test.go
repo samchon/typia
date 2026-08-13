@@ -110,7 +110,14 @@ export const inferredEquals = typia.createAssertGuardEquals<User>();
 
 let input: unknown = { id: 1 };
 const returned = guard(input);
-input.id satisfies number;
+
+// Narrowing is asserted inside a function body: TypeScript does not apply an
+// assertion signature to a module-scoped binding, so the same lines at the top
+// level leave the value unknown.
+export const narrowing = (value: unknown): number => {
+  guard(value);
+  return value.id;
+};
 
 type Equal<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
