@@ -20,7 +20,8 @@ import typia, { tags } from "typia";
  *
  * 1. Exercise type-tag and JSDoc validators over the Unicode boundary matrix.
  * 2. Confirm JSON and LLM schema conversion preserves exact length keywords.
- * 3. Pin the single value where the emitted OpenAPI schema disagrees.
+ * 3. Revalidate every value through the emitted OpenAPI schema, which diverges on
+ *    the astral character alone.
  */
 export const test_validate_unicode_string_length = (): void => {
   type One = string & tags.MinLength<1> & tags.MaxLength<1>;
@@ -31,10 +32,12 @@ export const test_validate_unicode_string_length = (): void => {
      */
     value: string;
   }
-  // One astral character is two UTF-16 code units, so the generated validator
-  // measures 2 and rejects it. Everything else counts the same either way: a
-  // precomposed letter is one unit and one character, a combining sequence is
-  // two of each, and a lone surrogate is one of each.
+  // One astral character is two UTF-16 code units but one character, so the
+  // generated validator measures 2 and rejects it while the emitted schema
+  // counts 1. A precomposed letter is one unit and one character, a combining
+  // sequence is two of each, and a lone surrogate is one of each, so those
+  // rows land the same way under either measurement. `"a" + astral` measures 3
+  // against 2, but both exceed `MaxLength<1>`, so it lands the same way too.
   const astral: string = "\u{1f600}";
   const values: Array<[value: string, valid: boolean]> = [
     ["", false],

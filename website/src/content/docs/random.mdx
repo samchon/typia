@@ -18,7 +18,7 @@ It honors satisfiable [type tags](/docs/validators/tags) you put on the type: `t
 
 Numeric `tags.MultipleOf<N>` constraints choose an integer quotient and construct the result with finite-decimal arithmetic. One-sided fallback ranges stay in value units before that snapping step, and a bounded range with no valid multiple throws instead of retrying indefinitely.
 
-A fractional divisor is the one case where the generated value can fail its own validator. The generator divides exact decimals, while `tags.MultipleOf<N>` validates with `value % N === 0`, and binary floating point only reaches a zero remainder for a power-of-two quotient — so `typia.random<number & tags.MultipleOf<0.1>>()` can return `0.3`, which `typia.is` rejects. Integer and `bigint` divisors are unaffected.
+`MultipleOf` is the one constraint where a generated `number` can fail its own validator. The generator divides exact decimals, while `tags.MultipleOf<N>` validates with `value % N === 0`, which divides the binary doubles actually stored — so the two part company wherever a value or a divisor has no exact binary representation. `typia.random<number & tags.MultipleOf<0.1>>()` can return `0.3`, and `0.3 % 0.1` is `0.09999999999999998`; past `Number.MAX_SAFE_INTEGER` even an integer divisor can diverge. A `bigint` divisor is exact and always agrees.
 
 Length tags combine with a `Format` or `Pattern` on the same string: `tags.Format<"email"> & tags.MinLength<40>` produces a 40-character email, and `tags.Pattern<"^[0-9]+$"> & tags.MaxLength<3>` produces a short digit string. A combination no string can satisfy — `tags.Format<"email"> & tags.MaxLength<3>`, or a pattern whose fixed length conflicts with the bound — throws instead of emitting a value its own validator would reject.
 

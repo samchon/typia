@@ -6,12 +6,14 @@ import typia, { tags } from "typia";
  *
  * Multiplying fallback bounds by `multipleOf` can invert one-sided ranges, so
  * every generated value is checked against its declared bounds and against an
- * exact decimal oracle for its divisor. The generated validator spells
- * `MultipleOf` as `$input % N === 0`, and under a fractional divisor that
- * remainder reaches zero only for a power-of-two quotient, so `typia.is` is
- * asserted only where the divisor divides exactly in binary; issue #2335 owns
- * closing that gap in a major. Empty discrete ranges must also fail without an
- * unbounded retry.
+ * exact decimal oracle for its divisor. The generator divides exact decimals
+ * while the generated validator spells `MultipleOf` as `$input % N === 0`,
+ * which divides the binary doubles actually stored, so a generated value can
+ * fail its own validator wherever the two representations part company — a
+ * divisor with no exact binary double such as `0.01`, or a value past
+ * `Number.MAX_SAFE_INTEGER`. `typia.is` on a divisor is therefore asserted only
+ * for the small binary-exact ones; issue #2335 owns closing that gap in a
+ * major. Empty discrete ranges must also fail without an unbounded retry.
  *
  * 1. Generate decimal, integer, one-sided, and exclusive-bound values repeatedly.
  * 2. Revalidate every bound and compare every value with an exact decimal oracle.
