@@ -226,7 +226,9 @@ assertUser(input, (info) => new Error(`audit: ${info.path}`)); // throws Error
 >
 > **Do not hand a created function straight to `.map()`.**
 >
-> `Array#map`, `forEach`, and `filter` pass the element index as their second argument, which lands in `errorFactory`. TypeScript rejects `rows.map(assertUser)` for that reason; write `rows.map((row) => assertUser(row))` instead. A build compiled against typia 13.2.0 or earlier still type-checks the direct form and throws `TypeGuardError` for the failing element rather than the configured error.
+> `Array#map`, `forEach`, and `filter` pass the element index as their second argument, which lands in `errorFactory`. TypeScript rejects `rows.map(assertUser)` for that reason; write `rows.map((row) => assertUser(row))` instead.
+>
+> Code compiled against typia 13.2.0 or earlier still type-checks the direct form, because those releases declared the returned function with one parameter. Run it on this release and the index is ignored: the failing element raises a `TypeGuardError` instead of the configured error. Run it on 13.2.0 and it raises `TypeError: factory is not a function` for every element but the first.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
