@@ -23,7 +23,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@typia/interface": "workspace:^"
+    "@typia/interface": "workspace:*"
   },
   "devDependencies": {
     "rimraf": "catalog:utils",

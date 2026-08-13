@@ -250,10 +250,10 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       '@typia/interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../interface
       '@typia/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../utils
     devDependencies:
       '@langchain/core':
@@ -278,10 +278,10 @@ importers:
   packages/mcp:
     dependencies:
       '@typia/interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../interface
       '@typia/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../utils
     devDependencies:
       '@modelcontextprotocol/sdk':
@@ -309,10 +309,10 @@ importers:
         specifier: ^1.0.0
         version: 1.1.0
       '@typia/interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../interface
       '@typia/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../utils
       commander:
         specifier: ^10.0.0
@@ -355,7 +355,7 @@ importers:
   packages/utils:
     dependencies:
       '@typia/interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../interface
     devDependencies:
       rimraf:
@@ -377,10 +377,10 @@ importers:
   packages/vercel:
     dependencies:
       '@typia/interface':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../interface
       '@typia/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../utils
     devDependencies:
       '@types/json-schema':

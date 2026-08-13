@@ -23,8 +23,8 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@typia/interface": "workspace:^",
-    "@typia/utils": "workspace:^"
+    "@typia/interface": "workspace:*",
+    "@typia/utils": "workspace:*"
   },
   "peerDependencies": {
     "@modelcontextprotocol/sdk": ">=1.12.0"
