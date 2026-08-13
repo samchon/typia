@@ -24,23 +24,24 @@ interface ICommentBigint {
 /**
  * Verifies uint64 bounds the number path and only rejects negatives on bigint.
  *
- * The bigint arm may not name a `typia/lib/internal/*` helper. It is declared in
- * `@typia/interface`, which `typia` admits through a caret range that only
+ * The bigint arm may not name a `typia/lib/internal/*` helper. It is declared
+ * in `@typia/interface`, which `typia` admits through a caret range that only
  * floats upward, so a named helper makes an older `typia` emit an import it
  * never shipped (#2330). The arm is therefore the `BigInt(0) <= $input` it
  * declared before #2166: a lower bound with no upper bound. The surviving lower
  * bound is what separates this tag from `Type<"int64">`, whose arm checks
  * nothing at all, so both halves are pinned -- the negatives still rejected and
- * the oversized values now accepted. #2338 owns restoring the upper bound in a
- * major release, the one boundary a caret cannot cross.
+ * the oversized values now accepted. #2338 owns restoring the upper bound, and
+ * only a major can carry it: tightening an accepted range rejects data that
+ * passes today.
  *
  * 1. Keep the enforced number path, whose helper crosses no package boundary.
- * 2. Require the bigint type tag and `@type uint64` to reject every negative and
- *    accept every non-negative, while the still-published `_isTypeUint64Bigint`
- *    keeps the exact bound.
- * 3. Pin both protobuf outcomes against the wire format: an in-range value
- *    survives byte for byte, an accepted oversized value comes back as its
- *    unsigned 64-bit truncation.
+ * 2. Require the bigint type tag and `@type uint64` to reject every negative,
+ *    accept every non-negative, and still reject a non-bigint, while the
+ *    still-published `_isTypeUint64Bigint` keeps the exact bound.
+ * 3. Pin both protobuf outcomes against the wire format: an in-range value decodes
+ *    unchanged, an accepted oversized value decodes as its unsigned 64-bit
+ *    truncation.
  */
 export const test_type_uint64_range = (): void => {
   const MINIMUM: bigint = 0n;
@@ -149,33 +150,23 @@ export const test_type_uint64_range = (): void => {
     );
   }
 
-  // The gap is exactly the oversized members: the helper rejects them and the
-  // tag does not. Negatives are not in it, because the lower bound survives. An
-  // empty list on either side would make the claim vacuous, so both are checked.
-  const oversized: bigint[] = bigints.filter((value) => MAXIMUM < value);
-  const negative: bigint[] = bigints.filter((value) => value < MINIMUM);
-  if (oversized.length === 0 || negative.length === 0)
+  // The gap is the oversized members, and the negatives are outside it because
+  // the lower bound survives. The loop above asserts both of those on every
+  // member; what it cannot defend is its own input, since a boundary list later
+  // trimmed to in-range values would still pass while proving nothing. So both
+  // kinds are counted rather than assumed.
+  const oversized: number = bigints.filter((value) => MAXIMUM < value).length;
+  const negative: number = bigints.filter((value) => value < MINIMUM).length;
+  if (oversized === 0 || negative === 0)
     throw new Error(
       "the bigint boundary list needs an oversized and a negative value.",
-    );
-  for (const value of oversized)
-    TestValidator.notEquals(
-      `the uint64 bigint tag no longer agrees with _isTypeUint64Bigint on ${value}`,
-      _isTypeUint64Bigint(value),
-      typia.is<ITaggedBigint>({ value }),
-    );
-  for (const value of negative)
-    TestValidator.equals(
-      `the uint64 bigint tag still agrees with _isTypeUint64Bigint on ${value}`,
-      _isTypeUint64Bigint(value),
-      typia.is<ITaggedBigint>({ value }),
     );
 
   // A bigint tag still rejects a non-bigint, so the lower bound replaced the
   // range check and not the type check.
   for (const value of [0, "0", null])
     TestValidator.equals(
-      `bigint type tag rejects the non-bigint ${String(value)}`,
+      `bigint type tag rejects the non-bigint ${JSON.stringify(value)}`,
       false,
       typia.is<ITaggedBigint>({ value: value as unknown as bigint }),
     );
@@ -183,13 +174,18 @@ export const test_type_uint64_range = (): void => {
   //----
   // PROTOBUF ROUND TRIP
   //----
-  // A protobuf `uint64` field is an unsigned 64-bit varint, so the wire form of
-  // a value outside that width is `BigInt.asUintN(64, value)`. The oracle is the
-  // wire format, not typia's output.
+  // A protobuf `uint64` field is an unsigned 64-bit varint: the writer emits the
+  // low 64 bits and the reader reads them back unsigned, so a value outside that
+  // width decodes as `BigInt.asUintN(64, value)`. The oracle is the wire format,
+  // not typia's output.
   for (const value of [MINIMUM, MAXIMUM, 1n, 2n ** 63n]) {
-    TestValidator.equals(`round trip ${value} is in range`, true, oracle(value));
     TestValidator.equals(
-      `uint64 ${value} survives protobuf unchanged`,
+      `round trip ${value} is in range`,
+      true,
+      oracle(value),
+    );
+    TestValidator.equals(
+      `uint64 ${value} decodes unchanged`,
       value,
       roundTrip(value),
     );
@@ -211,7 +207,7 @@ export const test_type_uint64_range = (): void => {
     );
     const truncated: bigint = BigInt.asUintN(64, value);
     TestValidator.notEquals(
-      `the uint64 wire form of ${value} is a different value`,
+      `the uint64 decode of ${value} is a different value`,
       value,
       truncated,
     );

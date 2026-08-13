@@ -411,17 +411,21 @@ func metadataCommentTagFactory_parse_type(props struct {
     // `Type<"uint64">` declare them, because `@type int64` and
     // `bigint & Type<"int64">` are two spellings of one constraint.
     //
-    // That declaration cannot name a runtime helper. A `$importInternal(...)`
-    // in a tag template makes the emitted validator import a
-    // `typia/lib/internal/*` module, and the declaration lives in
-    // `@typia/interface`, which `typia` depends on through a caret range that
-    // only floats upward -- so an older `typia` installs a newer
+    // That declaration may not name a runtime helper the way the `number` arms
+    // above do. A `$importInternal(...)` in a tag template makes the emitted
+    // validator import a `typia/lib/internal/*` module, and the declaration
+    // lives in `@typia/interface`, which `typia` depends on through a caret
+    // range that only floats upward -- so an older `typia` installs a newer
     // `@typia/interface` and emits an import its own runtime never shipped
-    // (#2330). Inside one major there is no range that prevents that pairing.
+    // (#2330). `isTypeInt64` and `isTypeUint64` are safe there because
+    // `@typia/interface` 13.0.0 already named them and `typia` 13.0.0 already
+    // shipped them; a helper introduced later is not, and inside one major
+    // there is no range that prevents the pairing.
     //
     // The bound this leaves unenforced is real: int64 accepts any magnitude and
-    // uint64 only rejects negatives. #2338 owns restoring it in a major
-    // release, the one boundary a caret cannot cross.
+    // uint64 only rejects negatives. #2338 owns restoring it, and only a major
+    // can carry it -- an inline exact comparison would name no helper, but
+    // tightening an accepted range rejects data that passes today.
     bigintValidate := "BigInt(0) <= $input"
     if value == "int64" {
       bigintValidate = "true"
