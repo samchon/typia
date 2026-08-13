@@ -923,17 +923,6 @@ func factoryUtilityStringUnionMetadata(values ...string) *schemametadata.Metadat
 	return meta
 }
 
-func factoryUtilityBooleanMetadata(value bool) *schemametadata.MetadataSchema {
-	meta := schemametadata.MetadataSchema_initialize()
-	meta.Constants = append(meta.Constants, schemametadata.MetadataConstant_create(schemametadata.MetadataConstant{
-		Type: "boolean",
-		Values: []*schemametadata.MetadataConstantValue{
-			schemametadata.MetadataConstantValue_create(schemametadata.MetadataConstantValue{Value: value}),
-		},
-	}))
-	return meta
-}
-
 func factoryUtilityObjectMetadata(object *schemametadata.MetadataObjectType) *schemametadata.MetadataSchema {
 	meta := schemametadata.MetadataSchema_initialize()
 	meta.Objects = append(meta.Objects, schemametadata.MetadataObject_create(schemametadata.MetadataObject{Type: object}))

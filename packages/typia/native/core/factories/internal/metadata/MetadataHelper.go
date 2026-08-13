@@ -70,34 +70,11 @@ func metadata_type_full_name(
   return result
 }
 
-// metadata_type_symbol_name mirrors TypeFactory.getFullName({ aliasTypeArguments:
-// false }) from legacy typia: the name is derived from the type's *symbol*, not
-// from checker.typeToString. This matters for alias chains (e.g. MapAlias.MAP =
-// Map<K, V>) where typeToString prints the alias name ("MapAlias.MAP<...>")
-// instead of "Map<...>", which would defeat the Map/Set prefix guards.
-func metadata_type_symbol_name(checker *nativechecker.Checker, typ *nativechecker.Type) string {
-  if checker == nil || typ == nil {
-    return ""
-  }
-  symbol := typ.Symbol()
-  if symbol == nil {
-    return checker.TypeToString(typ)
-  }
-  name := metadata_symbol_name(symbol)
-  generic := metadata_get_type_arguments(checker, typ)
-  if len(generic) == 0 {
-    return name
-  }
-  if name == "Promise" {
-    return metadata_type_symbol_name(checker, generic[0])
-  }
-  names := make([]string, 0, len(generic))
-  for _, child := range generic {
-    names = append(names, metadata_type_symbol_name(checker, child))
-  }
-  return name + "<" + strings.Join(names, ", ") + ">"
-}
-
+// metadata_type_symbol_base_name derives the name from the type's own *symbol*,
+// never from checker.TypeToString. The Map / Set / native guards test this name
+// against a prefix, and an alias chain (e.g. `type MAP = Map<K, V>`) makes
+// TypeToString print the alias name ("MapAlias.MAP<...>") instead of "Map<...>",
+// which would defeat those guards.
 func metadata_type_symbol_base_name(typ *nativechecker.Type) string {
   if typ == nil {
     return ""
