@@ -8,15 +8,19 @@ import {
 import typia, { tags } from "typia";
 
 /**
- * Verifies transformed string constraints count Unicode code points.
+ * Verifies transformed string length tags count UTF-16 code units.
  *
- * TypeScript string length counts UTF-16 code units, which makes one astral
- * character look like two. JSON Schema instead counts characters/code points,
- * while combining marks and unpaired surrogates remain separate code points.
+ * `tags.MinLength` and `tags.MaxLength` declare a plain `$input.length`
+ * comparison, so a generated validator never imports a `typia/lib/internal/*`
+ * helper to measure a string, and `@typia/interface` stays satisfiable by any
+ * `typia` runtime the caret range between the two packages admits. The emitted
+ * `minLength` / `maxLength` keywords still mean characters, so the shared
+ * `@typia/utils` OpenAPI validator disagrees with the generated one on an
+ * astral character; issue #2335 owns closing that gap in a major.
  *
  * 1. Exercise type-tag and JSDoc validators over the Unicode boundary matrix.
  * 2. Confirm JSON and LLM schema conversion preserves exact length keywords.
- * 3. Revalidate the same values through the emitted OpenAPI schema.
+ * 3. Pin the single value where the emitted OpenAPI schema disagrees.
  */
 export const test_validate_unicode_string_length = (): void => {
   type One = string & tags.MinLength<1> & tags.MaxLength<1>;
@@ -27,11 +31,17 @@ export const test_validate_unicode_string_length = (): void => {
      */
     value: string;
   }
+  // One astral character is two UTF-16 code units, so the generated validator
+  // measures 2 and rejects it. Everything else counts the same either way: a
+  // precomposed letter is one unit and one character, a combining sequence is
+  // two of each, and a lone surrogate is one of each.
+  const astral: string = "\u{1f600}";
   const values: Array<[value: string, valid: boolean]> = [
+    ["", false],
     ["a", true],
-    ["é", true],
-    ["😀", true],
-    ["a😀", false],
+    ["\u00e9", true],
+    [astral, false],
+    ["a" + astral, false],
     ["e\u0301", false],
     ["\ud800", true],
   ];
@@ -72,15 +82,17 @@ export const test_validate_unicode_string_length = (): void => {
       [1, 1],
     );
 
+  // `@typia/utils` counts characters, so it accepts the astral character the
+  // generated validator rejects, and agrees on every other value.
   for (const [value, valid] of values)
     TestValidator.equals(
-      `OpenAPI parity ${JSON.stringify(value)}`,
+      `OpenAPI validator ${JSON.stringify(value)}`,
       OpenApiValidator.validate({
         components: {},
         schema: json,
         value,
         required: true,
       }).success,
-      valid,
+      value === astral ? true : valid,
     );
 };
