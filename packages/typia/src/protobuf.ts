@@ -377,10 +377,16 @@ export function createAssertDecode(
  */
 export function createAssertDecode<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: Uint8Array) => Resolved<T>;
+): (
+  input: Uint8Array,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Resolved<T>;
 
 /** @internal */
-export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
+export function createAssertDecode<T>(): (
+  input: Uint8Array,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Resolved<T> {
   NoTransformConfigurationError("protobuf.createAssertDecode");
 }
 
@@ -467,10 +473,16 @@ export function createAssertEncode(
  */
 export function createAssertEncode<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: T) => Uint8Array;
+): (
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Uint8Array;
 
 /** @internal */
-export function createAssertEncode<T>(): (input: T) => Uint8Array {
+export function createAssertEncode<T>(): (
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Uint8Array {
   NoTransformConfigurationError("protobuf.createAssertEncode");
 }
 
