@@ -4,13 +4,23 @@ import typia, { tags } from "typia";
 /**
  * Verifies numeric random generation snaps within value-unit bounds.
  *
- * Multiplying fallback bounds by `multipleOf` can invert one-sided ranges, and
- * binary remainder rounding can emit values rejected by the corresponding
- * validator. Empty discrete ranges must also fail without an unbounded retry.
+ * Multiplying fallback bounds by `multipleOf` can invert one-sided ranges, so
+ * every generated value is checked against its declared bounds and against an
+ * exact decimal oracle for its divisor. The generator divides exact decimals
+ * while the generated validator spells `MultipleOf` as `$input % N === 0`,
+ * which divides the binary doubles actually stored, so a generated value can
+ * fail its own validator wherever an operand does not equal the decimal it
+ * prints back — a divisor such as `0.01`, or any value past
+ * `Number.MAX_SAFE_INTEGER`. `typia.is` on a divisor is therefore asserted only
+ * for the small divisors that do print back exactly; issue #2335 owns closing
+ * that gap in a major. Empty discrete ranges must also fail without an
+ * unbounded retry.
  *
  * 1. Generate decimal, integer, one-sided, and exclusive-bound values repeatedly.
- * 2. Revalidate every generated value and compare it with an exact decimal oracle.
- * 3. Require both random APIs to reject an impossible multiple range promptly.
+ * 2. Revalidate every bound and compare every value with an exact decimal oracle.
+ * 3. Revalidate the divisors that print back exactly through the generated
+ *    validator.
+ * 4. Require both random APIs to reject an impossible multiple range promptly.
  */
 export const test_random_numeric_multiple_of = (): void => {
   interface IValues {
@@ -42,6 +52,22 @@ export const test_random_numeric_multiple_of = (): void => {
       tags.Maximum<0.2> &
       tags.MultipleOf<9.9991e-17>;
   }
+  /** The same members without their divisors, so every bound stays validated. */
+  interface IBounds {
+    decimal: number & tags.Minimum<-0.05> & tags.Maximum<0.05>;
+    exclusive: number & tags.ExclusiveMinimum<0> & tags.ExclusiveMaximum<0.05>;
+    upperOnly: number & tags.Maximum<1000>;
+    lowerOnly: number & tags.Minimum<-1000>;
+    integerUpperOnly: number & tags.Type<"int32"> & tags.Maximum<1000>;
+    integerDecimal: number &
+      tags.Type<"int32"> &
+      tags.Minimum<-9> &
+      tags.Maximum<9>;
+    large: number &
+      tags.Minimum<10_000_000_000_000_000> &
+      tags.Maximum<10_000_000_001_000_000>;
+    fractionalLargeQuotient: number & tags.Minimum<0.1> & tags.Maximum<0.2>;
+  }
   type Impossible = number &
     tags.ExclusiveMinimum<0> &
     tags.ExclusiveMaximum<0.01> &
@@ -55,8 +81,23 @@ export const test_random_numeric_multiple_of = (): void => {
     const reusable: IValues = withRandom(sample, () => create());
     for (const [name, value] of Object.entries({ direct, reusable })) {
       TestValidator.equals(
-        `${name} validates at ${i}`,
-        typia.is<IValues>(value),
+        `${name} honors every bound at ${i}`,
+        typia.is<IBounds>(value),
+        true,
+      );
+      TestValidator.equals(
+        `${name} upper-only revalidates at ${i}`,
+        typia.is<number & tags.MultipleOf<2>>(value.upperOnly),
+        true,
+      );
+      TestValidator.equals(
+        `${name} integer upper-only revalidates at ${i}`,
+        typia.is<number & tags.MultipleOf<2>>(value.integerUpperOnly),
+        true,
+      );
+      TestValidator.equals(
+        `${name} integer decimal revalidates at ${i}`,
+        typia.is<number & tags.MultipleOf<1.5>>(value.integerDecimal),
         true,
       );
       TestValidator.equals(
@@ -70,8 +111,23 @@ export const test_random_numeric_multiple_of = (): void => {
         true,
       );
       TestValidator.equals(
+        `${name} upper-only oracle at ${i}`,
+        decimalMultiple(value.upperOnly, 2),
+        true,
+      );
+      TestValidator.equals(
         `${name} lower-only oracle at ${i}`,
         decimalMultiple(value.lowerOnly, 0.1),
+        true,
+      );
+      TestValidator.equals(
+        `${name} integer upper-only oracle at ${i}`,
+        decimalMultiple(value.integerUpperOnly, 2),
+        true,
+      );
+      TestValidator.equals(
+        `${name} integer decimal oracle at ${i}`,
+        decimalMultiple(value.integerDecimal, 1.5),
         true,
       );
       TestValidator.equals(
