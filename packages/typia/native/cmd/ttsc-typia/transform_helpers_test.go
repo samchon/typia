@@ -61,14 +61,13 @@ func ttscTypiaTestCapture(run func() int) (string, string, int) {
 func ttscTypiaTestWriteCommonRuntimeStubs(t *testing.T, runtimeDir string) {
   t.Helper()
   files := map[string]string{
-    "typia-stub.cjs":             "module.exports = {};\n",
-    "validate-report-stub.cjs":   ttscTypiaTestValidateReportStub,
-    "standard-schema-stub.cjs":   ttscTypiaTestStandardSchemaStub,
-    "assert-guard-stub.cjs":      ttscTypiaTestAssertGuardStub,
-    "functional-error-stub.cjs":  ttscTypiaTestFunctionalErrorStub,
-    "access-expression-stub.cjs": ttscTypiaTestAccessExpressionStub,
-    "string-length-stub.cjs":     ttscTypiaTestStringLengthStub,
-    "notation-stub.cjs":          ttscTypiaTestNotationStub,
+    "typia-stub.cjs":                   "module.exports = {};\n",
+    "validate-report-stub.cjs":         ttscTypiaTestValidateReportStub,
+    "standard-schema-stub.cjs":         ttscTypiaTestStandardSchemaStub,
+    "assert-guard-stub.cjs":            ttscTypiaTestAssertGuardStub,
+    "functional-error-stub.cjs":        ttscTypiaTestFunctionalErrorStub,
+    "access-expression-stub.cjs":       ttscTypiaTestAccessExpressionStub,
+    "notation-stub.cjs":                ttscTypiaTestNotationStub,
     "json-stringify-array-stub.cjs":    ttscTypiaTestJsonStringifyArrayStub,
     "json-stringify-property-stub.cjs": ttscTypiaTestJsonStringifyPropertyStub,
     "json-stringify-element-stub.cjs":  ttscTypiaTestJsonStringifyElementStub,
@@ -90,7 +89,6 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_assertGuard")`, `require("./assert-guard-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_functionalTypeGuardErrorFactory")`, `require("./functional-error-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_stringLength")`, `require("./string-length-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyArray")`, `require("./json-stringify-array-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyProperty")`, `require("./json-stringify-property-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyElement")`, `require("./json-stringify-element-stub.cjs")`)
@@ -214,13 +212,6 @@ const ttscTypiaTestRandomStringStub = `module.exports._randomString = (props) =>
   const maximum = props.maxLength !== undefined ? props.maxLength : minimum + 5;
   const length = Math.max(minimum, Math.min(minimum, maximum));
   return "a".repeat(length);
-};
-`
-
-const ttscTypiaTestStringLengthStub = `module.exports._stringLength = (value) => {
-  let count = 0;
-  for (const _ of value) ++count;
-  return count;
 };
 `
 
