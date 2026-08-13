@@ -1,10 +1,5 @@
 import { StandardSchemaV1 } from "@standard-schema/spec";
-import {
-  AssertionGuard,
-  IRandomGenerator,
-  IValidation,
-  Resolved,
-} from "@typia/interface";
+import { IRandomGenerator, IValidation, Resolved } from "@typia/interface";
 
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
@@ -593,14 +588,21 @@ export function createAssert(
  * @template T Target type to validate against
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
- * @returns Reusable assert function `(input: unknown) => T`
+ * @returns Reusable assert function `(input: unknown, errorFactory?) => T`,
+ *   whose own `errorFactory` overrides this one for that single call
  */
 export function createAssert<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => T;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T;
 
 /** @internal */
-export function createAssert<T>(): (input: unknown) => T {
+export function createAssert<T>(): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T {
   NoTransformConfigurationError("createAssert");
 }
 
@@ -633,14 +635,21 @@ export function createAssertGuard(
  * @template T Target type to validate against
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
- * @returns Reusable assertion guard function
+ * @returns Reusable assertion guard function, whose own `errorFactory`
+ *   overrides this one for that single call
  */
 export function createAssertGuard<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): AssertionGuard<T>;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => asserts input is T;
 
 /** @internal */
-export function createAssertGuard<T>(): AssertionGuard<T> {
+export function createAssertGuard<T>(): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => asserts input is T {
   NoTransformConfigurationError("createAssertGuard");
 }
 
@@ -763,14 +772,21 @@ export function createAssertEquals(
  * @template T Target type for exact match
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
- * @returns Reusable assertEquals function `(input: unknown) => T`
+ * @returns Reusable assertEquals function `(input: unknown, errorFactory?) =>
+ *   T`, whose own `errorFactory` overrides this one for that single call
  */
 export function createAssertEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => T;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T;
 
 /** @internal */
-export function createAssertEquals<T>(): (input: unknown) => T {
+export function createAssertEquals<T>(): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T {
   NoTransformConfigurationError("createAssertEquals");
 }
 
@@ -805,14 +821,21 @@ export function createAssertGuardEquals(
  * @template T Target type for exact match
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
- * @returns Reusable assertion guard function
+ * @returns Reusable assertion guard function, whose own `errorFactory`
+ *   overrides this one for that single call
  */
 export function createAssertGuardEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): AssertionGuard<T>;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => asserts input is T;
 
 /** @internal */
-export function createAssertGuardEquals<T>(): AssertionGuard<T> {
+export function createAssertGuardEquals<T>(): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => asserts input is T {
   NoTransformConfigurationError("createAssertGuardEquals");
 }
 

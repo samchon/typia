@@ -160,13 +160,16 @@ const ttscTypiaTestValidateReportStub = `module.exports._validateReport = (array
 const ttscTypiaTestStandardSchemaStub = `module.exports._createStandardSchema = (validate) => validate;
 `
 
-// A faithful double for packages/typia/src/internal/_assertGuard.ts, including
-// its callable-factory requirement: the generated function's second parameter
-// is caller-supplied, so a pointwise hand-off (`rows.map(assertUser)`) fills it
-// with the element index. Testing truthiness here instead would let this stub
-// report `factory is not a function` for a case the shipped helper handles.
+// A double for packages/typia/src/internal/_assertGuard.ts that takes the same
+// branches: `exceptionable === true` and a callable-factory requirement. The
+// generated function's second parameter is caller-supplied, so a pointwise
+// hand-off (`rows.map(assertUser)`) fills it with the element index; testing
+// truthiness here would let this stub report `factory is not a function` for a
+// case the shipped helper handles. The fallback error is deliberately not a
+// TypeGuardError — a stub cannot import typia — so cases assert `props`
+// members rather than the shipped message format.
 const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionable, props, factory) => {
-  if (exceptionable) {
+  if (exceptionable === true) {
     const error =
       typeof factory === "function"
         ? factory(props)

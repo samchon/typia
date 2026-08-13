@@ -15,7 +15,9 @@ import (
 //
 // An assertion-guard factory returns the guard itself. Its successful invocation
 // returns void while narrowing the input; it never returns another callable
-// assertion guard.
+// assertion guard. The guard carries the optional call-time `errorFactory` the
+// emit really gives it, and stays assignable to the documented
+// `AssertionGuard<T>` annotation.
 //
 //  1. Compile normal and equals factories with explicit and inferred types.
 //  2. Prove successful invocations narrow and have a void return type.
@@ -115,9 +117,13 @@ type Equal<X, Y> =
     ? true
     : false;
 type Assert<T extends true> = T;
+type Guard = (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => asserts input is User;
 export type FactoryCases = [
-  Assert<Equal<typeof inferred, AssertionGuard<User>>>,
-  Assert<Equal<typeof inferredEquals, AssertionGuard<User>>>,
+  Assert<Equal<typeof inferred, Guard>>,
+  Assert<Equal<typeof inferredEquals, Guard>>,
   Assert<Equal<typeof returned, void>>,
 ];
 

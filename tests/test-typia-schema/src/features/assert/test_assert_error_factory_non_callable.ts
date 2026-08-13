@@ -10,29 +10,38 @@ interface IMember {
  * Verifies a non-callable error factory still raises TypeGuardError.
  *
  * The function a `create*Assert*` factory returns really takes a second
- * `errorFactory` parameter, so a pointwise hand-off such as
- * `rows.map(assertMember)` fills it with the element index. `_assertGuard` used
- * to accept any truthy value there and call it, which reported `factory is not
- * a function` for every index except the falsy `0`. Builds compiled against an
- * already-published declaration can still make that call, so the runtime helper
- * is what has to absorb it.
+ * `errorFactory` parameter, so `rows.map(assertMember)` fills it with the
+ * element index. `_assertGuard` used to accept any truthy value there and call
+ * it, which reported `factory is not a function` for every index except the
+ * falsy `0`. The declaration now rejects that hand-off at compile time, but
+ * builds compiled against an already-published declaration still make the call,
+ * so the runtime helper is what has to absorb it.
  *
- * 1. Take a created assert function and call it the way `Array#map` does.
- * 2. Require a TypeGuardError naming the real failure for indices 0, 1 and 2.
- * 3. Confirm a genuine factory still wins, so the fallback did not swallow it.
+ * 1. Drive a created assert function through `Array#map`, which is what puts the
+ *    index in the `errorFactory` position.
+ * 2. Require a TypeGuardError naming the real failure at index 0, 1 and 2.
+ * 3. Pin the same fallback when a create-time factory was configured, and confirm
+ *    that factory still wins for an ordinary single-argument call.
  */
 export const test_assert_error_factory_non_callable = (): void => {
-  const assertMember = typia.createAssert<IMember>();
-  const pointwise = assertMember as unknown as (
+  // The cast is the point: it reproduces what the pre-fix declaration allowed
+  // without a cast, which is exactly the code a published release compiled.
+  const assertMember = typia.createAssert<IMember>() as unknown as (
     input: unknown,
     index: number,
   ) => IMember;
 
-  const valid: IMember = { id: "robin", age: 30 };
-  TestValidator.equals("valid element passes", valid, pointwise(valid, 3));
+  const valid: IMember[] = [
+    { id: "robin", age: 30 },
+    { id: "sasha", age: 31 },
+    { id: "kim", age: 32 },
+  ];
+  TestValidator.equals("valid elements pass", valid, valid.map(assertMember));
 
   for (const index of [0, 1, 2]) {
-    const error: unknown = capture(() => pointwise({ id: "robin" }, index));
+    const rows: unknown[] = valid.slice(0, index);
+    rows.push({ id: "robin" });
+    const error: unknown = capture(() => rows.map(assertMember));
     if (error instanceof TypeGuardError === false)
       throw new Error(
         `Expected TypeGuardError at index ${index}, got ${String(error)}.`,
@@ -46,13 +55,26 @@ export const test_assert_error_factory_non_callable = (): void => {
     TestValidator.equals(`index ${index} expected`, "number", error.expected);
   }
 
-  const assertCustom = typia.createAssert<IMember>((props) =>
-    Object.assign(new Error("custom"), { path: props.path }),
-  );
-  const custom: unknown = capture(() => assertCustom({ id: "robin" }));
-  if (custom instanceof Error === false || custom instanceof TypeGuardError)
+  // A configured factory is the default of that same parameter, so an index
+  // overrides it. Falling back to TypeGuardError is the documented outcome:
+  // the caller still learns which property failed, instead of losing that to
+  // `factory is not a function`.
+  const configured = typia.createAssert<IMember>((props) =>
+    Object.assign(new Error("configured"), { path: props.path }),
+  ) as unknown as (input: unknown, index?: number) => IMember;
+
+  const overridden: unknown = capture(() => [{ id: "robin" }].map(configured));
+  if (overridden instanceof TypeGuardError === false)
+    throw new Error("Expected a non-callable override to fall back.");
+
+  const kept: unknown = capture(() => configured({ id: "robin" }));
+  if (kept instanceof Error === false || kept instanceof TypeGuardError)
     throw new Error("Expected the configured factory to build the error.");
-  TestValidator.equals("custom factory message", "custom", custom.message);
+  TestValidator.equals(
+    "configured factory message",
+    "configured",
+    kept.message,
+  );
 };
 
 const capture = (task: () => unknown): unknown => {

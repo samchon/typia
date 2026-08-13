@@ -209,7 +209,20 @@ export const guardUserEquals: AssertionGuard<User> =
   showLineNumbers
 />
 
-`createAssert*` factories accept an optional `errorFactory` that applies to every call.
+`createAssert*` factories accept an optional `errorFactory` that applies to every call. The function they return takes that same factory as an optional **second parameter**, which overrides the factory for that one call:
+
+```typescript copy
+const assertUser = typia.createAssert<User>(toHttpException);
+
+assertUser(input); // throws HttpException
+assertUser(input, (info) => new AuditError(info.path)); // throws AuditError
+```
+
+> [!WARNING]
+>
+> **Do not hand a created function straight to `.map()`.**
+>
+> `Array#map`, `forEach`, and `filter` pass the element index as their second argument, which lands in `errorFactory`. TypeScript rejects `rows.map(assertUser)` for that reason; write `rows.map((row) => assertUser(row))` instead. A build compiled against typia 13.2.0 or earlier still type-checks the direct form and throws `TypeGuardError` for the failing element rather than the configured error.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
