@@ -202,6 +202,8 @@ export const guardUserEquals: AssertionGuard<User> =
 > **Annotate the variable type for `createAssertGuard`.**
 >
 > TypeScript cannot infer an `asserts ... is T` signature without an explicit annotation. If you write `const guard = typia.createAssertGuard<User>()`, the compiler will refuse to narrow `input` after `guard(input)`. Always declare the variable as `AssertionGuard<T>`.
+>
+> `AssertionGuard<T>` is one parameter wide, so it also hides the per-call `errorFactory` described below. Annotate with `(input: unknown, errorFactory?: (props: TypeGuardError.IProps) => Error) => asserts input is T` when you need that override.
 
 <LocalSource
   path="examples/src/validators/createAssertGuard.ts"
@@ -209,7 +211,24 @@ export const guardUserEquals: AssertionGuard<User> =
   showLineNumbers
 />
 
-`createAssert*` factories accept an optional `errorFactory` that applies to every call.
+`createAssert*` factories accept an optional `errorFactory` that applies to every call. The function they return takes that same factory as an optional **second parameter**, which overrides the factory for that one call:
+
+```typescript copy
+const assertUser = typia.createAssert<User>(
+  (info) => new HttpException(`Invalid ${info.path}`, 400),
+);
+
+assertUser(input); // throws HttpException
+assertUser(input, (info) => new Error(`audit: ${info.path}`)); // throws Error
+```
+
+> [!WARNING]
+>
+> **Do not hand a created function straight to `.map()`.**
+>
+> `Array#map`, `forEach`, and `filter` pass the element index as their second argument, which lands in `errorFactory`. TypeScript rejects `rows.map(assertUser)` for that reason; write `rows.map((row) => assertUser(row))` instead.
+>
+> Code compiled against typia 13.2.0 or earlier still type-checks the direct form, because those releases declared the returned function with one parameter. Run it on this release and the index is ignored: the failing element raises a `TypeGuardError` instead of the configured error. Run it on 13.2.0 and it raises `TypeError: factory is not a function` for every element but the first.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>

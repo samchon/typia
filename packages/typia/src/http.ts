@@ -550,10 +550,16 @@ export function createAssertFormData(
  */
 export function createAssertFormData<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: FormData) => T;
+): (
+  input: FormData,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T;
 
 /** @internal */
-export function createAssertFormData<T>(): (input: FormData) => T {
+export function createAssertFormData<T>(): (
+  input: FormData,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T {
   NoTransformConfigurationError("http.createAssertFormData");
 }
 
@@ -652,11 +658,15 @@ export function createAssertQuery(
  */
 export function createAssertQuery<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: string | IReadableURLSearchParams) => T;
+): (
+  input: string | IReadableURLSearchParams,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T;
 
 /** @internal */
 export function createAssertQuery<T>(): (
   input: string | IReadableURLSearchParams,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ) => T {
   NoTransformConfigurationError("http.createAssertQuery");
 }
@@ -758,11 +768,15 @@ export function createAssertHeaders(
  */
 export function createAssertHeaders<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: Record<string, string | string[] | undefined>) => T;
+): (
+  input: Record<string, string | string[] | undefined>,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T;
 
 /** @internal */
 export function createAssertHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ) => T {
   NoTransformConfigurationError("http.createAssertHeaders");
 }

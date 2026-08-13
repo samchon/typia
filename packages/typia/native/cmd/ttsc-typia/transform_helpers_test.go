@@ -3,7 +3,6 @@ package main
 import (
   "bytes"
   "os"
-  "os/exec"
   "path/filepath"
   "runtime"
   "sort"
@@ -11,16 +10,81 @@ import (
   "testing"
 )
 
+// ttscTypiaTestTypecheck requires a fixture project to be free of TypeScript
+// errors, which is what makes an `@ts-expect-error` in a fixture load-bearing.
+//
+// It runs the build command in no-emit mode with the rewrite disabled, so the
+// only diagnostics it can report are the program's own. It used to shell out to
+// `pnpm exec ttsc --noEmit -p tsconfig.json`, which reported nothing and exited
+// 0 for a fixture under `.tmp-ttsc-typia-tests` — `const value: number = "bad"`
+// passed — so every caller was asserting against an oracle that could not fail.
+// `runBuild` is the same program these tests already drive, and
+// build_reports_semantic_diagnostics_test.go pins that it surfaces semantic
+// diagnostics as status 2.
 func ttscTypiaTestTypecheck(t *testing.T, project string) {
   t.Helper()
-  pnpm, err := exec.LookPath("pnpm")
-  if err != nil {
-    t.Skip("pnpm executable not found")
+  out, errText, code := ttscTypiaTestCapture(func() int {
+    return runBuild([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--noEmit",
+      "--rewrite-mode", "none",
+    })
+  })
+  if code != 0 {
+    t.Fatalf("fixture typecheck failed: code=%d\nstdout=%s\nstderr=%s", code, out, errText)
   }
-  cmd := exec.Command(pnpm, "exec", "ttsc", "--noEmit", "-p", "tsconfig.json")
-  cmd.Dir = project
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("fixture typecheck failed: %v\n%s", err, output)
+}
+
+// ttscTypiaTestWriteFactoryStub installs a typia whose declaration file sits at
+// the path the transformer's identity test accepts, so a fixture that also
+// carries an ambient or augmenting `declare module "typia"` differs from a
+// plain one only in that declaration.
+func ttscTypiaTestWriteFactoryStub(t *testing.T, project string) {
+  t.Helper()
+  root := filepath.Join(project, "node_modules", "typia")
+  lib := filepath.Join(root, "lib")
+  if err := os.MkdirAll(lib, 0o755); err != nil {
+    t.Fatalf("mkdir typia stub: %v", err)
+  }
+  files := map[string]string{
+    "package.json": `{
+  "name": "typia",
+  "version": "0.0.0-test",
+  "main": "./lib/module.js",
+  "types": "./lib/module.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/module.d.ts",
+      "default": "./lib/module.js"
+    },
+    "./lib/transform": "./lib/transform.js"
+  },
+  "ttsc": {
+    "plugin": { "transform": "typia/lib/transform" }
+  }
+}
+`,
+    filepath.Join("lib", "module.d.ts"): `declare namespace typia {
+  function createAssert<T>(): (input: unknown) => T;
+  function createIs<T>(): (input: unknown) => input is T;
+}
+declare const typia: {
+  createAssert: typeof typia.createAssert;
+  createIs: typeof typia.createIs;
+};
+export default typia;
+export declare function createAssert<T>(): (input: unknown) => T;
+export declare function createIs<T>(): (input: unknown) => input is T;
+`,
+    filepath.Join("lib", "module.js"):      "exports.createAssert = () => () => undefined;\nexports.createIs = () => () => false;\n",
+    filepath.Join("lib", "transform.js"):   "module.exports = {};\n",
+    filepath.Join("lib", "transform.d.ts"): "export {};\n",
+  }
+  for name, body := range files {
+    if err := os.WriteFile(filepath.Join(root, name), []byte(body), 0o644); err != nil {
+      t.Fatalf("write typia stub %s: %v", name, err)
+    }
   }
 }
 
@@ -158,9 +222,20 @@ const ttscTypiaTestValidateReportStub = `module.exports._validateReport = (array
 const ttscTypiaTestStandardSchemaStub = `module.exports._createStandardSchema = (validate) => validate;
 `
 
+// A double for packages/typia/src/internal/_assertGuard.ts that takes the same
+// branches: `exceptionable === true` and a callable-factory requirement. The
+// generated function's second parameter is caller-supplied, so a pointwise
+// hand-off (`rows.map(assertUser)`) fills it with the element index; testing
+// truthiness here would let this stub report `factory is not a function` for a
+// case the shipped helper handles. The fallback error is deliberately not a
+// TypeGuardError — a stub cannot import typia — so cases assert `props`
+// members rather than the shipped message format.
 const ttscTypiaTestAssertGuardStub = `module.exports._assertGuard = (exceptionable, props, factory) => {
-  if (exceptionable) {
-    const error = factory ? factory(props) : Object.assign(new Error(props.expected), props);
+  if (exceptionable === true) {
+    const error =
+      typeof factory === "function"
+        ? factory(props)
+        : Object.assign(new Error(props.expected), props);
     throw error;
   }
   return false;

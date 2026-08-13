@@ -431,10 +431,16 @@ export function createAssertParse(
  */
 export function createAssertParse<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: string) => Primitive<T>;
+): (
+  input: string,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Primitive<T>;
 
 /** @internal */
-export function createAssertParse<T>(): (input: string) => Primitive<T> {
+export function createAssertParse<T>(): (
+  input: string,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Primitive<T> {
   NoTransformConfigurationError("json.createAssertParse");
 }
 
@@ -501,10 +507,16 @@ export function createAssertStringify(
  */
 export function createAssertStringify<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => string;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => string;
 
 /** @internal */
-export function createAssertStringify(): (input: unknown) => string {
+export function createAssertStringify(): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => string {
   NoTransformConfigurationError("json.createAssertStringify");
 }
 

@@ -530,7 +530,10 @@ export function createAssertCamel(
  */
 export function createAssertCamel<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: T) => CamelCase<T>;
+): (
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => CamelCase<T>;
 
 /** @internal */
 export function createAssertCamel(): never {
@@ -618,7 +621,10 @@ export function createAssertPascal(
  */
 export function createAssertPascal<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: T) => PascalCase<T>;
+): (
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => PascalCase<T>;
 
 /** @internal */
 export function createAssertPascal(): never {
@@ -706,7 +712,10 @@ export function createAssertSnake(
  */
 export function createAssertSnake<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: T) => SnakeCase<T>;
+): (
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => SnakeCase<T>;
 
 /** @internal */
 export function createAssertSnake(): never {
@@ -794,7 +803,10 @@ export function createAssertKebab(
  */
 export function createAssertKebab<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: T) => KebabCase<T>;
+): (
+  input: T,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => KebabCase<T>;
 
 /** @internal */
 export function createAssertKebab(): never {

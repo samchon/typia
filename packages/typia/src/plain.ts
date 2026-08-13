@@ -383,7 +383,10 @@ export function createAssertClone(
  */
 export function createAssertClone<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => Resolved<T>;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertClone(): never {
@@ -471,7 +474,10 @@ export function createAssertPrune(
  */
 export function createAssertPrune<T extends object>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => T;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => T;
 
 /** @internal */
 export function createAssertPrune(): never {
@@ -563,7 +569,10 @@ export function createAssertClassify(
  */
 export function createAssertClassify<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-): (input: unknown) => ClassifyResult<T>;
+): (
+  input: unknown,
+  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+) => ClassifyResult<T>;
 
 /** @internal */
 export function createAssertClassify(): never {
