@@ -19,7 +19,8 @@ import (
 //
 //  1. Build a project whose source defines a local `createAssert`, imports a
 //     `createIs` from a relative module and a `createAssert` from a package
-//     whose name merely begins with "typia".
+//     whose name merely begins with "typia", and augments typia with a root
+//     `parse` — an operation name that exists only under a namespace.
 //  2. Run the transform over the project and require no diagnostic.
 //  3. Require the one genuine `typia.createIs` call in the same file to still
 //     be rewritten, so silence is not the transform giving up on the file.
@@ -74,8 +75,9 @@ func localTypiaNameCollisionProject(t *testing.T) string {
   shadowedTypiaWriteFactoryStub(t, dir)
   localTypiaNameCollisionWriteNeighborStub(t, dir)
   for name, body := range map[string]string{
-    "helpers.ts": localTypiaNameCollisionHelpers,
-    "main.ts":    localTypiaNameCollisionSource,
+    "helpers.ts":      localTypiaNameCollisionHelpers,
+    "augmentation.ts": localTypiaNameCollisionAugmentation,
+    "main.ts":         localTypiaNameCollisionSource,
   } {
     if err := os.WriteFile(filepath.Join(src, name), []byte(body), 0o644); err != nil {
       t.Fatalf("write fixture %s: %v", name, err)
@@ -123,9 +125,22 @@ const localTypiaNameCollisionHelpers = `export const createIs =
     input !== undefined;
 `
 
+// A module augmentation that adds a root-level `parse` to typia. `parse` is an
+// operation name under the `llm` namespace and nowhere else, so a gate that
+// matched a flat union of every namespace's names would report this call — a
+// build that works today.
+const localTypiaNameCollisionAugmentation = `import "typia";
+
+declare module "typia" {
+  export function parse(text: string): unknown;
+}
+`
+
 const localTypiaNameCollisionSource = `import { createAssert as neighborCreateAssert } from "typiary";
+import { parse } from "typia";
 import typia from "typia";
 
+import "./augmentation";
 import { createIs } from "./helpers";
 
 export interface User {
@@ -140,5 +155,6 @@ const createAssert =
 export const localAssert = createAssert<User>();
 export const relativeIs = createIs<User>();
 export const neighborAssert = neighborCreateAssert<User>();
+export const augmented = parse("{}");
 export const genuineIs = typia.createIs<User>();
 `

@@ -21,10 +21,10 @@ import (
 // the silence does not.
 //
 //  1. Build a project with typia installed and an ambient `declare module
-//     "typia"` that redeclares `createAssert`.
+//     "typia"` that redeclares `createAssert` and `json.createAssertParse`.
 //  2. Run the transform over the project.
-//  3. Require a diagnostic at the call site whose code names the operation and
-//     whose message names the shadowing declaration file.
+//  3. Require one diagnostic per shadowed call, each at its call site, naming
+//     its operation and the shadowing declaration file.
 func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
   project := shadowedTypiaModuleProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -41,21 +41,33 @@ func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
   if err := json.Unmarshal([]byte(out), &result); err != nil {
     t.Fatalf("decode transform output: %v\n%s", err, out)
   }
-  if len(result.Diagnostics) != 1 {
-    t.Fatalf("expected one transform diagnostic, got %+v", result.Diagnostics)
+  // The root and namespaced spellings are looked up in different functor
+  // tables, so both have to be reported for the gate to be correct.
+  expected := map[string]bool{
+    "typia.createAssert":      false,
+    "typia.createAssertParse": false,
   }
-  diag := result.Diagnostics[0]
-  if diag.Code != "typia.createAssert" {
-    t.Fatalf("diagnostic code did not name the operation: %+v", diag)
+  if len(result.Diagnostics) != len(expected) {
+    t.Fatalf("expected %d transform diagnostics, got %+v", len(expected), result.Diagnostics)
   }
-  if diag.File == nil || !strings.HasSuffix(filepath.ToSlash(*diag.File), "src/main.ts") {
-    t.Fatalf("diagnostic was not reported at the call site: %+v", diag)
-  }
-  if !strings.Contains(filepath.ToSlash(diag.MessageText), "src/typia.d.ts") {
-    t.Fatalf("diagnostic did not name the shadowing declaration: %+v", diag)
-  }
-  if !strings.Contains(diag.MessageText, "no transform was applied") {
-    t.Fatalf("diagnostic did not state the consequence: %+v", diag)
+  for _, diag := range result.Diagnostics {
+    seen, owned := expected[diag.Code]
+    if owned == false {
+      t.Fatalf("diagnostic code did not name a shadowed operation: %+v", diag)
+    }
+    if seen {
+      t.Fatalf("diagnostic code reported twice: %+v", diag)
+    }
+    expected[diag.Code] = true
+    if diag.File == nil || !strings.HasSuffix(filepath.ToSlash(*diag.File), "src/main.ts") {
+      t.Fatalf("diagnostic was not reported at the call site: %+v", diag)
+    }
+    if !strings.Contains(filepath.ToSlash(diag.MessageText), "src/typia.d.ts") {
+      t.Fatalf("diagnostic did not name the shadowing declaration: %+v", diag)
+    }
+    if !strings.Contains(diag.MessageText, "no transform was applied") {
+      t.Fatalf("diagnostic did not state the consequence: %+v", diag)
+    }
   }
 }
 
@@ -137,10 +149,16 @@ const shadowedTypiaAmbientDeclaration = `declare module "typia" {
   export function createAssert<T>(
     errorFactory?: ErrorFactory,
   ): (input: unknown, errorFactory?: ErrorFactory) => T;
+  export namespace json {
+    function createAssertParse<T>(
+      errorFactory?: ErrorFactory,
+    ): (input: string, errorFactory?: ErrorFactory) => T;
+  }
   const typia: {
     createAssert<T>(
       errorFactory?: ErrorFactory,
     ): (input: unknown, errorFactory?: ErrorFactory) => T;
+    json: typeof json;
   };
   export default typia;
 }
@@ -153,4 +171,5 @@ export interface User {
 }
 
 export const parseUser = typia.createAssert<User>();
+export const parseUserJson = typia.json.createAssertParse<User>();
 `

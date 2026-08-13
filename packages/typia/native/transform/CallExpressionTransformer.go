@@ -43,7 +43,6 @@ type callExpressionTransformerTask func(props ITransformProps) *shimast.Node
 type callExpressionTransformerFunctor func() callExpressionTransformerTask
 
 var callExpressionTransformer_functors = callExpressionTransformer_createFunctors()
-var callExpressionTransformer_functorNames = callExpressionTransformer_createFunctorNames()
 
 func (callExpressionTransformerNamespace) Transform(props CallExpressionTransformer_TransformProps) *shimast.Node {
   if props.Expression == nil {
@@ -146,15 +145,16 @@ func callExpressionTransformer_targetModule(location string) (string, bool) {
 // Three conditions have to hold together, so an unrelated local function that
 // happens to share a name with a typia operation cannot trip this:
 //
-//  1. the called name is one this transformer owns;
+//  1. the callee spells an operation this transformer owns, in the namespace it
+//     actually lives in — `typia.json.assertParse`, never `typia.assertParse`;
 //  2. the root of the callee expression resolves to an import binding; and
 //  3. that import's module specifier is typia's own.
 func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransformer_TransformProps, location string) {
   if props.Context.Checker == nil || props.Expression == nil {
     return
   }
-  method := callExpressionTransformer_calleeMethod(props.Expression.Expression)
-  if method == "" || callExpressionTransformer_FUNCTOR_NAMES()[method] == false {
+  method, ok := callExpressionTransformer_calleeOperation(props.Expression.Expression)
+  if ok == false {
     return
   }
   root := callExpressionTransformer_calleeRoot(props.Expression.Expression)
@@ -178,25 +178,66 @@ func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransform
   }
 }
 
-// callExpressionTransformer_calleeMethod returns the called name of a callee
-// expression: the property for `typia.json.assertParse`, the identifier itself
-// for a named import called bare. Other callee shapes (element access, a call
-// returning a function) are not attributable by name and yield "".
-func callExpressionTransformer_calleeMethod(callee *shimast.Node) string {
+// callExpressionTransformer_calleeOperation answers whether a callee expression
+// spells one of this transformer's operations, and returns that operation's
+// name.
+//
+// The namespace is part of the spelling. `typia.json.assertParse` names the
+// `json` table, while `typia.createAssert` and a bare named import name the root
+// `module` table; a root-level `typia.assertParse` matches nothing, because that
+// operation does not live there. Matching a flat union of every table's names
+// instead would report a module augmentation that adds an unrelated `parse` or
+// `schema` to typia, which is a build that works today.
+func callExpressionTransformer_calleeOperation(callee *shimast.Node) (string, bool) {
   if callee == nil {
-    return ""
+    return "", false
   }
-  switch callee.Kind {
-  case shimast.KindIdentifier:
-    return callee.Text()
-  case shimast.KindPropertyAccessExpression:
-    name := callee.AsPropertyAccessExpression().Name()
-    if name == nil || name.Kind != shimast.KindIdentifier {
-      return ""
+  method := ""
+  parts := []string{}
+  for current := callee; current != nil; {
+    switch current.Kind {
+    case shimast.KindPropertyAccessExpression:
+      access := current.AsPropertyAccessExpression()
+      name := access.Name()
+      if name == nil || name.Kind != shimast.KindIdentifier {
+        return "", false
+      }
+      if method == "" {
+        method = name.Text()
+      } else {
+        parts = append([]string{name.Text()}, parts...)
+      }
+      current = access.Expression
+    case shimast.KindIdentifier:
+      if method == "" {
+        method = current.Text()
+      } else {
+        parts = append([]string{current.Text()}, parts...)
+      }
+      current = nil
+    default:
+      return "", false
     }
-    return name.Text()
   }
-  return ""
+  if method == "" || len(parts) > 2 {
+    return "", false
+  }
+  functors := callExpressionTransformer_FUNCTORS()
+  // `typia.json.assertParse` and `json.assertParse` both name the `json` table
+  // through the segment directly left of the method.
+  if len(parts) != 0 {
+    if _, found := functors[parts[len(parts)-1]][method]; found {
+      return method, true
+    }
+  }
+  // `typia.createAssert` and a bare `createAssert` name the root table. The
+  // qualifier, when present, is the imported binding rather than a namespace.
+  if len(parts) <= 1 {
+    if _, found := functors["module"][method]; found {
+      return method, true
+    }
+  }
+  return "", false
 }
 
 // callExpressionTransformer_calleeRoot walks a property-access chain down to the
@@ -228,20 +269,6 @@ func callExpressionTransformer_importsTypia(declaration *shimast.Node) bool {
     }
   }
   return false
-}
-
-func callExpressionTransformer_FUNCTOR_NAMES() map[string]bool {
-  return callExpressionTransformer_functorNames
-}
-
-func callExpressionTransformer_createFunctorNames() map[string]bool {
-  names := map[string]bool{}
-  for _, methods := range callExpressionTransformer_FUNCTORS() {
-    for name := range methods {
-      names[name] = true
-    }
-  }
-  return names
 }
 
 func callExpressionTransformer_sourceFile(node *shimast.Node) *shimast.SourceFile {
