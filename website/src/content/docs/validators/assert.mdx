@@ -202,6 +202,8 @@ export const guardUserEquals: AssertionGuard<User> =
 > **Annotate the variable type for `createAssertGuard`.**
 >
 > TypeScript cannot infer an `asserts ... is T` signature without an explicit annotation. If you write `const guard = typia.createAssertGuard<User>()`, the compiler will refuse to narrow `input` after `guard(input)`. Always declare the variable as `AssertionGuard<T>`.
+>
+> `AssertionGuard<T>` is one parameter wide, so it also hides the per-call `errorFactory` described below. Annotate with `(input: unknown, errorFactory?: (props: TypeGuardError.IProps) => Error) => asserts input is T` when you need that override.
 
 <LocalSource
   path="examples/src/validators/createAssertGuard.ts"
@@ -212,10 +214,12 @@ export const guardUserEquals: AssertionGuard<User> =
 `createAssert*` factories accept an optional `errorFactory` that applies to every call. The function they return takes that same factory as an optional **second parameter**, which overrides the factory for that one call:
 
 ```typescript copy
-const assertUser = typia.createAssert<User>(toHttpException);
+const assertUser = typia.createAssert<User>(
+  (info) => new HttpException(`Invalid ${info.path}`, 400),
+);
 
 assertUser(input); // throws HttpException
-assertUser(input, (info) => new AuditError(info.path)); // throws AuditError
+assertUser(input, (info) => new Error(`audit: ${info.path}`)); // throws Error
 ```
 
 > [!WARNING]

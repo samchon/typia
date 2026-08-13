@@ -13,20 +13,38 @@ import (
 //
 // The diagnostic that reports a redeclared typia call keys off the called name,
 // and those names are ordinary words: a project may well own its own
-// `createAssert`, or import one from an unrelated package. Reporting any of them
+// `createAssert`, import one from an unrelated package, or augment typia with a
+// name that only exists under one of its namespaces. Reporting any of them
 // would break builds that are correct today, so the name alone must never be
-// enough — the callee has to reach typia through typia's own module specifier.
+// enough — the callee has to reach typia through typia's own module specifier
+// and spell the operation in the namespace it lives in.
 //
-//  1. Build a project whose source defines a local `createAssert`, imports a
-//     `createIs` from a relative module and a `createAssert` from a package
-//     whose name merely begins with "typia", and augments typia with a root
-//     `parse` — an operation name that exists only under a namespace.
-//  2. Run the transform over the project and require no diagnostic.
+//  1. Build a project that defines a local `createAssert`, imports a `createIs`
+//     from a relative module and a `createValidate` from a package whose name
+//     merely begins with "typia", and augments typia with a root `parse` — an
+//     operation name that exists only under a namespace.
+//  2. Require a clean no-emit build, which proves every decoy really resolves,
+//     and a project transform with no diagnostic.
 //  3. Require the one genuine `typia.createIs` call in the same file to still
 //     be rewritten, so silence is not the transform giving up on the file.
 func TestLocalFunctionNamedLikeTypiaOperationTransform(t *testing.T) {
   project := localTypiaNameCollisionProject(t)
+
+  // A no-emit build reports semantic diagnostics as well as typia's own, so a
+  // decoy that silently stopped resolving fails here instead of turning the
+  // rest of this test into a tautology.
   out, errText, code := ttscTypiaTestCapture(func() int {
+    return runBuild([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--noEmit",
+    })
+  })
+  if code != 0 {
+    t.Fatalf("name collision fixture is not clean, got %d\nstdout=%s\nstderr=%s", code, out, errText)
+  }
+
+  out, errText, code = ttscTypiaTestCapture(func() int {
     return runTransform([]string{
       "--cwd", project,
       "--tsconfig", "tsconfig.json",
@@ -54,11 +72,16 @@ func TestLocalFunctionNamedLikeTypiaOperationTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("name collision fixture failed to emit: code=%d stderr=\n%s", code, errText)
   }
-  if strings.Contains(js, "createIs<") {
-    t.Fatalf("the genuine typia call was left untransformed:\n%s", js)
-  }
+  // The genuine call becomes an inline validator; the decoys stay ordinary
+  // calls. Type arguments are erased either way, so the emitted body is the
+  // only evidence that the transform ran on one and not the others.
   if !strings.Contains(js, `"number" === typeof`) {
     t.Fatalf("the genuine typia call did not emit its validator:\n%s", js)
+  }
+  for _, decoy := range []string{"createAssert()", "createIs)()", "createValidate)()", "parse)(\"{}\")"} {
+    if !strings.Contains(js, decoy) {
+      t.Fatalf("decoy call %q was rewritten or lost:\n%s", decoy, js)
+    }
   }
 }
 
@@ -72,7 +95,7 @@ func localTypiaNameCollisionProject(t *testing.T) string {
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(transformDiagnosticTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  shadowedTypiaWriteFactoryStub(t, dir)
+  ttscTypiaTestWriteFactoryStub(t, dir)
   localTypiaNameCollisionWriteNeighborStub(t, dir)
   for name, body := range map[string]string{
     "helpers.ts":      localTypiaNameCollisionHelpers,
@@ -87,17 +110,18 @@ func localTypiaNameCollisionProject(t *testing.T) string {
 }
 
 // localTypiaNameCollisionWriteNeighborStub installs a package whose name merely
-// begins with "typia". It pins the one-past-boundary of the specifier test:
-// "typiary" is not typia, and no prefix match may treat it as such.
+// begins with "typia" and exports an operation name typia owns. It pins the
+// one-past-boundary of the specifier test: the call reaches the specifier check
+// under a name that matches, and only the specifier can reject it.
 func localTypiaNameCollisionWriteNeighborStub(t *testing.T, project string) {
   t.Helper()
-  root := filepath.Join(project, "node_modules", "typiary")
+  root := filepath.Join(project, "node_modules", "typia-neighbor")
   if err := os.MkdirAll(root, 0o755); err != nil {
-    t.Fatalf("mkdir typiary stub: %v", err)
+    t.Fatalf("mkdir typia-neighbor stub: %v", err)
   }
   files := map[string]string{
     "package.json": `{
-  "name": "typiary",
+  "name": "typia-neighbor",
   "version": "0.0.0-test",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -109,12 +133,12 @@ func localTypiaNameCollisionWriteNeighborStub(t *testing.T, project string) {
   }
 }
 `,
-    "index.d.ts": "export declare function createAssert<T>(): (input: unknown) => T;\n",
-    "index.js":   "exports.createAssert = () => (input) => input;\n",
+    "index.d.ts": "export declare function createValidate<T>(): (input: unknown) => T;\n",
+    "index.js":   "exports.createValidate = () => (input) => input;\n",
   }
   for name, body := range files {
     if err := os.WriteFile(filepath.Join(root, name), []byte(body), 0o644); err != nil {
-      t.Fatalf("write typiary stub %s: %v", name, err)
+      t.Fatalf("write typia-neighbor stub %s: %v", name, err)
     }
   }
 }
@@ -125,10 +149,11 @@ const localTypiaNameCollisionHelpers = `export const createIs =
     input !== undefined;
 `
 
-// A module augmentation that adds a root-level `parse` to typia. `parse` is an
-// operation name under the `llm` namespace and nowhere else, so a gate that
-// matched a flat union of every namespace's names would report this call — a
-// build that works today.
+// A module augmentation that adds a root-level `parse` to typia. The leading
+// `import "typia"` makes this file a module, so the block merges with the
+// installed typia instead of replacing it. `parse` is an operation name under
+// the `llm` namespace and nowhere else, so a gate that matched a flat union of
+// every namespace's names would report this call — a build that works today.
 const localTypiaNameCollisionAugmentation = `import "typia";
 
 declare module "typia" {
@@ -136,7 +161,7 @@ declare module "typia" {
 }
 `
 
-const localTypiaNameCollisionSource = `import { createAssert as neighborCreateAssert } from "typiary";
+const localTypiaNameCollisionSource = `import { createValidate } from "typia-neighbor";
 import { parse } from "typia";
 import typia from "typia";
 
@@ -154,7 +179,7 @@ const createAssert =
 
 export const localAssert = createAssert<User>();
 export const relativeIs = createIs<User>();
-export const neighborAssert = neighborCreateAssert<User>();
+export const neighborValidate = createValidate<User>();
 export const augmented = parse("{}");
 export const genuineIs = typia.createIs<User>();
 `

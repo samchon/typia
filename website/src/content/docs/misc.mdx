@@ -53,7 +53,10 @@ export namespace plain {
 
 // Factories (Resolved<T> = T projected for the JS runtime)
 export function createClone<T>(): (input: T) => Resolved<T>;
-export function createAssertClone<T>(): (input: T | unknown) => Resolved<T>;
+export function createAssertClone<T>(): (
+input: T | unknown,
+errorFactory?: (props: TypeGuardError.IProps) => Error,
+) => Resolved<T>;
 export function createIsClone<T>(): (input: T | unknown) => Resolved<T> | null;
 export function createValidateClone<T>(): (input: T | unknown) => IValidation<Resolved<T>>;
 }
@@ -193,7 +196,10 @@ export namespace plain {
 
 // Factories (ClassifyResult<T> = the instance of a class-type T, else T)
 export function createClassify<T>(): (input: Classifiable<T>) => ClassifyResult<T>;
-export function createAssertClassify<T>(): (input: unknown) => ClassifyResult<T>;
+export function createAssertClassify<T>(): (
+input: unknown,
+errorFactory?: (props: TypeGuardError.IProps) => Error,
+) => ClassifyResult<T>;
 export function createValidateClassify<T>(): (
 input: unknown,
 ) => IValidation<ClassifyResult<T>>;

@@ -130,7 +130,7 @@ func callExpressionTransformer_targetModule(location string) (string, bool) {
 
 // callExpressionTransformer_rejectShadowedTypia raises a diagnostic when a call
 // the file-path identity test rejected is nevertheless a typia call the author
-// expects to be transformed, and names the file that redeclared it.
+// expects to be transformed, and names the file that declared it instead.
 //
 // Attribution by declaration file is deliberate: accepting a callee declared
 // anywhere else would let any package claim typia's transform, which is the
@@ -149,11 +149,12 @@ func callExpressionTransformer_targetModule(location string) (string, bool) {
 //     actually lives in — `typia.json.assertParse`, never `typia.assertParse`;
 //  2. the root of the callee expression resolves to an import binding; and
 //  3. that import's module specifier is typia's own.
+//
+// Known gap: an alias chain is not followed, so a project that re-exports typia
+// through its own barrel and then shadows it is still silent. The specifier of
+// the import the call actually reads is the only evidence this collects.
 func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransformer_TransformProps, location string) {
-  if props.Context.Checker == nil || props.Expression == nil {
-    return
-  }
-  method, ok := callExpressionTransformer_calleeOperation(props.Expression.Expression)
+  code, ok := callExpressionTransformer_calleeOperation(props.Expression.Expression)
   if ok == false {
     return
   }
@@ -169,18 +170,22 @@ func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransform
     if callExpressionTransformer_importsTypia(declaration) == false {
       continue
     }
+    // State only what was observed. The declaration file is the fact; a
+    // `declare module "typia"` is the usual cause but not the only way to move
+    // a declaration, and naming it as the cause would misdirect anyone whose
+    // build got here another way.
     panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
-      Code: "typia." + method,
-      Message: "this call resolved to a declaration in " +
+      Code: code,
+      Message: "this call was declared in " +
         filepath.ToSlash(location) +
-        " instead of typia's own, so no transform was applied. Remove the `declare module \"typia\"` that redeclares it, or give the redeclaration another module name.",
+        ", not in typia's own module, so no transform was applied. A project-local `declare module \"typia\"` is the usual cause; remove it, or give the redeclaration another module name.",
     }))
   }
 }
 
 // callExpressionTransformer_calleeOperation answers whether a callee expression
-// spells one of this transformer's operations, and returns that operation's
-// name.
+// spells one of this transformer's operations, and returns the diagnostic code
+// for it — the written spelling, qualified as `typia.json.assertParse`.
 //
 // The namespace is part of the spelling. `typia.json.assertParse` names the
 // `json` table, while `typia.createAssert` and a bare named import name the root
@@ -188,13 +193,20 @@ func callExpressionTransformer_rejectShadowedTypia(props CallExpressionTransform
 // operation does not live there. Matching a flat union of every table's names
 // instead would report a module augmentation that adds an unrelated `parse` or
 // `schema` to typia, which is a build that works today.
+//
+// Known gap: taking the namespace from the spelling means a renamed binding
+// (`import { json as j } from "typia"; j.assertParse(...)`) is not recognized.
 func callExpressionTransformer_calleeOperation(callee *shimast.Node) (string, bool) {
-  if callee == nil {
-    return "", false
-  }
   method := ""
+  first := true
+  // Segments to the left of the method, nearest first: `typia.json.assertParse`
+  // collects ["json", "typia"].
   parts := []string{}
   for current := callee; current != nil; {
+    if len(parts) > 2 {
+      return "", false
+    }
+    segment := ""
     switch current.Kind {
     case shimast.KindPropertyAccessExpression:
       access := current.AsPropertyAccessExpression()
@@ -202,21 +214,19 @@ func callExpressionTransformer_calleeOperation(callee *shimast.Node) (string, bo
       if name == nil || name.Kind != shimast.KindIdentifier {
         return "", false
       }
-      if method == "" {
-        method = name.Text()
-      } else {
-        parts = append([]string{name.Text()}, parts...)
-      }
+      segment = name.Text()
       current = access.Expression
     case shimast.KindIdentifier:
-      if method == "" {
-        method = current.Text()
-      } else {
-        parts = append([]string{current.Text()}, parts...)
-      }
+      segment = current.Text()
       current = nil
     default:
       return "", false
+    }
+    if first {
+      method = segment
+      first = false
+    } else {
+      parts = append(parts, segment)
     }
   }
   if method == "" || len(parts) > 2 {
@@ -226,15 +236,15 @@ func callExpressionTransformer_calleeOperation(callee *shimast.Node) (string, bo
   // `typia.json.assertParse` and `json.assertParse` both name the `json` table
   // through the segment directly left of the method.
   if len(parts) != 0 {
-    if _, found := functors[parts[len(parts)-1]][method]; found {
-      return method, true
+    if _, found := functors[parts[0]][method]; found {
+      return "typia." + parts[0] + "." + method, true
     }
   }
   // `typia.createAssert` and a bare `createAssert` name the root table. The
   // qualifier, when present, is the imported binding rather than a namespace.
   if len(parts) <= 1 {
     if _, found := functors["module"][method]; found {
-      return method, true
+      return "typia." + method, true
     }
   }
   return "", false
@@ -251,24 +261,37 @@ func callExpressionTransformer_calleeRoot(callee *shimast.Node) *shimast.Node {
 }
 
 // callExpressionTransformer_importsTypia answers whether an alias declaration
-// belongs to an import declaration whose module specifier is typia's own. Only
-// `import ... from "..."` is matched; the walk stops at the source file so a
-// local declaration can never reach an unrelated import above it.
+// belongs to an import whose module specifier is typia's own. Both `import ...
+// from "typia"` and `import typia = require("typia")` are matched; the walk
+// stops at the source file so a local declaration can never reach an unrelated
+// import above it.
 func callExpressionTransformer_importsTypia(declaration *shimast.Node) bool {
   for node := declaration; node != nil; node = node.Parent {
     switch node.Kind {
     case shimast.KindImportDeclaration:
-      specifier := node.ModuleSpecifier()
-      if specifier == nil || specifier.Kind != shimast.KindStringLiteral {
+      return callExpressionTransformer_isTypiaSpecifier(node.ModuleSpecifier())
+    case shimast.KindImportEqualsDeclaration:
+      reference := node.AsImportEqualsDeclaration().ModuleReference
+      if reference == nil || reference.Kind != shimast.KindExternalModuleReference {
         return false
       }
-      text := specifier.AsStringLiteral().Text
-      return text == "typia" || strings.HasPrefix(text, "typia/")
+      return callExpressionTransformer_isTypiaSpecifier(reference.AsExternalModuleReference().Expression)
     case shimast.KindSourceFile:
       return false
     }
   }
   return false
+}
+
+// callExpressionTransformer_isTypiaSpecifier accepts typia's own package name
+// and its subpaths, and nothing that merely begins with those letters: a
+// `typia-codegen` package is a different package.
+func callExpressionTransformer_isTypiaSpecifier(specifier *shimast.Node) bool {
+  if specifier == nil || specifier.Kind != shimast.KindStringLiteral {
+    return false
+  }
+  text := specifier.AsStringLiteral().Text
+  return text == "typia" || strings.HasPrefix(text, "typia/")
 }
 
 func callExpressionTransformer_sourceFile(node *shimast.Node) *shimast.SourceFile {

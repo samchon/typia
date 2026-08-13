@@ -24,6 +24,58 @@ func ttscTypiaTestTypecheck(t *testing.T, project string) {
   }
 }
 
+// ttscTypiaTestWriteFactoryStub installs a typia whose declaration file sits at
+// the path the transformer's identity test accepts, so a fixture that also
+// carries an ambient or augmenting `declare module "typia"` differs from a
+// plain one only in that declaration.
+func ttscTypiaTestWriteFactoryStub(t *testing.T, project string) {
+  t.Helper()
+  root := filepath.Join(project, "node_modules", "typia")
+  lib := filepath.Join(root, "lib")
+  if err := os.MkdirAll(lib, 0o755); err != nil {
+    t.Fatalf("mkdir typia stub: %v", err)
+  }
+  files := map[string]string{
+    "package.json": `{
+  "name": "typia",
+  "version": "0.0.0-test",
+  "main": "./lib/module.js",
+  "types": "./lib/module.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/module.d.ts",
+      "default": "./lib/module.js"
+    },
+    "./lib/transform": "./lib/transform.js"
+  },
+  "ttsc": {
+    "plugin": { "transform": "typia/lib/transform" }
+  }
+}
+`,
+    filepath.Join("lib", "module.d.ts"): `declare namespace typia {
+  function createAssert<T>(): (input: unknown) => T;
+  function createIs<T>(): (input: unknown) => input is T;
+}
+declare const typia: {
+  createAssert: typeof typia.createAssert;
+  createIs: typeof typia.createIs;
+};
+export default typia;
+export declare function createAssert<T>(): (input: unknown) => T;
+export declare function createIs<T>(): (input: unknown) => input is T;
+`,
+    filepath.Join("lib", "module.js"):      "exports.createAssert = () => () => undefined;\nexports.createIs = () => () => false;\n",
+    filepath.Join("lib", "transform.js"):   "module.exports = {};\n",
+    filepath.Join("lib", "transform.d.ts"): "export {};\n",
+  }
+  for name, body := range files {
+    if err := os.WriteFile(filepath.Join(root, name), []byte(body), 0o644); err != nil {
+      t.Fatalf("write typia stub %s: %v", name, err)
+    }
+  }
+}
+
 func ttscTypiaTestRepoRoot(t *testing.T) string {
   t.Helper()
   _, file, _, ok := runtime.Caller(0)

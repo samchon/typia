@@ -572,7 +572,7 @@ export function random(): never {
  * @template T Target type to validate against
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
- * @returns Reusable assert function `(input: unknown) => T`
+ * @returns Reusable assert function `(input: unknown, errorFactory?) => T`
  * @danger You must configure the generic argument `T`
  */
 export function createAssert(
@@ -613,6 +613,9 @@ export function createAssert<T>(): (
  *
  * TypeScript requirement: You must declare the variable type explicitly. `const
  * fn: AssertionGuard<T> = createAssertGuard<T>()` — otherwise compile error.
+ * That annotation is one parameter wide, so it also hides the call-time
+ * `errorFactory`; annotate with `(input: unknown, errorFactory?: (props:
+ * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type to validate against
  * @param errorFactory Custom error factory receiving
@@ -631,6 +634,9 @@ export function createAssertGuard(
  *
  * TypeScript requirement: You must declare the variable type explicitly. `const
  * fn: AssertionGuard<T> = createAssertGuard<T>()` — otherwise compile error.
+ * That annotation is one parameter wide, so it also hides the call-time
+ * `errorFactory`; annotate with `(input: unknown, errorFactory?: (props:
+ * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type to validate against
  * @param errorFactory Custom error factory receiving
@@ -756,7 +762,8 @@ export function createValidate(): ((input: unknown) => IValidation) &
  * @template T Target type for exact match
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
- * @returns Reusable assertEquals function `(input: unknown) => T`
+ * @returns Reusable assertEquals function `(input: unknown, errorFactory?) =>
+ *   T`
  * @danger You must configure the generic argument `T`
  */
 export function createAssertEquals(
@@ -797,7 +804,9 @@ export function createAssertEquals<T>(): (
  *
  * TypeScript requirement: You must declare the variable type explicitly. `const
  * fn: AssertionGuard<T> = createAssertGuardEquals<T>()` — otherwise compile
- * error.
+ * error. That annotation is one parameter wide, so it also hides the call-time
+ * `errorFactory`; annotate with `(input: unknown, errorFactory?: (props:
+ * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type for exact match
  * @param errorFactory Custom error factory receiving
@@ -816,7 +825,9 @@ export function createAssertGuardEquals(
  *
  * TypeScript requirement: You must declare the variable type explicitly. `const
  * fn: AssertionGuard<T> = createAssertGuardEquals<T>()` — otherwise compile
- * error.
+ * error. That annotation is one parameter wide, so it also hides the call-time
+ * `errorFactory`; annotate with `(input: unknown, errorFactory?: (props:
+ * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type for exact match
  * @param errorFactory Custom error factory receiving

@@ -63,9 +63,14 @@ export const test_assert_error_factory_non_callable = (): void => {
     Object.assign(new Error("configured"), { path: props.path }),
   ) as unknown as (input: unknown, index?: number) => IMember;
 
-  const overridden: unknown = capture(() => [{ id: "robin" }].map(configured));
+  // The bad row is last, so the index that reaches `errorFactory` is truthy —
+  // index 0 alone would be the one value the pre-fix helper already survived.
+  const configuredRows: unknown[] = [...valid, { id: "robin" }];
+  const overridden: unknown = capture(() => configuredRows.map(configured));
   if (overridden instanceof TypeGuardError === false)
-    throw new Error("Expected a non-callable override to fall back.");
+    throw new Error(
+      `Expected a non-callable override to fall back, got ${String(overridden)}.`,
+    );
 
   const kept: unknown = capture(() => configured({ id: "robin" }));
   if (kept instanceof Error === false || kept instanceof TypeGuardError)

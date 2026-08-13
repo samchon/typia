@@ -21,10 +21,12 @@ import (
 // the silence does not.
 //
 //  1. Build a project with typia installed and an ambient `declare module
-//     "typia"` that redeclares `createAssert` and `json.createAssertParse`.
+//     "typia"` that redeclares `createAssert`, `json.createAssertParse`, and a
+//     `json.createAssert` that names no typia operation at all.
 //  2. Run the transform over the project.
-//  3. Require one diagnostic per shadowed call, each at its call site, naming
-//     its operation and the shadowing declaration file.
+//  3. Require one diagnostic for each of the two real operations, at its call
+//     site, naming the operation as written and the shadowing file — and none
+//     for the third, whose spelling puts a root operation in a namespace.
 func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
   project := shadowedTypiaModuleProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -42,10 +44,11 @@ func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
     t.Fatalf("decode transform output: %v\n%s", err, out)
   }
   // The root and namespaced spellings are looked up in different functor
-  // tables, so both have to be reported for the gate to be correct.
+  // tables, so both have to be reported for the gate to be correct, and the
+  // code has to carry the namespace the user wrote.
   expected := map[string]bool{
-    "typia.createAssert":      false,
-    "typia.createAssertParse": false,
+    "typia.createAssert":           false,
+    "typia.json.createAssertParse": false,
   }
   if len(result.Diagnostics) != len(expected) {
     t.Fatalf("expected %d transform diagnostics, got %+v", len(expected), result.Diagnostics)
@@ -53,7 +56,7 @@ func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
   for _, diag := range result.Diagnostics {
     seen, owned := expected[diag.Code]
     if owned == false {
-      t.Fatalf("diagnostic code did not name a shadowed operation: %+v", diag)
+      t.Fatalf("diagnostic code did not name a shadowed operation as written: %+v", diag)
     }
     if seen {
       t.Fatalf("diagnostic code reported twice: %+v", diag)
@@ -62,6 +65,9 @@ func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
     if diag.File == nil || !strings.HasSuffix(filepath.ToSlash(*diag.File), "src/main.ts") {
       t.Fatalf("diagnostic was not reported at the call site: %+v", diag)
     }
+    if diag.Line != shadowedTypiaCallLines[diag.Code] {
+      t.Fatalf("diagnostic line mismatch for %s: %+v", diag.Code, diag)
+    }
     if !strings.Contains(filepath.ToSlash(diag.MessageText), "src/typia.d.ts") {
       t.Fatalf("diagnostic did not name the shadowing declaration: %+v", diag)
     }
@@ -69,6 +75,19 @@ func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
       t.Fatalf("diagnostic did not state the consequence: %+v", diag)
     }
   }
+  for code, seen := range expected {
+    if seen == false {
+      t.Fatalf("no diagnostic reported %s", code)
+    }
+  }
+}
+
+// shadowedTypiaCallLines is the 1-based line of each shadowed call in
+// shadowedTypiaCallSource, so a regression that reports the whole file or the
+// wrong statement cannot pass on the file name alone.
+var shadowedTypiaCallLines = map[string]int{
+  "typia.createAssert":           7,
+  "typia.json.createAssertParse": 8,
 }
 
 func shadowedTypiaModuleProject(t *testing.T) string {
@@ -81,7 +100,10 @@ func shadowedTypiaModuleProject(t *testing.T) string {
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(transformDiagnosticTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  shadowedTypiaWriteFactoryStub(t, dir)
+  // typia is installed as well as shadowed, matching the reporter's project: an
+  // ambient module declaration outranks node resolution, and the fixture is
+  // only faithful if there is something for it to outrank.
+  ttscTypiaTestWriteFactoryStub(t, dir)
   for name, body := range map[string]string{
     "typia.d.ts": shadowedTypiaAmbientDeclaration,
     "main.ts":    shadowedTypiaCallSource,
@@ -93,57 +115,6 @@ func shadowedTypiaModuleProject(t *testing.T) string {
   return dir
 }
 
-// shadowedTypiaWriteFactoryStub installs a typia whose declaration file sits at
-// the path the identity test accepts, so the fixtures differ only in whether an
-// ambient declaration outranks it.
-func shadowedTypiaWriteFactoryStub(t *testing.T, project string) {
-  t.Helper()
-  root := filepath.Join(project, "node_modules", "typia")
-  lib := filepath.Join(root, "lib")
-  if err := os.MkdirAll(lib, 0o755); err != nil {
-    t.Fatalf("mkdir typia stub: %v", err)
-  }
-  files := map[string]string{
-    "package.json": `{
-  "name": "typia",
-  "version": "0.0.0-test",
-  "main": "./lib/module.js",
-  "types": "./lib/module.d.ts",
-  "exports": {
-    ".": {
-      "types": "./lib/module.d.ts",
-      "default": "./lib/module.js"
-    },
-    "./lib/transform": "./lib/transform.js"
-  },
-  "ttsc": {
-    "plugin": { "transform": "typia/lib/transform" }
-  }
-}
-`,
-    filepath.Join("lib", "module.d.ts"): `declare namespace typia {
-  function createAssert<T>(): (input: unknown) => T;
-  function createIs<T>(): (input: unknown) => input is T;
-}
-declare const typia: {
-  createAssert: typeof typia.createAssert;
-  createIs: typeof typia.createIs;
-};
-export default typia;
-export declare function createAssert<T>(): (input: unknown) => T;
-export declare function createIs<T>(): (input: unknown) => input is T;
-`,
-    filepath.Join("lib", "module.js"):      "exports.createAssert = () => () => undefined;\nexports.createIs = () => () => false;\n",
-    filepath.Join("lib", "transform.js"):   "module.exports = {};\n",
-    filepath.Join("lib", "transform.d.ts"): "export {};\n",
-  }
-  for name, body := range files {
-    if err := os.WriteFile(filepath.Join(root, name), []byte(body), 0o644); err != nil {
-      t.Fatalf("write typia stub %s: %v", name, err)
-    }
-  }
-}
-
 const shadowedTypiaAmbientDeclaration = `declare module "typia" {
   type ErrorFactory = (props: { method: string }) => Error;
   export function createAssert<T>(
@@ -153,6 +124,9 @@ const shadowedTypiaAmbientDeclaration = `declare module "typia" {
     function createAssertParse<T>(
       errorFactory?: ErrorFactory,
     ): (input: string, errorFactory?: ErrorFactory) => T;
+    function createAssert<T>(
+      errorFactory?: ErrorFactory,
+    ): (input: unknown, errorFactory?: ErrorFactory) => T;
   }
   const typia: {
     createAssert<T>(
@@ -164,6 +138,8 @@ const shadowedTypiaAmbientDeclaration = `declare module "typia" {
 }
 `
 
+// The third call spells a root operation inside a namespace. typia has no
+// `json.createAssert`, so nothing was shadowed and nothing may be reported.
 const shadowedTypiaCallSource = `import typia from "typia";
 
 export interface User {
@@ -172,4 +148,5 @@ export interface User {
 
 export const parseUser = typia.createAssert<User>();
 export const parseUserJson = typia.json.createAssertParse<User>();
+export const bogus = typia.json.createAssert<User>();
 `
