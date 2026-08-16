@@ -5,6 +5,7 @@ import { _isFormatDuration } from "./_isFormatDuration";
 import { _isFormatEmail } from "./_isFormatEmail";
 import { _isFormatHostname } from "./_isFormatHostname";
 import { _isFormatIdnEmail } from "./_isFormatIdnEmail";
+import { _isIBAN } from "./_isIban";
 import { _isFormatIdnHostname } from "./_isFormatIdnHostname";
 import { _isFormatIpv4 } from "./_isFormatIpv4";
 import { _isFormatIpv6 } from "./_isFormatIpv6";
@@ -32,6 +33,7 @@ const FORMAT: Record<string, (input: string) => boolean> = {
   email: _isFormatEmail,
   hostname: _isFormatHostname,
   "idn-email": _isFormatIdnEmail,
+  isIBAN: _isIBAN,
   "idn-hostname": _isFormatIdnHostname,
   iri: _isFormatIri,
   "iri-reference": _isFormatIriReference,

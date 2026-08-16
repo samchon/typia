@@ -45,6 +45,7 @@ export namespace Format {
     | "email"
     | "hostname"
     | "idn-email"
+    | "iban"
     | "idn-hostname"
     | "iri"
     | "iri-reference"
