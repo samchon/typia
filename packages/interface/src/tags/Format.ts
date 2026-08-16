@@ -39,6 +39,7 @@ export namespace Format {
    */
   export type Value =
     | "byte"
+    | "countryCode"
     | "password"
     | "regex"
     | "uuid"

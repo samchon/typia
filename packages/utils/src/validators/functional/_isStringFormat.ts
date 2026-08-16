@@ -1,4 +1,5 @@
 import { _isFormatByte } from "./_isFormatByte";
+import { _isCountryCode } from "./_isCountryCode";
 import { _isFormatDate } from "./_isFormatDate";
 import { _isFormatDateTime } from "./_isFormatDateTime";
 import { _isFormatDuration } from "./_isFormatDuration";
@@ -27,6 +28,7 @@ export const _isStringFormat = (format: string, value: string): boolean => {
 
 const FORMAT: Record<string, (input: string) => boolean> = {
   byte: _isFormatByte,
+  countryCode: _isCountryCode,
   regex: _isFormatRegex,
   uuid: _isFormatUuid,
   email: _isFormatEmail,
