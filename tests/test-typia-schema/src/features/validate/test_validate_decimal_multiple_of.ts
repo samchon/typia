@@ -92,6 +92,16 @@ export const test_validate_decimal_multiple_of = (): void => {
       typia.is<IJsDocCent>({ value }),
       false,
     );
+    // `validate`'s negative twin, and the `expected` text with it: the report
+    // names the tag rather than whatever expression implements it, so moving the
+    // check into a helper must not change what a caller reads.
+    const result = typia.validate<Cent>(value);
+    TestValidator.equals(`validate rejects ${value}`, result.success, false);
+    TestValidator.equals(
+      `validate names the tag for ${value}`,
+      result.success === false ? result.errors[0]?.expected : null,
+      "number & MultipleOf<0.01>",
+    );
   }
 
   // An integer divisor, a fractional divisor that does divide in binary, and a

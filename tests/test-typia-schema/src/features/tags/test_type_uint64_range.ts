@@ -191,6 +191,13 @@ export const test_type_uint64_range = (): void => {
       value,
       BigInt.asUintN(64, value),
     );
+    // The width check is what rejects it -- a bare `try`/`catch` would count any
+    // encoder failure as success, so the cause is pinned beside the effect.
+    TestValidator.equals(
+      `${value} fails the width check`,
+      typia.is<ITaggedBigint>({ value }),
+      false,
+    );
     let encoded: boolean = true;
     try {
       typia.protobuf.assertEncode<ITaggedBigint>({ value });
