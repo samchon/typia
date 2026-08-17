@@ -129,7 +129,11 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
       nil,
     ))
   }
-  broken := false
+  // terminated marks that `statements` already ends in an unconditional return,
+  // so nothing after it could run. A signature that accepts every key sets it
+  // from the loop; a declared key type that covers every key sets it from the
+  // tail below.
+  terminated := false
 
   if len(props.Regular) != 0 {
     add(is_regular_property(props.Regular, props.Context.Emit), props.Config.Positive)
@@ -159,13 +163,13 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
     })
     if condition.Kind == shimast.KindTrueKeyword {
       statements = append(statements, f.NewReturnStatement(entry.Expression))
-      broken = true
+      terminated = true
       break
     }
     add(condition, entry.Expression)
   }
 
-  if !broken {
+  if !terminated {
     // Reaching here means the key satisfied no dynamic signature. Two different
     // things bring a key here, and they are not the same failure.
     //
@@ -204,13 +208,13 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
         // signature covers every key `Object.keys` can yield -- so the surplus
         // tail below is unreachable and is not emitted.
         statements = append(statements, f.NewReturnStatement(invalid))
-        broken = true
+        terminated = true
       } else {
         add(shape, invalid)
       }
     }
   }
-  if !broken {
+  if !terminated {
     output := props.Config.Positive
     if props.Config.Equals {
       output = props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
