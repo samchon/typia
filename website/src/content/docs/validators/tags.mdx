@@ -247,6 +247,7 @@ If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 > - Comment tags are **not type-checked**. `@type unit32` (typo of `uint32`) is ignored: validators and `random` lose the intended range constraint, and protobuf schema emission falls back to the default `double` scalar for an untagged `number`.
 > - Comment tags only work on **object properties**. They don't apply to element types of `Array` or `Map`, and they can't be combined with union types.
 > - Comment tags can't express union constraints. `@type int32` locks the property to `int32`; you can't follow it with `@type float`.
+> - An item count must fit a signed 64-bit integer. `@minItems 10000000000000000000` is a compile error; it used to convert silently to an unrelated number.
 >
 > Comment tags exist for JSDoc-style codebases that want to migrate incrementally without rewriting every property at once.
 
