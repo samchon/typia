@@ -25,9 +25,13 @@ import { TagBase } from "./TagBase";
  * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates appropriate `type` in JSON Schema.
  *
- * On a `bigint`, `"int64"` and `"uint64"` select the protobuf scalar type but
- * do not check the 64-bit width: `"int64"` enforces nothing, and `"uint64"`
- * enforces only `0n <= value`. Their `number` forms do enforce their range.
+ * On a `bigint`, `"int64"` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` and
+ * `"uint64"` accepts `0n` through `2n ** 64n - 1n`, both inclusive — exactly
+ * the values `typia.protobuf.encode` writes into a 64-bit varint without
+ * truncating them. Their `number` forms cannot be that exact: neither maximum
+ * is representable, so each rounds up to the neighboring power of two and is
+ * accepted, because that power is the only float form the true maximum has. Use
+ * the `bigint` form when the boundary matters.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @example
@@ -73,12 +77,12 @@ export type Type<
               : Value extends "int64"
                 ? {
                     number: `$importInternal("isTypeInt64")($input)`;
-                    bigint: `true`;
+                    bigint: `$importInternal("isTypeInt64Bigint")($input)`;
                   }
                 : Value extends "uint64"
                   ? {
                       number: `$importInternal("isTypeUint64")($input)`;
-                      bigint: `BigInt(0) <= $input`;
+                      bigint: `$importInternal("isTypeUint64Bigint")($input)`;
                     }
                   : Value extends "float"
                     ? `$importInternal("isTypeFloat")($input)`

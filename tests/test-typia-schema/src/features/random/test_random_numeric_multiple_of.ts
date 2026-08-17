@@ -6,20 +6,17 @@ import typia, { tags } from "typia";
  *
  * Multiplying fallback bounds by `multipleOf` can invert one-sided ranges, so
  * every generated value is checked against its declared bounds and against an
- * exact decimal oracle for its divisor. The generator divides exact decimals
- * while the generated validator spells `MultipleOf` as `$input % N === 0`,
- * which divides the binary doubles actually stored, so a generated value can
- * fail its own validator wherever an operand does not equal the decimal it
- * prints back — a divisor such as `0.01`, or any value past
- * `Number.MAX_SAFE_INTEGER`. `typia.is` on a divisor is therefore asserted only
- * for the small divisors that do print back exactly; issue #2335 owns closing
- * that gap in a major. Empty discrete ranges must also fail without an
- * unbounded retry.
+ * exact decimal oracle for its divisor. The generator picks an integer quotient
+ * over exact decimals and the generated validator divides the same way, so the
+ * round trip closes for every divisor including a fractional one and one whose
+ * quotient runs past `Number.MAX_SAFE_INTEGER` — a divisor such as `0.01` used
+ * to break it, because the remainder check answered about the stored binary
+ * double rather than the decimal the value prints back. Empty discrete ranges
+ * must still fail without an unbounded retry.
  *
  * 1. Generate decimal, integer, one-sided, and exclusive-bound values repeatedly.
- * 2. Revalidate every bound and compare every value with an exact decimal oracle.
- * 3. Revalidate the divisors that print back exactly through the generated
- *    validator.
+ * 2. Require every generated object to satisfy its own type through `typia.is`.
+ * 3. Compare every value with an independent exact decimal oracle.
  * 4. Require both random APIs to reject an impossible multiple range promptly.
  */
 export const test_random_numeric_multiple_of = (): void => {
@@ -81,23 +78,13 @@ export const test_random_numeric_multiple_of = (): void => {
     const reusable: IValues = withRandom(sample, () => create());
     for (const [name, value] of Object.entries({ direct, reusable })) {
       TestValidator.equals(
+        `${name} validates at ${i}`,
+        typia.is<IValues>(value),
+        true,
+      );
+      TestValidator.equals(
         `${name} honors every bound at ${i}`,
         typia.is<IBounds>(value),
-        true,
-      );
-      TestValidator.equals(
-        `${name} upper-only revalidates at ${i}`,
-        typia.is<number & tags.MultipleOf<2>>(value.upperOnly),
-        true,
-      );
-      TestValidator.equals(
-        `${name} integer upper-only revalidates at ${i}`,
-        typia.is<number & tags.MultipleOf<2>>(value.integerUpperOnly),
-        true,
-      );
-      TestValidator.equals(
-        `${name} integer decimal revalidates at ${i}`,
-        typia.is<number & tags.MultipleOf<1.5>>(value.integerDecimal),
         true,
       );
       TestValidator.equals(

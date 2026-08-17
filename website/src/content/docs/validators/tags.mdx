@@ -129,23 +129,25 @@ When adjacent placeholders or repeated separators make the boundary ambiguous, t
 | `tags.Maximum<N>`                                                                                                          | `value <= N`                                                                                                                                       |
 | `tags.ExclusiveMinimum<N>`                                                                                                 | `value > N`                                                                                                                                        |
 | `tags.ExclusiveMaximum<N>`                                                                                                 | `value < N`                                                                                                                                        |
-| `tags.MultipleOf<N>`                                                                                                       | `value % N === 0`                                                                                                                                  |
+| `tags.MultipleOf<N>`                                                                                                       | `value` is a mathematical multiple of `N`, divided as the decimal it prints back rather than as the binary double it is stored in                  |
 | `tags.Exclude<[V1, V2, …]>`                                                                                                | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema)                                                                     |
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
 
-On a `bigint` those two tags do not check the 64-bit width: `Type<"int64">` enforces nothing, and `Type<"uint64">` enforces only `0n <= value`. `typia.protobuf.encode` still writes the field as a 64-bit varint, so a value past the width is truncated on the wire rather than rejected by the validator. Restoring the bound would reject data that validates today, so it waits for a major release; it is tracked in [issue #2338](https://github.com/samchon/typia/issues/2338). On a `number` the same two tags do bound their range.
+On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` and `Type<"uint64">` accepts `0n` through `2n ** 64n - 1n`, both inclusive. Those are exactly the values `typia.protobuf.encode` can write into a 64-bit varint without truncating them, so a `bigint` typia certifies always survives the round trip. The `number` form cannot be that exact: neither maximum is representable, so each rounds up to the neighboring power of two and is accepted — `2 ** 63` passes as an `int64` — and that one value is not round-trip safe. Use the `bigint` form when the boundary matters.
 
 #### `string`
 
 | Tag                         | Notes                                                                          |
 | --------------------------- | ------------------------------------------------------------------------------ |
-| `tags.MinLength<N>`         | `value.length >= N`                                                            |
-| `tags.MaxLength<N>`         | `value.length <= N`                                                            |
+| `tags.MinLength<N>`         | `value` has at least `N` Unicode characters                                    |
+| `tags.MaxLength<N>`         | `value` has at most `N` Unicode characters                                     |
 | `tags.Pattern<R>`           | regex (passed as a string literal)                                             |
 | `tags.Format<F>`            | one of the formats below                                                       |
 | `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`)                                |
 | `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
+
+`MinLength` and `MaxLength` count characters, which is what the `minLength` and `maxLength` keywords they emit mean — not the UTF-16 code units `String.prototype.length` returns. One emoji is one character even though its `.length` is `2`, and a flag or a ZWJ sequence counts each of its code points.
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
@@ -246,8 +248,13 @@ type IsEven = tags.TagBase<{
   target: "number";
   value: undefined;
   validate: `$input % 2 === 0`;
-  // or:
-  // validate: (value: number) => value % 2 === 0;
+}>;
+
+type Sorted = tags.TagBase<{
+  kind: "sorted";
+  target: "array";
+  value: undefined;
+  validate: `(() => { for (let i = 1; i < $input.length; ++i) if ($input[i - 1] > $input[i]) return false; return true; })()`;
 }>;
 ```
 
@@ -256,7 +263,7 @@ type IsEven = tags.TagBase<{
 - `kind` — the tag's name (must be unique among intersected tags)
 - `target` — `"number" | "bigint" | "string" | "array" | "object"` (or a `Record<Target, string>` map if the tag spans multiple bases)
 - `value` — the constant captured by the tag (useful when the tag has a parameter, e.g. `Postfix<".com">`)
-- `validate` — either an inline expression string referencing `$input`, or a regular function
+- `validate` — an expression string referencing `$input`. It must be a string, not a function: the transformer inlines the text into the generated validator at compile time instead of calling back into your module. Wrap branching logic in an IIFE, as `Sorted` does above; the built-in `date-time` and `iri` validators are written the same way.
 
 You can also set `exclusive: true | string[]` to mark a tag as mutually exclusive with itself or with named other tags.
 

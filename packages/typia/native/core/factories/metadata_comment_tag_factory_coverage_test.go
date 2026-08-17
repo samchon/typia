@@ -124,8 +124,8 @@ func TestMetadataCommentTagFactoryCoverage(t *testing.T) {
   if len(reports) != decimalReportCount || len(decimal["number"]) != 1 || len(decimal["bigint"]) != 0 {
     t.Fatalf("decimal multipleOf must remain a number-only JSDoc tag: %#v, reports=%#v", decimal, reports[decimalReportCount:])
   }
-  if decimal["number"][0].Validate != "$input % 0.01 === 0" {
-    t.Fatalf("decimal multipleOf must spell the same remainder check the MultipleOf type tag declares: %s", decimal["number"][0].Validate)
+  if decimal["number"][0].Validate != "$importInternal(\"_isMultipleOf\")($input, 0.01)" {
+    t.Fatalf("decimal multipleOf must use the shared exact helper: %s", decimal["number"][0].Validate)
   }
   invalidBefore := len(reports)
   _ = metadataCommentTagFactory_parse_number(struct {

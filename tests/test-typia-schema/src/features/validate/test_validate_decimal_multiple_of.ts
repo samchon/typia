@@ -8,26 +8,32 @@ import {
 import typia, { tags } from "typia";
 
 /**
- * Verifies transformed MultipleOf validators use the JavaScript remainder.
+ * Verifies transformed MultipleOf validators divide exact decimals.
  *
- * `tags.MultipleOf` declares a plain `$input % N === 0` comparison, so a
- * generated validator never imports a `typia/lib/internal/*` helper to divide,
- * and `@typia/interface` stays satisfiable by any `typia` runtime the caret
- * range between the two packages admits. `%` divides the binary doubles that
- * are actually stored, while the emitted `multipleOf` keyword means
- * mathematical divisibility over the decimals those doubles print as. The two
- * agree only where every operand equals the decimal it prints back, which
- * `0.01` does not, so the shared `@typia/utils` OpenAPI validator accepts
- * values the generated one rejects; issue #2335 owns closing that gap in a
- * major.
+ * JSON Schema's `multipleOf` is mathematical divisibility, while `%` divides
+ * the binary doubles a `number` is actually stored in, so `0.3 % 0.1` is
+ * `0.09999999999999998` even though `0.3` is exactly three times `0.1`. typia
+ * emits the keyword and must accept what it accepts. The expectation comes from
+ * `exactMultiple` below, which re-derives the rule -- mathematical divisibility
+ * over the decimal each operand prints back -- with bigint arithmetic. What it
+ * independently pins is that rule, not the decomposition: turning a `number`
+ * into an exact rational has one shape, and `_decimal` has the same one.
  *
- * 1. Exercise type-tag and JSDoc validators over exactly-zero remainders,
- *    mathematical multiples with a nonzero remainder, and non-multiples.
- * 2. Confirm operands that do print back exactly keep the generated validator
- *    agreeing with mathematical divisibility, fractional divisor included.
- * 3. Check the emitted JSON and LLM schemas retain the decimal constraint.
- * 4. Revalidate every value through the emitted OpenAPI schema, which diverges on
- *    each mathematical multiple the remainder check rejects.
+ * 1. Assert the sample matrix really carries values the remainder check and the
+ *    oracle disagree about, so the case cannot go vacuous.
+ * 2. Exercise `MultipleOf<0.01>` in the type-tag and JSDoc spellings against the
+ *    oracle, on both sides, and run `validate` on both sides too -- pinning the
+ *    `expected` text each spelling reports, since the two are composed by
+ *    separate factories and this cycle moves the check behind a helper in
+ *    both.
+ * 3. Exercise an integer divisor, a fractional one, and a magnitude past
+ *    `Number.MAX_SAFE_INTEGER` where the two rules disagree in both
+ *    directions.
+ * 4. Confirm a `bigint` divisor keeps its already-exact behavior in both
+ *    spellings.
+ * 5. Check the emitted JSON and LLM schemas retain the decimal constraint, and
+ *    require the shared `@typia/utils` OpenAPI validator to agree on every
+ *    value.
  */
 export const test_validate_decimal_multiple_of = (): void => {
   type Cent = number & tags.MultipleOf<0.01>;
@@ -36,16 +42,32 @@ export const test_validate_decimal_multiple_of = (): void => {
     value: number;
   }
 
-  // `0.02 % 0.01` is 0 but `0.03 % 0.01` is 0.009999999999999998. The stored
-  // divisor is the double nearest 1/100, not 1/100, and for that divisor the
-  // remainder reaches zero only at a zero or power-of-two quotient. Which
-  // multiples land where is a property of the binary representation, not of the
-  // decimal, so each value is listed rather than derived.
-  const zeroRemainder: number[] = [0, 0.01, 0.02, -0.02, 0.04, 1.28];
-  const inexactRemainder: number[] = [0.03, -0.03, 0.05, 0.25, 1, 1.01];
-  const notAMultiple: number[] = [0.031, 1.011, 0.030000000000000002];
+  // The sample values. Which of them are multiples is decided by the oracle
+  // below, not written down here, so a mistake in the list cannot become the
+  // expectation.
+  const SAMPLES: number[] = [
+    0, 0.01, 0.02, -0.02, 0.03, -0.03, 0.04, 0.05, 0.25, 1, 1.01, 1.28, 0.031,
+    1.011, 0.030000000000000002,
+  ];
+  const multiples: number[] = SAMPLES.filter((value) =>
+    exactMultiple(value, 0.01),
+  );
+  const notMultiples: number[] = SAMPLES.filter(
+    (value) => exactMultiple(value, 0.01) === false,
+  );
 
-  for (const value of zeroRemainder) {
+  // `0.03`, `-0.03`, `0.05`, `0.25`, `1`, and `1.01` are multiples of 0.01
+  // whose binary remainder is not zero, because the stored divisor is the
+  // double nearest 1/100 rather than 1/100. `-0.02 % 0.01` is `-0`, which
+  // `!== 0` reports as equal, so it is not one of them.
+  const diverging: number[] = multiples.filter((value) => value % 0.01 !== 0);
+  TestValidator.equals(
+    "the sample matrix splits, and carries multiples the remainder check rejects",
+    [multiples.length, notMultiples.length, diverging.length],
+    [12, 3, 6],
+  );
+
+  for (const value of multiples) {
     TestValidator.equals(
       `type tag accepts ${value}`,
       typia.is<Cent>(value),
@@ -56,8 +78,13 @@ export const test_validate_decimal_multiple_of = (): void => {
       typia.is<IJsDocCent>({ value }),
       true,
     );
+    TestValidator.equals(
+      `validate accepts ${value}`,
+      typia.validate<Cent>(value).success,
+      true,
+    );
   }
-  for (const value of [...inexactRemainder, ...notAMultiple]) {
+  for (const value of notMultiples) {
     TestValidator.equals(
       `type tag rejects ${value}`,
       typia.is<Cent>(value),
@@ -68,27 +95,91 @@ export const test_validate_decimal_multiple_of = (): void => {
       typia.is<IJsDocCent>({ value }),
       false,
     );
+    // `validate`'s negative twin, and the `expected` text with it: the report
+    // names the tag rather than whatever expression implements it, so moving the
+    // check into a helper must not change what a caller reads. Both spellings
+    // are pinned, because the two names are composed by different factories --
+    // the type tag by `MetadataTypeTagFactory` from the printed alias, the JSDoc
+    // one by `MetadataCommentTagFactory` from `name + "<" + value + ">"` -- and
+    // only asserting one would leave the other free to drift.
+    const byType = typia.validate<Cent>(value);
+    const byComment = typia.validate<IJsDocCent>({ value });
+    TestValidator.equals(
+      `validate rejects ${value} in both spellings`,
+      [byType.success, byComment.success],
+      [false, false],
+    );
+    TestValidator.equals(
+      `validate names the tag for ${value} in both spellings`,
+      [
+        byType.success === false ? byType.errors[0]?.expected : null,
+        byComment.success === false ? byComment.errors[0]?.expected : null,
+      ],
+      ["number & MultipleOf<0.01>", "number & MultipleOf<0.01>"],
+    );
   }
 
-  // Being fractional is not what breaks the remainder check. `9` and `1.5` both
-  // print back exactly, so `9 % 1.5` is 0 even though the quotient 6 is not a
-  // power of two; the disagreement above belongs to `0.01`, whose stored double
-  // is not 1/100. Printing back exactly is the real condition, not merely being
-  // a representable double: `2 ** 70` is one, yet it prints as
-  // `1.1805916207174113e+21`, an expansion divisible by 1.5 and by 3 while
-  // `2 ** 70` itself is divisible by neither.
+  // An integer divisor, a fractional divisor that does divide in binary, and a
+  // magnitude past `Number.MAX_SAFE_INTEGER` where printing back stops being
+  // lossless — `Number(3n * 12259405221713610n) % 3` is `2` while the value's
+  // own decimal spelling is divisible by three.
   type Even = number & tags.MultipleOf<2>;
   type Sesqui = number & tags.MultipleOf<1.5>;
-  TestValidator.equals("integer divisor accepts", typia.is<Even>(4), true);
-  TestValidator.equals("integer divisor rejects", typia.is<Even>(5), false);
+  type Triple = number & tags.MultipleOf<3>;
+  const large: number = Number(BigInt(3) * BigInt(12259405221713610));
+  // `large` prints as `36778215665140830`, whose digits sum to a multiple of
+  // three, while `large % 3` is `2`. `large + 16` prints as
+  // `…850` and is the mirror image: `% 3` is `0` and the decimal is not
+  // divisible. One value flips each way, which is what a change of meaning in
+  // both directions has to be pinned by.
   TestValidator.equals(
-    "exactly-printing fractional divisor accepts",
-    typia.is<Sesqui>(9),
+    "the large pair really diverges from the binary remainder",
+    [large % 3, (large + 16) % 3],
+    [2, 0],
+  );
+
+  for (const [title, actual, value, divisor] of [
+    ["integer divisor accepts", typia.is<Even>(4), 4, 2],
+    ["integer divisor rejects", typia.is<Even>(5), 5, 2],
+    ["fractional divisor accepts", typia.is<Sesqui>(9), 9, 1.5],
+    ["fractional divisor rejects", typia.is<Sesqui>(10), 10, 1.5],
+    [
+      "large divisor accepts the decimal multiple",
+      typia.is<Triple>(large),
+      large,
+      3,
+    ],
+    [
+      "large divisor rejects the zero-remainder non-multiple",
+      typia.is<Triple>(large + 16),
+      large + 16,
+      3,
+    ],
+    [
+      "large divisor rejects a plain non-multiple",
+      typia.is<Triple>(large + 8),
+      large + 8,
+      3,
+    ],
+  ] as Array<[string, boolean, number, number]>)
+    TestValidator.equals(title, actual, exactMultiple(value, divisor));
+
+  // A `bigint` divisor was always exact and must stay untouched.
+  type Cubic = bigint & tags.MultipleOf<3n>;
+  interface IJsDocCubic {
+    /** @multipleOf 3 */
+    value: bigint;
+  }
+  TestValidator.equals("bigint divisor accepts", typia.is<Cubic>(9n), true);
+  TestValidator.equals("bigint divisor rejects", typia.is<Cubic>(10n), false);
+  TestValidator.equals(
+    "bigint JSDoc divisor accepts",
+    typia.is<IJsDocCubic>({ value: 9n }),
     true,
   );
   TestValidator.equals(
-    "exactly-printing fractional divisor rejects",
-    typia.is<Sesqui>(10),
+    "bigint JSDoc divisor rejects",
+    typia.is<IJsDocCubic>({ value: 10n }),
     false,
   );
 
@@ -108,17 +199,74 @@ export const test_validate_decimal_multiple_of = (): void => {
   if (LlmTypeChecker.isNumber(llm))
     TestValidator.equals("LLM schema multipleOf", llm.multipleOf, 0.01);
 
-  // `@typia/utils` divides exact decimals, so it accepts every mathematical
-  // multiple, including the ones the generated validator rejects.
-  for (const value of [...zeroRemainder, ...inexactRemainder, ...notAMultiple])
+  // The generated validator and the shared OpenAPI validator now read the same
+  // schema the same way; before this behavior they parted company on all six
+  // diverging multiples above.
+  //
+  // `@typia/utils` divides with its own copy of the same decompose-and-divide
+  // algorithm, so this loop pins the wiring rather than re-deriving the rule;
+  // the rule itself is pinned above, against `exactMultiple`.
+  for (const value of [...multiples, ...notMultiples])
     TestValidator.equals(
-      `OpenAPI validator for ${value}`,
+      `OpenAPI parity for ${value}`,
       OpenApiValidator.validate({
         components: {},
         schema: json,
         value,
         required: true,
       }).success,
-      notAMultiple.includes(value) === false,
+      typia.is<Cent>(value),
     );
+};
+
+/**
+ * Mathematical divisibility over the decimal each operand prints back.
+ *
+ * This is what JSON Schema's `multipleOf` means: each `number` becomes an exact
+ * rational taken from its own `toString()`, and the quotient is tested with
+ * bigint arithmetic, which cannot round. That is the rule the generated
+ * validator has to implement, stated here independently of how it implements
+ * it.
+ *
+ * The decomposition step is not independent and cannot be -- reading a double's
+ * printed decimal into a coefficient and an exponent has one shape, and
+ * `packages/typia/src/internal/_decimal.ts` has the same one. What this pins is
+ * the rule: divisibility of the printed decimals rather than a remainder over
+ * the stored binary doubles.
+ *
+ * A divisor of zero or less, or a non-finite operand, is outside the keyword's
+ * domain -- JSON Schema requires `multipleOf` to be greater than zero -- so the
+ * answer is `false`, which is what `_isMultipleOf` returns for them too. Saying
+ * so here keeps the oracle from contradicting the behavior it certifies if such
+ * a sample is ever added.
+ */
+const exactMultiple = (value: number, multipleOf: number): boolean => {
+  if (Number.isFinite(value) === false) return false;
+  if (Number.isFinite(multipleOf) === false || multipleOf <= 0) return false;
+  const left = fraction(value);
+  const right = fraction(multipleOf);
+  return (
+    (left.numerator * right.denominator) %
+      (right.numerator * left.denominator) ===
+    BigInt(0)
+  );
+};
+
+const fraction = (
+  value: number,
+): { numerator: bigint; denominator: bigint } => {
+  const [mantissa = "0", exponentText = "0"] = value.toString().split("e");
+  const negative: boolean = mantissa.startsWith("-");
+  const unsigned: string = negative ? mantissa.slice(1) : mantissa;
+  const point: number = unsigned.indexOf(".");
+  const decimals: number = point === -1 ? 0 : unsigned.length - point - 1;
+  const digits: bigint = BigInt(unsigned.replace(".", ""));
+  const exponent: number = Number(exponentText) - decimals;
+  const numerator: bigint = negative ? -digits : digits;
+  return exponent >= 0
+    ? {
+        numerator: numerator * BigInt(10) ** BigInt(exponent),
+        denominator: BigInt(1),
+      }
+    : { numerator, denominator: BigInt(10) ** BigInt(-exponent) };
 };

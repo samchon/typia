@@ -29,7 +29,7 @@ export type MaxLength<Value extends number> = TagBase<{
   target: "string";
   kind: "maxLength";
   value: Value;
-  validate: `$input.length <= ${Value}`;
+  validate: `$importInternal("_stringLength")($input) <= ${Value}`;
   exclusive: true;
   schema: {
     maxLength: Value;
