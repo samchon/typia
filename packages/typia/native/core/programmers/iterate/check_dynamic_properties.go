@@ -163,10 +163,19 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
   }
 
   if !broken {
-    output := props.Config.Positive
-    if props.Config.Equals {
-      output = props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
-    }
+    // Reaching here means the key matched no dynamic signature. `broken` is set
+    // only when a signature accepts every key -- `Check_dynamic_key` returning
+    // the `true` keyword -- and that path returns unconditionally, so this tail
+    // is reached exactly when every declared key carries a constraint the key
+    // failed.
+    //
+    // It used to return `Positive`, so a key that failed every constraint was
+    // accepted as if the object allowed extra properties. That made every key
+    // tag inert: `[key: string & tags.Format<"uuid">]` accepted any key at all,
+    // while the emitted check sat right above, used only to decide *which*
+    // signature's value type to apply (#2347). The key is not a member of the
+    // declared type, so it is reported the same way an extra property is.
+    output := props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
     statements = append(statements, f.NewReturnStatement(output))
   }
 
