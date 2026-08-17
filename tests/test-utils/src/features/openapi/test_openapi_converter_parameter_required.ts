@@ -882,7 +882,7 @@ export const test_openapi_converter_parameter_required = (): void => {
   TestValidator.equals(
     "upgraded operation body overrides path body",
     {
-      required: upgradedOverrideBody.required,
+      required: upgradedOverrideBody.required ?? null,
       schema: (
         upgradedOverrideBody.content!["application/json"]!
           .schema as OpenApi.IJsonSchema.INumber
@@ -924,7 +924,7 @@ export const test_openapi_converter_parameter_required = (): void => {
   TestValidator.equals(
     "upgraded operation ref body overrides path body",
     {
-      required: upgradedOperationRefOverrideBody.required,
+      required: upgradedOperationRefOverrideBody.required ?? null,
       schema: (
         upgradedOperationRefOverrideBody.content!["application/json"]!
           .schema as OpenApi.IJsonSchema.IString
@@ -938,7 +938,7 @@ export const test_openapi_converter_parameter_required = (): void => {
   TestValidator.equals(
     "upgraded operation body overrides path ref body",
     {
-      required: upgradedLiteralOperationOverrideBody.required,
+      required: upgradedLiteralOperationOverrideBody.required ?? null,
       schema: (
         upgradedLiteralOperationOverrideBody.content!["application/json"]!
           .schema as OpenApi.IJsonSchema.INumber
