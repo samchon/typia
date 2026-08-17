@@ -195,6 +195,19 @@ export const test_type_int64_range = (): void => {
     // bare `try`/`catch` would only establish a precondition and leave the catch
     // unfalsifiable; what distinguishes the width check from any other encoder
     // failure is the report the assertion carries.
+    //
+    // The two fields are compared as a tuple, not as an object literal.
+    // `TestValidator.equals` walks `Object.keys` of its *first* argument and
+    // drops any key whose value is `undefined`, so an object built from a throw
+    // that carries neither field would compare as `{}` and pass -- exactly the
+    // case this assertion exists to catch. The array branch compares
+    // positionally, so a missing field trips the `typeof` check.
+    //
+    // This is also the one call in this file that puts the actual first rather
+    // than the expected. `equals<X, Y extends X>` constrains the second argument
+    // by the first, and the actual is nullable here, so expected-first would not
+    // typecheck. The order carries no safety difference for a fixed-length
+    // tuple, unlike the object shape it replaces.
     let caught: { path?: string; expected?: string } | null = null;
     try {
       typia.protobuf.assertEncode<ITaggedBigint>({ value });
@@ -203,8 +216,8 @@ export const test_type_int64_range = (): void => {
     }
     TestValidator.equals(
       `assertEncode rejects ${value} at the width check`,
-      caught === null ? null : { path: caught.path, expected: caught.expected },
-      { path: "$input.value", expected: 'bigint & Type<"int64">' },
+      [caught?.path ?? null, caught?.expected ?? null],
+      ["$input.value", 'bigint & Type<"int64">'],
     );
   }
 

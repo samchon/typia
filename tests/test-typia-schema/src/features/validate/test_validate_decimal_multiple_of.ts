@@ -78,10 +78,16 @@ export const test_validate_decimal_multiple_of = (): void => {
       typia.is<IJsDocCent>({ value }),
       true,
     );
+    // Both spellings, matching the rejecting side below and the `is` pair
+    // above: the JSDoc name is composed by a different factory, so asserting
+    // one spelling would leave the other free to drift.
     TestValidator.equals(
-      `validate accepts ${value}`,
-      typia.validate<Cent>(value).success,
-      true,
+      `validate accepts ${value} in both spellings`,
+      [
+        typia.validate<Cent>(value).success,
+        typia.validate<IJsDocCent>({ value }).success,
+      ],
+      [true, true],
     );
   }
   for (const value of notMultiples) {
