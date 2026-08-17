@@ -344,13 +344,26 @@ func check_dynamic_properties_key_shape(props Check_dynamic_propertiesProps, key
 }
 
 // Whether the key declaration constrains more than its own type, which is what
-// makes the stripped question differ from the full one. `Check_dynamic_key`
-// emits a tag row only when every tag in it carries a runtime check, so the
-// same filter decides it here.
+// makes the stripped question differ from the full one.
+//
+// One tag carrying a runtime check is enough, and the row it sits in need not
+// carry them all. `Check_string` and `Check_number` filter per tag, so
+// `[key: number & Minimum<0> & <a tag with no runtime check>]` still emits the
+// minimum -- reading the row as all-or-nothing here would have declared that
+// key untagged and left its minimum inert, which is the defect #2347 closed.
+//
+// Answering yes where the stripped question turns out identical costs an
+// unreachable branch, never a wrong answer: the tail is reached only after
+// every full condition refused the key, so a stripped condition equal to one of
+// them refuses it too.
 func check_dynamic_properties_key_tagged(metadata *nativemetadata.MetadataSchema) bool {
   for _, atomic := range metadata.Atomics {
-    if len(check_dynamic_key_fully_validated_tag_rows(atomic.Tags)) != 0 {
-      return true
+    for _, row := range atomic.Tags {
+      for _, tag := range row {
+        if tag.Validate != "" {
+          return true
+        }
+      }
     }
   }
   return false
