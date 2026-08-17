@@ -16,16 +16,16 @@ import { TestValidator } from "@nestia/e2e";
  * the downgrade dropped both flags. Both were found by reading, not by
  * failing.
  *
- * This pins the behaviour so the two safe shapes stay safe and the unsafe one
+ * This pins the behavior so the two safe shapes stay safe and the unsafe one
  * stays documented. A syntactic scan cannot replace it: it cannot tell an
  * optional-typed read from a total one, so it flags roughly fifty provably safe
- * call sites. Knowing _which_ shape to reach for is what generalises (#2350).
+ * call sites. Knowing _which_ shape to reach for is what generalizes (#2350).
  *
  * 1. Pin that the object shape does not catch an absent field, which is the trap
  *    itself.
  * 2. Require the tuple shape to catch it, because the array branch compares
  *    positionally after a length check.
- * 3. Require the `?? null` object shape to catch it, because a normalised value is
+ * 3. Require the `?? null` object shape to catch it, because a normalized value is
  *    never `undefined` and so is never dropped.
  *
  * This sits directly under `features` rather than in a feature directory: it
@@ -96,20 +96,20 @@ export const test_total_comparison_shape = (): void => {
   );
 
   //----
-  // 3. the normalised object shape
+  // 3. the normalized object shape
   //----
-  const normalised = (report: IReport): Record<string, unknown> => ({
+  const normalized = (report: IReport): Record<string, unknown> => ({
     path: report.path ?? null,
     expected: report.expected ?? null,
   });
   TestValidator.equals(
-    "the normalised shape accepts a complete report",
-    caught(() => TestValidator.equals("probe", normalised(complete), wanted)),
+    "the normalized shape accepts a complete report",
+    caught(() => TestValidator.equals("probe", normalized(complete), wanted)),
     false,
   );
   TestValidator.equals(
-    "the normalised shape catches an absent field",
-    caught(() => TestValidator.equals("probe", normalised(lost), wanted)),
+    "the normalized shape catches an absent field",
+    caught(() => TestValidator.equals("probe", normalized(lost), wanted)),
     true,
   );
 };

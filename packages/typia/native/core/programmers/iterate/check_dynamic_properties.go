@@ -8,6 +8,7 @@ import (
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 type Check_dynamic_propertiesProps struct {
@@ -165,25 +166,54 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
   }
 
   if !broken {
-    // Reaching here means the key matched no dynamic signature. `broken` is set
-    // only when a signature accepts every key -- `Check_dynamic_key` returning
-    // the `true` keyword -- and that path returns unconditionally, so this tail
-    // is reached exactly when every declared key carries a constraint the key
-    // failed.
+    // Reaching here means the key satisfied no dynamic signature. Two different
+    // things bring a key here, and they are not the same failure.
     //
-    // It used to return `Positive`, so a key that failed every constraint was
-    // accepted as if the object allowed extra properties. That made every key
-    // tag inert: `[key: string & tags.Format<"uuid">]` accepted any key at all,
-    // while the emitted check sat right above, used only to decide *which*
-    // signature's value type to apply (#2347). The key is not a member of the
-    // declared type, so it is reported the same way an extra property is.
-    output := props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
-    if props.Config.InvalidKey != nil && len(props.Dynamic) != 0 {
-      output = props.Config.InvalidKey(
-        value,
-        check_dynamic_properties_key_expected(props.Dynamic),
-        check_dynamic_properties_invalid_key_description(props.Context.Emit),
-      )
+    // A key whose *declared type* no signature covers -- `wrong` against
+    // `[key: `prefix_${string}`]` -- is an extra property. Nothing declares it,
+    // so `is` accepts it as it accepts any surplus property, and `equals`
+    // reports it through `Superfluous`.
+    //
+    // A key the declaration does cover but whose *type tag* it breaks -- `ab`
+    // against `[key: string & tags.MinLength<3>]` -- is a declared property
+    // with an invalid key. It used to reach the same accepting tail, which made
+    // every key tag inert: `[key: string & tags.Format<"uuid">]` accepted any
+    // key at all, while the emitted check sat right above, used only to decide
+    // *which* signature's value type to apply (#2347).
+    //
+    // So the tag failure is separated out first, by re-asking the same key
+    // question with every type tag removed. What is left is exactly the
+    // declared key type, and a key that answers it is a member of the object
+    // whose key broke a constraint -- never a surplus property.
+    shape := check_dynamic_properties_key_shape(props, key)
+    if shape != nil {
+      var invalid *shimast.Node
+      if props.Config.InvalidKey != nil {
+        invalid = props.Config.InvalidKey(
+          value,
+          check_dynamic_properties_key_expected(props.Dynamic),
+          check_dynamic_properties_invalid_key_description(props.Context.Emit),
+        )
+      } else {
+        // A programmer with no better report reduces both to the same answer,
+        // as `is` does with `false`.
+        invalid = props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
+      }
+      if shape.Kind == shimast.KindTrueKeyword {
+        // Every key the signature accepts is covered -- a string index
+        // signature covers every key `Object.keys` can yield -- so the surplus
+        // tail below is unreachable and is not emitted.
+        statements = append(statements, f.NewReturnStatement(invalid))
+        broken = true
+      } else {
+        add(shape, invalid)
+      }
+    }
+  }
+  if !broken {
+    output := props.Config.Positive
+    if props.Config.Equals {
+      output = props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
     }
     statements = append(statements, f.NewReturnStatement(output))
   }
@@ -273,6 +303,71 @@ func check_dynamic_properties_internal(context nativecontext.ITypiaContext, name
   }
   f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, context.Emit)
   return f.NewIdentifier(name)
+}
+
+// The condition that the key belongs to some index signature's declared key
+// type while breaking that signature's type tags -- the question the tail has
+// to answer to tell an invalid key from a surplus property.
+//
+// It is the same `Check_dynamic_key` question asked of every signature with its
+// type tags removed, joined with `||`. The tail runs only after each full
+// condition returned false, so a signature whose declared type still answers
+// yes is one whose tags are what the key broke.
+//
+// Nil when no signature carries a key tag. Then each stripped condition equals
+// the full one the tail already refuted, so the check could never fire, and an
+// object with untagged index signatures emits exactly what it emitted before.
+func check_dynamic_properties_key_shape(props Check_dynamic_propertiesProps, key *shimast.Expression) *shimast.Node {
+  tagged := false
+  for _, entry := range props.Dynamic {
+    if check_dynamic_properties_key_tagged(entry.Key) {
+      tagged = true
+      break
+    }
+  }
+  if !tagged {
+    return nil
+  }
+  conditions := make([]*shimast.Node, 0, len(props.Dynamic))
+  for _, entry := range props.Dynamic {
+    condition := Check_dynamic_key(Check_dynamic_keyProps{
+      Context:  props.Context,
+      Metadata: check_dynamic_properties_key_untagged(entry.Key),
+      Input:    key,
+    })
+    if condition.Kind == shimast.KindTrueKeyword {
+      return condition
+    }
+    conditions = append(conditions, condition)
+  }
+  return check_dynamic_key_reduce(conditions, shimast.KindBarBarToken, props.Context.Emit)
+}
+
+// Whether the key declaration constrains more than its own type, which is what
+// makes the stripped question differ from the full one. `Check_dynamic_key`
+// emits a tag row only when every tag in it carries a runtime check, so the
+// same filter decides it here.
+func check_dynamic_properties_key_tagged(metadata *nativemetadata.MetadataSchema) bool {
+  for _, atomic := range metadata.Atomics {
+    if len(check_dynamic_key_fully_validated_tag_rows(atomic.Tags)) != 0 {
+      return true
+    }
+  }
+  return false
+}
+
+// The key declaration with its type tags removed, leaving the declared type
+// alone. Templates, constants, and natives carry no tags, so only the atomics
+// are rebuilt; the clone keeps the original reportable name untouched.
+func check_dynamic_properties_key_untagged(metadata *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
+  clone := *metadata
+  clone.Atomics = make([]*nativemetadata.MetadataAtomic, 0, len(metadata.Atomics))
+  for _, atomic := range metadata.Atomics {
+    clone.Atomics = append(clone.Atomics, nativemetadata.MetadataAtomic_create(nativemetadata.MetadataAtomic{
+      Type: atomic.Type,
+    }))
+  }
+  return &clone
 }
 
 // The type every declared key would have satisfied, for the report. Several

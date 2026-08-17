@@ -25,8 +25,14 @@ import (
 //     a numeric range on the key.
 //  2. Require the emitted checker to contain a key predicate at all.
 //  3. Execute runtime cases: a key violating its tag must be rejected, a key
-//     satisfying it accepted, and a plain `[key: string]` signature must stay
-//     unconstrained.
+//     satisfying it accepted, and neither a plain `[key: string]` signature nor
+//     a template literal one may become constrained.
+//
+// The two negative controls carry the boundary. What the fix makes binding is a
+// broken *tag* on a key the declaration covers; a key no signature's *type*
+// covers is declared nowhere, which is what a surplus property is, and stays
+// accepted. `test_validate_dynamic_key_surplus` pins that distinction against
+// both spellings of the same predicate.
 //
 // The report such a key produces is its own concern. `Superfluous`, the report
 // an extra property already used, says the property is not defined in the object
@@ -137,11 +143,15 @@ interface INumericKey {
 interface IPlainKey {
   [key: string]: string;
 }
+interface ITemplateKey {
+  [key: ` + "`" + `prefix_${string}` + "`" + `]: string;
+}
 
 export const isPatternKey = typia.createIs<IPatternKey>();
 export const isLengthKey = typia.createIs<ILengthKey>();
 export const isNumericKey = typia.createIs<INumericKey>();
 export const isPlainKey = typia.createIs<IPlainKey>();
+export const isTemplateKey = typia.createIs<ITemplateKey>();
 `
 
 const dynamicKeyTagsRuntimeRunner = `const assert = require("assert");
@@ -176,6 +186,20 @@ assert.strictEqual(main.isNumericKey({ "-1": "x" }), false, "negative numeric ke
 // constrains only what was declared.
 assert.strictEqual(main.isPlainKey({ "anything at all": "x" }), true, "plain key accepted");
 assert.strictEqual(main.isPlainKey({ "": "x" }), true, "empty plain key accepted");
+
+// NEGATIVE CONTROL: a template literal constrains the key's *type*, not a tag on
+// it, so a key outside it is declared nowhere -- a surplus property, which "is"
+// accepts as it accepts any surplus property. Rejecting this one alongside a
+// broken tag is what the first attempt at the fix did, and it made the
+// equals-mode surplus report unreachable for the DynamicTemplate, DynamicUnion,
+// and DynamicComposite shapes.
+assert.strictEqual(main.isTemplateKey({ prefix_a: "x" }), true, "matching template key accepted");
+assert.strictEqual(main.isTemplateKey({ prefix_a: 1 }), false, "matching template key with a wrong value rejected");
+assert.strictEqual(
+  main.isTemplateKey({ prefix_a: "x", wrong: "y" }),
+  true,
+  "a key outside the template is surplus, not a violation",
+);
 
 // The value is still checked, which it always was.
 assert.strictEqual(main.isLengthKey({ abc: 1 }), false, "wrong value type rejected");

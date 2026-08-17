@@ -550,7 +550,7 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
     return nativefactories.ExpressionFactory.Conditional(
       f.NewBinaryExpression(
         nil,
-        nativefactories.ExpressionFactory.Number(randomProgrammer_RECURSION_CUTOFF, props.Context.Emit),
+        nativefactories.ExpressionFactory.Number(nativehelpers.RandomJoiner_RECURSION_CUTOFF, props.Context.Emit),
         nil,
         f.NewToken(shimast.KindGreaterThanEqualsToken),
         f.NewIdentifier("_depth"),
@@ -562,11 +562,6 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
   }
   return randomProgrammer_decode_pick(props, expressions)
 }
-
-// randomProgrammer_RECURSION_CUTOFF is the depth past which a recursive value
-// stops descending. RandomJoiner applies the same number to a recursive array,
-// which empties instead of recursing.
-const randomProgrammer_RECURSION_CUTOFF = 5
 
 // randomProgrammer_decode_pick draws one of the candidate expressions uniformly.
 func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expressions []*shimast.Node) *shimast.Node {

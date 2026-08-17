@@ -51,7 +51,7 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   // any key whose value is `undefined`, so an actual that lost a keyword
   // compared as `{}` and the assertion passed. That is fatal precisely here:
   // this file exists to check *which* keywords the 3.0 downgrade emits, and a
-  // downgrade that dropped both flags satisfied it. Normalising both sides
+  // downgrade that dropped both flags satisfied it. Normalizing both sides
   // makes the comparison total (#2350).
   const bounds = (node: any, ...keys: string[]): Record<string, unknown> =>
     Object.fromEntries(keys.map((key) => [key, node[key] ?? null]));
