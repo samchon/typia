@@ -19,10 +19,14 @@ import typia, { tags } from "typia";
  *
  * 1. Assert the sample matrix really carries values the remainder check and the
  *    oracle disagree about, so the case cannot go vacuous.
- * 2. Exercise the type tag and the JSDoc spelling against the oracle for a
- *    fractional, an integer, and a large divisor, through `is` and `validate`.
- * 3. Confirm a `bigint` divisor keeps its already-exact behavior.
- * 4. Check the emitted JSON and LLM schemas retain the decimal constraint, and
+ * 2. Exercise `MultipleOf<0.01>` in the type-tag and JSDoc spellings against the
+ *    oracle, and repeat the accepting side through `validate`.
+ * 3. Exercise an integer divisor, a fractional one, and a magnitude past
+ *    `Number.MAX_SAFE_INTEGER` where the two rules disagree in both
+ *    directions.
+ * 4. Confirm a `bigint` divisor keeps its already-exact behavior in both
+ *    spellings.
+ * 5. Check the emitted JSON and LLM schemas retain the decimal constraint, and
  *    require the shared `@typia/utils` OpenAPI validator to agree on every
  *    value.
  */
@@ -33,19 +37,29 @@ export const test_validate_decimal_multiple_of = (): void => {
     value: number;
   }
 
-  // Every one of these is a mathematical multiple of 0.01; `0.03`, `0.05`,
-  // `0.25`, `1`, and `1.01` are the ones whose binary remainder is not zero,
-  // because the stored divisor is the double nearest 1/100 rather than 1/100.
-  const multiples: number[] = [
-    0, 0.01, 0.02, -0.02, 0.03, -0.03, 0.04, 0.05, 0.25, 1, 1.01, 1.28,
+  // The sample values. Which of them are multiples is decided by the oracle
+  // below, not written down here, so a mistake in the list cannot become the
+  // expectation.
+  const SAMPLES: number[] = [
+    0, 0.01, 0.02, -0.02, 0.03, -0.03, 0.04, 0.05, 0.25, 1, 1.01, 1.28, 0.031,
+    1.011, 0.030000000000000002,
   ];
-  const notMultiples: number[] = [0.031, 1.011, 0.030000000000000002];
+  const multiples: number[] = SAMPLES.filter((value) =>
+    exactMultiple(value, 0.01),
+  );
+  const notMultiples: number[] = SAMPLES.filter(
+    (value) => exactMultiple(value, 0.01) === false,
+  );
 
+  // `0.03`, `-0.03`, `0.05`, `0.25`, `1`, and `1.01` are multiples of 0.01
+  // whose binary remainder is not zero, because the stored divisor is the
+  // double nearest 1/100 rather than 1/100. `-0.02 % 0.01` is `-0`, which
+  // `!== 0` reports as equal, so it is not one of them.
   const diverging: number[] = multiples.filter((value) => value % 0.01 !== 0);
   TestValidator.equals(
-    "the sample matrix carries multiples the remainder check rejects",
-    diverging.length,
-    6,
+    "the sample matrix splits, and carries multiples the remainder check rejects",
+    [multiples.length, notMultiples.length, diverging.length],
+    [12, 3, 6],
   );
 
   for (const value of multiples) {
@@ -86,14 +100,6 @@ export const test_validate_decimal_multiple_of = (): void => {
   type Sesqui = number & tags.MultipleOf<1.5>;
   type Triple = number & tags.MultipleOf<3>;
   const large: number = Number(BigInt(3) * BigInt(12259405221713610));
-  TestValidator.equals("integer divisor accepts", typia.is<Even>(4), true);
-  TestValidator.equals("integer divisor rejects", typia.is<Even>(5), false);
-  TestValidator.equals("fractional divisor accepts", typia.is<Sesqui>(9), true);
-  TestValidator.equals(
-    "fractional divisor rejects",
-    typia.is<Sesqui>(10),
-    false,
-  );
   // `large` prints as `36778215665140830`, whose digits sum to a multiple of
   // three, while `large % 3` is `2`. `large + 16` prints as
   // `…850` and is the mirror image: `% 3` is `0` and the decimal is not
@@ -104,21 +110,32 @@ export const test_validate_decimal_multiple_of = (): void => {
     [large % 3, (large + 16) % 3],
     [2, 0],
   );
-  TestValidator.equals(
-    "large integer divisor accepts the decimal multiple",
-    typia.is<Triple>(large),
-    true,
-  );
-  TestValidator.equals(
-    "large integer divisor rejects the zero-remainder non-multiple",
-    typia.is<Triple>(large + 16),
-    false,
-  );
-  TestValidator.equals(
-    "large integer divisor rejects a plain non-multiple",
-    typia.is<Triple>(large + 8),
-    false,
-  );
+
+  for (const [title, actual, value, divisor] of [
+    ["integer divisor accepts", typia.is<Even>(4), 4, 2],
+    ["integer divisor rejects", typia.is<Even>(5), 5, 2],
+    ["fractional divisor accepts", typia.is<Sesqui>(9), 9, 1.5],
+    ["fractional divisor rejects", typia.is<Sesqui>(10), 10, 1.5],
+    [
+      "large divisor accepts the decimal multiple",
+      typia.is<Triple>(large),
+      large,
+      3,
+    ],
+    [
+      "large divisor rejects the zero-remainder non-multiple",
+      typia.is<Triple>(large + 16),
+      large + 16,
+      3,
+    ],
+    [
+      "large divisor rejects a plain non-multiple",
+      typia.is<Triple>(large + 8),
+      large + 8,
+      3,
+    ],
+  ] as Array<[string, boolean, number, number]>)
+    TestValidator.equals(title, actual, exactMultiple(value, divisor));
 
   // A `bigint` divisor was always exact and must stay untouched.
   type Cubic = bigint & tags.MultipleOf<3n>;
@@ -169,4 +186,41 @@ export const test_validate_decimal_multiple_of = (): void => {
       }).success,
       typia.is<Cent>(value),
     );
+};
+
+/**
+ * Mathematical divisibility over the decimal each operand prints back.
+ *
+ * This is what JSON Schema's `multipleOf` means, derived here from the
+ * specification rather than from typia: each `number` is decomposed into an
+ * exact rational from its own `toString()`, and the quotient is tested with
+ * bigint arithmetic, which cannot round.
+ */
+const exactMultiple = (value: number, multipleOf: number): boolean => {
+  const left = fraction(value);
+  const right = fraction(multipleOf);
+  return (
+    (left.numerator * right.denominator) %
+      (right.numerator * left.denominator) ===
+    BigInt(0)
+  );
+};
+
+const fraction = (
+  value: number,
+): { numerator: bigint; denominator: bigint } => {
+  const [mantissa = "0", exponentText = "0"] = value.toString().split("e");
+  const negative: boolean = mantissa.startsWith("-");
+  const unsigned: string = negative ? mantissa.slice(1) : mantissa;
+  const point: number = unsigned.indexOf(".");
+  const decimals: number = point === -1 ? 0 : unsigned.length - point - 1;
+  const digits: bigint = BigInt(unsigned.replace(".", ""));
+  const exponent: number = Number(exponentText) - decimals;
+  const numerator: bigint = negative ? -digits : digits;
+  return exponent >= 0
+    ? {
+        numerator: numerator * BigInt(10) ** BigInt(exponent),
+        denominator: BigInt(1),
+      }
+    : { numerator, denominator: BigInt(10) ** BigInt(-exponent) };
 };

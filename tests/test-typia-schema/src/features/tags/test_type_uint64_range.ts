@@ -21,6 +21,13 @@ interface ICommentBigint {
   value: bigint;
 }
 
+interface IBoundedBigint {
+  value: bigint &
+    tags.Type<"uint64"> &
+    tags.Minimum<0n> &
+    tags.Maximum<9007199254740991n>;
+}
+
 /**
  * Verifies uint64 enforces the unsigned 64-bit range on the number and bigint
  * paths.
@@ -38,7 +45,9 @@ interface ICommentBigint {
  *    spelling, and the helper, one step outside each bound included.
  * 3. Require every certified bigint to survive a protobuf round trip unchanged,
  *    and a value one step outside to be rejected before encoding.
- * 4. Require `typia.random` output for the constrained type to satisfy it.
+ * 4. Require `typia.random` output for the constrained type to satisfy it, and pin
+ *    the window it actually draws from, since a bare type tag publishes no
+ *    upper schema bound for the generator to follow.
  */
 export const test_type_uint64_range = (): void => {
   const MINIMUM: bigint = 0n;
@@ -112,19 +121,21 @@ export const test_type_uint64_range = (): void => {
     2n ** 63n,
     MAXIMUM, // exact inclusive maximum
     MINIMUM - 1n, // one step below
-    MAXIMUM + 1n, // one step above
-    2n ** 64n,
+    MAXIMUM + 1n, // one step above -- this is 2n ** 64n
     2n ** 200n,
+    -(2n ** 200n),
   ];
-  // The list has to carry values on both sides of both bounds, or the loop
-  // below could pass while proving only one direction.
+  // Counting the two sides is not enough -- four values all above MAXIMUM would
+  // pass it while proving nothing about MINIMUM -- so each side of each bound is
+  // counted separately.
   TestValidator.equals(
     "the bigint boundary list straddles both bounds",
     [
+      bigints.filter((value) => value < MINIMUM).length,
       bigints.filter((value) => oracle(value)).length,
-      bigints.filter((value) => oracle(value) === false).length,
+      bigints.filter((value) => MAXIMUM < value).length,
     ],
-    [4, 4],
+    [2, 4, 2],
   );
   for (const value of bigints) {
     const expected: boolean = oracle(value);
@@ -173,7 +184,7 @@ export const test_type_uint64_range = (): void => {
       ).value,
     );
   }
-  for (const value of [MAXIMUM + 1n, 2n ** 200n + 3n]) {
+  for (const value of [MAXIMUM + 1n, MINIMUM - 1n, 2n ** 200n + 3n]) {
     // The truncation this used to produce, from the wire format rather than
     // from typia: a 64-bit varint read back unsigned is
     // `BigInt.asUintN(64, …)`.
@@ -198,16 +209,40 @@ export const test_type_uint64_range = (): void => {
   //----
   // RANDOM ROUND TRIP
   //----
+  // A `bigint` type tag publishes only `minimum: 0` here and no maximum, so
+  // `_randomInteger` falls back to its 0..100 window and cannot reach the upper
+  // edge of the width. The round trip is still the invariant #2338 names, so it
+  // is asserted -- and the window is asserted with it, so a later generation
+  // change that could reach the width fails here instead of passing silently.
+  const drawn: bigint[] = [];
   for (let i: number = 0; i < 100; ++i) {
+    const { value } = typia.random<ITaggedBigint>();
+    drawn.push(value);
     TestValidator.equals(
-      `random bigint uint64 satisfies its type at ${i}`,
-      typia.is<ITaggedBigint>(typia.random<ITaggedBigint>()),
-      true,
-    );
-    TestValidator.equals(
-      `random BigUint64Array elements satisfy uint64 at ${i}`,
-      [...typia.random<BigUint64Array>()].every((value) => oracle(value)),
+      `random uint64 satisfies its type at ${i}`,
+      typia.is<ITaggedBigint>({ value }),
       true,
     );
   }
+  TestValidator.equals(
+    "the generator's fallback window is 0..100 and varies",
+    [
+      drawn.every((value) => 0n <= value && value <= 100n),
+      new Set(drawn.map(String)).size > 1,
+    ],
+    [true, true],
+  );
+
+  // With explicit bounds the generator does move, and every draw still has to
+  // satisfy the restored width check.
+  for (let i: number = 0; i < 100; ++i)
+    TestValidator.equals(
+      `random bounded uint64 satisfies its type at ${i}`,
+      typia.is<IBoundedBigint>(typia.random<IBoundedBigint>()),
+      true,
+    );
+
+  // `BigUint64Array` is deliberately not used as an oracle here: its constructor
+  // wraps on store, so every element is inside the width no matter what the
+  // generator produced, and `.every(oracle)` could never fail.
 };

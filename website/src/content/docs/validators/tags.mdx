@@ -134,7 +134,7 @@ When adjacent placeholders or repeated separators make the boundary ambiguous, t
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
 
-On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` and `Type<"uint64">` accepts `0n` through `2n ** 64n - 1n`, both inclusive. Those are exactly the values `typia.protobuf.encode` can write into a 64-bit varint without truncating them, so a certified value always survives the round trip. On a `number` the same two tags bound their range at the neighbouring power of two, because no `number` can represent either maximum.
+On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` and `Type<"uint64">` accepts `0n` through `2n ** 64n - 1n`, both inclusive. Those are exactly the values `typia.protobuf.encode` can write into a 64-bit varint without truncating them, so a `bigint` typia certifies always survives the round trip. The `number` form cannot be that exact: neither maximum is representable, so each rounds up to the neighbouring power of two and is accepted — `2 ** 63` passes as an `int64` — and that one value is not round-trip safe. Use the `bigint` form when the boundary matters.
 
 #### `string`
 
@@ -147,7 +147,7 @@ On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` a
 | `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`)                                |
 | `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
 
-`MinLength` and `MaxLength` count characters, not UTF-16 code units, which is what the `minLength` and `maxLength` keywords they emit mean. One emoji is one character even though its `.length` is `2`, and a flag or a ZWJ sequence counts each of its code points.
+`MinLength` and `MaxLength` count characters, which is what the `minLength` and `maxLength` keywords they emit mean — not the UTF-16 code units `String.prototype.length` returns. One emoji is one character even though its `.length` is `2`, and a flag or a ZWJ sequence counts each of its code points.
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 

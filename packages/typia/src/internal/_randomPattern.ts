@@ -19,11 +19,13 @@ export const _randomPattern = (
 
   // The verification counts characters, not UTF-16 code units, because that is
   // what `MinLength` and `MaxLength` compare against. `Pattern` compiles to a
-  // flagless `RegExp`, so a quantifier binds one code unit: under `^😀+$` the
-  // `+` repeats the trailing low surrogate alone, and RandExp draws
-  // `\ud83d` + k * `\ude00` -- k characters in k + 1 code units. Measuring in
-  // code units accepted a two-character draw for `MinLength<3>` and handed back
-  // a value the generated validator rejects.
+  // flagless `RegExp`, so a quantifier binds one code unit wherever its atom is
+  // a bare astral character: under `^😀+$` the `+` repeats the trailing low
+  // surrogate alone, and RandExp draws `\ud83d` + k * `\ude00` -- k characters
+  // in k + 1 code units. Measuring in code units accepted a two-character draw
+  // for `MinLength<3>` and handed back a value the generated validator rejects.
+  // Group the atom (`^(?:😀)+$`) and the arithmetic changes to 2k units for k
+  // characters; the two counts still differ, which is the point.
   //
   // The count is taken only after the pattern matches, and only when a bound
   // exists, so an unbounded draw still walks nothing.

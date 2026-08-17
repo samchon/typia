@@ -21,6 +21,13 @@ interface ICommentBigint {
   value: bigint;
 }
 
+interface IBoundedBigint {
+  value: bigint &
+    tags.Type<"int64"> &
+    tags.Minimum<0n> &
+    tags.Maximum<9007199254740991n>;
+}
+
 /**
  * Verifies int64 enforces the signed 64-bit range on the number and bigint
  * paths.
@@ -38,7 +45,9 @@ interface ICommentBigint {
  *    spelling, and the helper, one step outside each bound included.
  * 3. Require every certified bigint to survive a protobuf round trip unchanged,
  *    and a value one step outside to be rejected before encoding.
- * 4. Require `typia.random` output for the constrained type to satisfy it.
+ * 4. Require `typia.random` output for the constrained type to satisfy it, and pin
+ *    the window it actually draws from, since a bare type tag publishes no
+ *    numeric schema bound for the generator to follow.
  */
 export const test_type_int64_range = (): void => {
   const MINIMUM: bigint = -(2n ** 63n);
@@ -116,15 +125,17 @@ export const test_type_int64_range = (): void => {
     2n ** 200n,
     -(2n ** 200n),
   ];
-  // The list has to carry values on both sides of both bounds, or the loop
-  // below could pass while proving only one direction.
+  // Counting the two sides is not enough -- five values all above MAXIMUM would
+  // pass it while proving nothing about MINIMUM -- so each side of each bound is
+  // counted separately.
   TestValidator.equals(
     "the bigint boundary list straddles both bounds",
     [
+      bigints.filter((value) => value < MINIMUM).length,
       bigints.filter((value) => oracle(value)).length,
-      bigints.filter((value) => oracle(value) === false).length,
+      bigints.filter((value) => MAXIMUM < value).length,
     ],
-    [5, 5],
+    [2, 5, 3],
   );
   for (const value of bigints) {
     const expected: boolean = oracle(value);
@@ -197,16 +208,40 @@ export const test_type_int64_range = (): void => {
   //----
   // RANDOM ROUND TRIP
   //----
+  // A `bigint` type tag publishes no numeric schema bound, so `_randomInteger`
+  // falls back to its 0..100 window and cannot reach either edge of the width.
+  // The round trip is still the invariant #2338 names, so it is asserted -- and
+  // the window is asserted with it, so a later generation change that could
+  // reach the width fails here instead of passing silently.
+  const drawn: bigint[] = [];
   for (let i: number = 0; i < 100; ++i) {
+    const { value } = typia.random<ITaggedBigint>();
+    drawn.push(value);
     TestValidator.equals(
-      `random bigint int64 satisfies its type at ${i}`,
-      typia.is<ITaggedBigint>(typia.random<ITaggedBigint>()),
-      true,
-    );
-    TestValidator.equals(
-      `random BigInt64Array elements satisfy int64 at ${i}`,
-      [...typia.random<BigInt64Array>()].every((value) => oracle(value)),
+      `random int64 satisfies its type at ${i}`,
+      typia.is<ITaggedBigint>({ value }),
       true,
     );
   }
+  TestValidator.equals(
+    "the generator's fallback window is 0..100 and varies",
+    [
+      drawn.every((value) => 0n <= value && value <= 100n),
+      new Set(drawn.map(String)).size > 1,
+    ],
+    [true, true],
+  );
+
+  // With explicit bounds the generator does move, and every draw still has to
+  // satisfy the restored width check.
+  for (let i: number = 0; i < 100; ++i)
+    TestValidator.equals(
+      `random bounded int64 satisfies its type at ${i}`,
+      typia.is<IBoundedBigint>(typia.random<IBoundedBigint>()),
+      true,
+    );
+
+  // `BigInt64Array` is deliberately not used as an oracle here: its constructor
+  // wraps on store, so every element is inside the width no matter what the
+  // generator produced, and `.every(oracle)` could never fail.
 };

@@ -18,8 +18,8 @@ import { TagBase } from "./TagBase";
  * - `MultipleOf<100>` for values in hundreds
  *
  * This constraint can be combined with other numeric constraints like
- * {@link Minimum} and {@link Maximum}. Multiple `MultipleOf` constraints on the
- * same property are allowed (all must pass).
+ * {@link Minimum} and {@link Maximum}. It is exclusive, so a second `MultipleOf`
+ * on the same property is a compile error.
  *
  * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates `multipleOf` in JSON Schema output.

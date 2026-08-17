@@ -22,24 +22,30 @@ import typia, { tags } from "typia";
  *    the case cannot go vacuous.
  * 2. Exercise the type tag, the JSDoc spelling, and the `@length` composite
  *    against the code-point oracle on `MinLength<2>`, `MaxLength<2>`, and the
- *    one-character window, through `is`, `assert`, and `validate`.
- * 3. Confirm the emitted JSON and LLM schemas keep the exact length keywords.
- * 4. Require the shared `@typia/utils` OpenAPI validator to answer identically on
+ *    one-character window.
+ * 3. Repeat `MinLength<2>` through `assert` and `validate`, so the tag's meaning
+ *    is pinned on all three entry points and not only on `is`.
+ * 4. Confirm the emitted JSON and LLM schemas keep the exact length keywords.
+ * 5. Require the shared `@typia/utils` OpenAPI validator to answer identically on
  *    the emitted schema, for every value.
  */
 export const test_validate_unicode_string_length = (): void => {
-  // Spelled with escapes so the two accent forms stay distinguishable in
-  // source, and so a source-file re-encoding cannot silently change a sample.
+  // Every sample is spelled with escapes. The two accent forms are one code
+  // point apart and would look identical as literals, and NFC normalization by
+  // an editor or a filter would silently collapse the combining one into the
+  // precomposed one -- leaving two identical samples and a comment that lies.
+  // The zero-width joiners in the family sequence are invisible for the same
+  // reason.
   const SAMPLES: string[] = [
     "", // 0 characters, 0 code units
     "a", // 1 / 1
-    "é", // precomposed e-acute: 1 / 1
+    "\u00e9", // precomposed e-acute: 1 / 1
     "\ud800", // lone high surrogate: 1 / 1
     "\u{1f600}", // astral: 1 character, 2 code units
-    "é", // combining acute: 2 / 2
+    "e\u0301", // e + combining acute: 2 / 2
     "a\u{1f600}", // 2 characters, 3 code units
     "\u{1f1f0}\u{1f1f7}", // regional indicator pair (flag): 2 / 4
-    "\u{1f468}‍\u{1f469}‍\u{1f467}", // ZWJ family: 5 / 8
+    "\u{1f468}\u200d\u{1f469}\u200d\u{1f467}", // ZWJ family: 5 / 8
   ];
   const characters = (value: string): number => [...value].length;
 
@@ -138,8 +144,15 @@ export const test_validate_unicode_string_length = (): void => {
     );
 
   // The generated validator and the shared OpenAPI validator now read the same
-  // schema the same way. Before this behavior they disagreed on every value
-  // whose two counts differ.
+  // schema the same way. Under the one-character window they used to part
+  // company on the astral character alone -- every other diverging sample
+  // exceeds the bound under both measures -- and that one value is the whole
+  // point: a schema saying `maxLength: 1` accepted it while the validator
+  // typia generated from the same type did not.
+  //
+  // `@typia/utils` counts with its own copy of the same walk, so this pins the
+  // wiring rather than re-deriving the rule; the rule itself is pinned above,
+  // against `[...value].length`.
   for (const value of SAMPLES)
     TestValidator.equals(
       `OpenAPI parity ${JSON.stringify(value)}`,

@@ -196,6 +196,34 @@ func (metadataCommentTagFactoryNamespace) Get(props struct {
   return output
 }
 
+// metadataCommentTagFactory_PARSER maps a JSDoc tag name to the tag records it
+// produces. Each record's `Validate` is the runtime check the transform splices
+// into the emitted validator, and it must spell the same check as the matching
+// declaration in `packages/interface/src/tags` -- the two are one constraint.
+//
+// # WHEN A RECORD MAY NAME A RUNTIME HELPER
+//
+// A `Validate` may write `$importInternal("x")`, here or in the matching
+// declaration, only under the rule below.
+//
+// That call makes the emitted validator `require("typia/lib/internal/_x")`. The
+// type-tag half of each constraint is declared in `@typia/interface`, which
+// `typia` depends on through a caret range, and a caret only floats upward. So
+// inside one major an older `typia` installs a newer `@typia/interface` and
+// emits an import its own runtime never published; that is #2330, and it is why
+// #2336 and #2339 reverted these very templates to inline expressions.
+//
+// The rule: a template may name only a helper that every `typia` inside the
+// caret range already ships. `isTypeInt8` and its siblings satisfy it --
+// `@typia/interface` 13.0.0 named them and `typia` 13.0.0 shipped them. The
+// four this file and `Type.ts` now name do not: `_stringLength`, `_isMultipleOf`
+// (both first published in 13.1.19), `_isTypeInt64Bigint`, and
+// `_isTypeUint64Bigint` (13.1.19). They are safe only because the release that
+// carries them is a major, where the caret cannot reach a `typia` that predates
+// them. A minor or patch release of this tree reopens #2330.
+//
+// Nothing here can enforce that; the release version is the maintainer's, and a
+// campaign pull request never assigns one. This comment is the record.
 var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_parser{
   "items": func(props struct {
     Report func(msg string) any
@@ -273,6 +301,7 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     // names. `%` would divide the binary doubles that are actually stored, which
     // answers a different question than the `multipleOf` keyword this tag emits.
     // The bigint arm needs no helper: a bigint remainder is already exact.
+    // `_isMultipleOf` first shipped in 13.1.19; see the doc comment above.
     return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+props.Value+")", "$input % "+props.Value+"n === 0n")
   },
   "format": func(props struct {
@@ -302,6 +331,7 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     // `$input.length` counts UTF-16 code units, while the `minLength` and
     // `maxLength` keywords these tags emit count characters, so one astral
     // character would measure 2 against a schema that measures 1.
+    // `_stringLength` first shipped in 13.1.19; see the doc comment above.
     return metadataCommentTagFactory_TagRecord{"string": {
       {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $importInternal(\"_stringLength\")($input)", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
       {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLength\")($input) <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
@@ -428,6 +458,10 @@ func metadataCommentTagFactory_parse_type(props struct {
     // The bound has to live in a helper rather than an inline literal here
     // because it is only exact as a string: `BigInt(9223372036854775807)` rounds
     // its `number` literal to 2**63 before BigInt ever parses it.
+    //
+    // See the `metadataCommentTagFactory_PARSER` doc comment: naming a helper
+    // here is safe only under a major bump, and `_isTypeInt64Bigint` /
+    // `_isTypeUint64Bigint` first shipped in 13.1.19.
     bigintValidate := "$importInternal(\"isTypeUint64Bigint\")($input)"
     if value == "int64" {
       bigintValidate = "$importInternal(\"isTypeInt64Bigint\")($input)"
