@@ -75,7 +75,14 @@ export const test_llm_invert_non_enumerable_definition = (): void => {
   };
   TestValidator.equals(
     "each definition resolves to its own content",
-    { forbidden: describe("forbidden"), legal: describe("legal") },
+    // `?? null`: `TestValidator.equals` drops a key whose actual value is
+    // `undefined`, and `describe` returns `undefined` on every miss, so without
+    // this a definition that failed to resolve would compare as absent and the
+    // assertion would pass (#2350).
+    {
+      forbidden: describe("forbidden") ?? null,
+      legal: describe("legal") ?? null,
+    },
     {
       forbidden: "forbidden non-enumerable definition",
       legal: "legal enumerable definition",

@@ -546,6 +546,26 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
   if len(expressions) == 1 {
     return expressions[0]
   }
+  if escape := randomProgrammer_recursion_escape(props); escape != nil {
+    return nativefactories.ExpressionFactory.Conditional(
+      f.NewBinaryExpression(
+        nil,
+        nativefactories.ExpressionFactory.Number(nativehelpers.RandomJoiner_RECURSION_CUTOFF, props.Context.Emit),
+        nil,
+        f.NewToken(shimast.KindGreaterThanEqualsToken),
+        f.NewIdentifier("_depth"),
+      ),
+      randomProgrammer_decode_pick(props, expressions),
+      escape,
+      props.Context.Emit,
+    )
+  }
+  return randomProgrammer_decode_pick(props, expressions)
+}
+
+// randomProgrammer_decode_pick draws one of the candidate expressions uniformly.
+func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expressions []*shimast.Node) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   pickers := make([]*shimast.Node, 0, len(expressions))
   for _, expr := range expressions {
     value := expr
@@ -574,6 +594,50 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
     nil,
     shimast.NodeFlagsNone,
   )
+}
+
+// randomProgrammer_recursion_escape reports the terminating candidate a
+// recursive leaf must take once the depth cutoff is reached, or nil when the
+// leaf has none to force.
+//
+// A recursive array already stops at the cutoff -- RandomJoiner emits
+// `CUTOFF >= _depth ? … : []` around it. The nullable and optional escapes had
+// no such guard: `null` and `undefined` were simply two more candidates in the
+// uniform `_randomPick`, so the depth of a `self?: T` or `self: T | null` chain
+// was geometric with no bound at all. Measured before this guard, 20,000 draws
+// of `{ value: string; self?: Self }` reached depth 16, and exceeded 8 on 44 of
+// them -- which is why a suite asserting a depth bound failed at random.
+//
+// The guard needs `_depth` in scope, so it applies only inside a generated
+// function (`Explore.Function`) reached recursively (`Explore.Recursive`), and
+// only where the leaf actually recurses through an object or tuple. A leaf that
+// is merely nullable, with no recursive candidate, keeps drawing uniformly.
+func randomProgrammer_recursion_escape(props randomProgrammer_decodeProps) *shimast.Node {
+  if props.Explore.Function == false || props.Explore.Recursive == false {
+    return nil
+  }
+  recursive := false
+  for _, object := range props.Metadata.Objects {
+    if object.Type != nil && object.Type.Recursive {
+      recursive = true
+    }
+  }
+  for _, tuple := range props.Metadata.Tuples {
+    if tuple.Type != nil && tuple.Type.Recursive {
+      recursive = true
+    }
+  }
+  if recursive == false {
+    return nil
+  }
+  f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
+  if props.Metadata.Nullable {
+    return f.NewKeywordExpression(shimast.KindNullKeyword)
+  }
+  if props.Metadata.IsRequired() == false {
+    return f.NewIdentifier("undefined")
+  }
+  return nil
 }
 
 func randomProgrammer_decode_atomic(props randomProgrammer_decodeAtomicProps) []*shimast.Node {

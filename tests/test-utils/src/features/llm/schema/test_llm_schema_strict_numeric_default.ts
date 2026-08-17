@@ -111,12 +111,17 @@ export const test_llm_schema_strict_numeric_default = (): void => {
   TestValidator.equals(
     "nested defaults",
     {
-      direct: object.properties.direct!.description,
-      array: (object.properties.array as ILlmSchema.IArray).items.description,
+      // `?? null` on every optional read: `TestValidator.equals` drops a key
+      // whose actual value is `undefined`, so a lost description would compare
+      // as absent and this assertion would pass without checking it (#2350).
+      direct: object.properties.direct!.description ?? null,
+      array:
+        (object.properties.array as ILlmSchema.IArray).items.description ??
+        null,
       union: (object.properties.union as ILlmSchema.IAnyOf).anyOf.map(
-        (schema) => schema.description,
+        (schema) => schema.description ?? null,
       ),
-      reference: $defs.Referenced!.description,
+      reference: $defs.Referenced!.description ?? null,
     },
     {
       direct: "@default 0",

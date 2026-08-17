@@ -15,6 +15,13 @@ type randomJoinerNamespace struct{}
 
 var RandomJoiner = randomJoinerNamespace{}
 
+// RandomJoiner_RECURSION_CUTOFF is the `_depth` past which a recursive draw
+// stops descending: a recursive array empties, and a recursive leaf with a
+// nullable or optional escape takes it. One constant because one number decides
+// both -- a recursive value that stopped at two different depths depending on
+// which escape it happened to own would make a depth bound unstatable.
+const RandomJoiner_RECURSION_CUTOFF = 5
+
 type RandomJoiner_Decoder func(metadata *nativemetadata.MetadataSchema) *shimast.Node
 
 type RandomJoiner_ArrayProps struct {
@@ -126,7 +133,7 @@ func (randomJoinerNamespace) Array(props RandomJoiner_ArrayProps) *shimast.Node 
   return nativefactories.ExpressionFactory.Conditional(
     f.NewBinaryExpression(
       nil,
-      nativefactories.ExpressionFactory.Number(5, props.Emit),
+      nativefactories.ExpressionFactory.Number(RandomJoiner_RECURSION_CUTOFF, props.Emit),
       nil,
       f.NewToken(shimast.KindGreaterThanEqualsToken),
       f.NewIdentifier("_depth"),

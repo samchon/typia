@@ -55,13 +55,13 @@ func (validateProgrammerNamespace) Decompose(props ValidateProgrammer_DecomposeP
     Type:    props.Type,
     Name:    props.Name,
     Config: nativeinternal.CheckerProgrammer_IConfig{
-      Prefix:  "_v",
-      Path:    true,
-      Trace:   true,
-      Numeric: nativehelpers.OptionPredicator.Numeric(props.Context.Options),
-      Equals:  props.Config.Equals,
+      Prefix:        "_v",
+      Path:          true,
+      Trace:         true,
+      Numeric:       nativehelpers.OptionPredicator.Numeric(props.Context.Options),
+      Equals:        props.Config.Equals,
       ObjectParents: props.Config.Equals == false,
-      Atomist: validateProgrammer_atomist(props),
+      Atomist:       validateProgrammer_atomist(props),
       Combiner: validateProgrammer_combine(struct {
         Config  ValidateProgrammer_IConfig
         Context nativecontext.ITypiaContext
@@ -306,6 +306,21 @@ func validateProgrammer_validate_object(props validateProgrammer_validateObjectP
             props.Context.Emit,
           ),
           Expected:    "undefined",
+          Value:       input,
+          Description: description,
+          Functor:     props.Functor,
+          Emit:        props.Context.Emit,
+        })
+      },
+      InvalidKey: func(input *shimast.Expression, expected string, description *shimast.Expression) *shimast.Node {
+        return validateProgrammer_create_report_call(validateProgrammer_createReportCallProps{
+          Path: validateProgrammer_binary(
+            f.NewIdentifier("_path"),
+            shimast.KindPlusToken,
+            f.NewCallExpression(validateProgrammer_internal(props.Context, "accessExpressionAsString"), nil, nil, f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}), shimast.NodeFlagsNone),
+            props.Context.Emit,
+          ),
+          Expected:    expected,
           Value:       input,
           Description: description,
           Functor:     props.Functor,

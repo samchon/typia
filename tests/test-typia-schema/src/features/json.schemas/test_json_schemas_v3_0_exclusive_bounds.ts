@@ -44,6 +44,18 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   const props31: any = (v31.components as any).schemas.IBounds.properties;
   const props30: any = (v30.components as any).schemas.IBounds.properties;
 
+  // Every bound comparison below reads through `bounds`, which turns an absent
+  // keyword into `null` rather than leaving it `undefined`.
+  //
+  // `TestValidator.equals` walks `Object.keys` of its first argument and drops
+  // any key whose value is `undefined`, so an actual that lost a keyword
+  // compared as `{}` and the assertion passed. That is fatal precisely here:
+  // this file exists to check *which* keywords the 3.0 downgrade emits, and a
+  // downgrade that dropped both flags satisfied it. Normalizing both sides
+  // makes the comparison total (#2350).
+  const bounds = (node: any, ...keys: string[]): Record<string, unknown> =>
+    Object.fromEntries(keys.map((key) => [key, node[key] ?? null]));
+
   // 3.1 keeps the numeric form it always had.
   TestValidator.equals(
     "3.1 keeps a numeric exclusiveMinimum",
@@ -59,64 +71,61 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   // 3.0 spells the same bound as a boolean beside the inclusive keyword.
   TestValidator.equals(
     "3.0 exclusive bounds become boolean flags",
-    {
-      minimum: props30.ratio.minimum,
-      exclusiveMinimum: props30.ratio.exclusiveMinimum,
-      maximum: props30.ratio.maximum,
-      exclusiveMaximum: props30.ratio.exclusiveMaximum,
-    },
+    bounds(
+      props30.ratio,
+      "minimum",
+      "exclusiveMinimum",
+      "maximum",
+      "exclusiveMaximum",
+    ),
     { minimum: 0, exclusiveMinimum: true, maximum: 1, exclusiveMaximum: true },
   );
   TestValidator.equals(
     "3.0 keeps an inclusive bound beside an exclusive one",
-    {
-      minimum: props30.mixed.minimum,
-      exclusiveMinimum: props30.mixed.exclusiveMinimum,
-      maximum: props30.mixed.maximum,
-      exclusiveMaximum: props30.mixed.exclusiveMaximum,
-    },
+    bounds(
+      props30.mixed,
+      "minimum",
+      "exclusiveMinimum",
+      "maximum",
+      "exclusiveMaximum",
+    ),
     {
       minimum: 0,
       exclusiveMinimum: true,
       maximum: 10,
-      exclusiveMaximum: undefined,
+      exclusiveMaximum: null,
     },
   );
 
   // NEGATIVE TWIN: an inclusive-only leaf gains no flag in either dialect.
   TestValidator.equals(
     "an inclusive bound stays inclusive",
-    {
-      minimum: props30.plain.minimum,
-      exclusiveMinimum: props30.plain.exclusiveMinimum,
-      maximum: props30.plain.maximum,
-      exclusiveMaximum: props30.plain.exclusiveMaximum,
-    },
+    bounds(
+      props30.plain,
+      "minimum",
+      "exclusiveMinimum",
+      "maximum",
+      "exclusiveMaximum",
+    ),
     {
       minimum: 0,
-      exclusiveMinimum: undefined,
+      exclusiveMinimum: null,
       maximum: 10,
-      exclusiveMaximum: undefined,
+      exclusiveMaximum: null,
     },
   );
 
   // BOUNDARY: a bound of zero is the case a boolean coercion reads as false.
   TestValidator.equals(
     "a zero bound survives as a flag",
-    {
-      minimum: props30.zero.minimum,
-      exclusiveMinimum: props30.zero.exclusiveMinimum,
-    },
+    bounds(props30.zero, "minimum", "exclusiveMinimum"),
     { minimum: 0, exclusiveMinimum: true },
   );
 
   // The rule holds at depth, not only on a top-level property.
   TestValidator.equals(
     "an array element carries the 3.0 form",
-    {
-      maximum: props30.list.items.maximum,
-      exclusiveMaximum: props30.list.items.exclusiveMaximum,
-    },
+    bounds(props30.list.items, "maximum", "exclusiveMaximum"),
     { maximum: 5, exclusiveMaximum: true },
   );
 
