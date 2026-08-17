@@ -134,7 +134,7 @@ When adjacent placeholders or repeated separators make the boundary ambiguous, t
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
 
-On a `bigint` those two tags do not check the 64-bit width: `Type<"int64">` enforces nothing, and `Type<"uint64">` enforces only `0n <= value`. `typia.protobuf.encode` still writes the field as a 64-bit varint, so a value past the width is truncated on the wire rather than rejected by the validator. Restoring the bound would reject data that validates today, so it waits for a major release; it is tracked in [issue #2338](https://github.com/samchon/typia/issues/2338). On a `number` the same two tags do bound their range.
+On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` and `Type<"uint64">` accepts `0n` through `2n ** 64n - 1n`, both inclusive. Those are exactly the values `typia.protobuf.encode` can write into a 64-bit varint without truncating them, so a certified value always survives the round trip. On a `number` the same two tags bound their range at the neighbouring power of two, because no `number` can represent either maximum.
 
 #### `string`
 
