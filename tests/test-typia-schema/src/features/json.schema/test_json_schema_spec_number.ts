@@ -24,6 +24,8 @@ export const test_json_schema_spec_number = (): void => {
     clean(typia.json.schema<number & tags.Type<"int32">>().schema),
     {
       type: "integer",
+      minimum: -2147483648,
+      maximum: 2147483647,
     },
   );
   equalsSchema(
@@ -31,6 +33,8 @@ export const test_json_schema_spec_number = (): void => {
     clean(typia.json.schema<number & tags.Type<"int8">>().schema),
     {
       type: "integer",
+      minimum: -128,
+      maximum: 127,
     },
   );
   equalsSchema(
@@ -38,6 +42,8 @@ export const test_json_schema_spec_number = (): void => {
     clean(typia.json.schema<number & tags.Type<"int16">>().schema),
     {
       type: "integer",
+      minimum: -32768,
+      maximum: 32767,
     },
   );
   equalsSchema(
@@ -46,6 +52,7 @@ export const test_json_schema_spec_number = (): void => {
     {
       type: "integer",
       minimum: 0,
+      maximum: 4294967295,
     },
   );
   equalsSchema(
@@ -54,6 +61,7 @@ export const test_json_schema_spec_number = (): void => {
     {
       type: "integer",
       minimum: 0,
+      maximum: 255,
     },
   );
   equalsSchema(
@@ -62,6 +70,7 @@ export const test_json_schema_spec_number = (): void => {
     {
       type: "integer",
       minimum: 0,
+      maximum: 65535,
     },
   );
   equalsSchema(
