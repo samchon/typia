@@ -230,11 +230,19 @@ export const test_type_int64_range = (): void => {
     [true, true],
   );
 
-  // No generator-driven assertion can reach the width, so none pretends to.
-  // `BigInt64Array` would be worse than useless as an oracle: its constructor
-  // wraps on store, so every element is inside the width whatever the generator
-  // produced, and `.every(oracle)` could never fail. An explicitly bounded twin
-  // is no better -- every window the transform accepts sits inside the width.
-  // What is left is the round trip the issue asks for, plus the window pin
-  // above, which is the one assertion here a generation change can break.
+  // Nothing else here would be an oracle. `BigInt64Array` wraps on store, so
+  // every element is inside the width whatever the generator produced, and
+  // `.every(oracle)` could never fail.
+  //
+  // A twin carrying explicit bounds is a different trap: `_randomInteger` draws
+  // from the declared window and never intersects it with the tag's width, so a
+  // window inside the width proves nothing, and a window wider than it fails --
+  // but for a reason this cycle did not introduce and does not own. The same
+  // hole is open on the `number` path, which this cycle does not touch:
+  // `number & Type<"int32"> & Minimum<-1e12> & Maximum<1e12>` draws a value its
+  // own `is` rejects on 499 of 500 tries. That belongs to `Type` and the range
+  // tags together, not to the bigint arm.
+  //
+  // So what stays is the round trip #2338 asks for, plus the window pin above,
+  // which is the one assertion in this section a generation change can break.
 };
