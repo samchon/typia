@@ -101,6 +101,23 @@ type Batch = (unknown[] & tags.MinItems<2>) | string[];
 
 The validator accepts `[1, 2]` through the tagged `unknown[]` branch and `["single"]` through the `string[]` branch, but rejects `[1]` because it satisfies neither complete branch. Branch selection checks the array's wrapper tags together with its element type, so a failed `MinItems`, `MaxItems`, `UniqueItems`, or custom array predicate does not bypass the constraint or prevent a later array or tuple branch from matching.
 
+### On index signature keys
+
+A tag intersected into an index signature's key type constrains the key, not only the value stored under it:
+
+```typescript copy
+interface IAccount {
+  [id: string & tags.Format<"uuid">]: string;
+}
+interface IPort {
+  [port: number & tags.Minimum<0> & tags.Maximum<65535>]: string;
+}
+```
+
+`is` rejects `{ "not-a-uuid": "x" }` for `IAccount` and `{ 70000: "x" }` for `IPort`. `validate` and `assert` name the declared key type as `expected` and point at the key: `expected` is `(string & Format<"uuid">)` and the description reads *The key `not-a-uuid` does not satisfy the type its index signature declares*. A declared property beside the signature keeps its own name, so `id` in `{ id: string; [key: string & tags.MinLength<3>]: string }` is never measured against `MinLength<3>`.
+
+A key that falls outside the signature's declared *type* is a different case: nothing declares it, so it is a surplus property. `is` accepts it as it accepts any surplus property, and only the `equals` variants report it — as an extra property, with `expected` of `"undefined"`. For `` interface IPrefixed { [key: `prefix_${string}`]: string } ``, the key `wrong` is surplus, while for `[key: string & tags.Pattern<"^prefix_">]` the same key is a declared key that broke its tag. The two spellings accept the same keys and differ only in what they call a rejection.
+
 ### Inside template literals
 
 A tag intersected into a template-literal interpolation constrains that placeholder's parsed value, not just the surrounding shape:
@@ -230,6 +247,7 @@ If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 > - Comment tags are **not type-checked**. `@type unit32` (typo of `uint32`) is ignored: validators and `random` lose the intended range constraint, and protobuf schema emission falls back to the default `double` scalar for an untagged `number`.
 > - Comment tags only work on **object properties**. They don't apply to element types of `Array` or `Map`, and they can't be combined with union types.
 > - Comment tags can't express union constraints. `@type int32` locks the property to `int32`; you can't follow it with `@type float`.
+> - An item count must fit a signed 64-bit integer. `@minItems 10000000000000000000` is a compile error; it used to convert silently to an unrelated number.
 >
 > Comment tags exist for JSDoc-style codebases that want to migrate incrementally without rewriting every property at once.
 
