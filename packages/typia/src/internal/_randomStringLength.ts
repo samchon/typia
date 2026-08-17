@@ -1,5 +1,6 @@
 import { _randomInteger } from "./_randomInteger";
 import { _randomString } from "./_randomString";
+import { _stringLength } from "./_stringLength";
 
 export const _RANDOM_LENGTH_ERROR =
   "unable to generate a random string satisfying both the format and the length constraints.";
@@ -106,9 +107,15 @@ export const _randomFormatLength = (
     return generate();
   for (let i: number = 0; i < 256; ++i) {
     const value: string = generate();
+    // Characters, not UTF-16 code units: `minLength` and `maxLength` are the
+    // bounds the generated validator compares in characters. `uuid` and `date`,
+    // the only two shapes routed through here, are ASCII, so the two counts
+    // agree for them today -- this keeps one measure so a later non-ASCII
+    // format cannot reintroduce the divergence unnoticed.
+    const length: number = _stringLength(value);
     if (
-      (props.minLength === undefined || value.length >= props.minLength) &&
-      (props.maxLength === undefined || value.length <= props.maxLength)
+      (props.minLength === undefined || length >= props.minLength) &&
+      (props.maxLength === undefined || length <= props.maxLength)
     )
       return value;
   }
