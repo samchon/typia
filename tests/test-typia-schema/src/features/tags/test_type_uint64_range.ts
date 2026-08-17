@@ -191,23 +191,21 @@ export const test_type_uint64_range = (): void => {
       value,
       BigInt.asUintN(64, value),
     );
-    // The width check is what rejects it -- a bare `try`/`catch` would count any
-    // encoder failure as success, so the cause is pinned beside the effect.
-    TestValidator.equals(
-      `${value} fails the width check`,
-      typia.is<ITaggedBigint>({ value }),
-      false,
-    );
-    let encoded: boolean = true;
+    // The thrown error is inspected rather than merely counted. `assertEncode`
+    // is `__encode(__assert(input))`, so asserting `typia.is` is false beside a
+    // bare `try`/`catch` would only establish a precondition and leave the catch
+    // unfalsifiable; what distinguishes the width check from any other encoder
+    // failure is the report the assertion carries.
+    let caught: { path?: string; expected?: string } | null = null;
     try {
       typia.protobuf.assertEncode<ITaggedBigint>({ value });
-    } catch {
-      encoded = false;
+    } catch (error) {
+      caught = error as { path?: string; expected?: string };
     }
     TestValidator.equals(
-      `assertEncode rejects the out-of-range ${value}`,
-      encoded,
-      false,
+      `assertEncode rejects ${value} at the width check`,
+      caught === null ? null : { path: caught.path, expected: caught.expected },
+      { path: "$input.value", expected: 'bigint & Type<"uint64">' },
     );
   }
 

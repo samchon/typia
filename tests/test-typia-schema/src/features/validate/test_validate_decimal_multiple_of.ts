@@ -22,7 +22,10 @@ import typia, { tags } from "typia";
  * 1. Assert the sample matrix really carries values the remainder check and the
  *    oracle disagree about, so the case cannot go vacuous.
  * 2. Exercise `MultipleOf<0.01>` in the type-tag and JSDoc spellings against the
- *    oracle, and repeat the accepting side through `validate`.
+ *    oracle, on both sides, and run `validate` on both sides too -- pinning the
+ *    `expected` text each spelling reports, since the two are composed by
+ *    separate factories and this cycle moves the check behind a helper in
+ *    both.
  * 3. Exercise an integer divisor, a fractional one, and a magnitude past
  *    `Number.MAX_SAFE_INTEGER` where the two rules disagree in both
  *    directions.
@@ -94,13 +97,25 @@ export const test_validate_decimal_multiple_of = (): void => {
     );
     // `validate`'s negative twin, and the `expected` text with it: the report
     // names the tag rather than whatever expression implements it, so moving the
-    // check into a helper must not change what a caller reads.
-    const result = typia.validate<Cent>(value);
-    TestValidator.equals(`validate rejects ${value}`, result.success, false);
+    // check into a helper must not change what a caller reads. Both spellings
+    // are pinned, because the two names are composed by different factories --
+    // the type tag by `MetadataTypeTagFactory` from the printed alias, the JSDoc
+    // one by `MetadataCommentTagFactory` from `name + "<" + value + ">"` -- and
+    // only asserting one would leave the other free to drift.
+    const byType = typia.validate<Cent>(value);
+    const byComment = typia.validate<IJsDocCent>({ value });
     TestValidator.equals(
-      `validate names the tag for ${value}`,
-      result.success === false ? result.errors[0]?.expected : null,
-      "number & MultipleOf<0.01>",
+      `validate rejects ${value} in both spellings`,
+      [byType.success, byComment.success],
+      [false, false],
+    );
+    TestValidator.equals(
+      `validate names the tag for ${value} in both spellings`,
+      [
+        byType.success === false ? byType.errors[0]?.expected : null,
+        byComment.success === false ? byComment.errors[0]?.expected : null,
+      ],
+      ["number & MultipleOf<0.01>", "number & MultipleOf<0.01>"],
     );
   }
 
