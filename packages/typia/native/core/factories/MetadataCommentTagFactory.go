@@ -488,7 +488,7 @@ func metadataCommentTagFactory_numeric(props struct {
     "number": {{Name: name + "<" + props.Value + ">", Target: "number", Kind: kind, Value: number, Validate: numberValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}},
   }
   if integer != nil {
-    record["bigint"] = []schemametadata.IMetadataTypeTag{{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: int64(*integer), Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}}
+    record["bigint"] = []schemametadata.IMetadataTypeTag{{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: *integer, Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}}
   }
   return record
 }
@@ -509,7 +509,7 @@ func metadataCommentTagFactory_parse_integer(props struct {
   Report   func(msg string) any
   Unsigned bool
   Value    string
-}) *int {
+}) *int64 {
   parsedAny := metadataCommentTagFactory_parse_number(struct {
     Report func(msg string) any
     Value  string
@@ -526,34 +526,41 @@ func metadataCommentTagFactory_parse_integer(props struct {
     props.Report("invalid unsigned integer")
     return nil
   }
-  // A float64 outside the int range converts by an implementation-defined rule,
-  // not by wrapping: on amd64 both `1e19` and `-1e19` become
-  // -9223372036854775808, so a magnitude and its negation collapse to the same
-  // wrong number. Reject instead, because a tag whose value cannot be carried is
-  // a tag whose meaning is already lost.
-  if parsed < metadataCommentTagFactory_INT_MINIMUM || parsed >= metadataCommentTagFactory_INT_EXCLUSIVE_MAXIMUM {
+  // A float64 outside the destination range converts by an
+  // implementation-defined rule, not by wrapping: on amd64 both `1e19` and
+  // `-1e19` become -9223372036854775808, so a magnitude and its negation
+  // collapse to the same wrong number. Reject instead, because a tag whose value
+  // cannot be carried is a tag whose meaning is already lost.
+  if parsed < metadataCommentTagFactory_INT64_MINIMUM || parsed >= metadataCommentTagFactory_INT64_EXCLUSIVE_MAXIMUM {
     props.Report("integer out of range")
     return nil
   }
-  value := int(parsed)
+  value := int64(parsed)
   return &value
 }
 
-// The int range as float64 bounds.
+// The int64 range as float64 bounds.
+//
+// int64 rather than int, because `int` is 32 bits on the 32-bit platforms ttsc
+// publishes a binary for (`@ttsc/linux-arm`). Bounding by `int` would make the
+// same `@minimum 3000000000` on a `bigint` compile on x64 and either be rejected
+// or silently converted out of range on arm, and the value is already widened to
+// int64 at its only numeric use. Bounding by int64 is what the tag means on
+// every platform.
 //
 // The maximum is exclusive and spelled 2**63 rather than math.MaxInt64, because
 // the inclusive form does not survive the comparison. An untyped constant
 // 9223372036854775807.0 rounds to 2**63 once it meets a float64 operand, so
 // `parsed > max` compares 2**63 against 2**63 and lets the one value through
-// that int cannot hold. A strict `>=` against 2**63 is exact instead: no float64
-// lies between 2**63 - 1024 and 2**63, so rejecting from 2**63 up rejects
-// exactly the magnitudes int cannot represent.
+// that int64 cannot hold. A strict `>=` against 2**63 is exact instead: no
+// float64 lies between 2**63 - 1024 and 2**63, so rejecting from 2**63 up
+// rejects exactly the magnitudes int64 cannot represent.
 //
 // The minimum needs no such care -- -2**63 is math.MinInt64 and is exactly
 // representable as a float64.
 const (
-  metadataCommentTagFactory_INT_MINIMUM           = -9223372036854775808.0
-  metadataCommentTagFactory_INT_EXCLUSIVE_MAXIMUM = 9223372036854775808.0
+  metadataCommentTagFactory_INT64_MINIMUM           = -9223372036854775808.0
+  metadataCommentTagFactory_INT64_EXCLUSIVE_MAXIMUM = 9223372036854775808.0
 )
 
 func metadataCommentTagFactory_includes(values []string, target string) bool {

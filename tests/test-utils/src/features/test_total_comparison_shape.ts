@@ -27,8 +27,12 @@ import { TestValidator } from "@nestia/e2e";
  *    positionally after a length check.
  * 3. Require the `?? null` object shape to catch it, because a normalised value is
  *    never `undefined` and so is never dropped.
+ *
+ * This sits directly under `features` rather than in a feature directory: it
+ * pins the assertion harness every suite here shares, not any one of the
+ * subjects they test.
  */
-export const test_openapi_total_comparison_shape = (): void => {
+export const test_total_comparison_shape = (): void => {
   interface IReport {
     path?: string;
     expected?: string;

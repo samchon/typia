@@ -203,11 +203,15 @@ if (mod.isControl("nope") !== false) {
   throw new Error("line-terminator-free template must still reject a non-conforming value");
 }
 
-// A Record index signature only constrains keys its key pattern matches, so the
-// newline in the key regex is what decides which keys get the number check. A
-// matching key with a bad value must fail, while a near-miss key that lacks the
-// newline is not matched (and so is left unchecked) -- together they prove the
-// escaped line terminator is load-bearing in the emitted regex.
+// A Record index signature constrains its keys, so the newline in the key regex
+// decides which keys the signature accepts at all. A matching key with a bad
+// value fails on its value; a near-miss key that lacks the newline fails on its
+// key even when its value is perfectly good -- together they prove the escaped
+// line terminator is load-bearing in the emitted regex.
+//
+// The near-miss case expected acceptance until #2347: a key matching no signature
+// was accepted, so this file could not tell a working regex from an absent one
+// in that direction. It reads the rejection now, which is the sharper signal.
 const goodRecord = {};
 goodRecord["a\nkey"] = 1;
 if (mod.isRecord(goodRecord) !== true) {
@@ -218,7 +222,7 @@ matchedBadValue["a\nkey"] = "not a number";
 if (mod.isRecord(matchedBadValue) !== false) {
   throw new Error("Record: a newline-matching key with a non-number value must fail");
 }
-if (mod.isRecord({ "axkey": "not a number" }) !== true) {
-  throw new Error("Record: a key lacking the newline must not match the pattern, so it stays unchecked");
+if (mod.isRecord({ "axkey": 1 }) !== false) {
+  throw new Error("Record: a key lacking the newline matches no signature and must be rejected, even with a valid value");
 }
 `

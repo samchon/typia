@@ -17,6 +17,8 @@ import typia, { tags } from "typia";
  * 2. Require `assert` to carry the same expectation.
  * 3. Require a key that satisfies its signature to report nothing, so the case
  *    cannot pass by rejecting everything.
+ * 4. Require a declared property to stay exempt from the signature's tag, so the
+ *    rejection reaches dynamic keys only.
  */
 export const test_validate_dynamic_key_report = (): void => {
   interface ILengthKey {
@@ -61,6 +63,29 @@ export const test_validate_dynamic_key_report = (): void => {
     "a satisfying key is accepted",
     typia.validate<ILengthKey>({ abc: "x" }).success,
     true,
+  );
+
+  //----
+  // A declared property is not a dynamic key, so its name never has to satisfy
+  // the signature's tag. `id` is two characters and would fail `MinLength<3>`
+  // if it were routed through the check the fix made binding -- rejecting it
+  // would break every object that pairs a named property with a constrained
+  // index signature.
+  //----
+  interface IMixedKey {
+    id: string;
+    [key: string & tags.MinLength<3>]: string;
+  }
+  TestValidator.equals(
+    "a declared property is exempt from the key tag",
+    [
+      typia.validate<IMixedKey>({ id: "v" }).success,
+      typia.validate<IMixedKey>({ id: "v", abc: "y" }).success,
+      // ...while a dynamic key beside it is still checked, so the exemption is
+      // the declaration and not the presence of one.
+      typia.validate<IMixedKey>({ id: "v", ab: "y" }).success,
+    ],
+    [true, true, false],
   );
 
   //----
