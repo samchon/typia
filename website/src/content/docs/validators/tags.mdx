@@ -129,7 +129,7 @@ When adjacent placeholders or repeated separators make the boundary ambiguous, t
 | `tags.Maximum<N>`                                                                                                          | `value <= N`                                                                                                                                       |
 | `tags.ExclusiveMinimum<N>`                                                                                                 | `value > N`                                                                                                                                        |
 | `tags.ExclusiveMaximum<N>`                                                                                                 | `value < N`                                                                                                                                        |
-| `tags.MultipleOf<N>`                                                                                                       | `value % N === 0`                                                                                                                                  |
+| `tags.MultipleOf<N>`                                                                                                       | `value` is a mathematical multiple of `N`, divided as the decimal it prints back rather than as the binary double it is stored in                   |
 | `tags.Exclude<[V1, V2, …]>`                                                                                                | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema)                                                                     |
 
 For `bigint`, `tags.Type<...>` accepts `"int64"` or `"uint64"`; range tags accept `bigint` literals.
@@ -140,12 +140,14 @@ On a `bigint` those two tags do not check the 64-bit width: `Type<"int64">` enfo
 
 | Tag                         | Notes                                                                          |
 | --------------------------- | ------------------------------------------------------------------------------ |
-| `tags.MinLength<N>`         | `value.length >= N`                                                            |
-| `tags.MaxLength<N>`         | `value.length <= N`                                                            |
+| `tags.MinLength<N>`         | `value` has at least `N` Unicode characters                                    |
+| `tags.MaxLength<N>`         | `value` has at most `N` Unicode characters                                     |
 | `tags.Pattern<R>`           | regex (passed as a string literal)                                             |
 | `tags.Format<F>`            | one of the formats below                                                       |
 | `tags.ContentMediaType<MT>` | OpenAPI `contentMediaType` (e.g. `"image/png"`)                                |
 | `tags.Exclude<[V1, V2, …]>` | `value` is none of the listed literals (`not: { enum: [...] }` in JSON Schema) |
+
+`MinLength` and `MaxLength` count characters, not UTF-16 code units, which is what the `minLength` and `maxLength` keywords they emit mean. One emoji is one character even though its `.length` is `2`, and a flag or a ZWJ sequence counts each of its code points.
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
