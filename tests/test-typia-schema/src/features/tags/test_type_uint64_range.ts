@@ -21,13 +21,6 @@ interface ICommentBigint {
   value: bigint;
 }
 
-interface IBoundedBigint {
-  value: bigint &
-    tags.Type<"uint64"> &
-    tags.Minimum<0n> &
-    tags.Maximum<9007199254740991n>;
-}
-
 /**
  * Verifies uint64 enforces the unsigned 64-bit range on the number and bigint
  * paths.
@@ -125,17 +118,22 @@ export const test_type_uint64_range = (): void => {
     2n ** 200n,
     -(2n ** 200n),
   ];
-  // Counting the two sides is not enough -- four values all above MAXIMUM would
-  // pass it while proving nothing about MINIMUM -- so each side of each bound is
-  // counted separately.
+  // Counting one total is not enough -- four values all above MAXIMUM would
+  // satisfy it while proving nothing about MINIMUM -- so each side of each bound
+  // is counted separately, and the four values the bounds themselves turn on are
+  // required by name. Without that last part a list of far-away magnitudes would
+  // still pass while never touching an edge.
   TestValidator.equals(
-    "the bigint boundary list straddles both bounds",
+    "the bigint boundary list straddles both bounds and carries both edges",
     [
       bigints.filter((value) => value < MINIMUM).length,
       bigints.filter((value) => oracle(value)).length,
       bigints.filter((value) => MAXIMUM < value).length,
+      [MINIMUM, MAXIMUM, MINIMUM - 1n, MAXIMUM + 1n].every((edge) =>
+        bigints.includes(edge),
+      ),
     ],
-    [2, 4, 2],
+    [2, 4, 2, true],
   );
   for (const value of bigints) {
     const expected: boolean = oracle(value);
@@ -233,16 +231,11 @@ export const test_type_uint64_range = (): void => {
     [true, true],
   );
 
-  // With explicit bounds the generator does move, and every draw still has to
-  // satisfy the restored width check.
-  for (let i: number = 0; i < 100; ++i)
-    TestValidator.equals(
-      `random bounded uint64 satisfies its type at ${i}`,
-      typia.is<IBoundedBigint>(typia.random<IBoundedBigint>()),
-      true,
-    );
-
-  // `BigUint64Array` is deliberately not used as an oracle here: its constructor
-  // wraps on store, so every element is inside the width no matter what the
-  // generator produced, and `.every(oracle)` could never fail.
+  // No generator-driven assertion can reach the width, so none pretends to.
+  // `BigUint64Array` would be worse than useless as an oracle: its constructor
+  // wraps on store, so every element is inside the width whatever the generator
+  // produced, and `.every(oracle)` could never fail. An explicitly bounded twin
+  // is no better -- every window the transform accepts sits inside the width.
+  // What is left is the round trip the issue asks for, plus the window pin
+  // above, which is the one assertion here a generation change can break.
 };

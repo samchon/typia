@@ -13,9 +13,11 @@ import typia, { tags } from "typia";
  * JSON Schema's `multipleOf` is mathematical divisibility, while `%` divides
  * the binary doubles a `number` is actually stored in, so `0.3 % 0.1` is
  * `0.09999999999999998` even though `0.3` is exactly three times `0.1`. typia
- * emits the keyword and must accept what it accepts. The expectation is an
- * independent exact-rational oracle over each value's own decimal spelling,
- * never the transformer's output.
+ * emits the keyword and must accept what it accepts. The expectation comes from
+ * `exactMultiple` below, which re-derives the rule -- mathematical divisibility
+ * over the decimal each operand prints back -- with bigint arithmetic. What it
+ * independently pins is that rule, not the decomposition: turning a `number`
+ * into an exact rational has one shape, and `_decimal` has the same one.
  *
  * 1. Assert the sample matrix really carries values the remainder check and the
  *    oracle disagree about, so the case cannot go vacuous.
@@ -175,6 +177,10 @@ export const test_validate_decimal_multiple_of = (): void => {
   // The generated validator and the shared OpenAPI validator now read the same
   // schema the same way; before this behavior they parted company on all six
   // diverging multiples above.
+  //
+  // `@typia/utils` divides with its own copy of the same decompose-and-divide
+  // algorithm, so this loop pins the wiring rather than re-deriving the rule;
+  // the rule itself is pinned above, against `exactMultiple`.
   for (const value of [...multiples, ...notMultiples])
     TestValidator.equals(
       `OpenAPI parity for ${value}`,
@@ -191,12 +197,27 @@ export const test_validate_decimal_multiple_of = (): void => {
 /**
  * Mathematical divisibility over the decimal each operand prints back.
  *
- * This is what JSON Schema's `multipleOf` means, derived here from the
- * specification rather than from typia: each `number` is decomposed into an
- * exact rational from its own `toString()`, and the quotient is tested with
- * bigint arithmetic, which cannot round.
+ * This is what JSON Schema's `multipleOf` means: each `number` becomes an exact
+ * rational taken from its own `toString()`, and the quotient is tested with
+ * bigint arithmetic, which cannot round. That is the rule the generated
+ * validator has to implement, stated here independently of how it implements
+ * it.
+ *
+ * The decomposition step is not independent and cannot be -- reading a double's
+ * printed decimal into a coefficient and an exponent has one shape, and
+ * `packages/typia/src/internal/_decimal.ts` has the same one. What this pins is
+ * the rule: divisibility of the printed decimals rather than a remainder over
+ * the stored binary doubles.
+ *
+ * A divisor of zero or less, or a non-finite operand, is outside the keyword's
+ * domain -- JSON Schema requires `multipleOf` to be greater than zero -- so the
+ * answer is `false`, which is what `_isMultipleOf` returns for them too. Saying
+ * so here keeps the oracle from contradicting the behavior it certifies if such
+ * a sample is ever added.
  */
 const exactMultiple = (value: number, multipleOf: number): boolean => {
+  if (Number.isFinite(value) === false) return false;
+  if (Number.isFinite(multipleOf) === false || multipleOf <= 0) return false;
   const left = fraction(value);
   const right = fraction(multipleOf);
   return (
