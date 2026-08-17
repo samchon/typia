@@ -25,11 +25,6 @@ import { TagBase } from "./TagBase";
  * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates appropriate `type` in JSON Schema.
  *
- * The emitted schema carries the same range the runtime check enforces. On the
- * `number` path the two 64-bit maxima are not representable, and the schema
- * spells each as the double it rounds to -- which is exactly the value that
- * path accepts, so the schema and the check still agree.
- *
  * On a `bigint`, `"int64"` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` and
  * `"uint64"` accepts `0n` through `2n ** 64n - 1n`, both inclusive — exactly
  * the values `typia.protobuf.encode` writes into a 64-bit varint without
@@ -93,35 +88,22 @@ export type Type<
                     ? `$importInternal("isTypeFloat")($input)`
                     : `true`;
   exclusive: true;
-  schema: Value extends "int8"
-    ? { type: "integer"; minimum: -128; maximum: 127 }
-    : Value extends "uint8"
-      ? { type: "integer"; minimum: 0; maximum: 255 }
-      : Value extends "int16"
-        ? { type: "integer"; minimum: -32768; maximum: 32767 }
-        : Value extends "uint16"
-          ? { type: "integer"; minimum: 0; maximum: 65535 }
-          : Value extends "int32"
-            ? { type: "integer"; minimum: -2147483648; maximum: 2147483647 }
-            : Value extends "uint32"
-              ? { type: "integer"; minimum: 0; maximum: 4294967295 }
-              : Value extends "int64"
-                ? {
-                    type: "integer";
-                    minimum: -9223372036854775808;
-                    maximum: 9223372036854775807;
-                  }
-                : Value extends "uint64"
-                  ? {
-                      type: "integer";
-                      minimum: 0;
-                      maximum: 18446744073709551615;
-                    }
-                  : Value extends "float"
-                    ? {
-                        type: "number";
-                        minimum: -3.4028235e38;
-                        maximum: 3.4028235e38;
-                      }
-                    : { type: "number" };
+  schema: Value extends "uint8" | "uint16" | "uint32" | "uint64"
+    ? {
+        type: "integer";
+        minimum: 0;
+      }
+    : {
+        type: Value extends
+          | "int8"
+          | "uint8"
+          | "int16"
+          | "uint16"
+          | "int32"
+          | "uint32"
+          | "int64"
+          | "uint64"
+          ? "integer"
+          : "number";
+      };
 }>;
