@@ -242,16 +242,18 @@ export const test_type_int64_range = (): void => {
   // A twin carrying explicit bounds is a different trap. `_randomInteger` draws
   // from the declared window and never intersects it with the tag's width, so a
   // window inside the width proves nothing, and a window wider than the width
-  // fails. That failure is newly *reachable* on this arm -- before this cycle
-  // the check was `true` for int64 and a lower bound only for uint64, so nothing
-  // could fail -- but the hole itself is older and belongs elsewhere: the same
-  // blindness is open on the `number` path this cycle does not touch, where
-  // `number & Type<"int32"> & Minimum<-1e12> & Maximum<1e12>` draws a value its
-  // own `is` rejects on 499 of 500 tries. Its owner is `Type` and the range tags
-  // together, not the bigint arm, so a wide-window twin here would be a failing
-  // test for a defect this file does not fix.
+  // fails. That failure is newly reachable on this arm -- before this cycle the check was the literal `true`, so
+  // no twin could fail at all -- but the hole itself is older and belongs
+  // elsewhere: the same blindness is open on the `number` path this cycle does
+  // not touch, where `number & Type<"int32"> & Minimum<-1e12> & Maximum<1e12>`
+  // draws a value its own `is` rejects on 499 of 500 tries. Its owner is `Type`
+  // and the range tags together, not the bigint arm, so a wide-window twin here
+  // would be a failing test for a defect this file does not fix.
   //
-  // So what stays is the round trip #2338 asks for, plus the window pin above.
-  // The pin is what adds discriminating power: every draw that fails the round
-  // trip also falls outside 0..100, so the pin breaks first and names why.
+  // So what stays is the self-check #2338 asks for, plus the window pin above.
+  // The pin is what adds discriminating power: it fails under a strictly smaller
+  // drift, because every draw the self-check rejects also falls outside 0..100
+  // while the reverse does not hold. It does not fail *first* in execution
+  // order -- the self-check runs inside the loop and would throw before the pin
+  // is reached.
 };
