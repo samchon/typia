@@ -1,11 +1,15 @@
 import { TagBase } from "./TagBase";
 
 /**
- * Divisibility constraint (value % divisor === 0).
+ * Mathematical divisibility constraint.
  *
  * `MultipleOf<N>` is a type tag that validates numeric values are exactly
  * divisible by the specified divisor with no remainder. Apply it to `number` or
  * `bigint` properties using TypeScript intersection types.
+ *
+ * A `number` is divided as the decimal it prints back, not as the binary double
+ * it is stored in, so `MultipleOf<0.1>` accepts `0.3` the way the emitted
+ * `multipleOf` keyword does. A `bigint` divides exactly on its own.
  *
  * Common use cases:
  *
@@ -14,8 +18,8 @@ import { TagBase } from "./TagBase";
  * - `MultipleOf<100>` for values in hundreds
  *
  * This constraint can be combined with other numeric constraints like
- * {@link Minimum} and {@link Maximum}. Multiple `MultipleOf` constraints on the
- * same property are allowed (all must pass).
+ * {@link Minimum} and {@link Maximum}. It is exclusive, so a second `MultipleOf`
+ * on the same property is a compile error.
  *
  * The constraint is enforced at runtime by `typia.is()`, `typia.assert()`, and
  * `typia.validate()`. It generates `multipleOf` in JSON Schema output.
@@ -37,9 +41,9 @@ export type MultipleOf<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";
   kind: "multipleOf";
   value: Value;
-  validate: `$input % ${Cast<Value>} === ${Value extends bigint
-    ? Cast<0n>
-    : 0}`;
+  validate: Value extends bigint
+    ? `$input % ${Cast<Value>} === ${Cast<0n>}`
+    : `$importInternal("_isMultipleOf")($input, ${Value})`;
   exclusive: true;
   schema: Value extends bigint
     ? { multipleOf: Numeric<Value> }

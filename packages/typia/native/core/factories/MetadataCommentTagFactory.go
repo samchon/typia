@@ -196,6 +196,34 @@ func (metadataCommentTagFactoryNamespace) Get(props struct {
   return output
 }
 
+// metadataCommentTagFactory_PARSER maps a JSDoc tag name to the tag records it
+// produces. Each record's `Validate` is the runtime check the transform splices
+// into the emitted validator, and it must spell the same check as the matching
+// declaration in `packages/interface/src/tags` -- the two are one constraint.
+//
+// # WHEN A RECORD MAY NAME A RUNTIME HELPER
+//
+// A `Validate` may write `$importInternal("x")`, here or in the matching
+// declaration, only under the rule below.
+//
+// That call makes the emitted validator `require("typia/lib/internal/_x")`. The
+// type-tag half of each constraint is declared in `@typia/interface`, which
+// `typia` depends on through a caret range, and a caret only floats upward. So
+// inside one major an older `typia` installs a newer `@typia/interface` and
+// emits an import its own runtime never published; that is #2330, and it is why
+// #2336 and #2339 reverted these very templates to inline expressions.
+//
+// The rule: a template may name only a helper that every `typia` inside the
+// caret range already ships. `isTypeInt8` and its siblings satisfy it --
+// `@typia/interface` 13.0.0 named them and `typia` 13.0.0 shipped them. The
+// four this file and `Type.ts` now name do not: `_stringLength`, `_isMultipleOf`
+// (both first published in 13.1.19), `_isTypeInt64Bigint`, and
+// `_isTypeUint64Bigint` (13.1.19). They are safe only because the release that
+// carries them is a major, where the caret cannot reach a `typia` that predates
+// them. A minor or patch release of this tree reopens #2330.
+//
+// Nothing here can enforce that; the release version is the maintainer's, and a
+// campaign pull request never assigns one. This comment is the record.
 var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_parser{
   "items": func(props struct {
     Report func(msg string) any
@@ -268,7 +296,13 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$input % "+props.Value+" === 0", "$input % "+props.Value+"n === 0n")
+    // `@multipleOf` and `MultipleOf<N>` are two spellings of one constraint, so
+    // the number arm divides exact decimals through the same helper the type tag
+    // names. `%` would divide the binary doubles that are actually stored, which
+    // answers a different question than the `multipleOf` keyword this tag emits.
+    // The bigint arm needs no helper: a bigint remainder is already exact.
+    // `_isMultipleOf` first shipped in 13.1.19; see the doc comment above.
+    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+props.Value+")", "$input % "+props.Value+"n === 0n")
   },
   "format": func(props struct {
     Report func(msg string) any
@@ -291,9 +325,16 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
+    // `@length`, `@minLength`, and `@maxLength` measure through the same helper
+    // `MinLength<N>` and `MaxLength<N>` name, because the JSDoc spelling and the
+    // type-tag spelling of one constraint must never mean different things.
+    // `$input.length` counts UTF-16 code units, while the `minLength` and
+    // `maxLength` keywords these tags emit count characters, so one astral
+    // character would measure 2 against a schema that measures 1.
+    // `_stringLength` first shipped in 13.1.19; see the doc comment above.
     return metadataCommentTagFactory_TagRecord{"string": {
-      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
-      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$input.length <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
+      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $importInternal(\"_stringLength\")($input)", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
+      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLength\")($input) <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
     }}
   },
   "minLength": func(props struct {
@@ -301,14 +342,14 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $importInternal(\"_stringLength\")($input)", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}}}}
   },
   "maxLength": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$input.length <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLength\")($input) <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}}}}
   },
 }
 
@@ -407,28 +448,23 @@ func metadataCommentTagFactory_parse_type(props struct {
     "number": {{Name: "Type<" + strconv.Quote(value) + ">", Target: "number", Kind: "type", Value: value, Validate: validate, Exclusive: metadataCommentTagFactory_exclusive("type"), Schema: numberSchema}},
   }
   if value == "int64" || value == "uint64" {
-    // Both checks stay inline, spelled exactly as `Type<"int64">` and
-    // `Type<"uint64">` declare them, because `@type int64` and
-    // `bigint & Type<"int64">` are two spellings of one constraint.
+    // `@type int64` and `bigint & Type<"int64">` are two spellings of one
+    // constraint, so both delegate to the helper that holds the exact inclusive
+    // bound. The bigint form used to emit `true` for int64 and a lower bound
+    // only for uint64, which certified any magnitude at all -- and
+    // `typia.protobuf.encode` then truncated the value to 64 bits, so a
+    // certified value came back different.
     //
-    // That declaration must not name a runtime helper the way the `number` arms
-    // above do. A `$importInternal(...)` in a tag template makes the emitted
-    // validator import a `typia/lib/internal/*` module, and the declaration
-    // lives in `@typia/interface`, which `typia` depends on through a caret
-    // range that only floats upward -- so an older `typia` installs a newer
-    // `@typia/interface` and emits an import its own runtime never shipped
-    // (#2330). `isTypeInt64` and `isTypeUint64` are safe there because
-    // `@typia/interface` 13.0.0 already named them and `typia` 13.0.0 already
-    // shipped them; a helper introduced later is not, and inside one major
-    // there is no range that prevents the pairing.
+    // The bound has to live in a helper rather than an inline literal here
+    // because it is only exact as a string: `BigInt(9223372036854775807)` rounds
+    // its `number` literal to 2**63 before BigInt ever parses it.
     //
-    // The bound this leaves unenforced is real: int64 accepts any magnitude and
-    // uint64 only rejects negatives. #2338 owns restoring it, and only a major
-    // can carry it -- an inline exact comparison would name no helper, but
-    // tightening an accepted range rejects data that passes today.
-    bigintValidate := "BigInt(0) <= $input"
+    // See the `metadataCommentTagFactory_PARSER` doc comment: naming a helper
+    // here is safe only under a major bump, and `_isTypeInt64Bigint` /
+    // `_isTypeUint64Bigint` first shipped in 13.1.19.
+    bigintValidate := "$importInternal(\"isTypeUint64Bigint\")($input)"
     if value == "int64" {
-      bigintValidate = "true"
+      bigintValidate = "$importInternal(\"isTypeInt64Bigint\")($input)"
     }
     record["bigint"] = []schemametadata.IMetadataTypeTag{
       {Name: "Type<" + strconv.Quote(value) + ">", Target: "bigint", Kind: "type", Value: value, Validate: bigintValidate, Exclusive: metadataCommentTagFactory_exclusive("type"), Schema: bigintSchema},
