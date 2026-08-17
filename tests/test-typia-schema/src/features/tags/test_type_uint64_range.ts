@@ -225,15 +225,16 @@ export const test_type_uint64_range = (): void => {
   //----
   // RANDOM ROUND TRIP
   //----
-  // A `bigint` type tag publishes only `minimum: 0` here and no maximum, so
-  // `_randomInteger` falls back to its 0..100 window and cannot reach the upper
-  // edge of the width. The self-check #2338 asks for -- every draw satisfying
-  // its own type -- is still asserted, and the window is asserted with it, so a
-  // later generation change that could reach the width fails here instead of
-  // passing silently. ("Round trip" is reserved in this file for the protobuf
-  // encode/decode pair above.)
+  // The generator draws across the whole width. A `bigint` type tag publishes
+  // only `minimum: 0` here and no maximum, so `_randomInteger` used to fall back
+  // to a 0..100 window and never approached the upper edge -- which made the
+  // self-check #2338 asks for pass under the lower-bound-only behaviour this
+  // cycle replaced. Since the width is now intersected into the generation
+  // window (#2348), a draw can land anywhere in the range, so the self-check
+  // finally discriminates. ("Round trip" is reserved in this file for the
+  // protobuf encode/decode pair above.)
   const drawn: bigint[] = [];
-  for (let i: number = 0; i < 100; ++i) {
+  for (let i: number = 0; i < 500; ++i) {
     const { value } = typia.random<ITaggedBigint>();
     drawn.push(value);
     TestValidator.equals(
@@ -242,13 +243,19 @@ export const test_type_uint64_range = (): void => {
       true,
     );
   }
+  // The window is pinned beside the self-check, and pinned to the *width* rather
+  // than to a fallback: a generation change that stopped honouring it would
+  // otherwise shrink the draws back to a corner and leave the self-check passing
+  // for the old reason. A draw above 2**63 is required too, since a window
+  // clipped to the signed range would satisfy every other assertion here.
   TestValidator.equals(
-    "the generator's fallback window is 0..100 and varies",
+    "the generator draws across the width, past the signed range included",
     [
-      drawn.every((value) => 0n <= value && value <= 100n),
+      drawn.every((value) => MINIMUM <= value && value <= MAXIMUM),
+      drawn.some((value) => value > 2n ** 63n),
       new Set(drawn.map(String)).size > 1,
     ],
-    [true, true],
+    [true, true, true],
   );
 
   // Nothing else here would be an oracle. `BigUint64Array` wraps on store, so

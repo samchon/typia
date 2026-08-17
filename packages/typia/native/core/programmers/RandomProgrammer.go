@@ -652,9 +652,15 @@ func randomProgrammer_decode_atomic(props randomProgrammer_decodeAtomicProps) []
   } else if props.Atomic.Type == "string" {
     schemaList = nativeiterate.Json_schema_string_export(props.Atomic)
   } else if props.Atomic.Type == "bigint" {
-    schemaList = nativeiterate.Json_schema_bigint_export(props.Atomic)
+    schemaList = nativeiterate.Json_schema_numeric_width_clip(
+      props.Atomic,
+      nativeiterate.Json_schema_bigint_export(props.Atomic),
+    )
   } else {
-    schemaList = nativeiterate.Json_schema_number_export(props.Atomic)
+    schemaList = nativeiterate.Json_schema_numeric_width_clip(
+      props.Atomic,
+      nativeiterate.Json_schema_number_export(props.Atomic),
+    )
   }
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := make([]*shimast.Node, 0, len(schemaList))
