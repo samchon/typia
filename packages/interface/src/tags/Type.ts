@@ -29,7 +29,7 @@ import { TagBase } from "./TagBase";
  * `"uint64"` accepts `0n` through `2n ** 64n - 1n`, both inclusive — exactly
  * the values `typia.protobuf.encode` writes into a 64-bit varint without
  * truncating them. Their `number` forms cannot be that exact: neither maximum
- * is representable, so each rounds up to the neighbouring power of two and is
+ * is representable, so each rounds up to the neighboring power of two and is
  * accepted, because that power is the only float form the true maximum has. Use
  * the `bigint` form when the boundary matters.
  *
