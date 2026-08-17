@@ -1441,12 +1441,16 @@ func randomProgrammer_is_typed_array(name string) bool {
 // copy of the 64-bit bound that is deliberately inexact. They become `minimum` and
 // `maximum` comment tags on a number-typed JSON schema, and `number` cannot
 // represent 2**63 - 1 or 2**64 - 1 -- both arrive rounded up to the next power of
-// two. That costs nothing here: the generator only picks a value from the range,
-// and the TypedArray constructor wraps whatever it is handed. On the `number`
-// path validation owns exactness instead, in _isTypeInt64 and _isTypeUint64. The
-// `bigint` path owns none: Type<"int64"> declares no check and Type<"uint64">
-// only a lower bound, so that neither declaration names a runtime helper an
-// older `typia` cannot resolve (#2330). #2338 owns restoring the bound.
+// two. That costs nothing here, and not because the generator is careless: it
+// draws Math.floor(Math.random() * (maximum - minimum + 1)) + minimum, and at
+// that magnitude consecutive doubles are 2048 apart, so the largest draw is
+// 2**63 - 2048 for int64 and 2**64 - 2048 for uint64 -- both inside the width.
+// The TypedArray constructor then wraps whatever it is handed anyway.
+//
+// Validation owns exactness separately: _isTypeInt64 and _isTypeUint64 on the
+// `number` path, and _isTypeInt64Bigint and _isTypeUint64Bigint on the `bigint`
+// path, which take the true inclusive bound through a BigInt string a `number`
+// literal here could not spell.
 func randomProgrammer_typed_array_range(name string) (string, string, string) {
   switch name {
   case "Uint8Array", "Uint8ClampedArray":

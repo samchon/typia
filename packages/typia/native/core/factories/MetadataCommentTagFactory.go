@@ -418,28 +418,19 @@ func metadataCommentTagFactory_parse_type(props struct {
     "number": {{Name: "Type<" + strconv.Quote(value) + ">", Target: "number", Kind: "type", Value: value, Validate: validate, Exclusive: metadataCommentTagFactory_exclusive("type"), Schema: numberSchema}},
   }
   if value == "int64" || value == "uint64" {
-    // Both checks stay inline, spelled exactly as `Type<"int64">` and
-    // `Type<"uint64">` declare them, because `@type int64` and
-    // `bigint & Type<"int64">` are two spellings of one constraint.
+    // `@type int64` and `bigint & Type<"int64">` are two spellings of one
+    // constraint, so both delegate to the helper that holds the exact inclusive
+    // bound. The bigint form used to emit `true` for int64 and a lower bound
+    // only for uint64, which certified any magnitude at all -- and
+    // `typia.protobuf.encode` then truncated the value to 64 bits, so a
+    // certified value came back different.
     //
-    // That declaration must not name a runtime helper the way the `number` arms
-    // above do. A `$importInternal(...)` in a tag template makes the emitted
-    // validator import a `typia/lib/internal/*` module, and the declaration
-    // lives in `@typia/interface`, which `typia` depends on through a caret
-    // range that only floats upward -- so an older `typia` installs a newer
-    // `@typia/interface` and emits an import its own runtime never shipped
-    // (#2330). `isTypeInt64` and `isTypeUint64` are safe there because
-    // `@typia/interface` 13.0.0 already named them and `typia` 13.0.0 already
-    // shipped them; a helper introduced later is not, and inside one major
-    // there is no range that prevents the pairing.
-    //
-    // The bound this leaves unenforced is real: int64 accepts any magnitude and
-    // uint64 only rejects negatives. #2338 owns restoring it, and only a major
-    // can carry it -- an inline exact comparison would name no helper, but
-    // tightening an accepted range rejects data that passes today.
-    bigintValidate := "BigInt(0) <= $input"
+    // The bound has to live in a helper rather than an inline literal here
+    // because it is only exact as a string: `BigInt(9223372036854775807)` rounds
+    // its `number` literal to 2**63 before BigInt ever parses it.
+    bigintValidate := "$importInternal(\"isTypeUint64Bigint\")($input)"
     if value == "int64" {
-      bigintValidate = "true"
+      bigintValidate = "$importInternal(\"isTypeInt64Bigint\")($input)"
     }
     record["bigint"] = []schemametadata.IMetadataTypeTag{
       {Name: "Type<" + strconv.Quote(value) + ">", Target: "bigint", Kind: "type", Value: value, Validate: bigintValidate, Exclusive: metadataCommentTagFactory_exclusive("type"), Schema: bigintSchema},
