@@ -27,6 +27,12 @@ import (
 //  3. Execute runtime cases: a key violating its tag must be rejected, a key
 //     satisfying it accepted, and a plain `[key: string]` signature must stay
 //     unconstrained.
+//
+// The report such a key produces is its own concern. `Superfluous`, the report
+// an extra property already used, says the property is not defined in the object
+// type and advises removing it -- false and unhelpful when the property is
+// declared and only its key broke a constraint. `InvalidKey` names the key type
+// instead, and `test_validate_dynamic_key_report` covers the wording.
 func TestDynamicKeyTagsTransform(t *testing.T) {
   project := dynamicKeyTagsProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

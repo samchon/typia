@@ -22,7 +22,16 @@ type Check_object_IConfig struct {
   Reduce      func(a *shimast.Expression, b *shimast.Expression) *shimast.Node
   Positive    *shimast.Expression
   Superfluous func(value *shimast.Expression, description *shimast.Expression) *shimast.Node
-  Entries     *shimast.Expression
+  // InvalidKey reports a dynamic key that satisfied no declared signature.
+  //
+  // `Superfluous` is the wrong report for it: that one says the property is not
+  // defined in the object type and advises removing it, which is false and
+  // unhelpful when the property *is* declared and only its key broke a
+  // constraint. A programmer that has no better answer may leave this nil, and
+  // `Superfluous` is used instead -- the outcome is identical, only the message
+  // differs.
+  InvalidKey func(value *shimast.Expression, expected string, description *shimast.Expression) *shimast.Node
+  Entries    *shimast.Expression
 }
 
 func Check_object(props Check_objectProps) *shimast.Node {

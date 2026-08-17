@@ -1,6 +1,8 @@
 package iterate
 
 import (
+  "strings"
+
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
@@ -176,6 +178,13 @@ func check_dynamic_property(props Check_dynamic_propertiesProps) *shimast.Node {
     // signature's value type to apply (#2347). The key is not a member of the
     // declared type, so it is reported the same way an extra property is.
     output := props.Config.Superfluous(value, check_dynamic_properties_superfluous_description(props.Context.Emit))
+    if props.Config.InvalidKey != nil && len(props.Dynamic) != 0 {
+      output = props.Config.InvalidKey(
+        value,
+        check_dynamic_properties_key_expected(props.Dynamic),
+        check_dynamic_properties_invalid_key_description(props.Context.Emit),
+      )
+    }
     statements = append(statements, f.NewReturnStatement(output))
   }
 
@@ -264,6 +273,50 @@ func check_dynamic_properties_internal(context nativecontext.ITypiaContext, name
   }
   f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, context.Emit)
   return f.NewIdentifier(name)
+}
+
+// The type every declared key would have satisfied, for the report. Several
+// signatures join with `|`, which is how the declaration reads.
+func check_dynamic_properties_key_expected(dynamic []nativehelpers.IExpressionEntry) string {
+  names := make([]string, 0, len(dynamic))
+  for _, entry := range dynamic {
+    names = append(names, entry.Key.GetName())
+  }
+  return strings.Join(names, " | ")
+}
+
+// The advice `Superfluous` gives -- remove the property -- is wrong here. The
+// property is declared; its key is what broke.
+func check_dynamic_properties_invalid_key_description(emit ...*shimprinter.EmitContext) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, emit...)
+  return f.NewCallExpression(
+    nativefactories.IdentifierFactory.Access(
+      nil,
+      f.NewArrayLiteralExpression(
+        f.NewNodeList([]*shimast.Node{
+          f.NewTemplateExpression(
+            f.NewTemplateHead("The key `", "The key \\`", shimast.TokenFlagsNone),
+            f.NewNodeList([]*shimast.Node{
+              f.NewTemplateSpan(
+                f.NewIdentifier("key"),
+                f.NewTemplateTail("` does not satisfy the type its index signature declares.", "\\` does not satisfy the type its index signature declares.", shimast.TokenFlagsNone),
+              ),
+            }),
+          ),
+          f.NewStringLiteral("", shimast.TokenFlagsNone),
+          f.NewStringLiteral("Please correct the key next time.", shimast.TokenFlagsNone),
+        }),
+        true,
+      ),
+      "join",
+    ),
+    nil,
+    nil,
+    f.NewNodeList([]*shimast.Node{
+      f.NewStringLiteral("\n", shimast.TokenFlagsNone),
+    }),
+    shimast.NodeFlagsNone,
+  )
 }
 
 func check_dynamic_properties_superfluous_description(emit ...*shimprinter.EmitContext) *shimast.Node {

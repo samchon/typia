@@ -65,13 +65,13 @@ func (assertProgrammerNamespace) Decompose(props AssertProgrammer_DecomposeProps
     Type:    props.Type,
     Name:    props.Name,
     Config: nativeinternal.CheckerProgrammer_IConfig{
-      Prefix:  "_a",
-      Path:    true,
-      Trace:   true,
-      Numeric: nativehelpers.OptionPredicator.Numeric(props.Context.Options),
-      Equals:  props.Config.Equals,
+      Prefix:        "_a",
+      Path:          true,
+      Trace:         true,
+      Numeric:       nativehelpers.OptionPredicator.Numeric(props.Context.Options),
+      Equals:        props.Config.Equals,
       ObjectParents: props.Config.Equals == false,
-      Atomist: assertProgrammer_atomist(props),
+      Atomist:       assertProgrammer_atomist(props),
       Combiner: assertProgrammer_combiner(struct {
         Config  AssertProgrammer_IConfig
         Context nativecontext.ITypiaContext
@@ -320,6 +320,20 @@ func assertProgrammer_assert_object(props assertProgrammer_assertObjectProps) *s
             props.Context.Emit,
           ),
           Expected: "undefined",
+          Input:    input,
+        })
+      },
+      InvalidKey: func(input *shimast.Expression, expected string, description *shimast.Expression) *shimast.Node {
+        return assertProgrammer_create_guard_call(assertProgrammer_createGuardCallProps{
+          Context: props.Context,
+          Functor: props.Functor,
+          Path: assertProgrammer_binary(
+            f.NewIdentifier("_path"),
+            shimast.KindPlusToken,
+            f.NewCallExpression(assertProgrammer_internal(props.Context, "accessExpressionAsString"), nil, nil, f.NewNodeList([]*shimast.Node{f.NewIdentifier("key")}), shimast.NodeFlagsNone),
+            props.Context.Emit,
+          ),
+          Expected: expected,
           Input:    input,
         })
       },
