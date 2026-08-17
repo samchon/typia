@@ -248,8 +248,13 @@ type IsEven = tags.TagBase<{
   target: "number";
   value: undefined;
   validate: `$input % 2 === 0`;
-  // or:
-  // validate: (value: number) => value % 2 === 0;
+}>;
+
+type Sorted = tags.TagBase<{
+  kind: "sorted";
+  target: "array";
+  value: undefined;
+  validate: `(() => { for (let i = 1; i < $input.length; ++i) if ($input[i - 1] > $input[i]) return false; return true; })()`;
 }>;
 ```
 
@@ -258,7 +263,7 @@ type IsEven = tags.TagBase<{
 - `kind` — the tag's name (must be unique among intersected tags)
 - `target` — `"number" | "bigint" | "string" | "array" | "object"` (or a `Record<Target, string>` map if the tag spans multiple bases)
 - `value` — the constant captured by the tag (useful when the tag has a parameter, e.g. `Postfix<".com">`)
-- `validate` — either an inline expression string referencing `$input`, or a regular function
+- `validate` — an expression string referencing `$input`. It must be a string, not a function: the transformer inlines the text into the generated validator at compile time instead of calling back into your module. Wrap branching logic in an IIFE, as `Sorted` does above; the built-in `date-time` and `iri` validators are written the same way.
 
 You can also set `exclusive: true | string[]` to mark a tag as mutually exclusive with itself or with named other tags.
 
