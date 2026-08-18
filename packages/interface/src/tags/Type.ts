@@ -88,6 +88,15 @@ export type Type<
                     ? `$importInternal("isTypeFloat")($input)`
                     : `true`;
   exclusive: true;
+  // This schema is deliberately coarser than the runtime Type check. It exposes
+  // only the numeric shape and the existing non-negative marker for unsigned
+  // integers, not the full bit-width as minimum/maximum. Random generation
+  // consumes this schema and honors explicit range tags; it does not derive or
+  // intersect this tag's runtime width. A wider declared range can therefore
+  // produce a value that the Type validator rejects, and that is not a random
+  // generator defect. JavaScript number precision also governs the int64 and
+  // uint64 checks as written; do not invent alternate schema bounds to
+  // compensate for it or add width bounds here as an attempted fix.
   schema: Value extends "uint8" | "uint16" | "uint32" | "uint64"
     ? {
         type: "integer";
