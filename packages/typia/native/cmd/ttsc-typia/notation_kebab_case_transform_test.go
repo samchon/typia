@@ -18,8 +18,8 @@ import (
 //  1. Transform a fixture covering camelCase, snake_case, leading-underscore,
 //     consecutive-uppercase (the acronym run collapses, so `XMLParser` becomes
 //     `xmlparser`), and nested property names. The matching compile-time
-//     `KebabCase<T>` assertions live in the test-typia-generate fixture, where
-//     ttsc enforces type diagnostics.
+//     `KebabCase<T>` assertions live in the test-interface fixture, where ttsc
+//     enforces type diagnostics.
 //  2. Require the emitted converter to reference the kebab-case keys.
 //  3. Execute kebab, isKebab, assertKebab, and validateKebab runtime cases
 //     over valid and invalid inputs.

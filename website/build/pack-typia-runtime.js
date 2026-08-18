@@ -49,14 +49,12 @@ const SOURCES = [
 const KEEP = /\.js$/;
 const SKIP = /(\.mjs|\.map|\.d\.ts|\.test\.js|\.spec\.js)$/;
 
-// typia ships its CLI (`lib/executable/*` → commander / inquirer) and its
-// compile-time transformer (`lib/transform.js`, `lib/transformers/*` → ttsc /
-// typescript) inside the same package. The Execute sandbox only ever runs the
-// emitted validators, which never require any of these, so packing them would
-// just carry unsatisfiable external requires (commander, inquirer, ttsc,
-// typescript) into the runtime pack. Drop them — the sandbox stays reachable-
-// code only.
-const RUNTIME_SKIP = /^typia\/lib\/(executable\/|transform\.js$|transformers\/)/;
+// typia ships its compile-time transformer (`lib/transform.js` and
+// `lib/transformers/*`) inside the same package. The Execute sandbox only ever
+// runs emitted validators, so packing those modules would carry an
+// unsatisfiable `ttsc` dependency into the runtime pack. Drop them so the
+// sandbox stays reachable-code only.
+const RUNTIME_SKIP = /^typia\/lib\/(transform\.js$|transformers\/)/;
 
 // Resolve a package's install root across both layouts the website builds in:
 //   - npm-hoisted (`website/node_modules/<name>`), and
