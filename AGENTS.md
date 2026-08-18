@@ -1,6 +1,6 @@
 # AGENTS.md
 
-`typia` is a TypeScript transformer and runtime library that turns pure TypeScript types into inline validators, serializers, schemas, decoders, and random-data generators. It ships the `typia` CLI plus the `typia`, `@typia/interface`, `@typia/utils`, `@typia/langchain`, `@typia/mcp`, and `@typia/vercel` packages.
+`typia` is a TypeScript transformer and runtime library that turns pure TypeScript types into inline validators, serializers, schemas, decoders, and random-data generators. It ships the `typia`, `@typia/interface`, `@typia/utils`, `@typia/langchain`, `@typia/mcp`, and `@typia/vercel` packages.
 
 ## Attitude
 

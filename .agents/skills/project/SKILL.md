@@ -11,14 +11,14 @@ Typia is a TypeScript transformer library built around one idea: a pure TypeScri
 
 The packages:
 
-- **`typia`**: the user-facing library and `typia` CLI. Exposes the runtime validators (`is`, `assert`, `assertGuard`, `validate`), enhanced JSON serde (`json.assertParse`, `json.assertStringify`, `json.schema`), LLM function-calling harness (`llm.application`, `llm.schema`, `llm.parse`, `llm.structuredOutput`), Protocol Buffer encoder/decoder (`protobuf.message`, `protobuf.assertEncode`, `protobuf.assertDecode`), and the random data generator (`random`).
+- **`typia`**: the user-facing library and native transform. Exposes the runtime validators (`is`, `assert`, `assertGuard`, `validate`), enhanced JSON serde (`json.assertParse`, `json.assertStringify`, `json.schema`), LLM function-calling harness (`llm.application`, `llm.schema`, `llm.parse`, `llm.structuredOutput`), Protocol Buffer encoder/decoder (`protobuf.message`, `protobuf.assertEncode`, `protobuf.assertDecode`), and the random data generator (`random`).
 - **`@typia/interface`**: shared public typings (e.g. `IJsonSchemaCollection`, `ILlmSchema`, `IValidation`) consumed by every other package and by user code.
 - **`@typia/utils`**: runtime, OpenAPI, and LLM utility helpers (e.g. `LlmTypeChecker`) that live next to but outside the transform.
 - **`@typia/langchain`**: LangChain.js integration that adapts typia's LLM harness to LangChain tools.
 - **`@typia/mcp`**: Model Context Protocol integration.
 - **`@typia/vercel`**: Vercel AI SDK integration.
 
-Downstream projects (`@nestia/core`, `@agentica`, `@autobe`) build on top of typia but are not part of this repository's contract. The exported `typia.*` surface, the `@typia/interface` typings, the `typia` CLI flags, and the `ttsc.plugin` descriptor shape are public; renaming or removing any of them is a deliberate, separate change.
+Downstream projects (`@nestia/core`, `@agentica`, `@autobe`) build on top of typia but are not part of this repository's contract. The exported `typia.*` surface, the `@typia/interface` typings, and the `ttsc.plugin` descriptor shape are public; renaming or removing any of them is a deliberate, separate change.
 
 A single Go program under `packages/typia/native` performs the compile-time transform that emits validators, stringifiers, schemas, and decoders in place of `typia.*<T>()` call sites. `packages/typia` registers a Go command package that `ttsc` (the TypeScript-Go compiler with native plugin support) compiles into a binary on first use through its plugin manifest:
 
@@ -26,7 +26,7 @@ A single Go program under `packages/typia/native` performs the compile-time tran
 "ttsc": { "plugin": { "transform": "typia/lib/transform" } }
 ```
 
-The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transformer; there is no TypeScript-side transform anymore. The descriptor resolves the installed `typia` package root and returns the Go entrypoint under `native/cmd/ttsc-typia`. The adapter packages do not register their own transforms. Consumers reach the binary through `ttsc` / `ttsx` and the published descriptor. ttsc keys each plugin build by content and stores it workspace-wide under `node_modules/.cache/ttsc` (it walks up to `pnpm-workspace.yaml`), so every package and test workspace shares one binary; `TTSC_CACHE_DIR` overrides the location only for suites whose fixture projects live outside the workspace (e.g. `tests/test-typia-cli`).
+The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transformer; there is no TypeScript-side transform anymore. The descriptor resolves the installed `typia` package root and returns the Go entrypoint under `native/cmd/ttsc-typia`. The adapter packages do not register their own transforms. Consumers reach the binary through `ttsc` / `ttsx` and the published descriptor. ttsc keys each plugin build by content and stores it workspace-wide under `node_modules/.cache/ttsc` (it walks up to `pnpm-workspace.yaml`), so every package and test workspace shares one binary; `TTSC_CACHE_DIR` overrides the location only for suites whose fixture projects live outside the workspace (e.g. `tests/test-typia-compiler`).
 
 ## Layout
 
@@ -36,7 +36,7 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
   - `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, `test-utils`: function-per-file suites under `src/features/**/test_*.ts`, each file exporting one matching `test_<snake_case>` function discovered by `DynamicExecutor` (from `@nestia/e2e`).
   - `test-typia-automated`, `test-utils-automated`: generator-driven matrix suites over their configured typia operations and `@typia/template` structures; their generated `src/features/` trees are rebuilt by the suite.
   - `test-interface`: compile-time tests for the exported `@typia/interface` types.
-  - `test-typia-cli`, `test-typia-generate`: CLI and project-layout integration suites, including the `typia generate` command.
+  - `test-typia-compiler`: compiler-process integration tests that exercise the native plugin through `ttsc` against temporary projects.
   - `test-typia-bundler-cache`: webpack persistent filesystem-cache invalidation through `@ttsc/unplugin`; the only suite that exercises a bundler's cache.
   - `test-typia-exact-optional`: focused `exactOptionalPropertyTypes` behavior.
   - `test-feature-identity`: repository check that every suite's tracked `src/features` file exports exactly one `test_*` function named after the file, that one suite never exports a name twice, and that every `tests/*` workspace declares the package name `@typia/<directory>`.

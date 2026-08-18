@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "@typia/test-typia-cli",
-  "description": "CLI end-to-end tests for typia.",
+  "name": "@typia/test-typia-compiler",
+  "description": "Compiler process integration tests for typia.",
   "scripts": {
     "start": "ttsx src/index.ts"
   },
@@ -12,7 +12,7 @@
   "keywords": [
     "typia",
     "test",
-    "cli"
+    "compiler"
   ],
   "author": "Jeongho Nam",
   "license": "MIT",

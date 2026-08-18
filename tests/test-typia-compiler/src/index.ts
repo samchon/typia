@@ -11,7 +11,9 @@ interface ICommandResult {
 }
 
 const root: string = path.resolve(__dirname, "..");
-const scratch: string = fs.mkdtempSync(path.join(os.tmpdir(), "typia-cli-"));
+const scratch: string = fs.mkdtempSync(
+  path.join(os.tmpdir(), "typia-compiler-"),
+);
 // The fixture projects live in os.tmpdir(), outside the pnpm workspace, so
 // ttsc's workspace-local cache resolution cannot find the repository root on
 // its own; point it at the shared cache or every run pays a cold `go build`.
@@ -238,7 +240,7 @@ const writeTypiaPackageStub = (project: string): void => {
 };
 
 /**
- * Verifies the CLI preserves generic transform diagnostic details.
+ * Verifies the compiler process preserves generic transform diagnostics.
  *
  * Locks the ttsc boundary for #1973. The native command may reject a typia call
  * before emitting JavaScript, but the caller must still see the typia
@@ -255,7 +257,7 @@ const testGenericTransformDiagnostic = (): void => {
   );
   writeGenericDiagnosticProject(project);
 
-  assertNoTypiaSourceJavascript("before CLI compilation");
+  assertNoTypiaSourceJavascript("before compiler-process compilation");
   const result: ICommandResult = run([
     "exec",
     "ttsc",
@@ -265,7 +267,7 @@ const testGenericTransformDiagnostic = (): void => {
     "-p",
     "tsconfig.json",
   ]);
-  assertNoTypiaSourceJavascript("after CLI compilation");
+  assertNoTypiaSourceJavascript("after compiler-process compilation");
   if (result.status === 0)
     throw new Error("Generic transform diagnostic unexpectedly succeeded.");
   if (result.output.includes("non-specified generic argument") === false)

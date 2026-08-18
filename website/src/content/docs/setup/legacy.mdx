@@ -2,8 +2,6 @@
 title: Guide Documents > Setup > Legacy
 ---
 
-import { Tabs } from "nextra/components";
-
 ## Legacy setup (typia 12 / TypeScript 6)
 
 This page is for projects pinned to typia 12 and the JavaScript TypeScript compiler. typia 12 accepts TypeScript versions from 4.8 up to, but not including, 7; its final v12 release is [`v12.1.1`](https://github.com/samchon/typia/tree/v12.1.1).
@@ -12,49 +10,9 @@ This page is for projects pinned to typia 12 and the JavaScript TypeScript compi
 >
 > New projects should use [typia 13 with TypeScript 7](/docs/setup). Do not mix typia 12's `ts-patch` or `@typia/unplugin` setup with the current `ttsc` toolchain.
 
-## Install with the setup wizard
+## Install
 
-Install the v12 release line explicitly, then run its setup wizard:
-
-<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
-  <Tabs.Tab>
-```bash filename="Terminal" showLineNumbers copy
-npm install typia@12
-npx typia setup
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal" showLineNumbers copy
-pnpm add typia@12
-pnpm typia setup --manager pnpm
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal" showLineNumbers copy
-# Yarn Berry is not supported by the v12 setup wizard.
-yarn add typia@12
-yarn typia setup --manager yarn
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal" showLineNumbers copy
-bun add typia@12
-bun typia setup --manager bun
-```
-  </Tabs.Tab>
-</Tabs>
-
-The wizard installs the matching TypeScript 6 and `ts-patch` releases, adds the typia transform to `tsconfig.json`, and adds a `prepare` script that patches the local compiler after dependency installation. It also enables strict null checking and `skipLibCheck` when needed.
-
-After setup, build with the patched `tsc` command used by your package manager:
-
-```bash filename="Terminal" showLineNumbers copy
-npx tsc
-```
-
-## Manual setup
-
-Use the manual path when an existing project must control its TypeScript version. Keep every package on the v12/TypeScript-below-7 line:
+Keep every package on the v12/TypeScript-below-7 line:
 
 ```bash filename="Terminal" showLineNumbers copy
 npm install typia@12

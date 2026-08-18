@@ -26,7 +26,7 @@ When proposing an improvement, include:
 ```text
 typia/
 ├── packages/              # Publishable packages and internal package sources
-│   ├── typia/             # User-facing package and CLI
+│   ├── typia/             # User-facing package and native transform
 │   ├── interface/         # Shared public typings
 │   ├── utils/             # Runtime/OpenAPI/LLM utilities
 │   ├── langchain/         # LangChain integration
@@ -85,7 +85,7 @@ If you touch one of these areas, run its local path too:
 
 Start from the package closest to the behavior you are changing:
 
-- public API and CLI: `packages/typia`
+- public API and native transform: `packages/typia`
 - runtime/shared typing surfaces: `packages/interface`, `packages/utils`
 - adapter integrations: `packages/langchain`, `packages/mcp`, `packages/vercel`
 - ttsc host or runner behavior: the sibling `../ttsc` repository
