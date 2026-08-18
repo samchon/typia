@@ -51,6 +51,7 @@ interface Battery {
   ID: number;
   userName: number;
   html5Parser: number;
+  XMLParser: number;
   a_b_c: number;
 }
 
@@ -62,5 +63,6 @@ interface ExpectedBattery {
   id: number;
   "user-name": number;
   "html5-parser": number;
+  xmlparser: number;
   "a-b-c": number;
 }

@@ -20,8 +20,8 @@ import (
   nativetransform "github.com/samchon/typia/packages/typia/native/transform"
 )
 
-// runTransform is the source-to-source host the ttsc transform stage and the
-// `typia generate` wizard drive. Unlike `build` (which emits .js), it returns
+// runTransform is the source-to-source host that drives the ttsc transform
+// stage. Unlike `build` (which emits .js), it returns
 // transformed TypeScript: typia's per-file node transformer runs in an
 // EmitContext and the result SourceFile is printed back as TS (no JS script
 // transformers), so injected namespace imports stay as ES imports the caller

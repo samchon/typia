@@ -32,7 +32,7 @@ These four are never acceptable; choosing any one means the approach is already 
 - Keep package detection installation-safe. Resolve the target package root, as `packages/typia/src/transform.ts` does with `require.resolve("typia/package.json")`; workspace path substrings and hard-coded fixture names fail for npm consumers.
 - Use the workspace catalogs. `pnpm-workspace.yaml` owns `typescript`, `rolldown`, and `utils`; internal package references use `workspace:^`.
 - Keep local outputs local. Do not commit `.env` files or the `.tgz` artifacts generated under `experiments/tarballs/`.
-- Preserve the public contract in `.agents/skills/project/SKILL.md`. Renaming or removing `typia.*`, `@typia/interface` types, CLI flags, or the plugin descriptor shape is a deliberate product change, not incidental cleanup.
+- Preserve the public contract in `.agents/skills/project/SKILL.md`. Renaming or removing `typia.*`, `@typia/interface` types, or the plugin descriptor shape is a deliberate product change, not incidental cleanup.
 - When public behavior changes, update the matching page under `website/src/content/docs/**` in the same change. Follow `.agents/skills/documentation/SKILL.md`.
 - Run `pnpm format` before every ordinary commit and stage the result; never commit unformatted output. A solo issue campaign formats its unified cycle pull request. The sole exception is an active multi-agent issue campaign implementation batch: those pull requests must not run the repository-wide formatter, and that procedure performs one dedicated Post-Campaign Cleanup format pull request after the campaign ends.
 
@@ -74,10 +74,9 @@ Use one `Test*` function per test file and mirror a nearby test's package, fixtu
 
 - **Function-per-file:** `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, and `test-utils` discover `src/features/**/test_*.ts` through `DynamicExecutor`. Export exactly one `test_<snake_case>` function from a matching filename. `DynamicExecutor` selects and reports a test by its exported name, so a name that disagrees with its file makes the test unreachable by that file's name; `test-feature-identity` enforces the agreement.
 - **Generated matrices:** `test-typia-automated` and `test-utils-automated` delete and regenerate `src/features/**` when they run. Do not hand-edit those trees. Change the controller/template metadata or `@typia/template`; keep the committed ObjectSimple composite layer in `test-typia-automated/src/composite/**` hand-maintained.
-- **CLI generation:** `test-typia-generate` owns hand-written inputs under `src/input/**`; its scripts regenerate `src/output/**`, exercise directory, file, explicit-project, implicit-project, and jsconfig modes, then compile and check the output.
 - **Transform rejection:** `test-error` compiles invalid call sites and asserts the diagnostics that reject them. A failed build publishes no output, so the suite reads no emitted JavaScript: it requires the build to fail, every fixture to typecheck, and every fixture to be named by a typia diagnostic. Add cases beside their feature group, and keep each fixture valid TypeScript that only typia rejects — a type error aborts the build before the transform runs and would leave the suite with nothing to observe.
 - **Type compilation:** `test-interface` is a compile-only `ttsc` suite for `@typia/interface` type contracts.
-- **CLI process integration:** `test-typia-cli` creates temporary projects and spawns `pnpm exec ttsc` against them. Its fixtures live outside the workspace, so it explicitly shares the root ttsc cache through `TTSC_CACHE_DIR`.
+- **Compiler process integration:** `test-typia-compiler` creates temporary projects and spawns `pnpm exec ttsc` against them. Its fixtures live outside the workspace, so it explicitly shares the root ttsc cache through `TTSC_CACHE_DIR`.
 - **Focused option behavior:** `test-typia-exact-optional` uses a small explicit runner and a plugin entry with `undefined: false`; keep focused compiler-option scenarios there instead of forcing them into DynamicExecutor.
 - **Repository naming integrity:** `test-feature-identity` reads every suite's tracked `src/features` tree through `git ls-files` and asserts each file exports exactly one `test_*` function matching its basename, that helper files export none, and that no two files of one suite export the same name. It owns the hand-written trees only; the generated matrices gitignore `src/features`, so their generator owns their naming. It also asserts every `tests/*` workspace declares the package name `@typia/<directory>`, because `pnpm --filter <name>` selects by package name and exits 0 when it matches nothing — a mismatch turns a name-filtered verification into a command that runs nothing and reports success.
 
@@ -111,7 +110,7 @@ A test that only feeds a transform its ordinary successful input and asserts tha
 - **Boundaries.** Cover the empty case, the single-element case, recursion limits, optional and nullable members, exact numeric limits, deepest nesting, and the tag or compiler option that flips the decision.
 - **Oracle-derived expectations.** Take expected behavior from TypeScript semantics and the authoritative JSON Schema, OpenAPI, Protocol Buffer, or adapter contract, never from whatever the current code happens to emit. A snapshot written against the implementation's own output locks its bugs in.
 
-This is not a validator-only rule. The same happy-path bias hides serializer corruption, schema loss, CLI failures, and native diagnostic regressions, so every feature carries the burden.
+This is not a validator-only rule. The same happy-path bias hides serializer corruption, schema loss, compiler-process failures, and native diagnostic regressions, so every feature carries the burden.
 
 ## Validation
 

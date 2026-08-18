@@ -10,9 +10,6 @@
     "./lib/internal/*": "./src/internal/*.ts",
     "./package.json": "./package.json"
   },
-  "bin": {
-    "typia": "./src/executable/typia.ts"
-  },
   "ttsc": {
     "plugin": {
       "transform": "typia/lib/transform"
@@ -37,10 +34,7 @@
     "@standard-schema/spec": "^1.0.0",
     "@typia/interface": "workspace:^",
     "@typia/utils": "workspace:^",
-    "commander": "^10.0.0",
-    "inquirer": "^8.2.5",
-    "randexp": "^0.5.3",
-    "tinyglobby": "^0.2.12"
+    "randexp": "^0.5.3"
   },
   "peerDependencies": {
     "ttsc": ">=0.19.2"
@@ -51,12 +45,9 @@
     }
   },
   "devDependencies": {
-    "@types/inquirer": "^8.2.5",
     "@types/node": "catalog:utils",
-    "chalk": "^4.0.0",
     "rimraf": "catalog:utils",
     "rolldown": "catalog:rolldown",
-    "suppress-warnings": "^1.0.2",
     "ttsc": "catalog:typescript",
     "typescript": "catalog:typescript"
   },
@@ -109,9 +100,6 @@
     "types": "lib/index.d.ts",
     "main": "lib/index.js",
     "module": "lib/index.mjs",
-    "bin": {
-      "typia": "./lib/executable/typia.js"
-    },
     "exports": {
       ".": {
         "types": "./lib/index.d.ts",
