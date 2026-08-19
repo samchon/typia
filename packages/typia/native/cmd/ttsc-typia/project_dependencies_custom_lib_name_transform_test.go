@@ -25,8 +25,12 @@ import (
 //     analysis touches real default libraries.
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `dependencies["src/a.ts"]` contains `src/lib.custom.d.ts`.
-//  4. Assert no compiler-owned default library (virtual `bundled:///` URI or
-//     any value outside the project) leaks into the entry.
+//  4. Assert no compiler-owned default library leaks into the entry. Under this
+//     fixture they are the program's virtual `bundled:///` sources, so the URI
+//     shape is what proves the classification still excludes them. Being outside
+//     the project is not evidence of one: the envelope reports a `node_modules`
+//     declaration file like any other, and the files that decide a callee's
+//     typia identity are exactly such files.
 func TestProjectDependenciesCustomLibNameTransform(t *testing.T) {
   project := projectDependenciesCustomLibNameProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -55,9 +59,6 @@ func TestProjectDependenciesCustomLibNameTransform(t *testing.T) {
     found[entry] = true
     if strings.Contains(entry, "://") {
       t.Fatalf("dependencies must exclude virtual URI sources, got %q in %v", entry, entries)
-    }
-    if filepath.IsAbs(filepath.FromSlash(entry)) || strings.HasPrefix(entry, "../") {
-      t.Fatalf("dependencies must not report files outside the project, got %q in %v", entry, entries)
     }
   }
   if !found["src/lib.custom.d.ts"] {

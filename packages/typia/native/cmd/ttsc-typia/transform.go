@@ -103,7 +103,7 @@ func runTransform(args []string) int {
       fmt.Fprintln(stderr, "ttsc-typia transform: --out requires --file")
       return 2
     }
-    return runTransformProject(prog, cwd, typiaTransform, &transformDiags)
+    return runTransformProject(prog, cwd, typiaTransform, &transformDiags, &extras)
   }
 
   absFile := *file
@@ -190,11 +190,24 @@ func runTransformSingle(
 // dependencies[F]), so graph is added alongside dependencies, not a replacement.
 // Every section keys through driver.TransformOutputKey, so the consumer joins
 // them by key.
+//
+// A third section, `dependenciesComplete`, names the files whose `dependencies`
+// entry is the whole story, and for those the consumer stops unioning: it
+// derives dependencies[F] ∪ configs ∪ candidates and drops reach(edges, F) and
+// globals. That is the difference between re-validating the reference closure
+// of a file and re-validating the handful of declarations typia read, paid once
+// per delivered module, and for the majority of a project's files -- the ones
+// with no typia call at all -- between the closure and nothing.
+//
+// The declaration transfers responsibility, so it is made per file and only
+// where the collector could bound the file's inputs; see transformDependency-
+// Collector.Infer and .Unbound for what withholds it (samchon/typia#2357).
 func runTransformProject(
   prog *driver.Program,
   cwd string,
   typiaTransform driver.PluginTransform,
   transformDiags *[]typiaTransformDiagnostic,
+  extras *nativecontext.ITypiaContext_Extras,
 ) int {
   out := transformProjectOutput{
     Diagnostics: []transformCompilerDiagnostic{},
@@ -211,6 +224,11 @@ func runTransformProject(
   })
   schemametadata.MetadataDependency_listen(prog.Checker, collector.Touch)
   defer schemametadata.MetadataDependency_release(prog.Checker)
+  // The per-file transformer reads `extras` on every call, so wiring the hook
+  // through the pointer reaches the loop below. Only this host declares
+  // completeness, which is why only this host asks to be told that a call took
+  // its type from a value argument.
+  extras.ReportInferredType = collector.Infer
   for _, sf := range prog.SourceFiles() {
     if sf.IsDeclarationFile {
       continue
@@ -223,6 +241,7 @@ func runTransformProject(
     out.TypeScript[key] = transformFileToTypeScript(prog, typiaTransform, sf)
   }
   out.Dependencies = collector.ToJSON()
+  out.DependenciesComplete = collector.ToCompleteJSON()
   for _, diag := range *transformDiags {
     out.Diagnostics = append(out.Diagnostics, transformDiagnosticToCompilerDiagnostic(diag))
   }
@@ -359,24 +378,52 @@ type transformProjectOutput struct {
   // files are excluded (toolchain-versioned, not project inputs);
   // `node_modules` declaration files are included.
   Dependencies map[string][]string `json:"dependencies,omitempty"`
+  // DependenciesComplete lists the TypeScript keys whose Dependencies entry is
+  // exhaustive: nothing outside that entry, the file itself, and the universal
+  // config chain can change the file's transformed text. The consumer stops
+  // widening those files with the reference closure and the global-scope set.
+  //
+  // Unlisted is always the safe answer, so the list carries only what the
+  // collector could bound. An older ttsc ignores the field; 0.19.3 and newer
+  // narrow on it.
+  DependenciesComplete []string `json:"dependenciesComplete,omitempty"`
 }
 
 // transformDependencyCollector accumulates the consulted-declaration files the
 // metadata dependency listener reports while one project file is transformed,
-// attributing them to that file's envelope key.
+// attributing them to that file's envelope key, and decides which of those keys
+// may be declared complete.
 type transformDependencyCollector struct {
   cwd     string
   current string
+  keys    []string
   files   map[string]map[string]bool
+  // unbounded holds the keys withheld from the completeness declaration. It is
+  // a set of exclusions rather than a set of admissions because every path that
+  // learns a file cannot be bounded runs while that file is being transformed,
+  // whereas nothing ever proves the opposite: a file is declarable exactly when
+  // no such path fired for it.
+  unbounded map[string]bool
   // isLibraryFile reports the compiler's own classification of a file as a
   // default library. Classification must come from the program, never from a
   // filename pattern: a project's own ambient declaration file may legitimately
   // be named `lib.custom.d.ts`, and dropping it by basename silently loses
   // cache invalidation for the types it declares (samchon/typia#2108).
   isLibraryFile func(fileName string) bool
-  // values memoizes fileName -> envelope value ("" for a dropped file): the
-  // listener reports the same declaration files repeatedly across call sites.
-  values map[string]string
+  // values memoizes fileName -> rendered envelope value: the listener reports
+  // the same declaration files repeatedly across call sites.
+  values map[string]transformDependencyValue
+}
+
+// transformDependencyValue is one reported file rendered for the envelope: its
+// key, or the reason it was dropped. The reasons differ in what they cost a
+// completeness declaration, so they cannot both collapse to an empty value.
+type transformDependencyValue struct {
+  // key is the envelope value, empty when the file was dropped.
+  key string
+  // library records the drop of a file the compiler classifies as a default
+  // library and that is nevertheless a real on-disk path.
+  library bool
 }
 
 func newTransformDependencyCollector(
@@ -387,19 +434,48 @@ func newTransformDependencyCollector(
     cwd:           cwd,
     isLibraryFile: isLibraryFile,
     files:         map[string]map[string]bool{},
-    values:        map[string]string{},
+    unbounded:     map[string]bool{},
+    values:        map[string]transformDependencyValue{},
   }
 }
 
-// Begin attributes subsequent touches to the given envelope key.
+// Begin attributes subsequent touches to the given envelope key and records it
+// as a candidate for the completeness declaration. Every key the envelope
+// publishes passes through here exactly once -- one program source file, one
+// key, one Begin -- including the files typia leaves untouched: those are the
+// ones with nothing to report and everything to gain.
 func (collector *transformDependencyCollector) Begin(key string) {
   collector.current = key
+  collector.keys = append(collector.keys, key)
+}
+
+// Infer withholds the completeness declaration from the file being transformed
+// because one of its typia calls took the validated type from a value argument.
+// See ITypiaContext_Extras.ReportInferredType for why no walk can bound that.
+func (collector *transformDependencyCollector) Infer() {
+  collector.Unbound()
+}
+
+// Unbound withholds the completeness declaration from the file being
+// transformed. The file keeps its reported dependencies and falls back to the
+// host-owned reference-closure bound, which is what an unlisted file gets and
+// is always sound.
+func (collector *transformDependencyCollector) Unbound() {
+  if collector.current == "" {
+    return
+  }
+  collector.unbounded[collector.current] = true
 }
 
 // Touch records one consulted declaration file for the current key. Default
 // library files, virtual URI sources (e.g. tsgo's `bundled:///` libraries),
 // and the transformed file itself are dropped so the envelope carries only
 // actionable project inputs.
+//
+// An on-disk default library is dropped like any other, but it also withholds
+// the current file's completeness declaration: the host-owned bound carries
+// that file in `graph.globals`, so a narrowed file would stop watching an input
+// the default bound watches.
 func (collector *transformDependencyCollector) Touch(fileName string) {
   if collector.current == "" {
     return
@@ -409,7 +485,10 @@ func (collector *transformDependencyCollector) Touch(fileName string) {
     value = collector.value(fileName)
     collector.values[fileName] = value
   }
-  if value == "" || value == collector.current {
+  if value.library {
+    collector.Unbound()
+  }
+  if value.key == "" || value.key == collector.current {
     return
   }
   set := collector.files[collector.current]
@@ -417,19 +496,31 @@ func (collector *transformDependencyCollector) Touch(fileName string) {
     set = map[string]bool{}
     collector.files[collector.current] = set
   }
-  set[value] = true
+  set[value.key] = true
 }
 
-// value renders one reported file as its envelope value, or "" when the file
-// must be dropped: virtual URI sources (e.g. tsgo's `bundled:///` embedded
-// libraries) cannot be watched, and files the compiler classifies as default
-// libraries (on-disk in `noembed` or `libReplacement` configurations) are
-// toolchain inputs, not project inputs.
-func (collector *transformDependencyCollector) value(fileName string) string {
-  if strings.Contains(fileName, "://") || collector.isLibraryFile(fileName) {
-    return ""
+// value renders one reported file as its envelope value, or records why it must
+// be dropped.
+//
+// A virtual URI source (e.g. tsgo's `bundled:///` embedded libraries) is
+// nobody's input: `driver.NewTransformGraph` skips the same scheme, so dropping
+// it leaves the reported list and the host-owned bound in agreement and costs a
+// completeness declaration nothing.
+//
+// A file the compiler classifies as a default library is a toolchain input
+// rather than a project input, which is why the envelope has never reported one.
+// Under `noembed` or `libReplacement` it is nevertheless a real path that
+// `graph.globals` carries, so the default bound watches it while a narrowed
+// file would not. Keep dropping it from the reported list -- that contract is
+// #2108's -- and mark the drop so the file that consulted it stays undeclared.
+func (collector *transformDependencyCollector) value(fileName string) transformDependencyValue {
+  if strings.Contains(fileName, "://") {
+    return transformDependencyValue{}
   }
-  return driver.TransformOutputKey(collector.cwd, fileName)
+  if collector.isLibraryFile(fileName) {
+    return transformDependencyValue{library: true}
+  }
+  return transformDependencyValue{key: driver.TransformOutputKey(collector.cwd, fileName)}
 }
 
 // ToJSON renders the collected sets as the envelope's `dependencies` map with
@@ -453,6 +544,29 @@ func (collector *transformDependencyCollector) ToJSON() map[string][]string {
   if len(output) == 0 {
     return nil
   }
+  return output
+}
+
+// ToCompleteJSON renders the envelope's `dependenciesComplete` list: every key
+// the transform published except the ones the collector could not bound.
+//
+// The list is deliberately built from the keys rather than from the entries of
+// ToJSON. A file typia never touched reports no dependency at all, and that
+// empty entry is the strongest claim in the envelope -- nothing outside the
+// file can change a faithful re-print -- so leaving those keys out would drop
+// the majority of the narrowing on the floor.
+func (collector *transformDependencyCollector) ToCompleteJSON() []string {
+  output := make([]string, 0, len(collector.keys))
+  for _, key := range collector.keys {
+    if collector.unbounded[key] {
+      continue
+    }
+    output = append(output, key)
+  }
+  if len(output) == 0 {
+    return nil
+  }
+  sort.Strings(output)
   return output
 }
 

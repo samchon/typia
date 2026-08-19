@@ -86,6 +86,87 @@ func MetadataDependency_touchTypeNode(checker *nativechecker.Checker, node *nati
   metadataDependency_walkNode(checker, listener, node, map[*nativeast.Symbol]bool{})
 }
 
+// MetadataDependency_touchCallee reports the files that decide WHICH
+// declaration a call expression's callee names.
+//
+// typia recognizes its own call sites by the source file that declares the
+// resolved signature, so every module an import or re-export chain passes
+// through chooses whether a call is rewritten at all. Re-pointing a barrel from
+// `export { is } from "./local"` to `export { is } from "typia"` turns an
+// untouched file into a generated validator, and the reverse turns a validator
+// back into a plain call. The type-graph touches cannot see either: they report
+// what the validated type is, never what selected the callee.
+//
+// Every identifier and property access written in the callee is resolved, alias
+// hops included, so both the traversed modules and the declaring files are
+// reported. This runs for every call expression the transformer examines rather
+// than only for recognized typia calls, because a call that is not typia's
+// today is exactly the one an edit to one of those files makes typia's
+// tomorrow.
+func MetadataDependency_touchCallee(checker *nativechecker.Checker, callee *nativeast.Node) {
+  listener := metadataDependency_listener(checker)
+  if listener == nil || callee == nil {
+    return
+  }
+  metadataDependency_walkCallee(checker, listener, callee)
+}
+
+// metadataDependency_walkCallee descends a written callee expression and
+// reports every reference it names. The whole property access and each of its
+// parts are resolved separately: `helpers.is` selects its declaration through
+// `helpers`, which a module other than the caller may declare, while `is` alone
+// resolves to the declaration that decides typia-ness.
+func metadataDependency_walkCallee(
+  checker *nativechecker.Checker,
+  listener func(fileName string),
+  node *nativeast.Node,
+) {
+  if node == nil {
+    return
+  }
+  switch node.Kind {
+  case nativeast.KindIdentifier,
+    nativeast.KindPropertyAccessExpression,
+    nativeast.KindElementAccessExpression,
+    nativeast.KindQualifiedName:
+    metadataDependency_touchDeclarations(checker, listener, node)
+  }
+  node.ForEachChild(func(child *nativeast.Node) bool {
+    metadataDependency_walkCallee(checker, listener, child)
+    return false
+  })
+}
+
+// metadataDependency_touchDeclarations reports one written reference's own
+// declaring files, following alias hops but without walking the type surface of
+// what it names. The caller asks which declaration a name selects, not what
+// that declaration's type is built from; the type graph reports the latter
+// where it is actually consulted.
+func metadataDependency_touchDeclarations(
+  checker *nativechecker.Checker,
+  listener func(fileName string),
+  name *nativeast.Node,
+) {
+  if checker == nil {
+    return
+  }
+  symbol := checker.GetSymbolAtLocation(name)
+  if symbol == nil {
+    return
+  }
+  if symbol.Flags&nativeast.SymbolFlagsAlias != 0 {
+    metadataDependency_touchPath(checker, listener, symbol)
+    if resolved := nativechecker.Checker_getAliasedSymbol(checker, symbol); resolved != nil {
+      symbol = resolved
+    }
+  }
+  for _, declaration := range symbol.Declarations {
+    if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
+      listener(src.FileName())
+    }
+  }
+}
+
 func metadataDependency_listener(checker *nativechecker.Checker) func(fileName string) {
   if checker == nil {
     return nil
