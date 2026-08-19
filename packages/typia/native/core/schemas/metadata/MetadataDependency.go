@@ -145,12 +145,12 @@ func metadataDependency_walkCallee(
 func metadataDependency_touchDeclarations(
   checker *nativechecker.Checker,
   listener func(fileName string),
-  name *nativeast.Node,
+  reference *nativeast.Node,
 ) {
   if checker == nil {
     return
   }
-  symbol := checker.GetSymbolAtLocation(name)
+  symbol := checker.GetSymbolAtLocation(reference)
   if symbol == nil {
     return
   }
