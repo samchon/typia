@@ -289,7 +289,7 @@ func metadataDependency_touchVisited(
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
       listener.File(src.FileName())
     }
-    if metadataDependency_inferred(declaration) {
+    if metadataDependency_bounded(declaration) == false {
       listener.unbounded()
     }
     for _, surface := range metadataDependency_typeSurface(declaration) {
@@ -298,39 +298,91 @@ func metadataDependency_touchVisited(
   }
 }
 
-// metadataDependency_inferred reports a declaration whose type is not written on
-// it: an object-literal member, a destructured binding, or a property,
-// parameter, or variable declared by an initializer alone.
+// metadataDependency_bounded reports whether a declaration's type is written
+// where this walk can read it. A declaration that fails it raises the unbounded
+// admission, which costs the file being transformed its completeness
+// declaration and nothing else.
 //
-// The written surface exists because the checker erases an alias of an
-// intrinsic — `type Id = string` interns as the bare intrinsic and leaves no
-// symbol for the type graph to follow — so only the syntax that names the alias
-// can register its file (samchon/typia#2126). When the type is inferred there is
-// no such syntax to read. `export const cfg = { id: base }` puts the answer in
-// whatever `base` resolves to, and following that means following type inference
-// over arbitrary expressions: a call's return type, an overload's selection, a
-// conditional's branches, a contextually typed parameter. That is the same
-// unbounded problem a typia call with no written type argument has, and it gets
-// the same answer -- the file that consulted it is reported as far as the walk
-// reaches and is not declared complete (samchon/typia#2357).
+// The answer is NO for every kind this switch does not name, and that direction
+// is the whole point. Under-reporting a file is safe -- it keeps the host-owned
+// reference closure -- while declaring a file whose inputs were not enumerated
+// serves a stale validator, so a declaration kind nobody thought about has to
+// cost narrowing rather than correctness.
 //
-// A literal initializer is the exception that stays bounded: `x = 1` names no
-// other file, so a declaration typed by one is as written as an annotation.
-func metadataDependency_inferred(declaration *nativeast.Node) bool {
+// What makes a kind bounded is that its type is either written on it, surfaced
+// by metadataDependency_typeSurface, or absent entirely (a module, an alias
+// hop, an enum's own declaration). What makes one unbounded is inference: an
+// object-literal member and a destructured binding take their type from an
+// expression, and so does a property, parameter, or variable with no
+// annotation. Following that means following type inference over arbitrary
+// expressions -- a call's return type, an overload's selection, a conditional's
+// branches, a contextually typed parameter -- which is the same problem a typia
+// call with no written type argument has, and it gets the same answer
+// (samchon/typia#2126, samchon/typia#2357).
+func metadataDependency_bounded(declaration *nativeast.Node) bool {
   switch declaration.Kind {
-  case nativeast.KindPropertyAssignment,
-    nativeast.KindShorthandPropertyAssignment,
-    nativeast.KindSpreadAssignment,
-    nativeast.KindBindingElement:
+  case nativeast.KindTypeAliasDeclaration,
+    nativeast.KindJSTypeAliasDeclaration,
+    nativeast.KindInterfaceDeclaration,
+    nativeast.KindClassDeclaration,
+    nativeast.KindClassExpression,
+    nativeast.KindTypeLiteral,
+    nativeast.KindMappedType,
+    nativeast.KindTypeParameter,
+    nativeast.KindEnumDeclaration:
+    // Structural declarations: metadataDependency_typeSurface hands their
+    // written types to the walk, and their members surface individually.
     return true
+  case nativeast.KindMethodSignature,
+    nativeast.KindMethodDeclaration,
+    nativeast.KindGetAccessor,
+    nativeast.KindSetAccessor,
+    nativeast.KindIndexSignature,
+    nativeast.KindCallSignature,
+    nativeast.KindConstructSignature,
+    nativeast.KindFunctionType,
+    nativeast.KindConstructorType,
+    nativeast.KindFunctionDeclaration,
+    nativeast.KindFunctionExpression,
+    nativeast.KindArrowFunction,
+    nativeast.KindConstructor,
+    nativeast.KindClassStaticBlockDeclaration:
+    // Callables. An analysis emits one as `typeof x === "function"` and reads
+    // no part of its signature, which is the contract
+    // TestProjectDependenciesSignatureAliasTransform states, so an inferred
+    // return type is not an input either.
+    return true
+  case nativeast.KindSourceFile,
+    nativeast.KindModuleDeclaration,
+    nativeast.KindNamespaceExportDeclaration,
+    nativeast.KindImportDeclaration,
+    nativeast.KindImportClause,
+    nativeast.KindImportSpecifier,
+    nativeast.KindImportEqualsDeclaration,
+    nativeast.KindNamespaceImport,
+    nativeast.KindNamespaceExport,
+    nativeast.KindExportDeclaration,
+    nativeast.KindExportSpecifier,
+    nativeast.KindExportAssignment:
+    // Modules and alias hops carry no type of their own; the hop itself is
+    // reported by metadataDependency_touchPath and the terminus is resolved
+    // separately.
+    return true
+  case nativeast.KindNamedTupleMember:
+    return declaration.Type() != nil
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
     nativeast.KindParameter,
     nativeast.KindVariableDeclaration:
-    if declaration.Type() != nil {
-      return false
-    }
-    return metadataDependency_literal(declaration.Initializer()) == false
+    return declaration.Type() != nil || metadataDependency_literal(declaration.Initializer())
+  case nativeast.KindEnumMember,
+    nativeast.KindPropertyAssignment:
+    // An enum member's value is read straight into the generated validator, and
+    // an object-literal member's type is its initializer. Both are written here
+    // when the initializer is a literal or, for an auto-numbered enum member,
+    // absent; anything else names a value some other file may declare.
+    initializer := declaration.Initializer()
+    return initializer == nil || metadataDependency_literal(initializer)
   }
   return false
 }
@@ -351,25 +403,43 @@ func metadataDependency_literal(initializer *nativeast.Node) bool {
     nativeast.KindFalseKeyword,
     nativeast.KindNullKeyword:
     return true
+  case nativeast.KindParenthesizedExpression:
+    return metadataDependency_literal(initializer.Expression())
+  case nativeast.KindPrefixUnaryExpression:
+    // `-1` is how a negative number is written, and TypeScript reads the sign
+    // and the literal as one constant. Only the numeric operators qualify: `!x`
+    // and `~x` say nothing about where x came from.
+    unary := initializer.AsPrefixUnaryExpression()
+    switch unary.Operator {
+    case nativeast.KindMinusToken, nativeast.KindPlusToken:
+      switch unary.Operand.Kind {
+      case nativeast.KindNumericLiteral, nativeast.KindBigIntLiteral:
+        return true
+      }
+    }
   }
   return false
 }
 
 // metadataDependency_typeSurface selects the WRITTEN type nodes of a
-// declaration: the whole node for a `type` alias (type parameters + aliased
-// type), the annotation for properties, parameters, and variables, and
-// parameter types + return type for methods, accessors, and index signatures.
-// Bodies and initializers are excluded — a reference appearing only there is not
-// part of the type the analysis consulted, and a declaration that has only an
-// initializer to go on is reported unbounded by
-// metadataDependency_inferred rather than guessed at.
+// declaration: the whole node for a `type` alias, a mapped type, or a type
+// parameter (constraint and default included), the type parameters and index
+// signatures of an interface or class, the annotation for properties,
+// parameters, and variables, and parameter types + return type for methods,
+// accessors, and index signatures. Bodies and initializers are excluded — a
+// reference appearing only there is not part of the type the analysis consulted,
+// and a declaration that has only an initializer to go on is reported unbounded
+// by metadataDependency_bounded rather than guessed at.
 //
 // Interface, class, and type-literal declarations contribute only their index
 // signatures: every other member surfaces individually through property
 // enumeration.
 func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.Node {
   switch declaration.Kind {
-  case nativeast.KindTypeAliasDeclaration:
+  case nativeast.KindTypeAliasDeclaration,
+    nativeast.KindJSTypeAliasDeclaration,
+    nativeast.KindMappedType,
+    nativeast.KindTypeParameter:
     return []*nativeast.Node{declaration}
   case nativeast.KindInterfaceDeclaration,
     nativeast.KindClassDeclaration,
@@ -391,6 +461,15 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
     // them would invalidate consumers on edits that cannot change the output.
     // TestProjectDependenciesSignatureAliasTransform is that boundary.
     output := []*nativeast.Node{}
+    // A type parameter's constraint and default are written on the declaration
+    // and are consulted like any other written type: `interface Wrapper<T = Id>`
+    // validated as `Wrapper` reads whatever `Id` is. The alias-of-an-intrinsic
+    // erasure applies to them too, so without this the aliased file changed the
+    // generated validator with nothing reporting it -- the same defect as an
+    // unreported index signature, one declaration kind over.
+    if declaration.Kind != nativeast.KindTypeLiteral {
+      output = append(output, declaration.TypeParameters()...)
+    }
     for _, member := range declaration.Members() {
       if member == nil || member.Kind != nativeast.KindIndexSignature {
         continue
