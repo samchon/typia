@@ -19,11 +19,13 @@ import (
 // (samchon/typia#2357).
 //
 //  1. Build a project where `direct.ts` calls an IIFE whose body names a type
-//     from `deep.ts`, and `indirect.ts` calls what an IIFE returns.
+//     from `deep.ts`, while `indirect.ts` calls what an IIFE returns and
+//     `tagged.ts` calls what a tagged template returns.
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `direct.ts` is declared complete and reports nothing from its own
 //     IIFE body, so the walk neither charged nor withheld the body's names.
-//  4. Assert `indirect.ts` is withheld.
+//  4. Assert `indirect.ts` and `tagged.ts` are withheld, so a call-like form
+//     other than `()` does not quietly escape the same rule.
 func TestProjectDependenciesCalleeShapeTransform(t *testing.T) {
   project := projectDependenciesCalleeShapeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -58,6 +60,9 @@ func TestProjectDependenciesCalleeShapeTransform(t *testing.T) {
   if declared["src/indirect.ts"] {
     t.Fatalf("a call to what a function literal returns has no bounded identity and must be withheld: %v", envelope.DependenciesComplete)
   }
+  if declared["src/tagged.ts"] {
+    t.Fatalf("a tagged template is a call, so what it returns has no bounded identity either: %v", envelope.DependenciesComplete)
+  }
 }
 
 func projectDependenciesCalleeShapeProject(t *testing.T) string {
@@ -82,6 +87,7 @@ func projectDependenciesCalleeShapeProject(t *testing.T) string {
   for name, body := range map[string]string{
     "direct.ts":   projectDependenciesCalleeShapeSourceDirect,
     "indirect.ts": projectDependenciesCalleeShapeSourceIndirect,
+    "tagged.ts":   projectDependenciesCalleeShapeSourceTagged,
     "deep.ts":     projectDependenciesCalleeShapeSourceDeep,
   } {
     if err := os.WriteFile(filepath.Join(src, name), []byte(body), 0o644); err != nil {
@@ -100,6 +106,9 @@ export const value = (() => {
 `
 
 const projectDependenciesCalleeShapeSourceIndirect = `export const value = (() => (input: string): string => input)()("x");
+`
+
+const projectDependenciesCalleeShapeSourceTagged = `export const value = ((_: TemplateStringsArray) => (input: string): string => input)` + "`x`" + `("y");
 `
 
 const projectDependenciesCalleeShapeSourceDeep = `export interface Deep {
