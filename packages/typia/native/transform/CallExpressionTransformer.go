@@ -105,14 +105,14 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
   // A call that writes no type argument takes its validated type from the value
   // argument instead, and no walk bounds where that type was decided: contextual
   // typing can put the deciding annotation in a file the resolved type never
-  // names. Tell the host, which withholds the completeness declaration for this
-  // file rather than vouch for a list that cannot cover it.
+  // names. Report it as unbounded, which costs the file its completeness
+  // declaration rather than vouching for a list that cannot cover it.
   if props.Expression.TypeArguments != nil && len(props.Expression.TypeArguments.Nodes) != 0 {
     for _, argument := range props.Expression.TypeArguments.Nodes {
       schemametadata.MetadataDependency_touchTypeNode(props.Context.Checker, argument)
     }
-  } else if props.Context.Extras.ReportInferredType != nil {
-    props.Context.Extras.ReportInferredType()
+  } else {
+    schemametadata.MetadataDependency_unbounded(props.Context.Checker)
   }
   // Keep the full callee expression (e.g. `typia.assertEquals`) as the modulo,
   // mirroring the TypeScript transformer. Programmers render it into the

@@ -22,14 +22,39 @@ import (
 // modes register none).
 var metadataDependency_listeners sync.Map
 
+// MetadataDependency_IListener is what a registered host receives while one
+// file is transformed. `File` is the report; `Unbounded` is the admission that
+// the report cannot be the whole story.
+type MetadataDependency_IListener struct {
+  // File receives each consulted declaration file name.
+  File func(fileName string)
+  // Unbounded reports that the analysis consulted something no file list can
+  // bound: a declaration whose type this package can only read from an
+  // inferred position, or a callee whose identity is decided by an expression
+  // that names nothing.
+  //
+  // A host that only widens invalidation may ignore it, because an unreported
+  // file is still watched through the reference closure. A host that narrows to
+  // the reported list cannot: it has to leave the file out of that narrowing,
+  // since the list it would vouch for is missing an input nobody can enumerate.
+  Unbounded func()
+}
+
 // MetadataDependency_listen registers the listener that receives every
 // consulted declaration file name resolved through `checker`. The caller owns
 // attribution (which transformed file the touches belong to) and filtering.
-func MetadataDependency_listen(checker *nativechecker.Checker, listener func(fileName string)) {
-  if checker == nil || listener == nil {
+func MetadataDependency_listen(checker *nativechecker.Checker, listener MetadataDependency_IListener) {
+  if checker == nil || listener.File == nil {
     return
   }
   metadataDependency_listeners.Store(checker, listener)
+}
+
+// MetadataDependency_unbounded raises the admission from outside this package.
+// The transform raises it for a typia call that takes its validated type from
+// the value argument, which no written type node bounds.
+func MetadataDependency_unbounded(checker *nativechecker.Checker) {
+  metadataDependency_listener(checker).unbounded()
 }
 
 // MetadataDependency_release removes the listener registered for `checker`.
@@ -43,7 +68,7 @@ func MetadataDependency_release(checker *nativechecker.Checker) {
 // MetadataDependency_active reports whether a listener is registered for
 // `checker`, so analysis code can skip walks performed only for collection.
 func MetadataDependency_active(checker *nativechecker.Checker) bool {
-  return metadataDependency_listener(checker) != nil
+  return metadataDependency_listener(checker).active()
 }
 
 // MetadataDependency_touchType reports the declaration files of a consulted
@@ -54,7 +79,7 @@ func MetadataDependency_touchType(checker *nativechecker.Checker, typ *nativeche
     return
   }
   listener := metadataDependency_listener(checker)
-  if listener == nil {
+  if listener.active() == false {
     return
   }
   visited := map[*nativeast.Symbol]bool{}
@@ -66,7 +91,7 @@ func MetadataDependency_touchType(checker *nativechecker.Checker, typ *nativeche
 // symbol (e.g. an object property or a heritage target).
 func MetadataDependency_touchSymbol(checker *nativechecker.Checker, symbol *nativeast.Symbol) {
   listener := metadataDependency_listener(checker)
-  if listener == nil {
+  if listener.active() == false {
     return
   }
   metadataDependency_touchVisited(checker, listener, symbol, map[*nativeast.Symbol]bool{})
@@ -80,7 +105,7 @@ func MetadataDependency_touchSymbol(checker *nativechecker.Checker, symbol *nati
 // symbol — so only the written reference can register the alias' own file.
 func MetadataDependency_touchTypeNode(checker *nativechecker.Checker, node *nativeast.Node) {
   listener := metadataDependency_listener(checker)
-  if listener == nil || node == nil {
+  if listener.active() == false || node == nil {
     return
   }
   metadataDependency_walkNode(checker, listener, node, map[*nativeast.Symbol]bool{})
@@ -97,44 +122,83 @@ func MetadataDependency_touchTypeNode(checker *nativechecker.Checker, node *nati
 // back into a plain call. The type-graph touches cannot see either: they report
 // what the validated type is, never what selected the callee.
 //
-// Every identifier and property access written in the callee is resolved, alias
-// hops included, so both the traversed modules and the declaring files are
-// reported. This runs for every call expression the transformer examines rather
-// than only for recognized typia calls, because a call that is not typia's
-// today is exactly the one an edit to one of those files makes typia's
-// tomorrow.
+// This runs for every call expression the transformer examines rather than only
+// for recognized typia calls, because a call that is not typia's today is
+// exactly the one an edit to one of those files makes typia's tomorrow. A
+// callee whose identity no name in it decides raises the unbounded admission.
 func MetadataDependency_touchCallee(checker *nativechecker.Checker, callee *nativeast.Node) {
   listener := metadataDependency_listener(checker)
-  if listener == nil || callee == nil {
+  if listener.active() == false || callee == nil {
     return
   }
-  metadataDependency_walkCallee(checker, listener, callee)
+  if metadataDependency_walkCallee(checker, listener, callee, false) == false {
+    listener.unbounded()
+  }
 }
 
-// metadataDependency_walkCallee descends a written callee expression and
-// reports every reference it names. The whole property access and each of its
-// parts are resolved separately: `helpers.is` selects its declaration through
-// `helpers`, which a module other than the caller may declare, while `is` alone
-// resolves to the declaration that decides typia-ness.
+// metadataDependency_walkCallee reports every name written in a callee and
+// answers whether those names decide which declaration the call resolves to.
+//
+// Two shapes are treated specially, and both are about where a call's identity
+// actually comes from:
+//
+//   - A nested call contributes its own callee but not its arguments. The
+//     arguments cannot change which declaration the outer call resolves to --
+//     the inner callee's signature already fixed that -- while walking them
+//     would report every identifier inside `items.map(x => x.a.b).filter(...)`
+//     as a dependency of a file that consulted none of them.
+//   - A function literal is where the walk stops. Written directly in callee
+//     position it is the most bounded declaration there is: the call resolves to
+//     the literal itself, in this very file, and its body is nobody's input.
+//     Reached through a nested call (`(() => is)()<T>(x)`) it is the opposite:
+//     the identity is whatever its body returns, and no set of files describes
+//     that, so the walk reports unbounded instead of guessing.
+//
+// Every other expression composes sub-expressions, so its children are walked
+// and each name in them reported.
 func metadataDependency_walkCallee(
   checker *nativechecker.Checker,
-  listener func(fileName string),
+  listener MetadataDependency_IListener,
   node *nativeast.Node,
-) {
+  nested bool,
+) bool {
   if node == nil {
-    return
+    return false
   }
   switch node.Kind {
+  case nativeast.KindArrowFunction,
+    nativeast.KindFunctionExpression,
+    nativeast.KindFunctionDeclaration,
+    nativeast.KindClassExpression,
+    nativeast.KindClassDeclaration,
+    nativeast.KindMethodDeclaration,
+    nativeast.KindGetAccessor,
+    nativeast.KindSetAccessor,
+    nativeast.KindConstructor:
+    return nested == false
+  case nativeast.KindCallExpression,
+    nativeast.KindNewExpression:
+    return metadataDependency_walkCallee(checker, listener, node.Expression(), true)
   case nativeast.KindIdentifier,
+    nativeast.KindPrivateIdentifier,
+    nativeast.KindThisKeyword,
+    nativeast.KindSuperKeyword,
     nativeast.KindPropertyAccessExpression,
     nativeast.KindElementAccessExpression,
     nativeast.KindQualifiedName:
+    // The whole access resolves to the member the call names; walking on to its
+    // qualifier reports whatever selected the object that publishes it, and a
+    // module other than the caller may declare that (`helpers.is`).
     metadataDependency_touchDeclarations(checker, listener, node)
   }
+  bounded := true
   node.ForEachChild(func(child *nativeast.Node) bool {
-    metadataDependency_walkCallee(checker, listener, child)
+    if metadataDependency_walkCallee(checker, listener, child, nested) == false {
+      bounded = false
+    }
     return false
   })
+  return bounded
 }
 
 // metadataDependency_touchDeclarations reports one written reference's own
@@ -144,7 +208,7 @@ func metadataDependency_walkCallee(
 // where it is actually consulted.
 func metadataDependency_touchDeclarations(
   checker *nativechecker.Checker,
-  listener func(fileName string),
+  listener MetadataDependency_IListener,
   reference *nativeast.Node,
 ) {
   if checker == nil {
@@ -162,35 +226,49 @@ func metadataDependency_touchDeclarations(
   }
   for _, declaration := range symbol.Declarations {
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      listener(src.FileName())
+      listener.File(src.FileName())
     }
   }
 }
 
-func metadataDependency_listener(checker *nativechecker.Checker) func(fileName string) {
+func metadataDependency_listener(checker *nativechecker.Checker) MetadataDependency_IListener {
   if checker == nil {
-    return nil
+    return MetadataDependency_IListener{}
   }
   value, ok := metadataDependency_listeners.Load(checker)
   if ok == false {
-    return nil
+    return MetadataDependency_IListener{}
   }
-  listener, ok := value.(func(fileName string))
+  listener, ok := value.(MetadataDependency_IListener)
   if ok == false {
-    return nil
+    return MetadataDependency_IListener{}
   }
   return listener
+}
+
+// active reports whether a host is collecting through this listener.
+func (listener MetadataDependency_IListener) active() bool {
+  return listener.File != nil
+}
+
+// unbounded raises the admission when the registered host asked for it, so
+// every call site can report unconditionally instead of guarding twice.
+func (listener MetadataDependency_IListener) unbounded() {
+  if listener.Unbounded != nil {
+    listener.Unbounded()
+  }
 }
 
 // metadataDependency_touchVisited reports the symbol's declaration files and
 // walks the type references written inside declarations that carry type
 // annotations (aliases, properties, methods, parameters, index signatures), so
 // checker-collapsed references — an alias of an intrinsic consumed through a
-// property or another alias — still register their declaring files. `visited`
-// guards alias cycles and bounds repeated work within one touch.
+// property or another alias — still register their declaring files. Where a declaration carries no annotation its type comes from its
+// initializer instead, and that expression is walked in turn. `visited` guards
+// alias cycles and bounds repeated work within one touch.
 func metadataDependency_touchVisited(
   checker *nativechecker.Checker,
-  listener func(fileName string),
+  listener MetadataDependency_IListener,
   symbol *nativeast.Symbol,
   visited map[*nativeast.Symbol]bool,
 ) {
@@ -203,22 +281,28 @@ func metadataDependency_touchVisited(
       continue
     }
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      listener(src.FileName())
+      listener.File(src.FileName())
     }
     for _, surface := range metadataDependency_typeSurface(declaration) {
       metadataDependency_walkNode(checker, listener, surface, visited)
+    }
+    for _, surface := range metadataDependency_valueSurface(declaration) {
+      metadataDependency_walkValue(checker, listener, surface, visited)
     }
   }
 }
 
 // metadataDependency_typeSurface selects the WRITTEN type nodes of a
 // declaration: the whole node for a `type` alias (type parameters + aliased
-// type), the annotation for properties and parameters, and parameter types +
-// return type for methods, accessors, and index signatures. Bodies and
-// initializers are excluded — a reference appearing only there is not part of
-// the type the analysis consulted. Interface, class, and type-literal
-// declarations contribute only their index signatures: every other member
-// surfaces individually through property enumeration.
+// type), the annotation for properties, parameters, and variables, and
+// parameter types + return type for methods, accessors, and index signatures.
+// Statement bodies are excluded — a reference appearing only there is not part
+// of the type the analysis consulted — while an initializer standing in for a
+// missing annotation is picked up by metadataDependency_valueSurface instead.
+//
+// Interface, class, and type-literal declarations contribute only their index
+// signatures: every other member surfaces individually through property
+// enumeration.
 func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.Node {
   switch declaration.Kind {
   case nativeast.KindTypeAliasDeclaration:
@@ -236,6 +320,12 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
     // bundler cache to invalidate (samchon/typia#2126). Members are surfaced
     // through this same selector, which keeps an index signature's own body-
     // free key/value contract as the boundary.
+    //
+    // A call or construct signature is symbol-less in the same way and is
+    // deliberately NOT surfaced: the analysis emits a callable as `typeof x ===
+    // "function"` and never reads its parameter or return types, so registering
+    // them would invalidate consumers on edits that cannot change the output.
+    // TestProjectDependenciesSignatureAliasTransform is that boundary.
     output := []*nativeast.Node{}
     for _, member := range declaration.Members() {
       if member == nil || member.Kind != nativeast.KindIndexSignature {
@@ -246,7 +336,8 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
     return output
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
-    nativeast.KindParameter:
+    nativeast.KindParameter,
+    nativeast.KindVariableDeclaration:
     if annotation := declaration.Type(); annotation != nil {
       return []*nativeast.Node{annotation}
     }
@@ -273,6 +364,82 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
   return nil
 }
 
+// metadataDependency_valueSurface selects the expression a declaration takes
+// its type FROM when it writes no annotation: an object-literal member, and a
+// property, parameter, or variable declared by its initializer alone.
+//
+// `type Id = string; export const cfg = { id: base }` gives `cfg` a property
+// whose type is `Id`, and the checker interns that as the bare `string`
+// intrinsic — so neither the type graph nor the written-annotation surface
+// names `id.ts`, while editing the alias still changes what
+// `typia.is<typeof cfg>()` generates. The initializer is the only place the
+// answer is written, so it is walked like a type surface (samchon/typia#2126,
+// samchon/typia#2357).
+func metadataDependency_valueSurface(declaration *nativeast.Node) []*nativeast.Node {
+  switch declaration.Kind {
+  case nativeast.KindPropertyAssignment:
+    if initializer := declaration.Initializer(); initializer != nil {
+      return []*nativeast.Node{initializer}
+    }
+  case nativeast.KindPropertySignature,
+    nativeast.KindPropertyDeclaration,
+    nativeast.KindParameter,
+    nativeast.KindVariableDeclaration:
+    if declaration.Type() != nil {
+      return nil
+    }
+    if initializer := declaration.Initializer(); initializer != nil {
+      return []*nativeast.Node{initializer}
+    }
+  }
+  return nil
+}
+
+// metadataDependency_walkValue follows what an initializer's type is made of in
+// two linear passes over the same expression: every written type reference
+// inside it (an `as`, a `satisfies`, a call's type argument), and then the
+// declarations of the values it names, whose own annotations carry the alias one
+// level further out.
+//
+// `visited` is shared with the type-surface walk, so a value that circles back
+// to an already-reported symbol stops there.
+func metadataDependency_walkValue(
+  checker *nativechecker.Checker,
+  listener MetadataDependency_IListener,
+  node *nativeast.Node,
+  visited map[*nativeast.Symbol]bool,
+) {
+  if node == nil {
+    return
+  }
+  metadataDependency_walkNode(checker, listener, node, visited)
+  metadataDependency_walkValueNames(checker, listener, node, visited)
+}
+
+// metadataDependency_walkValueNames is the second of walkValue's two linear
+// passes: where walkNode resolves the written type references in the
+// expression, this one resolves the values it names, so the annotation on a
+// referenced constant carries the alias out of the initializer.
+func metadataDependency_walkValueNames(
+  checker *nativechecker.Checker,
+  listener MetadataDependency_IListener,
+  node *nativeast.Node,
+  visited map[*nativeast.Symbol]bool,
+) {
+  if node == nil {
+    return
+  }
+  switch node.Kind {
+  case nativeast.KindIdentifier,
+    nativeast.KindPropertyAccessExpression:
+    metadataDependency_touchVisited(checker, listener, metadataDependency_resolve(checker, listener, node), visited)
+  }
+  node.ForEachChild(func(child *nativeast.Node) bool {
+    metadataDependency_walkValueNames(checker, listener, child, visited)
+    return false
+  })
+}
+
 // metadataDependency_walkNode descends a written node and resolves every type
 // reference it contains: `TypeReference` names, heritage / `extends`
 // expressions, `typeof` targets, and `import("...").T` qualifiers. Each
@@ -280,7 +447,7 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
 // which in turn walks type-alias declarations transitively.
 func metadataDependency_walkNode(
   checker *nativechecker.Checker,
-  listener func(fileName string),
+  listener MetadataDependency_IListener,
   node *nativeast.Node,
   visited map[*nativeast.Symbol]bool,
 ) {
@@ -322,7 +489,7 @@ func metadataDependency_walkNode(
 // SELECT which declaration the terminus is (see metadataDependency_touchPath).
 func metadataDependency_resolve(
   checker *nativechecker.Checker,
-  listener func(fileName string),
+  listener MetadataDependency_IListener,
   name *nativeast.Node,
 ) *nativeast.Symbol {
   if checker == nil || name == nil {
@@ -356,7 +523,7 @@ func metadataDependency_resolve(
 // barrel's exports, keeping unrelated siblings out of the envelope.
 func metadataDependency_touchPath(
   checker *nativechecker.Checker,
-  listener func(fileName string),
+  listener MetadataDependency_IListener,
   symbol *nativeast.Symbol,
 ) {
   visited := map[*nativeast.Symbol]bool{}
@@ -368,7 +535,7 @@ func metadataDependency_touchPath(
     }
     // The file that WRITES this hop (the barrel's own `export ... from` line).
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      listener(src.FileName())
+      listener.File(src.FileName())
     }
     specifier := metadataDependency_moduleSpecifier(declaration)
     if specifier == nil {
@@ -389,7 +556,7 @@ func metadataDependency_touchPath(
     }
     for _, moduleDeclaration := range module.Declarations {
       if src := nativeast.GetSourceFileOfNode(moduleDeclaration); src != nil {
-        listener(src.FileName())
+        listener.File(src.FileName())
       }
     }
     symbol = metadataDependency_exported(module, declaration)
