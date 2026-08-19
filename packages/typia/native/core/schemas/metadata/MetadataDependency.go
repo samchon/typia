@@ -460,16 +460,13 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
     // "function"` and never reads its parameter or return types, so registering
     // them would invalidate consumers on edits that cannot change the output.
     // TestProjectDependenciesSignatureAliasTransform is that boundary.
+    // A type parameter is not surfaced from here even though the declaration
+    // owns the list: a parameter the members use is reached through the member
+    // that uses it, and one no member uses is not consulted at all, so appending
+    // the list would report an alias behind an unused default. The parameter's
+    // own declaration carries its constraint and default, and this same selector
+    // surfaces those when the walk arrives there.
     output := []*nativeast.Node{}
-    // A type parameter's constraint and default are written on the declaration
-    // and are consulted like any other written type: `interface Wrapper<T = Id>`
-    // validated as `Wrapper` reads whatever `Id` is. The alias-of-an-intrinsic
-    // erasure applies to them too, so without this the aliased file changed the
-    // generated validator with nothing reporting it -- the same defect as an
-    // unreported index signature, one declaration kind over.
-    if declaration.Kind != nativeast.KindTypeLiteral {
-      output = append(output, declaration.TypeParameters()...)
-    }
     for _, member := range declaration.Members() {
       if member == nil || member.Kind != nativeast.KindIndexSignature {
         continue

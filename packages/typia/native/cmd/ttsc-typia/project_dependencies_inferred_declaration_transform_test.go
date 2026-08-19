@@ -23,15 +23,18 @@ import (
 // Both get the same answer rather than a partial walk that would leave the file
 // declared on an incomplete list (samchon/typia#2357).
 //
-//  1. Build a project where `cfg.ts` exports one annotated constant and one
-//     inferred constant of the same shape, and two callers validate `typeof`
-//     each.
+//  1. Build a project where `cfg.ts` exports one annotated constant, one
+//     inferred constant of the same shape, and one destructured binding, and
+//     three callers validate `typeof` each.
 //  2. Run project transform mode and decode the JSON envelope.
-//  3. Assert both callers transformed, so the pair differs only in where the
+//  3. Assert every caller transformed, so the set differs only in where the
 //     type was written.
 //  4. Assert the annotated caller is declared complete and names the
 //     annotation's own file, and that the inferred caller is withheld while
 //     keeping what it did report.
+//  5. Assert the destructured caller is withheld too. A binding element is a
+//     declaration kind the predicate names nowhere, so it answers through the
+//     default -- which is what pins that the default is "withhold".
 func TestProjectDependenciesInferredDeclarationTransform(t *testing.T) {
   project := projectDependenciesInferredDeclarationProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -52,7 +55,7 @@ func TestProjectDependenciesInferredDeclarationTransform(t *testing.T) {
   if err := json.Unmarshal([]byte(out), &envelope); err != nil {
     t.Fatalf("decode envelope: %v\n%s", err, out)
   }
-  for _, key := range []string{"src/annotated.ts", "src/inferred.ts"} {
+  for _, key := range []string{"src/annotated.ts", "src/inferred.ts", "src/destructured.ts"} {
     if text := envelope.TypeScript[key]; !strings.Contains(text, "typeof input") {
       t.Fatalf("%s must have been transformed into a generated validator, got:\n%s", key, text)
     }
@@ -77,6 +80,9 @@ func TestProjectDependenciesInferredDeclarationTransform(t *testing.T) {
   if len(envelope.Dependencies["src/inferred.ts"]) == 0 {
     t.Fatalf("withholding the declaration must not strip what src/inferred.ts did report: %v", envelope.Dependencies)
   }
+  if declared["src/destructured.ts"] {
+    t.Fatalf("a declaration kind the predicate names nowhere must answer through the default and withhold: %v", envelope.DependenciesComplete)
+  }
 }
 
 func projectDependenciesInferredDeclarationProject(t *testing.T) string {
@@ -99,11 +105,12 @@ func projectDependenciesInferredDeclarationProject(t *testing.T) string {
     t.Fatalf("write tsconfig: %v", err)
   }
   for name, body := range map[string]string{
-    "annotated.ts": projectDependenciesInferredDeclarationSourceAnnotated,
-    "inferred.ts":  projectDependenciesInferredDeclarationSourceInferred,
-    "cfg.ts":       projectDependenciesInferredDeclarationSourceCfg,
-    "shape.ts":     projectDependenciesInferredDeclarationSourceShape,
-    "id.ts":        projectDependenciesInferredDeclarationSourceId,
+    "annotated.ts":    projectDependenciesInferredDeclarationSourceAnnotated,
+    "inferred.ts":     projectDependenciesInferredDeclarationSourceInferred,
+    "destructured.ts": projectDependenciesInferredDeclarationSourceDestructured,
+    "cfg.ts":          projectDependenciesInferredDeclarationSourceCfg,
+    "shape.ts":        projectDependenciesInferredDeclarationSourceShape,
+    "id.ts":           projectDependenciesInferredDeclarationSourceId,
   } {
     if err := os.WriteFile(filepath.Join(src, name), []byte(body), 0o644); err != nil {
       t.Fatalf("write %s: %v", name, err)
@@ -126,12 +133,21 @@ import { guessed } from "./cfg";
 export const check = (input: unknown) => typia.is<typeof guessed>(input);
 `
 
+const projectDependenciesInferredDeclarationSourceDestructured = `import typia from "typia";
+
+import { picked } from "./cfg";
+
+export const check = (input: unknown) => typia.is<typeof picked>(input);
+`
+
 const projectDependenciesInferredDeclarationSourceCfg = `import { Id } from "./id";
 import { Shape } from "./shape";
 
 export const written: Shape = { id: "w" };
 
 export const guessed = { id: "g" as Id };
+
+export const { id: picked } = written;
 `
 
 const projectDependenciesInferredDeclarationSourceShape = `export interface Shape {
