@@ -368,7 +368,12 @@ func metadataDependency_bounded(declaration *nativeast.Node) bool {
     // reported by metadataDependency_touchPath and the terminus is resolved
     // separately.
     return true
-  case nativeast.KindNamedTupleMember:
+  case nativeast.KindNamedTupleMember,
+    nativeast.KindJSDocPropertyTag,
+    nativeast.KindJSDocParameterTag:
+    // A written type with no initializer to fall back to. The JSDoc tags keep
+    // an `allowJs` project narrowing: `@property {import("./id").Id} id` writes
+    // its type as plainly as an annotation does, and the surface below walks it.
     return declaration.Type() != nil
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
@@ -477,7 +482,10 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
     nativeast.KindParameter,
-    nativeast.KindVariableDeclaration:
+    nativeast.KindVariableDeclaration,
+    nativeast.KindNamedTupleMember,
+    nativeast.KindJSDocPropertyTag,
+    nativeast.KindJSDocParameterTag:
     if annotation := declaration.Type(); annotation != nil {
       return []*nativeast.Node{annotation}
     }
