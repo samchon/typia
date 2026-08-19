@@ -200,8 +200,9 @@ func runTransformSingle(
 // with no typia call at all -- between the closure and nothing.
 //
 // The declaration transfers responsibility, so it is made per file and only
-// where the collector could bound the file's inputs; see transformDependency-
-// Collector.Infer and .Unbound for what withholds it (samchon/typia#2357).
+// where the collector could bound the file's inputs; see
+// transformDependencyCollector.Unbound for what withholds it
+// (samchon/typia#2357).
 func runTransformProject(
   prog *driver.Program,
   cwd string,
@@ -227,8 +228,9 @@ func runTransformProject(
   // The per-file transformer reads `extras` on every call, so wiring the hook
   // through the pointer reaches the loop below. Only this host declares
   // completeness, which is why only this host asks to be told that a call took
-  // its type from a value argument.
-  extras.ReportInferredType = collector.Infer
+  // its type from a value argument: no walk bounds where such a type was
+  // decided, so the file it belongs to cannot be declared.
+  extras.ReportInferredType = collector.Unbound
   for _, sf := range prog.SourceFiles() {
     if sf.IsDeclarationFile {
       continue
@@ -449,17 +451,11 @@ func (collector *transformDependencyCollector) Begin(key string) {
   collector.keys = append(collector.keys, key)
 }
 
-// Infer withholds the completeness declaration from the file being transformed
-// because one of its typia calls took the validated type from a value argument.
-// See ITypiaContext_Extras.ReportInferredType for why no walk can bound that.
-func (collector *transformDependencyCollector) Infer() {
-  collector.Unbound()
-}
-
 // Unbound withholds the completeness declaration from the file being
 // transformed. The file keeps its reported dependencies and falls back to the
 // host-owned reference-closure bound, which is what an unlisted file gets and
-// is always sound.
+// is always sound. Its two callers name the two reasons: an inferred validated
+// type, and a consulted on-disk default library.
 func (collector *transformDependencyCollector) Unbound() {
   if collector.current == "" {
     return
