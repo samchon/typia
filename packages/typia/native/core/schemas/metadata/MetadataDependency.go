@@ -371,9 +371,13 @@ func metadataDependency_bounded(declaration *nativeast.Node) bool {
   case nativeast.KindNamedTupleMember,
     nativeast.KindJSDocPropertyTag,
     nativeast.KindJSDocParameterTag:
-    // A written type with no initializer to fall back to. The JSDoc tags keep
-    // an `allowJs` project narrowing: `@property {import("./id").Id} id` writes
-    // its type as plainly as an annotation does, and the surface below walks it.
+    // A written type with no initializer to fall back to. These are not walked
+    // from here: each is reached only through a written type node -- a tuple
+    // element through the alias or literal that spells the tuple, a JSDoc tag
+    // through the typedef that owns it -- and metadataDependency_walkNode
+    // already descends that whole node and resolves every reference in it.
+    // Naming them is about not withholding on a kind whose type IS written,
+    // which is what the default would otherwise do.
     return declaration.Type() != nil
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
@@ -482,10 +486,7 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
     nativeast.KindParameter,
-    nativeast.KindVariableDeclaration,
-    nativeast.KindNamedTupleMember,
-    nativeast.KindJSDocPropertyTag,
-    nativeast.KindJSDocParameterTag:
+    nativeast.KindVariableDeclaration:
     if annotation := declaration.Type(); annotation != nil {
       return []*nativeast.Node{annotation}
     }
