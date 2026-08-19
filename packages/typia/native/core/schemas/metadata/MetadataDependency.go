@@ -142,11 +142,14 @@ func MetadataDependency_touchCallee(checker *nativechecker.Checker, callee *nati
 // Two shapes are treated specially, and both are about where a call's identity
 // actually comes from:
 //
-//   - A nested call contributes its own callee but not its arguments. The
-//     arguments cannot change which declaration the outer call resolves to --
-//     the inner callee's signature already fixed that -- while walking them
-//     would report every identifier inside `items.map(x => x.a.b).filter(...)`
-//     as a dependency of a file that consulted none of them.
+//   - A nested call contributes its own callee but not its arguments. Every
+//     indirection a caller actually writes -- a factory, a barrel, a namespace
+//     alias, a local binding -- sits on the callee chain and is reported there,
+//     while walking the arguments would charge a file with every identifier
+//     inside `items.map(x => x.a.b).filter(...)`. What this gives up is narrow
+//     and stated: an argument can still select an overload or instantiate a
+//     generic, so a pass-through like `pick(ns).is<T>(x)` resolves through a
+//     module the walk never names.
 //   - A function literal is where the walk stops. Written directly in callee
 //     position it is the most bounded declaration there is: the call resolves to
 //     the literal itself, in this very file, and its body is nobody's input.
@@ -179,6 +182,8 @@ func metadataDependency_walkCallee(
   case nativeast.KindCallExpression,
     nativeast.KindNewExpression:
     return metadataDependency_walkCallee(checker, listener, node.Expression(), true)
+  case nativeast.KindTaggedTemplateExpression:
+    return metadataDependency_walkCallee(checker, listener, node.AsTaggedTemplateExpression().Tag, true)
   case nativeast.KindIdentifier,
     nativeast.KindPrivateIdentifier,
     nativeast.KindThisKeyword,
@@ -263,9 +268,10 @@ func (listener MetadataDependency_IListener) unbounded() {
 // walks the type references written inside declarations that carry type
 // annotations (aliases, properties, methods, parameters, index signatures), so
 // checker-collapsed references — an alias of an intrinsic consumed through a
-// property or another alias — still register their declaring files. Where a declaration carries no annotation its type comes from its
-// initializer instead, and that expression is walked in turn. `visited` guards
-// alias cycles and bounds repeated work within one touch.
+// property or another alias — still register their declaring files. A
+// declaration whose type is not written on it raises the unbounded admission
+// instead. `visited` guards alias cycles and bounds repeated work within one
+// touch.
 func metadataDependency_touchVisited(
   checker *nativechecker.Checker,
   listener MetadataDependency_IListener,
@@ -283,22 +289,80 @@ func metadataDependency_touchVisited(
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
       listener.File(src.FileName())
     }
+    if metadataDependency_inferred(declaration) {
+      listener.unbounded()
+    }
     for _, surface := range metadataDependency_typeSurface(declaration) {
       metadataDependency_walkNode(checker, listener, surface, visited)
     }
-    for _, surface := range metadataDependency_valueSurface(declaration) {
-      metadataDependency_walkValue(checker, listener, surface, visited)
-    }
   }
+}
+
+// metadataDependency_inferred reports a declaration whose type is not written on
+// it: an object-literal member, a destructured binding, or a property,
+// parameter, or variable declared by an initializer alone.
+//
+// The written surface exists because the checker erases an alias of an
+// intrinsic — `type Id = string` interns as the bare intrinsic and leaves no
+// symbol for the type graph to follow — so only the syntax that names the alias
+// can register its file (samchon/typia#2126). When the type is inferred there is
+// no such syntax to read. `export const cfg = { id: base }` puts the answer in
+// whatever `base` resolves to, and following that means following type inference
+// over arbitrary expressions: a call's return type, an overload's selection, a
+// conditional's branches, a contextually typed parameter. That is the same
+// unbounded problem a typia call with no written type argument has, and it gets
+// the same answer -- the file that consulted it is reported as far as the walk
+// reaches and is not declared complete (samchon/typia#2357).
+//
+// A literal initializer is the exception that stays bounded: `x = 1` names no
+// other file, so a declaration typed by one is as written as an annotation.
+func metadataDependency_inferred(declaration *nativeast.Node) bool {
+  switch declaration.Kind {
+  case nativeast.KindPropertyAssignment,
+    nativeast.KindShorthandPropertyAssignment,
+    nativeast.KindSpreadAssignment,
+    nativeast.KindBindingElement:
+    return true
+  case nativeast.KindPropertySignature,
+    nativeast.KindPropertyDeclaration,
+    nativeast.KindParameter,
+    nativeast.KindVariableDeclaration:
+    if declaration.Type() != nil {
+      return false
+    }
+    return metadataDependency_literal(declaration.Initializer()) == false
+  }
+  return false
+}
+
+// metadataDependency_literal reports an initializer that fixes a declaration's
+// type inside the declaration itself, so no other file can decide it.
+func metadataDependency_literal(initializer *nativeast.Node) bool {
+  if initializer == nil {
+    return false
+  }
+  switch initializer.Kind {
+  case nativeast.KindNumericLiteral,
+    nativeast.KindBigIntLiteral,
+    nativeast.KindStringLiteral,
+    nativeast.KindNoSubstitutionTemplateLiteral,
+    nativeast.KindRegularExpressionLiteral,
+    nativeast.KindTrueKeyword,
+    nativeast.KindFalseKeyword,
+    nativeast.KindNullKeyword:
+    return true
+  }
+  return false
 }
 
 // metadataDependency_typeSurface selects the WRITTEN type nodes of a
 // declaration: the whole node for a `type` alias (type parameters + aliased
 // type), the annotation for properties, parameters, and variables, and
 // parameter types + return type for methods, accessors, and index signatures.
-// Statement bodies are excluded — a reference appearing only there is not part
-// of the type the analysis consulted — while an initializer standing in for a
-// missing annotation is picked up by metadataDependency_valueSurface instead.
+// Bodies and initializers are excluded — a reference appearing only there is not
+// part of the type the analysis consulted, and a declaration that has only an
+// initializer to go on is reported unbounded by
+// metadataDependency_inferred rather than guessed at.
 //
 // Interface, class, and type-literal declarations contribute only their index
 // signatures: every other member surfaces individually through property
@@ -362,82 +426,6 @@ func metadataDependency_typeSurface(declaration *nativeast.Node) []*nativeast.No
     return output
   }
   return nil
-}
-
-// metadataDependency_valueSurface selects the expression a declaration takes
-// its type FROM when it writes no annotation: an object-literal member, and a
-// property, parameter, or variable declared by its initializer alone.
-//
-// `type Id = string; export const cfg = { id: base }` gives `cfg` a property
-// whose type is `Id`, and the checker interns that as the bare `string`
-// intrinsic — so neither the type graph nor the written-annotation surface
-// names `id.ts`, while editing the alias still changes what
-// `typia.is<typeof cfg>()` generates. The initializer is the only place the
-// answer is written, so it is walked like a type surface (samchon/typia#2126,
-// samchon/typia#2357).
-func metadataDependency_valueSurface(declaration *nativeast.Node) []*nativeast.Node {
-  switch declaration.Kind {
-  case nativeast.KindPropertyAssignment:
-    if initializer := declaration.Initializer(); initializer != nil {
-      return []*nativeast.Node{initializer}
-    }
-  case nativeast.KindPropertySignature,
-    nativeast.KindPropertyDeclaration,
-    nativeast.KindParameter,
-    nativeast.KindVariableDeclaration:
-    if declaration.Type() != nil {
-      return nil
-    }
-    if initializer := declaration.Initializer(); initializer != nil {
-      return []*nativeast.Node{initializer}
-    }
-  }
-  return nil
-}
-
-// metadataDependency_walkValue follows what an initializer's type is made of in
-// two linear passes over the same expression: every written type reference
-// inside it (an `as`, a `satisfies`, a call's type argument), and then the
-// declarations of the values it names, whose own annotations carry the alias one
-// level further out.
-//
-// `visited` is shared with the type-surface walk, so a value that circles back
-// to an already-reported symbol stops there.
-func metadataDependency_walkValue(
-  checker *nativechecker.Checker,
-  listener MetadataDependency_IListener,
-  node *nativeast.Node,
-  visited map[*nativeast.Symbol]bool,
-) {
-  if node == nil {
-    return
-  }
-  metadataDependency_walkNode(checker, listener, node, visited)
-  metadataDependency_walkValueNames(checker, listener, node, visited)
-}
-
-// metadataDependency_walkValueNames is the second of walkValue's two linear
-// passes: where walkNode resolves the written type references in the
-// expression, this one resolves the values it names, so the annotation on a
-// referenced constant carries the alias out of the initializer.
-func metadataDependency_walkValueNames(
-  checker *nativechecker.Checker,
-  listener MetadataDependency_IListener,
-  node *nativeast.Node,
-  visited map[*nativeast.Symbol]bool,
-) {
-  if node == nil {
-    return
-  }
-  switch node.Kind {
-  case nativeast.KindIdentifier,
-    nativeast.KindPropertyAccessExpression:
-    metadataDependency_touchVisited(checker, listener, metadataDependency_resolve(checker, listener, node), visited)
-  }
-  node.ForEachChild(func(child *nativeast.Node) bool {
-    metadataDependency_walkValueNames(checker, listener, child, visited)
-    return false
-  })
 }
 
 // metadataDependency_walkNode descends a written node and resolves every type
