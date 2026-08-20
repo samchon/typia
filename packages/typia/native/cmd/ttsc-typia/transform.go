@@ -228,6 +228,7 @@ func runTransformProject(
   // file its declaration and nothing else.
   schemametadata.MetadataDependency_listen(prog.Checker, schemametadata.MetadataDependency_IListener{
     File:      collector.Touch,
+    Callee:    collector.TouchCallee,
     Unbounded: collector.Unbound,
   })
   defer schemametadata.MetadataDependency_release(prog.Checker)
@@ -449,6 +450,12 @@ type transformDependencyValue struct {
   // withhold marks a file this envelope cannot report but the host-owned bound
   // still carries, so narrowing to the reported list would lose it.
   withhold bool
+  // libraryOnly marks a withhold whose only cause is the compiler classifying
+  // the file as a default library. Such a file can change a consulted type and
+  // so a generated validator, but never which declaration a call resolves to,
+  // which is why the identity channel drops it without withholding
+  // (samchon/typia#2361).
+  libraryOnly bool
 }
 
 func newTransformDependencyCollector(
@@ -499,6 +506,31 @@ func (collector *transformDependencyCollector) Unbound() {
 // completeness declaration: the graph still carries that file, so a narrowed
 // file would stop watching an input the default bound watches.
 func (collector *transformDependencyCollector) Touch(fileName string) {
+  collector.touch(fileName, true)
+}
+
+// TouchCallee records one file reached while deciding WHICH declaration a call
+// resolves to, and does not let a default library withhold the current file.
+//
+// A default library is dropped from the reported list either way -- that
+// contract is samchon/typia#2108's -- but the withholding beside it belongs to
+// the type channel alone. Under `libReplacement` a replaced library can change
+// a generated validator, so a file that consulted one has to give up its
+// declaration. It can never change which declaration a call resolves to:
+// callExpressionTransformer_targetModule recognizes typia's own calls by a path
+// ending in `/typia/lib/<file>.d.ts` or `/typia/src/<file>.ts`, and a file the
+// compiler classifies as a default library satisfies neither wherever it sits
+// on disk. Withholding there cost a file its declaration for calling
+// `table.get(...)`, and under `noembed` -- where every library is a real file --
+// for calling anything at all (samchon/typia#2361).
+//
+// A virtual non-`bundled:///` scheme still withholds on both channels: that drop
+// is about being unwatchable, not about being a library.
+func (collector *transformDependencyCollector) TouchCallee(fileName string) {
+  collector.touch(fileName, false)
+}
+
+func (collector *transformDependencyCollector) touch(fileName string, library bool) {
   if collector.current == "" {
     return
   }
@@ -507,7 +539,7 @@ func (collector *transformDependencyCollector) Touch(fileName string) {
     value = collector.value(fileName)
     collector.values[fileName] = value
   }
-  if value.withhold {
+  if value.withhold && (library || value.libraryOnly == false) {
     collector.Unbound()
   }
   if value.key == "" || value.key == collector.current {
@@ -541,8 +573,11 @@ func (collector *transformDependencyCollector) value(fileName string) transformD
   if strings.HasPrefix(fileName, transformDependencyBundledScheme) {
     return transformDependencyValue{}
   }
-  if strings.Contains(fileName, "://") || collector.isLibraryFile(fileName) {
+  if strings.Contains(fileName, "://") {
     return transformDependencyValue{withhold: true}
+  }
+  if collector.isLibraryFile(fileName) {
+    return transformDependencyValue{withhold: true, libraryOnly: true}
   }
   return transformDependencyValue{key: driver.TransformOutputKey(collector.cwd, fileName)}
 }
