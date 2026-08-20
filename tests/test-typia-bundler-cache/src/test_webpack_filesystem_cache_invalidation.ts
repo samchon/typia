@@ -37,12 +37,31 @@ const run = (cwd: string, args: string[]): ICommandResult => {
 const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const build = (project: string, stage: string): void => {
+/**
+ * Runs one webpack build and returns the watch set it ended up with.
+ *
+ * `compilation.fileDependencies` is where the loader's `addDependency` calls
+ * land verbatim, so reading it asks the narrowing question directly instead of
+ * inferring it from whether some module was rebuilt. Rebuild flags are not a
+ * usable answer here: `codeGenerated` stays false when a watched input changes
+ * outside the module's own source, and `built` differs by platform.
+ */
+const build = (project: string, stage: string): string[] => {
   const result: ICommandResult = run(project, [
     path.join(project, "build.cjs"),
   ]);
   if (result.status !== 0)
     throw new Error(`webpack build failed ${stage}:\n${result.output}`);
+  const line: string | undefined = result.output
+    .split(/\r?\n/)
+    .find((candidate) => candidate.startsWith("WATCHED "));
+  if (line === undefined)
+    throw new Error(
+      `webpack build reported no watch set ${stage}:\n${result.output}`,
+    );
+  return (JSON.parse(line.slice("WATCHED ".length)) as string[]).map((entry) =>
+    entry.replace(/\\/g, "/"),
+  );
 };
 
 const validate = (project: string, input: unknown): IValidationLike => {
@@ -171,6 +190,13 @@ const writeFixture = (project: string): void => {
       `  const failed = stats.hasErrors();`,
       `  if (failed)`,
       `    console.error(stats.toString({ errors: true, colors: false }));`,
+      `  // The watch set webpack ended up with. Reading it directly is what`,
+      `  // makes the narrowing assertion below independent of any rebuild`,
+      `  // heuristic: the loader's addDependency calls land here verbatim.`,
+      `  console.log(`,
+      `    "WATCHED " +`,
+      `      JSON.stringify(Array.from(stats.compilation.fileDependencies)),`,
+      `  );`,
       `  // close() persists the filesystem cache; exiting earlier would leave`,
       `  // the second build without the first build's snapshot.`,
       `  compiler.close((closeError) => {`,
@@ -338,7 +364,37 @@ export const test_webpack_filesystem_cache_invalidation =
       writeFixture(project);
 
       // 1. cold build: the validator reflects MyType v1.
-      build(project, "on the cold run");
+      const watched: string[] = build(project, "on the cold run");
+      // The narrowing assertion (samchon/typia#2362). Every OTHER step here
+      // mutates a file the reported list already names, so all of them pass
+      // under either derivation and none of them can tell the two apart.
+      //
+      // `dependencies[index.ts]` names typia's `index.ts` and `module.ts` and
+      // nothing else outside this project, while `reach(graph.edges,
+      // index.ts)` pulls in the whole of `@typia/interface`. So a listed file
+      // that stopped watching the reference closure has no
+      // `packages/interface/src` path in its watch set, and one that did not
+      // has about a hundred.
+      const closure: string[] = watched.filter((entry) =>
+        entry.includes("/packages/interface/src/"),
+      );
+      if (closure.length !== 0)
+        throw new Error(
+          "the entry is still watching reach(graph.edges, index.ts): " +
+            `${closure.length} @typia/interface sources are in its watch set, ` +
+            `starting with ${closure[0]}. Either the envelope stopped ` +
+            "declaring index.ts complete, or the host stopped narrowing on " +
+            "that declaration.",
+        );
+      // The twin: narrowing must not have emptied the watch set instead. Which
+      // fixture files webpack lists, and how it spells them, differs by
+      // platform -- so this asks only that the entry itself is watched, which
+      // no derivation may drop.
+      if (watched.some((entry) => entry.endsWith("/src/index.ts")) === false)
+        throw new Error(
+          "the entry is not in its own watch set, so this assertion is " +
+            `reading an empty or unrelated list: ${JSON.stringify(watched.slice(0, 20))}`,
+        );
       assertSuccess(
         "cold build with a valid input",
         validate(project, {
