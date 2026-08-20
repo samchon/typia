@@ -142,14 +142,15 @@ func MetadataDependency_touchCallee(checker *nativechecker.Checker, callee *nati
 // Two shapes are treated specially, and both are about where a call's identity
 // actually comes from:
 //
-//   - A nested call contributes its own callee but not its arguments. Every
-//     indirection a caller actually writes -- a factory, a barrel, a namespace
-//     alias, a local binding -- sits on the callee chain and is reported there,
-//     while walking the arguments would charge a file with every identifier
-//     inside `items.map(x => x.a.b).filter(...)`. What this gives up is narrow
-//     and stated: an argument can still select an overload or instantiate a
-//     generic, so a pass-through like `pick(ns).is<T>(x)` resolves through a
-//     module the walk never names.
+//   - A nested call contributes its own callee AND the names it is applied to,
+//     but only the callee decides boundedness. Every indirection a caller writes
+//     -- a factory, a barrel, a namespace alias, a local binding -- sits on the
+//     callee chain, while a generic pass-through carries identity through the
+//     argument instead (`pick(ns).is<T>(x)`), so both are reported;
+//     metadataDependency_touchApplied says why the applied walk's answer is
+//     dropped. What this gives up is narrow and stated: an argument that is
+//     itself computed names its own callee and no further, and an overload
+//     selected by an argument's TYPE is carried by no written name at all.
 //   - A function literal is where the walk stops. Written directly in callee
 //     position it is the most bounded declaration there is: the call resolves to
 //     the literal itself, in this very file, and its body is nobody's input.
