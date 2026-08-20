@@ -4,7 +4,7 @@ Compiles a typia consumer with `declaration: true` against an **isolated** `node
 
 ## Why it exists
 
-A consumer that re-exports a typia result publishes its own `.d.ts`, and TypeScript may only name an inferred type through a module specifier that consumer can resolve. typia's own dependencies — `@typia/interface`, `@standard-schema/spec` — are not among them under pnpm or Yarn PnP: they sit beside typia, not above the consumer. So a type typia exposes in a public signature but does not re-export from `typia` leaves the emit with nothing portable to write, and TypeScript reports TS2742 (TS2883 since TypeScript 7).
+A consumer that re-exports a typia result publishes its own `.d.ts`, and TypeScript may only name an inferred type through a module specifier that consumer can resolve. typia's own dependencies — `@typia/interface`, `@standard-schema/spec` — are not among them under pnpm or Yarn Plug'n'Play: they sit beside typia, not above the consumer. So a type typia exposes in a public signature but does not re-export from `typia` leaves the emit with nothing portable to write, and TypeScript reports TS2742 (TS2883 since TypeScript 7).
 
 samchon/typia#2359 reported that for `typia.createValidate`, and the same cause had `typia.json.application` broken since v12.0.0.
 
