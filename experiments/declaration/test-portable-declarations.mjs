@@ -8,6 +8,13 @@ import { fileURLToPath } from "node:url";
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
+const tsc = () =>
+  path.join(
+    path.dirname(require.resolve("typescript/package.json")),
+    "bin",
+    "tsc",
+  );
+
 /**
  * Names every binding `src/index.ts` exports.
  *
@@ -25,6 +32,7 @@ const listExportedNames = () =>
 const listDeclarations = (file) =>
   fs
     .readFileSync(file, "utf8")
+    .replace(/\r\n/g, "\n")
     .split("\nexport {};")[0]
     .split("\nexport declare const ")
     .slice(1)
@@ -40,6 +48,186 @@ const listDeclarations = (file) =>
     });
 
 /**
+ * Asserts the install still has the shape every check below depends on.
+ *
+ * Two silent ways this project stops testing anything. If one of typia's
+ * dependencies becomes resolvable from here — hoisted, pinned as a direct
+ * dependency, or installed by a package manager that flattens — then every
+ * borrowed name is nameable again and the whole suite passes while measuring
+ * nothing. And if `pnpm-workspace.yaml`'s `overrides` stop applying, the
+ * transitive typia packages come from the registry instead of the tarballs just
+ * built, so the run says nothing about this working tree.
+ */
+const HIDDEN_PACKAGES = ["@typia/interface", "@typia/utils"];
+
+const findLayoutFaults = () => {
+  const faults = [];
+
+  const reachable = HIDDEN_PACKAGES.filter((name) => {
+    try {
+      require.resolve(name);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+  if (reachable.length !== 0)
+    faults.push(
+      [
+        "layout: these packages resolve from this project, so the names under",
+        "test are nameable again and the run proves nothing:",
+        ...reachable.map((name) => `  - ${name}`),
+      ].join("\n"),
+    );
+
+  const packed = [];
+  const stale = [];
+  const typiaPackageJson = require.resolve("typia/package.json");
+  const fromTypia = createRequire(typiaPackageJson);
+  for (const [name, resolver] of [
+    ["typia", () => typiaPackageJson],
+    ...HIDDEN_PACKAGES.map((name) => [name, () => fromTypia.resolve(name)]),
+  ]) {
+    let resolved;
+    try {
+      resolved = fs.realpathSync(resolver());
+    } catch {
+      // A dependency typia itself cannot resolve is a separate failure, and
+      // the compile below reports it with the offending file named.
+      continue;
+    }
+    (resolved.includes("+tarballs+") ? packed : stale).push(
+      `${name} -> ${resolved}`,
+    );
+  }
+  if (packed.length === 0)
+    faults.push(
+      "layout: no package resolved to a freshly packed tarball; run `pnpm run package:tgz` and reinstall.",
+    );
+  else if (stale.some((entry) => entry.startsWith("@typia/")))
+    faults.push(
+      [
+        "layout: a @typia package came from the registry instead of the tarball,",
+        "so pnpm-workspace.yaml's overrides did not apply:",
+        ...stale.filter((entry) => entry.startsWith("@typia/")),
+      ].join("\n"),
+    );
+
+  if (faults.length === 0)
+    console.log(
+      `layout: ${HIDDEN_PACKAGES.length} dependencies hidden from the consumer, ${packed.length} packages under test packed from this tree`,
+    );
+  return faults;
+};
+
+/**
+ * Names every type typia's own public declarations import from another package.
+ *
+ * `lib/transform.d.ts` is skipped. `typia/lib/transform` is the build-time
+ * entry `ttsc` loads, and `ttsc` is a direct dependency of whoever configures
+ * it, so the plugin types it names already resolve on that side.
+ */
+const listBorrowedTypeNames = () => {
+  const lib = path.join(
+    path.dirname(require.resolve("typia/package.json")),
+    "lib",
+  );
+  const borrowed = new Map();
+  for (const entry of fs.readdirSync(lib)) {
+    if (entry.endsWith(".d.ts") === false || entry === "transform.d.ts")
+      continue;
+    const text = fs.readFileSync(path.join(lib, entry), "utf8");
+    for (const match of text.matchAll(
+      /^import (?:type )?\{([^}]*)\} from "([^"]+)";$/gm,
+    )) {
+      if (match[2].startsWith(".")) continue;
+      for (const name of match[1].split(",")) {
+        const trimmed = name.trim();
+        if (trimmed.length !== 0) borrowed.set(trimmed, match[2]);
+      }
+    }
+  }
+  return borrowed;
+};
+
+/**
+ * Every borrowed type must also be importable from the `typia` entry.
+ *
+ * The sweep in `src/index.ts` reaches a borrowed type only while some public
+ * signature still puts it in an inferred position. This reads typia's own
+ * declarations instead, so a name that moves into a return type later, or a new
+ * dependency altogether, cannot slip in unre-exported and wait for a consumer
+ * to find it. The probe imports each name for real rather than parsing an
+ * export list, so a barrel or alias change cannot fake the answer.
+ */
+const findCensusFaults = () => {
+  const borrowed = listBorrowedTypeNames();
+  if (borrowed.size === 0)
+    return ["census: read no borrowed type names out of typia's declarations."];
+
+  // The probe has to sit inside this project: it resolves `typia` the way the
+  // consumer does, and a scratch directory in the system temp folder has no
+  // `node_modules` above it to resolve through.
+  const probe = path.join(directory, `census.${process.pid}.probe.ts`);
+  // Importing the names is the whole assertion. Aliasing them would add
+  // nothing and would fail on every generic that needs a type argument.
+  fs.writeFileSync(
+    probe,
+    `import type {\n${[...borrowed.keys()]
+      .map((name) => `  ${name},`)
+      .join("\n")}\n} from "typia";\nexport {};\n`,
+  );
+  const result = cp.spawnSync(
+    process.execPath,
+    [
+      tsc(),
+      // Naming a file on the command line while a tsconfig.json sits beside it
+      // is TS5112 without this.
+      "--ignoreConfig",
+      "--noEmit",
+      "--strict",
+      "--skipLibCheck",
+      "--module",
+      "esnext",
+      "--moduleResolution",
+      "bundler",
+      "--target",
+      "ES2020",
+      "--types",
+      "node",
+      probe,
+    ],
+    { cwd: directory, encoding: "utf8" },
+  );
+  fs.rmSync(probe, { force: true });
+  if (result.status === 0) {
+    console.log(
+      `census: ${borrowed.size} borrowed type names, all reachable through typia`,
+    );
+    return [];
+  }
+  const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+  const unreachable = [
+    ...new Set(
+      [...output.matchAll(/has no exported member(?: named)? '([^']+)'/g)].map(
+        (match) => match[1],
+      ),
+    ),
+  ];
+  return [
+    [
+      "census: typia names these types in its own public declarations but does",
+      "not re-export them, so a consumer cannot name them either:",
+      ...(unreachable.length === 0
+        ? [output.trim()]
+        : unreachable.map(
+            (name) => `  - ${name} (borrowed from ${borrowed.get(name)})`,
+          )),
+    ].join("\n"),
+  ];
+};
+
+/**
  * Compiles the project with `tsc` and reports whether it accepted the emit.
  *
  * `ttsc` prints TS2742 / TS2883 but exits 0 and writes `any` where the
@@ -49,18 +237,13 @@ const listDeclarations = (file) =>
  * JavaScript this pass would emit is not the JavaScript a consumer gets.
  */
 const emitWithTypeScript = () => {
-  const tsc = path.join(
-    path.dirname(require.resolve("typescript/package.json")),
-    "bin",
-    "tsc",
-  );
   const declarationDir = fs.mkdtempSync(
     path.join(os.tmpdir(), "typia-declaration-"),
   );
   const result = cp.spawnSync(
     process.execPath,
     [
-      tsc,
+      tsc(),
       "-p",
       "tsconfig.json",
       "--emitDeclarationOnly",
@@ -156,7 +339,7 @@ const main = () => {
   if (fs.existsSync(built) === false)
     throw new Error(`Run "pnpm run build" first: ${built} does not exist.`);
 
-  const faults = [];
+  const faults = [...findLayoutFaults(), ...findCensusFaults()];
   const typescript = emitWithTypeScript();
   // A hard `tsc` failure emits nothing, so its own declaration checks would
   // only restate the whole export list. The diagnostics it printed above name

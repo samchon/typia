@@ -12,7 +12,11 @@ import typia from "typia";
  *
  * `typia.createAssertGuard` and `typia.createAssertGuardEquals` are absent
  * because TypeScript refuses to infer an assertion guard at all: they always
- * carry an annotation, so they cannot reach the inference this file pins.
+ * carry an annotation, so they cannot reach the inference this file pins. Entry
+ * points returning `T`, `boolean`, `string`, or `void` are absent for the same
+ * kind of reason: nothing borrowed can reach their declarations. The census
+ * pass in `test-portable-declarations.mjs` is what makes coverage complete;
+ * this file proves the emit really names what the census says it can.
  */
 
 interface IMember {
