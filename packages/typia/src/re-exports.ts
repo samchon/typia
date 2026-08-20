@@ -14,6 +14,7 @@ export type {
   IJsonParseResult,
   IValidation,
   IRandomGenerator,
+  StandardSchemaV1,
   // json
   OpenApi,
   IJsonSchemaApplication,
@@ -33,6 +34,7 @@ export type {
   IMetadataTypeTag,
   IJsDocTagInfo,
   // typings
+  Atomic,
   Classifiable,
   ClassifyResult,
   Primitive,
@@ -51,10 +53,3 @@ export type {
 // would survive as a runtime import and crash against the CJS-only
 // `@typia/interface`.
 export { tags } from "@typia/interface";
-
-// `createValidate` and `createValidateEquals` intersect their return type with
-// `StandardSchemaV1` so the factories drop straight into Standard Schema
-// consumers, which is the whole point of samchon/typia#1425. That puts a type
-// owned by another package in a public signature, so it needs the same
-// re-export the `@typia/interface` names above get.
-export type { StandardSchemaV1 } from "@standard-schema/spec";

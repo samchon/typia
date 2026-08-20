@@ -305,9 +305,6 @@ importers:
 
   packages/typia:
     dependencies:
-      '@standard-schema/spec':
-        specifier: ^1.0.0
-        version: 1.1.0
       '@typia/interface':
         specifier: workspace:^
         version: link:../interface
@@ -478,6 +475,9 @@ importers:
         specifier: workspace:^
         version: link:../../packages/interface
     devDependencies:
+      '@standard-schema/spec':
+        specifier: ^1.1.0
+        version: 1.1.0
       ttsc:
         specifier: catalog:typescript
         version: 0.19.2

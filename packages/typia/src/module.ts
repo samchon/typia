@@ -1,5 +1,9 @@
-import { StandardSchemaV1 } from "@standard-schema/spec";
-import { IRandomGenerator, IValidation, Resolved } from "@typia/interface";
+import {
+  IRandomGenerator,
+  IValidation,
+  Resolved,
+  StandardSchemaV1,
+} from "@typia/interface";
 
 import { TypeGuardError } from "./TypeGuardError";
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
