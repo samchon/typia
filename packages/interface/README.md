@@ -23,6 +23,7 @@ This is an **internal package** of `typia`. You don't need to install it directl
 | `ILlmSchema` | LLM schema definition |
 | `IJsonSchemaCollection` | JSON Schema collection |
 | `IValidation` | Validation result (success/failure with errors) |
+| `StandardSchemaV1` | [Standard Schema](https://standardschema.dev) contract that `typia.createValidate` satisfies |
 | `IHttpLlmApplication` | HTTP-based LLM application schema |
 | `IHttpLlmController` | HTTP-based LLM controller |
 | `IHttpConnection` | API connection configuration |

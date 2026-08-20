@@ -64,3 +64,16 @@ jobs:
           npm install
           npm run build
           npm test
+
+      # A consumer that publishes its own declarations may only name an
+      # inferred typia type through a specifier it can resolve itself, and
+      # typia's dependencies are not among them once they sit beside typia
+      # instead of above the consumer. This project installs with pnpm on
+      # purpose: the isolated layout is what reproduces samchon/typia#2359,
+      # and npm's hoisting is what hid it from the projects above.
+      - name: Test Declaration
+        working-directory: experiments/declaration
+        run: |
+          pnpm install
+          pnpm run build
+          pnpm test

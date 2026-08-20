@@ -22,8 +22,9 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
-    "typescript": "catalog:typescript",
-    "ttsc": "catalog:typescript"
+    "@standard-schema/spec": "^1.1.0",
+    "ttsc": "catalog:typescript",
+    "typescript": "catalog:typescript"
   },
   "dependencies": {
     "@typia/interface": "workspace:^"
