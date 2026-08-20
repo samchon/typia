@@ -181,9 +181,12 @@ func metadataDependency_walkCallee(
     return nested == false
   case nativeast.KindCallExpression,
     nativeast.KindNewExpression:
+    metadataDependency_touchApplied(checker, listener, node.Arguments())
     return metadataDependency_walkCallee(checker, listener, node.Expression(), true)
   case nativeast.KindTaggedTemplateExpression:
-    return metadataDependency_walkCallee(checker, listener, node.AsTaggedTemplateExpression().Tag, true)
+    tagged := node.AsTaggedTemplateExpression()
+    metadataDependency_touchApplied(checker, listener, []*nativeast.Node{tagged.Template})
+    return metadataDependency_walkCallee(checker, listener, tagged.Tag, true)
   case nativeast.KindIdentifier,
     nativeast.KindPrivateIdentifier,
     nativeast.KindThisKeyword,
@@ -204,6 +207,38 @@ func metadataDependency_walkCallee(
     return false
   })
   return bounded
+}
+
+// metadataDependency_touchApplied reports the names a nested call is applied to,
+// without letting their shape decide the caller's boundedness.
+//
+// A generic pass-through carries a callee's identity through what it is applied
+// to, not through its own name: `pick(ns).is<T>(x)` resolves to typia's `is`
+// because `ns` holds the typia namespace, so the file declaring `ns` chooses
+// whether this call is rewritten at all -- and the callee chain alone never
+// names it. Reproduced: `main.ts` was declared complete reporting only `foo.ts`
+// and `pick.ts` (samchon/typia#2357).
+//
+// The walk's answer is deliberately dropped rather than combined. An argument's
+// shape is not the caller's identity: a function literal handed to
+// `arr.map(...).filter(...)` would otherwise withhold every file that chains an
+// array method, for a body that decides nothing about which `filter` this is.
+// Dropping it also keeps the walk's own boundary -- it stops at a function
+// literal instead of descending -- so no file is charged with the identifiers
+// inside a callback.
+//
+// What stays unreported is the same boundary the callee chain already states:
+// an argument that is itself computed (`pick(getNs())`) names its own callee and
+// no further, and an overload selected by an argument's TYPE is decided by
+// something no written name carries.
+func metadataDependency_touchApplied(
+  checker *nativechecker.Checker,
+  listener MetadataDependency_IListener,
+  applied []*nativeast.Node,
+) {
+  for _, node := range applied {
+    metadataDependency_walkCallee(checker, listener, node, true)
+  }
 }
 
 // metadataDependency_touchDeclarations reports one written reference's own
