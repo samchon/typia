@@ -292,10 +292,109 @@ func metadataDependency_touchVisited(
     if metadataDependency_bounded(declaration) == false {
       listener.unbounded()
     }
+    metadataDependency_touchName(checker, listener, declaration, visited)
     for _, surface := range metadataDependency_typeSurface(declaration) {
       metadataDependency_walkNode(checker, listener, surface, visited)
     }
   }
+}
+
+// metadataDependency_touchName reports the files that decide a member's KEY
+// when the key is computed.
+//
+// A validator indexes the property by name — `interface Doc { [Kind.A]: number
+// }` emits `input.alpha` — so the enum member's value is read into the output
+// exactly the way an `enum` member's own value is, and it is written in
+// whatever file declares it. The declaration's written type says nothing about
+// it, and neither does the type graph: the resolved key is an interned string
+// literal with no symbol to follow. Renaming `Kind.A` therefore changed the
+// generated validator with no reported edge for a bundler cache to invalidate
+// (samchon/typia#2126, samchon/typia#2357).
+//
+// Only a computed name needs this. An identifier or string-literal member name
+// is written on the declaration itself, and its file is already reported.
+func metadataDependency_touchName(
+  checker *nativechecker.Checker,
+  listener MetadataDependency_IListener,
+  declaration *nativeast.Node,
+  visited map[*nativeast.Symbol]bool,
+) {
+  name := declaration.Name()
+  if name == nil || name.Kind != nativeast.KindComputedPropertyName {
+    return
+  }
+  metadataDependency_walkName(checker, listener, name.Expression(), visited)
+}
+
+// metadataDependency_walkName reports the declarations a computed key's
+// expression names, and admits when nothing written bounds it.
+//
+// A literal key needs no report: `["alpha"]` is written here, so no other file
+// decides it. Every other shape is a reference, and resolving it through
+// metadataDependency_touchVisited is what makes the report transitive: the
+// symbol's own declaration is reported, its alias path registers the barrel it
+// traveled, and metadataDependency_bounded answers whether that declaration
+// fixes the value or borrows it — `const KEY = "gamma"` is bounded while `const
+// KEY = other.VALUE` is not, exactly as for an enum member.
+//
+// The qualifier is walked as well as the whole reference. `Kind.A` resolves
+// straight to the enum member, which reports the file declaring it but not the
+// modules the reference traveled to select `Kind`; those are what a re-pointed
+// barrel changes.
+//
+// Every other expression raises the unbounded admission rather than a guess: a
+// call or a substituted template takes its value from evaluation, which no file
+// list bounds, and an element access (`[Kind["A"]]`) declares no property for
+// the enumeration to hand over in the first place, so nothing is lost by
+// refusing to vouch for one.
+func metadataDependency_walkName(
+  checker *nativechecker.Checker,
+  listener MetadataDependency_IListener,
+  expression *nativeast.Node,
+  visited map[*nativeast.Symbol]bool,
+) {
+  if expression == nil {
+    listener.unbounded()
+    return
+  }
+  switch expression.Kind {
+  case nativeast.KindStringLiteral,
+    nativeast.KindNoSubstitutionTemplateLiteral,
+    nativeast.KindNumericLiteral,
+    nativeast.KindBigIntLiteral:
+    return
+  case nativeast.KindParenthesizedExpression:
+    metadataDependency_walkName(checker, listener, expression.Expression(), visited)
+    return
+  case nativeast.KindIdentifier,
+    nativeast.KindPropertyAccessExpression,
+    nativeast.KindQualifiedName:
+    // A reference the checker cannot resolve takes the fall-through below
+    // rather than an exit of its own. Nothing reaches it: a name resolving to
+    // no symbol declares no property symbol either -- the member becomes a
+    // dynamic key instead -- and this walk only ever runs on a declaration the
+    // property enumeration already handed over.
+    if symbol := metadataDependency_resolve(checker, listener, expression); symbol != nil {
+      metadataDependency_touchVisited(checker, listener, symbol, visited)
+      if qualifier := metadataDependency_qualifier(expression); qualifier != nil {
+        metadataDependency_walkName(checker, listener, qualifier, visited)
+      }
+      return
+    }
+  }
+  listener.unbounded()
+}
+
+// metadataDependency_qualifier returns the object half of a qualified
+// reference, or nil when the reference is a bare name that qualifies nothing.
+func metadataDependency_qualifier(expression *nativeast.Node) *nativeast.Node {
+  switch expression.Kind {
+  case nativeast.KindPropertyAccessExpression:
+    return expression.Expression()
+  case nativeast.KindQualifiedName:
+    return expression.AsQualifiedName().Left
+  }
+  return nil
 }
 
 // metadataDependency_bounded reports whether a declaration's type is written
