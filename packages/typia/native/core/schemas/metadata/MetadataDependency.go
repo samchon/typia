@@ -148,9 +148,11 @@ func MetadataDependency_touchCallee(checker *nativechecker.Checker, callee *nati
 //     callee chain, while a generic pass-through carries identity through the
 //     argument instead (`pick(ns).is<T>(x)`), so both are reported;
 //     metadataDependency_touchApplied says why the applied walk's answer is
-//     dropped. What this gives up is narrow and stated: an argument that is
-//     itself computed names its own callee and no further, and an overload
-//     selected by an argument's TYPE is carried by no written name at all.
+//     dropped. Reporting the names is not the whole answer there:
+//     metadataDependency_calleeBounded says why a callable reached inside a
+//     nested call must also write its return type. What stays given up is an
+//     overload selected by an argument's TYPE, or by a borrowed VALUE, since no
+//     written name on the chain carries either.
 //   - A function literal is where the walk stops. Written directly in callee
 //     position it is the most bounded declaration there is: the call resolves to
 //     the literal itself, in this very file, and its body is nobody's input.
@@ -198,7 +200,7 @@ func metadataDependency_walkCallee(
     // The whole access resolves to the member the call names; walking on to its
     // qualifier reports whatever selected the object that publishes it, and a
     // module other than the caller may declare that (`helpers.is`).
-    metadataDependency_touchDeclarations(checker, listener, node)
+    metadataDependency_touchDeclarations(checker, listener, node, nested)
   }
   bounded := true
   node.ForEachChild(func(child *nativeast.Node) bool {
@@ -228,10 +230,13 @@ func metadataDependency_walkCallee(
 // literal instead of descending -- so no file is charged with the identifiers
 // inside a callback.
 //
-// What stays unreported is the same boundary the callee chain already states:
-// an argument that is itself computed (`pick(getNs())`) names its own callee and
-// no further, and an overload selected by an argument's TYPE is decided by
-// something no written name carries.
+// What stays unreported is the same boundary the callee chain already states: an
+// argument that is itself computed (`pick(getNs())`) names its own callee and no
+// further. That one no longer over-declares, because the callee it names is a
+// callable whose inferred return type withholds the caller
+// (metadataDependency_calleeBounded); an overload selected by an argument's
+// TYPE, or by a borrowed VALUE, is still decided by something no written name
+// carries.
 func metadataDependency_touchApplied(
   checker *nativechecker.Checker,
   listener MetadataDependency_IListener,
@@ -247,10 +252,21 @@ func metadataDependency_touchApplied(
 // what it names. The caller asks which declaration a name selects, not what
 // that declaration's type is built from; the type graph reports the latter
 // where it is actually consulted.
+//
+// `nested` says the reference sits inside a nested call, and there the question
+// changes. The outermost callee's identity IS the declaration this resolves to,
+// whose file is reported on the line above, so how that declaration was written
+// cannot matter. One call in, the identity is the inner call's RETURN TYPE, and
+// an unbounded declaration -- `const getNs = () => ns`, `const FLAG = RAW` --
+// carries it from a file no written name on this chain reaches. Reporting the
+// names without admitting that declared three shapes complete while an edit to
+// an unreported file deleted the generated validator outright
+// (samchon/typia#2360).
 func metadataDependency_touchDeclarations(
   checker *nativechecker.Checker,
   listener MetadataDependency_IListener,
   reference *nativeast.Node,
+  nested bool,
 ) {
   if checker == nil {
     return
@@ -268,6 +284,9 @@ func metadataDependency_touchDeclarations(
   for _, declaration := range symbol.Declarations {
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
       listener.File(src.FileName())
+    }
+    if nested && metadataDependency_calleeBounded(declaration) == false {
+      listener.unbounded()
     }
   }
 }
@@ -415,6 +434,65 @@ func metadataDependency_walkName(
     }
   }
   listener.unbounded()
+}
+
+// metadataDependency_calleeBounded reports whether a declaration reached inside
+// a nested call pins the identity of what that call RETURNS.
+//
+// A nested call's identity is its return type, so the question here is only
+// ever asked of callables -- and of a variable whose initializer is one, which
+// is the same declaration spelled differently. A callable pins the identity
+// when its return type is written; when it is inferred, the identity comes from
+// whatever the body happens to return, which lives in a file no name on the
+// callee chain reaches. `const getNs = () => ns` and `function getNs() { return
+// ns; }` are that shape, and both declared their caller complete while an edit
+// to the unreported `ns.ts` deleted the generated validator outright
+// (samchon/typia#2360).
+//
+// Everything else stays bounded on purpose, and metadataDependency_bounded is
+// deliberately NOT consulted here. It answers a different question -- whether a
+// declaration's TYPE is written where the type walk can read it -- and it calls
+// `const ns = typia` unbounded for want of an annotation. On this channel that
+// declaration is fine: the walk writes the name `ns`, so `ns.ts` is reported
+// and an edit to it invalidates the caller. Withholding on it would take back
+// samchon/typia#2357, whose whole point is that such a caller stays declared.
+//
+// What that leaves open is an overload selected by a borrowed VALUE (`const
+// FLAG = RAW; sel(FLAG).is<T>(x)`): `flag.ts` is reported, `rawflag.ts` is not,
+// and the two are structurally indistinguishable from the pair above.
+// Separating them needs the initializer chain followed and reported, not a
+// boundedness answer.
+func metadataDependency_calleeBounded(declaration *nativeast.Node) bool {
+  if metadataDependency_calleeCallable(declaration) {
+    return declaration.Type() != nil
+  }
+  if declaration.Kind == nativeast.KindVariableDeclaration {
+    if initializer := declaration.Initializer(); initializer != nil &&
+      metadataDependency_calleeCallable(initializer) {
+      return declaration.Type() != nil || initializer.Type() != nil
+    }
+  }
+  return true
+}
+
+// metadataDependency_calleeCallable reports whether a node is a callable whose
+// written return type would pin what a call on it produces.
+//
+// A construct signature is absent on purpose: `new X()` returns `X`, and the
+// class is the declaration the walk already reports.
+func metadataDependency_calleeCallable(node *nativeast.Node) bool {
+  switch node.Kind {
+  case nativeast.KindFunctionDeclaration,
+    nativeast.KindFunctionExpression,
+    nativeast.KindArrowFunction,
+    nativeast.KindMethodDeclaration,
+    nativeast.KindMethodSignature,
+    nativeast.KindCallSignature,
+    nativeast.KindFunctionType,
+    nativeast.KindGetAccessor:
+    return true
+  }
+  return false
 }
 
 // metadataDependency_bounded reports whether a declaration's type is written
