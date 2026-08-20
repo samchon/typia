@@ -418,6 +418,16 @@ func metadataDependency_qualifier(expression *nativeast.Node) *nativeast.Node {
 // branches, a contextually typed parameter -- which is the same problem a typia
 // call with no written type argument has, and it gets the same answer
 // (samchon/typia#2126, samchon/typia#2357).
+//
+// Only kinds an input actually reaches are named. A tuple element and a JSDoc
+// `@property` / `@param` tag are not: each is reached through the written node
+// that spells it -- the alias or literal spelling the tuple, the typedef owning
+// the tag -- which metadataDependency_walkNode descends whole, so no property
+// enumeration ever hands one of them here. Naming them changed no envelope in
+// either direction, which is the only evidence that settles it;
+// TestProjectDependenciesNamedTupleMemberTransform and
+// TestProjectDependenciesJsDocTypedefTransform are the fixtures that measured
+// it and would fail if either kind started arriving.
 func metadataDependency_bounded(declaration *nativeast.Node) bool {
   switch declaration.Kind {
   case nativeast.KindTypeAliasDeclaration,
@@ -467,17 +477,6 @@ func metadataDependency_bounded(declaration *nativeast.Node) bool {
     // reported by metadataDependency_touchPath and the terminus is resolved
     // separately.
     return true
-  case nativeast.KindNamedTupleMember,
-    nativeast.KindJSDocPropertyTag,
-    nativeast.KindJSDocParameterTag:
-    // A written type with no initializer to fall back to. These are not walked
-    // from here: each is reached only through a written type node -- a tuple
-    // element through the alias or literal that spells the tuple, a JSDoc tag
-    // through the typedef that owns it -- and metadataDependency_walkNode
-    // already descends that whole node and resolves every reference in it.
-    // Naming them is about not withholding on a kind whose type IS written,
-    // which is what the default would otherwise do.
-    return declaration.Type() != nil
   case nativeast.KindPropertySignature,
     nativeast.KindPropertyDeclaration,
     nativeast.KindParameter,
