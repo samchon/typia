@@ -35,6 +35,9 @@ import (
 //  6. Assert `c.ts` stays declared: `["gamma"]` is written where it is used, so
 //     treating every computed key as unbounded would cost narrowing for a name
 //     no other file can decide.
+//  7. Assert `d.ts` stays declared AND reports `src/keyconst.ts`: a bare name
+//     whose constant fixes its own value is the bounded twin of `b.ts`, and it
+//     is the only case that pins both halves of the bare-name branch.
 func TestProjectDependenciesComputedKeyTransform(t *testing.T) {
   project := projectDependenciesComputedKeyProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -81,6 +84,16 @@ func TestProjectDependenciesComputedKeyTransform(t *testing.T) {
   if !declared["src/c.ts"] {
     t.Fatalf("a computed key written as a literal names no other file and must stay declared: %v", envelope.DependenciesComplete)
   }
+  if !declared["src/d.ts"] {
+    t.Fatalf("a key whose constant fixes its own value is bounded and must stay declared: %v", envelope.DependenciesComplete)
+  }
+  bare := map[string]bool{}
+  for _, entry := range envelope.Dependencies["src/d.ts"] {
+    bare[entry] = true
+  }
+  if !bare["src/keyconst.ts"] {
+    t.Fatalf("dependencies of src/d.ts must contain src/keyconst.ts, whose constant decides the emitted key: %v", envelope.Dependencies["src/d.ts"])
+  }
 }
 
 func projectDependenciesComputedKeyProject(t *testing.T) string {
@@ -103,17 +116,20 @@ func projectDependenciesComputedKeyProject(t *testing.T) string {
     t.Fatalf("write tsconfig: %v", err)
   }
   for name, body := range map[string]string{
-    "a.ts":      projectDependenciesComputedKeySourceA,
-    "b.ts":      projectDependenciesComputedKeySourceB,
-    "c.ts":      projectDependenciesComputedKeySourceC,
-    "doc.ts":    projectDependenciesComputedKeySourceDoc,
-    "spare.ts":  projectDependenciesComputedKeySourceSpare,
-    "plain.ts":  projectDependenciesComputedKeySourcePlain,
-    "barrel.ts": projectDependenciesComputedKeySourceBarrel,
-    "kind.ts":   projectDependenciesComputedKeySourceKind,
-    "unused.ts": projectDependenciesComputedKeySourceUnused,
-    "borrow.ts": projectDependenciesComputedKeySourceBorrow,
-    "value.ts":  projectDependenciesComputedKeySourceValue,
+    "a.ts":        projectDependenciesComputedKeySourceA,
+    "b.ts":        projectDependenciesComputedKeySourceB,
+    "c.ts":        projectDependenciesComputedKeySourceC,
+    "d.ts":        projectDependenciesComputedKeySourceD,
+    "doc.ts":      projectDependenciesComputedKeySourceDoc,
+    "spare.ts":    projectDependenciesComputedKeySourceSpare,
+    "plain.ts":    projectDependenciesComputedKeySourcePlain,
+    "bare.ts":     projectDependenciesComputedKeySourceBare,
+    "keyconst.ts": projectDependenciesComputedKeySourceKeyConst,
+    "barrel.ts":   projectDependenciesComputedKeySourceBarrel,
+    "kind.ts":     projectDependenciesComputedKeySourceKind,
+    "unused.ts":   projectDependenciesComputedKeySourceUnused,
+    "borrow.ts":   projectDependenciesComputedKeySourceBorrow,
+    "value.ts":    projectDependenciesComputedKeySourceValue,
   } {
     if err := os.WriteFile(filepath.Join(src, name), []byte(body), 0o644); err != nil {
       t.Fatalf("write %s: %v", name, err)
@@ -146,6 +162,23 @@ export const check = (input: unknown) => typia.is<Plain>(input);
 const projectDependenciesComputedKeySourcePlain = `export interface Plain {
   ["gamma"]: number;
 }
+`
+
+const projectDependenciesComputedKeySourceD = `import typia from "typia";
+
+import { Bare } from "./bare";
+
+export const check = (input: unknown) => typia.is<Bare>(input);
+`
+
+const projectDependenciesComputedKeySourceBare = `import { KEY } from "./keyconst";
+
+export interface Bare {
+  [KEY]: number;
+}
+`
+
+const projectDependenciesComputedKeySourceKeyConst = `export const KEY = "epsilon";
 `
 
 const projectDependenciesComputedKeySourceDoc = `import { Kind } from "./barrel";
