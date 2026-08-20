@@ -80,36 +80,36 @@ const findLayoutFaults = () => {
       ].join("\n"),
     );
 
+  // pnpm encodes a `file:` resolution into the store directory name, so the
+  // path is what says whether a package came from `experiments/tarballs` or
+  // from the registry. Every package here is expected to be packed: `typia`
+  // because this project depends on the tarball directly, the other two
+  // because `pnpm-workspace.yaml` overrides them onto theirs.
   const packed = [];
   const stale = [];
   const typiaPackageJson = require.resolve("typia/package.json");
   const fromTypia = createRequire(typiaPackageJson);
-  for (const [name, resolver] of [
+  for (const [name, resolve] of [
     ["typia", () => typiaPackageJson],
     ...HIDDEN_PACKAGES.map((name) => [name, () => fromTypia.resolve(name)]),
   ]) {
     let resolved;
     try {
-      resolved = fs.realpathSync(resolver());
+      resolved = fs.realpathSync(resolve());
     } catch {
-      // A dependency typia itself cannot resolve is a separate failure, and
-      // the compile below reports it with the offending file named.
+      stale.push(`${name} -> typia cannot resolve it at all`);
       continue;
     }
     (resolved.includes("+tarballs+") ? packed : stale).push(
       `${name} -> ${resolved}`,
     );
   }
-  if (packed.length === 0)
-    faults.push(
-      "layout: no package resolved to a freshly packed tarball; run `pnpm run package:tgz` and reinstall.",
-    );
-  else if (stale.some((entry) => entry.startsWith("@typia/")))
+  if (stale.length !== 0)
     faults.push(
       [
-        "layout: a @typia package came from the registry instead of the tarball,",
-        "so pnpm-workspace.yaml's overrides did not apply:",
-        ...stale.filter((entry) => entry.startsWith("@typia/")),
+        "layout: these came from somewhere other than the tarballs just packed,",
+        "so the run says nothing about this working tree:",
+        ...stale.map((entry) => `  - ${entry}`),
       ].join("\n"),
     );
 
