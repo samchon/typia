@@ -35,6 +35,9 @@ import (
 //     and that the file is declared complete.
 //  5. Assert `chain.ts` is declared complete and never reports `src/hidden.ts`,
 //     the name only its callback body writes.
+//  6. Assert the tagged-template spelling of the same pass-through --
+//     “tag`x${ns}`.is<Foo>(input)“ -- reports `src/ns.ts` as well, because a
+//     template is what its tag is applied to.
 func TestProjectDependenciesCalleeArgumentTransform(t *testing.T) {
   project := projectDependenciesCalleeArgumentProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -84,6 +87,19 @@ func TestProjectDependenciesCalleeArgumentTransform(t *testing.T) {
       t.Fatalf("the walk must stop at a function literal, so src/hidden.ts must not be charged to src/chain.ts: %v", envelope.Dependencies["src/chain.ts"])
     }
   }
+  if text := envelope.TypeScript["src/tagged.ts"]; !strings.Contains(text, "input is Foo") {
+    t.Fatalf("the tagged-template pass-through must have been rewritten into a validator, got:\n%s", text)
+  }
+  tagged := map[string]bool{}
+  for _, entry := range envelope.Dependencies["src/tagged.ts"] {
+    tagged[entry] = true
+  }
+  if !tagged["src/ns.ts"] {
+    t.Fatalf("dependencies of src/tagged.ts must contain src/ns.ts, the substitution that makes this call typia's: %v", envelope.Dependencies["src/tagged.ts"])
+  }
+  if !declared["src/tagged.ts"] {
+    t.Fatalf("src/tagged.ts must be declared complete, so the reported entry is the whole bound: %v", envelope.DependenciesComplete)
+  }
 }
 
 func projectDependenciesCalleeArgumentProject(t *testing.T) string {
@@ -112,6 +128,8 @@ func projectDependenciesCalleeArgumentProject(t *testing.T) string {
     "foo.ts":    projectDependenciesCalleeArgumentSourceFoo,
     "chain.ts":  projectDependenciesCalleeArgumentSourceChain,
     "hidden.ts": projectDependenciesCalleeArgumentSourceHidden,
+    "tagged.ts": projectDependenciesCalleeArgumentSourceTagged,
+    "tag.ts":    projectDependenciesCalleeArgumentSourceTag,
   } {
     if err := os.WriteFile(filepath.Join(src, name), []byte(body), 0o644); err != nil {
       t.Fatalf("write %s: %v", name, err)
@@ -146,4 +164,14 @@ export const joined = ["a"].map((x) => x + HIDDEN).join(",");
 `
 
 const projectDependenciesCalleeArgumentSourceHidden = `export const HIDDEN = "hidden";
+`
+
+const projectDependenciesCalleeArgumentSourceTagged = `import { Foo } from "./foo";
+import { ns } from "./ns";
+import { tag } from "./tag";
+
+export const check = (input: unknown) => tag` + "`" + `x${ns}` + "`" + `.is<Foo>(input);
+`
+
+const projectDependenciesCalleeArgumentSourceTag = `export const tag = <T>(_strings: TemplateStringsArray, value: T): T => value;
 `
