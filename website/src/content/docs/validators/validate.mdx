@@ -184,6 +184,8 @@ await upfetch("https://jsonplaceholder.typicode.com/todos/1", { schema });
 await upfetch("https://jsonplaceholder.typicode.com/todos/10", { schema });
 ```
 
+typia declares `StandardSchemaV1` itself rather than depending on a package for it, the same way `zod` and `valibot` do, so `import type { StandardSchemaV1 } from "typia"` is all you need to write the factory's type out by hand.
+
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource

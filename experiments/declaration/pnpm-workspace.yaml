@@ -1,0 +1,9 @@
+# pnpm reads `overrides` from here since pnpm 10. The two packages below are
+# transitive dependencies of the packed typia tarball, and they must stay
+# transitive: pinning them as direct dependencies would place them in this
+# project's own `node_modules` and make the very type names this experiment
+# guards resolvable again. The override swaps the registry copy for the
+# freshly packed one without changing where it lands.
+overrides:
+  '@typia/interface': file:../tarballs/interface.tgz
+  '@typia/utils': file:../tarballs/utils.tgz

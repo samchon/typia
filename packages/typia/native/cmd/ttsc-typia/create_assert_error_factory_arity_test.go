@@ -120,8 +120,11 @@ const createAssertErrorFactorySentinel = "zzz"
 // never executed: the http, protobuf and notation members pull runtime helpers
 // this package stubs only for the emit it runs, so the executed fixture stays
 // on the module family.
-const createAssertErrorFactorySurfaceSource = `import { StandardSchemaV1 } from "@standard-schema/spec";
-import typia, { AssertionGuard, TypeGuardError } from "typia";
+const createAssertErrorFactorySurfaceSource = `import typia, {
+  AssertionGuard,
+  StandardSchemaV1,
+  TypeGuardError,
+} from "typia";
 
 interface User {
   id: number;

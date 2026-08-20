@@ -1,0 +1,16 @@
+{
+  "name": "typia-declaration-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "ttsc",
+    "test": "node test-portable-declarations.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "ttsc": "^0.19.2",
+    "typescript": "^7.0.2",
+    "typia": "file:../tarballs/typia.tgz"
+  }
+}
