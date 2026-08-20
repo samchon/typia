@@ -29,6 +29,16 @@ import (
 //  3. Assert both files transformed, so they differ only in what they consulted.
 //  4. Assert `control.ts` is declared complete and `replaced.ts` is not, and
 //     that the replacement file never leaked into the reported dependencies.
+//  5. Assert `nocall.ts` -- no typia call at all, only a CALL on a method the
+//     replaced library declares -- keeps its declaration. Touching a default
+//     library while deciding which declaration a call resolves to cannot change
+//     the emit: typia recognizes its own calls by a `/typia/lib` or `/typia/src`
+//     path, which a compiler-classified default library never has. Withholding
+//     there cost a file its declaration for writing `table.get(...)`, and under
+//     `noembed` -- where every library is on disk -- for calling anything at all
+//     (samchon/typia#2361). `nocall2.ts` is the control that only annotates the
+//     same type, and `replaced.ts` above is the twin that must stay withheld, so
+//     the fix cannot degenerate into never withholding on a library.
 func TestProjectDependenciesCompleteReplacedLibraryTransform(t *testing.T) {
   project := projectDependenciesCompleteReplacedLibraryProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -69,6 +79,17 @@ func TestProjectDependenciesCompleteReplacedLibraryTransform(t *testing.T) {
       t.Fatalf("the reported dependencies must keep excluding compiler-classified default libraries, got %q", entry)
     }
   }
+  for _, key := range []string{"src/nocall.ts", "src/nocall2.ts"} {
+    if !declared[key] {
+      t.Fatalf(
+        "%s holds no typia call, so nothing about the replaced library can "+
+          "change its emitted text; withholding it means the identity channel "+
+          "is still charging a default-library touch: %v",
+        key,
+        envelope.DependenciesComplete,
+      )
+    }
+  }
 }
 
 func projectDependenciesCompleteReplacedLibraryProject(t *testing.T) string {
@@ -90,6 +111,8 @@ func projectDependenciesCompleteReplacedLibraryProject(t *testing.T) string {
     "src/replaced.ts": projectDependenciesCompleteReplacedLibrarySourceReplaced,
     "src/control.ts":  projectDependenciesCompleteReplacedLibrarySourceControl,
     "src/shape.ts":    projectDependenciesCompleteReplacedLibrarySourceShape,
+    "src/nocall.ts":   projectDependenciesCompleteReplacedLibrarySourceNoCall,
+    "src/nocall2.ts":  projectDependenciesCompleteReplacedLibrarySourceNoCall2,
   } {
     path := filepath.Join(dir, filepath.FromSlash(name))
     if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
@@ -117,4 +140,14 @@ export const validateShape = (input: unknown) => typia.is<Shape>(input);
 const projectDependenciesCompleteReplacedLibrarySourceShape = `export interface Shape {
   id: string;
 }
+`
+
+// No typia call anywhere, and a CALL on a method the replaced library declares.
+const projectDependenciesCompleteReplacedLibrarySourceNoCall = `const table = new Map<string, number>();
+
+export const lookup = (key: string): number | undefined => table.get(key);
+`
+
+// The control: the same type, annotated but never called on.
+const projectDependenciesCompleteReplacedLibrarySourceNoCall2 = `export const size = (table: Map<string, number>): number => table.size;
 `

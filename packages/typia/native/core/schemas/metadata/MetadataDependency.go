@@ -28,6 +28,23 @@ var metadataDependency_listeners sync.Map
 type MetadataDependency_IListener struct {
   // File receives each consulted declaration file name.
   File func(fileName string)
+  // Callee receives a declaration file name reached while deciding WHICH
+  // declaration a call resolves to, rather than what a consulted type is built
+  // from.
+  //
+  // The two differ on default libraries alone, and only once the libraries are
+  // real files (`libReplacement`, `noembed`). A replacement really can change a
+  // generated validator, so the type channel withholds the file that consulted
+  // one. It can never change which declaration a call resolves to: typia
+  // recognizes its own calls by a path ending in `/typia/lib/<file>.d.ts` or
+  // `/typia/src/<file>.ts`, and a file the compiler classifies as a default
+  // library satisfies neither, whatever its path on disk. Withholding there
+  // costs a file its declaration for calling `table.get(...)` and, under
+  // `noembed`, for calling anything at all (samchon/typia#2361).
+  //
+  // A host that does not distinguish them may leave this nil; the registry
+  // falls back to File.
+  Callee func(fileName string)
   // Unbounded reports that the analysis consulted something no file list can
   // bound: a declaration whose type this package can only read from an
   // inferred position, or a callee whose identity is decided by an expression
@@ -46,6 +63,9 @@ type MetadataDependency_IListener struct {
 func MetadataDependency_listen(checker *nativechecker.Checker, listener MetadataDependency_IListener) {
   if checker == nil || listener.File == nil {
     return
+  }
+  if listener.Callee == nil {
+    listener.Callee = listener.File
   }
   metadataDependency_listeners.Store(checker, listener)
 }
@@ -275,15 +295,19 @@ func metadataDependency_touchDeclarations(
   if symbol == nil {
     return
   }
+  // Everything this function reaches was reached to decide which declaration a
+  // name selects, so all of it belongs to the identity channel -- the alias hops
+  // as much as the terminus.
+  report := listener.Callee
   if symbol.Flags&nativeast.SymbolFlagsAlias != 0 {
-    metadataDependency_touchPath(checker, listener, symbol)
+    metadataDependency_touchPath(checker, listener, symbol, report)
     if resolved := nativechecker.Checker_getAliasedSymbol(checker, symbol); resolved != nil {
       symbol = resolved
     }
   }
   for _, declaration := range symbol.Declarations {
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      listener.File(src.FileName())
+      report(src.FileName())
     }
     if nested && metadataDependency_calleeBounded(declaration) == false {
       listener.unbounded()
@@ -808,7 +832,9 @@ func metadataDependency_resolve(
     return nil
   }
   if symbol.Flags&nativeast.SymbolFlagsAlias != 0 {
-    metadataDependency_touchPath(checker, listener, symbol)
+    // The type walk: a hop reached here was reached because a consulted type is
+    // built from what it publishes, so it reports on the consultation channel.
+    metadataDependency_touchPath(checker, listener, symbol, listener.File)
     if resolved := nativechecker.Checker_getAliasedSymbol(checker, symbol); resolved != nil {
       symbol = resolved
     }
@@ -833,6 +859,7 @@ func metadataDependency_touchPath(
   checker *nativechecker.Checker,
   listener MetadataDependency_IListener,
   symbol *nativeast.Symbol,
+  report func(fileName string),
 ) {
   visited := map[*nativeast.Symbol]bool{}
   for symbol != nil && symbol.Flags&nativeast.SymbolFlagsAlias != 0 && visited[symbol] == false {
@@ -843,7 +870,7 @@ func metadataDependency_touchPath(
     }
     // The file that WRITES this hop (the barrel's own `export ... from` line).
     if src := nativeast.GetSourceFileOfNode(declaration); src != nil {
-      listener.File(src.FileName())
+      report(src.FileName())
     }
     specifier := metadataDependency_moduleSpecifier(declaration)
     if specifier == nil {
@@ -864,7 +891,7 @@ func metadataDependency_touchPath(
     }
     for _, moduleDeclaration := range module.Declarations {
       if src := nativeast.GetSourceFileOfNode(moduleDeclaration); src != nil {
-        listener.File(src.FileName())
+        report(src.FileName())
       }
     }
     symbol = metadataDependency_exported(module, declaration)
