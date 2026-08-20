@@ -184,6 +184,8 @@ await upfetch("https://jsonplaceholder.typicode.com/todos/1", { schema });
 await upfetch("https://jsonplaceholder.typicode.com/todos/10", { schema });
 ```
 
+typia re-exports `StandardSchemaV1`, so `import type { StandardSchemaV1 } from "typia"` is all you need to write the factory's type out by hand.
+
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
