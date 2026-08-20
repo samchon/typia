@@ -2,7 +2,7 @@ import type { StandardSchemaV1 as Spec } from "@standard-schema/spec";
 import { StandardSchemaV1 } from "@typia/interface";
 
 /**
- * Verifies `StandardSchemaV1` still matches the specification it was copied
+ * Verifies `StandardSchemaV1` is identical to the specification it was copied
  * from.
  *
  * `@typia/interface` declares the Standard Schema contract in-house so that
@@ -14,39 +14,52 @@ import { StandardSchemaV1 } from "@typia/interface";
  * `typia.createValidate` result at a boundary the repository never compiles.
  *
  * `@standard-schema/spec` therefore stays a development dependency, and this
- * file is what it is for. Assignability runs in both directions on purpose: one
- * direction alone passes while the specification grows a member.
+ * file is what it is for. The bar is type identity rather than mutual
+ * assignability, because assignability is too weak to pin a copy: adding an
+ * optional member to this side, or dropping a `readonly` modifier, leaves both
+ * directions assignable and would sail through. Both were measured against the
+ * assignability form and passed it; identity rejects them and still accepts the
+ * declaration as written.
  *
- * 1. Assert the two interfaces accept each other, generic and defaulted.
+ * 1. Assert the two interfaces are identical, generic and defaulted.
  * 2. Assert the same for every member of the namespace.
  * 3. Assert the inference helpers read back the type arguments.
  */
 export type StandardSchemaV1ConformanceCases = [
   // the interface itself
-  Assert<Mutual<StandardSchemaV1, Spec>>,
-  Assert<Mutual<StandardSchemaV1<IInput>, Spec<IInput>>>,
-  Assert<Mutual<StandardSchemaV1<IInput, IOutput>, Spec<IInput, IOutput>>>,
+  Assert<IsEqual<StandardSchemaV1, Spec>>,
+  Assert<IsEqual<StandardSchemaV1<IInput>, Spec<IInput>>>,
+  Assert<IsEqual<StandardSchemaV1<IInput, IOutput>, Spec<IInput, IOutput>>>,
 
   // the properties carried under `~standard`
-  Assert<Mutual<StandardSchemaV1.Props, Spec.Props>>,
+  Assert<IsEqual<StandardSchemaV1.Props, Spec.Props>>,
   Assert<
-    Mutual<StandardSchemaV1.Props<IInput, IOutput>, Spec.Props<IInput, IOutput>>
+    IsEqual<
+      StandardSchemaV1.Props<IInput, IOutput>,
+      Spec.Props<IInput, IOutput>
+    >
   >,
-  Assert<Mutual<StandardSchemaV1.Options, Spec.Options>>,
+  Assert<IsEqual<StandardSchemaV1.Options, Spec.Options>>,
 
   // the validation result union and its two arms
-  Assert<Mutual<StandardSchemaV1.Result<IOutput>, Spec.Result<IOutput>>>,
+  Assert<IsEqual<StandardSchemaV1.Result<IOutput>, Spec.Result<IOutput>>>,
   Assert<
-    Mutual<StandardSchemaV1.SuccessResult<IOutput>, Spec.SuccessResult<IOutput>>
+    IsEqual<
+      StandardSchemaV1.SuccessResult<IOutput>,
+      Spec.SuccessResult<IOutput>
+    >
   >,
-  Assert<Mutual<StandardSchemaV1.FailureResult, Spec.FailureResult>>,
-  Assert<Mutual<StandardSchemaV1.Issue, Spec.Issue>>,
-  Assert<Mutual<StandardSchemaV1.PathSegment, Spec.PathSegment>>,
+  Assert<IsEqual<StandardSchemaV1.FailureResult, Spec.FailureResult>>,
+  Assert<IsEqual<StandardSchemaV1.Issue, Spec.Issue>>,
+  Assert<IsEqual<StandardSchemaV1.PathSegment, Spec.PathSegment>>,
 
   // the phantom type carrier
-  Assert<Mutual<StandardSchemaV1.Types, Spec.Types>>,
+  Assert<IsEqual<StandardSchemaV1.Types, Spec.Types>>,
   Assert<
-    Mutual<StandardSchemaV1.Types<IInput, IOutput>, Spec.Types<IInput, IOutput>>
+    IsEqual<
+      StandardSchemaV1.Types<IInput, IOutput>,
+      Spec.Types<IInput, IOutput>
+    >
   >,
 
   // the inference helpers
@@ -75,14 +88,13 @@ interface IOutput {
 type Assert<T extends true> = T;
 
 /**
- * Assignable in both directions, which is what interoperability needs.
+ * True only when `X` and `Y` are the same type, not merely interchangeable.
  *
- * The tuple wrappers stop the conditional from distributing: `Result` is a
- * union, and a distributed comparison asks whether each arm alone satisfies the
- * whole union, which answers `boolean` for a pair that matches exactly.
+ * The deferred conditional inside a generic function signature makes TypeScript
+ * compare the pair by identity, which is what separates this from an `extends`
+ * pair: identity sees an optionality or `readonly` difference that
+ * assignability forgives.
  */
-type Mutual<X, Y> = [X] extends [Y] ? ([Y] extends [X] ? true : false) : false;
-
 type IsEqual<X, Y> =
   (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
     ? (<T>() => T extends Y ? 1 : 2) extends <T>() => T extends X ? 1 : 2
