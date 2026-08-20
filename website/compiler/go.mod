@@ -11,11 +11,15 @@ go 1.26
 // dependency here means `packages/typia/native` (the published plugin) never
 // requires it, so ttsc can build the native plugin for the docs/examples
 // compile. Every shim/* replace mirrors `packages/typia/native/go.mod` because
-// go.mod requires these directives to be self-contained. The ttsc packages and
-// typia native are resolved from sibling checkouts, the same assumption
+// go.mod requires these directives to be self-contained. `shim/astnav` is the
+// exception: nothing in `packages/typia/native` needs it, but `@ttsc/wasm`'s
+// host imports it from a `js && wasm` file, so only this module has to resolve
+// it -- and only the wasm target fails without it. The ttsc packages and typia
+// native are resolved from sibling checkouts, the same assumption
 // `build/wasm.js` already makes for the native wasm build.
 replace (
 	github.com/microsoft/typescript-go/shim/ast => ../../../ttsc/packages/ttsc/shim/ast
+	github.com/microsoft/typescript-go/shim/astnav => ../../../ttsc/packages/ttsc/shim/astnav
 	github.com/microsoft/typescript-go/shim/bundled => ../../../ttsc/packages/ttsc/shim/bundled
 	github.com/microsoft/typescript-go/shim/checker => ../../../ttsc/packages/ttsc/shim/checker
 	github.com/microsoft/typescript-go/shim/compiler => ../../../ttsc/packages/ttsc/shim/compiler
@@ -46,13 +50,14 @@ require (
 	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.10 // indirect
 	github.com/microsoft/typescript-go v0.0.0-20260429010842-56ab4af42157 // indirect
-	github.com/microsoft/typescript-go/shim/ast v0.0.0 // indirect
+	github.com/microsoft/typescript-go/shim/ast v0.0.0
+	github.com/microsoft/typescript-go/shim/astnav v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/bundled v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/checker v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/core v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/diagnosticwriter v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/parser v0.0.0 // indirect
-	github.com/microsoft/typescript-go/shim/printer v0.0.0 // indirect
+	github.com/microsoft/typescript-go/shim/printer v0.0.0
 	github.com/microsoft/typescript-go/shim/tsoptions v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/tspath v0.0.0 // indirect
 	github.com/microsoft/typescript-go/shim/vfs v0.0.0 // indirect
