@@ -37,12 +37,46 @@ const run = (cwd: string, args: string[]): ICommandResult => {
 const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const build = (project: string, stage: string): void => {
+interface IModuleRow {
+  name: string;
+  built: boolean;
+  codeGenerated: boolean;
+}
+
+const build = (project: string, stage: string): IModuleRow[] => {
   const result: ICommandResult = run(project, [
     path.join(project, "build.cjs"),
   ]);
   if (result.status !== 0)
     throw new Error(`webpack build failed ${stage}:\n${result.output}`);
+  const line: string | undefined = result.output
+    .split(/\r?\n/)
+    .find((candidate) => candidate.startsWith("MODULES "));
+  if (line === undefined)
+    throw new Error(
+      `webpack build reported no modules ${stage}:\n${result.output}`,
+    );
+  return JSON.parse(line.slice("MODULES ".length)) as IModuleRow[];
+};
+
+/**
+ * Whether webpack rebuilt the entry module on this run.
+ *
+ * `built`, not `codeGenerated`: webpack skips code generation when the module
+ * hash is unchanged, and a watched input changing outside the entry's own
+ * source leaves that hash alone. Re-running the loader is what the narrowing
+ * step observes, and only `built` reports it.
+ */
+const regenerated = (rows: IModuleRow[], stage: string): boolean => {
+  const entry: IModuleRow | undefined = rows.find(
+    (row) => row.name === "./src/index.ts",
+  );
+  if (entry === undefined)
+    throw new Error(
+      `${stage}: webpack reported no ./src/index.ts module, only ` +
+        JSON.stringify(rows.map((row) => row.name)),
+    );
+  return entry.built;
 };
 
 const validate = (project: string, input: unknown): IValidationLike => {
@@ -151,7 +185,10 @@ const writeFixture = (project: string): void => {
       `    path: path.resolve(__dirname, "dist"),`,
       `    filename: "bundle.js",`,
       `  },`,
-      `  optimization: { minimize: false },`,
+      `  // Concatenation would fold the entry and everything it inlines into`,
+      `  // one stats row, and the narrowing step below has to tell "the entry`,
+      `  // re-ran the transform" from "a sibling module rebuilt".`,
+      `  optimization: { minimize: false, concatenateModules: false },`,
       `};`,
       ``,
     ].join("\n"),
@@ -171,6 +208,21 @@ const writeFixture = (project: string): void => {
       `  const failed = stats.hasErrors();`,
       `  if (failed)`,
       `    console.error(stats.toString({ errors: true, colors: false }));`,
+      `  // Which modules this run regenerated. A step that asserts the cached`,
+      `  // validator was REUSED has no other observable: the validator behaves`,
+      `  // identically either way, so only the rebuild separates the narrowed`,
+      `  // derivation from the reference-closure one.`,
+      `  const json = stats.toJson({ all: false, modules: true, cachedModules: true });`,
+      `  console.log(`,
+      `    "MODULES " +`,
+      `      JSON.stringify(`,
+      `        (json.modules || []).map((m) => ({`,
+      `          name: String(m.name || ""),`,
+      `          built: m.built === true,`,
+      `          codeGenerated: m.codeGenerated === true,`,
+      `        })),`,
+      `      ),`,
+      `  );`,
       `  // close() persists the filesystem cache; exiting earlier would leave`,
       `  // the second build without the first build's snapshot.`,
       `  compiler.close((closeError) => {`,
@@ -189,8 +241,10 @@ const writeFixture = (project: string): void => {
     [
       `import typia from "typia";`,
       ``,
+      `import { HELPER } from "./helper";`,
       `import { MyType } from "./mytype";`,
       ``,
+      `if (HELPER === "never") console.log(HELPER);`,
       `console.log(`,
       `  JSON.stringify(`,
       `    typia.validate<MyType>(JSON.parse(process.argv[2] ?? "{}")),`,
@@ -199,6 +253,7 @@ const writeFixture = (project: string): void => {
       ``,
     ].join("\n"),
   );
+  fs.writeFileSync(path.join(project, "src", "helper.ts"), fixtureHelperV1);
   fs.writeFileSync(path.join(project, "src", "mytype.ts"), fixtureTypeV1);
   fs.writeFileSync(
     path.join(project, "src", "lib.custom.d.ts"),
@@ -278,6 +333,16 @@ const fixtureCellV1: string = [`export type Cell = string;`, ``].join("\n");
 
 const fixtureCellV2: string = [`export type Cell = number;`, ``].join("\n");
 
+// `index.ts` imports this for its VALUE, so the reference graph carries the
+// edge, and no typia call consults it, so the reported dependencies do not name
+// it. That is the one shape that sits in `reach(edges, index.ts)` and outside
+// `dependencies[index.ts]` — a type-only import would sit in neither, because
+// `graph.edges` records emitted module edges and TypeScript elides that import
+// (samchon/typia#2362).
+const fixtureHelperV1: string = [`export const HELPER = "v1";`, ``].join("\n");
+
+const fixtureHelperV2: string = [`export const HELPER = "v2";`, ``].join("\n");
+
 const fixtureAmbientV1: string = [
   `declare interface CustomLabel {`,
   `  tag: string;`,
@@ -306,6 +371,16 @@ const fixtureAmbientV2: string = [
  * participate in invalidation instead of being dropped as a default library by
  * its basename.
  *
+ * Step 6 pins the completeness declaration itself. `index.ts` imports
+ * `helper.ts` for its VALUE, so the reference graph carries the edge, and no
+ * typia call consults it, so the reported list leaves it out -- the one input
+ * that sits in `reach(graph.edges, index.ts)` and outside
+ * `dependencies[index.ts]`. Under the default derivation the entry watches it
+ * and the rebuild re-runs the transform; declared complete, the entry watches
+ * only its reported list and the cached validator is reused. A type-only import
+ * cannot serve here: `graph.edges` records emitted module edges, so an elided
+ * import lands in neither set.
+ *
  * The barrel and index-signature steps pin samchon/typia#2126. Both files are
  * intermediates that hold no declaration of their own but SELECT which one the
  * analysis reaches, and both were omitted from the reported dependencies while
@@ -328,6 +403,10 @@ const fixtureAmbientV2: string = [
  * 5. Retype `Cell` from `string` to `number` in `cell.ts` and rebuild with the
  *    cache kept; assert the previous string-valued dynamic entry now fails and
  *    a numeric one succeeds.
+ * 6. Change `helper.ts` and assert the entry was NOT rebuilt. Steps 2-5 all mutate
+ *    a file the reported list already names, so they pass under either
+ *    derivation; this one is the only step that can tell them apart
+ *    (samchon/typia#2362).
  */
 export const test_webpack_filesystem_cache_invalidation =
   async (): Promise<void> => {
@@ -360,7 +439,19 @@ export const test_webpack_filesystem_cache_invalidation =
 
       // 2. type-only change in mytype.ts; the cache is deliberately kept.
       await mutate(path.join(project, "src", "mytype.ts"), fixtureTypeV2);
-      build(project, "after changing mytype.ts");
+      const consulted: IModuleRow[] = build(
+        project,
+        "after changing mytype.ts",
+      );
+      // The positive twin of step 6: a consulted file must regenerate the
+      // entry. Without it, step 6's negative would also pass on a build that
+      // regenerates nothing at all.
+      if (regenerated(consulted, "after changing mytype.ts") === false)
+        throw new Error(
+          "cached rebuild after adding MyType.age: the entry was not " +
+            "regenerated, so this suite can no longer observe a rebuild and " +
+            "step 6 proves nothing.",
+        );
       assertErrorPath(
         "cached rebuild after adding MyType.age",
         validate(project, {
@@ -455,6 +546,35 @@ export const test_webpack_filesystem_cache_invalidation =
       );
       assertSuccess(
         "cached rebuild with the retyped input",
+        validate(project, {
+          id: "a",
+          age: 1,
+          ambient: { tag: "t", flag: true },
+          nested: { code: "c", extra: true },
+          dynamic: { k: 1 },
+        }),
+      );
+
+      // 6. the step that can only pass UNDER narrowing (samchon/typia#2362).
+      // Every step above mutates a file the reported list already names, so all
+      // of them pass under either derivation. `helper.ts` is the one input that
+      // separates them: `index.ts` imports it for its value, so the reference
+      // graph carries the edge, and no typia call consults it, so the reported
+      // list leaves it out. Un-narrowed the entry watches `reach(edges,
+      // index.ts)` and this rebuild regenerates it; narrowed it watches
+      // `dependencies[index.ts]` and the cached validator is reused.
+      await mutate(path.join(project, "src", "helper.ts"), fixtureHelperV2);
+      const narrowed: IModuleRow[] = build(project, "after changing helper.ts");
+      if (regenerated(narrowed, "after changing helper.ts") === true)
+        throw new Error(
+          "cached rebuild after changing a reachable but unconsulted file: " +
+            "the entry was regenerated, so the build is still watching " +
+            "reach(graph.edges, index.ts) instead of dependencies[index.ts]. " +
+            "Either the envelope stopped declaring index.ts complete, or the " +
+            "host stopped narrowing on that declaration.",
+        );
+      assertSuccess(
+        "cached reuse with the unchanged input",
         validate(project, {
           id: "a",
           age: 1,
