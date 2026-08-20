@@ -48,6 +48,13 @@ func (callExpressionTransformerNamespace) Transform(props CallExpressionTransfor
   if props.Expression == nil {
     return nil
   }
+  // Report what SELECTS this callee before asking what it resolved to (project
+  // transform mode only; a no-op otherwise). Typia-ness is decided by the file
+  // that declares the resolved signature, so the modules an import or re-export
+  // chain traverses decide whether this call is rewritten -- and the report has
+  // to happen for a rejected call too, because that is the one an edit to one
+  // of those modules turns into a generated validator.
+  schemametadata.MetadataDependency_touchCallee(props.Context.Checker, props.Expression.Expression)
   signature := props.Context.Checker.GetResolvedSignature(props.Expression.AsNode())
   if signature == nil {
     return props.Expression.AsNode()
@@ -94,10 +101,18 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
   // intrinsic (`typia.validate<Id>()` with `type Id = string` elsewhere) leaves
   // no symbol on the resolved type, so the call site's own syntax is the only
   // anchor that registers such an alias' declaring file.
-  if props.Expression.TypeArguments != nil {
+  //
+  // A call that writes no type argument takes its validated type from the value
+  // argument instead, and no walk bounds where that type was decided: contextual
+  // typing can put the deciding annotation in a file the resolved type never
+  // names. Report it as unbounded, which costs the file its completeness
+  // declaration rather than vouching for a list that cannot cover it.
+  if props.Expression.TypeArguments != nil && len(props.Expression.TypeArguments.Nodes) != 0 {
     for _, argument := range props.Expression.TypeArguments.Nodes {
       schemametadata.MetadataDependency_touchTypeNode(props.Context.Checker, argument)
     }
+  } else {
+    schemametadata.MetadataDependency_unbounded(props.Context.Checker)
   }
   // Keep the full callee expression (e.g. `typia.assertEquals`) as the modulo,
   // mirroring the TypeScript transformer. Programmers render it into the
