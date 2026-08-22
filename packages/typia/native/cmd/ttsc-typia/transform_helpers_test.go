@@ -155,6 +155,8 @@ func ttscTypiaTestRewriteCommonJS(t *testing.T, js string) string {
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_functionalTypeGuardErrorFactory")`, `require("./functional-error-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_accessExpressionAsString")`, `require("./access-expression-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_stringLength")`, `require("./string-length-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_stringLengthGte")`, `require("./string-length-stub.cjs")`)
+  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_stringLengthLte")`, `require("./string-length-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyArray")`, `require("./json-stringify-array-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyProperty")`, `require("./json-stringify-property-stub.cjs")`)
   runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyElement")`, `require("./json-stringify-element-stub.cjs")`)
@@ -292,13 +294,25 @@ const ttscTypiaTestRandomStringStub = `module.exports._randomString = (props) =>
 };
 `
 
-// A double for packages/typia/src/internal/_stringLength.ts: the string
-// iterator walks code points, so a surrogate pair counts once, which is what
-// `MinLength` and `MaxLength` now mean.
+// Doubles for the string-length helpers. The string iterator walks code points,
+// so a surrogate pair counts once; the comparisons stop as soon as their
+// boundary determines the answer.
 const ttscTypiaTestStringLengthStub = `module.exports._stringLength = (value) => {
   let count = 0;
   for (const _ of value) ++count;
   return count;
+};
+module.exports._stringLengthGte = (value, length) => {
+  let count = 0;
+  if (length <= count) return true;
+  for (const _ of value) if (length <= ++count) return true;
+  return false;
+};
+module.exports._stringLengthLte = (value, length) => {
+  let count = 0;
+  if (!(count <= length)) return false;
+  for (const _ of value) if (!(++count <= length)) return false;
+  return true;
 };
 `
 

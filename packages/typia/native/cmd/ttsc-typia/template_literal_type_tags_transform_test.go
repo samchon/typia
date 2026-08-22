@@ -34,8 +34,9 @@ func TestTemplateLiteralTypeTagsTransform(t *testing.T) {
   if code != 0 {
     t.Fatalf("template literal tags transform failed: code=%d stderr=\n%s", code, errText)
   }
-  if !strings.Contains(out, `require("typia/lib/internal/_stringLength")`) ||
-    !strings.Contains(out, "._stringLength(input) <= 30") ||
+  if !strings.Contains(out, `require("typia/lib/internal/_stringLengthLte")`) ||
+    !strings.Contains(out, "._stringLengthLte(input, 30)") ||
+    !strings.Contains(out, `require("typia/lib/internal/_stringLengthGte")`) ||
     !strings.Contains(out, "RegExp(/^prefix(.*)postfix$/)") {
     t.Fatalf("emitted checker should combine the template pattern with its tags:\n%s", out)
   }
