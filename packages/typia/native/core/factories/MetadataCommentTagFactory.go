@@ -216,11 +216,12 @@ func (metadataCommentTagFactoryNamespace) Get(props struct {
 // The rule: a template may name only a helper that every `typia` inside the
 // caret range already ships. `isTypeInt8` and its siblings satisfy it --
 // `@typia/interface` 13.0.0 named them and `typia` 13.0.0 shipped them. The
-// four this file and `Type.ts` now name do not: `_stringLength`, `_isMultipleOf`
-// (both first published in 13.1.19), `_isTypeInt64Bigint`, and
-// `_isTypeUint64Bigint` (13.1.19). They are safe only because the release that
-// carries them is a major, where the caret cannot reach a `typia` that predates
-// them. A minor or patch release of this tree reopens #2330.
+// helpers this file and the tag declarations now name do not:
+// `_stringLengthGte`, `_stringLengthLte`, `_isMultipleOf`,
+// `_isTypeInt64Bigint`, and `_isTypeUint64Bigint`. They are safe only because
+// the release that carries them is a major, where the caret cannot reach a
+// `typia` that predates them. A minor or patch release of this tree reopens
+// #2330.
 //
 // Nothing here can enforce that; the release version is the maintainer's, and a
 // campaign pull request never assigns one. This comment is the record.
