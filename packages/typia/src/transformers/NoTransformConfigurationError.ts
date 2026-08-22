@@ -4,13 +4,28 @@ export function NoTransformConfigurationError(name: string): never {
     [
       `Error on typia.${name}(): no transform has been configured.`,
       "",
-      "Read and follow https://typia.io/docs/setup please.",
+      [
+        "Build the project with `ttsc` (not stock `tsc`), run TypeScript",
+        "with `ttsx`, or configure `@ttsc/unplugin` for a bundler.",
+        "These toolchains discover typia's native transform automatically.",
+      ].join(" "),
       "",
       [
-        "If you've already completed the setup, it means there's",
-        "a bug in your code. Run `tsc` command so that check what",
-        "is wrong with your code.",
+        "If `ttsc` is missing, install it with",
+        "`npm i -D ttsc typescript`.",
       ].join(" "),
+      "",
+      [
+        "If setup is already complete, run `npx ttsc --noEmit` to",
+        "surface the underlying TypeScript or typia transform error.",
+      ].join(" "),
+      "",
+      [
+        "Stock `tsc`, `ts-node`, `tsx`, Babel, and SWC do not load",
+        "typia's transform on their own.",
+      ].join(" "),
+      "",
+      "See https://typia.io/docs/setup for setup and bundler instructions.",
     ].join("\n"),
   );
 }

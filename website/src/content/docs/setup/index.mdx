@@ -191,7 +191,7 @@ console.log(typia.is<{ id: string }>({ id: "ok" }));
 // true
 ```
 
-If it prints `true`, the transform ran. If it throws `Error on typia.<method>(): no transform has been configured.`, the command bypassed `ttsc`, `ttsx`, or `@ttsc/unplugin`.
+If it prints `true`, the transform ran. If it throws `Error on typia.<method>(): no transform has been configured.`, the command bypassed `ttsc`, `ttsx`, or `@ttsc/unplugin`. Configure one of those transform paths, then run `npx ttsc --noEmit`; that compiler pass exposes the underlying TypeScript or `TS(typia.<method>)` transform diagnostic instead of reaching the runtime fallback.
 
 typia attributes a call by the file its declaration comes from, so a project-local `declare module "typia"` takes the call out of typia's own declarations and the transform no longer recognizes it. That case is reported at build time as `error TS(typia.<method>): this call resolved to a declaration in <file> instead of typia's own, so no transform was applied.` Delete the redeclaration, or give it another module name.
 
