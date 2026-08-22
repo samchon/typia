@@ -8,8 +8,8 @@ export function NoTransformConfigurationError(name: string): never {
       "",
       [
         "If you've already completed the setup, it means there's",
-        "a bug in your code. Run `tsc` command so that check what",
-        "is wrong with your code.",
+        "a bug in your code. Run `ttsc` (not `tsc`) command so that",
+        "check what is wrong with your code.",
       ].join(" "),
     ].join("\n"),
   );
