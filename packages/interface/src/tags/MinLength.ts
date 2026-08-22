@@ -29,7 +29,7 @@ export type MinLength<Value extends number> = TagBase<{
   target: "string";
   kind: "minLength";
   value: Value;
-  validate: `${Value} <= $importInternal("_stringLength")($input)`;
+  validate: `$importInternal("_stringLengthGte")($input, ${Value})`;
   exclusive: true;
   schema: {
     minLength: Value;

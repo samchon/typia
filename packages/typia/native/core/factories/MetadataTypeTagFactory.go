@@ -65,6 +65,20 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
     messages = append(messages, "the property "+property+" "+next.Message+".")
     return false
   }
+  failure := func() []schemametadata.IMetadataTypeTag {
+    if props.Errors != nil {
+      names := []string{props.Type}
+      for _, object := range props.Objects {
+        names = append(names, object.Name)
+      }
+      *props.Errors = append(*props.Errors, MetadataFactory_IError{
+        Name:     strings.Join(names, " & "),
+        Explore:  props.Explore,
+        Messages: messages,
+      })
+    }
+    return []schemametadata.IMetadataTypeTag{}
+  }
 
   filtered := []*schemametadata.MetadataObjectType{}
   for _, obj := range props.Objects {
@@ -139,6 +153,9 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
       filtered = append(filtered, obj)
     }
   }
+  if len(messages) != 0 {
+    return failure()
+  }
   if len(filtered) == 0 {
     return []schemametadata.IMetadataTypeTag{}
   }
@@ -190,18 +207,7 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
   })
 
   if len(messages) > 0 {
-    if props.Errors != nil {
-      names := []string{props.Type}
-      for _, object := range props.Objects {
-        names = append(names, object.Name)
-      }
-      *props.Errors = append(*props.Errors, MetadataFactory_IError{
-        Name:     strings.Join(names, " & "),
-        Explore:  props.Explore,
-        Messages: messages,
-      })
-    }
-    return []schemametadata.IMetadataTypeTag{}
+    return failure()
   }
   return output
 }
@@ -307,12 +313,13 @@ func metadataTypeTagFactory_validate_property(props struct {
       Message  string
     }{Property: property, Message: "must be a string literal type"})
   }
-  if props.Key == "value" && !((props.Value.Size() == 0 && props.Value.IsRequired() == false) ||
-    (props.Value.Size() == 1 && (len(props.Value.Objects) == 1 || len(props.Value.Constants) == 1))) {
-    return props.Report(struct {
-      Property *string
-      Message  string
-    }{Property: property, Message: "must be a literal type or undefined value"})
+  if props.Key == "value" {
+    if _, ok := metadataTypeTagFactory_get_value(props.Value); ok == false {
+      return props.Report(struct {
+        Property *string
+        Message  string
+      }{Property: property, Message: "must be a literal, literal tuple, object, or undefined type"})
+    }
   }
   if props.Key == "exclusive" {
     return metadataTypeTagFactory_get_exclusive(struct {
@@ -407,8 +414,8 @@ func metadataTypeTagFactory_create_metadata_type_tag(props struct {
   kind := fmt.Sprint(kindProperty.Value.Constants[0].Values[0].Value)
 
   var value any
-  if valueProperty := find("value"); valueProperty != nil && len(valueProperty.Value.Constants) != 0 && len(valueProperty.Value.Constants[0].Values) != 0 {
-    value = valueProperty.Value.Constants[0].Values[0].Value
+  if valueProperty := find("value"); valueProperty != nil {
+    value, _ = metadataTypeTagFactory_get_value(valueProperty.Value)
   }
   exclusive := metadataTypeTagFactory_get_exclusive(struct {
     Report func(struct {
@@ -480,6 +487,48 @@ func metadataTypeTagFactory_create_metadata_type_tag(props struct {
     Exclusive: exclusive,
     Schema:    schema,
   }
+}
+
+func metadataTypeTagFactory_get_value(metadata *schemametadata.MetadataSchema) (any, bool) {
+  if metadata == nil {
+    return nil, false
+  }
+  if metadata.Size() == 0 {
+    return nil, metadata.IsRequired() == false && metadata.Nullable == false
+  }
+  if metadata.Size() != 1 || metadata.Nullable {
+    return nil, false
+  }
+  if len(metadata.Constants) == 1 && len(metadata.Constants[0].Values) == 1 {
+    return metadata.Constants[0].Values[0].Value, true
+  }
+  if len(metadata.Arrays) != 0 || len(metadata.Atomics) != 0 || len(metadata.Natives) != 0 || len(metadata.Functions) != 0 {
+    return nil, false
+  }
+  if len(metadata.Tuples) == 1 {
+    tuple := metadata.Tuples[0].Type
+    if tuple.Recursive || tuple.IsRest() {
+      return nil, false
+    }
+    output := make([]any, 0, len(tuple.Elements))
+    for _, elem := range tuple.Elements {
+      if elem.IsRequired() == false {
+        return nil, false
+      }
+      value, ok := metadataTypeTagFactory_get_value(elem)
+      if ok == false {
+        return nil, false
+      }
+      output = append(output, value)
+    }
+    return output, true
+  }
+  if len(metadata.Objects) == 1 {
+    // Object-valued metadata predates tuple support. Its concrete value is
+    // carried by the tag's schema object rather than IMetadataTypeTag.Value.
+    return nil, true
+  }
+  return nil, false
 }
 
 func metadataTypeTagFactory_get_exclusive(props struct {
