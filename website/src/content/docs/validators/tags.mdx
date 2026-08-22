@@ -184,11 +184,13 @@ For `url`, DNS host labels may contain interior hyphen runs such as `example--ex
 | `tags.MaxItems<N>` | `arr.length <= N`              |
 | `tags.UniqueItems` | All elements pairwise distinct |
 
+`Default` accepts a readonly tuple as an array default. Capture the value with `as const`, then use its type on the array wrapper: `Header[] & tags.Default<typeof headers>`. The tuple is emitted in the schema's `default` field and can be combined with `MinItems`, `MaxItems`, and `UniqueItems`. An open type such as `string[]` describes many possible arrays rather than one default value, so typia rejects `tags.Default<string[]>`.
+
 #### Other useful tags
 
 | Tag                                         | What it does                                                    |
 | ------------------------------------------- | --------------------------------------------------------------- |
-| `tags.Default<V>`                           | Records a default value in JSON Schema output                   |
+| `tags.Default<V>`                           | Records a primitive or readonly tuple default in schema output |
 | `tags.Example<V>` / `tags.Examples<Record>` | Records example(s) in JSON Schema output                        |
 | `tags.Constant<V, {title, description}>`    | Single-value literal with metadata                              |
 | `tags.JsonSchemaPlugin<{...}>`              | Inject arbitrary `x-…` JSON Schema fields                       |
