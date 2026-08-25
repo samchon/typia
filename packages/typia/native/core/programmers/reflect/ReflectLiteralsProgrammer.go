@@ -29,6 +29,18 @@ func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_
       Escape:   true,
       Constant: true,
       Absorb:   true,
+      // Accept exactly what the emitter below can render: constant literals,
+      // the `boolean` atomic (the `true | false` union), and `null`. The
+      // counts are the whole predicate, so both sides must weigh `null`:
+      // `Nullable` is a flag rather than a bucket, so `MetadataSchema.Size()`
+      // never sees it and `literals<null>()` -- a type argument the public
+      // `T extends Atomic.Type | null` signature documents -- used to be
+      // rejected as carrying no literal at all.
+      //
+      // The empty union is `never`, whose metadata carries no member on either
+      // side. It is vacuously literal-only and `literals<never>(): never[]`
+      // has exactly one inhabitant, so it emits `[]` instead of a diagnostic
+      // (issue #2377).
       Validate: func(next struct {
         Metadata *nativemetadata.MetadataSchema
         Explore  nativefactories.MetadataFactory_IExplore
@@ -43,13 +55,18 @@ func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_
             length++
           }
         }
+        size := next.Metadata.Size()
+        if next.Metadata.Nullable {
+          length++
+          size++
+        }
+        if size == length {
+          return []string{}
+        }
         if length == 0 {
           return []string{string(ReflectLiteralsProgrammer_ErrorMessages_NO)}
         }
-        if next.Metadata.Size() != length {
-          return []string{string(ReflectLiteralsProgrammer_ErrorMessages_ONLY)}
-        }
-        return []string{}
+        return []string{string(ReflectLiteralsProgrammer_ErrorMessages_ONLY)}
       },
     },
     Components: nativemetadata.NewMetadataCollection(),
