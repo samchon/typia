@@ -93,3 +93,5 @@ jobs:
         with:
           branch: gh-pages
           folder: ./website/out
+          # keep gh-pages at one commit; full-history snapshots bloat the repository
+          single-commit: true
