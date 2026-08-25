@@ -18,9 +18,13 @@ import (
 // something literal was found next to something that is not. Collapsing them
 // would hide which half of a mixed argument is wrong.
 //
-//  1. Transform arguments holding no literal at all (`string`, `any`).
-//  2. Transform arguments mixing a renderable member with a non-literal one,
-//     including `string | null`, the one-axis twin of the newly admitted `null`.
+//  1. Transform arguments holding no literal at all: a bare atomic, `any`, and
+//     a tag-branded atomic, whose brand raises the member count without adding
+//     anything the emitter can render.
+//  2. Transform arguments mixing a renderable member with a non-literal one:
+//     `string | null`, the one-axis twin of the newly admitted `null`, and
+//     `boolean | number`, where the renderable member is an atomic rather than
+//     a constant.
 //  3. Assert each fails, and with the diagnostic its composition calls for.
 func TestReflectLiteralsNonLiteralRejectionTransform(t *testing.T) {
   cases := []struct {
@@ -33,6 +37,8 @@ func TestReflectLiteralsNonLiteralRejectionTransform(t *testing.T) {
     {"nullable atomic", "string | null", "only constant literal types are allowed."},
     {"literal beside atomic", `"a" | number`, "only constant literal types are allowed."},
     {"literal beside template", "`prefix${number}` | \"a\"", "only constant literal types are allowed."},
+    {"renderable atomic beside atomic", "boolean | number", "only constant literal types are allowed."},
+    {"tag branded atomic", `string & tags.Format<"uuid">`, "no constant literal type found."},
   }
   for _, tc := range cases {
     tc := tc
@@ -78,7 +84,7 @@ func reflectLiteralsRejectionProject(t *testing.T, argument string) string {
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(atomicIntersectionSchemaTSConfig), 0o644); err != nil {
     t.Fatalf("write tsconfig: %v", err)
   }
-  source := "import typia from \"typia\";\n\nexport const values = typia.reflect.literals<" + argument + ">();\n"
+  source := "import typia, { tags } from \"typia\";\n\nexport const values = typia.reflect.literals<" + argument + ">();\n"
   if err := os.WriteFile(filepath.Join(src, "main.ts"), []byte(source), 0o644); err != nil {
     t.Fatalf("write source: %v", err)
   }
