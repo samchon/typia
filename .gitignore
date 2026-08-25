@@ -25,3 +25,6 @@ package-lock.json
 
 # go workspace checksum (local, points at local ttsc checkout)
 packages/typia/native/go.work.sum
+
+# ttsc plugin cache; ttsc writes Go plugin binaries to projectRoot/.ttsc/plugins/<hash>/.
+.ttsc/
