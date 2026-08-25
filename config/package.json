@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/config",
-  "version": "14.0.2",
+  "version": "14.0.3",
   "description": "Shared build configuration for typia packages",
   "devDependencies": {
     "@ttsc/unplugin": "catalog:typescript",
