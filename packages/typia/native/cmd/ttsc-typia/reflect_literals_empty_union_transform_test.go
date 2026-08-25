@@ -20,9 +20,10 @@ import (
 // vacuously literal-only and `literals<never>(): never[]` has exactly one
 // inhabitant, so both must transform and run.
 //
-//  1. Transform a module whose `reflect.literals` arguments span every spelling
-//     of the empty union a caller reaches -- the keyword, an alias, an
-//     exhaustive `Exclude`, an empty `Extract` -- plus `null`, a fully mixed
+//  1. Transform a module whose `reflect.literals` arguments span every
+//     uninhabited spelling a caller reaches -- the keyword, an alias, an
+//     exhaustive `Exclude`, an empty `Extract`, a TypeScript-collapsed
+//     intersection, and one typia prunes itself -- plus `null`, a fully mixed
 //     literal union, and the plain `boolean` atomic.
 //  2. Execute the emitted CommonJS.
 //  3. Assert `never` yields `[]`, `null` yields `[null]`, and the arguments that
@@ -102,6 +103,13 @@ export const emptyAlias = typia.reflect.literals<Empty>();
 export const emptyExclude = typia.reflect.literals<Exclude<Color, Color>>();
 export const emptyExtract = typia.reflect.literals<Extract<Color, "cyan">>();
 
+// Uninhabited without the keyword: TypeScript collapses one to never itself,
+// while the other stays an intersection whose every distributed member typia
+// prunes away. Both are empty on both sides of the comparison, so the rule the
+// keyword exercises has to cover them too.
+export const emptyCollapsed = typia.reflect.literals<string & number>();
+export const emptyPruned = typia.reflect.literals<(string | number) & { data: number }>();
+
 // A union whose only member is the nullable flag, which carries no bucket.
 export const onlyNull = typia.reflect.literals<null>();
 
@@ -141,6 +149,8 @@ check("never", mod.empty, []);
 check("never alias", mod.emptyAlias, []);
 check("exhaustive Exclude", mod.emptyExclude, []);
 check("empty Extract", mod.emptyExtract, []);
+check("collapsed intersection", mod.emptyCollapsed, []);
+check("pruned intersection", mod.emptyPruned, []);
 check("null", mod.onlyNull, [null]);
 check("mixed", mod.mixed, ["a", 1, true, null]);
 check("booleanAtomic", mod.booleanAtomic, [true, false]);

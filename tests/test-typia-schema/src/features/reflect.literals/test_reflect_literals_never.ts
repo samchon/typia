@@ -15,8 +15,8 @@ import typia from "typia";
  * 2. Reflect a `never` produced by an exhaustive `Exclude`, the shape a generic
  *    caller actually reaches it through.
  * 3. Assert both are empty arrays, and that a non-empty `Exclude` still keeps its
- *    surviving members (compared as a set: the emitted order follows the
- *    metadata sort, not the declaration).
+ *    surviving members, in the sorted order the guide documents rather than the
+ *    declaration order.
  */
 export const test_reflect_literals_never = (): void => {
   TestValidator.equals("bare never", typia.reflect.literals<never>(), []);
@@ -29,7 +29,7 @@ export const test_reflect_literals_never = (): void => {
   );
   TestValidator.equals(
     "partially excluded union",
-    [...typia.reflect.literals<Exclude<Color, "red">>()].sort(),
+    typia.reflect.literals<Exclude<Color, "red">>(),
     ["blue", "green"],
   );
 };

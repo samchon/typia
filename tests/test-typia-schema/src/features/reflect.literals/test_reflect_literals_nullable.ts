@@ -11,7 +11,8 @@ import typia from "typia";
  * always rendered the flag. Sibling arguments that pair `null` with a bucket
  * kept working, which is what hid the gap.
  *
- * 1. Reflect a bare `null`.
+ * 1. Reflect a bare `null`, and the same union behind an alias — the spelling a
+ *    caller reaches it through.
  * 2. Reflect `null` paired with a constant, with the `boolean` atomic, and with
  *    both.
  * 3. Assert `null` is present exactly once and always last, after the members that
@@ -19,6 +20,11 @@ import typia from "typia";
  */
 export const test_reflect_literals_nullable = (): void => {
   TestValidator.equals("bare null", typia.reflect.literals<null>(), [null]);
+
+  type Nullable = null;
+  TestValidator.equals("aliased null", typia.reflect.literals<Nullable>(), [
+    null,
+  ]);
   TestValidator.equals(
     "constant with null",
     typia.reflect.literals<"red" | null>(),

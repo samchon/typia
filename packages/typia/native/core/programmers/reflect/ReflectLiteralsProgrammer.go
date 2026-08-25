@@ -30,17 +30,23 @@ func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_
       Constant: true,
       Absorb:   true,
       // Accept exactly what the emitter below can render: constant literals,
-      // the `boolean` atomic (the `true | false` union), and `null`. The
-      // counts are the whole predicate, so both sides must weigh `null`:
-      // `Nullable` is a flag rather than a bucket, so `MetadataSchema.Size()`
-      // never sees it and `literals<null>()` -- a type argument the public
-      // `T extends Atomic.Type | null` signature documents -- used to be
-      // rejected as carrying no literal at all.
+      // the `boolean` atomic (the `true | false` union), and `null`. `null` is
+      // a `MetadataSchema` flag rather than a bucket, so `Size()` cannot see
+      // it; weighing it on both sides keeps `length` meaning "renderable
+      // members" against `size` meaning "members", which is what lets a
+      // rejected argument carry the diagnostic its composition calls for
+      // instead of collapsing onto `NO`.
       //
-      // The empty union is `never`, whose metadata carries no member on either
-      // side. It is vacuously literal-only and `literals<never>(): never[]`
-      // has exactly one inhabitant, so it emits `[]` instead of a diagnostic
-      // (issue #2377).
+      // Equal counts with no member at all is an uninhabited argument: the
+      // `never` keyword, an alias or `Exclude`/`Extract` that filters
+      // everything away, or an intersection whose every distributed member
+      // prunes to never. Its literal set is empty and
+      // `literals<never>(): never[]` has exactly one inhabitant, so it emits
+      // `[]` rather than a diagnostic (issue #2377). `undefined` and `void`
+      // coalesce to the same empty metadata, but neither satisfies the public
+      // `T extends Atomic.Type | null` bound, and typia refuses to transform
+      // at all without `strictNullChecks` (`transform/transform.go`), so
+      // neither reaches this predicate.
       Validate: func(next struct {
         Metadata *nativemetadata.MetadataSchema
         Explore  nativefactories.MetadataFactory_IExplore
