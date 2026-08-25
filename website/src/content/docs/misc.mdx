@@ -813,7 +813,7 @@ Handy for select-box options, discriminated-union test matrices, etc.
 
 `T` may hold only literal types, the `boolean` atomic (which stands for `true | false`), and `null`. An argument that carries anything else — `string`, `number`, a template literal type — is a compile error, so `reflect.literals<"a" | number>()` never compiles into a partial array.
 
-`never` is the union with no member, so `reflect.literals<never>()` emits `[]`. That matters when the argument is computed: `Exclude<Color, Color>` filtering everything away yields an empty array rather than breaking the build.
+`never` is the union with no member, so `reflect.literals<never>()` emits `[]`. That matters when the argument is computed rather than written out: an `Exclude` that filters every member away yields an empty array instead of breaking the build.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
