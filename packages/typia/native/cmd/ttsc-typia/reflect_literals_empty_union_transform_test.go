@@ -20,11 +20,14 @@ import (
 // vacuously literal-only and `literals<never>(): never[]` has exactly one
 // inhabitant, so both must transform and run.
 //
-//  1. Transform a module whose `reflect.literals` arguments span `never`,
-//     `null`, a fully mixed literal union, and the plain `boolean` atomic.
+//  1. Transform a module whose `reflect.literals` arguments span every spelling
+//     of the empty union a caller reaches -- the keyword, an alias, an
+//     exhaustive `Exclude`, an empty `Extract` -- plus `null`, a fully mixed
+//     literal union, and the plain `boolean` atomic.
 //  2. Execute the emitted CommonJS.
 //  3. Assert `never` yields `[]`, `null` yields `[null]`, and the arguments that
-//     already worked keep their exact members and order.
+//     already worked keep their exact members and order, including the sort the
+//     guide documents.
 func TestReflectLiteralsEmptyUnionTransform(t *testing.T) {
   node, err := exec.LookPath("node")
   if err != nil {
@@ -87,8 +90,17 @@ func TestReflectLiteralsEmptyUnionTransform(t *testing.T) {
 
 const reflectLiteralsEmptyUnionSource = `import typia from "typia";
 
-// The empty union: no member on either side of the admission comparison.
+type Color = "red" | "green" | "blue";
+type Empty = never;
+
+// The empty union: no member on either side of the admission comparison. Every
+// spelling a caller reaches it through has to transform, not only the keyword:
+// an alias hides it behind a name, and a conditional or an exhaustive Exclude
+// is how a generic caller produces one without writing "never" at all.
 export const empty = typia.reflect.literals<never>();
+export const emptyAlias = typia.reflect.literals<Empty>();
+export const emptyExclude = typia.reflect.literals<Exclude<Color, Color>>();
+export const emptyExtract = typia.reflect.literals<Extract<Color, "cyan">>();
 
 // A union whose only member is the nullable flag, which carries no bucket.
 export const onlyNull = typia.reflect.literals<null>();
@@ -96,9 +108,13 @@ export const onlyNull = typia.reflect.literals<null>();
 // Controls that already transformed: the flag must join the count without
 // displacing a constant, a boolean atomic, or their order.
 export const mixed = typia.reflect.literals<"a" | 1 | true | null>();
-export const withoutNull = typia.reflect.literals<"a" | "b" | 1 | 2>();
 export const booleanAtomic = typia.reflect.literals<boolean>();
 export const booleanAtomicNull = typia.reflect.literals<boolean | null>();
+
+// Declaration order deliberately disagrees with the emitted order: values of
+// one primitive type are sorted (iterate_metadata_sort), which is the behavior
+// the reflect.literals guide states.
+export const sorted = typia.reflect.literals<"b" | "a" | 10 | 2>();
 `
 
 const reflectLiteralsEmptyUnionRunner = `const mod = require("./main.cjs");
@@ -122,11 +138,14 @@ const check = (label, actual, expected) => {
 };
 
 check("never", mod.empty, []);
+check("never alias", mod.emptyAlias, []);
+check("exhaustive Exclude", mod.emptyExclude, []);
+check("empty Extract", mod.emptyExtract, []);
 check("null", mod.onlyNull, [null]);
 check("mixed", mod.mixed, ["a", 1, true, null]);
-check("withoutNull", mod.withoutNull, ["a", "b", 1, 2]);
 check("booleanAtomic", mod.booleanAtomic, [true, false]);
 check("booleanAtomicNull", mod.booleanAtomicNull, [true, false, null]);
+check("sorted", mod.sorted, ["a", "b", 2, 10]);
 
 console.log("ok");
 `

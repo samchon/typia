@@ -807,7 +807,7 @@ namespace reflect {
 }
 ```
 
-If you have a string-literal union (`"red" | "green" | "blue"`) and you want the runtime array `["red", "green", "blue"]` to iterate over, `reflect.literals` reads the union from the TS type and emits the array.
+If you have a string-literal union (`"red" | "green" | "blue"`) and you want a runtime array to iterate over, `reflect.literals` reads the union from the TS type and emits one. Members of the same primitive type come out sorted rather than in declaration order, so that union emits `["blue", "green", "red"]`.
 
 Handy for select-box options, discriminated-union test matrices, etc.
 
