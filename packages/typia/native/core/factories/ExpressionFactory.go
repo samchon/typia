@@ -66,6 +66,16 @@ func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitCon
   return f.NewNumericLiteral(text, shimast.TokenFlagsNone)
 }
 
+// Bigint emits `BigInt("<value>")` for a bigint literal.
+//
+// The argument has to stay a string literal. This used to spell the digits as a
+// bare `number` literal, so `9007199254740993n` reached the emit as
+// `BigInt(9007199254740993)` and JavaScript rounded the literal to
+// 9007199254740992 before `BigInt` ever parsed it -- exactly the rounding
+// `numericRangeFactory_bigint_literal` and `_isTypeInt64Bigint` already spell
+// out and avoid. Every bigint an argument can carry is exact in base 10, and
+// `BigInt` parses the digits of a string directly, so the string form is exact
+// at any magnitude.
 func (expressionFactoryNamespace) Bigint(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   return f.NewCallExpression(
@@ -73,7 +83,7 @@ func (expressionFactoryNamespace) Bigint(value any, emit ...*shimprinter.EmitCon
     nil,
     nil,
     f.NewNodeList([]*shimast.Node{
-      f.NewIdentifier(fmt.Sprint(value)),
+      f.NewStringLiteral(fmt.Sprint(value), shimast.TokenFlagsNone),
     }),
     shimast.NodeFlagsNone,
   )

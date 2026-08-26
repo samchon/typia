@@ -2,6 +2,7 @@ package metadata
 
 import (
   "fmt"
+  "math/big"
   "strconv"
 
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
@@ -50,6 +51,16 @@ func Iterate_metadata_constant(props IMetadataIteratorProps) bool {
       typ = "number"
     } else if filter(nativechecker.TypeFlagsBigIntLiteral) {
       typ = "bigint"
+      // typescript-go returns a bigint literal as a `jsnum.PseudoBigInt`, a
+      // struct living in an internal package the shim does not re-export. No
+      // consumer can name that type, so every one of them either stringifies
+      // it or -- where it could not -- reflected its fields and emitted
+      // `{ base10Value: "2", negative: false }` where the caller declared
+      // `bigint`. `*big.Int` carries the same value exactly, is nameable, and
+      // is a shape `LiteralFactory` already lowers to a bigint expression.
+      if parsed, ok := new(big.Int).SetString(fmt.Sprint(value), 10); ok {
+        value = parsed
+      }
     }
     constant := iterate_metadata_constant_take(props.Metadata, typ)
     info := comment()
