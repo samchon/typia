@@ -7,24 +7,26 @@ import (
   "testing"
 )
 
-// TestReflectLiteralsNonLiteralRejectionTransform is the negative twin of the
-// empty-union admission fixed for issue #2377.
+// TestReflectLiteralsNonLiteralRejectionTransform verifies every argument that
+// names no listable literal is refused at compile time.
 //
-// Widening the admission predicate so that the empty union and the bare `null`
-// flag both pass must not widen it any further: every argument that carries a
-// member the emitter cannot render still has to abort the transform. The two
-// diagnostics stay distinguishable as well, because they say different things --
-// `NO` reports that nothing literal was found at all, while `ONLY` reports that
-// something literal was found next to something that is not. Collapsing them
-// would hide which half of a mixed argument is wrong.
+// `reflect.literals` hands back the members of a union, so an argument it
+// cannot enumerate has no answer to give. Refusing it is the point: emitting an
+// empty array for `never`, or dropping the half it cannot render from a mixed
+// argument, would hand the caller a list that silently disagrees with the type
+// it was derived from (issue #2377).
 //
-//  1. Transform arguments holding no literal at all: a bare atomic, `any`, and
-//     a tag-branded atomic, whose brand raises the member count without adding
-//     anything the emitter can render.
-//  2. Transform arguments mixing a renderable member with a non-literal one:
-//     `string | null`, the one-axis twin of the newly admitted `null`, and
-//     `boolean | number`, where the renderable member is an atomic rather than
-//     a constant.
+// The two diagnostics stay distinguishable because they say different things:
+// `NO` reports that nothing listable was found at all, while `ONLY` reports
+// that something listable was found beside something that is not. Collapsing
+// them would hide which half of a mixed argument is wrong.
+//
+//  1. Transform arguments naming no listable member: `never` and the bare
+//     `null` flag, which carry nothing, and `string`, `any`, and a tag-branded
+//     atomic, which carry a member that cannot be enumerated.
+//  2. Transform arguments mixing a listable member with one that is not,
+//     including `boolean | number`, where the listable half is an atomic rather
+//     than a constant.
 //  3. Assert each fails, and with the diagnostic its composition calls for.
 func TestReflectLiteralsNonLiteralRejectionTransform(t *testing.T) {
   cases := []struct {
@@ -32,13 +34,17 @@ func TestReflectLiteralsNonLiteralRejectionTransform(t *testing.T) {
     Argument string
     Message  string
   }{
+    {"never", "never", "no constant literal type found."},
+    {"never alias", "Empty", "no constant literal type found."},
+    {"exhaustive exclude", `Exclude<"a" | "b", "a" | "b">`, "no constant literal type found."},
+    {"bare null", "null", "no constant literal type found."},
     {"atomic", "string", "no constant literal type found."},
     {"any", "any", "no constant literal type found."},
-    {"nullable atomic", "string | null", "only constant literal types are allowed."},
+    {"tag branded atomic", `string & tags.Format<"uuid">`, "no constant literal type found."},
+    {"nullable atomic", "string | null", "no constant literal type found."},
     {"literal beside atomic", `"a" | number`, "only constant literal types are allowed."},
     {"literal beside template", "`prefix${number}` | \"a\"", "only constant literal types are allowed."},
     {"renderable atomic beside atomic", "boolean | number", "only constant literal types are allowed."},
-    {"tag branded atomic", `string & tags.Format<"uuid">`, "no constant literal type found."},
   }
   for _, tc := range cases {
     tc := tc

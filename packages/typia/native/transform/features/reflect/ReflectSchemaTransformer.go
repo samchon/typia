@@ -1,10 +1,7 @@
 package reflect
 
 import (
-  "encoding/json"
   "strings"
-  "unicode"
-  "unicode/utf8"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
@@ -67,50 +64,22 @@ func (reflectSchemaTransformerNamespace) Transform(props nativetransform.ITransf
   }, props.Context.Emit)
 }
 
+// reflectTransformer_literal lowers a metadata tree into its object literal.
+//
+// This used to round-trip the tree through `encoding/json` and then lowercase
+// each key's initial, which is exactly what `LiteralFactory` already does when
+// it reflects a struct. The round trip was not merely redundant: JSON has no
+// bigint, so a `bigint` constant -- the one value in the tree that is neither
+// a string nor a JSON number -- could not survive it. It came back as the
+// object its fields happened to spell, and `IMetadataSchema.IValue` declares
+// `bigint` there.
+//
+// Writing the tree directly leaves every other member identical (diffed over a
+// metadata tree spanning objects, optional and nullable members, tags, arrays,
+// tuples, sets, maps, natives, functions, aliases, and unions: the bigint
+// values were the only difference) and lets a bigint stay a bigint.
 func reflectTransformer_literal(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
-  return nativefactories.LiteralFactory.Write(reflectTransformer_toPrimitive(value), emit...)
-}
-
-func reflectTransformer_toPrimitive(value any) any {
-  data, err := json.Marshal(value)
-  if err != nil {
-    return nil
-  }
-  var decoded any
-  if err := json.Unmarshal(data, &decoded); err != nil {
-    return nil
-  }
-  return reflectTransformer_lowerKeys(decoded)
-}
-
-func reflectTransformer_lowerKeys(value any) any {
-  switch v := value.(type) {
-  case map[string]any:
-    output := map[string]any{}
-    for key, elem := range v {
-      output[reflectTransformer_lowerInitial(key)] = reflectTransformer_lowerKeys(elem)
-    }
-    return output
-  case []any:
-    output := make([]any, 0, len(v))
-    for _, elem := range v {
-      output = append(output, reflectTransformer_lowerKeys(elem))
-    }
-    return output
-  default:
-    return value
-  }
-}
-
-func reflectTransformer_lowerInitial(str string) string {
-  if str == "" {
-    return str
-  }
-  r, size := utf8.DecodeRuneInString(str)
-  if r == utf8.RuneError && size == 0 {
-    return str
-  }
-  return string(unicode.ToLower(r)) + str[size:]
+  return nativefactories.LiteralFactory.Write(value, emit...)
 }
 
 func reflectTransformer_errors(errors []nativefactories.MetadataFactory_IError) []nativetransform.TransformerError_MetadataFactory_IError {

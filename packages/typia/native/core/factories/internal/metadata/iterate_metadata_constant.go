@@ -50,6 +50,9 @@ func Iterate_metadata_constant(props IMetadataIteratorProps) bool {
       typ = "number"
     } else if filter(nativechecker.TypeFlagsBigIntLiteral) {
       typ = "bigint"
+      // Normalize away the checker's unnameable `jsnum.PseudoBigInt`; see
+      // MetadataBigint for why the stand-in has to be a comparable value.
+      value = schemametadata.MetadataBigint{Text: fmt.Sprint(value)}
     }
     constant := iterate_metadata_constant_take(props.Metadata, typ)
     info := comment()

@@ -29,24 +29,12 @@ func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_
       Escape:   true,
       Constant: true,
       Absorb:   true,
-      // Accept exactly what the emitter below can render: constant literals,
-      // the `boolean` atomic (the `true | false` union), and `null`. `null` is
-      // a `MetadataSchema` flag rather than a bucket, so `Size()` cannot see
-      // it; weighing it on both sides keeps `length` meaning "renderable
-      // members" against `size` meaning "members", which is what lets a
-      // rejected argument carry the diagnostic its composition calls for
-      // instead of collapsing onto `NO`.
-      //
-      // Equal counts with no member at all is an uninhabited argument: the
-      // `never` keyword, an alias or `Exclude`/`Extract` that filters
-      // everything away, or an intersection whose every distributed member
-      // prunes to never. Its literal set is empty and
-      // `literals<never>(): never[]` has exactly one inhabitant, so it emits
-      // `[]` rather than a diagnostic (issue #2377). `undefined` and `void`
-      // coalesce to the same empty metadata, but neither satisfies the public
-      // `T extends Atomic.Type | null` bound, and typia refuses to transform
-      // at all without `strictNullChecks` (`transform/transform.go`), so
-      // neither reaches this predicate.
+      // Only a constant literal, the `boolean` atomic (which stands for the
+      // `true | false` constants), and `null` beside them are members this
+      // operation can hand back. Anything else -- an unconstrained atomic, a
+      // template, a bucket of any other kind -- is rejected, and so is an
+      // argument carrying no member at all: `never` has no literal to list, so
+      // it is a compile error rather than an empty array (issue #2377).
       Validate: func(next struct {
         Metadata *nativemetadata.MetadataSchema
         Explore  nativefactories.MetadataFactory_IExplore
@@ -61,18 +49,13 @@ func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_
             length++
           }
         }
-        size := next.Metadata.Size()
-        if next.Metadata.Nullable {
-          length++
-          size++
-        }
-        if size == length {
-          return []string{}
-        }
         if length == 0 {
           return []string{string(ReflectLiteralsProgrammer_ErrorMessages_NO)}
         }
-        return []string{string(ReflectLiteralsProgrammer_ErrorMessages_ONLY)}
+        if next.Metadata.Size() != length {
+          return []string{string(ReflectLiteralsProgrammer_ErrorMessages_ONLY)}
+        }
+        return []string{}
       },
     },
     Components: nativemetadata.NewMetadataCollection(),
