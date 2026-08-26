@@ -27,7 +27,7 @@ func (obj MetadataBigint) String() string {
   return obj.Text
 }
 
-// MarshalJSON writes the digits unquoted, so metadata marshalled by a
+// MarshalJSON writes the digits unquoted, so metadata marshaled by a
 // downstream tool carries the same JSON number a plain integer would.
 func (obj MetadataBigint) MarshalJSON() ([]byte, error) {
   if obj.Text == "" {

@@ -113,14 +113,14 @@ const check = (label, actual, expected) => {
   }
 };
 
-// Each literal is accepted, and the neighbour a rounded emit would have
+// Each literal is accepted, and the neighbor a rounded emit would have
 // collapsed it onto is rejected.
 check("isUnsafe(exact)", mod.isUnsafe(9007199254740993n), true);
 check("isUnsafe(rounded)", mod.isUnsafe(9007199254740992n), false);
 check("isInt64Max(exact)", mod.isInt64Max(9223372036854775807n), true);
 check("isInt64Max(rounded)", mod.isInt64Max(9223372036854775808n), false);
 check("isInt64Min(exact)", mod.isInt64Min(-9223372036854775808n), true);
-check("isInt64Min(neighbour)", mod.isInt64Min(-9223372036854775807n), false);
+check("isInt64Min(neighbor)", mod.isInt64Min(-9223372036854775807n), false);
 check("isUnion(first)", mod.isUnion(9007199254740993n), true);
 check("isUnion(second)", mod.isUnion(9007199254740995n), true);
 check("isUnion(between)", mod.isUnion(9007199254740994n), false);

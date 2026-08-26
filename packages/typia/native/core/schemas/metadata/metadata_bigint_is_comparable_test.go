@@ -53,7 +53,7 @@ func TestMetadataBigintIsComparable(t *testing.T) {
     t.Fatalf("marshal bigint: %v", err)
   }
   if string(encoded) != digits {
-    t.Fatalf("marshalled bigint must be the unquoted digits, got %s", encoded)
+    t.Fatalf("marshaled bigint must be the unquoted digits, got %s", encoded)
   }
   zero, err := json.Marshal(MetadataBigint{})
   if err != nil {

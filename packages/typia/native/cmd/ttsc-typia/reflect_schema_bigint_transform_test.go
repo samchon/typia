@@ -14,7 +14,7 @@ import (
 // constant, but this transformer lowered the whole metadata tree through
 // `encoding/json` before writing it. JSON has no bigint, so that one member
 // could not survive the trip: it arrived as whatever object its fields happened
-// to spell. The trip was also redundant -- it marshalled structs into maps and
+// to spell. The trip was also redundant -- it marshaled structs into maps and
 // lowercased each key's initial, which is what `LiteralFactory` already does
 // when it reflects a struct -- so writing the tree directly both fixes the
 // value and removes the step.
@@ -25,7 +25,7 @@ import (
 //  1. Reflect a bigint constant union through `schema` and through `schemas`.
 //  2. Execute the emitted CommonJS.
 //  3. Assert each reported value is `typeof "bigint"` and exact, and that the
-//     surrounding metadata still reports the constant and its neighbours.
+//     surrounding metadata still reports the constant and its neighbors.
 func TestReflectSchemaBigintTransform(t *testing.T) {
   node, err := exec.LookPath("node")
   if err != nil {
@@ -130,7 +130,7 @@ const check = (label, actual, expected) => {
 check("schema", constantsOf(mod.unit.schema, "bigint"), [1n, 9007199254740993n]);
 check("schemas[0]", constantsOf(mod.collection.schemas[0], "bigint"), [2n]);
 
-// A neighbouring constant kind must keep its own representation.
+// A neighboring constant kind must keep its own representation.
 check("schemas[1] string", constantsOf(mod.collection.schemas[1], "string"), ["a"]);
 check("schemas[1] number", constantsOf(mod.collection.schemas[1], "number"), [3]);
 
