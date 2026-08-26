@@ -86,11 +86,17 @@ func TestReflectSchemaBigintTransform(t *testing.T) {
   }
 }
 
-const reflectSchemaBigintSource = `import typia from "typia";
+const reflectSchemaBigintSource = `import typia, { tags } from "typia";
 
 export const unit = typia.reflect.schema<1n | 9007199254740993n>();
 export const collection = typia.reflect.schemas<[2n, "a" | 3]>();
 export const objects = typia.reflect.schema<{ big: 7n; name: string }>();
+
+// A tag reaches a constant by matching the child's value against the merged
+// parent's, so the constant value has to compare by value. The number and
+// string constants are the controls that were never at risk.
+export const tagged = typia.reflect.schema<(1n | 2n) & tags.Type<"int64">>();
+export const taggedNumber = typia.reflect.schema<(1 | 2) & tags.Type<"uint32">>();
 `
 
 const reflectSchemaBigintRunner = `const mod = require("./main.cjs");
@@ -140,6 +146,28 @@ if (big === undefined) {
   throw new Error("the 'big' property is missing from the object metadata");
 }
 check("object property", constantsOf(big.value, "bigint"), [7n]);
+
+const tagNames = (schema, type) => {
+  const constant = (schema.constants ?? []).find((c) => c.type === type);
+  if (constant === undefined) {
+    throw new Error("no " + type + " constant was emitted");
+  }
+  return constant.values.map((v) =>
+    (v.tags ?? []).flat().map((t) => t.name).join(","),
+  );
+};
+
+// Every member keeps the tag the intersection put on it.
+const expectTags = (label, actual, expected) => {
+  if (actual.length === 0 || actual.some((names) => names !== expected)) {
+    throw new Error(
+      label + ": expected every member tagged " + expected +
+        ", got " + JSON.stringify(actual),
+    );
+  }
+};
+expectTags("bigint constant", tagNames(mod.tagged.schema, "bigint"), 'Type<"int64">');
+expectTags("number constant", tagNames(mod.taggedNumber.schema, "number"), 'Type<"uint32">');
 
 console.log("ok");
 `

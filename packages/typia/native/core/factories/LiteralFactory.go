@@ -11,6 +11,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 type literalFactoryNamespace struct{}
@@ -93,6 +94,8 @@ func (literalFactoryNamespace) Write(input any, emit ...*shimprinter.EmitContext
   switch value := input.(type) {
   case bool:
     return literalFactory_writeBoolean(value, emit...)
+  case schemametadata.MetadataBigint:
+    return literalFactory_writeBigint(value, emit...)
   case *big.Int:
     return literalFactory_writeBigint(value, emit...)
   case int:
