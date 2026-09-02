@@ -1,5 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3_1 } from "@typia/interface";
 
+import { LlmReference } from "../../utils/internal/LlmReference";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
@@ -423,35 +424,41 @@ export namespace OpenApiV3_1Upgrader {
         )
           nullable.value ||= true;
 
-        // MIXED TYPE CASE
-        if (OpenApiV3_1TypeChecker.isMixed(schema)) {
-          if (schema.const !== undefined) {
-            if (
-              acceptsConstant(components)({
-                schema,
-                value: schema.const,
-                references: new Set(),
-              }) === false
-            ) {
-              // An empty oneOf is the canonical always-false schema.
-              union.push({ oneOf: [] });
-              return;
-            }
-            visit({
-              ...schema,
-              ...{
-                type: undefined,
-                default: undefined,
-                enum: undefined,
-                nullable: undefined,
-                oneOf: undefined,
-                anyOf: undefined,
-                allOf: undefined,
-                $ref: undefined,
-              },
-            });
+        // CONSTANT TYPE CASE
+        if (OpenApiV3_1TypeChecker.isConstant(schema)) {
+          if (
+            acceptsConstant(components)({
+              schema,
+              value: schema.const,
+            }) === false
+          ) {
+            // An empty oneOf is the canonical always-false schema.
+            union.push({ oneOf: [] });
             return;
           }
+          const constant: OpenApiV3_1.IJsonSchema.IConstant = {
+            ...schema,
+            ...{
+              type: undefined,
+              default: undefined,
+              enum: undefined,
+              nullable: undefined,
+              oneOf: undefined,
+              anyOf: undefined,
+              allOf: undefined,
+              $ref: undefined,
+              $recursiveRef: undefined,
+            },
+          } as unknown as OpenApiV3_1.IJsonSchema.IConstant;
+          union.push(
+            (typeof constant.const === "string"
+              ? OpenApiStringEncodingConverter.upgrade(constant)
+              : constant) as OpenApi.IJsonSchema.IConstant,
+          );
+          return;
+        }
+        // MIXED TYPE CASE
+        if (OpenApiV3_1TypeChecker.isMixed(schema)) {
           if (schema.oneOf !== undefined)
             visit({
               ...schema,
@@ -511,15 +518,6 @@ export namespace OpenApiV3_1Upgrader {
                 type: type as any,
               });
             else visit({ ...schema, type: type as any });
-        }
-        // CONSTANT TYPE CASE
-        else if (OpenApiV3_1TypeChecker.isConstant(schema)) {
-          const { type: _type, ...constant } = schema;
-          union.push(
-            (typeof constant.const === "string"
-              ? OpenApiStringEncodingConverter.upgrade(constant)
-              : constant) as OpenApi.IJsonSchema.IConstant,
-          );
         }
         // UNION TYPE CASE
         else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {
@@ -788,90 +786,205 @@ export namespace OpenApiV3_1Upgrader {
     (props: {
       schema: OpenApiV3_1.IJsonSchema;
       value: boolean | number | string;
-      references: Set<string>;
     }): boolean => {
-      const schema = props.schema as OpenApiV3_1.IJsonSchema.IMixed;
-      if (schema.const !== undefined && schema.const !== props.value)
-        return false;
-      if (
-        schema.enum !== undefined &&
-        schema.enum.some((value) => value === props.value) === false
-      )
-        return false;
-      if (schema.type !== undefined) {
-        const types: string[] = Array.isArray(schema.type)
-          ? schema.type
-          : [schema.type];
-        const compatible: boolean =
-          typeof props.value === "number"
-            ? types.includes("number") ||
-              (Number.isInteger(props.value) && types.includes("integer"))
-            : types.includes(typeof props.value);
-        if (compatible === false) return false;
+      type Mode = "every" | "one" | "some";
+      interface IGroup {
+        mode: Mode;
+        schemas: OpenApiV3_1.IJsonSchema[];
+      }
+      interface IFrame {
+        schema: OpenApiV3_1.IJsonSchema;
+        entered: boolean;
+        groups: IGroup[];
+        group: number;
+        child: number;
+        accepted: number;
+        rejected: boolean;
       }
 
-      const visit = (child: OpenApiV3_1.IJsonSchema): boolean =>
-        acceptsConstant(components)({ ...props, schema: child });
-      if (schema.oneOf !== undefined && schema.oneOf.filter(visit).length !== 1)
-        return false;
-      if (schema.anyOf !== undefined && schema.anyOf.some(visit) === false)
-        return false;
-      if (schema.allOf !== undefined && schema.allOf.every(visit) === false)
-        return false;
-
-      const validateReference = (reference: string | undefined): boolean => {
-        if (reference === undefined || props.references.has(reference))
-          return true;
-        const target: OpenApiV3_1.IJsonSchema | undefined =
-          ObjectDictionary.get(
-            components.schemas,
-            reference.split("/").pop() ?? "",
-          );
-        if (target === undefined) return false;
-        props.references.add(reference);
-        const success: boolean = visit(target);
-        props.references.delete(reference);
-        return success;
+      const cache: WeakMap<object, boolean> = new WeakMap();
+      const active: WeakSet<object> = new WeakSet();
+      const stack: IFrame[] = [
+        {
+          schema: props.schema,
+          entered: false,
+          groups: [],
+          group: 0,
+          child: 0,
+          accepted: 0,
+          rejected: false,
+        },
+      ];
+      let output: boolean = false;
+      const finish = (success: boolean): void => {
+        const frame: IFrame = stack.pop()!;
+        if (frame.entered) {
+          active.delete(frame.schema);
+          cache.set(frame.schema, success);
+        }
+        const parent: IFrame | undefined = stack.at(-1);
+        if (parent === undefined) output = success;
+        else if (success) ++parent.accepted;
+        else parent.rejected = true;
       };
-      if (validateReference(schema.$ref) === false) return false;
-      if (
-        validateReference(
-          (schema as unknown as OpenApiV3_1.IJsonSchema.IRecursiveReference)
-            .$recursiveRef,
-        ) === false
-      )
-        return false;
 
-      const primitive = typeof props.value as "boolean" | "number" | "string";
-      const type: "boolean" | "integer" | "number" | "string" =
-        primitive === "number"
-          ? Number.isInteger(props.value) &&
-            (Array.isArray(schema.type)
-              ? schema.type.includes("integer") &&
-                schema.type.includes("number") === false
-              : schema.type === "integer")
-            ? "integer"
-            : "number"
-          : primitive;
-      const atomic: OpenApiV3_1.IJsonSchema = {
-        ...schema,
-        type,
-        const: undefined,
-        default: undefined,
-        enum: undefined,
-        nullable: undefined,
-        oneOf: undefined,
-        anyOf: undefined,
-        allOf: undefined,
-        $ref: undefined,
-        $recursiveRef: undefined,
-      } as unknown as OpenApiV3_1.IJsonSchema;
-      return OpenApiValidator.validate({
-        components: {},
-        schema: convertSchema(components)(atomic),
-        value: props.value,
-        required: true,
-      }).success;
+      while (stack.length !== 0) {
+        const frame: IFrame = stack.at(-1)!;
+        const schema = frame.schema as OpenApiV3_1.IJsonSchema.IMixed;
+        if (frame.entered === false) {
+          if (cache.has(frame.schema)) {
+            finish(cache.get(frame.schema)!);
+            continue;
+          }
+          // A recursive back-edge contributes no new constraint. The enclosing
+          // frame still evaluates every sibling keyword on the cycle.
+          if (active.has(frame.schema)) {
+            finish(true);
+            continue;
+          }
+          if (
+            (schema.const !== undefined && schema.const !== props.value) ||
+            (schema.enum !== undefined &&
+              schema.enum.some((value) => value === props.value) === false)
+          ) {
+            finish(false);
+            continue;
+          }
+          if (schema.type !== undefined) {
+            const types: string[] = Array.isArray(schema.type)
+              ? schema.type
+              : [schema.type];
+            const compatible: boolean =
+              typeof props.value === "number"
+                ? types.includes("number") ||
+                  (Number.isInteger(props.value) && types.includes("integer"))
+                : types.includes(typeof props.value);
+            if (compatible === false) {
+              finish(false);
+              continue;
+            }
+          }
+
+          const references: string[] = [
+            schema.$ref,
+            (schema as unknown as OpenApiV3_1.IJsonSchema.IRecursiveReference)
+              .$recursiveRef,
+          ].filter((reference): reference is string => reference !== undefined);
+          const targets: OpenApiV3_1.IJsonSchema[] = [];
+          let unresolved: boolean = false;
+          for (const reference of references) {
+            const key: string | undefined = LlmReference.readOpenApi(reference);
+            const target: OpenApiV3_1.IJsonSchema | undefined =
+              key === undefined
+                ? undefined
+                : ObjectDictionary.get(components.schemas, key);
+            if (target === undefined) {
+              unresolved = true;
+              break;
+            }
+            targets.push(target);
+          }
+          if (unresolved) {
+            finish(false);
+            continue;
+          }
+
+          const primitive = typeof props.value as
+            | "boolean"
+            | "number"
+            | "string";
+          const type: "boolean" | "integer" | "number" | "string" =
+            primitive === "number"
+              ? Number.isInteger(props.value) &&
+                (Array.isArray(schema.type)
+                  ? schema.type.includes("integer") &&
+                    schema.type.includes("number") === false
+                  : schema.type === "integer")
+                ? "integer"
+                : "number"
+              : primitive;
+          const atomic: OpenApiV3_1.IJsonSchema = {
+            ...schema,
+            type,
+            const: undefined,
+            default: undefined,
+            enum: undefined,
+            nullable: undefined,
+            oneOf: undefined,
+            anyOf: undefined,
+            allOf: undefined,
+            $ref: undefined,
+            $recursiveRef: undefined,
+          } as unknown as OpenApiV3_1.IJsonSchema;
+          if (
+            OpenApiValidator.validate({
+              components: {},
+              schema: convertSchema(components)(atomic),
+              value: props.value,
+              required: true,
+            }).success === false
+          ) {
+            finish(false);
+            continue;
+          }
+
+          frame.entered = true;
+          active.add(frame.schema);
+          frame.groups = [
+            ...(schema.oneOf !== undefined
+              ? [{ mode: "one" as const, schemas: schema.oneOf }]
+              : []),
+            ...(schema.anyOf !== undefined
+              ? [{ mode: "some" as const, schemas: schema.anyOf }]
+              : []),
+            ...(schema.allOf !== undefined
+              ? [{ mode: "every" as const, schemas: schema.allOf }]
+              : []),
+            ...(targets.length !== 0
+              ? [{ mode: "every" as const, schemas: targets }]
+              : []),
+          ];
+        }
+
+        const group: IGroup | undefined = frame.groups[frame.group];
+        if (group === undefined) {
+          finish(true);
+          continue;
+        }
+        const complete: boolean = frame.child === group.schemas.length;
+        const failed: boolean =
+          (group.mode === "one" &&
+            (frame.accepted > 1 || (complete && frame.accepted !== 1))) ||
+          (group.mode === "some" && complete && frame.accepted === 0) ||
+          (group.mode === "every" && frame.rejected);
+        if (failed) {
+          finish(false);
+          continue;
+        }
+        const succeeded: boolean =
+          (group.mode === "one" && complete && frame.accepted === 1) ||
+          (group.mode === "some" && frame.accepted !== 0) ||
+          (group.mode === "every" && complete);
+        if (succeeded) {
+          ++frame.group;
+          frame.child = 0;
+          frame.accepted = 0;
+          frame.rejected = false;
+          continue;
+        }
+
+        const child: OpenApiV3_1.IJsonSchema = group.schemas[frame.child++]!;
+        stack.push({
+          schema: child,
+          entered: false,
+          groups: [],
+          group: 0,
+          child: 0,
+          accepted: 0,
+          rejected: false,
+        });
+      }
+      return output;
     };
 
   const convertAllOfSchema =

@@ -20,8 +20,10 @@ import {
  *    dialect.
  * 3. Round-trip registered 3.0 extensions and annotated string-enum constants
  *    without data loss.
- * 4. Preserve compatible mixed constants and reject contradictory sibling
- *    constraints without widening their accepted values.
+ * 4. Preserve compatible constants and reject contradictory sibling constraints on
+ *    both ordinary and mixed declarations without widening their values.
+ * 5. Resolve escaped, cyclic, deep, and shared constant references without raw
+ *    keyword leakage, stack overflow, or repeated graph expansion.
  */
 export const test_json_schema_byte_content_encoding = (): void => {
   const components: OpenApiV3_1.IComponents = {
@@ -459,6 +461,21 @@ export const test_json_schema_byte_content_encoding = (): void => {
     );
   for (const [label, schema] of [
     [
+      "ordinary incompatible type",
+      {
+        type: "string",
+        const: 1,
+      } as OpenApiV3_1.IJsonSchema.IConstant,
+    ],
+    [
+      "ordinary incompatible string constraint",
+      {
+        type: "string",
+        const: "x",
+        minLength: 2,
+      } as OpenApiV3_1.IJsonSchema.IConstant,
+    ],
+    [
       "incompatible type",
       {
         type: ["string", "null"],
@@ -507,10 +524,24 @@ export const test_json_schema_byte_content_encoding = (): void => {
     ],
   ] as const)
     TestValidator.equals(
-      `upgrade 3.1 mixed constant rejects ${label}`,
+      `upgrade 3.1 constant rejects ${label}`,
       clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
       { oneOf: [] },
     );
+  TestValidator.equals(
+    "upgrade 3.1 ordinary constant preserves compatible constraint",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: {},
+        schema: {
+          type: "string",
+          const: "x",
+          minLength: 1,
+        } as OpenApiV3_1.IJsonSchema.IConstant,
+      }),
+    ),
+    { const: "x", minLength: 1 },
+  );
   TestValidator.equals(
     "upgrade 3.1 mixed constant accepts compatible oneOf",
     clean(
@@ -556,6 +587,112 @@ export const test_json_schema_byte_content_encoding = (): void => {
       }),
     ),
     { oneOf: [] },
+  );
+  for (const [key, reference] of [
+    ["A/B", "#/components/schemas/A~1B"],
+    ["A~B", "#/components/schemas/A~0B"],
+    ["A B", "#/components/schemas/A%20B"],
+  ] as const)
+    TestValidator.equals(
+      `upgrade 3.1 mixed constant resolves escaped reference ${key}`,
+      clean(
+        OpenApiConverter.upgradeSchema({
+          components: { schemas: { [key]: { const: "x" } } },
+          schema: {
+            type: ["string", "null"],
+            const: "x",
+            $ref: reference,
+          } as OpenApiV3_1.IJsonSchema.IMixed,
+        }),
+      ),
+      { const: "x" },
+    );
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant consumes recursive reference",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: { schemas: { Target: { const: "x" } } },
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          $recursiveRef: "#/components/schemas/Target",
+        } as unknown as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { const: "x" },
+  );
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant checks constraints across a reference cycle",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: {
+          schemas: {
+            A: { $ref: "#/components/schemas/B" },
+            B: {
+              allOf: [
+                { $ref: "#/components/schemas/A" },
+                {
+                  type: "string",
+                  minLength: 2,
+                } as OpenApiV3_1.IJsonSchema.IString,
+              ],
+            },
+          },
+        },
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          $ref: "#/components/schemas/A",
+        } as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { oneOf: [] },
+  );
+
+  const deepComponents: OpenApiV3_1.IComponents = { schemas: {} };
+  for (let i: number = 4_999; i >= 0; --i)
+    deepComponents.schemas![`Deep${i}`] =
+      i === 4_999
+        ? { const: "x" }
+        : { $ref: `#/components/schemas/Deep${i + 1}` };
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant follows deep reference chains iteratively",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: deepComponents,
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          $ref: "#/components/schemas/Deep0",
+        } as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { const: "x" },
+  );
+
+  const dagComponents: OpenApiV3_1.IComponents = {
+    schemas: { Dag64: { const: "x" } },
+  };
+  for (let i: number = 63; i >= 0; --i)
+    dagComponents.schemas![`Dag${i}`] = {
+      allOf: [
+        { $ref: `#/components/schemas/Dag${i + 1}` },
+        { $ref: `#/components/schemas/Dag${i + 1}` },
+      ],
+    };
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant memoizes shared reference graphs",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: dagComponents,
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          $ref: "#/components/schemas/Dag0",
+        } as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { const: "x" },
   );
   TestValidator.equals(
     "downgrade 3.0 annotated enum",
