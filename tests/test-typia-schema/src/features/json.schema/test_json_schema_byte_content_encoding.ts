@@ -9,6 +9,11 @@ import typia, { tags } from "typia";
  * OpenAPI 3.0 keeps that spelling, whereas a raw OpenAPI 3.1 Schema Object
  * produced by the converter uses `contentEncoding: "base64"` and retains an
  * explicitly declared content media type.
+ *
+ * 1. Generate canonical byte metadata for OpenAPI 3.0 and emended 3.1 schemas.
+ * 2. Downgrade generated schemas to raw 3.1 and verify encoding/media annotations.
+ * 3. Upgrade legacy output and cross the boundary again without changing byte
+ *    semantics.
  */
 export const test_json_schema_byte_content_encoding = (): void => {
   const legacy = typia.json.schema<Pick<IBytePayload, "data">, "3.0">();

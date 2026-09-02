@@ -3,6 +3,7 @@ import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
+import { OpenApiStringEncodingConverter } from "./OpenApiStringEncodingConverter";
 
 export namespace OpenApiV3_1Downgrader {
   export interface IComponentsCollection {
@@ -262,19 +263,25 @@ export namespace OpenApiV3_1Downgrader {
       const visit = (schema: OpenApi.IJsonSchema): void => {
         if (OpenApiTypeChecker.isNull(schema)) union.push({ type: "null" });
         else if (OpenApiTypeChecker.isConstant(schema))
-          union.push({ const: schema.const });
-        else if (OpenApiTypeChecker.isString(schema)) {
-          const { contentEncoding, format, ...rest } = schema;
-          const base64: boolean =
-            format === "byte" &&
-            (contentEncoding === undefined || contentEncoding === "base64");
-          union.push({
-            ...rest,
-            format: base64 ? undefined : format,
-            contentEncoding: base64 ? "base64" : contentEncoding,
-            examples: downgradeSchemaExamples(schema.examples),
-          });
-        } else if (
+          union.push(
+            (typeof schema.const === "string"
+              ? OpenApiStringEncodingConverter.downgradeV3_1({
+                  ...schema,
+                  examples: downgradeSchemaExamples(schema.examples),
+                })
+              : {
+                  ...schema,
+                  examples: downgradeSchemaExamples(schema.examples),
+                }) as OpenApiV3_1.IJsonSchema,
+          );
+        else if (OpenApiTypeChecker.isString(schema))
+          union.push(
+            OpenApiStringEncodingConverter.downgradeV3_1({
+              ...schema,
+              examples: downgradeSchemaExamples(schema.examples),
+            }),
+          );
+        else if (
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
           OpenApiTypeChecker.isNumber(schema) ||

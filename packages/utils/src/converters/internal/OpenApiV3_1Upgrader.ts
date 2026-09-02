@@ -5,6 +5,7 @@ import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
+import { OpenApiStringEncodingConverter } from "./OpenApiStringEncodingConverter";
 
 export namespace OpenApiV3_1Upgrader {
   export const convert = (input: OpenApiV3_1.IDocument): OpenApi.IDocument => {
@@ -366,6 +367,10 @@ export namespace OpenApiV3_1Upgrader {
           ? OpenApiDiscriminatorConverter.clone(input.discriminator)
           : undefined;
       let preserveDiscriminator: boolean = discriminator !== undefined;
+      const consumesStringEncoding: boolean =
+        OpenApiV3_1TypeChecker.isString(input) ||
+        (OpenApiV3_1TypeChecker.isMixed(input) &&
+          input.type.includes("string"));
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -378,7 +383,12 @@ export namespace OpenApiV3_1Upgrader {
           : input.examples,
         ...Object.fromEntries(
           Object.entries(input).filter(
-            ([key, value]) => key.startsWith("x-") && value !== undefined,
+            ([key, value]) =>
+              key.startsWith("x-") &&
+              (OpenApiStringEncodingConverter.isRegisteredExtension(key) ===
+                false ||
+                consumesStringEncoding === false) &&
+              value !== undefined,
           ),
         ),
       };
@@ -569,7 +579,7 @@ export namespace OpenApiV3_1Upgrader {
             );
         else if (OpenApiV3_1TypeChecker.isString(schema)) {
           const normalized: OpenApiV3_1.IJsonSchema.IString =
-            normalizeStringSchema(schema);
+            OpenApiStringEncodingConverter.upgrade(schema);
           if (
             normalized.enum?.length &&
             normalized.enum.filter((e) => e !== null).length
@@ -803,19 +813,4 @@ export namespace OpenApiV3_1Upgrader {
         );
       return null;
     };
-
-  const normalizeStringSchema = (
-    schema: OpenApiV3_1.IJsonSchema.IString,
-  ): OpenApiV3_1.IJsonSchema.IString => {
-    if (
-      schema.contentEncoding !== "base64" ||
-      (schema.format !== undefined && schema.format !== "byte")
-    )
-      return schema;
-    const { contentEncoding: _contentEncoding, ...rest } = schema;
-    return {
-      ...rest,
-      format: "byte",
-    };
-  };
 }

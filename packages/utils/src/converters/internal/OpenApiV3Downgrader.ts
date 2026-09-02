@@ -3,6 +3,7 @@ import { OpenApi, OpenApiV3 } from "@typia/interface";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
+import { OpenApiStringEncodingConverter } from "./OpenApiStringEncodingConverter";
 
 export namespace OpenApiV3Downgrader {
   export interface IComponentsCollection {
@@ -243,21 +244,13 @@ export namespace OpenApiV3Downgrader {
         ),
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (OpenApiTypeChecker.isString(schema)) {
-          const {
-            contentEncoding,
-            contentMediaType: _contentMediaType,
-            ...rest
-          } = schema;
+        if (OpenApiTypeChecker.isString(schema))
           union.push(
-            omitSchemaExamples({
-              ...rest,
-              format:
-                rest.format ??
-                (contentEncoding === "base64" ? "byte" : undefined),
-            }),
+            OpenApiStringEncodingConverter.downgradeV3(
+              omitSchemaExamples(schema),
+            ),
           );
-        } else if (
+        else if (
           // A boolean carries its declared keywords (at minimum `default`,
           // plus every attribute OpenApiV3.IJsonSchema.IBoolean allows) through
           // the downgrade like the other primitives. Rebuilding it as a bare
@@ -336,20 +329,52 @@ export namespace OpenApiV3Downgrader {
           }
         }
       };
+      const constantGroups: Map<
+        string,
+        | OpenApiV3.IJsonSchema.IBoolean
+        | OpenApiV3.IJsonSchema.INumber
+        | OpenApiV3.IJsonSchema.IString
+      > = new Map();
       const visitConstant = (schema: OpenApi.IJsonSchema): void => {
-        const insert = (value: any): void => {
-          const matched: OpenApiV3.IJsonSchema.INumber | undefined = union.find(
-            (u) => (u as OpenApiV3.IJsonSchema.INumber).type === typeof value,
-          ) as OpenApiV3.IJsonSchema.INumber | undefined;
+        const insert = (constant: OpenApi.IJsonSchema.IConstant): void => {
+          const value: boolean | number | string = constant.const;
+          const type: "boolean" | "number" | "string" =
+            typeof value === "boolean"
+              ? "boolean"
+              : typeof value === "number"
+                ? "number"
+                : "string";
+          const { const: _const, examples: _examples, ...metadata } = constant;
+          const created = (
+            type === "string"
+              ? OpenApiStringEncodingConverter.downgradeV3({
+                  ...metadata,
+                  type,
+                  enum: [value],
+                })
+              : { ...metadata, type, enum: [value] }
+          ) as
+            | OpenApiV3.IJsonSchema.IBoolean
+            | OpenApiV3.IJsonSchema.INumber
+            | OpenApiV3.IJsonSchema.IString;
+          const signature: string = JSON.stringify({
+            ...created,
+            enum: undefined,
+          });
+          const matched = constantGroups.get(signature);
           if (matched !== undefined) {
             matched.enum ??= [];
-            matched.enum.push(value);
-          } else union.push({ type: typeof value as "number", enum: [value] });
+            if (matched.enum.includes(value as never) === false)
+              matched.enum.push(value as never);
+          } else {
+            constantGroups.set(signature, created);
+            union.push(created);
+          }
         };
-        if (OpenApiTypeChecker.isConstant(schema)) insert(schema.const);
+        if (OpenApiTypeChecker.isConstant(schema)) insert(schema);
         else if (OpenApiTypeChecker.isOneOf(schema))
           for (const u of schema.oneOf)
-            if (OpenApiTypeChecker.isConstant(u)) insert(u.const);
+            if (OpenApiTypeChecker.isConstant(u)) insert(u);
       };
 
       visit(input);
