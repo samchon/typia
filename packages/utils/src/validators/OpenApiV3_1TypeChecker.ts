@@ -15,7 +15,9 @@ import { OpenApiV3_1 } from "@typia/interface";
 export namespace OpenApiV3_1TypeChecker {
   export const isConstant = (
     schema: OpenApiV3_1.IJsonSchema,
-  ): schema is OpenApiV3_1.IJsonSchema.IConstant =>
+  ): schema is
+    | OpenApiV3_1.IJsonSchema.IConstant
+    | OpenApiV3_1.IJsonSchema.IMixed =>
     (schema as OpenApiV3_1.IJsonSchema.IConstant).const !== undefined;
 
   export const isBoolean = (

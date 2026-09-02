@@ -1,6 +1,10 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3, OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
-import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
+import {
+  OpenApiConverter,
+  OpenApiTypeChecker,
+  OpenApiV3_1TypeChecker,
+} from "@typia/utils";
 
 /**
  * Verifies the version boundary for base64-encoded string schemas.
@@ -402,6 +406,31 @@ export const test_json_schema_byte_content_encoding = (): void => {
       `upgrade ${version} typed annotated constant`,
       clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
       { const: "QQ==", format: "byte", contentMediaType: "image/png" },
+    );
+  const mixedConstant31 = {
+    type: ["string", "null"],
+    const: "QQ==",
+    contentEncoding: "base64",
+  } as OpenApiV3_1.IJsonSchema.IMixed;
+  const mixedConstant32 = {
+    type: ["string", "null"],
+    const: "QQ==",
+    contentEncoding: "base64",
+  } as OpenApiV3_2.IJsonSchema.IMixed;
+  TestValidator.equals(
+    "public mixed constant type guard",
+    OpenApiV3_1TypeChecker.isConstant(mixedConstant31) &&
+      Array.isArray(mixedConstant31.type),
+    true,
+  );
+  for (const [version, schema] of [
+    ["3.1", mixedConstant31],
+    ["3.2", mixedConstant32],
+  ] as const)
+    TestValidator.equals(
+      `upgrade ${version} mixed annotated constant once`,
+      clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
+      { const: "QQ==", format: "byte" },
     );
   TestValidator.equals(
     "downgrade 3.0 annotated enum",

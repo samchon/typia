@@ -417,7 +417,7 @@ export namespace OpenApiV3_1Upgrader {
 
         // MIXED TYPE CASE
         if (OpenApiV3_1TypeChecker.isMixed(schema)) {
-          if (schema.const !== undefined)
+          if (schema.const !== undefined) {
             visit({
               ...schema,
               ...{
@@ -428,6 +428,8 @@ export namespace OpenApiV3_1Upgrader {
                 $ref: undefined,
               },
             });
+            return;
+          }
           if (schema.oneOf !== undefined)
             visit({
               ...schema,
