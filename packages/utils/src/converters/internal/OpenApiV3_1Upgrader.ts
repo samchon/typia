@@ -567,16 +567,18 @@ export namespace OpenApiV3_1Upgrader {
                   schema.exclusiveMaximum === true ? undefined : schema.maximum,
               }),
             );
-        else if (OpenApiV3_1TypeChecker.isString(schema))
+        else if (OpenApiV3_1TypeChecker.isString(schema)) {
+          const normalized: OpenApiV3_1.IJsonSchema.IString =
+            normalizeStringSchema(schema);
           if (
-            schema.enum?.length &&
-            schema.enum.filter((e) => e !== null).length
+            normalized.enum?.length &&
+            normalized.enum.filter((e) => e !== null).length
           )
-            for (const value of schema.enum.filter((e) => e !== null))
+            for (const value of normalized.enum.filter((e) => e !== null))
               union.push({
                 const: value,
                 ...({
-                  ...schema,
+                  ...normalized,
                   type: undefined as any,
                   enum: undefined,
                   default: undefined,
@@ -584,12 +586,13 @@ export namespace OpenApiV3_1Upgrader {
               } satisfies OpenApi.IJsonSchema.IConstant);
           else
             union.push({
-              ...schema,
-              default: schema.default ?? undefined,
+              ...normalized,
+              default: normalized.default ?? undefined,
               ...{
                 enum: undefined,
               },
             });
+        }
         // ARRAY TYPE CASE (CONSIDER TUPLE)
         else if (OpenApiV3_1TypeChecker.isArray(schema)) {
           if (Array.isArray(schema.items))
@@ -800,4 +803,19 @@ export namespace OpenApiV3_1Upgrader {
         );
       return null;
     };
+
+  const normalizeStringSchema = (
+    schema: OpenApiV3_1.IJsonSchema.IString,
+  ): OpenApiV3_1.IJsonSchema.IString => {
+    if (
+      schema.contentEncoding !== "base64" ||
+      (schema.format !== undefined && schema.format !== "byte")
+    )
+      return schema;
+    const { contentEncoding: _contentEncoding, ...rest } = schema;
+    return {
+      ...rest,
+      format: "byte",
+    };
+  };
 }

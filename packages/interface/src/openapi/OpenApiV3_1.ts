@@ -524,6 +524,9 @@ export namespace OpenApiV3_1 {
       /** Content media type. */
       contentMediaType?: string;
 
+      /** Content encoding. */
+      contentEncoding?: string;
+
       /** Minimum length. */
       minLength?: number & tags.Type<"uint64">;
 

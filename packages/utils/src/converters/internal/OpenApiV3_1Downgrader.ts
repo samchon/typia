@@ -263,11 +263,21 @@ export namespace OpenApiV3_1Downgrader {
         if (OpenApiTypeChecker.isNull(schema)) union.push({ type: "null" });
         else if (OpenApiTypeChecker.isConstant(schema))
           union.push({ const: schema.const });
-        else if (
+        else if (OpenApiTypeChecker.isString(schema)) {
+          const { contentEncoding, format, ...rest } = schema;
+          const base64: boolean =
+            format === "byte" &&
+            (contentEncoding === undefined || contentEncoding === "base64");
+          union.push({
+            ...rest,
+            format: base64 ? undefined : format,
+            contentEncoding: base64 ? "base64" : contentEncoding,
+            examples: downgradeSchemaExamples(schema.examples),
+          });
+        } else if (
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
           OpenApiTypeChecker.isNumber(schema) ||
-          OpenApiTypeChecker.isString(schema) ||
           OpenApiTypeChecker.isReference(schema)
         )
           union.push({

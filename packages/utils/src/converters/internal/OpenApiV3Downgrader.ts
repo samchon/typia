@@ -243,7 +243,21 @@ export namespace OpenApiV3Downgrader {
         ),
       };
       const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (
+        if (OpenApiTypeChecker.isString(schema)) {
+          const {
+            contentEncoding,
+            contentMediaType: _contentMediaType,
+            ...rest
+          } = schema;
+          union.push(
+            omitSchemaExamples({
+              ...rest,
+              format:
+                rest.format ??
+                (contentEncoding === "base64" ? "byte" : undefined),
+            }),
+          );
+        } else if (
           // A boolean carries its declared keywords (at minimum `default`,
           // plus every attribute OpenApiV3.IJsonSchema.IBoolean allows) through
           // the downgrade like the other primitives. Rebuilding it as a bare
@@ -252,7 +266,6 @@ export namespace OpenApiV3Downgrader {
           OpenApiTypeChecker.isBoolean(schema) ||
           OpenApiTypeChecker.isInteger(schema) ||
           OpenApiTypeChecker.isNumber(schema) ||
-          OpenApiTypeChecker.isString(schema) ||
           OpenApiTypeChecker.isReference(schema)
         )
           union.push(omitSchemaExamples(schema));
