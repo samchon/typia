@@ -66,7 +66,7 @@ const components = OpenApiConverter.downgradeComponents(
 
 This matters for schema-level `examples`: typia keeps `tags.Examples<T>` as named examples in the emended schema, while OpenAPI 3.1's Schema Object uses JSON Schema's array-shaped `examples` keyword. The converter drops the names and emits the raw OpenAPI form.
 
-The same boundary applies to `tags.Format<"byte">`. Typia keeps `format: "byte"` in its emended schema, OpenAPI 3.0 output retains that spelling, and raw OpenAPI 3.1 output uses `contentEncoding: "base64"`. An explicitly supplied `tags.ContentMediaType<...>` is retained in the OpenAPI 3.1 Schema Object; typia does not invent a media type when none was declared.
+The same boundary applies to `tags.Format<"byte">`. Typia keeps `format: "byte"` in its emended schema, OpenAPI 3.0 output retains that spelling, and raw OpenAPI 3.1 output uses `contentEncoding: "base64"`. OpenAPI 3.0 preserves an explicitly supplied content media type as `x-jsonschema-contentMediaType` and a non-byte content encoding as `x-jsonschema-contentEncoding`; OpenAPI 3.1 uses the standard `contentMediaType` and `contentEncoding` keywords. Typia does not invent either annotation when none was declared.
 
 ### Swagger 2 document conversion
 

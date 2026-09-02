@@ -390,6 +390,24 @@ export namespace OpenApi {
     export interface IConstant extends IJsonSchemaAttribute {
       /** Constant value. */
       const: boolean | number | string;
+
+      /** String format when the constant value is a string. */
+      format?: IString["format"];
+
+      /** Regex pattern when the constant value is a string. */
+      pattern?: string;
+
+      /** Content media type when the constant value is a string. */
+      contentMediaType?: string;
+
+      /** Content encoding when the constant value is a string. */
+      contentEncoding?: string;
+
+      /** Minimum length when the constant value is a string. */
+      minLength?: IString["minLength"];
+
+      /** Maximum length when the constant value is a string. */
+      maxLength?: IString["maxLength"];
     }
 
     /** Boolean type. */

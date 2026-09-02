@@ -1,6 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3, OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
-import { OpenApiConverter } from "@typia/utils";
+import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
 
 /**
  * Verifies the version boundary for base64-encoded string schemas.
@@ -316,30 +316,93 @@ export const test_json_schema_byte_content_encoding = (): void => {
     ],
   });
   TestValidator.equals(
-    "downgrade 3.1 annotated enum",
+    "public string constant annotations",
+    readStringConstantAnnotations(
+      (canonicalEnum as OpenApi.IJsonSchema.IOneOf).oneOf[0]!,
+    ),
+    { format: "byte", contentMediaType: "image/png" },
+  );
+  const rawEnum31: OpenApiV3_1.IJsonSchema = clean(
+    OpenApiConverter.downgradeSchema({
+      components: {},
+      downgraded: {},
+      schema: canonicalEnum,
+      version: "3.1",
+    }),
+  );
+  TestValidator.equals("downgrade 3.1 annotated enum", rawEnum31, {
+    oneOf: [
+      {
+        const: "QQ==",
+        contentEncoding: "base64",
+        contentMediaType: "image/png",
+      },
+      {
+        const: "Qg==",
+        contentEncoding: "base64",
+        contentMediaType: "image/png",
+      },
+    ],
+  });
+  TestValidator.equals(
+    "round-trip 3.1 annotated constants",
     clean(
-      OpenApiConverter.downgradeSchema({
+      OpenApiConverter.upgradeSchema({
         components: {},
-        downgraded: {},
-        schema: canonicalEnum,
-        version: "3.1",
+        schema: rawEnum31,
       }),
     ),
-    {
-      oneOf: [
-        {
-          const: "QQ==",
-          contentEncoding: "base64",
-          contentMediaType: "image/png",
-        },
-        {
-          const: "Qg==",
-          contentEncoding: "base64",
-          contentMediaType: "image/png",
-        },
-      ],
-    },
+    canonicalEnum,
   );
+  const rawEnum32: OpenApiV3_2.IJsonSchema = {
+    oneOf: [
+      {
+        const: "QQ==",
+        contentEncoding: "base64",
+        contentMediaType: "image/png",
+      },
+      {
+        const: "Qg==",
+        contentEncoding: "base64",
+        contentMediaType: "image/png",
+      },
+    ],
+  };
+  TestValidator.equals(
+    "upgrade 3.2 annotated constants",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: {},
+        schema: rawEnum32,
+      }),
+    ),
+    canonicalEnum,
+  );
+  for (const [version, schema] of [
+    [
+      "3.1",
+      {
+        type: "string",
+        const: "QQ==",
+        contentEncoding: "base64",
+        contentMediaType: "image/png",
+      } satisfies OpenApiV3_1.IJsonSchema.IConstant,
+    ],
+    [
+      "3.2",
+      {
+        type: "string",
+        const: "QQ==",
+        contentEncoding: "base64",
+        contentMediaType: "image/png",
+      } satisfies OpenApiV3_2.IJsonSchema.IConstant,
+    ],
+  ] as const)
+    TestValidator.equals(
+      `upgrade ${version} typed annotated constant`,
+      clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
+      { const: "QQ==", format: "byte", contentMediaType: "image/png" },
+    );
   TestValidator.equals(
     "downgrade 3.0 annotated enum",
     clean(
@@ -370,3 +433,31 @@ export const test_json_schema_byte_content_encoding = (): void => {
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));
+
+const readStringConstantAnnotations = (
+  schema: OpenApi.IJsonSchema,
+):
+  | Pick<
+      OpenApi.IJsonSchema.IConstant,
+      | "format"
+      | "pattern"
+      | "contentMediaType"
+      | "contentEncoding"
+      | "minLength"
+      | "maxLength"
+    >
+  | undefined => {
+  if (
+    OpenApiTypeChecker.isConstant(schema) === false ||
+    typeof schema.const !== "string"
+  )
+    return undefined;
+  return clean({
+    format: schema.format,
+    pattern: schema.pattern,
+    contentMediaType: schema.contentMediaType,
+    contentEncoding: schema.contentEncoding,
+    minLength: schema.minLength,
+    maxLength: schema.maxLength,
+  });
+};

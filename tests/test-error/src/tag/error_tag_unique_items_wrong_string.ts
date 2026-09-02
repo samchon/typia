@@ -1,8 +1,7 @@
 import typia, { tags } from "typia";
 
 /**
- * Verifies `UniqueItems` rejects a string while naming its declared array
- * target.
+ * Verifies `UniqueItems` rejects a string with its declared array target.
  *
  * The rejected tag used to report the string host instead of the array-only
  * contract that consumers need to correct the annotation.

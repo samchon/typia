@@ -369,6 +369,8 @@ export namespace OpenApiV3_1Upgrader {
       let preserveDiscriminator: boolean = discriminator !== undefined;
       const consumesStringEncoding: boolean =
         OpenApiV3_1TypeChecker.isString(input) ||
+        (OpenApiV3_1TypeChecker.isConstant(input) &&
+          typeof input.const === "string") ||
         (OpenApiV3_1TypeChecker.isMixed(input) &&
           input.type.includes("string"));
       const attribute: IJsonSchemaAttribute = {
@@ -485,6 +487,15 @@ export namespace OpenApiV3_1Upgrader {
                 type: type as any,
               });
             else visit({ ...schema, type: type as any });
+        }
+        // CONSTANT TYPE CASE
+        else if (OpenApiV3_1TypeChecker.isConstant(schema)) {
+          const { type: _type, ...constant } = schema;
+          union.push(
+            (typeof constant.const === "string"
+              ? OpenApiStringEncodingConverter.upgrade(constant)
+              : constant) as OpenApi.IJsonSchema.IConstant,
+          );
         }
         // UNION TYPE CASE
         else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {
