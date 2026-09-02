@@ -20,6 +20,8 @@ import {
  *    dialect.
  * 3. Round-trip registered 3.0 extensions and annotated string-enum constants
  *    without data loss.
+ * 4. Preserve compatible mixed constants and reject contradictory sibling
+ *    constraints without widening their accepted values.
  */
 export const test_json_schema_byte_content_encoding = (): void => {
   const components: OpenApiV3_1.IComponents = {
@@ -418,9 +420,9 @@ export const test_json_schema_byte_content_encoding = (): void => {
     contentEncoding: "base64",
   } as OpenApiV3_2.IJsonSchema.IMixed;
   TestValidator.equals(
-    "public mixed constant type guard",
-    OpenApiV3_1TypeChecker.isConstant(mixedConstant31) &&
-      Array.isArray(mixedConstant31.type),
+    "public mixed constant type guard contract",
+    exactConstantGuard(mixedConstant31) &&
+      widenedConstantGuard(mixedConstant31),
     true,
   );
   for (const [version, schema] of [
@@ -432,6 +434,129 @@ export const test_json_schema_byte_content_encoding = (): void => {
       clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
       { const: "QQ==", format: "byte" },
     );
+  for (const [version, schema] of [
+    [
+      "3.1",
+      {
+        type: ["string", "null"],
+        const: "x",
+        enum: ["x", null],
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+    [
+      "3.2",
+      {
+        type: ["string", "null"],
+        const: "x",
+        enum: ["x", null],
+      } as OpenApiV3_2.IJsonSchema.IMixed,
+    ],
+  ] as const)
+    TestValidator.equals(
+      `upgrade ${version} mixed constant intersects nullable enum`,
+      clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
+      { const: "x" },
+    );
+  for (const [label, schema] of [
+    [
+      "incompatible type",
+      {
+        type: ["string", "null"],
+        const: 1,
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+    [
+      "incompatible enum",
+      {
+        type: ["string", "null"],
+        const: "x",
+        enum: ["y", null],
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+    [
+      "incompatible oneOf",
+      {
+        type: ["string", "null"],
+        const: "x",
+        oneOf: [{ const: "y" }],
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+    [
+      "incompatible anyOf",
+      {
+        type: ["string", "null"],
+        const: "x",
+        anyOf: [{ const: "y" }, { const: "z" }],
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+    [
+      "incompatible allOf",
+      {
+        type: ["string", "null"],
+        const: "x",
+        allOf: [{ minLength: 2 } as OpenApiV3_1.IJsonSchema.IString],
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+    [
+      "incompatible string constraint",
+      {
+        type: ["string", "null"],
+        const: "x",
+        minLength: 2,
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+    ],
+  ] as const)
+    TestValidator.equals(
+      `upgrade 3.1 mixed constant rejects ${label}`,
+      clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
+      { oneOf: [] },
+    );
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant accepts compatible oneOf",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: {},
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          oneOf: [{ const: "x" }],
+        } as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { const: "x" },
+  );
+  for (const [label, target, expected] of [
+    ["compatible", { const: "x" }, { const: "x" }],
+    ["incompatible", { const: "y" }, { oneOf: [] }],
+  ] as const)
+    TestValidator.equals(
+      `upgrade 3.1 mixed constant ${label} reference`,
+      clean(
+        OpenApiConverter.upgradeSchema({
+          components: { schemas: { Target: target } },
+          schema: {
+            type: ["string", "null"],
+            const: "x",
+            $ref: "#/components/schemas/Target",
+          } as OpenApiV3_1.IJsonSchema.IMixed,
+        }),
+      ),
+      expected as unknown as OpenApi.IJsonSchema,
+    );
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant rejects unresolved reference",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: {},
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          $ref: "#/components/schemas/Missing",
+        } as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { oneOf: [] },
+  );
   TestValidator.equals(
     "downgrade 3.0 annotated enum",
     clean(
@@ -462,6 +587,19 @@ export const test_json_schema_byte_content_encoding = (): void => {
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));
+
+type ConstantGuard = (
+  schema: OpenApiV3_1.IJsonSchema,
+) => schema is
+  | OpenApiV3_1.IJsonSchema.IConstant
+  | OpenApiV3_1.IJsonSchema.IMixed;
+
+const exactConstantGuard: typeof OpenApiV3_1TypeChecker.isConstant = (
+  schema,
+): schema is
+  | OpenApiV3_1.IJsonSchema.IConstant
+  | OpenApiV3_1.IJsonSchema.IMixed => OpenApiV3_1TypeChecker.isConstant(schema);
+const widenedConstantGuard: ConstantGuard = OpenApiV3_1TypeChecker.isConstant;
 
 const readStringConstantAnnotations = (
   schema: OpenApi.IJsonSchema,

@@ -3,6 +3,7 @@ import { IJsonSchemaAttribute, OpenApi, OpenApiV3_1 } from "@typia/interface";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
+import { OpenApiValidator } from "../../validators/OpenApiValidator";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 import { OpenApiStringEncodingConverter } from "./OpenApiStringEncodingConverter";
@@ -400,13 +401,20 @@ export namespace OpenApiV3_1Upgrader {
       };
 
       const visit = (schema: OpenApiV3_1.IJsonSchema): void => {
+        const constant: boolean | number | string | undefined = (
+          schema as OpenApiV3_1.IJsonSchema.IConstant
+        ).const;
         // NULLABLE PROPERTY
-        if ((schema as OpenApiV3_1.IJsonSchema.INumber).nullable === true) {
+        if (
+          constant === undefined &&
+          (schema as OpenApiV3_1.IJsonSchema.INumber).nullable === true
+        ) {
           nullable.value ||= true;
           if ((schema as OpenApiV3_1.IJsonSchema.INumber).default === null)
             nullable.default = null;
         }
         if (
+          constant === undefined &&
           Array.isArray((schema as OpenApiV3_1.IJsonSchema.INumber).enum) &&
           (schema as OpenApiV3_1.IJsonSchema.INumber).enum?.length &&
           (schema as OpenApiV3_1.IJsonSchema.INumber).enum?.some(
@@ -418,10 +426,24 @@ export namespace OpenApiV3_1Upgrader {
         // MIXED TYPE CASE
         if (OpenApiV3_1TypeChecker.isMixed(schema)) {
           if (schema.const !== undefined) {
+            if (
+              acceptsConstant(components)({
+                schema,
+                value: schema.const,
+                references: new Set(),
+              }) === false
+            ) {
+              // An empty oneOf is the canonical always-false schema.
+              union.push({ oneOf: [] });
+              return;
+            }
             visit({
               ...schema,
               ...{
                 type: undefined,
+                default: undefined,
+                enum: undefined,
+                nullable: undefined,
                 oneOf: undefined,
                 anyOf: undefined,
                 allOf: undefined,
@@ -757,6 +779,99 @@ export namespace OpenApiV3_1Upgrader {
           $defs: undefined,
         },
       };
+    };
+
+  // A raw const intersects every sibling keyword. Prove that the primitive
+  // satisfies those siblings before collapsing the intersection to a constant.
+  const acceptsConstant =
+    (components: OpenApiV3_1.IComponents) =>
+    (props: {
+      schema: OpenApiV3_1.IJsonSchema;
+      value: boolean | number | string;
+      references: Set<string>;
+    }): boolean => {
+      const schema = props.schema as OpenApiV3_1.IJsonSchema.IMixed;
+      if (schema.const !== undefined && schema.const !== props.value)
+        return false;
+      if (
+        schema.enum !== undefined &&
+        schema.enum.some((value) => value === props.value) === false
+      )
+        return false;
+      if (schema.type !== undefined) {
+        const types: string[] = Array.isArray(schema.type)
+          ? schema.type
+          : [schema.type];
+        const compatible: boolean =
+          typeof props.value === "number"
+            ? types.includes("number") ||
+              (Number.isInteger(props.value) && types.includes("integer"))
+            : types.includes(typeof props.value);
+        if (compatible === false) return false;
+      }
+
+      const visit = (child: OpenApiV3_1.IJsonSchema): boolean =>
+        acceptsConstant(components)({ ...props, schema: child });
+      if (schema.oneOf !== undefined && schema.oneOf.filter(visit).length !== 1)
+        return false;
+      if (schema.anyOf !== undefined && schema.anyOf.some(visit) === false)
+        return false;
+      if (schema.allOf !== undefined && schema.allOf.every(visit) === false)
+        return false;
+
+      const validateReference = (reference: string | undefined): boolean => {
+        if (reference === undefined || props.references.has(reference))
+          return true;
+        const target: OpenApiV3_1.IJsonSchema | undefined =
+          ObjectDictionary.get(
+            components.schemas,
+            reference.split("/").pop() ?? "",
+          );
+        if (target === undefined) return false;
+        props.references.add(reference);
+        const success: boolean = visit(target);
+        props.references.delete(reference);
+        return success;
+      };
+      if (validateReference(schema.$ref) === false) return false;
+      if (
+        validateReference(
+          (schema as unknown as OpenApiV3_1.IJsonSchema.IRecursiveReference)
+            .$recursiveRef,
+        ) === false
+      )
+        return false;
+
+      const primitive = typeof props.value as "boolean" | "number" | "string";
+      const type: "boolean" | "integer" | "number" | "string" =
+        primitive === "number"
+          ? Number.isInteger(props.value) &&
+            (Array.isArray(schema.type)
+              ? schema.type.includes("integer") &&
+                schema.type.includes("number") === false
+              : schema.type === "integer")
+            ? "integer"
+            : "number"
+          : primitive;
+      const atomic: OpenApiV3_1.IJsonSchema = {
+        ...schema,
+        type,
+        const: undefined,
+        default: undefined,
+        enum: undefined,
+        nullable: undefined,
+        oneOf: undefined,
+        anyOf: undefined,
+        allOf: undefined,
+        $ref: undefined,
+        $recursiveRef: undefined,
+      } as unknown as OpenApiV3_1.IJsonSchema;
+      return OpenApiValidator.validate({
+        components: {},
+        schema: convertSchema(components)(atomic),
+        value: props.value,
+        required: true,
+      }).success;
     };
 
   const convertAllOfSchema =
