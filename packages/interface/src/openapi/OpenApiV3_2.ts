@@ -418,33 +418,15 @@ export namespace OpenApiV3_2 {
     }
 
     /** Constant value type. */
-    export interface IConstant extends __IAttribute {
+    export interface IConstant extends Omit<
+      IString,
+      "type" | "default" | "enum"
+    > {
       /** Constant value. */
       const: boolean | number | string;
 
       /** Optional primitive type constraint. */
       type?: "boolean" | "integer" | "number" | "string";
-
-      /** String format when the constant value is a string. */
-      format?: IString["format"];
-
-      /** Regex pattern when the constant value is a string. */
-      pattern?: string;
-
-      /** Content media type when the constant value is a string. */
-      contentMediaType?: string;
-
-      /** Content encoding when the constant value is a string. */
-      contentEncoding?: string;
-
-      /** Minimum length when the constant value is a string. */
-      minLength?: IString["minLength"];
-
-      /** Maximum length when the constant value is a string. */
-      maxLength?: IString["maxLength"];
-
-      /** Whether nullable. */
-      nullable?: boolean;
     }
 
     /** Boolean type. */
