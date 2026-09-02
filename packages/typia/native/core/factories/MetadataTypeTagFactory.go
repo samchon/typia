@@ -2,6 +2,7 @@ package factories
 
 import (
   "fmt"
+  "reflect"
   "strings"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -162,12 +163,15 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
     if tag == nil {
       continue
     }
-    target := ""
-    if metadataTypeTagFactory_includes(tag.Target, props.Type) {
-      target = props.Type
+    if metadataTypeTagFactory_includes(tag.Target, props.Type) == false {
+      report(struct {
+        Property *string
+        Message  string
+      }{Property: nil, Message: metadataTypeTagFactory_target_message(tag.Target)})
+      continue
     }
     output = append(output, schemametadata.IMetadataTypeTag{
-      Target:    target,
+      Target:    props.Type,
       Name:      tag.Name,
       Kind:      tag.Kind,
       Value:     tag.Value,
@@ -195,7 +199,7 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
       for _, object := range props.Objects {
         names = append(names, object.Name)
       }
-      *props.Errors = append(*props.Errors, MetadataFactory_IError{
+      metadataTypeTagFactory_append_error(props.Errors, MetadataFactory_IError{
         Name:     strings.Join(names, " & "),
         Explore:  props.Explore,
         Messages: messages,
@@ -218,10 +222,14 @@ func (metadataTypeTagFactoryNamespace) Validate(props struct {
   for _, tag := range props.Tags {
     if tag.Target != props.Type {
       if success {
+        target := tag.Target
+        if target == "" {
+          target = props.Type
+        }
         success = props.Report(struct {
           Property *string
           Message  string
-        }{Property: nil, Message: "target must contain " + props.Type + " type"})
+        }{Property: nil, Message: metadataTypeTagFactory_target_message([]string{target})})
       }
     }
   }
@@ -569,4 +577,42 @@ func metadataTypeTagFactory_essentialFieldsMessage() string {
     values = append(values, "'"+field+"'")
   }
   return strings.Join(values, ", ")
+}
+
+func metadataTypeTagFactory_target_message(targets []string) string {
+  return "target must contain " + strings.Join(targets, " or ") + " type"
+}
+
+func metadataTypeTagFactory_append_error(errors *[]MetadataFactory_IError, next MetadataFactory_IError) {
+  for _, previous := range *errors {
+    if previous.Name == next.Name &&
+      metadataTypeTagFactory_same_explore(previous.Explore, next.Explore) &&
+      metadataTypeTagFactory_same_messages(previous.Messages, next.Messages) {
+      return
+    }
+  }
+  *errors = append(*errors, next)
+}
+
+func metadataTypeTagFactory_same_explore(x MetadataFactory_IExplore, y MetadataFactory_IExplore) bool {
+  return x.Top == y.Top &&
+    x.Object == y.Object &&
+    reflect.DeepEqual(x.Property, y.Property) &&
+    reflect.DeepEqual(x.Parameter, y.Parameter) &&
+    reflect.DeepEqual(x.Nested, y.Nested) &&
+    x.Aliased == y.Aliased &&
+    x.Escaped == y.Escaped &&
+    x.Output == y.Output
+}
+
+func metadataTypeTagFactory_same_messages(x []string, y []string) bool {
+  if len(x) != len(y) {
+    return false
+  }
+  for i := range x {
+    if x[i] != y[i] {
+      return false
+    }
+  }
+  return true
 }
