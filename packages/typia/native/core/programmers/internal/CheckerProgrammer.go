@@ -181,13 +181,17 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
   f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   arrays := props.Collection.Arrays()
   output := []*shimast.Node{}
-  for i, typ := range arrays {
+  for _, typ := range arrays {
     if typ.Recursive == false {
       continue
     }
+    index := 0
+    if typ.Index != nil {
+      index = *typ.Index
+    }
     input := f.NewIdentifier("input")
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-      Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
+      Name: fmt.Sprintf("%sa%d", props.Config.Prefix, index),
       Value: f.NewArrowFunction(
         nil,
         nil,
@@ -200,7 +204,7 @@ func (checkerProgrammerNamespace) Write_array_functions(props CheckerProgrammer_
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        checkerProgrammer_visit_guard(FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i), checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
+        checkerProgrammer_visit_guard(FeatureProgrammer.VisitKey(props.Config.Prefix, "a", index), checkerProgrammer_decode_array_inline(checkerProgrammer_decodeArrayInlineProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,
@@ -226,13 +230,17 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
   f := nativecontext.EmitFactoryOf(checkerProgrammer_factory, props.Context.Emit)
   tuples := props.Collection.Tuples()
   output := []*shimast.Node{}
-  for i, tuple := range tuples {
+  for _, tuple := range tuples {
     if tuple.Recursive == false {
       continue
     }
+    index := 0
+    if tuple.Index != nil {
+      index = *tuple.Index
+    }
     input := f.NewIdentifier("input")
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-      Name: fmt.Sprintf("%st%d", props.Config.Prefix, i),
+      Name: fmt.Sprintf("%st%d", props.Config.Prefix, index),
       Value: f.NewArrowFunction(
         nil,
         nil,
@@ -245,7 +253,7 @@ func (checkerProgrammerNamespace) Write_tuple_functions(props CheckerProgrammer_
         nativefactories.TypeFactory.Keyword("any", props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
-        checkerProgrammer_visit_guard(FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i), checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
+        checkerProgrammer_visit_guard(FeatureProgrammer.VisitKey(props.Config.Prefix, "t", index), checkerProgrammer_decode_tuple_inline(checkerProgrammer_decodeTupleInlineProps{
           Config:  props.Config,
           Context: props.Context,
           Functor: props.Functor,

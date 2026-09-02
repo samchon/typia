@@ -93,12 +93,16 @@ func plainPruneProgrammer_write_array_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(plainPruneProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
-  for i, typ := range props.Collection.Arrays() {
+  for _, typ := range props.Collection.Arrays() {
     if typ.Recursive == false {
       continue
     }
+    index := 0
+    if typ.Index != nil {
+      index = *typ.Index
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-      Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
+      Name: fmt.Sprintf("%sa%d", props.Config.Prefix, index),
       Value: f.NewArrowFunction(
         nil,
         nil,
@@ -111,7 +115,7 @@ func plainPruneProgrammer_write_array_functions(props struct {
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativeinternal.FeatureProgrammer.VisitGuardSkip(
-          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i),
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", index),
           plainPruneProgrammer_decode_array_inline(plainPruneProgrammer_decodeArrayProps{
             Context: props.Context,
             Config:  props.Config,
@@ -144,12 +148,16 @@ func plainPruneProgrammer_write_tuple_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(plainPruneProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
-  for i, tuple := range props.Collection.Tuples() {
+  for _, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
       continue
     }
+    index := 0
+    if tuple.Index != nil {
+      index = *tuple.Index
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-      Name: fmt.Sprintf("%st%d", props.Config.Prefix, i),
+      Name: fmt.Sprintf("%st%d", props.Config.Prefix, index),
       Value: f.NewArrowFunction(
         nil,
         nil,
@@ -162,7 +170,7 @@ func plainPruneProgrammer_write_tuple_functions(props struct {
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativeinternal.FeatureProgrammer.VisitGuardSkip(
-          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i),
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", index),
           plainPruneProgrammer_decode_tuple_inline(plainPruneProgrammer_decodeTupleInlineProps{
             Context: props.Context,
             Config:  props.Config,
@@ -805,6 +813,14 @@ func plainPruneProgrammer_initializer(props nativeinternal.FeatureProgrammer_Ini
 }
 
 func plainPruneProgrammer_filter(metadata *schemametadata.MetadataSchema) bool {
+  return plainPruneProgrammer_filter_visited(metadata, map[*schemametadata.MetadataSchema]bool{})
+}
+
+func plainPruneProgrammer_filter_visited(metadata *schemametadata.MetadataSchema, visited map[*schemametadata.MetadataSchema]bool) bool {
+  if visited[metadata] {
+    return false
+  }
+  visited[metadata] = true
   if metadata.Any {
     return false
   }
@@ -812,12 +828,12 @@ func plainPruneProgrammer_filter(metadata *schemametadata.MetadataSchema) bool {
     return true
   }
   for _, tuple := range metadata.Tuples {
-    if plainPruneProgrammer_tuple_filter(tuple) {
+    if plainPruneProgrammer_tuple_filter_visited(tuple, visited) {
       return true
     }
   }
   for _, array := range metadata.Arrays {
-    if plainPruneProgrammer_filter(array.Type.Value) {
+    if plainPruneProgrammer_filter_visited(array.Type.Value, visited) {
       return true
     }
   }
@@ -825,11 +841,15 @@ func plainPruneProgrammer_filter(metadata *schemametadata.MetadataSchema) bool {
 }
 
 func plainPruneProgrammer_tuple_filter(tuple *schemametadata.MetadataTuple) bool {
+  return plainPruneProgrammer_tuple_filter_visited(tuple, map[*schemametadata.MetadataSchema]bool{})
+}
+
+func plainPruneProgrammer_tuple_filter_visited(tuple *schemametadata.MetadataTuple, visited map[*schemametadata.MetadataSchema]bool) bool {
   return len(tuple.Type.Elements) != 0 && plainPruneProgrammer_some_schema(tuple.Type.Elements, func(elem *schemametadata.MetadataSchema) bool {
     if elem.Rest != nil {
-      return plainPruneProgrammer_filter(elem.Rest)
+      return plainPruneProgrammer_filter_visited(elem.Rest, visited)
     }
-    return plainPruneProgrammer_filter(elem)
+    return plainPruneProgrammer_filter_visited(elem, visited)
   })
 }
 

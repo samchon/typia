@@ -345,11 +345,14 @@ func randomProgrammer_write_array_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
-  for i, array := range props.Collection.Arrays() {
+  for _, array := range props.Collection.Arrays() {
     if array.Recursive == false {
       continue
     }
-    index := i
+    index := 0
+    if array.Index != nil {
+      index = *array.Index
+    }
     array := array
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
       Name: randomProgrammer_prefix_array(index),
@@ -396,11 +399,14 @@ func randomProgrammer_write_tuple_functions(props struct {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
   _, unsatisfiableTuples := nativehelpers.RandomJoiner.UnsatisfiableRecursives(props.Collection.Objects(), props.Collection.Tuples())
-  for i, tuple := range props.Collection.Tuples() {
+  for _, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
       continue
     }
-    index := i
+    index := 0
+    if tuple.Index != nil {
+      index = *tuple.Index
+    }
     tuple := tuple
     if unsatisfiableTuples[tuple] {
       panic(nativecontext.NewTransformerError(nativecontext.TransformerError_IProps{
