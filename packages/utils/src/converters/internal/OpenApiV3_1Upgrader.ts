@@ -436,25 +436,7 @@ export namespace OpenApiV3_1Upgrader {
             union.push({ oneOf: [] });
             return;
           }
-          const constant: OpenApiV3_1.IJsonSchema.IConstant = {
-            ...schema,
-            ...{
-              type: undefined,
-              default: undefined,
-              enum: undefined,
-              nullable: undefined,
-              oneOf: undefined,
-              anyOf: undefined,
-              allOf: undefined,
-              $ref: undefined,
-              $recursiveRef: undefined,
-            },
-          } as unknown as OpenApiV3_1.IJsonSchema.IConstant;
-          union.push(
-            (typeof constant.const === "string"
-              ? OpenApiStringEncodingConverter.upgrade(constant)
-              : constant) as OpenApi.IJsonSchema.IConstant,
-          );
+          union.push(normalizeConstant(schema));
           return;
         }
         // MIXED TYPE CASE
@@ -787,6 +769,8 @@ export namespace OpenApiV3_1Upgrader {
       schema: OpenApiV3_1.IJsonSchema;
       value: boolean | number | string;
     }): boolean => {
+      if (hasCircularReference(components)(props.schema)) return false;
+
       type Mode = "every" | "one" | "some";
       interface IGroup {
         mode: Mode;
@@ -836,10 +820,10 @@ export namespace OpenApiV3_1Upgrader {
             finish(cache.get(frame.schema)!);
             continue;
           }
-          // A recursive back-edge contributes no new constraint. The enclosing
-          // frame still evaluates every sibling keyword on the cycle.
+          // The pre-scan rejects every reachable cycle. Keep this guard as a
+          // defensive bound if a caller supplies a graph that mutates in place.
           if (active.has(frame.schema)) {
-            finish(true);
+            finish(false);
             continue;
           }
           if (
@@ -986,6 +970,109 @@ export namespace OpenApiV3_1Upgrader {
       }
       return output;
     };
+
+  const hasCircularReference =
+    (components: OpenApiV3_1.IComponents) =>
+    (root: OpenApiV3_1.IJsonSchema): boolean => {
+      interface IFrame {
+        schema: OpenApiV3_1.IJsonSchema;
+        children: OpenApiV3_1.IJsonSchema[];
+        index: number;
+        entered: boolean;
+      }
+
+      const states: WeakMap<object, "active" | "complete"> = new WeakMap();
+      const stack: IFrame[] = [
+        { schema: root, children: [], index: 0, entered: false },
+      ];
+      while (stack.length !== 0) {
+        const frame: IFrame = stack.at(-1)!;
+        if (frame.entered === false) {
+          const state: "active" | "complete" | undefined = states.get(
+            frame.schema,
+          );
+          if (state === "active") return true;
+          if (state === "complete") {
+            stack.pop();
+            continue;
+          }
+          states.set(frame.schema, "active");
+          frame.entered = true;
+
+          const schema = frame.schema as OpenApiV3_1.IJsonSchema.IMixed;
+          const references: string[] = [
+            schema.$ref,
+            (schema as unknown as OpenApiV3_1.IJsonSchema.IRecursiveReference)
+              .$recursiveRef,
+          ].filter((reference): reference is string => reference !== undefined);
+          frame.children = [
+            ...(schema.oneOf ?? []),
+            ...(schema.anyOf ?? []),
+            ...(schema.allOf ?? []),
+            ...references
+              .map(LlmReference.readOpenApi)
+              .filter((key): key is string => key !== undefined)
+              .map((key) => ObjectDictionary.get(components.schemas, key))
+              .filter(
+                (schema): schema is OpenApiV3_1.IJsonSchema =>
+                  schema !== undefined,
+              ),
+          ];
+        }
+
+        const child: OpenApiV3_1.IJsonSchema | undefined =
+          frame.children[frame.index++];
+        if (child !== undefined) {
+          const state: "active" | "complete" | undefined = states.get(child);
+          if (state === "active") return true;
+          if (state !== "complete")
+            stack.push({
+              schema: child,
+              children: [],
+              index: 0,
+              entered: false,
+            });
+          continue;
+        }
+        states.set(frame.schema, "complete");
+        stack.pop();
+      }
+      return false;
+    };
+
+  const normalizeConstant = (
+    schema: OpenApiV3_1.IJsonSchema.IConstant | OpenApiV3_1.IJsonSchema.IMixed,
+  ): OpenApi.IJsonSchema.IConstant => {
+    const common: OpenApi.IJsonSchema.IConstant = {
+      const: schema.const,
+      title: schema.title,
+      description: schema.description,
+      deprecated: schema.deprecated,
+      readOnly: schema.readOnly,
+      writeOnly: schema.writeOnly,
+      example: schema.example,
+      examples: Array.isArray(schema.examples)
+        ? Object.fromEntries(
+            schema.examples.map((value, i) => [`v${i}`, value]),
+          )
+        : schema.examples,
+      ...Object.fromEntries(
+        Object.entries(schema).filter(
+          ([key, value]) => key.startsWith("x-") && value !== undefined,
+        ),
+      ),
+    };
+    if (typeof schema.const !== "string") return common;
+    return OpenApiStringEncodingConverter.upgrade({
+      ...common,
+      format: schema.format,
+      pattern: schema.pattern,
+      contentMediaType: schema.contentMediaType,
+      contentEncoding: schema.contentEncoding,
+      minLength: schema.minLength,
+      maxLength: schema.maxLength,
+    });
+  };
 
   const convertAllOfSchema =
     (components: OpenApiV3_1.IComponents) =>

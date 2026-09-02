@@ -542,6 +542,42 @@ export const test_json_schema_byte_content_encoding = (): void => {
     ),
     { const: "x", minLength: 1 },
   );
+  for (const [label, schema, expected] of [
+    [
+      "numeric keywords",
+      {
+        type: ["number", "null"],
+        const: 1,
+        minimum: 0,
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+      { const: 1 },
+    ],
+    [
+      "composition metadata",
+      {
+        type: ["string", "null"],
+        const: "x",
+        oneOf: [{ const: "x" }],
+        discriminator: { propertyName: "kind" },
+      } as OpenApiV3_1.IJsonSchema.IMixed,
+      { const: "x" },
+    ],
+    [
+      "object keywords",
+      {
+        type: ["string", "object"],
+        const: "x",
+        properties: { value: { type: "string" } },
+        required: ["value"],
+      } as unknown as OpenApiV3_1.IJsonSchema.IMixed,
+      { const: "x" },
+    ],
+  ] as const)
+    TestValidator.equals(
+      `upgrade 3.1 constant consumes raw ${label}`,
+      clean(OpenApiConverter.upgradeSchema({ components: {}, schema })),
+      expected as OpenApi.IJsonSchema,
+    );
   TestValidator.equals(
     "upgrade 3.1 mixed constant accepts compatible oneOf",
     clean(
@@ -643,6 +679,131 @@ export const test_json_schema_byte_content_encoding = (): void => {
           type: ["string", "null"],
           const: "x",
           $ref: "#/components/schemas/A",
+        } as OpenApiV3_1.IJsonSchema.IMixed,
+      }),
+    ),
+    { oneOf: [] },
+  );
+  for (const allOf of [
+    [{ $ref: "#/components/schemas/B" }, { const: "y" }],
+    [{ const: "y" }, { $ref: "#/components/schemas/B" }],
+  ] satisfies OpenApiV3_1.IJsonSchema[][])
+    TestValidator.equals(
+      "upgrade 3.1 mixed constant keeps cyclic allOf order invariant",
+      clean(
+        OpenApiConverter.upgradeSchema({
+          components: {
+            schemas: {
+              A: { allOf },
+              B: { $ref: "#/components/schemas/A" },
+            },
+          },
+          schema: {
+            type: ["string", "null"],
+            const: "x",
+            anyOf: [
+              { $ref: "#/components/schemas/A" },
+              { $ref: "#/components/schemas/B" },
+            ],
+          } as OpenApiV3_1.IJsonSchema.IMixed,
+        }),
+      ),
+      { oneOf: [] },
+    );
+  for (const anyOf of [
+    [{ $ref: "#/components/schemas/Cycle" }, { const: "x" }],
+    [{ const: "x" }, { $ref: "#/components/schemas/Cycle" }],
+  ] satisfies OpenApiV3_1.IJsonSchema[][])
+    TestValidator.equals(
+      "upgrade 3.1 mixed constant rejects recursive alternatives in any order",
+      clean(
+        OpenApiConverter.upgradeSchema({
+          components: {
+            schemas: {
+              Cycle: { $ref: "#/components/schemas/Cycle" },
+            },
+          },
+          schema: {
+            type: ["string", "null"],
+            const: "x",
+            anyOf,
+          } as OpenApiV3_1.IJsonSchema.IMixed,
+        }),
+      ),
+      { oneOf: [] },
+    );
+  for (const allOf of [
+    [{ const: "y" }, { $ref: "#/components/schemas/Cycle" }],
+    [{ $ref: "#/components/schemas/Cycle" }, { const: "y" }],
+  ] satisfies OpenApiV3_1.IJsonSchema[][])
+    TestValidator.equals(
+      "upgrade 3.1 mixed constant finds recursion behind false conjunctions",
+      clean(
+        OpenApiConverter.upgradeSchema({
+          components: {
+            schemas: {
+              Cycle: { $ref: "#/components/schemas/Cycle" },
+            },
+          },
+          schema: {
+            type: ["string", "null"],
+            const: "x",
+            anyOf: [{ allOf }, { const: "x" }],
+          } as OpenApiV3_1.IJsonSchema.IMixed,
+        }),
+      ),
+      { oneOf: [] },
+    );
+  for (const branch of [
+    {
+      const: "y",
+      $ref: "#/components/schemas/Cycle",
+    },
+    {
+      allOf: [{ const: "y" }, { $ref: "#/components/schemas/Cycle" }],
+    },
+  ] as OpenApiV3_1.IJsonSchema[])
+    TestValidator.equals(
+      "upgrade 3.1 mixed constant rejects equivalent recursive spellings",
+      clean(
+        OpenApiConverter.upgradeSchema({
+          components: {
+            schemas: {
+              Cycle: { $ref: "#/components/schemas/Cycle" },
+            },
+          },
+          schema: {
+            type: ["string", "null"],
+            const: "x",
+            anyOf: [branch, { const: "x" }],
+          } as OpenApiV3_1.IJsonSchema.IMixed,
+        }),
+      ),
+      { oneOf: [] },
+    );
+
+  const cyclicDagComponents: OpenApiV3_1.IComponents = {
+    schemas: {
+      Cycle: { $ref: "#/components/schemas/Cycle" },
+      Dag64: { $ref: "#/components/schemas/Cycle" },
+    },
+  };
+  for (let i: number = 63; i >= 0; --i)
+    cyclicDagComponents.schemas![`Dag${i}`] = {
+      allOf: [
+        { $ref: `#/components/schemas/Dag${i + 1}` },
+        { $ref: `#/components/schemas/Dag${i + 1}` },
+      ],
+    };
+  TestValidator.equals(
+    "upgrade 3.1 mixed constant bounds cyclic shared reference graphs",
+    clean(
+      OpenApiConverter.upgradeSchema({
+        components: cyclicDagComponents,
+        schema: {
+          type: ["string", "null"],
+          const: "x",
+          $ref: "#/components/schemas/Dag0",
         } as OpenApiV3_1.IJsonSchema.IMixed,
       }),
     ),
