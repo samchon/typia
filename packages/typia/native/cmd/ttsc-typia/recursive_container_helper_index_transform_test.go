@@ -21,7 +21,7 @@ import (
 func TestRecursiveContainerHelperIndexTransform(t *testing.T) {
   project := recursiveContainerHelperIndexProject(t)
   js := recursiveContainerHelperIndexTransform(t, project)
-  for _, helper := range []string{"_ia0", "_aa0", "_va0", "_it0"} {
+  for _, helper := range []string{"_ia0", "_aa0", "_va0", "_ra0", "_it0"} {
     if !strings.Contains(js, helper) {
       t.Fatalf("recursive container fixture did not emit %q:\n%s", helper, js)
     }
@@ -146,6 +146,12 @@ interface ArrayControl {
   strings: string[];
 }
 
+type RandomArray = Array<string | RandomArray>;
+interface RandomArrayWitness {
+  ordinary: string[];
+  value: RandomArray;
+}
+
 type RecursiveTuple = [string, RecursiveTuple | null];
 interface TupleWitness {
   ordinary: [number];
@@ -180,6 +186,10 @@ export const pruneTuple = typia.plain.createPrune<TupleWitness>();
 export const randomTuple = typia.createRandom<TupleWitness>({
   boolean: () => false,
   number: () => 1,
+  string: () => "generated",
+});
+export const randomArray = typia.createRandom<RandomArrayWitness>({
+  array: () => [],
   string: () => "generated",
 });
 `
@@ -253,6 +263,11 @@ expect("random ordinary tuple", generated.ordinary[0], 1);
 expect("random recursive tuple head", generated.value[0], "generated");
 if (generated.value[1] !== null) {
   expect("random recursive tuple tail", generated.value[1][0], "generated");
+}
+
+const generatedArray = mod.randomArray();
+if (Array.isArray(generatedArray.ordinary) === false || Array.isArray(generatedArray.value) === false) {
+  throw new Error("random recursive array result: " + JSON.stringify(generatedArray));
 }
 `
 
