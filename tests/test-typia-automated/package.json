@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-typia-automated",
-  "version": "14.0.4",
+  "version": "14.0.5",
   "description": "Automated test features of typia.",
   "scripts": {
     "prestart": "ttsx src/regressions/index.ts",

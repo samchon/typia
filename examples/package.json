@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/examples",
-  "version": "14.0.4",
+  "version": "14.0.5",
   "description": "Example codes for typia website",
   "scripts": {
     "build": "rimraf bin && ttsc && prettier --write --ignore-path /dev/null \"bin/**/*.js\"",

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/website",
-  "version": "14.0.4",
+  "version": "14.0.5",
   "description": "Typia Guide Documents",
   "scripts": {
     "build": "npm run build:prepare && next build && npm run build:finalize",
