@@ -77,6 +77,7 @@ func recursiveContainerHelperIndexRunRuntimeCases(t *testing.T, project string, 
     "_randomArray",
     "_randomNumber",
     "_randomPick",
+    "_throwTypeGuardError",
   } {
     js = strings.ReplaceAll(
       js,
@@ -201,4 +202,5 @@ module.exports._jsonStringifyString = (value) => JSON.stringify(value);
 module.exports._randomArray = () => [];
 module.exports._randomNumber = () => 1;
 module.exports._randomPick = (values) => values[0];
+module.exports._throwTypeGuardError = (props) => { throw Object.assign(new Error(props.expected), props); };
 `
