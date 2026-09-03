@@ -387,7 +387,7 @@ export namespace OpenApi {
     | IJsonSchema.IUnknown;
   export namespace IJsonSchema {
     /** Constant value type. */
-    export interface IConstant extends Omit<IString, "type" | "default"> {
+    export interface IConstant extends IJsonSchemaAttribute {
       /** Constant value. */
       const: boolean | number | string;
     }

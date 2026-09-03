@@ -389,7 +389,7 @@ export namespace OpenApiV3_2 {
     /** Mixed type (multiple types in array). */
     export interface IMixed
       extends
-        Omit<IConstant, "type">,
+        IConstant,
         Omit<IBoolean, "type" | "default" | "enum">,
         Omit<INumber, "type" | "default" | "enum">,
         Omit<IString, "type" | "default" | "enum">,
@@ -418,15 +418,12 @@ export namespace OpenApiV3_2 {
     }
 
     /** Constant value type. */
-    export interface IConstant extends Omit<
-      IString,
-      "type" | "default" | "enum"
-    > {
+    export interface IConstant extends __IAttribute {
       /** Constant value. */
       const: boolean | number | string;
 
-      /** Optional primitive type constraint. */
-      type?: "boolean" | "integer" | "number" | "string";
+      /** Whether nullable. */
+      nullable?: boolean;
     }
 
     /** Boolean type. */
