@@ -520,14 +520,14 @@ func metadataTypeTagFactory_get_value(metadata *schemametadata.MetadataSchema) (
     }
     output := make([]any, 0, len(tuple.Elements))
     for _, elem := range tuple.Elements {
-      if elem.IsRequired() == false {
+      if elem.IsRequired() == false ||
+        elem.Nullable ||
+        elem.Size() != 1 ||
+        len(elem.Constants) != 1 ||
+        len(elem.Constants[0].Values) != 1 {
         return nil, false
       }
-      value, ok := metadataTypeTagFactory_get_value(elem)
-      if ok == false {
-        return nil, false
-      }
-      output = append(output, value)
+      output = append(output, elem.Constants[0].Values[0].Value)
     }
     return output, true
   }
