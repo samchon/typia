@@ -389,7 +389,7 @@ export namespace OpenApiV3_2 {
     /** Mixed type (multiple types in array). */
     export interface IMixed
       extends
-        IConstant,
+        Omit<IConstant, "type">,
         Omit<IBoolean, "type" | "default" | "enum">,
         Omit<INumber, "type" | "default" | "enum">,
         Omit<IString, "type" | "default" | "enum">,
@@ -418,12 +418,15 @@ export namespace OpenApiV3_2 {
     }
 
     /** Constant value type. */
-    export interface IConstant extends __IAttribute {
+    export interface IConstant extends Omit<
+      IString,
+      "type" | "default" | "enum"
+    > {
       /** Constant value. */
       const: boolean | number | string;
 
-      /** Whether nullable. */
-      nullable?: boolean;
+      /** Optional primitive type constraint. */
+      type?: "boolean" | "integer" | "number" | "string";
     }
 
     /** Boolean type. */
@@ -539,6 +542,9 @@ export namespace OpenApiV3_2 {
 
       /** Content media type. */
       contentMediaType?: string;
+
+      /** Content encoding. */
+      contentEncoding?: string;
 
       /** Minimum length. */
       minLength?: number & tags.Type<"uint64">;

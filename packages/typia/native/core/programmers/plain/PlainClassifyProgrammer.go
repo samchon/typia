@@ -135,12 +135,16 @@ func plainClassifyProgrammer_write_array_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
-  for i, typ := range props.Collection.Arrays() {
+  for _, typ := range props.Collection.Arrays() {
     if typ.Recursive == false {
       continue
     }
+    index := 0
+    if typ.Index != nil {
+      index = *typ.Index
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-      Name: fmt.Sprintf("%sa%d", props.Config.Prefix, i),
+      Name: fmt.Sprintf("%sa%d", props.Config.Prefix, index),
       Value: f.NewArrowFunction(
         nil,
         nil,
@@ -153,7 +157,7 @@ func plainClassifyProgrammer_write_array_functions(props struct {
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativeinternal.FeatureProgrammer.VisitGuardRebuild(
-          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", i),
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "a", index),
           true,
           plainClassifyProgrammer_decode_array_inline(plainClassifyProgrammer_decodeArrayProps{
             Context: props.Context,
@@ -187,12 +191,16 @@ func plainClassifyProgrammer_write_tuple_functions(props struct {
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(plainClassifyProgrammer_factory, props.Context.Emit)
   output := []*shimast.Node{}
-  for i, tuple := range props.Collection.Tuples() {
+  for _, tuple := range props.Collection.Tuples() {
     if tuple.Recursive == false {
       continue
     }
+    index := 0
+    if tuple.Index != nil {
+      index = *tuple.Index
+    }
     output = append(output, nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-      Name: fmt.Sprintf("%st%d", props.Config.Prefix, i),
+      Name: fmt.Sprintf("%st%d", props.Config.Prefix, index),
       Value: f.NewArrowFunction(
         nil,
         nil,
@@ -205,7 +213,7 @@ func plainClassifyProgrammer_write_tuple_functions(props struct {
         nil,
         f.NewToken(shimast.KindEqualsGreaterThanToken),
         nativeinternal.FeatureProgrammer.VisitGuardRebuild(
-          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", i),
+          nativeinternal.FeatureProgrammer.VisitKey(props.Config.Prefix, "t", index),
           true,
           plainClassifyProgrammer_decode_tuple_inline(plainClassifyProgrammer_decodeTupleInlineProps{
             Context: props.Context,

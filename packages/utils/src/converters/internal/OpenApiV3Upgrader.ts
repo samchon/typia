@@ -5,6 +5,7 @@ import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
+import { OpenApiStringEncodingConverter } from "./OpenApiStringEncodingConverter";
 
 export namespace OpenApiV3Upgrader {
   export const convert = (input: OpenApiV3.IDocument): OpenApi.IDocument => ({
@@ -336,6 +337,8 @@ export namespace OpenApiV3Upgrader {
           ? OpenApiDiscriminatorConverter.clone(input.discriminator)
           : undefined;
       let preserveDiscriminator: boolean = discriminator !== undefined;
+      const consumesStringEncoding: boolean =
+        OpenApiV3TypeChecker.isString(input);
       const attribute: IJsonSchemaAttribute = {
         title: input.title,
         description: input.description,
@@ -345,7 +348,12 @@ export namespace OpenApiV3Upgrader {
         example: input.example,
         ...Object.fromEntries(
           Object.entries(input).filter(
-            ([key, value]) => key.startsWith("x-") && value !== undefined,
+            ([key, value]) =>
+              key.startsWith("x-") &&
+              (OpenApiStringEncodingConverter.isRegisteredExtension(key) ===
+                false ||
+                consumesStringEncoding === false) &&
+              value !== undefined,
           ),
         ),
       };
@@ -388,8 +396,7 @@ export namespace OpenApiV3Upgrader {
         else if (
           OpenApiV3TypeChecker.isBoolean(schema) ||
           OpenApiV3TypeChecker.isInteger(schema) ||
-          OpenApiV3TypeChecker.isNumber(schema) ||
-          OpenApiV3TypeChecker.isString(schema)
+          OpenApiV3TypeChecker.isNumber(schema)
         )
           if (
             schema.enum?.length &&
@@ -441,6 +448,27 @@ export namespace OpenApiV3Upgrader {
                 | undefined as any,
               ...{ enum: undefined },
             });
+        else if (OpenApiV3TypeChecker.isString(schema)) {
+          const normalized = OpenApiStringEncodingConverter.upgrade(schema);
+          if (
+            normalized.enum?.length &&
+            normalized.enum.filter((e) => e !== null).length
+          )
+            for (const value of normalized.enum.filter((e) => e !== null))
+              union.push({
+                const: value,
+                ...normalized,
+                type: undefined as never,
+                enum: undefined,
+                default: undefined,
+              } as OpenApi.IJsonSchema.IConstant);
+          else
+            union.push({
+              ...normalized,
+              default: normalized.default ?? undefined,
+              ...{ enum: undefined },
+            } as OpenApi.IJsonSchema.IString);
+        }
         // INSTANCE TYPE CASE
         else if (OpenApiV3TypeChecker.isArray(schema))
           union.push({

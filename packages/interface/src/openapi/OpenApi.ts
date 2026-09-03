@@ -387,7 +387,7 @@ export namespace OpenApi {
     | IJsonSchema.IUnknown;
   export namespace IJsonSchema {
     /** Constant value type. */
-    export interface IConstant extends IJsonSchemaAttribute {
+    export interface IConstant extends Omit<IString, "type" | "default"> {
       /** Constant value. */
       const: boolean | number | string;
     }
@@ -477,6 +477,9 @@ export namespace OpenApi {
 
       /** Content media type. */
       contentMediaType?: string;
+
+      /** Content encoding. */
+      contentEncoding?: string;
 
       /** Minimum length. */
       minLength?: number & tags.Type<"uint64">;
