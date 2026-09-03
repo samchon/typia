@@ -585,34 +585,9 @@ func metadataTypeTagFactory_target_message(targets []string) string {
 
 func metadataTypeTagFactory_append_error(errors *[]MetadataFactory_IError, next MetadataFactory_IError) {
   for _, previous := range *errors {
-    if previous.Name == next.Name &&
-      metadataTypeTagFactory_same_explore(previous.Explore, next.Explore) &&
-      metadataTypeTagFactory_same_messages(previous.Messages, next.Messages) {
+    if reflect.DeepEqual(previous, next) {
       return
     }
   }
   *errors = append(*errors, next)
-}
-
-func metadataTypeTagFactory_same_explore(x MetadataFactory_IExplore, y MetadataFactory_IExplore) bool {
-  return x.Top == y.Top &&
-    x.Object == y.Object &&
-    reflect.DeepEqual(x.Property, y.Property) &&
-    reflect.DeepEqual(x.Parameter, y.Parameter) &&
-    reflect.DeepEqual(x.Nested, y.Nested) &&
-    x.Aliased == y.Aliased &&
-    x.Escaped == y.Escaped &&
-    x.Output == y.Output
-}
-
-func metadataTypeTagFactory_same_messages(x []string, y []string) bool {
-  if len(x) != len(y) {
-    return false
-  }
-  for i := range x {
-    if x[i] != y[i] {
-      return false
-    }
-  }
-  return true
 }

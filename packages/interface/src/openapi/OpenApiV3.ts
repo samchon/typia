@@ -456,12 +456,6 @@ export namespace OpenApiV3 {
         | "relative-json-pointer"
         | (string & {});
 
-      /** JSON Schema content media type preserved for OpenAPI 3.0 tooling. */
-      "x-jsonschema-contentMediaType"?: string;
-
-      /** JSON Schema content encoding preserved for OpenAPI 3.0 tooling. */
-      "x-jsonschema-contentEncoding"?: string;
-
       /** Regex pattern. */
       pattern?: string;
 

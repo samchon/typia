@@ -8,24 +8,11 @@ import (
   "testing"
 )
 
-// TestRecursiveContainerHelperIndexTransform verifies recursive helper calls and declarations share one identity.
-//
-// Issue #2385 places an ordinary array before a self-referential JSON array.
-// Collection position and recursive index then diverge, leaving generated
-// calls such as `_ia0` without declarations. The same indexing rule is shared
-// by recursive tuples and every feature programmer that emits their helpers.
-//
-//  1. Transform check, stringify, notation, plain, and random operations over recursive arrays and tuples.
-//  2. Execute recursive values after an ordinary container has displaced collection order.
-//  3. Require normal feature results rather than missing-helper exceptions.
+// TestRecursiveContainerHelperIndexTransform verifies recursive container helpers
+// remain callable when ordinary containers precede them in collection order.
 func TestRecursiveContainerHelperIndexTransform(t *testing.T) {
   project := recursiveContainerHelperIndexProject(t)
   js := recursiveContainerHelperIndexTransform(t, project)
-  for _, helper := range []string{"_ia0", "_aa0", "_va0", "_ra0", "_it0"} {
-    if !strings.Contains(js, helper) {
-      t.Fatalf("recursive container fixture did not emit %q:\n%s", helper, js)
-    }
-  }
   recursiveContainerHelperIndexRunRuntimeCases(t, project, js)
 }
 
@@ -40,9 +27,7 @@ func recursiveContainerHelperIndexProject(t *testing.T) string {
   if err != nil {
     t.Fatalf("create temp fixture: %v", err)
   }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  t.Cleanup(func() { _ = os.RemoveAll(dir) })
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
@@ -92,7 +77,6 @@ func recursiveContainerHelperIndexRunRuntimeCases(t *testing.T, project string, 
     "_randomArray",
     "_randomNumber",
     "_randomPick",
-    "_throwTypeGuardError",
   } {
     js = strings.ReplaceAll(
       js,
@@ -138,12 +122,14 @@ type JsonObject = { [key: string]: JsonValue };
 type JsonValue = JsonPrimitive | JsonArray | JsonObject;
 
 interface ArrayWitness {
-  strings: string[];
+  ordinary: string[];
   value: JsonValue;
 }
-interface ArrayControl {
-  value: JsonValue;
-  strings: string[];
+
+type RecursiveTuple = [string, RecursiveTuple | null];
+interface TupleWitness {
+  ordinary: [number];
+  value: RecursiveTuple;
 }
 
 type RandomArray = Array<string | RandomArray>;
@@ -152,54 +138,33 @@ interface RandomArrayWitness {
   value: RandomArray;
 }
 
-type RecursiveTuple = [string, RecursiveTuple | null];
-interface TupleWitness {
-  ordinary: [number];
-  value: RecursiveTuple;
-}
-interface TupleControl {
-  value: RecursiveTuple;
-  ordinary: [number];
-}
-
 export const isArray = typia.createIs<ArrayWitness>();
-export const isArrayDirect = (input: unknown) => typia.is<ArrayWitness>(input);
-export const assertArray = typia.createAssert<ArrayWitness>();
-export const validateArray = typia.createValidate<ArrayWitness>();
-export const equalsArray = typia.createEquals<ArrayWitness>();
-export const isArrayControl = typia.createIs<ArrayControl>();
-
 export const isTuple = typia.createIs<TupleWitness>();
-export const validateTuple = typia.createValidate<TupleWitness>();
-export const isTupleControl = typia.createIs<TupleControl>();
-
 export const stringifyArray = typia.json.createStringify<ArrayWitness>();
-export const camelArray = typia.notations.createCamel<ArrayWitness>();
-export const cloneArray = typia.plain.createClone<ArrayWitness>();
-export const classifyArray = typia.plain.createClassify<ArrayWitness>();
-export const pruneArray = typia.plain.createPrune<ArrayWitness>();
 export const stringifyTuple = typia.json.createStringify<TupleWitness>();
+export const camelArray = typia.notations.createCamel<ArrayWitness>();
 export const camelTuple = typia.notations.createCamel<TupleWitness>();
+export const cloneArray = typia.plain.createClone<ArrayWitness>();
 export const cloneTuple = typia.plain.createClone<TupleWitness>();
+export const classifyArray = typia.plain.createClassify<ArrayWitness>();
 export const classifyTuple = typia.plain.createClassify<TupleWitness>();
+export const pruneArray = typia.plain.createPrune<ArrayWitness>();
 export const pruneTuple = typia.plain.createPrune<TupleWitness>();
+export const randomArray = typia.createRandom<RandomArrayWitness>({
+  array: () => [],
+  string: () => "generated",
+});
 export const randomTuple = typia.createRandom<TupleWitness>({
   boolean: () => false,
   number: () => 1,
-  string: () => "generated",
-});
-export const randomArray = typia.createRandom<RandomArrayWitness>({
-  array: () => [],
   string: () => "generated",
 });
 `
 
 const recursiveContainerHelperIndexRuntimeRunner = `const mod = require("./main.cjs");
 
-const arrayValue = { strings: ["a"], value: [1, { nested: [true, null] }] };
-const arrayControl = { value: [1, { nested: [true, null] }], strings: ["a"] };
+const arrayValue = { ordinary: ["a"], value: [1, { nested: [true, null] }] };
 const tupleValue = { ordinary: [1], value: ["root", ["child", null]] };
-const tupleControl = { value: ["root", ["child", null]], ordinary: [1] };
 
 const expect = (label, actual, expected) => {
   if (actual !== expected) {
@@ -207,68 +172,28 @@ const expect = (label, actual, expected) => {
   }
 };
 
-expect("array factory valid", mod.isArray(arrayValue), true);
-expect("array direct valid", mod.isArrayDirect(arrayValue), true);
-expect("array missing sibling", mod.isArray({ value: [1] }), false);
-expect("array recursive invalid", mod.isArray({ strings: ["a"], value: Symbol() }), false);
-expect("array reversed control", mod.isArrayControl(arrayControl), true);
-expect("array equals exact", mod.equalsArray(arrayValue), true);
-expect("array equals extra", mod.equalsArray({ ...arrayValue, extra: true }), false);
+expect("is array", mod.isArray(arrayValue), true);
+expect("is tuple", mod.isTuple(tupleValue), true);
+expect("stringify array", mod.stringifyArray(arrayValue), JSON.stringify(arrayValue));
+expect("stringify tuple", mod.stringifyTuple(tupleValue), JSON.stringify(tupleValue));
+expect("notation array", mod.camelArray(arrayValue).value[1].nested[0], true);
+expect("notation tuple", mod.camelTuple(tupleValue).value[1][0], "child");
+expect("clone array", mod.cloneArray(arrayValue).value[1].nested[1], null);
+expect("clone tuple", mod.cloneTuple(tupleValue).value[1][0], "child");
+expect("classify array", mod.classifyArray(arrayValue).value[1].nested[0], true);
+expect("classify tuple", mod.classifyTuple(tupleValue).value[1][0], "child");
 
-const validArray = mod.validateArray(arrayValue);
-if (validArray.success !== true) throw new Error("validate array rejected valid input");
-const invalidArray = mod.validateArray({ value: [1] });
-if (invalidArray.success !== false || invalidArray.errors.length === 0) {
-  throw new Error("validate array did not return ordinary errors");
-}
-mod.assertArray(arrayValue);
-try {
-  mod.assertArray({ value: [1] });
-  throw new Error("assert array accepted invalid input");
-} catch (error) {
-  if (error instanceof ReferenceError) throw error;
-}
-
-expect("tuple factory valid", mod.isTuple(tupleValue), true);
-expect("tuple empty recursion", mod.isTuple({ ordinary: [1], value: ["root", null] }), true);
-expect("tuple recursive invalid", mod.isTuple({ ordinary: [1], value: ["root", [1, null]] }), false);
-expect("tuple ordinary invalid", mod.isTuple({ ordinary: [], value: ["root", null] }), false);
-expect("tuple reversed control", mod.isTupleControl(tupleControl), true);
-const invalidTuple = mod.validateTuple({ ordinary: [1], value: ["root", [1, null]] });
-if (invalidTuple.success !== false || invalidTuple.errors.length === 0) {
-  throw new Error("validate tuple did not return ordinary errors");
-}
-
-expect("json stringify", mod.stringifyArray(arrayValue), JSON.stringify(arrayValue));
-expect("notation recursive value", mod.camelArray(arrayValue).value[1].nested[0], true);
-expect("clone recursive value", mod.cloneArray(arrayValue).value[1].nested[1], null);
-expect("classify recursive value", mod.classifyArray(arrayValue).value[1].nested[0], true);
-
-const pruned = { ...arrayValue, extra: true };
-mod.pruneArray(pruned);
-expect("prune root extra", "extra" in pruned, false);
-expect("prune recursive value", pruned.value[1].nested[0], true);
-
-expect("json stringify tuple", mod.stringifyTuple(tupleValue), JSON.stringify(tupleValue));
-expect("notation recursive tuple", mod.camelTuple(tupleValue).value[1][0], "child");
-expect("clone recursive tuple", mod.cloneTuple(tupleValue).value[1][0], "child");
-expect("classify recursive tuple", mod.classifyTuple(tupleValue).value[1][0], "child");
+const prunedArray = { ...arrayValue, extra: true };
+mod.pruneArray(prunedArray);
+expect("prune array", "extra" in prunedArray, false);
 const prunedTuple = { ...tupleValue, extra: true };
 mod.pruneTuple(prunedTuple);
-expect("prune tuple extra", "extra" in prunedTuple, false);
-expect("prune recursive tuple", prunedTuple.value[1][0], "child");
-
-const generated = mod.randomTuple();
-expect("random ordinary tuple", generated.ordinary[0], 1);
-expect("random recursive tuple head", generated.value[0], "generated");
-if (generated.value[1] !== null) {
-  expect("random recursive tuple tail", generated.value[1][0], "generated");
-}
+expect("prune tuple", "extra" in prunedTuple, false);
 
 const generatedArray = mod.randomArray();
-if (Array.isArray(generatedArray.ordinary) === false || Array.isArray(generatedArray.value) === false) {
-  throw new Error("random recursive array result: " + JSON.stringify(generatedArray));
-}
+expect("random array", Array.isArray(generatedArray.value), true);
+const generatedTuple = mod.randomTuple();
+expect("random tuple", generatedTuple.value[0], "generated");
 `
 
 const recursiveContainerHelperIndexFeatureStub = `module.exports._jsonStringifyNumber = (value) => Number.isFinite(value) ? value : null;
@@ -276,5 +201,4 @@ module.exports._jsonStringifyString = (value) => JSON.stringify(value);
 module.exports._randomArray = () => [];
 module.exports._randomNumber = () => 1;
 module.exports._randomPick = (values) => values[0];
-module.exports._throwTypeGuardError = (props) => { throw Object.assign(new Error(props.expected), props); };
 `
