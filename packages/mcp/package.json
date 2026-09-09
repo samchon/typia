@@ -1,6 +1,6 @@
 {
   "name": "@typia/mcp",
-  "version": "14.0.5",
+  "version": "14.0.6",
   "description": "MCP (Model Context Protocol) integration for typia",
   "main": "src/index.ts",
   "exports": {
