@@ -622,11 +622,13 @@ export namespace OpenApiV3_1Upgrader {
               },
             });
           else if (schema.items === undefined)
+            // JSON SCHEMA 2020-12 TREATS OMITTED `items` AS AN OPEN `any[]`
             union.push({
               ...schema,
               ...{
-                items: undefined!,
-                prefixItems: [],
+                items: {},
+                prefixItems: undefined,
+                additionalItems: undefined,
               },
             });
           else

@@ -273,7 +273,11 @@ export namespace OpenApiV3Downgrader {
           const next = omitSchemaExamples(schema);
           union.push({
             ...next,
-            items: downgradeSchema(collection)(schema.items),
+            // TOLERATE A SPEC-VIOLATING ARRAY WITHOUT `items` AS `any[]`
+            items:
+              schema.items === undefined
+                ? {}
+                : downgradeSchema(collection)(schema.items),
           });
         } else if (OpenApiTypeChecker.isTuple(schema)) {
           const next = omitSchemaExamples(schema);

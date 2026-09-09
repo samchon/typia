@@ -445,7 +445,11 @@ export namespace OpenApiV3Upgrader {
         else if (OpenApiV3TypeChecker.isArray(schema))
           union.push({
             ...schema,
-            items: convertSchema(components)(schema.items),
+            // SPEC REQUIRES `items`, BUT TOLERATE ITS ABSENCE AS `any[]`
+            items:
+              schema.items === undefined
+                ? {}
+                : convertSchema(components)(schema.items),
           });
         else if (OpenApiV3TypeChecker.isObject(schema))
           union.push({

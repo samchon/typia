@@ -652,7 +652,11 @@ export namespace SwaggerV2Downgrader {
         else if (OpenApiTypeChecker.isArray(schema))
           union.push({
             ...schema,
-            items: downgradeSchema(collection)(schema.items),
+            // TOLERATE A SPEC-VIOLATING ARRAY WITHOUT `items` AS `any[]`
+            items:
+              schema.items === undefined
+                ? {}
+                : downgradeSchema(collection)(schema.items),
             examples: schema.examples
               ? Object.values(schema.examples)
               : undefined,
