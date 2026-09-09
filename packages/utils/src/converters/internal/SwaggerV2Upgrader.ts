@@ -730,7 +730,11 @@ export namespace SwaggerV2Upgrader {
         else if (SwaggerV2TypeChecker.isArray(schema))
           union.push({
             ...schema,
-            items: convertSchema(definitions)(schema.items),
+            // SPEC REQUIRES `items`, BUT TOLERATE ITS ABSENCE AS `any[]`
+            items:
+              schema.items === undefined
+                ? {}
+                : convertSchema(definitions)(schema.items),
             examples: schema.examples
               ? Object.fromEntries(schema.examples.map((v, i) => [`v${i}`, v]))
               : undefined,
