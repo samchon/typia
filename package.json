@@ -14,10 +14,11 @@
     "test:go:public": "go -C packages/typia/test test ./...",
     "test:go:native": "go -C packages/typia/test test ../native/...",
     "test:toolchain": "pnpm run test:go",
-    "package:latest": "bash -c 'pnpm --filter=./packages/* -r publish --tag latest --access public \"$@\"' --",
-    "package:next": "bash -c 'pnpm --filter=./packages/* -r publish --tag next --access public \"$@\"' --",
-    "package:rc": "bash -c 'pnpm --filter=./packages/* -r publish --tag rc --access public \"$@\"' --",
-    "package:tgz": "node experiments/tarballs",
+    "package:prepare": "pnpm run build && node .github/workflows/release-guard.cjs validate-build-output",
+    "package:latest": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag latest",
+    "package:next": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag next",
+    "package:rc": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag rc",
+    "package:tgz": "pnpm run package:prepare && node experiments/tarballs",
     "release": "bumpp -r"
   },
   "repository": {

@@ -121,8 +121,8 @@ Run the narrowest command that proves the change first, then a broader command w
 - **One TypeScript workspace:** `pnpm --filter ./tests/<name> start`.
 - **One package:** `pnpm --filter ./packages/<name> build`.
 - **Transform, descriptor, or shared package:** `pnpm test`; use `pnpm build` as the broader package compilation gate.
-- **Packaging:** run root `pnpm package:tgz`, then inspect or smoke-test a clean install. Tarballs are generated under `experiments/tarballs/`; do not commit or hand-edit them.
-- **Website or guide changes:** reproduce the fresh CI prerequisites: place a ttsc checkout at `../ttsc`, run root `pnpm install`, `pnpm build`, and `pnpm package:tgz`, then run `pnpm build` inside `website/`. The compiler-dependencies package installs the staged tarballs, and the playground Wasm build resolves the sibling ttsc Go modules.
+- **Packaging:** run root `pnpm package:tgz`, then inspect or smoke-test a clean install. It builds every package and verifies the published entry points before packing (`pnpm pack` alone no longer builds; the manifests carry no `prepack`). Tarballs are generated under `experiments/tarballs/`; do not commit or hand-edit them.
+- **Website or guide changes:** reproduce the fresh CI prerequisites: place a ttsc checkout at `../ttsc`, run root `pnpm install` and `pnpm package:tgz`, then run `pnpm build` inside `website/`. The compiler-dependencies package installs the staged tarballs, and the playground Wasm build resolves the sibling ttsc Go modules.
 
 Verification shape depends on the change type:
 
