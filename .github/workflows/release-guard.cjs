@@ -3,6 +3,7 @@
 
 const childProcess = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
 const STABLE_VERSION = /^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$/;
 const PRERELEASE_PATTERNS = {
@@ -109,6 +110,52 @@ const bumpIfNeeded = () => {
   );
 };
 
+// The release job builds every package before the first publish and then
+// publishes the prebuilt `lib/` as is (no `prepack` rebuild), so a missing
+// entry point would otherwise ship silently: `pnpm publish` does not check
+// that `main`, `types`, or `exports` targets exist. Resolve every published
+// entry from `publishConfig` and refuse to publish when one is absent.
+const publishedEntries = (publishConfig) => {
+  const entries = new Set();
+  const add = (entry) => entries.add(path.normalize(entry));
+  for (const key of ["main", "module", "types"])
+    if (typeof publishConfig[key] === "string") add(publishConfig[key]);
+  const visit = (value) => {
+    if (typeof value === "string") {
+      // subpath patterns such as "./lib/internal/*.js" name a directory of
+      // files; check that the directory exists instead of the pattern.
+      const star = value.indexOf("*");
+      add(star === -1 ? value : path.dirname(value.slice(0, star + 1)));
+    } else if (value && typeof value === "object")
+      for (const nested of Object.values(value)) visit(nested);
+  };
+  visit(publishConfig.exports ?? {});
+  return [...entries];
+};
+
+const validateBuildOutput = () => {
+  const missing = [];
+  let checked = 0;
+  for (const file of packageJsonFiles()) {
+    if (!/^packages\/[^/]+\/package\.json$/.test(file)) continue;
+    const json = JSON.parse(fs.readFileSync(file, "utf8"));
+    if (json.private) continue;
+    const dir = path.dirname(file);
+    for (const entry of publishedEntries(json.publishConfig ?? {})) {
+      checked += 1;
+      if (!fs.existsSync(path.join(dir, entry)))
+        missing.push(`${json.name}: ${entry}`);
+    }
+  }
+  if (checked === 0) fail("no published entry points found under packages/*");
+  if (missing.length) {
+    console.error("Build output is missing published entry points:");
+    for (const line of missing) console.error(`- ${line}`);
+    process.exit(1);
+  }
+  console.log(`Verified ${checked} published entry points.`);
+};
+
 switch (command) {
   case "validate-context":
     validateContext();
@@ -119,8 +166,11 @@ switch (command) {
   case "validate-package-versions":
     assertPackageVersions(process.env.RELEASE_VERSION);
     break;
+  case "validate-build-output":
+    validateBuildOutput();
+    break;
   default:
     fail(
-      "usage: release-guard.cjs <validate-context|bump-if-needed|validate-package-versions>",
+      "usage: release-guard.cjs <validate-context|bump-if-needed|validate-package-versions|validate-build-output>",
     );
 }

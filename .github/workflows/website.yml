@@ -67,14 +67,12 @@ jobs:
           key: ttsc-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
           restore-keys: ttsc-cache-${{ runner.os }}-
 
-      # `pnpm run build` compiles every package to `lib/` (read by the website's
-      # runtime pack, build/pack-typia-runtime.js), and `pnpm run package:tgz`
-      # stages the tarballs that `website/compiler-dependencies` still installs
-      # to feed embed-typescript's Monaco type pack.
+      # `pnpm run package:tgz` first compiles every package to `lib/` (read by
+      # the website's runtime pack, build/pack-typia-runtime.js), then stages
+      # the tarballs that `website/compiler-dependencies` still installs to
+      # feed embed-typescript's Monaco type pack.
       - name: Packages
-        run: |
-          pnpm run build
-          pnpm run package:tgz
+        run: pnpm run package:tgz
 
       - name: Test Playground Compiler
         working-directory: website

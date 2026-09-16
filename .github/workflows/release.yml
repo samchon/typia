@@ -59,7 +59,15 @@ jobs:
             git commit -m "chore(release): bump ${NPM_TAG} to ${RELEASE_VERSION} [skip ci]"
             git push origin HEAD:${GITHUB_REF_NAME}
           fi
-      - name: Publish to npm
+      # `package:*` runs `package:prepare` first: it builds every package and
+      # verifies each published entry point exists, and only then starts
+      # `pnpm -r publish`, which walks the packages one at a time and ships the
+      # prebuilt `lib/` as is (the manifests carry no `prepack` rebuild). A
+      # build failure therefore stops the job while npm still holds the
+      # previous release intact, instead of a half-published version set:
+      # typia and @typia/interface are version-coupled through
+      # `typia/lib/internal/*`, so a partial set breaks consumers.
+      - name: Build and publish to npm
         run: pnpm run "package:${NPM_TAG}" --no-git-checks --provenance
   release:
     runs-on: ubuntu-latest
@@ -108,10 +116,9 @@ jobs:
           test -n "${TTSC_VERSION}"
           git clone --branch "v${TTSC_VERSION}" --depth 1 https://github.com/samchon/ttsc.git ../ttsc
 
+      # `package:tgz` builds every package to `lib/` before packing them.
       - name: Build Packages
-        run: |
-          pnpm run build
-          pnpm run package:tgz
+        run: pnpm run package:tgz
       - name: Website Build
         working-directory: website
         run: pnpm run build
