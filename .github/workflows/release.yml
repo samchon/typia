@@ -32,7 +32,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Pinned by digest: this job holds the npm publishing identity, so the
+      # checkout action is the one step where a moving tag would matter.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 #v4
       - uses: actions/setup-node@v6
         with:
           node-version: 24.x
