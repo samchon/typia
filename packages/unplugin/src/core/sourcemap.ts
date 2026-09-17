@@ -97,7 +97,8 @@ if (import.meta.vitest != null) {
   });
 
   test("rebuild verbatim across generated diff shapes", () => {
-    // Deterministic sweep: the shipped skip missed ~7% of these.
+    // Deterministic sweep. The skip this replaced misrebuilt 132 of these
+    // 2,000 cases, 32 of them emitting the `= ==` from #2391.
     const atoms = [
       " ",
       "\n",
