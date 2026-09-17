@@ -1,6 +1,4 @@
 import { createFilter as rollupCreateFilter } from "@rollup/pluginutils";
-import * as Diff from "diff-match-patch-es";
-import MagicString from "magic-string";
 import { resolve } from "pathe";
 import type { UnpluginFactory, UnpluginInstance } from "unplugin";
 import { createUnplugin } from "unplugin";
@@ -11,6 +9,7 @@ import {
   isSvelteFile,
   preprocess as sveltePreprocess,
 } from "./languages/svelte.js";
+import { buildMagicString } from "./magicString.js";
 import type { Options, ResolvedOptions } from "./options.js";
 import { resolveOptions } from "./options.js";
 import type { Data, ID, Source, UnContext } from "./types.js";
@@ -58,63 +57,7 @@ const unpluginFactory: UnpluginFactory<Options | undefined, false> = (
     code: Data;
     id: ID;
   }) {
-    /** Generate Magic string */
-    const s = new MagicString(source);
-
-    /** Generate diff */
-    const diff = Diff.diff(source, code);
-
-    /** Cleanup diff */
-    Diff.diffCleanupSemantic(diff);
-
-    let offset = 0;
-    for (let index = 0; index < diff.length; index++) {
-      const [type, text] = diff[index];
-      const textLength = text.length;
-      /** Skip */
-      if (type === 0) {
-        /* offset is increased  */
-        offset += textLength;
-      } else if (type === 1) {
-        /** Add text */
-        s.prependLeft(offset, text);
-
-        /* offset is not increased because text is prepended */
-      } else if (type === -1) {
-        /** Remove text */
-        const next = diff.at(index + 1);
-
-        /** If next is equal to 1, then overwrite */
-        if (next != null && next[0] === 1) {
-          const replaceText = next[1];
-
-          /**
-           * Get first non-whitespace character of text (maybe bug of
-           * magic-string) text.search(/\S/) ignore `\n`, but it is important
-           * (https://github.com/ryoppippi/unplugin-typia/issues/434)
-           */
-          const firstNonWhitespaceIndexOfText = text.startsWith("\n")
-            ? 0
-            : text.search(/\S/);
-
-          const offsetStart =
-            offset +
-            (firstNonWhitespaceIndexOfText > 0
-              ? firstNonWhitespaceIndexOfText
-              : 0);
-
-          s.update(offsetStart, offset + textLength, replaceText);
-
-          /** Skip next */
-          index += 1;
-        } else {
-          s.remove(offset, offset + textLength);
-        }
-
-        /* offset is increased  */
-        offset += textLength;
-      }
-    }
+    const s = buildMagicString(source, code);
 
     if (!s.hasChanged()) {
       return;
