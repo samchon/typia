@@ -1,0 +1,50 @@
+# Publishes the v12 maintenance line under the `legacy` npm dist-tag.
+#
+# This branch exists only to ship patches to v12 while `master` carries the
+# current major and owns `latest`. An earlier revision of this file was deleted
+# outright (`ci(release): drop the release workflow from the v12 maintenance
+# branch`) because it fired on `push: tags: "*"`, published with
+# `--tag latest`, and deployed this branch's website to `gh-pages`: a tag cut
+# here would have pulled the npm dist-tag down to v12 and replaced the
+# published documentation.
+#
+# A tag push runs the workflow file present at the pushed ref, so this file is
+# what a `v12.*` tag on this branch executes, and `master`'s release workflow is
+# never involved. Three properties keep that containment, and widening any of
+# them reintroduces the failure above:
+#
+# - the trigger matches `v12.*` only, never `v*`;
+# - `package:legacy` hardcodes `--tag legacy`, so no input or variable can
+#   redirect the dist-tag;
+# - this workflow publishes and nothing else. There is no release-notes job and
+#   no website job, so it cannot touch `gh-pages` or the repository's releases.
+name: release
+on:
+  push:
+    tags:
+      - "v12.*"
+permissions:
+  # Required for npm trusted publishing (OIDC) and `--provenance`. No npm token
+  # is stored anywhere; the registry authenticates this workflow by identity.
+  id-token: write
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org/
+      - name: Validate release context
+        run: node .github/workflows/release-guard.cjs validate-context
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+      # `package:legacy` builds every package before it publishes any of them.
+      # These packages are version-coupled, so a build that fails midway through
+      # `pnpm -r publish` would leave a partial version set on npm while the
+      # previous release is already gone from the dist-tag.
+      - name: Build and publish to npm
+        run: pnpm run package:legacy
