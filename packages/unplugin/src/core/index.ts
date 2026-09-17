@@ -9,9 +9,9 @@ import {
   isSvelteFile,
   preprocess as sveltePreprocess,
 } from "./languages/svelte.js";
-import { buildMagicString } from "./magicString.js";
 import type { Options, ResolvedOptions } from "./options.js";
 import { resolveOptions } from "./options.js";
+import { buildMagicString } from "./sourcemap.js";
 import type { Data, ID, Source, UnContext } from "./types.js";
 import { wrap } from "./types.js";
 import { transformTypia } from "./typia.js";
