@@ -1,5 +1,6 @@
-import { TestValidator } from "@nestia/e2e";
 import typia, { tags } from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation includes set members at their thresholds.
@@ -28,26 +29,18 @@ export const test_llm_evaluation_set_threshold = (): void => {
     return result.data;
   };
 
-  TestValidator.equals(
-    "below both",
-    run({ card: 0.89, loan: 0.69, plain: 0.49 }),
-    {
-      products: [],
-      channels: ["phone"],
-    },
-  );
-  TestValidator.equals("at both", run({ card: 0.9, loan: 0.7, plain: 0.5 }), {
+  _equalsExactly("below both", run({ card: 0.89, loan: 0.69, plain: 0.49 }), {
+    products: [],
+    channels: ["phone"],
+  });
+  _equalsExactly("at both", run({ card: 0.9, loan: 0.7, plain: 0.5 }), {
     products: ["card", "loan"],
     channels: ["email", "phone"],
   });
-  TestValidator.equals(
-    "only default",
-    run({ card: 0.8, loan: 0.8, plain: 1 }),
-    {
-      products: ["loan"],
-      channels: ["email"],
-    },
-  );
+  _equalsExactly("only default", run({ card: 0.8, loan: 0.8, plain: 1 }), {
+    products: ["loan"],
+    channels: ["email"],
+  });
 };
 
 interface IDecision {

@@ -1,5 +1,6 @@
-import { TestValidator } from "@nestia/e2e";
 import typia, { tags } from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation converts booleans at their thresholds.
@@ -26,42 +27,42 @@ export const test_llm_evaluation_boolean_threshold = (): void => {
     return result.data;
   };
 
-  TestValidator.equals("0.49", decide(0.49), {
+  _equalsExactly("0.49", decide(0.49), {
     plain: false,
     tagged: false,
     commented: false,
   });
-  TestValidator.equals("0.5", decide(0.5), {
+  _equalsExactly("0.5", decide(0.5), {
     plain: true,
     tagged: false,
     commented: false,
   });
-  TestValidator.equals("0.69", decide(0.69), {
+  _equalsExactly("0.69", decide(0.69), {
     plain: true,
     tagged: false,
     commented: false,
   });
-  TestValidator.equals("0.7", decide(0.7), {
+  _equalsExactly("0.7", decide(0.7), {
     plain: true,
     tagged: false,
     commented: true,
   });
-  TestValidator.equals("0.79", decide(0.79), {
+  _equalsExactly("0.79", decide(0.79), {
     plain: true,
     tagged: false,
     commented: true,
   });
-  TestValidator.equals("0.8", decide(0.8), {
+  _equalsExactly("0.8", decide(0.8), {
     plain: true,
     tagged: true,
     commented: true,
   });
-  TestValidator.equals("0", decide(0), {
+  _equalsExactly("0", decide(0), {
     plain: false,
     tagged: false,
     commented: false,
   });
-  TestValidator.equals("1", decide(1), {
+  _equalsExactly("1", decide(1), {
     plain: true,
     tagged: true,
     commented: true,

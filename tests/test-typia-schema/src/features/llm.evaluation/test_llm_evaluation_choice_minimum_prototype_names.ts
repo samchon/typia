@@ -1,5 +1,6 @@
-import { TestValidator } from "@nestia/e2e";
 import typia, { tags } from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies a gated choice option named like an Object.prototype member keeps
@@ -28,9 +29,9 @@ export const test_llm_evaluation_choice_minimum_prototype_names = (): void => {
       evaluation.validate({
         action: { type: "choice", choice: name, probabilities },
       }).success;
-    TestValidator.equals(`${name} omitted`, run({ other: 0.9 }), false);
-    TestValidator.equals(`${name} below`, run({ [name]: 0.49 }), false);
-    TestValidator.equals(`${name} at`, run({ [name]: 0.5 }), true);
+    _equalsExactly(`${name} omitted`, run({ other: 0.9 }), false);
+    _equalsExactly(`${name} below`, run({ [name]: 0.49 }), false);
+    _equalsExactly(`${name} at`, run({ [name]: 0.5 }), true);
   }
 };
 

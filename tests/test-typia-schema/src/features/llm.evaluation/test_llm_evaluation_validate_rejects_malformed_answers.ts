@@ -1,6 +1,7 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
 import typia from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate rejects malformed answer values.
@@ -99,13 +100,13 @@ export const test_llm_evaluation_validate_rejects_malformed_answers =
       ],
     ];
 
-    TestValidator.equals("control", evaluation.validate(valid).success, true);
+    _equalsExactly("control", evaluation.validate(valid).success, true);
     for (const [title, patch, path] of cases) {
       const result: IValidation<IDecision> = evaluation.validate({
         ...valid,
         ...patch,
       });
-      TestValidator.equals(
+      _equalsExactly(
         title,
         result.success ? [] : result.errors.map((e) => e.path),
         [path],

@@ -1,6 +1,7 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmEvaluation } from "@typia/interface";
 import typia from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation emits one neutral question per decision leaf.
@@ -21,7 +22,7 @@ import typia from "typia";
 export const test_llm_evaluation_questions = (): void => {
   const evaluation: ILlmEvaluation<ITicketTriage> =
     typia.llm.evaluation<ITicketTriage>();
-  TestValidator.equals("questions", evaluation.questions, {
+  _equalsExactly("questions", evaluation.questions, {
     urgent: {
       type: "boolean",
       instructions: "Does the customer convey urgency?",

@@ -1,6 +1,7 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
 import typia from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate accepts TypeSafe's native answers.
@@ -34,7 +35,7 @@ export const test_llm_evaluation_validate_native_answers = (): void => {
         confidence: 0.78,
       },
     });
-  TestValidator.equals("result", result, {
+  _equalsExactly("result", result, {
     success: true,
     data: {
       is_urgent: true,

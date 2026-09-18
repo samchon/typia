@@ -1,5 +1,6 @@
-import { TestValidator } from "@nestia/e2e";
 import typia, { tags } from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies tags.Probability stays inert outside typia.llm.evaluation.
@@ -19,19 +20,15 @@ export const test_llm_evaluation_probability_tag_inert = (): void => {
     { refund: false, action: "escalate" },
     { refund: true, action: "reply" },
   ] satisfies IDecision[]) {
-    TestValidator.equals("is", typia.is<IDecision>(value), true);
-    TestValidator.equals(
-      "validate",
-      typia.validate<IDecision>(value).success,
-      true,
-    );
+    _equalsExactly("is", typia.is<IDecision>(value), true);
+    _equalsExactly("validate", typia.validate<IDecision>(value).success, true);
   }
-  TestValidator.equals(
+  _equalsExactly(
     "json.schema",
     JSON.stringify(typia.json.schema<IDecision>()).includes("robability"),
     false,
   );
-  TestValidator.equals(
+  _equalsExactly(
     "llm.parameters",
     JSON.stringify(typia.llm.parameters<IDecision>()).includes("robability"),
     false,

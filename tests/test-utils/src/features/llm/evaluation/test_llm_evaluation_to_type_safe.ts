@@ -1,6 +1,7 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmEvaluation } from "@typia/interface";
 import { LlmEvaluation } from "@typia/utils";
+
+import { _equalsExactly } from "../../../internal/_equalsExactly";
 
 /**
  * Verifies LlmEvaluation.toTypeSafe renames only boolean questions.
@@ -42,29 +43,25 @@ export const test_llm_evaluation_to_type_safe = (): void => {
 
   const output: Record<string, LlmEvaluation.ITypeSafeQuestion> =
     LlmEvaluation.toTypeSafe(questions);
-  TestValidator.equals("urgent", output.urgent, {
+  _equalsExactly("urgent", output.urgent, {
     type: "noul",
     instructions: "Is it urgent?",
   });
-  TestValidator.equals("team", output.team, {
+  _equalsExactly("team", output.team, {
     type: "choice",
     instructions: "Which team?",
     criteria: { billing: "Payments", technical: null },
   });
-  TestValidator.equals("level", output.level, {
+  _equalsExactly("level", output.level, {
     type: "score",
     instructions: "How severe?",
     criteria: ["Low", "High"],
   });
-  TestValidator.equals(
+  _equalsExactly(
     "__proto__",
     Object.getOwnPropertyDescriptor(output, "__proto__")?.value,
     { type: "noul", instructions: "Prototype?" },
   );
-  TestValidator.equals(
-    "prototype",
-    Object.getPrototypeOf(output),
-    Object.prototype,
-  );
-  TestValidator.equals("input untouched", JSON.stringify(questions), snapshot);
+  _equalsExactly("prototype", Object.getPrototypeOf(output), Object.prototype);
+  _equalsExactly("input untouched", JSON.stringify(questions), snapshot);
 };

@@ -1,5 +1,6 @@
-import { TestValidator } from "@nestia/e2e";
 import typia from "typia";
+
+import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation emits the same questions for every equivalent
@@ -18,7 +19,7 @@ import typia from "typia";
  */
 export const test_llm_evaluation_type_spellings = (): void => {
   const expected = typia.llm.evaluation<IInterface>().questions;
-  TestValidator.equals("interface", expected, {
+  _equalsExactly("interface", expected, {
     urgent: { type: "boolean", instructions: "Is it urgent?" },
     team: {
       type: "choice",
@@ -34,27 +35,19 @@ export const test_llm_evaluation_type_spellings = (): void => {
       instructions: 'Which channels?\n\nDoes the option "phone" apply?',
     },
   });
-  TestValidator.equals(
-    "alias",
-    typia.llm.evaluation<IAlias>().questions,
-    expected,
-  );
-  TestValidator.equals(
+  _equalsExactly("alias", typia.llm.evaluation<IAlias>().questions, expected);
+  _equalsExactly(
     "intersection",
     typia.llm.evaluation<IUrgent & ITeam & IChannels>().questions,
     expected,
   );
-  TestValidator.equals(
+  _equalsExactly(
     "generic",
     typia.llm.evaluation<IGeneric<Flag>>().questions,
     expected,
   );
-  TestValidator.equals(
-    "class",
-    typia.llm.evaluation<Decision>().questions,
-    expected,
-  );
-  TestValidator.equals(
+  _equalsExactly("class", typia.llm.evaluation<Decision>().questions, expected);
+  _equalsExactly(
     "readonly",
     typia.llm.evaluation<IReadonly>().questions,
     expected,
