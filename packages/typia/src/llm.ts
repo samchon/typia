@@ -220,8 +220,8 @@ export function evaluation(): never;
  * TypeSafe's Jev natively, and OpenAI, Anthropic, and Google through Vercel AI
  * SDK's `experimental_evaluate()`.
  *
- * Every leaf property of `T` becomes one independent question, and its JSDoc
- * description becomes the question text:
+ * Every leaf property of `T` becomes one question, and its JSDoc description
+ * becomes the question text:
  *
  * - `boolean` → boolean question
  * - String enum or string literal union → choice question
