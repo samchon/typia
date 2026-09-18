@@ -226,7 +226,8 @@ export function evaluation(): never;
  * - `boolean` → boolean question
  * - String enum or string literal union → choice question
  * - Numeric enum or numeric literal union → score question
- * - Array of a string literal union → one boolean question per member
+ * - Array of a string literal union or string enum → one boolean question per
+ *   member
  * - Nested object → flattened, one question per leaf
  *
  * Types an evaluation model cannot answer, such as `string`, `number`, optional
