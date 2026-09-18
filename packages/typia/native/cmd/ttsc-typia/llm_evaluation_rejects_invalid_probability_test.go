@@ -35,7 +35,7 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
     "- $input.setMember\n  - LLM evaluation tags.Probability must be in [0, 1], but got 7. (member \"card\")",
     "- $input.nested\n  - LLM evaluation @probability must be on a boolean, choice, score, or set property, not on an object.",
     // two tags on one member fail typia's generic exclusive-tag check first
-    "  - the property [\"typia.tag\"] kind 'probability' can't be duplicated.",
+    "- __type.tagTwice: string & Probability0.5 & Probability0.6\n  - the property [\"typia.tag\"] kind 'probability' can't be duplicated.",
   } {
     if !strings.Contains(errText, expected) {
       t.Fatalf("llm.evaluation probability diagnostic missing %q:\n%s", expected, errText)
