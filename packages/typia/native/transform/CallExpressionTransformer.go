@@ -469,6 +469,7 @@ func callExpressionTransformer_createFunctors() map[string]map[string]callExpres
       "structuredOutput": func() callExpressionTransformerTask {
         return nativellmtransformers.LlmStructuredOutputTransformer.Transform
       },
+      "evaluation":  func() callExpressionTransformerTask { return nativellmtransformers.LlmEvaluationTransformer.Transform },
       "parameters":  func() callExpressionTransformerTask { return nativellmtransformers.LlmParametersTransformer.Transform },
       "schema":      func() callExpressionTransformerTask { return nativellmtransformers.LlmSchemaTransformer.Transform },
       "parse":       func() callExpressionTransformerTask { return nativellmtransformers.LlmParseTransformer.Transform },

@@ -16,6 +16,7 @@ export * from "./MinItems";
 export * from "./MinLength";
 export * from "./MultipleOf";
 export * from "./Pattern";
+export * from "./Probability";
 export * from "./Sequence";
 export * from "./TagBase";
 export * from "./Type";
