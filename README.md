@@ -28,6 +28,8 @@ export namespace llm {
   // collection of function calling schemas + validators/parsers
   export function application<Class>(): ILlmApplication<Class>;
   export function structuredOutput<P>(): ILlmStructuredOutput;
+  // typed questions for evaluation models + answer validator
+  export function evaluation<T>(): ILlmEvaluation<T>;
   // lenient json parser + type coercion
   export function parse<T>(str: string): T;
 }
@@ -146,6 +148,7 @@ Check out the document in the [website](https://typia.io/docs/):
 - LLM Function Calling Harness
   - [`application()` function](https://typia.io/docs/llm/application/)
   - [`structuredOutput()` function](https://typia.io/docs/llm/structuredOutput/)
+  - [`evaluation()` function](https://typia.io/docs/llm/evaluation/)
   - [`HttpLlm` module](https://typia.io/docs/llm/http/)
   - [`LlmJson` module](https://typia.io/docs/llm/json/)
 - Protocol Buffer

@@ -54,6 +54,8 @@ func TestLlmEvaluationRejectsUndecidableTypes(t *testing.T) {
     "- $input.node.child\n  - LLM evaluation does not support recursive types.",
     "- $input.undocumented\n  - LLM evaluation property must have a JSDoc description, because it is the question text.",
     "- $input.blank\n  - LLM evaluation property must have a JSDoc description, because it is the question text.",
+    "- $input.nbsp\n  - LLM evaluation property must have a JSDoc description, because it is the question text.",
+    "- $input.tagOnly\n  - LLM evaluation property must have a JSDoc description, because it is the question text.",
     "- $input.secret\n  - LLM evaluation does not support hidden properties, because every property of the result needs an answer.",
     "- $input.method\n  - LLM evaluation does not support function properties.",
     "- $input.anything\n  - LLM evaluation does not support any type.",
@@ -190,6 +192,8 @@ typia.llm.evaluation<{
   node: INode;
   undocumented: boolean;
   /**   */ blank: boolean;
+  /** @probability 0.5 */ tagOnly: boolean;
+  /**   */ nbsp: boolean;
   /**
    * Secret?
    *

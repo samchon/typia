@@ -91,6 +91,7 @@ typia.json.schemas<[T]>(); // emit OpenAPI/JSON Schema
 // LLM function calling — turn a TypeScript class into tools
 typia.llm.application<MyService>(); // full ILlmApplication with parse/coerce/validate
 typia.llm.structuredOutput<T>(); // schema + parser + coercer + validator
+typia.llm.evaluation<T>(); // evaluation-model questions + answer validator
 typia.llm.parameters<T>(); // just the JSON schema
 
 // Protocol Buffer — same again, in binary

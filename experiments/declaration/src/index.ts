@@ -39,6 +39,11 @@ interface IOperationResult {
   value: number;
 }
 
+interface IDecision {
+  /** Is it urgent? */
+  urgent: boolean;
+}
+
 interface ICalculator {
   plus(props: IOperands): IOperationResult;
   minus(props: IOperands): IOperationResult;
@@ -93,6 +98,7 @@ export const llmController = typia.llm.controller<Calculator>(
   new Calculator(),
 );
 export const llmStructuredOutput = typia.llm.structuredOutput<IMember>();
+export const llmEvaluation = typia.llm.evaluation<IDecision>();
 export const llmParameters = typia.llm.parameters<IMember>();
 export const llmParse = typia.llm.createParse<IMember>();
 export const llmCoerce = typia.llm.createCoerce<IMember>();

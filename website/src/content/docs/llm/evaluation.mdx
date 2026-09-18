@@ -7,7 +7,7 @@ import LocalSource from "../../../components/LocalSource";
 
 # `typia.llm.evaluation` — typed questions for evaluation models
 
-An **evaluation model** generates no text. You give it a shared `state` and a map of typed questions, and it answers every question independently, in one pass, with probabilities: a yes/no probability, one option of a closed set, or a position on ordered levels. TypeSafe's [Jev](https://docs.typesafe.ai/introduction) is the native one, and Vercel AI SDK's [`experimental_evaluate()`](https://ai-sdk.dev/docs/ai-sdk-core/evaluation) runs the same provider-neutral question shape on OpenAI, Anthropic, and Google as well.
+An **evaluation model** generates no text. You give it a shared `state` and a map of typed questions, and it answers every question with probabilities: a yes/no probability, one option of a closed set, or a position on ordered levels. TypeSafe's [Jev](https://docs.typesafe.ai/introduction) is the native one, and Vercel AI SDK's [`experimental_evaluate()`](https://ai-sdk.dev/docs/ai-sdk-core/evaluation) runs the same provider-neutral question shape on OpenAI, Anthropic, and Google as well.
 
 `typia.llm.evaluation<T>()` turns a TypeScript decision type into those questions, and folds the answers back into `T`.
 
@@ -202,6 +202,6 @@ const validation = triage.validate(response.answers);
 ## Providers
 
 - **Calibration**: probabilities are calibrated only on native evaluation models such as Jev. The AI SDK adapters for OpenAI, Anthropic, and Google ask a language model to write each number itself in one structured-output request, and return no choice or score distribution.
-- **Independence**: answers are evaluated independently, so `refund.requested` at `0.1` next to a confident refund reason is a valid result. Ask dependent questions in a second request.
+- **Independence**: Jev evaluates each question independently, and the AI SDK adapters for language models instruct the model to do the same, so `refund.requested` at `0.1` next to a confident refund reason is a valid result. Ask dependent questions in a second request.
 - **Limits**: TypeSafe accepts at most 255 choice options and 10 score levels; other providers have their own limits. typia checks only the neutral constraints at compile time.
 - **Language**: Jev documents lower accuracy for non-English state and instructions, which includes non-English JSDoc.

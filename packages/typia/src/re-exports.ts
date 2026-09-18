@@ -25,6 +25,7 @@ export type {
   ILlmApplication,
   ILlmFunction,
   ILlmStructuredOutput,
+  ILlmEvaluation,
   ILlmSchema,
   // reflect
   IMetadataSchema,

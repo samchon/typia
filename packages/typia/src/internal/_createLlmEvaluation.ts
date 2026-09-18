@@ -118,9 +118,10 @@ const question = (
   return {
     type: "score",
     instructions: leaf.instructions,
+    // the transform rejects fewer than two levels
     criteria: leaf.levels.map(
       (level) => level.description ?? String(level.value),
-    ),
+    ) as [string, string, ...string[]],
   };
 };
 

@@ -11,7 +11,7 @@ Typia is a TypeScript transformer library built around one idea: a pure TypeScri
 
 The packages:
 
-- **`typia`**: the user-facing library and native transform. Exposes the runtime validators (`is`, `assert`, `assertGuard`, `validate`), enhanced JSON serde (`json.assertParse`, `json.assertStringify`, `json.schema`), LLM function-calling harness (`llm.application`, `llm.schema`, `llm.parse`, `llm.structuredOutput`), Protocol Buffer encoder/decoder (`protobuf.message`, `protobuf.assertEncode`, `protobuf.assertDecode`), and the random data generator (`random`).
+- **`typia`**: the user-facing library and native transform. Exposes the runtime validators (`is`, `assert`, `assertGuard`, `validate`), enhanced JSON serde (`json.assertParse`, `json.assertStringify`, `json.schema`), LLM function-calling harness (`llm.application`, `llm.schema`, `llm.parse`, `llm.structuredOutput`, `llm.evaluation`), Protocol Buffer encoder/decoder (`protobuf.message`, `protobuf.assertEncode`, `protobuf.assertDecode`), and the random data generator (`random`).
 - **`@typia/interface`**: shared public typings (e.g. `IJsonSchemaCollection`, `ILlmSchema`, `IValidation`) consumed by every other package and by user code.
 - **`@typia/utils`**: runtime, OpenAPI, and LLM utility helpers (e.g. `LlmTypeChecker`) that live next to but outside the transform.
 - **`@typia/langchain`**: LangChain.js integration that adapts typia's LLM harness to LangChain tools.

@@ -43,7 +43,8 @@ export interface ILlmEvaluation<T = unknown> {
    * `LlmEvaluation.toTypeSafe()` from `@typia/utils` first, because the native
    * API spells the boolean question type `"noul"`.
    *
-   * Each question is evaluated independently, and its key is not a part of the
+   * Jev evaluates each question independently, while the AI SDK adapters for
+   * language models only instruct the model to. A key is not a part of the
    * question text. The `instructions` come from the property's JSDoc
    * description, and choice or score criteria from the enum members' JSDoc
    * descriptions or `tags.Constant` descriptions.
@@ -107,9 +108,10 @@ export namespace ILlmEvaluation {
      * Level descriptions, from the lowest to the highest.
      *
      * Level `i` is the `i`-th smallest numeric value. A level without a
-     * description is described by its value.
+     * description is described by its value. There are always at least two
+     * levels, because a single numeric literal is a compile error.
      */
-    criteria: string[];
+    criteria: [string, string, ...string[]];
   }
 
   /** Question estimating the probability of "yes". */

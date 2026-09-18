@@ -725,6 +725,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      '@typesafe-ai/sdk':
+        specifier: ^0.6.0
+        version: 0.6.0
       ttsc:
         specifier: catalog:typescript
         version: 0.28.1
@@ -2780,6 +2783,10 @@ packages:
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
+
+  '@typesafe-ai/sdk@0.6.0':
+    resolution: {integrity: sha512-IddX+Q0XM+VagOUZFeP7wZjaO4SHMdvnh2zEBdrZZnXedWI3BNK1lKhMx3ayrkFWvVLbVcUHJy6AVZlY+e6Jaw==}
+    engines: {node: '>=20'}
 
   '@typescript-eslint/types@8.59.0':
     resolution: {integrity: sha512-nLzdsT1gdOgFxxxwrlNVUBzSNBEEHJ86bblmk4QAS6stfig7rcJzWKqCyxFy3YRRHXDWEkb2NralA1nOYkkm/A==}
@@ -8635,6 +8642,8 @@ snapshots:
   '@types/ws@8.18.1':
     dependencies:
       '@types/node': 18.19.130
+
+  '@typesafe-ai/sdk@0.6.0': {}
 
   '@typescript-eslint/types@8.59.0':
     optional: true
