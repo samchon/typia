@@ -23,6 +23,7 @@
   "homepage": "https://typia.io",
   "devDependencies": {
     "@standard-schema/spec": "^1.1.0",
+    "ai": "^7.0.103",
     "ttsc": "catalog:typescript",
     "typescript": "catalog:typescript"
   },

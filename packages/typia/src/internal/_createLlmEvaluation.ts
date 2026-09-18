@@ -1,0 +1,494 @@
+import { ILlmEvaluation, IValidation } from "@typia/interface";
+
+import { _accessExpressionAsString } from "./_accessExpressionAsString";
+
+/**
+ * Compile-time plan of `typia.llm.evaluation<T>()`, one entry per decision leaf
+ * of `T`.
+ *
+ * @internal
+ */
+export type _ILlmEvaluationPlan =
+  | _ILlmEvaluationPlan.IBoolean
+  | _ILlmEvaluationPlan.IChoice
+  | _ILlmEvaluationPlan.IScore
+  | _ILlmEvaluationPlan.ISet;
+
+/** @internal */
+export namespace _ILlmEvaluationPlan {
+  interface IBase {
+    /** Property names from the root of `T` to the leaf. */
+    path: string[];
+    instructions: string;
+  }
+  export interface IBoolean extends IBase {
+    kind: "boolean";
+    threshold: number;
+  }
+  export interface IChoice extends IBase {
+    kind: "choice";
+    options: IMember<string>[];
+  }
+  export interface IScore extends IBase {
+    kind: "score";
+    /** Sorted in ascending value order; level `i` is `levels[i]`. */
+    levels: IMember<number>[];
+  }
+  export interface ISet extends IBase {
+    kind: "set";
+    members: ISetMember[];
+  }
+  export interface IMember<Value extends string | number> {
+    value: Value;
+    description?: string;
+    /** Acceptance minimum of the member, when it has one. */
+    minimum?: number;
+  }
+  export interface ISetMember {
+    value: string;
+    description?: string;
+    threshold: number;
+  }
+}
+
+/**
+ * Creates the `ILlmEvaluation` of `typia.llm.evaluation<T>()` from its plan.
+ *
+ * Both the question map and the validator derive their keys from here, so the
+ * readable path encoding has a single owner.
+ *
+ * @internal
+ */
+export const _createLlmEvaluation = <T>(
+  plan: _ILlmEvaluationPlan[],
+): ILlmEvaluation<T> => {
+  const questions: Record<string, ILlmEvaluation.IQuestion> = {};
+  for (const leaf of plan) {
+    if (leaf.kind === "set")
+      for (const member of leaf.members)
+        assign(questions, key([...leaf.path, member.value]), {
+          type: "boolean",
+          instructions: setInstructions(leaf, member),
+        });
+    else assign(questions, key(leaf.path), question(leaf));
+  }
+  return {
+    questions,
+    validate: (answers: unknown): IValidation<T> => validate(plan, answers),
+  };
+};
+
+/* -----------------------------------------------------------
+  QUESTIONS
+----------------------------------------------------------- */
+/**
+ * Encodes a property path as a question key, like `refund.requested`.
+ *
+ * Every segment after the first uses typia's accessor notation, so the key is
+ * the validation path without its `$input` root. The first segment is quoted
+ * when it is not an identifier, and always when it is `__proto__`, so no key
+ * can collide with another or reach an object's prototype.
+ */
+const key = (path: string[]): string => {
+  const head: string = path[0]!;
+  const postfix: string = _accessExpressionAsString(head);
+  const first: string =
+    head === "__proto__"
+      ? `[${JSON.stringify(head)}]`
+      : postfix.startsWith(".")
+        ? head
+        : postfix;
+  return first + path.slice(1).map(_accessExpressionAsString).join("");
+};
+
+const question = (
+  leaf:
+    | _ILlmEvaluationPlan.IBoolean
+    | _ILlmEvaluationPlan.IChoice
+    | _ILlmEvaluationPlan.IScore,
+): ILlmEvaluation.IQuestion => {
+  if (leaf.kind === "boolean")
+    return { type: "boolean", instructions: leaf.instructions };
+  else if (leaf.kind === "choice") {
+    const criteria: Record<string, string | null> = {};
+    for (const option of leaf.options)
+      assign(criteria, option.value, option.description ?? null);
+    return { type: "choice", instructions: leaf.instructions, criteria };
+  }
+  return {
+    type: "score",
+    instructions: leaf.instructions,
+    // the transform rejects fewer than two levels
+    criteria: leaf.levels.map(
+      (level) => level.description ?? String(level.value),
+    ) as [string, string, ...string[]],
+  };
+};
+
+const setInstructions = (
+  leaf: _ILlmEvaluationPlan.ISet,
+  member: _ILlmEvaluationPlan.ISetMember,
+): string =>
+  [
+    leaf.instructions,
+    "",
+    `Does the option ${JSON.stringify(member.value)} apply?`,
+    ...(member.description !== undefined ? [member.description] : []),
+  ].join("\n");
+
+/* -----------------------------------------------------------
+  VALIDATION
+----------------------------------------------------------- */
+const validate = <T>(
+  plan: _ILlmEvaluationPlan[],
+  answers: unknown,
+): IValidation<T> => {
+  if (typeof answers !== "object" || answers === null || Array.isArray(answers))
+    return {
+      success: false,
+      data: answers,
+      errors: [
+        {
+          path: "$input",
+          expected: "Record<string, ILlmEvaluation answer>",
+          value: answers,
+        },
+      ],
+    };
+
+  const map: Record<string, unknown> = answers as Record<string, unknown>;
+  const errors: IValidation.IError[] = [];
+  const expected: Set<string> = new Set();
+  const output: Record<string, unknown> = {};
+  const read = (id: string): unknown => {
+    expected.add(id);
+    return Object.prototype.hasOwnProperty.call(map, id) ? map[id] : undefined;
+  };
+
+  for (const leaf of plan) {
+    const path: string = accessor(leaf.path);
+    if (leaf.kind === "set") {
+      const values: string[] = [];
+      for (const member of leaf.members) {
+        const memberPath: string = [
+          path,
+          _accessExpressionAsString(member.value),
+        ].join("");
+        const probability: number | null = booleanProbability(
+          read(key([...leaf.path, member.value])),
+          memberPath,
+          errors,
+        );
+        if (probability !== null && probability >= member.threshold)
+          values.push(member.value);
+      }
+      place(output, leaf.path, values);
+      continue;
+    }
+    const answer: unknown = read(key(leaf.path));
+    if (leaf.kind === "boolean") {
+      const probability: number | null = booleanProbability(
+        answer,
+        path,
+        errors,
+      );
+      if (probability !== null)
+        place(output, leaf.path, probability >= leaf.threshold);
+    } else if (leaf.kind === "choice") {
+      const value: string | null = choice(leaf, answer, path, errors);
+      if (value !== null) place(output, leaf.path, value);
+    } else {
+      const value: number | null = score(leaf, answer, path, errors);
+      if (value !== null) place(output, leaf.path, value);
+    }
+  }
+  for (const id of Object.keys(map))
+    if (expected.has(id) === false)
+      errors.push({
+        path: `$input${_accessExpressionAsString(id)}`,
+        expected: "undefined",
+        value: map[id],
+        description: "The answer does not belong to any question.",
+      });
+  return errors.length === 0
+    ? { success: true, data: output as T }
+    : { success: false, data: answers, errors };
+};
+
+const booleanProbability = (
+  answer: unknown,
+  path: string,
+  errors: IValidation.IError[],
+): number | null => {
+  const record: Record<string, unknown> | null = object(answer);
+  const probability: unknown =
+    record === null
+      ? undefined
+      : record.type === "boolean"
+        ? record.probability
+        : record.type === "noul"
+          ? record.noul
+          : undefined;
+  if (isProbability(probability)) return probability;
+  errors.push({
+    path,
+    expected:
+      '{ type: "boolean"; probability: number } | { type: "noul"; noul: number }',
+    value: answer,
+    description:
+      record === null
+        ? "Missing boolean answer."
+        : record.type !== "boolean" && record.type !== "noul"
+          ? `Answer type must be "boolean" or "noul", but got ${label(record.type)}.`
+          : "Boolean answer needs a probability in [0, 1].",
+  });
+  return null;
+};
+
+const choice = (
+  leaf: _ILlmEvaluationPlan.IChoice,
+  answer: unknown,
+  path: string,
+  errors: IValidation.IError[],
+): string | null => {
+  const expected: string = `{ type: "choice"; choice: ${leaf.options
+    .map((option) => JSON.stringify(option.value))
+    .join(" | ")}; probabilities?: Record<string, number> }`;
+  const record: Record<string, unknown> | null = object(answer);
+  const option: _ILlmEvaluationPlan.IMember<string> | undefined =
+    record !== null && record.type === "choice"
+      ? leaf.options.find((o) => o.value === record.choice)
+      : undefined;
+  if (record === null || option === undefined) {
+    errors.push({
+      path,
+      expected,
+      value: answer,
+      description:
+        record === null
+          ? "Missing choice answer."
+          : record.type !== "choice"
+            ? `Answer type must be "choice", but got ${label(record.type)}.`
+            : "Choice answer must select one of the declared options.",
+    });
+    return null;
+  }
+  const probabilities: Record<string, number> | null | undefined = distribution(
+    record.probabilities,
+    leaf.options.map((o) => o.value),
+  );
+  if (probabilities === null) {
+    errors.push({
+      path,
+      expected,
+      value: answer,
+      description:
+        "Choice probabilities must map declared options to numbers in [0, 1].",
+    });
+    return null;
+  }
+  return accept(
+    option,
+    option.value,
+    own(probabilities, option.value),
+    path,
+    answer,
+    expected,
+    errors,
+  )
+    ? option.value
+    : null;
+};
+
+const score = (
+  leaf: _ILlmEvaluationPlan.IScore,
+  answer: unknown,
+  path: string,
+  errors: IValidation.IError[],
+): number | null => {
+  const last: number = leaf.levels.length - 1;
+  const expected: string = `{ type: "score"; score: number; probabilities?: Record<string, number> }`;
+  const record: Record<string, unknown> | null = object(answer);
+  if (
+    record === null ||
+    record.type !== "score" ||
+    typeof record.score !== "number" ||
+    Number.isFinite(record.score) === false ||
+    record.score < 0 ||
+    record.score > last
+  ) {
+    errors.push({
+      path,
+      expected,
+      value: answer,
+      description:
+        record === null
+          ? "Missing score answer."
+          : record.type !== "score"
+            ? `Answer type must be "score", but got ${label(record.type)}.`
+            : `Score answer needs a score in [0, ${last}].`,
+    });
+    return null;
+  }
+  const probabilities: Record<string, number> | null | undefined = distribution(
+    record.probabilities,
+    leaf.levels.map((_, i) => String(i)),
+  );
+  if (probabilities === null) {
+    errors.push({
+      path,
+      expected,
+      value: answer,
+      description:
+        "Score probabilities must map level indexes to numbers in [0, 1].",
+    });
+    return null;
+  }
+
+  // the most probable level when a distribution exists, where a tie resolves
+  // to the lower level; otherwise the level nearest to the fractional score,
+  // where a half rounds up
+  let index: number = Math.round(record.score);
+  if (probabilities !== undefined && Object.keys(probabilities).length !== 0) {
+    index = -1;
+    leaf.levels.forEach((_, i) => {
+      const p: number | undefined = own(probabilities, String(i));
+      if (
+        p !== undefined &&
+        (index === -1 || p > own(probabilities, String(index))!)
+      )
+        index = i;
+    });
+  }
+  const level: _ILlmEvaluationPlan.IMember<number> = leaf.levels[index]!;
+  return accept(
+    level,
+    level.value,
+    own(probabilities, String(index)),
+    path,
+    answer,
+    expected,
+    errors,
+  )
+    ? level.value
+    : null;
+};
+
+/** Enforces the acceptance minimum of the selected member, if any. */
+const accept = (
+  member: { minimum?: number },
+  value: string | number,
+  probability: number | undefined,
+  path: string,
+  answer: unknown,
+  expected: string,
+  errors: IValidation.IError[],
+): boolean => {
+  if (member.minimum === undefined) return true;
+  if (probability === undefined) {
+    errors.push({
+      path,
+      expected,
+      value: answer,
+      description: `${JSON.stringify(value)} requires probability >= ${member.minimum}, but the answer has no probability for it.`,
+    });
+    return false;
+  }
+  if (probability < member.minimum) {
+    errors.push({
+      path,
+      expected,
+      value: answer,
+      description: `${JSON.stringify(value)} has probability ${probability} < ${member.minimum}.`,
+    });
+    return false;
+  }
+  return true;
+};
+
+/**
+ * Reads optional `probabilities`: `undefined` when absent, `null` when
+ * malformed.
+ */
+const distribution = (
+  input: unknown,
+  keys: string[],
+): Record<string, number> | null | undefined => {
+  if (input === undefined) return undefined;
+  const record: Record<string, unknown> | null = object(input);
+  if (record === null) return null;
+  const output: Record<string, number> = {};
+  for (const [k, v] of Object.entries(record)) {
+    if (keys.includes(k) === false || isProbability(v) === false) return null;
+    assign(output, k, v);
+  }
+  return output;
+};
+
+/* -----------------------------------------------------------
+  HELPERS
+----------------------------------------------------------- */
+/**
+ * Renders an untrusted answer `type` for a message; unlike `JSON.stringify`, it
+ * never throws on a bigint or circular value.
+ */
+const label = (value: unknown): string =>
+  typeof value === "string" ? JSON.stringify(value) : typeof value;
+
+const accessor = (path: string[]): string =>
+  "$input" + path.map(_accessExpressionAsString).join("");
+
+const object = (input: unknown): Record<string, unknown> | null =>
+  typeof input === "object" && input !== null && Array.isArray(input) === false
+    ? (input as Record<string, unknown>)
+    : null;
+
+/**
+ * Reads an own probability, so an option named like an `Object.prototype`
+ * member (`constructor`, `toString`, ...) never inherits a value.
+ */
+const own = (
+  probabilities: Record<string, number> | undefined,
+  key: string,
+): number | undefined =>
+  probabilities !== undefined &&
+  Object.prototype.hasOwnProperty.call(probabilities, key)
+    ? probabilities[key]
+    : undefined;
+
+const isProbability = (value: unknown): value is number =>
+  typeof value === "number" &&
+  Number.isFinite(value) &&
+  value >= 0 &&
+  value <= 1;
+
+/** Writes the leaf value, creating the intermediate objects of its path. */
+const place = (
+  output: Record<string, unknown>,
+  path: string[],
+  value: unknown,
+): void => {
+  let target: Record<string, unknown> = output;
+  path.slice(0, -1).forEach((name) => {
+    if (Object.prototype.hasOwnProperty.call(target, name) === false)
+      assign(target, name, {});
+    target = target[name] as Record<string, unknown>;
+  });
+  assign(target, path[path.length - 1]!, value);
+};
+
+/** Own-property assignment that cannot reach the prototype via `__proto__`. */
+const assign = (
+  target: Record<string, unknown>,
+  name: string,
+  value: unknown,
+): void => {
+  if (name === "__proto__")
+    Object.defineProperty(target, name, {
+      value,
+      enumerable: true,
+      writable: true,
+      configurable: true,
+    });
+  else target[name] = value;
+};

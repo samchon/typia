@@ -12,6 +12,7 @@ export * from "./ILlmApplication";
 export * from "./ILlmFunction";
 export * from "./ILlmSchema";
 export * from "./ILlmStructuredOutput";
+export * from "./ILlmEvaluation";
 export * from "./IJsonParseResult";
 
 export * from "./StandardSchemaV1";

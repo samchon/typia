@@ -9,6 +9,6 @@ jobs:
       - name: Checkout Actions Repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 #v4
 
-      - uses: crate-ci/typos@master
+      - uses: crate-ci/typos@512fc24f32f44ab01972217aaaf3dc86ec234d53 #v1.50.2
         with:
           config: ./typos.toml

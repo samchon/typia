@@ -2,6 +2,7 @@ import {
   IJsonParseResult,
   ILlmApplication,
   ILlmController,
+  ILlmEvaluation,
   ILlmSchema,
   ILlmStructuredOutput,
 } from "@typia/interface";
@@ -199,6 +200,64 @@ export function structuredOutput<
 /** @internal */
 export function structuredOutput(): never {
   NoTransformConfigurationError("llm.structuredOutput");
+}
+
+/* -----------------------------------------------------------
+  EVALUATION
+----------------------------------------------------------- */
+/**
+ * Creates LLM evaluation questions.
+ *
+ * @danger You must configure the generic argument `T`
+ */
+export function evaluation(): never;
+
+/**
+ * Creates LLM evaluation questions from TypeScript object type.
+ *
+ * Generates {@link ILlmEvaluation} for evaluation models, which answer typed
+ * questions about a shared state with probabilities instead of generating text:
+ * TypeSafe's Jev natively, and OpenAI, Anthropic, and Google through Vercel AI
+ * SDK's `experimental_evaluate()`.
+ *
+ * Every leaf property of `T` becomes one question, and its JSDoc description
+ * becomes the question text:
+ *
+ * - `boolean` → boolean question
+ * - String enum or string literal union → choice question
+ * - Numeric enum or numeric literal union → score question
+ * - Array of a string literal union or string enum → one boolean question per
+ *   member
+ * - Nested object → flattened, one question per leaf
+ *
+ * Types an evaluation model cannot answer, such as `string`, `number`, optional
+ * properties, or a leaf without a JSDoc description, are compile errors. Use
+ * `tags.Probability<N>` or `@probability N` to set decision thresholds and
+ * acceptance minimums. A nested object's own JSDoc description is not sent to
+ * the model; only the leaves' descriptions become question text.
+ *
+ * This feature is experimental. It follows Vercel AI SDK's evaluation model
+ * specification, which is itself experimental and may change in patch
+ * releases.
+ *
+ * Workflow:
+ *
+ * 1. Pass {@link ILlmEvaluation.questions} to the evaluation model
+ * 2. Receive the answer map keyed by the same question IDs
+ * 3. Use {@link ILlmEvaluation.validate} to fold the answers back into `T`
+ *
+ * Related functions:
+ *
+ * - {@link structuredOutput} — Structured output generated as text by an LLM
+ *
+ * @template T Target decision type (object with static properties)
+ * @returns LLM evaluation questions with a converting validator
+ */
+export function evaluation<T extends Record<string, any>>(): ILlmEvaluation<T>;
+
+/** @internal */
+export function evaluation(): never {
+  NoTransformConfigurationError("llm.evaluation");
 }
 
 /* -----------------------------------------------------------

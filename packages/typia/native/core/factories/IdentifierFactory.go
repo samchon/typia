@@ -94,6 +94,16 @@ func (identifierFactoryNamespace) Postfix(str string) string {
   return identifierFactory_source("[" + identifierFactory_json(str) + "]")
 }
 
+// PathPostfix returns the accessor text `_accessExpressionAsString` builds at
+// runtime for the same key: `.key` for an identifier, `["key"]` otherwise. It
+// is the path text itself, not a JavaScript literal that spells it.
+func (identifierFactoryNamespace) PathPostfix(str string) string {
+  if identifierFactory_variable(str) {
+    return "." + str
+  }
+  return "[" + identifierFactory_json(str) + "]"
+}
+
 // identifierFactory_json renders `str` as JSON text, matching JSON.stringify so
 // that the path this lands in is the one _accessExpressionAsString builds for
 // the same key at runtime, and so JSON.parse in _createStandardSchema reads the
