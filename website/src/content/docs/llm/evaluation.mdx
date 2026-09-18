@@ -135,7 +135,7 @@ Every leaf property of `T` becomes one question. Its JSDoc description is the qu
 | `Array<U>` of a string literal union or string enum | one `boolean` per member | the members decided `true` |
 | nested object | flattened, one question per leaf | the object rebuilt |
 
-Anything an evaluation model cannot answer is a compile error that names the property: `string`, `number`, and other open types; a single literal; a union mixing question kinds; optional, nullable, or `@hidden` properties; arrays of anything but a string literal set, and array type tags; tuples, dynamic keys, `Map`, `Set`, and recursive types; and a leaf without a JSDoc description.
+Anything an evaluation model cannot answer is a compile error that names the property: `string`, `number`, and other open types; a single literal; a union mixing question kinds; optional, nullable, or `@hidden` properties; arrays of anything but a string literal union or string enum, and array type tags; tuples, dynamic keys, `Map`, `Set`, and recursive types; and a leaf without a JSDoc description.
 
 A choice option is described by its enum member's JSDoc, or by `tags.Constant<V, { description }>` on a literal union member, since TypeScript cannot attach JSDoc to a union member. Without either, only the label is sent. A score level without a description is described by its value.
 

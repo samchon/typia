@@ -314,7 +314,7 @@ func llmEvaluation_unsupported(value *schemametadata.MetadataSchema) string {
   if len(value.Constants) == 1 && value.Constants[0].Type != "string" && value.Constants[0].Type != "number" {
     return fmt.Sprintf("LLM evaluation does not support %s literal types.", value.Constants[0].Type)
   }
-  return "LLM evaluation supports only boolean, string or numeric literal unions (or enums), arrays of a string literal union, and objects composed of them, because an evaluation model answers only closed sets."
+  return "LLM evaluation supports only boolean, string or numeric literal unions (or enums), arrays of a string literal union (or enum), and objects composed of them, because an evaluation model answers only closed sets."
 }
 
 func llmEvaluation_unalias(metadata *schemametadata.MetadataSchema) *schemametadata.MetadataSchema {
