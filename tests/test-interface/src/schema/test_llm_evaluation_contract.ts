@@ -1,8 +1,5 @@
 import { ILlmEvaluation, IValidation, tags } from "@typia/interface";
-import type {
-  Experimental_EvaluationQuestion as EvaluationQuestion,
-  Experimental_EvaluationResult as EvaluationResult,
-} from "ai";
+import type { Experimental_EvaluationQuestion as EvaluationQuestion } from "ai";
 
 /**
  * Verifies the `ILlmEvaluation` contract and its AI SDK compatibility.
@@ -11,15 +8,15 @@ import type {
  * `experimental_evaluate({ questions })`, and `validate()` as accepting that
  * call's `result.answers`. The oracle for both claims is AI SDK's own
  * declaration, not a copy of it: a drift in either side breaks this compile
- * instead of a user's. The local shape is pinned by identity, so the flat
- * `IChoice | IScore | IBoolean` union behind `IQuestion` and the
- * `IValidation<T>` result cannot change silently.
+ * instead of a user's. `validate()` takes `unknown`, which the identity check
+ * pins, so any answer map is accepted by construction. The local shape is
+ * pinned by identity, so the flat `IChoice | IScore | IBoolean` union behind
+ * `IQuestion` and the `IValidation<T>` result cannot change silently.
  *
  * 1. Assert the question union, the question map, and the validate signature.
  * 2. Assert every question type is assignable to AI SDK's question type, and a
  *    question map to its `experimental_evaluate` input.
- * 3. Assert AI SDK's answer map is accepted by `validate()`.
- * 4. Assert `tags.Probability` keeps booleans and literals assignable.
+ * 3. Assert `tags.Probability` keeps booleans and literals assignable.
  */
 export type LlmEvaluationContractCases = [
   // the local shape
@@ -50,14 +47,6 @@ export type LlmEvaluationContractCases = [
     Extends<
       ILlmEvaluation<IDecision>["questions"],
       Record<string, EvaluationQuestion>
-    >
-  >,
-
-  // AI SDK answers are validate() input
-  Assert<
-    Extends<
-      EvaluationResult<Record<string, EvaluationQuestion>>["answers"],
-      Parameters<ILlmEvaluation<IDecision>["validate"]>[0]
     >
   >,
 

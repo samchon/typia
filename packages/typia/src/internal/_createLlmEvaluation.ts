@@ -238,7 +238,7 @@ const booleanProbability = (
       record === null
         ? "Missing boolean answer."
         : record.type !== "boolean" && record.type !== "noul"
-          ? `Answer type must be "boolean" or "noul", but got ${JSON.stringify(record.type)}.`
+          ? `Answer type must be "boolean" or "noul", but got ${label(record.type)}.`
           : "Boolean answer needs a probability in [0, 1].",
   });
   return null;
@@ -267,7 +267,7 @@ const choice = (
         record === null
           ? "Missing choice answer."
           : record.type !== "choice"
-            ? `Answer type must be "choice", but got ${JSON.stringify(record.type)}.`
+            ? `Answer type must be "choice", but got ${label(record.type)}.`
             : "Choice answer must select one of the declared options.",
     });
     return null;
@@ -324,7 +324,7 @@ const score = (
         record === null
           ? "Missing score answer."
           : record.type !== "score"
-            ? `Answer type must be "score", but got ${JSON.stringify(record.type)}.`
+            ? `Answer type must be "score", but got ${label(record.type)}.`
             : `Score answer needs a score in [0, ${last}].`,
     });
     return null;
@@ -427,6 +427,13 @@ const distribution = (
 /* -----------------------------------------------------------
   HELPERS
 ----------------------------------------------------------- */
+/**
+ * Renders an untrusted answer `type` for a message; unlike `JSON.stringify`, it
+ * never throws on a bigint or circular value.
+ */
+const label = (value: unknown): string =>
+  typeof value === "string" ? JSON.stringify(value) : typeof value;
+
 const accessor = (path: string[]): string =>
   "$input" + path.map(_accessExpressionAsString).join("");
 

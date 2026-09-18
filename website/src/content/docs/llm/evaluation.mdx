@@ -161,11 +161,11 @@ A missing or extra answer, a wrong answer `type`, an undeclared option, or a pro
 | Spelling | Meaning |
 |---|---|
 | `boolean & tags.Probability<N>` | boolean threshold: `true` only when P(true) ≥ `N` |
-| `V & tags.Probability<N>` on a literal union member | that member's acceptance minimum |
-| `@probability N` on an enum member | that member's acceptance minimum |
-| `@probability N` on a property | the boolean threshold, or the default minimum of the members that carry none |
+| `V & tags.Probability<N>` on a literal union member | that member's acceptance minimum; in an `Array<...>` set, its inclusion threshold |
+| `@probability N` on an enum member | the same as the tag on a literal member |
+| `@probability N` on a property | the boolean threshold, or the default minimum (for a set, the default threshold) of the members that carry none |
 
-A member's own requirement wins over the property's, and a member without either has no minimum. Gating only the risky options is the intended use:
+A member's own requirement wins over the property's. A choice or score member without either has no minimum, and a set member without either uses the `0.5` threshold, since each set member is its own yes/no decision. Gating only the risky options is the intended use:
 
 ```typescript copy filename="gated.ts"
 interface IDecision {

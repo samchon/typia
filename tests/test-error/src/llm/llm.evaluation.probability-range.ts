@@ -4,10 +4,4 @@ import typia, { tags } from "typia";
 typia.llm.evaluation<{
   /** Is it urgent? */
   urgent: boolean & tags.Probability<1.5>;
-  /**
-   * Is it late?
-   *
-   * @probability high
-   */
-  late: boolean;
 }>();

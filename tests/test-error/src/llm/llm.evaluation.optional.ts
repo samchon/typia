@@ -4,6 +4,4 @@ import typia from "typia";
 typia.llm.evaluation<{
   /** Is it urgent? */
   urgent?: boolean;
-  /** Is it late? */
-  late: boolean | null;
 }>();

@@ -34,6 +34,8 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
     "- $input.scoreComment\n  - LLM evaluation @probability must be a number in [0, 1], but got \"x\". (member 1)",
     "- $input.setMember\n  - LLM evaluation tags.Probability must be in [0, 1], but got 7. (member \"card\")",
     "- $input.nested\n  - LLM evaluation @probability must be on a boolean, choice, score, or set property, not on an object.",
+    // two tags on one member fail typia's generic exclusive-tag check first
+    "  - the property [\"typia.tag\"] kind 'probability' can't be duplicated.",
   } {
     if !strings.Contains(errText, expected) {
       t.Fatalf("llm.evaluation probability diagnostic missing %q:\n%s", expected, errText)
@@ -153,5 +155,10 @@ typia.llm.evaluation<{
     /** Inner? */
     inner: boolean;
   };
+}>();
+
+typia.llm.evaluation<{
+  /** Twice? */
+  tagTwice: ("a" & tags.Probability<0.5> & tags.Probability<0.6>) | "b";
 }>();
 `

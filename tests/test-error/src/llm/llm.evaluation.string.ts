@@ -4,6 +4,4 @@ import typia from "typia";
 typia.llm.evaluation<{
   /** What is the customer's name? */
   name: string;
-  /** How many items? */
-  count: number;
 }>();

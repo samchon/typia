@@ -193,6 +193,7 @@ For `url`, DNS host labels may contain interior hyphen runs such as `example--ex
 | `tags.Constant<V, {title, description}>`    | Single-value literal with metadata                              |
 | `tags.JsonSchemaPlugin<{...}>`              | Inject arbitrary `x-…` JSON Schema fields                       |
 | `tags.Sequence<N>`                          | Protobuf field number ([protobuf docs](/docs/protobuf/message)) |
+| `tags.Probability<N>`                       | Evaluation threshold or option minimum ([evaluation docs](/docs/llm/evaluation#probability-requirements)) |
 
 ## Comment tags
 
@@ -222,6 +223,7 @@ If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 | `@minItems 1`           | `tags.MinItems<1>`           |
 | `@maxItems 10`          | `tags.MaxItems<10>`          |
 | `@uniqueItems`          | `tags.UniqueItems`           |
+| `@probability 0.8`      | `tags.Probability<0.8>`, read only by [`llm.evaluation`](/docs/llm/evaluation#probability-requirements), and also valid on an enum member |
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
@@ -349,6 +351,7 @@ End-to-end example with three custom tags (`Postfix`, `Dollar`, `IsEven`):
 - [`is`](/docs/validators/is), [`assert`](/docs/validators/assert), [`validate`](/docs/validators/validate) — runtime checking
 - [`random`](/docs/random) — generated values respect the constraint
 - [`json.schemas`](/docs/json/schema), [`llm.parameters`](/docs/llm/parameters) — exported as JSON Schema fields (`format`, `minimum`, …)
+- [`llm.evaluation`](/docs/llm/evaluation) — `tags.Probability<N>` sets decision thresholds and option minimums; validators and schemas ignore it
 - [`protobuf.message`](/docs/protobuf/message) — `tags.Type<"uint32">` selects the scalar type; smaller integer tags validate narrower ranges and use the protobuf `int32` / `uint32` scalar types; `tags.Sequence<N>` picks the field number
 
 ## Where to go next

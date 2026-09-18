@@ -47,7 +47,7 @@ const main = async (): Promise<void> => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "jev-latest",
+        model: "jev-1.13.0", // pinned: thresholds are tuned per model version
         state: "I was charged twice this morning. Refund it now, or I leave.",
         questions: LlmEvaluation.toTypeSafe(triage.questions),
       }),
