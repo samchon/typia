@@ -7,7 +7,8 @@ import typia, { tags } from "typia";
  * A literal-set array asks one independent boolean per member, so each member
  * is included iff its P(true) reaches its own threshold: the member's
  * `tags.Probability<N>` first, then the property's `@probability`, then `0.5`.
- * Inclusion keeps the declared member order regardless of answer order.
+ * Inclusion follows the order the member questions are emitted in, typia's
+ * canonical member order, never the key order of the answer map.
  *
  * 1. Declare a set with one tagged member under a property default, and a plain
  *    set.
@@ -18,8 +19,8 @@ export const test_llm_evaluation_set_threshold = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const run = (p: { card: number; loan: number; plain: number }) => {
     const result = evaluation.validate({
-      "products.card": { type: "boolean", probability: p.card },
       "products.loan": { type: "boolean", probability: p.loan },
+      "products.card": { type: "boolean", probability: p.card },
       "channels.email": { type: "boolean", probability: p.plain },
       "channels.phone": { type: "boolean", probability: 1 - p.plain },
     });

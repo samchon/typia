@@ -5,11 +5,12 @@ import typia, { tags } from "typia";
  * Verifies typia.llm.evaluation takes option descriptions from every source.
  *
  * TypeScript cannot attach JSDoc to a union member, so a literal option gets
- * its description only from `tags.Constant<V, { description }>` (or its `title`
- * when no description exists), an enum option from its member JSDoc (with
- * `@description` overriding the summary), and every other option sends its
+ * its description only from `tags.Constant<V, { description }>`, never from its
+ * `title`; an enum option gets its member JSDoc; every other option sends its
  * label alone as `null`. A score level without a description is described by
- * its value. A property `@description` likewise overrides its summary.
+ * its value in JavaScript's own number formatting, so `1e-7` stays `1e-7`
+ * instead of a Go-formatted `0.0000001`. Multi-paragraph JSDoc is forwarded
+ * whole.
  *
  * 1. Declare choices and scores mixing every description source with undocumented
  *    members.
@@ -23,23 +24,23 @@ export const test_llm_evaluation_option_descriptions = (): void => {
     instructions: "Which literal?",
     criteria: {
       described: "Described option",
-      titled: "Titled option",
+      titled: null,
       bare: null,
     },
   });
   TestValidator.equals("enum", questions.enumerated, {
     type: "choice",
-    instructions: "Overridden instructions",
+    instructions: "Which enum?\n\nSecond paragraph of the question.",
     criteria: {
       summary: "Summary text",
-      override: "Override text",
+      multiple: "First line\n\nSecond paragraph",
       bare: null,
     },
   });
   TestValidator.equals("score", questions.score, {
     type: "score",
     instructions: "Which score?",
-    criteria: ["1", "Two", "3.5"],
+    criteria: ["1e-7", "1", "Two", "3.5", "1e+21"],
   });
 };
 
@@ -47,11 +48,11 @@ enum Enumerated {
   /** Summary text */
   summary = "summary",
   /**
-   * Summary to be overridden
+   * First line
    *
-   * Override text
+   * Second paragraph
    */
-  override = "override",
+  multiple = "multiple",
   bare = "bare",
 }
 
@@ -66,12 +67,12 @@ interface IDecision {
     | "bare";
 
   /**
-   * Summary to be overridden
+   * Which enum?
    *
-   * Overridden instructions
+   * Second paragraph of the question.
    */
   enumerated: Enumerated;
 
   /** Which score? */
-  score: 1 | tags.Constant<2, { description: "Two" }> | 3.5;
+  score: 1 | tags.Constant<2, { description: "Two" }> | 3.5 | 1e-7 | 1e21;
 }

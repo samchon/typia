@@ -170,7 +170,13 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
     if _, found := llmEvaluation_jsdoc_probability(property.JsDocTags); found {
       c.fail(accessor, "LLM evaluation @probability must be on a boolean, choice, score, or set property, not on an object.")
     }
+    plan, errors := len(c.plan), len(c.errors)
     c.object(value.Objects[0].Type, path, accessor)
+    if len(c.plan) == plan && len(c.errors) == errors {
+      // no answer could ever create the object, so validate() would return a
+      // value missing this required property
+      c.fail(accessor, "LLM evaluation object must have at least one decision property.")
+    }
     return
   }
 
@@ -230,10 +236,10 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
     members := make([]any, 0, len(entries))
     for _, entry := range entries {
       member := map[string]any{"value": llmEvaluation_value(entry.Value)}
+      // an undocumented score level is described by its value, which the
+      // runtime writes with JavaScript's own number formatting
       if description := llmEvaluation_member_description(entry); description != nil {
         member["description"] = *description
-      } else if kind == "score" {
-        member["description"] = llmEvaluation_number_text(entry.Value)
       }
       requirement, found, message := llmEvaluation_member_probability(entry)
       if message != "" {
@@ -347,10 +353,8 @@ func llmEvaluation_member_description(entry *schemametadata.MetadataConstantValu
       if ok == false {
         continue
       }
-      for _, key := range []string{"description", "title"} {
-        if text, ok := schema[key].(string); ok && strings.TrimSpace(text) != "" {
-          return &text
-        }
+      if text, ok := schema["description"].(string); ok && strings.TrimSpace(text) != "" {
+        return &text
       }
     }
   }

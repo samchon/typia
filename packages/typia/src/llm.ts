@@ -232,7 +232,12 @@ export function evaluation(): never;
  * Types an evaluation model cannot answer, such as `string`, `number`, optional
  * properties, or a leaf without a JSDoc description, are compile errors. Use
  * `tags.Probability<N>` or `@probability N` to set decision thresholds and
- * acceptance minimums.
+ * acceptance minimums. A nested object's own JSDoc description is not sent to
+ * the model; only the leaves' descriptions become question text.
+ *
+ * This feature is experimental. It follows Vercel AI SDK's evaluation model
+ * specification, which is itself experimental and may change in patch
+ * releases.
  *
  * Workflow:
  *

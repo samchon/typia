@@ -237,7 +237,9 @@ const booleanProbability = (
     description:
       record === null
         ? "Missing boolean answer."
-        : "Boolean answer needs a probability in [0, 1].",
+        : record.type !== "boolean" && record.type !== "noul"
+          ? `Answer type must be "boolean" or "noul", but got ${JSON.stringify(record.type)}.`
+          : "Boolean answer needs a probability in [0, 1].",
   });
   return null;
 };
@@ -264,7 +266,9 @@ const choice = (
       description:
         record === null
           ? "Missing choice answer."
-          : "Choice answer must select one of the declared options.",
+          : record.type !== "choice"
+            ? `Answer type must be "choice", but got ${JSON.stringify(record.type)}.`
+            : "Choice answer must select one of the declared options.",
     });
     return null;
   }
@@ -285,7 +289,7 @@ const choice = (
   return accept(
     option,
     option.value,
-    probabilities?.[option.value],
+    own(probabilities, option.value),
     path,
     answer,
     expected,
@@ -319,7 +323,9 @@ const score = (
       description:
         record === null
           ? "Missing score answer."
-          : `Score answer needs a score in [0, ${last}].`,
+          : record.type !== "score"
+            ? `Answer type must be "score", but got ${JSON.stringify(record.type)}.`
+            : `Score answer needs a score in [0, ${last}].`,
     });
     return null;
   }
@@ -338,16 +344,17 @@ const score = (
     return null;
   }
 
-  // the most probable level when a distribution exists, otherwise the level
-  // nearest to the fractional score; ties resolve to the lower level
+  // the most probable level when a distribution exists, where a tie resolves
+  // to the lower level; otherwise the level nearest to the fractional score,
+  // where a half rounds up
   let index: number = Math.round(record.score);
   if (probabilities !== undefined && Object.keys(probabilities).length !== 0) {
     index = -1;
     leaf.levels.forEach((_, i) => {
-      const p: number | undefined = probabilities[String(i)];
+      const p: number | undefined = own(probabilities, String(i));
       if (
         p !== undefined &&
-        (index === -1 || p > probabilities[String(index)]!)
+        (index === -1 || p > own(probabilities, String(index))!)
       )
         index = i;
     });
@@ -356,7 +363,7 @@ const score = (
   return accept(
     level,
     level.value,
-    probabilities?.[String(index)],
+    own(probabilities, String(index)),
     path,
     answer,
     expected,
@@ -427,6 +434,19 @@ const object = (input: unknown): Record<string, unknown> | null =>
   typeof input === "object" && input !== null && Array.isArray(input) === false
     ? (input as Record<string, unknown>)
     : null;
+
+/**
+ * Reads an own probability, so an option named like an `Object.prototype`
+ * member (`constructor`, `toString`, ...) never inherits a value.
+ */
+const own = (
+  probabilities: Record<string, number> | undefined,
+  key: string,
+): number | undefined =>
+  probabilities !== undefined &&
+  Object.prototype.hasOwnProperty.call(probabilities, key)
+    ? probabilities[key]
+    : undefined;
 
 const isProbability = (value: unknown): value is number =>
   typeof value === "number" &&

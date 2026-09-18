@@ -3,6 +3,7 @@ import { MetaRecord } from "nextra";
 export default {
   application: "application() function",
   structuredOutput: "structuredOutput()",
+  evaluation: "evaluation() function",
   parameters: "parameters() function",
   schema: "schema() function",
   http: "HttpLlm module",

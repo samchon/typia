@@ -23,6 +23,14 @@ import { IValidation } from "./IValidation";
  * 2. Receive the answer map keyed by the same question IDs
  * 3. Call {@link validate} to check the answers and fold them back into `T`
  *
+ * Probabilities are calibrated only on native evaluation models such as Jev.
+ * The AI SDK adapters for OpenAI, Anthropic, and Google ask a language model to
+ * write each number itself, and return no choice or score distribution.
+ *
+ * This interface is experimental. It follows Vercel AI SDK's evaluation model
+ * specification, which is itself experimental and may change in patch
+ * releases.
+ *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T The decision type
  */
@@ -45,7 +53,7 @@ export interface ILlmEvaluation<T = unknown> {
   /**
    * Validate an answer map and fold it back into `T`.
    *
-   * Unlike {@link ILlmStructuredOutput.validate}, the input is not a `T` shaped
+   * Unlike `ILlmStructuredOutput.validate()`, the input is not a `T` shaped
    * value but the model's answer map, keyed by the {@link questions} keys. It
    * accepts both the neutral boolean answer (`{ type: "boolean", probability
    * }`) and TypeSafe's native one (`{ type: "noul", noul }`).

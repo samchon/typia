@@ -9,7 +9,8 @@ import typia from "typia";
  * be the nested decision type. This pins the conversion of every question
  * family from the AI SDK `EvaluationModelV4` answer shape: a boolean from its
  * P(true), a choice from the selected option, a score from its fractional
- * position, and a literal set from its per-member booleans in declared order.
+ * position, and a literal set from its per-member booleans in typia's canonical
+ * member order.
  *
  * 1. Answer every question in the neutral shape, as `experimental_evaluate`
  *    returns it for an LLM provider without distributions.

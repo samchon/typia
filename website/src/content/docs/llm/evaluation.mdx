@@ -1,0 +1,207 @@
+---
+title: Guide Documents > Large Language Model > evaluation() function
+---
+import { Callout, Tabs } from "nextra/components";
+
+import LocalSource from "../../../components/LocalSource";
+
+# `typia.llm.evaluation` — typed questions for evaluation models
+
+An **evaluation model** generates no text. You give it a shared `state` and a map of typed questions, and it answers every question independently, in one pass, with probabilities: a yes/no probability, one option of a closed set, or a position on ordered levels. TypeSafe's [Jev](https://docs.typesafe.ai/introduction) is the native one, and Vercel AI SDK's [`experimental_evaluate()`](https://ai-sdk.dev/docs/ai-sdk-core/evaluation) runs the same provider-neutral question shape on OpenAI, Anthropic, and Google as well.
+
+`typia.llm.evaluation<T>()` turns a TypeScript decision type into those questions, and folds the answers back into `T`.
+
+```typescript copy filename="signature"
+export namespace llm {
+  function evaluation<T extends Record<string, any>>(): ILlmEvaluation<T>;
+}
+```
+
+```typescript copy filename="what-you-get"
+interface ILlmEvaluation<T> {
+  questions: Record<string, ILlmEvaluation.IQuestion>; // hand this to the model
+  validate: (answers: unknown) => IValidation<T>;      // answers in, T out
+}
+```
+
+<Callout type="warning">
+This feature is experimental. It follows Vercel AI SDK's evaluation model specification, which is itself experimental and may change in patch releases.
+</Callout>
+
+## First example
+
+```typescript copy filename="triage.ts"
+import { experimental_evaluate } from "ai"; // AI SDK >= 7.0.103
+import typia, { tags } from "typia";
+
+enum Department {
+  /** Payments, invoicing, refunds */
+  billing = "billing",
+  /** Bugs, outages, integrations */
+  technical = "technical",
+  /** Pricing, upgrades, new accounts */
+  sales = "sales",
+}
+
+interface ITicketTriage {
+  /** Does the customer convey urgency? */
+  urgent: boolean;
+
+  /** Which team should handle this ticket? */
+  department: Department;
+
+  /** How frustrated is the customer? */
+  frustration: 0 | 1 | 2;
+
+  /** Which products does the customer mention? */
+  products: Array<"card" | "loan" | "deposit">;
+
+  refund: {
+    /** Does the customer ask for a refund? */
+    requested: boolean & tags.Probability<0.8>;
+  };
+}
+
+const triage = typia.llm.evaluation<ITicketTriage>();
+const result = await experimental_evaluate({
+  model: "typesafe-ai/jev-latest",
+  state: ticket,
+  questions: triage.questions,
+});
+
+const validation = triage.validate(result.answers);
+if (validation.success) validation.data; // ITicketTriage
+
+// raw probabilities stay in the answer map, keyed by readable paths
+result.answers["refund.requested"]; // { type: "boolean", probability: 0.83 }
+```
+
+<Tabs items={[<code>typia</code>, <code>ILlmEvaluation</code>, <code>tags.Probability</code>]}>
+  <Tabs.Tab>
+```typescript filename="typia" showLineNumbers
+export namespace llm {
+  export function evaluation<T extends Record<string, any>>(): ILlmEvaluation<T>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/schema/ILlmEvaluation.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="packages/interface/src/tags/Probability.ts"
+      filename="@typia/interface"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+The transform replaces the call with one compile-time plan. Calling TypeSafe's API directly looks like this:
+
+<Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/src/llm/evaluation.ts"
+      filename="examples/src/llm/evaluation.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LocalSource
+      path="examples/bin/llm/evaluation.js"
+      filename="examples/bin/llm/evaluation.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## When to use this
+
+| If you need… | Use |
+|--------------|-----|
+| **Decisions over closed sets**, with probabilities, from an evaluation model | `evaluation<T>()` |
+| **Generated data** of any JSON shape, from a language model | [`structuredOutput<T>()`](/docs/llm/structuredOutput) |
+| **Function calling**, where the LLM picks functions | [`application<Class>()`](/docs/llm/application) |
+
+## Type mapping
+
+Every leaf property of `T` becomes one question. Its JSDoc description is the question text, because the question key is not sent to the model.
+
+| Property type | Question | Value in `T` |
+|---|---|---|
+| `boolean` | `boolean` | `true` when P(true) reaches the threshold, `0.5` by default |
+| string enum, or string literal union | `choice` | the returned option |
+| numeric enum, or numeric literal union | `score`, levels in ascending value order | the level (see below) |
+| `Array<U>` of a string literal union or string enum | one `boolean` per member | the members decided `true` |
+| nested object | flattened, one question per leaf | the object rebuilt |
+
+Anything an evaluation model cannot answer is a compile error that names the property: `string`, `number`, and other open types; a single literal; a union mixing question kinds; optional, nullable, or `@hidden` properties; arrays of anything but a string literal set, and array type tags; tuples, dynamic keys, `Map`, `Set`, and recursive types; and a leaf without a JSDoc description.
+
+A choice option is described by its enum member's JSDoc, or by `tags.Constant<V, { description }>` on a literal union member, since TypeScript cannot attach JSDoc to a union member. Without either, only the label is sent. A score level without a description is described by its value.
+
+A nested object's own JSDoc is not sent anywhere; only the leaves' descriptions become questions.
+
+Question keys are the property paths in typia's accessor notation, such as `refund.requested`, `products.card`, or `["with space"]`.
+
+## Validate
+
+`validate()` takes the provider's answer map and returns `IValidation<T>`. It accepts both the neutral boolean answer `{ type: "boolean", probability }` and TypeSafe's native `{ type: "noul", noul }`, and ignores TypeSafe's extra `confidence` and `legend` fields.
+
+- **Boolean**: `true` when P(true) reaches the threshold.
+- **Choice**: the returned option.
+- **Score**: the most probable level when the answer has `probabilities`, where a tie picks the lower level; otherwise the level nearest to the fractional `score`, where a half rounds up. The distribution wins because a bimodal answer's rounded mean can be its least likely level.
+- **Set**: the members whose P(true) reaches their threshold.
+
+A missing or extra answer, a wrong answer `type`, an undeclared option, or a probability or score out of range fails with typia's usual error paths, such as `$input.refund.requested`.
+
+## Probability requirements
+
+`tags.Probability<N>` and its JSDoc spelling `@probability N` attach a probability requirement to a decision. They carry metadata only: `is()`, `validate()`, and JSON schemas ignore them.
+
+| Spelling | Meaning |
+|---|---|
+| `boolean & tags.Probability<N>` | boolean threshold: `true` only when P(true) ≥ `N` |
+| `V & tags.Probability<N>` on a literal union member | that member's acceptance minimum |
+| `@probability N` on an enum member | that member's acceptance minimum |
+| `@probability N` on a property | the boolean threshold, or the default minimum of the members that carry none |
+
+A member's own requirement wins over the property's, and a member without either has no minimum. Gating only the risky options is the intended use:
+
+```typescript copy filename="gated.ts"
+interface IDecision {
+  /** What should happen next? */
+  action:
+    | (tags.Constant<"escalate", { description: "Page the on-call" }> &
+        tags.Probability<0.9>)
+    | tags.Constant<"reply", { description: "Answer the customer" }>;
+}
+```
+
+When the selected option has a minimum and its probability is below it, `validate()` fails for that path. It never falls back to a less likely option, because that would invert the model's judgment. A gated option also fails when the answer has no `probabilities` to prove it, which is always the case on the OpenAI, Anthropic, and Google adapters; an ungated option passes without one.
+
+A member requirement lives on the enum, so it applies at every property that uses that enum.
+
+<Callout type="info">
+Thresholds are tuned against one model's calibration. TypeSafe's aliases such as `jev-latest` move when a new release ships, so pin the versioned model ID when you tune thresholds.
+</Callout>
+
+## Calling Jev directly
+
+TypeSafe's own SDK and HTTP API spell the boolean question type `"noul"`. Convert the questions with `LlmEvaluation.toTypeSafe()` from `@typia/utils`; the answers need no conversion.
+
+```typescript copy filename="typesafe.ts"
+import { LlmEvaluation } from "@typia/utils";
+
+const response = await client.systemOne({
+  state: ticket,
+  questions: LlmEvaluation.toTypeSafe(triage.questions),
+});
+const validation = triage.validate(response.answers);
+```
+
+## Providers
+
+- **Calibration**: probabilities are calibrated only on native evaluation models such as Jev. The AI SDK adapters for OpenAI, Anthropic, and Google ask a language model to write each number itself in one structured-output request, and return no choice or score distribution.
+- **Independence**: answers are evaluated independently, so `refund.requested` at `0.1` next to a confident refund reason is a valid result. Ask dependent questions in a second request.
+- **Limits**: TypeSafe accepts at most 255 choice options and 10 score levels; other providers have their own limits. typia checks only the neutral constraints at compile time.
+- **Language**: Jev documents lower accuracy for non-English state and instructions, which includes non-English JSDoc.
