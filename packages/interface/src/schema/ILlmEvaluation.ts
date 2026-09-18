@@ -14,7 +14,7 @@ import { IValidation } from "./IValidation";
  * - A numeric enum or numeric literal union becomes an
  *   {@link ILlmEvaluation.IScore} question
  * - An array of a string literal union becomes one {@link ILlmEvaluation.IBoolean}
- *   question per member
+ *   question per member, asking in English whether that member applies
  * - A nested object is flattened, one question per leaf
  *
  * Workflow:

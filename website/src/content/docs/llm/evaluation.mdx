@@ -139,6 +139,8 @@ Anything an evaluation model cannot answer is a compile error that names the pro
 
 A choice option is described by its enum member's JSDoc, or by `tags.Constant<V, { description }>` on a literal union member, since TypeScript cannot attach JSDoc to a union member. Without either, only the label is sent. A score level without a description is described by its value.
 
+A set member's question is the property's description followed by `Does the option "card" apply?` and the member's description, if any. That sentence is written by typia in English, so keep it in mind when the rest of your JSDoc is in another language.
+
 A nested object's own JSDoc is not sent anywhere; only the leaves' descriptions become questions.
 
 Question keys are the property paths in typia's accessor notation, such as `refund.requested`, `products.card`, or `["with space"]`.
