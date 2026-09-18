@@ -19,8 +19,8 @@ import { TagBase } from "./TagBase";
  *
  * TypeScript enum members cannot carry type tags, so write `@probability N` in
  * the member's JSDoc comment instead. The same comment tag on a property sets
- * the boolean threshold, or the default minimum of every member that carries
- * none.
+ * the boolean threshold, or the default requirement of every member that
+ * carries none: a minimum for a choice or score, a threshold for an array set.
  *
  * The tag carries metadata only. It adds no runtime check to `typia.is()` or
  * `typia.validate()` and no JSON Schema keyword, because it constrains how an
