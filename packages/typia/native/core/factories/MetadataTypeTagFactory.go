@@ -141,7 +141,9 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
     }
   }
   if len(filtered) == 0 {
-    return []schemametadata.IMetadataTypeTag{}
+    // every tag object was malformed: their messages must still be reported,
+    // exactly as when a valid tag accompanies them (samchon/typia#2400)
+    return metadataTypeTagFactory_flush(props.Errors, props.Type, props.Objects, props.Explore, messages, []schemametadata.IMetadataTypeTag{})
   }
 
   tagList := []*metadataTypeTagFactory_ITypeTag{}
@@ -193,21 +195,35 @@ func (metadataTypeTagFactoryNamespace) Analyze(props struct {
     Tags:   output,
   })
 
-  if len(messages) > 0 {
-    if props.Errors != nil {
-      names := []string{props.Type}
-      for _, object := range props.Objects {
-        names = append(names, object.Name)
-      }
-      metadataTypeTagFactory_append_error(props.Errors, MetadataFactory_IError{
-        Name:     strings.Join(names, " & "),
-        Explore:  props.Explore,
-        Messages: messages,
-      })
-    }
-    return []schemametadata.IMetadataTypeTag{}
+  return metadataTypeTagFactory_flush(props.Errors, props.Type, props.Objects, props.Explore, messages, output)
+}
+
+// metadataTypeTagFactory_flush reports the collected tag messages as one
+// error named after the tagged type, and then yields no tags; without
+// messages it yields the analyzed tags.
+func metadataTypeTagFactory_flush(
+  errors *[]MetadataFactory_IError,
+  typ string,
+  objects []*schemametadata.MetadataObjectType,
+  explore MetadataFactory_IExplore,
+  messages []string,
+  output []schemametadata.IMetadataTypeTag,
+) []schemametadata.IMetadataTypeTag {
+  if len(messages) == 0 {
+    return output
   }
-  return output
+  if errors != nil {
+    names := []string{typ}
+    for _, object := range objects {
+      names = append(names, object.Name)
+    }
+    metadataTypeTagFactory_append_error(errors, MetadataFactory_IError{
+      Name:     strings.Join(names, " & "),
+      Explore:  explore,
+      Messages: messages,
+    })
+  }
+  return []schemametadata.IMetadataTypeTag{}
 }
 
 func (metadataTypeTagFactoryNamespace) Validate(props struct {
@@ -344,11 +360,13 @@ func metadataTypeTagFactory_validate_property(props struct {
     }
     target := []string{}
     if len(props.Value.Objects) == 0 {
-      targetProperty := "target"
+      // `validate` itself is malformed here, e.g. a template literal built from
+      // a non-literal tag value, so name it rather than `target`
+      validateProperty := "validate"
       return props.Report(struct {
         Property *string
         Message  string
-      }{Property: &targetProperty, Message: "must be one of 'boolean', 'bigint', 'number', 'string', 'array', 'object"})
+      }{Property: &validateProperty, Message: "must be a string literal, or an object whose keys are 'boolean', 'bigint', 'number', 'string', 'array', or 'object'"})
     }
     for _, property := range props.Value.Objects[0].Type.Properties {
       if lit := property.Key.GetSoleLiteral(); lit != nil {

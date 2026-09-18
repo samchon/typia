@@ -18,11 +18,11 @@ import (
 // validate() can never produce. A valid neighbor type in the same project is
 // the positive twin that must keep compiling.
 //
-//  1. Build one project with a valid decision type and one call per rejected
-//     shape.
-//  2. Require the build to fail through the transform-diagnostic path.
-//  3. Require each rejected accessor with its message, and no diagnostic for
-//     the valid call.
+//  1. Build one project with one call per rejected shape, and a separate
+//     project with a valid decision type.
+//  2. Require the first build to fail through the transform-diagnostic path.
+//  3. Require each rejected accessor with its message, and the valid project
+//     to compile.
 func TestLlmEvaluationRejectsUndecidableTypes(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "undecidable", llmEvaluationUndecidableSource)
   for _, expected := range []string{
@@ -64,9 +64,7 @@ func TestLlmEvaluationRejectsUndecidableTypes(t *testing.T) {
       t.Fatalf("llm.evaluation diagnostic missing %q:\n%s", expected, errText)
     }
   }
-  if strings.Contains(errText, "main.ts:9:") {
-    t.Fatalf("valid decision type must not be diagnosed:\n%s", errText)
-  }
+  llmEvaluationAccepts(t, "undecidable-valid", llmEvaluationUndecidableValidSource)
 }
 
 // llmEvaluationDiagnosticsBuild builds a fixture project that must fail through
@@ -90,6 +88,25 @@ func llmEvaluationDiagnosticsBuild(t *testing.T, name string, source string) str
     t.Fatalf("%s llm.evaluation diagnostic code missing:\n%s", name, errText)
   }
   return normalized
+}
+
+// llmEvaluationAccepts builds a fixture project that must compile without any
+// diagnostic. A positive twin lives in its own project because diagnostic
+// line numbers are not a reliable way to prove a call stayed quiet.
+func llmEvaluationAccepts(t *testing.T, name string, source string) {
+  t.Helper()
+  dir := llmEvaluationProject(t, name, source)
+  _, errText, code := ttscTypiaTestCapture(func() int {
+    return runBuild([]string{
+      "--cwd", dir,
+      "--tsconfig", "tsconfig.json",
+      "--emit",
+      "--outDir", filepath.Join(dir, "dist"),
+    })
+  })
+  if code != 0 {
+    t.Fatalf("%s positive twin must compile, got code %d\nstderr=%s", name, code, errText)
+  }
 }
 
 // llmEvaluationProject writes a single-file fixture project and returns its
@@ -138,7 +155,7 @@ const llmEvaluationDiagnosticsTSConfig = `{
 }
 `
 
-const llmEvaluationUndecidableSource = `import typia, { tags } from "typia";
+const llmEvaluationUndecidableValidSource = `import typia from "typia";
 
 interface IValid {
   /** Is it urgent? */
@@ -147,6 +164,9 @@ interface IValid {
   team: "billing" | "technical";
 }
 typia.llm.evaluation<IValid>();
+`
+
+const llmEvaluationUndecidableSource = `import typia, { tags } from "typia";
 
 interface IFlag {
   /** Is it urgent? */
