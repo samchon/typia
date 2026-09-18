@@ -62,6 +62,10 @@ export const test_llm_evaluation_to_type_safe = (): void => {
     Object.getOwnPropertyDescriptor(output, "__proto__")?.value,
     { type: "noul", instructions: "Prototype?" },
   );
-  _equalsExactly("prototype", Object.getPrototypeOf(output), Object.prototype);
+  _equalsExactly(
+    "prototype",
+    Object.getPrototypeOf(output) === Object.prototype,
+    true,
+  );
   _equalsExactly("input untouched", JSON.stringify(questions), snapshot);
 };

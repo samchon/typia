@@ -28,8 +28,8 @@ export const test_llm_evaluation_key_encoding = (): void => {
   ]);
   _equalsExactly(
     "questions prototype",
-    Object.getPrototypeOf(evaluation.questions),
-    Object.prototype,
+    Object.getPrototypeOf(evaluation.questions) === Object.prototype,
+    true,
   );
 
   const answers: Record<string, unknown> = {};
@@ -55,8 +55,8 @@ export const test_llm_evaluation_key_encoding = (): void => {
   );
   _equalsExactly(
     "data prototype",
-    Object.getPrototypeOf(data),
-    Object.prototype,
+    Object.getPrototypeOf(data) === Object.prototype,
+    true,
   );
   _equalsExactly("nested under __proto__", data.__proto_holder.inner, false);
   _equalsExactly("set", data.set, ["late delivery"]);
