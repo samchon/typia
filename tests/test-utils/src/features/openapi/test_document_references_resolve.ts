@@ -31,7 +31,8 @@ import { TestGlobal } from "../../TestGlobal";
  *    component, or that the validator or the LLM converter reports as a
  *    reference failure.
  * 3. Assert the collections are empty, and that at least one fixture carried a key
- *    the 3.x grammar forbids, so the check cannot pass on tidy inputs alone.
+ *    the URI-fragment charset forbids, so the check cannot pass on tidy inputs
+ *    alone.
  */
 export const test_document_references_resolve = async (): Promise<void> => {
   const unresolved: string[] = [];
@@ -53,7 +54,7 @@ export const test_document_references_resolve = async (): Promise<void> => {
       const schemas: Record<string, OpenApi.IJsonSchema> =
         document.components.schemas ?? {};
       for (const key of Object.keys(schemas))
-        if (GRAMMAR.test(key) === false) ++untidy;
+        if (FRAGMENT.test(key) === false) ++untidy;
       // `visit` descends into a referenced component only after finding it by
       // the reference's decoded key, so a visit of a reference that the source
       // defines must reach more than the reference itself; recursion and alias
@@ -138,8 +139,12 @@ export const test_document_references_resolve = async (): Promise<void> => {
   TestEquality.equals("fixtures with untidy keys", true, untidy > 0);
 };
 
-/** The component-key grammar of OpenAPI 3.x, which real 2.0 documents ignore. */
-const GRAMMAR: RegExp = /^[a-zA-Z0-9.\-_]+$/;
+/**
+ * The URI-fragment charset of RFC 3986, outside of which a JSON Reference
+ * written as a URI fragment must percent-encode; a key beyond it is one the
+ * stricter `$defs` reader refuses and real 2.0 documents write as is.
+ */
+const FRAGMENT: RegExp = /^[A-Za-z0-9._~!$&'()*+,;=:@?-]*$/;
 
 /** A validator or composer failure about the reference rather than the value. */
 const REFERENCE: RegExp = /schema reference/;

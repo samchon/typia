@@ -397,8 +397,8 @@ const isUpgraded = (input: unknown): input is OpenApi.IDocument =>
 /**
  * Normalizes every schema an emended document holds; see the sanitizer.
  *
- * A holder the document leaves out stays out, as the upgraders leave it, so the
- * normalized document has no key the input did not have.
+ * A holder the document leaves out stays out, so the normalized document has no
+ * key the input did not have.
  */
 const normalizeDocument = (document: OpenApi.IDocument): OpenApi.IDocument => ({
   ...document,
@@ -478,43 +478,40 @@ const normalizeBody = <
   body.content
     ? {
         ...body,
-        content: mapValues(
-          body.content as Record<
-            string,
-            OpenApi.IOperation.IMediaType | undefined
-          >,
-          normalizeMediaType,
-        ) as OpenApi.IOperation.IContent,
+        content: mapValues(body.content, normalizeMediaType),
       }
     : body;
 
 const normalizeMediaType = (
-  media: OpenApi.IOperation.IMediaType | undefined,
-): OpenApi.IOperation.IMediaType | undefined =>
-  media
-    ? {
-        ...media,
-        ...(media.schema
-          ? { schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(media.schema) }
-          : {}),
-        ...(media.itemSchema
-          ? {
-              itemSchema: OpenApiSchemaSanitizer.fillOpenArrayDeep(
-                media.itemSchema,
-              ),
-            }
-          : {}),
-      }
-    : media;
+  media: OpenApi.IOperation.IMediaType,
+): OpenApi.IOperation.IMediaType => ({
+  ...media,
+  ...(media.schema
+    ? { schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(media.schema) }
+    : {}),
+  ...(media.itemSchema
+    ? { itemSchema: OpenApiSchemaSanitizer.fillOpenArrayDeep(media.itemSchema) }
+    : {}),
+});
 
-/** A copy of the record with `map` applied to every value. */
-const mapValues = <T>(
-  record: Record<string, T>,
-  map: (value: T) => T,
-): Record<string, T> =>
+/**
+ * A copy of the record with `map` applied to every value.
+ *
+ * A document may hold an absent value where the type promises one; it is left
+ * for the reader to judge, as the sanitizer leaves an absent schema.
+ */
+const mapValues = <Record_ extends Record<string, unknown>>(
+  record: Record_,
+  map: (value: NonNullable<Record_[string]>) => NonNullable<Record_[string]>,
+): Record_ =>
   Object.fromEntries(
-    Object.entries(record).map(([key, value]) => [key, map(value)]),
-  );
+    Object.entries(record).map(([key, value]) => [
+      key,
+      value === undefined || value === null
+        ? value
+        : map(value as NonNullable<Record_[string]>),
+    ]),
+  ) as Record_;
 
 const METHODS = [
   "get",

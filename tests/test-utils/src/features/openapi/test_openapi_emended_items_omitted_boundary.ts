@@ -228,4 +228,22 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
       OpenApiConverter.upgradeDocument(raw).paths?.["/stream"]?.get ?? {},
     ),
   );
+
+  // an absent holder where the type promises one is left for the reader to
+  // judge, as the sanitizer leaves an absent schema
+  const holed: OpenApi.IDocument = {
+    ...raw,
+    paths: {
+      "/holed": {
+        get: {
+          responses: { 200: undefined, 404: { description: "gone" } },
+        },
+      },
+    },
+  } as unknown as OpenApi.IDocument;
+  TestEquality.equals<unknown>(
+    "absent holder kept",
+    { 200: undefined, 404: { description: "gone" } },
+    OpenApiConverter.upgradeDocument(holed).paths?.["/holed"]?.get?.responses,
+  );
 };

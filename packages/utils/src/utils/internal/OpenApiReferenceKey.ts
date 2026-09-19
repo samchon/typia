@@ -20,7 +20,7 @@ import { ObjectDictionary } from "./ObjectDictionary";
  * validators, and the LLM composers, resolves a reference through this one
  * reader, so they agree on the component it names (samchon/typia#2416). The
  * `#/$defs/` references of an LLM schema keep their own reader in
- * {@link LlmReference.read}.
+ * `LlmReference.read`.
  *
  * @internal
  */
