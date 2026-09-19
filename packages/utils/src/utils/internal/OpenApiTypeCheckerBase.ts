@@ -280,10 +280,14 @@ export namespace OpenApiTypeCheckerBase {
       entry?.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix);
     const found: OpenApi.IJsonSchema | undefined = entry?.value;
     if (found === undefined) {
+      // A FOREIGN REFERENCE IS NAMED WHOLE
+      const missing: string = props.schema.$ref.startsWith(props.prefix)
+        ? key
+        : props.schema.$ref;
       props.reasons.push({
         schema: props.schema,
         accessor: props.accessor,
-        message: `unable to find reference type ${JSON.stringify(key)}.`,
+        message: `unable to find reference type ${JSON.stringify(missing)}.`,
       });
       return null;
     } else if (isReference(found) === false) return found;
@@ -362,6 +366,7 @@ export namespace OpenApiTypeCheckerBase {
                 components: props.components,
                 schema: props.schema,
                 escape: true,
+                key,
               }),
             }
           : res;
@@ -380,6 +385,7 @@ export namespace OpenApiTypeCheckerBase {
                 components: props.components,
                 schema: props.schema,
                 escape: true,
+                key,
               }),
             }
           : res;

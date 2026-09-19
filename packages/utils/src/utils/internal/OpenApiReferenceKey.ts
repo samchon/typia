@@ -14,7 +14,11 @@ import { ObjectDictionary } from "./ObjectDictionary";
  * converter already use.
  *
  * Documents in the wild also write unescaped keys into references, so lookups
- * try the decoded key first and fall back to the raw token.
+ * try the decoded key first and fall back to the raw token. That leniency
+ * belongs to the converters and the schema walkers, which always read raw
+ * tokens. The validators and the LLM converter keep rejecting a malformed
+ * reference through {@link LlmReference.readOpenApi}, a deliberate integrity
+ * contract (samchon/typia#2104).
  *
  * @internal
  */

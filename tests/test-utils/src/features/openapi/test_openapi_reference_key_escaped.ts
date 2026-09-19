@@ -23,7 +23,8 @@ import {
  * 4. Upgrade 3.1 and 3.2 documents whose header parameter and webhook path item
  *    keys need escaping, and assert both resolve.
  * 5. Run the schema walkers and HTTP composers over an escaped and a plain key,
- *    and assert they answer alike.
+ *    and assert they answer alike; a literal key that only looks escaped still
+ *    resolves with its description.
  */
 export const test_openapi_reference_key_escaped = (): void => {
   const reference = { $ref: "#/components/schemas/A~1B" };
@@ -161,6 +162,21 @@ export const test_openapi_reference_key_escaped = (): void => {
         };
       })(),
     );
+
+  // a literal key that only looks escaped resolves by the raw fallback, and
+  // keeps its description under the key it was found by
+  const literal = OpenApiTypeChecker.escape({
+    components: {
+      schemas: { "A~1B": { type: "object", description: "Literal." } },
+    },
+    schema: { $ref: "#/components/schemas/A~1B" },
+    recursive: false,
+  });
+  TestEquality.equals(
+    "literal key description",
+    "Description of the current {@link A~1B} type:\n\n> Literal.",
+    literal.success ? literal.value.description : null,
+  );
 
   // the same walks over an escaped and a plain key must answer alike
   TestEquality.equals("walkers", walk("QP", "QP"), walk("Q/P", "Q~1P"));
