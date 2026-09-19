@@ -28,6 +28,8 @@
     "ttsc": "catalog:typescript"
   },
   "dependencies": {
+    "@typesafe-ai/sdk": "^0.6.0",
+    "@typia/jev": "workspace:^",
     "@typia/utils": "workspace:^",
     "openai": "catalog:utils",
     "typia": "workspace:^",

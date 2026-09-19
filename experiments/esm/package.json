@@ -14,6 +14,7 @@
     "@modelcontextprotocol/sdk": "^1.26.0",
     "@types/node": "^25.3.0",
     "@typia/interface": "file:../tarballs/interface.tgz",
+    "@typia/jev": "file:../tarballs/jev.tgz",
     "@typia/langchain": "file:../tarballs/langchain.tgz",
     "@typia/mcp": "file:../tarballs/mcp.tgz",
     "@typia/utils": "file:../tarballs/utils.tgz",

@@ -31,7 +31,8 @@ typia/
 │   ├── utils/             # Runtime/OpenAPI/LLM utilities
 │   ├── langchain/         # LangChain integration
 │   ├── mcp/               # MCP integration
-│   └── vercel/            # Vercel AI SDK integration
+│   ├── vercel/            # Vercel AI SDK integration
+│   └── jev/               # Jev evaluation model integration
 ├── tests/                 # Test workspaces and generated test fixtures
 │   ├── template/          # Shared test structures package (@typia/template)
 │   └── test-*/            # Test suites
@@ -87,7 +88,7 @@ Start from the package closest to the behavior you are changing:
 
 - public API and native transform: `packages/typia`
 - runtime/shared typing surfaces: `packages/interface`, `packages/utils`
-- adapter integrations: `packages/langchain`, `packages/mcp`, `packages/vercel`
+- adapter integrations: `packages/langchain`, `packages/mcp`, `packages/vercel`, `packages/jev`
 - ttsc host or runner behavior: the sibling `../ttsc` repository
 
 ## Documentation And Strategy
