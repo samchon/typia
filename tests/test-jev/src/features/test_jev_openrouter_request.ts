@@ -16,8 +16,9 @@ import { ITriage } from "../structures/ITriage";
  *
  * 1. Evaluate with defaults and assert the URL, method, headers, and body.
  * 2. Assert the validated decision, raw answers, model, and usage with cost.
- * 3. Evaluate with a custom base URL, model, header, and extra body fields, and
- *    assert the core fields and the key win over conflicting extras.
+ * 3. Evaluate with a custom base URL, model, headers, and extra body fields, and
+ *    assert the core fields win over conflicting extras, and the key and
+ *    content type over conflicting headers in any letter case.
  */
 export const test_jev_openrouter_request = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<ITriage>();
@@ -42,9 +43,9 @@ export const test_jev_openrouter_request = async (): Promise<void> => {
     "https://openrouter.ai/api/alpha/decisions",
   );
   TestEquality.equals("method", plain.calls[0]?.init.method, "POST");
-  TestEquality.equals("headers", plain.calls[0]?.init.headers, {
-    Authorization: "Bearer sk-or-test",
-    "Content-Type": "application/json",
+  TestEquality.equals("headers", entries(plain.calls[0]?.init.headers), {
+    authorization: "Bearer sk-or-test",
+    "content-type": "application/json",
   });
   TestEquality.equals("body", JSON.parse(String(plain.calls[0]?.init.body)), {
     model: "typesafe/jev-1.13",
@@ -65,7 +66,11 @@ export const test_jev_openrouter_request = async (): Promise<void> => {
     state: { ticket: 1 },
     model: "typesafe/jev-latest",
     baseURL: "https://gateway.example.com/alpha/",
-    headers: { "X-Title": "triage", Authorization: "Bearer overridden" },
+    headers: {
+      "X-Title": "triage",
+      authorization: "Bearer overridden",
+      "CONTENT-TYPE": "text/plain",
+    },
     body: { provider: { order: ["TypeSafe"] }, user: "u-1", model: "hijack" },
     fetch: custom.fetch,
   });
@@ -74,11 +79,15 @@ export const test_jev_openrouter_request = async (): Promise<void> => {
     custom.calls[0]?.url,
     "https://gateway.example.com/alpha/decisions",
   );
-  TestEquality.equals("custom headers", custom.calls[0]?.init.headers, {
-    "X-Title": "triage",
-    Authorization: "Bearer sk-or-test",
-    "Content-Type": "application/json",
-  });
+  TestEquality.equals(
+    "custom headers",
+    entries(custom.calls[0]?.init.headers),
+    {
+      "x-title": "triage",
+      authorization: "Bearer sk-or-test",
+      "content-type": "application/json",
+    },
+  );
   TestEquality.equals(
     "custom body",
     JSON.parse(String(custom.calls[0]?.init.body)),
@@ -91,3 +100,7 @@ export const test_jev_openrouter_request = async (): Promise<void> => {
     },
   );
 };
+
+/** Headers as sent, one lowercase entry per name. */
+const entries = (headers: HeadersInit | undefined): Record<string, string> =>
+  Object.fromEntries(new Headers(headers).entries());

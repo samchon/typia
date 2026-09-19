@@ -47,7 +47,14 @@ export namespace Jev {
     instructions: string;
   }
 
-  /** State to evaluate: text, or a JSON object or array. */
+  /**
+   * State to evaluate: text, or a JSON object or array.
+   *
+   * Both endpoints receive it as JSON. A value JSON cannot carry faithfully,
+   * such as a function, a `Map`, a class instance without `toJSON()`, or `NaN`,
+   * is rejected with a `TypeError` before any request, instead of reaching the
+   * model as something else.
+   */
   export type IState = string | object | null;
 
   /** Request body of the Jev endpoints. */
@@ -155,6 +162,11 @@ export namespace Jev {
    * `TypeSafeClient` from `@typesafe-ai/sdk` satisfies this structurally, so
    * the SDK's retries, environment-based configuration, and logging stay in
    * charge without this package depending on it.
+   *
+   * The SDK types the state as a JSON value with an index signature, which an
+   * interface-typed state never satisfies although it is valid JSON. This
+   * structure takes any {@link IState} instead, and {@link typesafe} checks the
+   * value at run time before handing it over.
    */
   export interface ITypeSafeClient {
     systemOne(request: {
@@ -211,7 +223,10 @@ export namespace Jev {
      */
     baseURL?: string | undefined;
 
-    /** Additional request headers. */
+    /**
+     * Additional request headers. `Authorization` and `Content-Type` are always
+     * this client's own, in any letter case.
+     */
     headers?: Record<string, string> | undefined;
 
     /**
@@ -221,7 +236,9 @@ export namespace Jev {
     body?: Record<string, unknown> | undefined;
 
     /**
-     * Retries after a rate limit, an overload, or a gateway failure.
+     * Retries after a rate limit, an overload, or a gateway failure, a
+     * non-negative integer. A network failure thrown by `fetch` is not
+     * retried.
      *
      * @default 2
      */
@@ -270,6 +287,7 @@ export namespace Jev {
   export const typesafe = async <T>(
     props: ITypeSafeProps<T>,
   ): Promise<IResult<T>> => {
+    assertState(props.state);
     const response = await props.client.systemOne({
       state: props.state,
       questions: questions(props.evaluation.questions),
@@ -284,7 +302,8 @@ export namespace Jev {
    * OpenRouter publishes no SDK for this alpha endpoint, so this is a small
    * `fetch` client. A rate limit (429), an overload (529), or a gateway failure
    * (500, 502, 503, 524) is retried with exponential backoff, honoring
-   * `retry-after`; any other failure throws {@link JevHttpError}.
+   * `retry-after` up to a minute; a longer requested pause, or any other
+   * failure, throws {@link JevHttpError}.
    *
    * @param props API key, evaluation, state, and transport options
    * @returns Validated answers with the raw response
@@ -292,6 +311,12 @@ export namespace Jev {
   export const openrouter = async <T>(
     props: IOpenRouterProps<T>,
   ): Promise<IResult<T>> => {
+    assertState(props.state);
+    const retries: number = props.maxRetries ?? 2;
+    if (Number.isInteger(retries) === false || retries < 0)
+      throw new TypeError(
+        `Jev.openrouter(): maxRetries must be a non-negative integer, not ${retries}.`,
+      );
     const request: IRequest = {
       model: props.model ?? "typesafe/jev-1.13",
       state: props.state,
@@ -300,16 +325,16 @@ export namespace Jev {
     const body: string = JSON.stringify({ ...props.body, ...request });
     const url: string = `${(props.baseURL ?? "https://openrouter.ai/api/alpha").replace(/\/+$/, "")}/decisions`;
     const call: typeof fetch = props.fetch ?? fetch;
-    const retries: number = Math.max(0, props.maxRetries ?? 2);
+    // set, not spread: header names are case-insensitive, and a spread would
+    // send a caller's lowercase `authorization` beside the real one
+    const headers: Headers = new Headers(props.headers);
+    headers.set("Authorization", `Bearer ${props.apiKey}`);
+    headers.set("Content-Type", "application/json");
 
     for (let attempt: number = 0; ; ++attempt) {
       const response: Response = await call(url, {
         method: "POST",
-        headers: {
-          ...props.headers,
-          Authorization: `Bearer ${props.apiKey}`,
-          "Content-Type": "application/json",
-        },
+        headers,
         body,
         signal: props.signal,
       });
@@ -325,7 +350,11 @@ export namespace Jev {
       }
       if (RETRYABLE.has(response.status) === false || attempt >= retries)
         throw new JevHttpError(response.status, payload);
-      await wait(delay(response, attempt), props.signal);
+      // a server asking for a longer pause than a caller would sit through
+      // fails now instead of hanging the call
+      const pause: number = delay(response, attempt);
+      if (pause > MAX_DELAY) throw new JevHttpError(response.status, payload);
+      await wait(pause, props.signal);
     }
   };
 
@@ -355,11 +384,62 @@ export namespace Jev {
     }
   };
 
-  const isResponse = (value: unknown): value is IResponse =>
+  /** Longest `retry-after` pause honored, in milliseconds. */
+  const MAX_DELAY: number = 60_000;
+
+  const isRecord = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" &&
     value !== null &&
-    typeof (value as IResponse).answers === "object" &&
-    (value as IResponse).answers !== null;
+    Array.isArray(value) === false;
+
+  const isResponse = (value: unknown): value is IResponse =>
+    isRecord(value) &&
+    isRecord(value.answers) &&
+    typeof value.model === "string" &&
+    isRecord(value.usage);
+
+  /**
+   * Reject a state JSON cannot carry faithfully.
+   *
+   * Both endpoints receive the state as JSON, where a function vanishes, a
+   * `Map` or `Set` becomes `{}`, and `NaN` becomes `null`, so the model would
+   * silently judge something else. A value with `toJSON()`, such as a `Date`,
+   * chooses its own JSON and passes.
+   */
+  const assertState = (state: unknown): void => {
+    const visit = (value: unknown, path: string): void => {
+      if (
+        value === null ||
+        typeof value === "string" ||
+        typeof value === "boolean"
+      )
+        return;
+      if (typeof value === "number") {
+        if (Number.isFinite(value) === false) fail(path, String(value));
+        return;
+      }
+      if (typeof value !== "object") fail(path, `a ${typeof value}`);
+      if (typeof (value as { toJSON?: unknown }).toJSON === "function") return;
+      if (Array.isArray(value)) {
+        value.forEach((elem, i) => visit(elem, `${path}[${i}]`));
+        return;
+      }
+      const prototype: unknown = Object.getPrototypeOf(value);
+      if (prototype !== Object.prototype && prototype !== null)
+        fail(
+          path,
+          `a ${(value as object).constructor?.name ?? "class"} instance`,
+        );
+      for (const [key, elem] of Object.entries(value as object))
+        if (elem !== undefined) visit(elem, `${path}.${key}`);
+    };
+    const fail = (path: string, what: string): never => {
+      throw new TypeError(
+        `Jev state must be JSON: ${path} is ${what}, which JSON cannot carry.`,
+      );
+    };
+    visit(state, "$state");
+  };
 
   /** Milliseconds before the next attempt. */
   const delay = (response: Response, attempt: number): number => {

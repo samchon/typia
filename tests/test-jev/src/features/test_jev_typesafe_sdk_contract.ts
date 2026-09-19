@@ -1,4 +1,4 @@
-import type { Question, TypeSafeClient } from "@typesafe-ai/sdk";
+import type { EntryType, Question, TypeSafeClient } from "@typesafe-ai/sdk";
 import { ILlmEvaluation } from "@typia/interface";
 import { Jev } from "@typia/jev";
 import { TestEquality } from "@typia/template/equality";
@@ -16,8 +16,9 @@ import { TestEquality } from "@typia/template/equality";
  * so any drift on either side breaks this compile instead of a user's.
  *
  * 1. Assert every converted question type is assignable to the SDK question.
- * 2. Assert a converted question map fits the `systemOne` request, and the SDK
- *    client fits `Jev.ITypeSafeClient`.
+ * 2. Assert a converted question map fits the `systemOne` request, the SDK client
+ *    fits `Jev.ITypeSafeClient`, and the request and result fit in the
+ *    directions the method's bivariance would not check.
  * 3. Assert a converted score keeps its two-level tuple at runtime; the SDK answer
  *    map needs no check, because `validate()` takes `unknown`.
  */
@@ -33,8 +34,24 @@ export const test_jev_typesafe_sdk_contract = (): void => {
       Parameters<TypeSafeClient["systemOne"]>[0]["questions"]
     >,
     Extends<TypeSafeClient, Jev.ITypeSafeClient>,
-  ] = [true, true, true, true, true, true];
-  TestEquality.equals("type cases", cases.length, 6);
+    // the method check above is bivariant, so pin both directions explicitly:
+    // the request Jev.typesafe() builds must satisfy the SDK's request, which a
+    // new required SDK field would break,
+    Extends<
+      {
+        state: EntryType;
+        questions: Record<string, Jev.IQuestion>;
+        model?: string;
+      },
+      Parameters<TypeSafeClient["systemOne"]>[0]
+    >,
+    // and the SDK's result must satisfy what Jev.typesafe() reads from it
+    Extends<
+      Awaited<ReturnType<TypeSafeClient["systemOne"]>>,
+      Awaited<ReturnType<Jev.ITypeSafeClient["systemOne"]>>
+    >,
+  ] = [true, true, true, true, true, true, true, true];
+  TestEquality.equals("type cases", cases.length, 8);
 
   const output = Jev.questions({
     level: {
