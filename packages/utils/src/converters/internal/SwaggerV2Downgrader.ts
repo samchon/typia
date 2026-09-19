@@ -3,6 +3,7 @@ import { OpenApi, SwaggerV2 } from "@typia/interface";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
+import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
 
 export namespace SwaggerV2Downgrader {
   export interface IComponentsCollection {
@@ -622,8 +623,12 @@ export namespace SwaggerV2Downgrader {
         constantGroups.set(type, created);
         union.push(created);
       };
-      const visit = (schema: OpenApi.IJsonSchema): void => {
-        if (schema !== input && Object.keys(getAttribute(schema)).length > 0)
+      const visit = (raw: OpenApi.IJsonSchema): void => {
+        // identity checks against the top-level `input` compare `raw`, since
+        // restoring an open array returns a copy
+        const schema: OpenApi.IJsonSchema =
+          OpenApiOpenArrayRestorer.restore(raw);
+        if (raw !== input && Object.keys(getAttribute(schema)).length > 0)
           preserveNullableBranches.value = true;
         if (OpenApiTypeChecker.isNull(schema))
           nullableBranches.push({
@@ -647,16 +652,12 @@ export namespace SwaggerV2Downgrader {
         else if (OpenApiTypeChecker.isReference(schema))
           union.push({
             $ref: `#/definitions/${schema.$ref.split("/").pop()}`,
-            ...(schema === input ? {} : getAttribute(schema)),
+            ...(raw === input ? {} : getAttribute(schema)),
           });
         else if (OpenApiTypeChecker.isArray(schema))
           union.push({
             ...schema,
-            // TOLERATE A SPEC-VIOLATING ARRAY WITHOUT `items` AS `any[]`
-            items:
-              schema.items === undefined
-                ? {}
-                : downgradeSchema(collection)(schema.items),
+            items: downgradeSchema(collection)(schema.items),
             examples: schema.examples
               ? Object.values(schema.examples)
               : undefined,

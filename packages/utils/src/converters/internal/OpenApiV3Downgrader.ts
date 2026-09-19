@@ -3,6 +3,7 @@ import { OpenApi, OpenApiV3 } from "@typia/interface";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
+import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
 
 export namespace OpenApiV3Downgrader {
   export interface IComponentsCollection {
@@ -242,7 +243,11 @@ export namespace OpenApiV3Downgrader {
           ),
         ),
       };
-      const visit = (schema: OpenApi.IJsonSchema): void => {
+      const visit = (raw: OpenApi.IJsonSchema): void => {
+        // identity checks against the top-level `input` compare `raw`, since
+        // restoring an open array returns a copy
+        const schema: OpenApi.IJsonSchema =
+          OpenApiOpenArrayRestorer.restore(raw);
         if (OpenApiTypeChecker.isString(schema)) {
           const {
             contentEncoding,
@@ -273,11 +278,7 @@ export namespace OpenApiV3Downgrader {
           const next = omitSchemaExamples(schema);
           union.push({
             ...next,
-            // TOLERATE A SPEC-VIOLATING ARRAY WITHOUT `items` AS `any[]`
-            items:
-              schema.items === undefined
-                ? {}
-                : downgradeSchema(collection)(schema.items),
+            items: downgradeSchema(collection)(schema.items),
           });
         } else if (OpenApiTypeChecker.isTuple(schema)) {
           const next = omitSchemaExamples(schema);
@@ -330,8 +331,7 @@ export namespace OpenApiV3Downgrader {
             required: schema.required,
           });
         } else if (OpenApiTypeChecker.isOneOf(schema)) {
-          const tracked: boolean =
-            schema === input && discriminator !== undefined;
+          const tracked: boolean = raw === input && discriminator !== undefined;
           for (const branch of schema.oneOf) {
             const previous: number = union.length;
             visit(branch);
