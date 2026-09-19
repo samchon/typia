@@ -1,0 +1,91 @@
+---
+title: Guide Documents > Utilization Cases > Jev
+---
+import { Callout } from "nextra/components";
+
+# Jev
+
+[`@typia/jev`](https://github.com/samchon/typia/tree/master/packages/jev) evaluates a [`typia.llm.evaluation<T>()`](/docs/llm/evaluation) decision with [Jev](https://docs.typesafe.ai), TypeSafe's System One model. Jev answers typed questions with calibrated probabilities, and never returns a value outside the declared options.
+
+`typia.llm.evaluation<T>()` emits the provider-neutral questions of Vercel AI SDK's `experimental_evaluate()`, which spells a yes/no question `"boolean"`. Jev's own wire format spells it `"noul"`, and that format is shared by TypeSafe's API and OpenRouter's Decisions API. `@typia/jev` converts the questions, calls either endpoint, and validates the answers back into your type.
+
+```bash filename="Terminal" copy
+npm install typia @typia/jev
+npx typia setup
+```
+
+<Callout type="info">
+Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe provider does the conversion. Use `@typia/jev` to call Jev without AI SDK.
+</Callout>
+
+## TypeSafe
+
+`Jev.typesafe()` takes the official [`@typesafe-ai/sdk`](https://docs.typesafe.ai/sdk/javascript) client, so the SDK's retries, `TYPESAFE_API_KEY` configuration, and logging stay in charge. The package does not depend on the SDK; any object with its `systemOne()` method works.
+
+```typescript copy filename="typesafe.ts"
+import { TypeSafeClient } from "@typesafe-ai/sdk";
+import { Jev } from "@typia/jev";
+import typia from "typia";
+
+interface ITriage {
+  /** Is the ticket urgent? */
+  urgent: boolean;
+
+  /** Which team owns the ticket? */
+  team: "billing" | "technical";
+}
+
+const result = await Jev.typesafe({
+  client: new TypeSafeClient(),
+  evaluation: typia.llm.evaluation<ITriage>(),
+  model: "jev-1.13.0",
+  state: "The payment page crashes for every customer.",
+});
+```
+
+`model` is optional and defaults to the client's `defaultModel`, `jev-latest`. Pin a versioned model once you tune [probability thresholds](/docs/llm/evaluation), because the aliases move when a new release ships.
+
+## OpenRouter
+
+`Jev.openrouter()` calls OpenRouter's Decisions API, `POST https://openrouter.ai/api/alpha/decisions`. OpenRouter publishes no SDK for this alpha endpoint, so the package ships a small `fetch` client.
+
+```typescript copy filename="openrouter.ts"
+import { Jev } from "@typia/jev";
+
+const result = await Jev.openrouter({
+  apiKey: process.env.OPENROUTER_API_KEY!,
+  evaluation: typia.llm.evaluation<ITriage>(),
+  state: "The payment page crashes for every customer.",
+  body: { provider: { order: ["TypeSafe"] } }, // optional routing fields
+});
+```
+
+- **Model**: `typesafe/jev-1.13` by default.
+- **Retries**: a rate limit (429), an overload (529), or a gateway failure (500, 502, 503, 524) is retried up to `maxRetries` times, 2 by default, with exponential backoff that honors `retry-after`. `signal` aborts the request and any wait.
+- **Errors**: any other failure throws `JevHttpError`, with the `status` and the parsed `body`. So does a success response without an answer map.
+- **Transport**: `baseURL`, `headers`, and `fetch` override the defaults. Extra `body` fields never override `model`, `state`, or `questions`.
+
+## Result
+
+Both helpers return the same result.
+
+```typescript copy filename="result.ts"
+result.validation; // IValidation<ITriage>, the answers folded back into ITriage
+result.answers;    // raw Jev answers, keeping probabilities, confidence, and legend
+result.model;      // versioned model that answered
+result.usage;      // input_tokens, output_tokens, and cost on OpenRouter
+```
+
+`validation` follows the [conversion rules](/docs/llm/evaluation) of `validate()`. A choice or score outside the declared options, or a gated option below its probability requirement, fails there with the offending path. The raw `answers` keep what `ITriage` has no room for, such as the probability of every option.
+
+## Wire format only
+
+For any other transport, convert the questions yourself. `validate()` accepts Jev's native `{ type: "noul", noul }` answers as they are.
+
+```typescript copy filename="wire.ts"
+const evaluation = typia.llm.evaluation<ITriage>();
+const questions = Jev.questions(evaluation.questions); // boolean becomes "noul"
+
+// ...send { model, state, questions } and receive { answers }...
+const validation = evaluation.validate(response.answers);
+```

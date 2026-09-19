@@ -19,6 +19,7 @@
     "@typia/mcp": "file:../../experiments/tarballs/mcp.tgz",
     "@typia/vercel": "file:../../experiments/tarballs/vercel.tgz",
     "@typia/langchain": "file:../../experiments/tarballs/langchain.tgz",
+    "@typia/jev": "file:../../experiments/tarballs/jev.tgz",
     "typia": "file:../../experiments/tarballs/typia.tgz"
   }
 }

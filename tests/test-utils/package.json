@@ -24,7 +24,6 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "@typesafe-ai/sdk": "^0.6.0",
     "@typia/template": "workspace:^",
     "ttsc": "catalog:typescript"
   },

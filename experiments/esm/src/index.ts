@@ -1,3 +1,4 @@
+import { test_jev } from "./test_jev.js";
 import { test_langchain } from "./test_langchain.js";
 import { test_mcp } from "./test_mcp.js";
 import { test_typia } from "./test_typia.js";
@@ -15,6 +16,7 @@ const main = async (): Promise<void> => {
     "@typia/mcp": test_mcp,
     "@typia/langchain": test_langchain,
     "@typia/vercel": test_vercel,
+    "@typia/jev": test_jev,
   })) {
     console.log(`\n== ${name} ==`);
     await run();

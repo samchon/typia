@@ -206,6 +206,12 @@ importers:
 
   examples:
     dependencies:
+      '@typesafe-ai/sdk':
+        specifier: ^0.6.0
+        version: 0.6.0
+      '@typia/jev':
+        specifier: workspace:^
+        version: link:../packages/jev
       '@typia/utils':
         specifier: workspace:^
         version: link:../packages/utils
@@ -237,6 +243,28 @@ importers:
       rimraf:
         specifier: catalog:utils
         version: 6.1.3
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.28.1
+      typescript:
+        specifier: catalog:typescript
+        version: 7.0.2
+
+  packages/jev:
+    dependencies:
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../interface
+    devDependencies:
+      rimraf:
+        specifier: catalog:utils
+        version: 6.1.3
+      rolldown:
+        specifier: catalog:rolldown
+        version: 1.1.5
+      tinyglobby:
+        specifier: ^0.2.12
+        version: 0.2.16
       ttsc:
         specifier: catalog:typescript
         version: 0.28.1
@@ -491,6 +519,37 @@ importers:
         specifier: catalog:typescript
         version: 7.0.2
 
+  tests/test-jev:
+    dependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../../packages/interface
+      '@typia/jev':
+        specifier: workspace:^
+        version: link:../../packages/jev
+      chalk:
+        specifier: ^4.1.2
+        version: 4.1.2
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+      '@typesafe-ai/sdk':
+        specifier: ^0.6.0
+        version: 0.6.0
+      '@typia/template':
+        specifier: workspace:^
+        version: link:../template
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.28.1
+
   tests/test-langchain:
     dependencies:
       '@langchain/core':
@@ -740,9 +799,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      '@typesafe-ai/sdk':
-        specifier: ^0.6.0
-        version: 0.6.0
       '@typia/template':
         specifier: workspace:^
         version: link:../template

@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "@typia/test-jev",
+  "version": "14.0.6",
+  "description": "Test suite for @typia/jev package",
+  "scripts": {
+    "start": "ttsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samchon/typia"
+  },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "@typesafe-ai/sdk": "^0.6.0",
+    "@typia/template": "workspace:^",
+    "ttsc": "catalog:typescript"
+  },
+  "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@typia/interface": "workspace:^",
+    "@typia/jev": "workspace:^",
+    "chalk": "^4.1.2",
+    "typia": "workspace:^"
+  }
+}

@@ -17,6 +17,7 @@ The packages:
 - **`@typia/langchain`**: LangChain.js integration that adapts typia's LLM harness to LangChain tools.
 - **`@typia/mcp`**: Model Context Protocol integration.
 - **`@typia/vercel`**: Vercel AI SDK integration.
+- **`@typia/jev`**: Jev evaluation model integration: the Jev wire format for `llm.evaluation` questions, and helpers evaluating through TypeSafe's SDK client or OpenRouter's Decisions API.
 
 Downstream projects (`@nestia/core`, `@agentica`, `@autobe`) build on top of typia but are not part of this repository's contract. The exported `typia.*` surface, the `@typia/interface` typings, and the `ttsc.plugin` descriptor shape are public; renaming or removing any of them is a deliberate, separate change.
 
@@ -33,7 +34,7 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
 - `packages/*`: the published packages, including the shared Go plugin under `packages/typia/native`. Public and contract Go tests live under `packages/typia/test`; native Go tests are colocated throughout `packages/typia/native/**`. The test `go.work` resolves `ttsc` and its shims through `../node_modules/`, while the native development `go.work` resolves the sibling `ttsc` checkout.
 - `tests/template`: `@typia/template`, a workspace package that ships the structure fixtures (`ObjectSimple`, `ArrayHierarchical`, ...) and the `TestServant` runtime helper consumed by the automated suites.
 - `tests/test-*`: feature-test workspaces:
-  - `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, `test-utils`: function-per-file suites under `src/features/**/test_*.ts`, each file exporting one matching `test_<snake_case>` function discovered by `DynamicExecutor` (from `@nestia/e2e`).
+  - `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, `test-jev`, `test-utils`: function-per-file suites under `src/features/**/test_*.ts`, each file exporting one matching `test_<snake_case>` function discovered by `DynamicExecutor` (from `@nestia/e2e`).
   - `test-typia-automated`, `test-utils-automated`: generator-driven matrix suites over their configured typia operations and `@typia/template` structures; their generated `src/features/` trees are rebuilt by the suite.
   - `test-interface`: compile-time tests for the exported `@typia/interface` types.
   - `test-typia-compiler`: compiler-process integration tests that exercise the native plugin through `ttsc` against temporary projects.

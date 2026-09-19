@@ -1,11 +1,11 @@
 import { ILlmEvaluation } from "@typia/interface";
+import { Jev } from "@typia/jev";
 import { TestEquality } from "@typia/template/equality";
-import { LlmEvaluation } from "@typia/utils";
 
 /**
- * Verifies LlmEvaluation.toTypeSafe renames only boolean questions.
+ * Verifies Jev.questions renames only boolean questions.
  *
- * TypeSafe's native API spells the boolean question `"noul"`, while choice and
+ * The Jev wire format spells the boolean question `"noul"`, while choice and
  * score questions are identical to the neutral AI SDK shape. The converter must
  * rename exactly the boolean type, keep every key including `__proto__` as an
  * own property, and leave its input untouched so the same questions can still
@@ -16,7 +16,7 @@ import { LlmEvaluation } from "@typia/utils";
  * 3. Assert the renamed booleans, the passed-through choice and score, the own
  *    `__proto__` key, and the unchanged input.
  */
-export const test_llm_evaluation_to_type_safe = (): void => {
+export const test_jev_questions = (): void => {
   const questions: Record<string, ILlmEvaluation.IQuestion> = JSON.parse(
     JSON.stringify({
       urgent: { type: "boolean", instructions: "Is it urgent?" },
@@ -40,8 +40,7 @@ export const test_llm_evaluation_to_type_safe = (): void => {
   });
   const snapshot: string = JSON.stringify(questions);
 
-  const output: Record<string, LlmEvaluation.ITypeSafeQuestion> =
-    LlmEvaluation.toTypeSafe(questions);
+  const output: Record<string, Jev.IQuestion> = Jev.questions(questions);
   TestEquality.equals("urgent", output.urgent, {
     type: "noul",
     instructions: "Is it urgent?",
