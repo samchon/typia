@@ -10,6 +10,7 @@ import { JsonDescriptor } from "../utils/internal/JsonDescriptor";
 import { LlmReference } from "../utils/internal/LlmReference";
 import { ObjectDictionary } from "../utils/internal/ObjectDictionary";
 import { OpenApiComponentName } from "../utils/internal/OpenApiComponentName";
+import { OpenApiOpenArrayRestorer } from "../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { LlmTypeChecker } from "../validators/LlmTypeChecker";
 import { OpenApiTypeChecker } from "../validators/OpenApiTypeChecker";
@@ -191,7 +192,8 @@ export namespace LlmSchemaConverter {
       return key;
     };
     const visited: Set<string> = new Set();
-    const validate = (next: OpenApi.IJsonSchema, accessor: string): void => {
+    const validate = (raw: OpenApi.IJsonSchema, accessor: string): void => {
+      const next: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(raw);
       if (props.config.strict === true)
         reasons.push(...validateStrict(next, accessor));
       if (OpenApiTypeChecker.isReference(next)) {
@@ -283,7 +285,8 @@ export namespace LlmSchemaConverter {
       else if (OpenApiTypeChecker.isOneOf(input))
         input.oneOf.forEach(visitConstant);
     };
-    const visit = (input: OpenApi.IJsonSchema, accessor: string): void => {
+    const visit = (raw: OpenApi.IJsonSchema, accessor: string): void => {
+      const input: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(raw);
       if (OpenApiTypeChecker.isOneOf(input)) {
         // UNION TYPE
         input.oneOf.forEach((s, i) => visit(s, `${accessor}.oneOf[${i}]`));

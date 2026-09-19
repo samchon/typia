@@ -1,9 +1,9 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
-import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
 
 export namespace SwaggerV2Downgrader {
   export interface IComponentsCollection {

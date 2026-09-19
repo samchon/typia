@@ -1,9 +1,9 @@
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
-import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
 
 export namespace OpenApiV3_1Downgrader {
   export interface IComponentsCollection {

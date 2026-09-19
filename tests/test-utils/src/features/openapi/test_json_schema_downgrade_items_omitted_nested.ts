@@ -9,9 +9,8 @@ import { OpenApiConverter } from "@typia/utils";
  * no checker and every downgrader collapsed it into `{}`, the unconstrained
  * schema; the guard #2392 added inside the array branch was never reached
  * (#2404). The top-level case alone does not cover the object walk, and a
- * top-level schema with attributes exercises the identity check the downgraders
- * make against the schema they were given, which a restored copy must not
- * break.
+ * described top-level array pins that the restored copy keeps the attributes of
+ * the schema it replaces.
  *
  * 1. Downgrade an object whose property is an items-less array to every version.
  * 2. Downgrade a described top-level items-less array to every version.

@@ -1,12 +1,14 @@
 import { OpenApi } from "@typia/interface";
 
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 
 export namespace OpenApiSchemaNamingRule {
   export const getName = (
-    schema: OpenApi.IJsonSchema,
+    raw: OpenApi.IJsonSchema,
     union: boolean = false,
   ): string => {
+    const schema: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(raw);
     // COALESCE
     if (OpenApiTypeChecker.isUnknown(schema)) return "unknown";
     else if (OpenApiTypeChecker.isNull(schema)) return "null";

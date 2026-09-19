@@ -3,6 +3,7 @@ import { IHttpMigrateRoute, OpenApi } from "@typia/interface";
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
@@ -246,7 +247,9 @@ export namespace HttpMigrateRouteComposer {
           }
           if (style === "spaceDelimited" || style === "pipeDelimited") {
             if (
-              !OpenApiTypeChecker.isArray(schema) &&
+              !OpenApiTypeChecker.isArray(
+                OpenApiOpenArrayRestorer.restore(schema),
+              ) &&
               !OpenApiTypeChecker.isTuple(schema) &&
               !OpenApiTypeChecker.isObject(schema)
             )
@@ -827,15 +830,19 @@ export namespace HttpMigrateRouteComposer {
       }
     };
 
-  const isNotObjectLiteral = (schema: OpenApi.IJsonSchema): boolean =>
-    OpenApiTypeChecker.isReference(schema) ||
-    OpenApiTypeChecker.isBoolean(schema) ||
-    OpenApiTypeChecker.isNumber(schema) ||
-    OpenApiTypeChecker.isString(schema) ||
-    OpenApiTypeChecker.isUnknown(schema) ||
-    (OpenApiTypeChecker.isOneOf(schema) &&
-      schema.oneOf.every(isNotObjectLiteral)) ||
-    (OpenApiTypeChecker.isArray(schema) && isNotObjectLiteral(schema.items));
+  const isNotObjectLiteral = (raw: OpenApi.IJsonSchema): boolean => {
+    const schema: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(raw);
+    return (
+      OpenApiTypeChecker.isReference(schema) ||
+      OpenApiTypeChecker.isBoolean(schema) ||
+      OpenApiTypeChecker.isNumber(schema) ||
+      OpenApiTypeChecker.isString(schema) ||
+      OpenApiTypeChecker.isUnknown(schema) ||
+      (OpenApiTypeChecker.isOneOf(schema) &&
+        schema.oneOf.every(isNotObjectLiteral)) ||
+      (OpenApiTypeChecker.isArray(schema) && isNotObjectLiteral(schema.items))
+    );
+  };
 
   const normalizeMediaType = (type: string): string =>
     type.split(";", 1)[0]!.trim().toLowerCase();

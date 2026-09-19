@@ -9,6 +9,7 @@ import { _stringLength } from "../../validators/functional/_stringLength";
 import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
 import { ObjectDictionary } from "./ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
 import { OpenApiSchemaSanitizer } from "./OpenApiSchemaSanitizer";
 
 /** @internal */
@@ -302,6 +303,11 @@ export namespace OpenApiTypeCheckerBase {
     accessor: string;
     refAccessor: string;
   }): OpenApi.IJsonSchema | null | undefined => {
+    const restored: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(
+      props.schema,
+    );
+    if (restored !== props.schema)
+      return escapeSchema({ ...props, schema: restored });
     if (isReference(props.schema)) {
       // REFERENCE
       const key: string =
@@ -919,7 +925,7 @@ export namespace OpenApiTypeCheckerBase {
           }),
         )
         .flat();
-    return [schema];
+    return [OpenApiOpenArrayRestorer.restore(schema)];
   };
 
   const escapeReferenceOfFlatSchema = (props: {
