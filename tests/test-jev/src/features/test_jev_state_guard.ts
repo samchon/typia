@@ -1,77 +1,87 @@
 import { Jev } from "@typia/jev";
 import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
+import vm from "vm";
 
 import { MockFetch } from "../internal/MockFetch";
 import { ITriage } from "../structures/ITriage";
 
 /**
- * Verifies both helpers reject a state JSON cannot carry, before any request.
+ * Verifies both helpers reject exactly the states JSON cannot carry.
  *
  * The state reaches either endpoint as JSON, where a function vanishes, a `Map`
- * becomes `{}`, and `NaN` becomes `null`: the model would silently judge
- * something other than what the caller passed. `IState` is typed loosely so an
- * interface-typed state compiles, which makes this run-time check the only
- * guard. Values with their own `toJSON()`, such as a `Date`, stay allowed.
+ * becomes `{}`, `NaN` or an array hole becomes `null`, and a cycle throws: the
+ * model would otherwise judge something other than what the caller passed.
+ * `IState` is typed loosely so an interface-typed state compiles, which makes
+ * this run-time check the only guard. It must also not reject what JSON carries
+ * faithfully: a `Date` through its `toJSON()`, a primitive wrapper, a
+ * null-prototype object, or a plain object from another realm.
  *
- * 1. Pass a nested `Map`, a function, `NaN`, a `Set`, and a class instance, and
- *    assert each throws a `TypeError` naming its path, with no request sent.
- * 2. Pass text, `null`, and an interface-typed object holding a `Date` and an
- *    `undefined` field, and assert each is sent.
+ * 1. Pass each unfaithful state and assert both helpers throw a `TypeError` naming
+ *    its path, with no request sent.
+ * 2. Pass each faithful state and assert both helpers send it.
  */
 export const test_jev_state_guard = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<ITriage>();
-  const success = {
-    status: 200,
-    body: {
-      model: "m",
-      answers: ITriage.answers(),
-      usage: { input_tokens: 1, output_tokens: 0 },
-    },
+  const body = {
+    model: "m",
+    answers: ITriage.answers(),
+    usage: { input_tokens: 1, output_tokens: 0 },
   };
-  class Ticket {
-    public constructor(public readonly id: number) {}
-  }
-
-  for (const [title, state, path] of [
-    ["map", { ticket: { tags: new Map([["a", 1]]) } }, "$state.ticket.tags"],
-    ["function", { callback: () => 1 }, "$state.callback"],
-    ["NaN", { score: [1, NaN] }, "$state.score[1]"],
-    ["set", new Set([1]), "$state"],
-    ["class instance", { ticket: new Ticket(1) }, "$state.ticket"],
-  ] as const) {
-    const mock = MockFetch([success]);
-    const error: unknown = await Jev.openrouter({
+  const attempt = async (state: Jev.IState) => {
+    const mock = MockFetch([{ status: 200, body }]);
+    const routed: unknown = await Jev.openrouter({
       apiKey: "key",
       evaluation,
       state,
       fetch: mock.fetch,
     }).catch((exp: unknown) => exp);
-    TestEquality.equals(
-      `openrouter rejects ${title}`,
-      {
-        type: error instanceof TypeError,
-        path: error instanceof Error && error.message.includes(`${path} is`),
-        calls: mock.calls.length,
-      },
-      { type: true, path: true, calls: 0 },
-    );
-
     let sent: boolean = false;
     const direct: unknown = await Jev.typesafe({
       client: {
         systemOne: async () => {
           sent = true;
-          return success.body;
+          return body;
         },
       },
       evaluation,
       state,
     }).catch((exp: unknown) => exp);
+    return { routed, direct, calls: mock.calls.length, sent };
+  };
+
+  class Ticket {
+    public constructor(public readonly id: number) {}
+  }
+  const cyclic: Record<string, unknown> = { id: 1 };
+  cyclic.self = cyclic;
+  const rejected: Array<[string, Jev.IState, string]> = [
+    ["map", { ticket: { tags: new Map([["a", 1]]) } }, "$state.ticket.tags"],
+    ["function", { callback: () => 1 }, "$state.callback"],
+    ["NaN", { score: [1, NaN] }, "$state.score[1]"],
+    ["set", new Set([1]), "$state"],
+    ["class instance", { ticket: new Ticket(1) }, "$state.ticket"],
+    ["anonymous class", { ticket: new (class {})() }, "$state.ticket"],
+    ["cycle", cyclic, "$state.self"],
+    // eslint-disable-next-line no-sparse-arrays
+    ["array hole", { list: [1, , 2] }, "$state.list[1]"],
+    ["undefined element", { list: [1, undefined] }, "$state.list[1]"],
+    ["toJSON returning NaN", { value: { toJSON: () => NaN } }, "$state.value"],
+    ["bigint", { value: 1n as unknown as object }, "$state.value"],
+  ];
+  for (const [title, state, path] of rejected) {
+    const outcome = await attempt(state);
+    const names = (error: unknown): boolean =>
+      error instanceof TypeError && error.message.includes(`${path} is `);
     TestEquality.equals(
-      `typesafe rejects ${title}`,
-      { type: direct instanceof TypeError, sent },
-      { type: true, sent: false },
+      `rejects ${title}`,
+      {
+        routed: names(outcome.routed),
+        direct: names(outcome.direct),
+        calls: outcome.calls,
+        sent: outcome.sent,
+      },
+      { routed: true, direct: true, calls: 0, sent: false },
     );
   }
 
@@ -81,18 +91,27 @@ export const test_jev_state_guard = async (): Promise<void> => {
     closed?: Date;
   }
   const ticket: ITicket = { id: 1, opened: new Date(0), closed: undefined };
-  for (const state of ["text", null, { ticket }]) {
-    const mock = MockFetch([success]);
-    const result = await Jev.openrouter({
-      apiKey: "key",
-      evaluation,
-      state,
-      fetch: mock.fetch,
-    });
+  const bare: Record<string, unknown> = Object.create(null);
+  bare.id = 1;
+  const accepted: Array<[string, Jev.IState]> = [
+    ["text", "text"],
+    ["null", null],
+    ["interface with a date", { ticket }],
+    ["primitive wrappers", { flag: new Boolean(true), count: new Number(1) }],
+    ["null prototype", bare],
+    ["another realm", vm.runInNewContext("({ ticket: { id: 1, tags: [1] } })")],
+  ];
+  for (const [title, state] of accepted) {
+    const outcome = await attempt(state);
     TestEquality.equals(
-      `accepts ${JSON.stringify(state)}`,
-      result.validation.success,
-      true,
+      `accepts ${title}`,
+      {
+        routed: (outcome.routed as Jev.IResult<ITriage>).validation?.success,
+        direct: (outcome.direct as Jev.IResult<ITriage>).validation?.success,
+        calls: outcome.calls,
+        sent: outcome.sent,
+      },
+      { routed: true, direct: true, calls: 1, sent: true },
     );
   }
 };

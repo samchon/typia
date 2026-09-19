@@ -63,12 +63,12 @@ const result = await Jev.openrouter({
 
 - **Model**: `typesafe/jev-1.13` by default.
 - **Retries**: a rate limit (429), an overload (529), or a gateway failure (500, 502, 503, 524) is retried up to `maxRetries` times, 2 by default, with exponential backoff that honors `retry-after`. A `retry-after` longer than a minute fails at once instead of hanging the call, and a network failure thrown by `fetch` is not retried. `signal` aborts the request and any wait.
-- **Errors**: any other failure throws `JevHttpError`, with the `status` and the parsed `body`. So does a success response without an answer map.
+- **Errors**: any other failure throws `JevHttpError`, with the `status` and the parsed `body`. So does a success response missing its answers, model, or usage.
 - **Transport**: `baseURL`, `headers`, and `fetch` override the defaults. `Authorization` and `Content-Type` are always the client's own, in any letter case, and extra `body` fields never override `model`, `state`, or `questions`.
 
 ## State
 
-Both endpoints receive the state as JSON, so both helpers check it first. A value JSON cannot carry faithfully, such as a function, a `Map`, a `Set`, a class instance without `toJSON()`, or `NaN`, throws a `TypeError` naming its path before any request, instead of reaching the model as `{}` or `null`. Text, plain objects and arrays, and values with their own `toJSON()`, such as a `Date`, pass.
+Both endpoints receive the state as JSON, so both helpers check it first. A value JSON cannot carry faithfully throws a `TypeError` naming its path before any request, instead of reaching the model as `{}` or `null`: a function, a `Map`, a `Set`, a class instance, `NaN`, an array hole or `undefined` element, or a cycle. Text, plain objects and arrays, primitive wrappers, and values whose `toJSON()` returns JSON, such as a `Date`, pass.
 
 ## Result
 

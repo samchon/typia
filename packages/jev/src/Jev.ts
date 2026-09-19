@@ -51,9 +51,10 @@ export namespace Jev {
    * State to evaluate: text, or a JSON object or array.
    *
    * Both endpoints receive it as JSON. A value JSON cannot carry faithfully,
-   * such as a function, a `Map`, a class instance without `toJSON()`, or `NaN`,
-   * is rejected with a `TypeError` before any request, instead of reaching the
-   * model as something else.
+   * such as a function, a `Map`, a class instance, `NaN`, an array hole, or a
+   * cycle, is rejected with a `TypeError` before any request, instead of
+   * reaching the model as something else. A value whose `toJSON()` returns
+   * JSON, such as a `Date`, passes.
    */
   export type IState = string | object | null;
 
@@ -293,7 +294,11 @@ export namespace Jev {
       questions: questions(props.evaluation.questions),
       ...(props.model !== undefined ? { model: props.model } : {}),
     });
-    return compose(props.evaluation, response as IResponse);
+    if (isResponse(response) === false)
+      throw new TypeError(
+        "Jev.typesafe(): the client returned no evaluation response with answers, model, and usage.",
+      );
+    return compose(props.evaluation, response);
   };
 
   /**
@@ -344,7 +349,7 @@ export namespace Jev {
           throw new JevHttpError(
             response.status,
             payload,
-            "the response carries no answer map",
+            "the response is not an evaluation response with answers, model, and usage",
           );
         return compose(props.evaluation, payload);
       }
@@ -407,7 +412,8 @@ export namespace Jev {
    * chooses its own JSON and passes.
    */
   const assertState = (state: unknown): void => {
-    const visit = (value: unknown, path: string): void => {
+    const ancestors: Set<object> = new Set();
+    const visit = (value: unknown, path: string, key: string): void => {
       if (
         value === null ||
         typeof value === "string" ||
@@ -418,27 +424,59 @@ export namespace Jev {
         if (Number.isFinite(value) === false) fail(path, String(value));
         return;
       }
+      if (value === undefined) fail(path, "undefined");
       if (typeof value !== "object") fail(path, `a ${typeof value}`);
-      if (typeof (value as { toJSON?: unknown }).toJSON === "function") return;
-      if (Array.isArray(value)) {
-        value.forEach((elem, i) => visit(elem, `${path}[${i}]`));
-        return;
-      }
-      const prototype: unknown = Object.getPrototypeOf(value);
-      if (prototype !== Object.prototype && prototype !== null)
-        fail(
-          path,
-          `a ${(value as object).constructor?.name ?? "class"} instance`,
-        );
-      for (const [key, elem] of Object.entries(value as object))
-        if (elem !== undefined) visit(elem, `${path}.${key}`);
+      const object: object = value as object;
+      if (ancestors.has(object)) fail(path, "circular");
+
+      // JSON unwraps what toJSON() returns and the primitive wrappers
+      const toJSON: unknown = (object as { toJSON?: unknown }).toJSON;
+      if (typeof toJSON === "function")
+        return nest(object, () => visit(toJSON.call(object, key), path, key));
+      if (
+        object instanceof Boolean ||
+        object instanceof Number ||
+        object instanceof String
+      )
+        return visit(object.valueOf(), path, key);
+
+      if (Array.isArray(object))
+        return nest(object, () => {
+          // a hole or an undefined element becomes null in JSON
+          for (let i: number = 0; i < object.length; ++i)
+            visit(object[i], `${path}[${i}]`, String(i));
+        });
+      if (isPlain(object) === false)
+        fail(path, `a ${object.constructor?.name || "class"} instance`);
+      nest(object, () => {
+        for (const [name, elem] of Object.entries(object))
+          if (elem !== undefined) visit(elem, `${path}.${name}`, name);
+      });
+    };
+    const nest = (object: object, task: () => void): void => {
+      ancestors.add(object);
+      task();
+      ancestors.delete(object);
     };
     const fail = (path: string, what: string): never => {
       throw new TypeError(
         `Jev state must be JSON: ${path} is ${what}, which JSON cannot carry.`,
       );
     };
-    visit(state, "$state");
+    visit(state, "$state", "");
+  };
+
+  /**
+   * A plain object, from this realm or another: its prototype is `null`, or an
+   * `Object.prototype`, the one prototype whose own prototype is `null`.
+   */
+  const isPlain = (object: object): boolean => {
+    const prototype: object | null = Object.getPrototypeOf(object);
+    return (
+      prototype === null ||
+      (Object.getPrototypeOf(prototype) === null &&
+        Object.prototype.toString.call(object) === "[object Object]")
+    );
   };
 
   /** Milliseconds before the next attempt. */
