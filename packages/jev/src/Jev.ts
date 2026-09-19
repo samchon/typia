@@ -60,12 +60,13 @@ export namespace Jev {
    *
    * Both endpoints receive the state as JSON, where a function vanishes, a
    * `Map` becomes `{}`, and a `bigint` throws. The helpers type their state as
-   * `S & Jsonable<S>`, so such a part fails to compile at its own property,
-   * while an interface-typed state, which a JSON type with an index signature
-   * would reject, passes. A value with `toJSON()`, such as a `Date`, passes
-   * when its JSON does. An `undefined` property is an omitted field and passes,
-   * while an `undefined` array element, which JSON writes as `null`, does not.
-   * A value typed `unknown` cannot be checked and passes.
+   * `S & Jsonable<S>`, so such a part fails to compile at its own property, or
+   * at the array holding it, while an interface-typed state, which a JSON type
+   * with an index signature would reject, passes. A value with `toJSON()`, such
+   * as a `Date`, passes when its JSON does. An `undefined` property is an
+   * omitted field and passes, while an `undefined` array element, which JSON
+   * writes as `null`, does not. A value typed `unknown` cannot be checked and
+   * passes.
    *
    * Run-time values such as `NaN`, which JSON writes as `null`, and cycles,
    * which JSON rejects, are beyond a type; they behave as `JSON.stringify`
@@ -101,13 +102,18 @@ export namespace Jev {
                 | Error
                 | Promise<unknown>
             ? never
-            : S extends readonly (infer E)[]
-              ? // the elements, not keyof S: a mapped type over an array
-                // intersected with a tag, like `string[] & tags.MinItems<1>`,
-                // would walk the array's methods
-                [E] extends [Jsonable<E>]
-                ? S
-                : never
+            : S extends readonly [...infer I]
+              ? // I is the array or tuple without any tag intersected into S,
+                // like `string[] & tags.MinItems<1>`, whose mapping would walk
+                // the array's methods
+                number extends I["length"]
+                ? [I[number]] extends [Jsonable<I[number]>]
+                  ? S
+                  : never
+                : // a tuple slot by slot, so an optional slot may be absent
+                  [I] extends [{ [K in keyof I]: Jsonable<I[K]> }]
+                  ? S
+                  : never
               : S extends object
                 ? {
                     [K in keyof S]:

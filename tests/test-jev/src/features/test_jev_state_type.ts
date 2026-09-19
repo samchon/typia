@@ -20,9 +20,9 @@ import { ITriage } from "../structures/ITriage";
  *    `bigint`, a class instance with a method, and an array with `undefined`
  *    elements, and expect each to fail.
  * 2. Compile an interface with optional and `Date` fields, typia-tagged strings,
- *    numbers, arrays, and tuples, a `Record<string, unknown>`, a union, a
- *    nested array, text, `null`, and an `unknown` value, and expect each to
- *    pass.
+ *    numbers, arrays, and tuples, tuples with optional and rest slots, a
+ *    `Record<string, unknown>`, a union, a nested array, text, `null`, and an
+ *    `unknown` value, and expect each to pass.
  * 3. Forward a generic state through a wrapper with explicit type arguments, and
  *    expect the check to hold through it.
  */
@@ -66,6 +66,7 @@ export const test_jev_state_type = (): void => {
     method: { ticket: new Ticket(1) },
     hole: { list: [1, undefined] },
     nested: { list: [{ tags: new Map<string, number>() }] },
+    slot: { pair: [1, undefined] as [number, undefined] },
   };
   interface ITagged {
     id: string & tags.Format<"uuid">;
@@ -73,6 +74,8 @@ export const test_jev_state_type = (): void => {
     names: Array<string & tags.MinLength<1>> & tags.MinItems<1>;
     unique: string[] & tags.UniqueItems;
     pair: [number, string] & tags.Example<[1, "a"]>;
+    partial: [number, string?] & tags.Example<[1]>;
+    rest: [number, ...string[]];
     opened?: Date & tags.Example<"2026-01-01T00:00:00Z">;
   }
   const tagged: ITagged = {
@@ -81,6 +84,8 @@ export const test_jev_state_type = (): void => {
     names: ["a"],
     unique: ["a"],
     pair: [1, "a"],
+    partial: [1],
+    rest: [1, "a", "b"],
   };
   const accepted = {
     ticket: { ticket },
@@ -106,6 +111,8 @@ export const test_jev_state_type = (): void => {
     void Jev.typesafe({ client, evaluation, state: rejected.hole });
     // @ts-expect-error a Map inside an array element becomes {}
     void Jev.typesafe({ client, evaluation, state: rejected.nested });
+    // @ts-expect-error a required undefined tuple slot becomes null
+    void Jev.typesafe({ client, evaluation, state: rejected.slot });
 
     void Jev.typesafe({ client, evaluation, state: accepted.ticket });
     void Jev.typesafe({ client, evaluation, state: accepted.tagged });
