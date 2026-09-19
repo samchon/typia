@@ -69,7 +69,7 @@ const result = await Jev.openrouter({
 
 ## State
 
-Both endpoints receive the state as JSON, where a function vanishes, a `Map` becomes `{}`, and a `bigint` throws. Both helpers type their state through `Jev.Jsonable<S>`, so such a part fails to compile at its own property, while text, plain objects and arrays, interfaces, and values whose `toJSON()` returns JSON, such as a `Date`, compile. An `undefined` property is an omitted field; an `undefined` array element, which JSON writes as `null`, is not allowed.
+Both endpoints receive the state as JSON, where a function vanishes, a `Map` becomes `{}`, and a `bigint` throws. Both helpers type their state through `Jev.Jsonable<S>`, so such a part fails to compile at its own property, while text, plain objects and arrays, interfaces, and values whose `toJSON()` returns JSON, such as a `Date`, compile. An `undefined` property is an omitted field; a required `undefined` array element, which JSON writes as `null`, is not allowed, while an optional tuple slot may be absent.
 
 TypeSafe's SDK types its state as a JSON value with an index signature, which an interface-typed state never satisfies although it is valid JSON; `Jev.Jsonable<S>` has no such cost. Values beyond a type, such as `NaN` or a cycle, behave as `JSON.stringify` does.
 

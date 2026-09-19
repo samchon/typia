@@ -76,6 +76,7 @@ export const test_jev_state_type = (): void => {
     pair: [number, string] & tags.Example<[1, "a"]>;
     partial: [number, string?] & tags.Example<[1]>;
     rest: [number, ...string[]];
+    mixed: [number, string?, ...boolean[]];
     opened?: Date & tags.Example<"2026-01-01T00:00:00Z">;
   }
   const tagged: ITagged = {
@@ -86,6 +87,7 @@ export const test_jev_state_type = (): void => {
     pair: [1, "a"],
     partial: [1],
     rest: [1, "a", "b"],
+    mixed: [1, "a", true],
   };
   const accepted = {
     ticket: { ticket },

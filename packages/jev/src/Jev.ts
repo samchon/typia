@@ -64,9 +64,9 @@ export namespace Jev {
    * at the array holding it, while an interface-typed state, which a JSON type
    * with an index signature would reject, passes. A value with `toJSON()`, such
    * as a `Date`, passes when its JSON does. An `undefined` property is an
-   * omitted field and passes, while an `undefined` array element, which JSON
-   * writes as `null`, does not. A value typed `unknown` cannot be checked and
-   * passes.
+   * omitted field and passes, while a required `undefined` array element, which
+   * JSON writes as `null`, does not. A value typed `unknown` cannot be checked
+   * and passes.
    *
    * Run-time values such as `NaN`, which JSON writes as `null`, and cycles,
    * which JSON rejects, are beyond a type; they behave as `JSON.stringify`
@@ -106,14 +106,11 @@ export namespace Jev {
               ? // I is the array or tuple without any tag intersected into S,
                 // like `string[] & tags.MinItems<1>`, whose mapping would walk
                 // the array's methods
-                number extends I["length"]
-                ? [I[number]] extends [Jsonable<I[number]>]
-                  ? S
-                  : never
-                : // a tuple slot by slot, so an optional slot may be absent
-                  [I] extends [{ [K in keyof I]: Jsonable<I[K]> }]
-                  ? S
-                  : never
+                // the homomorphic mapping checks an array by its element and a
+                // tuple slot by slot, so an optional slot may be absent
+                [I] extends [{ [K in keyof I]: Jsonable<I[K]> }]
+                ? S
+                : never
               : S extends object
                 ? {
                     [K in keyof S]:
