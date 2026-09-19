@@ -17,7 +17,7 @@ The packages:
 - **`@typia/langchain`**: LangChain.js integration that adapts typia's LLM harness to LangChain tools.
 - **`@typia/mcp`**: Model Context Protocol integration.
 - **`@typia/vercel`**: Vercel AI SDK integration.
-- **`@typia/jev`**: Jev evaluation model integration: the Jev wire format for `llm.evaluation` questions, and helpers evaluating through TypeSafe's SDK client or OpenRouter's Decisions API.
+- **`@typia/jev`**: Jev evaluation model integration, converting `llm.evaluation` questions to the Jev wire format.
 
 Downstream projects (`@nestia/core`, `@agentica`, `@autobe`) build on top of typia but are not part of this repository's contract. The exported `typia.*` surface, the `@typia/interface` typings, and the `ttsc.plugin` descriptor shape are public; renaming or removing any of them is a deliberate, separate change.
 

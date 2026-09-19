@@ -144,12 +144,14 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
     c.fail(accessor, "LLM evaluation does not support hidden properties, because every property of the result needs an answer.")
     return
   }
+  // typia's metadata folds unknown into any, and never and void into an
+  // undefined value, so each message names the class the metadata records
   if value == nil || value.Any {
-    c.fail(accessor, "LLM evaluation does not support any type.")
+    c.fail(accessor, "LLM evaluation does not support any or unknown types, because an evaluation model answers only closed sets.")
     return
   }
   if value.Optional || value.Required == false {
-    c.fail(accessor, "LLM evaluation does not support optional or undefined properties.")
+    c.fail(accessor, "LLM evaluation does not support optional, undefined, void, or never properties, because every property of the result needs an answer.")
     return
   }
   if value.Nullable {

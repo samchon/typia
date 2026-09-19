@@ -43,8 +43,10 @@ func TestLlmEvaluationRejectsUndecidableTypes(t *testing.T) {
     "- $input.flagOrLabel\n  - LLM evaluation does not support union types mixing different question kinds.",
     "- $input.bigints\n  - LLM evaluation does not support bigint literal types.",
     "- $input.nullable\n  - LLM evaluation does not support nullable properties.",
-    "- $input.optional\n  - LLM evaluation does not support optional or undefined properties.",
-    "- $input.undefinable\n  - LLM evaluation does not support optional or undefined properties.",
+    "- $input.optional\n  - LLM evaluation does not support optional, undefined, void, or never properties, because every property of the result needs an answer.",
+    "- $input.undefinable\n  - LLM evaluation does not support optional, undefined, void, or never properties, because every property of the result needs an answer.",
+    "- $input.voided\n  - LLM evaluation does not support optional, undefined, void, or never properties, because every property of the result needs an answer.",
+    "- $input.impossible\n  - LLM evaluation does not support optional, undefined, void, or never properties, because every property of the result needs an answer.",
     "- $input.objects\n  - LLM evaluation does not support union types.",
     "- $input.rows\n  - LLM evaluation supports only arrays of a string literal union or string enum.",
     "- $input.levels\n  - LLM evaluation supports only arrays of a string literal union or string enum.",
@@ -58,7 +60,8 @@ func TestLlmEvaluationRejectsUndecidableTypes(t *testing.T) {
     "- $input.tagOnly\n  - LLM evaluation property must have a JSDoc description, because it is the question text.",
     "- $input.secret\n  - LLM evaluation does not support hidden properties, because every property of the result needs an answer.",
     "- $input.method\n  - LLM evaluation does not support function properties.",
-    "- $input.anything\n  - LLM evaluation does not support any type.",
+    "- $input.anything\n  - LLM evaluation does not support any or unknown types, because an evaluation model answers only closed sets.",
+    "- $input.opaque\n  - LLM evaluation does not support any or unknown types, because an evaluation model answers only closed sets.",
   } {
     if !strings.Contains(errText, expected) {
       t.Fatalf("llm.evaluation diagnostic missing %q:\n%s", expected, errText)
@@ -203,6 +206,8 @@ typia.llm.evaluation<{
   /** Nullable? */ nullable: boolean | null;
   /** Optional? */ optional?: boolean;
   /** Undefinable? */ undefinable: boolean | undefined;
+  /** Voided? */ voided: void;
+  /** Impossible? */ impossible: never;
   objects: { /** A? */ a: boolean } | { /** B? */ b: boolean };
   /** Rows? */ rows: Array<{ /** Row? */ row: boolean }>;
   /** Levels? */ levels: Array<1 | 2>;
@@ -222,5 +227,6 @@ typia.llm.evaluation<{
   secret: boolean;
   /** Method? */ method: () => boolean;
   /** Anything? */ anything: any;
+  /** Opaque? */ opaque: unknown;
 }>();
 `

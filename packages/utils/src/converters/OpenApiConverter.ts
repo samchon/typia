@@ -6,6 +6,7 @@ import {
   SwaggerV2,
 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiV3Downgrader } from "./internal/OpenApiV3Downgrader";
 import { OpenApiV3Upgrader } from "./internal/OpenApiV3Upgrader";
 import { OpenApiV3_1Downgrader } from "./internal/OpenApiV3_1Downgrader";
@@ -47,6 +48,11 @@ export namespace OpenApiConverter {
   /**
    * Upgrade document to typia's emended OpenAPI v3.2 format.
    *
+   * A document already marked emended is normalized rather than converted: an
+   * upgrader emits every emended shape exactly, but a document built by hand or
+   * parsed from JSON may leave an object's empty `required` or an array's
+   * `items` loose, and every consumer reads the emended type on its word.
+   *
    * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
    * @returns Emended OpenAPI v3.2 document
    */
@@ -58,7 +64,7 @@ export namespace OpenApiConverter {
       | OpenApiV3_2.IDocument
       | OpenApi.IDocument,
   ): OpenApi.IDocument {
-    if (isUpgraded(document)) return document;
+    if (isUpgraded(document)) return normalizeDocument(document);
     else if (is_v32(document)) return OpenApiV3_2Upgrader.convert(document);
     else if (is_v31(document)) return OpenApiV3_1Upgrader.convert(document);
     else if (is_v30(document)) return OpenApiV3Upgrader.convert(document);
@@ -124,10 +130,15 @@ export namespace OpenApiConverter {
       | OpenApiV3_2.IComponents
       | OpenApiV3_1.IComponents
       | OpenApiV3.IComponents
-      | SwaggerV2.IDocument,
+      | SwaggerV2.IDocument
+      | OpenApi.IComponents,
   ): OpenApi.IComponents {
     if (is_v20(input)) return SwaggerV2Upgrader.convertComponents(input);
-    return OpenApiV3_1Upgrader.convertComponents(input as any);
+    // every 3.x components shape converts through the 3.1 upgrader, which also
+    // normalizes an emended input; see upgradeDocument
+    return normalizeComponents(
+      OpenApiV3_1Upgrader.convertComponents(input as any),
+    );
   }
 
   /**
@@ -372,3 +383,108 @@ const isUpgraded = (input: unknown): input is OpenApi.IDocument =>
   typeof input.openapi === "string" &&
   input.openapi.startsWith("3.2") &&
   (input as OpenApi.IDocument)["x-typia-emended-v12"] === true;
+
+/** Normalizes every schema an emended document holds; see the sanitizer. */
+const normalizeDocument = (document: OpenApi.IDocument): OpenApi.IDocument => ({
+  ...document,
+  components: normalizeComponents(document.components),
+  paths: document.paths
+    ? Object.fromEntries(
+        Object.entries(document.paths).map(([path, item]) => [
+          path,
+          normalizePathItem(item),
+        ]),
+      )
+    : document.paths,
+  webhooks: document.webhooks
+    ? Object.fromEntries(
+        Object.entries(document.webhooks).map(([key, item]) => [
+          key,
+          normalizePathItem(item),
+        ]),
+      )
+    : document.webhooks,
+});
+
+const normalizeComponents = (
+  components: OpenApi.IComponents,
+): OpenApi.IComponents =>
+  components.schemas
+    ? {
+        ...components,
+        schemas: Object.fromEntries(
+          Object.entries(components.schemas).map(([key, schema]) => [
+            key,
+            OpenApiSchemaSanitizer.normalizeDeep(schema),
+          ]),
+        ),
+      }
+    : components;
+
+const normalizePathItem = (item: OpenApi.IPath): OpenApi.IPath => {
+  const output: OpenApi.IPath = { ...item };
+  for (const method of METHODS) {
+    const operation: OpenApi.IOperation | undefined = item[method];
+    if (operation !== undefined) output[method] = normalizeOperation(operation);
+  }
+  return output;
+};
+
+const normalizeOperation = (
+  operation: OpenApi.IOperation,
+): OpenApi.IOperation => ({
+  ...operation,
+  parameters: operation.parameters?.map(normalizeParameter),
+  requestBody: operation.requestBody
+    ? normalizeBody(operation.requestBody)
+    : operation.requestBody,
+  responses: operation.responses
+    ? Object.fromEntries(
+        Object.entries(operation.responses).map(([status, response]) => [
+          status,
+          response ? normalizeBody(response) : response,
+        ]),
+      )
+    : operation.responses,
+});
+
+const normalizeParameter = (
+  parameter: OpenApi.IOperation.IParameter,
+): OpenApi.IOperation.IParameter => ({
+  ...parameter,
+  schema: OpenApiSchemaSanitizer.normalizeDeep(parameter.schema),
+});
+
+const normalizeBody = <
+  Body extends { content?: OpenApi.IOperation.IContent | undefined },
+>(
+  body: Body,
+): Body =>
+  body.content
+    ? {
+        ...body,
+        content: Object.fromEntries(
+          Object.entries(body.content).map(([type, media]) => [
+            type,
+            media?.schema
+              ? {
+                  ...media,
+                  schema: OpenApiSchemaSanitizer.normalizeDeep(media.schema),
+                }
+              : media,
+          ]),
+        ) as OpenApi.IOperation.IContent,
+      }
+    : body;
+
+const METHODS = [
+  "get",
+  "post",
+  "put",
+  "patch",
+  "delete",
+  "options",
+  "head",
+  "trace",
+  "query",
+] as const;

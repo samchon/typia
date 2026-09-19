@@ -189,17 +189,18 @@ Thresholds are tuned against one model's calibration. TypeSafe's aliases such as
 
 ## Calling Jev directly
 
-Jev's own wire format, shared by TypeSafe's API and OpenRouter's Decisions API, spells the boolean question type `"noul"`. [`@typia/jev`](/docs/utilization/jev) converts the questions, evaluates through either endpoint, and validates the answers; the raw answers keep the probabilities and confidence that the decision type has no room for.
+Jev's own wire format, shared by TypeSafe's API and OpenRouter's Decisions API, spells the boolean question type `"noul"`. [`@typia/jev`](/docs/utilization/jev) converts the questions; the answers need no conversion.
 
 ```typescript copy filename="typesafe.ts"
 import { TypeSafeClient } from "@typesafe-ai/sdk";
-import { Jev } from "@typia/jev";
+import { toJevQuestions } from "@typia/jev";
 
-const { validation, answers } = await Jev.typesafe({
-  client: new TypeSafeClient(),
-  evaluation: triage,
+const client = new TypeSafeClient();
+const { answers } = await client.systemOne({
   state: ticket,
+  questions: toJevQuestions(triage.questions),
 });
+const validation = triage.validate(answers);
 ```
 
 ## Providers

@@ -1,7 +1,6 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
-import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
@@ -626,12 +625,8 @@ export namespace SwaggerV2Downgrader {
         constantGroups.set(type, created);
         union.push(created);
       };
-      const visit = (raw: OpenApi.IJsonSchema): void => {
-        // identity checks against the top-level `input` compare `raw`, since
-        // restoring an open array returns a copy
-        const schema: OpenApi.IJsonSchema =
-          OpenApiOpenArrayRestorer.restore(raw);
-        if (raw !== input && Object.keys(getAttribute(schema)).length > 0)
+      const visit = (schema: OpenApi.IJsonSchema): void => {
+        if (schema !== input && Object.keys(getAttribute(schema)).length > 0)
           preserveNullableBranches.value = true;
         if (OpenApiTypeChecker.isNull(schema))
           nullableBranches.push({
@@ -655,7 +650,7 @@ export namespace SwaggerV2Downgrader {
         else if (OpenApiTypeChecker.isReference(schema))
           union.push({
             $ref: `#/definitions/${schema.$ref.split("/").pop()}`,
-            ...(raw === input ? {} : getAttribute(schema)),
+            ...(schema === input ? {} : getAttribute(schema)),
           });
         else if (OpenApiTypeChecker.isArray(schema))
           union.push({
@@ -786,7 +781,7 @@ export namespace SwaggerV2Downgrader {
     (visited: Set<string>) =>
     (collection: IComponentsCollection) =>
     (schema: SwaggerV2.IJsonSchema.IReference): void => {
-      if (OpenApiReferenceKey.read(schema.$ref).endsWith(".Nullable")) return;
+      if (OpenApiReferenceKey.read(schema.$ref)?.endsWith(".Nullable")) return;
 
       const entry = OpenApiReferenceKey.find(
         collection.original.schemas,
