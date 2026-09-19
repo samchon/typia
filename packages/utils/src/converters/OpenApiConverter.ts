@@ -502,14 +502,16 @@ const normalizeMediaType = (
  */
 const mapValues = <Record_ extends Record<string, unknown>>(
   record: Record_,
-  map: (value: NonNullable<Record_[string]>) => NonNullable<Record_[string]>,
+  map: (
+    value: Exclude<Record_[keyof Record_], undefined>,
+  ) => Exclude<Record_[keyof Record_], undefined>,
 ): Record_ =>
   Object.fromEntries(
     Object.entries(record).map(([key, value]) => [
       key,
-      value === undefined || value === null
+      value === undefined
         ? value
-        : map(value as NonNullable<Record_[string]>),
+        : map(value as Exclude<Record_[keyof Record_], undefined>),
     ]),
   ) as Record_;
 

@@ -25,8 +25,8 @@ import {
  * 3. Assert the normalized document downgrades to every version with the open
  *    array intact, validates a non-array against it, and migrates.
  * 4. Assert `upgradeComponents()` and `downgradeDocument()` normalize a raw
- *    emended input on entry too, and that normalization adds no holder the
- *    input left out.
+ *    emended input on entry too, that normalization adds no holder the input
+ *    left out, and that an absent holder the input carries is kept as it is.
  */
 export const test_openapi_emended_items_omitted_boundary = (): void => {
   const bare = { type: "array" } as unknown as OpenApi.IJsonSchema;
@@ -241,9 +241,11 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
       },
     },
   } as unknown as OpenApi.IDocument;
+  const responses =
+    OpenApiConverter.upgradeDocument(holed).paths?.["/holed"]?.get?.responses;
   TestEquality.equals<unknown>(
     "absent holder kept",
-    { 200: undefined, 404: { description: "gone" } },
-    OpenApiConverter.upgradeDocument(holed).paths?.["/holed"]?.get?.responses,
+    { keys: ["200", "404"], 200: undefined, 404: { description: "gone" } },
+    { keys: Object.keys(responses ?? {}), ...responses },
   );
 };
