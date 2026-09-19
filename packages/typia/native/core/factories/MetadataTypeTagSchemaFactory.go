@@ -33,6 +33,11 @@ func (metadataTypeTagSchemaFactoryNamespace) Object(props struct {
       metadata: property.Value,
     })
     if ok {
+      // a property literally typed `null` keeps its value; a Go nil would read
+      // as absent to every object writer (samchon/typia#2403)
+      if value == nil && property.Value.Nullable && property.Value.Size() == 0 {
+        value = LiteralFactory_Null{}
+      }
       output[*key] = value
     }
   }

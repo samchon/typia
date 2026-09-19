@@ -331,8 +331,11 @@ func metadataTypeTagFactory_validate_property(props struct {
       Message  string
     }{Property: property, Message: "must be a string literal type"})
   }
-  if props.Key == "value" && !((props.Value.Size() == 0 && props.Value.IsRequired() == false) ||
-    (props.Value.Size() == 1 && (len(props.Value.Objects) == 1 || len(props.Value.Constants) == 1))) {
+  // `tags.Example` and `tags.Examples` declare tuple and `null` values too;
+  // their content reaches the schema through `schema`, which the tag schema
+  // factory walks, so the value only has to be one literal shape
+  if props.Key == "value" && !((props.Value.Size() == 0 && (props.Value.IsRequired() == false || props.Value.Nullable)) ||
+    (props.Value.Size() == 1 && (len(props.Value.Objects) == 1 || len(props.Value.Constants) == 1 || len(props.Value.Tuples) == 1))) {
     return props.Report(struct {
       Property *string
       Message  string
