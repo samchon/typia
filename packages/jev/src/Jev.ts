@@ -70,6 +70,15 @@ export namespace Jev {
    * Run-time values such as `NaN`, which JSON writes as `null`, and cycles,
    * which JSON rejects, are beyond a type; they behave as `JSON.stringify`
    * does.
+   *
+   * A function forwarding its own generic state passes the type arguments
+   * explicitly, since the check cannot be inferred again from a type it has
+   * already checked:
+   *
+   * ```typescript
+   * const evaluate = <S extends Jev.IState>(state: S & Jev.Jsonable<S>) =>
+   *   Jev.typesafe<IDecision, S>({ client, evaluation, state });
+   * ```
    */
   export type Jsonable<S> = unknown extends S
     ? S
@@ -92,8 +101,13 @@ export namespace Jev {
                 | Error
                 | Promise<unknown>
             ? never
-            : S extends readonly unknown[]
-              ? { [K in keyof S]: Jsonable<S[K]> }
+            : S extends readonly (infer E)[]
+              ? // the elements, not keyof S: a mapped type over an array
+                // intersected with a tag, like `string[] & tags.MinItems<1>`,
+                // would walk the array's methods
+                [E] extends [Jsonable<E>]
+                ? S
+                : never
               : S extends object
                 ? {
                     [K in keyof S]:
@@ -392,9 +406,13 @@ export namespace Jev {
         `Jev.openrouter(): maxRetries must be a non-negative integer, not ${retries}.`,
       );
     const timeout: number = props.timeout ?? JevRetryPolicy.TIMEOUT;
-    if (Number.isFinite(timeout) === false || timeout <= 0)
+    if (
+      Number.isFinite(timeout) === false ||
+      timeout <= 0 ||
+      timeout > MAX_TIMEOUT
+    )
       throw new TypeError(
-        `Jev.openrouter(): timeout must be a positive number of milliseconds, not ${timeout}.`,
+        `Jev.openrouter(): timeout must be a positive number of milliseconds up to ${MAX_TIMEOUT}, not ${timeout}.`,
       );
 
     const request: IRequest = {
@@ -454,6 +472,9 @@ export namespace Jev {
   /* -----------------------------------------------------------
     INTERNAL
   ----------------------------------------------------------- */
+  /** The longest delay `setTimeout` honors; a longer one fires at once. */
+  const MAX_TIMEOUT: number = 2_147_483_647;
+
   interface IExchange {
     response: Response;
     payload: unknown;

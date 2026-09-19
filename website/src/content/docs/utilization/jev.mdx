@@ -73,6 +73,13 @@ Both endpoints receive the state as JSON, where a function vanishes, a `Map` bec
 
 TypeSafe's SDK types its state as a JSON value with an index signature, which an interface-typed state never satisfies although it is valid JSON; `Jev.Jsonable<S>` has no such cost. Values beyond a type, such as `NaN` or a cycle, behave as `JSON.stringify` does.
 
+typia's type tags, such as `string & tags.Format<"uuid">` or `string[] & tags.MinItems<1>`, pass as the values they tag. A function forwarding its own generic state passes the type arguments explicitly, since the check cannot be inferred again from a type it has already checked:
+
+```typescript copy filename="wrapper.ts"
+const evaluate = <S extends Jev.IState>(state: S & Jev.Jsonable<S>) =>
+  Jev.typesafe<ITriage, S>({ client, evaluation, state });
+```
+
 ## Result
 
 Both helpers return the same result.

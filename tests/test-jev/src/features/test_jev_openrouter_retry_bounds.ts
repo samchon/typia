@@ -53,6 +53,7 @@ export const test_jev_openrouter_retry_bounds = async (): Promise<void> => {
     ["timeout 0", { timeout: 0 }],
     ["timeout NaN", { timeout: NaN }],
     ["timeout Infinity", { timeout: Infinity }],
+    ["timeout past setTimeout's range", { timeout: 3e9 }],
   ] as const) {
     const mock = MockFetch([success]);
     const error: unknown = await run(mock.fetch, options);
