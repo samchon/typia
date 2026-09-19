@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies tags.Example and tags.Examples keep the tuple and null values they
@@ -23,23 +22,28 @@ export const test_json_schema_example_tuple_and_null = (): void => {
   const properties: Record<string, any> = (
     typia.json.schema<IMember>().schema as any
   ).properties;
-  _equalsExactly("sole tuple", properties.roles.example, ["admin", "active"]);
-  _equalsExactly("accompanied tuple", properties.groups.example, ["staff"]);
-  _equalsExactly(
+  TestEquality.equals("sole tuple", properties.roles.example, [
+    "admin",
+    "active",
+  ]);
+  TestEquality.equals("accompanied tuple", properties.groups.example, [
+    "staff",
+  ]);
+  TestEquality.equals(
     "null example",
     properties.nickname.oneOf.find((s: any) => s.type === "string").example,
     null,
   );
-  _equalsExactly("object with null", properties.profile.example, {
+  TestEquality.equals("object with null", properties.profile.example, {
     name: "John",
     alias: null,
   });
-  _equalsExactly(
+  TestEquality.equals(
     "examples with null",
     properties.memo.oneOf.find((s: any) => s.type === "string").examples,
     { empty: null, filled: "note" },
   );
-  _equalsExactly(
+  TestEquality.equals(
     "null kept by key",
     "alias" in properties.profile.example &&
       "empty" in

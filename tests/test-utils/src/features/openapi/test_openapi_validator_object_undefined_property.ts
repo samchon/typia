@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 import typia from "typia";
 
@@ -47,17 +47,17 @@ export const test_openapi_validator_object_undefined_property = (): void => {
       equals: true,
     }).success;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "an undefined-valued key is not a property",
     accepts({ a: "value", b: undefined }),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "a defined extra key is still superfluous",
     accepts({ a: "value", b: 1 }),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "an undefined-valued key does not excuse its siblings",
     accepts({ a: "value", b: undefined, c: 1 }),
     false,
@@ -65,12 +65,12 @@ export const test_openapi_validator_object_undefined_property = (): void => {
 
   // `typia.equals` is the oracle, and it accepts what the closure check used to
   // reject.
-  TestValidator.equals(
+  TestEquality.equals(
     "typia.equals accepts an undefined-valued key",
     typia.equals<{ a: string }>({ a: "value", b: undefined }),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "typia.equals rejects a defined extra key",
     typia.equals<{ a: string }>({ a: "value", b: 1 }),
     false,
@@ -94,18 +94,18 @@ export const test_openapi_validator_object_undefined_property = (): void => {
       equals,
     }).success;
   for (const equals of [false, true]) {
-    TestValidator.equals(
+    TestEquality.equals(
       `equals: ${equals} - a constrained object ignores an undefined-valued key`,
       constrains({ a: "value", b: undefined }, equals),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `equals: ${equals} - a constrained object still checks a defined extra key`,
       constrains({ a: "value", b: 1 }, equals),
       false,
     );
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "typia accepts an undefined-valued key on an index-signature type",
     typia.equals<{ a: string; [key: string]: string }>({
       a: "value",
@@ -123,12 +123,12 @@ export const test_openapi_validator_object_undefined_property = (): void => {
     nothing: undefined,
     grade: undefined,
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "typia.equals accepts its own erased-member value",
     typia.equals<IUndefined>(value),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the emitted schema accepts its own erased-member value",
     OpenApiValidator.validate({
       components: collection.components,
@@ -139,7 +139,7 @@ export const test_openapi_validator_object_undefined_property = (): void => {
     }).success,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the emitted schema still rejects a stray property",
     OpenApiValidator.validate({
       components: collection.components,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmApplication, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 
@@ -26,7 +26,7 @@ export const test_http_llm_application_human = async (): Promise<void> => {
     document: humanDocument,
   });
 
-  TestValidator.equals(
+  TestEquality.equals(
     "length",
     application.functions.length,
     humanApplication.functions.length + 1,

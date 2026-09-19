@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelSchema } from "@typia/vercel";
 import typia from "typia";
 
@@ -19,7 +19,7 @@ export const test_vercel_structured_output_coerce = (): void => {
     score: "95.5",
   });
 
-  TestValidator.equals("name", coerced.name, "Bob");
-  TestValidator.equals("age", coerced.age, 42);
-  TestValidator.equals("score", coerced.score, 95.5);
+  TestEquality.equals("name", coerced.name, "Bob");
+  TestEquality.equals("age", coerced.age, 42);
+  TestEquality.equals("score", coerced.score, 95.5);
 };

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_structuredOutput_coerce = (): void => {
@@ -17,7 +17,7 @@ export const test_llm_structuredOutput_coerce = (): void => {
     score: "95.5" as any,
   });
 
-  TestValidator.equals("name", coerced.name, "Bob");
-  TestValidator.equals("age", coerced.age, 42);
-  TestValidator.equals("score", coerced.score, 95.5);
+  TestEquality.equals("name", coerced.name, "Bob");
+  TestEquality.equals("age", coerced.age, 42);
+  TestEquality.equals("score", coerced.score, 95.5);
 };

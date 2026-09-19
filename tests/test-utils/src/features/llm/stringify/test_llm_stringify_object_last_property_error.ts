@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_object_last_property_error = (): void => {
@@ -20,9 +20,9 @@ export const test_llm_stringify_object_last_property_error = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-  TestValidator.equals(
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals(
     "contains $input.c path",
     output.includes("$input.c"),
     true,
@@ -47,15 +47,11 @@ export const test_llm_stringify_object_last_property_error = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals("missing-code-block", output2.includes("```json"), true);
+  TestEquality.equals("missing-code-block", output2.includes("```json"), true);
   // Both b and c should appear
-  TestValidator.equals("missing-b", output2.includes('"b"'), true);
-  TestValidator.equals("missing-c", output2.includes('"c"'), true);
-  TestValidator.equals(
-    "missing-undefined",
-    output2.includes("undefined"),
-    true,
-  );
+  TestEquality.equals("missing-b", output2.includes('"b"'), true);
+  TestEquality.equals("missing-c", output2.includes('"c"'), true);
+  TestEquality.equals("missing-undefined", output2.includes("undefined"), true);
 
   // Test: Single property object with error
   const failure3: IValidation.IFailure = {
@@ -71,9 +67,9 @@ export const test_llm_stringify_object_last_property_error = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals("single-code-block", output3.includes("```json"), true);
-  TestValidator.equals("single-error-marker", output3.includes("// ❌"), true);
-  TestValidator.equals("single-only", output3.includes('"only"'), true);
+  TestEquality.equals("single-code-block", output3.includes("```json"), true);
+  TestEquality.equals("single-error-marker", output3.includes("// ❌"), true);
+  TestEquality.equals("single-only", output3.includes('"only"'), true);
 
   // Test: Complex object as last property with error inside
   const failure4: IValidation.IFailure = {
@@ -92,8 +88,8 @@ export const test_llm_stringify_object_last_property_error = (): void => {
   };
 
   const output4: string = LlmJson.stringify(failure4);
-  TestValidator.equals("nested-code-block", output4.includes("```json"), true);
-  TestValidator.equals("nested-error-marker", output4.includes("// ❌"), true);
-  TestValidator.equals("nested-last", output4.includes('"last"'), true);
-  TestValidator.equals("nested-nested", output4.includes('"nested"'), true);
+  TestEquality.equals("nested-code-block", output4.includes("```json"), true);
+  TestEquality.equals("nested-error-marker", output4.includes("// ❌"), true);
+  TestEquality.equals("nested-last", output4.includes('"last"'), true);
+  TestEquality.equals("nested-nested", output4.includes('"nested"'), true);
 };

@@ -4,6 +4,7 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -47,7 +48,7 @@ export const test_mcp_class_controller_coercion = async (): Promise<void> => {
     "coerced call is not an error",
     () => result.isError !== true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "coerced call returns the sum",
     result.structuredContent,
     { value: 7 },

@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -12,7 +13,7 @@ export const test_llm_parameters_boolean = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals(
+  TestEquality.equals(
     "additionalProperties",
     params.additionalProperties,
     false,

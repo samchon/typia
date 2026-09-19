@@ -1,0 +1,190 @@
+import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
+
+/**
+ * Verifies the shared assertion oracle reads every value kind as data.
+ *
+ * `TestEquality` replaced `TestValidator.equals` across the suites because the
+ * latter walked only its first argument's keys and saw no content in `Date`,
+ * `Map`, or `Set` (#2401). Every suite now trusts this oracle, so each rule it
+ * documents is pinned here in both argument orders: a rule that held in only
+ * one order would reopen the one-way trap under another name.
+ *
+ * 1. Pin each equal pair to pass `equals` in both orders.
+ * 2. Pin each unequal pair to fail `equals` in both orders.
+ * 3. Pin `subset` to skip only object keys the expected value leaves out.
+ * 4. Pin `difference` paths and the failure message.
+ *
+ * This sits directly under `features` beside `test_total_comparison_shape`: it
+ * pins the assertion harness every suite shares.
+ */
+export const test_equality_oracle = (): void => {
+  const date = (text: string): Date => new Date(text);
+  const same: Array<[string, unknown, unknown]> = [
+    ["primitive", 1, 1],
+    ["bigint", 1n, 1n],
+    ["NaN", NaN, NaN],
+    ["undefined key", { a: 1, b: undefined }, { a: 1 }],
+    ["function key", { a: 1, f: () => 1 }, { a: 1 }],
+    ["date", date("2026-01-01"), date("2026-01-01")],
+    ["invalid date", date("invalid"), date("invalid")],
+    ["map", new Map([["a", { x: 1 }]]), new Map([["a", { x: 1 }]])],
+    ["set", new Set([1, 2]), new Set([2, 1])],
+    [
+      "set of objects",
+      new Set([{ x: 1 }, { x: 2 }]),
+      new Set([{ x: 2 }, { x: 1 }]),
+    ],
+    [
+      "nested",
+      { a: [{ b: date("2026-01-01") }] },
+      { a: [{ b: date("2026-01-01") }] },
+    ],
+    ["ignored prototype", Object.create({ inherited: 1 }), {}],
+  ];
+  const different: Array<[string, unknown, unknown]> = [
+    ["primitive", 1, 2],
+    ["bigint", 1n, 2n],
+    ["NaN and number", NaN, 1],
+    ["null and object", null, {}],
+    ["null and undefined", null, undefined],
+    ["string and number", "1", 1],
+    ["dropped key", { a: 1, b: 2 }, { a: 1 }],
+    ["undefined and null value", { a: undefined }, { a: null }],
+    ["nested dropped key", { a: { b: 1 } }, { a: {} }],
+    ["array length", [1, 2], [1]],
+    ["array and object", [], {}],
+    ["date", date("2026-01-01"), date("2026-01-02")],
+    ["date and object", date("2026-01-01"), {}],
+    ["map value", new Map([["a", 1]]), new Map([["a", 2]])],
+    ["map key", new Map([["a", 1]]), new Map([["b", 1]])],
+    [
+      "map size",
+      new Map([["a", 1]]),
+      new Map([
+        ["a", 1],
+        ["b", 2],
+      ]),
+    ],
+    ["set member", new Set([1]), new Set([2])],
+    ["set size", new Set([1]), new Set([1, 2])],
+    ["set of objects", new Set([{ x: 1 }]), new Set([{ x: 2 }])],
+    ["map and set", new Map(), new Set()],
+    ["map and object", new Map([["a", 1]]), { a: 1 }],
+  ];
+  for (const [name, x, y] of same) {
+    TestValidator.predicate(
+      `same ${name}`,
+      passes(() => TestEquality.equals(name, x, y)),
+    );
+    TestValidator.predicate(
+      `same ${name}, reversed`,
+      passes(() => TestEquality.equals(name, y, x)),
+    );
+  }
+  for (const [name, x, y] of different) {
+    TestValidator.predicate(
+      `different ${name}`,
+      passes(() => TestEquality.equals(name, x, y)) === false,
+    );
+    TestValidator.predicate(
+      `different ${name}, reversed`,
+      passes(() => TestEquality.equals(name, y, x)) === false,
+    );
+  }
+
+  // exception skips the named key on both sides
+  TestValidator.predicate(
+    "exception",
+    passes(() =>
+      TestEquality.equals(
+        "exception",
+        { a: 1, id: 1 },
+        { a: 1, id: 2 },
+        (key) => key === "id",
+      ),
+    ),
+  );
+
+  // subset checks only the object keys the expected value declares
+  const subset = (expected: unknown, actual: unknown): boolean =>
+    passes(() => TestEquality.subset("subset", expected, actual));
+  TestValidator.predicate("subset extra key", subset({ a: 1 }, { a: 1, b: 2 }));
+  TestValidator.predicate(
+    "subset nested extra key",
+    subset({ a: { b: 1 } }, { a: { b: 1, c: 2 } }),
+  );
+  TestValidator.predicate(
+    "subset missing key",
+    subset({ a: 1, b: 2 }, { a: 1 }) === false,
+  );
+  TestValidator.predicate(
+    "subset wrong value",
+    subset({ a: 1 }, { a: 2, b: 2 }) === false,
+  );
+  TestValidator.predicate(
+    "subset array length",
+    subset({ a: [1] }, { a: [1, 2] }) === false,
+  );
+  TestValidator.predicate(
+    "subset array element keys",
+    subset([{ a: 1 }], [{ a: 1, b: 2 }]),
+  );
+  TestValidator.predicate(
+    "subset map entries",
+    subset(
+      new Map([["a", 1]]),
+      new Map([
+        ["a", 1],
+        ["b", 2],
+      ]),
+    ) === false,
+  );
+  TestValidator.predicate(
+    "subset set members",
+    subset(new Set([1]), new Set([1, 2])) === false,
+  );
+  TestValidator.predicate(
+    "subset date",
+    subset({ at: date("2026-01-01") }, { at: date("2026-01-02") }) === false,
+  );
+
+  // difference names every differing path
+  TestEquality.equals(
+    "difference",
+    TestEquality.difference(
+      { a: { b: [1, 2] }, c: new Map([["k", 1]]), d: 1 },
+      { a: { b: [1, 3] }, c: new Map([["k", 2]]), e: 1 },
+    ),
+    [".a.b[1]", '.c.get("k")', ".d", ".e"],
+  );
+  TestEquality.equals(
+    "no difference",
+    TestEquality.difference({ a: [1] }, { a: [1] }),
+    [],
+  );
+
+  // the failure names the title and the path
+  const message: string | null = (() => {
+    try {
+      TestEquality.equals("titled", { a: 1n }, { a: 2n });
+      return null;
+    } catch (error) {
+      return (error as Error).message;
+    }
+  })();
+  TestValidator.predicate(
+    "failure message",
+    message !== null &&
+      message.startsWith("Bug on titled: found different values - [.a]:"),
+  );
+};
+
+const passes = (task: () => void): boolean => {
+  try {
+    task();
+    return true;
+  } catch {
+    return false;
+  }
+};

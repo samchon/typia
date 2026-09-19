@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -75,22 +76,22 @@ export const test_json_schema_oneof_declaration_syntax = (): void => {
       square: `#/components/schemas/${prefix}Square`,
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "interface union discriminator",
     iface!.discriminator,
     expected("P"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "alias union discriminator",
     alias!.discriminator,
     expected("Q"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "mixed union discriminator",
     mixed!.discriminator,
     expected("R"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "alias chain union discriminator",
     chain!.discriminator,
     expected("P"),
@@ -103,7 +104,7 @@ export const test_json_schema_oneof_declaration_syntax = (): void => {
     ["mixed", mixed, "R"],
     ["chain", chain, "P"],
   ] as const)
-    TestValidator.equals(`${label} union oneOf targets`, value!.oneOf, [
+    TestEquality.equals(`${label} union oneOf targets`, value!.oneOf, [
       { $ref: `#/components/schemas/${prefix}Circle` },
       { $ref: `#/components/schemas/${prefix}Square` },
     ]);
@@ -111,14 +112,14 @@ export const test_json_schema_oneof_declaration_syntax = (): void => {
   // negative: no common literal tag between the alias members
   type NCircle = { kind: "circle"; radius: number };
   type NSquare = { name: "square"; side: number };
-  TestValidator.equals(
+  TestEquality.equals(
     "alias union without a common literal tag",
     union(typia.json.schema<NCircle | NSquare>())!.discriminator,
     undefined,
   );
 
   // negative: a non-object member disqualifies the union
-  TestValidator.equals(
+  TestEquality.equals(
     "alias union with a non-object member",
     union(typia.json.schema<QCircle | QSquare | string>())!.discriminator,
     undefined,

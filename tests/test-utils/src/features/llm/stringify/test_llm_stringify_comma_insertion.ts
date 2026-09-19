@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_comma_insertion = (): void => {
@@ -29,8 +29,8 @@ export const test_llm_stringify_comma_insertion = (): void => {
   };
 
   const output1: string = LlmJson.stringify(failure1);
-  TestValidator.equals("obj-code-block", output1.includes("```json"), true);
-  TestValidator.equals("obj-error-marker", output1.includes("// ❌"), true);
+  TestEquality.equals("obj-code-block", output1.includes("```json"), true);
+  TestEquality.equals("obj-error-marker", output1.includes("// ❌"), true);
   // Commas should be properly placed before error comments (not after)
   // The output should be valid-looking JSON structure
 
@@ -55,8 +55,8 @@ export const test_llm_stringify_comma_insertion = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals("arr-code-block", output2.includes("```json"), true);
-  TestValidator.equals("arr-error-marker", output2.includes("// ❌"), true);
+  TestEquality.equals("arr-code-block", output2.includes("```json"), true);
+  TestEquality.equals("arr-error-marker", output2.includes("// ❌"), true);
 
   // Test 3: Line without error comment (should still add comma)
   const failure3: IValidation.IFailure = {
@@ -75,10 +75,10 @@ export const test_llm_stringify_comma_insertion = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals("no-err-code-block", output3.includes("```json"), true);
+  TestEquality.equals("no-err-code-block", output3.includes("```json"), true);
   // Property "a" should have a comma after it even without error
-  TestValidator.equals("a-property", output3.includes('"a"'), true);
-  TestValidator.equals("b-property", output3.includes('"b"'), true);
+  TestEquality.equals("a-property", output3.includes('"a"'), true);
+  TestEquality.equals("b-property", output3.includes('"b"'), true);
 
   // Test 4: Error comment contains characters that look like comment markers
   const failure4: IValidation.IFailure = {
@@ -98,7 +98,7 @@ export const test_llm_stringify_comma_insertion = (): void => {
   };
 
   const output4: string = LlmJson.stringify(failure4);
-  TestValidator.equals("url-code-block", output4.includes("```json"), true);
+  TestEquality.equals("url-code-block", output4.includes("```json"), true);
   // Should find the error marker, not get confused by // in URL or description
-  TestValidator.equals("url-error-marker", output4.includes("// ❌"), true);
+  TestEquality.equals("url-error-marker", output4.includes("// ❌"), true);
 };

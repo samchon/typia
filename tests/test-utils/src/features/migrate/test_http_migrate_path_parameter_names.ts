@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApiV3, OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 /**
@@ -16,7 +16,7 @@ export const test_http_migrate_path_parameter_names =
   async (): Promise<void> => {
     const ordered = HttpMigration.application(createDocument("ordered"));
     const reversed = HttpMigration.application(createDocument("reversed"));
-    TestValidator.equals(
+    TestEquality.equals(
       "reversed route schemas",
       ordered.routes[0]!.parameters.map((parameter) => ({
         name: parameter.name,
@@ -31,27 +31,27 @@ export const test_http_migrate_path_parameter_names =
     );
 
     const missing = HttpMigration.application(createDocument("missing"));
-    TestValidator.equals(
+    TestEquality.equals(
       "missing path synthesized",
       ["userId", "postId"],
       missing.routes[0]!.parameters.map((parameter) => parameter.name),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "synthesized schema",
       { type: "string" },
       missing.routes[0]!.parameters[1]!.schema as { type: string },
     );
 
     const repeated = HttpMigration.application(createDocument("repeated"));
-    TestValidator.equals(
+    TestEquality.equals(
       "repeated placeholder shares one argument",
       ["userId"],
       repeated.routes[0]!.parameters.map((parameter) => parameter.name),
     );
 
     const wrong = HttpMigration.application(createDocument("wrong"));
-    TestValidator.equals("wrong route omitted", 0, wrong.routes.length);
-    TestValidator.equals("wrong error", true, wrong.errors.length === 1);
+    TestEquality.equals("wrong route omitted", 0, wrong.routes.length);
+    TestEquality.equals("wrong error", true, wrong.errors.length === 1);
 
     const duplicate = createDocument("duplicate");
     const duplicateVersions = [
@@ -61,12 +61,12 @@ export const test_http_migrate_path_parameter_names =
     ];
     duplicateVersions.forEach((document) => {
       const app = HttpMigration.application(document);
-      TestValidator.equals(
+      TestEquality.equals(
         `${document.openapi} duplicate route omitted`,
         0,
         app.routes.length,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${document.openapi} duplicate diagnostic`,
         ["path parameter names must be unique: userId"],
         app.errors[0]?.messages,
@@ -74,20 +74,20 @@ export const test_http_migrate_path_parameter_names =
     });
 
     const embedded = HttpMigration.application(embeddedDocument);
-    TestValidator.equals("embedded errors", 0, embedded.errors.length);
-    TestValidator.equals(
+    TestEquality.equals("embedded errors", 0, embedded.errors.length);
+    TestEquality.equals(
       "embedded parameter names",
       [["name", "ext"], ["id"], ["coords!"]],
       embedded.routes.map((route) =>
         route.parameters.map((parameter) => parameter.name),
       ),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "embedded emended paths",
       ["/files/:name.:ext", "/prefix-:id", "/matrix/:coords!"],
       embedded.routes.map((route) => route.emendedPath),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "embedded accessors",
       [
         ["files", "getByNameAndExt"],
@@ -116,7 +116,7 @@ export const test_http_migrate_path_parameter_names =
       parameters: { id: 7 },
     });
     const matrix = embedded.routes[2]!;
-    TestValidator.equals(
+    TestEquality.equals(
       "special parameter key",
       "coords_",
       matrix.parameters[0]?.key,
@@ -126,7 +126,7 @@ export const test_http_migrate_path_parameter_names =
       route: matrix,
       parameters: { [matrix.parameters[0]!.key]: "a!" },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "embedded request paths",
       ["/files/report%21.json", "/prefix-7", "/matrix/;coords%21=a%21"],
       requests.map((url) => url.pathname),

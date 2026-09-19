@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpLlmFunction,
   IHttpMigrateRoute,
   OpenApiV3_1,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, HttpMigration } from "@typia/utils";
 
 /**
@@ -18,9 +18,9 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  */
 export const test_http_migrate_request_contract = async (): Promise<void> => {
   const migration = HttpMigration.application(document);
-  TestValidator.equals("composition errors", 0, migration.errors.length);
+  TestEquality.equals("composition errors", 0, migration.errors.length);
   const route: IHttpMigrateRoute = migration.routes[0]!;
-  TestValidator.equals(
+  TestEquality.equals(
     "route groups",
     {
       headers: true,
@@ -35,7 +35,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
       body: route.body !== null,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "group requiredness",
     {
       headers: true,
@@ -52,19 +52,19 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   );
 
   const application = HttpLlm.application({ document });
-  TestValidator.equals("LLM errors", 0, application.errors.length);
+  TestEquality.equals("LLM errors", 0, application.errors.length);
   const func: IHttpLlmFunction = application.functions[0]!;
-  TestValidator.equals(
+  TestEquality.equals(
     "LLM properties",
     ["userId", "header", "cookie", "query", "body"],
     Object.keys(func.parameters.properties ?? {}),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "LLM required groups",
     ["userId", "header", "cookie"],
     func.parameters.required,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "optional query and body validate",
     true,
     func.validate({
@@ -99,22 +99,22 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   });
   let sent = captured!;
   let headers = new Headers(sent.init.headers);
-  TestValidator.equals("path", "/api/users/samchon", sent.url.pathname);
-  TestValidator.equals("header override", "request", headers.get("x-token"));
-  TestValidator.equals(
+  TestEquality.equals("path", "/api/users/samchon", sent.url.pathname);
+  TestEquality.equals("header override", "request", headers.get("x-token"));
+  TestEquality.equals(
     "ignored parameter keeps connection authorization",
     "Bearer connection",
     headers.get("authorization"),
   );
-  TestValidator.equals("object header", "trace,abc", headers.get("x-meta"));
-  TestValidator.equals(
+  TestEquality.equals("object header", "trace,abc", headers.get("x-meta"));
+  TestEquality.equals(
     "cookie merge and override",
     "inherited=yes; session=new; theme=dark",
     headers.get("cookie"),
   );
-  TestValidator.equals("optional query omitted", "", sent.url.search);
-  TestValidator.equals("optional body omitted", true, sent.init.body == null);
-  TestValidator.equals(
+  TestEquality.equals("optional query omitted", "", sent.url.search);
+  TestEquality.equals("optional body omitted", true, sent.init.body == null);
+  TestEquality.equals(
     "optional body content type omitted",
     true,
     headers.get("content-type") === null,
@@ -138,51 +138,47 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   });
   sent = captured!;
   headers = new Headers(sent.init.headers);
-  TestValidator.equals(
+  TestEquality.equals(
     "form explode false",
     "1,2",
     sent.url.searchParams.get("ids"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "pipe delimited",
     "a!|b*",
     sent.url.searchParams.get("tags"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "space delimited",
     "1 2",
     sent.url.searchParams.get("points"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "form explode true",
     ["red~", "blue!"],
     sent.url.searchParams.getAll("colors"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "deep object role",
     "admin!",
     sent.url.searchParams.get("filter[role!]"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "deep object active",
     "true",
     sent.url.searchParams.get("filter[active]"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "exact query wire format",
     "?ids=1,2&tags=a%21%7Cb%2A&colors=red~&colors=blue%21&points=1%202&filter%5Brole%21%5D=admin%21&filter%5Bactive%5D=true",
     sent.url.search,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "content type wins",
     "application/json",
     headers.get("content-type"),
   );
-  TestValidator.equals(
-    "JSON body",
-    '{"title":"hello"}',
-    String(sent.init.body),
-  );
+  TestEquality.equals("JSON body", '{"title":"hello"}', String(sent.init.body));
 
   let requiredError = false;
   try {
@@ -194,7 +190,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
   } catch {
     requiredError = true;
   }
-  TestValidator.equals("required groups rejected", true, requiredError);
+  TestEquality.equals("required groups rejected", true, requiredError);
 
   const matrix = migration.routes.find(
     (candidate) => candidate.path === "/matrix/{coords}",
@@ -204,7 +200,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
     route: matrix,
     parameters: [["a!", "b*"]],
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "matrix path",
     "/api/matrix/;coords=a%21;coords=b%2A",
     captured!.url.pathname,
@@ -217,7 +213,7 @@ export const test_http_migrate_request_contract = async (): Promise<void> => {
     route: label,
     parameters: [{ "x!": "a!", "y*": "b*" }],
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "label path",
     "/api/label/.x%21=a%21.y%2A=b%2A",
     captured!.url.pathname,

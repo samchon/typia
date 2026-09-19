@@ -1,9 +1,9 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -37,7 +37,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "add(10, 5) should return 15",
     addResult.structuredContent,
     { value: 15 },
@@ -50,7 +50,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "subtract(10, 3) should return 7",
     subtractResult.structuredContent,
     { value: 7 },
@@ -63,7 +63,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "multiply(4, 7) should return 28",
     multiplyResult.structuredContent,
     { value: 28 },
@@ -76,7 +76,7 @@ export const test_mcp_class_controller_execute = async (): Promise<void> => {
     },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "divide(20, 4) should return 5",
     divideResult.structuredContent,
     { value: 5 },

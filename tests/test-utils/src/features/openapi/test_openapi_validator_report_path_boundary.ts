@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -97,7 +97,7 @@ const assertPaths = (
 ): void => {
   if (result.success)
     throw new Error(`Expected ${label} input to fail validation.`);
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     expected,
     result.errors.map(({ path }) => path).sort(),

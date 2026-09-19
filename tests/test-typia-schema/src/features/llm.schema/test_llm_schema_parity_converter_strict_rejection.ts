@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
@@ -29,7 +30,7 @@ export const test_llm_schema_parity_converter_strict_rejection = (): void => {
     } satisfies OpenApi.IJsonSchema.IObject,
   });
 
-  TestValidator.equals("optional property rejected", optional.success, false);
+  TestEquality.equals("optional property rejected", optional.success, false);
   if (optional.success === false)
     TestValidator.predicate("optional reason", () =>
       optional.error.reasons.some((r) =>
@@ -48,9 +49,9 @@ export const test_llm_schema_parity_converter_strict_rejection = (): void => {
     } satisfies OpenApi.IJsonSchema.IObject,
   });
 
-  TestValidator.equals("empty strict object accepted", empty.success, true);
+  TestEquality.equals("empty strict object accepted", empty.success, true);
   if (empty.success === true)
-    TestValidator.equals("empty strict required restored", clean(empty.value), {
+    TestEquality.equals("empty strict required restored", clean(empty.value), {
       type: "object",
       properties: {},
       additionalProperties: false,
@@ -70,7 +71,7 @@ export const test_llm_schema_parity_converter_strict_rejection = (): void => {
     } satisfies OpenApi.IJsonSchema.IObject,
   });
 
-  TestValidator.equals(
+  TestEquality.equals(
     "missing required rejected",
     missingRequired.success,
     false,
@@ -95,7 +96,7 @@ export const test_llm_schema_parity_converter_strict_rejection = (): void => {
     } satisfies OpenApi.IJsonSchema.IObject,
   });
 
-  TestValidator.equals("dynamic key rejected", dynamic.success, false);
+  TestEquality.equals("dynamic key rejected", dynamic.success, false);
   if (dynamic.success === false)
     TestValidator.predicate("dynamic reason", () =>
       dynamic.error.reasons.some((r) =>

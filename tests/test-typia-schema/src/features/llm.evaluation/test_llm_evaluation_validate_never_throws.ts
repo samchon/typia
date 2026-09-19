@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate reports, never throws, on hostile
@@ -29,7 +28,7 @@ export const test_llm_evaluation_validate_never_throws = (): void => {
       team: { type, choice: "billing" },
       level: { type, score: 0 },
     });
-    _equalsExactly(
+    TestEquality.equals(
       title,
       result.success ? [] : result.errors.map((e) => e.path),
       ["$input.urgent", "$input.team", "$input.level"],

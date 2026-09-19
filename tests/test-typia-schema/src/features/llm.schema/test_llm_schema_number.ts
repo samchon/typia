@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -20,8 +21,8 @@ export const test_llm_schema_number = (): void => {
     {},
   );
   if (LlmTypeChecker.isNumber(ranged)) {
-    TestValidator.equals("minimum", ranged.minimum, 0);
-    TestValidator.equals("maximum", ranged.maximum, 100);
+    TestEquality.equals("minimum", ranged.minimum, 0);
+    TestEquality.equals("maximum", ranged.maximum, 100);
   }
 
   // exclusive range
@@ -29,13 +30,13 @@ export const test_llm_schema_number = (): void => {
     number & tags.ExclusiveMinimum<0> & tags.ExclusiveMaximum<100>
   >({});
   if (LlmTypeChecker.isNumber(exclusive)) {
-    TestValidator.equals("exclusiveMinimum", exclusive.exclusiveMinimum, 0);
-    TestValidator.equals("exclusiveMaximum", exclusive.exclusiveMaximum, 100);
+    TestEquality.equals("exclusiveMinimum", exclusive.exclusiveMinimum, 0);
+    TestEquality.equals("exclusiveMaximum", exclusive.exclusiveMaximum, 100);
   }
 
   // multipleOf
   const multiple = typia.llm.schema<number & tags.MultipleOf<5>>({});
   if (LlmTypeChecker.isNumber(multiple)) {
-    TestValidator.equals("multipleOf", multiple.multipleOf, 5);
+    TestEquality.equals("multipleOf", multiple.multipleOf, 5);
   }
 };

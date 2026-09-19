@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -155,7 +155,7 @@ export const test_validate_tag_spelling_parity = (): void => {
     for (const value of row.values) {
       const byType: boolean = row.byType(value);
       const byComment: boolean = row.byComment(value);
-      TestValidator.equals(
+      TestEquality.equals(
         `${row.tag} agrees on ${JSON.stringify(value, (_k, v) =>
           typeof v === "bigint" ? `${v}n` : v,
         )}`,
@@ -166,7 +166,7 @@ export const test_validate_tag_spelling_parity = (): void => {
     }
     // Agreement is worthless if the row accepts everything or rejects
     // everything: two spellings that both ignore the constraint would agree.
-    TestValidator.equals(
+    TestEquality.equals(
       `${row.tag} separates accepted from rejected`,
       [answers.some((v) => v), answers.some((v) => v === false)],
       [true, true],

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -62,8 +63,8 @@ export const test_random_defaults = (): void => {
     },
   });
 
-  TestValidator.equals("recursive children length", tree.children.length, 0);
-  TestValidator.equals("plain labels length", tree.labels.length, 1);
+  TestEquality.equals("recursive children length", tree.children.length, 0);
+  TestEquality.equals("plain labels length", tree.labels.length, 1);
   TestValidator.predicate("recursive property", () =>
     recursiveFlags.some((recursive) => recursive === true),
   );
@@ -83,15 +84,15 @@ export const test_random_defaults = (): void => {
           .map((_, index) => schema.element(index, count));
       },
     });
-  TestValidator.equals("non-recursive minItems schema", minItems, 1);
-  TestValidator.equals("non-recursive minItems output", constrained.items, [
+  TestEquality.equals("non-recursive minItems schema", minItems, 1);
+  TestEquality.equals("non-recursive minItems output", constrained.items, [
     "label",
   ]);
 
   const shallowTree: IRecursiveTree = withRandom(0, () =>
     typia.random<IRecursiveTree>(),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "default recursive array minimum",
     shallowTree.children.length,
     0,
@@ -138,18 +139,18 @@ const assertDefaults = (
     string: number;
   },
 ): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} default string length`,
     value.name.length,
     expected.string,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} default array length`,
     value.aliases.length,
     expected.array,
   );
-  TestValidator.equals(`${prefix} explicit empty string`, value.emptyText, "");
-  TestValidator.equals(
+  TestEquality.equals(`${prefix} explicit empty string`, value.emptyText, "");
+  TestEquality.equals(
     `${prefix} explicit empty array`,
     value.emptyItems.length,
     0,

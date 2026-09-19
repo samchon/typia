@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 import { _isUniqueItems } from "typia/lib/internal/_isUniqueItems";
 
@@ -203,12 +203,12 @@ export const test_validate_unique_items_structural = (): void => {
   assertUnique("different cycles", [left, right], true);
 
   const input = { values: [duplicateObject, structurallyDuplicate] };
-  TestValidator.equals(
+  TestEquality.equals(
     "type tag rejects duplicate objects",
     typia.is<ITaggedPayload>(input),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "JSDoc tag rejects duplicate objects",
     typia.is<IJsDocPayload>(input),
     false,
@@ -219,4 +219,4 @@ const assertUnique = (
   label: string,
   input: unknown[],
   expected: boolean,
-): void => TestValidator.equals(label, _isUniqueItems(input), expected);
+): void => TestEquality.equals(label, _isUniqueItems(input), expected);

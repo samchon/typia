@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -15,7 +16,7 @@ export const test_llm_parameters_number = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals(
+  TestEquality.equals(
     "additionalProperties",
     params.additionalProperties,
     false,
@@ -36,20 +37,20 @@ export const test_llm_parameters_number = (): void => {
   // check ranged
   const ranged = params.properties["ranged"];
   if (LlmTypeChecker.isNumber(ranged!)) {
-    TestValidator.equals("minimum", ranged.minimum, 0);
-    TestValidator.equals("maximum", ranged.maximum, 100);
+    TestEquality.equals("minimum", ranged.minimum, 0);
+    TestEquality.equals("maximum", ranged.maximum, 100);
   }
 
   // check exclusive
   const exclusive = params.properties["exclusive"];
   if (LlmTypeChecker.isNumber(exclusive!)) {
-    TestValidator.equals("exclusiveMinimum", exclusive.exclusiveMinimum, 0);
-    TestValidator.equals("exclusiveMaximum", exclusive.exclusiveMaximum, 100);
+    TestEquality.equals("exclusiveMinimum", exclusive.exclusiveMinimum, 0);
+    TestEquality.equals("exclusiveMaximum", exclusive.exclusiveMaximum, 100);
   }
 
   // check multipleOf
   const multiple = params.properties["multiple"];
   if (LlmTypeChecker.isNumber(multiple!)) {
-    TestValidator.equals("multipleOf", multiple.multipleOf, 5);
+    TestEquality.equals("multipleOf", multiple.multipleOf, 5);
   }
 };

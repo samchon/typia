@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_structuredOutput_validateEquals = (): void => {
@@ -11,9 +11,9 @@ export const test_llm_structuredOutput_validateEquals = (): void => {
 
   // Valid input (exact match)
   const valid = output.validate({ name: "Alice", age: 28 });
-  TestValidator.equals("valid.success", valid.success, true);
+  TestEquality.equals("valid.success", valid.success, true);
 
   // Invalid input (extra property)
   const extra = output.validate({ name: "Bob", age: 30, extra: "field" });
-  TestValidator.equals("extra.success", extra.success, false);
+  TestEquality.equals("extra.success", extra.success, false);
 };

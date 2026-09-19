@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -39,7 +39,7 @@ export const test_json_schema_roundtrip_v31_examples = (): void => {
     schema: input,
     version: "3.1",
   });
-  TestValidator.equals("downgraded", downgraded, {
+  TestEquality.equals("downgraded", downgraded, {
     type: "object",
     examples: [{ name: "alpha" }, { name: "beta" }],
     properties: {
@@ -55,7 +55,7 @@ export const test_json_schema_roundtrip_v31_examples = (): void => {
     components: {},
     schema: downgraded,
   });
-  TestValidator.equals("upgraded", upgraded, {
+  TestEquality.equals("upgraded", upgraded, {
     type: "object",
     examples: {
       v0: { name: "alpha" },

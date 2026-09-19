@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_application = (): void => {
@@ -61,7 +62,7 @@ export const test_llm_application = (): void => {
   const app: ILlmApplication = typia.llm.application<IController>();
 
   // check functions count
-  TestValidator.equals("functions count", app.functions.length, 4);
+  TestEquality.equals("functions count", app.functions.length, 4);
 
   // check function names
   const names = app.functions.map((f) => f.name);
@@ -107,7 +108,7 @@ export const test_llm_application = (): void => {
     email: "john@example.com",
   };
   const memberValidation = typia.validate<IMember>(validMember);
-  TestValidator.equals("valid member passes", memberValidation.success, true);
+  TestEquality.equals("valid member passes", memberValidation.success, true);
 
   const invalidMember = {
     id: "not-a-number",
@@ -115,9 +116,5 @@ export const test_llm_application = (): void => {
     email: null,
   };
   const invalidValidation = typia.validate<IMember>(invalidMember);
-  TestValidator.equals(
-    "invalid member fails",
-    invalidValidation.success,
-    false,
-  );
+  TestEquality.equals("invalid member fails", invalidValidation.success, false);
 };

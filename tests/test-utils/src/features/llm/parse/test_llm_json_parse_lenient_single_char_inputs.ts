@@ -1,60 +1,60 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
   // Single { → empty object
   const r1 = LlmJson.parse("{");
-  TestValidator.equals("brace-success", r1.success, true);
-  if (r1.success) TestValidator.equals("brace-data", r1.data, {});
+  TestEquality.equals("brace-success", r1.success, true);
+  if (r1.success) TestEquality.equals("brace-data", r1.data, {});
 
   // Single [ → empty array
   const r2 = LlmJson.parse("[");
-  TestValidator.equals("bracket-success", r2.success, true);
-  if (r2.success) TestValidator.equals("bracket-data", r2.data, []);
+  TestEquality.equals("bracket-success", r2.success, true);
+  if (r2.success) TestEquality.equals("bracket-data", r2.data, []);
 
   // Single " → empty unclosed string
   const r3 = LlmJson.parse('"');
-  TestValidator.equals("quote-success", r3.success, true);
-  if (r3.success) TestValidator.equals("quote-data", r3.data, "");
+  TestEquality.equals("quote-success", r3.success, true);
+  if (r3.success) TestEquality.equals("quote-data", r3.data, "");
 
   // Digits 0-9 → number
   for (let i = 0; i <= 9; i++) {
     const r = LlmJson.parse(String(i));
-    TestValidator.equals(`digit-${i}-success`, r.success, true);
-    if (r.success) TestValidator.equals(`digit-${i}-data`, r.data, i);
+    TestEquality.equals(`digit-${i}-success`, r.success, true);
+    if (r.success) TestEquality.equals(`digit-${i}-data`, r.data, i);
   }
 
   // Minus → 0 (Number("-") = NaN → 0)
   const r4 = LlmJson.parse("-");
-  TestValidator.equals("minus-success", r4.success, true);
-  if (r4.success) TestValidator.equals("minus-data", r4.data, 0);
+  TestEquality.equals("minus-success", r4.success, true);
+  if (r4.success) TestEquality.equals("minus-data", r4.data, 0);
 
   // "t" → true (partial keyword)
   const r5 = LlmJson.parse("t");
-  TestValidator.equals("t-success", r5.success, true);
-  if (r5.success) TestValidator.equals("t-data", r5.data, true);
+  TestEquality.equals("t-success", r5.success, true);
+  if (r5.success) TestEquality.equals("t-data", r5.data, true);
 
   // "f" → false (partial keyword)
   const r6 = LlmJson.parse("f");
-  TestValidator.equals("f-success", r6.success, true);
-  if (r6.success) TestValidator.equals("f-data", r6.data, false);
+  TestEquality.equals("f-success", r6.success, true);
+  if (r6.success) TestEquality.equals("f-data", r6.data, false);
 
   // "n" → NOT recognized (too short for null, excluded from boolean coercion)
   const r7 = LlmJson.parse("n");
-  TestValidator.equals("n-success", r7.success, false);
+  TestEquality.equals("n-success", r7.success, false);
   if (!r7.success)
-    TestValidator.equals("n-errors", [{ expected: "JSON value" }], r7.errors);
+    TestEquality.subset("n-errors", [{ expected: "JSON value" }], r7.errors);
 
   // "y" → true (boolean coercion)
   const r8 = LlmJson.parse("y");
-  TestValidator.equals("y-success", r8.success, true);
-  if (r8.success) TestValidator.equals("y-data", r8.data, true);
+  TestEquality.equals("y-success", r8.success, true);
+  if (r8.success) TestEquality.equals("y-data", r8.data, true);
 
   // } → failure (no opening brace)
   const r9 = LlmJson.parse("}");
-  TestValidator.equals("close-brace-success", r9.success, false);
+  TestEquality.equals("close-brace-success", r9.success, false);
   if (!r9.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "close-brace-errors",
       [{ expected: "JSON value" }],
       r9.errors,
@@ -62,9 +62,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // ] → failure (no opening bracket)
   const r10 = LlmJson.parse("]");
-  TestValidator.equals("close-bracket-success", r10.success, false);
+  TestEquality.equals("close-bracket-success", r10.success, false);
   if (!r10.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "close-bracket-errors",
       [{ expected: "JSON value" }],
       r10.errors,
@@ -72,9 +72,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // , → failure
   const r11 = LlmJson.parse(",");
-  TestValidator.equals("comma-success", r11.success, false);
+  TestEquality.equals("comma-success", r11.success, false);
   if (!r11.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "comma-errors",
       [{ expected: "JSON value" }],
       r11.errors,
@@ -82,9 +82,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // : → failure
   const r12 = LlmJson.parse(":");
-  TestValidator.equals("colon-success", r12.success, false);
+  TestEquality.equals("colon-success", r12.success, false);
   if (!r12.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "colon-errors",
       [{ expected: "JSON value" }],
       r12.errors,
@@ -92,9 +92,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // space → failure (empty after trim)
   const r13 = LlmJson.parse(" ");
-  TestValidator.equals("space-success", r13.success, false);
+  TestEquality.equals("space-success", r13.success, false);
   if (!r13.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "space-errors",
       [{ expected: "JSON value" }],
       r13.errors,
@@ -102,19 +102,15 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // tab → failure
   const r14 = LlmJson.parse("\t");
-  TestValidator.equals("tab-success", r14.success, false);
+  TestEquality.equals("tab-success", r14.success, false);
   if (!r14.success)
-    TestValidator.equals(
-      "tab-errors",
-      [{ expected: "JSON value" }],
-      r14.errors,
-    );
+    TestEquality.subset("tab-errors", [{ expected: "JSON value" }], r14.errors);
 
   // newline → failure
   const r15 = LlmJson.parse("\n");
-  TestValidator.equals("newline-success", r15.success, false);
+  TestEquality.equals("newline-success", r15.success, false);
   if (!r15.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "newline-errors",
       [{ expected: "JSON value" }],
       r15.errors,
@@ -122,15 +118,15 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // @ → failure (not a valid JSON start)
   const r16 = LlmJson.parse("@");
-  TestValidator.equals("at-success", r16.success, false);
+  TestEquality.equals("at-success", r16.success, false);
   if (!r16.success)
-    TestValidator.equals("at-errors", [{ expected: "JSON value" }], r16.errors);
+    TestEquality.subset("at-errors", [{ expected: "JSON value" }], r16.errors);
 
   // # → failure
   const r17 = LlmJson.parse("#");
-  TestValidator.equals("hash-success", r17.success, false);
+  TestEquality.equals("hash-success", r17.success, false);
   if (!r17.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "hash-errors",
       [{ expected: "JSON value" }],
       r17.errors,
@@ -138,9 +134,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // / → failure (single slash, not a comment)
   const r18 = LlmJson.parse("/");
-  TestValidator.equals("slash-success", r18.success, false);
+  TestEquality.equals("slash-success", r18.success, false);
   if (!r18.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "slash-errors",
       [{ expected: "JSON value" }],
       r18.errors,
@@ -148,9 +144,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // \ → failure
   const r19 = LlmJson.parse("\\");
-  TestValidator.equals("backslash-success", r19.success, false);
+  TestEquality.equals("backslash-success", r19.success, false);
   if (!r19.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "backslash-errors",
       [{ expected: "JSON value" }],
       r19.errors,
@@ -158,9 +154,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // ! → failure
   const r20 = LlmJson.parse("!");
-  TestValidator.equals("excl-success", r20.success, false);
+  TestEquality.equals("excl-success", r20.success, false);
   if (!r20.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "excl-errors",
       [{ expected: "JSON value" }],
       r20.errors,
@@ -168,19 +164,15 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // . → failure (not recognized as number start)
   const r21 = LlmJson.parse(".");
-  TestValidator.equals("dot-success", r21.success, false);
+  TestEquality.equals("dot-success", r21.success, false);
   if (!r21.success)
-    TestValidator.equals(
-      "dot-errors",
-      [{ expected: "JSON value" }],
-      r21.errors,
-    );
+    TestEquality.subset("dot-errors", [{ expected: "JSON value" }], r21.errors);
 
   // + → failure (not recognized as number start)
   const r22 = LlmJson.parse("+");
-  TestValidator.equals("plus-success", r22.success, false);
+  TestEquality.equals("plus-success", r22.success, false);
   if (!r22.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "plus-errors",
       [{ expected: "JSON value" }],
       r22.errors,
@@ -188,9 +180,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // .5 → failure (dot doesn't start numbers)
   const r23 = LlmJson.parse(".5");
-  TestValidator.equals("dot-five-success", r23.success, false);
+  TestEquality.equals("dot-five-success", r23.success, false);
   if (!r23.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "dot-five-errors",
       [{ expected: "JSON value" }],
       r23.errors,
@@ -198,9 +190,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // +5 → failure (plus doesn't start numbers)
   const r24 = LlmJson.parse("+5");
-  TestValidator.equals("plus-five-success", r24.success, false);
+  TestEquality.equals("plus-five-success", r24.success, false);
   if (!r24.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "plus-five-errors",
       [{ expected: "JSON value" }],
       r24.errors,
@@ -208,9 +200,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // Empty string → failure
   const r25 = LlmJson.parse("");
-  TestValidator.equals("empty-success", r25.success, false);
+  TestEquality.equals("empty-success", r25.success, false);
   if (!r25.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "empty-errors",
       [{ expected: "JSON value" }],
       r25.errors,
@@ -218,9 +210,9 @@ export const test_llm_json_parse_lenient_single_char_inputs = (): void => {
 
   // Plain text without JSON → failure
   const r26 = LlmJson.parse("just plain text without any JSON");
-  TestValidator.equals("no-json-success", r26.success, false);
+  TestEquality.equals("no-json-success", r26.success, false);
   if (!r26.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "no-json-errors",
       [{ expected: "JSON value" }],
       r26.errors,

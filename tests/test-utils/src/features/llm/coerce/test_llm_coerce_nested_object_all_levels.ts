@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -28,8 +28,8 @@ export const test_llm_coerce_nested_object_all_levels = (): void => {
     JSON.stringify(corrupted),
     parameters,
   );
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("value", result.data.outer.inner.value, 777);
+    TestEquality.equals("value", result.data.outer.inner.value, 777);
   }
 };

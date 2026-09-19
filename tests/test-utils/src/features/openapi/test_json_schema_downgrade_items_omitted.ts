@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3, OpenApiV3_1, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -25,7 +25,7 @@ export const test_json_schema_downgrade_items_omitted = (): void => {
     downgraded: {},
     schema: open,
   });
-  TestValidator.equals("v2.0 open array", v20, {
+  TestEquality.equals("v2.0 open array", v20, {
     type: "array",
     items: {},
   } as any);
@@ -36,7 +36,7 @@ export const test_json_schema_downgrade_items_omitted = (): void => {
     downgraded: {},
     schema: open,
   });
-  TestValidator.equals("v3.0 open array", v30, {
+  TestEquality.equals("v3.0 open array", v30, {
     type: "array",
     items: {},
   } as any);
@@ -47,7 +47,7 @@ export const test_json_schema_downgrade_items_omitted = (): void => {
     downgraded: {},
     schema: open,
   });
-  TestValidator.equals("v3.1 open array", v31, {
+  TestEquality.equals("v3.1 open array", v31, {
     type: "array",
     items: {},
   } as any);
@@ -61,7 +61,7 @@ export const test_json_schema_downgrade_items_omitted = (): void => {
       items: { type: "string" },
     },
   });
-  TestValidator.equals("present items survive", constrained, {
+  TestEquality.equals("present items survive", constrained, {
     type: "array",
     items: { type: "string" },
   } as any);

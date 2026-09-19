@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3, OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -57,7 +57,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
   const canonical: OpenApi.IJsonSchema = clean(
     OpenApiConverter.upgradeSchema({ components, schema: raw }),
   );
-  TestValidator.equals("upgrade 3.1", canonical, {
+  TestEquality.equals("upgrade 3.1", canonical, {
     type: "object",
     properties: {
       direct: {
@@ -91,7 +91,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
       },
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "upgrade 3.1 components",
     clean(OpenApiConverter.upgradeComponents(components)),
     {
@@ -135,7 +135,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
   };
   const canonicalDocument: OpenApi.IDocument =
     OpenApiConverter.upgradeDocument(document);
-  TestValidator.equals(
+  TestEquality.equals(
     "upgrade 3.1 document request",
     clean(
       canonicalDocument.paths?.["/binary"]?.post?.requestBody?.content?.[
@@ -149,7 +149,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
   const response = downgradedDocument.paths?.["/binary"]?.post?.responses?.[
     "200"
   ] as OpenApiV3_1.IOperation.IResponse;
-  TestValidator.equals(
+  TestEquality.equals(
     "downgrade 3.1 document response",
     clean(response.content?.["application/json"]?.schema),
     { type: "string", contentEncoding: "base64" },
@@ -163,7 +163,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
       version: "3.1",
     }),
   );
-  TestValidator.equals("downgrade 3.1", raw31, raw);
+  TestEquality.equals("downgrade 3.1", raw31, raw);
 
   const raw30: OpenApiV3.IJsonSchema = clean(
     OpenApiConverter.downgradeSchema({
@@ -186,7 +186,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
       version: "3.0",
     }),
   );
-  TestValidator.equals("downgrade 3.0", raw30, {
+  TestEquality.equals("downgrade 3.0", raw30, {
     type: "object",
     properties: {
       direct: {
@@ -204,7 +204,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
     type: "string",
     contentEncoding: "base64",
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "upgrade 3.2",
     clean(OpenApiConverter.upgradeSchema({ components: {}, schema: raw32 })),
     { type: "string", format: "byte" },

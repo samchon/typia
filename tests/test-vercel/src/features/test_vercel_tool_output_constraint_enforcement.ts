@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia, { tags } from "typia";
@@ -34,7 +35,7 @@ export const test_vercel_tool_output_constraint_enforcement =
       ConstraintController,
       { strict: true }
     >("constraint", new ConstraintController());
-    TestValidator.equals(
+    TestEquality.equals(
       "a strict controller reports the config it was built with",
       strict.application.config.strict,
       true,
@@ -55,7 +56,7 @@ export const test_vercel_tool_output_constraint_enforcement =
       const read: Tool = tools["read"]!;
 
       const valid: unknown = await execute(read, "valid");
-      TestValidator.equals(`${mode} conforming output accepted`, valid, {
+      TestEquality.equals(`${mode} conforming output accepted`, valid, {
         success: true,
         data: {
           id: "u1",

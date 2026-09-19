@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IValidation } from "typia";
 
 interface IJsonable {
@@ -43,13 +43,13 @@ export const test_json_is_stringify_non_callable_to_json = (): void => {
   const valid: IJsonable = { keep: 1, value: { toJSON: () => "x" } };
 
   const text: string = typia.json.stringify<IJsonable>(invalid);
-  TestValidator.equals("stringify answers with JSON", JSON.parse(text), {
+  TestEquality.equals("stringify answers with JSON", JSON.parse(text), {
     keep: 1,
     value: {},
   });
 
   const guarded: string | null = typia.json.isStringify<IJsonable>(invalid);
-  TestValidator.equals(
+  TestEquality.equals(
     "isStringify answers instead of throwing",
     guarded === null || typeof guarded === "string",
     true,
@@ -57,13 +57,13 @@ export const test_json_is_stringify_non_callable_to_json = (): void => {
 
   const validated: IValidation<string> =
     typia.json.validateStringify<IJsonable>(invalid);
-  TestValidator.equals(
+  TestEquality.equals(
     "validateStringify answers instead of throwing",
     typeof validated.success,
     "boolean",
   );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "the twin serializes through toJSON",
     JSON.parse(typia.json.stringify<IJsonable>(valid)),
     JSON.parse(JSON.stringify(valid)),

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { ILlmSchema } from "typia";
 
@@ -10,7 +10,7 @@ export const test_llm_invert_enum = (): void => {
       components: {},
       schema,
     } as any);
-    TestValidator.equals(
+    TestEquality.equals(
       "inverted",
       schema,
       inverted as any,

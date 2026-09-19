@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IRandomGenerator, tags } from "typia";
 import { _isTypeFloat } from "typia/lib/internal/_isTypeFloat";
 
@@ -50,34 +50,34 @@ export const test_type_float_range = (): void => {
   ];
 
   for (const value of valids) {
-    TestValidator.equals(
+    TestEquality.equals(
       `_isTypeFloat accepts ${value}`,
       true,
       _isTypeFloat(value),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `type tag accepts ${value}`,
       true,
       typia.is<ITaggedFloat>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `comment tag accepts ${value}`,
       true,
       typia.is<ICommentFloat>({ value }),
     );
   }
   for (const value of invalids) {
-    TestValidator.equals(
+    TestEquality.equals(
       `_isTypeFloat rejects ${value}`,
       false,
       _isTypeFloat(value),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `type tag rejects ${value}`,
       false,
       typia.is<ITaggedFloat>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `comment tag rejects ${value}`,
       false,
       typia.is<ICommentFloat>({ value }),
@@ -92,13 +92,9 @@ export const test_type_float_range = (): void => {
       return schema.minimum!;
     },
   });
-  TestValidator.equals(
-    "Float32Array random minimum",
-    -limit,
-    observed?.minimum,
-  );
-  TestValidator.equals("Float32Array random maximum", limit, observed?.maximum);
-  TestValidator.equals(
+  TestEquality.equals("Float32Array random minimum", -limit, observed?.minimum);
+  TestEquality.equals("Float32Array random maximum", limit, observed?.maximum);
+  TestEquality.equals(
     "Float32Array random value",
     Math.fround(-limit),
     random[0],

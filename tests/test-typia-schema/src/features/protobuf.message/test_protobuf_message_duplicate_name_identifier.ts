@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import pjs from "protobufjs";
 import typia from "typia";
 
@@ -54,7 +55,7 @@ export const test_protobuf_message_duplicate_name_identifier = (): void => {
   const declared: string[] = [
     ...message.matchAll(/message\s+(\S+)\s*\{/gu),
   ].map((m) => m[1]!);
-  TestValidator.equals(
+  TestEquality.equals(
     "every distinct type declares its own message",
     3,
     declared.length,

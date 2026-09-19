@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_error_output_format = (): void => {
@@ -7,15 +7,15 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
 
   // Failure should include original input (not extracted)
   const r1 = LlmJson.parse('{"name": invalid_token}');
-  TestValidator.equals("simple-failure-success", r1.success, false);
+  TestEquality.equals("simple-failure-success", r1.success, false);
   if (!r1.success) {
-    TestValidator.equals("simple-failure-has-input", typeof r1.input, "string");
-    TestValidator.equals(
+    TestEquality.equals("simple-failure-has-input", typeof r1.input, "string");
+    TestEquality.equals(
       "simple-failure-input",
       r1.input,
       '{"name": invalid_token}',
     );
-    TestValidator.equals(
+    TestEquality.subset(
       "simple-failure-errors",
       [{ expected: JSON_VALUE_EXPECTED }],
       r1.errors,
@@ -25,22 +25,22 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
   // Failure with markdown should include FULL original input
   const markdownInput = 'Here is result:\n\n```json\n{"value": bad_value}\n```';
   const r2 = LlmJson.parse(markdownInput);
-  TestValidator.equals("markdown-failure-success", r2.success, false);
+  TestEquality.equals("markdown-failure-success", r2.success, false);
   if (!r2.success)
-    TestValidator.equals("markdown-failure-input", r2.input, markdownInput);
+    TestEquality.equals("markdown-failure-input", r2.input, markdownInput);
 
   // Failure with junk prefix should include original
   const junkInput = 'Sure! Here you go: {"x": undefined_value}';
   const r3 = LlmJson.parse(junkInput);
-  TestValidator.equals("junk-failure-success", r3.success, false);
+  TestEquality.equals("junk-failure-success", r3.success, false);
   if (!r3.success)
-    TestValidator.equals("junk-failure-input", r3.input, junkInput);
+    TestEquality.equals("junk-failure-input", r3.input, junkInput);
 
   // Error path should be correct
   const r4 = LlmJson.parse('{"nested": {"bad": xyz}}');
-  TestValidator.equals("nested-error-success", r4.success, false);
+  TestEquality.equals("nested-error-success", r4.success, false);
   if (!r4.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "nested-error-errors",
       [{ expected: JSON_VALUE_EXPECTED }],
       r4.errors,
@@ -48,9 +48,9 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
 
   // Multiple errors should all be captured
   const r5 = LlmJson.parse('{"a": bad1, "b": bad2}');
-  TestValidator.equals("multiple-errors-success", r5.success, false);
+  TestEquality.equals("multiple-errors-success", r5.success, false);
   if (!r5.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "multiple-errors-errors",
       [{ expected: JSON_VALUE_EXPECTED }, { expected: JSON_VALUE_EXPECTED }],
       r5.errors,
@@ -58,9 +58,9 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
 
   // Data should still be partially recovered on failure
   const r6 = LlmJson.parse('{"good": "value", "bad": oops}');
-  TestValidator.equals("partial-recovery-success", r6.success, false);
+  TestEquality.equals("partial-recovery-success", r6.success, false);
   if (!r6.success)
-    TestValidator.equals(
+    TestEquality.equals(
       "partial-recovery-good-value",
       (r6.data as any)?.good,
       "value",
@@ -69,15 +69,15 @@ export const test_llm_json_parse_lenient_error_output_format = (): void => {
   // Failure input preserved even with comments
   const commentInput = '{"key": /* comment */ invalid}';
   const r7 = LlmJson.parse(commentInput);
-  TestValidator.equals("comment-failure-success", r7.success, false);
+  TestEquality.equals("comment-failure-success", r7.success, false);
   if (!r7.success)
-    TestValidator.equals("comment-failure-input", r7.input, commentInput);
+    TestEquality.equals("comment-failure-input", r7.input, commentInput);
 
   // Error message should be descriptive
   const r8 = LlmJson.parse('{"name": abcdefg}');
-  TestValidator.equals("descriptive-error-success", r8.success, false);
+  TestEquality.equals("descriptive-error-success", r8.success, false);
   if (!r8.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "descriptive-error-errors",
       [{ expected: JSON_VALUE_EXPECTED }],
       r8.errors,

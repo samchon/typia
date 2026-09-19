@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -16,11 +17,11 @@ import typia from "typia";
  * 3. Assert every member is a bigint and equal to the declared literal.
  */
 export const test_reflect_literals_bigint = (): void => {
-  TestValidator.equals("small union", typia.reflect.literals<1n | 2n>(), [
+  TestEquality.equals("small union", typia.reflect.literals<1n | 2n>(), [
     1n,
     2n,
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "mixed with other literal kinds",
     typia.reflect.literals<"A" | 1 | 2n>(),
     ["A", 1, 2n],
@@ -31,12 +32,12 @@ export const test_reflect_literals_bigint = (): void => {
 
   // 2 ** 53 + 1 is the smallest integer a double cannot hold; a rounded emit
   // collapses it onto 2 ** 53.
-  TestValidator.equals(
+  TestEquality.equals(
     "past the double-precision limit",
     typia.reflect.literals<9007199254740993n>(),
     [9007199254740993n],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "int64 bounds",
     typia.reflect.literals<-9223372036854775808n | 9223372036854775807n>(),
     [-9223372036854775808n, 9223372036854775807n],

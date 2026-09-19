@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_prefix_false_positive = (): void => {
@@ -25,12 +25,12 @@ export const test_llm_stringify_prefix_false_positive = (): void => {
   };
 
   const output1: string = LlmJson.stringify(failure1);
-  TestValidator.equals("names-has-error", output1.includes("names"), true);
-  TestValidator.equals("names-error-marker", output1.includes("// ❌"), true);
+  TestEquality.equals("names-has-error", output1.includes("names"), true);
+  TestEquality.equals("names-error-marker", output1.includes("// ❌"), true);
   // Count occurrences of "undefined" — "name" should not show as undefined
   // Only "names" should appear (as a key with value "invalid"), not "name: undefined"
   const nameUndefinedMatch = output1.match(/"name":\s*undefined/g);
-  TestValidator.equals(
+  TestEquality.equals(
     "name-should-not-show-as-undefined",
     nameUndefinedMatch,
     null,
@@ -54,9 +54,9 @@ export const test_llm_stringify_prefix_false_positive = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals("items-has-error", output2.includes("items"), true);
+  TestEquality.equals("items-has-error", output2.includes("items"), true);
   const itemUndefinedMatch = output2.match(/"item":\s*undefined/g);
-  TestValidator.equals(
+  TestEquality.equals(
     "item-should-not-show-as-undefined",
     itemUndefinedMatch,
     null,
@@ -81,5 +81,5 @@ export const test_llm_stringify_prefix_false_positive = (): void => {
 
   const output3: string = LlmJson.stringify(failure3);
   const aUndefinedMatch = output3.match(/"a":\s*undefined/g);
-  TestValidator.equals("a-should-not-show-as-undefined", aUndefinedMatch, null);
+  TestEquality.equals("a-should-not-show-as-undefined", aUndefinedMatch, null);
 };

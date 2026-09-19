@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**
@@ -41,7 +41,7 @@ export const test_naming_convention_camel = (): void => {
     ["word", "word"],
   ];
   for (const [input, expected] of expectations)
-    TestValidator.equals(
+    TestEquality.equals(
       `camel(${JSON.stringify(input)})`,
       NamingConvention.camel(input),
       expected,

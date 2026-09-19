@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -35,69 +35,69 @@ export const test_notation_underscore_boundary = (): void => {
   // ---- static keys: soundness against the declared *Case<T> type ----
   const snaked: typia.SnakeCase<Battery> =
     typia.notations.snake<Battery>(value);
-  TestValidator.equals("snake foo_bar_baz", snaked.foo_bar_baz, 1);
-  TestValidator.equals("snake open_ai_key", snaked.open_ai_key, 2);
-  TestValidator.equals("snake http_foo_bar", snaked.http_foo_bar, 3);
-  TestValidator.equals("snake foo_bar", snaked.foo_bar, 4);
-  TestValidator.equals("snake foo_bar_", snaked.foo_bar_, 5);
-  TestValidator.equals("snake _foo_bar", snaked._foo_bar, 6);
-  TestValidator.equals("snake user_id", snaked.user_id, 7);
-  TestValidator.equals("snake a_b_c", snaked.a_b_c, 8);
-  TestValidator.equals("snake max_count", snaked.max_count, 9);
+  TestEquality.equals("snake foo_bar_baz", snaked.foo_bar_baz, 1);
+  TestEquality.equals("snake open_ai_key", snaked.open_ai_key, 2);
+  TestEquality.equals("snake http_foo_bar", snaked.http_foo_bar, 3);
+  TestEquality.equals("snake foo_bar", snaked.foo_bar, 4);
+  TestEquality.equals("snake foo_bar_", snaked.foo_bar_, 5);
+  TestEquality.equals("snake _foo_bar", snaked._foo_bar, 6);
+  TestEquality.equals("snake user_id", snaked.user_id, 7);
+  TestEquality.equals("snake a_b_c", snaked.a_b_c, 8);
+  TestEquality.equals("snake max_count", snaked.max_count, 9);
 
   const camelled: typia.CamelCase<Battery> =
     typia.notations.camel<Battery>(value);
-  TestValidator.equals("camel foobarBaz", camelled.foobarBaz, 1);
-  TestValidator.equals("camel openaiKey", camelled.openaiKey, 2);
-  TestValidator.equals("camel httpFoobar", camelled.httpFoobar, 3);
-  TestValidator.equals("camel fooBar", camelled.fooBar, 4);
-  TestValidator.equals("camel foobar_", camelled.foobar_, 5);
-  TestValidator.equals("camel _fooBar", camelled._fooBar, 6);
-  TestValidator.equals("camel userID", camelled.userID, 7);
-  TestValidator.equals("camel aBc", camelled.aBc, 8);
-  TestValidator.equals("camel maxCount", camelled.maxCount, 9);
+  TestEquality.equals("camel foobarBaz", camelled.foobarBaz, 1);
+  TestEquality.equals("camel openaiKey", camelled.openaiKey, 2);
+  TestEquality.equals("camel httpFoobar", camelled.httpFoobar, 3);
+  TestEquality.equals("camel fooBar", camelled.fooBar, 4);
+  TestEquality.equals("camel foobar_", camelled.foobar_, 5);
+  TestEquality.equals("camel _fooBar", camelled._fooBar, 6);
+  TestEquality.equals("camel userID", camelled.userID, 7);
+  TestEquality.equals("camel aBc", camelled.aBc, 8);
+  TestEquality.equals("camel maxCount", camelled.maxCount, 9);
 
   const pascalled: typia.PascalCase<Battery> =
     typia.notations.pascal<Battery>(value);
-  TestValidator.equals("pascal FoobarBaz", pascalled.FoobarBaz, 1);
-  TestValidator.equals("pascal OpenaiKey", pascalled.OpenaiKey, 2);
-  TestValidator.equals("pascal HttpFoobar", pascalled.HttpFoobar, 3);
-  TestValidator.equals("pascal FooBar", pascalled.FooBar, 4);
-  TestValidator.equals("pascal Foobar", pascalled.Foobar, 5);
-  TestValidator.equals("pascal _FooBar", pascalled._FooBar, 6);
-  TestValidator.equals("pascal UserID", pascalled.UserID, 7);
-  TestValidator.equals("pascal ABC", pascalled.ABC, 8);
-  TestValidator.equals("pascal MaxCount", pascalled.MaxCount, 9);
+  TestEquality.equals("pascal FoobarBaz", pascalled.FoobarBaz, 1);
+  TestEquality.equals("pascal OpenaiKey", pascalled.OpenaiKey, 2);
+  TestEquality.equals("pascal HttpFoobar", pascalled.HttpFoobar, 3);
+  TestEquality.equals("pascal FooBar", pascalled.FooBar, 4);
+  TestEquality.equals("pascal Foobar", pascalled.Foobar, 5);
+  TestEquality.equals("pascal _FooBar", pascalled._FooBar, 6);
+  TestEquality.equals("pascal UserID", pascalled.UserID, 7);
+  TestEquality.equals("pascal ABC", pascalled.ABC, 8);
+  TestEquality.equals("pascal MaxCount", pascalled.MaxCount, 9);
 
   const kebabbed: typia.KebabCase<Battery> =
     typia.notations.kebab<Battery>(value);
-  TestValidator.equals("kebab foo-bar-baz", kebabbed["foo-bar-baz"], 1);
-  TestValidator.equals("kebab open-ai-key", kebabbed["open-ai-key"], 2);
-  TestValidator.equals("kebab http-foo-bar", kebabbed["http-foo-bar"], 3);
-  TestValidator.equals("kebab foo-bar-", kebabbed["foo-bar-"], 5);
-  TestValidator.equals("kebab _foo-bar", kebabbed["_foo-bar"], 6);
-  TestValidator.equals("kebab a-b-c", kebabbed["a-b-c"], 8);
-  TestValidator.equals("kebab max-count", kebabbed["max-count"], 9);
+  TestEquality.equals("kebab foo-bar-baz", kebabbed["foo-bar-baz"], 1);
+  TestEquality.equals("kebab open-ai-key", kebabbed["open-ai-key"], 2);
+  TestEquality.equals("kebab http-foo-bar", kebabbed["http-foo-bar"], 3);
+  TestEquality.equals("kebab foo-bar-", kebabbed["foo-bar-"], 5);
+  TestEquality.equals("kebab _foo-bar", kebabbed["_foo-bar"], 6);
+  TestEquality.equals("kebab a-b-c", kebabbed["a-b-c"], 8);
+  TestEquality.equals("kebab max-count", kebabbed["max-count"], 9);
 
   // ---- dynamic keys: the runtime _notation* helper over the whole matrix ----
   const dynamic: Record<string, number> = { ...value };
   const sortKeys = (input: object): string[] => Object.keys(input).sort();
-  TestValidator.equals(
+  TestEquality.equals(
     "snake dynamic key set",
     sortKeys(typia.notations.snake<Record<string, number>>(dynamic)),
     sortKeys(snaked),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "camel dynamic key set",
     sortKeys(typia.notations.camel<Record<string, number>>(dynamic)),
     sortKeys(camelled),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "pascal dynamic key set",
     sortKeys(typia.notations.pascal<Record<string, number>>(dynamic)),
     sortKeys(pascalled),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "kebab dynamic key set",
     sortKeys(typia.notations.kebab<Record<string, number>>(dynamic)),
     sortKeys(kebabbed),

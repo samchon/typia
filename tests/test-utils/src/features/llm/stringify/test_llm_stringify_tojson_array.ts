@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_tojson_array = (): void => {
@@ -24,12 +24,12 @@ export const test_llm_stringify_tojson_array = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // The array should appear in output
-  TestValidator.equals("contains array element 1", output.includes("1"), true);
-  TestValidator.equals("contains array element 2", output.includes("2"), true);
-  TestValidator.equals("contains array element 3", output.includes("3"), true);
+  TestEquality.equals("contains array element 1", output.includes("1"), true);
+  TestEquality.equals("contains array element 2", output.includes("2"), true);
+  TestEquality.equals("contains array element 3", output.includes("3"), true);
 
   // Test toJSON returning array with nested objects
   const objWithNestedArrayToJson = {
@@ -49,12 +49,12 @@ export const test_llm_stringify_tojson_array = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "nested-contains code block",
     output2.includes("```json"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nested-contains error marker",
     output2.includes("// ❌"),
     true,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -51,23 +51,23 @@ export const test_llm_application_reported_config = (): void => {
   const loose: ILlmApplication = typia.llm.application<IApplication>();
 
   // POSITIVE: the declared configuration is what gets reported.
-  TestValidator.equals(
+  TestEquality.equals(
     "strict application reports strict",
     strict.config.strict,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "default application reports non-strict",
     loose.config.strict,
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict controller reports strict",
     typia.llm.controller<Service, { strict: true }>("service", new Service())
       .application.config.strict,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "default controller reports non-strict",
     typia.llm.controller<Service, {}>("service", new Service()).application
       .config.strict,
@@ -75,12 +75,12 @@ export const test_llm_application_reported_config = (): void => {
   );
 
   // CONTROL: the runtime validate hook keeps its own meaning.
-  TestValidator.equals(
+  TestEquality.equals(
     "no validate hook is reported as null",
     loose.config.validate,
     null,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "a validate hook is reported",
     typia.llm.application<IApplication>({
       validate: {
@@ -97,12 +97,12 @@ export const test_llm_application_reported_config = (): void => {
   ] as const) {
     const func = app.functions.find((f) => f.name === "create")!;
     const validate = LlmJson.validate(func.output!, true, app.config);
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} output rejects a score above the maximum`,
       validate({ score: 500 }).success,
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} output accepts a score inside the range`,
       validate({ score: 50 }).success,
       true,

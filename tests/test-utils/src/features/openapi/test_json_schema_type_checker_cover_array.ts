@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaCollection, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -14,7 +14,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
   const box2D: OpenApi.IJsonSchema = components.schemas!.Box2D!;
   const box3D: OpenApi.IJsonSchema = components.schemas!.Box3D!;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "Plan3D[] covers Plan2D[]",
     true,
     OpenApiTypeChecker.covers({
@@ -23,7 +23,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       y: { type: "array", items: plan2D },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Box3D[] covers Box2D[]",
     true,
     OpenApiTypeChecker.covers({
@@ -32,7 +32,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       y: { type: "array", items: box2D },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Array<Plan3D|Box3D> covers Array<Plan2D|Box2D>",
     true,
     OpenApiTypeChecker.covers({
@@ -51,7 +51,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "(Plan3D|Box3D)[] covers (Plan2D|Box2D)[]",
     true,
     OpenApiTypeChecker.covers({
@@ -71,7 +71,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
     }),
   );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "Plan2D[] can't cover Plan3D[]",
     false,
     OpenApiTypeChecker.covers({
@@ -80,7 +80,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       y: { type: "array", items: plan3D },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Box2D[] can't cover Box3D[]",
     false,
     OpenApiTypeChecker.covers({
@@ -89,7 +89,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       y: { type: "array", items: box3D },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Array<Plan2D|Box2D> can't cover Array<Plan3D|Box3D>",
     false,
     OpenApiTypeChecker.covers({
@@ -108,7 +108,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "(Plan2D[]|Box2D[]) can't cover (Plan3D[]|Box3D[])",
     false,
     OpenApiTypeChecker.covers({
@@ -127,7 +127,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Plan3D[] can't cover (Plan2D|Box2D)[]",
     false,
     OpenApiTypeChecker.covers({
@@ -141,7 +141,7 @@ export const test_json_schema_type_checker_cover_array = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Box3D[] can't cover Array<Plan2D|Box2D>",
     false,
     OpenApiTypeChecker.covers({

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 import { FeatureIdentity } from "../FeatureIdentity";
 
@@ -19,7 +20,7 @@ import { FeatureIdentity } from "../FeatureIdentity";
  */
 export const test_feature_identity_helper_file = (): void => {
   // 1. AN ORDINARY HELPER IS FINE
-  TestValidator.equals(
+  TestEquality.equals(
     "helper",
     [] as string[],
     FeatureIdentity.diagnose([file("PlainNativeClone", [])]),
@@ -29,7 +30,7 @@ export const test_feature_identity_helper_file = (): void => {
   const hidden: string[] = FeatureIdentity.diagnose([
     file("PlainNativeClone", ["test_plain_native_clone"]),
   ]);
-  TestValidator.equals("hidden test count", 1, hidden.length);
+  TestEquality.equals("hidden test count", 1, hidden.length);
   TestValidator.predicate(
     `hidden test named: ${hidden[0]}`,
     hidden[0]!.includes("test_plain_native_clone"),

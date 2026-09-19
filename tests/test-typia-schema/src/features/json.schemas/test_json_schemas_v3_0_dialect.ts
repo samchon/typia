@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -23,11 +23,11 @@ export const test_json_schemas_v3_0_dialect = (): void => {
   }
 
   const collection = typia.json.schemas<[IV3Target], "3.0">();
-  TestValidator.equals("collection version", collection.version, "3.0");
-  TestValidator.equals("root reference", clean(collection.schemas), [
+  TestEquality.equals("collection version", collection.version, "3.0");
+  TestEquality.equals("root reference", clean(collection.schemas), [
     { $ref: "#/components/schemas/IV3Target" },
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded component",
     clean(collection.components.schemas?.IV3Target),
     {
@@ -53,7 +53,7 @@ export const test_json_schemas_v3_0_dialect = (): void => {
   // The negative twin: no 3.1-only keyword may appear anywhere in the document.
   const serialized: string = JSON.stringify(collection);
   for (const keyword of ["const", "prefixItems", '"type":"null"'])
-    TestValidator.equals(
+    TestEquality.equals(
       `no ${keyword} under 3.0`,
       serialized.includes(keyword),
       false,

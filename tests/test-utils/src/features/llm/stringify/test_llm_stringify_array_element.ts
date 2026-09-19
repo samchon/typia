@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -10,20 +10,20 @@ export const test_llm_stringify_array_element = (): void => {
   const valid: IArrayProp = { scores: [1, 2, 3] };
   (valid.scores as unknown[])[1] = "two";
   const result = typia.validate<IArrayProp>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains error marker",
       output.includes("// ❌"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains array index path",
       output.includes("$input.scores[1]"),
       true,

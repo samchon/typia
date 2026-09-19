@@ -16,6 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "catalog:utils",
+    "@typia/template": "workspace:^",
     "ttsc": "catalog:typescript"
   },
   "dependencies": {

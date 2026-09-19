@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -30,7 +31,7 @@ export const test_json_schema_enum = (): void => {
 
   if (OpenApiTypeChecker.isOneOf(actualSchema)) {
     const oneOf = actualSchema as OpenApi.IJsonSchema.IOneOf;
-    TestValidator.equals("has 3 const values", oneOf.oneOf.length, 3);
+    TestEquality.equals("has 3 const values", oneOf.oneOf.length, 3);
     TestValidator.predicate("all are const", () =>
       oneOf.oneOf.every((s) => OpenApiTypeChecker.isConstant(s)),
     );

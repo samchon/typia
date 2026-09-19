@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, OpenApiV3_1 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
@@ -40,7 +41,7 @@ export const test_vercel_http_controller_output_validation =
     const tool: Tool = tools[controller.application.functions[0]!.name]!;
 
     const valid: unknown = await execute(tool, "valid");
-    TestValidator.equals("valid HTTP body uses the success branch", valid, {
+    TestEquality.equals("valid HTTP body uses the success branch", valid, {
       success: true,
       data: { value: 1, nested: { label: "valid" } },
     });

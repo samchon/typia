@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_converter_matrix = (): void => {
@@ -35,7 +36,7 @@ export const test_llm_schema_converter_matrix = (): void => {
   const $defs: Record<string, ILlmSchema> = {};
   const schema = typia.llm.schema<IMatrix>($defs);
 
-  TestValidator.equals("top level reference", schema, {
+  TestEquality.equals("top level reference", schema, {
     $ref: "#/$defs/IMatrix",
   });
   TestValidator.predicate("IMatrix definition exists", () =>
@@ -46,8 +47,8 @@ export const test_llm_schema_converter_matrix = (): void => {
   );
 
   const matrix = $defs.IMatrix as ILlmSchema.IObject;
-  TestValidator.equals("matrix type", matrix.type, "object");
-  TestValidator.equals("matrix required", sorted(matrix.required), [
+  TestEquality.equals("matrix type", matrix.type, "object");
+  TestEquality.equals("matrix required", sorted(matrix.required), [
     "age",
     "dictionary",
     "flag",
@@ -62,34 +63,34 @@ export const test_llm_schema_converter_matrix = (): void => {
     "ratio",
   ]);
 
-  TestValidator.equals("id format", matrix.properties.id, {
+  TestEquality.equals("id format", matrix.properties.id, {
     type: "string",
     format: "uuid",
   });
-  TestValidator.equals("name constraints", matrix.properties.name, {
+  TestEquality.equals("name constraints", matrix.properties.name, {
     type: "string",
     pattern: "^[A-Za-z ]+$",
     minLength: 2,
     maxLength: 32,
   });
-  TestValidator.equals("payload content metadata", matrix.properties.payload, {
+  TestEquality.equals("payload content metadata", matrix.properties.payload, {
     type: "string",
     contentMediaType: "application/json",
     default: '{"ok":true}',
   });
-  TestValidator.equals("age numeric constraints", matrix.properties.age, {
+  TestEquality.equals("age numeric constraints", matrix.properties.age, {
     type: "integer",
     minimum: 1,
     exclusiveMaximum: 150,
     multipleOf: 1,
     default: 30,
   });
-  TestValidator.equals("ratio numeric constraints", matrix.properties.ratio, {
+  TestEquality.equals("ratio numeric constraints", matrix.properties.ratio, {
     type: "number",
     exclusiveMinimum: 0,
     exclusiveMaximum: 1,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "boolean const becomes enum",
     enumSchema(matrix.properties.flag),
     {
@@ -97,7 +98,7 @@ export const test_llm_schema_converter_matrix = (): void => {
       enum: [true],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "string literal union becomes enum",
     enumSchema(matrix.properties.mode),
     {
@@ -105,7 +106,7 @@ export const test_llm_schema_converter_matrix = (): void => {
       enum: ["create", "delete", "update"],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "numeric literal union becomes enum",
     enumSchema(matrix.properties.level),
     {
@@ -117,20 +118,20 @@ export const test_llm_schema_converter_matrix = (): void => {
   const nullable = matrix.properties.nullable;
   TestValidator.predicate("nullable becomes anyOf", () => isAnyOf(nullable));
   if (isAnyOf(nullable))
-    TestValidator.equals(
+    TestEquality.equals(
       "nullable variants",
       sorted(nullable.anyOf.map((s) => typeName(s))),
       ["null", "string"],
     );
 
-  TestValidator.equals("leaf reference", matrix.properties.leaf, {
+  TestEquality.equals("leaf reference", matrix.properties.leaf, {
     $ref: "#/$defs/ILeaf",
   });
 
   const leaves = matrix.properties.leaves;
   TestValidator.predicate("leaves array", () => isArray(leaves));
   if (isArray(leaves)) {
-    TestValidator.equals(
+    TestEquality.equals(
       "leaves bounds",
       {
         minItems: leaves.minItems,
@@ -143,7 +144,7 @@ export const test_llm_schema_converter_matrix = (): void => {
         uniqueItems: true,
       },
     );
-    TestValidator.equals("leaves item reference", leaves.items, {
+    TestEquality.equals("leaves item reference", leaves.items, {
       $ref: "#/$defs/ILeaf",
     });
   }
@@ -151,7 +152,7 @@ export const test_llm_schema_converter_matrix = (): void => {
   const dictionary = resolve(matrix.properties.dictionary, $defs);
   TestValidator.predicate("dictionary object", () => isObject(dictionary));
   if (isObject(dictionary))
-    TestValidator.equals(
+    TestEquality.equals(
       "dictionary additionalProperties schema",
       {
         type: dictionary.type,
@@ -169,12 +170,12 @@ export const test_llm_schema_converter_matrix = (): void => {
     );
 
   const leaf = $defs.ILeaf as ILlmSchema.IObject;
-  TestValidator.equals("leaf required", leaf.required, ["code"]);
-  TestValidator.equals("leaf code pattern", leaf.properties.code, {
+  TestEquality.equals("leaf required", leaf.required, ["code"]);
+  TestEquality.equals("leaf code pattern", leaf.properties.code, {
     type: "string",
     pattern: "^[A-Z]{2}$",
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "leaf optional property retained",
     leaf.properties.amount,
     {

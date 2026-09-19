@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 type IOptional = { a?: number } | { b?: string };
@@ -32,33 +32,33 @@ export const test_compare_equals_object_union_non_discriminable = (): void => {
   const clone = typia.plain.createClone<IOptional>();
   const is = typia.createIs<IOptional>();
 
-  TestValidator.equals(
+  TestEquality.equals(
     "distinct values of the first member",
     false,
     equals({ a: 1 }, { a: 2 }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "populated object against empty object",
     false,
     equals({ a: 1 }, {}),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "empty object against populated object",
     false,
     equals({}, { a: 1 }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "values of different members",
     false,
     equals({ a: 1 }, { b: "p" }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "identical values of distinct reference",
     true,
     equals({ a: 1 }, { a: 1 }),
   );
-  TestValidator.equals("two empty objects", true, equals({}, {}));
-  TestValidator.equals(
+  TestEquality.equals("two empty objects", true, equals({}, {}));
+  TestEquality.equals(
     "an operand the union rejects",
     false,
     equals({ a: "x", b: 1 } as any, { a: "x", b: 1 } as any),
@@ -88,13 +88,13 @@ export const test_compare_equals_object_union_non_discriminable = (): void => {
       const right = JSON.parse(JSON.stringify(y));
       const title = `${JSON.stringify(x)} vs ${JSON.stringify(y)}`;
       if (is(left) === false || is(right) === false)
-        TestValidator.equals(
+        TestEquality.equals(
           `rejected operand is equal to nothing: ${title}`,
           false,
           equals(left, right),
         );
       else
-        TestValidator.equals(
+        TestEquality.equals(
           `equals agrees with clone: ${title}`,
           shape(clone(left)) === shape(clone(right)),
           equals(left, right),
@@ -103,17 +103,17 @@ export const test_compare_equals_object_union_non_discriminable = (): void => {
 
   // A key both members share still compares within one resolved member.
   const shared = typia.compare.createEquals<IShared>();
-  TestValidator.equals(
+  TestEquality.equals(
     "shared key differs",
     false,
     shared({ c: true }, { c: false }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "shared key with member payload",
     false,
     shared({ a: 1, c: true }, { a: 2, c: true }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "shared key identical",
     true,
     shared({ a: 1, c: true }, { a: 1, c: true }),
@@ -121,17 +121,17 @@ export const test_compare_equals_object_union_non_discriminable = (): void => {
 
   // The same resolution applies to a nested union property.
   const nested = typia.compare.createEquals<INested>();
-  TestValidator.equals(
+  TestEquality.equals(
     "nested union differs",
     false,
     nested({ wrap: { a: 1 } }, { wrap: { a: 2 } }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nested union populated against empty",
     false,
     nested({ wrap: { a: 1 } }, { wrap: {} }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nested union identical",
     true,
     nested({ wrap: { a: 1 } }, { wrap: { a: 1 } }),

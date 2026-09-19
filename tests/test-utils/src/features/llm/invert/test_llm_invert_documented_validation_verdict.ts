@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -36,27 +36,27 @@ export const test_llm_invert_documented_validation_verdict = (): void => {
     undocumentedEmail: "member@typia.io",
   };
 
-  TestValidator.equals(
+  TestEquality.equals(
     "conforming value accepted",
     validate(valid).success,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "documented minimum enforced",
     validate({ ...valid, documentedAge: -5 }).success,
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "undocumented minimum enforced",
     validate({ ...valid, undocumentedAge: -5 }).success,
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "documented format enforced",
     validate({ ...valid, documentedEmail: "not-an-email" }).success,
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "undocumented format enforced",
     validate({ ...valid, undocumentedEmail: "not-an-email" }).success,
     false,

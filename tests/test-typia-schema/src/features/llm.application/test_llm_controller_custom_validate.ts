@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { ILlmController, IValidation } from "typia";
 
 export const test_llm_controller_custom_validate = (): void => {
@@ -22,7 +22,7 @@ export const test_llm_controller_custom_validate = (): void => {
       },
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "custom",
     controller.application.functions[0]?.validate,
     validate,

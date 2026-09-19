@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_empty_object_self_error = (): void => {
@@ -19,11 +19,11 @@ export const test_llm_stringify_empty_object_self_error = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-  TestValidator.equals("contains $input path", output.includes("$input"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains $input path", output.includes("$input"), true);
   // The {} should be followed by the error comment
-  TestValidator.equals(
+  TestEquality.equals(
     "contains empty object with error",
     output.includes("{}") || output.includes("{ }"),
     true,

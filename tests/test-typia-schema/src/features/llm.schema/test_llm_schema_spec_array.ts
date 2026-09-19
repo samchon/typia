@@ -1,8 +1,8 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_array = (): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     "array of string",
     clean(typia.llm.schema<string[]>({})),
     {
@@ -12,7 +12,7 @@ export const test_llm_schema_spec_array = (): void => {
       },
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "array bounds",
     clean(
       typia.llm.schema<
@@ -29,7 +29,7 @@ export const test_llm_schema_spec_array = (): void => {
       uniqueItems: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "array item union",
     clean(typia.llm.schema<Array<string | number>>({})),
     {

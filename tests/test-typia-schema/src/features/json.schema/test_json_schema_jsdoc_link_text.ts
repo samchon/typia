@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 interface ITarget {
@@ -86,7 +86,7 @@ export const test_json_schema_jsdoc_link_text = (): void => {
     | undefined;
   const status = schemas.Status as { description?: string } | undefined;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "named interface links",
     props?.description,
     [
@@ -95,47 +95,47 @@ export const test_json_schema_jsdoc_link_text = (): void => {
       "Adjacent links keep punctuation: ITarget/ITarget.value.",
     ].join("\n"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "named alias link label",
     status?.description,
     "Status for target operations.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "plain prose",
     props?.properties?.plain?.description,
     "Plain prose must remain unchanged.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "target and qualified member links",
     props?.properties?.target?.description,
     "Must match ITarget; see ITarget.value.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "pipe label",
     props?.properties?.labeled?.description,
     "Render the target contract.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "space label",
     props?.properties?.labeledWithoutPipe?.description,
     "Render the target contract.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "link variants",
     props?.properties?.variants?.description,
     "Render ITarget and ITarget.value.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "URL links",
     props?.properties?.url?.description,
     "Visit https://x.io/docs or docs.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "unresolved target link",
     props?.properties?.unresolved?.description,
     "Keep UnresolvedTarget.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "JSDoc tag link label",
     props?.properties?.titled?.title,
     "Target title",
@@ -143,12 +143,12 @@ export const test_json_schema_jsdoc_link_text = (): void => {
 
   const llm = typia.llm.application<IApplication>();
   const func = llm.functions.find((candidate) => candidate.name === "process");
-  TestValidator.equals(
+  TestEquality.equals(
     "application summary link label",
     llm.description,
     "Linked application.\n\nApplication for ITarget.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "function links",
     func?.description,
     "Process one ITarget; see ITarget.value.",

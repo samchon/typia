@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpLlmApplication,
   IHttpMigrateRoute,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 
@@ -20,8 +20,8 @@ export const test_http_llm_application = async (): Promise<void> => {
   });
   for (const func of application.functions) {
     const route: IHttpMigrateRoute = func.route();
-    TestValidator.equals("type", { type: "object" }, func.parameters);
-    TestValidator.equals(
+    TestEquality.subset("type", { type: "object" }, func.parameters);
+    TestEquality.equals(
       "properties",
       [
         ...route.parameters.map((p) => p.key),

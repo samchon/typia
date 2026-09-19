@@ -1,8 +1,8 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_json_schema_spec_nullable = (): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable string",
     normalizeOneOf(clean(typia.json.schema<string | null>().schema)),
     {

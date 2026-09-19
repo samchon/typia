@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -203,7 +203,7 @@ const expectSuccess = (
   components: OpenApi.IComponents = {},
   required: boolean = true,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     validate(schema, value, components, required).success,
     true,
@@ -215,7 +215,7 @@ const expectFailure = (
   components: OpenApi.IComponents = {},
   required: boolean = true,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     validate(schema, value, components, required).success,
     false,

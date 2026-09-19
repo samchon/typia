@@ -1,9 +1,9 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 
 import { CalculatorApi } from "../structures/CalculatorApi";
@@ -36,7 +36,7 @@ export const test_mcp_http_controller_version_override =
     try {
       await server.connect(serverTransport);
       await client.connect(clientTransport);
-      TestValidator.equals(
+      TestEquality.equals(
         "explicit version overrides OpenAPI info.version",
         client.getServerVersion(),
         { name: "calculator", version: "9.8.7" },

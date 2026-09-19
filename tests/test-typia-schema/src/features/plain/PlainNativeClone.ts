@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 export const assertDataViewClone = (
   label: string,
@@ -10,32 +11,28 @@ export const assertDataViewClone = (
     () => output instanceof DataView,
   );
   TestValidator.predicate(`${label} identity`, () => input !== output);
-  TestValidator.equals(`${label} byteOffset`, 0, output.byteOffset);
-  TestValidator.equals(
+  TestEquality.equals(`${label} byteOffset`, 0, output.byteOffset);
+  TestEquality.equals(
     `${label} byteLength`,
     input.byteLength,
     output.byteLength,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} backing length`,
     input.byteLength,
     output.buffer.byteLength,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} backing brand`,
     Object.prototype.toString.call(input.buffer),
     Object.prototype.toString.call(output.buffer),
   );
   const expected = visibleBytes(input);
-  TestValidator.equals(
-    `${label} visible bytes`,
-    expected,
-    visibleBytes(output),
-  );
+  TestEquality.equals(`${label} visible bytes`, expected, visibleBytes(output));
   if (input.byteLength !== 0) {
     const source = input.getUint8(0);
     input.setUint8(0, source ^ 0xff);
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} source independence`,
       expected,
       visibleBytes(output),
@@ -44,7 +41,7 @@ export const assertDataViewClone = (
 
     const cloned = output.getUint8(0);
     output.setUint8(0, cloned ^ 0xff);
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} result independence`,
       expected,
       visibleBytes(input),
@@ -69,11 +66,11 @@ export const assertTypedArrayClone = (
     () => input.buffer !== output.buffer,
   );
   const expected = Array.from(input);
-  TestValidator.equals(`${label} content`, expected, Array.from(output));
+  TestEquality.equals(`${label} content`, expected, Array.from(output));
   if (input.length !== 0) {
     const source = input[0]!;
     input[0] = source + 1;
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} source independence`,
       expected,
       Array.from(output),
@@ -88,13 +85,13 @@ export const assertBufferClone = (
   output: ArrayBuffer | SharedArrayBuffer,
 ): void => {
   TestValidator.predicate(`${label} identity`, () => input !== output);
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} brand`,
     Object.prototype.toString.call(input),
     Object.prototype.toString.call(output),
   );
   const expected = Array.from(new Uint8Array(input));
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} content`,
     expected,
     Array.from(new Uint8Array(output)),
@@ -102,7 +99,7 @@ export const assertBufferClone = (
   if (input.byteLength !== 0) {
     const source = new Uint8Array(input);
     source[0] = source[0]! ^ 0xff;
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} independence`,
       expected,
       Array.from(new Uint8Array(output)),
@@ -118,9 +115,9 @@ export const assertBlobClone = async (
 ): Promise<void> => {
   TestValidator.predicate(`${label} instance`, () => output instanceof Blob);
   TestValidator.predicate(`${label} identity`, () => input !== output);
-  TestValidator.equals(`${label} type`, input.type, output.type);
-  TestValidator.equals(`${label} size`, input.size, output.size);
-  TestValidator.equals(
+  TestEquality.equals(`${label} type`, input.type, output.type);
+  TestEquality.equals(`${label} size`, input.size, output.size);
+  TestEquality.equals(
     `${label} content`,
     Array.from(new Uint8Array(await input.arrayBuffer())),
     Array.from(new Uint8Array(await output.arrayBuffer())),
@@ -134,8 +131,8 @@ export const assertFileClone = async (
 ): Promise<void> => {
   TestValidator.predicate(`${label} instance`, () => output instanceof File);
   await assertBlobClone(label, input, output);
-  TestValidator.equals(`${label} name`, input.name, output.name);
-  TestValidator.equals(
+  TestEquality.equals(`${label} name`, input.name, output.name);
+  TestEquality.equals(
     `${label} lastModified`,
     input.lastModified,
     output.lastModified,
@@ -149,21 +146,17 @@ export const assertRegExpClone = (
 ): void => {
   TestValidator.predicate(`${label} instance`, () => output instanceof RegExp);
   TestValidator.predicate(`${label} identity`, () => input !== output);
-  TestValidator.equals(`${label} source`, input.source, output.source);
-  TestValidator.equals(`${label} flags`, input.flags, output.flags);
-  TestValidator.equals(`${label} lastIndex reset`, 0, output.lastIndex);
+  TestEquality.equals(`${label} source`, input.source, output.source);
+  TestEquality.equals(`${label} flags`, input.flags, output.flags);
+  TestEquality.equals(`${label} lastIndex reset`, 0, output.lastIndex);
   input.lastIndex = 2;
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} source state independence`,
     0,
     output.lastIndex,
   );
   output.lastIndex = 3;
-  TestValidator.equals(
-    `${label} result state independence`,
-    2,
-    input.lastIndex,
-  );
+  TestEquality.equals(`${label} result state independence`, 2, input.lastIndex);
   output.lastIndex = 0;
 };
 

@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpLlmApplication,
   IHttpLlmFunction,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 
@@ -21,5 +21,5 @@ export const test_http_llm_function_deprecated = async (): Promise<void> => {
   const func: IHttpLlmFunction | undefined = application.functions.find(
     (f) => f.method === "get" && f.path === "/nothing",
   );
-  TestValidator.equals("deprecated", func?.deprecated, true);
+  TestEquality.equals("deprecated", func?.deprecated, true);
 };

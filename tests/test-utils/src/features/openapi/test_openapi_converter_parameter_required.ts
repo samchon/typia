@@ -1,4 +1,3 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   OpenApi,
   OpenApiV3,
@@ -6,6 +5,7 @@ import {
   OpenApiV3_2,
   SwaggerV2,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -156,12 +156,12 @@ export const test_openapi_converter_parameter_required = (): void => {
   const bodyTrue = swagger.paths!["/body/true"]!.post!
     .parameters![0]! as Parameter;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "omitted optional required",
     Object.prototype.hasOwnProperty.call(keyword, "required"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "explicit false required",
     {
       own: Object.prototype.hasOwnProperty.call(filter, "required"),
@@ -172,7 +172,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "path required",
     {
       own: Object.prototype.hasOwnProperty.call(id, "required"),
@@ -183,12 +183,12 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "object schema required omitted from parameter",
     Object.prototype.hasOwnProperty.call(object, "required"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "object schema explicit false required",
     {
       own: Object.prototype.hasOwnProperty.call(objectFalse, "required"),
@@ -199,12 +199,12 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "omitted request body required",
     Object.prototype.hasOwnProperty.call(bodyOmitted, "required"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "explicit false request body required",
     {
       own: Object.prototype.hasOwnProperty.call(bodyFalse, "required"),
@@ -215,7 +215,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "explicit true request body required",
     {
       own: Object.prototype.hasOwnProperty.call(bodyTrue, "required"),
@@ -623,12 +623,12 @@ export const test_openapi_converter_parameter_required = (): void => {
   const upgradedLiteralOperationOverrideBody =
     openapi.paths!["/body/literal-operation-override"]!.post!.requestBody!;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded omitted optional required",
     Object.prototype.hasOwnProperty.call(upgradedKeyword, "required"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded explicit false required",
     {
       own: Object.prototype.hasOwnProperty.call(upgradedFilter, "required"),
@@ -641,7 +641,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       description: "Optional filter.",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded path required",
     {
       own: Object.prototype.hasOwnProperty.call(upgradedId, "required"),
@@ -652,7 +652,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded omitted path required normalized",
     {
       own: Object.prototype.hasOwnProperty.call(upgradedLoosePath, "required"),
@@ -663,7 +663,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded false path required normalized",
     {
       own: Object.prototype.hasOwnProperty.call(upgradedFalsePath, "required"),
@@ -803,7 +803,7 @@ export const test_openapi_converter_parameter_required = (): void => {
   assertSchemaMetadataOmitted("upgraded keyword schema", upgradedKeyword);
   assertSchemaMetadataOmitted("upgraded filter schema", upgradedFilter);
   assertSchemaMetadataOmitted("upgraded path schema", upgradedId);
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded empty object schema required",
     {
       parameter: Object.prototype.hasOwnProperty.call(
@@ -823,7 +823,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       required: [],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded named object schema required",
     {
       parameter: Object.prototype.hasOwnProperty.call(
@@ -838,12 +838,12 @@ export const test_openapi_converter_parameter_required = (): void => {
       schema: ["name"],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded omitted request body required",
     Object.prototype.hasOwnProperty.call(upgradedBodyOmitted, "required"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded explicit false request body required",
     {
       own: Object.prototype.hasOwnProperty.call(upgradedBodyFalse, "required"),
@@ -854,7 +854,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded explicit true request body required",
     {
       own: Object.prototype.hasOwnProperty.call(upgradedBodyTrue, "required"),
@@ -865,7 +865,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded path-level request body required",
     {
       own: Object.prototype.hasOwnProperty.call(
@@ -879,7 +879,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded operation body overrides path body",
     {
       required: upgradedOverrideBody.required ?? null,
@@ -893,7 +893,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       schema: "number",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded operation ref request body required",
     {
       own: Object.prototype.hasOwnProperty.call(
@@ -907,7 +907,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded path ref request body required",
     {
       own: Object.prototype.hasOwnProperty.call(
@@ -921,7 +921,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       value: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded operation ref body overrides path body",
     {
       required: upgradedOperationRefOverrideBody.required ?? null,
@@ -935,7 +935,7 @@ export const test_openapi_converter_parameter_required = (): void => {
       schema: "string",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "upgraded operation body overrides path ref body",
     {
       required: upgradedLiteralOperationOverrideBody.required ?? null,
@@ -955,7 +955,7 @@ const assertSchemaMetadataOmitted = (
   title: string,
   parameter: OpenApi.IOperation.IParameter,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     {
       name: Object.prototype.hasOwnProperty.call(parameter.schema, "name"),
@@ -1007,7 +1007,7 @@ const assertOpenApiV3ObjectSchemaOverride = (
     document,
     path,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     {
       count: parameters.length,
@@ -1052,7 +1052,7 @@ const assertOpenApiV3HeaderReferences = (
   path: string,
 ): void => {
   const parameters = document.paths![path]!.get!.parameters!;
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     parameters.map((p) => ({
       name: p.name,
@@ -1088,7 +1088,7 @@ const assertOpenApiV3InheritedParameter = (
     document,
     path,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     parameters.map((p) => ({
       name: p.name,
@@ -1114,7 +1114,7 @@ const assertOpenApiV3ResponseHeaderReference = (
 ): void => {
   const header =
     document.paths![path]!.get!.responses!["200"]!.headers!["X-Trace"]!;
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     {
       name: header.name,
@@ -1172,7 +1172,7 @@ const assertResponseHeaderDowngrade = (): void => {
     v31.paths!["/response/header"]!.get!.responses!["200"]!,
     "X-Trace",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded swagger response header is flattened schema",
     {
       name: Object.prototype.hasOwnProperty.call(swaggerHeader, "name"),
@@ -1189,7 +1189,7 @@ const assertResponseHeaderDowngrade = (): void => {
       type: "string",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded v3 response headers omit only name and in",
     [v30Header, v31Header].map((header) => ({
       name: Object.prototype.hasOwnProperty.call(header, "name"),
@@ -1220,7 +1220,7 @@ const assertPathParametersOmitted = (
   document: OpenApi.IDocument,
   path: string,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     Object.prototype.hasOwnProperty.call(document.paths![path]!, "parameters"),
     false,
@@ -1234,7 +1234,7 @@ const assertOperationOverride = (
     id: OpenApi.IOperation.IParameter;
   },
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     title,
     {
       count: props.parameters.length,

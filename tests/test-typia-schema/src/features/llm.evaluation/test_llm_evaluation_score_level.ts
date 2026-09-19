@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation selects a score level by distribution first.
@@ -25,7 +24,7 @@ export const test_llm_evaluation_score_level = (): void => {
   };
 
   // bimodal: position 1 is the rounded mean, yet level 1 is the least likely
-  _equalsExactly(
+  TestEquality.equals(
     "bimodal",
     level({
       type: "score",
@@ -34,7 +33,7 @@ export const test_llm_evaluation_score_level = (): void => {
     }),
     10,
   );
-  _equalsExactly(
+  TestEquality.equals(
     "argmax",
     level({
       type: "score",
@@ -43,15 +42,19 @@ export const test_llm_evaluation_score_level = (): void => {
     }),
     30,
   );
-  _equalsExactly(
+  TestEquality.equals(
     "nearest below half",
     level({ type: "score", score: 1.49 }),
     20,
   );
-  _equalsExactly("nearest at half", level({ type: "score", score: 1.5 }), 30);
-  _equalsExactly("lowest", level({ type: "score", score: 0 }), 10);
-  _equalsExactly("highest", level({ type: "score", score: 2 }), 30);
-  _equalsExactly(
+  TestEquality.equals(
+    "nearest at half",
+    level({ type: "score", score: 1.5 }),
+    30,
+  );
+  TestEquality.equals("lowest", level({ type: "score", score: 0 }), 10);
+  TestEquality.equals("highest", level({ type: "score", score: 2 }), 30);
+  TestEquality.equals(
     "empty distribution",
     level({ type: "score", score: 0.4, probabilities: {} }),
     10,

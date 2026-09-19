@@ -2,6 +2,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController, ILlmFunction, IValidation } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -46,7 +47,7 @@ export const test_langchain_tool_error_single_json_fence =
       throw new Error("Expected invalid arguments to be rejected.");
     const message: string = error.message;
 
-    TestValidator.equals(
+    TestEquality.equals(
       "argument feedback opens exactly one json fence",
       message.split("```json").length - 1,
       1,

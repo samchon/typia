@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -53,7 +54,7 @@ export const test_vercel_tool_output_schema = async (): Promise<void> => {
     { x: 10, y: 5 },
     { toolCallId: "test-output", messages: [], abortSignal: undefined as any },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "execute result should match outputSchema wrapper",
     result,
     {
@@ -73,7 +74,7 @@ export const test_vercel_tool_output_schema = async (): Promise<void> => {
       abortSignal: undefined as any,
     },
   );
-  TestValidator.equals("valid nested output uses the success branch", valid, {
+  TestEquality.equals("valid nested output uses the success branch", valid, {
     success: true,
     data: { value: 1, nested: { label: "valid" } },
   });

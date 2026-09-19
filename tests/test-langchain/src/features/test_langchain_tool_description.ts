@@ -1,7 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
-import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -23,7 +23,7 @@ export const test_langchain_tool_description = async (): Promise<void> => {
   }
 
   // 4. Verify description is present (from JSDoc)
-  TestValidator.equals(
+  TestEquality.equals(
     "add tool should have description",
     addTool.description.includes("Add two numbers"),
     true,
@@ -31,5 +31,5 @@ export const test_langchain_tool_description = async (): Promise<void> => {
 
   // 5. Verify schema is present
   const schema = addTool.schema;
-  TestValidator.equals("schema type should be object", typeof schema, "object");
+  TestEquality.equals("schema type should be object", typeof schema, "object");
 };

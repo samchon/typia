@@ -2,6 +2,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 
 import { TestGlobal } from "../TestGlobal";
@@ -22,7 +23,7 @@ export const test_langchain_http_controller_standalone =
     });
 
     // 3. Verify tools count matches controller functions
-    TestValidator.equals(
+    TestEquality.equals(
       "tools count should match controller functions",
       tools.length,
       controller.application.functions.length,

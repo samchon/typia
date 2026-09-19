@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_schema_spec_object = (): void => {
@@ -11,10 +11,10 @@ export const test_llm_schema_spec_object = (): void => {
 
   const $defs: Record<string, ILlmSchema> = {};
   const schema = typia.llm.schema<IObjectSpec>($defs);
-  TestValidator.equals("object top ref", clean(schema), {
+  TestEquality.equals("object top ref", clean(schema), {
     $ref: "#/$defs/IObjectSpec",
   });
-  TestValidator.equals("object definition", clean($defs.IObjectSpec), {
+  TestEquality.equals("object definition", clean($defs.IObjectSpec), {
     type: "object",
     properties: {
       nullable: {

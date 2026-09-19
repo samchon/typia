@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_strict_string = (): void => {
@@ -6,7 +6,7 @@ export const test_llm_schema_spec_strict_string = (): void => {
   // pattern-bearing constraint sets are shifted on two separate strings; both
   // still verify that strict mode moves every string keyword into the
   // description.
-  TestValidator.equals(
+  TestEquality.equals(
     "strict string shifts format constraints",
     clean(
       typia.llm.schema<
@@ -30,7 +30,7 @@ export const test_llm_schema_spec_strict_string = (): void => {
       ].join("\n"),
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict string shifts pattern constraint",
     clean(
       typia.llm.schema<string & tags.Pattern<"^[0-9a-f-]+$">, { strict: true }>(

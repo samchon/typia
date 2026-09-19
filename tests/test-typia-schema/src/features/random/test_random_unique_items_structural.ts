@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 type IUniqueBooleans = Array<{ value: boolean }> &
@@ -24,8 +25,8 @@ export const test_random_unique_items_structural = (): void => {
   const possible: IUniqueBooleans = typia.random<IUniqueBooleans>({
     boolean: () => (next = !next),
   });
-  TestValidator.equals("possible length", possible.length, 2);
-  TestValidator.equals(
+  TestEquality.equals("possible length", possible.length, 2);
+  TestEquality.equals(
     "possible validates",
     typia.is<IUniqueBooleans>(possible),
     true,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -78,7 +78,7 @@ export const test_document_roundtrip_v31_media_type_examples = (): void => {
     upgraded.paths?.["/users"]?.post?.requestBody?.content?.[
       "application/json"
     ];
-  TestValidator.equals("upgraded media", upgradedMedia, {
+  TestEquality.equals("upgraded media", upgradedMedia, {
     schema: {
       type: "object",
       examples: {
@@ -119,7 +119,7 @@ export const test_document_roundtrip_v31_media_type_examples = (): void => {
       | OpenApiV3_1.IOperation.IRequestBody
       | undefined
   )?.content?.["application/json"];
-  TestValidator.equals("downgraded media", downgradedMedia, {
+  TestEquality.equals("downgraded media", downgradedMedia, {
     schema: {
       type: "object",
       examples: [{ name: "alpha" }, { name: "beta" }],

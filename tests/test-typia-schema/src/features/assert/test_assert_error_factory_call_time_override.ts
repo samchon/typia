@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { TypeGuardError } from "typia";
 
 interface IMember {
@@ -65,8 +65,8 @@ const assertError = (
   } catch (exp) {
     if (exp instanceof Error === false)
       throw new Error(`Expected ${label} to throw an Error.`);
-    TestValidator.equals(`${label} message`, message, exp.message);
-    TestValidator.equals(`${label} path`, "$input.age", (exp as any).path);
+    TestEquality.equals(`${label} message`, message, exp.message);
+    TestEquality.equals(`${label} path`, "$input.age", (exp as any).path);
     return;
   }
   throw new Error(`Expected ${label} to throw.`);

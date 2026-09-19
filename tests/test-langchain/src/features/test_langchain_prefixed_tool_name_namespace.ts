@@ -1,7 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, ILlmController, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 import typia from "typia";
 
@@ -30,7 +30,7 @@ export const test_langchain_prefixed_tool_name_namespace = (): void => {
       new CollisionController(),
     );
   const httpController: IHttpLlmController = createHttpController("same");
-  TestValidator.equals(
+  TestEquality.equals(
     "HTTP function name",
     httpController.application.functions.map((func) => func.name),
     ["run_post"],
@@ -67,7 +67,7 @@ export const test_langchain_prefixed_tool_name_namespace = (): void => {
     },
   ];
   for (const testCase of cases)
-    TestValidator.equals(
+    TestEquality.equals(
       testCase.name,
       captureDuplicate([...testCase.controllers]),
       `Duplicate tool names found:\n  - ${testCase.duplicate}`,
@@ -80,7 +80,7 @@ export const test_langchain_prefixed_tool_name_namespace = (): void => {
     ],
     { prefix: true },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "unique prefixed names",
     tools.map((tool) => tool.name).sort(),
     ["class_run_post", "http_run_post"],

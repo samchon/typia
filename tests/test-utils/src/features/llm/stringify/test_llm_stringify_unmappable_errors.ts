@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_unmappable_errors = (): void => {
@@ -25,22 +25,22 @@ export const test_llm_stringify_unmappable_errors = (): void => {
   const output: string = LlmJson.stringify(failure);
 
   // Should contain the unmappable errors section
-  TestValidator.equals(
+  TestEquality.equals(
     "contains unmappable section",
     output.includes("Unmappable validation errors"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains nonexistent path",
     output.includes("$input.nonexistent.deeply.nested"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains array index path",
     output.includes("$input[999]"),
     true,
   );
 
   // The main JSON block should still be present
-  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
 };

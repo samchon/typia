@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import { generateText } from "ai";
 import { MockLanguageModelV3 } from "ai/test";
@@ -47,17 +48,17 @@ export const test_vercel_generate_text_runtime_error =
 
     // 5. Verify the tool was called
     const toolCalls = result.toolCalls as Array<unknown>;
-    TestValidator.equals("should have 1 tool call", toolCalls.length, 1);
+    TestEquality.equals("should have 1 tool call", toolCalls.length, 1);
 
     // 6. Verify tool result contains runtime error
     const toolResults = result.toolResults as Array<{ output: unknown }>;
-    TestValidator.equals("should have 1 tool result", toolResults.length, 1);
+    TestEquality.equals("should have 1 tool result", toolResults.length, 1);
 
     const toolResult = toolResults[0]!.output as {
       success: boolean;
       error: string;
     };
-    TestValidator.equals("result should be failure", toolResult.success, false);
+    TestEquality.equals("result should be failure", toolResult.success, false);
     TestValidator.predicate("error should contain division by zero", () =>
       toolResult.error.includes("Division by zero"),
     );

@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema, OpenApi, OpenApiV3 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import {
   HttpLlm,
   HttpMigration,
@@ -138,10 +139,10 @@ export const test_json_schema_openapi_component_names = (): void => {
   for (const output of units) verifyUnit(output);
 
   const names = componentNamesByValue(forward31.components.schemas ?? {});
-  TestValidator.equals("ordinary control", names.Plain, "RecursiveObjectPlain");
-  TestValidator.equals("hyphen control", names["A-B"], "RecursiveObjectA-B");
-  TestValidator.equals("underscore control", names.A_B, "RecursiveObjectA_B");
-  TestValidator.equals(
+  TestEquality.equals("ordinary control", names.Plain, "RecursiveObjectPlain");
+  TestEquality.equals("hyphen control", names["A-B"], "RecursiveObjectA-B");
+  TestEquality.equals("underscore control", names.A_B, "RecursiveObjectA_B");
+  TestEquality.equals(
     "escape-shaped legal control",
     names.A_x2F_B,
     "RecursiveObjectA_x2F_B",
@@ -167,7 +168,7 @@ export const test_json_schema_openapi_component_names = (): void => {
     names["A.B"],
     names.A_x2E_B,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "escape-shaped legal dot control",
     names.A_x2E_B,
     "RecursiveObjectA_x2E_B",
@@ -184,17 +185,17 @@ export const test_json_schema_openapi_component_names = (): void => {
       "Qualified.Member",
     ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "discovery-order independent names 3.0",
     componentNamesByValue(forward30.components.schemas ?? {}),
     componentNamesByValue(reverse30.components.schemas ?? {}),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "discovery-order independent names 3.1",
     names,
     componentNamesByValue(reverse31.components.schemas ?? {}),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "discovery-order independent component set 3.0",
     Object.keys(forward30.components.schemas ?? {})
       .filter((key) => key !== "IForward")
@@ -203,7 +204,7 @@ export const test_json_schema_openapi_component_names = (): void => {
       .filter((key) => key !== "IReverse")
       .sort(),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "discovery-order independent component set 3.1",
     Object.keys(forward31.components.schemas ?? {})
       .filter((key) => key !== "IForward")
@@ -314,15 +315,15 @@ export const test_json_schema_openapi_component_names = (): void => {
       ),
     );
     const migration = HttpMigration.application(document);
-    TestValidator.equals(`HttpMigration errors ${label}`, migration.errors, []);
-    TestValidator.equals(
+    TestEquality.equals(`HttpMigration errors ${label}`, migration.errors, []);
+    TestEquality.equals(
       `HttpMigration routes ${label}`,
       migration.routes.length,
       1,
     );
     const httpLlm = HttpLlm.application({ document });
-    TestValidator.equals(`HttpLlm errors ${label}`, httpLlm.errors, []);
-    TestValidator.equals(
+    TestEquality.equals(`HttpLlm errors ${label}`, httpLlm.errors, []);
+    TestEquality.equals(
       `HttpLlm functions ${label}`,
       httpLlm.functions.length,
       1,

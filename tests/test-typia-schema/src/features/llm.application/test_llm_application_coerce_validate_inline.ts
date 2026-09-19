@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication, ILlmFunction } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -30,22 +30,22 @@ export const test_llm_application_coerce_validate_inline = (): void => {
   const loose = { value: "12", flag: "true" };
 
   const ok = func.validate(func.coerce(loose));
-  TestValidator.equals("coerce+validate succeeds", ok.success, true);
+  TestEquality.equals("coerce+validate succeeds", ok.success, true);
   if (ok.success) {
     const data = ok.data as { value: number; flag: boolean };
-    TestValidator.equals("value coerced", data.value, 12);
-    TestValidator.equals("flag coerced", data.flag, true);
+    TestEquality.equals("value coerced", data.value, 12);
+    TestEquality.equals("flag coerced", data.flag, true);
   }
 
   // bare validate (no coercion) rejects the same payload — the gap coercion closes
-  TestValidator.equals(
+  TestEquality.equals(
     "bare validate rejects loose payload",
     func.validate(loose).success,
     false,
   );
 
   // omitted arguments still fail (coerce of {} leaves required fields missing)
-  TestValidator.equals(
+  TestEquality.equals(
     "omitted arguments fail",
     func.validate(func.coerce({})).success,
     false,

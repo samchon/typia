@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IValidation } from "typia";
 
 interface IAnyProperty {
@@ -48,7 +48,7 @@ export const test_json_stringify_contextual_undefined = (): void => {
   // it emits differently while still producing an equivalent document.
   const oracle = (label: string, actual: string, input: unknown): void => {
     const expected: string = JSON.stringify(input) as string;
-    TestValidator.equals(label, JSON.parse(actual), JSON.parse(expected));
+    TestEquality.equals(label, JSON.parse(actual), JSON.parse(expected));
   };
 
   // Every family must agree with the oracle on one input.
@@ -63,7 +63,7 @@ export const test_json_stringify_contextual_undefined = (): void => {
     oracle(`${label} / stringify`, raw(input), input);
 
     const isText: string | null = guarded(input);
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} / isStringify accepts`,
       isText !== null,
       true,
@@ -73,7 +73,7 @@ export const test_json_stringify_contextual_undefined = (): void => {
     oracle(`${label} / assertStringify`, asserted(input), input);
 
     const result: IValidation<string> = validated(input);
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} / validateStringify accepts`,
       result.success,
       true,
@@ -195,7 +195,7 @@ export const test_json_stringify_contextual_undefined = (): void => {
 
   // Negative twin: a value the checkers must still reject, so the contextual
   // relaxation above cannot be mistaken for "accept everything".
-  TestValidator.equals(
+  TestEquality.equals(
     "invalid neighbor rejected",
     typia.json.isStringify<IAnyProperty>({ keep: "x", value: 1 } as never),
     null,

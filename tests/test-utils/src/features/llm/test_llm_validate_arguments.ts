@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication, ILlmFunction } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -36,36 +36,36 @@ export const test_llm_validate_arguments = (): void => {
     y: number;
     flag: boolean;
   }>(func, loose);
-  TestValidator.equals("coerce+validate succeeds", prepared.success, true);
+  TestEquality.equals("coerce+validate succeeds", prepared.success, true);
   if (prepared.success) {
-    TestValidator.equals("x coerced", prepared.data.x, 12);
-    TestValidator.equals("y coerced", prepared.data.y, 3);
-    TestValidator.equals("flag coerced", prepared.data.flag, true);
+    TestEquality.equals("x coerced", prepared.data.x, 12);
+    TestEquality.equals("y coerced", prepared.data.y, 3);
+    TestEquality.equals("flag coerced", prepared.data.flag, true);
   }
 
   // bare validate (no coercion) rejects the same payload — the gap the helper closes
-  TestValidator.equals(
+  TestEquality.equals(
     "bare validate rejects loose payload",
     func.validate(loose).success,
     false,
   );
 
   // equivalence with the explicit coerce -> validate pipeline
-  TestValidator.equals(
+  TestEquality.equals(
     "matches explicit coerce+validate",
     LlmJson.validateArguments(func, loose),
     func.validate(LlmJson.coerce(loose, func.parameters)),
   );
 
   // non-coercible value still fails
-  TestValidator.equals(
+  TestEquality.equals(
     "non-coercible fails",
     LlmJson.validateArguments(func, { x: "abc", y: 3, flag: true }).success,
     false,
   );
 
   // omitted arguments validate against an empty object -> required errors
-  TestValidator.equals(
+  TestEquality.equals(
     "omitted arguments fail",
     LlmJson.validateArguments(func, undefined).success,
     false,

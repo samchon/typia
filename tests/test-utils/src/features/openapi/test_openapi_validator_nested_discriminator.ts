@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -49,7 +49,7 @@ export const test_openapi_validator_nested_discriminator = (): void => {
       { p1: "middle", p2: 2 },
       { p1: "top", p2: 3, p3: true },
     ])
-      TestValidator.equals(
+      TestEquality.equals(
         `accept ${JSON.stringify(value)} in ${oneOf[0] === base ? "bmt" : "tmb"}`,
         validate(oneOf, value).success,
         true,
@@ -60,13 +60,13 @@ export const test_openapi_validator_nested_discriminator = (): void => {
       [{ p1: "top", p2: 3, p3: null }, "$input.p3"],
     ] as Array<[Record<string, unknown>, string]>) {
       const result = validate(oneOf, value);
-      TestValidator.equals(
+      TestEquality.equals(
         `reject ${path} in ${oneOf[0] === base ? "bmt" : "tmb"}`,
         result.success,
         false,
       );
       if (result.success === false)
-        TestValidator.equals(`report ${path}`, result.errors[0]?.path, path);
+        TestEquality.equals(`report ${path}`, result.errors[0]?.path, path);
     }
   }
 
@@ -93,13 +93,13 @@ export const test_openapi_validator_nested_discriminator = (): void => {
     access: "nothing",
     target: {},
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "reject the first matching object discriminator",
     ambiguous.success,
     false,
   );
   if (ambiguous.success === false)
-    TestValidator.equals(
+    TestEquality.equals(
       "report the owning discriminator field",
       ambiguous.errors[0]?.path,
       "$input.access",

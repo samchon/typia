@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation emits the same questions for every equivalent
@@ -19,7 +18,7 @@ import { _equalsExactly } from "../../internal/_equalsExactly";
  */
 export const test_llm_evaluation_type_spellings = (): void => {
   const expected = typia.llm.evaluation<IInterface>().questions;
-  _equalsExactly("interface", expected, {
+  TestEquality.equals("interface", expected, {
     urgent: { type: "boolean", instructions: "Is it urgent?" },
     team: {
       type: "choice",
@@ -35,19 +34,27 @@ export const test_llm_evaluation_type_spellings = (): void => {
       instructions: 'Which channels?\n\nDoes the option "phone" apply?',
     },
   });
-  _equalsExactly("alias", typia.llm.evaluation<IAlias>().questions, expected);
-  _equalsExactly(
+  TestEquality.equals(
+    "alias",
+    typia.llm.evaluation<IAlias>().questions,
+    expected,
+  );
+  TestEquality.equals(
     "intersection",
     typia.llm.evaluation<IUrgent & ITeam & IChannels>().questions,
     expected,
   );
-  _equalsExactly(
+  TestEquality.equals(
     "generic",
     typia.llm.evaluation<IGeneric<Flag>>().questions,
     expected,
   );
-  _equalsExactly("class", typia.llm.evaluation<Decision>().questions, expected);
-  _equalsExactly(
+  TestEquality.equals(
+    "class",
+    typia.llm.evaluation<Decision>().questions,
+    expected,
+  );
+  TestEquality.equals(
     "readonly",
     typia.llm.evaluation<IReadonly>().questions,
     expected,

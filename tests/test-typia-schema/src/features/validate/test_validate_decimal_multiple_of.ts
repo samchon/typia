@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import {
   LlmTypeChecker,
   OpenApiTypeChecker,
@@ -61,19 +62,19 @@ export const test_validate_decimal_multiple_of = (): void => {
   // double nearest 1/100 rather than 1/100. `-0.02 % 0.01` is `-0`, which
   // `!== 0` reports as equal, so it is not one of them.
   const diverging: number[] = multiples.filter((value) => value % 0.01 !== 0);
-  TestValidator.equals(
+  TestEquality.equals(
     "the sample matrix splits, and carries multiples the remainder check rejects",
     [multiples.length, notMultiples.length, diverging.length],
     [12, 3, 6],
   );
 
   for (const value of multiples) {
-    TestValidator.equals(
+    TestEquality.equals(
       `type tag accepts ${value}`,
       typia.is<Cent>(value),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `JSDoc tag accepts ${value}`,
       typia.is<IJsDocCent>({ value }),
       true,
@@ -81,7 +82,7 @@ export const test_validate_decimal_multiple_of = (): void => {
     // Both spellings, matching the rejecting side below and the `is` pair
     // above: the JSDoc name is composed by a different factory, so asserting
     // one spelling would leave the other free to drift.
-    TestValidator.equals(
+    TestEquality.equals(
       `validate accepts ${value} in both spellings`,
       [
         typia.validate<Cent>(value).success,
@@ -91,12 +92,12 @@ export const test_validate_decimal_multiple_of = (): void => {
     );
   }
   for (const value of notMultiples) {
-    TestValidator.equals(
+    TestEquality.equals(
       `type tag rejects ${value}`,
       typia.is<Cent>(value),
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `JSDoc tag rejects ${value}`,
       typia.is<IJsDocCent>({ value }),
       false,
@@ -110,12 +111,12 @@ export const test_validate_decimal_multiple_of = (): void => {
     // only asserting one would leave the other free to drift.
     const byType = typia.validate<Cent>(value);
     const byComment = typia.validate<IJsDocCent>({ value });
-    TestValidator.equals(
+    TestEquality.equals(
       `validate rejects ${value} in both spellings`,
       [byType.success, byComment.success],
       [false, false],
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `validate names the tag for ${value} in both spellings`,
       [
         byType.success === false ? byType.errors[0]?.expected : null,
@@ -138,7 +139,7 @@ export const test_validate_decimal_multiple_of = (): void => {
   // `…850` and is the mirror image: `% 3` is `0` and the decimal is not
   // divisible. One value flips each way, which is what a change of meaning in
   // both directions has to be pinned by.
-  TestValidator.equals(
+  TestEquality.equals(
     "the large pair really diverges from the binary remainder",
     [large % 3, (large + 16) % 3],
     [2, 0],
@@ -168,7 +169,7 @@ export const test_validate_decimal_multiple_of = (): void => {
       3,
     ],
   ] as Array<[string, boolean, number, number]>)
-    TestValidator.equals(title, actual, exactMultiple(value, divisor));
+    TestEquality.equals(title, actual, exactMultiple(value, divisor));
 
   // A `bigint` divisor was always exact and must stay untouched.
   type Cubic = bigint & tags.MultipleOf<3n>;
@@ -176,14 +177,14 @@ export const test_validate_decimal_multiple_of = (): void => {
     /** @multipleOf 3 */
     value: bigint;
   }
-  TestValidator.equals("bigint divisor accepts", typia.is<Cubic>(9n), true);
-  TestValidator.equals("bigint divisor rejects", typia.is<Cubic>(10n), false);
-  TestValidator.equals(
+  TestEquality.equals("bigint divisor accepts", typia.is<Cubic>(9n), true);
+  TestEquality.equals("bigint divisor rejects", typia.is<Cubic>(10n), false);
+  TestEquality.equals(
     "bigint JSDoc divisor accepts",
     typia.is<IJsDocCubic>({ value: 9n }),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "bigint JSDoc divisor rejects",
     typia.is<IJsDocCubic>({ value: 10n }),
     false,
@@ -194,7 +195,7 @@ export const test_validate_decimal_multiple_of = (): void => {
     OpenApiTypeChecker.isNumber(json),
   );
   if (OpenApiTypeChecker.isNumber(json))
-    TestValidator.equals("JSON schema multipleOf", json.multipleOf, 0.01);
+    TestEquality.equals("JSON schema multipleOf", json.multipleOf, 0.01);
 
   const $defs: Record<string, ILlmSchema> = {};
   typia.llm.schema<Cent>($defs);
@@ -203,7 +204,7 @@ export const test_validate_decimal_multiple_of = (): void => {
     LlmTypeChecker.isNumber(llm),
   );
   if (LlmTypeChecker.isNumber(llm))
-    TestValidator.equals("LLM schema multipleOf", llm.multipleOf, 0.01);
+    TestEquality.equals("LLM schema multipleOf", llm.multipleOf, 0.01);
 
   // The generated validator and the shared OpenAPI validator now read the same
   // schema the same way; before this behavior they parted company on all six
@@ -213,7 +214,7 @@ export const test_validate_decimal_multiple_of = (): void => {
   // algorithm, so this loop pins the wiring rather than re-deriving the rule;
   // the rule itself is pinned above, against `exactMultiple`.
   for (const value of [...multiples, ...notMultiples])
-    TestValidator.equals(
+    TestEquality.equals(
       `OpenAPI parity for ${value}`,
       OpenApiValidator.validate({
         components: {},

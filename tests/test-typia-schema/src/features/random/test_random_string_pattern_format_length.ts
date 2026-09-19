@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -392,7 +392,7 @@ const roundTrip = (
       if (first === null) first = String(value);
     }
   }
-  TestValidator.equals(`${title} (first invalid: ${first})`, failures, 0);
+  TestEquality.equals(`${title} (first invalid: ${first})`, failures, 0);
 };
 
 const assertThrows = (title: string, closure: () => unknown): void => {
@@ -402,5 +402,5 @@ const assertThrows = (title: string, closure: () => unknown): void => {
   } catch {
     thrown = true;
   }
-  TestValidator.equals(title, thrown, true);
+  TestEquality.equals(title, thrown, true);
 };

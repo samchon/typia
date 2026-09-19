@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmStructuredOutput } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_structuredOutput_basic = (): void => {
@@ -12,18 +12,18 @@ export const test_llm_structuredOutput_basic = (): void => {
     typia.llm.structuredOutput<IMember>();
 
   // Check all members exist
-  TestValidator.equals("typeof parameters", typeof output.parameters, "object");
-  TestValidator.equals("typeof parse", typeof output.parse, "function");
-  TestValidator.equals("typeof coerce", typeof output.coerce, "function");
-  TestValidator.equals("typeof validate", typeof output.validate, "function");
+  TestEquality.equals("typeof parameters", typeof output.parameters, "object");
+  TestEquality.equals("typeof parse", typeof output.parse, "function");
+  TestEquality.equals("typeof coerce", typeof output.coerce, "function");
+  TestEquality.equals("typeof validate", typeof output.validate, "function");
 
   // Minimal functionality check
   const parsed = output.parse('{"name":"John","age":"30"}');
-  TestValidator.equals("parse.success", parsed.success, true);
+  TestEquality.equals("parse.success", parsed.success, true);
   if (parsed.success) {
-    TestValidator.equals("parse.data.age", parsed.data.age, 30); // coerced from string
+    TestEquality.equals("parse.data.age", parsed.data.age, 30); // coerced from string
   }
 
   const validated = output.validate({ name: "Jane", age: 25 });
-  TestValidator.equals("validate.success", validated.success, true);
+  TestEquality.equals("validate.success", validated.success, true);
 };

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -16,7 +17,7 @@ import typia from "typia";
  *    depth cap, through both `typia.random` and `typia.createRandom`.
  */
 export const test_random_recursive_union = (): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     "recursive union minimum",
     withRandom(0, () => typia.random<IRecursiveUnion>()),
     [],
@@ -40,8 +41,8 @@ const assertMaximum = (prefix: string, value: IRecursiveUnion): void => {
   TestValidator.predicate(`${prefix} union maximum all arrays`, () =>
     everyNodeIsArray(value),
   );
-  TestValidator.equals(`${prefix} union maximum width`, uniformWidth(value), 2);
-  TestValidator.equals(`${prefix} union maximum depth`, arrayDepth(value), 6);
+  TestEquality.equals(`${prefix} union maximum width`, uniformWidth(value), 2);
+  TestEquality.equals(`${prefix} union maximum depth`, arrayDepth(value), 6);
 };
 
 const everyNodeIsArray = (value: unknown): boolean =>

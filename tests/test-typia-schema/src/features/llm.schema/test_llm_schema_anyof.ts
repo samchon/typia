@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -38,7 +39,7 @@ export const test_llm_schema_anyof = (): void => {
     );
 
     if (LlmTypeChecker.isAnyOf(animalSchema)) {
-      TestValidator.equals("anyOf has 2 types", animalSchema.anyOf.length, 2);
+      TestEquality.equals("anyOf has 2 types", animalSchema.anyOf.length, 2);
 
       // each element should be reference or object
       TestValidator.predicate("all elements are ref or object", () =>

@@ -3,6 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Greeter } from "../structures/Greeter";
@@ -40,7 +41,7 @@ export const test_mcp_tool_omitted_arguments = async (): Promise<void> => {
     "call without arguments should not be an error",
     result.isError !== true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "hello() should return the greeting",
     result.structuredContent,
     { message: "Hello, world!" },

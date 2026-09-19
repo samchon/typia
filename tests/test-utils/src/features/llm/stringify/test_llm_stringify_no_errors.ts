@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_no_errors = (): void => {
@@ -14,21 +14,21 @@ export const test_llm_stringify_no_errors = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals(
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals(
     "ends with code block",
     output.trim().endsWith("```"),
     true,
   );
   // Should have no error markers
-  TestValidator.equals("no error markers", output.includes("// ❌"), false);
+  TestEquality.equals("no error markers", output.includes("// ❌"), false);
   // Should not have unmappable section
-  TestValidator.equals(
+  TestEquality.equals(
     "no unmappable section",
     output.includes("Unmappable"),
     false,
   );
   // Data should still be present
-  TestValidator.equals("contains name", output.includes('"name"'), true);
-  TestValidator.equals("contains John", output.includes('"John"'), true);
+  TestEquality.equals("contains name", output.includes('"name"'), true);
+  TestEquality.equals("contains John", output.includes('"John"'), true);
 };

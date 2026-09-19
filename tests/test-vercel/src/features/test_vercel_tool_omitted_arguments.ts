@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -28,7 +28,7 @@ export const test_vercel_tool_omitted_arguments = async (): Promise<void> => {
     abortSignal: undefined as any,
   });
 
-  TestValidator.equals("omitted arguments should call hello()", result, {
+  TestEquality.equals("omitted arguments should call hello()", result, {
     success: true,
     data: { message: "Hello, world!" },
   });

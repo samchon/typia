@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies tags.Probability stays inert outside typia.llm.evaluation.
@@ -20,15 +19,19 @@ export const test_llm_evaluation_probability_tag_inert = (): void => {
     { refund: false, action: "escalate" },
     { refund: true, action: "reply" },
   ] satisfies IDecision[]) {
-    _equalsExactly("is", typia.is<IDecision>(value), true);
-    _equalsExactly("validate", typia.validate<IDecision>(value).success, true);
+    TestEquality.equals("is", typia.is<IDecision>(value), true);
+    TestEquality.equals(
+      "validate",
+      typia.validate<IDecision>(value).success,
+      true,
+    );
   }
-  _equalsExactly(
+  TestEquality.equals(
     "json.schema",
     JSON.stringify(typia.json.schema<IDecision>()).includes("robability"),
     false,
   );
-  _equalsExactly(
+  TestEquality.equals(
     "llm.parameters",
     JSON.stringify(typia.llm.parameters<IDecision>()).includes("robability"),
     false,

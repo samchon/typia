@@ -1,7 +1,6 @@
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate folds a neutral answer map into T.
@@ -30,7 +29,7 @@ export const test_llm_evaluation_validate_success = (): void => {
       "products.deposit": { type: "boolean", probability: 0.7 },
       "refund.requested": { type: "boolean", probability: 0.2 },
     });
-  _equalsExactly("result", result, {
+  TestEquality.equals("result", result, {
     success: true,
     data: {
       urgent: true,

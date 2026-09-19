@@ -1,10 +1,11 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_reflect_schema_union = (): void => {
   // primitive union
   const primitiveUnion = typia.reflect.schema<string | number>();
-  TestValidator.equals(
+  TestEquality.equals(
     "atomics length",
     primitiveUnion.schema.atomics.length,
     2,
@@ -25,7 +26,7 @@ export const test_reflect_schema_union = (): void => {
   }
 
   const objectUnion = typia.reflect.schema<ICat | IDog>();
-  TestValidator.equals("objects length", objectUnion.schema.objects.length, 2);
+  TestEquality.equals("objects length", objectUnion.schema.objects.length, 2);
 
   const objectNames = objectUnion.schema.objects.map((o) => o.name);
   TestValidator.predicate("has ICat", () => objectNames.includes("ICat"));

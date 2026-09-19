@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { _isFormatByte } from "typia/lib/internal/_isFormatByte";
 import { _isFormatDate } from "typia/lib/internal/_isFormatDate";
 import { _isFormatDateTime } from "typia/lib/internal/_isFormatDateTime";
@@ -144,7 +144,7 @@ export const test_random_format_length_grammar = (): void => {
     ])
       window(entry, props, failures);
   }
-  TestValidator.equals(
+  TestEquality.equals(
     `format length grammar (${failures.length ? failures[0] : "none"})`,
     failures.length,
     0,

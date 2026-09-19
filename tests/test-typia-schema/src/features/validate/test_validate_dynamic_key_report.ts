@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -26,10 +26,10 @@ export const test_validate_dynamic_key_report = (): void => {
   }
 
   const result = typia.validate<ILengthKey>({ ab: "x" });
-  TestValidator.equals("a short key is rejected", result.success, false);
+  TestEquality.equals("a short key is rejected", result.success, false);
   if (result.success === false) {
     const error = result.errors[0];
-    TestValidator.equals(
+    TestEquality.equals(
       "the report names the key type and the key",
       [
         error?.path ?? null,
@@ -50,7 +50,7 @@ export const test_validate_dynamic_key_report = (): void => {
   } catch (error) {
     message = (error as Error).message;
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "assert names the key type too",
     [message.includes("$input.ab"), message.includes("string & MinLength<3>")],
     [true, true],
@@ -59,7 +59,7 @@ export const test_validate_dynamic_key_report = (): void => {
   //----
   // The negative twin: a key that satisfies its signature reports nothing.
   //----
-  TestValidator.equals(
+  TestEquality.equals(
     "a satisfying key is accepted",
     typia.validate<ILengthKey>({ abc: "x" }).success,
     true,
@@ -76,7 +76,7 @@ export const test_validate_dynamic_key_report = (): void => {
     id: string;
     [key: string & tags.MinLength<3>]: string;
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "a declared property is exempt from the key tag",
     [
       typia.validate<IMixedKey>({ id: "v" }).success,
@@ -95,7 +95,7 @@ export const test_validate_dynamic_key_report = (): void => {
   interface IPlainKey {
     [key: string]: string;
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "a plain signature accepts any key",
     typia.validate<IPlainKey>({ "": "x", "anything at all": "y" }).success,
     true,

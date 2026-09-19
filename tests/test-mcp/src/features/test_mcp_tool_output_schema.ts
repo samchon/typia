@@ -3,6 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -55,12 +56,12 @@ export const test_mcp_tool_output_schema = async (): Promise<void> => {
     },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "structuredContent should carry the typed result",
     result.structuredContent,
     { value: 15 },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "content should stay empty without the opt-in text fallback",
     result.content,
     [],

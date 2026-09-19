@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -31,9 +31,9 @@ export const test_llm_schema_invert_default_round_trip = (): void => {
     schema: numeric,
     $defs: {},
   }) as OpenApi.IJsonSchema.INumber;
-  TestValidator.equals("numeric default restored", numericInverted.default, 7);
-  TestValidator.equals("numeric minimum restored", numericInverted.minimum, 1);
-  TestValidator.equals(
+  TestEquality.equals("numeric default restored", numericInverted.default, 7);
+  TestEquality.equals("numeric minimum restored", numericInverted.minimum, 1);
+  TestEquality.equals(
     "numeric tags consumed",
     numericInverted.description,
     undefined,
@@ -49,17 +49,13 @@ export const test_llm_schema_invert_default_round_trip = (): void => {
     schema: string,
     $defs: {},
   }) as OpenApi.IJsonSchema.IString;
-  TestValidator.equals(
+  TestEquality.equals(
     "string default restored",
     stringInverted.default,
     "body",
   );
-  TestValidator.equals(
-    "string minLength restored",
-    stringInverted.minLength,
-    2,
-  );
-  TestValidator.equals(
+  TestEquality.equals("string minLength restored", stringInverted.minLength, 2);
+  TestEquality.equals(
     "string tags consumed",
     stringInverted.description,
     undefined,

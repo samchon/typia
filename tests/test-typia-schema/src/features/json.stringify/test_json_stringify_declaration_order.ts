@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 interface IPositions {
@@ -72,7 +72,7 @@ interface IExotic {
  */
 export const test_json_stringify_declaration_order = (): void => {
   const same = (title: string, mine: string, value: unknown): void => {
-    TestValidator.equals(title, mine, JSON.stringify(value));
+    TestEquality.equals(title, mine, JSON.stringify(value));
     JSON.parse(mine); // throws when a separator was left behind
   };
 

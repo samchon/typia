@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_record = (): void => {
@@ -8,10 +8,10 @@ export const test_llm_schema_spec_record = (): void => {
     typia.llm.schema<Record<string, string & tags.MinLength<1>>>($defs);
   const key = Object.keys($defs)[0]!;
 
-  TestValidator.equals("record top ref", clean(schema), {
+  TestEquality.equals("record top ref", clean(schema), {
     $ref: `#/$defs/${key}`,
   });
-  TestValidator.equals("record string value", clean($defs[key]), {
+  TestEquality.equals("record string value", clean($defs[key]), {
     type: "object",
     properties: {},
     additionalProperties: {

@@ -3,6 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Inspector } from "../structures/Inspector";
@@ -48,7 +49,7 @@ export const test_mcp_create_server_lazy_controller =
       { method: "tools/list", params: {} },
       { signal: new AbortController().signal },
     );
-    TestValidator.equals("tools/list must not build the state", built, 0);
+    TestEquality.equals("tools/list must not build the state", built, 0);
 
     const result: CallToolResult = await handlers.get("tools/call")!(
       {
@@ -57,8 +58,8 @@ export const test_mcp_create_server_lazy_controller =
       },
       { signal: new AbortController().signal },
     );
-    TestValidator.equals("first call builds the state once", built, 1);
-    TestValidator.equals(
+    TestEquality.equals("first call builds the state once", built, 1);
+    TestEquality.equals(
       "call returns the reflected result",
       result.structuredContent,
       { answer: "depth=42" },

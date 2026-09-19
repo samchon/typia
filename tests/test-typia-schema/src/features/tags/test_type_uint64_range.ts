@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 import { _isTypeUint64 } from "typia/lib/internal/_isTypeUint64";
 import { _isTypeUint64Bigint } from "typia/lib/internal/_isTypeUint64Bigint";
@@ -49,12 +50,12 @@ export const test_type_uint64_range = (): void => {
     MINIMUM <= value && value <= MAXIMUM;
 
   // The oracle must be able to represent the boundary the validators cannot.
-  TestValidator.equals(
+  TestEquality.equals(
     "2 ** 64 is not a uint64",
     false,
     oracle(BigInt(2 ** 64)),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the largest double below 2 ** 64 is a uint64",
     true,
     oracle(BigInt(18446744073709549568)),
@@ -74,17 +75,17 @@ export const test_type_uint64_range = (): void => {
     [2 ** 64, true], // uint64-max's only float form
   ];
   for (const [value, expected] of numbers) {
-    TestValidator.equals(
+    TestEquality.equals(
       `_isTypeUint64(${value}) === ${expected}`,
       expected,
       _isTypeUint64(value),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `number type tag on ${value} === ${expected}`,
       expected,
       typia.is<ITaggedNumber>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `number comment tag on ${value} === ${expected}`,
       expected,
       typia.is<ICommentNumber>({ value }),
@@ -93,12 +94,8 @@ export const test_type_uint64_range = (): void => {
 
   // A non-integer is never a uint64, whatever its magnitude.
   for (const value of [0.5, 1.5]) {
-    TestValidator.equals(
-      `_isTypeUint64(${value})`,
-      false,
-      _isTypeUint64(value),
-    );
-    TestValidator.equals(
+    TestEquality.equals(`_isTypeUint64(${value})`, false, _isTypeUint64(value));
+    TestEquality.equals(
       `number type tag on ${value}`,
       false,
       typia.is<ITaggedNumber>({ value }),
@@ -123,7 +120,7 @@ export const test_type_uint64_range = (): void => {
   // is counted separately, and the four values the bounds themselves turn on are
   // required by name. Without that last part a list of far-away magnitudes would
   // still pass while never touching an edge.
-  TestValidator.equals(
+  TestEquality.equals(
     "the bigint boundary list straddles both bounds and carries both edges",
     [
       bigints.filter((value) => value < MINIMUM).length,
@@ -137,17 +134,17 @@ export const test_type_uint64_range = (): void => {
   );
   for (const value of bigints) {
     const expected: boolean = oracle(value);
-    TestValidator.equals(
+    TestEquality.equals(
       `_isTypeUint64Bigint(${value}) === ${expected}`,
       expected,
       _isTypeUint64Bigint(value),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `bigint type tag on ${value} === ${expected}`,
       expected,
       typia.is<ITaggedBigint>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `bigint comment tag on ${value} === ${expected}`,
       expected,
       typia.is<ICommentBigint>({ value }),
@@ -156,7 +153,7 @@ export const test_type_uint64_range = (): void => {
 
   // The upper bound replaced nothing else: a non-bigint is still rejected.
   for (const value of [0, "0", null])
-    TestValidator.equals(
+    TestEquality.equals(
       `bigint type tag rejects the non-bigint ${JSON.stringify(value)}`,
       false,
       typia.is<ITaggedBigint>({ value: value as unknown as bigint }),
@@ -169,12 +166,12 @@ export const test_type_uint64_range = (): void => {
   // bigint decodes back to itself, and the first value past the bound is
   // rejected before `assertEncode` ever writes a varint.
   for (const value of [MINIMUM, MAXIMUM, 1n, 2n ** 63n]) {
-    TestValidator.equals(
+    TestEquality.equals(
       `round trip ${value} is certified`,
       true,
       typia.is<ITaggedBigint>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `uint64 ${value} decodes unchanged`,
       value,
       typia.protobuf.decode<typia.Resolved<ITaggedBigint>>(
@@ -197,12 +194,13 @@ export const test_type_uint64_range = (): void => {
     // unfalsifiable; what distinguishes the width check from any other encoder
     // failure is the report the assertion carries.
     //
-    // The two fields are compared as a tuple, not as an object literal.
-    // `TestValidator.equals` walks `Object.keys` of its *first* argument and
-    // drops any key whose value is `undefined`, so an object built from a throw
-    // that carries neither field would compare as `{}` and pass -- exactly the
-    // case this assertion exists to catch. The array branch compares
-    // positionally, so a missing field trips the `typeof` check.
+    // The two fields are compared as a tuple, not as an object literal. The
+    // one-way `TestValidator.equals` this file once used walked `Object.keys`
+    // of its *first* argument and dropped any key whose value was `undefined`,
+    // so an object built from a throw that carries neither field compared as
+    // `{}` and passed (#2350). `TestEquality` compares both key sets (#2401),
+    // and the tuple keeps the check positional regardless of the oracle, so a
+    // missing field trips the `typeof` check.
     //
     // This is also the one call in this file that puts the actual first rather
     // than the expected. `equals<X, Y extends X>` constrains the second argument
@@ -215,7 +213,7 @@ export const test_type_uint64_range = (): void => {
     } catch (error) {
       caught = error as { path?: string; expected?: string };
     }
-    TestValidator.equals(
+    TestEquality.equals(
       `assertEncode rejects ${value} at the width check`,
       [caught?.path ?? null, caught?.expected ?? null],
       ["$input.value", 'bigint & Type<"uint64">'],
@@ -236,13 +234,13 @@ export const test_type_uint64_range = (): void => {
   for (let i: number = 0; i < 100; ++i) {
     const { value } = typia.random<ITaggedBigint>();
     drawn.push(value);
-    TestValidator.equals(
+    TestEquality.equals(
       `random uint64 satisfies its type at ${i}`,
       typia.is<ITaggedBigint>({ value }),
       true,
     );
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "the generator's fallback window is 0..100 and varies",
     [
       drawn.every((value) => 0n <= value && value <= 100n),

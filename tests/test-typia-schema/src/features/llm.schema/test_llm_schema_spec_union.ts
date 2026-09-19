@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_schema_spec_union = (): void => {
@@ -17,10 +17,10 @@ export const test_llm_schema_spec_union = (): void => {
 
   const $defs: Record<string, ILlmSchema> = {};
   const schema = typia.llm.schema<IAnimal>($defs);
-  TestValidator.equals("union top ref", clean(schema), {
+  TestEquality.equals("union top ref", clean(schema), {
     $ref: "#/$defs/IAnimal",
   });
-  TestValidator.equals("union discriminator", clean($defs.IAnimal), {
+  TestEquality.equals("union discriminator", clean($defs.IAnimal), {
     anyOf: [
       {
         $ref: "#/$defs/ICat",
@@ -37,7 +37,7 @@ export const test_llm_schema_spec_union = (): void => {
       },
     },
   });
-  TestValidator.equals("cat literal property", clean($defs.ICat), {
+  TestEquality.equals("cat literal property", clean($defs.ICat), {
     type: "object",
     properties: {
       meow: {

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -48,25 +48,25 @@ export const test_llm_coerce_mixed_complex = (): void => {
     JSON.stringify(corrupted),
     parameters,
   );
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals(
+    TestEquality.equals(
       "users[0].profile.name",
       result.data.users[0]!.profile.name,
       "Alice",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "users[0].profile.tags",
       result.data.users[0]!.profile.tags,
       ["admin", "user"],
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "users[0].scores",
       result.data.users[0]!.scores,
       [95, 87, 92],
     );
-    TestValidator.equals("metadata.count", result.data.metadata.count, 100);
-    TestValidator.equals("metadata.labels", result.data.metadata.labels, [
+    TestEquality.equals("metadata.count", result.data.metadata.count, 100);
+    TestEquality.equals("metadata.labels", result.data.metadata.labels, [
       "active",
       "verified",
     ]);

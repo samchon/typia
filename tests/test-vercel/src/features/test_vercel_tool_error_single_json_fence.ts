@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -32,7 +33,7 @@ export const test_vercel_tool_error_single_json_fence =
     TestValidator.predicate("argument feedback is typia's", () =>
       argumentError.includes('Type errors in "add" arguments:'),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "argument feedback opens exactly one json fence",
       countFences(argumentError),
       1,
@@ -45,7 +46,7 @@ export const test_vercel_tool_error_single_json_fence =
     TestValidator.predicate("output feedback is typia's", () =>
       outputError.includes('Type errors in "read" output:'),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "output feedback opens exactly one json fence",
       countFences(outputError),
       1,

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_escape_standard_path = (): void => {
@@ -6,44 +6,44 @@ export const test_llm_json_parse_lenient_escape_standard_path = (): void => {
   const result = LlmJson.parse(
     '{"quote": "\\"", "backslash": "\\\\", "slash": "\\/", "backspace": "\\b", "formfeed": "\\f", "newline": "\\n", "return": "\\r", "tab": "\\t"}',
   );
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals(
+    TestEquality.equals(
       "quote",
       (result.data as Record<string, string>).quote,
       '"',
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "backslash",
       (result.data as Record<string, string>).backslash,
       "\\",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "slash",
       (result.data as Record<string, string>).slash,
       "/",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "backspace",
       (result.data as Record<string, string>).backspace,
       "\b",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "formfeed",
       (result.data as Record<string, string>).formfeed,
       "\f",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "newline",
       (result.data as Record<string, string>).newline,
       "\n",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "return",
       (result.data as Record<string, string>).return,
       "\r",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "tab",
       (result.data as Record<string, string>).tab,
       "\t",

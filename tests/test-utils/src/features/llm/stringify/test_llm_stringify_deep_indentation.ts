@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_deep_indentation = (): void => {
@@ -44,17 +44,17 @@ export const test_llm_stringify_deep_indentation = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // Check that all levels are present
-  TestValidator.equals("contains level1", output.includes("level1"), true);
-  TestValidator.equals("contains level10", output.includes("level10"), true);
-  TestValidator.equals("contains value", output.includes('"value"'), true);
+  TestEquality.equals("contains level1", output.includes("level1"), true);
+  TestEquality.equals("contains level10", output.includes("level10"), true);
+  TestEquality.equals("contains value", output.includes('"value"'), true);
 
   // Check indentation pattern (multiple spaces before nested keys)
   const lines = output.split("\n");
   const level10Line = lines.find((line) => line.includes("level10"));
-  TestValidator.equals(
+  TestEquality.equals(
     "level10 has deep indentation",
     level10Line !== undefined && level10Line.startsWith("  "),
     true,
@@ -78,12 +78,12 @@ export const test_llm_stringify_deep_indentation = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "deep-array-code-block",
     output2.includes("```json"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "deep-array-error-marker",
     output2.includes("// ❌"),
     true,

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -21,25 +21,25 @@ export const test_llm_stringify_mixed_nested_errors = (): void => {
   (valid.user.scores as unknown[])[1] = "ninety-five";
   (valid.metadata as { active: unknown }).active = "yes";
   const result = typia.validate<IComplex>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains name error",
       output.includes("$input.user.name"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains scores error",
       output.includes("$input.user.scores[1]"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains active error",
       output.includes("$input.metadata.active"),
       true,

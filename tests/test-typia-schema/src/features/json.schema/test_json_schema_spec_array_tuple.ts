@@ -1,14 +1,14 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_json_schema_spec_array_tuple = (): void => {
-  TestValidator.equals("array", clean(typia.json.schema<string[]>().schema), {
+  TestEquality.equals("array", clean(typia.json.schema<string[]>().schema), {
     type: "array",
     items: {
       type: "string",
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "array bounds",
     clean(
       typia.json.schema<
@@ -25,7 +25,7 @@ export const test_json_schema_spec_array_tuple = (): void => {
       uniqueItems: true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "tuple",
     clean(typia.json.schema<[string, number, boolean]>().schema),
     {

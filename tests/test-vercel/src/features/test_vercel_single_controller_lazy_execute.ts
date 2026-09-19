@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -30,12 +31,8 @@ export const test_vercel_single_controller_lazy_execute =
       ),
     );
 
-    TestValidator.equals(
-      "conversion should not build deferred state",
-      built,
-      0,
-    );
-    TestValidator.equals(
+    TestEquality.equals("conversion should not build deferred state", built, 0);
+    TestEquality.equals(
       "single controller exposes one tool",
       Object.keys(tools),
       ["inspect"],
@@ -52,8 +49,8 @@ export const test_vercel_single_controller_lazy_execute =
       { query: "depth" },
       { toolCallId: "test-1", messages: [], abortSignal: undefined as any },
     );
-    TestValidator.equals("first call builds the state once", built, 1);
-    TestValidator.equals("tool returns the inspected result", result, {
+    TestEquality.equals("first call builds the state once", built, 1);
+    TestEquality.equals("tool returns the inspected result", result, {
       success: true,
       data: { answer: "depth=42" },
     });

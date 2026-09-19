@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -49,32 +49,32 @@ const assertContainers = (
   prefix: string,
   containers: IRecursiveContainers,
 ): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} recursive matrix outer minItems`,
     containers.matrix.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} recursive matrix inner cutoff`,
     containers.matrix[0]!.length,
     0,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} recursive set outer minItems`,
     containers.sets.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} recursive set inner cutoff`,
     containers.sets[0]!.size,
     0,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} recursive map outer minItems`,
     containers.maps.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} recursive map inner cutoff`,
     containers.maps[0]!.size,
     0,

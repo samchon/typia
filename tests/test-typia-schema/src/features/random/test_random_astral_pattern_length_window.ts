@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -44,7 +44,7 @@ export const test_random_astral_pattern_length_window = (): void => {
         if (first === null) first = JSON.stringify(value);
       }
     }
-    TestValidator.equals(`${title} (first invalid: ${first})`, failures, 0);
+    TestEquality.equals(`${title} (first invalid: ${first})`, failures, 0);
   };
 
   const atLeastThree = typia.createRandom<AtLeastThree>();
@@ -74,7 +74,7 @@ export const test_random_astral_pattern_length_window = (): void => {
   // Every draw above is astral, so every one must have carried two different
   // counts. A pattern later changed to an ASCII class would leave the loops
   // passing while proving nothing about the measure.
-  TestValidator.equals(
+  TestEquality.equals(
     "every astral draw carried two different counts",
     diverging,
     600,

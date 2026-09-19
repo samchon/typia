@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -42,7 +42,7 @@ export const test_openapi_validator_decimal_multiple_of = (): void => {
   ];
   for (const [i, matrix] of matrices.entries()) {
     for (const value of matrix.valid)
-      TestValidator.equals(
+      TestEquality.equals(
         `matrix ${i} accepts ${value}`,
         OpenApiValidator.validate({
           components: {},
@@ -53,7 +53,7 @@ export const test_openapi_validator_decimal_multiple_of = (): void => {
         true,
       );
     for (const value of matrix.invalid)
-      TestValidator.equals(
+      TestEquality.equals(
         `matrix ${i} rejects ${value}`,
         OpenApiValidator.validate({
           components: {},

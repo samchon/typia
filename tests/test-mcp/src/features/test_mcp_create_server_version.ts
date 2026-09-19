@@ -1,8 +1,8 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Greeter } from "../structures/Greeter";
@@ -30,7 +30,7 @@ export const test_mcp_create_server_version = async (): Promise<void> => {
   try {
     await server.connect(serverTransport);
     await client.connect(clientTransport);
-    TestValidator.equals(
+    TestEquality.equals(
       "class controller should announce the 1.0.0 default",
       client.getServerVersion(),
       { name: "greeter", version: "1.0.0" },

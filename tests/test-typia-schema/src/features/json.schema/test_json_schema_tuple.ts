@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -13,7 +14,7 @@ export const test_json_schema_tuple = (): void => {
 
   if (OpenApiTypeChecker.isTuple(schema)) {
     const tuple = schema as OpenApi.IJsonSchema.ITuple;
-    TestValidator.equals("prefixItems length", tuple.prefixItems.length, 3);
+    TestEquality.equals("prefixItems length", tuple.prefixItems.length, 3);
     TestValidator.predicate("first is string", () =>
       OpenApiTypeChecker.isString(tuple.prefixItems[0]!),
     );

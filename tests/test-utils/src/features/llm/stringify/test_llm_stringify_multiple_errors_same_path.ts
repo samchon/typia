@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_multiple_errors_same_path = (): void => {
@@ -31,22 +31,22 @@ export const test_llm_stringify_multiple_errors_same_path = (): void => {
   const output: string = LlmJson.stringify(failure);
 
   // All three errors should be in a single error comment array
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // The error comment should contain all three expected values
-  TestValidator.equals(
+  TestEquality.equals(
     "contains Format<email>",
     output.includes("Format<email>"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains MinLength<5>",
     output.includes("MinLength<5>"),
     true,
   );
-  TestValidator.equals("contains Pattern", output.includes("Pattern"), true);
+  TestEquality.equals("contains Pattern", output.includes("Pattern"), true);
   // Should NOT have unmappable errors section
-  TestValidator.equals(
+  TestEquality.equals(
     "no unmappable section",
     output.includes("Unmappable"),
     false,

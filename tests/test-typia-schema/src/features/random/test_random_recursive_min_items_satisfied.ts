@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -39,7 +40,7 @@ export const test_random_recursive_min_items_satisfied = (): void => {
         .map((_, index) => schema.element(index, count));
     },
   });
-  TestValidator.equals("recursive root minItems", forest.roots.length, 1);
+  TestEquality.equals("recursive root minItems", forest.roots.length, 1);
 
   const createForest = typia.createRandom<IRecursiveForest>({
     string: () => "value",
@@ -51,7 +52,7 @@ export const test_random_recursive_min_items_satisfied = (): void => {
         .map((_, index) => schema.element(index, count));
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom recursive root minItems",
     createForest().roots.length,
     1,
@@ -67,12 +68,12 @@ export const test_random_recursive_min_items_satisfied = (): void => {
         .map((_, index) => schema.element(index, count));
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "recursive owner separate forest minItems",
     wrapper.forest.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "separate forest recursive child cutoff",
     wrapper.forest[0]!.children.length,
     0,
@@ -89,12 +90,12 @@ export const test_random_recursive_min_items_satisfied = (): void => {
     },
   });
   const createdWrapper: IRecursiveWrapper = createWrapper();
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom recursive owner separate forest minItems",
     createdWrapper.forest.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom separate forest recursive child cutoff",
     createdWrapper.forest[0]!.children.length,
     0,

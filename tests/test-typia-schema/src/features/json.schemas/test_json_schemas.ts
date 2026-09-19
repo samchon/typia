@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
@@ -17,7 +18,7 @@ export const test_json_schemas = (): void => {
     typia.json.schemas<[IMember, IArticle, string, number]>();
 
   // schemas array has 4 items
-  TestValidator.equals("schemas count", collection.schemas.length, 4);
+  TestEquality.equals("schemas count", collection.schemas.length, 4);
 
   // named types use $ref
   TestValidator.predicate("IMember is ref", () =>

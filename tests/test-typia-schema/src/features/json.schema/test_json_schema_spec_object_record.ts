@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -19,7 +19,7 @@ export const test_json_schema_spec_object_record = (): void => {
     nullable: boolean | null;
   }
 
-  TestValidator.equals(
+  TestEquality.equals(
     "object",
     clean(typia.json.schema<IObjectSpec>().schema),
     {
@@ -47,7 +47,7 @@ export const test_json_schema_spec_object_record = (): void => {
     },
   );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "record",
     clean(
       typia.json.schema<Record<string, string & tags.MinLength<1>>>().schema,

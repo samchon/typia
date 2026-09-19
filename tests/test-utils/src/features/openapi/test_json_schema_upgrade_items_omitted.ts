@@ -1,4 +1,3 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   OpenApi,
   OpenApiV3,
@@ -6,6 +5,7 @@ import {
   OpenApiV3_2,
   SwaggerV2,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
 
 /**
@@ -38,7 +38,7 @@ export const test_json_schema_upgrade_items_omitted = (): void => {
     ["v3.2", upgrade(document<OpenApiV3_2.IDocument>("3.2.0"))],
   ];
   for (const [label, schema] of versions) {
-    TestValidator.equals(`${label} open array`, schema, {
+    TestEquality.equals(`${label} open array`, schema, {
       type: "array",
       items: {},
     });
@@ -68,7 +68,7 @@ export const test_json_schema_upgrade_items_omitted = (): void => {
       },
     },
   });
-  TestValidator.equals("present items survive", constrained, {
+  TestEquality.equals("present items survive", constrained, {
     type: "array",
     items: { type: "string" },
   });
@@ -106,7 +106,7 @@ const expectValidation = (
   value: unknown,
   success: boolean,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     OpenApiValidator.validate({ components: {}, schema, value, required: true })
       .success,

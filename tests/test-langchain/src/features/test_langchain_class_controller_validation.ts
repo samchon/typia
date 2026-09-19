@@ -5,6 +5,7 @@ import {
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -69,7 +70,7 @@ export const test_langchain_class_controller_validation =
     );
 
     const valid: unknown = await addTool.invoke({ x: 10, y: 5 });
-    TestValidator.equals("valid arguments execute", valid, {
+    TestEquality.equals("valid arguments execute", valid, {
       success: true,
       data: { value: 15 },
     });

@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { StandardSchemaV1 } from "@standard-schema/spec";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 interface IValue {
@@ -72,7 +73,7 @@ export const test_standard_schema_unknown_diagnostics = (): void => {
     throw new Error(
       "Expected an ordinary object to return Standard Schema issues.",
     );
-  TestValidator.equals(
+  TestEquality.equals(
     "ordinary object message",
     "expected string, got [object Object]",
     ordinary.issues[0]?.message,
@@ -83,7 +84,7 @@ export const test_standard_schema_unknown_diagnostics = (): void => {
     throw new Error(
       "Expected an ordinary primitive to return Standard Schema issues.",
     );
-  TestValidator.equals(
+  TestEquality.equals(
     "ordinary primitive message",
     "expected string, got 42",
     primitive.issues[0]?.message,
@@ -94,7 +95,7 @@ export const test_standard_schema_unknown_diagnostics = (): void => {
     throw new Error(
       "Expected a valid object to return a Standard Schema value.",
     );
-  TestValidator.equals("success value", { value: "ok" }, success.value);
+  TestEquality.equals("success value", { value: "ok" }, success.value);
 };
 
 const assertFailure = <T>(
@@ -106,10 +107,10 @@ const assertFailure = <T>(
   const result = validator["~standard"].validate(input);
   if (result instanceof Promise || result.issues === undefined)
     throw new Error(`Expected ${label} to return Standard Schema issues.`);
-  TestValidator.equals(`${label} issue count`, 1, result.issues.length);
+  TestEquality.equals(`${label} issue count`, 1, result.issues.length);
   TestValidator.predicate(
     `${label} message`,
     () => typeof result.issues[0]?.message === "string",
   );
-  TestValidator.equals(`${label} path`, path, result.issues[0]?.path);
+  TestEquality.equals(`${label} path`, path, result.issues[0]?.path);
 };

@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3, OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
@@ -22,12 +23,12 @@ export const test_openapi_converter_discriminator = (): void => {
       version === "3.1" ? upgradeV31(fixture) : upgradeV32(fixture);
 
     for (const [index, output] of outputs.entries())
-      TestValidator.equals(
+      TestEquality.equals(
         `${version} public upgrade path ${index}`,
         clean(output),
         clean(fixture.choice),
       );
-    TestValidator.equals(
+    TestEquality.equals(
       `${version} mapping order`,
       Object.entries(
         (outputs[0] as OpenApi.IJsonSchema.IOneOf).discriminator!.mapping!,
@@ -37,7 +38,7 @@ export const test_openapi_converter_discriminator = (): void => {
         ["b", "#/components/schemas/IOptionB"],
       ],
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${version} input immutability`,
       JSON.stringify(fixture.components),
       before,
@@ -59,12 +60,12 @@ export const test_openapi_converter_discriminator = (): void => {
     const outputs: OpenApi.IJsonSchema[] = upgradeV30(fixture);
 
     for (const [index, output] of outputs.entries())
-      TestValidator.equals(
+      TestEquality.equals(
         `3.0 public upgrade path ${index}`,
         clean(output),
         clean(fixture.choice),
       );
-    TestValidator.equals(
+    TestEquality.equals(
       "3.0 mapping order",
       Object.entries(
         (outputs[0] as OpenApi.IJsonSchema.IOneOf).discriminator!.mapping!,
@@ -74,7 +75,7 @@ export const test_openapi_converter_discriminator = (): void => {
         ["b", "#/components/schemas/IOptionB"],
       ],
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "3.0 input immutability",
       JSON.stringify(fixture.components),
       before,
@@ -92,12 +93,12 @@ export const test_openapi_converter_discriminator = (): void => {
       version === "3.0" ? downgradeV30(fixture) : downgradeV31(fixture);
 
     for (const [index, output] of outputs.entries())
-      TestValidator.equals(
+      TestEquality.equals(
         `${version} public downgrade path ${index}`,
         clean(output),
         clean(fixture.choice),
       );
-    TestValidator.equals(
+    TestEquality.equals(
       `${version} downgrade input immutability`,
       JSON.stringify(fixture.components),
       before,
@@ -127,7 +128,7 @@ export const test_openapi_converter_discriminator = (): void => {
     components: toV31Components(nestedFixture.components),
     schema: nestedInput,
   });
-  TestValidator.equals("nested discriminators", clean(nested), {
+  TestEquality.equals("nested discriminators", clean(nested), {
     type: "object",
     properties: {
       explicit: clean(nestedFixture.choice),
@@ -141,7 +142,7 @@ export const test_openapi_converter_discriminator = (): void => {
     required: ["explicit", "implicit"],
   });
 
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable atomic union",
     clean(
       OpenApiConverter.upgradeSchema({
@@ -153,7 +154,7 @@ export const test_openapi_converter_discriminator = (): void => {
       oneOf: [{ type: "string" }, { type: "null" }],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "ordinary anyOf union",
     clean(
       OpenApiConverter.upgradeSchema({
@@ -165,7 +166,7 @@ export const test_openapi_converter_discriminator = (): void => {
       oneOf: [{ type: "string" }, { type: "number" }],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "enum-derived union",
     clean(
       OpenApiConverter.upgradeSchema({
@@ -189,7 +190,7 @@ export const test_openapi_converter_discriminator = (): void => {
       discriminator: rewrittenFixture.choice.discriminator,
     },
   });
-  TestValidator.equals("rewritten oneOf branch count", clean(rewritten), {
+  TestEquality.equals("rewritten oneOf branch count", clean(rewritten), {
     oneOf: [
       { const: "alpha" },
       { const: "beta" },
@@ -214,7 +215,7 @@ export const test_openapi_converter_discriminator = (): void => {
   );
 
   const v30RewriteFixture: IV30Fixture = createV30Fixture();
-  TestValidator.equals(
+  TestEquality.equals(
     "v3.0 document enum rewrite drops discriminator",
     clean(
       upgradeV30DocumentSchema(v30RewriteFixture, {
@@ -233,7 +234,7 @@ export const test_openapi_converter_discriminator = (): void => {
       ],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "v3.0 document nullable rewrite drops discriminator",
     clean(
       upgradeV30DocumentSchema(v30RewriteFixture, {
@@ -274,7 +275,7 @@ export const test_openapi_converter_discriminator = (): void => {
 
   const collapsedFixture: IFixture = createFixture();
   const branch: OpenApi.IJsonSchema = collapsedFixture.choice.oneOf[0]!;
-  TestValidator.equals(
+  TestEquality.equals(
     "collapsed oneOf",
     clean(
       OpenApiConverter.upgradeSchema({
@@ -291,7 +292,7 @@ export const test_openapi_converter_discriminator = (): void => {
     clean(branch),
   );
   const v30CollapsedFixture: IV30Fixture = createV30Fixture();
-  TestValidator.equals(
+  TestEquality.equals(
     "v3.0 document collapsed oneOf",
     clean(
       upgradeV30DocumentSchema(v30CollapsedFixture, {
@@ -305,7 +306,7 @@ export const test_openapi_converter_discriminator = (): void => {
     clean(branch),
   );
   for (const version of ["3.0", "3.1"] as const)
-    TestValidator.equals(
+    TestEquality.equals(
       `${version} downgraded collapsed oneOf`,
       JSON.stringify(
         clean(

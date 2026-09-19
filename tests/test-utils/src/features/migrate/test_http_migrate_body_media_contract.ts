@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateRoute, OpenApiV3_1 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 /**
@@ -16,7 +16,7 @@ import { HttpMigration } from "@typia/utils";
 export const test_http_migrate_body_media_contract =
   async (): Promise<void> => {
     const application = HttpMigration.application(document);
-    TestValidator.equals("composition errors", 0, application.errors.length);
+    TestEquality.equals("composition errors", 0, application.errors.length);
 
     let captured: { url: URL; init: RequestInit } | undefined;
     const connection = {
@@ -40,53 +40,49 @@ export const test_http_migrate_body_media_contract =
     };
 
     await execute("/text", "hello");
-    TestValidator.equals(
+    TestEquality.equals(
       "text content type",
       "text/plain",
       contentType(captured),
     );
-    TestValidator.equals("text body", "hello", String(captured!.init.body));
+    TestEquality.equals("text body", "hello", String(captured!.init.body));
 
     await execute("/array", ["a", "b"]);
-    TestValidator.equals(
-      "array JSON",
-      '["a","b"]',
-      String(captured!.init.body),
-    );
+    TestEquality.equals("array JSON", '["a","b"]', String(captured!.init.body));
 
     await execute("/null", null);
-    TestValidator.equals("null JSON", "null", String(captured!.init.body));
+    TestEquality.equals("null JSON", "null", String(captured!.init.body));
 
     await execute("/multipart", { name: "typia" });
-    TestValidator.equals(
+    TestEquality.equals(
       "multipart content type delegated",
       true,
       contentType(captured) === null,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "multipart body",
       true,
       captured!.init.body instanceof FormData,
     );
 
     await execute("/suffix", { value: "patched" });
-    TestValidator.equals(
+    TestEquality.equals(
       "JSON suffix content type",
       "application/merge-patch+json",
       contentType(captured),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "JSON suffix body",
       '{"value":"patched"}',
       String(captured!.init.body),
     );
     const suffix = findRoute(application.routes, "/suffix");
-    TestValidator.equals(
+    TestEquality.equals(
       "JSON suffix success type",
       "application/problem+json",
       suffix.success?.type,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "JSON suffix exception schema",
       true,
       "properties" in suffix.exceptions["400"]!.schema &&
@@ -94,29 +90,29 @@ export const test_http_migrate_body_media_contract =
     );
 
     await execute("/mixed-text", "hello");
-    TestValidator.equals(
+    TestEquality.equals(
       "mixed-case text canonicalized",
       "text/plain",
       contentType(captured),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "mixed-case response canonicalized",
       "text/plain",
       findRoute(application.routes, "/mixed-text").success?.type,
     );
     await execute("/mixed-form", { name: "typia" });
-    TestValidator.equals(
+    TestEquality.equals(
       "mixed-case form canonicalized",
       "application/x-www-form-urlencoded",
       contentType(captured),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "mixed-case form body",
       "name=typia",
       String(captured!.init.body),
     );
     await execute("/mixed-multipart", { name: "typia" });
-    TestValidator.equals(
+    TestEquality.equals(
       "mixed-case multipart delegates boundary",
       true,
       contentType(captured) === null,

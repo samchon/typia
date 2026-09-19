@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -146,7 +146,7 @@ export const test_openapi_validator_object_additional_properties = (): void => {
     required: true,
     equals: true,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "the mixed document reports only the closed object's property",
     validation.success === false ? validation.errors.map((e) => e.path) : [],
     ["$input.closed.b"],
@@ -160,7 +160,7 @@ const expect = (
   equals: boolean,
   success: boolean,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     OpenApiValidator.validate({
       components: {},

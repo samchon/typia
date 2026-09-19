@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 
 /**
@@ -199,7 +199,7 @@ export const test_json_schema_type_checker_cover_constraints = (): void => {
     },
   ];
   for (const test of cases)
-    TestValidator.equals(
+    TestEquality.equals(
       test.name,
       OpenApiTypeChecker.covers({
         components,

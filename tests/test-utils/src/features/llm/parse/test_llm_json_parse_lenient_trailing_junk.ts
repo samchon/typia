@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_trailing_junk = (): void => {
@@ -7,35 +7,35 @@ export const test_llm_json_parse_lenient_trailing_junk = (): void => {
 
   // Trailing text after object
   const result1 = LlmJson.parse('{"name": "test"} and some trailing text');
-  TestValidator.equals("success1", result1.success, true);
+  TestEquality.equals("success1", result1.success, true);
   if (result1.success)
-    TestValidator.equals("value1", result1.data, { name: "test" });
+    TestEquality.equals("value1", result1.data, { name: "test" });
 
   // Trailing text after array
   const result2 = LlmJson.parse("[1, 2, 3] extra stuff here");
-  TestValidator.equals("success2", result2.success, true);
-  if (result2.success) TestValidator.equals("value2", result2.data, [1, 2, 3]);
+  TestEquality.equals("success2", result2.success, true);
+  if (result2.success) TestEquality.equals("value2", result2.data, [1, 2, 3]);
 
   // Second JSON after first (should only parse first)
   const result3 = LlmJson.parse('{"a": 1}{"b": 2}');
-  TestValidator.equals("success3", result3.success, true);
-  if (result3.success) TestValidator.equals("value3", result3.data, { a: 1 });
+  TestEquality.equals("success3", result3.success, true);
+  if (result3.success) TestEquality.equals("value3", result3.data, { a: 1 });
 
   // Extra closing braces (second } is trailing junk)
   const result4 = LlmJson.parse('{"key": 1}}');
-  TestValidator.equals("extra-brace-success", result4.success, true);
+  TestEquality.equals("extra-brace-success", result4.success, true);
   if (result4.success)
-    TestValidator.equals("extra-brace-data", result4.data, { key: 1 });
+    TestEquality.equals("extra-brace-data", result4.data, { key: 1 });
 
   // Extra closing brackets
   const result5 = LlmJson.parse("[1, 2]]");
-  TestValidator.equals("extra-bracket-success", result5.success, true);
+  TestEquality.equals("extra-bracket-success", result5.success, true);
   if (result5.success)
-    TestValidator.equals("extra-bracket-data", result5.data, [1, 2]);
+    TestEquality.equals("extra-bracket-data", result5.data, [1, 2]);
 
   // Object then array (two separate JSON values, first wins)
   const result6 = LlmJson.parse('{"a": 1}[2, 3]');
-  TestValidator.equals("obj-then-arr-success", result6.success, true);
+  TestEquality.equals("obj-then-arr-success", result6.success, true);
   if (result6.success)
-    TestValidator.equals("obj-then-arr-data", result6.data, { a: 1 });
+    TestEquality.equals("obj-then-arr-data", result6.data, { a: 1 });
 };

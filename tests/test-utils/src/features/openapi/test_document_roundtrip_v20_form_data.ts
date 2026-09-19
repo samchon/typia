@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateApplication, OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import {
   HttpMigration,
   OpenApiConverter,
@@ -98,10 +99,10 @@ export const test_document_roundtrip_v20_form_data = (): void => {
     upgraded.paths!["/urlencoded"]!.post!.requestBody!;
   const multipart: OpenApi.IOperation.IRequestBody =
     upgraded.paths!["/multipart"]!.post!.requestBody!;
-  TestValidator.equals("urlencoded content", Object.keys(urlencoded.content!), [
+  TestEquality.equals("urlencoded content", Object.keys(urlencoded.content!), [
     "application/x-www-form-urlencoded",
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "urlencoded schema",
     urlencoded.content!["application/x-www-form-urlencoded"]!.schema,
     {
@@ -113,7 +114,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       required: ["name"],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "multipart file",
     (
       multipart.content!["multipart/form-data"]!
@@ -174,8 +175,8 @@ export const test_document_roundtrip_v20_form_data = (): void => {
 
   const migration: IHttpMigrateApplication =
     HttpMigration.application(upgraded);
-  TestValidator.equals("migration errors", migration.errors, []);
-  TestValidator.equals(
+  TestEquality.equals("migration errors", migration.errors, []);
+  TestEquality.equals(
     "migration body types",
     migration.routes.map((route) => route.body?.type),
     ["application/x-www-form-urlencoded", "multipart/form-data"],
@@ -185,7 +186,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
     upgraded,
     "2.0",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "urlencoded form parameters",
     downgraded.paths!["/urlencoded"]!.post!.parameters!.map((parameter) => ({
       name: "name" in parameter ? parameter.name : undefined,
@@ -203,7 +204,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
       },
     ],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "multipart form parameters",
     downgraded.paths!["/multipart"]!.post!.parameters!.map((parameter) => ({
       name: "name" in parameter ? parameter.name : undefined,
@@ -280,7 +281,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
   );
   const downgradedMultipartParameters =
     downgraded.paths!["/multipart"]!.post!.parameters!;
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded scalar form enum values",
     (
       downgradedMultipartParameters.find(
@@ -292,7 +293,7 @@ export const test_document_roundtrip_v20_form_data = (): void => {
   const downgradedPriorities = downgradedMultipartParameters.find(
     (parameter) => "name" in parameter && parameter.name === "priorities",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded array item form enum values",
     downgradedPriorities && "items" in downgradedPriorities
       ? (downgradedPriorities.items as { enum?: unknown[] }).enum

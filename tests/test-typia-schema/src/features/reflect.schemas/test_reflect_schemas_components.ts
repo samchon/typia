@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IMetadataSchemaCollection } from "typia";
 
 export const test_reflect_schemas_components = (): void => {
@@ -13,7 +14,7 @@ export const test_reflect_schemas_components = (): void => {
   const collection: IMetadataSchemaCollection =
     typia.reflect.schemas<[IBase, IChild]>();
 
-  TestValidator.equals("schemas count", collection.schemas.length, 2);
+  TestEquality.equals("schemas count", collection.schemas.length, 2);
 
   // components has both types
   TestValidator.predicate("has IBase", () =>

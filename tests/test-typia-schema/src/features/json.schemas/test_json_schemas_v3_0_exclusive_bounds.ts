@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 interface IBounds {
@@ -47,29 +47,28 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   // Every bound comparison below reads through `bounds`, which turns an absent
   // keyword into `null` rather than leaving it `undefined`.
   //
-  // `TestValidator.equals` walks `Object.keys` of its first argument and drops
-  // any key whose value is `undefined`, so an actual that lost a keyword
-  // compared as `{}` and the assertion passed. That is fatal precisely here:
-  // this file exists to check *which* keywords the 3.0 downgrade emits, and a
-  // downgrade that dropped both flags satisfied it. Normalizing both sides
-  // makes the comparison total (#2350).
+  // This file exists to check *which* keywords the 3.0 downgrade emits, so a
+  // lost keyword must fail loudly. The one-way `TestValidator.equals` once let
+  // an actual that lost a keyword compare as `{}` (#2350); `TestEquality` now
+  // compares both key sets (#2401), and the normalization keeps every keyword
+  // visible in a failure message as an explicit `null`.
   const bounds = (node: any, ...keys: string[]): Record<string, unknown> =>
     Object.fromEntries(keys.map((key) => [key, node[key] ?? null]));
 
   // 3.1 keeps the numeric form it always had.
-  TestValidator.equals(
+  TestEquality.equals(
     "3.1 keeps a numeric exclusiveMinimum",
     props31.ratio.exclusiveMinimum,
     0,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "3.1 keeps a numeric exclusiveMaximum",
     props31.ratio.exclusiveMaximum,
     1,
   );
 
   // 3.0 spells the same bound as a boolean beside the inclusive keyword.
-  TestValidator.equals(
+  TestEquality.equals(
     "3.0 exclusive bounds become boolean flags",
     bounds(
       props30.ratio,
@@ -80,7 +79,7 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
     ),
     { minimum: 0, exclusiveMinimum: true, maximum: 1, exclusiveMaximum: true },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "3.0 keeps an inclusive bound beside an exclusive one",
     bounds(
       props30.mixed,
@@ -98,7 +97,7 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   );
 
   // NEGATIVE TWIN: an inclusive-only leaf gains no flag in either dialect.
-  TestValidator.equals(
+  TestEquality.equals(
     "an inclusive bound stays inclusive",
     bounds(
       props30.plain,
@@ -116,14 +115,14 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   );
 
   // BOUNDARY: a bound of zero is the case a boolean coercion reads as false.
-  TestValidator.equals(
+  TestEquality.equals(
     "a zero bound survives as a flag",
     bounds(props30.zero, "minimum", "exclusiveMinimum"),
     { minimum: 0, exclusiveMinimum: true },
   );
 
   // The rule holds at depth, not only on a top-level property.
-  TestValidator.equals(
+  TestEquality.equals(
     "an array element carries the 3.0 form",
     bounds(props30.list.items, "maximum", "exclusiveMaximum"),
     { maximum: 5, exclusiveMaximum: true },
@@ -144,7 +143,7 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
       walk(value, `${path}.${key}`);
   };
   walk(v30, "$");
-  TestValidator.equals(
+  TestEquality.equals(
     `no numeric exclusive bound survives (${offenders[0] ?? "none"})`,
     offenders.length,
     0,

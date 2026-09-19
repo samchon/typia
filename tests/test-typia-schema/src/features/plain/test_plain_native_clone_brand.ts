@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { assertDataViewClone } from "./PlainNativeClone";
@@ -20,7 +21,7 @@ export const test_plain_native_clone_brand = (): void => {
       enumerable: true,
       value: label,
     });
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} prototype impostor`,
       { label },
       dynamicClone(input),
@@ -47,8 +48,8 @@ export const test_plain_native_clone_brand = (): void => {
     nested: { value: 1 },
   };
   const cloned = dynamicClone(spoof);
-  TestValidator.equals("toStringTag getter reads", 0, tagReads);
-  TestValidator.equals(
+  TestEquality.equals("toStringTag getter reads", 0, tagReads);
+  TestEquality.equals(
     "toStringTag spoof properties",
     { label: "plain", nested: { value: 1 } },
     cloned,

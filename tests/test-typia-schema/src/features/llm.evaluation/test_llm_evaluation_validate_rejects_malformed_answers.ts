@@ -1,7 +1,6 @@
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate rejects malformed answer values.
@@ -100,13 +99,13 @@ export const test_llm_evaluation_validate_rejects_malformed_answers =
       ],
     ];
 
-    _equalsExactly("control", evaluation.validate(valid).success, true);
+    TestEquality.equals("control", evaluation.validate(valid).success, true);
     for (const [title, patch, path] of cases) {
       const result: IValidation<IDecision> = evaluation.validate({
         ...valid,
         ...patch,
       });
-      _equalsExactly(
+      TestEquality.equals(
         title,
         result.success ? [] : result.errors.map((e) => e.path),
         [path],

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -20,7 +21,7 @@ export const test_llm_schema_array = (): void => {
     string[] & tags.MinItems<1> & tags.MaxItems<10>
   >({});
   if (LlmTypeChecker.isArray(constrained)) {
-    TestValidator.equals("minItems", constrained.minItems, 1);
-    TestValidator.equals("maxItems", constrained.maxItems, 10);
+    TestEquality.equals("minItems", constrained.minItems, 1);
+    TestEquality.equals("maxItems", constrained.maxItems, 10);
   }
 };

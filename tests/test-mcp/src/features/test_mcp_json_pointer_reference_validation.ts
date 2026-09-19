@@ -5,6 +5,7 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -44,7 +45,7 @@ export const test_mcp_json_pointer_reference_validation =
         name,
         arguments: { input: raw, invalid: false },
       })) as CallToolResult;
-      TestValidator.equals(
+      TestEquality.equals(
         "valid referenced output is structured",
         valid.structuredContent,
         { result: tree },

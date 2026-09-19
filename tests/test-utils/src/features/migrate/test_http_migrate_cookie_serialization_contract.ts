@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApiV3_2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
 
 /**
@@ -18,14 +18,14 @@ import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
 export const test_http_migrate_cookie_serialization_contract =
   async (): Promise<void> => {
     const migration = HttpMigration.application(document);
-    TestValidator.equals("composition errors", 0, migration.errors.length);
+    TestEquality.equals("composition errors", 0, migration.errors.length);
     const route = migration.routes[0]!;
-    TestValidator.equals(
+    TestEquality.equals(
       "cookie styles",
       ["cookie", "form", "form"],
       route.cookies?.parameters?.map((parameter) => parameter.style),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "cookie explode defaults",
       [true, true, true],
       route.cookies?.parameters?.map((parameter) => parameter.explode),
@@ -35,7 +35,7 @@ export const test_http_migrate_cookie_serialization_contract =
       ["3.0", OpenApiConverter.downgradeDocument(migration.document(), "3.0")],
       ["3.1", OpenApiConverter.downgradeDocument(migration.document(), "3.1")],
     ] as const)
-      TestValidator.equals(
+      TestEquality.equals(
         `${version} cookie style downgrade`,
         "form",
         (
@@ -49,7 +49,7 @@ export const test_http_migrate_cookie_serialization_contract =
       "2.0",
     );
     const swaggerParameter = swagger.paths?.["/cookies"]?.get?.parameters?.[0];
-    TestValidator.equals(
+    TestEquality.equals(
       "Swagger parameter serialization fields omitted",
       false,
       swaggerParameter !== undefined &&
@@ -61,7 +61,7 @@ export const test_http_migrate_cookie_serialization_contract =
       | { headers?: Record<string, Record<string, unknown> | undefined> }
       | undefined;
     const swaggerHeader = swaggerResponse?.headers?.["X-Trace"];
-    TestValidator.equals(
+    TestEquality.equals(
       "Swagger response header serialization fields omitted",
       false,
       swaggerHeader !== undefined &&
@@ -74,8 +74,8 @@ export const test_http_migrate_cookie_serialization_contract =
       "theme mode": "dark!",
     };
     const llm = HttpLlm.application({ document });
-    TestValidator.equals("LLM errors", 0, llm.errors.length);
-    TestValidator.equals(
+    TestEquality.equals("LLM errors", 0, llm.errors.length);
+    TestEquality.equals(
       "LLM cookie validation",
       true,
       llm.functions[0]!.validate({ cookie: input }).success,
@@ -97,7 +97,7 @@ export const test_http_migrate_cookie_serialization_contract =
       parameters: [],
       cookies: input,
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "cookie wire format",
       "inherited=yes; raw=Hello%2C%20world!; session%20id=a%20b%21; theme%20mode=dark%21",
       captured!.get("cookie"),

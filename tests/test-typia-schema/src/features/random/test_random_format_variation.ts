@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 interface IEntry {
@@ -178,7 +178,7 @@ export const test_random_format_variation = (): void => {
     typia.createIs<UniqueRegexes>(),
     failures,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `format variation (${failures.length ? failures[0] : "none"})`,
     failures.length,
     0,

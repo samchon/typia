@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
 import { ILlmSchema } from "typia";
 
@@ -52,7 +53,7 @@ export const test_llm_invert_non_enumerable_definition = (): void => {
   TestValidator.predicate("every allocated component key is legal", () =>
     Object.keys(schemas).every((key) => /^[a-zA-Z0-9.\-_]+$/.test(key)),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the legal definition keeps its exact name",
     (schemas.A_x2F_B as { description?: string } | undefined)?.description,
     "legal enumerable definition",
@@ -73,12 +74,12 @@ export const test_llm_invert_non_enumerable_definition = (): void => {
       schemas[schema.$ref.replace("#/components/schemas/", "")];
     return (target as { description?: string } | undefined)?.description;
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "each definition resolves to its own content",
-    // `?? null`: `TestValidator.equals` drops a key whose actual value is
-    // `undefined`, and `describe` returns `undefined` on every miss, so without
-    // this a definition that failed to resolve would compare as absent and the
-    // assertion would pass (#2350).
+    // `?? null`: `describe` returns `undefined` on every miss, which the
+    // one-way `TestValidator.equals` once compared as absent and passed (#2350).
+    // `TestEquality` compares both key sets (#2401); the `null` keeps a
+    // definition that failed to resolve explicit in the failure message.
     {
       forbidden: describe("forbidden") ?? null,
       legal: describe("legal") ?? null,

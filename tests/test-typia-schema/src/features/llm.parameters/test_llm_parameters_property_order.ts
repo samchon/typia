@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -56,39 +56,39 @@ export const test_llm_parameters_property_order = (): void => {
   const intersected: ILlmSchema.IParameters =
     typia.llm.parameters<IIntersected>();
 
-  TestValidator.equals("plain properties", Object.keys(plain.properties), [
+  TestEquality.equals("plain properties", Object.keys(plain.properties), [
     "first",
     "second",
     "third",
   ]);
-  TestValidator.equals("plain required", plain.required, [
+  TestEquality.equals("plain required", plain.required, [
     "first",
     "second",
     "third",
   ]);
-  TestValidator.equals("tagged properties", Object.keys(member.properties), [
+  TestEquality.equals("tagged properties", Object.keys(member.properties), [
     "id",
     "email",
     "age",
   ]);
-  TestValidator.equals("tagged required", member.required, [
+  TestEquality.equals("tagged required", member.required, [
     "id",
     "email",
     "age",
   ]);
-  TestValidator.equals("derived properties", Object.keys(derived.properties), [
+  TestEquality.equals("derived properties", Object.keys(derived.properties), [
     "baseFirst",
     "baseSecond",
     "ownFirst",
     "ownSecond",
   ]);
-  TestValidator.equals("derived required", derived.required, [
+  TestEquality.equals("derived required", derived.required, [
     "baseFirst",
     "baseSecond",
     "ownFirst",
     "ownSecond",
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "intersected properties",
     Object.keys(intersected.properties),
     [
@@ -100,7 +100,7 @@ export const test_llm_parameters_property_order = (): void => {
       "rightSecond",
     ],
   );
-  TestValidator.equals("intersected required", intersected.required, [
+  TestEquality.equals("intersected required", intersected.required, [
     "leftFirst",
     "leftSecond",
     "bridgeFirst",

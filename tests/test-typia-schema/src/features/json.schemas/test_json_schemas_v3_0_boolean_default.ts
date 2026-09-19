@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApiV3 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -27,13 +28,13 @@ export const test_json_schemas_v3_0_boolean_default = (): void => {
     [boolean & tags.Default<true>],
     "3.0"
   >();
-  TestValidator.equals("version", downgraded.version, "3.0");
+  TestEquality.equals("version", downgraded.version, "3.0");
   // The 3.1 form already carried the keyword; the downgrade must not diverge.
-  TestValidator.equals("3.1 boolean default", clean(emended.schemas[0]), {
+  TestEquality.equals("3.1 boolean default", clean(emended.schemas[0]), {
     type: "boolean",
     default: true,
   });
-  TestValidator.equals("3.0 boolean default", clean(downgraded.schemas[0]), {
+  TestEquality.equals("3.0 boolean default", clean(downgraded.schemas[0]), {
     type: "boolean",
     default: true,
   });
@@ -51,7 +52,7 @@ export const test_json_schemas_v3_0_boolean_default = (): void => {
   const object = typia.json.schemas<[IFlags], "3.0">();
   const flags = clean(object.components).schemas
     ?.IFlags as unknown as OpenApiV3.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     "embedded boolean keeps keywords",
     flags.properties?.enabled,
     {
@@ -63,7 +64,7 @@ export const test_json_schemas_v3_0_boolean_default = (): void => {
     },
   );
   // Boundary: a boolean without a keyword stays a bare `{ type: "boolean" }`.
-  TestValidator.equals(
+  TestEquality.equals(
     "keyword-less boolean stays bare",
     flags.properties?.plain,
     {

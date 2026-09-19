@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 import typia, { tags } from "typia";
 import { _isFormatUrl } from "typia/lib/internal/_isFormatUrl";
@@ -85,42 +86,42 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
   ];
 
   for (const value of valids) {
-    TestValidator.equals(
+    TestEquality.equals(
       "_isFormatUrl accepts " + value,
       true,
       _isFormatUrl(value),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.is accepts " + value,
       true,
       typia.is<IUrlValue>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.is comment accepts " + value,
       true,
       typia.is<ICommentUrlValue>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.validate accepts " + value,
       true,
       typia.validate<IUrlValue>({ value }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.validate comment accepts " + value,
       true,
       typia.validate<ICommentUrlValue>({ value }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.assert accepts " + value,
       value,
       typia.assert<IUrlValue>({ value }).value,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.assert comment accepts " + value,
       value,
       typia.assert<ICommentUrlValue>({ value }).value,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "OpenApiValidator accepts " + value,
       true,
       OpenApiValidator.validate({
@@ -133,27 +134,27 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
   }
 
   for (const value of invalids) {
-    TestValidator.equals(
+    TestEquality.equals(
       "_isFormatUrl rejects " + value,
       false,
       _isFormatUrl(value),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.is rejects " + value,
       false,
       typia.is<IUrlValue>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.is comment rejects " + value,
       false,
       typia.is<ICommentUrlValue>({ value }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.validate rejects " + value,
       false,
       typia.validate<IUrlValue>({ value }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "typia.validate comment rejects " + value,
       false,
       typia.validate<ICommentUrlValue>({ value }).success,
@@ -174,7 +175,7 @@ export const test_openapi_validator_format_url_hyphenated_host = (): void => {
         return true;
       }
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "OpenApiValidator rejects " + value,
       false,
       OpenApiValidator.validate({

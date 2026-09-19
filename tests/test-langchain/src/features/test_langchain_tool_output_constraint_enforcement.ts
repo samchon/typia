@@ -2,6 +2,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -33,7 +34,7 @@ export const test_langchain_tool_output_constraint_enforcement =
       ConstraintController,
       { strict: true }
     >("constraint", new ConstraintController());
-    TestValidator.equals(
+    TestEquality.equals(
       "a strict controller reports the config it was built with",
       strict.application.config.strict,
       true,
@@ -56,7 +57,7 @@ export const test_langchain_tool_output_constraint_enforcement =
       const read: DynamicStructuredTool = tools.find((t) => t.name === "read")!;
 
       // POSITIVE: a conforming result passes through untouched.
-      TestValidator.equals(
+      TestEquality.equals(
         `${mode} conforming output accepted`,
         await read.invoke({ variant: "valid" }),
         {
@@ -84,7 +85,7 @@ export const test_langchain_tool_output_constraint_enforcement =
 
       // CONTROL: a method with no declared output keeps its plain success.
       const note: DynamicStructuredTool = tools.find((t) => t.name === "note")!;
-      TestValidator.equals(
+      TestEquality.equals(
         `${mode} undeclared output stays a success`,
         await note.invoke({ text: "hello" }),
         { success: true },

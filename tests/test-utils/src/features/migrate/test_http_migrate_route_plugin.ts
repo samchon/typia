@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpMigrateApplication,
   IHttpMigrateRoute,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 export const test_http_migrate_route_plugin = async (): Promise<void> => {
@@ -28,7 +28,7 @@ export const test_http_migrate_route_plugin = async (): Promise<void> => {
   };
   const migrate: IHttpMigrateApplication = HttpMigration.application(document);
   const route: IHttpMigrateRoute = migrate.routes[0]!;
-  TestValidator.equals(
+  TestEquality.equals(
     "plugin",
     route.comment(),
     [

@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -23,7 +24,7 @@ export const test_llm_parameters_anyof = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals(
+  TestEquality.equals(
     "additionalProperties",
     params.additionalProperties,
     false,
@@ -42,11 +43,11 @@ export const test_llm_parameters_anyof = (): void => {
         LlmTypeChecker.isAnyOf(animalDef),
       );
       if (LlmTypeChecker.isAnyOf(animalDef)) {
-        TestValidator.equals("Animal has 2 types", animalDef.anyOf.length, 2);
+        TestEquality.equals("Animal has 2 types", animalDef.anyOf.length, 2);
       }
     }
   } else if (LlmTypeChecker.isAnyOf(pet!)) {
-    TestValidator.equals("pet has 2 types", pet.anyOf.length, 2);
+    TestEquality.equals("pet has 2 types", pet.anyOf.length, 2);
   }
 
   // ICat and IDog should be in $defs

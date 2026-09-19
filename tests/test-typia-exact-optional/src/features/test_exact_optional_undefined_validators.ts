@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IValidation, TypeGuardError } from "typia";
 
 /**
@@ -32,22 +33,22 @@ export const test_exact_optional_undefined_validators = (): void => {
     },
   };
 
-  TestValidator.equals(
+  TestEquality.equals(
     "is accepts missing optional",
     typia.is<IExactOptional>(valid),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "equals accepts missing optional",
     typia.equals<IExactOptional>(valid),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "validate accepts missing optional",
     typia.validate<IExactOptional>(valid).success,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "validateEquals accepts missing optional",
     typia.validateEquals<IExactOptional>(valid).success,
     true,
@@ -75,12 +76,12 @@ export const test_exact_optional_undefined_validators = (): void => {
     },
   };
 
-  TestValidator.equals(
+  TestEquality.equals(
     "is rejects explicit optional undefined",
     typia.is<IExactOptional>(invalid),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "equals rejects explicit optional undefined",
     typia.equals<IExactOptional>(invalid),
     false,
@@ -105,7 +106,7 @@ export const test_exact_optional_undefined_validators = (): void => {
     typia.validateEquals<IExactOptional>(invalid),
   );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "union rejects optional-only undefined",
     typia.is<IExactOptionalUnion>({
       type: "a",
@@ -123,12 +124,12 @@ const assertTypeGuardError = (name: string, closure: () => unknown): void => {
   } catch (exp) {
     if (exp instanceof Error && exp.message === `${name} should throw`)
       throw exp;
-    TestValidator.equals(
+    TestEquality.equals(
       `${name} root path`,
       (exp as TypeGuardError).path,
       "$input.optional",
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${name} root value`,
       (exp as TypeGuardError).value,
       undefined,
@@ -140,7 +141,7 @@ const assertValidationPaths = (
   name: string,
   result: IValidation<IExactOptional>,
 ): void => {
-  TestValidator.equals(`${name} success`, result.success, false);
+  TestEquality.equals(`${name} success`, result.success, false);
   if (result.success === true) return;
 
   const paths: string[] = result.errors.map((error) => error.path);

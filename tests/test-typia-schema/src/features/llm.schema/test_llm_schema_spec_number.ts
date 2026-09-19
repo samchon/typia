@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_number = (): void => {
@@ -199,8 +199,8 @@ const equalsSchema = (
   actual: unknown,
   expected: unknown,
 ): void => {
-  TestValidator.equals(`${title}.actual`, actual, expected);
-  TestValidator.equals(`${title}.expected`, expected, actual);
+  TestEquality.equals(`${title}.actual`, actual, expected);
+  TestEquality.equals(`${title}.expected`, expected, actual);
 };
 
 const enumSchema = (

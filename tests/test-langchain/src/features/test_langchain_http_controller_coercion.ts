@@ -1,7 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, IHttpResponse, OpenApi } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 
 /**
@@ -97,12 +97,12 @@ export const test_langchain_http_controller_coercion =
     const result: unknown = await addTool.invoke({
       body: { x: "42", y: 5 },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "the request body is dispatched with coerced numbers",
       dispatched,
       { body: { x: 42, y: 5 } },
     );
-    TestValidator.equals("the coerced call returns the sum", result, {
+    TestEquality.equals("the coerced call returns the sum", result, {
       success: true,
       data: { value: 47 },
     });

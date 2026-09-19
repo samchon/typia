@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 interface IPromisedReturnInput {
@@ -66,7 +67,7 @@ export const test_llm_application_promised_return_semantics = (): void => {
     ]),
   );
   for (const name of promisedNames) {
-    TestValidator.equals(
+    TestEquality.equals(
       `reflect ${name} async`,
       reflected.get(name)?.async,
       true,
@@ -82,7 +83,7 @@ export const test_llm_application_promised_return_semantics = (): void => {
     );
   }
   for (const name of ["shadowed", "synchronous"])
-    TestValidator.equals(
+    TestEquality.equals(
       `reflect ${name} sync`,
       reflected.get(name)?.async,
       false,
@@ -99,7 +100,7 @@ export const test_llm_application_promised_return_semantics = (): void => {
   const json = typia.json.application<IPromisedReturnApplication>();
   const jsonFunctions = new Map(json.functions.map((fn) => [fn.name, fn]));
   for (const name of promisedNames) {
-    TestValidator.equals(
+    TestEquality.equals(
       `json ${name} async`,
       jsonFunctions.get(name)?.async,
       true,
@@ -111,7 +112,7 @@ export const test_llm_application_promised_return_semantics = (): void => {
     );
   }
   for (const name of ["shadowed", "synchronous"])
-    TestValidator.equals(
+    TestEquality.equals(
       `json ${name} sync`,
       jsonFunctions.get(name)?.async,
       false,

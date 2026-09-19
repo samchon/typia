@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
 
 /**
@@ -22,19 +23,19 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       downgraded: {},
     });
 
-  TestValidator.equals("scalar string", convert({ const: "alpha" }), {
+  TestEquality.equals("scalar string", convert({ const: "alpha" }), {
     type: "string",
     enum: ["alpha"],
   });
-  TestValidator.equals("scalar number", convert({ const: 3 }), {
+  TestEquality.equals("scalar number", convert({ const: 3 }), {
     type: "number",
     enum: [3],
   });
-  TestValidator.equals("scalar boolean", convert({ const: false }), {
+  TestEquality.equals("scalar boolean", convert({ const: false }), {
     type: "boolean",
     enum: [false],
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "same-type union",
     convert({
       oneOf: [{ const: "a" }, { const: "b" }, { const: "a" }, { const: "c" }],
@@ -48,7 +49,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       enum: ["a", "b", "c"],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "mixed union",
     convert({
       oneOf: [{ const: "a" }, { const: 1 }, { const: true }],
@@ -61,7 +62,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       ],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "ordinary and constant branches",
     convert({
       oneOf: [{ const: "fixed" }, { type: "number", minimum: 0 }],
@@ -73,7 +74,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       ],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "attributed constant branches",
     convert({
       oneOf: [
@@ -88,7 +89,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       ],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "attributed constant branch round trip",
     OpenApiConverter.upgradeSchema({
       definitions: {},
@@ -109,7 +110,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
   const singleAttributed: SwaggerV2.IJsonSchema = convert({
     oneOf: [{ const: "a", description: "First" }],
   });
-  TestValidator.equals("single attributed constant branch", singleAttributed, {
+  TestEquality.equals("single attributed constant branch", singleAttributed, {
     type: "string",
     enum: ["a"],
     description: "First",
@@ -126,7 +127,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
   };
   const nullableAttributedDowngraded: SwaggerV2.IJsonSchema =
     convert(nullableAttributed);
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable attributed constant branch",
     nullableAttributedDowngraded,
     {
@@ -136,7 +137,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       ],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable attributed constant branch round trip",
     OpenApiConverter.upgradeSchema({
       definitions: {},
@@ -150,7 +151,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       "x-oneOf": [{ type: "number", description: "Amount" }, { type: "null" }],
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "explicit nullable Swagger branch attributes",
     explicitNullable,
     {
@@ -162,7 +163,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     OpenApiTypeChecker.isOneOf(explicitNullable) &&
       explicitNullable.oneOf[0]?.description === "Amount",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable constant",
     convert({ oneOf: [{ const: "fixed" }, { type: "null" }] }),
     { type: "string", enum: ["fixed"], "x-nullable": true },
@@ -171,7 +172,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     definitions: {},
     schema: { type: "string", enum: [null] },
   });
-  TestValidator.equals("null-only Swagger enum", nullOnlyEnum, {
+  TestEquality.equals("null-only Swagger enum", nullOnlyEnum, {
     type: "null",
   });
   TestValidator.predicate(
@@ -184,7 +185,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
   });
   const nullableDefaultRoundTrip: SwaggerV2.IJsonSchema =
     convert(nullableDefault);
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable null default round trip",
     nullableDefaultRoundTrip,
     { type: "number", "x-nullable": true, default: null },
@@ -198,7 +199,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     type: "null",
     default: null,
   });
-  TestValidator.equals("null-only default", nullDefault, {
+  TestEquality.equals("null-only default", nullDefault, {
     type: "null",
     default: null,
   });
@@ -220,13 +221,13 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       },
       version: "2.0",
     });
-  TestValidator.equals("nullable reference null default", nullableReference, {
+  TestEquality.equals("nullable reference null default", nullableReference, {
     "x-oneOf": [
       { $ref: "#/definitions/Value" },
       { type: "null", default: null },
     ],
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable reference null default round trip",
     OpenApiConverter.upgradeSchema({
       definitions: nullableReferenceDefinitions,
@@ -239,12 +240,12 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       ],
     },
   );
-  TestValidator.equals("null only", convert({ type: "null" }), {
+  TestEquality.equals("null only", convert({ type: "null" }), {
     type: "null",
   });
 
   const downgraded: Record<string, SwaggerV2.IJsonSchema> = {};
-  TestValidator.equals(
+  TestEquality.equals(
     "constant reference",
     OpenApiConverter.downgradeSchema({
       components: {
@@ -258,7 +259,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
     }),
     { $ref: "#/definitions/Fixed.Nullable" },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "referenced constant definition",
     downgraded["Fixed.Nullable"],
     {
@@ -267,7 +268,7 @@ export const test_json_schema_downgrade_v20_enum = (): void => {
       "x-nullable": true,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "component definitions",
     OpenApiConverter.downgradeComponents(
       { schemas: { Component: { const: "component" } } },

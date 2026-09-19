@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /** Application. */
@@ -45,24 +46,24 @@ export const test_json_schema_object_description = (): void => {
 
   // A named interface used as a nested type must expose its own JSDoc
   // description on the component schema, not only the property comments.
-  TestValidator.equals(
+  TestEquality.equals(
     "IProps description",
     descriptionOf(schemas["IApplication.IProps"]),
     "Properties.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "IPlusProps description",
     descriptionOf(schemas["IApplication.IPlusProps"]),
     "Plus operation properties.",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "IResult description",
     descriptionOf(schemas["IApplication.IResult"]),
     "Result.",
   );
 
   // A user-defined type alias must expose its own JSDoc description.
-  TestValidator.equals(
+  TestEquality.equals(
     "Status alias description",
     descriptionOf(schemas["Status"]),
     "Status union alias.",
@@ -84,12 +85,12 @@ export const test_json_schema_object_description = (): void => {
     "NonNullable component exists",
     () => nonNullableKey !== undefined,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Record has no library description",
     descriptionOf(schemas[recordKey ?? ""]),
     undefined,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "NonNullable has no library description",
     descriptionOf(schemas[nonNullableKey ?? ""]),
     undefined,
@@ -99,7 +100,7 @@ export const test_json_schema_object_description = (): void => {
   const plus = schemas["IApplication.IPlusProps"] as {
     properties?: Record<string, { description?: string }>;
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "x property description",
     plus.properties?.x?.description,
     "X coordinate.",
@@ -111,7 +112,7 @@ export const test_json_schema_object_description = (): void => {
   const params = llm.functions[0]?.parameters as {
     $defs?: Record<string, { description?: string }>;
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "LLM IPlusProps description",
     params.$defs?.["IApplication.IPlusProps"]?.description,
     "Plus operation properties.",

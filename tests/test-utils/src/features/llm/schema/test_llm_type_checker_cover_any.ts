@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
 import typia, { IJsonSchemaCollection, ILlmSchema } from "typia";
 
@@ -19,12 +19,12 @@ export const test_llm_type_checker_cover_any = () => {
       y,
       $defs: parameters.$defs,
     });
-  TestValidator.equals(
+  TestEquality.equals(
     "any covers (string | null)",
     true,
     check(parameters.properties.any!, parameters.properties.string_or_null!),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "any covers (string | undefined)",
     true,
     check(

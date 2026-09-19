@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -14,7 +14,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
   const legacy = typia.json.schema<Pick<IBytePayload, "data">, "3.0">();
   const emended = typia.json.schema<IBytePayload, "3.1">();
 
-  TestValidator.equals("generated 3.0", clean(legacy.schema), {
+  TestEquality.equals("generated 3.0", clean(legacy.schema), {
     type: "object",
     properties: {
       data: { type: "string", format: "byte" },
@@ -22,7 +22,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
     required: ["data"],
     additionalProperties: false,
   });
-  TestValidator.equals("generated emended 3.1", clean(emended.schema), {
+  TestEquality.equals("generated emended 3.1", clean(emended.schema), {
     type: "object",
     properties: {
       data: { type: "string", format: "byte" },
@@ -36,7 +36,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
     additionalProperties: false,
   });
 
-  TestValidator.equals(
+  TestEquality.equals(
     "generated raw 3.1",
     clean(
       OpenApiConverter.downgradeSchema({
@@ -60,7 +60,7 @@ export const test_json_schema_byte_content_encoding = (): void => {
       additionalProperties: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "generated 3.0 upgraded then downgraded to 3.1",
     clean(
       OpenApiConverter.downgradeSchema({

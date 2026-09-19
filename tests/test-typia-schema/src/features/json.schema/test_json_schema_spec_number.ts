@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_json_schema_spec_number = (): void => {
@@ -147,8 +147,8 @@ const equalsSchema = (
   actual: unknown,
   expected: unknown,
 ): void => {
-  TestValidator.equals(`${title}.actual`, actual, expected);
-  TestValidator.equals(`${title}.expected`, expected, actual);
+  TestEquality.equals(`${title}.actual`, actual, expected);
+  TestEquality.equals(`${title}.expected`, expected, actual);
 };
 
 const normalizeOneOf = (schema: any): any => ({

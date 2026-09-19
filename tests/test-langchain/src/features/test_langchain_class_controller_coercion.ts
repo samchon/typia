@@ -1,7 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
-import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -34,12 +34,8 @@ export const test_langchain_class_controller_coercion =
     if (addTool === undefined) throw new Error("Missing add tool");
 
     const result: unknown = await addTool.invoke({ x: "42", y: 5 });
-    TestValidator.equals(
-      "stringified operand is coerced and executed",
-      result,
-      {
-        success: true,
-        data: { value: 47 },
-      },
-    );
+    TestEquality.equals("stringified operand is coerced and executed", result, {
+      success: true,
+      data: { value: 47 },
+    });
   };

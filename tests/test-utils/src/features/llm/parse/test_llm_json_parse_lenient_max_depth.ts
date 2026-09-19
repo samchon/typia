@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_max_depth = (): void => {
@@ -16,9 +16,9 @@ export const test_llm_json_parse_lenient_max_depth = (): void => {
 
   const result = LlmJson.parse(input);
   // Should fail due to max depth exceeded
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
-    TestValidator.equals(
+    TestEquality.equals(
       "has_depth_error",
       result.errors.some((e) => e.expected?.includes("max depth")),
       true,

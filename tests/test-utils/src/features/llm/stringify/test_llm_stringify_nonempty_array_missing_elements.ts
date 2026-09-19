@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_nonempty_array_missing_elements = (): void => {
@@ -21,25 +21,25 @@ export const test_llm_stringify_nonempty_array_missing_elements = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // Should show the existing elements plus undefined placeholder
-  TestValidator.equals(
+  TestEquality.equals(
     "contains existing element a",
     output.includes('"a"'),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains existing element b",
     output.includes('"b"'),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains undefined placeholder",
     output.includes("undefined"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains items[] path",
     output.includes("$input.items[]"),
     true,
@@ -68,7 +68,7 @@ export const test_llm_stringify_nonempty_array_missing_elements = (): void => {
   const multiOutput: string = LlmJson.stringify(multiFailure);
   // Should have multiple undefined placeholders
   const undefinedMatches = multiOutput.match(/undefined/g) || [];
-  TestValidator.equals(
+  TestEquality.equals(
     "contains multiple undefined",
     undefinedMatches.length >= 2,
     true,

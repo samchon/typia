@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 
 import { _isLegalBinding } from "../../internal/_isLegalBinding";
@@ -104,7 +104,7 @@ export const test_naming_convention_variable = (): void => {
     "length",
   ];
   for (const word of words) {
-    TestValidator.equals(
+    TestEquality.equals(
       `variable(${JSON.stringify(word)}) matches the engine`,
       NamingConvention.variable(word),
       _isLegalBinding(word),
@@ -125,12 +125,12 @@ export const test_naming_convention_variable = (): void => {
     "eval",
     "arguments",
   ]) {
-    TestValidator.equals(
+    TestEquality.equals(
       `variable(${JSON.stringify(word)}) is not a legal binding`,
       NamingConvention.variable(word),
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `escaping ${JSON.stringify(word)} yields a legal binding`,
       NamingConvention.variable(`_${word}`),
       true,
@@ -148,7 +148,7 @@ export const test_naming_convention_variable = (): void => {
     "_",
     "$",
   ])
-    TestValidator.equals(
+    TestEquality.equals(
       `variable(${JSON.stringify(word)}) stays valid`,
       NamingConvention.variable(word),
       true,
@@ -160,12 +160,12 @@ export const test_naming_convention_variable = (): void => {
   // typia reserves it anyway: shadowing `module` would break `module.exports`
   // in CommonJS output. This asymmetry is policy, not a grammar claim, so it
   // is asserted explicitly rather than swept.
-  TestValidator.equals(
+  TestEquality.equals(
     "module is a legal binding per the engine",
     _isLegalBinding("module"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "module is reserved by typia policy",
     NamingConvention.variable("module"),
     false,
@@ -183,7 +183,7 @@ export const test_naming_convention_variable = (): void => {
     ["$", true],
   ];
   for (const [input, expected] of shapes)
-    TestValidator.equals(
+    TestEquality.equals(
       `variable(${JSON.stringify(input)}) shape`,
       NamingConvention.variable(input),
       expected,
@@ -194,12 +194,12 @@ export const test_naming_convention_variable = (): void => {
   // The predicate must not carry a stateful `/g` regex whose `lastIndex`
   // survives between calls.
   for (let i = 0; i < 4; ++i) {
-    TestValidator.equals(
+    TestEquality.equals(
       `variable("foo") is stable on call ${i}`,
       NamingConvention.variable("foo"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `variable("let") is stable on call ${i}`,
       NamingConvention.variable("let"),
       false,

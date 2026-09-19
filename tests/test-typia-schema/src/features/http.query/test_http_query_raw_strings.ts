@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -49,9 +49,9 @@ export const test_http_query_raw_strings = (): void => {
       ...direct,
       ...factories.map((fn) => fn(input)),
     ].entries())
-      TestValidator.equals(`decoder ${index} for ${input}`, expected, value);
+      TestEquality.equals(`decoder ${index} for ${input}`, expected, value);
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "URL without query",
     true,
     typia.http.isQuery<Partial<IQuery>>("https://example.com/items#fragment")
@@ -82,7 +82,7 @@ export const test_http_query_raw_strings = (): void => {
     },
   ];
   rawDecoders.forEach((decode, index) =>
-    TestValidator.equals(
+    TestEquality.equals(
       `raw URL-valued decoder ${index}`,
       rawExpected,
       decode(rawValues),
@@ -111,7 +111,7 @@ export const test_http_query_raw_strings = (): void => {
     ["flag#tail", { "flag#tail": "" }],
   ] as const)
     keyOnlyDecoders.forEach((decode, index) =>
-      TestValidator.equals(
+      TestEquality.equals(
         `key-only raw decoder ${index} for ${input}`,
         expected as IKeyOnlyQuery,
         decode(input),

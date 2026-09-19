@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -19,10 +19,10 @@ export const test_llm_coerce_mixed_stringify_levels = (): void => {
   };
 
   const result = LlmJson.parse<IMixed>(JSON.stringify(corrupted), parameters);
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("double", result.data.double, 100);
-    TestValidator.equals("triple", result.data.triple, false);
-    TestValidator.equals("normal", result.data.normal, "hello");
+    TestEquality.equals("double", result.data.double, 100);
+    TestEquality.equals("triple", result.data.triple, false);
+    TestEquality.equals("normal", result.data.normal, "hello");
   }
 };

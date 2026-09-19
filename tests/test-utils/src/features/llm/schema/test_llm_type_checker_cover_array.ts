@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
@@ -31,17 +31,17 @@ export const test_llm_type_checker_cover_array = () => {
     });
   };
 
-  TestValidator.equals(
+  TestEquality.equals(
     "Plan3D[] covers Plan2D[]",
     true,
     check({ type: "array", items: plan3D }, { type: "array", items: plan2D }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Box3D[] covers Box2D[]",
     true,
     check({ type: "array", items: box3D }, { type: "array", items: box2D }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Array<Plan3D|Box3D> covers Array<Plan2D|Box2D>",
     true,
     check(
@@ -59,7 +59,7 @@ export const test_llm_type_checker_cover_array = () => {
       },
     ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "(Plan3D|Box3D)[] covers (Plan2D|Box2D)[]",
     true,
     check(
@@ -78,17 +78,17 @@ export const test_llm_type_checker_cover_array = () => {
     ),
   );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "Plan2D[] can't cover Plan3D[]",
     false,
     check({ type: "array", items: plan2D }, { type: "array", items: plan3D }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Box2D[] can't cover Box3D[]",
     false,
     check({ type: "array", items: box2D }, { type: "array", items: box3D }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Array<Plan2D|Box2D> can't cover Array<Plan3D|Box3D>",
     false,
     check(
@@ -106,7 +106,7 @@ export const test_llm_type_checker_cover_array = () => {
       },
     ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "(Plan2D[]|Box2D[]) can't cover (Plan3D[]|Box3D[])",
     false,
     check(
@@ -124,7 +124,7 @@ export const test_llm_type_checker_cover_array = () => {
       },
     ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Plan3D[] can't cover (Plan2D|Box2D)[]",
     false,
     check(
@@ -137,7 +137,7 @@ export const test_llm_type_checker_cover_array = () => {
       },
     ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "Box3D[] can't cover Array<Plan2D|Box2D>",
     false,
     check(

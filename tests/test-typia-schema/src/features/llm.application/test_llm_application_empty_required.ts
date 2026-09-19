@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -41,7 +42,7 @@ const assertShell = (
   name: string,
   schema: ILlmSchema.IParameters | ILlmSchema | undefined,
 ): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     name,
     {
       type: (schema as ILlmSchema.IObject | undefined)?.type,

@@ -1,8 +1,8 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 
 export const test_json_schema_type_checker_cover_any = (): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     "any covers (string | null)",
     true,
     OpenApiTypeChecker.covers({
@@ -22,7 +22,7 @@ export const test_json_schema_type_checker_cover_any = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "any covers union type",
     true,
     OpenApiTypeChecker.covers({
@@ -43,7 +43,7 @@ export const test_json_schema_type_checker_cover_any = (): void => {
     }),
   );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "(string | null) can't cover any",
     false,
     OpenApiTypeChecker.covers({
@@ -63,7 +63,7 @@ export const test_json_schema_type_checker_cover_any = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "union can't cover any",
     false,
     OpenApiTypeChecker.covers({

@@ -5,6 +5,7 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, OpenApiV3_1 } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 
 /**
@@ -57,7 +58,7 @@ export const test_mcp_http_controller_output_validation =
         name,
         arguments: { body: { variant: "valid" } },
       })) as CallToolResult;
-      TestValidator.equals(
+      TestEquality.equals(
         "valid HTTP body is structured",
         valid.structuredContent,
         {

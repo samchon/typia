@@ -5,6 +5,7 @@ import {
   IResult,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
@@ -65,7 +66,7 @@ export const test_llm_schema_strict_numeric_default = (): void => {
       });
     TestValidator.predicate(`${entry.name} converted`, result.success);
     if (result.success === false) continue;
-    TestValidator.equals(
+    TestEquality.equals(
       `${entry.name} description`,
       result.value.description,
       entry.description,
@@ -108,12 +109,13 @@ export const test_llm_schema_strict_numeric_default = (): void => {
   TestValidator.predicate("nested conversion", nested.success);
   if (nested.success === false) return;
   const object = nested.value as ILlmSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     "nested defaults",
     {
-      // `?? null` on every optional read: `TestValidator.equals` drops a key
-      // whose actual value is `undefined`, so a lost description would compare
-      // as absent and this assertion would pass without checking it (#2350).
+      // `?? null` on every optional read: the one-way `TestValidator.equals`
+      // once compared a lost description as absent and passed (#2350).
+      // `TestEquality` compares both key sets (#2401); the `null` keeps a
+      // lost description explicit in the failure message.
       direct: object.properties.direct!.description ?? null,
       array:
         (object.properties.array as ILlmSchema.IArray).items.description ??

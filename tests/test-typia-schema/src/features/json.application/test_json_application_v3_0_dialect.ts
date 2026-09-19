@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -21,27 +21,27 @@ export const test_json_application_v3_0_dialect = (): void => {
   }
 
   const app = typia.json.application<IV3Controller, "3.0">();
-  TestValidator.equals("version", app.version, "3.0");
+  TestEquality.equals("version", app.version, "3.0");
 
   const fn = app.functions[0]!;
-  TestValidator.equals("tuple parameter", clean(fn.parameters[0]!.schema), {
+  TestEquality.equals("tuple parameter", clean(fn.parameters[0]!.schema), {
     type: "array",
     items: { oneOf: [{ type: "string" }, { type: "number" }] },
     minItems: 2,
     maxItems: 2,
   });
-  TestValidator.equals("literal parameter", clean(fn.parameters[1]!.schema), {
+  TestEquality.equals("literal parameter", clean(fn.parameters[1]!.schema), {
     type: "string",
     enum: ["alpha", "beta"],
   });
-  TestValidator.equals("nullable output", clean(fn.output?.schema), {
+  TestEquality.equals("nullable output", clean(fn.output?.schema), {
     type: "string",
     nullable: true,
   });
 
   const serialized: string = JSON.stringify(app);
   for (const keyword of ["const", "prefixItems", '"type":"null"'])
-    TestValidator.equals(
+    TestEquality.equals(
       `no ${keyword} under 3.0`,
       serialized.includes(keyword),
       false,

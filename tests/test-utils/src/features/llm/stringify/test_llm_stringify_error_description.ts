@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_error_description = (): void => {
@@ -21,10 +21,10 @@ export const test_llm_stringify_error_description = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // Should include the description in the error comment
-  TestValidator.equals(
+  TestEquality.equals(
     "contains description",
     output.includes("Email must be a valid email address"),
     true,
@@ -51,12 +51,12 @@ export const test_llm_stringify_error_description = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "multi-contains description 1",
     output2.includes("Password must be at least 8 characters"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "multi-contains description 2",
     output2.includes("Password must contain at least one uppercase letter"),
     true,
@@ -77,6 +77,6 @@ export const test_llm_stringify_error_description = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals("no-desc-code-block", output3.includes("```json"), true);
-  TestValidator.equals("no-desc-error-marker", output3.includes("// ❌"), true);
+  TestEquality.equals("no-desc-code-block", output3.includes("```json"), true);
+  TestEquality.equals("no-desc-error-marker", output3.includes("// ❌"), true);
 };

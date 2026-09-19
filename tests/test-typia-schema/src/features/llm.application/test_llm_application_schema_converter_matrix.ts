@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication, ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_application_schema_converter_matrix = (): void => {
@@ -45,12 +46,12 @@ export const test_llm_application_schema_converter_matrix = (): void => {
   );
 
   const params = func.parameters;
-  TestValidator.equals(
+  TestEquality.equals(
     "application parameters are strict",
     false,
     params.additionalProperties,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "application parameter required",
     sorted(params.required),
     ["animal", "metadata"],
@@ -59,8 +60,8 @@ export const test_llm_application_schema_converter_matrix = (): void => {
   const inputAnimal = resolve(params.properties.animal, params.$defs);
   TestValidator.predicate("input animal anyOf", () => isAnyOf(inputAnimal));
   if (isAnyOf(inputAnimal)) {
-    TestValidator.equals("input animal variants", inputAnimal.anyOf.length, 2);
-    TestValidator.equals(
+    TestEquality.equals("input animal variants", inputAnimal.anyOf.length, 2);
+    TestEquality.equals(
       "input animal discriminator",
       inputAnimal["x-discriminator"]?.propertyName,
       "type",
@@ -70,7 +71,7 @@ export const test_llm_application_schema_converter_matrix = (): void => {
   const metadata = resolve(params.properties.metadata, params.$defs);
   TestValidator.predicate("metadata object", () => isObject(metadata));
   if (isObject(metadata))
-    TestValidator.equals(
+    TestEquality.equals(
       "metadata additionalProperties",
       metadata.additionalProperties,
       {
@@ -82,12 +83,12 @@ export const test_llm_application_schema_converter_matrix = (): void => {
   TestValidator.predicate("output exists", () => func.output !== undefined);
   if (func.output === undefined) return;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "output additionalProperties",
     false,
     func.output.additionalProperties,
   );
-  TestValidator.equals("output id format", func.output.properties.id, {
+  TestEquality.equals("output id format", func.output.properties.id, {
     type: "string",
     format: "uuid",
   });
@@ -98,12 +99,8 @@ export const test_llm_application_schema_converter_matrix = (): void => {
   );
   TestValidator.predicate("output animal anyOf", () => isAnyOf(outputAnimal));
   if (isAnyOf(outputAnimal)) {
-    TestValidator.equals(
-      "output animal variants",
-      outputAnimal.anyOf.length,
-      2,
-    );
-    TestValidator.equals(
+    TestEquality.equals("output animal variants", outputAnimal.anyOf.length, 2);
+    TestEquality.equals(
       "output animal discriminator",
       outputAnimal["x-discriminator"]?.propertyName,
       "type",

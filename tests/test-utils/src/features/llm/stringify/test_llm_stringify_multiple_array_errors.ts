@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -12,25 +12,25 @@ export const test_llm_stringify_multiple_array_errors = (): void => {
   (valid.numbers as unknown[])[2] = "three";
   (valid.numbers as unknown[])[4] = "five";
   const result = typia.validate<INumberArray>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains first error",
       output.includes("$input.numbers[0]"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains second error",
       output.includes("$input.numbers[2]"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains third error",
       output.includes("$input.numbers[4]"),
       true,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
 
 /**
@@ -69,7 +69,7 @@ const assertTupleRest = (
 ): void => {
   if (!("prefixItems" in schema))
     throw new Error(`${label} did not produce a tuple.`);
-  TestValidator.equals(label, schema.additionalItems, expected);
+  TestEquality.equals(label, schema.additionalItems, expected);
 };
 
 const expectValidation = (
@@ -78,7 +78,7 @@ const expectValidation = (
   value: unknown,
   success: boolean,
 ): void =>
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     OpenApiValidator.validate({ components: {}, schema, value, required: true })
       .success,

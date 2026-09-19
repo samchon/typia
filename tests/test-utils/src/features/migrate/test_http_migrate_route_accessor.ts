@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpMigrateApplication,
   IHttpMigrateRoute,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 
@@ -23,7 +23,7 @@ export const test_http_migrate_route_accessor = async (): Promise<void> => {
   const route: IHttpMigrateRoute | undefined = application.routes.find(
     (r) => r.path === "/shoppings/sellers/sales" && r.method === "post",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "accessor",
     route?.accessor.join("."),
     "shoppings.sellers.sales.create",

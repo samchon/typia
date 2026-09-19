@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -47,17 +47,17 @@ export const test_notation_unicode_keys = (): void => {
   // ---- static keys: soundness against the declared *Case<T> type ----
   const snaked: typia.SnakeCase<Battery> =
     typia.notations.snake<Battery>(value);
-  TestValidator.equals("snake \u00E9cole", snaked["\u00E9cole"], 1);
-  TestValidator.equals("snake \u00F6lwert", snaked["\u00F6lwert"], 2);
-  TestValidator.equals(
+  TestEquality.equals("snake \u00E9cole", snaked["\u00E9cole"], 1);
+  TestEquality.equals("snake \u00F6lwert", snaked["\u00F6lwert"], 2);
+  TestEquality.equals(
     "snake \u65E5\u672C\u8A9E",
     snaked["\u65E5\u672C\u8A9E"],
     3,
   );
-  TestValidator.equals("snake key_\u00F6lig", snaked["key_\u00F6lig"], 4);
-  TestValidator.equals("snake \u00F6", snaked["\u00F6"], 5);
-  TestValidator.equals("snake e\u0301cole", snaked["e\u0301cole"], 6);
-  TestValidator.equals(
+  TestEquality.equals("snake key_\u00F6lig", snaked["key_\u00F6lig"], 4);
+  TestEquality.equals("snake \u00F6", snaked["\u00F6"], 5);
+  TestEquality.equals("snake e\u0301cole", snaked["e\u0301cole"], 6);
+  TestEquality.equals(
     "snake \u00FCber_stra\u00DFe",
     snaked["\u00FCber_stra\u00DFe"],
     7,
@@ -65,17 +65,17 @@ export const test_notation_unicode_keys = (): void => {
 
   const camelled: typia.CamelCase<Battery> =
     typia.notations.camel<Battery>(value);
-  TestValidator.equals("camel \u00E9cole", camelled["\u00E9cole"], 1);
-  TestValidator.equals("camel \u00F6lwert", camelled["\u00F6lwert"], 2);
-  TestValidator.equals(
+  TestEquality.equals("camel \u00E9cole", camelled["\u00E9cole"], 1);
+  TestEquality.equals("camel \u00F6lwert", camelled["\u00F6lwert"], 2);
+  TestEquality.equals(
     "camel \u65E5\u672C\u8A9E",
     camelled["\u65E5\u672C\u8A9E"],
     3,
   );
-  TestValidator.equals("camel key\u00D6lig", camelled["key\u00D6lig"], 4);
-  TestValidator.equals("camel \u00F6", camelled["\u00F6"], 5);
-  TestValidator.equals("camel e\u0301cole", camelled["e\u0301cole"], 6);
-  TestValidator.equals(
+  TestEquality.equals("camel key\u00D6lig", camelled["key\u00D6lig"], 4);
+  TestEquality.equals("camel \u00F6", camelled["\u00F6"], 5);
+  TestEquality.equals("camel e\u0301cole", camelled["e\u0301cole"], 6);
+  TestEquality.equals(
     "camel \u00FCberStra\u00DFe",
     camelled["\u00FCberStra\u00DFe"],
     7,
@@ -83,17 +83,17 @@ export const test_notation_unicode_keys = (): void => {
 
   const pascalled: typia.PascalCase<Battery> =
     typia.notations.pascal<Battery>(value);
-  TestValidator.equals("pascal \u00C9cole", pascalled["\u00C9cole"], 1);
-  TestValidator.equals("pascal \u00D6lwert", pascalled["\u00D6lwert"], 2);
-  TestValidator.equals(
+  TestEquality.equals("pascal \u00C9cole", pascalled["\u00C9cole"], 1);
+  TestEquality.equals("pascal \u00D6lwert", pascalled["\u00D6lwert"], 2);
+  TestEquality.equals(
     "pascal \u65E5\u672C\u8A9E",
     pascalled["\u65E5\u672C\u8A9E"],
     3,
   );
-  TestValidator.equals("pascal Key\u00D6lig", pascalled["Key\u00D6lig"], 4);
-  TestValidator.equals("pascal \u00D6", pascalled["\u00D6"], 5);
-  TestValidator.equals("pascal E\u0301cole", pascalled["E\u0301cole"], 6);
-  TestValidator.equals(
+  TestEquality.equals("pascal Key\u00D6lig", pascalled["Key\u00D6lig"], 4);
+  TestEquality.equals("pascal \u00D6", pascalled["\u00D6"], 5);
+  TestEquality.equals("pascal E\u0301cole", pascalled["E\u0301cole"], 6);
+  TestEquality.equals(
     "pascal \u00DCberStra\u00DFe",
     pascalled["\u00DCberStra\u00DFe"],
     7,
@@ -101,17 +101,17 @@ export const test_notation_unicode_keys = (): void => {
 
   const kebabbed: typia.KebabCase<Battery> =
     typia.notations.kebab<Battery>(value);
-  TestValidator.equals("kebab \u00E9cole", kebabbed["\u00E9cole"], 1);
-  TestValidator.equals("kebab \u00F6lwert", kebabbed["\u00F6lwert"], 2);
-  TestValidator.equals(
+  TestEquality.equals("kebab \u00E9cole", kebabbed["\u00E9cole"], 1);
+  TestEquality.equals("kebab \u00F6lwert", kebabbed["\u00F6lwert"], 2);
+  TestEquality.equals(
     "kebab \u65E5\u672C\u8A9E",
     kebabbed["\u65E5\u672C\u8A9E"],
     3,
   );
-  TestValidator.equals("kebab key-\u00F6lig", kebabbed["key-\u00F6lig"], 4);
-  TestValidator.equals("kebab \u00F6", kebabbed["\u00F6"], 5);
-  TestValidator.equals("kebab e\u0301cole", kebabbed["e\u0301cole"], 6);
-  TestValidator.equals(
+  TestEquality.equals("kebab key-\u00F6lig", kebabbed["key-\u00F6lig"], 4);
+  TestEquality.equals("kebab \u00F6", kebabbed["\u00F6"], 5);
+  TestEquality.equals("kebab e\u0301cole", kebabbed["e\u0301cole"], 6);
+  TestEquality.equals(
     "kebab \u00FCber-stra\u00DFe",
     kebabbed["\u00FCber-stra\u00DFe"],
     7,
@@ -120,22 +120,22 @@ export const test_notation_unicode_keys = (): void => {
   // ---- dynamic keys: the runtime _notation* helper over the whole matrix ----
   const dynamic: Record<string, number> = { ...value };
   const sortKeys = (input: object): string[] => Object.keys(input).sort();
-  TestValidator.equals(
+  TestEquality.equals(
     "snake dynamic key set",
     sortKeys(typia.notations.snake<Record<string, number>>(dynamic)),
     sortKeys(snaked),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "camel dynamic key set",
     sortKeys(typia.notations.camel<Record<string, number>>(dynamic)),
     sortKeys(camelled),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "pascal dynamic key set",
     sortKeys(typia.notations.pascal<Record<string, number>>(dynamic)),
     sortKeys(pascalled),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "kebab dynamic key set",
     sortKeys(typia.notations.kebab<Record<string, number>>(dynamic)),
     sortKeys(kebabbed),

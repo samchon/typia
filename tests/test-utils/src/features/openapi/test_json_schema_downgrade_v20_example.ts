@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 export const test_json_schema_downgrade_v20_example = (): void => {
@@ -21,7 +21,7 @@ export const test_json_schema_downgrade_v20_example = (): void => {
     downgraded: {},
     schema: input,
   });
-  TestValidator.equals("example", output, {
+  TestEquality.equals("example", output, {
     type: "integer",
     "x-nullable": true,
     title: "Primary Key",

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaCollection, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -31,7 +31,7 @@ export const test_llm_parameters_parity_converter_object = (): void => {
 
   const actual = typia.llm.parameters<IParams>();
 
-  TestValidator.equals("parameters", clean(actual), clean(converted.value));
+  TestEquality.equals("parameters", clean(actual), clean(converted.value));
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));

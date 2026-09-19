@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -77,13 +77,13 @@ export const test_json_schemas_v3_0_parity_converter = (): void => {
     }),
   );
 
-  TestValidator.equals("version", actual.version, "3.0");
-  TestValidator.equals(
+  TestEquality.equals("version", actual.version, "3.0");
+  TestEquality.equals(
     "downgraded components",
     clean(actual.components),
     clean(downgraded),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded schemas",
     clean(actual.schemas),
     clean(expectedSchemas),

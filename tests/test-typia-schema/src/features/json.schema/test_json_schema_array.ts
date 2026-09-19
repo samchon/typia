@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -22,8 +23,8 @@ export const test_json_schema_array = (): void => {
   >();
   const constrained = constrainedUnit.schema;
   if (OpenApiTypeChecker.isArray(constrained)) {
-    TestValidator.equals("minItems", constrained.minItems, 1);
-    TestValidator.equals("maxItems", constrained.maxItems, 10);
+    TestEquality.equals("minItems", constrained.minItems, 1);
+    TestEquality.equals("maxItems", constrained.maxItems, 10);
   }
 
   // unique items
@@ -32,6 +33,6 @@ export const test_json_schema_array = (): void => {
   >();
   const unique = uniqueUnit.schema;
   if (OpenApiTypeChecker.isArray(unique)) {
-    TestValidator.equals("uniqueItems", unique.uniqueItems, true);
+    TestEquality.equals("uniqueItems", unique.uniqueItems, true);
   }
 };

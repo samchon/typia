@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { TypeGuardError } from "typia";
 
 interface IMember {
@@ -36,7 +36,7 @@ export const test_assert_error_factory_non_callable = (): void => {
     { id: "sasha", age: 31 },
     { id: "kim", age: 32 },
   ];
-  TestValidator.equals("valid elements pass", valid, valid.map(assertMember));
+  TestEquality.equals("valid elements pass", valid, valid.map(assertMember));
 
   for (const index of [0, 1, 2]) {
     const rows: unknown[] = valid.slice(0, index);
@@ -46,13 +46,13 @@ export const test_assert_error_factory_non_callable = (): void => {
       throw new Error(
         `Expected TypeGuardError at index ${index}, got ${String(error)}.`,
       );
-    TestValidator.equals(
+    TestEquality.equals(
       `index ${index} method`,
       "typia.createAssert",
       error.method,
     );
-    TestValidator.equals(`index ${index} path`, "$input.age", error.path);
-    TestValidator.equals(`index ${index} expected`, "number", error.expected);
+    TestEquality.equals(`index ${index} path`, "$input.age", error.path);
+    TestEquality.equals(`index ${index} expected`, "number", error.expected);
   }
 
   // A configured factory is the default of that same parameter, so an index
@@ -75,11 +75,7 @@ export const test_assert_error_factory_non_callable = (): void => {
   const kept: unknown = capture(() => configured({ id: "robin" }));
   if (kept instanceof Error === false || kept instanceof TypeGuardError)
     throw new Error("Expected the configured factory to build the error.");
-  TestValidator.equals(
-    "configured factory message",
-    "configured",
-    kept.message,
-  );
+  TestEquality.equals("configured factory message", "configured", kept.message);
 };
 
 const capture = (task: () => unknown): unknown => {

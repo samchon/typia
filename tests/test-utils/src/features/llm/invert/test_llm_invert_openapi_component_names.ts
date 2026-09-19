@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
 import { ILlmSchema } from "typia";
 
@@ -100,12 +101,12 @@ export const test_llm_invert_openapi_component_names = (): void => {
       `${label}: every component name satisfies the OpenAPI grammar`,
       () => Object.keys(schemas).every((key) => /^[a-zA-Z0-9.\-_]+$/.test(key)),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: an existing legal component is not overwritten`,
       schemas.Taken,
       { type: "boolean", description: "pre-existing Taken" },
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: an existing escape-shaped component is not overwritten`,
       schemas._x2F_,
       { type: "boolean", description: "pre-existing escape" },
@@ -127,7 +128,7 @@ export const test_llm_invert_openapi_component_names = (): void => {
         conversion.components,
         property.$ref,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${label}: ${JSON.stringify(key)} resolves to its own definition`,
         target?.description,
         describe(key),
@@ -163,12 +164,12 @@ export const test_llm_invert_openapi_component_names = (): void => {
     );
   }
 
-  TestValidator.equals(
+  TestEquality.equals(
     "component allocation is independent of definition and traversal order",
     collectReferences(first),
     collectReferences(second),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "legal component names are preserved when available",
     Object.fromEntries(
       ["Legal.Control", "A-B", "A_B"].map((key) => [
