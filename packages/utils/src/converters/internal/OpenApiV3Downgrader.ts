@@ -1,6 +1,7 @@
 import { OpenApi, OpenApiV3 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
@@ -384,15 +385,15 @@ export namespace OpenApiV3Downgrader {
     (visited: Set<string>) =>
     (collection: IComponentsCollection) =>
     (schema: OpenApiV3.IJsonSchema.IReference): void => {
-      const key: string = schema.$ref.split("/").pop()!;
-      if (key.endsWith(".Nullable")) return;
+      if (OpenApiReferenceKey.read(schema.$ref).endsWith(".Nullable")) return;
 
-      const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+      const entry = OpenApiReferenceKey.find(
         collection.original.schemas,
-        key,
+        schema.$ref,
       );
-      if (found === undefined) return;
-      else if (isNullable(visited)(collection.original)(found) === true) return;
+      if (entry === undefined) return;
+      const { key, value: found } = entry;
+      if (isNullable(visited)(collection.original)(found) === true) return;
       else if (
         ObjectDictionary.get(
           collection.downgraded.schemas,
@@ -475,10 +476,9 @@ export namespace OpenApiV3Downgrader {
       else if (OpenApiTypeChecker.isReference(schema)) {
         if (visited.has(schema.$ref)) return false;
         visited.add(schema.$ref);
-        const key: string = schema.$ref.split("/").pop()!;
-        const next: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        const next: OpenApi.IJsonSchema | undefined = OpenApiReferenceKey.get(
           components.schemas,
-          key,
+          schema.$ref,
         );
         return next ? isNullable(visited)(components)(next) : false;
       }

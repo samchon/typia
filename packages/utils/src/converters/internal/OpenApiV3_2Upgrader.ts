@@ -2,6 +2,7 @@ import { OpenApi, OpenApiV3_2 } from "@typia/interface";
 
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
 import { OpenApiV3_1Upgrader } from "./OpenApiV3_1Upgrader";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 
 /**
  * OpenAPI v3.2 to emended OpenApi converter.
@@ -68,7 +69,7 @@ export namespace OpenApiV3_2Upgrader {
       if (!OpenApiV3_1TypeChecker.isReference(webhook))
         return convertPathItem(doc)(webhook);
       const found: OpenApiV3_2.IPath | undefined =
-        doc.components?.pathItems?.[webhook.$ref.split("/").pop() ?? ""];
+        OpenApiReferenceKey.get(doc.components?.pathItems, webhook.$ref);
       return found ? convertPathItem(doc)(found) : undefined;
     };
 
@@ -169,16 +170,16 @@ export namespace OpenApiV3_2Upgrader {
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/parameters/${string}`>,
     ): OpenApiV3_2.IOperation.IParameter | undefined => {
       if (!("$ref" in input)) return input;
-      const key: string = input.$ref.split("/").pop() ?? "";
+      const key: string = OpenApiReferenceKey.read(input.$ref);
       if (input.$ref.startsWith("#/components/headers/")) {
         const header:
           | Omit<OpenApiV3_2.IOperation.IParameter, "in">
-          | undefined = components.headers?.[key];
+          | undefined = OpenApiReferenceKey.get(components.headers, input.$ref);
         if (header === undefined) return undefined;
         const { name, ...rest } = header;
         return { ...rest, name: name ?? key, in: "header" };
       }
-      return components.parameters?.[key];
+      return OpenApiReferenceKey.get(components.parameters, input.$ref);
     };
 
   const mergeParameters = (
@@ -234,7 +235,7 @@ export namespace OpenApiV3_2Upgrader {
                 .map(([key, value]) => [
                   key,
                   OpenApiV3_1TypeChecker.isReference(value)
-                    ? components.examples?.[value.$ref.split("/").pop() ?? ""]
+                    ? OpenApiReferenceKey.get(components.examples, value.$ref)
                     : value,
                 ])
                 .filter(([_, v]) => v !== undefined),
@@ -252,7 +253,7 @@ export namespace OpenApiV3_2Upgrader {
     ): OpenApi.IOperation.IRequestBody | undefined => {
       if ("$ref" in input) {
         const found: OpenApiV3_2.IOperation.IRequestBody | undefined =
-          doc.components?.requestBodies?.[input.$ref.split("/").pop() ?? ""];
+          OpenApiReferenceKey.get(doc.components?.requestBodies, input.$ref);
         if (found === undefined) return undefined;
         input = found;
       }
@@ -273,7 +274,7 @@ export namespace OpenApiV3_2Upgrader {
     ): OpenApi.IOperation.IResponse | undefined => {
       if ("$ref" in input) {
         const found: OpenApiV3_2.IOperation.IResponse | undefined =
-          doc.components?.responses?.[input.$ref.split("/").pop() ?? ""];
+          OpenApiReferenceKey.get(doc.components?.responses, input.$ref);
         if (found === undefined) return undefined;
         input = found;
       }
@@ -307,7 +308,7 @@ export namespace OpenApiV3_2Upgrader {
       if ("$ref" in input) {
         const found: Omit<OpenApiV3_2.IOperation.IParameter, "in"> | undefined =
           input.$ref.startsWith("#/components/headers/")
-            ? components.headers?.[input.$ref.split("/").pop() ?? ""]
+            ? OpenApiReferenceKey.get(components.headers, input.$ref)
             : undefined;
         if (found === undefined) return undefined;
         input = found;
@@ -346,9 +347,7 @@ export namespace OpenApiV3_2Upgrader {
                           .map(([key, value]) => [
                             key,
                             OpenApiV3_1TypeChecker.isReference(value)
-                              ? components.examples?.[
-                                  value.$ref.split("/").pop() ?? ""
-                                ]
+                              ? OpenApiReferenceKey.get(components.examples, value.$ref)
                               : value,
                           ])
                           .filter(([_, v]) => v !== undefined),

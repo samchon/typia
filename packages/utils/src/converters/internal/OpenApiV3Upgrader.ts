@@ -1,6 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, OpenApiV3 } from "@typia/interface";
 
-import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
@@ -130,15 +130,15 @@ export namespace OpenApiV3Upgrader {
         | OpenApiV3.IJsonSchema.IReference<`#/components/parameters/${string}`>,
     ): OpenApiV3.IOperation.IParameter | undefined => {
       if (!("$ref" in input)) return input;
-      const key: string = input.$ref.split("/").pop() ?? "";
+      const key: string = OpenApiReferenceKey.read(input.$ref);
       if (input.$ref.startsWith("#/components/headers/")) {
         const header: Omit<OpenApiV3.IOperation.IParameter, "in"> | undefined =
-          components.headers?.[key];
+          OpenApiReferenceKey.get(components.headers, input.$ref);
         if (header === undefined) return undefined;
         const { name, ...rest } = header;
         return { ...rest, name: name ?? key, in: "header" };
       }
-      return components.parameters?.[key];
+      return OpenApiReferenceKey.get(components.parameters, input.$ref);
     };
 
   const mergeParameters = (
@@ -185,7 +185,7 @@ export namespace OpenApiV3Upgrader {
                 .map(([key, value]) => [
                   key,
                   OpenApiV3TypeChecker.isReference(value)
-                    ? components.examples?.[value.$ref.split("/").pop() ?? ""]
+                    ? OpenApiReferenceKey.get(components.examples, value.$ref)
                     : value,
                 ])
                 .filter(([_, v]) => v !== undefined),
@@ -203,7 +203,7 @@ export namespace OpenApiV3Upgrader {
     ): OpenApi.IOperation.IRequestBody | undefined => {
       if ("$ref" in input) {
         const found: OpenApiV3.IOperation.IRequestBody | undefined =
-          doc.components?.requestBodies?.[input.$ref.split("/").pop() ?? ""];
+          OpenApiReferenceKey.get(doc.components?.requestBodies, input.$ref);
         if (found === undefined) return undefined;
         input = found;
       }
@@ -224,7 +224,7 @@ export namespace OpenApiV3Upgrader {
     ): OpenApi.IOperation.IResponse | undefined => {
       if ("$ref" in input) {
         const found: OpenApiV3.IOperation.IResponse | undefined =
-          doc.components?.responses?.[input.$ref.split("/").pop() ?? ""];
+          OpenApiReferenceKey.get(doc.components?.responses, input.$ref);
         if (found === undefined) return undefined;
         input = found;
       }
@@ -258,7 +258,7 @@ export namespace OpenApiV3Upgrader {
       if ("$ref" in input) {
         const found: Omit<OpenApiV3.IOperation.IParameter, "in"> | undefined =
           input.$ref.startsWith("#/components/headers/")
-            ? components.headers?.[input.$ref.split("/").pop() ?? ""]
+            ? OpenApiReferenceKey.get(components.headers, input.$ref)
             : undefined;
         if (found === undefined) return undefined;
         input = found;
@@ -294,9 +294,7 @@ export namespace OpenApiV3Upgrader {
                           .map(([key, value]) => [
                             key,
                             OpenApiV3TypeChecker.isReference(value)
-                              ? components.examples?.[
-                                  value.$ref.split("/").pop() ?? ""
-                                ]
+                              ? OpenApiReferenceKey.get(components.examples, value.$ref)
                               : value,
                           ])
                           .filter(([_, v]) => v !== undefined),
@@ -572,10 +570,7 @@ export namespace OpenApiV3Upgrader {
 
       if (OpenApiV3TypeChecker.isReference(input))
         return retrieveObject(components)(
-          ObjectDictionary.get(
-            components.schemas,
-            input.$ref.split("/").pop() ?? "",
-          ) ?? {},
+          OpenApiReferenceKey.get(components.schemas, input.$ref) ?? {},
           visited,
         );
       return null;
