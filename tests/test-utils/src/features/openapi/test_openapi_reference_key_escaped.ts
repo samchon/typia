@@ -23,7 +23,8 @@ import {
  * 4. Upgrade 3.1 and 3.2 documents whose header parameter and webhook path item
  *    keys need escaping, and assert both resolve.
  * 5. Run the schema walkers and HTTP composers over an escaped and a plain key,
- *    and assert they answer alike; a malformed token names no component.
+ *    and assert they answer alike; a key with a space resolves as written, and
+ *    a malformed `~` escape names no component.
  */
 export const test_openapi_reference_key_escaped = (): void => {
   const reference = { $ref: "#/components/schemas/A~1B" };
@@ -162,7 +163,30 @@ export const test_openapi_reference_key_escaped = (): void => {
       })(),
     );
 
-  // a reference whose token is malformed names no component
+  // a key holding a space, as Swagger 2.0 allows and the repository's own
+  // Semantic Scholar fixture carries, resolves as written under RFC 6901
+  const spaced = OpenApiTypeChecker.escape({
+    components: {
+      schemas: { "Title Match": { type: "object", description: "Spaced." } },
+    },
+    schema: { $ref: "#/components/schemas/Title Match" },
+    recursive: false,
+  });
+  TestEquality.equals<unknown>(
+    "space in key",
+    {
+      success: true,
+      description:
+        "Description of the current {@link Title Match} type:\n\n> Spaced.",
+    },
+    {
+      success: spaced.success,
+      description: spaced.success ? spaced.value.description : null,
+    },
+  );
+
+  // only a `~` escape that is neither `~0` nor `~1` is malformed and names
+  // no component
   const malformed = OpenApiTypeChecker.escape({
     components: {
       schemas: { "A~1B": { type: "object", description: "Literal." } },

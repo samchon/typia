@@ -1,18 +1,20 @@
 import { OpenApi } from "@typia/interface";
 
 /**
- * Normalizes an emended schema that entered from outside the upgraders.
+ * Shape rules over emended schemas.
  *
- * The upgraders emit every emended shape exactly, but a document built by hand
- * or parsed from JSON reaches the consumers on its own claim of being emended.
- * The two shapes such a document may leave loose are repaired here, once, at
- * the boundary, so no consumer dispatch checks for them:
+ * Two rules live here, with different owners:
  *
- * - `required: []` or `required: undefined` on an object, which the emended
- *   format omits;
- * - An array with neither `items` nor `prefixItems`, which JSON Schema reads as
- *   an array of anything and the emended `IArray` spells `items: {}`
- *   (samchon/typia#2392, samchon/typia#2412).
+ * - {@link fillOpenArray}: an array with neither `items` nor `prefixItems`, which
+ *   JSON Schema reads as an array of anything and the emended `IArray` spells
+ *   `items: {}`. The upgraders emit that form; a document built by hand or
+ *   parsed from JSON reaches the converters on its own claim of being emended,
+ *   so {@link fillOpenArrayDeep} repairs it once at that boundary and no
+ *   consumer dispatch checks for the shape (samchon/typia#2392,
+ *   samchon/typia#2412).
+ * - {@link omitEmptyRequired}: an empty `required` on an object a consumer emits.
+ *   Version conversion preserves an explicit empty `required`, so this is an
+ *   emission rule of the emitters that call it, never a boundary one.
  *
  * @internal
  */
@@ -52,48 +54,67 @@ export namespace OpenApiSchemaSanitizer {
       : schema;
   };
 
-  /** Every normalization, applied to the schema and each schema it holds. */
-  export const normalizeDeep = (
+  /** {@link fillOpenArray} over the schema and each schema it holds. */
+  export const fillOpenArrayDeep = (
     input: OpenApi.IJsonSchema,
+  ): OpenApi.IJsonSchema => walk(input, fillOpenArray, fillOpenArrayDeep);
+
+  /** {@link omitEmptyRequired} over the schema and each schema it holds. */
+  export const omitEmptyRequiredDeep = (
+    input: OpenApi.IJsonSchema,
+  ): OpenApi.IJsonSchema =>
+    walk(input, omitEmptyRequired, omitEmptyRequiredDeep);
+
+  /**
+   * One rule over a schema and, through `next`, each schema it holds.
+   *
+   * A document may hold an absent schema where the type promises one, such as a
+   * property value of `undefined`; it is left for the reader to judge.
+   */
+  const walk = (
+    input: OpenApi.IJsonSchema,
+    rule: (schema: OpenApi.IJsonSchema) => OpenApi.IJsonSchema,
+    next: (schema: OpenApi.IJsonSchema) => OpenApi.IJsonSchema,
   ): OpenApi.IJsonSchema => {
-    const schema: OpenApi.IJsonSchema = fillOpenArray(input);
+    if (input === undefined) return input;
+    const schema: OpenApi.IJsonSchema = rule(input);
     if (isOneOf(schema))
-      return omitEmptyRequired({
+      return {
         ...schema,
-        oneOf: schema.oneOf.map(normalizeDeep) as OpenApi.IJsonSchema[],
-      } satisfies OpenApi.IJsonSchema.IOneOf);
+        oneOf: schema.oneOf.map(next) as OpenApi.IJsonSchema[],
+      } satisfies OpenApi.IJsonSchema.IOneOf;
     if (isTuple(schema))
-      return omitEmptyRequired({
+      return {
         ...schema,
-        prefixItems: schema.prefixItems.map(normalizeDeep),
+        prefixItems: schema.prefixItems.map(next),
         additionalItems:
           typeof schema.additionalItems === "object" &&
           schema.additionalItems !== null
-            ? normalizeDeep(schema.additionalItems)
+            ? next(schema.additionalItems)
             : schema.additionalItems,
-      } satisfies OpenApi.IJsonSchema.ITuple);
+      } satisfies OpenApi.IJsonSchema.ITuple;
     if (isArray(schema))
-      return omitEmptyRequired({
+      return {
         ...schema,
-        items: normalizeDeep(schema.items),
-      } satisfies OpenApi.IJsonSchema.IArray);
+        items: next(schema.items),
+      } satisfies OpenApi.IJsonSchema.IArray;
     if (isObject(schema))
-      return omitEmptyRequired({
+      return {
         ...schema,
         properties: schema.properties
           ? Object.fromEntries(
               Object.entries(schema.properties).map(([key, value]) => [
                 key,
-                normalizeDeep(value),
+                next(value),
               ]),
             )
           : schema.properties,
         additionalProperties:
           typeof schema.additionalProperties === "object" &&
           schema.additionalProperties !== null
-            ? normalizeDeep(schema.additionalProperties)
+            ? next(schema.additionalProperties)
             : schema.additionalProperties,
-      } satisfies OpenApi.IJsonSchema.IObject);
+      } satisfies OpenApi.IJsonSchema.IObject;
     return schema;
   };
 

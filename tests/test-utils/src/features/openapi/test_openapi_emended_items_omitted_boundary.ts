@@ -19,11 +19,13 @@ import {
  * input, and no consumer checks for the shape (#2412).
  *
  * 1. Enter a hand-built emended document whose components, parameter, request
- *    body, response, and webhook each hold an items-less array.
+ *    body, response, response header, additional operation, and webhook each
+ *    hold an items-less array.
  * 2. Assert every one of them gained `items: {}`, and a present `items` stayed.
  * 3. Assert the normalized document downgrades to every version with the open
  *    array intact, validates a non-array against it, and migrates.
- * 4. Assert `upgradeComponents()` normalizes emended components alike.
+ * 4. Assert `downgradeDocument()` normalizes a raw emended document on entry too,
+ *    being the boundary in the other direction.
  */
 export const test_openapi_emended_items_omitted_boundary = (): void => {
   const bare = { type: "array" } as unknown as OpenApi.IJsonSchema;
@@ -60,12 +62,21 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
           responses: {
             200: {
               description: "ok",
+              headers: {
+                "X-Tags": { name: "X-Tags", in: "header", schema: bare },
+              },
               content: {
                 "application/json": {
                   schema: { $ref: "#/components/schemas/ITags" },
                 },
               },
             },
+          },
+        },
+        additionalOperations: {
+          LINK: {
+            requestBody: { content: { "application/json": { schema: bare } } },
+            responses: {},
           },
         },
         post: {
@@ -104,6 +115,10 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
       webhook:
         document.webhooks?.w?.post?.requestBody?.content?.["application/json"]
           ?.schema,
+      header: get?.responses?.[200]?.headers?.["X-Tags"]?.schema,
+      additional:
+        document.paths?.["/tags"]?.additionalOperations?.LINK?.requestBody
+          ?.content?.["application/json"]?.schema,
     },
     {
       component: { tags: open, names: typed },
@@ -111,6 +126,8 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
       body: open,
       response: open,
       webhook: open,
+      header: open,
+      additional: open,
     },
   );
 
@@ -159,12 +176,38 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
     },
   );
 
-  const components: OpenApi.IComponents = OpenApiConverter.upgradeComponents({
-    schemas: { IBare: bare },
-  } as OpenApi.IComponents);
-  TestEquality.equals(
-    "components normalization",
-    components.schemas?.IBare,
-    open,
+  // the boundary in the other direction normalizes on entry too; the
+  // streaming item schema, which Swagger 2.0 cannot carry, is checked here
+  const raw: OpenApi.IDocument = {
+    openapi: "3.2.0",
+    info: { title: "raw", version: "1.0.0" },
+    components: { schemas: { IBare: bare } },
+    paths: {
+      "/stream": {
+        get: {
+          responses: {
+            200: {
+              description: "ok",
+              content: {
+                "application/json": { schema: open, itemSchema: bare },
+              },
+            },
+          },
+        },
+      },
+    },
+    "x-typia-emended-v12": true,
+  } as unknown as OpenApi.IDocument;
+  const stream =
+    OpenApiConverter.upgradeDocument(raw).paths?.["/stream"]?.get
+      ?.responses?.[200]?.content?.["application/json"]?.itemSchema;
+  TestEquality.equals<unknown>(
+    "downgrade normalizes on entry",
+    { component: open, item: open },
+    {
+      component: OpenApiConverter.downgradeDocument(raw, "3.0").components
+        ?.schemas?.IBare,
+      item: stream,
+    },
   );
 };

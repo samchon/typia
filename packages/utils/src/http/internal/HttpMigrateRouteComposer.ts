@@ -801,7 +801,7 @@ export namespace HttpMigrateRouteComposer {
         return schema;
       }
       const sanitized: OpenApi.IJsonSchema =
-        OpenApiSchemaSanitizer.normalizeDeep(schema);
+        OpenApiSchemaSanitizer.omitEmptyRequiredDeep(schema);
       visitSchemaReferences(document)(visited)(sanitized);
       return sanitized;
     };

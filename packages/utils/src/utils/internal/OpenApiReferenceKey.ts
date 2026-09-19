@@ -1,21 +1,21 @@
-import { LlmReference } from "./LlmReference";
 import { ObjectDictionary } from "./ObjectDictionary";
 
 /**
  * Reads the component key a local `$ref` names.
  *
- * A reference such as `#/components/schemas/A~1B` names its component by one
- * JSON Pointer token, which escapes `~` and `/` as `~0` and `~1` and may also
- * be percent-encoded as a URI fragment. The converters and schema walkers used
- * to take the raw token as the key, so a component whose key needs escaping was
- * never found, and a 3.0 downgrade silently dropped its nullability
- * (samchon/typia#2408). The token decodes through
- * {@link LlmReference.readToken}, the decoder the validators and the LLM
- * converter already use, so every path agrees on what a reference names.
+ * A JSON Reference is a URI fragment holding a JSON Pointer (RFC 6901): the key
+ * is the pointer's last token, with `~1` standing for `/` and `~0` for `~`,
+ * possibly percent-encoded as a URI fragment. The converters and schema walkers
+ * used to take the raw token as the key, so a component whose key needs
+ * escaping was never found, and a 3.0 downgrade silently dropped its
+ * nullability (samchon/typia#2408).
  *
- * OpenAPI 3.x limits a component key to `^[a-zA-Z0-9._-]+$`, under which
- * escaping changes nothing, so decoding is transparent for every conforming
- * document. A malformed token names no component (samchon/typia#2412).
+ * The decoding follows RFC 6901 alone: any other character is itself, so a key
+ * holding a space, as Swagger 2.0 allows and documents in the wild carry,
+ * resolves as written. Only a `~` followed by anything but `0` or `1` is
+ * malformed and names no component (samchon/typia#2412). The stricter
+ * {@link LlmReference.readOpenApi}, which also rejects characters outside the
+ * URI-fragment charset, stays the contract of typia's own emitted references.
  *
  * @internal
  */
@@ -30,7 +30,7 @@ export namespace OpenApiReferenceKey {
   export const read = (
     reference: string,
     prefix?: string,
-  ): string | undefined => LlmReference.readToken(tokenize(reference, prefix));
+  ): string | undefined => decode(tokenize(reference, prefix));
 
   /**
    * @param dictionary Components of the referenced kind
@@ -60,6 +60,29 @@ export namespace OpenApiReferenceKey {
     return key !== undefined && ObjectDictionary.has(dictionary, key)
       ? { key, value: dictionary![key] as T }
       : undefined;
+  };
+
+  /** RFC 6901 token decoding, after percent-decoding when that succeeds. */
+  const decode = (token: string): string | undefined => {
+    let text: string = token;
+    try {
+      text = decodeURIComponent(token);
+    } catch {
+      // a literal `%` outside an escape stays itself
+    }
+    let key: string = "";
+    for (let i: number = 0; i < text.length; ++i) {
+      const character: string = text[i]!;
+      if (character !== "~") {
+        key += character;
+        continue;
+      }
+      const escape: string | undefined = text[++i];
+      if (escape === "0") key += "~";
+      else if (escape === "1") key += "/";
+      else return undefined;
+    }
+    return key;
   };
 
   const tokenize = (reference: string, prefix: string | undefined): string =>

@@ -17,7 +17,7 @@ Converts the questions of `typia.llm.evaluation<T>()` to Jev's wire format, the 
 ## Setup
 
 ```bash
-npm install @typia/jev typia
+npm install @typia/jev typia @typesafe-ai/sdk
 npm install -D ttsc typescript@rc
 ```
 

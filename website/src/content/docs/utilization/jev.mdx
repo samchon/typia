@@ -10,7 +10,7 @@ import { Callout } from "nextra/components";
 `typia.llm.evaluation<T>()` emits the provider-neutral questions of Vercel AI SDK's `experimental_evaluate()`, which spells a yes/no question `"boolean"`. Jev's own wire format spells it `"noul"`, and that format is shared by TypeSafe's API and SDK and by OpenRouter's Decisions API. `toJevQuestions()` renames exactly that question type; choice and score questions pass through unchanged.
 
 ```bash filename="Terminal" copy
-npm install typia @typia/jev
+npm install typia @typia/jev @typesafe-ai/sdk
 npx typia setup
 ```
 

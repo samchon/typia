@@ -76,6 +76,9 @@ export namespace OpenApiConverter {
   /**
    * Downgrade document to Swagger v2.0 format.
    *
+   * The document is normalized on entry, as {@link upgradeDocument} normalizes
+   * an already-emended one.
+   *
    * @param document Source emended OpenAPI document
    * @param version Target version "2.0"
    * @returns Swagger v2.0 document
@@ -107,10 +110,11 @@ export namespace OpenApiConverter {
     document: OpenApi.IDocument,
     version: "2.0" | "3.0" | "3.1",
   ): SwaggerV2.IDocument | OpenApiV3.IDocument | OpenApiV3_1.IDocument {
-    if (version === "2.0") return SwaggerV2Downgrader.downgrade(document);
-    else if (version === "3.0") return OpenApiV3Downgrader.downgrade(document);
-    else if (version === "3.1")
-      return OpenApiV3_1Downgrader.downgrade(document);
+    // the document boundary in the other direction normalizes alike
+    const input: OpenApi.IDocument = normalizeDocument(document);
+    if (version === "2.0") return SwaggerV2Downgrader.downgrade(input);
+    else if (version === "3.0") return OpenApiV3Downgrader.downgrade(input);
+    else if (version === "3.1") return OpenApiV3_1Downgrader.downgrade(input);
 
     version satisfies never;
     throw new Error("Invalid OpenAPI version");
@@ -144,7 +148,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade components to Swagger v2.0 definitions.
    *
-   * @param input Source emended components
+   * @param input Source emended components, as `upgradeDocument()` or
+   *   `upgradeComponents()` returns them
    * @param version Target version "2.0"
    * @returns Swagger v2.0 definitions record
    */
@@ -156,7 +161,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade components to OpenAPI v3.0 format.
    *
-   * @param input Source emended components
+   * @param input Source emended components, as `upgradeDocument()` or
+   *   `upgradeComponents()` returns them
    * @param version Target version "3.0"
    * @returns OpenAPI v3.0 components
    */
@@ -168,7 +174,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade components to OpenAPI v3.1 format.
    *
-   * @param input Source emended components
+   * @param input Source emended components, as `upgradeDocument()` or
+   *   `upgradeComponents()` returns them
    * @param version Target version "3.1"
    * @returns OpenAPI v3.1 components
    */
@@ -273,7 +280,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade schema to Swagger v2.0 format.
    *
-   * @param props.components Source emended components
+   * @param props.components Source emended components, as `upgradeDocument()`
+   *   or `upgradeComponents()` returns them
    * @param props.schema Schema to downgrade
    * @param props.version Target version "2.0"
    * @param props.downgraded Target definitions record (mutated)
@@ -289,7 +297,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade schema to OpenAPI v3.0 format.
    *
-   * @param props.components Source emended components
+   * @param props.components Source emended components, as `upgradeDocument()`
+   *   or `upgradeComponents()` returns them
    * @param props.schema Schema to downgrade
    * @param props.version Target version "3.0"
    * @param props.downgraded Target components (mutated)
@@ -305,7 +314,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade schema to OpenAPI v3.1 format.
    *
-   * @param props.components Source emended components
+   * @param props.components Source emended components, as `upgradeDocument()`
+   *   or `upgradeComponents()` returns them
    * @param props.schema Schema to downgrade
    * @param props.version Target version "3.1"
    * @param props.downgraded Target components (mutated)
@@ -415,7 +425,7 @@ const normalizeComponents = (
         schemas: Object.fromEntries(
           Object.entries(components.schemas).map(([key, schema]) => [
             key,
-            OpenApiSchemaSanitizer.normalizeDeep(schema),
+            OpenApiSchemaSanitizer.fillOpenArrayDeep(schema),
           ]),
         ),
       }
@@ -427,6 +437,13 @@ const normalizePathItem = (item: OpenApi.IPath): OpenApi.IPath => {
     const operation: OpenApi.IOperation | undefined = item[method];
     if (operation !== undefined) output[method] = normalizeOperation(operation);
   }
+  if (item.additionalOperations)
+    output.additionalOperations = Object.fromEntries(
+      Object.entries(item.additionalOperations).map(([name, operation]) => [
+        name,
+        normalizeOperation(operation),
+      ]),
+    );
   return output;
 };
 
@@ -442,7 +459,7 @@ const normalizeOperation = (
     ? Object.fromEntries(
         Object.entries(operation.responses).map(([status, response]) => [
           status,
-          response ? normalizeBody(response) : response,
+          response ? normalizeResponse(response) : response,
         ]),
       )
     : operation.responses,
@@ -452,7 +469,21 @@ const normalizeParameter = (
   parameter: OpenApi.IOperation.IParameter,
 ): OpenApi.IOperation.IParameter => ({
   ...parameter,
-  schema: OpenApiSchemaSanitizer.normalizeDeep(parameter.schema),
+  schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(parameter.schema),
+});
+
+const normalizeResponse = (
+  response: OpenApi.IOperation.IResponse,
+): OpenApi.IOperation.IResponse => ({
+  ...normalizeBody(response),
+  headers: response.headers
+    ? Object.fromEntries(
+        Object.entries(response.headers).map(([name, header]) => [
+          name,
+          normalizeParameter(header),
+        ]),
+      )
+    : response.headers,
 });
 
 const normalizeBody = <
@@ -466,10 +497,23 @@ const normalizeBody = <
         content: Object.fromEntries(
           Object.entries(body.content).map(([type, media]) => [
             type,
-            media?.schema
+            media
               ? {
                   ...media,
-                  schema: OpenApiSchemaSanitizer.normalizeDeep(media.schema),
+                  ...(media.schema
+                    ? {
+                        schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(
+                          media.schema,
+                        ),
+                      }
+                    : {}),
+                  ...(media.itemSchema
+                    ? {
+                        itemSchema: OpenApiSchemaSanitizer.fillOpenArrayDeep(
+                          media.itemSchema,
+                        ),
+                      }
+                    : {}),
                 }
               : media,
           ]),
