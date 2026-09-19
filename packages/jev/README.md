@@ -49,11 +49,12 @@ import { Jev } from "@typia/jev";
 const { validation } = await Jev.openrouter({
   apiKey: process.env.OPENROUTER_API_KEY!,
   evaluation: typia.llm.evaluation<ITriage>(),
+  model: "typesafe/jev-1.13",
   state: "The payment page crashes for every customer.",
 });
 ```
 
-Rate limits and overloads are retried with backoff that honors `retry-after`. Other failures throw `JevHttpError`, which carries the status and the response body.
+The client retries as TypeSafe's own SDK does: timeouts, rate limits, server failures, and lost connections, with backoff that honors `retry-after`. Once the retries are spent, it throws `JevHttpError`, `JevConnectionError`, or `JevTimeoutError`.
 
 ## Wire format only
 

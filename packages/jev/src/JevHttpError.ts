@@ -1,9 +1,9 @@
 /**
- * Failure of a Jev endpoint.
+ * Failure response of a Jev endpoint.
  *
  * Thrown by `Jev.openrouter()` for a status it does not retry, for a status
- * still failing after the last retry, and for a success response without an
- * answer map.
+ * still failing after the last retry, and for a success response that is not an
+ * evaluation response.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -29,6 +29,43 @@ export class JevHttpError extends Error {
   }
 }
 
+/**
+ * A Jev request that received no response.
+ *
+ * Thrown by `Jev.openrouter()` when `fetch` itself fails, such as on a DNS or
+ * connection failure, after the last retry. The original error is the `cause`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export class JevConnectionError extends Error {
+  /** @param cause Error `fetch` threw */
+  public constructor(cause: unknown, message?: string) {
+    super(message ?? `Jev request failed to connect: ${describe(cause)}`, {
+      cause,
+    });
+    this.name = "JevConnectionError";
+  }
+}
+
+/**
+ * A Jev request whose response did not complete within the timeout.
+ *
+ * Thrown by `Jev.openrouter()` after the last retry.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export class JevTimeoutError extends JevConnectionError {
+  /** Timeout per attempt, in milliseconds. */
+  public readonly timeout: number;
+
+  /** @param timeout Timeout per attempt, in milliseconds */
+  public constructor(timeout: number) {
+    super(undefined, `Jev request timed out after ${timeout} ms.`);
+    this.name = "JevTimeoutError";
+    this.timeout = timeout;
+  }
+}
+
 /** The provider's error message, or the raw body. */
 const message = (body: unknown): string => {
   if (typeof body === "string") return body;
@@ -39,3 +76,6 @@ const message = (body: unknown): string => {
       : error;
   return typeof text === "string" ? text : JSON.stringify(body);
 };
+
+const describe = (error: unknown): string =>
+  error instanceof Error ? error.message : String(error);

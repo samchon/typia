@@ -34,6 +34,7 @@ export const test_jev_openrouter_request = async (): Promise<void> => {
   const result = await Jev.openrouter({
     apiKey: "sk-or-test",
     evaluation,
+    model: "typesafe/jev-1.13",
     state: "The payment page crashes for every customer.",
     fetch: plain.fetch,
   });

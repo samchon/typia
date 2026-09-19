@@ -68,6 +68,7 @@ export const test_jev = async (): Promise<void> => {
   const failure: unknown = await Jev.openrouter({
     apiKey: "key",
     evaluation,
+    model: "typesafe/jev-1.13",
     state: "ticket",
     fetch,
   }).catch((error: unknown) => error);
@@ -78,6 +79,7 @@ export const test_jev = async (): Promise<void> => {
   const routed = await Jev.openrouter({
     apiKey: "key",
     evaluation,
+    model: "typesafe/jev-1.13",
     state: "ticket",
     fetch,
   });

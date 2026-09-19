@@ -29,6 +29,7 @@ export const test_jev_openrouter_error = async (): Promise<void> => {
     const error: unknown = await Jev.openrouter({
       apiKey: "key",
       evaluation,
+      model: "typesafe/jev-1.13",
       state: "ticket",
       fetch: mock.fetch,
     }).then(

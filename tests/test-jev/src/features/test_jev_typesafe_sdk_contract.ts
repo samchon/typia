@@ -1,4 +1,9 @@
-import type { EntryType, Question, TypeSafeClient } from "@typesafe-ai/sdk";
+import type {
+  EntryType,
+  Question,
+  RequestOptions,
+  TypeSafeClient,
+} from "@typesafe-ai/sdk";
 import { ILlmEvaluation } from "@typia/interface";
 import { Jev } from "@typia/jev";
 import { TestEquality } from "@typia/template/equality";
@@ -50,8 +55,10 @@ export const test_jev_typesafe_sdk_contract = (): void => {
       Awaited<ReturnType<TypeSafeClient["systemOne"]>>,
       Awaited<ReturnType<Jev.ITypeSafeClient["systemOne"]>>
     >,
-  ] = [true, true, true, true, true, true, true, true];
-  TestEquality.equals("type cases", cases.length, 8);
+    // the per-call options Jev.typesafe() forwards are the SDK's own
+    Extends<Jev.ITypeSafeRequestOptions, RequestOptions>,
+  ] = [true, true, true, true, true, true, true, true, true];
+  TestEquality.equals("type cases", cases.length, 9);
 
   const output = Jev.questions({
     level: {

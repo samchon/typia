@@ -9,9 +9,9 @@ import { ITriage } from "../structures/ITriage";
  *
  * TypeSafe's SDK client owns transport, so the helper's whole contract is the
  * request it hands the client and the result it composes from the response: the
- * boolean question must arrive as `noul`, the model override must pass through
- * only when given, and the native answers must fold back into the decision type
- * while the raw answers stay available.
+ * boolean question must arrive as `noul`, the model override and the SDK's
+ * per-call options must pass through only when given, and the native answers
+ * must fold back into the decision type while the raw answers stay available.
  *
  * 1. Evaluate through a client that records its request and answers natively.
  * 2. Assert the request carried the state and the converted questions.
@@ -21,9 +21,11 @@ import { ITriage } from "../structures/ITriage";
 export const test_jev_typesafe = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<ITriage>();
   const requests: unknown[] = [];
+  const options: unknown[] = [];
   const client = (answers: object): Jev.ITypeSafeClient => ({
-    systemOne: async (request) => {
+    systemOne: async (request, option) => {
       requests.push(request);
+      options.push(option);
       return {
         model: "jev-1.13.0",
         answers,
@@ -58,12 +60,17 @@ export const test_jev_typesafe = async (): Promise<void> => {
     evaluation,
     state: { ticket: 1 },
     model: "jev-preview",
+    options: { timeout: 5_000, headers: { "X-Trace": "t-1" } },
   });
   TestEquality.equals(
     "model override",
     (requests[1] as Jev.IRequest).model,
     "jev-preview",
   );
+  TestEquality.equals("per-call options", options, [
+    undefined,
+    { timeout: 5_000, headers: { "X-Trace": "t-1" } },
+  ]);
 
   const wrong = await Jev.typesafe({
     client: client({

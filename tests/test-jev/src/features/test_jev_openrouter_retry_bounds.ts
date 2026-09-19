@@ -1,4 +1,4 @@
-import { Jev, JevHttpError } from "@typia/jev";
+import { Jev } from "@typia/jev";
 import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
@@ -6,18 +6,22 @@ import { MockFetch } from "../internal/MockFetch";
 import { ITriage } from "../structures/ITriage";
 
 /**
- * Verifies Jev.openrouter keeps its retry loop bounded.
+ * Verifies Jev.openrouter bounds its retry loop and honors server pauses.
  *
  * A retry budget that is not a non-negative integer, such as `NaN` from an
- * unset environment variable, made `attempt >= NaN` never true and retried a
- * steady 429 forever, so it must be rejected up front. A `retry-after` asking
- * for more than a minute must fail at once instead of hanging the call, while
- * an HTTP-date `retry-after` already in the past retries without waiting.
+ * unset environment variable, would make `attempt >= NaN` never true and retry
+ * a steady 429 forever, so it is rejected up front, as is a timeout that is not
+ * a positive number. A server pause of a minute or less is honored,
+ * `retry-after-ms` first; a longer one falls back to the capped backoff instead
+ * of hanging the call, as TypeSafe's own SDK does.
  *
- * 1. Pass `maxRetries` of `NaN`, `-1`, and `1.5`, and assert a `TypeError` with no
- *    request sent.
- * 2. Answer 429 with `retry-after: 3600`, and assert one call and the thrown 429.
- * 3. Answer 429 with a past HTTP date, then success, and assert two calls.
+ * 1. Pass invalid `maxRetries` and `timeout` values, and assert a `TypeError` with
+ *    no request sent.
+ * 2. Answer 429 with `retry-after: 3600`, then success, and assert a retry within
+ *    seconds.
+ * 3. Answer 429 with `retry-after-ms: 0` beside `retry-after: 3600`, and assert an
+ *    immediate retry.
+ * 4. Answer 429 with a past HTTP date, and assert an immediate retry.
  */
 export const test_jev_openrouter_retry_bounds = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<ITriage>();
@@ -29,61 +33,78 @@ export const test_jev_openrouter_retry_bounds = async (): Promise<void> => {
       usage: { input_tokens: 1, output_tokens: 0 },
     },
   };
-
-  for (const maxRetries of [NaN, -1, 1.5]) {
-    const mock = MockFetch([success]);
-    const error: unknown = await Jev.openrouter({
+  const run = (
+    fetch: typeof globalThis.fetch,
+    options: Partial<Jev.IOpenRouterProps<ITriage, string>> = {},
+  ) =>
+    Jev.openrouter({
       apiKey: "key",
       evaluation,
+      model: "typesafe/jev-1.13",
       state: "ticket",
-      maxRetries,
-      fetch: mock.fetch,
+      fetch,
+      ...options,
     }).catch((exp: unknown) => exp);
+
+  for (const [title, options] of [
+    ["maxRetries NaN", { maxRetries: NaN }],
+    ["maxRetries -1", { maxRetries: -1 }],
+    ["maxRetries 1.5", { maxRetries: 1.5 }],
+    ["timeout 0", { timeout: 0 }],
+    ["timeout NaN", { timeout: NaN }],
+    ["timeout Infinity", { timeout: Infinity }],
+  ] as const) {
+    const mock = MockFetch([success]);
+    const error: unknown = await run(mock.fetch, options);
     TestEquality.equals(
-      `maxRetries ${maxRetries}`,
+      title,
       { type: error instanceof TypeError, calls: mock.calls.length },
       { type: true, calls: 0 },
     );
   }
 
-  const patient = MockFetch([
-    { status: 429, body: "later", headers: { "retry-after": "3600" } },
-    success,
-  ]);
-  const started: number = Date.now();
-  const refused: unknown = await Jev.openrouter({
-    apiKey: "key",
-    evaluation,
-    state: "ticket",
-    fetch: patient.fetch,
-  }).catch((exp: unknown) => exp);
+  const retried = async (headers: Record<string, string>) => {
+    const mock = MockFetch([{ status: 429, body: "later", headers }, success]);
+    const started: number = Date.now();
+    const result: unknown = await run(mock.fetch);
+    return {
+      calls: mock.calls.length,
+      success: (result as Jev.IResult<ITriage>).validation?.success,
+      elapsed: Date.now() - started,
+    };
+  };
+
+  const long = await retried({ "retry-after": "3600" });
   TestEquality.equals(
-    "long retry-after fails at once",
-    {
-      status: refused instanceof JevHttpError ? refused.status : refused,
-      calls: patient.calls.length,
-      quick: Date.now() - started < 5_000,
-    },
-    { status: 429, calls: 1, quick: true },
+    "long retry-after falls back to backoff",
+    { calls: long.calls, success: long.success, bounded: long.elapsed < 3_000 },
+    { calls: 2, success: true, bounded: true },
   );
 
-  const dated = MockFetch([
-    {
-      status: 429,
-      body: "later",
-      headers: { "retry-after": new Date(Date.now() - 60_000).toUTCString() },
-    },
-    success,
-  ]);
-  const result = await Jev.openrouter({
-    apiKey: "key",
-    evaluation,
-    state: "ticket",
-    fetch: dated.fetch,
+  const precise = await retried({
+    "retry-after-ms": "0",
+    "retry-after": "3600",
   });
   TestEquality.equals(
-    "past http-date retries",
-    { calls: dated.calls.length, success: result.validation.success },
-    { calls: 2, success: true },
+    "retry-after-ms comes first",
+    {
+      calls: precise.calls,
+      success: precise.success,
+      immediate: precise.elapsed < 300,
+    },
+    { calls: 2, success: true, immediate: true },
+  );
+
+  const dated = await retried({
+    "retry-after": new Date(Date.now() - 60_000).toUTCString(),
+  });
+  TestEquality.equals(
+    "past http-date retries at once",
+    {
+      calls: dated.calls,
+      success: dated.success,
+      immediate: dated.elapsed < 300,
+    },
+    { calls: 2, success: true, immediate: true },
   );
 };

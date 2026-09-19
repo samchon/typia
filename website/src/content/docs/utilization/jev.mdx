@@ -43,7 +43,7 @@ const result = await Jev.typesafe({
 });
 ```
 
-`model` is optional and defaults to the client's `defaultModel`, `jev-latest`. Pin a versioned model once you tune [probability thresholds](/docs/llm/evaluation), because the aliases move when a new release ships.
+`model` is optional and defaults to the client's `defaultModel`, `jev-latest`. Pin a versioned model once you tune [probability thresholds](/docs/llm/evaluation), because the aliases move when a new release ships. `options` forwards the SDK's per-call `signal`, `timeout`, and `headers`.
 
 ## OpenRouter
 
@@ -56,19 +56,22 @@ import typia from "typia";
 const result = await Jev.openrouter({
   apiKey: process.env.OPENROUTER_API_KEY!,
   evaluation: typia.llm.evaluation<ITriage>(),
+  model: "typesafe/jev-1.13",
   state: "The payment page crashes for every customer.",
   body: { provider: { order: ["TypeSafe"] } }, // optional routing fields
 });
 ```
 
-- **Model**: `typesafe/jev-1.13` by default.
-- **Retries**: a rate limit (429), an overload (529), or a gateway failure (500, 502, 503, 524) is retried up to `maxRetries` times, 2 by default, with exponential backoff that honors `retry-after`. A `retry-after` longer than a minute fails at once instead of hanging the call, and a network failure thrown by `fetch` is not retried. `signal` aborts the request and any wait.
-- **Errors**: any other failure throws `JevHttpError`, with the `status` and the parsed `body`. So does a success response missing its answers, model, or usage.
+- **Model**: required. Probability thresholds are tuned against one model's calibration, so the model is always your explicit choice rather than a default that silently ages.
+- **Retries**: the client follows the retry policy of TypeSafe's own SDK, the reference client for the Jev wire format. A timeout (408), a rate limit (429), a server failure (5xx), a request that got no response, and an attempt past `timeout` (10 seconds by default) are retried up to `maxRetries` times, 2 by default. It waits the server's `retry-after-ms` or `retry-after` when that is a minute or less, and otherwise backs off exponentially from half a second, capped at five seconds, with jitter. `signal` aborts the request and any wait, and is never retried.
+- **Errors**: once the retries are spent, a failure response throws `JevHttpError`, with the `status` and the parsed `body`; so does a success response missing its answers, model, or usage. A request that got no response throws `JevConnectionError`, with the original error as its `cause`, and one that timed out throws `JevTimeoutError`.
 - **Transport**: `baseURL`, `headers`, and `fetch` override the defaults. `Authorization` and `Content-Type` are always the client's own, in any letter case, and extra `body` fields never override `model`, `state`, or `questions`.
 
 ## State
 
-Both endpoints receive the state as JSON, so both helpers check it first, with one `JSON.stringify` pass. A value JSON cannot carry faithfully throws a `TypeError` naming its path before any request, instead of reaching the model as `{}` or `null`: a function, a `Map`, a `Set`, a class instance, `NaN`, or an array hole or `undefined` element. A cycle throws JSON's own `TypeError`. Text, plain objects and arrays, primitive wrappers, and values whose `toJSON()` returns JSON, such as a `Date`, pass, and an `undefined` property is an omitted optional field.
+Both endpoints receive the state as JSON, where a function vanishes, a `Map` becomes `{}`, and a `bigint` throws. Both helpers type their state through `Jev.Jsonable<S>`, so such a part fails to compile at its own property, while text, plain objects and arrays, interfaces, and values whose `toJSON()` returns JSON, such as a `Date`, compile. An `undefined` property is an omitted field; an `undefined` array element, which JSON writes as `null`, is not allowed.
+
+TypeSafe's SDK types its state as a JSON value with an index signature, which an interface-typed state never satisfies although it is valid JSON; `Jev.Jsonable<S>` has no such cost. Values beyond a type, such as `NaN` or a cycle, behave as `JSON.stringify` does.
 
 ## Result
 

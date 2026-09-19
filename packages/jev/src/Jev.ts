@@ -1,6 +1,11 @@
 import { ILlmEvaluation, IValidation } from "@typia/interface";
 
-import { JevHttpError } from "./JevHttpError";
+import {
+  JevConnectionError,
+  JevHttpError,
+  JevTimeoutError,
+} from "./JevHttpError";
+import { JevRetryPolicy } from "./internal/JevRetryPolicy";
 
 /**
  * Jev integration for `typia.llm.evaluation<T>()`.
@@ -47,16 +52,55 @@ export namespace Jev {
     instructions: string;
   }
 
-  /**
-   * State to evaluate: text, or a JSON object or array.
-   *
-   * Both endpoints receive it as JSON. A value JSON cannot carry faithfully,
-   * such as a function, a `Map`, a class instance, `NaN`, an array hole, or a
-   * cycle, is rejected with a `TypeError` before any request, instead of
-   * reaching the model as something else. A value whose `toJSON()` returns
-   * JSON, such as a `Date`, passes.
-   */
+  /** State to evaluate: text, or a JSON object or array. */
   export type IState = string | object | null;
+
+  /**
+   * `S` where JSON carries it faithfully, and `never` at every part it cannot.
+   *
+   * Both endpoints receive the state as JSON, where a function vanishes, a
+   * `Map` becomes `{}`, and a `bigint` throws. The helpers type their state as
+   * `S & Jsonable<S>`, so such a part fails to compile at its own property,
+   * while an interface-typed state, which a JSON type with an index signature
+   * would reject, passes. A value with `toJSON()`, such as a `Date`, passes
+   * when its JSON does. An `undefined` property is an omitted field and passes,
+   * while an `undefined` array element, which JSON writes as `null`, does not.
+   * A value typed `unknown` cannot be checked and passes.
+   *
+   * Run-time values such as `NaN`, which JSON writes as `null`, and cycles,
+   * which JSON rejects, are beyond a type; they behave as `JSON.stringify`
+   * does.
+   */
+  export type Jsonable<S> = unknown extends S
+    ? S
+    : S extends string | number | boolean | null
+      ? S
+      : S extends bigint | symbol | undefined | ((...args: never[]) => unknown)
+        ? never
+        : S extends { toJSON(...args: never[]): infer R }
+          ? [Jsonable<R>] extends [never]
+            ? never
+            : S
+          : S extends
+                | ReadonlyMap<unknown, unknown>
+                | ReadonlySet<unknown>
+                | WeakMap<object, unknown>
+                | WeakSet<object>
+                | ArrayBufferLike
+                | ArrayBufferView
+                | RegExp
+                | Error
+                | Promise<unknown>
+            ? never
+            : S extends readonly unknown[]
+              ? { [K in keyof S]: Jsonable<S[K]> }
+              : S extends object
+                ? {
+                    [K in keyof S]:
+                      | Jsonable<Exclude<S[K], undefined>>
+                      | Extract<S[K], undefined>;
+                  }
+                : never;
 
   /** Request body of the Jev endpoints. */
   export interface IRequest {
@@ -163,18 +207,16 @@ export namespace Jev {
    * `TypeSafeClient` from `@typesafe-ai/sdk` satisfies this structurally, so
    * the SDK's retries, environment-based configuration, and logging stay in
    * charge without this package depending on it.
-   *
-   * The SDK types the state as a JSON value with an index signature, which an
-   * interface-typed state never satisfies although it is valid JSON. This
-   * structure takes any {@link IState} instead, and {@link typesafe} checks the
-   * value at run time before handing it over.
    */
   export interface ITypeSafeClient {
-    systemOne(request: {
-      state: IState;
-      questions: Record<string, IQuestion>;
-      model?: string;
-    }): PromiseLike<{
+    systemOne(
+      request: {
+        state: IState;
+        questions: Record<string, IQuestion>;
+        model?: string;
+      },
+      options?: ITypeSafeRequestOptions,
+    ): PromiseLike<{
       readonly model: string;
       readonly answers: object;
       readonly usage: {
@@ -184,38 +226,54 @@ export namespace Jev {
     }>;
   }
 
+  /** Per-call options of TypeSafe's SDK, as far as they are forwarded. */
+  export interface ITypeSafeRequestOptions {
+    /** Cancellation signal for the request and pending retries. */
+    signal?: AbortSignal;
+
+    /** Timeout per attempt, in milliseconds. */
+    timeout?: number;
+
+    /** Additional headers, merged over the client's defaults. */
+    headers?: Record<string, string>;
+  }
+
   /** Properties of {@link typesafe}. */
-  export interface ITypeSafeProps<T> {
+  export interface ITypeSafeProps<T, S extends IState = IState> {
     /** TypeSafe's SDK client, `new TypeSafeClient()`. */
     client: ITypeSafeClient;
 
     /** Evaluation from `typia.llm.evaluation<T>()`. */
     evaluation: ILlmEvaluation<T>;
 
-    /** State to evaluate. */
-    state: IState;
+    /** State to evaluate; see {@link Jsonable}. */
+    state: S & Jsonable<S>;
 
     /** Model override; the client's `defaultModel` otherwise. */
     model?: string | undefined;
+
+    /** Per-call options forwarded to the SDK. */
+    options?: ITypeSafeRequestOptions | undefined;
   }
 
   /** Properties of {@link openrouter}. */
-  export interface IOpenRouterProps<T> {
+  export interface IOpenRouterProps<T, S extends IState = IState> {
     /** OpenRouter API key. */
     apiKey: string;
 
     /** Evaluation from `typia.llm.evaluation<T>()`. */
     evaluation: ILlmEvaluation<T>;
 
-    /** State to evaluate. */
-    state: IState;
+    /** State to evaluate; see {@link Jsonable}. */
+    state: S & Jsonable<S>;
 
     /**
-     * Model to answer.
+     * Model to answer, such as `typesafe/jev-1.13`.
      *
-     * @default "typesafe/jev-1.13"
+     * Required, because probability thresholds are tuned against one model's
+     * calibration, and a default would silently age.
      */
-    model?: string | undefined;
+    model: string;
 
     /**
      * Base URL of OpenRouter's alpha API.
@@ -237,13 +295,21 @@ export namespace Jev {
     body?: Record<string, unknown> | undefined;
 
     /**
-     * Retries after a rate limit, an overload, or a gateway failure, a
-     * non-negative integer. A network failure thrown by `fetch` is not
-     * retried.
+     * Retries after the first attempt, a non-negative integer.
+     *
+     * A timeout (408), a rate limit (429), a server failure (5xx), and a
+     * request that got no response are retried, as TypeSafe's own SDK does.
      *
      * @default 2
      */
     maxRetries?: number | undefined;
+
+    /**
+     * Timeout per attempt, in milliseconds, covering the whole response.
+     *
+     * @default 10000
+     */
+    timeout?: number | undefined;
 
     /** Signal aborting the request and any wait between retries. */
     signal?: AbortSignal | undefined;
@@ -258,14 +324,14 @@ export namespace Jev {
    * Choice and score questions are identical in both formats and pass through;
    * boolean questions become `"noul"`. The input is left untouched.
    *
-   * @param questions Questions of `typia.llm.evaluation<T>()`
+   * @param input Questions of `typia.llm.evaluation<T>()`
    * @returns New question map in the Jev wire format
    */
   export const questions = (
-    questions: Record<string, ILlmEvaluation.IQuestion>,
+    input: Record<string, ILlmEvaluation.IQuestion>,
   ): Record<string, IQuestion> => {
     const output: Record<string, IQuestion> = {};
-    for (const [key, question] of Object.entries(questions))
+    for (const [key, question] of Object.entries(input))
       // defineProperty keeps a `__proto__` key an own property
       Object.defineProperty(output, key, {
         value:
@@ -285,15 +351,17 @@ export namespace Jev {
    * @param props Client, evaluation, and state
    * @returns Validated answers with the raw response
    */
-  export const typesafe = async <T>(
-    props: ITypeSafeProps<T>,
+  export const typesafe = async <T, S extends IState>(
+    props: ITypeSafeProps<T, S>,
   ): Promise<IResult<T>> => {
-    assertState(props.state);
-    const response = await props.client.systemOne({
-      state: props.state,
-      questions: questions(props.evaluation.questions),
-      ...(props.model !== undefined ? { model: props.model } : {}),
-    });
+    const response: unknown = await props.client.systemOne(
+      {
+        state: props.state,
+        questions: questions(props.evaluation.questions),
+        ...(props.model !== undefined ? { model: props.model } : {}),
+      },
+      props.options,
+    );
     if (isResponse(response) === false)
       throw new TypeError(
         "Jev.typesafe(): the client returned no evaluation response with answers, model, and usage.",
@@ -305,45 +373,66 @@ export namespace Jev {
    * Evaluate through OpenRouter's Decisions API.
    *
    * OpenRouter publishes no SDK for this alpha endpoint, so this is a small
-   * `fetch` client. A rate limit (429), an overload (529), or a gateway failure
-   * (500, 502, 503, 524) is retried with exponential backoff, honoring
-   * `retry-after` up to a minute; a longer requested pause, or any other
-   * failure, throws {@link JevHttpError}.
+   * `fetch` client following the retry policy of TypeSafe's own SDK, the
+   * reference client for the Jev wire format; see {@link IOpenRouterProps}. Once
+   * the retries are spent, a failure response throws {@link JevHttpError}, a
+   * request that got no response throws {@link JevConnectionError}, and one that
+   * timed out throws {@link JevTimeoutError}. An abort rejects with the signal's
+   * reason, without retrying.
    *
-   * @param props API key, evaluation, state, and transport options
+   * @param props API key, evaluation, state, model, and transport options
    * @returns Validated answers with the raw response
    */
-  export const openrouter = async <T>(
-    props: IOpenRouterProps<T>,
+  export const openrouter = async <T, S extends IState>(
+    props: IOpenRouterProps<T, S>,
   ): Promise<IResult<T>> => {
-    assertState(props.state);
-    const retries: number = props.maxRetries ?? 2;
+    const retries: number = props.maxRetries ?? JevRetryPolicy.MAX_RETRIES;
     if (Number.isInteger(retries) === false || retries < 0)
       throw new TypeError(
         `Jev.openrouter(): maxRetries must be a non-negative integer, not ${retries}.`,
       );
+    const timeout: number = props.timeout ?? JevRetryPolicy.TIMEOUT;
+    if (Number.isFinite(timeout) === false || timeout <= 0)
+      throw new TypeError(
+        `Jev.openrouter(): timeout must be a positive number of milliseconds, not ${timeout}.`,
+      );
+
     const request: IRequest = {
-      model: props.model ?? "typesafe/jev-1.13",
+      model: props.model,
       state: props.state,
       questions: questions(props.evaluation.questions),
     };
     const body: string = JSON.stringify({ ...props.body, ...request });
     const url: string = `${(props.baseURL ?? "https://openrouter.ai/api/alpha").replace(/\/+$/, "")}/decisions`;
-    const call: typeof fetch = props.fetch ?? fetch;
     // set, not spread: header names are case-insensitive, and a spread would
     // send a caller's lowercase `authorization` beside the real one
     const headers: Headers = new Headers(props.headers);
     headers.set("Authorization", `Bearer ${props.apiKey}`);
     headers.set("Content-Type", "application/json");
+    const init = { method: "POST", headers, body };
 
     for (let attempt: number = 0; ; ++attempt) {
-      const response: Response = await call(url, {
-        method: "POST",
-        headers,
-        body,
-        signal: props.signal,
-      });
-      const payload: unknown = await read(response);
+      let exchange: IExchange;
+      try {
+        exchange = await send({
+          fetch: props.fetch ?? fetch,
+          url,
+          init,
+          timeout,
+          signal: props.signal,
+        });
+      } catch (error) {
+        if (props.signal?.aborted === true) throw props.signal.reason;
+        const failure: JevConnectionError =
+          error instanceof JevTimeoutError
+            ? error
+            : new JevConnectionError(error);
+        if (attempt >= retries) throw failure;
+        await wait(JevRetryPolicy.delay(attempt), props.signal);
+        continue;
+      }
+
+      const { response, payload } = exchange;
       if (response.ok) {
         if (isResponse(payload) === false)
           throw new JevHttpError(
@@ -353,19 +442,56 @@ export namespace Jev {
           );
         return compose(props.evaluation, payload);
       }
-      if (RETRYABLE.has(response.status) === false || attempt >= retries)
+      if (
+        JevRetryPolicy.retryable(response.status) === false ||
+        attempt >= retries
+      )
         throw new JevHttpError(response.status, payload);
-      // a server asking for a longer pause than a caller would sit through
-      // fails now instead of hanging the call
-      const pause: number = delay(response, attempt);
-      if (pause > MAX_DELAY) throw new JevHttpError(response.status, payload);
-      await wait(pause, props.signal);
+      await wait(JevRetryPolicy.delay(attempt, response.headers), props.signal);
     }
   };
 
   /* -----------------------------------------------------------
     INTERNAL
   ----------------------------------------------------------- */
+  interface IExchange {
+    response: Response;
+    payload: unknown;
+  }
+
+  /**
+   * One attempt: the request and its whole body, under the timeout.
+   *
+   * The caller's signal and the timeout share one controller, so either cancels
+   * the attempt; a timeout surfaces as {@link JevTimeoutError}.
+   */
+  const send = async (props: {
+    fetch: typeof fetch;
+    url: string;
+    init: RequestInit;
+    timeout: number;
+    signal: AbortSignal | undefined;
+  }): Promise<IExchange> => {
+    const controller: AbortController = new AbortController();
+    const expired: JevTimeoutError = new JevTimeoutError(props.timeout);
+    const timer = setTimeout(() => controller.abort(expired), props.timeout);
+    const cancel = (): void => controller.abort(props.signal!.reason);
+    if (props.signal?.aborted === true) cancel();
+    else props.signal?.addEventListener("abort", cancel, { once: true });
+    try {
+      const response: Response = await props.fetch(props.url, {
+        ...props.init,
+        signal: controller.signal,
+      });
+      return { response, payload: await read(response) };
+    } catch (error) {
+      throw controller.signal.reason === expired ? expired : error;
+    } finally {
+      clearTimeout(timer);
+      props.signal?.removeEventListener("abort", cancel);
+    }
+  };
+
   const compose = <T>(
     evaluation: ILlmEvaluation<T>,
     response: IResponse,
@@ -376,10 +502,6 @@ export namespace Jev {
     usage: response.usage,
   });
 
-  const RETRYABLE: ReadonlySet<number> = new Set([
-    429, 500, 502, 503, 524, 529,
-  ]);
-
   const read = async (response: Response): Promise<unknown> => {
     const text: string = await response.text();
     try {
@@ -388,9 +510,6 @@ export namespace Jev {
       return text;
     }
   };
-
-  /** Longest `retry-after` pause honored, in milliseconds. */
-  const MAX_DELAY: number = 60_000;
 
   const isRecord = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" &&
@@ -403,140 +522,9 @@ export namespace Jev {
     typeof value.model === "string" &&
     isRecord(value.usage);
 
-  /**
-   * Reject a state JSON cannot carry faithfully.
-   *
-   * Both endpoints receive the state as the request body's `state` in JSON,
-   * where a function vanishes, a `Map` becomes `{}`, and `NaN` or an array hole
-   * becomes `null`, so the model would silently judge something else.
-   *
-   * The check is `JSON.stringify` itself, run over `{ state }` with a replacer:
-   * JSON hands the replacer every value after `toJSON()`, with the same keys
-   * and in the same order the endpoints serialize with, so the check cannot
-   * drift from the serialization it guards. A cycle is JSON's own `TypeError`.
-   * An `undefined` property is an omitted optional field and passes, as it does
-   * everywhere in JSON.
-   */
-  const assertState = (state: unknown): void => {
-    const paths: WeakMap<object, string> = new WeakMap();
-    const root: { state: unknown } = { state };
-    const fail = (path: string, what: string): never => {
-      throw new TypeError(
-        `Jev state must be JSON, but ${path} is ${what}, which JSON cannot carry.`,
-      );
-    };
-    JSON.stringify(root, function (this: unknown, key: string, value: unknown) {
-      if (this !== null && typeof this === "object" && value === root) {
-        paths.set(root, "$");
-        return value;
-      }
-      const parent: string = paths.get(this as object) ?? "$";
-      const path: string = Array.isArray(this)
-        ? `${parent}[${key}]`
-        : parent === "$"
-          ? `$${key}`
-          : IDENTIFIER.test(key)
-            ? `${parent}.${key}`
-            : `${parent}[${JSON.stringify(key)}]`;
-      if (typeof value === "number") {
-        if (Number.isFinite(value) === false) fail(path, String(value));
-      } else if (
-        value === undefined ||
-        typeof value === "function" ||
-        typeof value === "symbol"
-      ) {
-        // an omitted optional field is fine; a lost element or state is not
-        if (
-          value !== undefined ||
-          Array.isArray(this) ||
-          (this === root && key === "state")
-        )
-          fail(
-            path,
-            value === undefined ? "undefined" : `of type ${typeof value}`,
-          );
-      } else if (typeof value === "bigint") fail(path, "of type bigint");
-      else if (typeof value === "object" && value !== null) {
-        const wrapper: WrapperKind | null = wrapperOf(value);
-        if (wrapper === "Number") {
-          if (Number.isFinite(Number(value)) === false)
-            fail(path, String(Number(value)));
-        } else if (
-          wrapper === null &&
-          Array.isArray(value) === false &&
-          isPlain(value) === false
-        )
-          fail(
-            path,
-            `an instance of ${(value as object).constructor?.name || "a class"}`,
-          );
-        paths.set(value, path);
-      }
-      return value;
-    });
-  };
-
-  const IDENTIFIER: RegExp = /^[A-Za-z_$][\w$]*$/;
-
-  type WrapperKind = "Boolean" | "Number" | "String";
-
-  /**
-   * The primitive wrapper kind of an object, or `null`.
-   *
-   * The tag is only a cheap filter, since `Symbol.toStringTag` can claim any
-   * kind; the claim is confirmed by the kind's own `valueOf()`, which throws
-   * without the internal slot. Only a tagged object pays that call, so an
-   * ordinary state never throws here.
-   */
-  const wrapperOf = (value: object): WrapperKind | null => {
-    const tag: string = Object.prototype.toString.call(value);
-    const kind: WrapperKind | undefined = WRAPPER_TAGS[tag];
-    if (kind === undefined) return null;
-    try {
-      WRAPPER_READERS[kind].call(value);
-      return kind;
-    } catch {
-      return null;
-    }
-  };
-
-  const WRAPPER_TAGS: Record<string, WrapperKind | undefined> = {
-    "[object Boolean]": "Boolean",
-    "[object Number]": "Number",
-    "[object String]": "String",
-  };
-
-  const WRAPPER_READERS: Record<WrapperKind, (this: unknown) => unknown> = {
-    Boolean: Boolean.prototype.valueOf,
-    Number: Number.prototype.valueOf,
-    String: String.prototype.valueOf,
-  };
-
-  /**
-   * An object JSON walks as a plain one, from this realm or another: its
-   * prototype is `null`, or itself has a `null` prototype, as every realm's
-   * `Object.prototype` does. Built-ins such as `Map` sit one level deeper.
-   */
-  const isPlain = (object: object): boolean => {
-    const prototype: object | null = Object.getPrototypeOf(object);
-    return prototype === null || Object.getPrototypeOf(prototype) === null;
-  };
-
-  /** Milliseconds before the next attempt. */
-  const delay = (response: Response, attempt: number): number => {
-    const header: string | null = response.headers.get("retry-after");
-    if (header !== null) {
-      const seconds: number = Number(header);
-      if (Number.isFinite(seconds)) return Math.max(0, seconds * 1_000);
-      const date: number = Date.parse(header);
-      if (Number.isFinite(date)) return Math.max(0, date - Date.now());
-    }
-    return Math.min(8_000, 500 * 2 ** attempt);
-  };
-
   const wait = (ms: number, signal: AbortSignal | undefined): Promise<void> =>
     new Promise((resolve, reject) => {
-      if (signal?.aborted) return reject(signal.reason);
+      if (signal?.aborted === true) return reject(signal.reason);
       const timer = setTimeout(() => {
         signal?.removeEventListener("abort", abort);
         resolve();
