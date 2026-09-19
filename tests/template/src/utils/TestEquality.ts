@@ -13,13 +13,16 @@
  *
  * Both compare by content:
  *
- * - `Date` by time, `RegExp` by source and flags, `Error` by name and message;
+ * - `Date` by time, and `RegExp` by source and flags;
  * - `Map` by entries, and `Set` by members, counting structurally equal members
  *   one to one;
  * - Typed arrays, `DataView`, and `ArrayBuffer` by their kind and bytes;
+ * - An `Error` by name and message as well as its own fields;
  * - `NaN` as equal to `NaN`;
  * - Two objects of different built-in kinds as different, so a `Uint8Array` never
- *   equals a plain object.
+ *   equals a plain object. A kind is read from the value's internal slots, so
+ *   an object that only inherits a built-in prototype, or only carries its
+ *   `Symbol.toStringTag`, is a plain object.
  *
  * Both keep these rules of `TestValidator.equals`, which many schema and
  * controller assertions rely on:
@@ -32,7 +35,8 @@
  *   identity.
  * - Prototypes are not compared; assert identity with `===` instead.
  *
- * A cycle compares as equal once the same pair of objects is revisited.
+ * A cycle, through sets included, compares as equal once the same pair of
+ * objects is revisited.
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -152,38 +156,40 @@ const compare = (
     const next = (suffix: string, a: unknown, b: unknown): void =>
       compare(output, exception, exact, path + suffix, a, b, visiting);
     const type: string = kind(x);
-    if (x instanceof Date) {
-      const [a, b] = [x.getTime(), (y as Date).getTime()];
+    if (type === "Date") {
+      const [a, b] = [(x as Date).getTime(), (y as Date).getTime()];
       if (a !== b && !(Number.isNaN(a) && Number.isNaN(b))) output.push(path);
-    } else if (x instanceof RegExp) {
-      next(".source", x.source, (y as RegExp).source);
-      next(".flags", x.flags, (y as RegExp).flags);
-    } else if (x instanceof Error) {
-      next(".name", x.name, (y as Error).name);
-      next(".message", x.message, (y as Error).message);
-    } else if (Array.isArray(x)) {
-      const other: unknown[] = y as unknown[];
-      if (x.length !== other.length) output.push(`${path}.length`);
-      for (let i: number = 0; i < Math.max(x.length, other.length); ++i)
-        next(`[${i}]`, x[i], other[i]);
+    } else if (type === "RegExp") {
+      next(".source", (x as RegExp).source, (y as RegExp).source);
+      next(".flags", (x as RegExp).flags, (y as RegExp).flags);
+    } else if (type === "Array") {
+      const [a, b] = [x as unknown[], y as unknown[]];
+      if (a.length !== b.length) output.push(`${path}.length`);
+      for (let i: number = 0; i < Math.max(a.length, b.length); ++i)
+        next(`[${i}]`, a[i], b[i]);
     } else if (BINARY.has(type)) {
       const [a, b] = [bytes(x), bytes(y)];
       if (a.length !== b.length || a.some((v, i) => v !== b[i]))
         output.push(path);
-    } else if (x instanceof Map) {
-      const other: Map<unknown, unknown> = y as Map<unknown, unknown>;
-      if (x.size !== other.size) output.push(`${path}.size`);
-      for (const [key, value] of x)
-        if (other.has(key) === false) output.push(`${path}.get(${label(key)})`);
-        else next(`.get(${label(key)})`, value, other.get(key));
-      for (const key of other.keys())
-        if (x.has(key) === false) output.push(`${path}.get(${label(key)})`);
-    } else if (x instanceof Set) {
-      if (matches([...x], [...(y as Set<unknown>)], exception) === false)
+    } else if (type === "Map") {
+      const [a, b] = [x as Map<unknown, unknown>, y as Map<unknown, unknown>];
+      if (a.size !== b.size) output.push(`${path}.size`);
+      for (const [key, value] of a)
+        if (b.has(key) === false) output.push(`${path}.get(${label(key)})`);
+        else next(`.get(${label(key)})`, value, b.get(key));
+      for (const key of b.keys())
+        if (a.has(key) === false) output.push(`${path}.get(${label(key)})`);
+    } else if (type === "Set") {
+      const members = (set: unknown): unknown[] => [...(set as Set<unknown>)];
+      if (matches(members(x), members(y), exception, visiting) === false)
         output.push(path);
     } else {
       const a: Record<string, unknown> = x as Record<string, unknown>;
       const b: Record<string, unknown> = y as Record<string, unknown>;
+      // AN ERROR KEEPS ITS NAME AND MESSAGE OFF THE ENUMERABLE KEYS
+      if (type === "Error")
+        for (const key of ["name", "message"])
+          if (exception(key) === false) next(`.${key}`, a[key], b[key]);
       const keys: Set<string> = new Set(
         exact ? [...Object.keys(a), ...Object.keys(b)] : Object.keys(a),
       );
@@ -205,13 +211,14 @@ const matches = (
   x: unknown[],
   y: unknown[],
   exception: (key: string) => boolean,
+  visiting: Map<object, Set<object>>,
 ): boolean => {
   if (x.length !== y.length) return false;
   const rest: unknown[] = [...y];
   for (const value of x) {
     const index: number = rest.findIndex((candidate) => {
       const output: string[] = [];
-      compare(output, exception, true, "", value, candidate);
+      compare(output, exception, true, "", value, candidate, visiting);
       return output.length === 0;
     });
     if (index === -1) return false;
@@ -224,28 +231,71 @@ const matches = (
 const own = (record: Record<string, unknown>, key: string): unknown =>
   Object.prototype.hasOwnProperty.call(record, key) ? record[key] : undefined;
 
-/** The built-in kind an object's content is compared as. */
-const kind = (value: object): string =>
-  Array.isArray(value)
-    ? "[object Array]"
-    : Object.prototype.toString.call(value);
+/**
+ * The built-in kind an object's content is compared as.
+ *
+ * Read from the internal slots each kind's own methods check, not from
+ * `instanceof` or `Symbol.toStringTag`: an object inheriting from
+ * `Map.prototype` is no map, and a tagged view is still bytes.
+ */
+const kind = (value: object): string => {
+  if (Array.isArray(value)) return "Array";
+  if (ArrayBuffer.isView(value)) return TYPED_ARRAY_TAG.call(value) ?? "DataView";
+  for (const [name, probe] of PROBES) if (holds(probe, value)) return name;
+  return isError(value) ? "Error" : "Object";
+};
+
+const holds = (probe: (value: object) => unknown, value: object): boolean => {
+  try {
+    probe(value);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const getter = (prototype: object, key: string): ((this: unknown) => unknown) =>
+  Object.getOwnPropertyDescriptor(prototype, key)!.get!;
+
+const TYPED_ARRAY_TAG = getter(
+  Object.getPrototypeOf(Int8Array.prototype),
+  Symbol.toStringTag as unknown as string,
+) as (this: unknown) => string | undefined;
+
+const PROBES: Array<[string, (value: object) => unknown]> = [
+  ["Date", (value) => Date.prototype.getTime.call(value)],
+  ["RegExp", (value) => getter(RegExp.prototype, "source").call(value)],
+  ["Map", (value) => Map.prototype.has.call(value, undefined)],
+  ["Set", (value) => Set.prototype.has.call(value, undefined)],
+  ["ArrayBuffer", (value) => getter(ArrayBuffer.prototype, "byteLength").call(value)],
+  [
+    "SharedArrayBuffer",
+    (value) => getter(SharedArrayBuffer.prototype, "byteLength").call(value),
+  ],
+];
+
+const isError = (value: object): boolean => {
+  const intrinsic = (Error as { isError?: (value: unknown) => boolean }).isError;
+  return intrinsic !== undefined ? intrinsic(value) : value instanceof Error;
+};
 
 /** Kinds compared by their bytes. */
 const BINARY: ReadonlySet<string> = new Set([
-  "[object ArrayBuffer]",
-  "[object SharedArrayBuffer]",
-  "[object DataView]",
-  "[object Int8Array]",
-  "[object Uint8Array]",
-  "[object Uint8ClampedArray]",
-  "[object Int16Array]",
-  "[object Uint16Array]",
-  "[object Int32Array]",
-  "[object Uint32Array]",
-  "[object Float32Array]",
-  "[object Float64Array]",
-  "[object BigInt64Array]",
-  "[object BigUint64Array]",
+  "ArrayBuffer",
+  "SharedArrayBuffer",
+  "DataView",
+  "Int8Array",
+  "Uint8Array",
+  "Uint8ClampedArray",
+  "Int16Array",
+  "Uint16Array",
+  "Int32Array",
+  "Uint32Array",
+  "Float16Array",
+  "Float32Array",
+  "Float64Array",
+  "BigInt64Array",
+  "BigUint64Array",
 ]);
 
 const bytes = (value: object): Uint8Array =>

@@ -14,7 +14,10 @@ import { TestEquality } from "@typia/template/equality";
  * missing key named like an inherited method read the prototype's function and
  * was skipped, functions were ignored even as array elements, binary and other
  * built-in values compared as keyless objects, sets ignored multiplicity and
- * the key exception, and a cycle overflowed the stack.
+ * the key exception, and a cycle overflowed the stack. A second pass found a
+ * cycle through a set still overflowing, kinds read from `Symbol.toStringTag`
+ * while branches were chosen by `instanceof`, and errors compared without
+ * their own fields.
  *
  * 1. Pin each equal pair to pass `equals` in both orders.
  * 2. Pin each unequal pair to fail `equals` in both orders.
@@ -53,6 +56,9 @@ export const test_equality_oracle = (): void => {
     ["buffer", new Uint8Array([1, 2]).buffer, new Uint8Array([1, 2]).buffer],
     ["same function element", [same_function], [same_function]],
     ["cycle", cycle(1), cycle(1)],
+    ["cycle through a set", set_cycle(1), set_cycle(1)],
+    ["inherited map prototype", Object.create(Map.prototype), {}],
+    ["tagged view", tagged_view([1, 2]), tagged_view([1, 2])],
   ];
   const different: Array<[string, unknown, unknown]> = [
     ["primitive", 1, 2],
@@ -102,6 +108,10 @@ export const test_equality_oracle = (): void => {
       new Set([{ a: 1 }, { a: 2 }, { a: 2 }]),
     ],
     ["cycle", cycle(1), cycle(2)],
+    ["cycle through a set", set_cycle(1), set_cycle(2)],
+    ["tagged view bytes", tagged_view([1]), tagged_view([2])],
+    ["error field", error_with("$input.a"), error_with("$input.b")],
+    ["error kind", new Error("a"), new TypeError("a")],
   ];
   for (const [name, x, y] of same) {
     TestValidator.predicate(
@@ -133,6 +143,19 @@ export const test_equality_oracle = (): void => {
         { a: 1, id: 1 },
         { a: 1, id: 2 },
         (key) => key === "id",
+      ),
+    ),
+  );
+
+  // exception reaches an error's name too
+  TestValidator.predicate(
+    "exception on an error name",
+    passes(() =>
+      TestEquality.equals(
+        "exception",
+        new Error("a"),
+        new TypeError("a"),
+        (key) => key === "name",
       ),
     ),
   );
@@ -232,6 +255,24 @@ const cycle = (value: number): object => {
   output.self = output;
   return output;
 };
+
+/** A set holding an object that holds the set, carrying `value`. */
+const set_cycle = (value: number): object => {
+  const output: Record<string, unknown> = { value };
+  output.set = new Set([output]);
+  return output;
+};
+
+/** A view whose `Symbol.toStringTag` claims a plain object. */
+const tagged_view = (bytes: number[]): DataView => {
+  const view: DataView = new DataView(new Uint8Array(bytes).buffer);
+  Object.defineProperty(view, Symbol.toStringTag, { value: "Object" });
+  return view;
+};
+
+/** An error carrying a report field, as `TypeGuardError` does. */
+const error_with = (path: string): Error =>
+  Object.assign(new Error("invalid"), { path });
 
 const passes = (task: () => void): boolean => {
   try {

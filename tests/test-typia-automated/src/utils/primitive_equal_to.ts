@@ -23,7 +23,7 @@ export function primitive_equal_to<Instance>(
   const diff: string[] = TestEquality.difference(x, y);
   if (diff.length === 0) return true;
   if (tracer?.silent !== true)
-    console.log({ path: diff.map((path) => `$input${path}`) });
+    console.log({ path: diff.map((path) => `$input${path}`), x, y });
   if (tracer) tracer.value = `$input${diff[0]}`;
   return false;
 }

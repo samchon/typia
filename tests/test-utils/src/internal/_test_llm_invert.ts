@@ -52,7 +52,12 @@ const normalize = (
     const key: string = record.$ref.replace("#/components/schemas/", "");
     const target: OpenApi.IJsonSchema | undefined = components.schemas?.[key];
     if (target === undefined || visited.has(key)) return record;
-    return normalize(components, target, new Set([...visited, key]));
+    // SIBLINGS OF THE REFERENCE, SUCH AS ITS DESCRIPTION, OVERLAY THE TARGET
+    const { $ref: _ref, ...siblings } = record;
+    return {
+      ...(normalize(components, target, new Set([...visited, key])) as object),
+      ...(normalize(components, siblings, visited) as object),
+    };
   }
   const output: Record<string, unknown> = Object.fromEntries(
     Object.entries(record).map(([key, value]) => [
@@ -62,7 +67,13 @@ const normalize = (
   );
   if (Array.isArray(output.oneOf))
     output.oneOf = [...output.oneOf].sort((x, y) =>
-      JSON.stringify(x).localeCompare(JSON.stringify(y)),
+      signature(x).localeCompare(signature(y)),
     );
   return output;
 };
+
+/** Sort key of a union member, blind to the descriptions the comparison skips. */
+const signature = (schema: unknown): string =>
+  JSON.stringify(schema, (key, value) =>
+    key === "description" ? undefined : value,
+  );
