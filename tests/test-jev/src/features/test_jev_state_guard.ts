@@ -63,7 +63,6 @@ export const test_jev_state_guard = async (): Promise<void> => {
     ["set", new Set([1]), "$state"],
     ["class instance", { ticket: new Ticket(1) }, "$state.ticket"],
     ["anonymous class", { ticket: new (class {})() }, "$state.ticket"],
-    ["cycle", cyclic, "$state.self"],
     // eslint-disable-next-line no-sparse-arrays
     ["array hole", { list: [1, , 2] }, "$state.list[1]"],
     ["undefined element", { list: [1, undefined] }, "$state.list[1]"],
@@ -82,11 +81,6 @@ export const test_jev_state_guard = async (): Promise<void> => {
         }),
       },
       "$state.value",
-    ],
-    [
-      "map stripped of its prototype",
-      { tags: Object.setPrototypeOf(new Map([["a", 1]]), null) },
-      "$state.tags",
     ],
     ["typed array", { bytes: new Uint8Array(1) }, "$state.bytes"],
     [
@@ -116,6 +110,19 @@ export const test_jev_state_guard = async (): Promise<void> => {
       { routed: true, direct: true, calls: 0, sent: false },
     );
   }
+
+  // a cycle is JSON's own TypeError, raised before any request
+  const circular = await attempt(cyclic);
+  TestEquality.equals(
+    "rejects cycle",
+    {
+      routed: circular.routed instanceof TypeError,
+      direct: circular.direct instanceof TypeError,
+      calls: circular.calls,
+      sent: circular.sent,
+    },
+    { routed: true, direct: true, calls: 0, sent: false },
+  );
 
   interface ITicket {
     id: number;

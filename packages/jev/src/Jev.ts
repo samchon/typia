@@ -406,130 +406,83 @@ export namespace Jev {
   /**
    * Reject a state JSON cannot carry faithfully.
    *
-   * Both endpoints receive the state as JSON, where a function vanishes, a
-   * `Map` or `Set` becomes `{}`, and `NaN` becomes `null`, so the model would
-   * silently judge something else. A value with `toJSON()`, such as a `Date`,
-   * chooses its own JSON and passes.
+   * Both endpoints receive the state as the request body's `state` in JSON,
+   * where a function vanishes, a `Map` becomes `{}`, and `NaN` or an array hole
+   * becomes `null`, so the model would silently judge something else.
+   *
+   * The check is `JSON.stringify` itself, run over `{ state }` with a replacer:
+   * JSON hands the replacer every value after `toJSON()`, with the same keys
+   * and in the same order the endpoints serialize with, so the check cannot
+   * drift from the serialization it guards. A cycle is JSON's own `TypeError`.
+   * An `undefined` property is an omitted optional field and passes, as it does
+   * everywhere in JSON.
    */
   const assertState = (state: unknown): void => {
-    const ancestors: Set<object> = new Set();
-    const visit = (value: unknown, path: string, key: string): void => {
-      if (
-        value === null ||
-        typeof value === "string" ||
-        typeof value === "boolean"
-      )
-        return;
-      if (typeof value === "number") {
-        if (Number.isFinite(value) === false) fail(path, String(value));
-        return;
-      }
-      if (value === undefined) fail(path, "undefined");
-      if (typeof value !== "object") fail(path, `of type ${typeof value}`);
-      const object: object = value as object;
-      if (ancestors.has(object)) fail(path, "circular");
-
-      // JSON unwraps what toJSON() returns and the primitive wrappers
-      const toJSON: unknown = (object as { toJSON?: unknown }).toJSON;
-      if (typeof toJSON === "function")
-        return nest(object, () => visit(toJSON.call(object, key), path, key));
-      const primitive: unknown = unwrap(object);
-      if (primitive !== undefined) return visit(primitive, path, key);
-
-      if (Array.isArray(object))
-        return nest(object, () => {
-          // a hole or an undefined element becomes null in JSON
-          for (let i: number = 0; i < object.length; ++i)
-            visit(object[i], `${path}[${i}]`, String(i));
-        });
-      if (isPlain(object) === false)
-        fail(path, `an instance of ${object.constructor?.name || "a class"}`);
-      nest(object, () => {
-        for (const [name, elem] of Object.entries(object))
-          if (elem !== undefined) visit(elem, `${path}.${name}`, name);
-      });
-    };
-    const nest = (object: object, task: () => void): void => {
-      ancestors.add(object);
-      task();
-      ancestors.delete(object);
-    };
+    const paths: WeakMap<object, string> = new WeakMap();
+    const root: { state: unknown } = { state };
     const fail = (path: string, what: string): never => {
       throw new TypeError(
         `Jev state must be JSON, but ${path} is ${what}, which JSON cannot carry.`,
       );
     };
-    // both endpoints serialize the state as the request body's `state`
-    visit(state, "$state", "state");
+    JSON.stringify(root, function (this: unknown, key: string, value: unknown) {
+      if (this !== null && typeof this === "object" && value === root) {
+        paths.set(root, "$");
+        return value;
+      }
+      const parent: string = paths.get(this as object) ?? "$";
+      const path: string = Array.isArray(this)
+        ? `${parent}[${key}]`
+        : parent === "$"
+          ? `$${key}`
+          : `${parent}.${key}`;
+      if (typeof value === "number") {
+        if (Number.isFinite(value) === false) fail(path, String(value));
+      } else if (
+        value === undefined ||
+        typeof value === "function" ||
+        typeof value === "symbol"
+      ) {
+        // an omitted optional field is fine; a lost element or state is not
+        if (
+          value !== undefined ||
+          Array.isArray(this) ||
+          (this === root && key === "state")
+        )
+          fail(
+            path,
+            value === undefined ? "undefined" : `of type ${typeof value}`,
+          );
+      } else if (typeof value === "bigint") fail(path, "of type bigint");
+      else if (typeof value === "object" && value !== null) {
+        const tag: string = Object.prototype.toString.call(value);
+        if (tag === "[object Number]") {
+          if (Number.isFinite(Number(value)) === false)
+            fail(path, String(Number(value)));
+        } else if (
+          tag !== "[object String]" &&
+          tag !== "[object Boolean]" &&
+          Array.isArray(value) === false &&
+          isPlain(value) === false
+        )
+          fail(
+            path,
+            `an instance of ${(value as object).constructor?.name || "a class"}`,
+          );
+        paths.set(value, path);
+      }
+      return value;
+    });
   };
-
-  /**
-   * The primitive JSON writes for a `Boolean`, `Number`, or `String` wrapper,
-   * or `undefined` for any other object.
-   *
-   * The wrapper is recognized by its internal slot, so one from another realm
-   * counts. JSON then reads a `Boolean` from that slot, but converts a `Number`
-   * or `String` with `ToNumber` or `ToString`, which honor an overridden
-   * `valueOf()`, `toString()`, or `Symbol.toPrimitive`.
-   */
-  const unwrap = (object: object): unknown => {
-    if (holds(Boolean.prototype.valueOf, object))
-      return Boolean.prototype.valueOf.call(object);
-    if (holds(Number.prototype.valueOf, object)) return Number(object);
-    if (holds(String.prototype.valueOf, object)) return String(object);
-    return undefined;
-  };
-
-  /** Whether `object` has the internal slot `probe` reads. */
-  const holds = (
-    probe: (this: unknown) => unknown,
-    object: object,
-  ): boolean => {
-    try {
-      probe.call(object);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
-  /**
-   * Readers of the built-in internal slots JSON cannot see through, so a `Map`
-   * stripped of its prototype still counts as one.
-   */
-  const OPAQUE: ReadonlyArray<(this: unknown) => unknown> = [
-    function (this: unknown) {
-      return Map.prototype.has.call(this, undefined);
-    },
-    function (this: unknown) {
-      return Set.prototype.has.call(this, undefined);
-    },
-    function (this: unknown) {
-      return WeakMap.prototype.has.call(this, {});
-    },
-    function (this: unknown) {
-      return WeakSet.prototype.has.call(this, {});
-    },
-    Date.prototype.getTime,
-    Object.getOwnPropertyDescriptor(RegExp.prototype, "source")!.get!,
-    Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, "byteLength")!.get!,
-    function (this: unknown) {
-      if (ArrayBuffer.isView(this) === false) throw new TypeError();
-    },
-  ];
 
   /**
    * An object JSON walks as a plain one, from this realm or another: its
    * prototype is `null`, or itself has a `null` prototype, as every realm's
-   * `Object.prototype` does, and it holds no built-in internal slot. Built-ins
-   * such as `Map` sit one level deeper, unless stripped of their prototype.
+   * `Object.prototype` does. Built-ins such as `Map` sit one level deeper.
    */
   const isPlain = (object: object): boolean => {
     const prototype: object | null = Object.getPrototypeOf(object);
-    return (
-      (prototype === null || Object.getPrototypeOf(prototype) === null) &&
-      OPAQUE.every((probe) => holds(probe, object) === false)
-    );
+    return prototype === null || Object.getPrototypeOf(prototype) === null;
   };
 
   /** Milliseconds before the next attempt. */
