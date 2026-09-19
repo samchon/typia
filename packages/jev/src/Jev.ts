@@ -104,10 +104,10 @@ export namespace Jev {
             ? never
             : S extends readonly [...infer I]
               ? // I is the array or tuple without any tag intersected into S,
-                // like `string[] & tags.MinItems<1>`, whose mapping would walk
-                // the array's methods
-                // the homomorphic mapping checks an array by its element and a
-                // tuple slot by slot, so an optional slot may be absent
+                // like `string[] & tags.MinItems<1>`, whose own mapping would
+                // walk the array's methods. Mapping I checks an array by its
+                // element and a tuple slot by slot, so an optional slot may be
+                // absent.
                 [I] extends [{ [K in keyof I]: Jsonable<I[K]> }]
                 ? S
                 : never
