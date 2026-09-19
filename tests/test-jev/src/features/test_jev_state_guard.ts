@@ -84,6 +84,16 @@ export const test_jev_state_guard = async (): Promise<void> => {
     ],
     ["typed array", { bytes: new Uint8Array(1) }, "$state.bytes"],
     [
+      "map claiming to be a wrapper",
+      {
+        tags: Object.defineProperty(new Map([["a", 1]]), Symbol.toStringTag, {
+          value: "Boolean",
+        }),
+      },
+      "$state.tags",
+    ],
+    ["key needing quotes", { "a.b": { "x y": NaN } }, '$state["a.b"]["x y"]'],
+    [
       "toJSON dropping the state under its real key",
       { toJSON: (key: string) => (key === "state" ? undefined : { ok: 1 }) },
       "$state",

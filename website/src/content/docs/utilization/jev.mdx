@@ -68,7 +68,7 @@ const result = await Jev.openrouter({
 
 ## State
 
-Both endpoints receive the state as JSON, so both helpers check it first. A value JSON cannot carry faithfully throws a `TypeError` naming its path before any request, instead of reaching the model as `{}` or `null`: a function, a `Map`, a `Set`, a class instance, `NaN`, an array hole or `undefined` element, or a cycle. Text, plain objects and arrays, primitive wrappers, and values whose `toJSON()` returns JSON, such as a `Date`, pass.
+Both endpoints receive the state as JSON, so both helpers check it first, with one `JSON.stringify` pass. A value JSON cannot carry faithfully throws a `TypeError` naming its path before any request, instead of reaching the model as `{}` or `null`: a function, a `Map`, a `Set`, a class instance, `NaN`, or an array hole or `undefined` element. A cycle throws JSON's own `TypeError`. Text, plain objects and arrays, primitive wrappers, and values whose `toJSON()` returns JSON, such as a `Date`, pass, and an `undefined` property is an omitted optional field.
 
 ## Result
 

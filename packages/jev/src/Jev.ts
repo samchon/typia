@@ -435,7 +435,9 @@ export namespace Jev {
         ? `${parent}[${key}]`
         : parent === "$"
           ? `$${key}`
-          : `${parent}.${key}`;
+          : IDENTIFIER.test(key)
+            ? `${parent}.${key}`
+            : `${parent}[${JSON.stringify(key)}]`;
       if (typeof value === "number") {
         if (Number.isFinite(value) === false) fail(path, String(value));
       } else if (
@@ -455,13 +457,12 @@ export namespace Jev {
           );
       } else if (typeof value === "bigint") fail(path, "of type bigint");
       else if (typeof value === "object" && value !== null) {
-        const tag: string = Object.prototype.toString.call(value);
-        if (tag === "[object Number]") {
+        const wrapper: WrapperKind | null = wrapperOf(value);
+        if (wrapper === "Number") {
           if (Number.isFinite(Number(value)) === false)
             fail(path, String(Number(value)));
         } else if (
-          tag !== "[object String]" &&
-          tag !== "[object Boolean]" &&
+          wrapper === null &&
           Array.isArray(value) === false &&
           isPlain(value) === false
         )
@@ -473,6 +474,42 @@ export namespace Jev {
       }
       return value;
     });
+  };
+
+  const IDENTIFIER: RegExp = /^[A-Za-z_$][\w$]*$/;
+
+  type WrapperKind = "Boolean" | "Number" | "String";
+
+  /**
+   * The primitive wrapper kind of an object, or `null`.
+   *
+   * The tag is only a cheap filter, since `Symbol.toStringTag` can claim any
+   * kind; the claim is confirmed by the kind's own `valueOf()`, which throws
+   * without the internal slot. Only a tagged object pays that call, so an
+   * ordinary state never throws here.
+   */
+  const wrapperOf = (value: object): WrapperKind | null => {
+    const tag: string = Object.prototype.toString.call(value);
+    const kind: WrapperKind | undefined = WRAPPER_TAGS[tag];
+    if (kind === undefined) return null;
+    try {
+      WRAPPER_READERS[kind].call(value);
+      return kind;
+    } catch {
+      return null;
+    }
+  };
+
+  const WRAPPER_TAGS: Record<string, WrapperKind | undefined> = {
+    "[object Boolean]": "Boolean",
+    "[object Number]": "Number",
+    "[object String]": "String",
+  };
+
+  const WRAPPER_READERS: Record<WrapperKind, (this: unknown) => unknown> = {
+    Boolean: Boolean.prototype.valueOf,
+    Number: Number.prototype.valueOf,
+    String: String.prototype.valueOf,
   };
 
   /**
