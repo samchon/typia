@@ -281,11 +281,9 @@ export namespace OpenApiTypeCheckerBase {
         ? ObjectDictionary.get(props.components.schemas, key)
         : undefined;
     if (key === undefined || found === undefined) {
-      // A FOREIGN OR MALFORMED REFERENCE IS NAMED WHOLE
-      const missing: string =
-        key !== undefined && props.schema.$ref.startsWith(props.prefix)
-          ? key
-          : props.schema.$ref;
+      // A FOREIGN OR MALFORMED REFERENCE IS NAMED WHOLE; a key is read only
+      // from a reference that follows the prefix
+      const missing: string = key ?? props.schema.$ref;
       props.reasons.push({
         schema: props.schema,
         accessor: props.accessor,
@@ -359,7 +357,6 @@ export namespace OpenApiTypeCheckerBase {
           ? {
               ...res,
               description: JsonDescriptor.cascade({
-                prefix: props.prefix,
                 components: props.components,
                 schema: props.schema,
                 escape: true,
@@ -378,7 +375,6 @@ export namespace OpenApiTypeCheckerBase {
           ? {
               ...res,
               description: JsonDescriptor.cascade({
-                prefix: props.prefix,
                 components: props.components,
                 schema: props.schema,
                 escape: true,

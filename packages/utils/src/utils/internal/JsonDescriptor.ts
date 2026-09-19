@@ -25,7 +25,6 @@ export namespace JsonDescriptor {
    * an unrelated type's prose, straight into what an LLM reads.
    */
   export const cascade = (props: {
-    prefix: string;
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema.IReference;
     escape: boolean;

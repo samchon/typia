@@ -96,7 +96,6 @@ export namespace LlmSchemaConverter {
         $defs,
         description: OpenApiTypeChecker.isReference(props.schema)
           ? JsonDescriptor.cascade({
-              prefix: "#/components/schemas/",
               components: props.components,
               schema: {
                 ...props.schema,

@@ -402,19 +402,14 @@ export namespace HttpLlmApplicationComposer {
       let schema: OpenApi.IJsonSchema = input;
       const visited: Set<string> = new Set();
       while ("$ref" in schema) {
-        if (schema.$ref.startsWith(SCHEMAS) === false) break;
-        const key: string | undefined = OpenApiReferenceKey.read(
-          schema.$ref,
-          SCHEMAS,
-        );
-        const found: OpenApi.IJsonSchema | undefined = OpenApiReferenceKey.get(
+        const entry = OpenApiReferenceKey.find(
           components.schemas,
           schema.$ref,
           SCHEMAS,
         );
-        if (key === undefined || visited.has(key) || found === undefined) break;
-        visited.add(key);
-        schema = found;
+        if (entry === undefined || visited.has(entry.key)) break;
+        visited.add(entry.key);
+        schema = entry.value;
       }
       return schema;
     };
