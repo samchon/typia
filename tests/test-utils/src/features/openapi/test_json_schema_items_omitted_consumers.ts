@@ -15,10 +15,11 @@ import {
  * `items: {}`, but the other consumers still missed it: the validator accepted
  * any value for such a property, the LLM converter emitted an array without
  * `items` and left `minItems` on it under `strict`, `covers` denied the
- * equivalent open array, and HTTP migration rejected it as a `pipeDelimited`
- * query parameter.
+ * equivalent open array, union discrimination ignored it, and HTTP migration
+ * rejected it as a `pipeDelimited` query parameter.
  *
- * 1. Validate a non-array and an array against an items-less array property.
+ * 1. Validate a non-array and an array against an items-less array property, and
+ *    an array against unions that must discriminate it.
  * 2. Convert an items-less array to LLM schemas, strict and not.
  * 3. Compare it with the open array through `covers`, in both directions.
  * 4. Migrate a `pipeDelimited` query parameter typed as an items-less array.
@@ -61,6 +62,29 @@ export const test_json_schema_items_omitted_consumers = (): void => {
       required: true,
     }).success,
   );
+
+  // UNION DISCRIMINATION
+  const unions: Array<[string, OpenApi.IJsonSchema[]]> = [
+    [
+      "beside an object",
+      [bare, { type: "object", properties: {}, required: [] }],
+    ],
+    [
+      "beside a string array",
+      [bare, { type: "array", items: { type: "string" } }],
+    ],
+  ];
+  for (const [title, oneOf] of unions)
+    TestEquality.equals(
+      `validator accepts a mixed array in a union ${title}`,
+      true,
+      OpenApiValidator.validate({
+        components: {},
+        schema: { oneOf },
+        value: [1, "a"],
+        required: true,
+      }).success,
+    );
 
   // LLM CONVERTER
   const minItems = {
