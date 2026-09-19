@@ -240,7 +240,8 @@ const own = (record: Record<string, unknown>, key: string): unknown =>
  */
 const kind = (value: object): string => {
   if (Array.isArray(value)) return "Array";
-  if (ArrayBuffer.isView(value)) return TYPED_ARRAY_TAG.call(value) ?? "DataView";
+  if (ArrayBuffer.isView(value))
+    return TYPED_ARRAY_TAG.call(value) ?? "DataView";
   for (const [name, probe] of PROBES) if (holds(probe, value)) return name;
   return isError(value) ? "Error" : "Object";
 };
@@ -267,7 +268,10 @@ const PROBES: Array<[string, (value: object) => unknown]> = [
   ["RegExp", (value) => getter(RegExp.prototype, "source").call(value)],
   ["Map", (value) => Map.prototype.has.call(value, undefined)],
   ["Set", (value) => Set.prototype.has.call(value, undefined)],
-  ["ArrayBuffer", (value) => getter(ArrayBuffer.prototype, "byteLength").call(value)],
+  [
+    "ArrayBuffer",
+    (value) => getter(ArrayBuffer.prototype, "byteLength").call(value),
+  ],
   [
     "SharedArrayBuffer",
     (value) => getter(SharedArrayBuffer.prototype, "byteLength").call(value),
@@ -275,7 +279,8 @@ const PROBES: Array<[string, (value: object) => unknown]> = [
 ];
 
 const isError = (value: object): boolean => {
-  const intrinsic = (Error as { isError?: (value: unknown) => boolean }).isError;
+  const intrinsic = (Error as { isError?: (value: unknown) => boolean })
+    .isError;
   return intrinsic !== undefined ? intrinsic(value) : value instanceof Error;
 };
 

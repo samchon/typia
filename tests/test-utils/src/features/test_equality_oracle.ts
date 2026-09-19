@@ -16,8 +16,8 @@ import { TestEquality } from "@typia/template/equality";
  * built-in values compared as keyless objects, sets ignored multiplicity and
  * the key exception, and a cycle overflowed the stack. A second pass found a
  * cycle through a set still overflowing, kinds read from `Symbol.toStringTag`
- * while branches were chosen by `instanceof`, and errors compared without
- * their own fields.
+ * while branches were chosen by `instanceof`, and errors compared without their
+ * own fields.
  *
  * 1. Pin each equal pair to pass `equals` in both orders.
  * 2. Pin each unequal pair to fail `equals` in both orders.

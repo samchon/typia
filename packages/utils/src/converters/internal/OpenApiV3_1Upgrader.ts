@@ -50,8 +50,10 @@ export namespace OpenApiV3_1Upgrader {
     ): OpenApi.IPath | undefined => {
       if (!OpenApiV3_1TypeChecker.isReference(webhook))
         return convertPathItem(doc)(webhook);
-      const found: OpenApiV3_1.IPath | undefined =
-        OpenApiReferenceKey.get(doc.components?.pathItems, webhook.$ref);
+      const found: OpenApiV3_1.IPath | undefined = OpenApiReferenceKey.get(
+        doc.components?.pathItems,
+        webhook.$ref,
+      );
       return found ? convertPathItem(doc)(found) : undefined;
     };
 
@@ -326,7 +328,10 @@ export namespace OpenApiV3_1Upgrader {
                           .map(([key, value]) => [
                             key,
                             OpenApiV3_1TypeChecker.isReference(value)
-                              ? OpenApiReferenceKey.get(components.examples, value.$ref)
+                              ? OpenApiReferenceKey.get(
+                                  components.examples,
+                                  value.$ref,
+                                )
                               : value,
                           ])
                           .filter(([_, v]) => v !== undefined),
@@ -792,7 +797,8 @@ export namespace OpenApiV3_1Upgrader {
         );
       else if (OpenApiV3_1TypeChecker.isRecursiveReference(input))
         return retrieveObject(components)(
-          OpenApiReferenceKey.get(components.schemas, input.$recursiveRef) ?? {},
+          OpenApiReferenceKey.get(components.schemas, input.$recursiveRef) ??
+            {},
           visited,
         );
       return null;

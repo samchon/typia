@@ -1,8 +1,8 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
-import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 
@@ -412,7 +412,10 @@ export namespace SwaggerV2Downgrader {
       visited.add(input.$ref);
       const resolved: OpenApi.IJsonSchema | undefined = resolveSchema(
         collection,
-      )(OpenApiReferenceKey.get(collection.original.schemas, input.$ref), visited);
+      )(
+        OpenApiReferenceKey.get(collection.original.schemas, input.$ref),
+        visited,
+      );
       if (resolved === undefined) return undefined;
       return {
         ...resolved,

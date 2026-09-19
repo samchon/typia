@@ -1,8 +1,8 @@
 import { OpenApi, OpenApiV3 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
-import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 

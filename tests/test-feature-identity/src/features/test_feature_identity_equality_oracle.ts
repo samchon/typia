@@ -50,11 +50,7 @@ export const test_feature_identity_equality_oracle = (): void => {
   for (const [title, planted, line] of [
     ["url string", `const url = "https://typia.io"; ${call}`, 1],
     ["opener string", `const a = "/*";\n${call}\nconst b = "*/";`, 2],
-    [
-      "template",
-      `const a = ${tick}/* \${"}"} ${tick};\n${call} // */`,
-      2,
-    ],
+    ["template", `const a = ${tick}/* \${"}"} ${tick};\n${call} // */`, 2],
     ["regex", `const r = /\\/\\*/;\n${call}\nconst q = "*/";`, 2],
   ] as const)
     TestEquality.equals(`literal ${title}`, calls(planted), [line]);
@@ -158,7 +154,10 @@ const blank = (text: string): string => {
       ++i;
       skipTemplate();
       previous = c;
-    } else if (c === "/" && (previous === "" || /[(,=:[!&|?{};+\-*%<>~^]/.test(previous))) {
+    } else if (
+      c === "/" &&
+      (previous === "" || /[(,=:[!&|?{};+\-*%<>~^]/.test(previous))
+    ) {
       let klass: boolean = false;
       for (++i; i < text.length && text[i] !== "\n"; ++i)
         if (text[i] === "\\") ++i;
@@ -168,7 +167,8 @@ const blank = (text: string): string => {
       ++i;
       previous = "/";
     } else {
-      if (templates.length !== 0 && c === "{") ++templates[templates.length - 1]!;
+      if (templates.length !== 0 && c === "{")
+        ++templates[templates.length - 1]!;
       else if (templates.length !== 0 && c === "}") {
         if (templates[templates.length - 1] === 0) {
           templates.pop();
@@ -195,8 +195,8 @@ const PATTERN =
   /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*equals\b|(?:\?\.)?\s*\[\s*["'`]equals["'`]\s*\])|\{[^}]*\bequals\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b/g;
 
 /**
- * A floor, not an expectation: the tracked suites hold over a thousand
- * sources. Half of that survives any plausible pruning, while a scan that
- * stopped finding the trees falls far below it.
+ * A floor, not an expectation: the tracked suites hold over a thousand sources.
+ * Half of that survives any plausible pruning, while a scan that stopped
+ * finding the trees falls far below it.
  */
 const POPULATED = 500;

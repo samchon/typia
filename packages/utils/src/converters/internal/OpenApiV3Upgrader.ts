@@ -294,7 +294,10 @@ export namespace OpenApiV3Upgrader {
                           .map(([key, value]) => [
                             key,
                             OpenApiV3TypeChecker.isReference(value)
-                              ? OpenApiReferenceKey.get(components.examples, value.$ref)
+                              ? OpenApiReferenceKey.get(
+                                  components.examples,
+                                  value.$ref,
+                                )
                               : value,
                           ])
                           .filter(([_, v]) => v !== undefined),

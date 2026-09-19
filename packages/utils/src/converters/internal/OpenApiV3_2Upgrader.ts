@@ -1,8 +1,8 @@
 import { OpenApi, OpenApiV3_2 } from "@typia/interface";
 
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker";
 import { OpenApiV3_1Upgrader } from "./OpenApiV3_1Upgrader";
-import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 
 /**
  * OpenAPI v3.2 to emended OpenApi converter.
@@ -68,8 +68,10 @@ export namespace OpenApiV3_2Upgrader {
     ): OpenApi.IPath | undefined => {
       if (!OpenApiV3_1TypeChecker.isReference(webhook))
         return convertPathItem(doc)(webhook);
-      const found: OpenApiV3_2.IPath | undefined =
-        OpenApiReferenceKey.get(doc.components?.pathItems, webhook.$ref);
+      const found: OpenApiV3_2.IPath | undefined = OpenApiReferenceKey.get(
+        doc.components?.pathItems,
+        webhook.$ref,
+      );
       return found ? convertPathItem(doc)(found) : undefined;
     };
 
@@ -347,7 +349,10 @@ export namespace OpenApiV3_2Upgrader {
                           .map(([key, value]) => [
                             key,
                             OpenApiV3_1TypeChecker.isReference(value)
-                              ? OpenApiReferenceKey.get(components.examples, value.$ref)
+                              ? OpenApiReferenceKey.get(
+                                  components.examples,
+                                  value.$ref,
+                                )
                               : value,
                           ])
                           .filter(([_, v]) => v !== undefined),

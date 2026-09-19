@@ -6,10 +6,10 @@ import { OpenApiConverter } from "@typia/utils";
  * Verifies the converters resolve a reference whose key needs escaping.
  *
  * A component keyed `A/B` is referenced as `#/components/schemas/A~1B`, one
- * JSON Pointer token. The converters took the raw last token as the key, so
- * the upgrades dropped every parameter, request body, and response reached
- * through such a reference, the 2.0 downgrade keyed the definition `B`, and the
- * 3.0 downgrade lost the reference's nullability (#2408).
+ * JSON Pointer token. The converters took the raw last token as the key, so the
+ * upgrades dropped every parameter, request body, and response reached through
+ * such a reference, the 2.0 downgrade keyed the definition `B`, and the 3.0
+ * downgrade lost the reference's nullability (#2408).
  *
  * 1. Upgrade a 3.0 and a 2.0 document whose parameter, request body, and response
  *    keys need escaping, and assert each operation keeps them.
