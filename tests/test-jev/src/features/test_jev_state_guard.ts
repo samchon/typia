@@ -70,6 +70,26 @@ export const test_jev_state_guard = async (): Promise<void> => {
     ["toJSON returning NaN", { value: { toJSON: () => NaN } }, "$state.value"],
     ["bigint", { value: 1n as unknown as object }, "$state.value"],
     [
+      "number wrapper converting to NaN",
+      { value: Object.assign(new Number(1), { valueOf: () => NaN }) },
+      "$state.value",
+    ],
+    [
+      "number wrapper converting to Infinity",
+      {
+        value: Object.assign(new Number(1), {
+          [Symbol.toPrimitive]: () => Infinity,
+        }),
+      },
+      "$state.value",
+    ],
+    [
+      "map stripped of its prototype",
+      { tags: Object.setPrototypeOf(new Map([["a", 1]]), null) },
+      "$state.tags",
+    ],
+    ["typed array", { bytes: new Uint8Array(1) }, "$state.bytes"],
+    [
       "toJSON dropping the state under its real key",
       { toJSON: (key: string) => (key === "state" ? undefined : { ok: 1 }) },
       "$state",
@@ -77,6 +97,12 @@ export const test_jev_state_guard = async (): Promise<void> => {
   ];
   for (const [title, state, path] of rejected) {
     const outcome = await attempt(state);
+    if (title === "typed array")
+      TestEquality.equals(
+        "names the instance",
+        (outcome.routed as Error).message,
+        "Jev state must be JSON, but $state.bytes is an instance of Uint8Array, which JSON cannot carry.",
+      );
     const names = (error: unknown): boolean =>
       error instanceof TypeError && error.message.includes(`${path} is `);
     TestEquality.equals(

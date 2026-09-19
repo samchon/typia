@@ -425,7 +425,7 @@ export namespace Jev {
         return;
       }
       if (value === undefined) fail(path, "undefined");
-      if (typeof value !== "object") fail(path, article(typeof value));
+      if (typeof value !== "object") fail(path, `of type ${typeof value}`);
       const object: object = value as object;
       if (ancestors.has(object)) fail(path, "circular");
 
@@ -443,7 +443,7 @@ export namespace Jev {
             visit(object[i], `${path}[${i}]`, String(i));
         });
       if (isPlain(object) === false)
-        fail(path, article(`${object.constructor?.name || "class"} instance`));
+        fail(path, `an instance of ${object.constructor?.name || "a class"}`);
       nest(object, () => {
         for (const [name, elem] of Object.entries(object))
           if (elem !== undefined) visit(elem, `${path}.${name}`, name);
@@ -456,7 +456,7 @@ export namespace Jev {
     };
     const fail = (path: string, what: string): never => {
       throw new TypeError(
-        `Jev state must be JSON: ${path} is ${what}, which JSON cannot carry.`,
+        `Jev state must be JSON, but ${path} is ${what}, which JSON cannot carry.`,
       );
     };
     // both endpoints serialize the state as the request body's `state`
@@ -464,35 +464,72 @@ export namespace Jev {
   };
 
   /**
-   * The primitive a `Boolean`, `Number`, or `String` wrapper holds, read from
-   * its internal slot as JSON reads it, so a wrapper from another realm or with
-   * an overridden `valueOf()` unwraps the same way.
+   * The primitive JSON writes for a `Boolean`, `Number`, or `String` wrapper,
+   * or `undefined` for any other object.
+   *
+   * The wrapper is recognized by its internal slot, so one from another realm
+   * counts. JSON then reads a `Boolean` from that slot, but converts a `Number`
+   * or `String` with `ToNumber` or `ToString`, which honor an overridden
+   * `valueOf()`, `toString()`, or `Symbol.toPrimitive`.
    */
   const unwrap = (object: object): unknown => {
-    for (const read of WRAPPERS)
-      try {
-        return read.call(object);
-      } catch {}
+    if (holds(Boolean.prototype.valueOf, object))
+      return Boolean.prototype.valueOf.call(object);
+    if (holds(Number.prototype.valueOf, object)) return Number(object);
+    if (holds(String.prototype.valueOf, object)) return String(object);
     return undefined;
   };
 
-  const WRAPPERS: ReadonlyArray<(this: unknown) => unknown> = [
-    Boolean.prototype.valueOf,
-    Number.prototype.valueOf,
-    String.prototype.valueOf,
-  ];
+  /** Whether `object` has the internal slot `probe` reads. */
+  const holds = (
+    probe: (this: unknown) => unknown,
+    object: object,
+  ): boolean => {
+    try {
+      probe.call(object);
+      return true;
+    } catch {
+      return false;
+    }
+  };
 
-  const article = (noun: string): string =>
-    `${/^[aeiou]/i.test(noun) ? "an" : "a"} ${noun}`;
+  /**
+   * Readers of the built-in internal slots JSON cannot see through, so a `Map`
+   * stripped of its prototype still counts as one.
+   */
+  const OPAQUE: ReadonlyArray<(this: unknown) => unknown> = [
+    function (this: unknown) {
+      return Map.prototype.has.call(this, undefined);
+    },
+    function (this: unknown) {
+      return Set.prototype.has.call(this, undefined);
+    },
+    function (this: unknown) {
+      return WeakMap.prototype.has.call(this, {});
+    },
+    function (this: unknown) {
+      return WeakSet.prototype.has.call(this, {});
+    },
+    Date.prototype.getTime,
+    Object.getOwnPropertyDescriptor(RegExp.prototype, "source")!.get!,
+    Object.getOwnPropertyDescriptor(ArrayBuffer.prototype, "byteLength")!.get!,
+    function (this: unknown) {
+      if (ArrayBuffer.isView(this) === false) throw new TypeError();
+    },
+  ];
 
   /**
    * An object JSON walks as a plain one, from this realm or another: its
    * prototype is `null`, or itself has a `null` prototype, as every realm's
-   * `Object.prototype` does. Built-ins such as `Map` sit one level deeper.
+   * `Object.prototype` does, and it holds no built-in internal slot. Built-ins
+   * such as `Map` sit one level deeper, unless stripped of their prototype.
    */
   const isPlain = (object: object): boolean => {
     const prototype: object | null = Object.getPrototypeOf(object);
-    return prototype === null || Object.getPrototypeOf(prototype) === null;
+    return (
+      (prototype === null || Object.getPrototypeOf(prototype) === null) &&
+      OPAQUE.every((probe) => holds(probe, object) === false)
+    );
   };
 
   /** Milliseconds before the next attempt. */
