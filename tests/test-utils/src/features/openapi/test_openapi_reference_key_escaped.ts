@@ -1,6 +1,11 @@
 import { OpenApi, OpenApiV3, SwaggerV2 } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
-import { OpenApiConverter } from "@typia/utils";
+import {
+  HttpLlm,
+  HttpMigration,
+  OpenApiConverter,
+  OpenApiTypeChecker,
+} from "@typia/utils";
 
 /**
  * Verifies the converters resolve a reference whose key needs escaping.
@@ -15,6 +20,10 @@ import { OpenApiConverter } from "@typia/utils";
  *    keys need escaping, and assert each operation keeps them.
  * 2. Downgrade the emended document to 2.0 and assert the definition key.
  * 3. Downgrade a nullable escaped reference to 3.0 and assert its nullable twin.
+ * 4. Upgrade 3.1 and 3.2 documents whose header parameter and webhook path item
+ *    keys need escaping, and assert both resolve.
+ * 5. Run the schema walkers and HTTP composers over an escaped and a plain key,
+ *    and assert they answer alike.
  */
 export const test_openapi_reference_key_escaped = (): void => {
   const reference = { $ref: "#/components/schemas/A~1B" };
@@ -136,4 +145,123 @@ export const test_openapi_reference_key_escaped = (): void => {
     } as unknown,
     { schema: nullable, keys: Object.keys(components.schemas ?? {}) },
   );
+
+  for (const version of ["3.1.0", "3.2.0"])
+    TestEquality.equals(
+      `${version} upgrade`,
+      {
+        parameters: [{ name: "H/1", in: "header", schema: { type: "string" } }],
+        webhook: { content: { "application/json": { schema: reference } } },
+      } as unknown,
+      (() => {
+        const document = OpenApiConverter.upgradeDocument(next(version) as any);
+        return {
+          parameters: document.paths?.["/x"]?.post?.parameters,
+          webhook: document.webhooks?.w?.post?.requestBody,
+        };
+      })(),
+    );
+
+  // the same walks over an escaped and a plain key must answer alike
+  TestEquality.equals("walkers", walk("QP", "QP"), walk("Q/P", "Q~1P"));
+};
+
+const next = (openapi: string): object => ({
+  openapi,
+  info: { title: "escaped", version: "1.0.0" },
+  components: {
+    schemas: {
+      "A/B": {
+        type: "object",
+        properties: { x: { type: "number" } },
+        required: ["x"],
+      },
+    },
+    headers: { "H/1": { schema: { type: "string" } } },
+    pathItems: {
+      "W/1": {
+        post: {
+          requestBody: {
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/A~1B" },
+              },
+            },
+          },
+          responses: {},
+        },
+      },
+    },
+  },
+  paths: {
+    "/x": {
+      post: {
+        parameters: [{ $ref: "#/components/headers/H~11" }],
+        responses: {},
+      },
+    },
+  },
+  webhooks: { w: { $ref: "#/components/pathItems/W~11" } },
+});
+
+/** Every walker's answer over one key, with the key spelled neutrally. */
+const walk = (key: string, token: string): string => {
+  const reference: OpenApi.IJsonSchema = {
+    $ref: `#/components/schemas/${token}`,
+  };
+  const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument({
+    openapi: "3.0.3",
+    info: { title: "walk", version: "1.0.0" },
+    components: {
+      schemas: {
+        [key]: {
+          type: "object",
+          properties: { a: { type: "string" } },
+          required: ["a"],
+        },
+      },
+    },
+    paths: {
+      "/x": {
+        get: {
+          parameters: [{ name: "q", in: "query", schema: reference }],
+          responses: { 200: { description: "ok" } },
+        },
+      },
+    },
+  } as unknown as OpenApiV3.IDocument);
+  const components: OpenApi.IComponents = document.components;
+  let visited: number = 0;
+  OpenApiTypeChecker.visit({
+    components,
+    schema: reference,
+    closure: () => ++visited,
+  });
+  const route = HttpMigration.application(document).routes[0];
+  const answers = {
+    escape: OpenApiTypeChecker.escape({
+      components,
+      schema: reference,
+      recursive: false,
+    }),
+    unreference: OpenApiTypeChecker.unreference({
+      components,
+      schema: reference,
+    }),
+    visited,
+    covers: OpenApiTypeChecker.covers({
+      components,
+      x: reference,
+      y: { type: "number" },
+    }),
+    query: route?.query,
+    functions: HttpLlm.application({ document }).functions.map(
+      (func) => func.parameters,
+    ),
+  };
+  return JSON.stringify(answers)
+    .split(token)
+    .join("KEY")
+    .split(JSON.stringify(key).slice(1, -1))
+    .join("KEY");
 };

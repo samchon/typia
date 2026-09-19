@@ -10,6 +10,7 @@ import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
 import { ObjectDictionary } from "./ObjectDictionary";
 import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
+import { OpenApiReferenceKey } from "./OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "./OpenApiSchemaSanitizer";
 
 /** @internal */
@@ -99,9 +100,10 @@ export namespace OpenApiTypeCheckerBase {
     schema: OpenApi.IJsonSchema;
   }): boolean => {
     if (isReference(props.schema) === false) return false;
-    const current: string =
-      props.schema.$ref.split(props.prefix)[1] ??
-      props.schema.$ref.split("/").at(-1)!;
+    const current: string = OpenApiReferenceKey.read(
+      props.schema.$ref,
+      props.prefix,
+    );
     let counter: number = 0;
     visit({
       prefix: props.prefix,
@@ -109,9 +111,10 @@ export namespace OpenApiTypeCheckerBase {
       schema: props.schema,
       closure: (schema) => {
         if (isReference(schema)) {
-          const next: string =
-            schema.$ref.split(props.prefix)[1] ??
-            schema.$ref.split("/").at(-1)!;
+          const next: string = OpenApiReferenceKey.read(
+            schema.$ref,
+            props.prefix,
+          );
           if (current === next) ++counter;
         }
       },
@@ -207,13 +210,16 @@ export namespace OpenApiTypeCheckerBase {
     const next = (schema: OpenApi.IJsonSchema, accessor: string): void => {
       props.closure(schema, accessor);
       if (isReference(schema)) {
-        const key: string = schema.$ref.split(props.prefix).pop()!;
+        const entry = OpenApiReferenceKey.find(
+          props.components.schemas,
+          schema.$ref,
+          props.prefix,
+        );
+        const key: string =
+          entry?.key ?? OpenApiReferenceKey.read(schema.$ref, props.prefix);
         if (already.has(key) === true) return;
         already.add(key);
-        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
-          props.components.schemas,
-          key,
-        );
+        const found: OpenApi.IJsonSchema | undefined = entry?.value;
         if (found !== undefined)
           next(found, `${refAccessor}[${JSON.stringify(key)}]`);
       } else if (isOneOf(schema))
@@ -265,11 +271,14 @@ export namespace OpenApiTypeCheckerBase {
     first?: string;
   }): OpenApi.IJsonSchema | null => {
     if (isReference(props.schema) === false) return props.schema;
-    const key: string = props.schema.$ref.split(props.prefix).pop()!;
-    const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+    const entry = OpenApiReferenceKey.find(
       props.components.schemas,
-      key,
+      props.schema.$ref,
+      props.prefix,
     );
+    const key: string =
+      entry?.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix);
+    const found: OpenApi.IJsonSchema | undefined = entry?.value;
     if (found === undefined) {
       props.reasons.push({
         schema: props.schema,
@@ -310,13 +319,14 @@ export namespace OpenApiTypeCheckerBase {
       return escapeSchema({ ...props, schema: restored });
     if (isReference(props.schema)) {
       // REFERENCE
-      const key: string =
-        props.schema.$ref.split(props.prefix)[1] ??
-        props.schema.$ref.split("/").at(-1)!;
-      const target: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+      const entry = OpenApiReferenceKey.find(
         props.components.schemas,
-        key,
+        props.schema.$ref,
+        props.prefix,
       );
+      const key: string =
+        entry?.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix);
+      const target: OpenApi.IJsonSchema | undefined = entry?.value;
       if (target === undefined) {
         props.reasons.push({
           schema: props.schema,
@@ -934,11 +944,15 @@ export namespace OpenApiTypeCheckerBase {
     schema: OpenApi.IJsonSchema;
   }): Exclude<OpenApi.IJsonSchema, OpenApi.IJsonSchema.IReference> => {
     if (isReference(props.schema) === false) return props.schema;
-    const key = props.schema.$ref.replace(props.prefix, "");
     const found: OpenApi.IJsonSchema | undefined = escapeReferenceOfFlatSchema({
       prefix: props.prefix,
       components: props.components,
-      schema: ObjectDictionary.get(props.components.schemas, key) ?? {},
+      schema:
+        OpenApiReferenceKey.get(
+          props.components.schemas,
+          props.schema.$ref,
+          props.prefix,
+        ) ?? {},
     });
     if (found === undefined)
       throw new Error(

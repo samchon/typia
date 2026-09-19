@@ -12,6 +12,7 @@ import {
 
 import { LlmSchemaConverter } from "../../converters/LlmSchemaConverter";
 import { LlmJson } from "../../utils";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiValidator } from "../../validators/OpenApiValidator";
 
 /**
@@ -23,6 +24,8 @@ import { OpenApiValidator } from "../../validators/OpenApiValidator";
  * maximum length.
  */
 export namespace HttpLlmApplicationComposer {
+  const SCHEMAS = "#/components/schemas/";
+
   /**
    * Builds an {@link IHttpLlmApplication} from migrated HTTP routes.
    *
@@ -399,15 +402,16 @@ export namespace HttpLlmApplicationComposer {
       let schema: OpenApi.IJsonSchema = input;
       const visited: Set<string> = new Set();
       while ("$ref" in schema) {
-        const key: string = schema.$ref.replace("#/components/schemas/", "");
-        if (
-          key === schema.$ref ||
-          visited.has(key) ||
-          components.schemas?.[key] === undefined
-        )
-          break;
+        if (schema.$ref.startsWith(SCHEMAS) === false) break;
+        const key: string = OpenApiReferenceKey.read(schema.$ref, SCHEMAS);
+        const found: OpenApi.IJsonSchema | undefined = OpenApiReferenceKey.get(
+          components.schemas,
+          schema.$ref,
+          SCHEMAS,
+        );
+        if (visited.has(key) || found === undefined) break;
         visited.add(key);
-        schema = components.schemas[key]!;
+        schema = found;
       }
       return schema;
     };

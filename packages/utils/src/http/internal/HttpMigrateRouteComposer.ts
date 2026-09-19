@@ -4,10 +4,13 @@ import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
 export namespace HttpMigrateRouteComposer {
+  const SCHEMAS = "#/components/schemas/";
+
   export interface IProps {
     document: OpenApi.IDocument;
     method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
@@ -754,13 +757,14 @@ export namespace HttpMigrateRouteComposer {
       let schema: OpenApi.IJsonSchema = input;
       const visited: Set<string> = new Set();
       while (OpenApiTypeChecker.isReference(schema)) {
-        const key: string = schema.$ref.replace("#/components/schemas/", "");
-        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        if (schema.$ref.startsWith(SCHEMAS) === false) break;
+        const key: string = OpenApiReferenceKey.read(schema.$ref, SCHEMAS);
+        const found: OpenApi.IJsonSchema | undefined = OpenApiReferenceKey.get(
           document.components.schemas,
-          key,
+          schema.$ref,
+          SCHEMAS,
         );
-        if (key === schema.$ref || visited.has(key) || found === undefined)
-          break;
+        if (visited.has(key) || found === undefined) break;
         visited.add(key);
         schema = found;
       }
@@ -779,22 +783,19 @@ export namespace HttpMigrateRouteComposer {
     (visited: Set<string>) =>
     (schema: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
       if (OpenApiTypeChecker.isReference(schema)) {
-        const key: string | null = schema.$ref.startsWith(
-          "#/components/schemas/",
-        )
-          ? schema.$ref.replace("#/components/schemas/", "")
-          : null;
-        if (key === null || visited.has(key)) return schema;
-        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        if (schema.$ref.startsWith(SCHEMAS) === false) return schema;
+        // WRITE BACK UNDER THE KEY THE COMPONENT WAS FOUND BY
+        const entry = OpenApiReferenceKey.find(
           document.components.schemas,
-          key,
+          schema.$ref,
+          SCHEMAS,
         );
-        if (found !== undefined) {
-          visited.add(key);
+        if (entry !== undefined && visited.has(entry.key) === false) {
+          visited.add(entry.key);
           ObjectDictionary.set(
             document.components.schemas!,
-            key,
-            sanitizeSchemaRecursively(document)(visited)(found),
+            entry.key,
+            sanitizeSchemaRecursively(document)(visited)(entry.value),
           );
         }
         return schema;
