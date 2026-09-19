@@ -1,27 +1,31 @@
 # `@typia/jev`
 
-Jev evaluation model integration for [`typia`](https://github.com/samchon/typia).
+![Typia Logo](https://typia.io/logo.png)
 
-[`typia.llm.evaluation<T>()`](https://typia.io/docs/llm/evaluation) turns a TypeScript decision type into evaluation questions and a validator that folds the answers back into `T`. [Jev](https://docs.typesafe.ai), TypeSafe's System One model, answers such questions with calibrated probabilities. `@typia/jev` connects the two: it speaks Jev's wire format and evaluates through TypeSafe's API or OpenRouter's Decisions API.
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/typia/blob/master/LICENSE)
+[![NPM Version](https://img.shields.io/npm/v/typia.svg)](https://www.npmjs.com/package/typia)
+[![NPM Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
+[![Build Status](https://github.com/samchon/typia/workflows/test/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Atest)
+[![Guide Documents](https://img.shields.io/badge/Guide-Documents-forestgreen)](https://typia.io/docs/)
+[![Gurubase](https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF)](https://gurubase.io/g/typia)
+[![Discord Badge](https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ)](https://discord.gg/E94XhzrUCZ)
+
+[Jev](https://docs.typesafe.ai) evaluation model integration for [`typia`](https://github.com/samchon/typia).
+
+Converts the questions of `typia.llm.evaluation<T>()` to Jev's wire format, the format of TypeSafe's API and SDK and of OpenRouter's Decisions API. The neutral questions spell the yes/no question `"boolean"`; Jev spells it `"noul"`. Choice and score questions are identical, and `validate()` accepts Jev's native answers as they are.
 
 ## Setup
 
 ```bash
-npm install typia @typia/jev
-npx typia setup
+npm install @typia/jev typia
+npm install -D ttsc typescript@rc
 ```
 
-## TypeSafe
-
-Pass the official SDK client; its retries and `TYPESAFE_API_KEY` configuration stay in charge.
-
-```bash
-npm install @typesafe-ai/sdk
-```
+## Usage
 
 ```typescript
 import { TypeSafeClient } from "@typesafe-ai/sdk";
-import { Jev } from "@typia/jev";
+import { toJevQuestions } from "@typia/jev";
 import typia from "typia";
 
 interface ITriage {
@@ -32,37 +36,15 @@ interface ITriage {
   team: "billing" | "technical";
 }
 
-const { validation, answers } = await Jev.typesafe({
-  client: new TypeSafeClient(),
-  evaluation: typia.llm.evaluation<ITriage>(),
+const evaluation = typia.llm.evaluation<ITriage>();
+const client = new TypeSafeClient();
+const { answers } = await client.systemOne({
   state: "The payment page crashes for every customer.",
+  questions: toJevQuestions(evaluation.questions),
 });
-if (validation.success) console.log(validation.data); // ITriage
-console.log(answers.team); // { type: "choice", choice, probabilities, confidence }
+const result = evaluation.validate(answers); // IValidation<ITriage>
 ```
 
-## OpenRouter
-
-```typescript
-import { Jev } from "@typia/jev";
-
-const { validation } = await Jev.openrouter({
-  apiKey: process.env.OPENROUTER_API_KEY!,
-  evaluation: typia.llm.evaluation<ITriage>(),
-  model: "typesafe/jev-1.13",
-  state: "The payment page crashes for every customer.",
-});
-```
-
-The client retries as TypeSafe's own SDK does: timeouts, rate limits, server failures, and lost connections, with backoff that honors `retry-after`. Once the retries are spent, it throws `JevHttpError`, `JevConnectionError`, or `JevTimeoutError`.
-
-## Wire format only
-
-For any other transport, convert the questions yourself. `validate()` accepts Jev's native answers as they are.
-
-```typescript
-const questions = Jev.questions(evaluation.questions); // boolean becomes "noul"
-const validation = evaluation.validate(response.answers);
-```
+Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them.
 
 See the [guide](https://typia.io/docs/utilization/jev) for details.
