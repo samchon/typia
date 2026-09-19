@@ -20,6 +20,7 @@ import typia from "typia";
  * 1. Convert an undescribed, a described, and a namespaced type both ways.
  * 2. Assert each native parameters schema equals the converter's.
  * 3. Assert each root description reads exactly as the cascade renders it.
+ * 4. Assert structured output and application parameters carry the same cascade.
  */
 export const test_llm_parameters_parity_converter_namespace = (): void => {
   const collections: IJsonSchemaCollection[] = [
@@ -65,6 +66,16 @@ export const test_llm_parameters_parity_converter_namespace = (): void => {
       ].join(SEPARATOR),
     ],
   );
+
+  // the other parameters roots share the same builders
+  TestEquality.equals(
+    "structuredOutput and application",
+    [actual[2]!.description, actual[2]!.description],
+    [
+      typia.llm.structuredOutput<IMember.ICreate>().parameters.description,
+      typia.llm.application<IController>().functions[0]?.parameters.description,
+    ],
+  );
 };
 
 const SEPARATOR = "\n\n------------------------------\n\n";
@@ -84,6 +95,10 @@ namespace IMember {
     name: string;
     referrer: IMember | null;
   }
+}
+
+interface IController {
+  create(input: IMember.ICreate): void;
 }
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));

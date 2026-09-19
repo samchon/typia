@@ -65,7 +65,6 @@ interface BbsArticleController {
    *
    * Writes a new article and archives it into the DB.
    *
-   * @param input Information of the article to create
    * @returns Newly created article
    */
   create(input: IBbsArticle.ICreate): Promise<IBbsArticle>;
