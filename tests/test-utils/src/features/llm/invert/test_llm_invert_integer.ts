@@ -14,7 +14,7 @@ export const test_llm_invert_integer = (): void => {
       "inverted",
       schema,
       inverted as any,
-      (key) => key !== "description",
+      (key) => key === "description",
     );
   };
   validate(typia.llm.schema<number & tags.Type<"int32">>({}));

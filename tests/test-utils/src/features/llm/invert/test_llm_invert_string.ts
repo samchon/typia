@@ -14,7 +14,7 @@ export const test_llm_invert_string = (): void => {
       "inverted",
       schema,
       inverted as any,
-      (key) => key !== "description",
+      (key) => key === "description",
     );
   };
   validate(

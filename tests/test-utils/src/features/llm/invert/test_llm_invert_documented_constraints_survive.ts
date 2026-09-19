@@ -109,12 +109,12 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
     "undocumented shape reaches documented",
     undocumented,
     documented,
-    (key) => key !== "description",
+    (key) => key === "description",
   );
   TestEquality.equals(
     "documented shape reaches undocumented",
     documented,
     undocumented,
-    (key) => key !== "description",
+    (key) => key === "description",
   );
 };

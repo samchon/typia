@@ -29,19 +29,27 @@ export const test_feature_identity_equality_oracle = (): void => {
     `${V}.equals("title", x, y);`,
     `${V}.equals<IMember>("title", x, y);`,
     `${V}\n  .equals("title")(x)(y);`,
+    `${V}?.equals("title", x, y);`,
+    `(${V} as any).equals("title", x, y);`,
+    `const eq = ${V}.equals;`,
+    `${V}.equals.call(null, "title", x, y);`,
     `${V}["equals"]("title", x, y);`,
     `const { equals } = ${V};`,
+    `import { ${V} as V } from "@nestia/e2e";`,
   ])
     TestEquality.equals(
       `planted ${JSON.stringify(planted)}`,
       calls(planted),
       [1],
     );
-  TestEquality.equals(
-    "prose",
-    calls("// `TestValidator.equals` walked only its first argument's keys."),
-    [],
-  );
+  for (const prose of [
+    `// \`${V}.equals\` walked only its first argument's keys.`,
+    `/** \`${V}.equals(x, y)\` once passed a dropped key. */`,
+    `/*\n * ${V}.equals(\n */`,
+    `${V}.predicate("equals", true);`,
+    `${V}.equalsLike("title", x, y);`,
+  ])
+    TestEquality.equals(`prose ${JSON.stringify(prose)}`, calls(prose), []);
 
   const root: string = Git.toplevel();
   const files: string[] = Git.run(["ls-files", "-z", "--", "tests"], root)
@@ -55,7 +63,7 @@ export const test_feature_identity_equality_oracle = (): void => {
     files.length >= POPULATED,
   );
   TestEquality.equals(
-    "TestValidator.equals calls",
+    "one-way equality calls",
     [] as string[],
     files.flatMap((file) =>
       calls(fs.readFileSync(path.join(root, file), "utf8")).map(
@@ -65,19 +73,34 @@ export const test_feature_identity_equality_oracle = (): void => {
   );
 };
 
-/** One-based lines where `text` calls or extracts `TestValidator.equals`. */
+/**
+ * One-based lines where `text` reaches `TestValidator.equals`.
+ *
+ * Comments are blanked first, keeping their line breaks, so prose that names
+ * the function is not a use while any code spelling of it is.
+ */
 const calls = (text: string): number[] => {
+  const code: string = text.replace(COMMENT, (comment) =>
+    comment.replace(/[^\n]/g, " "),
+  );
   const output: number[] = [];
-  for (const match of text.matchAll(PATTERN))
-    output.push(text.slice(0, match.index).split("\n").length);
+  for (const match of code.matchAll(PATTERN))
+    output.push(code.slice(0, match.index).split("\n").length);
   return output;
 };
 
+const COMMENT = /\/\*[\s\S]*?\*\/|\/\/[^\n]*/g;
+
+/**
+ * Any member access to `equals` on `TestValidator`, through a cast or optional
+ * chaining included, a destructuring of it, or a renaming import that would
+ * hide the name from the rest of the pattern.
+ */
 const PATTERN =
-  /TestValidator\s*(?:\.\s*equals\s*[<(]|\[\s*["'`]equals["'`]\s*\])|\{[^}]*\bequals\b[^}]*\}\s*=\s*TestValidator\b/g;
+  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*equals\b|(?:\?\.)?\s*\[\s*["'`]equals["'`]\s*\])|\{[^}]*\bequals\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b/g;
 
 /**
  * A floor, not an expectation: the tracked suites hold thousands of sources, so
  * anything less means the scan stopped finding them.
  */
-const POPULATED = 1000;
+const POPULATED = 500;

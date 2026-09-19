@@ -10,6 +10,12 @@ import { TestEquality } from "@typia/template/equality";
  * documents is pinned here in both argument orders: a rule that held in only
  * one order would reopen the one-way trap under another name.
  *
+ * The early-warning pass on the migration found holes this table now closes: a
+ * missing key named like an inherited method read the prototype's function and
+ * was skipped, functions were ignored even as array elements, binary and other
+ * built-in values compared as keyless objects, sets ignored multiplicity and
+ * the key exception, and a cycle overflowed the stack.
+ *
  * 1. Pin each equal pair to pass `equals` in both orders.
  * 2. Pin each unequal pair to fail `equals` in both orders.
  * 3. Pin `subset` to skip only object keys the expected value leaves out.
@@ -41,6 +47,12 @@ export const test_equality_oracle = (): void => {
       { a: [{ b: date("2026-01-01") }] },
     ],
     ["ignored prototype", Object.create({ inherited: 1 }), {}],
+    ["regexp", /a+/g, /a+/g],
+    ["error", new Error("lost"), new Error("lost")],
+    ["bytes", new Uint8Array([1, 2]), new Uint8Array([1, 2])],
+    ["buffer", new Uint8Array([1, 2]).buffer, new Uint8Array([1, 2]).buffer],
+    ["same function element", [same_function], [same_function]],
+    ["cycle", cycle(1), cycle(1)],
   ];
   const different: Array<[string, unknown, unknown]> = [
     ["primitive", 1, 2],
@@ -71,6 +83,25 @@ export const test_equality_oracle = (): void => {
     ["set of objects", new Set([{ x: 1 }]), new Set([{ x: 2 }])],
     ["map and set", new Map(), new Set()],
     ["map and object", new Map([["a", 1]]), { a: 1 }],
+    ["missing key named like an inherited method", { constructor: 1 }, {}],
+    ["missing key named like an inherited value", { toString: "x" }, {}],
+    ["inherited data", { a: 1 }, Object.create({ a: 1 })],
+    ["function element", [() => 1], [42]],
+    ["different function elements", [() => 1], [() => 1]],
+    ["regexp flags", /a+/g, /a+/i],
+    ["regexp source", /a+/g, /b+/g],
+    ["error message", new Error("a"), new Error("b")],
+    ["bytes", new Uint8Array([1]), new Uint8Array([2])],
+    ["byte length", new Uint8Array([1]), new Uint8Array([1, 0])],
+    ["typed array kind", new Uint8Array([1]), new Int8Array([1])],
+    ["bytes and object", new Uint8Array([1]), { 0: 1 }],
+    ["buffer length", new ArrayBuffer(1), new ArrayBuffer(2)],
+    [
+      "set multiplicity",
+      new Set([{ a: 1 }, { a: 1 }, { a: 2 }]),
+      new Set([{ a: 1 }, { a: 2 }, { a: 2 }]),
+    ],
+    ["cycle", cycle(1), cycle(2)],
   ];
   for (const [name, x, y] of same) {
     TestValidator.predicate(
@@ -101,6 +132,19 @@ export const test_equality_oracle = (): void => {
         "exception",
         { a: 1, id: 1 },
         { a: 1, id: 2 },
+        (key) => key === "id",
+      ),
+    ),
+  );
+
+  // exception reaches set members too
+  TestValidator.predicate(
+    "exception inside a set",
+    passes(() =>
+      TestEquality.equals(
+        "exception",
+        new Set([{ id: 1, a: 1 }]),
+        new Set([{ id: 2, a: 1 }]),
         (key) => key === "id",
       ),
     ),
@@ -178,6 +222,15 @@ export const test_equality_oracle = (): void => {
     message !== null &&
       message.startsWith("Bug on titled: found different values - [.a]:"),
   );
+};
+
+const same_function = (): number => 1;
+
+/** An object that holds itself, carrying `value`. */
+const cycle = (value: number): object => {
+  const output: Record<string, unknown> = { value };
+  output.self = output;
+  return output;
 };
 
 const passes = (task: () => void): boolean => {
