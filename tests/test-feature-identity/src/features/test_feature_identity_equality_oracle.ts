@@ -110,8 +110,8 @@ const calls = (text: string): number[] => {
  * This is a lexer, not a parser, on purpose. The repository compiles with
  * TypeScript 7, whose compiler is native and ships no JavaScript parser API;
  * the only `typescript` 5 in the tree is the website's transitive dependency
- * (#2414). Scanning the text is therefore the tool the contract offers, and
- * the planted cases above are what keep it honest.
+ * (#2414). Scanning the text is therefore the tool the contract offers, and the
+ * planted cases above are what keep it honest.
  */
 const blank = (text: string): string => {
   const output: string[] = text.split(""); // UTF-16 units, as indexed
