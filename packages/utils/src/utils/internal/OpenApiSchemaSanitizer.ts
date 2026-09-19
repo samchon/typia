@@ -1,6 +1,21 @@
 import { OpenApi } from "@typia/interface";
 
-/** @internal */
+/**
+ * Normalizes an emended schema that entered from outside the upgraders.
+ *
+ * The upgraders emit every emended shape exactly, but a document built by hand
+ * or parsed from JSON reaches the consumers on its own claim of being emended.
+ * The two shapes such a document may leave loose are repaired here, once, at
+ * the boundary, so no consumer dispatch checks for them:
+ *
+ * - `required: []` or `required: undefined` on an object, which the emended
+ *   format omits;
+ * - An array with neither `items` nor `prefixItems`, which JSON Schema reads as
+ *   an array of anything and the emended `IArray` spells `items: {}`
+ *   (samchon/typia#2392, samchon/typia#2412).
+ *
+ * @internal
+ */
 export namespace OpenApiSchemaSanitizer {
   export const omitEmptyRequired = <Schema extends object>(
     schema: Schema,
@@ -18,28 +33,49 @@ export namespace OpenApiSchemaSanitizer {
     return schema;
   };
 
-  export const omitEmptyRequiredDeep = (
+  /**
+   * The open `any[]` form of an array that omits `items` and `prefixItems`.
+   *
+   * @param schema Schema about to be walked
+   * @returns The same schema, or a copy with `items: {}`
+   */
+  export const fillOpenArray = (
     schema: OpenApi.IJsonSchema,
   ): OpenApi.IJsonSchema => {
+    const record = schema as Partial<
+      OpenApi.IJsonSchema.IArray & OpenApi.IJsonSchema.ITuple
+    >;
+    return record.type === "array" &&
+      record.items === undefined &&
+      record.prefixItems === undefined
+      ? ({ ...schema, items: {} } as OpenApi.IJsonSchema.IArray)
+      : schema;
+  };
+
+  /** Every normalization, applied to the schema and each schema it holds. */
+  export const normalizeDeep = (
+    input: OpenApi.IJsonSchema,
+  ): OpenApi.IJsonSchema => {
+    const schema: OpenApi.IJsonSchema = fillOpenArray(input);
     if (isOneOf(schema))
       return omitEmptyRequired({
         ...schema,
-        oneOf: schema.oneOf.map(omitEmptyRequiredDeep) as OpenApi.IJsonSchema[],
+        oneOf: schema.oneOf.map(normalizeDeep) as OpenApi.IJsonSchema[],
       } satisfies OpenApi.IJsonSchema.IOneOf);
     if (isTuple(schema))
       return omitEmptyRequired({
         ...schema,
-        prefixItems: schema.prefixItems.map(omitEmptyRequiredDeep),
+        prefixItems: schema.prefixItems.map(normalizeDeep),
         additionalItems:
           typeof schema.additionalItems === "object" &&
           schema.additionalItems !== null
-            ? omitEmptyRequiredDeep(schema.additionalItems)
+            ? normalizeDeep(schema.additionalItems)
             : schema.additionalItems,
       } satisfies OpenApi.IJsonSchema.ITuple);
     if (isArray(schema))
       return omitEmptyRequired({
         ...schema,
-        items: omitEmptyRequiredDeep(schema.items),
+        items: normalizeDeep(schema.items),
       } satisfies OpenApi.IJsonSchema.IArray);
     if (isObject(schema))
       return omitEmptyRequired({
@@ -48,14 +84,14 @@ export namespace OpenApiSchemaSanitizer {
           ? Object.fromEntries(
               Object.entries(schema.properties).map(([key, value]) => [
                 key,
-                omitEmptyRequiredDeep(value),
+                normalizeDeep(value),
               ]),
             )
           : schema.properties,
         additionalProperties:
           typeof schema.additionalProperties === "object" &&
           schema.additionalProperties !== null
-            ? omitEmptyRequiredDeep(schema.additionalProperties)
+            ? normalizeDeep(schema.additionalProperties)
             : schema.additionalProperties,
       } satisfies OpenApi.IJsonSchema.IObject);
     return schema;

@@ -1,15 +1,13 @@
 import { OpenApi } from "@typia/interface";
 
-import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 
 export namespace OpenApiSchemaNamingRule {
   export const getName = (
-    raw: OpenApi.IJsonSchema,
+    schema: OpenApi.IJsonSchema,
     union: boolean = false,
   ): string => {
-    const schema: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(raw);
     // COALESCE
     if (OpenApiTypeChecker.isUnknown(schema)) return "unknown";
     else if (OpenApiTypeChecker.isNull(schema)) return "null";
@@ -27,7 +25,7 @@ export namespace OpenApiSchemaNamingRule {
       return joinIntersection(getNameOfString(schema), union);
     // INSTANCES
     else if (OpenApiTypeChecker.isReference(schema))
-      return OpenApiReferenceKey.read(schema.$ref);
+      return OpenApiReferenceKey.read(schema.$ref) ?? schema.$ref;
     else if (OpenApiTypeChecker.isObject(schema)) return "__object";
     else if (OpenApiTypeChecker.isArray(schema))
       return joinIntersection(getNameOfArray(schema), union);

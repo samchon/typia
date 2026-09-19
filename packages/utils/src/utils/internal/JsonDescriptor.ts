@@ -33,7 +33,9 @@ export namespace JsonDescriptor {
     key?: string;
   }): string | undefined => {
     const accessors: string[] = (
-      props.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix)
+      props.key ??
+      OpenApiReferenceKey.read(props.schema.$ref, props.prefix) ??
+      props.schema.$ref
     ).split(".");
     const pReferences: IParentReference[] = accessors
       .slice(0, props.escape ? accessors.length : accessors.length - 1)
