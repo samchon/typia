@@ -24,8 +24,9 @@ import {
  * 2. Assert every one of them gained `items: {}`, and a present `items` stayed.
  * 3. Assert the normalized document downgrades to every version with the open
  *    array intact, validates a non-array against it, and migrates.
- * 4. Assert `downgradeDocument()` normalizes a raw emended document on entry too,
- *    being the boundary in the other direction.
+ * 4. Assert `upgradeComponents()` and `downgradeDocument()` normalize a raw
+ *    emended input on entry too, and that normalization adds no holder the
+ *    input left out.
  */
 export const test_openapi_emended_items_omitted_boundary = (): void => {
   const bare = { type: "array" } as unknown as OpenApi.IJsonSchema;
@@ -176,8 +177,9 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
     },
   );
 
-  // the boundary in the other direction normalizes on entry too; the
-  // streaming item schema, which Swagger 2.0 cannot carry, is checked here
+  // `upgradeComponents()` normalizes an emended input, the boundary in the
+  // other direction normalizes on entry too, and a streaming item schema, which
+  // Swagger 2.0 cannot carry, is normalized like a body schema
   const raw: OpenApi.IDocument = {
     openapi: "3.2.0",
     info: { title: "raw", version: "1.0.0" },
@@ -202,12 +204,28 @@ export const test_openapi_emended_items_omitted_boundary = (): void => {
     OpenApiConverter.upgradeDocument(raw).paths?.["/stream"]?.get
       ?.responses?.[200]?.content?.["application/json"]?.itemSchema;
   TestEquality.equals<unknown>(
-    "downgrade normalizes on entry",
-    { component: open, item: open },
+    "components, downgrade entry, and item schema",
+    { components: open, downgraded: open, item: open },
     {
-      component: OpenApiConverter.downgradeDocument(raw, "3.0").components
+      components: OpenApiConverter.upgradeComponents(raw.components).schemas
+        ?.IBare,
+      downgraded: OpenApiConverter.downgradeDocument(raw, "3.0").components
         ?.schemas?.IBare,
       item: stream,
     },
+  );
+
+  // normalization adds no holder the input left out
+  TestEquality.equals(
+    "no phantom keys",
+    ["components", "info", "openapi", "paths", "x-typia-emended-v12"],
+    Object.keys(OpenApiConverter.upgradeDocument(raw)).sort(),
+  );
+  TestEquality.equals(
+    "no phantom operation keys",
+    ["responses"],
+    Object.keys(
+      OpenApiConverter.upgradeDocument(raw).paths?.["/stream"]?.get ?? {},
+    ),
   );
 };

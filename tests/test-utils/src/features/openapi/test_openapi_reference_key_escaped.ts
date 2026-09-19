@@ -3,8 +3,10 @@ import { TestEquality } from "@typia/template/equality";
 import {
   HttpLlm,
   HttpMigration,
+  LlmSchemaConverter,
   OpenApiConverter,
   OpenApiTypeChecker,
+  OpenApiValidator,
 } from "@typia/utils";
 
 /**
@@ -25,6 +27,8 @@ import {
  * 5. Run the schema walkers and HTTP composers over an escaped and a plain key,
  *    and assert they answer alike; a key with a space resolves as written, and
  *    a malformed `~` escape names no component.
+ * 6. Assert the type checker, the validator, and the LLM converter answer every
+ *    spelling alike, including a percent-encoded separator and a literal `%`.
  */
 export const test_openapi_reference_key_escaped = (): void => {
   const reference = { $ref: "#/components/schemas/A~1B" };
@@ -206,8 +210,77 @@ export const test_openapi_reference_key_escaped = (): void => {
     },
   );
 
+  // every reader of a document answers each spelling alike: the type checker,
+  // the validator, and the LLM converter resolve the same references and
+  // reject the same ones (#2416)
+  TestEquality.equals<unknown>(
+    "readers agree",
+    {
+      "#/components/schemas/Plain": true,
+      "#/components/schemas/A~1B": true,
+      "#/components/schemas/A%20B": true,
+      "#/components/schemas/A B": true,
+      "#/components/schemas/100%": true,
+      "#/components/schemas/A%2FB": false,
+      "#/components/schemas/A/B": false,
+      "#/components/schemas/A~2B": false,
+      "#/components/schemas/Missing": false,
+    },
+    Object.fromEntries(
+      Object.entries(readers()).map(([reference, answers]) => [
+        reference,
+        answers.every((answer) => answer === true)
+          ? true
+          : answers.every((answer) => answer === false)
+            ? false
+            : answers,
+      ]),
+    ),
+  );
+
   // the same walks over an escaped and a plain key must answer alike
   TestEquality.equals("walkers", walk("QP", "QP"), walk("Q/P", "Q~1P"));
+};
+
+/** Whether the type checker, the validator, and the LLM converter resolve. */
+const readers = (): Record<string, boolean[]> => {
+  const components: OpenApi.IComponents = {
+    schemas: Object.fromEntries(
+      ["Plain", "A/B", "A B", "100%"].map((key) => [
+        key,
+        { type: "number" } satisfies OpenApi.IJsonSchema,
+      ]),
+    ),
+  };
+  return Object.fromEntries(
+    [
+      "#/components/schemas/Plain",
+      "#/components/schemas/A~1B",
+      "#/components/schemas/A%20B",
+      "#/components/schemas/A B",
+      "#/components/schemas/100%",
+      "#/components/schemas/A%2FB",
+      "#/components/schemas/A/B",
+      "#/components/schemas/A~2B",
+      "#/components/schemas/Missing",
+    ].map((reference) => {
+      const schema: OpenApi.IJsonSchema = { $ref: reference };
+      return [
+        reference,
+        [
+          OpenApiTypeChecker.escape({ components, schema, recursive: false })
+            .success,
+          OpenApiValidator.validate({
+            components,
+            schema,
+            value: 1,
+            required: true,
+          }).success,
+          LlmSchemaConverter.schema({ components, schema, $defs: {} }).success,
+        ],
+      ];
+    }),
+  );
 };
 
 const next = (openapi: string): object => ({

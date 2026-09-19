@@ -1,12 +1,18 @@
 import { OpenApi } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
-import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
+import {
+  LlmSchemaConverter,
+  OpenApiConverter,
+  OpenApiTypeChecker,
+  OpenApiValidator,
+} from "@typia/utils";
 import fs from "fs";
 
 import { TestGlobal } from "../../TestGlobal";
 
 /**
- * Verifies every schema reference in the real-world fixtures resolves.
+ * Verifies every schema reference in the real-world fixtures resolves, and
+ * resolves alike for every reader of the document.
  *
  * A JSON Reference names its component by a JSON Pointer token, and documents
  * in the wild write keys the OpenAPI 3.x grammar does not allow, such as the
@@ -14,17 +20,22 @@ import { TestGlobal } from "../../TestGlobal";
  * strictly than RFC 6901, or less, loses such components silently: the walkers
  * treat an unresolved reference as a leaf and the downgraders skip its nullable
  * twin. The upgrade tests only assert the emended shape, so this is the check
- * that catches an unresolvable reference (#2412).
+ * that catches an unresolvable reference (#2412). The validator and the LLM
+ * composers read the same document through a second reader that rejected a
+ * space the walkers accepted, so the same reference resolved for one consumer
+ * and was malformed for another (#2416).
  *
  * 1. Upgrade every fixture of every version.
- * 2. Walk each emended document's components and operations, and collect every
- *    schema reference the source defines that fails to escape to its
- *    component.
- * 3. Assert the collection is empty, and that at least one fixture carried a key
+ * 2. Walk each emended document's components, parameters, and bodies, and collect
+ *    every schema reference the source defines that fails to escape to its
+ *    component, or that the validator or the LLM converter reports as a
+ *    reference failure.
+ * 3. Assert the collections are empty, and that at least one fixture carried a key
  *    the 3.x grammar forbids, so the check cannot pass on tidy inputs alone.
  */
 export const test_document_references_resolve = async (): Promise<void> => {
   const unresolved: string[] = [];
+  const rejected: string[] = [];
   let untidy: number = 0;
   for (const version of ["v2.0", "v3.0", "v3.1", "v3.2"]) {
     const directory: string = `${TestGlobal.ROOT}/examples/${version}`;
@@ -70,6 +81,32 @@ export const test_document_references_resolve = async (): Promise<void> => {
             });
             if (reached < 2)
               unresolved.push(`${version}/${file} ${where} -> ${node.$ref}`);
+            // the validator judges the value, never the reference itself, and
+            // the LLM converter faults only a reference the document itself
+            // cannot answer, such as one into another file
+            const validated = OpenApiValidator.validate({
+              components: document.components,
+              schema: node,
+              value: null,
+              required: true,
+            });
+            const converted = LlmSchemaConverter.schema({
+              components: document.components,
+              schema: node,
+              $defs: {},
+            });
+            if (
+              (validated.success === false &&
+                validated.errors.some((error) =>
+                  REFERENCE.test(error.description ?? ""),
+                )) ||
+              (converted.success === false &&
+                converted.error.reasons.some(
+                  (reason) =>
+                    reason.schema === node && REFERENCE.test(reason.message),
+                ))
+            )
+              rejected.push(`${version}/${file} ${where} -> ${node.$ref}`);
           },
         });
       for (const [key, schema] of Object.entries(schemas))
@@ -80,18 +117,29 @@ export const test_document_references_resolve = async (): Promise<void> => {
             typeof operation === "object" &&
             operation &&
             "responses" in operation
-          )
-            for (const parameter of (operation as OpenApi.IOperation)
-              .parameters ?? [])
-              check(
-                parameter.schema,
-                `${method.toUpperCase()} ${route} parameter ${parameter.name}`,
-              );
+          ) {
+            const where: string = `${method.toUpperCase()} ${route}`;
+            const typed: OpenApi.IOperation = operation as OpenApi.IOperation;
+            for (const parameter of typed.parameters ?? [])
+              check(parameter.schema, `${where} parameter ${parameter.name}`);
+            for (const media of Object.values(typed.requestBody?.content ?? {}))
+              if (media?.schema) check(media.schema, `${where} request body`);
+            for (const [status, response] of Object.entries(
+              typed.responses ?? {},
+            ))
+              for (const media of Object.values(response.content ?? {}))
+                if (media?.schema)
+                  check(media.schema, `${where} response ${status}`);
+          }
     }
   }
   TestEquality.equals("unresolved references", [] as string[], unresolved);
+  TestEquality.equals("rejected references", [] as string[], rejected);
   TestEquality.equals("fixtures with untidy keys", true, untidy > 0);
 };
 
 /** The component-key grammar of OpenAPI 3.x, which real 2.0 documents ignore. */
 const GRAMMAR: RegExp = /^[a-zA-Z0-9.\-_]+$/;
+
+/** A validator or composer failure about the reference rather than the value. */
+const REFERENCE: RegExp = /schema reference/;

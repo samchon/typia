@@ -50,8 +50,8 @@ export namespace OpenApiConverter {
    *
    * A document already marked emended is normalized rather than converted: an
    * upgrader emits every emended shape exactly, but a document built by hand or
-   * parsed from JSON may leave an object's empty `required` or an array's
-   * `items` loose, and every consumer reads the emended type on its word.
+   * parsed from JSON may leave an array's `items` out, and every consumer reads
+   * the emended type on its word.
    *
    * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
    * @returns Emended OpenAPI v3.2 document
@@ -394,42 +394,36 @@ const isUpgraded = (input: unknown): input is OpenApi.IDocument =>
   input.openapi.startsWith("3.2") &&
   (input as OpenApi.IDocument)["x-typia-emended-v12"] === true;
 
-/** Normalizes every schema an emended document holds; see the sanitizer. */
+/**
+ * Normalizes every schema an emended document holds; see the sanitizer.
+ *
+ * A holder the document leaves out stays out, as the upgraders leave it, so the
+ * normalized document has no key the input did not have.
+ */
 const normalizeDocument = (document: OpenApi.IDocument): OpenApi.IDocument => ({
   ...document,
   components: normalizeComponents(document.components),
-  paths: document.paths
-    ? Object.fromEntries(
-        Object.entries(document.paths).map(([path, item]) => [
-          path,
-          normalizePathItem(item),
-        ]),
-      )
-    : document.paths,
-  webhooks: document.webhooks
-    ? Object.fromEntries(
-        Object.entries(document.webhooks).map(([key, item]) => [
-          key,
-          normalizePathItem(item),
-        ]),
-      )
-    : document.webhooks,
+  ...(document.paths
+    ? { paths: mapValues(document.paths, normalizePathItem) }
+    : {}),
+  ...(document.webhooks
+    ? { webhooks: mapValues(document.webhooks, normalizePathItem) }
+    : {}),
 });
 
 const normalizeComponents = (
   components: OpenApi.IComponents,
-): OpenApi.IComponents =>
-  components.schemas
+): OpenApi.IComponents => ({
+  ...components,
+  ...(components.schemas
     ? {
-        ...components,
-        schemas: Object.fromEntries(
-          Object.entries(components.schemas).map(([key, schema]) => [
-            key,
-            OpenApiSchemaSanitizer.fillOpenArrayDeep(schema),
-          ]),
+        schemas: mapValues(
+          components.schemas,
+          OpenApiSchemaSanitizer.fillOpenArrayDeep,
         ),
       }
-    : components;
+    : {}),
+});
 
 const normalizePathItem = (item: OpenApi.IPath): OpenApi.IPath => {
   const output: OpenApi.IPath = { ...item };
@@ -438,11 +432,9 @@ const normalizePathItem = (item: OpenApi.IPath): OpenApi.IPath => {
     if (operation !== undefined) output[method] = normalizeOperation(operation);
   }
   if (item.additionalOperations)
-    output.additionalOperations = Object.fromEntries(
-      Object.entries(item.additionalOperations).map(([name, operation]) => [
-        name,
-        normalizeOperation(operation),
-      ]),
+    output.additionalOperations = mapValues(
+      item.additionalOperations,
+      normalizeOperation,
     );
   return output;
 };
@@ -451,18 +443,15 @@ const normalizeOperation = (
   operation: OpenApi.IOperation,
 ): OpenApi.IOperation => ({
   ...operation,
-  parameters: operation.parameters?.map(normalizeParameter),
-  requestBody: operation.requestBody
-    ? normalizeBody(operation.requestBody)
-    : operation.requestBody,
-  responses: operation.responses
-    ? Object.fromEntries(
-        Object.entries(operation.responses).map(([status, response]) => [
-          status,
-          response ? normalizeResponse(response) : response,
-        ]),
-      )
-    : operation.responses,
+  ...(operation.parameters
+    ? { parameters: operation.parameters.map(normalizeParameter) }
+    : {}),
+  ...(operation.requestBody
+    ? { requestBody: normalizeBody(operation.requestBody) }
+    : {}),
+  ...(operation.responses
+    ? { responses: mapValues(operation.responses, normalizeResponse) }
+    : {}),
 });
 
 const normalizeParameter = (
@@ -476,14 +465,9 @@ const normalizeResponse = (
   response: OpenApi.IOperation.IResponse,
 ): OpenApi.IOperation.IResponse => ({
   ...normalizeBody(response),
-  headers: response.headers
-    ? Object.fromEntries(
-        Object.entries(response.headers).map(([name, header]) => [
-          name,
-          normalizeParameter(header),
-        ]),
-      )
-    : response.headers,
+  ...(response.headers
+    ? { headers: mapValues(response.headers, normalizeParameter) }
+    : {}),
 });
 
 const normalizeBody = <
@@ -494,32 +478,43 @@ const normalizeBody = <
   body.content
     ? {
         ...body,
-        content: Object.fromEntries(
-          Object.entries(body.content).map(([type, media]) => [
-            type,
-            media
-              ? {
-                  ...media,
-                  ...(media.schema
-                    ? {
-                        schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(
-                          media.schema,
-                        ),
-                      }
-                    : {}),
-                  ...(media.itemSchema
-                    ? {
-                        itemSchema: OpenApiSchemaSanitizer.fillOpenArrayDeep(
-                          media.itemSchema,
-                        ),
-                      }
-                    : {}),
-                }
-              : media,
-          ]),
+        content: mapValues(
+          body.content as Record<
+            string,
+            OpenApi.IOperation.IMediaType | undefined
+          >,
+          normalizeMediaType,
         ) as OpenApi.IOperation.IContent,
       }
     : body;
+
+const normalizeMediaType = (
+  media: OpenApi.IOperation.IMediaType | undefined,
+): OpenApi.IOperation.IMediaType | undefined =>
+  media
+    ? {
+        ...media,
+        ...(media.schema
+          ? { schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(media.schema) }
+          : {}),
+        ...(media.itemSchema
+          ? {
+              itemSchema: OpenApiSchemaSanitizer.fillOpenArrayDeep(
+                media.itemSchema,
+              ),
+            }
+          : {}),
+      }
+    : media;
+
+/** A copy of the record with `map` applied to every value. */
+const mapValues = <T>(
+  record: Record<string, T>,
+  map: (value: T) => T,
+): Record<string, T> =>
+  Object.fromEntries(
+    Object.entries(record).map(([key, value]) => [key, map(value)]),
+  );
 
 const METHODS = [
   "get",
