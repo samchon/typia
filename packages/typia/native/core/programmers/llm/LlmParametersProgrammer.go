@@ -1,8 +1,6 @@
 package llm
 
 import (
-  "strings"
-
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
@@ -73,7 +71,7 @@ func (llmParametersProgrammerNamespace) WriteParameters(props struct {
     return llmParametersProgrammer_convert_parameters(schema, collection.Components, props.Config)
   }
   if ref, ok := schema["$ref"].(string); ok {
-    name := ref[strings.LastIndex(ref, "/")+1:]
+    name := llmSchemaProgrammer_ref_key(ref)
     if collection.Components != nil && collection.Components.Schemas != nil {
       if target, found := collection.Components.Schemas[name]; found {
         if typ, ok := target["type"].(string); ok && typ == "object" {
@@ -136,7 +134,7 @@ func llmParametersProgrammer_dereference_schema(schema nativeiterate.JsonSchema,
   if ok == false || components == nil || components.Schemas == nil {
     return schema
   }
-  name := ref[strings.LastIndex(ref, "/")+1:]
+  name := llmSchemaProgrammer_ref_key(ref)
   if target, found := components.Schemas[name]; found {
     return target
   }
