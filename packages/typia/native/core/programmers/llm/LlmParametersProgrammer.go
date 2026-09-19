@@ -77,7 +77,9 @@ func (llmParametersProgrammerNamespace) WriteParameters(props struct {
     if collection.Components != nil && collection.Components.Schemas != nil {
       if target, found := collection.Components.Schemas[name]; found {
         if typ, ok := target["type"].(string); ok && typ == "object" {
-          return llmParametersProgrammer_convert_parameters(target, collection.Components, props.Config)
+          // the reference itself, so the root description can cascade from
+          // its component key
+          return llmParametersProgrammer_convert_parameters(schema, collection.Components, props.Config)
         }
       }
     }
@@ -125,6 +127,7 @@ func llmParametersProgrammer_convert_parameters(schema nativeiterate.JsonSchema,
   output := llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
   output["additionalProperties"] = false
   output["$defs"] = defs
+  llmReferenceDescription_assign(output, schema, components)
   return output
 }
 
