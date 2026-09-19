@@ -425,7 +425,7 @@ export namespace Jev {
         return;
       }
       if (value === undefined) fail(path, "undefined");
-      if (typeof value !== "object") fail(path, `a ${typeof value}`);
+      if (typeof value !== "object") fail(path, article(typeof value));
       const object: object = value as object;
       if (ancestors.has(object)) fail(path, "circular");
 
@@ -433,12 +433,8 @@ export namespace Jev {
       const toJSON: unknown = (object as { toJSON?: unknown }).toJSON;
       if (typeof toJSON === "function")
         return nest(object, () => visit(toJSON.call(object, key), path, key));
-      if (
-        object instanceof Boolean ||
-        object instanceof Number ||
-        object instanceof String
-      )
-        return visit(object.valueOf(), path, key);
+      const primitive: unknown = unwrap(object);
+      if (primitive !== undefined) return visit(primitive, path, key);
 
       if (Array.isArray(object))
         return nest(object, () => {
@@ -447,7 +443,7 @@ export namespace Jev {
             visit(object[i], `${path}[${i}]`, String(i));
         });
       if (isPlain(object) === false)
-        fail(path, `a ${object.constructor?.name || "class"} instance`);
+        fail(path, article(`${object.constructor?.name || "class"} instance`));
       nest(object, () => {
         for (const [name, elem] of Object.entries(object))
           if (elem !== undefined) visit(elem, `${path}.${name}`, name);
@@ -463,20 +459,40 @@ export namespace Jev {
         `Jev state must be JSON: ${path} is ${what}, which JSON cannot carry.`,
       );
     };
-    visit(state, "$state", "");
+    // both endpoints serialize the state as the request body's `state`
+    visit(state, "$state", "state");
   };
 
   /**
-   * A plain object, from this realm or another: its prototype is `null`, or an
-   * `Object.prototype`, the one prototype whose own prototype is `null`.
+   * The primitive a `Boolean`, `Number`, or `String` wrapper holds, read from
+   * its internal slot as JSON reads it, so a wrapper from another realm or with
+   * an overridden `valueOf()` unwraps the same way.
+   */
+  const unwrap = (object: object): unknown => {
+    for (const read of WRAPPERS)
+      try {
+        return read.call(object);
+      } catch {}
+    return undefined;
+  };
+
+  const WRAPPERS: ReadonlyArray<(this: unknown) => unknown> = [
+    Boolean.prototype.valueOf,
+    Number.prototype.valueOf,
+    String.prototype.valueOf,
+  ];
+
+  const article = (noun: string): string =>
+    `${/^[aeiou]/i.test(noun) ? "an" : "a"} ${noun}`;
+
+  /**
+   * An object JSON walks as a plain one, from this realm or another: its
+   * prototype is `null`, or itself has a `null` prototype, as every realm's
+   * `Object.prototype` does. Built-ins such as `Map` sit one level deeper.
    */
   const isPlain = (object: object): boolean => {
     const prototype: object | null = Object.getPrototypeOf(object);
-    return (
-      prototype === null ||
-      (Object.getPrototypeOf(prototype) === null &&
-        Object.prototype.toString.call(object) === "[object Object]")
-    );
+    return prototype === null || Object.getPrototypeOf(prototype) === null;
   };
 
   /** Milliseconds before the next attempt. */

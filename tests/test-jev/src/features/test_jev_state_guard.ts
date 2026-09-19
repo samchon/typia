@@ -14,8 +14,9 @@ import { ITriage } from "../structures/ITriage";
  * model would otherwise judge something other than what the caller passed.
  * `IState` is typed loosely so an interface-typed state compiles, which makes
  * this run-time check the only guard. It must also not reject what JSON carries
- * faithfully: a `Date` through its `toJSON()`, a primitive wrapper, a
- * null-prototype object, or a plain object from another realm.
+ * faithfully: a `Date` through its `toJSON()`, which JSON calls with the key
+ * `"state"`, a primitive wrapper, a null-prototype or tagged object, or a plain
+ * object or wrapper from another realm.
  *
  * 1. Pass each unfaithful state and assert both helpers throw a `TypeError` naming
  *    its path, with no request sent.
@@ -68,6 +69,11 @@ export const test_jev_state_guard = async (): Promise<void> => {
     ["undefined element", { list: [1, undefined] }, "$state.list[1]"],
     ["toJSON returning NaN", { value: { toJSON: () => NaN } }, "$state.value"],
     ["bigint", { value: 1n as unknown as object }, "$state.value"],
+    [
+      "toJSON dropping the state under its real key",
+      { toJSON: (key: string) => (key === "state" ? undefined : { ok: 1 }) },
+      "$state",
+    ],
   ];
   for (const [title, state, path] of rejected) {
     const outcome = await attempt(state);
@@ -100,6 +106,17 @@ export const test_jev_state_guard = async (): Promise<void> => {
     ["primitive wrappers", { flag: new Boolean(true), count: new Number(1) }],
     ["null prototype", bare],
     ["another realm", vm.runInNewContext("({ ticket: { id: 1, tags: [1] } })")],
+    [
+      "wrappers from another realm",
+      vm.runInNewContext(
+        "({ flag: new Boolean(true), count: new Number(1), text: new String('x') })",
+      ),
+    ],
+    ["plain object with a tag", { [Symbol.toStringTag]: "Ticket", id: 1 }],
+    [
+      "toJSON keyed by the request's state",
+      { toJSON: (key: string) => (key === "state" ? { ok: 1 } : undefined) },
+    ],
   ];
   for (const [title, state] of accepted) {
     const outcome = await attempt(state);
