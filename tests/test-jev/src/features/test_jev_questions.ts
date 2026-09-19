@@ -1,9 +1,9 @@
 import { ILlmEvaluation } from "@typia/interface";
-import { Jev } from "@typia/jev";
+import { IJevQuestion, toJevQuestions } from "@typia/jev";
 import { TestEquality } from "@typia/template/equality";
 
 /**
- * Verifies Jev.questions renames only boolean questions.
+ * Verifies toJevQuestions renames only boolean questions.
  *
  * The Jev wire format spells the boolean question `"noul"`, while choice and
  * score questions are identical to the neutral AI SDK shape. The converter must
@@ -40,7 +40,7 @@ export const test_jev_questions = (): void => {
   });
   const snapshot: string = JSON.stringify(questions);
 
-  const output: Record<string, Jev.IQuestion> = Jev.questions(questions);
+  const output: Record<string, IJevQuestion> = toJevQuestions(questions);
   TestEquality.equals("urgent", output.urgent, {
     type: "noul",
     instructions: "Is it urgent?",

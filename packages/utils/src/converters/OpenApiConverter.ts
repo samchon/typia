@@ -6,6 +6,7 @@ import {
   SwaggerV2,
 } from "@typia/interface";
 
+import { OpenApiSchemaSanitizer } from "../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiV3Downgrader } from "./internal/OpenApiV3Downgrader";
 import { OpenApiV3Upgrader } from "./internal/OpenApiV3Upgrader";
 import { OpenApiV3_1Downgrader } from "./internal/OpenApiV3_1Downgrader";
@@ -47,6 +48,11 @@ export namespace OpenApiConverter {
   /**
    * Upgrade document to typia's emended OpenAPI v3.2 format.
    *
+   * A document already marked emended is normalized rather than converted: an
+   * upgrader emits every emended shape exactly, but a document built by hand or
+   * parsed from JSON may leave an array's `items` out, and every consumer reads
+   * the emended type on its word.
+   *
    * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
    * @returns Emended OpenAPI v3.2 document
    */
@@ -58,7 +64,7 @@ export namespace OpenApiConverter {
       | OpenApiV3_2.IDocument
       | OpenApi.IDocument,
   ): OpenApi.IDocument {
-    if (isUpgraded(document)) return document;
+    if (isUpgraded(document)) return normalizeDocument(document);
     else if (is_v32(document)) return OpenApiV3_2Upgrader.convert(document);
     else if (is_v31(document)) return OpenApiV3_1Upgrader.convert(document);
     else if (is_v30(document)) return OpenApiV3Upgrader.convert(document);
@@ -69,6 +75,9 @@ export namespace OpenApiConverter {
 
   /**
    * Downgrade document to Swagger v2.0 format.
+   *
+   * The document is normalized on entry, as {@link upgradeDocument} normalizes
+   * an already-emended one.
    *
    * @param document Source emended OpenAPI document
    * @param version Target version "2.0"
@@ -101,10 +110,11 @@ export namespace OpenApiConverter {
     document: OpenApi.IDocument,
     version: "2.0" | "3.0" | "3.1",
   ): SwaggerV2.IDocument | OpenApiV3.IDocument | OpenApiV3_1.IDocument {
-    if (version === "2.0") return SwaggerV2Downgrader.downgrade(document);
-    else if (version === "3.0") return OpenApiV3Downgrader.downgrade(document);
-    else if (version === "3.1")
-      return OpenApiV3_1Downgrader.downgrade(document);
+    // the document boundary in the other direction normalizes alike
+    const input: OpenApi.IDocument = normalizeDocument(document);
+    if (version === "2.0") return SwaggerV2Downgrader.downgrade(input);
+    else if (version === "3.0") return OpenApiV3Downgrader.downgrade(input);
+    else if (version === "3.1") return OpenApiV3_1Downgrader.downgrade(input);
 
     version satisfies never;
     throw new Error("Invalid OpenAPI version");
@@ -124,16 +134,22 @@ export namespace OpenApiConverter {
       | OpenApiV3_2.IComponents
       | OpenApiV3_1.IComponents
       | OpenApiV3.IComponents
-      | SwaggerV2.IDocument,
+      | SwaggerV2.IDocument
+      | OpenApi.IComponents,
   ): OpenApi.IComponents {
     if (is_v20(input)) return SwaggerV2Upgrader.convertComponents(input);
-    return OpenApiV3_1Upgrader.convertComponents(input as any);
+    // every 3.x components shape converts through the 3.1 upgrader, which also
+    // normalizes an emended input; see upgradeDocument
+    return normalizeComponents(
+      OpenApiV3_1Upgrader.convertComponents(input as any),
+    );
   }
 
   /**
    * Downgrade components to Swagger v2.0 definitions.
    *
-   * @param input Source emended components
+   * @param input Source emended components, as `upgradeDocument()` or
+   *   `upgradeComponents()` returns them
    * @param version Target version "2.0"
    * @returns Swagger v2.0 definitions record
    */
@@ -145,7 +161,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade components to OpenAPI v3.0 format.
    *
-   * @param input Source emended components
+   * @param input Source emended components, as `upgradeDocument()` or
+   *   `upgradeComponents()` returns them
    * @param version Target version "3.0"
    * @returns OpenAPI v3.0 components
    */
@@ -157,7 +174,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade components to OpenAPI v3.1 format.
    *
-   * @param input Source emended components
+   * @param input Source emended components, as `upgradeDocument()` or
+   *   `upgradeComponents()` returns them
    * @param version Target version "3.1"
    * @returns OpenAPI v3.1 components
    */
@@ -262,7 +280,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade schema to Swagger v2.0 format.
    *
-   * @param props.components Source emended components
+   * @param props.components Source emended components, as `upgradeDocument()`
+   *   or `upgradeComponents()` returns them
    * @param props.schema Schema to downgrade
    * @param props.version Target version "2.0"
    * @param props.downgraded Target definitions record (mutated)
@@ -278,7 +297,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade schema to OpenAPI v3.0 format.
    *
-   * @param props.components Source emended components
+   * @param props.components Source emended components, as `upgradeDocument()`
+   *   or `upgradeComponents()` returns them
    * @param props.schema Schema to downgrade
    * @param props.version Target version "3.0"
    * @param props.downgraded Target components (mutated)
@@ -294,7 +314,8 @@ export namespace OpenApiConverter {
   /**
    * Downgrade schema to OpenAPI v3.1 format.
    *
-   * @param props.components Source emended components
+   * @param props.components Source emended components, as `upgradeDocument()`
+   *   or `upgradeComponents()` returns them
    * @param props.schema Schema to downgrade
    * @param props.version Target version "3.1"
    * @param props.downgraded Target components (mutated)
@@ -372,3 +393,136 @@ const isUpgraded = (input: unknown): input is OpenApi.IDocument =>
   typeof input.openapi === "string" &&
   input.openapi.startsWith("3.2") &&
   (input as OpenApi.IDocument)["x-typia-emended-v12"] === true;
+
+/**
+ * Normalizes every schema an emended document holds; see the sanitizer.
+ *
+ * A holder the document leaves out stays out, so the normalized document has no
+ * key the input did not have.
+ */
+const normalizeDocument = (document: OpenApi.IDocument): OpenApi.IDocument => ({
+  ...document,
+  components: normalizeComponents(document.components),
+  ...(document.paths
+    ? { paths: mapValues(document.paths, normalizePathItem) }
+    : {}),
+  ...(document.webhooks
+    ? { webhooks: mapValues(document.webhooks, normalizePathItem) }
+    : {}),
+});
+
+const normalizeComponents = (
+  components: OpenApi.IComponents,
+): OpenApi.IComponents => ({
+  ...components,
+  ...(components.schemas
+    ? {
+        schemas: mapValues(
+          components.schemas,
+          OpenApiSchemaSanitizer.fillOpenArrayDeep,
+        ),
+      }
+    : {}),
+});
+
+const normalizePathItem = (item: OpenApi.IPath): OpenApi.IPath => {
+  const output: OpenApi.IPath = { ...item };
+  for (const method of METHODS) {
+    const operation: OpenApi.IOperation | undefined = item[method];
+    if (operation !== undefined) output[method] = normalizeOperation(operation);
+  }
+  if (item.additionalOperations)
+    output.additionalOperations = mapValues(
+      item.additionalOperations,
+      normalizeOperation,
+    );
+  return output;
+};
+
+const normalizeOperation = (
+  operation: OpenApi.IOperation,
+): OpenApi.IOperation => ({
+  ...operation,
+  ...(operation.parameters
+    ? { parameters: operation.parameters.map(normalizeParameter) }
+    : {}),
+  ...(operation.requestBody
+    ? { requestBody: normalizeBody(operation.requestBody) }
+    : {}),
+  ...(operation.responses
+    ? { responses: mapValues(operation.responses, normalizeResponse) }
+    : {}),
+});
+
+const normalizeParameter = (
+  parameter: OpenApi.IOperation.IParameter,
+): OpenApi.IOperation.IParameter => ({
+  ...parameter,
+  schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(parameter.schema),
+});
+
+const normalizeResponse = (
+  response: OpenApi.IOperation.IResponse,
+): OpenApi.IOperation.IResponse => ({
+  ...normalizeBody(response),
+  ...(response.headers
+    ? { headers: mapValues(response.headers, normalizeParameter) }
+    : {}),
+});
+
+const normalizeBody = <
+  Body extends { content?: OpenApi.IOperation.IContent | undefined },
+>(
+  body: Body,
+): Body =>
+  body.content
+    ? {
+        ...body,
+        content: mapValues(body.content, normalizeMediaType),
+      }
+    : body;
+
+const normalizeMediaType = (
+  media: OpenApi.IOperation.IMediaType,
+): OpenApi.IOperation.IMediaType => ({
+  ...media,
+  ...(media.schema
+    ? { schema: OpenApiSchemaSanitizer.fillOpenArrayDeep(media.schema) }
+    : {}),
+  ...(media.itemSchema
+    ? { itemSchema: OpenApiSchemaSanitizer.fillOpenArrayDeep(media.itemSchema) }
+    : {}),
+});
+
+/**
+ * A copy of the record with `map` applied to every value.
+ *
+ * A document may hold an absent value where the type promises one; it is left
+ * for the reader to judge, as the sanitizer leaves an absent schema.
+ */
+const mapValues = <Record_ extends Record<string, unknown>>(
+  record: Record_,
+  map: (
+    value: Exclude<Record_[keyof Record_], undefined>,
+  ) => Exclude<Record_[keyof Record_], undefined>,
+): Record_ =>
+  Object.fromEntries(
+    Object.entries(record).map(([key, value]) => [
+      key,
+      value === undefined
+        ? value
+        : map(value as Exclude<Record_[keyof Record_], undefined>),
+    ]),
+  ) as Record_;
+
+const METHODS = [
+  "get",
+  "post",
+  "put",
+  "patch",
+  "delete",
+  "options",
+  "head",
+  "trace",
+  "query",
+] as const;

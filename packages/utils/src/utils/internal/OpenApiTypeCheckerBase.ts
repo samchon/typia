@@ -9,7 +9,6 @@ import { _stringLength } from "../../validators/functional/_stringLength";
 import { MapUtil } from "../MapUtil";
 import { JsonDescriptor } from "./JsonDescriptor";
 import { ObjectDictionary } from "./ObjectDictionary";
-import { OpenApiOpenArrayRestorer } from "./OpenApiOpenArrayRestorer";
 import { OpenApiReferenceKey } from "./OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "./OpenApiSchemaSanitizer";
 
@@ -100,10 +99,11 @@ export namespace OpenApiTypeCheckerBase {
     schema: OpenApi.IJsonSchema;
   }): boolean => {
     if (isReference(props.schema) === false) return false;
-    const current: string = OpenApiReferenceKey.read(
+    const current: string | undefined = OpenApiReferenceKey.read(
       props.schema.$ref,
       props.prefix,
     );
+    if (current === undefined) return false;
     let counter: number = 0;
     visit({
       prefix: props.prefix,
@@ -111,7 +111,7 @@ export namespace OpenApiTypeCheckerBase {
       schema: props.schema,
       closure: (schema) => {
         if (isReference(schema)) {
-          const next: string = OpenApiReferenceKey.read(
+          const next: string | undefined = OpenApiReferenceKey.read(
             schema.$ref,
             props.prefix,
           );
@@ -210,16 +210,17 @@ export namespace OpenApiTypeCheckerBase {
     const next = (schema: OpenApi.IJsonSchema, accessor: string): void => {
       props.closure(schema, accessor);
       if (isReference(schema)) {
-        const entry = OpenApiReferenceKey.find(
-          props.components.schemas,
+        // a malformed reference names no component and is visited as a leaf
+        const key: string | undefined = OpenApiReferenceKey.read(
           schema.$ref,
           props.prefix,
         );
-        const key: string =
-          entry?.key ?? OpenApiReferenceKey.read(schema.$ref, props.prefix);
-        if (already.has(key) === true) return;
+        if (key === undefined || already.has(key) === true) return;
         already.add(key);
-        const found: OpenApi.IJsonSchema | undefined = entry?.value;
+        const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+          props.components.schemas,
+          key,
+        );
         if (found !== undefined)
           next(found, `${refAccessor}[${JSON.stringify(key)}]`);
       } else if (isOneOf(schema))
@@ -271,19 +272,18 @@ export namespace OpenApiTypeCheckerBase {
     first?: string;
   }): OpenApi.IJsonSchema | null => {
     if (isReference(props.schema) === false) return props.schema;
-    const entry = OpenApiReferenceKey.find(
-      props.components.schemas,
+    const key: string | undefined = OpenApiReferenceKey.read(
       props.schema.$ref,
       props.prefix,
     );
-    const key: string =
-      entry?.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix);
-    const found: OpenApi.IJsonSchema | undefined = entry?.value;
-    if (found === undefined) {
-      // A FOREIGN REFERENCE IS NAMED WHOLE
-      const missing: string = props.schema.$ref.startsWith(props.prefix)
-        ? key
-        : props.schema.$ref;
+    const found: OpenApi.IJsonSchema | undefined =
+      key !== undefined
+        ? ObjectDictionary.get(props.components.schemas, key)
+        : undefined;
+    if (key === undefined || found === undefined) {
+      // A FOREIGN OR MALFORMED REFERENCE IS NAMED WHOLE; a key is read only
+      // from a reference that follows the prefix
+      const missing: string = key ?? props.schema.$ref;
       props.reasons.push({
         schema: props.schema,
         accessor: props.accessor,
@@ -316,26 +316,21 @@ export namespace OpenApiTypeCheckerBase {
     accessor: string;
     refAccessor: string;
   }): OpenApi.IJsonSchema | null | undefined => {
-    const restored: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(
-      props.schema,
-    );
-    if (restored !== props.schema)
-      return escapeSchema({ ...props, schema: restored });
     if (isReference(props.schema)) {
       // REFERENCE
-      const entry = OpenApiReferenceKey.find(
-        props.components.schemas,
+      const key: string | undefined = OpenApiReferenceKey.read(
         props.schema.$ref,
         props.prefix,
       );
-      const key: string =
-        entry?.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix);
-      const target: OpenApi.IJsonSchema | undefined = entry?.value;
-      if (target === undefined) {
+      const target: OpenApi.IJsonSchema | undefined =
+        key !== undefined
+          ? ObjectDictionary.get(props.components.schemas, key)
+          : undefined;
+      if (key === undefined || target === undefined) {
         props.reasons.push({
           schema: props.schema,
           accessor: props.accessor,
-          message: `unable to find reference type ${JSON.stringify(key)}.`,
+          message: `unable to find reference type ${JSON.stringify(key ?? props.schema.$ref)}.`,
         });
         return null;
       } else if (props.visited.has(key) === true) {
@@ -362,7 +357,6 @@ export namespace OpenApiTypeCheckerBase {
           ? {
               ...res,
               description: JsonDescriptor.cascade({
-                prefix: props.prefix,
                 components: props.components,
                 schema: props.schema,
                 escape: true,
@@ -381,7 +375,6 @@ export namespace OpenApiTypeCheckerBase {
           ? {
               ...res,
               description: JsonDescriptor.cascade({
-                prefix: props.prefix,
                 components: props.components,
                 schema: props.schema,
                 escape: true,
@@ -941,7 +934,7 @@ export namespace OpenApiTypeCheckerBase {
           }),
         )
         .flat();
-    return [OpenApiOpenArrayRestorer.restore(schema)];
+    return [schema];
   };
 
   const escapeReferenceOfFlatSchema = (props: {

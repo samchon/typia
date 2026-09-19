@@ -1,46 +1,50 @@
-import { LlmReference } from "./LlmReference";
+import { JsonPointer } from "./JsonPointer";
 import { ObjectDictionary } from "./ObjectDictionary";
 
 /**
  * Reads the component key a local `$ref` names.
  *
- * A reference such as `#/components/schemas/A~1B` names its component by one
- * JSON Pointer token, which escapes `~` and `/` as `~0` and `~1` and may also
- * be percent-encoded as a URI fragment. The converters and schema walkers used
- * to take the raw token as the key, so a component whose key needs escaping was
- * never found, and a 3.0 downgrade silently dropped its nullability
- * (samchon/typia#2408). The token decodes through
- * {@link LlmReference.readToken}, the decoder the validators and the LLM
- * converter already use.
+ * A JSON Reference is a URI fragment holding a JSON Pointer (RFC 6901): the key
+ * is the pointer's last token, with `~1` standing for `/` and `~0` for `~`,
+ * possibly percent-encoded as a URI fragment. The converters and schema walkers
+ * used to take the raw token as the key, so a component whose key needs
+ * escaping was never found, and a 3.0 downgrade silently dropped its
+ * nullability (samchon/typia#2408).
  *
- * Documents in the wild also write unescaped keys into references, so lookups
- * try the decoded key first and fall back to the raw token. That leniency
- * belongs to the converters and the schema walkers, which always read raw
- * tokens. The validators and the LLM converter keep rejecting a malformed
- * reference through {@link LlmReference.readOpenApi}, a deliberate integrity
- * contract (samchon/typia#2104).
+ * The decoding follows RFC 6901 alone: any other character is itself, so a key
+ * holding a space, as Swagger 2.0 allows and documents in the wild carry,
+ * resolves as written (samchon/typia#2412). A reference names no component when
+ * a `~` is followed by anything but `0` or `1`, or when the token still holds a
+ * `/` after percent-decoding, which RFC 6901 reads as one more pointer step.
+ * Every reader of an emended document, the walkers, the converters, the
+ * validators, and the LLM composers, resolves a reference through this one
+ * reader, so they agree on the component it names (samchon/typia#2416). The
+ * `#/$defs/` references of an LLM schema keep their own reader in
+ * `LlmReference.read`.
  *
  * @internal
  */
 export namespace OpenApiReferenceKey {
   /**
    * @param reference Local reference, like `#/components/schemas/A~1B`
-   * @param prefix Prefix the key follows; without one, or when the reference
-   *   does not start with it, the key is the last token
-   * @returns The decoded key, like `A/B`, or the raw token when it does not
-   *   decode
+   * @param prefix Prefix the key must follow; without one, the key is the last
+   *   token
+   * @returns The decoded key, like `A/B`, or `undefined` when the reference
+   *   does not follow the prefix or its token is malformed
    */
-  export const read = (reference: string, prefix?: string): string => {
-    const token: string = tokenize(reference, prefix);
-    return LlmReference.readToken(token) ?? token;
+  export const read = (
+    reference: string,
+    prefix?: string,
+  ): string | undefined => {
+    const token: string | undefined = tokenize(reference, prefix);
+    return token === undefined ? undefined : decode(token);
   };
 
   /**
    * @param dictionary Components of the referenced kind
    * @param reference Local reference into `dictionary`
    * @param prefix Prefix the key follows, as in {@link read}
-   * @returns The referenced component, found by its decoded key or else by the
-   *   raw token
+   * @returns The referenced component
    */
   export const get = <T>(
     dictionary: Record<string, T> | undefined,
@@ -60,15 +64,35 @@ export namespace OpenApiReferenceKey {
     reference: string,
     prefix?: string,
   ): { key: string; value: T } | undefined => {
-    const token: string = tokenize(reference, prefix);
-    for (const key of [LlmReference.readToken(token), token])
-      if (key !== undefined && ObjectDictionary.has(dictionary, key))
-        return { key, value: dictionary![key] as T };
-    return undefined;
+    const key: string | undefined = read(reference, prefix);
+    return key !== undefined && ObjectDictionary.has(dictionary, key)
+      ? { key, value: dictionary![key] as T }
+      : undefined;
   };
 
-  const tokenize = (reference: string, prefix: string | undefined): string =>
-    prefix !== undefined && reference.startsWith(prefix)
-      ? reference.slice(prefix.length)
-      : (reference.split("/").pop() ?? "");
+  /**
+   * RFC 6901 token unescaping, after percent-decoding when that succeeds.
+   *
+   * A `/` that survives percent-decoding is a pointer separator, so the token
+   * was not one token.
+   */
+  const decode = (token: string): string | undefined => {
+    let text: string = token;
+    try {
+      text = decodeURIComponent(token);
+    } catch {
+      // a literal `%` outside an escape stays itself
+    }
+    return text.includes("/") ? undefined : JsonPointer.unescape(text);
+  };
+
+  const tokenize = (
+    reference: string,
+    prefix: string | undefined,
+  ): string | undefined =>
+    prefix === undefined
+      ? (reference.split("/").pop() ?? "")
+      : reference.startsWith(prefix)
+        ? reference.slice(prefix.length)
+        : undefined;
 }

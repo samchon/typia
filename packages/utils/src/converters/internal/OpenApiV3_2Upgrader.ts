@@ -172,7 +172,8 @@ export namespace OpenApiV3_2Upgrader {
         | OpenApiV3_2.IJsonSchema.IReference<`#/components/parameters/${string}`>,
     ): OpenApiV3_2.IOperation.IParameter | undefined => {
       if (!("$ref" in input)) return input;
-      const key: string = OpenApiReferenceKey.read(input.$ref);
+      const key: string | undefined = OpenApiReferenceKey.read(input.$ref);
+      if (key === undefined) return undefined;
       if (input.$ref.startsWith("#/components/headers/")) {
         const header:
           | Omit<OpenApiV3_2.IOperation.IParameter, "in">

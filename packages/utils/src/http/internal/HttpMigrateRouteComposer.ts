@@ -3,7 +3,6 @@ import { IHttpMigrateRoute, OpenApi } from "@typia/interface";
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
-import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
@@ -250,9 +249,7 @@ export namespace HttpMigrateRouteComposer {
           }
           if (style === "spaceDelimited" || style === "pipeDelimited") {
             if (
-              !OpenApiTypeChecker.isArray(
-                OpenApiOpenArrayRestorer.restore(schema),
-              ) &&
+              !OpenApiTypeChecker.isArray(schema) &&
               !OpenApiTypeChecker.isTuple(schema) &&
               !OpenApiTypeChecker.isObject(schema)
             )
@@ -757,16 +754,14 @@ export namespace HttpMigrateRouteComposer {
       let schema: OpenApi.IJsonSchema = input;
       const visited: Set<string> = new Set();
       while (OpenApiTypeChecker.isReference(schema)) {
-        if (schema.$ref.startsWith(SCHEMAS) === false) break;
-        const key: string = OpenApiReferenceKey.read(schema.$ref, SCHEMAS);
-        const found: OpenApi.IJsonSchema | undefined = OpenApiReferenceKey.get(
+        const entry = OpenApiReferenceKey.find(
           document.components.schemas,
           schema.$ref,
           SCHEMAS,
         );
-        if (visited.has(key) || found === undefined) break;
-        visited.add(key);
-        schema = found;
+        if (entry === undefined || visited.has(entry.key)) break;
+        visited.add(entry.key);
+        schema = entry.value;
       }
       return schema;
     };
@@ -783,7 +778,6 @@ export namespace HttpMigrateRouteComposer {
     (visited: Set<string>) =>
     (schema: OpenApi.IJsonSchema): OpenApi.IJsonSchema => {
       if (OpenApiTypeChecker.isReference(schema)) {
-        if (schema.$ref.startsWith(SCHEMAS) === false) return schema;
         // WRITE BACK UNDER THE KEY THE COMPONENT WAS FOUND BY
         const entry = OpenApiReferenceKey.find(
           document.components.schemas,
@@ -831,19 +825,15 @@ export namespace HttpMigrateRouteComposer {
       }
     };
 
-  const isNotObjectLiteral = (raw: OpenApi.IJsonSchema): boolean => {
-    const schema: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(raw);
-    return (
-      OpenApiTypeChecker.isReference(schema) ||
-      OpenApiTypeChecker.isBoolean(schema) ||
-      OpenApiTypeChecker.isNumber(schema) ||
-      OpenApiTypeChecker.isString(schema) ||
-      OpenApiTypeChecker.isUnknown(schema) ||
-      (OpenApiTypeChecker.isOneOf(schema) &&
-        schema.oneOf.every(isNotObjectLiteral)) ||
-      (OpenApiTypeChecker.isArray(schema) && isNotObjectLiteral(schema.items))
-    );
-  };
+  const isNotObjectLiteral = (schema: OpenApi.IJsonSchema): boolean =>
+    OpenApiTypeChecker.isReference(schema) ||
+    OpenApiTypeChecker.isBoolean(schema) ||
+    OpenApiTypeChecker.isNumber(schema) ||
+    OpenApiTypeChecker.isString(schema) ||
+    OpenApiTypeChecker.isUnknown(schema) ||
+    (OpenApiTypeChecker.isOneOf(schema) &&
+      schema.oneOf.every(isNotObjectLiteral)) ||
+    (OpenApiTypeChecker.isArray(schema) && isNotObjectLiteral(schema.items));
 
   const normalizeMediaType = (type: string): string =>
     type.split(";", 1)[0]!.trim().toLowerCase();

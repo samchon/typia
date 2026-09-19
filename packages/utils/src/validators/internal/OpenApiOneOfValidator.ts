@@ -3,7 +3,6 @@ import { OpenApi } from "@typia/interface";
 import { MapUtil } from "../../utils";
 import { LlmReference } from "../../utils/internal/LlmReference";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
-import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
@@ -348,10 +347,9 @@ const getFlattened = (props: {
       schema: props.schema,
     };
   }
-  // KEEP THE RAW SCHEMA: REMAINDERS ARE MATCHED BY IDENTITY
   return {
     schema: props.schema,
-    escaped: OpenApiOpenArrayRestorer.restore(props.schema),
+    escaped: props.schema,
   };
 };
 

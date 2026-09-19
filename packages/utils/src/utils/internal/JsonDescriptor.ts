@@ -3,7 +3,6 @@ import { OpenApi } from "@typia/interface";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { NamingConvention } from "../NamingConvention";
 import { ObjectDictionary } from "./ObjectDictionary";
-import { OpenApiReferenceKey } from "./OpenApiReferenceKey";
 
 export namespace JsonDescriptor {
   /**
@@ -26,15 +25,12 @@ export namespace JsonDescriptor {
    * an unrelated type's prose, straight into what an LLM reads.
    */
   export const cascade = (props: {
-    prefix: string;
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema.IReference;
     escape: boolean;
-    key?: string;
+    key: string;
   }): string | undefined => {
-    const accessors: string[] = (
-      props.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix)
-    ).split(".");
+    const accessors: string[] = props.key.split(".");
     const pReferences: IParentReference[] = accessors
       .slice(0, props.escape ? accessors.length : accessors.length - 1)
       .map((_, i, array) => array.slice(0, i + 1).join("."))

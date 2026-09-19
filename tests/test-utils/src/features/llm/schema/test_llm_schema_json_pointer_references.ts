@@ -390,16 +390,20 @@ export const test_llm_schema_json_pointer_references = (): void => {
         ) === true,
     );
 
-  for (const $ref of [
-    "#/components/schemas/A/B",
-    "#/components/schemas/T~N",
-    "#/components/schemas/C%D",
-    "#/components/schemas/A B",
-    "#/components/schemas/A%",
-    "https://example.com/schema.json#/components/schemas/A",
-  ])
+  // an OpenAPI reference is read by RFC 6901 alone, as the walkers and the
+  // converters read it, so a spelling the URI-fragment charset forbids still
+  // names the component written that way, while an extra pointer step, a
+  // malformed `~` escape, and a foreign document name none (#2416)
+  for (const [$ref, success] of [
+    ["#/components/schemas/A/B", false],
+    ["#/components/schemas/T~N", false],
+    ["#/components/schemas/C%D", true],
+    ["#/components/schemas/A B", true],
+    ["#/components/schemas/A%", true],
+    ["https://example.com/schema.json#/components/schemas/A", false],
+  ] as const)
     TestEquality.equals(
-      `${$ref}: malformed OpenAPI reference fails conversion`,
+      `${$ref}: OpenAPI reference conversion`,
       LlmSchemaConverter.schema({
         components: {
           schemas: {
@@ -411,7 +415,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
         $defs: {},
         schema: { $ref },
       }).success,
-      false,
+      success,
     );
 
   const forwardDiscriminatorDefinitions: Record<string, ILlmSchema> = {};

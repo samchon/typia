@@ -41,8 +41,8 @@ export interface ILlmEvaluation<T = unknown> {
    *
    * Pass it as the `questions` of Vercel AI SDK's `experimental_evaluate()` as
    * it is. Jev's own wire format, shared by TypeSafe's API and OpenRouter's
-   * Decisions API, spells the boolean question type `"noul"`; `@typia/jev`
-   * converts the questions and evaluates through either endpoint.
+   * Decisions API, spells the boolean question type `"noul"`;
+   * `toJevQuestions()` from `@typia/jev` converts the questions.
    *
    * Jev evaluates each question independently, while the AI SDK adapters for
    * language models only instruct the model to. A key is not a part of the

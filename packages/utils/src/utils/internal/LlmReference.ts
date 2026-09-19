@@ -1,6 +1,8 @@
 import { ILlmSchema } from "@typia/interface";
 
+import { JsonPointer } from "./JsonPointer";
 import { ObjectDictionary } from "./ObjectDictionary";
+import { OpenApiReferenceKey } from "./OpenApiReferenceKey";
 
 /** @internal */
 export namespace LlmReference {
@@ -22,19 +24,23 @@ export namespace LlmReference {
 
   /** Decode one supported local URI-fragment reference into its `$defs` key. */
   export const read = (reference: string): string | undefined =>
-    decode(PREFIX, reference);
+    reference.startsWith(PREFIX)
+      ? readToken(reference.slice(PREFIX.length))
+      : undefined;
 
-  /** Decode one OpenAPI component reference into its component key. */
+  /**
+   * Decode one OpenAPI component reference into its component key.
+   *
+   * An OpenAPI document is read as the walkers and converters read it, by
+   * {@link OpenApiReferenceKey}, so every consumer of the document resolves a
+   * reference alike (samchon/typia#2416). The `$defs` reader stays stricter
+   * because typia writes those references itself.
+   */
   export const readOpenApi = (reference: string): string | undefined =>
-    decode(OPENAPI_PREFIX, reference);
+    OpenApiReferenceKey.read(reference, OPENAPI_PREFIX);
 
   const encode = (key: string): string =>
-    encodeURIComponent(key.replace(/~/g, "~0").replace(/\//g, "~1"));
-
-  const decode = (prefix: string, reference: string): string | undefined =>
-    reference.startsWith(prefix)
-      ? readToken(reference.slice(prefix.length))
-      : undefined;
+    encodeURIComponent(JsonPointer.escape(key));
 
   /**
    * Decode one JSON Pointer token written as a URI fragment: percent-encoding,
@@ -57,20 +63,7 @@ export namespace LlmReference {
       return undefined;
     }
     if (token.includes("/")) return undefined;
-
-    let key: string = "";
-    for (let i: number = 0; i < token.length; ++i) {
-      const character: string = token[i]!;
-      if (character !== "~") {
-        key += character;
-        continue;
-      }
-      const escape: string | undefined = token[++i];
-      if (escape === "0") key += "~";
-      else if (escape === "1") key += "/";
-      else return undefined;
-    }
-    return key;
+    return JsonPointer.unescape(token);
   };
 
   /** Resolve one supported local reference without flattening its target. */
