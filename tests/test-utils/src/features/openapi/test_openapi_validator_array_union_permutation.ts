@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -37,12 +37,12 @@ export const test_openapi_validator_array_union_permutation = (): void => {
     [pattern, short],
     [short, pattern],
   ] as Array<[OpenApi.IJsonSchema.IArray, OpenApi.IJsonSchema.IArray]>) {
-    TestValidator.equals(
+    TestEquality.equals(
       `valid ${branches[0] === pattern ? "pattern-first" : "short-first"}`,
       validate(branches, ["a", "bb"]),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `invalid ${branches[0] === pattern ? "pattern-first" : "short-first"}`,
       validate(branches, ["a", "bbb"]),
       false,
@@ -74,13 +74,13 @@ export const test_openapi_validator_array_union_permutation = (): void => {
     value: { kind: "cat", lives: "nine" },
     required: true,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "invalid object discriminator",
     objectResult.success,
     false,
   );
   if (objectResult.success === false)
-    TestValidator.equals(
+    TestEquality.equals(
       "object discriminator retains the property error",
       objectResult.errors[0]?.path,
       "$input.lives",

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 import { _validateReport } from "typia/lib/internal/_validateReport";
 
@@ -63,7 +63,7 @@ export const test_validate_report_path_boundary = (): void => {
   report(true, error("$input.items"));
   report(true, error('$input["a-b"]'));
   report(true, error('$input["a"]'));
-  TestValidator.equals(
+  TestEquality.equals(
     "runtime reporter boundaries",
     ["$input.items[10]", "$input.items[1]", '$input["a-b"]', '$input["a"]'],
     errors.map(({ path }) => path),
@@ -73,7 +73,7 @@ export const test_validate_report_path_boundary = (): void => {
   const reportAncestorFirst = _validateReport(ancestorFirst);
   reportAncestorFirst(true, error("$input.items"));
   reportAncestorFirst(true, error("$input.items[0]"));
-  TestValidator.equals(
+  TestEquality.equals(
     "ancestor first",
     ["$input.items"],
     ancestorFirst.map(({ path }) => path),
@@ -87,7 +87,7 @@ const assertPaths = (
 ): void => {
   if (result.success)
     throw new Error(`Expected ${label} input to fail validation.`);
-  TestValidator.equals(
+  TestEquality.equals(
     label,
     expected,
     result.errors.map(({ path }) => path).sort(),

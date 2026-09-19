@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -28,11 +28,11 @@ export const test_llm_coerce_anyof_discriminated_stringify = (): void => {
   };
 
   const result = LlmJson.parse<IAnimal>(JSON.stringify(corrupted), parameters);
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
     const animal = result.data.animal as ICat;
-    TestValidator.equals("type", animal.type, "cat");
-    TestValidator.equals("meow", animal.meow, true);
-    TestValidator.equals("lives", animal.lives, 9);
+    TestEquality.equals("type", animal.type, "cat");
+    TestEquality.equals("meow", animal.meow, true);
+    TestEquality.equals("lives", animal.lives, 9);
   }
 };

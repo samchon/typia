@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_tojson_object = (): void => {
@@ -24,15 +24,15 @@ export const test_llm_stringify_tojson_object = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // The transformed object should appear in output
-  TestValidator.equals(
+  TestEquality.equals(
     "contains transformed key",
     output.includes("transformed"),
     true,
   );
-  TestValidator.equals("contains data key", output.includes("data"), true);
+  TestEquality.equals("contains data key", output.includes("data"), true);
 
   // Test nested toJSON (object inside object with toJSON)
   const innerObjWithToJson = {
@@ -57,7 +57,7 @@ export const test_llm_stringify_tojson_object = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "nested-contains code block",
     output2.includes("```json"),
     true,

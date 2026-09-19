@@ -1,21 +1,18 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_reflect_schema_enum = (): void => {
   // string enum
   type Color = "red" | "green" | "blue";
   const colorUnit = typia.reflect.schema<Color>();
-  TestValidator.equals(
-    "constants length",
-    colorUnit.schema.constants.length,
-    1,
-  );
-  TestValidator.equals(
+  TestEquality.equals("constants length", colorUnit.schema.constants.length, 1);
+  TestEquality.equals(
     "constant type",
     colorUnit.schema.constants[0]?.type,
     "string",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "values length",
     colorUnit.schema.constants[0]?.values.length,
     3,
@@ -30,17 +27,17 @@ export const test_reflect_schema_enum = (): void => {
   // number enum
   type Status = 0 | 1 | 2;
   const statusUnit = typia.reflect.schema<Status>();
-  TestValidator.equals(
+  TestEquality.equals(
     "number constants length",
     statusUnit.schema.constants.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "number constant type",
     statusUnit.schema.constants[0]?.type,
     "number",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "number values length",
     statusUnit.schema.constants[0]?.values.length,
     3,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApiV3_1 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, HttpMigration } from "@typia/utils";
 
 /**
@@ -16,23 +16,23 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
 export const test_http_migrate_cookie_key_collision =
   async (): Promise<void> => {
     const migration = HttpMigration.application(document);
-    TestValidator.equals("composition errors", 0, migration.errors.length);
+    TestEquality.equals("composition errors", 0, migration.errors.length);
     const route = migration.routes[0]!;
-    TestValidator.equals(
+    TestEquality.equals(
       "distinct route keys",
       true,
       route.parameters[0]!.key !== route.cookies!.key,
     );
 
     const llm = HttpLlm.application({ document });
-    TestValidator.equals("LLM errors", 0, llm.errors.length);
+    TestEquality.equals("LLM errors", 0, llm.errors.length);
     const properties = Object.keys(llm.functions[0]!.parameters.properties!);
-    TestValidator.equals(
+    TestEquality.equals(
       "distinct LLM properties",
       [route.parameters[0]!.key, route.cookies!.key],
       properties,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "distinct LLM requirements",
       properties,
       llm.functions[0]!.parameters.required,
@@ -54,12 +54,12 @@ export const test_http_migrate_cookie_key_collision =
       parameters: { [route.parameters[0]!.key]: "samchon" },
       cookies: { sid: "token" },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "path argument",
       "/users/samchon",
       captured!.url.pathname,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "cookie argument",
       "sid=token",
       captured!.headers.get("cookie"),

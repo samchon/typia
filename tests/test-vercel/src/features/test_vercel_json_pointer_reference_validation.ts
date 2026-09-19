@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -29,7 +30,7 @@ export const test_vercel_json_pointer_reference_validation =
       children: [],
     };
     const valid = await execute(tool, raw, false);
-    TestValidator.equals("valid referenced output succeeds", valid, {
+    TestEquality.equals("valid referenced output succeeds", valid, {
       success: true,
       data: { result: tree },
     });

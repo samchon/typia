@@ -1,8 +1,8 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Greeter } from "../structures/Greeter";
@@ -32,7 +32,7 @@ export const test_mcp_create_server_explicit_version =
     try {
       await server.connect(serverTransport);
       await client.connect(clientTransport);
-      TestValidator.equals(
+      TestEquality.equals(
         "explicit implementation version reaches the handshake",
         client.getServerVersion(),
         { name: "greeter", version: "2.3.4" },

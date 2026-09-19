@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaApplication, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -73,12 +74,12 @@ export const test_llm_application_parity_converter = (): void => {
   if (output.success === false)
     throw new Error(JSON.stringify(output.error, null, 2));
 
-  TestValidator.equals(
+  TestEquality.equals(
     "application parameters",
     clean(actualFunction.parameters),
     clean(parameters.value),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "application output",
     clean(actualFunction.output),
     clean(output.value),

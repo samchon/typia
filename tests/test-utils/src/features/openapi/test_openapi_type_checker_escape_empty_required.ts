@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 
 /**
@@ -33,15 +33,13 @@ export const test_openapi_type_checker_escape_empty_required = (): void => {
     recursive: 1,
   });
 
-  TestValidator.equals("escape success", escaped.success, true);
+  TestEquality.equals("escape success", escaped.success, true);
   if (escaped.success === true) {
     const schema = escaped.value as OpenApi.IJsonSchema.IObject;
-    TestValidator.equals(
-      "escaped properties",
-      Object.keys(schema.properties!),
-      ["name"],
-    );
-    TestValidator.equals(
+    TestEquality.equals("escaped properties", Object.keys(schema.properties!), [
+      "name",
+    ]);
+    TestEquality.equals(
       "escaped required omitted",
       Object.prototype.hasOwnProperty.call(schema, "required"),
       false,
@@ -65,15 +63,15 @@ export const test_openapi_type_checker_escape_empty_required = (): void => {
     recursive: false,
   });
 
-  TestValidator.equals("oneOf escape success", oneOf.success, true);
+  TestEquality.equals("oneOf escape success", oneOf.success, true);
   if (oneOf.success === true) {
     const schema = oneOf.value as OpenApi.IJsonSchema.IOneOf;
-    TestValidator.equals(
+    TestEquality.equals(
       "oneOf wrapper required omitted",
       Object.prototype.hasOwnProperty.call(schema, "required"),
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "oneOf object required omitted",
       Object.prototype.hasOwnProperty.call(schema.oneOf[0]!, "required"),
       false,

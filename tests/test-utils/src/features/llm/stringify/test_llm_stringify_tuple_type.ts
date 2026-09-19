@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -10,20 +10,20 @@ export const test_llm_stringify_tuple_type = (): void => {
   const valid: ITupleType = { pair: ["hello", 42] };
   (valid.pair as unknown[])[1] = "not-a-number";
   const result = typia.validate<ITupleType>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains error marker",
       output.includes("// ❌"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains pair path",
       output.includes("$input.pair"),
       true,

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -58,14 +58,14 @@ export const test_exact_optional_undefined_clone_random = (): void => {
   };
   const presentClone = typia.plain.clone<IExactOptionalClone>(present);
 
-  TestValidator.equals("clone present optional", presentClone.optional, "root");
+  TestEquality.equals("clone present optional", presentClone.optional, "root");
   assertOwn(
     "clone present optionalUndefined",
     presentClone,
     "optionalUndefined",
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "clone present nested optional",
     presentClone.nested.optional,
     1,
@@ -107,17 +107,17 @@ export const test_exact_optional_undefined_clone_random = (): void => {
     string: () => "value",
     array: ({ element }) => [element(0, 1)],
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "random included root optional",
     included.optional,
     "value",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "random included nested optional",
     typeof included.nested.optional,
     "number",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "random included array optional",
     typeof included.array[0]!.optional,
     "number",
@@ -129,7 +129,7 @@ const assertOwn = (
   input: object,
   key: string,
   expected: boolean,
-): void => TestValidator.equals(name, key in input, expected);
+): void => TestEquality.equals(name, key in input, expected);
 
 interface IExactOptionalClone {
   required: string;

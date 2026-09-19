@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpMigrateApplication,
   IHttpMigrateRoute,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 /**
@@ -700,10 +700,10 @@ export const test_http_migrate_empty_required = (): void => {
     key
   ] as OpenApi.IJsonSchema.IObject;
 
-  TestValidator.equals("query properties", Object.keys(schema.properties!), [
+  TestEquality.equals("query properties", Object.keys(schema.properties!), [
     "keyword",
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "query required omitted",
     Object.prototype.hasOwnProperty.call(schema, "required"),
     false,
@@ -899,13 +899,13 @@ const assertObjectNoRequired = (
   schema: OpenApi.IJsonSchema.IObject,
   property: string,
 ): void => {
-  TestValidator.equals(`${name} object type`, schema.type, "object");
-  TestValidator.equals(
+  TestEquality.equals(`${name} object type`, schema.type, "object");
+  TestEquality.equals(
     `${name} property preserved`,
     Object.prototype.hasOwnProperty.call(schema.properties ?? {}, property),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${name} required omitted`,
     Object.prototype.hasOwnProperty.call(schema, "required"),
     false,
@@ -914,7 +914,7 @@ const assertObjectNoRequired = (
     "nested"
   ] as OpenApi.IJsonSchema.IObject | undefined;
   if (nested !== undefined)
-    TestValidator.equals(
+    TestEquality.equals(
       `${name} nested required omitted`,
       Object.prototype.hasOwnProperty.call(nested, "required"),
       false,
@@ -927,13 +927,13 @@ const assertObjectRequired = (
   schema: OpenApi.IJsonSchema.IObject,
   property: string,
 ): void => {
-  TestValidator.equals(`${name} object type`, schema.type, "object");
-  TestValidator.equals(
+  TestEquality.equals(`${name} object type`, schema.type, "object");
+  TestEquality.equals(
     `${name} property preserved`,
     Object.prototype.hasOwnProperty.call(schema.properties ?? {}, property),
     true,
   );
-  TestValidator.equals(`${name} required preserved`, schema.required, [
+  TestEquality.equals(`${name} required preserved`, schema.required, [
     property,
   ]);
   assertNoEmptyRequired(name, schema);
@@ -944,7 +944,7 @@ const assertNoEmptyRequired = (
   schema: OpenApi.IJsonSchema,
 ): void => {
   if ("required" in schema)
-    TestValidator.equals(
+    TestEquality.equals(
       `${name} empty required omitted`,
       schema.required?.length === 0,
       false,

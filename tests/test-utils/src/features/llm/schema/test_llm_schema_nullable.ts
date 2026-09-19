@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaTransformError, IResult } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection, ILlmSchema } from "typia";
 
@@ -12,8 +12,8 @@ export const test_llm_schema_nullable = (): void => {
       schema: collection.schemas[0]!,
       $defs: {},
     });
-  TestValidator.equals("success", result.success, true);
-  TestValidator.equals("nullable", result.success ? result.value : {}, {
+  TestEquality.equals("success", result.success, true);
+  TestEquality.equals("nullable", result.success ? result.value : {}, {
     anyOf: [
       {
         type: "null",

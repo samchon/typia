@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_reflect_schema_object = (): void => {
@@ -11,11 +12,11 @@ export const test_reflect_schema_object = (): void => {
   const unit = typia.reflect.schema<IMember>();
 
   // schema has objects reference
-  TestValidator.equals("objects length", unit.schema.objects.length, 1);
-  TestValidator.equals("object name", unit.schema.objects[0]?.name, "IMember");
+  TestEquality.equals("objects length", unit.schema.objects.length, 1);
+  TestEquality.equals("object name", unit.schema.objects[0]?.name, "IMember");
 
   // components has object definition
-  TestValidator.equals(
+  TestEquality.equals(
     "components objects length",
     unit.components.objects.length,
     1,
@@ -24,8 +25,8 @@ export const test_reflect_schema_object = (): void => {
   const obj = unit.components.objects[0];
   if (obj === undefined) return;
 
-  TestValidator.equals("object name in components", obj.name, "IMember");
-  TestValidator.equals("properties count", obj.properties.length, 3);
+  TestEquality.equals("object name in components", obj.name, "IMember");
+  TestEquality.equals("properties count", obj.properties.length, 3);
 
   // check property names
   const propNames = obj.properties.map((p) => {

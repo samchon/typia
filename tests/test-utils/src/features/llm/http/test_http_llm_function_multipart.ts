@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmApplication, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 
@@ -14,7 +14,7 @@ export const test_http_llm_function_multipart = async (): Promise<void> => {
   const application: IHttpLlmApplication = HttpLlm.application({
     document,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "multipart not supported",
     !!application.errors.find(
       (e) =>

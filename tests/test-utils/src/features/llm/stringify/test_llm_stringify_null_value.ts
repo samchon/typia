@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -10,20 +10,20 @@ export const test_llm_stringify_null_value = (): void => {
   const valid: INonNullable = { value: 42 };
   (valid as { value: unknown }).value = null;
   const result = typia.validate<INonNullable>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains error marker",
       output.includes("// ❌"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains value path",
       output.includes("$input.value"),
       true,

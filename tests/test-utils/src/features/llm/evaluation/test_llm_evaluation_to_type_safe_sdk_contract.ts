@@ -1,8 +1,7 @@
 import type { Question, TypeSafeClient } from "@typesafe-ai/sdk";
 import { ILlmEvaluation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmEvaluation } from "@typia/utils";
-
-import { _equalsExactly } from "../../../internal/_equalsExactly";
 
 /**
  * Verifies LlmEvaluation.toTypeSafe output type-checks against TypeSafe's SDK.
@@ -31,7 +30,7 @@ export const test_llm_evaluation_to_type_safe_sdk_contract = (): void => {
       Parameters<TypeSafeClient["systemOne"]>[0]["questions"]
     >,
   ] = [true, true, true, true, true];
-  _equalsExactly("type cases", cases.length, 5);
+  TestEquality.equals("type cases", cases.length, 5);
 
   const output = LlmEvaluation.toTypeSafe({
     level: {
@@ -40,7 +39,7 @@ export const test_llm_evaluation_to_type_safe_sdk_contract = (): void => {
       criteria: ["Low", "High"],
     },
   });
-  _equalsExactly("score", output.level, {
+  TestEquality.equals("score", output.level, {
     type: "score",
     instructions: "How severe?",
     criteria: ["Low", "High"],

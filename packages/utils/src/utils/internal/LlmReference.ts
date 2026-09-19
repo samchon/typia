@@ -31,9 +31,19 @@ export namespace LlmReference {
   const encode = (key: string): string =>
     encodeURIComponent(key.replace(/~/g, "~0").replace(/\//g, "~1"));
 
-  const decode = (prefix: string, reference: string): string | undefined => {
-    if (reference.startsWith(prefix) === false) return undefined;
-    const fragment: string = reference.slice(prefix.length);
+  const decode = (prefix: string, reference: string): string | undefined =>
+    reference.startsWith(prefix)
+      ? readToken(reference.slice(prefix.length))
+      : undefined;
+
+  /**
+   * Decode one JSON Pointer token written as a URI fragment: percent-encoding,
+   * then `~1` and `~0`.
+   *
+   * @param fragment Token as written in the reference
+   * @returns The component key, or `undefined` when the fragment is malformed
+   */
+  export const readToken = (fragment: string): string | undefined => {
     if (
       /^(?:[A-Za-z0-9._~!$&'()*+,;=:@?-]|%[0-9A-Fa-f]{2})*$/.test(fragment) ===
       false

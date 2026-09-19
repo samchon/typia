@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 import typia, { tags } from "typia";
 import { _isFormatByte } from "typia/lib/internal/_isFormatByte";
@@ -700,11 +701,7 @@ export const test_openapi_validator_format_parity = (): void => {
     for (const value of matrix.valids) validate(format, checker, value, true);
     for (const value of matrix.invalids)
       validate(format, checker, value, false);
-    TestValidator.equals(
-      `${format} schema`,
-      format as string,
-      checker.schema(),
-    );
+    TestEquality.equals(`${format} schema`, format as string, checker.schema());
   }
 
   for (let i = 0; i < 3; ++i) {
@@ -718,12 +715,12 @@ export const test_openapi_validator_format_parity = (): void => {
   // assertion instead of shipping a validator that never runs.
   const declared: string[] = typia.reflect.literals<tags.Format.Value>();
   const covered: Set<string> = new Set(Object.keys(checks));
-  TestValidator.equals(
+  TestEquality.equals(
     "every declared format is covered",
     [] as string[],
     declared.filter((format) => covered.has(format) === false),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "no format is covered that is not declared",
     [] as string[],
     [...covered].filter((format) => declared.includes(format) === false),
@@ -787,18 +784,18 @@ const validate = (
   expected: boolean,
 ): void => {
   const label = `${format} ${expected ? "accepts" : "rejects"} ${JSON.stringify(value)}`;
-  TestValidator.equals(`${label} directly`, expected, checker.direct(value));
-  TestValidator.equals(
+  TestEquality.equals(`${label} directly`, expected, checker.direct(value));
+  TestEquality.equals(
     `${label} through type tag`,
     expected,
     checker.tagged({ value }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} through comment tag`,
     expected,
     checker.comment({ value }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} through OpenApiValidator`,
     expected,
     OpenApiValidator.validate({

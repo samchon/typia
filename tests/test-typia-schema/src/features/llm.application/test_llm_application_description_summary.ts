@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -30,7 +30,7 @@ export const test_llm_application_description_summary = (): void => {
 
   const app: ILlmApplication = typia.llm.application<IAnimalService>();
 
-  TestValidator.equals(
+  TestEquality.equals(
     "summary and body are merged",
     app.description,
     "Animal record service.\n\nStores the selected animal variant into the database.",

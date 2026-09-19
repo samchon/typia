@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -13,7 +14,7 @@ export const test_json_schema_union = (): void => {
 
   if (OpenApiTypeChecker.isOneOf(schema)) {
     const oneOf = schema as OpenApi.IJsonSchema.IOneOf;
-    TestValidator.equals("oneOf has 2 types", oneOf.oneOf.length, 2);
+    TestEquality.equals("oneOf has 2 types", oneOf.oneOf.length, 2);
     TestValidator.predicate("contains string", () =>
       oneOf.oneOf.some((s) => OpenApiTypeChecker.isString(s)),
     );

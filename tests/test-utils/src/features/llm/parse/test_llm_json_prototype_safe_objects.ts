@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 /**
@@ -21,12 +22,12 @@ export const test_llm_json_prototype_safe_objects = (): void => {
     ["lenient", '{"__proto__":{"admin":true},"nested":[{"constructor":1}],}'],
   ] as const) {
     const parsed = LlmJson.parse<Record<string, unknown>>(input);
-    TestValidator.equals(`${label} parse succeeds`, parsed.success, true);
+    TestEquality.equals(`${label} parse succeeds`, parsed.success, true);
     if (!parsed.success) continue;
     TestValidator.predicate(`${label} owns __proto__`, () =>
       Object.hasOwn(parsed.data, "__proto__"),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} prototype not polluted`,
       (parsed.data as any).admin,
       undefined,
@@ -35,7 +36,7 @@ export const test_llm_json_prototype_safe_objects = (): void => {
     TestValidator.predicate(`${label} owns constructor`, () =>
       Object.hasOwn(child, "constructor"),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label} constructor value`,
       (child as Record<string, unknown>)["constructor"],
       1,
@@ -56,12 +57,12 @@ export const test_llm_json_prototype_safe_objects = (): void => {
     inherited,
     parameters,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inherited value is not copied",
     Object.hasOwn(coerced, "admin"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inherited value cannot satisfy validation",
     LlmJson.validate(parameters)(coerced).success,
     false,
@@ -82,11 +83,7 @@ export const test_llm_json_prototype_safe_objects = (): void => {
   TestValidator.predicate("reserved argument stays own", () =>
     Object.hasOwn(reserved, "__proto__"),
   );
-  TestValidator.equals(
-    "reserved argument coerces",
-    reserved["__proto__"],
-    true,
-  );
+  TestEquality.equals("reserved argument coerces", reserved["__proto__"], true);
 
   const cyclicParameters: ILlmSchema.IParameters = {
     type: "object",
@@ -102,7 +99,7 @@ export const test_llm_json_prototype_safe_objects = (): void => {
     { loop: "unchanged" },
     cyclicParameters,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "cyclic aliases terminate without coercion",
     cyclic.loop,
     "unchanged",

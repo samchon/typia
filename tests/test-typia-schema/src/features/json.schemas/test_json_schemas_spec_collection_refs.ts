@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_json_schemas_spec_collection_refs = (): void => {
@@ -11,8 +11,8 @@ export const test_json_schemas_spec_collection_refs = (): void => {
   }
 
   const collection = typia.json.schemas<[IMember, IArticle, string | null]>();
-  TestValidator.equals("collection version", collection.version, "3.1");
-  TestValidator.equals("collection schemas", clean(collection.schemas), [
+  TestEquality.equals("collection version", collection.version, "3.1");
+  TestEquality.equals("collection schemas", clean(collection.schemas), [
     {
       $ref: "#/components/schemas/IMember",
     },
@@ -30,7 +30,7 @@ export const test_json_schemas_spec_collection_refs = (): void => {
       ],
     },
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "article component",
     clean(collection.components.schemas?.IArticle),
     {

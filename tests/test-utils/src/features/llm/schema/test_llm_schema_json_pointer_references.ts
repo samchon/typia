@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson, LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
 
 /**
@@ -40,7 +41,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
     };
     const label: string = key.length === 0 ? "empty" : key;
 
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: coerce encoded reference`,
       LlmJson.coerce<{ value: unknown }>({ value: "42" }, parameters).value,
       42,
@@ -49,22 +50,22 @@ export const test_llm_schema_json_pointer_references = (): void => {
       '{"value":"42"}',
       parameters,
     );
-    TestValidator.equals(`${label}: parse succeeds`, parsed.success, true);
+    TestEquality.equals(`${label}: parse succeeds`, parsed.success, true);
     if (parsed.success)
-      TestValidator.equals(`${label}: parse coerces`, parsed.data.value, 42);
+      TestEquality.equals(`${label}: parse coerces`, parsed.data.value, 42);
 
     const validate = LlmJson.validate(parameters);
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: referenced number passes`,
       validate({ value: 42 }).success,
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: referenced string fails`,
       validate({ value: "wrong" }).success,
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: structured output fails closed`,
       LlmJson.structuredOutput(parameters).validate({ value: "wrong" }).success,
       false,
@@ -79,7 +80,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
     TestValidator.predicate(`${label}: traversal resolves`, () =>
       visited.some(LlmTypeChecker.isNumber),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: coverage resolves`,
       LlmTypeChecker.covers({
         $defs: parameters.$defs,
@@ -116,7 +117,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
       () =>
         componentKey !== undefined && /^[a-zA-Z0-9.\-_]+$/.test(componentKey),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${label}: inverted reference resolves by JSON Pointer`,
       resolveLocalReference(
         { components },
@@ -156,23 +157,23 @@ export const test_llm_schema_json_pointer_references = (): void => {
     };
     if ($ref.endsWith("Missing")) parameters.$defs = {};
 
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: no malformed coercion`,
       LlmJson.coerce<{ value: unknown }>({ value: "42" }, parameters).value,
       "42",
     );
     const validate = LlmJson.validate(parameters);
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: number fails closed`,
       validate({ value: 42 }).success,
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: string fails closed`,
       validate({ value: "wrong" }).success,
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: malformed coverage fails`,
       LlmTypeChecker.covers({
         $defs: parameters.$defs,
@@ -181,7 +182,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
       }),
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: identical unresolved references do not cover`,
       LlmTypeChecker.covers({
         $defs: parameters.$defs,
@@ -203,17 +204,17 @@ export const test_llm_schema_json_pointer_references = (): void => {
     additionalProperties: false,
     $defs: { "A/B": { type: "number" } },
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "percent-encoded pointer separator does not resolve its raw key",
     LlmJson.coerce<{ value: unknown }>({ value: "42" }, extraSegment).value,
     "42",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "percent-encoded pointer separator fails closed",
     LlmJson.validate(extraSegment)({ value: 42 }).success,
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "percent-encoded pointer separator fails OpenAPI conversion",
     LlmSchemaConverter.schema({
       components: { schemas: { "A/B": { type: "number" } } },
@@ -229,7 +230,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
     ["#/$defs/A%7E1B", "A/B"],
     ["#/$defs/A%7E0B", "A~B"],
   ] as const)
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: percent-encoded tilde resolves ${key}`,
       LlmJson.coerce<{ value: unknown }>(
         { value: "42" },
@@ -254,17 +255,17 @@ export const test_llm_schema_json_pointer_references = (): void => {
       "Encoded/Target": { type: "number" },
     },
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "valid reference chain coerces",
     LlmJson.coerce<{ value: unknown }>({ value: "42" }, chained).value,
     42,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "valid reference chain validates",
     LlmJson.validate(chained)({ value: 42 }).success,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "valid reference chain covers its target",
     LlmTypeChecker.covers({
       $defs: chained.$defs,
@@ -280,12 +281,12 @@ export const test_llm_schema_json_pointer_references = (): void => {
       Alias: { $ref: "#/$defs/Missing" },
     },
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "transitively missing reference fails validation",
     LlmJson.validate(brokenChain)({ value: 42 }).success,
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "transitively missing reference does not cover",
     LlmTypeChecker.covers({
       $defs: brokenChain.$defs,
@@ -316,7 +317,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
       required: valid.map(([key]) => key),
     },
   });
-  TestValidator.equals("OpenAPI conversion succeeds", converted.success, true);
+  TestEquality.equals("OpenAPI conversion succeeds", converted.success, true);
   if (converted.success) {
     const refs: string[] = [];
     LlmTypeChecker.visit({
@@ -346,12 +347,12 @@ export const test_llm_schema_json_pointer_references = (): void => {
     $defs: collisionDefinitions,
     schema: { $ref: "#/components/schemas/A~1B" },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "encoded reference does not validate the colliding raw key",
     collision.success,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "encoded reference selects the decoded raw component identity",
     collisionDefinitions,
     { "A/B": { type: "number" } },
@@ -375,7 +376,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
     },
     schema: { $ref: "#/components/schemas/Root~1A.Child" },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "root parameters decode the raw component identity",
     rootParameters.success,
     true,
@@ -397,7 +398,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
     "#/components/schemas/A%",
     "https://example.com/schema.json#/components/schemas/A",
   ])
-    TestValidator.equals(
+    TestEquality.equals(
       `${$ref}: malformed OpenAPI reference fails conversion`,
       LlmSchemaConverter.schema({
         components: {
@@ -436,13 +437,13 @@ export const test_llm_schema_json_pointer_references = (): void => {
       },
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "forward discriminator conversion succeeds",
     forwardDiscriminator.success,
     true,
   );
   if (forwardDiscriminator.success)
-    TestValidator.equals(
+    TestEquality.equals(
       "forward discriminator preserves raw component identities",
       LlmTypeChecker.isAnyOf(forwardDiscriminator.value)
         ? forwardDiscriminator.value["x-discriminator"]?.mapping
@@ -505,7 +506,7 @@ export const test_llm_schema_json_pointer_references = (): void => {
         /^#\/components\/schemas\/[a-zA-Z0-9.\-_]+$/.test(reference),
       ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inversion keeps each discriminator on its own branch",
     Object.fromEntries(
       Object.entries(discriminatorMapping ?? {}).map(([tag, reference]) => [
@@ -517,9 +518,11 @@ export const test_llm_schema_json_pointer_references = (): void => {
         )?.properties?.kind,
       ]),
     ),
+    // the emended OpenAPI constant is `{ const }` alone; the old one-way
+    // comparison let a stale `type` in this expectation pass unread (#2401)
     {
-      slash: { type: "string", const: "slash" },
-      tilde: { type: "string", const: "tilde" },
+      slash: { const: "slash" },
+      tilde: { const: "tilde" },
     },
   );
   const validateDiscriminator = LlmJson.validate({
@@ -529,12 +532,12 @@ export const test_llm_schema_json_pointer_references = (): void => {
     additionalProperties: false,
     $defs: discriminatorDefinitions,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "encoded discriminator validates its first branch",
     validateDiscriminator({ value: { kind: "slash" } }).success,
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "encoded discriminator validates its later branch",
     validateDiscriminator({ value: { kind: "tilde" } }).success,
     true,

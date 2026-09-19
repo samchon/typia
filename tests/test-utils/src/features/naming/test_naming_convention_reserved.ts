@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**
@@ -65,7 +65,7 @@ export const test_naming_convention_reserved = (): void => {
     "yield",
   ];
   for (const word of RESERVED_WORDS)
-    TestValidator.equals(
+    TestEquality.equals(
       `reserved(${JSON.stringify(word)}) is a ReservedWord`,
       NamingConvention.reserved(word),
       true,
@@ -85,7 +85,7 @@ export const test_naming_convention_reserved = (): void => {
     "public",
     "static",
   ])
-    TestValidator.equals(
+    TestEquality.equals(
       `reserved(${JSON.stringify(word)}) is a strict future reserved word`,
       NamingConvention.reserved(word),
       true,
@@ -96,12 +96,12 @@ export const test_naming_convention_reserved = (): void => {
   // They are illegal bindings without being reserved words. This split is the
   // root cause recorded in #2111: no reserved-word set can classify them.
   for (const word of ["eval", "arguments"]) {
-    TestValidator.equals(
+    TestEquality.equals(
       `reserved(${JSON.stringify(word)}) is not a reserved word`,
       NamingConvention.reserved(word),
       false,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       `variable(${JSON.stringify(word)}) is still not a legal binding`,
       NamingConvention.variable(word),
       false,
@@ -120,7 +120,7 @@ export const test_naming_convention_reserved = (): void => {
     "undefined",
     "NaN",
   ])
-    TestValidator.equals(
+    TestEquality.equals(
       `reserved(${JSON.stringify(word)}) is not reserved`,
       NamingConvention.reserved(word),
       false,
@@ -130,7 +130,7 @@ export const test_naming_convention_reserved = (): void => {
   //
   // `module` is not an ECMAScript reserved word. typia reserves it so that
   // generated names cannot shadow `module.exports` in CommonJS output.
-  TestValidator.equals(
+  TestEquality.equals(
     "module is reserved by typia policy",
     NamingConvention.reserved("module"),
     true,

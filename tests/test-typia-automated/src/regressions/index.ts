@@ -1,6 +1,7 @@
 import { TestProcessFailure } from "@typia/template";
 
 import { test_direct_factory_matrix } from "./test_direct_factory_matrix";
+import { test_primitive_equal_to_oracle } from "./test_primitive_equal_to_oracle";
 import { test_process_fatal_events } from "./test_process_fatal_events";
 import { test_resolved_equal_to_async_oracle } from "./test_resolved_equal_to_async_oracle";
 import { test_resolved_equal_to_oracle } from "./test_resolved_equal_to_oracle";
@@ -19,6 +20,7 @@ async function main(): Promise<void> {
   await test_direct_factory_matrix();
   await test_resolved_equal_to_oracle();
   await test_resolved_equal_to_async_oracle();
+  test_primitive_equal_to_oracle();
 
   if (failure.failed() === true) {
     console.log("Failed");

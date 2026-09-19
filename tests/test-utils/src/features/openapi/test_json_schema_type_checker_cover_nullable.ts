@@ -1,8 +1,8 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 
 export const test_json_schema_type_checker_cover_nullable = (): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     "(string | null) covers string",
     true,
     OpenApiTypeChecker.covers({
@@ -22,7 +22,7 @@ export const test_json_schema_type_checker_cover_nullable = (): void => {
       },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "string can't cover (string | null)",
     false,
     OpenApiTypeChecker.covers({

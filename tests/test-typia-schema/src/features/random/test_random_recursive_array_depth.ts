@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -29,7 +30,7 @@ export const test_random_recursive_array_depth = (): void => {
       directRecursiveFlags.length !== 0 &&
       directRecursiveFlags.every((recursive) => recursive === true),
   );
-  TestValidator.equals("direct recursive array depth", arrayDepth(direct), 6);
+  TestEquality.equals("direct recursive array depth", arrayDepth(direct), 6);
 
   const createRecursiveFlags: Array<boolean | undefined> = [];
   const createDirect = typia.createRandom<IRecursiveArray>({
@@ -47,7 +48,7 @@ export const test_random_recursive_array_depth = (): void => {
       createRecursiveFlags.length !== 0 &&
       createRecursiveFlags.every((recursive) => recursive === true),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom direct recursive array depth",
     arrayDepth(createdDirect),
     6,
@@ -64,18 +65,14 @@ export const test_random_recursive_array_depth = (): void => {
           .map((_, index) => schema.element(index, count));
       },
     });
-  TestValidator.equals(
-    "direct recursive maxItems schema",
-    recursiveMaxItems,
-    0,
-  );
-  TestValidator.equals("direct recursive maxItems custom", emptyRecursive, []);
-  TestValidator.equals(
+  TestEquality.equals("direct recursive maxItems schema", recursiveMaxItems, 0);
+  TestEquality.equals("direct recursive maxItems custom", emptyRecursive, []);
+  TestEquality.equals(
     "direct recursive maxItems default",
     typia.random<IRecursiveEmptyArray>(),
     [],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom direct recursive maxItems default",
     typia.createRandom<IRecursiveEmptyArray>()(),
     [],

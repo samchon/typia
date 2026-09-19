@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 const EXPECTED = [
@@ -49,5 +49,5 @@ export const test_no_transform_configuration_error = (): void => {
   }
   if (!(caught instanceof Error))
     throw new Error("The untransformed schema call must throw an Error.");
-  TestValidator.equals("no transform guidance", EXPECTED, caught.message);
+  TestEquality.equals("no transform guidance", EXPECTED, caught.message);
 };

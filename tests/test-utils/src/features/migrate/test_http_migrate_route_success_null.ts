@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpMigrateApplication,
   IHttpMigrateRoute,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 export const test_http_migrate_route_success_null = (): void => {
@@ -28,5 +28,5 @@ export const test_http_migrate_route_success_null = (): void => {
   };
   const app: IHttpMigrateApplication = HttpMigration.application(document);
   const route: IHttpMigrateRoute = app.routes[0]!;
-  TestValidator.equals("undefined", route.success, null);
+  TestEquality.equals("undefined", route.success, null);
 };

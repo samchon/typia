@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -13,7 +14,7 @@ export const test_llm_parameters_array = (): void => {
   const params: ILlmSchema.IParameters = typia.llm.parameters<IInput>();
 
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals(
+  TestEquality.equals(
     "additionalProperties",
     params.additionalProperties,
     false,
@@ -44,7 +45,7 @@ export const test_llm_parameters_array = (): void => {
   // check limited array constraints
   const limited = params.properties["limited"];
   if (LlmTypeChecker.isArray(limited!)) {
-    TestValidator.equals("minItems", limited.minItems, 1);
-    TestValidator.equals("maxItems", limited.maxItems, 10);
+    TestEquality.equals("minItems", limited.minItems, 1);
+    TestEquality.equals("maxItems", limited.maxItems, 10);
   }
 };

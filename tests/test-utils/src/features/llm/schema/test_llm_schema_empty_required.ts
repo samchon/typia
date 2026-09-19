@@ -1,10 +1,10 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IJsonSchemaTransformError,
   ILlmSchema,
   IResult,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
@@ -53,9 +53,9 @@ export const test_llm_schema_empty_required = (): void => {
     } as OpenApi.IJsonSchema.IObject,
   });
 
-  TestValidator.equals("empty parameters success", parameters.success, true);
+  TestEquality.equals("empty parameters success", parameters.success, true);
   if (parameters.success === true)
-    TestValidator.equals("empty parameters shell", clean(parameters.value), {
+    TestEquality.equals("empty parameters shell", clean(parameters.value), {
       type: "object",
       properties: {},
       required: [],
@@ -69,9 +69,9 @@ const assertSchema = (
   result: IResult<ILlmSchema, IJsonSchemaTransformError>,
   extra: Partial<ILlmSchema.IObject>,
 ): void => {
-  TestValidator.equals(`${name} success`, result.success, true);
+  TestEquality.equals(`${name} success`, result.success, true);
   if (result.success === true)
-    TestValidator.equals(name, clean(result.value), {
+    TestEquality.equals(name, clean(result.value), {
       type: "object",
       properties: {},
       required: [],

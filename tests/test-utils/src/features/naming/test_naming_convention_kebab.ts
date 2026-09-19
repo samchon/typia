@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**
@@ -44,7 +44,7 @@ export const test_naming_convention_kebab = (): void => {
     ["word", "word"],
   ];
   for (const [input, expected] of expectations)
-    TestValidator.equals(
+    TestEquality.equals(
       `kebab(${JSON.stringify(input)})`,
       NamingConvention.kebab(input),
       expected,

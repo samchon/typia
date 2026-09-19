@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -29,7 +29,7 @@ export const test_openapi_validator_unicode_length = (): void => {
         minLength: expected,
         maxLength: expected,
       };
-      TestValidator.equals(
+      TestEquality.equals(
         `${JSON.stringify(value)} has ${length} code points, not ${expected}`,
         OpenApiValidator.validate({
           components: {},

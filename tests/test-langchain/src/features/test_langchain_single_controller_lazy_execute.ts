@@ -1,6 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Inspector } from "../structures/Inspector";
@@ -30,12 +31,8 @@ export const test_langchain_single_controller_lazy_execute =
       ),
     );
 
-    TestValidator.equals(
-      "conversion should not build deferred state",
-      built,
-      0,
-    );
-    TestValidator.equals("single controller exposes one tool", tools.length, 1);
+    TestEquality.equals("conversion should not build deferred state", built, 0);
+    TestEquality.equals("single controller exposes one tool", tools.length, 1);
 
     const inspect: DynamicStructuredTool | undefined = tools.find(
       (tool) => tool.name === "inspect",
@@ -46,8 +43,8 @@ export const test_langchain_single_controller_lazy_execute =
     );
 
     const result: unknown = await inspect.invoke({ query: "depth" });
-    TestValidator.equals("first call builds the state once", built, 1);
-    TestValidator.equals("tool returns the inspected result", result, {
+    TestEquality.equals("first call builds the state once", built, 1);
+    TestEquality.equals("tool returns the inspected result", result, {
       success: true,
       data: { answer: "depth=42" },
     });

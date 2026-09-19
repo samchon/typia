@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_json_schema_spec_reference = (): void => {
@@ -9,7 +9,7 @@ export const test_json_schema_spec_reference = (): void => {
   }
 
   const unit = typia.json.schema<INode>();
-  TestValidator.equals("root is dereferenced", clean(unit.schema), {
+  TestEquality.equals("root is dereferenced", clean(unit.schema), {
     type: "object",
     properties: {
       children: {
@@ -28,7 +28,7 @@ export const test_json_schema_spec_reference = (): void => {
     required: ["value", "children"],
     additionalProperties: false,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "component exists",
     clean(unit.components.schemas?.INode),
     clean(unit.schema),

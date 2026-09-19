@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmApplication } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -23,10 +23,10 @@ export const test_llm_application_description_absent = (): void => {
 
   const app: ILlmApplication = typia.llm.application<ICalculator>();
 
-  TestValidator.equals(
+  TestEquality.equals(
     "description omitted without JSDoc",
     app.description,
     undefined,
   );
-  TestValidator.equals("functions still generated", app.functions.length, 1);
+  TestEquality.equals("functions still generated", app.functions.length, 1);
 };

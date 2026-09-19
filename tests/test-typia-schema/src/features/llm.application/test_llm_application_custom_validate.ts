@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { ILlmApplication, IValidation } from "typia";
 
 export const test_llm_application_custom_validate = (): void => {
@@ -16,5 +16,5 @@ export const test_llm_application_custom_validate = (): void => {
       hello: validate,
     },
   });
-  TestValidator.equals("custom", app.functions[0]?.validate, validate);
+  TestEquality.equals("custom", app.functions[0]?.validate, validate);
 };

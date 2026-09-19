@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**
@@ -25,5 +25,5 @@ export const test_naming_convention_empty = (): void => {
     ["localize", NamingConvention.localize],
   ];
   for (const [name, convert] of helpers)
-    TestValidator.equals(`${name}("")`, convert(""), "");
+    TestEquality.equals(`${name}("")`, convert(""), "");
 };

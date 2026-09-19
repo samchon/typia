@@ -1,6 +1,8 @@
 import { OpenApi, OpenApiV3 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
@@ -242,7 +244,11 @@ export namespace OpenApiV3Downgrader {
           ),
         ),
       };
-      const visit = (schema: OpenApi.IJsonSchema): void => {
+      const visit = (raw: OpenApi.IJsonSchema): void => {
+        // identity checks against the top-level `input` compare `raw`, since
+        // restoring an open array returns a copy
+        const schema: OpenApi.IJsonSchema =
+          OpenApiOpenArrayRestorer.restore(raw);
         if (OpenApiTypeChecker.isString(schema)) {
           const {
             contentEncoding,
@@ -273,11 +279,7 @@ export namespace OpenApiV3Downgrader {
           const next = omitSchemaExamples(schema);
           union.push({
             ...next,
-            // TOLERATE A SPEC-VIOLATING ARRAY WITHOUT `items` AS `any[]`
-            items:
-              schema.items === undefined
-                ? {}
-                : downgradeSchema(collection)(schema.items),
+            items: downgradeSchema(collection)(schema.items),
           });
         } else if (OpenApiTypeChecker.isTuple(schema)) {
           const next = omitSchemaExamples(schema);
@@ -330,8 +332,7 @@ export namespace OpenApiV3Downgrader {
             required: schema.required,
           });
         } else if (OpenApiTypeChecker.isOneOf(schema)) {
-          const tracked: boolean =
-            schema === input && discriminator !== undefined;
+          const tracked: boolean = raw === input && discriminator !== undefined;
           for (const branch of schema.oneOf) {
             const previous: number = union.length;
             visit(branch);
@@ -384,15 +385,15 @@ export namespace OpenApiV3Downgrader {
     (visited: Set<string>) =>
     (collection: IComponentsCollection) =>
     (schema: OpenApiV3.IJsonSchema.IReference): void => {
-      const key: string = schema.$ref.split("/").pop()!;
-      if (key.endsWith(".Nullable")) return;
+      if (OpenApiReferenceKey.read(schema.$ref).endsWith(".Nullable")) return;
 
-      const found: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+      const entry = OpenApiReferenceKey.find(
         collection.original.schemas,
-        key,
+        schema.$ref,
       );
-      if (found === undefined) return;
-      else if (isNullable(visited)(collection.original)(found) === true) return;
+      if (entry === undefined) return;
+      const { key, value: found } = entry;
+      if (isNullable(visited)(collection.original)(found) === true) return;
       else if (
         ObjectDictionary.get(
           collection.downgraded.schemas,
@@ -475,10 +476,9 @@ export namespace OpenApiV3Downgrader {
       else if (OpenApiTypeChecker.isReference(schema)) {
         if (visited.has(schema.$ref)) return false;
         visited.add(schema.$ref);
-        const key: string = schema.$ref.split("/").pop()!;
-        const next: OpenApi.IJsonSchema | undefined = ObjectDictionary.get(
+        const next: OpenApi.IJsonSchema | undefined = OpenApiReferenceKey.get(
           components.schemas,
-          key,
+          schema.$ref,
         );
         return next ? isNullable(visited)(components)(next) : false;
       }

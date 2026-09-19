@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3_2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -24,7 +24,7 @@ export const test_json_schema_upgrade_v32_examples = (): void => {
     schema: input,
   });
 
-  TestValidator.equals("examples", output, {
+  TestEquality.equals("examples", output, {
     type: "string",
     examples: {
       v0: "alpha",

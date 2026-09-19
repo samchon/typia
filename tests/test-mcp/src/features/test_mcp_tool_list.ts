@@ -4,6 +4,7 @@ import { Tool } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -40,8 +41,8 @@ export const test_mcp_tool_list = async (): Promise<void> => {
   );
 
   const toolNames: string[] = result.tools.map((t: Tool) => t.name).sort();
-  TestValidator.equals("tool count should be 4", result.tools.length, 4);
-  TestValidator.equals(
+  TestEquality.equals("tool count should be 4", result.tools.length, 4);
+  TestEquality.equals(
     "tool names should match",
     toolNames,
     ["add", "divide", "multiply", "subtract"].sort(),
@@ -51,7 +52,7 @@ export const test_mcp_tool_list = async (): Promise<void> => {
     (t: Tool) => t.name === "add",
   );
   TestValidator.predicate("add tool should exist", addTool !== undefined);
-  TestValidator.equals(
+  TestEquality.equals(
     "add tool should have required params",
     (addTool!.inputSchema as any).required?.sort(),
     ["x", "y"].sort(),

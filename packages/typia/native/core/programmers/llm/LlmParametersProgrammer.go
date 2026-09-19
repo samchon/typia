@@ -1,8 +1,6 @@
 package llm
 
 import (
-  "strings"
-
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
@@ -73,11 +71,13 @@ func (llmParametersProgrammerNamespace) WriteParameters(props struct {
     return llmParametersProgrammer_convert_parameters(schema, collection.Components, props.Config)
   }
   if ref, ok := schema["$ref"].(string); ok {
-    name := ref[strings.LastIndex(ref, "/")+1:]
+    name := llmSchemaProgrammer_ref_key(ref)
     if collection.Components != nil && collection.Components.Schemas != nil {
       if target, found := collection.Components.Schemas[name]; found {
         if typ, ok := target["type"].(string); ok && typ == "object" {
-          return llmParametersProgrammer_convert_parameters(target, collection.Components, props.Config)
+          // the reference itself, so the root description can cascade from
+          // its component key
+          return llmParametersProgrammer_convert_parameters(schema, collection.Components, props.Config)
         }
       }
     }
@@ -125,6 +125,7 @@ func llmParametersProgrammer_convert_parameters(schema nativeiterate.JsonSchema,
   output := llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
   output["additionalProperties"] = false
   output["$defs"] = defs
+  llmReferenceDescription_assign(output, schema, components)
   return output
 }
 
@@ -133,7 +134,7 @@ func llmParametersProgrammer_dereference_schema(schema nativeiterate.JsonSchema,
   if ok == false || components == nil || components.Schemas == nil {
     return schema
   }
-  name := ref[strings.LastIndex(ref, "/")+1:]
+  name := llmSchemaProgrammer_ref_key(ref)
   if target, found := components.Schemas[name]; found {
     return target
   }

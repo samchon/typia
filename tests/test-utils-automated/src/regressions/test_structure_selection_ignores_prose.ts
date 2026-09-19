@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import fs from "fs";
 
 import { TestAutomation } from "../TestAutomation";
@@ -32,13 +32,13 @@ export const test_structure_selection_ignores_prose =
     // The witness word must come from the fixture's prose, not from its type:
     // `must never` appears only in the doc comment, while the removed scan
     // tested `includes("never")` and so matched that sentence.
-    TestValidator.equals(
+    TestEquality.equals(
       `${WITNESS} still carries prose the old selector matched`,
       source.includes("must never"),
       true,
     );
     for (const equals of [false, true])
-      TestValidator.equals(
+      TestEquality.equals(
         `${WITNESS} stays in the ${equals ? "equality" : "validate"} matrix`,
         (await TestAutomation.getStructures(equals)).includes(WITNESS),
         true,

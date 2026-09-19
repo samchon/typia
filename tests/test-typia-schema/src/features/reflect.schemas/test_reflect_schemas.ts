@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IMetadataSchemaCollection } from "typia";
 
 export const test_reflect_schemas = (): void => {
@@ -16,27 +17,27 @@ export const test_reflect_schemas = (): void => {
     typia.reflect.schemas<[IMember, IArticle, string, number]>();
 
   // schemas array has 4 items
-  TestValidator.equals("schemas count", collection.schemas.length, 4);
+  TestEquality.equals("schemas count", collection.schemas.length, 4);
 
   // first two are object types
-  TestValidator.equals(
+  TestEquality.equals(
     "IMember objects length",
     collection.schemas[0]?.objects.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "IArticle objects length",
     collection.schemas[1]?.objects.length,
     1,
   );
 
   // last two are primitives
-  TestValidator.equals(
+  TestEquality.equals(
     "string atomics length",
     collection.schemas[2]?.atomics.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "number atomics length",
     collection.schemas[3]?.atomics.length,
     1,

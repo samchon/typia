@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpLlmFunction,
   IHttpMigrateRoute,
   OpenApiV3_1,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, HttpMigration, LlmJson } from "@typia/utils";
 
 /**
@@ -20,9 +20,9 @@ import { HttpLlm, HttpMigration, LlmJson } from "@typia/utils";
 export const test_http_migrate_parameter_serialization_edges =
   async (): Promise<void> => {
     const migration = HttpMigration.application(document);
-    TestValidator.equals("valid routes", 5, migration.routes.length);
-    TestValidator.equals("invalid style routes", 2, migration.errors.length);
-    TestValidator.equals(
+    TestEquality.equals("valid routes", 5, migration.routes.length);
+    TestEquality.equals("invalid style routes", 2, migration.errors.length);
+    TestEquality.equals(
       "invalid style diagnostics",
       [
         'query parameter "bad" requires explode: false for spaceDelimited style',
@@ -45,12 +45,12 @@ export const test_http_migrate_parameter_serialization_edges =
       parameters: [],
       query: { a: "x", b: "y", tags: ["red", "green"] },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "space-delimited object",
       "a x b y",
       captured!.searchParams.get("space"),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "referenced pipe-delimited array",
       "red|green",
       captured!.searchParams.get("tags"),
@@ -62,12 +62,12 @@ export const test_http_migrate_parameter_serialization_edges =
       parameters: [],
       query: { arbitrary: "preserved", count: 2 },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "open object property",
       "preserved",
       captured!.searchParams.get("arbitrary"),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "primitive beside open object",
       "2",
       captured!.searchParams.get("count"),
@@ -79,7 +79,7 @@ export const test_http_migrate_parameter_serialization_edges =
       parameters: [],
       query: { limit: 1, nested: "x", arbitrary: "preserved" },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "implicit additional property",
       "preserved",
       captured!.searchParams.get("arbitrary"),
@@ -91,7 +91,7 @@ export const test_http_migrate_parameter_serialization_edges =
       parameters: [],
       query: {},
     });
-    TestValidator.equals("required empty object", "", captured!.search);
+    TestEquality.equals("required empty object", "", captured!.search);
     let requiredMemberError = false;
     try {
       await HttpMigration.execute({
@@ -103,44 +103,44 @@ export const test_http_migrate_parameter_serialization_edges =
     } catch {
       requiredMemberError = true;
     }
-    TestValidator.equals(
+    TestEquality.equals(
       "required object member remains required",
       true,
       requiredMemberError,
     );
 
     const llm = HttpLlm.application({ document });
-    TestValidator.equals("LLM errors", 2, llm.errors.length);
+    TestEquality.equals("LLM errors", 2, llm.errors.length);
     const delimited = findFunction(llm.functions, "/delimited");
-    TestValidator.equals(
+    TestEquality.equals(
       "referenced array advertised",
       true,
       delimited.validate({ query: { tags: ["red"] } }).success,
     );
     const optional = findFunction(llm.functions, "/optional");
-    TestValidator.equals(
+    TestEquality.equals(
       "optional object omitted",
       true,
       optional.validate({ query: { limit: 1 } }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "optional object partial input rejected",
       false,
       optional.validate({ query: { limit: 1, other: "x" } }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "implicit open object partial input rejected",
       false,
       optional.validate({ query: { limit: 1, arbitrary: "x" } }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "adapter-style optional object partial input rejected",
       false,
       LlmJson.validateArguments(optional, {
         query: { limit: "1", other: "x" },
       }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "optional object complete input accepted",
       true,
       optional.validate({

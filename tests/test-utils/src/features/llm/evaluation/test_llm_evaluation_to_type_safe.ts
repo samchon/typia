@@ -1,7 +1,6 @@
 import { ILlmEvaluation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmEvaluation } from "@typia/utils";
-
-import { _equalsExactly } from "../../../internal/_equalsExactly";
 
 /**
  * Verifies LlmEvaluation.toTypeSafe renames only boolean questions.
@@ -43,29 +42,29 @@ export const test_llm_evaluation_to_type_safe = (): void => {
 
   const output: Record<string, LlmEvaluation.ITypeSafeQuestion> =
     LlmEvaluation.toTypeSafe(questions);
-  _equalsExactly("urgent", output.urgent, {
+  TestEquality.equals("urgent", output.urgent, {
     type: "noul",
     instructions: "Is it urgent?",
   });
-  _equalsExactly("team", output.team, {
+  TestEquality.equals("team", output.team, {
     type: "choice",
     instructions: "Which team?",
     criteria: { billing: "Payments", technical: null },
   });
-  _equalsExactly("level", output.level, {
+  TestEquality.equals("level", output.level, {
     type: "score",
     instructions: "How severe?",
     criteria: ["Low", "High"],
   });
-  _equalsExactly(
+  TestEquality.equals(
     "__proto__",
     Object.getOwnPropertyDescriptor(output, "__proto__")?.value,
     { type: "noul", instructions: "Prototype?" },
   );
-  _equalsExactly(
+  TestEquality.equals(
     "prototype",
     Object.getPrototypeOf(output) === Object.prototype,
     true,
   );
-  _equalsExactly("input untouched", JSON.stringify(questions), snapshot);
+  TestEquality.equals("input untouched", JSON.stringify(questions), snapshot);
 };

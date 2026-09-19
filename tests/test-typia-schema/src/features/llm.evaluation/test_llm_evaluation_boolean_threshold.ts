@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation converts booleans at their thresholds.
@@ -27,42 +26,42 @@ export const test_llm_evaluation_boolean_threshold = (): void => {
     return result.data;
   };
 
-  _equalsExactly("0.49", decide(0.49), {
+  TestEquality.equals("0.49", decide(0.49), {
     plain: false,
     tagged: false,
     commented: false,
   });
-  _equalsExactly("0.5", decide(0.5), {
+  TestEquality.equals("0.5", decide(0.5), {
     plain: true,
     tagged: false,
     commented: false,
   });
-  _equalsExactly("0.69", decide(0.69), {
+  TestEquality.equals("0.69", decide(0.69), {
     plain: true,
     tagged: false,
     commented: false,
   });
-  _equalsExactly("0.7", decide(0.7), {
+  TestEquality.equals("0.7", decide(0.7), {
     plain: true,
     tagged: false,
     commented: true,
   });
-  _equalsExactly("0.79", decide(0.79), {
+  TestEquality.equals("0.79", decide(0.79), {
     plain: true,
     tagged: false,
     commented: true,
   });
-  _equalsExactly("0.8", decide(0.8), {
+  TestEquality.equals("0.8", decide(0.8), {
     plain: true,
     tagged: true,
     commented: true,
   });
-  _equalsExactly("0", decide(0), {
+  TestEquality.equals("0", decide(0), {
     plain: false,
     tagged: false,
     commented: false,
   });
-  _equalsExactly("1", decide(1), {
+  TestEquality.equals("1", decide(1), {
     plain: true,
     tagged: true,
     commented: true,

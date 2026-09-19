@@ -1,6 +1,7 @@
 import { OpenApi, OpenApiV3_1 } from "@typia/interface";
 
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
@@ -259,7 +260,11 @@ export namespace OpenApiV3_1Downgrader {
           ),
         ),
       };
-      const visit = (schema: OpenApi.IJsonSchema): void => {
+      const visit = (raw: OpenApi.IJsonSchema): void => {
+        // identity checks against the top-level `input` compare `raw`, since
+        // restoring an open array returns a copy
+        const schema: OpenApi.IJsonSchema =
+          OpenApiOpenArrayRestorer.restore(raw);
         if (OpenApiTypeChecker.isNull(schema)) union.push({ type: "null" });
         else if (OpenApiTypeChecker.isConstant(schema))
           union.push({ const: schema.const });
@@ -288,11 +293,7 @@ export namespace OpenApiV3_1Downgrader {
           union.push({
             ...schema,
             examples: downgradeSchemaExamples(schema.examples),
-            // TOLERATE A SPEC-VIOLATING ARRAY WITHOUT `items` AS `any[]`
-            items:
-              schema.items === undefined
-                ? {}
-                : downgradeSchema(collection)(schema.items),
+            items: downgradeSchema(collection)(schema.items),
           });
         else if (OpenApiTypeChecker.isTuple(schema))
           union.push({
@@ -328,8 +329,7 @@ export namespace OpenApiV3_1Downgrader {
             required: schema.required,
           });
         else if (OpenApiTypeChecker.isOneOf(schema)) {
-          const tracked: boolean =
-            schema === input && discriminator !== undefined;
+          const tracked: boolean = raw === input && discriminator !== undefined;
           for (const branch of schema.oneOf) {
             const previous: number = union.length;
             visit(branch);

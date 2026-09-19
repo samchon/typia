@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation takes option descriptions from every source.
@@ -20,7 +19,7 @@ import { _equalsExactly } from "../../internal/_equalsExactly";
  */
 export const test_llm_evaluation_option_descriptions = (): void => {
   const { questions } = typia.llm.evaluation<IDecision>();
-  _equalsExactly("literal", questions.literal, {
+  TestEquality.equals("literal", questions.literal, {
     type: "choice",
     instructions: "Which literal?",
     criteria: {
@@ -29,7 +28,7 @@ export const test_llm_evaluation_option_descriptions = (): void => {
       bare: null,
     },
   });
-  _equalsExactly("enum", questions.enumerated, {
+  TestEquality.equals("enum", questions.enumerated, {
     type: "choice",
     instructions: "Which enum?\n\nSecond paragraph of the question.",
     criteria: {
@@ -38,7 +37,7 @@ export const test_llm_evaluation_option_descriptions = (): void => {
       bare: null,
     },
   });
-  _equalsExactly("score", questions.score, {
+  TestEquality.equals("score", questions.score, {
     type: "score",
     instructions: "Which score?",
     criteria: ["1e-7", "1", "Two", "3.5", "1e+21"],

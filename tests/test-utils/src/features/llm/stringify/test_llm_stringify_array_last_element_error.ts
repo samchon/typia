@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_array_last_element_error = (): void => {
@@ -20,9 +20,9 @@ export const test_llm_stringify_array_last_element_error = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
-  TestValidator.equals(
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals(
     "contains items[2] path",
     output.includes("$input.items[2]"),
     true,
@@ -50,13 +50,9 @@ export const test_llm_stringify_array_last_element_error = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals("missing-code-block", output2.includes("```json"), true);
+  TestEquality.equals("missing-code-block", output2.includes("```json"), true);
   // In this case, the last data element needs a comma because missing elements follow
-  TestValidator.equals(
-    "missing-undefined",
-    output2.includes("undefined"),
-    true,
-  );
+  TestEquality.equals("missing-undefined", output2.includes("undefined"), true);
 
   // Test: Single element array with error
   const failure3: IValidation.IFailure = {
@@ -72,6 +68,6 @@ export const test_llm_stringify_array_last_element_error = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals("single-code-block", output3.includes("```json"), true);
-  TestValidator.equals("single-error-marker", output3.includes("// ❌"), true);
+  TestEquality.equals("single-code-block", output3.includes("```json"), true);
+  TestEquality.equals("single-error-marker", output3.includes("// ❌"), true);
 };

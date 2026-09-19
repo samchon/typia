@@ -4,6 +4,7 @@ import { toJsonSchema } from "@langchain/core/utils/json_schema";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController, ILlmFunction } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -40,14 +41,14 @@ export const test_langchain_tool_model_facing_schema =
     if (addTool === undefined) throw new Error("Missing add tool");
     if (func === undefined) throw new Error("Missing add function");
 
-    TestValidator.equals(
+    TestEquality.equals(
       "toJsonSchema yields typia's parameters unchanged",
       toJsonSchema(addTool.schema),
       func.parameters,
     );
 
     const definition = convertToOpenAITool(addTool);
-    TestValidator.equals(
+    TestEquality.equals(
       "the tool definition sent to the model carries typia's parameters",
       definition.function.parameters,
       func.parameters,

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia, { Primitive, tags } from "typia";
 
@@ -28,23 +29,23 @@ export const test_validate_recursive_conditional_alias = (): void => {
   const accepted: unknown[] = [DATE, [], [DATE], [[[DATE]], []]];
   const rejected: unknown[] = ["nope", 1, null, [DATE, "nope"], [[[1]]]];
   for (const value of accepted)
-    TestValidator.equals(
+    TestEquality.equals(
       `accepts ${JSON.stringify(value)}`,
       typia.is<Primitified>(value),
       true,
     );
   for (const value of rejected)
-    TestValidator.equals(
+    TestEquality.equals(
       `rejects ${JSON.stringify(value)}`,
       typia.is<Primitified>(value),
       false,
     );
 
   const result = typia.validate<Primitified>([DATE, "nope"]);
-  TestValidator.equals("validate reports failure", result.success, false);
+  TestEquality.equals("validate reports failure", result.success, false);
   if (result.success === false) {
     const error = result.errors[0]!;
-    TestValidator.equals("validate names the path", error.path, "$input[1]");
+    TestEquality.equals("validate names the path", error.path, "$input[1]");
     TestValidator.predicate(
       "validate keeps the expectation readable",
       () => error.expected.length <= 64,
@@ -53,7 +54,7 @@ export const test_validate_recursive_conditional_alias = (): void => {
 
   const unit = typia.json.schema<Primitified>();
   const keys: string[] = Object.keys(unit.components.schemas ?? {});
-  TestValidator.equals("one component emitted", keys.length, 1);
+  TestEquality.equals("one component emitted", keys.length, 1);
 
   const key: string = keys[0]!;
   TestValidator.predicate(
@@ -90,12 +91,12 @@ export const test_validate_recursive_conditional_alias = (): void => {
   // Control: a recursion that already named itself through a declaration must
   // keep that declared name instead of taking the cycle placeholder.
   type Named = (string & tags.Format<"date-time">) | Named[];
-  TestValidator.equals(
+  TestEquality.equals(
     "named recursion validates",
     typia.is<Named>([[DATE]]),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "named recursion rejects",
     typia.is<Named>([["nope"]]),
     false,

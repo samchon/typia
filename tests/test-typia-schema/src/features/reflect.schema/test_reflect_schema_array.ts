@@ -1,26 +1,23 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_reflect_schema_array = (): void => {
   // string[]
   const stringArrayUnit = typia.reflect.schema<string[]>();
-  TestValidator.equals(
-    "arrays length",
-    stringArrayUnit.schema.arrays.length,
-    1,
-  );
+  TestEquality.equals("arrays length", stringArrayUnit.schema.arrays.length, 1);
   TestValidator.predicate(
     "arrays name",
     () => !!stringArrayUnit.schema.arrays[0]?.name.includes("string"),
   );
 
   // components has array definition
-  TestValidator.equals(
+  TestEquality.equals(
     "components arrays length",
     stringArrayUnit.components.arrays.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "array element is string",
     stringArrayUnit.components.arrays[0]?.value.atomics[0]?.type,
     "string",
@@ -28,12 +25,12 @@ export const test_reflect_schema_array = (): void => {
 
   // number[]
   const numberArrayUnit = typia.reflect.schema<number[]>();
-  TestValidator.equals(
+  TestEquality.equals(
     "number arrays length",
     numberArrayUnit.schema.arrays.length,
     1,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "number array element",
     numberArrayUnit.components.arrays[0]?.value.atomics[0]?.type,
     "number",

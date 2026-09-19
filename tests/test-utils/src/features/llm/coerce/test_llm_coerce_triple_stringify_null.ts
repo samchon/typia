@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -15,8 +15,8 @@ export const test_llm_coerce_triple_stringify_null = (): void => {
   };
 
   const result = LlmJson.parse<INull>(JSON.stringify(corrupted), parameters);
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("nothing", result.data.nothing, null);
+    TestEquality.equals("nothing", result.data.nothing, null);
   }
 };

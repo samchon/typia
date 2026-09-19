@@ -1,7 +1,6 @@
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate rejects a mismatched answer key set.
@@ -20,16 +19,16 @@ export const test_llm_evaluation_validate_rejects_key_mismatch = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
 
   const scalar: IValidation<IDecision> = evaluation.validate("nothing");
-  _equalsExactly("scalar", paths(scalar), ["$input"]);
+  TestEquality.equals("scalar", paths(scalar), ["$input"]);
 
   const array: IValidation<IDecision> = evaluation.validate([]);
-  _equalsExactly("array", paths(array), ["$input"]);
+  TestEquality.equals("array", paths(array), ["$input"]);
 
   const mismatch: IValidation<IDecision> = evaluation.validate({
     "refund.requested": { type: "boolean", probability: 0.6 },
     "refund.amount": { type: "boolean", probability: 0.6 },
   });
-  _equalsExactly("mismatch", paths(mismatch), [
+  TestEquality.equals("mismatch", paths(mismatch), [
     "$input.urgent",
     '$input["refund.amount"]',
   ]);

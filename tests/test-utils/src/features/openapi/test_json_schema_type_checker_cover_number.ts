@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 
 export const test_json_schema_type_checker_cover_number = (): void => {
@@ -6,7 +6,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
   // SUCCESS SCENARIOS
   //----
   // COMMON
-  TestValidator.equals(
+  TestEquality.equals(
     "number covers integer",
     true,
     OpenApiTypeChecker.covers({
@@ -15,7 +15,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "integer" },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "multipleOf covers multiplied",
     true,
     OpenApiTypeChecker.covers({
@@ -24,7 +24,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", multipleOf: 9 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "enum cover relationship",
     true,
     OpenApiTypeChecker.covers({
@@ -39,7 +39,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
   );
 
   // MINIMUM
-  TestValidator.equals(
+  TestEquality.equals(
     "minimum covers when equal",
     true,
     OpenApiTypeChecker.covers({
@@ -48,7 +48,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", minimum: 1 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "minimum covers when less",
     true,
     OpenApiTypeChecker.covers({
@@ -57,7 +57,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", minimum: 2 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "exclusiveMinimum covers minimum only when less",
     true,
     OpenApiTypeChecker.covers({
@@ -68,7 +68,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
   );
 
   // MAXIMUM
-  TestValidator.equals(
+  TestEquality.equals(
     "maximum covers when equal",
     true,
     OpenApiTypeChecker.covers({
@@ -77,7 +77,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", maximum: 2 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "maximum covers when greater",
     true,
     OpenApiTypeChecker.covers({
@@ -86,7 +86,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", maximum: 1 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "exclusiveMaximum covers minimum only when greater",
     true,
     OpenApiTypeChecker.covers({
@@ -100,7 +100,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
   // FAILURE SCENARIOS
   //----
   // COMMON
-  TestValidator.equals(
+  TestEquality.equals(
     "integer can't cover number",
     false,
     OpenApiTypeChecker.covers({
@@ -109,7 +109,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number" },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "multipleOf can't cover none multiplied",
     false,
     OpenApiTypeChecker.covers({
@@ -118,7 +118,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", multipleOf: 4 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "enum non cover (but covered) relationship",
     false,
     OpenApiTypeChecker.covers({
@@ -133,7 +133,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
   );
 
   // MINIMUM
-  TestValidator.equals(
+  TestEquality.equals(
     "minimum can't cover when greater",
     false,
     OpenApiTypeChecker.covers({
@@ -142,7 +142,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", minimum: 1 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "exclusiveMinimum can't cover equal inclusive boundary",
     false,
     OpenApiTypeChecker.covers({
@@ -153,7 +153,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
   );
 
   // MAXIMUM
-  TestValidator.equals(
+  TestEquality.equals(
     "maximum can't cover when less",
     false,
     OpenApiTypeChecker.covers({
@@ -162,7 +162,7 @@ export const test_json_schema_type_checker_cover_number = (): void => {
       y: { type: "number", maximum: 2 },
     }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "exclusiveMaximum can't cover equal inclusive boundary",
     false,
     OpenApiTypeChecker.covers({

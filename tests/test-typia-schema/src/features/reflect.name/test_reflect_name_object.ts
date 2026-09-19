@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_reflect_name_object = (): void => {
@@ -7,9 +7,5 @@ export const test_reflect_name_object = (): void => {
     name: string;
   }
 
-  TestValidator.equals(
-    "named object",
-    typia.reflect.name<IMember>(),
-    "IMember",
-  );
+  TestEquality.equals("named object", typia.reflect.name<IMember>(), "IMember");
 };

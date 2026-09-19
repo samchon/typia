@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation treats an array of a string enum as a set.
@@ -18,7 +17,7 @@ import { _equalsExactly } from "../../internal/_equalsExactly";
  */
 export const test_llm_evaluation_set_enum = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
-  _equalsExactly("questions", evaluation.questions, {
+  TestEquality.equals("questions", evaluation.questions, {
     "channels.email": {
       type: "boolean",
       instructions:
@@ -39,8 +38,8 @@ export const test_llm_evaluation_set_enum = (): void => {
     if (result.success === false) throw new Error("unexpected failure");
     return result.data.channels;
   };
-  _equalsExactly("below", run(0.79, 0.49), []);
-  _equalsExactly("at", run(0.8, 0.5), [Channel.email, Channel.phone]);
+  TestEquality.equals("below", run(0.79, 0.49), []);
+  TestEquality.equals("at", run(0.8, 0.5), [Channel.email, Channel.phone]);
 };
 
 enum Channel {

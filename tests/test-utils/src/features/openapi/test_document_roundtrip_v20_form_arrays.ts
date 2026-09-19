@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
 
 /**
@@ -67,7 +68,7 @@ export const test_document_roundtrip_v20_form_arrays = (): void => {
     upgraded,
     "2.0",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "array form fields round trip",
     downgraded.paths!["/array-fields"]!.post!.parameters,
     input.paths!["/array-fields"]!.post!.parameters,

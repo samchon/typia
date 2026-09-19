@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation enforces choice acceptance minimums.
@@ -38,7 +37,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
   };
 
   // tagged literal member
-  _equalsExactly(
+  TestEquality.equals(
     "tag at minimum",
     outcome({
       action: {
@@ -49,7 +48,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     }),
     "ok",
   );
-  _equalsExactly(
+  TestEquality.equals(
     "tag below minimum",
     outcome({
       action: {
@@ -60,17 +59,17 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     }),
     ["$input.action"],
   );
-  _equalsExactly(
+  TestEquality.equals(
     "tag without distribution",
     outcome({ action: { type: "choice", choice: "escalate" } }),
     ["$input.action"],
   );
-  _equalsExactly(
+  TestEquality.equals(
     "ungated without distribution",
     outcome({ action: { type: "choice", choice: "reply" } }),
     "ok",
   );
-  _equalsExactly(
+  TestEquality.equals(
     "ungated with low probability",
     outcome({
       action: {
@@ -84,7 +83,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
 
   // enum member JSDoc, reused by two properties
   for (const property of ["team", "backup"]) {
-    _equalsExactly(
+    TestEquality.equals(
       `${property} gated below`,
       outcome({
         [property]: {
@@ -95,7 +94,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
       }),
       [`$input.${property}`],
     );
-    _equalsExactly(
+    TestEquality.equals(
       `${property} gated at`,
       outcome({
         [property]: {
@@ -109,7 +108,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
   }
 
   // property default fills only ungated members; the member override wins
-  _equalsExactly(
+  TestEquality.equals(
     "default below",
     outcome({
       tone: {
@@ -120,7 +119,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     }),
     ["$input.tone"],
   );
-  _equalsExactly(
+  TestEquality.equals(
     "default at",
     outcome({
       tone: {
@@ -131,7 +130,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     }),
     "ok",
   );
-  _equalsExactly(
+  TestEquality.equals(
     "override below default",
     outcome({
       tone: {
@@ -142,7 +141,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     }),
     "ok",
   );
-  _equalsExactly(
+  TestEquality.equals(
     "override below itself",
     outcome({
       tone: {

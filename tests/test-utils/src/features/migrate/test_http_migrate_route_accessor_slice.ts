@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateApplication, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 export const test_http_migrate_route_accessor_slice = (): void => {
@@ -24,7 +24,7 @@ export const test_http_migrate_route_accessor_slice = (): void => {
   const actual: string[] = migrate.routes
     .map((r) => r.accessor.join("."))
     .sort();
-  TestValidator.equals(
+  TestEquality.equals(
     "accessors",
     actual,
     ["auth.logout", "auth._logout.all"].sort(),

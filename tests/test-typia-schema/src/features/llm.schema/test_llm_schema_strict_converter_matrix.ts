@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_strict_converter_matrix = (): void => {
@@ -30,7 +31,7 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
   const $defs: Record<string, ILlmSchema> = {};
   const schema = typia.llm.schema<IStrictMember, { strict: true }>($defs);
 
-  TestValidator.equals("top level reference", schema, {
+  TestEquality.equals("top level reference", schema, {
     $ref: "#/$defs/IStrictMember",
   });
   TestValidator.predicate("IStrictMember definition exists", () =>
@@ -41,12 +42,12 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
   );
 
   const member = $defs.IStrictMember as ILlmSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     "strict object additionalProperties",
     member.additionalProperties,
     false,
   );
-  TestValidator.equals("strict object required", sorted(member.required), [
+  TestEquality.equals("strict object required", sorted(member.required), [
     "age",
     "aliases",
     "detail",
@@ -67,7 +68,7 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
   const id = member.properties.id;
   TestValidator.predicate("id string", () => isString(id));
   if (isString(id)) {
-    TestValidator.equals(
+    TestEquality.equals(
       "id constraints removed from schema",
       {
         format: id.format,
@@ -92,7 +93,7 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
   const age = member.properties.age;
   TestValidator.predicate("age integer", () => isInteger(age));
   if (isInteger(age)) {
-    TestValidator.equals(
+    TestEquality.equals(
       "age constraints removed from schema",
       {
         minimum: age.minimum,
@@ -117,7 +118,7 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
   const aliases = member.properties.aliases;
   TestValidator.predicate("aliases array", () => isArray(aliases));
   if (isArray(aliases)) {
-    TestValidator.equals(
+    TestEquality.equals(
       "array constraints removed from schema",
       {
         minItems: aliases.minItems,
@@ -144,7 +145,7 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
       );
   }
 
-  TestValidator.equals(
+  TestEquality.equals(
     "strict ref description removed",
     member.properties.detail,
     {
@@ -153,12 +154,12 @@ export const test_llm_schema_strict_converter_matrix = (): void => {
   );
 
   const detail = $defs.IStrictDetail as ILlmSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     "nested strict additionalProperties",
     detail.additionalProperties,
     false,
   );
-  TestValidator.equals("nested strict required", sorted(detail.required), [
+  TestEquality.equals("nested strict required", sorted(detail.required), [
     "count",
     "label",
   ]);

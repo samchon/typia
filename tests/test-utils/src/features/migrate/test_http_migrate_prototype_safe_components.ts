@@ -4,6 +4,7 @@ import {
   IHttpMigrateRoute,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 
 /**
@@ -72,7 +73,7 @@ export const test_http_migrate_prototype_safe_components = (): void => {
     (route) => route.path === "/inherited",
   )!;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "own reserved component resolves",
     (own.query!.schema as OpenApi.IJsonSchema.IReference).$ref,
     "#/components/schemas/toString",
@@ -86,7 +87,7 @@ export const test_http_migrate_prototype_safe_components = (): void => {
   TestValidator.predicate("reserved component remains own", () =>
     Object.hasOwn(app.document().components.schemas!, "toString"),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inherited component remains absent",
     Object.hasOwn(app.document().components.schemas!, "inherited"),
     false,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
@@ -25,7 +25,7 @@ export const test_llm_invert_empty_required = (): void => {
     } satisfies ILlmSchema.IObject,
   }) as OpenApi.IJsonSchema.IObject;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "inverted object shell",
     {
       type: inverted.type,
@@ -38,7 +38,7 @@ export const test_llm_invert_empty_required = (): void => {
       additionalProperties: false,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inverted required omitted",
     Object.prototype.hasOwnProperty.call(inverted, "required"),
     false,

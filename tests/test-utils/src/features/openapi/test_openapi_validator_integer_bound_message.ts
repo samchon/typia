@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -74,15 +74,15 @@ export const test_openapi_validator_integer_bound_message = (): void => {
         value: bound.invalid,
         required: true,
       });
-      TestValidator.equals(`${label} rejects`, result.success, false);
-      TestValidator.equals(
+      TestEquality.equals(`${label} rejects`, result.success, false);
+      TestEquality.equals(
         `${label} reports only declared constraints`,
         result.success === false ? result.errors.map((e) => e.expected) : [],
         [`${width.prefix} & ${bound.tag}`],
       );
 
       // The verdict was already right; only the explanation was wrong.
-      TestValidator.equals(
+      TestEquality.equals(
         `${label} still accepts a conforming value`,
         OpenApiValidator.validate({
           components: {},
@@ -107,7 +107,7 @@ export const test_openapi_validator_integer_bound_message = (): void => {
     value: -1,
     required: true,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "a non-string format names no width",
     malformed.success === false ? malformed.errors.map((e) => e.expected) : [],
     ["number & Minimum<0>"],

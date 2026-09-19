@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_tojson_primitive = (): void => {
@@ -25,10 +25,10 @@ export const test_llm_stringify_tojson_primitive = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // The toJSON result should appear in output
-  TestValidator.equals(
+  TestEquality.equals(
     "contains serialized value",
     output.includes("serialized-string"),
     true,
@@ -52,12 +52,12 @@ export const test_llm_stringify_tojson_primitive = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "number-contains code block",
     output2.includes("```json"),
     true,
   );
-  TestValidator.equals("number-contains 42", output2.includes("42"), true);
+  TestEquality.equals("number-contains 42", output2.includes("42"), true);
 
   // Test toJSON returning boolean
   const objWithBoolToJson = {
@@ -77,12 +77,12 @@ export const test_llm_stringify_tojson_primitive = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals(
+  TestEquality.equals(
     "bool-contains code block",
     output3.includes("```json"),
     true,
   );
-  TestValidator.equals("bool-contains true", output3.includes("true"), true);
+  TestEquality.equals("bool-contains true", output3.includes("true"), true);
 
   // Test toJSON returning null
   const objWithNullToJson = {
@@ -102,10 +102,10 @@ export const test_llm_stringify_tojson_primitive = (): void => {
   };
 
   const output4: string = LlmJson.stringify(failure4);
-  TestValidator.equals(
+  TestEquality.equals(
     "null-contains code block",
     output4.includes("```json"),
     true,
   );
-  TestValidator.equals("null-contains null", output4.includes("null"), true);
+  TestEquality.equals("null-contains null", output4.includes("null"), true);
 };

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { _randomFormatDate } from "typia/lib/internal/_randomFormatDate";
 import { _randomFormatDatetime } from "typia/lib/internal/_randomFormatDatetime";
 
@@ -30,14 +30,14 @@ export const test_random_format_date_epoch_bounds = (): void => {
     if (Number.isNaN(time) || time < minimum || time > maximum)
       outside.push(instant);
   }
-  TestValidator.equals(
+  TestEquality.equals(
     `closed epoch window (${outside.length ? outside[0] : "none"})`,
     outside.length,
     0,
   );
 
   // BOUNDARY: zero is a bound, not a missing value.
-  TestValidator.equals(
+  TestEquality.equals(
     "maximum zero pins the epoch",
     _randomFormatDate({ maximum: 0 }),
     "1970-01-01",
@@ -46,7 +46,7 @@ export const test_random_format_date_epoch_bounds = (): void => {
   // CONTROL: an unbounded draw still stops at the present instant.
   const now: number = Date.now();
   const unbounded: number = new Date(_randomFormatDatetime()).getTime();
-  TestValidator.equals(
+  TestEquality.equals(
     `unbounded draw stays in the past (${unbounded})`,
     unbounded <= now + 1_000 && unbounded >= 0,
     true,

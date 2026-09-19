@@ -1,7 +1,6 @@
 import { ILlmEvaluation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation emits one neutral question per decision leaf.
@@ -22,7 +21,7 @@ import { _equalsExactly } from "../../internal/_equalsExactly";
 export const test_llm_evaluation_questions = (): void => {
   const evaluation: ILlmEvaluation<ITicketTriage> =
     typia.llm.evaluation<ITicketTriage>();
-  _equalsExactly("questions", evaluation.questions, {
+  TestEquality.equals("questions", evaluation.questions, {
     urgent: {
       type: "boolean",
       instructions: "Does the customer convey urgency?",

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 import { FeatureIdentity } from "../FeatureIdentity";
 
@@ -23,7 +24,7 @@ export const test_feature_identity_repository = (): void => {
     `collected feature files (${files.length})`,
     files.length >= POPULATED,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "diagnostics",
     [] as string[],
     FeatureIdentity.diagnose(files),

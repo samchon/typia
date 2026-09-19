@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 export const test_json_schema_upgrade_v20_example = (): void => {
@@ -13,7 +13,7 @@ export const test_json_schema_upgrade_v20_example = (): void => {
     definitions: {},
     schema: input,
   });
-  TestValidator.equals("example", output, {
+  TestEquality.equals("example", output, {
     oneOf: [
       {
         type: "integer",

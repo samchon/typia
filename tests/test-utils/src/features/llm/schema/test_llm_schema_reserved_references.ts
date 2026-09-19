@@ -6,6 +6,7 @@ import {
   OpenApi,
   SwaggerV2,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import {
   LlmSchemaConverter,
   LlmTypeChecker,
@@ -57,12 +58,12 @@ export const test_llm_schema_reserved_references = (): void => {
       required: ["text", "record"],
     },
   });
-  TestValidator.equals("reserved conversion succeeds", converted.success, true);
+  TestEquality.equals("reserved conversion succeeds", converted.success, true);
   for (const key of ["toString", "constructor", "__proto__"])
     TestValidator.predicate(`$defs owns ${key}`, () =>
       Object.hasOwn($defs, key),
     );
-  TestValidator.equals(
+  TestEquality.equals(
     "$defs prototype is not polluted",
     ($defs as any).next,
     undefined,
@@ -79,7 +80,7 @@ export const test_llm_schema_reserved_references = (): void => {
     TestValidator.predicate(`components owns ${key}`, () =>
       Object.hasOwn(components.schemas!, key),
     );
-  TestValidator.equals(
+  TestEquality.equals(
     "components prototype is not polluted",
     (components.schemas as any).next,
     undefined,
@@ -94,7 +95,7 @@ export const test_llm_schema_reserved_references = (): void => {
       $defs: {},
       schema: { $ref: "#/components/schemas/toString" },
     });
-  TestValidator.equals(
+  TestEquality.equals(
     "inherited-only component is missing",
     missing.success,
     false,
@@ -110,16 +111,16 @@ export const test_llm_schema_reserved_references = (): void => {
       required: ["value"],
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "parameters conversion succeeds",
     parameters.success,
     true,
   );
   if (parameters.success)
-    TestValidator.equals(
+    TestEquality.equals(
       "public $defs keeps ordinary prototype",
-      Object.getPrototypeOf(parameters.value.$defs),
-      Object.prototype,
+      Object.getPrototypeOf(parameters.value.$defs) === Object.prototype,
+      true,
     );
 
   const createdComponents: OpenApi.IComponents = {};
@@ -128,17 +129,17 @@ export const test_llm_schema_reserved_references = (): void => {
     $defs: Object.fromEntries([["__proto__", { type: "string" }]]),
     schema: { $ref: "#/$defs/__proto__" },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "public components keeps ordinary prototype",
-    Object.getPrototypeOf(createdComponents.schemas!),
-    Object.prototype,
+    Object.getPrototypeOf(createdComponents.schemas!) === Object.prototype,
+    true,
   );
 
   const cyclicDefinitions: Record<string, ILlmSchema> = {
     A: { $ref: "#/$defs/B" },
     B: { $ref: "#/$defs/A" },
   };
-  TestValidator.equals(
+  TestEquality.equals(
     "cyclic LLM coverage terminates",
     LlmTypeChecker.covers({
       $defs: cyclicDefinitions,
@@ -147,7 +148,7 @@ export const test_llm_schema_reserved_references = (): void => {
     }),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inherited LLM definition is unresolved",
     LlmTypeChecker.covers({
       $defs: Object.create({ toString: { type: "string" } }),

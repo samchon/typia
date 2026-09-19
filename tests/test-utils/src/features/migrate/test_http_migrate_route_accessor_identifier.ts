@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateApplication } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 import { OpenApi } from "typia";
 
@@ -72,18 +72,18 @@ export const test_http_migrate_route_accessor_identifier = (): void => {
     components: {},
   };
   const app: IHttpMigrateApplication = HttpMigration.application(document);
-  TestValidator.equals("every route migrated", app.routes.length, words.length);
+  TestEquality.equals("every route migrated", app.routes.length, words.length);
 
   for (const route of app.routes) {
     // 2. EVERY DERIVED NAME IS A LEGAL BINDING
     for (const accessor of route.accessor)
-      TestValidator.equals(
+      TestEquality.equals(
         `accessor segment ${JSON.stringify(accessor)} of ${route.path} is a legal binding`,
         _isLegalBinding(accessor),
         true,
       );
     for (const parameter of route.parameters)
-      TestValidator.equals(
+      TestEquality.equals(
         `parameter key ${JSON.stringify(parameter.key)} of ${route.path} is a legal binding`,
         _isLegalBinding(parameter.key),
         true,
@@ -94,7 +94,7 @@ export const test_http_migrate_route_accessor_identifier = (): void => {
     // This is the contract that actually breaks: the accessor becomes the
     // function name and each parameter key becomes one of its parameters.
     // Compiling the whole declaration also proves the keys do not collide.
-    TestValidator.equals(
+    TestEquality.equals(
       `generated declaration for ${route.path} compiles`,
       _isLegalDeclaration({
         name: route.accessor.at(-1)!,
@@ -110,17 +110,16 @@ export const test_http_migrate_route_accessor_identifier = (): void => {
   const keyOf = (path: string): string =>
     app.routes.find((r) => r.path === path)!.parameters[0]!.key;
 
-  TestValidator.equals(
-    "ordinary route is untouched",
-    accessorOf("/foo/{foo}"),
-    ["foo", "getByFoo"],
-  );
-  TestValidator.equals(
+  TestEquality.equals("ordinary route is untouched", accessorOf("/foo/{foo}"), [
+    "foo",
+    "getByFoo",
+  ]);
+  TestEquality.equals(
     "ordinary parameter key is untouched",
     keyOf("/foo/{foo}"),
     "foo",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contextual keyword is untouched",
     accessorOf("/async/{async}"),
     ["async", "getByAsync"],
@@ -128,42 +127,42 @@ export const test_http_migrate_route_accessor_identifier = (): void => {
   // Words that were already escaped before #2111 must keep their exact names.
   // A legality sweep alone cannot prove this: it would still pass if the fix
   // silently re-escaped them to `__case`.
-  TestValidator.equals(
+  TestEquality.equals(
     "already-escaped route is unchanged",
     accessorOf("/package/{package}"),
     ["_package", "getBy_package"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "already-escaped parameter key is unchanged",
     keyOf("/package/{package}"),
     "_package",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "reserved word is unchanged",
     accessorOf("/case/{case}"),
     ["_case", "getBy_case"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "reserved parameter key is unchanged",
     keyOf("/case/{case}"),
     "_case",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "module policy is unchanged",
     accessorOf("/module/{module}"),
     ["_module", "getBy_module"],
   );
-  TestValidator.equals("newly escaped route", accessorOf("/let/{let}"), [
+  TestEquality.equals("newly escaped route", accessorOf("/let/{let}"), [
     "_let",
     "getBy_let",
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "newly escaped parameter key",
     keyOf("/let/{let}"),
     "_let",
   );
-  TestValidator.equals("eval is escaped", keyOf("/eval/{eval}"), "_eval");
-  TestValidator.equals(
+  TestEquality.equals("eval is escaped", keyOf("/eval/{eval}"), "_eval");
+  TestEquality.equals(
     "arguments is escaped",
     keyOf("/arguments/{arguments}"),
     "_arguments",

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { ILlmSchema, tags } from "typia";
 
@@ -16,10 +16,10 @@ import typia, { ILlmSchema, tags } from "typia";
  * and `pattern` are mutually exclusive tags, so they live on separate string
  * leaves (`thumbnail` and `homepage`).
  *
- * Each keyword is asserted on its own rather than as one object, because
- * `TestValidator.equals` walks the keys of its first argument and skips the
- * ones holding `undefined`: a wholly erased leaf compared as an object matches
- * anything and passes vacuously.
+ * Each keyword is asserted on its own rather than as one object, so a failure
+ * names the keyword that was erased. (The one-way `TestValidator.equals` once
+ * made a wholly erased leaf pass as an object; the suites now compare
+ * symmetrically, #2401.)
  *
  * 1. Declare two identical interfaces whose only difference is property JSDoc.
  * 2. Convert both to non-strict LLM parameters and invert them back to OpenAPI.
@@ -83,42 +83,38 @@ export const test_llm_invert_documented_constraints_survive = (): void => {
   const homepage = properties.homepage as OpenApi.IJsonSchema.IString;
   const hobbies = properties.hobbies as OpenApi.IJsonSchema.IArray;
 
-  TestValidator.equals("documented minimum", 0, age.minimum);
-  TestValidator.equals("documented maximum", 100, age.maximum);
-  TestValidator.equals("documented multipleOf", 5, age.multipleOf);
-  TestValidator.equals(
-    "documented exclusiveMinimum",
-    0,
-    score.exclusiveMinimum,
-  );
-  TestValidator.equals(
+  TestEquality.equals("documented minimum", 0, age.minimum);
+  TestEquality.equals("documented maximum", 100, age.maximum);
+  TestEquality.equals("documented multipleOf", 5, age.multipleOf);
+  TestEquality.equals("documented exclusiveMinimum", 0, score.exclusiveMinimum);
+  TestEquality.equals(
     "documented exclusiveMaximum",
     100,
     score.exclusiveMaximum,
   );
-  TestValidator.equals("documented format", "uri", thumbnail.format);
-  TestValidator.equals(
+  TestEquality.equals("documented format", "uri", thumbnail.format);
+  TestEquality.equals(
     "documented contentMediaType",
     "image/png",
     thumbnail.contentMediaType,
   );
-  TestValidator.equals("documented pattern", "^https://", homepage.pattern);
-  TestValidator.equals("documented minLength", 8, thumbnail.minLength);
-  TestValidator.equals("documented maxLength", 255, thumbnail.maxLength);
-  TestValidator.equals("documented minItems", 1, hobbies.minItems);
-  TestValidator.equals("documented maxItems", 10, hobbies.maxItems);
-  TestValidator.equals("documented uniqueItems", true, hobbies.uniqueItems);
+  TestEquality.equals("documented pattern", "^https://", homepage.pattern);
+  TestEquality.equals("documented minLength", 8, thumbnail.minLength);
+  TestEquality.equals("documented maxLength", 255, thumbnail.maxLength);
+  TestEquality.equals("documented minItems", 1, hobbies.minItems);
+  TestEquality.equals("documented maxItems", 10, hobbies.maxItems);
+  TestEquality.equals("documented uniqueItems", true, hobbies.uniqueItems);
 
-  TestValidator.equals(
+  TestEquality.equals(
     "undocumented shape reaches documented",
     undocumented,
     documented,
-    (key) => key !== "description",
+    (key) => key === "description",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "documented shape reaches undocumented",
     documented,
     undocumented,
-    (key) => key !== "description",
+    (key) => key === "description",
   );
 };

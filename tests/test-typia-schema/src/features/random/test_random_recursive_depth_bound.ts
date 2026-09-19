@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { IRandomGenerator } from "typia";
 
 /**
@@ -42,12 +42,12 @@ export const test_random_recursive_depth_bound = (): void => {
     array = Math.max(array, arrayDepth(typia.random<IArray>(grow)));
   }
 
-  TestValidator.equals(
+  TestEquality.equals(
     "every escape stops at the same depth",
     [nullable, optional],
     [array, array],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the shared depth is the cutoff",
     [nullable, optional, array],
     [6, 6, 6],

@@ -1,11 +1,11 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_json_schema_spec_string = (): void => {
-  TestValidator.equals("string", clean(typia.json.schema<string>().schema), {
+  TestEquality.equals("string", clean(typia.json.schema<string>().schema), {
     type: "string",
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "format",
     clean(typia.json.schema<string & tags.Format<"email">>().schema),
     {
@@ -13,7 +13,7 @@ export const test_json_schema_spec_string = (): void => {
       format: "email",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "pattern",
     clean(typia.json.schema<string & tags.Pattern<"^[a-z]+$">>().schema),
     {
@@ -21,7 +21,7 @@ export const test_json_schema_spec_string = (): void => {
       pattern: "^[a-z]+$",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "length",
     clean(
       typia.json.schema<string & tags.MinLength<2> & tags.MaxLength<8>>()
@@ -33,7 +33,7 @@ export const test_json_schema_spec_string = (): void => {
       maxLength: 8,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "content media type",
     clean(
       typia.json.schema<string & tags.ContentMediaType<"image/png">>().schema,
@@ -43,7 +43,7 @@ export const test_json_schema_spec_string = (): void => {
       contentMediaType: "image/png",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "default",
     clean(typia.json.schema<string & tags.Default<"guest">>().schema),
     {
@@ -51,7 +51,7 @@ export const test_json_schema_spec_string = (): void => {
       default: "guest",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "string literal union",
     normalizeOneOf(
       clean(typia.json.schema<"alpha" | "beta" | "gamma">().schema),

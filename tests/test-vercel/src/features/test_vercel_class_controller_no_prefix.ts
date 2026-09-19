@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -20,7 +21,7 @@ export const test_vercel_class_controller_no_prefix =
 
     // 3. Verify all tools are registered without prefix
     const toolNames: string[] = Object.keys(tools).sort();
-    TestValidator.equals("should have 4 tools", toolNames.length, 4);
+    TestEquality.equals("should have 4 tools", toolNames.length, 4);
     TestValidator.predicate("should have add", () => toolNames.includes("add"));
     TestValidator.predicate("should have subtract", () =>
       toolNames.includes("subtract"),

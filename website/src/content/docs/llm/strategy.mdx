@@ -10,7 +10,7 @@ import LocalSource from "../../../components/LocalSource";
 LLMs decide which function to call by reading its description. Good descriptions are not optional — they are the prompt. This page covers three practical patterns that make the LLM behave better without changing any TypeScript types:
 
 1. **[Description comments](#description-comments)** — JSDoc on the method and on the parameter type
-2. **[Namespace inheritance](#namespace-inheritance)** — description on the parent type cascades into children
+2. **[Namespace inheritance](#namespace-inheritance)** — a child type used as the parameters inherits its namespace parent's description
 3. **[Hiding methods](#hiding-methods)** — exclude internal helpers from the schema
 
 Plus two carry-overs from the schema layer for reference:
@@ -94,7 +94,7 @@ Writes a new article and archives it into the DB.
 
 ## Namespace inheritance
 
-CRUD-style controllers tend to have parent types (`IBbsArticle`) and child variants (`IBbsArticle.ICreate`, `IBbsArticle.IUpdate`). Repeating the same long description on every variant is tedious. typia copies the parent's description **into** the children automatically:
+CRUD-style controllers tend to have parent types (`IBbsArticle`) and child variants (`IBbsArticle.ICreate`, `IBbsArticle.IUpdate`). Repeating the same long description on every variant is tedious. When a function takes a named type as its whole parameters object, typia cascades the descriptions into the parameters `description`: the type's own description, the quoted description of the type itself, then that of each described namespace parent. An undescribed type still names itself as `Current Type: {@link Name}`. The cascade applies only to that root parameters object; a property typed with the same child keeps its own property description. A parent contributes only when its schema is part of the same output; here `create` returns `IBbsArticle`, which puts it there.
 
 <Tabs items={[
   "TypeScript Source",
@@ -106,7 +106,7 @@ CRUD-style controllers tend to have parent types (`IBbsArticle`) and child varia
       path="examples/src/llm/application-namespace.ts"
       filename="examples/src/llm/application-namespace.ts"
       showLineNumbers
-      highlight="11, 13-18, 35-38, 65-70" />
+      highlight="7, 9-14, 26, 70" />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
@@ -122,11 +122,16 @@ Information of the article to create.
 
 Description of the current {@link IBbsArticle.ICreate} type:
 
-Information of the article to create.
+> Information of the article to create.
 
-> Description of the parent {@link IBbsArticle} type: Article entity.
+------------------------------
+
+Description of the parent {@link IBbsArticle} type:
+
+> Article entity.
 >
-> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
+> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board
+> System).
 ```
   </Tabs.Tab>
 </Tabs>

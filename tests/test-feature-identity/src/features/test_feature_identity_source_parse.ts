@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 import { FeatureIdentity } from "../FeatureIdentity";
 
@@ -20,7 +20,7 @@ import { FeatureIdentity } from "../FeatureIdentity";
  */
 export const test_feature_identity_source_parse = (): void => {
   // 1. THE FORMS THAT COUNT
-  TestValidator.equals(
+  TestEquality.equals(
     "declaration forms",
     ["test_alpha", "test_beta", "test_gamma"],
     FeatureIdentity.parse(
@@ -34,7 +34,7 @@ export const test_feature_identity_source_parse = (): void => {
   );
 
   // 2. WHAT MUST NOT COUNT
-  TestValidator.equals(
+  TestEquality.equals(
     "non-declarations",
     [] as string[],
     FeatureIdentity.parse(
@@ -50,7 +50,7 @@ export const test_feature_identity_source_parse = (): void => {
   );
 
   // 3. AN EXOTIC EXPORT FAILS CLOSED
-  TestValidator.equals(
+  TestEquality.equals(
     "renamed re-export",
     [] as string[],
     FeatureIdentity.parse(

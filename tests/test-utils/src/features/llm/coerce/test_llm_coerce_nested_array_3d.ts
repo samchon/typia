@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -26,9 +26,9 @@ export const test_llm_coerce_nested_array_3d = (): void => {
   };
 
   const result = LlmJson.parse<ICube3D>(JSON.stringify(corrupted), parameters);
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("cube[0][0]", result.data.cube[0]![0], [1, 2]);
-    TestValidator.equals("cube[0][1]", result.data.cube[0]![1], [3, 4]);
+    TestEquality.equals("cube[0][0]", result.data.cube[0]![0], [1, 2]);
+    TestEquality.equals("cube[0][1]", result.data.cube[0]![1], [3, 4]);
   }
 };

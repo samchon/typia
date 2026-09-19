@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_json_parse_lenient_stall_guard_invalid_token =
@@ -10,10 +10,10 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // ] at key position → error (not a valid key)
     const kBracket = LlmJson.parse("{]}");
-    TestValidator.equals("key-bracket-success", kBracket.success, false);
+    TestEquality.equals("key-bracket-success", kBracket.success, false);
     if (!kBracket.success) {
-      TestValidator.equals("key-bracket-data", kBracket.data, {});
-      TestValidator.equals(
+      TestEquality.equals("key-bracket-data", kBracket.data, {});
+      TestEquality.subset(
         "key-bracket-errors",
         [{ expected: "string key" }],
         kBracket.errors,
@@ -22,10 +22,10 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // [ at key position → error
     const kSquare = LlmJson.parse("{[}");
-    TestValidator.equals("key-square-success", kSquare.success, false);
+    TestEquality.equals("key-square-success", kSquare.success, false);
     if (!kSquare.success) {
-      TestValidator.equals("key-square-data", kSquare.data, {});
-      TestValidator.equals(
+      TestEquality.equals("key-square-data", kSquare.data, {});
+      TestEquality.subset(
         "key-square-errors",
         [{ expected: "string key" }],
         kSquare.errors,
@@ -34,15 +34,15 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // , at key position → skip comma, then } closes
     const kComma = LlmJson.parse("{,}");
-    TestValidator.equals("key-comma-success", kComma.success, true);
-    if (kComma.success) TestValidator.equals("key-comma-data", kComma.data, {});
+    TestEquality.equals("key-comma-success", kComma.success, true);
+    if (kComma.success) TestEquality.equals("key-comma-data", kComma.data, {});
 
     // : at key position → error
     const kColon = LlmJson.parse("{:}");
-    TestValidator.equals("key-colon-success", kColon.success, false);
+    TestEquality.equals("key-colon-success", kColon.success, false);
     if (!kColon.success) {
-      TestValidator.equals("key-colon-data", kColon.data, {});
-      TestValidator.equals(
+      TestEquality.equals("key-colon-data", kColon.data, {});
+      TestEquality.subset(
         "key-colon-errors",
         [{ expected: "string key" }],
         kColon.errors,
@@ -53,10 +53,10 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
     const specialKeyChars = ["!", "@", "#", "~", "%", "^", "&", "*"];
     for (const ch of specialKeyChars) {
       const r = LlmJson.parse(`{${ch}}`);
-      TestValidator.equals(`key-${ch}-success`, r.success, false);
+      TestEquality.equals(`key-${ch}-success`, r.success, false);
       if (!r.success) {
-        TestValidator.equals(`key-${ch}-data`, r.data, {});
-        TestValidator.equals(
+        TestEquality.equals(`key-${ch}-data`, r.data, {});
+        TestEquality.subset(
           `key-${ch}-errors`,
           [{ expected: "string key" }],
           r.errors,
@@ -73,14 +73,14 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
     // ] at value position → parseValue returns undefined (structural),
     // then ] at next key position → error
     const vBracket = LlmJson.parse('{"k": ]}');
-    TestValidator.equals("val-bracket-success", vBracket.success, false);
+    TestEquality.equals("val-bracket-success", vBracket.success, false);
     if (!vBracket.success) {
-      TestValidator.equals(
+      TestEquality.equals(
         "val-bracket-k",
         (vBracket.data as any)?.k,
         undefined,
       );
-      TestValidator.equals(
+      TestEquality.subset(
         "val-bracket-errors",
         [{ expected: "string key" }],
         vBracket.errors,
@@ -90,35 +90,27 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
     // } at value position → parseValue returns undefined (structural),
     // then } closes the object. No error.
     const vBrace = LlmJson.parse('{"k": }}');
-    TestValidator.equals("val-brace-success", vBrace.success, true);
+    TestEquality.equals("val-brace-success", vBrace.success, true);
     if (vBrace.success) {
-      TestValidator.equals("val-brace-k", (vBrace.data as any)?.k, undefined);
-      TestValidator.equals(
-        "val-brace-has-k",
-        "k" in (vBrace.data as any),
-        true,
-      );
+      TestEquality.equals("val-brace-k", (vBrace.data as any)?.k, undefined);
+      TestEquality.equals("val-brace-has-k", "k" in (vBrace.data as any), true);
     }
 
     // , at value position → parseValue returns undefined (structural),
     // then comma consumed, then } closes. No error.
     const vComma = LlmJson.parse('{"k": ,}');
-    TestValidator.equals("val-comma-success", vComma.success, true);
+    TestEquality.equals("val-comma-success", vComma.success, true);
     if (vComma.success) {
-      TestValidator.equals("val-comma-k", (vComma.data as any)?.k, undefined);
-      TestValidator.equals(
-        "val-comma-has-k",
-        "k" in (vComma.data as any),
-        true,
-      );
+      TestEquality.equals("val-comma-k", (vComma.data as any)?.k, undefined);
+      TestEquality.equals("val-comma-has-k", "k" in (vComma.data as any), true);
     }
 
     // : at value position → error (not recognized), skip, then } closes
     const vColon = LlmJson.parse('{"k": :}');
-    TestValidator.equals("val-colon-success", vColon.success, false);
+    TestEquality.equals("val-colon-success", vColon.success, false);
     if (!vColon.success) {
-      TestValidator.equals("val-colon-k", (vColon.data as any)?.k, undefined);
-      TestValidator.equals(
+      TestEquality.equals("val-colon-k", (vColon.data as any)?.k, undefined);
+      TestEquality.subset(
         "val-colon-errors",
         [{ expected: "JSON value" }],
         vColon.errors,
@@ -129,10 +121,10 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
     const specialValChars = ["@", "#", "~", "!"];
     for (const ch of specialValChars) {
       const r = LlmJson.parse(`{"k": ${ch}}`);
-      TestValidator.equals(`val-${ch}-success`, r.success, false);
+      TestEquality.equals(`val-${ch}-success`, r.success, false);
       if (!r.success) {
-        TestValidator.equals(`val-${ch}-k`, (r.data as any)?.k, undefined);
-        TestValidator.equals(
+        TestEquality.equals(`val-${ch}-k`, (r.data as any)?.k, undefined);
+        TestEquality.subset(
           `val-${ch}-errors`,
           [{ expected: "JSON value" }],
           r.errors,
@@ -147,14 +139,14 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // } in array → stall guard fires (parseValue doesn't advance), skip char
     const aBrace = LlmJson.parse("[}]");
-    TestValidator.equals("arr-brace-success", aBrace.success, true);
-    if (aBrace.success) TestValidator.equals("arr-brace-data", aBrace.data, []);
+    TestEquality.equals("arr-brace-success", aBrace.success, true);
+    if (aBrace.success) TestEquality.equals("arr-brace-data", aBrace.data, []);
 
     // : in array → parseValue error+advance, undefined pushed
     const aColon = LlmJson.parse("[:]");
-    TestValidator.equals("arr-colon-success", aColon.success, false);
+    TestEquality.equals("arr-colon-success", aColon.success, false);
     if (!aColon.success)
-      TestValidator.equals(
+      TestEquality.subset(
         "arr-colon-errors",
         [{ expected: "JSON value" }],
         aColon.errors,
@@ -162,9 +154,9 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // @ in array → parseValue error+advance, undefined pushed
     const aAt = LlmJson.parse("[@]");
-    TestValidator.equals("arr-at-success", aAt.success, false);
+    TestEquality.equals("arr-at-success", aAt.success, false);
     if (!aAt.success)
-      TestValidator.equals(
+      TestEquality.subset(
         "arr-at-errors",
         [{ expected: "JSON value" }],
         aAt.errors,
@@ -172,9 +164,9 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // # in array → parseValue error+advance, undefined pushed
     const aHash = LlmJson.parse("[#]");
-    TestValidator.equals("arr-hash-success", aHash.success, false);
+    TestEquality.equals("arr-hash-success", aHash.success, false);
     if (!aHash.success)
-      TestValidator.equals(
+      TestEquality.subset(
         "arr-hash-errors",
         [{ expected: "JSON value" }],
         aHash.errors,
@@ -182,9 +174,9 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // ~ in array → parseValue error+advance, undefined pushed
     const aTilde = LlmJson.parse("[~]");
-    TestValidator.equals("arr-tilde-success", aTilde.success, false);
+    TestEquality.equals("arr-tilde-success", aTilde.success, false);
     if (!aTilde.success)
-      TestValidator.equals(
+      TestEquality.subset(
         "arr-tilde-errors",
         [{ expected: "JSON value" }],
         aTilde.errors,
@@ -192,9 +184,9 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // ! in array → parseValue error+advance, undefined pushed
     const aBang = LlmJson.parse("[!]");
-    TestValidator.equals("arr-bang-success", aBang.success, false);
+    TestEquality.equals("arr-bang-success", aBang.success, false);
     if (!aBang.success)
-      TestValidator.equals(
+      TestEquality.subset(
         "arr-bang-errors",
         [{ expected: "JSON value" }],
         aBang.errors,
@@ -202,14 +194,14 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // Multiple } → all skipped by stall guard, empty array
     const aMulti = LlmJson.parse("[}}}}]");
-    TestValidator.equals("arr-multi-brace-success", aMulti.success, true);
+    TestEquality.equals("arr-multi-brace-success", aMulti.success, true);
     if (aMulti.success)
-      TestValidator.equals("arr-multi-brace-data", aMulti.data, []);
+      TestEquality.equals("arr-multi-brace-data", aMulti.data, []);
 
     // } then ] immediately after in junk-looking input → [}] part parsed, rest is trailing
     const aMixed = LlmJson.parse("[}]:@#~!]");
-    TestValidator.equals("arr-mixed-success", aMixed.success, true);
-    if (aMixed.success) TestValidator.equals("arr-mixed-data", aMixed.data, []);
+    TestEquality.equals("arr-mixed-success", aMixed.success, true);
+    if (aMixed.success) TestEquality.equals("arr-mixed-data", aMixed.data, []);
 
     // =========================================================================
     // STRESS: complex mismatched bracket scenarios
@@ -217,15 +209,15 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
 
     // [}]}]}]}] → first } skipped by stall guard, first ] closes → []
     const s1 = LlmJson.parse("[}]}]}]}]");
-    TestValidator.equals("stress-alt-arr-success", s1.success, true);
-    if (s1.success) TestValidator.equals("stress-alt-arr-data", s1.data, []);
+    TestEquality.equals("stress-alt-arr-success", s1.success, true);
+    if (s1.success) TestEquality.equals("stress-alt-arr-data", s1.data, []);
 
     // {]}{]}{]} → ] at key position → error → {}, rest is trailing junk
     const s2 = LlmJson.parse("{]}{]}{]}");
-    TestValidator.equals("stress-alt-obj-success", s2.success, false);
+    TestEquality.equals("stress-alt-obj-success", s2.success, false);
     if (!s2.success) {
-      TestValidator.equals("stress-alt-obj-data", s2.data, {});
-      TestValidator.equals(
+      TestEquality.equals("stress-alt-obj-data", s2.data, {});
+      TestEquality.subset(
         "stress-alt-obj-errors",
         [{ expected: "string key" }],
         s2.errors,
@@ -237,13 +229,13 @@ export const test_llm_json_parse_lenient_stall_guard_invalid_token =
     // Inner object: b=[1,2], c=undefined (] at value), then ] at key → error
     // Outer object: a = inner object
     const s3 = LlmJson.parse('{"a": {"b": [1, }, 2], "c": ]}}');
-    TestValidator.equals("stress-deep-success", s3.success, false);
+    TestEquality.equals("stress-deep-success", s3.success, false);
     if (!s3.success) {
       const data = s3.data as any;
-      TestValidator.equals("stress-deep-b", data?.a?.b, [1, 2]);
-      TestValidator.equals("stress-deep-c", data?.a?.c, undefined);
-      TestValidator.equals("stress-deep-has-c", "c" in (data?.a || {}), true);
-      TestValidator.equals(
+      TestEquality.equals("stress-deep-b", data?.a?.b, [1, 2]);
+      TestEquality.equals("stress-deep-c", data?.a?.c, undefined);
+      TestEquality.equals("stress-deep-has-c", "c" in (data?.a || {}), true);
+      TestEquality.subset(
         "stress-deep-errors",
         [{ expected: "string key" }, { expected: "string key" }],
         s3.errors,

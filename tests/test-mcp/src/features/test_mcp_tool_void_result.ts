@@ -3,6 +3,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Greeter } from "../structures/Greeter";
@@ -41,7 +42,7 @@ export const test_mcp_tool_void_result = async (): Promise<void> => {
     "void tool call is not an error",
     result.isError !== true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "void result reports Success as text",
     (result.content[0] as { text: string }).text,
     "Success",

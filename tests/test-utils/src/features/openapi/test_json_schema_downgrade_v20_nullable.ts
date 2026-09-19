@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 export const test_json_schema_downgrade_v20_nullable = (): void => {
@@ -42,7 +42,7 @@ const test_originally_nullable = (): void => {
       ],
     } satisfies OpenApi.IJsonSchema,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable",
     {
       components: {},
@@ -99,7 +99,7 @@ const test_reference_nullable = (): void => {
     },
     version: "2.0",
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable",
     {
       components: {
@@ -168,7 +168,7 @@ const test_object_nullable = (): void => {
     version: "2.0",
     downgraded,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "nullable",
     {
       schemas: {

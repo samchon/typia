@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -13,20 +13,20 @@ export const test_llm_stringify_multiple_errors = (): void => {
   (valid as { name: unknown; age: unknown }).name = 123;
   (valid as { name: unknown; age: unknown }).age = "thirty";
   const result = typia.validate<IMultipleProps>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains name error",
       output.includes("$input.name"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains age error",
       output.includes("$input.age"),
       true,

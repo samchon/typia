@@ -5,6 +5,7 @@ import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -37,7 +38,7 @@ export const test_mcp_tool_output_constraint_enforcement =
       ConstraintController,
       { strict: true }
     >("constraint", new ConstraintController());
-    TestValidator.equals(
+    TestEquality.equals(
       "a strict controller reports the config it was built with",
       strict.application.config.strict,
       true,
@@ -74,7 +75,7 @@ export const test_mcp_tool_output_constraint_enforcement =
           `${mode} conforming output accepted`,
           valid.isError !== true,
         );
-        TestValidator.equals(
+        TestEquality.equals(
           `${mode} conforming structured content`,
           valid.structuredContent,
           {

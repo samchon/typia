@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaTransformError, IResult } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection, ILlmSchema } from "typia";
 
@@ -25,7 +25,7 @@ export const test_llm_schema_strict_additionalProperties = (): void => {
         strict: true,
       },
     });
-  TestValidator.equals(
+  TestEquality.subset(
     "strict",
     {
       type: "object",

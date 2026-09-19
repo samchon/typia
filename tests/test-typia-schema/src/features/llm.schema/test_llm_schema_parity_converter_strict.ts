@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaCollection, ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -65,8 +65,8 @@ export const test_llm_schema_parity_converter_strict = (): void => {
   const actualDefs: Record<string, ILlmSchema> = {};
   const actual = typia.llm.schema<IStrictRoot, { strict: true }>(actualDefs);
 
-  TestValidator.equals("strict schema", clean(actual), clean(converted.value));
-  TestValidator.equals("strict $defs", clean(actualDefs), clean(expectedDefs));
+  TestEquality.equals("strict schema", clean(actual), clean(converted.value));
+  TestEquality.equals("strict $defs", clean(actualDefs), clean(expectedDefs));
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));

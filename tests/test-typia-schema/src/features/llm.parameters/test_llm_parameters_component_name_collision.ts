@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Foo as Alpha } from "../json.schema/ComponentNameCollisionAlpha";
@@ -36,14 +37,14 @@ export const test_llm_parameters_component_name_collision = (): void => {
     (parameters.properties?.[key] as ILlmSchema.IReference | undefined)?.$ref ??
     "";
   const refs: string[] = ["a", "b", "c"].map($ref);
-  TestValidator.equals(
+  TestEquality.equals(
     "each colliding type owns a distinct local reference",
     3,
     new Set(refs).size,
   );
 
   // 2. THREE DISTINCT TYPES KEEP THREE DEFINITIONS
-  TestValidator.equals(
+  TestEquality.equals(
     "three distinct types allocate three definitions",
     3,
     Object.keys(parameters.$defs ?? {}).length,

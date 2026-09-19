@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_schema_spec_strict_object = (): void => {
@@ -19,10 +19,10 @@ export const test_llm_schema_spec_strict_object = (): void => {
   const $defs: Record<string, ILlmSchema> = {};
   const schema = typia.llm.schema<IStrictObject, { strict: true }>($defs);
 
-  TestValidator.equals("strict object top ref", clean(schema), {
+  TestEquality.equals("strict object top ref", clean(schema), {
     $ref: "#/$defs/IStrictObject",
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "strict child ref has no description",
     clean($defs.IStrictObject),
     {
@@ -46,7 +46,7 @@ export const test_llm_schema_spec_strict_object = (): void => {
       ].join("\n"),
     },
   );
-  TestValidator.equals("strict nested object", clean($defs.IStrictChild), {
+  TestEquality.equals("strict nested object", clean($defs.IStrictChild), {
     type: "object",
     properties: {
       value: {

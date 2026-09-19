@@ -1,6 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import { TestValidator } from "@nestia/e2e";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -49,7 +50,7 @@ export const test_langchain_class_controller_error_handling =
     );
     if (read === undefined) throw new Error("Missing read tool");
 
-    TestValidator.equals(
+    TestEquality.equals(
       "typed undefined result should be returned as a failure object",
       await read.invoke({}),
       {

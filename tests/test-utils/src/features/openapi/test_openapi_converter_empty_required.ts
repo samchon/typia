@@ -1,4 +1,3 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   OpenApi,
   OpenApiV3,
@@ -6,6 +5,7 @@ import {
   OpenApiV3_2,
   SwaggerV2,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -585,7 +585,7 @@ const assertObjectEmptyRequired = (
     | OpenApiV3_1.IJsonSchema.IObject
     | OpenApiV3_2.IJsonSchema.IObject
     | SwaggerV2.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     `${name} object shape`,
     {
       type: object.type,
@@ -630,7 +630,7 @@ const assertObjectRequired = (
     | OpenApiV3_1.IJsonSchema.IObject
     | OpenApiV3_2.IJsonSchema.IObject
     | SwaggerV2.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     `${name} object shape`,
     {
       type: object.type,
@@ -662,7 +662,7 @@ const assertRecordKeywordsOmitted = (
     | OpenApiV3_1.IJsonSchema.IObject
     | OpenApiV3_2.IJsonSchema.IObject
     | SwaggerV2.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     `${name} record shape`,
     {
       type: object.type,
@@ -696,7 +696,7 @@ const assertNoisyRecordKeywordsPreserved = (
     | OpenApiV3_1.IJsonSchema.IObject
     | OpenApiV3_2.IJsonSchema.IObject
     | SwaggerV2.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     `${name} record shape`,
     {
       type: object.type,
@@ -730,7 +730,7 @@ const assertEmptyOpenObjectKeywords = (
     | OpenApiV3_1.IJsonSchema.IObject
     | OpenApiV3_2.IJsonSchema.IObject
     | SwaggerV2.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     `${name} object shape`,
     {
       type: object.type,

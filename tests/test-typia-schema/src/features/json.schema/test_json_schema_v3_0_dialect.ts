@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -21,8 +21,8 @@ export const test_json_schema_v3_0_dialect = (): void => {
   }
 
   const unit = typia.json.schema<IV3Single, "3.0">();
-  TestValidator.equals("version", unit.version, "3.0");
-  TestValidator.equals("dereferenced root", clean(unit.schema), {
+  TestEquality.equals("version", unit.version, "3.0");
+  TestEquality.equals("dereferenced root", clean(unit.schema), {
     type: "object",
     properties: {
       nullableName: { type: "string", nullable: true },
@@ -40,7 +40,7 @@ export const test_json_schema_v3_0_dialect = (): void => {
 
   const serialized: string = JSON.stringify(unit);
   for (const keyword of ["const", "prefixItems", '"type":"null"'])
-    TestValidator.equals(
+    TestEquality.equals(
       `no ${keyword} under 3.0`,
       serialized.includes(keyword),
       false,

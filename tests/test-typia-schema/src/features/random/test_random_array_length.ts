@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -78,27 +78,27 @@ const assertLengths = (
     bounded: number;
   },
 ): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} plain length`,
     value.plain.length,
     expected.plain,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} capped length`,
     value.capped.length,
     expected.capped,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} wide length`,
     value.wide.length,
     expected.wide,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} floor length`,
     value.floor.length,
     expected.floor,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${prefix} bounded length`,
     value.bounded.length,
     expected.bounded,

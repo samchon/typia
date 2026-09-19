@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi, OpenApiV3_2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
 
 /**
@@ -16,17 +16,17 @@ import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
 export const test_http_migrate_querystring_contract =
   async (): Promise<void> => {
     const migration = HttpMigration.application(validDocument);
-    TestValidator.equals("composition errors", 0, migration.errors.length);
+    TestEquality.equals("composition errors", 0, migration.errors.length);
     const route = migration.routes[0]!;
-    TestValidator.equals(
+    TestEquality.equals(
       "querystring media type",
       "application/x-www-form-urlencoded",
       route.query?.querystring?.type,
     );
 
     const llm = HttpLlm.application({ document: validDocument });
-    TestValidator.equals("LLM errors", 0, llm.errors.length);
-    TestValidator.equals(
+    TestEquality.equals("LLM errors", 0, llm.errors.length);
+    TestEquality.equals(
       "LLM whole-query input",
       true,
       llm.functions[0]!.validate({
@@ -47,31 +47,31 @@ export const test_http_migrate_querystring_contract =
       parameters: [],
       query: { foo: "a + b", bar: true },
     });
-    TestValidator.equals(
+    TestEquality.equals(
       "form querystring wire",
       "?foo=a+%2B+b&bar=true",
       captured!.search,
     );
 
-    TestValidator.equals(
+    TestEquality.equals(
       "JSON querystring wire",
       "?%7B%22foo%22%3A%22a%20%2B%20b%22%7D",
       await executeQuerystring(jsonDocument, { foo: "a + b" }),
     );
     const textLlm = HttpLlm.application({ document: textDocument });
-    TestValidator.equals(
+    TestEquality.equals(
       "scalar querystring LLM input",
       true,
       textLlm.functions[0]!.validate({ query: "a + b" }).success,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "text querystring wire",
       "?a%20%2B%20b",
       await executeQuerystring(textDocument, "a + b"),
     );
 
     const canonical = OpenApiConverter.upgradeDocument(validDocument);
-    TestValidator.equals(
+    TestEquality.equals(
       "canonical querystring content",
       ["application/x-www-form-urlencoded"],
       Object.keys(
@@ -97,12 +97,12 @@ export const test_http_migrate_querystring_contract =
     ];
     for (const [version, value] of downgraded) {
       const parameter = value as Record<string, unknown>;
-      TestValidator.equals(
+      TestEquality.equals(
         `${version} query location`,
         "query",
         parameter.in as string | undefined,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${version} content removed`,
         false,
         "content" in parameter,
@@ -110,16 +110,16 @@ export const test_http_migrate_querystring_contract =
     }
 
     const mixed = HttpMigration.application(mixedDocument);
-    TestValidator.equals("mixed route omitted", 0, mixed.routes.length);
-    TestValidator.equals(
+    TestEquality.equals("mixed route omitted", 0, mixed.routes.length);
+    TestEquality.equals(
       "mixed diagnostic",
       ["querystring parameter cannot coexist with query parameters"],
       mixed.errors[0]?.messages,
     );
 
     const duplicate = HttpMigration.application(duplicateDocument);
-    TestValidator.equals("duplicate route omitted", 0, duplicate.routes.length);
-    TestValidator.equals(
+    TestEquality.equals("duplicate route omitted", 0, duplicate.routes.length);
+    TestEquality.equals(
       "duplicate diagnostic",
       ["querystring parameter must appear at most once"],
       duplicate.errors[0]?.messages,
@@ -147,13 +147,13 @@ export const test_http_migrate_querystring_contract =
     );
 
     const legacy = HttpMigration.application(legacyDocument);
-    TestValidator.equals("legacy composition errors", 0, legacy.errors.length);
-    TestValidator.equals(
+    TestEquality.equals("legacy composition errors", 0, legacy.errors.length);
+    TestEquality.equals(
       "legacy schema serialization",
       "?search=a%20b",
       await executeRoute(legacy.routes[0]!, { search: "a b" }),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "legacy whole-query metadata absent",
       false,
       legacy.routes[0]!.query?.querystring !== undefined,
@@ -341,8 +341,8 @@ const expectCompositionError = (
   message: string,
 ): void => {
   const migration = HttpMigration.application(document);
-  TestValidator.equals(`${name} route omitted`, 0, migration.routes.length);
-  TestValidator.equals(
+  TestEquality.equals(`${name} route omitted`, 0, migration.routes.length);
+  TestEquality.equals(
     `${name} diagnostic`,
     [message],
     migration.errors[0]?.messages,

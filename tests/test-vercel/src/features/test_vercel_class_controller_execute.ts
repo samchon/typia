@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
 import typia from "typia";
@@ -22,7 +22,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { x: 10, y: 5 },
     { toolCallId: "test-1", messages: [], abortSignal: undefined as any },
   );
-  TestValidator.equals("add(10, 5) should return 15", addResult, {
+  TestEquality.equals("add(10, 5) should return 15", addResult, {
     success: true,
     data: { value: 15 },
   });
@@ -33,7 +33,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { x: 10, y: 3 },
     { toolCallId: "test-2", messages: [], abortSignal: undefined as any },
   );
-  TestValidator.equals("subtract(10, 3) should return 7", subtractResult, {
+  TestEquality.equals("subtract(10, 3) should return 7", subtractResult, {
     success: true,
     data: { value: 7 },
   });
@@ -44,7 +44,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { x: 4, y: 7 },
     { toolCallId: "test-3", messages: [], abortSignal: undefined as any },
   );
-  TestValidator.equals("multiply(4, 7) should return 28", multiplyResult, {
+  TestEquality.equals("multiply(4, 7) should return 28", multiplyResult, {
     success: true,
     data: { value: 28 },
   });
@@ -55,7 +55,7 @@ export const test_vercel_class_controller_execute = async (): Promise<void> => {
     { x: 20, y: 4 },
     { toolCallId: "test-4", messages: [], abortSignal: undefined as any },
   );
-  TestValidator.equals("divide(20, 4) should return 5", divideResult, {
+  TestEquality.equals("divide(20, 4) should return 5", divideResult, {
     success: true,
     data: { value: 5 },
   });

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -21,12 +22,12 @@ import typia from "typia";
 export const test_reflect_schema_boolean_literal_union = (): void => {
   // 1) a bare `false` literal must report `false`, not the `true`-only path
   const literal = typia.reflect.schema<false>();
-  TestValidator.equals(
+  TestEquality.equals(
     "false literal constant type",
     literal.schema.constants[0]?.type,
     "boolean",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "false literal constant value",
     literal.schema.constants[0]?.values[0]?.value,
     false,

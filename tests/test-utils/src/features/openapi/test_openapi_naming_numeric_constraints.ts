@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 
 /**
@@ -135,6 +135,6 @@ export const test_openapi_naming_numeric_constraints = (): void => {
       throw new Error(
         `Expected "${title}" to fail against a non-number value.`,
       );
-    TestValidator.equals(title, expected, result.errors[0]?.expected);
+    TestEquality.equals(title, expected, result.errors[0]?.expected);
   }
 };

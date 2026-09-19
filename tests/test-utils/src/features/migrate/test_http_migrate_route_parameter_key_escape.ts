@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateApplication } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 import { OpenApi } from "typia";
 
@@ -55,20 +55,20 @@ export const test_http_migrate_route_parameter_key_escape = (): void => {
     app.routes.find((r) => r.path === route)!.parameters.map((p) => p.key);
 
   // 2. THE NEWLY RESTRICTED WORD AND ITS ESCAPED SIBLING STAY DISTINCT
-  TestValidator.equals(
+  TestEquality.equals(
     "reserved word beside its escape",
     keysOf("/a/{let}/b/{_let}"),
     ["_let", "__let"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "restricted binding beside its escape",
     keysOf("/e/{eval}/f/{_eval}"),
     ["_eval", "__eval"],
   );
 
   // 3. ESCAPING THAT PREDATES #2111 IS UNCHANGED
-  TestValidator.equals("numeric-leading key", keysOf("/c/{9foo}"), ["_9foo"]);
-  TestValidator.equals("connection receiver key", keysOf("/d/{connection}"), [
+  TestEquality.equals("numeric-leading key", keysOf("/c/{9foo}"), ["_9foo"]);
+  TestEquality.equals("connection receiver key", keysOf("/d/{connection}"), [
     "_connection",
   ]);
 
@@ -77,7 +77,7 @@ export const test_http_migrate_route_parameter_key_escape = (): void => {
   // Strict mode rejects duplicate parameter names, so this fails if any pair
   // above collided.
   for (const route of app.routes)
-    TestValidator.equals(
+    TestEquality.equals(
       `generated declaration for ${route.path} compiles`,
       _isLegalDeclaration({
         name: route.accessor.at(-1)!,

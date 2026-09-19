@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import cp from "child_process";
 import fs from "fs";
 import os from "os";
@@ -48,7 +49,7 @@ export const test_feature_identity_collect = (): void => {
     const files: FeatureIdentity.IFeatureFile[] = FeatureIdentity.collect(root);
 
     // 2. EXACTLY THE RUNNABLE SOURCES
-    TestValidator.equals(
+    TestEquality.equals(
       "collected",
       [
         "tests/test-alpha/src/features/Helper.ts",
@@ -57,7 +58,7 @@ export const test_feature_identity_collect = (): void => {
       ],
       files.map((file) => file.path).sort(),
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "suite",
       ["test-alpha"],
       [...new Set(files.map((file) => file.suite))],
@@ -67,7 +68,7 @@ export const test_feature_identity_collect = (): void => {
     const unicode: FeatureIdentity.IFeatureFile = files.find(
       (file) => file.basename === "test_alpha_é",
     )!;
-    TestValidator.equals(
+    TestEquality.equals(
       "unicode exports",
       ["test_alpha_stub"],
       unicode.exports,
@@ -77,7 +78,7 @@ export const test_feature_identity_collect = (): void => {
     // diagnostic. Asserting the exact count keeps the other five shapes
     // proven silent rather than merely unmentioned.
     const diagnostics: string[] = FeatureIdentity.diagnose(files);
-    TestValidator.equals("diagnostics", 1, diagnostics.length);
+    TestEquality.equals("diagnostics", 1, diagnostics.length);
     TestValidator.predicate(
       `unicode mismatch reported: ${diagnostics[0]}`,
       diagnostics[0]!.includes("test_alpha_é.ts"),

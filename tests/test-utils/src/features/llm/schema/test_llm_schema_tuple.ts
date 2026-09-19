@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection, ILlmSchema } from "typia";
 
@@ -44,8 +44,8 @@ const validate =
         schema,
         $defs: {},
       });
-    TestValidator.equals("success", result.success, false);
-    TestValidator.equals(
+    TestEquality.equals("success", result.success, false);
+    TestEquality.equals(
       "errors",
       result.success ? [] : result.error.reasons.map((r) => r.accessor).sort(),
       expected.sort(),

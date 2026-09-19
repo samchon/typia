@@ -1,36 +1,30 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 /**
- * Verifies which comparison shapes still fail when the actual lacks a field.
+ * Verifies every comparison shape fails when the actual lacks a field.
  *
- * `TestValidator.equals` delegates to `json_equal_to`, whose object branch
- * walks `Object.keys` of its **first** argument and drops every key whose value
- * is `undefined`. Passing the actual first therefore stops checking every field
- * the result failed to produce, and the assertion neither fails nor reports —
- * the one failure mode a suite cannot notice from its own output.
+ * `@nestia/e2e`'s `TestValidator.equals` delegates to `json_equal_to`, whose
+ * object branch walks `Object.keys` of its **first** argument only. Passing the
+ * actual first therefore stopped checking every field the result failed to
+ * produce, and the assertion neither failed nor reported.
  *
- * That shipped twice in this repository. The 64-bit tag suites compared a
- * caught `TypeGuardError`'s `path` and `expected` and passed for any throw that
- * carried neither; `test_json_schemas_v3_0_exclusive_bounds` compared `minimum`
- * and `exclusiveMinimum` read off a downgraded schema and would have passed had
- * the downgrade dropped both flags. Both were found by reading, not by
- * failing.
+ * That shipped here more than once. The 64-bit tag suites compared a caught
+ * `TypeGuardError`'s `path` and `expected`, and passed for any throw carrying
+ * neither. #2350 then triaged the call sites and pinned which shapes were safe.
+ * The same trap still returned in #2399, where an `llm.evaluation` mutation
+ * dropped question text and passed.
  *
- * This pins the behavior so the two safe shapes stay safe and the unsafe one
- * stays documented. A syntactic scan cannot replace it: it cannot tell an
- * optional-typed read from a total one, so it flags roughly fifty provably safe
- * call sites. Knowing _which_ shape to reach for is what generalizes (#2350).
+ * The suites now assert through `TestEquality`, which compares both key sets
+ * (#2401). This pins that the trap is closed in every shape, so no call site
+ * needs to know which shape is safe any more.
  *
- * 1. Pin that the object shape does not catch an absent field, which is the trap
- *    itself.
- * 2. Require the tuple shape to catch it, because the array branch compares
- *    positionally after a length check.
- * 3. Require the `?? null` object shape to catch it, because a normalized value is
- *    never `undefined` and so is never dropped.
+ * 1. Require the object shape to catch an absent field, in both argument orders.
+ * 2. Require the tuple shape to catch it.
+ * 3. Require the `?? null` object shape to catch it.
  *
  * This sits directly under `features` rather than in a feature directory: it
- * pins the assertion harness every suite here shares, not any one of the
- * subjects they test.
+ * pins the assertion harness every suite shares, not any one of the subjects
+ * they test.
  */
 export const test_total_comparison_shape = (): void => {
   interface IReport {
@@ -51,22 +45,43 @@ export const test_total_comparison_shape = (): void => {
   };
 
   //----
-  // 1. the trap
+  // 1. the object shape, in both orders
   //----
-  TestValidator.equals(
-    "the object shape does not catch an absent field",
+  TestEquality.equals(
+    "the object shape accepts a complete report",
     caught(() =>
-      TestValidator.equals(
+      TestEquality.equals(
         "probe",
-        { path: lost.path, expected: lost.expected },
+        { path: complete.path, expected: complete.expected },
         wanted,
       ),
     ),
     false,
   );
-  TestValidator.equals(
-    "the object shape still catches a wrong value",
-    caught(() => TestValidator.equals("probe", { path: "elsewhere" }, wanted)),
+  TestEquality.equals(
+    "the object shape catches an absent field, actual first",
+    caught(() =>
+      TestEquality.equals(
+        "probe",
+        { path: lost.path, expected: lost.expected },
+        wanted,
+      ),
+    ),
+    true,
+  );
+  TestEquality.equals(
+    "the object shape catches an absent key, actual first",
+    caught(() => TestEquality.equals("probe", lost, wanted)),
+    true,
+  );
+  TestEquality.equals(
+    "the object shape catches an absent field, expected first",
+    caught(() =>
+      TestEquality.equals("probe", wanted, {
+        path: lost.path,
+        expected: lost.expected,
+      } as typeof wanted),
+    ),
     true,
   );
 
@@ -77,20 +92,17 @@ export const test_total_comparison_shape = (): void => {
     report.path ?? null,
     report.expected ?? null,
   ];
-  TestValidator.equals(
+  TestEquality.equals(
     "the tuple shape accepts a complete report",
     caught(() =>
-      TestValidator.equals("probe", tuple(complete), [
-        "$input.value",
-        "number",
-      ]),
+      TestEquality.equals("probe", tuple(complete), ["$input.value", "number"]),
     ),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the tuple shape catches an absent field",
     caught(() =>
-      TestValidator.equals("probe", tuple(lost), ["$input.value", "number"]),
+      TestEquality.equals("probe", tuple(lost), ["$input.value", "number"]),
     ),
     true,
   );
@@ -102,14 +114,14 @@ export const test_total_comparison_shape = (): void => {
     path: report.path ?? null,
     expected: report.expected ?? null,
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "the normalized shape accepts a complete report",
-    caught(() => TestValidator.equals("probe", normalized(complete), wanted)),
+    caught(() => TestEquality.equals("probe", normalized(complete), wanted)),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the normalized shape catches an absent field",
-    caught(() => TestValidator.equals("probe", normalized(lost), wanted)),
+    caught(() => TestEquality.equals("probe", normalized(lost), wanted)),
     true,
   );
 };

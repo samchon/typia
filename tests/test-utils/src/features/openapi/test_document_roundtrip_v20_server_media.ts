@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
 
 /**
@@ -69,38 +70,38 @@ export const test_document_roundtrip_v20_server_media = (): void => {
   };
 
   const upgraded: OpenApi.IDocument = OpenApiConverter.upgradeDocument(input);
-  TestValidator.equals("servers", upgraded.servers, [
+  TestEquality.equals("servers", upgraded.servers, [
     { url: "https://api.example.com:8443/v1" },
     { url: "http://api.example.com:8443/v1" },
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "global consumes",
     Object.keys(upgraded.paths!["/global"]!.post!.requestBody!.content!),
     ["application/json", "application/xml"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "global produces",
     Object.keys(upgraded.paths!["/global"]!.post!.responses!["200"]!.content!),
     ["application/json"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "operation server override",
     upgraded.paths!["/override"]!.post!.servers,
     [{ url: "https://api.example.com:8443/v1" }],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "operation consumes override",
     Object.keys(upgraded.paths!["/override"]!.post!.requestBody!.content!),
     ["text/plain"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "operation produces override",
     Object.keys(
       upgraded.paths!["/override"]!.post!.responses!["200"]!.content!,
     ),
     ["text/plain", "application/json"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "operation response examples",
     Object.fromEntries(
       Object.entries(
@@ -114,7 +115,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     upgraded,
     "2.0",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded endpoint",
     {
       schemes: downgraded.schemes,
@@ -127,7 +128,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       basePath: "/v1",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded global operation media",
     {
       consumes: downgraded.paths!["/global"]!.post!.consumes,
@@ -138,7 +139,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       produces: ["application/json"],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded override media",
     {
       schemes: downgraded.paths!["/override"]!.post!.schemes,
@@ -151,7 +152,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       produces: ["text/plain", "application/json"],
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "downgraded response examples",
     downgraded.paths!["/override"]!.post!.responses!["200"]!.examples,
     { "text/plain": "1", "application/json": 1 },
@@ -186,7 +187,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     },
     "2.0",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "response media order is not semantic",
     reordered.paths!["/reordered"]!.get!.produces,
     ["application/json", "text/plain"],
@@ -219,7 +220,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     },
     "2.0",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "root server normalization",
     {
       schemes: root.schemes,
@@ -255,7 +256,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
     },
     "2.0",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "host authority casing",
     {
       schemes: hostCase.schemes,
@@ -282,7 +283,7 @@ export const test_document_roundtrip_v20_server_media = (): void => {
       },
       "2.0",
     );
-  TestValidator.equals(
+  TestEquality.equals(
     "scheme-relative host authority casing",
     {
       schemes: networkHostCase.schemes,

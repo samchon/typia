@@ -18,6 +18,19 @@ type literalFactoryNamespace struct{}
 
 var LiteralFactory = literalFactoryNamespace{}
 
+// LiteralFactory_Null is an explicit JSON `null` value.
+//
+// Object writers treat a Go `nil` value as absent and skip it, which is what
+// most schema builders mean by it, so a real `null`, such as the value of
+// `tags.Example<null>`, needs its own marker to survive into the emitted
+// literal and into encoding/json output (samchon/typia#2403).
+type LiteralFactory_Null struct{}
+
+// MarshalJSON writes the marker as JSON `null`.
+func (LiteralFactory_Null) MarshalJSON() ([]byte, error) {
+  return []byte("null"), nil
+}
+
 // LiteralFactory_OrderedObject is an object literal whose property order is
 // fixed by Keys rather than inferred from a Go map's (unordered) iteration or
 // from propertyRank sorting. Use it for objects whose insertion order is
@@ -69,6 +82,9 @@ var literalFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 func (literalFactoryNamespace) Write(input any, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(literalFactory_factory, emit...)
   if input == nil {
+    return f.NewKeywordExpression(shimast.KindNullKeyword)
+  }
+  if _, ok := input.(LiteralFactory_Null); ok {
     return f.NewKeywordExpression(shimast.KindNullKeyword)
   }
   if node, ok := input.(*shimast.Node); ok {

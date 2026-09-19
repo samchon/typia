@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_coerce_object = (): void => {
@@ -17,9 +17,9 @@ export const test_llm_coerce_object = (): void => {
 
   const result = typia.llm.coerce<IInput>(input);
 
-  TestValidator.equals("name", result.name, "John");
-  TestValidator.equals("age", result.age, 30);
-  TestValidator.equals("age type", typeof result.age, "number");
-  TestValidator.equals("alive", result.alive, true);
-  TestValidator.equals("alive type", typeof result.alive, "boolean");
+  TestEquality.equals("name", result.name, "John");
+  TestEquality.equals("age", result.age, 30);
+  TestEquality.equals("age type", typeof result.age, "number");
+  TestEquality.equals("alive", result.alive, true);
+  TestEquality.equals("alive type", typeof result.alive, "boolean");
 };

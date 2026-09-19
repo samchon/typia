@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_schema_spec_reference = (): void => {
@@ -11,10 +11,10 @@ export const test_llm_schema_spec_reference = (): void => {
 
   const $defs: Record<string, ILlmSchema> = {};
   const schema = typia.llm.schema<INode>($defs);
-  TestValidator.equals("recursive top ref", clean(schema), {
+  TestEquality.equals("recursive top ref", clean(schema), {
     $ref: "#/$defs/INode",
   });
-  TestValidator.equals("recursive definition", clean($defs.INode), {
+  TestEquality.equals("recursive definition", clean($defs.INode), {
     type: "object",
     properties: {
       children: {

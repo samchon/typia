@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -77,52 +77,52 @@ export const test_random_numeric_multiple_of = (): void => {
     const direct: IValues = withRandom(sample, () => typia.random<IValues>());
     const reusable: IValues = withRandom(sample, () => create());
     for (const [name, value] of Object.entries({ direct, reusable })) {
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} validates at ${i}`,
         typia.is<IValues>(value),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} honors every bound at ${i}`,
         typia.is<IBounds>(value),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} decimal oracle at ${i}`,
         decimalMultiple(value.decimal, 0.01),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} exclusive oracle at ${i}`,
         decimalMultiple(value.exclusive, 0.01),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} upper-only oracle at ${i}`,
         decimalMultiple(value.upperOnly, 2),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} lower-only oracle at ${i}`,
         decimalMultiple(value.lowerOnly, 0.1),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} integer upper-only oracle at ${i}`,
         decimalMultiple(value.integerUpperOnly, 2),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} integer decimal oracle at ${i}`,
         decimalMultiple(value.integerDecimal, 1.5),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} large oracle at ${i}`,
         decimalMultiple(value.large, 0.99991),
         true,
       );
-      TestValidator.equals(
+      TestEquality.equals(
         `${name} fractional large-quotient oracle at ${i}`,
         decimalMultiple(value.fractionalLargeQuotient, 9.9991e-17),
         true,
@@ -172,7 +172,7 @@ const assertThrows = (name: string, closure: () => unknown): void => {
   } catch {
     thrown = true;
   }
-  TestValidator.equals(name, thrown, true);
+  TestEquality.equals(name, thrown, true);
 };
 
 const withRandom = <T>(sample: number, closure: () => T): T => {

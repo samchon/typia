@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation question keys are unique and prototype-safe.
@@ -17,7 +16,7 @@ import { _equalsExactly } from "../../internal/_equalsExactly";
  */
 export const test_llm_evaluation_key_encoding = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
-  _equalsExactly("keys", Object.keys(evaluation.questions), [
+  TestEquality.equals("keys", Object.keys(evaluation.questions), [
     '["a.b"]',
     "a.b",
     '["with space"]',
@@ -26,7 +25,7 @@ export const test_llm_evaluation_key_encoding = (): void => {
     "__proto_holder.inner",
     'set["late delivery"]',
   ]);
-  _equalsExactly(
+  TestEquality.equals(
     "questions prototype",
     Object.getPrototypeOf(evaluation.questions) === Object.prototype,
     true,
@@ -39,27 +38,31 @@ export const test_llm_evaluation_key_encoding = (): void => {
   if (result.success === false) throw new Error("unexpected failure");
 
   const data: IDecision = result.data;
-  _equalsExactly("a.b", data["a.b"], true);
-  _equalsExactly("a → b", data.a.b, false);
-  _equalsExactly("space", data["with space"], true);
-  _equalsExactly("quote", data['say "hi"'], false);
-  _equalsExactly(
+  TestEquality.equals("a.b", data["a.b"], true);
+  TestEquality.equals("a → b", data.a.b, false);
+  TestEquality.equals("space", data["with space"], true);
+  TestEquality.equals("quote", data['say "hi"'], false);
+  TestEquality.equals(
     "__proto__ own",
     Object.prototype.hasOwnProperty.call(data, "__proto__"),
     true,
   );
-  _equalsExactly(
+  TestEquality.equals(
     "__proto__ value",
     Object.getOwnPropertyDescriptor(data, "__proto__")?.value,
     true,
   );
-  _equalsExactly(
+  TestEquality.equals(
     "data prototype",
     Object.getPrototypeOf(data) === Object.prototype,
     true,
   );
-  _equalsExactly("nested under __proto__", data.__proto_holder.inner, false);
-  _equalsExactly("set", data.set, ["late delivery"]);
+  TestEquality.equals(
+    "nested under __proto__",
+    data.__proto_holder.inner,
+    false,
+  );
+  TestEquality.equals("set", data.set, ["late delivery"]);
 };
 
 interface IDecision {

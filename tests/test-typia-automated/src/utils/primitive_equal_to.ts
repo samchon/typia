@@ -1,67 +1,29 @@
+import { TestEquality } from "@typia/template/equality";
+
+/**
+ * Structural equality of two JSON-shaped values.
+ *
+ * The JSON operations compare a parsed output with the value it should equal.
+ * This used to walk only the first argument's keys, and the stringify internals
+ * pass the parsed output first, so a property the stringifier dropped was never
+ * compared (#2401). It now delegates to the shared symmetric
+ * {@link TestEquality}.
+ *
+ * @param x First value
+ * @param y Second value
+ * @param tracer Receives the first differing path, like `$input.a[0]`; `silent`
+ *   suppresses the console dump for a caller that expects inequality
+ * @returns Whether both values hold the same data
+ */
 export function primitive_equal_to<Instance>(
   x: Instance,
   y: Instance,
-  tracer?: { value?: string },
+  tracer?: { value?: string; silent?: boolean },
 ): boolean {
-  return recursive_equal_to(x, y, "$input", tracer);
-}
-
-function object_equal_to<T extends object>(
-  x: T,
-  y: T,
-  path: string,
-  tracer?: { value?: string },
-): boolean {
-  return Object.entries(x).every(([key, value]) => {
-    return recursive_equal_to(value, (y as any)[key], `${path}.${key}`, tracer);
-  });
-}
-
-function array_equal_to<T>(
-  x: T[],
-  y: T[],
-  path: string,
-  tracer?: { value?: string },
-): boolean {
-  if (x.length !== y.length)
-    return trace(x.length, y.length, `${path}.length`, tracer);
-  return x.every((value, index) => {
-    return recursive_equal_to(value, y[index], `${path}[${index}]`, tracer);
-  });
-}
-
-function recursive_equal_to<T>(
-  x: T,
-  y: T,
-  path: string,
-  tracer?: { value?: string },
-): boolean {
-  const type = typeof x;
-  if (type !== typeof y) return trace(x, y, path, tracer);
-  else if (type === "object")
-    if (x === null) return trace(x, y, path, tracer);
-    else if (x instanceof Array)
-      return array_equal_to(x, y as typeof x, path, tracer);
-    else
-      return object_equal_to(
-        x as any as object,
-        y as any as object,
-        path,
-        tracer,
-      );
-  else if (type !== "function") return trace(x, y, path, tracer);
-  else return trace(x, y, path, tracer);
-}
-
-function trace(
-  x: any,
-  y: any,
-  path: string,
-  tracer?: { value?: string },
-): boolean {
-  if (x !== y) {
-    console.log({ x, y, path, typeofX: typeof x, typeofY: typeof y });
-    if (tracer) tracer.value = path;
-  }
-  return x === y;
+  const diff: string[] = TestEquality.difference(x, y);
+  if (diff.length === 0) return true;
+  if (tracer?.silent !== true)
+    console.log({ path: diff.map((path) => `$input${path}`), x, y });
+  if (tracer) tracer.value = `$input${diff[0]}`;
+  return false;
 }

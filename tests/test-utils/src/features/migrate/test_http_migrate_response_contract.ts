@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateRoute, IHttpResponse, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpError, HttpMigration } from "@typia/utils";
 
 /**
@@ -18,13 +18,13 @@ import { HttpError, HttpMigration } from "@typia/utils";
 export const test_http_migrate_response_contract = async (): Promise<void> => {
   const application = HttpMigration.application(document);
   const route: IHttpMigrateRoute = application.routes[0]!;
-  TestValidator.equals("representative success", "202", route.success?.status);
-  TestValidator.equals(
+  TestEquality.equals("representative success", "202", route.success?.status);
+  TestEquality.equals(
     "2xx excluded from exceptions",
     false,
     "204" in route.exceptions,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "declared error retained",
     true,
     "400" in route.exceptions,
@@ -45,12 +45,12 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
       parameters: [],
     });
 
-  TestValidator.equals(
+  TestEquality.equals(
     "202 body",
     { accepted: true },
     (await call()).body as { accepted: boolean },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "base path boundary",
     "https://example.com/api/items",
     requests.at(-1),
@@ -58,7 +58,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
 
   for (const status of [200, 201, 206] as const) {
     response = jsonResponse(status, { status });
-    TestValidator.equals(
+    TestEquality.equals(
       `${status} execute`,
       { status } as { status: number },
       (await HttpMigration.execute({
@@ -73,7 +73,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
     status: 206,
     headers: { "Content-Type": "application/problem+json" },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "runtime success media type",
     { problem: true },
     (await HttpMigration.execute({
@@ -84,7 +84,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   );
 
   response = jsonResponse(299, { edge: true });
-  TestValidator.equals(
+  TestEquality.equals(
     "299 execute",
     { edge: true },
     (await HttpMigration.execute({
@@ -95,9 +95,9 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   );
 
   response = new Response(null, { status: 204 });
-  TestValidator.equals("204 body", true, (await call()).body === undefined);
+  TestEquality.equals("204 body", true, (await call()).body === undefined);
   response = new Response(null, { status: 205 });
-  TestValidator.equals("205 body", true, (await call()).body === undefined);
+  TestEquality.equals("205 body", true, (await call()).body === undefined);
 
   response = new Response("redirect", { status: 300 });
   let redirectError: HttpError | undefined;
@@ -106,7 +106,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   } catch (exp) {
     if (exp instanceof HttpError) redirectError = exp;
   }
-  TestValidator.equals("300 is not success", 300, redirectError?.status);
+  TestEquality.equals("300 is not success", 300, redirectError?.status);
 
   const cookieHeaders = new Headers({ "Content-Type": "application/json" });
   cookieHeaders.append("Set-Cookie", "sid=abc; Path=/; HttpOnly");
@@ -119,12 +119,12 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
     headers: cookieHeaders,
   });
   const propagated = await call();
-  TestValidator.equals(
+  TestEquality.equals(
     "failure JSON",
     { code: "BAD" },
     propagated.body as { code: string },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "set-cookie fields",
     [
       "sid=abc; Path=/; HttpOnly",
@@ -138,13 +138,13 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   } catch (exp) {
     if (exp instanceof HttpError) error = exp;
   }
-  TestValidator.equals("HttpError status", 400, error?.status);
-  TestValidator.equals(
+  TestEquality.equals("HttpError status", 400, error?.status);
+  TestEquality.equals(
     "HttpError structured body",
     { code: "BAD" },
     error?.toJSON<{ code: string }>().message,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "legacy HttpError JSON string",
     { legacy: true },
     new HttpError("GET", "/items", 400, {}, '{"legacy":true}').toJSON<{
@@ -162,7 +162,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   } catch (exp) {
     if (exp instanceof HttpError) textError = exp;
   }
-  TestValidator.equals(
+  TestEquality.equals(
     "classified text remains text",
     '{"looks":"json"}',
     textError?.toJSON<string>().message,
@@ -171,7 +171,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   for (const value of [["BAD"], 7, null] as const) {
     response = jsonResponse(400, value);
     const body = (await call()).body;
-    TestValidator.equals(
+    TestEquality.equals(
       `JSON ${JSON.stringify(value)}`,
       JSON.stringify(value),
       JSON.stringify(body),
@@ -219,7 +219,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   ];
   for (const [name, value, predicate] of failureCases) {
     response = value;
-    TestValidator.equals(name, true, predicate((await call()).body));
+    TestEquality.equals(name, true, predicate((await call()).body));
   }
 
   response = jsonResponse(200, { ok: true });
@@ -231,7 +231,7 @@ export const test_http_migrate_response_contract = async (): Promise<void> => {
   ] as const) {
     connection.host = host;
     await call({ ...route, emendedPath: path });
-    TestValidator.equals(
+    TestEquality.equals(
       `URL ${host} ${path}`,
       expected as string,
       requests.at(-1),

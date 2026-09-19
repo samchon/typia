@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -14,10 +14,10 @@ import typia, { tags } from "typia";
  * behind as plain prose. `format` and `pattern` are mutually exclusive tags, so
  * they live on separate string leaves (`thumbnail` and `homepage`).
  *
- * Each keyword is asserted on its own rather than as one object, because
- * `TestValidator.equals` walks the keys of its first argument and skips the
- * ones holding `undefined`: an unrestored leaf compared as an object matches
- * anything and passes vacuously.
+ * Each keyword is asserted on its own rather than as one object, so a failure
+ * names the keyword that was not restored. (The one-way `TestValidator.equals`
+ * once made an unrestored leaf pass as an object; the suites now compare
+ * symmetrically, #2401.)
  *
  * 1. Convert a fully tagged interface to strict LLM parameters.
  * 2. Invert it back with `config.strict` set, matching the conversion.
@@ -59,45 +59,45 @@ export const test_llm_invert_strict_constraints_restored = (): void => {
   const homepage = properties.homepage as OpenApi.IJsonSchema.IString;
   const hobbies = properties.hobbies as OpenApi.IJsonSchema.IArray;
 
-  TestValidator.equals("strict minimum", 0, age.minimum);
-  TestValidator.equals("strict maximum", 100, age.maximum);
-  TestValidator.equals("strict multipleOf", 5, age.multipleOf);
-  TestValidator.equals("strict exclusiveMinimum", 0, score.exclusiveMinimum);
-  TestValidator.equals("strict exclusiveMaximum", 100, score.exclusiveMaximum);
-  TestValidator.equals("strict format", "uri", thumbnail.format);
-  TestValidator.equals(
+  TestEquality.equals("strict minimum", 0, age.minimum);
+  TestEquality.equals("strict maximum", 100, age.maximum);
+  TestEquality.equals("strict multipleOf", 5, age.multipleOf);
+  TestEquality.equals("strict exclusiveMinimum", 0, score.exclusiveMinimum);
+  TestEquality.equals("strict exclusiveMaximum", 100, score.exclusiveMaximum);
+  TestEquality.equals("strict format", "uri", thumbnail.format);
+  TestEquality.equals(
     "strict contentMediaType",
     "image/png",
     thumbnail.contentMediaType,
   );
-  TestValidator.equals("strict pattern", "^https://", homepage.pattern);
-  TestValidator.equals("strict minLength", 8, thumbnail.minLength);
-  TestValidator.equals("strict maxLength", 255, thumbnail.maxLength);
-  TestValidator.equals("strict minItems", 1, hobbies.minItems);
-  TestValidator.equals("strict maxItems", 10, hobbies.maxItems);
-  TestValidator.equals("strict uniqueItems", true, hobbies.uniqueItems);
+  TestEquality.equals("strict pattern", "^https://", homepage.pattern);
+  TestEquality.equals("strict minLength", 8, thumbnail.minLength);
+  TestEquality.equals("strict maxLength", 255, thumbnail.maxLength);
+  TestEquality.equals("strict minItems", 1, hobbies.minItems);
+  TestEquality.equals("strict maxItems", 10, hobbies.maxItems);
+  TestEquality.equals("strict uniqueItems", true, hobbies.uniqueItems);
 
-  TestValidator.equals(
+  TestEquality.equals(
     "strict age description",
     "How old the member is.",
     age.description,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict score description",
     "How much the member scored.",
     score.description,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict thumbnail description",
     "Where to reach the member.",
     thumbnail.description,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict homepage description",
     "The member's homepage.",
     homepage.description,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict hobbies description",
     "What the member likes.",
     hobbies.description,

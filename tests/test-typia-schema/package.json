@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
+    "@typia/template": "workspace:^",
     "ttsc": "catalog:typescript"
   },
   "dependencies": {

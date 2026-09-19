@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**
@@ -29,7 +29,7 @@ export const test_naming_convention_localize = (): void => {
     ["", ""],
   ];
   for (const [input, expected] of expectations)
-    TestValidator.equals(
+    TestEquality.equals(
       `localize(${JSON.stringify(input)})`,
       NamingConvention.localize(input),
       expected,

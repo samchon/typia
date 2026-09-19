@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_structuredOutput_validate = (): void => {
@@ -11,13 +11,13 @@ export const test_llm_structuredOutput_validate = (): void => {
 
   // Valid input
   const valid = output.validate({ name: "Alice", age: 28 });
-  TestValidator.equals("valid.success", valid.success, true);
+  TestEquality.equals("valid.success", valid.success, true);
 
   // Invalid input (wrong type)
   const invalid = output.validate({ name: "Bob", age: "not-a-number" });
-  TestValidator.equals("invalid.success", invalid.success, false);
+  TestEquality.equals("invalid.success", invalid.success, false);
 
   // Missing property
   const missing = output.validate({ name: "Charlie" });
-  TestValidator.equals("missing.success", missing.success, false);
+  TestEquality.equals("missing.success", missing.success, false);
 };

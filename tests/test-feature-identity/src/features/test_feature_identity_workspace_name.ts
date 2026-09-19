@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import fs from "fs";
 import path from "path";
 
@@ -25,7 +26,7 @@ export const test_feature_identity_workspace_name = (): void => {
     `collected test workspaces (${workspaces.length})`,
     workspaces.length >= POPULATED,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "diagnostics",
     [] as string[],
     workspaces

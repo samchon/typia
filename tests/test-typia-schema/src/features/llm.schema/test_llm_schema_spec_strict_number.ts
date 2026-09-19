@@ -1,8 +1,8 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_strict_number = (): void => {
-  TestValidator.equals(
+  TestEquality.equals(
     "strict number shifts constraints",
     clean(
       typia.llm.schema<

@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 interface CallableInterface {
@@ -59,12 +59,12 @@ export const test_json_schema_function_member_spelling_parity = (): void => {
     };
   };
 
-  TestValidator.equals(
+  TestEquality.equals(
     "alias spelling agrees with interface",
     shape(typia.json.schema<AliasHolder>()),
     shape(typia.json.schema<InterfaceHolder>()),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the function member is described by neither",
     shape(typia.json.schema<InterfaceHolder>()),
     {

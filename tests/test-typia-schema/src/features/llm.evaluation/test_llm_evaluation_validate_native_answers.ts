@@ -1,7 +1,6 @@
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation validate accepts TypeSafe's native answers.
@@ -35,7 +34,7 @@ export const test_llm_evaluation_validate_native_answers = (): void => {
         confidence: 0.78,
       },
     });
-  _equalsExactly("result", result, {
+  TestEquality.equals("result", result, {
     success: true,
     data: {
       is_urgent: true,

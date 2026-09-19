@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, ILlmController, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
@@ -30,7 +30,7 @@ export const test_vercel_prefixed_tool_name_namespace = (): void => {
       new CollisionController(),
     );
   const httpController: IHttpLlmController = createHttpController("same");
-  TestValidator.equals(
+  TestEquality.equals(
     "HTTP function name",
     httpController.application.functions.map((func) => func.name),
     ["run_post"],
@@ -67,7 +67,7 @@ export const test_vercel_prefixed_tool_name_namespace = (): void => {
     },
   ];
   for (const testCase of cases)
-    TestValidator.equals(
+    TestEquality.equals(
       testCase.name,
       captureDuplicate([...testCase.controllers]),
       `Duplicate tool names found:\n  - ${testCase.duplicate}`,
@@ -80,7 +80,7 @@ export const test_vercel_prefixed_tool_name_namespace = (): void => {
     ],
     { prefix: true },
   );
-  TestValidator.equals("unique prefixed names", Object.keys(tools).sort(), [
+  TestEquality.equals("unique prefixed names", Object.keys(tools).sort(), [
     "class_run_post",
     "http_run_post",
   ]);

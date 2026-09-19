@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import {
   LlmTypeChecker,
   OpenApiTypeChecker,
@@ -54,7 +55,7 @@ export const test_validate_unicode_string_length = (): void => {
   const diverging: string[] = SAMPLES.filter(
     (value) => characters(value) !== value.length,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "the sample matrix carries values whose two counts differ",
     diverging.length,
     4,
@@ -100,12 +101,12 @@ export const test_validate_unicode_string_length = (): void => {
       ],
     ];
     for (const [tag, expected, byType, byComment] of rows) {
-      TestValidator.equals(`${tag} type tag ${title}`, byType, expected);
-      TestValidator.equals(`${tag} JSDoc tag ${title}`, byComment, expected);
+      TestEquality.equals(`${tag} type tag ${title}`, byType, expected);
+      TestEquality.equals(`${tag} JSDoc tag ${title}`, byComment, expected);
     }
 
     // `assert` and `validate` must agree with `is`; the issue names all three.
-    TestValidator.equals(
+    TestEquality.equals(
       `MinLength<2> validate ${title}`,
       typia.validate<AtLeastTwo>(value).success,
       count >= 2,
@@ -116,7 +117,7 @@ export const test_validate_unicode_string_length = (): void => {
     } catch {
       asserted = false;
     }
-    TestValidator.equals(`MinLength<2> assert ${title}`, asserted, count >= 2);
+    TestEquality.equals(`MinLength<2> assert ${title}`, asserted, count >= 2);
   }
 
   const json = typia.json.schema<One>().schema;
@@ -124,7 +125,7 @@ export const test_validate_unicode_string_length = (): void => {
     OpenApiTypeChecker.isString(json),
   );
   if (OpenApiTypeChecker.isString(json))
-    TestValidator.equals(
+    TestEquality.equals(
       "JSON schema length constraints",
       [json.minLength, json.maxLength],
       [1, 1],
@@ -137,7 +138,7 @@ export const test_validate_unicode_string_length = (): void => {
     LlmTypeChecker.isString(llm),
   );
   if (LlmTypeChecker.isString(llm))
-    TestValidator.equals(
+    TestEquality.equals(
       "LLM schema length constraints",
       [llm.minLength, llm.maxLength],
       [1, 1],
@@ -154,7 +155,7 @@ export const test_validate_unicode_string_length = (): void => {
   // wiring rather than re-deriving the rule; the rule itself is pinned above,
   // against `[...value].length`.
   for (const value of SAMPLES)
-    TestValidator.equals(
+    TestEquality.equals(
       `OpenAPI parity ${JSON.stringify(value)}`,
       OpenApiValidator.validate({
         components: {},

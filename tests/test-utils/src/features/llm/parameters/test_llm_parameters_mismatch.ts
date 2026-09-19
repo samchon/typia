@@ -1,10 +1,10 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IJsonSchemaTransformError,
   ILlmSchema,
   IResult,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
@@ -37,8 +37,8 @@ export const test_llm_parameters_mismatch = (): void => {
         OpenApi.IJsonSchema.IReference | OpenApi.IJsonSchema.IObject
       >(collection.schemas[0]),
     });
-  TestValidator.equals("success", result.success, false);
-  TestValidator.equals(
+  TestEquality.equals("success", result.success, false);
+  TestEquality.equals(
     "errors",
     result.success ? [] : result.error.reasons.map((r) => r.accessor).sort(),
     [

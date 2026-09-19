@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection, tags } from "typia";
 
@@ -16,7 +16,7 @@ export const test_llm_schema_reference_escaped_description_of_property =
     if (result.success === false)
       throw new Error("Failed to compose LLM schema.");
 
-    TestValidator.equals(
+    TestEquality.equals(
       "property description",
       result.value.properties.hobby!.description,
       undefined,

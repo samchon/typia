@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker, OpenApiValidator } from "@typia/utils";
 import typia, { tags } from "typia";
 import { _isFormatUriReference } from "typia/lib/internal/_isFormatUriReference";
@@ -135,7 +135,7 @@ export const test_openapi_validator_format_uri_reference = (): void => {
     validate("https://example.com/path?query=1#fragment", true);
   for (let i: number = 0; i < 3; ++i) validate('http://a"b/c', false);
 
-  TestValidator.equals(
+  TestEquality.equals(
     "iri-reference covers uri-reference",
     true,
     OpenApiTypeChecker.covers({
@@ -151,13 +151,13 @@ export const test_openapi_validator_format_uri_reference = (): void => {
     ...excluded,
   ])
     if (_isFormatUriReference(value) === true)
-      TestValidator.equals(
+      TestEquality.equals(
         `iri-reference accepts uri-reference ${JSON.stringify(value)}`,
         true,
         openapi("iri-reference", value),
       );
 
-  TestValidator.equals(
+  TestEquality.equals(
     "uri-reference schema",
     "uri-reference",
     (typia.json.schema<uriReference>().schema as { format?: string }).format,
@@ -176,22 +176,22 @@ const openapi = (format: string, value: string): boolean =>
 
 const validate = (value: string, expected: boolean): void => {
   const label = `uri-reference ${expected ? "accepts" : "rejects"} ${JSON.stringify(value)}`;
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} directly`,
     expected,
     _isFormatUriReference(value),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} through type tag`,
     expected,
     typia.is<IUriReferenceValue>({ value }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} through comment tag`,
     expected,
     typia.is<ICommentUriReferenceValue>({ value }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     `${label} through OpenApiValidator`,
     expected,
     openapi("uri-reference", value),

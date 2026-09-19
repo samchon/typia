@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 import { FeatureIdentity } from "../FeatureIdentity";
 
@@ -35,7 +36,7 @@ export const test_feature_identity_duplicate_export = (): void => {
   );
 
   // 2. DIFFERENT SUITES: LEGITIMATE
-  TestValidator.equals(
+  TestEquality.equals(
     "cross-suite duplicate",
     [] as string[],
     FeatureIdentity.diagnose([

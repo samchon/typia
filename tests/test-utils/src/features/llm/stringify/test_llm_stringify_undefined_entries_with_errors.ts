@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_undefined_entries_with_errors = (): void => {
@@ -32,17 +32,13 @@ export const test_llm_stringify_undefined_entries_with_errors = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // Both undefined fields should appear in output
-  TestValidator.equals("contains email", output.includes("email"), true);
-  TestValidator.equals("contains age", output.includes("age"), true);
+  TestEquality.equals("contains email", output.includes("email"), true);
+  TestEquality.equals("contains age", output.includes("age"), true);
   // Should show undefined values
-  TestValidator.equals(
-    "contains undefined",
-    output.includes("undefined"),
-    true,
-  );
+  TestEquality.equals("contains undefined", output.includes("undefined"), true);
 
   // Test: Object with only undefined entries that have errors
   const onlyUndefined: Record<string, unknown> = {
@@ -68,17 +64,17 @@ export const test_llm_stringify_undefined_entries_with_errors = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "only-undefined-code-block",
     output2.includes("```json"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "only-undefined-field1",
     output2.includes("field1"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "only-undefined-field2",
     output2.includes("field2"),
     true,

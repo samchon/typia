@@ -4,6 +4,7 @@ import { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController } from "@typia/interface";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 
 import { CalculatorApi } from "../structures/CalculatorApi";
@@ -47,7 +48,7 @@ export const test_mcp_http_controller_execute = async (): Promise<void> => {
     { method: "tools/list", params: {} },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "every converted operation should be listed",
     listed.tools.map((tool: Tool) => tool.name),
     controller.application.functions.map((func) => func.name),
@@ -72,12 +73,12 @@ export const test_mcp_http_controller_execute = async (): Promise<void> => {
     "http tool call should not be an error",
     result.isError !== true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "response body should arrive as structuredContent",
     result.structuredContent,
     { value: 15 },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "content should stay empty without the opt-in text fallback",
     result.content,
     [],

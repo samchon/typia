@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
@@ -12,10 +12,9 @@ import { LlmSchemaConverter } from "@typia/utils";
  * model reads. This is the inverse witness of the erasure defect — the read
  * must do nothing at all when the write did nothing.
  *
- * The inverted leaf is the first argument here, unlike the sibling cases that
- * assert a keyword is present: `TestValidator.equals` walks its first argument
- * and skips the keys holding `undefined`, so passing the leaf first is what
- * makes an invented keyword — present and defined — the thing it compares.
+ * The whole inverted leaf is compared, unlike the sibling cases that assert a
+ * keyword is present: the comparison is symmetric (#2401), so an invented
+ * keyword — present and defined on one side only — fails it.
  *
  * 1. Hand-build a non-strict leaf whose prose happens to contain tag-like text.
  * 2. Invert it without `config.strict`.
@@ -36,7 +35,7 @@ export const test_llm_invert_description_tag_prose_not_promoted = (): void => {
     } satisfies ILlmSchema.IString,
   }) as OpenApi.IJsonSchema.IString;
 
-  TestValidator.equals(
+  TestEquality.equals(
     "prose not promoted to constraints",
     {
       minLength: inverted.minLength,
@@ -53,7 +52,7 @@ export const test_llm_invert_description_tag_prose_not_promoted = (): void => {
       contentMediaType: undefined,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "prose preserved verbatim",
     inverted.description,
     description,

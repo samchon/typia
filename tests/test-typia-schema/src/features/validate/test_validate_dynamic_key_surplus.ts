@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
@@ -37,7 +37,7 @@ export const test_validate_dynamic_key_surplus = (): void => {
   //----
   // THE KEY TYPE ITSELF: NOTHING DECLARES `wrong`, SO IT IS SURPLUS
   //----
-  TestValidator.equals(
+  TestEquality.equals(
     "a key outside the template is surplus, not a violation",
     [
       typia.is<ITemplateKey>({ prefix_a: "x", wrong: "y" }),
@@ -51,9 +51,9 @@ export const test_validate_dynamic_key_surplus = (): void => {
     prefix_a: "x",
     wrong: "y",
   });
-  TestValidator.equals("the surplus key is reported", surplus.success, false);
+  TestEquality.equals("the surplus key is reported", surplus.success, false);
   if (surplus.success === false)
-    TestValidator.equals(
+    TestEquality.equals(
       "a surplus key keeps the surplus report",
       [
         surplus.errors[0]?.path ?? null,
@@ -66,7 +66,7 @@ export const test_validate_dynamic_key_surplus = (): void => {
   //----
   // THE SAME PREDICATE AS A TAG: THE KEY IS DECLARED, SO IT IS REJECTED
   //----
-  TestValidator.equals(
+  TestEquality.equals(
     "the same predicate as a tag rejects instead",
     [
       typia.is<IPatternKey>({ prefix_a: "x", wrong: "y" }),
@@ -77,9 +77,9 @@ export const test_validate_dynamic_key_surplus = (): void => {
   );
 
   const rejected = typia.validate<IPatternKey>({ prefix_a: "x", wrong: "y" });
-  TestValidator.equals("the bad key is reported", rejected.success, false);
+  TestEquality.equals("the bad key is reported", rejected.success, false);
   if (rejected.success === false)
-    TestValidator.equals(
+    TestEquality.equals(
       "a bad key names the type it had to satisfy",
       [
         rejected.errors[0]?.path ?? null,
@@ -106,7 +106,7 @@ export const test_validate_dynamic_key_surplus = (): void => {
     value_1: "z",
     wrong: "w",
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "many templates still report surplus",
     [
       typia.is<IManyTemplateKeys>({

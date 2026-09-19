@@ -1,6 +1,6 @@
 import { IJsonSchemaAttribute, OpenApi, SwaggerV2 } from "@typia/interface";
 
-import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
@@ -90,7 +90,7 @@ export namespace SwaggerV2Upgrader {
       const resolve = (
         p: SwaggerV2.IOperation.IParameter | SwaggerV2.IJsonSchema.IReference,
       ): SwaggerV2.IOperation.IParameter | undefined =>
-        "$ref" in p ? doc.parameters?.[p.$ref.split("/").pop() ?? ""] : p;
+        "$ref" in p ? OpenApiReferenceKey.get(doc.parameters, p.$ref) : p;
       const pathParameters: SwaggerV2.IOperation.IParameter[] = (
         pathItem.parameters ?? []
       )
@@ -332,7 +332,7 @@ export namespace SwaggerV2Upgrader {
     ): OpenApi.IOperation.IResponse | undefined => {
       if ("$ref" in input) {
         const found: SwaggerV2.IOperation.IResponse | undefined =
-          doc.responses?.[input.$ref.split("/").pop() ?? ""]!;
+          OpenApiReferenceKey.get(doc.responses, input.$ref)!;
         if (found === undefined) return undefined;
         input = found;
       }
@@ -877,10 +877,7 @@ export namespace SwaggerV2Upgrader {
 
       if (SwaggerV2TypeChecker.isReference(input))
         return retrieveObject(definitions)(
-          ObjectDictionary.get(
-            definitions,
-            input.$ref.split("/").pop() ?? "",
-          ) ?? {},
+          OpenApiReferenceKey.get(definitions, input.$ref) ?? {},
           visited,
         );
       return null;

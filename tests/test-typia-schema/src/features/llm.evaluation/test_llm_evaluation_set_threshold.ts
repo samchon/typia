@@ -1,6 +1,5 @@
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
-
-import { _equalsExactly } from "../../internal/_equalsExactly";
 
 /**
  * Verifies typia.llm.evaluation includes set members at their thresholds.
@@ -29,15 +28,19 @@ export const test_llm_evaluation_set_threshold = (): void => {
     return result.data;
   };
 
-  _equalsExactly("below both", run({ card: 0.89, loan: 0.69, plain: 0.49 }), {
-    products: [],
-    channels: ["phone"],
-  });
-  _equalsExactly("at both", run({ card: 0.9, loan: 0.7, plain: 0.5 }), {
+  TestEquality.equals(
+    "below both",
+    run({ card: 0.89, loan: 0.69, plain: 0.49 }),
+    {
+      products: [],
+      channels: ["phone"],
+    },
+  );
+  TestEquality.equals("at both", run({ card: 0.9, loan: 0.7, plain: 0.5 }), {
     products: ["card", "loan"],
     channels: ["email", "phone"],
   });
-  _equalsExactly("only default", run({ card: 0.8, loan: 0.8, plain: 1 }), {
+  TestEquality.equals("only default", run({ card: 0.8, loan: 0.8, plain: 1 }), {
     products: ["loan"],
     channels: ["email"],
   });

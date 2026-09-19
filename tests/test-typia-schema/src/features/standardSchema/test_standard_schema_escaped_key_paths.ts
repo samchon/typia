@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 interface IHostileKeys {
@@ -48,7 +49,7 @@ export const test_standard_schema_escaped_key_paths = (): void => {
   if (result instanceof Promise || result.issues === undefined)
     throw new Error("Expected escaped keys to return Standard Schema issues.");
 
-  TestValidator.equals("issue count", KEYS.length, result.issues.length);
+  TestEquality.equals("issue count", KEYS.length, result.issues.length);
   for (const key of KEYS)
     TestValidator.predicate(`issue path for ${JSON.stringify(key)}`, () =>
       result.issues!.some(

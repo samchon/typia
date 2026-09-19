@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_parameters_converter_matrix = (): void => {
@@ -18,13 +19,13 @@ export const test_llm_parameters_converter_matrix = (): void => {
 
   const params: ILlmSchema.IParameters = typia.llm.parameters<IParams>();
 
-  TestValidator.equals("parameters type", params.type, "object");
-  TestValidator.equals(
+  TestEquality.equals("parameters type", params.type, "object");
+  TestEquality.equals(
     "parameters additionalProperties",
     false,
     params.additionalProperties,
   );
-  TestValidator.equals("parameters required", sorted(params.required), [
+  TestEquality.equals("parameters required", sorted(params.required), [
     "dictionary",
     "leaf",
     "leaves",
@@ -33,29 +34,25 @@ export const test_llm_parameters_converter_matrix = (): void => {
     "status",
   ]);
 
-  TestValidator.equals("status enum", enumSchema(params.properties.status), {
+  TestEquality.equals("status enum", enumSchema(params.properties.status), {
     type: "string",
     enum: ["done", "pending"],
   });
-  TestValidator.equals(
-    "priority enum",
-    enumSchema(params.properties.priority),
-    {
-      type: "number",
-      enum: [1, 2, 3],
-    },
-  );
+  TestEquality.equals("priority enum", enumSchema(params.properties.priority), {
+    type: "number",
+    enum: [1, 2, 3],
+  });
 
   const nullable = params.properties.nullable;
   TestValidator.predicate("nullable is anyOf", () => isAnyOf(nullable));
   if (isAnyOf(nullable))
-    TestValidator.equals(
+    TestEquality.equals(
       "nullable variants",
       sorted(nullable.anyOf.map((s) => typeName(s))),
       ["null", "string"],
     );
 
-  TestValidator.equals("leaf reference", params.properties.leaf, {
+  TestEquality.equals("leaf reference", params.properties.leaf, {
     $ref: "#/$defs/IParamLeaf",
   });
   TestValidator.predicate("IParamLeaf definition exists", () =>
@@ -65,14 +62,14 @@ export const test_llm_parameters_converter_matrix = (): void => {
   const leaves = params.properties.leaves;
   TestValidator.predicate("leaves array", () => isArray(leaves));
   if (isArray(leaves))
-    TestValidator.equals("leaves item reference", leaves.items, {
+    TestEquality.equals("leaves item reference", leaves.items, {
       $ref: "#/$defs/IParamLeaf",
     });
 
   const dictionary = resolve(params.properties.dictionary, params.$defs);
   TestValidator.predicate("dictionary object", () => isObject(dictionary));
   if (isObject(dictionary))
-    TestValidator.equals(
+    TestEquality.equals(
       "dictionary conversion",
       {
         type: dictionary.type,
@@ -90,15 +87,15 @@ export const test_llm_parameters_converter_matrix = (): void => {
     );
 
   const leaf = params.$defs.IParamLeaf as ILlmSchema.IObject;
-  TestValidator.equals("leaf required", sorted(leaf.required), [
+  TestEquality.equals("leaf required", sorted(leaf.required), [
     "code",
     "value",
   ]);
-  TestValidator.equals("leaf code pattern", leaf.properties.code, {
+  TestEquality.equals("leaf code pattern", leaf.properties.code, {
     type: "string",
     pattern: "^[a-z]+$",
   });
-  TestValidator.equals("leaf value minimum", leaf.properties.value, {
+  TestEquality.equals("leaf value minimum", leaf.properties.value, {
     type: "number",
     minimum: 0,
   });

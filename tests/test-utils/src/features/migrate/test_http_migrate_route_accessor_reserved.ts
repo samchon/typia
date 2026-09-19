@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateApplication, IHttpMigrateRoute } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 import { OpenApi } from "typia";
 
@@ -16,7 +16,7 @@ export const test_http_migrate_route_accessor_reserved = (): void => {
   };
   const app: IHttpMigrateApplication = HttpMigration.application(document);
   const route: IHttpMigrateRoute = app.routes[0]!;
-  TestValidator.equals("accessor", route.accessor, [
+  TestEquality.equals("accessor", route.accessor, [
     "_case",
     "_switch",
     "_do",

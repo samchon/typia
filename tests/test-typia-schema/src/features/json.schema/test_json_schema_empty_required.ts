@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiValidator } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -38,12 +38,12 @@ export const test_json_schema_empty_required = (): void => {
   }
 
   const optionalOnly = object(typia.json.schema<IOptionalOnly>());
-  TestValidator.equals("optional-only required", optionalOnly.required, []);
-  TestValidator.equals("optional-only properties", sorted(optionalOnly), [
+  TestEquality.equals("optional-only required", optionalOnly.required, []);
+  TestEquality.equals("optional-only properties", sorted(optionalOnly), [
     "count",
     "title",
   ]);
-  TestValidator.equals(
+  TestEquality.equals(
     "optional-only validator",
     OpenApiValidator.validate({
       components: { schemas: {} },
@@ -55,24 +55,24 @@ export const test_json_schema_empty_required = (): void => {
   );
 
   const filteredOnly = object(typia.json.schema<IFilteredOnly>());
-  TestValidator.equals("filtered-only properties", filteredOnly.properties, {});
-  TestValidator.equals("filtered-only required", filteredOnly.required, []);
+  TestEquality.equals("filtered-only properties", filteredOnly.properties, {});
+  TestEquality.equals("filtered-only required", filteredOnly.required, []);
 
   const record = typia.json.schema<Record<string, string & tags.MinLength<1>>>()
     .schema as OpenApi.IJsonSchema.IObject;
-  TestValidator.equals(
+  TestEquality.equals(
     "record required omitted",
     hasOwn(record, "required"),
     false,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "record properties omitted",
     hasOwn(record, "properties"),
     false,
   );
 
   const requiredOne = object(typia.json.schema<IRequiredOne>());
-  TestValidator.equals("required property retained", requiredOne.required, [
+  TestEquality.equals("required property retained", requiredOne.required, [
     "value",
   ]);
 };

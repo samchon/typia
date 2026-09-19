@@ -401,6 +401,7 @@ func llmApplicationProgrammer_convertParameters(
   output := llmSchemaProgrammer_convert_schema_config(target, components, defs, config)
   output["additionalProperties"] = false
   output["$defs"] = defs
+  llmReferenceDescription_assign(output, schema, components)
   return output
 }
 

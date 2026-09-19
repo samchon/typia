@@ -3,6 +3,7 @@ import { OpenApi } from "@typia/interface";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { NamingConvention } from "../NamingConvention";
 import { ObjectDictionary } from "./ObjectDictionary";
+import { OpenApiReferenceKey } from "./OpenApiReferenceKey";
 
 export namespace JsonDescriptor {
   /**
@@ -32,9 +33,7 @@ export namespace JsonDescriptor {
     key?: string;
   }): string | undefined => {
     const accessors: string[] = (
-      props.key ??
-      props.schema.$ref.split(props.prefix)[1] ??
-      props.schema.$ref.split("/").at(-1)!
+      props.key ?? OpenApiReferenceKey.read(props.schema.$ref, props.prefix)
     ).split(".");
     const pReferences: IParentReference[] = accessors
       .slice(0, props.escape ? accessors.length : accessors.length - 1)

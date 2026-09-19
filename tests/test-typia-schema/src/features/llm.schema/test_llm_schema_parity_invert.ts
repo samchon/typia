@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaCollection, ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -26,17 +26,17 @@ export const test_llm_schema_parity_invert = (): void => {
     $defs,
   });
 
-  TestValidator.equals(
+  TestEquality.equals(
     "inverted schema",
     clean(inverted),
     clean(collection.schemas[0]),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "inverted components",
     stripXDiscriminator(components),
     clean(collection.components),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "x-discriminator preserved",
     clean(
       (
@@ -66,7 +66,7 @@ export const test_llm_schema_parity_invert = (): void => {
     schema: strict,
     $defs: {},
   }) as OpenApi.IJsonSchema.IString;
-  TestValidator.equals(
+  TestEquality.equals(
     "strict description inversion constraints",
     clean({
       type: strictInverted.type,
@@ -81,7 +81,7 @@ export const test_llm_schema_parity_invert = (): void => {
       maxLength: 36,
     } satisfies typeof strictTargetSchema),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict descriptor tags consumed",
     strictInverted.description,
     undefined,
@@ -99,7 +99,7 @@ export const test_llm_schema_parity_invert = (): void => {
     schema: strictPattern,
     $defs: {},
   }) as OpenApi.IJsonSchema.IString;
-  TestValidator.equals(
+  TestEquality.equals(
     "strict description inversion pattern",
     clean({
       type: strictPatternInverted.type,
@@ -110,7 +110,7 @@ export const test_llm_schema_parity_invert = (): void => {
       pattern: "^[0-9a-f-]+$",
     } satisfies { type: "string"; pattern: string }),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "strict pattern descriptor tags consumed",
     strictPatternInverted.description,
     undefined,

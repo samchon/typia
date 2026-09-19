@@ -1,9 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import {
   IHttpLlmApplication,
   IHttpLlmFunction,
   OpenApi,
 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 import { IValidation } from "typia";
 
@@ -21,9 +21,9 @@ export const test_llm_applicationEquals = (): void => {
       superfluous: "property",
     },
   });
-  TestValidator.equals("result-success", result.success, false);
+  TestEquality.equals("result-success", result.success, false);
   if (!result.success)
-    TestValidator.equals(
+    TestEquality.subset(
       "result-errors",
       [{ expected: "undefined" }],
       result.errors,

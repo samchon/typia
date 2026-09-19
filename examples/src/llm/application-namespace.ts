@@ -4,7 +4,7 @@ const app: ILlmApplication = typia.llm.application<BbsArticleController>();
 const func: ILlmFunction | undefined = app.functions.find(
   (func) => func.name === "create",
 );
-console.log(func?.parameters.properties.input?.description);
+console.log(func?.parameters.description);
 
 /**
  * Article entity.
@@ -65,13 +65,9 @@ interface BbsArticleController {
    *
    * Writes a new article and archives it into the DB.
    *
-   * @param props Properties of create function
    * @returns Newly created article
    */
-  create(props: {
-    /** Information of the article to create */
-    input: IBbsArticle.ICreate;
-  }): Promise<IBbsArticle>;
+  create(input: IBbsArticle.ICreate): Promise<IBbsArticle>;
 
   /**
    * Update an article.

@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -17,7 +18,7 @@ export const test_json_schema_string = (): void => {
     OpenApiTypeChecker.isString(email),
   );
   if (OpenApiTypeChecker.isString(email)) {
-    TestValidator.equals("email format", email.format, "email");
+    TestEquality.equals("email format", email.format, "email");
   }
 
   // string with pattern
@@ -27,7 +28,7 @@ export const test_json_schema_string = (): void => {
     OpenApiTypeChecker.isString(pattern),
   );
   if (OpenApiTypeChecker.isString(pattern)) {
-    TestValidator.equals("pattern value", pattern.pattern, "^[a-z]+$");
+    TestEquality.equals("pattern value", pattern.pattern, "^[a-z]+$");
   }
 
   // string with length constraints
@@ -36,7 +37,7 @@ export const test_json_schema_string = (): void => {
   >();
   const constrained = constrainedUnit.schema;
   if (OpenApiTypeChecker.isString(constrained)) {
-    TestValidator.equals("minLength", constrained.minLength, 1);
-    TestValidator.equals("maxLength", constrained.maxLength, 100);
+    TestEquality.equals("minLength", constrained.minLength, 1);
+    TestEquality.equals("maxLength", constrained.maxLength, 100);
   }
 };

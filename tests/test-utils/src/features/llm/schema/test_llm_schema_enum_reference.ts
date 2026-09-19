@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import { ILlmSchema } from "typia";
 
@@ -36,7 +37,7 @@ export const test_llm_schema_enum_reference = (): void => {
       schema,
       $defs,
     });
-  TestValidator.equals(
+  TestEquality.equals(
     "success",
     result.success,
     true,
@@ -49,5 +50,5 @@ export const test_llm_schema_enum_reference = (): void => {
     const anyOf = (result.value as any).anyOf;
     return Array.isArray(anyOf) && anyOf.length === 2;
   });
-  TestValidator.equals("named $defs", ($defs.named as any)?.enum, [4, 5]);
+  TestEquality.equals("named $defs", ($defs.named as any)?.enum, [4, 5]);
 };

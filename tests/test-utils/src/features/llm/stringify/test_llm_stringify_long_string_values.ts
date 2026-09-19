@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_long_string_values = (): void => {
@@ -22,11 +22,11 @@ export const test_llm_stringify_long_string_values = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
-  TestValidator.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
   // The long string should be present (at least partially)
-  TestValidator.equals("contains long string", output.includes("aaaa"), true);
-  TestValidator.equals("output is long enough", output.length > 10000, true);
+  TestEquality.equals("contains long string", output.includes("aaaa"), true);
+  TestEquality.equals("output is long enough", output.length > 10000, true);
 
   // Test: Long expected type description
   const longExpected = "string & " + Array(100).fill("Constraint").join(" & ");
@@ -44,12 +44,12 @@ export const test_llm_stringify_long_string_values = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals(
+  TestEquality.equals(
     "long-expected-code-block",
     output2.includes("```json"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "long-expected-constraint",
     output2.includes("Constraint"),
     true,
@@ -73,10 +73,10 @@ export const test_llm_stringify_long_string_values = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals(
+  TestEquality.equals(
     "long-desc-code-block",
     output3.includes("```json"),
     true,
   );
-  TestValidator.equals("long-desc-content", output3.includes("reason"), true);
+  TestEquality.equals("long-desc-content", output3.includes("reason"), true);
 };

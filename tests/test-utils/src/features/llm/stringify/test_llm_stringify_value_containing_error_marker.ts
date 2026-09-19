@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_value_containing_error_marker = (): void => {
@@ -22,16 +22,16 @@ export const test_llm_stringify_value_containing_error_marker = (): void => {
   };
 
   const output1: string = LlmJson.stringify(failure1);
-  TestValidator.equals("arr-code-block", output1.includes("```json"), true);
-  TestValidator.equals("arr-error-marker", output1.includes("// ❌"), true);
+  TestEquality.equals("arr-code-block", output1.includes("```json"), true);
+  TestEquality.equals("arr-error-marker", output1.includes("// ❌"), true);
   // The string value should be intact (JSON-stringified with quotes)
-  TestValidator.equals(
+  TestEquality.equals(
     "arr-value-intact",
     output1.includes("test // ❌ fake marker"),
     true,
   );
   // Should not have unmappable errors
-  TestValidator.equals(
+  TestEquality.equals(
     "arr-no-unmappable",
     output1.includes("Unmappable"),
     false,
@@ -54,13 +54,13 @@ export const test_llm_stringify_value_containing_error_marker = (): void => {
   };
 
   const output2: string = LlmJson.stringify(failure2);
-  TestValidator.equals("obj-code-block", output2.includes("```json"), true);
-  TestValidator.equals(
+  TestEquality.equals("obj-code-block", output2.includes("```json"), true);
+  TestEquality.equals(
     "obj-message-intact",
     output2.includes("Error // ❌ occurred here"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "obj-count-error",
     output2.includes("$input.count"),
     true,
@@ -85,18 +85,18 @@ export const test_llm_stringify_value_containing_error_marker = (): void => {
   };
 
   const output3: string = LlmJson.stringify(failure3);
-  TestValidator.equals("nested-code-block", output3.includes("```json"), true);
-  TestValidator.equals(
+  TestEquality.equals("nested-code-block", output3.includes("```json"), true);
+  TestEquality.equals(
     "nested-fake-intact",
     output3.includes("line // ❌ [fake]"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nested-real-error",
     output3.includes("$input.items[0].value"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "nested-no-unmappable",
     output3.includes("Unmappable"),
     false,

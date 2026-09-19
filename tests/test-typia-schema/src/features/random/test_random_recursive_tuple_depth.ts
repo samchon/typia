@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -18,13 +18,13 @@ export const test_random_recursive_tuple_depth = (): void => {
     array: (schema) =>
       new Array(1).fill(null).map((_, index) => schema.element(index, 1)),
   });
-  TestValidator.equals("recursive tuple array depth", tupleDepth(value), 6);
+  TestEquality.equals("recursive tuple array depth", tupleDepth(value), 6);
 
   const createValue = typia.createRandom<IRecursiveTuple>({
     array: (schema) =>
       new Array(1).fill(null).map((_, index) => schema.element(index, 1)),
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom recursive tuple array depth",
     tupleDepth(createValue()),
     6,

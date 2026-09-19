@@ -1,8 +1,8 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { TicketSearch } from "../structures/TicketSearch";
@@ -41,12 +41,12 @@ export const test_mcp_tool_markdown_structured_content =
       { signal: new AbortController().signal },
     );
 
-    TestValidator.equals(
+    TestEquality.equals(
       "structuredContent should carry the Markdown wrapper object",
       result.structuredContent,
       { content: markdown },
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "content should stay empty without the opt-in text fallback",
       result.content,
       [],

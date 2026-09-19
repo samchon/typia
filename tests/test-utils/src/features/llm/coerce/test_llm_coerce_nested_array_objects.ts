@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -26,11 +26,11 @@ export const test_llm_coerce_nested_array_objects = (): void => {
     JSON.stringify(corrupted),
     parameters,
   );
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("users[0].name", result.data.users[0]!.name, "Alice");
-    TestValidator.equals("users[0].age", result.data.users[0]!.age, 30);
-    TestValidator.equals("users[1].name", result.data.users[1]!.name, "Bob");
-    TestValidator.equals("users[1].age", result.data.users[1]!.age, 25);
+    TestEquality.equals("users[0].name", result.data.users[0]!.name, "Alice");
+    TestEquality.equals("users[0].age", result.data.users[0]!.age, 30);
+    TestEquality.equals("users[1].name", result.data.users[1]!.name, "Bob");
+    TestEquality.equals("users[1].age", result.data.users[1]!.age, 25);
   }
 };

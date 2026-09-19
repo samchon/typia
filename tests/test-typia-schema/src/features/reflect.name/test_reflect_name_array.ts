@@ -1,10 +1,10 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_reflect_name_array = (): void => {
-  TestValidator.equals("string[]", typia.reflect.name<string[]>(), "string[]");
-  TestValidator.equals("number[]", typia.reflect.name<number[]>(), "number[]");
-  TestValidator.equals(
+  TestEquality.equals("string[]", typia.reflect.name<string[]>(), "string[]");
+  TestEquality.equals("number[]", typia.reflect.name<number[]>(), "number[]");
+  TestEquality.equals(
     "boolean[][]",
     typia.reflect.name<boolean[][]>(),
     "boolean[][]",

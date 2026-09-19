@@ -6,6 +6,7 @@ import { Validator, toJsonSchema } from "@langchain/core/utils/json_schema";
 import { TestValidator } from "@nestia/e2e";
 import { ILlmController } from "@typia/interface";
 import { toLangChainTools } from "@typia/langchain";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -66,7 +67,7 @@ export const test_langchain_json_pointer_reference_arguments =
     );
 
     const valid = await tool.invoke({ input: tree });
-    TestValidator.equals("valid referenced argument executes", valid, {
+    TestEquality.equals("valid referenced argument executes", valid, {
       success: true,
       data: tree,
     });

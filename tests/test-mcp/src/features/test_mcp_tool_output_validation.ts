@@ -4,6 +4,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
 import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -53,11 +54,11 @@ export const test_mcp_tool_output_validation = async (): Promise<void> => {
         name: "read",
         arguments: { variant: "valid" },
       })) as CallToolResult;
-      TestValidator.equals("valid structured output", valid.structuredContent, {
+      TestEquality.equals("valid structured output", valid.structuredContent, {
         value: 1,
         nested: { label: "valid" },
       });
-      TestValidator.equals(
+      TestEquality.equals(
         "valid text fallback",
         valid.content,
         textFallback

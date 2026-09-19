@@ -1,8 +1,8 @@
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { TestValidator } from "@nestia/e2e";
 import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
@@ -38,12 +38,12 @@ export const test_mcp_tool_text_fallback_enabled = async (): Promise<void> => {
     },
     { signal: new AbortController().signal },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "structuredContent should carry the typed result",
     result.structuredContent,
     { value: 15 },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "text block should serialize the same object",
     JSON.parse((result.content[0] as { text: string }).text),
     { value: 15 },

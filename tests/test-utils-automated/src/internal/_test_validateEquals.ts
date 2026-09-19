@@ -1,6 +1,6 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation, OpenApi } from "@typia/interface";
 import { Spoiler } from "@typia/template";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention, OpenApiValidator } from "@typia/utils";
 
 export const _test_validateEquals = <T>(props: {
@@ -28,7 +28,7 @@ export const _test_validateEquals = <T>(props: {
   const actual: string[] = result.success
     ? []
     : result.errors.map((e) => e.path).sort();
-  TestValidator.equals("superfluous", expected, actual);
+  TestEquality.equals("superfluous", expected, actual);
 };
 
 function spoil(accessors: string[], path: string, input: any): void {

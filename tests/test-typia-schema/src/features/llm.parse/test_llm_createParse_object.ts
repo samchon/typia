@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_createParse_object = (): void => {
@@ -18,16 +18,16 @@ export const test_llm_createParse_object = (): void => {
   const result1 = parse(input1);
   const result2 = parse(input2);
 
-  TestValidator.equals("result1 success", result1.success, true);
-  TestValidator.equals("result2 success", result2.success, true);
+  TestEquality.equals("result1 success", result1.success, true);
+  TestEquality.equals("result2 success", result2.success, true);
 
   if (result1.success) {
-    TestValidator.equals("result1 name", result1.data.name, "John");
-    TestValidator.equals("result1 age", result1.data.age, 30);
+    TestEquality.equals("result1 name", result1.data.name, "John");
+    TestEquality.equals("result1 age", result1.data.age, 30);
   }
 
   if (result2.success) {
-    TestValidator.equals("result2 name", result2.data.name, "Jane");
-    TestValidator.equals("result2 age", result2.data.age, 25);
+    TestEquality.equals("result2 name", result2.data.name, "Jane");
+    TestEquality.equals("result2 age", result2.data.age, 25);
   }
 };

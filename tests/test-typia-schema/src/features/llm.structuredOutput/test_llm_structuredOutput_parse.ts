@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_llm_structuredOutput_parse = (): void => {
@@ -13,10 +13,10 @@ export const test_llm_structuredOutput_parse = (): void => {
   // Test parse with stringified values (coercion)
   const result = output.parse('{"name":"Jane","age":"25","alive":"true"}');
 
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success) {
-    TestValidator.equals("name", result.data.name, "Jane");
-    TestValidator.equals("age", result.data.age, 25);
-    TestValidator.equals("alive", result.data.alive, true);
+    TestEquality.equals("name", result.data.name, "Jane");
+    TestEquality.equals("age", result.data.age, 25);
+    TestEquality.equals("alive", result.data.alive, true);
   }
 };

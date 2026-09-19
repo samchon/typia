@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaTransformError, IResult } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import { ILlmSchema } from "typia";
 
@@ -31,8 +31,8 @@ export const test_llm_schema_recursive_ref = (): void => {
         $ref: "#/components/schemas/Department",
       },
     });
-  TestValidator.equals("success", result.success, true);
-  TestValidator.equals(
+  TestEquality.equals("success", result.success, true);
+  TestEquality.equals(
     "$defs",
     {
       Department: {
@@ -53,7 +53,7 @@ export const test_llm_schema_recursive_ref = (): void => {
     } satisfies Record<string, ILlmSchema> as Record<string, ILlmSchema>,
     $defs,
   );
-  TestValidator.equals("schema", result.success ? result.value : {}, {
+  TestEquality.equals("schema", result.success ? result.value : {}, {
     $ref: "#/$defs/Department",
   });
 };

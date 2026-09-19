@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 
 import { FeatureIdentity } from "../FeatureIdentity";
 
@@ -18,7 +19,7 @@ import { FeatureIdentity } from "../FeatureIdentity";
  */
 export const test_feature_identity_filename_mismatch = (): void => {
   // 1. THE MATCHING TWIN STAYS SILENT
-  TestValidator.equals(
+  TestEquality.equals(
     "matching",
     [] as string[],
     FeatureIdentity.diagnose([
@@ -30,7 +31,7 @@ export const test_feature_identity_filename_mismatch = (): void => {
   const mismatch: string[] = FeatureIdentity.diagnose([
     file("test_http_llm_function_tags", ["test_http_llm_function_deprecated"]),
   ]);
-  TestValidator.equals("mismatch count", 1, mismatch.length);
+  TestEquality.equals("mismatch count", 1, mismatch.length);
   TestValidator.predicate(
     `mismatch names both sides: ${mismatch[0]}`,
     mismatch[0]!.includes("test_http_llm_function_deprecated") &&
@@ -38,12 +39,12 @@ export const test_feature_identity_filename_mismatch = (): void => {
   );
 
   // 3. FAIL CLOSED ON ZERO AND ON MANY
-  TestValidator.equals(
+  TestEquality.equals(
     "no export",
     1,
     FeatureIdentity.diagnose([file("test_llm_schema_enum", [])]).length,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "two exports",
     1,
     FeatureIdentity.diagnose([

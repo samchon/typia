@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 import { Foo as Alpha } from "../json.schema/ComponentNameCollisionAlpha";
@@ -24,7 +25,7 @@ import { Foo as Gamma } from "../json.schema/ComponentNameCollisionGamma";
 export const test_reflect_name_regular_duplicate_disambiguator = (): void => {
   // 1. THE REAL QUALIFIED NAME
   const real: string = typia.reflect.name<Gamma.o1, true>();
-  TestValidator.equals(
+  TestEquality.equals(
     "a real namespace member reports its qualified name",
     "Foo.o1",
     real,
@@ -35,7 +36,7 @@ export const test_reflect_name_regular_duplicate_disambiguator = (): void => {
 
   // 3. THE MINTED ID IS NOT THE REAL NAME
   const members: string[] = duplicated.replace(/[()]/gu, "").split(" | ");
-  TestValidator.equals(
+  TestEquality.equals(
     "both duplicates are named, and distinctly",
     2,
     new Set(members).size,

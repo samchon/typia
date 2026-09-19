@@ -1,12 +1,12 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_schema_spec_string = (): void => {
-  TestValidator.equals("string", clean(typia.llm.schema<string>({})), {
+  TestEquality.equals("string", clean(typia.llm.schema<string>({})), {
     type: "string",
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "format",
     clean(typia.llm.schema<string & tags.Format<"email">>({})),
     {
@@ -14,7 +14,7 @@ export const test_llm_schema_spec_string = (): void => {
       format: "email",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "pattern",
     clean(typia.llm.schema<string & tags.Pattern<"^[a-z]+$">>({})),
     {
@@ -22,7 +22,7 @@ export const test_llm_schema_spec_string = (): void => {
       pattern: "^[a-z]+$",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "length",
     clean(typia.llm.schema<string & tags.MinLength<2> & tags.MaxLength<8>>({})),
     {
@@ -31,7 +31,7 @@ export const test_llm_schema_spec_string = (): void => {
       maxLength: 8,
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "content media type",
     clean(typia.llm.schema<string & tags.ContentMediaType<"image/png">>({})),
     {
@@ -39,7 +39,7 @@ export const test_llm_schema_spec_string = (): void => {
       contentMediaType: "image/png",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "default",
     clean(typia.llm.schema<string & tags.Default<"guest">>({})),
     {
@@ -47,7 +47,7 @@ export const test_llm_schema_spec_string = (): void => {
       default: "guest",
     },
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "string literal union",
     enumSchema(typia.llm.schema<"alpha" | "beta" | "gamma">({})),
     {

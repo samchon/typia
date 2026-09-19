@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmApplication, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
@@ -80,9 +80,9 @@ export const test_llm_application_tuple = (): void => {
     document,
   });
 
-  TestValidator.equals("#success", app.functions.length, 0);
-  TestValidator.equals("#errors", app.errors.length, 3);
-  TestValidator.equals(
+  TestEquality.equals("#success", app.functions.length, 0);
+  TestEquality.equals("#errors", app.errors.length, 3);
+  TestEquality.equals(
     "accessors",
     app.errors.map((error) =>
       error.messages.map((m) => m.split(":")[0]).sort(),

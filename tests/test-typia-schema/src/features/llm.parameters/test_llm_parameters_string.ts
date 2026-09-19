@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -15,7 +16,7 @@ export const test_llm_parameters_string = (): void => {
 
   // parameters should be object with additionalProperties: false
   TestValidator.predicate("is object", () => LlmTypeChecker.isObject(params));
-  TestValidator.equals(
+  TestEquality.equals(
     "additionalProperties",
     params.additionalProperties,
     false,
@@ -50,19 +51,19 @@ export const test_llm_parameters_string = (): void => {
     LlmTypeChecker.isString(email!),
   );
   if (LlmTypeChecker.isString(email!)) {
-    TestValidator.equals("email format", email.format, "email");
+    TestEquality.equals("email format", email.format, "email");
   }
 
   // check pattern
   const pattern = params.properties["pattern"];
   if (LlmTypeChecker.isString(pattern!)) {
-    TestValidator.equals("pattern value", pattern.pattern, "^[a-z]+$");
+    TestEquality.equals("pattern value", pattern.pattern, "^[a-z]+$");
   }
 
   // check length constraints
   const length = params.properties["length"];
   if (LlmTypeChecker.isString(length!)) {
-    TestValidator.equals("minLength", length.minLength, 1);
-    TestValidator.equals("maxLength", length.maxLength, 100);
+    TestEquality.equals("minLength", length.minLength, 1);
+    TestEquality.equals("maxLength", length.maxLength, 100);
   }
 };

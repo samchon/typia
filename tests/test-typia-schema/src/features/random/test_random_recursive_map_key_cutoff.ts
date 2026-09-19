@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
@@ -23,7 +23,7 @@ export const test_random_recursive_map_key_cutoff = (): void => {
         .map((_, index) => schema.element(index, count));
     },
   });
-  TestValidator.equals("recursive map key cutoff", value.links.size, 0);
+  TestEquality.equals("recursive map key cutoff", value.links.size, 0);
 
   const createValue = typia.createRandom<IRecursiveMapKey>({
     string: () => "value",
@@ -34,7 +34,7 @@ export const test_random_recursive_map_key_cutoff = (): void => {
         .map((_, index) => schema.element(index, count));
     },
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "createRandom recursive map key cutoff",
     createValue().links.size,
     0,

@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -40,7 +41,7 @@ export const test_json_schema_oneof = (): void => {
   if (OpenApiTypeChecker.isOneOf(actualSchema)) {
     const oneOf = actualSchema as OpenApi.IJsonSchema.IOneOf;
 
-    TestValidator.equals("oneOf has 2 types", oneOf.oneOf.length, 2);
+    TestEquality.equals("oneOf has 2 types", oneOf.oneOf.length, 2);
 
     // check discriminator
     TestValidator.predicate(
@@ -48,7 +49,7 @@ export const test_json_schema_oneof = (): void => {
       () => oneOf.discriminator !== undefined,
     );
     if (oneOf.discriminator) {
-      TestValidator.equals(
+      TestEquality.equals(
         "discriminator property is type",
         oneOf.discriminator.propertyName,
         "type",

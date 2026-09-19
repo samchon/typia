@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
@@ -39,7 +40,7 @@ export const test_json_schema_openapi_component_name_collision = (): void => {
   const root = collection.schema as OpenApi.IJsonSchema.IObject;
 
   // 1. ONE KEY PER DISTINCT TYPE
-  TestValidator.equals(
+  TestEquality.equals(
     "four distinct types allocate four distinct component keys",
     4,
     Object.keys(schemas).length,
@@ -50,7 +51,7 @@ export const test_json_schema_openapi_component_name_collision = (): void => {
     (root.properties?.[key] as OpenApi.IJsonSchema.IReference | undefined)
       ?.$ref ?? "";
   const refs: string[] = ["a", "b", "c"].map($ref);
-  TestValidator.equals(
+  TestEquality.equals(
     "each referenced type owns a distinct reference",
     3,
     new Set(refs).size,

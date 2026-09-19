@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmController, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { HttpLlm } from "@typia/utils";
 import { toVercelTools } from "@typia/vercel";
 import type { Tool } from "ai";
@@ -22,7 +23,7 @@ export const test_vercel_http_controller_register = async (): Promise<void> => {
 
   // 3. Verify tools are registered
   const toolNames: string[] = Object.keys(tools);
-  TestValidator.equals(
+  TestEquality.equals(
     "tools count should match controller functions",
     toolNames.length,
     controller.application.functions.length,
@@ -30,7 +31,7 @@ export const test_vercel_http_controller_register = async (): Promise<void> => {
 
   // 4. Verify tool names match function names (no prefix by default)
   const funcNames = controller.application.functions.map((f) => f.name).sort();
-  TestValidator.equals(
+  TestEquality.equals(
     "tool names should match function names",
     toolNames.sort(),
     funcNames,

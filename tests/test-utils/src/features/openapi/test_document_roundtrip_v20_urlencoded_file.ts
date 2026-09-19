@@ -1,5 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import {
   HttpMigration,
   OpenApiConverter,
@@ -64,14 +65,14 @@ export const test_document_roundtrip_v20_urlencoded_file = (): void => {
       (property as unknown as Record<string, unknown>)["x-upload-kind"] ===
         "attachment",
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "file supports both form media types",
     Object.keys(
       upgraded.paths!["/dual-media-file"]!.post!.requestBody!.content!,
     ),
     ["application/x-www-form-urlencoded", "multipart/form-data"],
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "URL-encoded file migration errors",
     HttpMigration.application(upgraded).errors,
     [],
@@ -99,7 +100,7 @@ export const test_document_roundtrip_v20_urlencoded_file = (): void => {
           "attachment",
     ),
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "file form media types round trip",
     downgraded.paths!["/dual-media-file"]!.post!.consumes,
     ["application/x-www-form-urlencoded", "multipart/form-data"],

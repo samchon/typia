@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
 import typia from "typia";
 
@@ -47,9 +47,9 @@ export const test_naming_convention_notation_parity = (): void => {
     convention: (str: string) => string,
     produced: string[],
   ): void => {
-    TestValidator.equals(`${label} key count`, produced.length, inputs.length);
+    TestEquality.equals(`${label} key count`, produced.length, inputs.length);
     inputs.forEach((key, i) =>
-      TestValidator.equals(
+      TestEquality.equals(
         `${label}(${JSON.stringify(key)})`,
         convention(key),
         produced[i]!,

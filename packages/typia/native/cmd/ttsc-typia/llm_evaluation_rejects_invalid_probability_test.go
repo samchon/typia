@@ -13,12 +13,14 @@ import (
 // rather than silently resolved; and `@probability` on an object has no
 // decision to govern. Each case pins the accessor and, for members, the member
 // literal, so a rejection lands on the declaration the author must fix. A
-// valid requirement of every spelling in the same project is the positive twin.
+// valid requirement of every spelling, in a separate project, is the positive
+// twin.
 //
-//  1. Build one project with valid requirements and one call per invalid one.
-//  2. Require the build to fail through the transform-diagnostic path.
-//  3. Require each rejected accessor with its message, and no diagnostic for
-//     the valid call.
+//  1. Build one project with one call per invalid requirement, and a separate
+//     project with valid requirements.
+//  2. Require the first build to fail through the transform-diagnostic path.
+//  3. Require each rejected accessor with its message, and the valid project
+//     to compile.
 func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "probability", llmEvaluationProbabilitySource)
   for _, expected := range []string{
@@ -36,17 +38,17 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
     "- $input.nested\n  - LLM evaluation @probability must be on a boolean, choice, score, or set property, not on an object.",
     // two tags on one member fail typia's generic exclusive-tag check first
     "- __type.tagTwice: string & Probability0.5 & Probability0.6\n  - the property [\"typia.tag\"] kind 'probability' can't be duplicated.",
+    // a non-literal value fails typia's generic tag check (samchon/typia#2400)
+    "- __type.tagWide: boolean & Probabilitynumber\n  - the property [\"typia.tag.value\"] must be a literal type or undefined value.",
   } {
     if !strings.Contains(errText, expected) {
       t.Fatalf("llm.evaluation probability diagnostic missing %q:\n%s", expected, errText)
     }
   }
-  if strings.Contains(errText, "main.ts:36:") {
-    t.Fatalf("valid probability requirements must not be diagnosed:\n%s", errText)
-  }
+  llmEvaluationAccepts(t, "probability-valid", llmEvaluationProbabilityValidSource)
 }
 
-const llmEvaluationProbabilitySource = `import typia, { tags } from "typia";
+const llmEvaluationProbabilityValidSource = `import typia, { tags } from "typia";
 
 enum Team {
   /** Payments */
@@ -57,28 +59,6 @@ enum Team {
    * @probability 0.75
    */
   technical = "technical",
-}
-
-enum Bad {
-  /** Fine */
-  fine = "fine",
-  /**
-   * Broken
-   *
-   * @probability 3
-   */
-  bad = "bad",
-}
-
-enum Level {
-  /**
-   * Low
-   *
-   * @probability x
-   */
-  low = 1,
-  /** High */
-  high = 2,
 }
 
 typia.llm.evaluation<IValid>();
@@ -103,6 +83,35 @@ interface IValid {
    */
   products: Array<("card" & tags.Probability<0.9>) | "loan">;
 }
+`
+
+const llmEvaluationProbabilitySource = `import typia, { tags } from "typia";
+
+enum Bad {
+  /** Fine */
+  fine = "fine",
+  /**
+   * Broken
+   *
+   * @probability 3
+   */
+  bad = "bad",
+}
+
+enum Level {
+  /**
+   * Low
+   *
+   * @probability x
+   */
+  low = 1,
+  /** High */
+  high = 2,
+}
+
+typia.llm.evaluation<{
+  /** Wide? */ tagWide: boolean & tags.Probability<number>;
+}>();
 
 typia.llm.evaluation<{
   /** Over? */ tagOver: boolean & tags.Probability<1.5>;

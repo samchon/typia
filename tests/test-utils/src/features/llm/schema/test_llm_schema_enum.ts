@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IJsonSchemaTransformError, IResult, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection, ILlmSchema } from "typia";
 
@@ -12,12 +12,12 @@ export const test_llm_schema_enum = (): void => {
         | OpenApi.IJsonSchema.IObject
         | OpenApi.IJsonSchema.IReference,
     });
-  TestValidator.equals("success", result.success, true);
+  TestEquality.equals("success", result.success, true);
   if (result.success === false) return;
 
   const formatted: ILlmSchema.IParameters = result.value;
   const formatProp = formatted.properties.format as ILlmSchema.IString;
-  TestValidator.equals("enum", formatProp.enum, ["html", "md", "txt"]);
+  TestEquality.equals("enum", formatProp.enum, ["html", "md", "txt"]);
 };
 
 interface IBbsArticle {

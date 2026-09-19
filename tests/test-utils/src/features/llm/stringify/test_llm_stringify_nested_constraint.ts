@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia, { tags } from "typia";
 
@@ -16,20 +16,20 @@ export const test_llm_stringify_nested_constraint = (): void => {
   (valid.user as { email: unknown }).email = "invalid-email";
   (valid.user as { age: unknown }).age = -5;
   const result = typia.validate<INestedConstraint>(valid);
-  TestValidator.equals("success", result.success, false);
+  TestEquality.equals("success", result.success, false);
   if (!result.success) {
     const output: string = LlmJson.stringify(result);
-    TestValidator.equals(
+    TestEquality.equals(
       "contains code block",
       output.includes("```json"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains email error",
       output.includes("$input.user.email"),
       true,
     );
-    TestValidator.equals(
+    TestEquality.equals(
       "contains age error",
       output.includes("$input.user.age"),
       true,

@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmStructuredOutput } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 import typia from "typia";
 
@@ -15,7 +15,7 @@ export const test_llm_json_structuredOutput_basic = (): void => {
     LlmJson.structuredOutput<IMember>(parameters);
 
   // Check that parameters is preserved
-  TestValidator.equals("parameters", output.parameters, parameters);
+  TestEquality.equals("parameters", output.parameters, parameters);
 
   // Test parse
   const json = JSON.stringify({
@@ -24,10 +24,10 @@ export const test_llm_json_structuredOutput_basic = (): void => {
     email: "john@test.com",
   });
   const parsed = output.parse(json);
-  TestValidator.equals("parse.success", parsed.success, true);
+  TestEquality.equals("parse.success", parsed.success, true);
   if (parsed.success) {
-    TestValidator.equals("parse.data.name", parsed.data.name, "John");
-    TestValidator.equals("parse.data.age", parsed.data.age, 30);
+    TestEquality.equals("parse.data.name", parsed.data.name, "John");
+    TestEquality.equals("parse.data.age", parsed.data.age, 30);
   }
 
   // Test coerce (with stringified number)
@@ -37,7 +37,7 @@ export const test_llm_json_structuredOutput_basic = (): void => {
     email: "jane@test.com",
   };
   const coerced = output.coerce(corrupted as IMember);
-  TestValidator.equals("coerce.age", coerced.age, 25);
+  TestEquality.equals("coerce.age", coerced.age, 25);
 
   // Test validate (valid input)
   const validResult = output.validate({
@@ -45,7 +45,7 @@ export const test_llm_json_structuredOutput_basic = (): void => {
     age: 40,
     email: "bob@test.com",
   });
-  TestValidator.equals("validate.success", validResult.success, true);
+  TestEquality.equals("validate.success", validResult.success, true);
 
   // Test validate (invalid input)
   const invalidResult = output.validate({
@@ -53,5 +53,5 @@ export const test_llm_json_structuredOutput_basic = (): void => {
     age: "not-a-number",
     email: "test@test.com",
   });
-  TestValidator.equals("validate.failure", invalidResult.success, false);
+  TestEquality.equals("validate.failure", invalidResult.success, false);
 };

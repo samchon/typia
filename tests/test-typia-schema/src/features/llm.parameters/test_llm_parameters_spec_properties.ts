@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 export const test_llm_parameters_spec_properties = (): void => {
@@ -17,7 +17,7 @@ export const test_llm_parameters_spec_properties = (): void => {
   }
 
   const params = typia.llm.parameters<IParameters>();
-  TestValidator.equals(
+  TestEquality.equals(
     "parameters object shell",
     {
       type: params.type,
@@ -37,13 +37,13 @@ export const test_llm_parameters_spec_properties = (): void => {
       ],
     },
   );
-  TestValidator.equals("required property", clean(params.properties.required), {
+  TestEquality.equals("required property", clean(params.properties.required), {
     type: "string",
   });
-  TestValidator.equals("optional property", clean(params.properties.optional), {
+  TestEquality.equals("optional property", clean(params.properties.optional), {
     type: "number",
   });
-  TestValidator.equals("nullable property", clean(params.properties.nullable), {
+  TestEquality.equals("nullable property", clean(params.properties.nullable), {
     anyOf: [
       {
         type: "null",
@@ -53,7 +53,7 @@ export const test_llm_parameters_spec_properties = (): void => {
       },
     ],
   });
-  TestValidator.equals(
+  TestEquality.equals(
     "literal property",
     enumSchema(params.properties.literal),
     {
@@ -61,10 +61,10 @@ export const test_llm_parameters_spec_properties = (): void => {
       enum: ["a", "b"],
     },
   );
-  TestValidator.equals("child reference", clean(params.properties.child), {
+  TestEquality.equals("child reference", clean(params.properties.child), {
     $ref: "#/$defs/IChild",
   });
-  TestValidator.equals("child definition", clean(params.$defs.IChild), {
+  TestEquality.equals("child definition", clean(params.$defs.IChild), {
     type: "object",
     properties: {
       id: {
@@ -77,7 +77,7 @@ export const test_llm_parameters_spec_properties = (): void => {
   });
 
   const records = resolve(params.properties.records, params.$defs);
-  TestValidator.equals("record property", clean(records), {
+  TestEquality.equals("record property", clean(records), {
     type: "object",
     properties: {},
     additionalProperties: {
@@ -86,7 +86,7 @@ export const test_llm_parameters_spec_properties = (): void => {
     },
     required: [],
   });
-  TestValidator.equals("children array", clean(params.properties.children), {
+  TestEquality.equals("children array", clean(params.properties.children), {
     type: "array",
     items: {
       $ref: "#/$defs/IChild",

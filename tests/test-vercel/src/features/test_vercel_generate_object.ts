@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import { toVercelSchema } from "@typia/vercel";
 import { generateObject } from "ai";
 import { MockLanguageModelV3 } from "ai/test";
@@ -39,9 +39,9 @@ export const test_vercel_generate_object = async (): Promise<void> => {
 
   // Coerce + validate from ILlmStructuredOutput directly
   const coerced = output.coerce(result.object);
-  TestValidator.equals("name", coerced.name, "John");
-  TestValidator.equals("age", coerced.age, 30);
+  TestEquality.equals("name", coerced.name, "John");
+  TestEquality.equals("age", coerced.age, 30);
 
   const validated = output.validate(coerced);
-  TestValidator.equals("validate.success", validated.success, true);
+  TestEquality.equals("validate.success", validated.success, true);
 };

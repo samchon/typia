@@ -1,12 +1,12 @@
-import { TestValidator } from "@nestia/e2e";
+import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 export const test_json_schema_spec_null_unknown = (): void => {
-  TestValidator.equals("null", clean(typia.json.schema<null>().schema), {
+  TestEquality.equals("null", clean(typia.json.schema<null>().schema), {
     type: "null",
   });
-  TestValidator.equals("any", clean(typia.json.schema<any>().schema), {});
-  TestValidator.equals(
+  TestEquality.equals("any", clean(typia.json.schema<any>().schema), {});
+  TestEquality.equals(
     "unknown",
     clean(typia.json.schema<unknown>().schema),
     {},

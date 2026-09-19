@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
 import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { LlmJson } from "@typia/utils";
 
 export const test_llm_stringify_mixed_array_object_errors = (): void => {
@@ -67,44 +67,40 @@ export const test_llm_stringify_mixed_array_object_errors = (): void => {
 
   const output: string = LlmJson.stringify(failure);
 
-  TestValidator.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains code block", output.includes("```json"), true);
 
   // Count error markers - should have multiple
   const errorMarkerCount = (output.match(/\/\/ ❌/g) || []).length;
-  TestValidator.equals(
+  TestEquality.equals(
     "has multiple error markers",
     errorMarkerCount >= 5,
     true,
   );
 
   // Check all error paths are present
-  TestValidator.equals(
+  TestEquality.equals(
     "contains tags[1] path",
     output.includes("$input.users[0].profile.tags[1]"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains users[1].id path",
     output.includes("$input.users[1].id"),
     true,
   );
-  TestValidator.equals(
+  TestEquality.equals(
     "contains metadata.count path",
     output.includes("$input.metadata.count"),
     true,
   );
 
   // Check structure is preserved
-  TestValidator.equals("contains users", output.includes('"users"'), true);
-  TestValidator.equals("contains profile", output.includes('"profile"'), true);
-  TestValidator.equals(
-    "contains metadata",
-    output.includes('"metadata"'),
-    true,
-  );
+  TestEquality.equals("contains users", output.includes('"users"'), true);
+  TestEquality.equals("contains profile", output.includes('"profile"'), true);
+  TestEquality.equals("contains metadata", output.includes('"metadata"'), true);
 
   // Check missing element placeholder
-  TestValidator.equals(
+  TestEquality.equals(
     "contains undefined for missing tag",
     output.includes("undefined"),
     true,

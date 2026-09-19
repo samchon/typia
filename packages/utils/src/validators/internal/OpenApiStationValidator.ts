@@ -2,6 +2,7 @@ import { OpenApi } from "@typia/interface";
 
 import { LlmReference } from "../../utils/internal/LlmReference";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
+import { OpenApiOpenArrayRestorer } from "../../utils/internal/OpenApiOpenArrayRestorer";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiArrayValidator } from "./OpenApiArrayValidator";
@@ -21,6 +22,13 @@ export namespace OpenApiStationValidator {
     expected?: string,
     references: ReadonlySet<string> = new Set(),
   ): boolean => {
+    // AN ITEMS-LESS ARRAY IS AN OPEN ARRAY
+    const restored: OpenApi.IJsonSchema = OpenApiOpenArrayRestorer.restore(
+      ctx.schema,
+    );
+    if (restored !== ctx.schema)
+      return validate({ ...ctx, schema: restored }, expected, references);
+
     // THE TYPE NAME
     expected ??= (() => {
       const name = OpenApiSchemaNamingRule.getName(ctx.schema);
