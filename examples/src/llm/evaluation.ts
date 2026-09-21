@@ -52,7 +52,7 @@ interface ITicketTriage {
 }
 
 const main = async (): Promise<void> => {
-  // Generate the questions and the converting validator
+  // Generate the questions and checked answer decoder.
   const triage = typia.llm.evaluation<ITicketTriage>();
 
   // Ask TypeSafe's Jev in its own wire format
