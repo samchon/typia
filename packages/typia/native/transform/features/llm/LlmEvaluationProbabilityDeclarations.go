@@ -573,24 +573,21 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
     targetReadonly := target.Kind == shimast.KindTypeOperator && target.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword
     if targetReadonly {
       target = target.Type()
-      if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
-        value = value.Type()
-      }
     }
     if target.Kind == shimast.KindArrayType {
-      if value.Kind == shimast.KindArrayType {
-        return match(value.AsArrayTypeNode().ElementType, target.AsArrayTypeNode().ElementType)
-      }
-      if value.Kind == shimast.KindTypeReference {
-        reference := value.AsTypeReferenceNode()
-        symbol := checker.GetSymbolAtLocation(reference.TypeName)
-        if llmEvaluation_builtinArray(symbol) && (symbol.Name == "Array" || targetReadonly) && reference.TypeArguments != nil && len(reference.TypeArguments.Nodes) == 1 {
-          return match(reference.TypeArguments.Nodes[0], target.AsArrayTypeNode().ElementType)
-        }
+      element, readonly, ok := llmEvaluation_inferArrayElement(checker, value)
+      if ok && (readonly == false || targetReadonly) {
+        return match(element, target.AsArrayTypeNode().ElementType)
       }
       return false
     }
     if target.Kind == shimast.KindTupleType {
+      if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
+        if targetReadonly == false {
+          return false
+        }
+        value = value.Type()
+      }
       if value.Kind != shimast.KindTupleType {
         return false
       }
@@ -667,24 +664,11 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
     }
     targetSymbol := checker.GetSymbolAtLocation(reference.TypeName)
     if llmEvaluation_builtinArray(targetSymbol) {
-      if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword && targetSymbol.Name == "ReadonlyArray" {
-        value = value.Type()
+      element, readonly, ok := llmEvaluation_inferArrayElement(checker, value)
+      if ok && (readonly == false || targetSymbol.Name == "ReadonlyArray") {
+        return match(element, reference.TypeArguments.Nodes[0])
       }
-      if value.Kind == shimast.KindArrayType {
-        return match(value.AsArrayTypeNode().ElementType, reference.TypeArguments.Nodes[0])
-      }
-      if value.Kind == shimast.KindTupleType {
-        elements := value.AsTupleTypeNode().Elements.Nodes
-        if len(elements) == 0 {
-          return false
-        }
-        member := elements[0]
-        if len(elements) > 1 {
-          factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-          member = factory.NewUnionTypeNode(factory.NewNodeList(elements))
-        }
-        return match(member, reference.TypeArguments.Nodes[0])
-      }
+      return false
     }
     if value.Kind != shimast.KindTypeReference {
       return false
@@ -699,6 +683,36 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
     return nil, false
   }
   return inferred, true
+}
+
+// Extract the written element of an array or tuple while retaining whether
+// TypeScript would allow it to satisfy a mutable array inference pattern.
+func llmEvaluation_inferArrayElement(checker *shimchecker.Checker, value *shimast.Node) (*shimast.Node, bool, bool) {
+  if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
+    element, _, ok := llmEvaluation_inferArrayElement(checker, value.Type())
+    return element, true, ok
+  }
+  switch value.Kind {
+  case shimast.KindArrayType:
+    return value.AsArrayTypeNode().ElementType, false, true
+  case shimast.KindTupleType:
+    elements := value.AsTupleTypeNode().Elements.Nodes
+    if len(elements) == 0 {
+      return nil, false, false
+    }
+    if len(elements) == 1 {
+      return elements[0], false, true
+    }
+    factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+    return factory.NewUnionTypeNode(factory.NewNodeList(elements)), false, true
+  case shimast.KindTypeReference:
+    reference := value.AsTypeReferenceNode()
+    symbol := checker.GetSymbolAtLocation(reference.TypeName)
+    if llmEvaluation_builtinArray(symbol) && reference.TypeArguments != nil && len(reference.TypeArguments.Nodes) == 1 {
+      return reference.TypeArguments.Nodes[0], symbol.Name == "ReadonlyArray", true
+    }
+  }
+  return nil, false, false
 }
 
 func llmEvaluation_bindingsCopy(bindings map[*shimast.Symbol]*shimast.Node) map[*shimast.Symbol]*shimast.Node {

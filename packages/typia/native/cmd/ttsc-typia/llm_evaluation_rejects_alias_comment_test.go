@@ -93,6 +93,9 @@ typia.llm.evaluation<{
   /** Readonly tuple via array inferred? */ readonlyTupleViaArrayInferred: ReadonlyArrayInferWrapper<readonly [Urgency]>;
   /** Readonly multi-tuple via array inferred? */ readonlyMultiTupleViaArrayInferred: ReadonlyArrayInferWrapper<readonly [Urgency, boolean]>;
   /** Readonly reference via operator inferred? */ readonlyReferenceViaOperatorInferred: ReadonlyOperatorArrayInferWrapper<ReadonlyArray<Urgency>>;
+  /** Mutable reference via readonly reference inferred? */ mutableReferenceViaReadonlyReferenceInferred: ReadonlyArrayInferWrapper<Array<Urgency>>;
+  /** Mutable tuple via readonly operator inferred? */ mutableTupleViaReadonlyOperatorInferred: ReadonlyOperatorArrayInferWrapper<[Urgency]>;
+  /** Readonly tuple via readonly operator inferred? */ readonlyTupleViaReadonlyOperatorInferred: ReadonlyOperatorArrayInferWrapper<readonly [Urgency]>;
   /** Object inferred? */ objectInferred: ObjectInferWrapper<{ value: Urgency }>;
   /** Interface object inferred? */ interfaceObjectInferred: ObjectInferWrapper<IObjectInferBox<Urgency>>;
   /** Annotated interface inferred? */ annotatedInterfaceInferred: ObjectInferWrapper<IAnnotatedInferBox>;
@@ -134,6 +137,9 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.readonlyTupleViaArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyMultiTupleViaArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyReferenceViaOperatorInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.mutableReferenceViaReadonlyReferenceInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.mutableTupleViaReadonlyOperatorInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.readonlyTupleViaReadonlyOperatorInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.objectInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.interfaceObjectInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedInterfaceInferred\n  - LLM evaluation @probability on an object declaration is not supported",
@@ -267,6 +273,8 @@ typia.llm.evaluation<{
   /** Readonly discarded? */ readonlyDiscarded: ReadonlyTupleDiscard<AnnotatedTuple>;
   /** Mutable tuple false? */ mutableTupleFalse: MutableTupleOnly<readonly [boolean]>;
   /** Mutable array false? */ mutableArrayFalse: MutableArrayOnly<readonly boolean[]>;
+  /** Mutable array reference false? */ mutableArrayReferenceFalse: MutableArrayOnly<ReadonlyArray<boolean>>;
+  /** Mutable array tuple false? */ mutableArrayTupleFalse: MutableArrayOnly<readonly [boolean]>;
   /** Twelfth? */ twelfth: NumericChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
