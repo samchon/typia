@@ -73,6 +73,8 @@ typia.llm.evaluation<IValid>();
 interface IValid {
   /** Tagged? */
   tagged: boolean & tags.Probability<0>;
+  /** Tagged at one? */
+  taggedOne: boolean & tags.Probability<1>;
   /**
    * Commented?
    *

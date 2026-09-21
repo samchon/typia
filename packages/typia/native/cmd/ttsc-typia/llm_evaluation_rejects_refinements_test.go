@@ -35,6 +35,17 @@ typia.llm.evaluation<{
   permitted: boolean & TrueOnly;
 }>();
 
+type GuardedProbability = tags.TagBase<{
+  target: "boolean";
+  kind: "probability";
+  value: 0.8;
+  validate: "$input === true";
+}>;
+typia.llm.evaluation<{
+  /** Is it allowed? */
+  allowed: boolean & GuardedProbability;
+}>();
+
 type ObjectOnly = tags.TagBase<{
   target: "object";
   kind: "objectOnly";
@@ -44,6 +55,12 @@ type ObjectOnly = tags.TagBase<{
 typia.llm.evaluation<{
   child: ({ /** Is it active? */ active: boolean } & ObjectOnly);
 }>();
+
+interface IRoot {
+  /** Is it active? */
+  active: boolean;
+}
+typia.llm.evaluation<IRoot & ObjectOnly>();
 `)
   for _, expected := range []string{
     "- $input.team\n  - LLM evaluation does not support",
@@ -51,7 +68,9 @@ typia.llm.evaluation<{
     "- $input.products\n  - LLM evaluation does not support",
     "- $input.nested.status\n  - LLM evaluation does not support",
     "- $input.permitted\n  - LLM evaluation does not support",
+    "- $input.allowed\n  - LLM evaluation does not support",
     "- $input.child\n  - LLM evaluation does not support",
+    "- $input\n  - LLM evaluation does not support",
   } {
     if !strings.Contains(errText, expected) {
       t.Fatalf("missing unsupported refinement diagnostic %q:\n%s", expected, errText)

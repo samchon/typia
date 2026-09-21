@@ -303,6 +303,9 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
 func llmEvaluation_unsupported_tags(rows [][]schemametadata.IMetadataTypeTag) string {
   for _, row := range rows {
     for _, tag := range row {
+      if tag.Validate != "" {
+        return fmt.Sprintf("LLM evaluation does not support type tag %q, because decode() cannot enforce its constraint.", tag.Kind)
+      }
       switch tag.Kind {
       case "probability", "constant", "default", "example", "examples", "contentMediaType", "sequence":
         continue

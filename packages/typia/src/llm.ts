@@ -256,7 +256,7 @@ export function evaluation(): never;
  * - {@link structuredOutput} — Structured output generated as text by an LLM
  *
  * @template T Target decision type (object with static properties)
- * @returns LLM evaluation questions with a converting validator
+ * @returns LLM evaluation questions with a checked answer decoder
  */
 export function evaluation<T extends Record<string, any>>(): ILlmEvaluation<T>;
 

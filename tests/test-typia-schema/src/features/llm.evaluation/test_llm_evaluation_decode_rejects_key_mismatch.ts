@@ -3,7 +3,7 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies typia.llm.evaluation validate rejects a mismatched answer key set.
+ * Verifies typia.llm.evaluation decode rejects a mismatched answer key set.
  *
  * An evaluation model must answer exactly the questions it was asked. A missing
  * answer leaves a property of the decision type unset, and an extra answer
@@ -15,7 +15,7 @@ import typia from "typia";
  * 2. Validate an answer map missing one question and carrying an unknown key.
  * 3. Assert the failure paths.
  */
-export const test_llm_evaluation_validate_rejects_key_mismatch = (): void => {
+export const test_llm_evaluation_decode_rejects_key_mismatch = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
 
   const scalar: IValidation<IDecision> = evaluation.decode("nothing");

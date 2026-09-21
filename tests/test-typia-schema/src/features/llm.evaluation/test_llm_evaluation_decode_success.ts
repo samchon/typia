@@ -3,7 +3,7 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies typia.llm.evaluation validate folds a neutral answer map into T.
+ * Verifies typia.llm.evaluation decode folds a neutral answer map into T.
  *
  * The answer map is flat and keyed by the question keys, while the result must
  * be the nested decision type. This pins the conversion of every question
@@ -14,10 +14,11 @@ import typia from "typia";
  *
  * 1. Answer every question in the neutral shape, as `experimental_evaluate`
  *    returns it for an LLM provider without distributions.
- * 2. Validate the answers.
- * 3. Assert the nested decision value.
+ * 2. Decode the answers.
+ * 3. Assert the nested decision value also passes typia's general validator;
+ *    callers do not need to run that second check themselves.
  */
-export const test_llm_evaluation_validate_success = (): void => {
+export const test_llm_evaluation_decode_success = (): void => {
   const result: IValidation<ITicketTriage> = typia.llm
     .evaluation<ITicketTriage>()
     .decode({
@@ -39,6 +40,11 @@ export const test_llm_evaluation_validate_success = (): void => {
       refund: { requested: false },
     },
   });
+  TestEquality.equals(
+    "decoded value satisfies T",
+    result.success && typia.validate<ITicketTriage>(result.data).success,
+    true,
+  );
 };
 
 interface ITicketTriage {

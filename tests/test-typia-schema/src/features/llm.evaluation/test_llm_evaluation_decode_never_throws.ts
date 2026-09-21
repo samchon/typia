@@ -2,8 +2,8 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies typia.llm.evaluation validate reports, never throws, on hostile
- * answer types.
+ * Verifies typia.llm.evaluation decode reports, never throws, on hostile answer
+ * types.
  *
  * `decode(answers: unknown)` promises an `IValidation` result for any input.
  * Its "wrong answer type" messages describe the received `type`, and a bigint
@@ -15,7 +15,7 @@ import typia from "typia";
  * 2. Validate each answer map.
  * 3. Assert a failure on every decision path, with no exception.
  */
-export const test_llm_evaluation_validate_never_throws = (): void => {
+export const test_llm_evaluation_decode_never_throws = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const circular: Record<string, unknown> = {};
   circular.self = circular;

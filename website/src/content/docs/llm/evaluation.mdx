@@ -21,7 +21,10 @@ export namespace llm {
 ```typescript copy filename="what-you-get"
 interface ILlmEvaluation<T> {
   questions: Record<string, ILlmEvaluation.IQuestion>; // hand this to the model
-  decode: (answers: unknown, rounding?: ILlmEvaluation.IRounding) => IValidation<T>; // answers in, T out
+  decode: (
+    answers: unknown,
+    rounding?: ILlmEvaluation.IRounding,
+  ) => IValidation<T>; // answers in, T out
 }
 ```
 
@@ -34,14 +37,23 @@ interface ILlmEvaluation<T> {
 
 ```typescript copy filename="triage.ts"
 import { experimental_evaluate } from "ai"; // AI SDK >= 7.0.103
-import typia, { tags } from "typia";
+import typia from "typia";
 
 enum Department {
-  /** Payments, invoicing, refunds */
+  /**
+   * Payments, invoicing, refunds.
+   * @probability 0.8
+   */
   billing = "billing",
-  /** Bugs, outages, integrations */
+  /**
+   * Bugs, outages, integrations.
+   * @probability 0.5
+   */
   technical = "technical",
-  /** Pricing, upgrades, new accounts */
+  /**
+   * Pricing, upgrades, new accounts.
+   * @probability 0.5
+   */
   sales = "sales",
 }
 
@@ -68,15 +80,18 @@ interface ITicketTriage {
   products: Array<"card" | "loan" | "deposit">;
 
   refund: {
-    /** Does the customer ask for a refund? */
-    requested: boolean & tags.Probability<0.8>;
+    /**
+     * Does the customer ask for a refund?
+     * @probability 0.8
+     */
+    requested: boolean;
   };
 }
 
 const ticket = "I was charged twice. Refund it now, or I leave.";
 const triage = typia.llm.evaluation<ITicketTriage>();
 const result = await experimental_evaluate({
-  model: "typesafe-ai/jev-latest",
+  model: "typesafe-ai/jev",
   state: ticket,
   questions: triage.questions,
 });
@@ -233,9 +248,21 @@ import { TypeSafeClient } from "@typesafe-ai/sdk";
 import { toJevQuestions } from "@typia/jev";
 import typia from "typia";
 
+enum Urgency {
+  /** Can wait */
+  low = 0,
+  /** Respond today */
+  medium = 1,
+  /** Respond immediately */
+  high = 2,
+}
+
 interface ITicketTriage {
   /** Does the customer need an urgent response? */
   urgent: boolean;
+
+  /** How soon should the team respond? */
+  urgency: Urgency;
 }
 
 const ticket = "The payment failed and today's deadline is approaching.";
@@ -246,10 +273,14 @@ const { answers } = await client.systemOne({
   state: ticket,
   questions: toJevQuestions(triage.questions),
 });
+// Set these only to the precision guaranteed by your Jev endpoint.
+// The direct TypeSafe SDK does not return `rounding` metadata.
 const decoded = triage.decode(answers, {
   probabilityDecimals: 2,
   scoreDecimals: 2,
 });
+if (decoded.success) decoded.data.urgency; // Urgency member
+answers.urgency; // { type: "score", score: 1.6, probabilities: { "0": 0, "1": 0.4, "2": 0.6 }, ... }
 ```
 
 ## Providers

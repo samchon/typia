@@ -48,6 +48,8 @@ const result = evaluation.decode(answers, {
 }); // IValidation<ITriage>
 ```
 
+The second argument describes a two-decimal response; use only the precision guaranteed by your Jev endpoint. The direct TypeSafe SDK does not return an AI SDK-style `rounding` declaration. Without an explicit declaration, distribution checks use a strict tolerance.
+
 Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them.
 
 See the [guide](https://typia.io/docs/utilization/jev) for details.

@@ -83,6 +83,48 @@ export const test_llm_evaluation_declared_rounding = (): void => {
     ),
     ["$input.team"],
   );
+  TestEquality.equals(
+    "rounding does not excuse a nonmaximum choice",
+    paths(
+      {
+        ...answers,
+        team: {
+          ...answers.team,
+          probabilities: { billing: 0.32, technical: 0.35, sales: 0.33 },
+        },
+      },
+      rounded,
+    ),
+    ["$input.team"],
+  );
+  TestEquality.equals(
+    "rounding does not excuse a missing probability",
+    paths(
+      {
+        ...answers,
+        team: {
+          ...answers.team,
+          probabilities: { billing: 0.5, technical: 0.5 },
+        },
+      },
+      rounded,
+    ),
+    ["$input.team"],
+  );
+  TestEquality.equals(
+    "rounding does not excuse an out-of-range probability",
+    paths(
+      {
+        ...answers,
+        team: {
+          ...answers.team,
+          probabilities: { billing: 1.01, technical: 0, sales: 0 },
+        },
+      },
+      rounded,
+    ),
+    ["$input.team"],
+  );
   for (const decimals of [-1, 1.5, 16, NaN, Infinity])
     TestEquality.equals(
       `invalid decimal ${decimals}`,

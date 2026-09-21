@@ -64,7 +64,8 @@ const main = async (): Promise<void> => {
   });
 
   // Validate the answers and fold them back into ITicketTriage
-  // Jev reports probabilities and scores rounded to two decimals.
+  // Supply the precision guaranteed by this Jev endpoint. This example uses
+  // two-decimal responses; verify that contract for your chosen provider.
   const result = triage.decode(answers, {
     probabilityDecimals: 2,
     scoreDecimals: 2,

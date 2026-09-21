@@ -3,19 +3,19 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies typia.llm.evaluation validate accepts TypeSafe's native answers.
+ * Verifies typia.llm.evaluation decode accepts TypeSafe's native answers.
  *
  * TypeSafe's own SDK and HTTP API answer a boolean question as `{ type: "noul",
  * noul }` and add `confidence` and `legend` to choice and score answers, while
  * the neutral AI SDK shape uses `{ type: "boolean", probability }`. Both must
- * validate without conversion, because the `type` discriminator makes the two
- * boolean spellings unambiguous.
+ * decode without wire-format conversion, because the `type` discriminator makes
+ * the two boolean spellings unambiguous.
  *
  * 1. Answer the questions exactly as TypeSafe's API documents its response.
- * 2. Validate the answers.
+ * 2. Decode the answers.
  * 3. Assert the converted value, including the distribution-backed score.
  */
-export const test_llm_evaluation_validate_native_answers = (): void => {
+export const test_llm_evaluation_decode_native_answers = (): void => {
   const result: IValidation<ITicketTriage> = typia.llm
     .evaluation<ITicketTriage>()
     .decode({

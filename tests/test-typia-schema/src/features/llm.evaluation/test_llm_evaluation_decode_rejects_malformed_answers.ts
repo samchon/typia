@@ -3,7 +3,7 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies typia.llm.evaluation validate rejects malformed answer values.
+ * Verifies typia.llm.evaluation decode rejects malformed answer values.
  *
  * The AI SDK `EvaluationModelV4` answer spec bounds every value: P(true) is in
  * `[0, 1]`, a choice is one declared maximum-probability option, a score is the
@@ -16,7 +16,7 @@ import typia from "typia";
  * 2. Validate each map.
  * 3. Assert exactly the malformed path fails.
  */
-export const test_llm_evaluation_validate_rejects_malformed_answers =
+export const test_llm_evaluation_decode_rejects_malformed_answers =
   (): void => {
     const evaluation = typia.llm.evaluation<IDecision>();
     const valid = {
