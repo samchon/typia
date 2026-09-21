@@ -12,7 +12,7 @@
 
 [Jev](https://docs.typesafe.ai) evaluation model integration for [`typia`](https://github.com/samchon/typia).
 
-Converts the questions of `typia.llm.evaluation<T>()` to Jev's wire format, the format of TypeSafe's API and SDK and of OpenRouter's Decisions API. The neutral questions spell the yes/no question `"boolean"`; Jev spells it `"noul"`. Choice and score questions are identical, and `validate()` accepts Jev's native answers as they are.
+Converts the questions of `typia.llm.evaluation<T>()` to Jev's wire format, the format of TypeSafe's API and SDK and of OpenRouter's Decisions API. The neutral questions spell the yes/no question `"boolean"`; Jev spells it `"noul"`. Choice and score questions are identical, and `decode()` accepts Jev's native answers as they are.
 
 ## Setup
 
@@ -42,7 +42,10 @@ const { answers } = await client.systemOne({
   state: "The payment page crashes for every customer.",
   questions: toJevQuestions(evaluation.questions),
 });
-const result = evaluation.validate(answers); // IValidation<ITriage>
+const result = evaluation.decode(answers, {
+  probabilityDecimals: 2,
+  scoreDecimals: 2,
+}); // IValidation<ITriage>
 ```
 
 Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them.

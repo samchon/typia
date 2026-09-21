@@ -3,7 +3,11 @@ import { toJevQuestions } from "@typia/jev";
 import typia, { tags } from "typia";
 
 enum Department {
-  /** Payments, invoicing, refunds */
+  /**
+   * Payments, invoicing, refunds
+   *
+   * @probability 0.5
+   */
   billing = "billing",
   /**
    * Bugs, outages, integrations
@@ -11,8 +15,21 @@ enum Department {
    * @probability 0.75
    */
   technical = "technical",
-  /** Pricing, upgrades, new accounts */
+  /**
+   * Pricing, upgrades, new accounts
+   *
+   * @probability 0.5
+   */
   sales = "sales",
+}
+
+enum Frustration {
+  /** Calm or neutral */
+  calm = 0,
+  /** Annoyed but cooperative */
+  annoyed = 1,
+  /** Angry or threatening to leave */
+  angry = 2,
 }
 
 interface ITicketTriage {
@@ -23,7 +40,7 @@ interface ITicketTriage {
   department: Department;
 
   /** How frustrated is the customer? */
-  frustration: 0 | 1 | 2;
+  frustration: Frustration;
 
   /** Which products does the customer mention? */
   products: Array<"card" | "loan" | "deposit">;
@@ -47,7 +64,11 @@ const main = async (): Promise<void> => {
   });
 
   // Validate the answers and fold them back into ITicketTriage
-  const result = triage.validate(answers);
+  // Jev reports probabilities and scores rounded to two decimals.
+  const result = triage.decode(answers, {
+    probabilityDecimals: 2,
+    scoreDecimals: 2,
+  });
   if (result.success === false) {
     console.error("Evaluation failed:", result.errors);
     return;

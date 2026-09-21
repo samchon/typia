@@ -18,7 +18,7 @@ import typia from "typia";
 export const test_llm_evaluation_validate_native_answers = (): void => {
   const result: IValidation<ITicketTriage> = typia.llm
     .evaluation<ITicketTriage>()
-    .validate({
+    .decode({
       is_urgent: { type: "noul", noul: 0.92 },
       department: {
         type: "choice",

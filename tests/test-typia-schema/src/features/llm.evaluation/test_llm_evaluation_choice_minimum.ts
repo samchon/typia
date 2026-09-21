@@ -1,33 +1,44 @@
 import { TestEquality } from "@typia/template/equality";
-import typia, { tags } from "typia";
+import typia from "typia";
 
 /**
  * Verifies typia.llm.evaluation enforces choice acceptance minimums.
  *
- * A member requirement (`tags.Probability<N>` on a literal, `@probability N` on
- * an enum member) gates only that member, a property `@probability` fills only
- * the members without their own, and a failed gate never falls back to a less
- * likely member. Gating needs the answer's distribution, so a gated selection
- * without one fails while an ungated one passes. Each rule is paired with the
- * one-axis twin that must not trigger it.
+ * Member requirements are all-or-none: every enum member declares `@probability
+ * N`, or a property `@probability` fills the members without an override. A
+ * failed gate never falls back to a less likely member. A requirement needs the
+ * answer's distribution, including a zero requirement. Each rule is paired with
+ * the one-axis twin that must not trigger it.
  *
- * 1. Declare a tagged literal union, a JSDoc-gated enum used by two properties,
- *    and a property default with one member override.
+ * 1. Declare JSDoc-gated enums, one reused by two properties, and a property
+ *    default with one member override.
  * 2. Validate selections at, below, and around every requirement, with and without
- *    distributions.
+ *    complete distributions.
  * 3. Assert which selections pass and which paths fail.
  */
 export const test_llm_evaluation_choice_minimum = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const run = (patch: Record<string, unknown>) =>
-    evaluation.validate({
-      action: { type: "choice", choice: "reply" },
-      team: { type: "choice", choice: "billing" },
-      backup: { type: "choice", choice: "billing" },
+    evaluation.decode({
+      action: {
+        type: "choice",
+        choice: "reply",
+        probabilities: { escalate: 0.4, reply: 0.6 },
+      },
+      team: {
+        type: "choice",
+        choice: "billing",
+        probabilities: { billing: 0.6, technical: 0.4 },
+      },
+      backup: {
+        type: "choice",
+        choice: "billing",
+        probabilities: { billing: 0.6, technical: 0.4 },
+      },
       tone: {
         type: "choice",
         choice: "formal",
-        probabilities: { formal: 0.9 },
+        probabilities: { formal: 0.9, casual: 0.05, neutral: 0.05 },
       },
       ...patch,
     });
@@ -36,7 +47,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     return result.success ? "ok" : result.errors.map((e) => e.path);
   };
 
-  // tagged literal member
+  // enum member requirement
   TestEquality.equals(
     "tag at minimum",
     outcome({
@@ -65,17 +76,17 @@ export const test_llm_evaluation_choice_minimum = (): void => {
     ["$input.action"],
   );
   TestEquality.equals(
-    "ungated without distribution",
+    "required without distribution",
     outcome({ action: { type: "choice", choice: "reply" } }),
-    "ok",
+    ["$input.action"],
   );
   TestEquality.equals(
-    "ungated with low probability",
+    "reply at minimum",
     outcome({
       action: {
         type: "choice",
         choice: "reply",
-        probabilities: { reply: 0.2, escalate: 0.1 },
+        probabilities: { reply: 0.5, escalate: 0.5 },
       },
     }),
     "ok",
@@ -89,7 +100,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
         [property]: {
           type: "choice",
           choice: "technical",
-          probabilities: { technical: 0.74 },
+          probabilities: { technical: 0.74, billing: 0.26 },
         },
       }),
       [`$input.${property}`],
@@ -100,7 +111,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
         [property]: {
           type: "choice",
           choice: "technical",
-          probabilities: { technical: 0.75 },
+          probabilities: { technical: 0.75, billing: 0.25 },
         },
       }),
       "ok",
@@ -114,7 +125,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
       tone: {
         type: "choice",
         choice: "formal",
-        probabilities: { formal: 0.59 },
+        probabilities: { formal: 0.79, casual: 0.11, neutral: 0.1 },
       },
     }),
     ["$input.tone"],
@@ -125,7 +136,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
       tone: {
         type: "choice",
         choice: "formal",
-        probabilities: { formal: 0.6 },
+        probabilities: { formal: 0.8, casual: 0.1, neutral: 0.1 },
       },
     }),
     "ok",
@@ -136,7 +147,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
       tone: {
         type: "choice",
         choice: "casual",
-        probabilities: { casual: 0.3 },
+        probabilities: { formal: 0.3, casual: 0.4, neutral: 0.3 },
       },
     }),
     "ok",
@@ -147,7 +158,7 @@ export const test_llm_evaluation_choice_minimum = (): void => {
       tone: {
         type: "choice",
         choice: "casual",
-        probabilities: { casual: 0.29 },
+        probabilities: { formal: 0.305, casual: 0.39, neutral: 0.305 },
       },
     }),
     ["$input.tone"],
@@ -155,7 +166,11 @@ export const test_llm_evaluation_choice_minimum = (): void => {
 };
 
 enum Team {
-  /** Payments and refunds */
+  /**
+   * Payments and refunds
+   *
+   * @probability 0.5
+   */
   billing = "billing",
   /**
    * Bugs and outages
@@ -165,23 +180,37 @@ enum Team {
   technical = "technical",
 }
 
+enum Action {
+  /**
+   * Page the on-call
+   *
+   * @probability 0.9
+   */
+  escalate = "escalate",
+  /**
+   * Answer the customer
+   *
+   * @probability 0.5
+   */
+  reply = "reply",
+}
+
 enum Tone {
   /** Formal wording */
   formal = "formal",
   /**
    * Casual wording
    *
-   * @probability 0.3
+   * @probability 0.4
    */
   casual = "casual",
+  /** Neutral wording */
+  neutral = "neutral",
 }
 
 interface IDecision {
   /** What should happen next? */
-  action:
-    | (tags.Constant<"escalate", { description: "Page the on-call" }> &
-        tags.Probability<0.9>)
-    | tags.Constant<"reply", { description: "Answer the customer" }>;
+  action: Action;
 
   /** Which team should handle this? */
   team: Team;
@@ -192,7 +221,7 @@ interface IDecision {
   /**
    * Which tone should the reply use?
    *
-   * @probability 0.6
+   * @probability 0.8
    */
   tone: Tone;
 }

@@ -233,8 +233,12 @@ export function evaluation(): never;
  * Types an evaluation model cannot answer, such as `string`, `number`, optional
  * properties, or a leaf without a JSDoc description, are compile errors. Use
  * `tags.Probability<N>` or `@probability N` to set decision thresholds and
- * acceptance minimums. A nested object's own JSDoc description is not sent to
- * the model; only the leaves' descriptions become question text.
+ * acceptance minimums. Once one choice, score, or set member declares a
+ * requirement, every member must declare one or inherit the property's
+ * `@probability` default. A nested object's own JSDoc description is not sent
+ * to the model; only the leaves' descriptions become question text. Other
+ * validation refinements that the answer decoder cannot enforce are compile
+ * errors.
  *
  * This feature is experimental. It follows Vercel AI SDK's evaluation model
  * specification, which is itself experimental and may change in patch
@@ -244,7 +248,8 @@ export function evaluation(): never;
  *
  * 1. Pass {@link ILlmEvaluation.questions} to the evaluation model
  * 2. Receive the answer map keyed by the same question IDs
- * 3. Use {@link ILlmEvaluation.validate} to fold the answers back into `T`
+ * 3. Use {@link ILlmEvaluation.decode} to fold the answers back into `T`; pass the
+ *    model's declared rounding precision when available
  *
  * Related functions:
  *

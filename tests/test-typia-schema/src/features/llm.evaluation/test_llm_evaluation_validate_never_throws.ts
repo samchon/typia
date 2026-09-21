@@ -5,7 +5,7 @@ import typia from "typia";
  * Verifies typia.llm.evaluation validate reports, never throws, on hostile
  * answer types.
  *
- * `validate(answers: unknown)` promises an `IValidation` result for any input.
+ * `decode(answers: unknown)` promises an `IValidation` result for any input.
  * Its "wrong answer type" messages describe the received `type`, and a bigint
  * or circular value there makes `JSON.stringify` throw, which would escape as
  * an exception instead of a failure on the decision path.
@@ -23,7 +23,7 @@ export const test_llm_evaluation_validate_never_throws = (): void => {
     ["bigint", 1n],
     ["circular", circular],
   ] as const) {
-    const result = evaluation.validate({
+    const result = evaluation.decode({
       urgent: { type },
       team: { type, choice: "billing" },
       level: { type, score: 0 },

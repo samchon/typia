@@ -54,7 +54,7 @@ export namespace _ILlmEvaluationPlan {
 /**
  * Creates the `ILlmEvaluation` of `typia.llm.evaluation<T>()` from its plan.
  *
- * Both the question map and the validator derive their keys from here, so the
+ * Both the question map and the decoder derive their keys from here, so the
  * readable path encoding has a single owner.
  *
  * @internal
@@ -74,7 +74,10 @@ export const _createLlmEvaluation = <T>(
   }
   return {
     questions,
-    validate: (answers: unknown): IValidation<T> => validate(plan, answers),
+    decode: (
+      answers: unknown,
+      rounding?: ILlmEvaluation.IRounding,
+    ): IValidation<T> => decode(plan, answers, rounding),
   };
 };
 
@@ -139,10 +142,26 @@ const setInstructions = (
 /* -----------------------------------------------------------
   VALIDATION
 ----------------------------------------------------------- */
-const validate = <T>(
+const decode = <T>(
   plan: _ILlmEvaluationPlan[],
   answers: unknown,
+  rounding?: ILlmEvaluation.IRounding,
 ): IValidation<T> => {
+  const precision: IPrecision | null = readPrecision(rounding);
+  if (precision === null)
+    return {
+      success: false,
+      data: answers,
+      errors: [
+        {
+          path: "$input",
+          expected: "rounding decimals in [0, 15]",
+          value: rounding,
+          description:
+            "Evaluation rounding decimals must be integers between 0 and 15.",
+        },
+      ],
+    };
   if (typeof answers !== "object" || answers === null || Array.isArray(answers))
     return {
       success: false,
@@ -195,10 +214,16 @@ const validate = <T>(
       if (probability !== null)
         place(output, leaf.path, probability >= leaf.threshold);
     } else if (leaf.kind === "choice") {
-      const value: string | null = choice(leaf, answer, path, errors);
+      const value: string | null = choice(
+        leaf,
+        answer,
+        path,
+        errors,
+        precision,
+      );
       if (value !== null) place(output, leaf.path, value);
     } else {
-      const value: number | null = score(leaf, answer, path, errors);
+      const value: number | null = score(leaf, answer, path, errors, precision);
       if (value !== null) place(output, leaf.path, value);
     }
   }
@@ -250,6 +275,7 @@ const choice = (
   answer: unknown,
   path: string,
   errors: IValidation.IError[],
+  precision: IPrecision,
 ): string | null => {
   const expected: string = `{ type: "choice"; choice: ${leaf.options
     .map((option) => JSON.stringify(option.value))
@@ -276,6 +302,7 @@ const choice = (
   const probabilities: Record<string, number> | null | undefined = distribution(
     record.probabilities,
     leaf.options.map((o) => o.value),
+    precision.probability,
   );
   if (probabilities === null) {
     errors.push({
@@ -283,9 +310,26 @@ const choice = (
       expected,
       value: answer,
       description:
-        "Choice probabilities must map declared options to numbers in [0, 1].",
+        "Choice probabilities must contain every declared option exactly once, use numbers in [0, 1], and sum to 1.",
     });
     return null;
+  }
+  if (probabilities !== undefined) {
+    const selected: number = own(probabilities, option.value)!;
+    if (
+      Object.values(probabilities).some(
+        (probability) => probability > selected + PROBABILITY_TOLERANCE,
+      )
+    ) {
+      errors.push({
+        path,
+        expected,
+        value: answer,
+        description:
+          "Choice answer must select an option with maximum probability.",
+      });
+      return null;
+    }
   }
   return accept(
     option,
@@ -305,6 +349,7 @@ const score = (
   answer: unknown,
   path: string,
   errors: IValidation.IError[],
+  precision: IPrecision,
 ): number | null => {
   const last: number = leaf.levels.length - 1;
   const expected: string = `{ type: "score"; score: number; probabilities?: Record<string, number> }`;
@@ -333,6 +378,7 @@ const score = (
   const probabilities: Record<string, number> | null | undefined = distribution(
     record.probabilities,
     leaf.levels.map((_, i) => String(i)),
+    precision.probability,
   );
   if (probabilities === null) {
     errors.push({
@@ -340,9 +386,32 @@ const score = (
       expected,
       value: answer,
       description:
-        "Score probabilities must map level indexes to numbers in [0, 1].",
+        "Score probabilities must contain every level index exactly once, use numbers in [0, 1], and sum to 1.",
     });
     return null;
+  }
+  if (probabilities !== undefined) {
+    const mean: number = leaf.levels.reduce(
+      (total, _, index) => total + index * own(probabilities, String(index))!,
+      0,
+    );
+    const meanRoundingError: number = leaf.levels.reduce(
+      (total, _, index) => total + index * precision.probability,
+      0,
+    );
+    if (
+      Math.abs(mean - record.score) >
+      PROBABILITY_TOLERANCE + meanRoundingError + precision.score
+    ) {
+      errors.push({
+        path,
+        expected,
+        value: answer,
+        description:
+          "Score must equal the probability-weighted mean of its distribution.",
+      });
+      return null;
+    }
   }
 
   // the most probable level when a distribution exists, where a tie resolves
@@ -413,16 +482,60 @@ const accept = (
 const distribution = (
   input: unknown,
   keys: string[],
+  roundingError: number,
 ): Record<string, number> | null | undefined => {
   if (input === undefined) return undefined;
   const record: Record<string, unknown> | null = object(input);
   if (record === null) return null;
+  if (
+    Object.keys(record).length !== keys.length ||
+    keys.some(
+      (key) =>
+        Object.prototype.hasOwnProperty.call(record, key) === false ||
+        isProbability(record[key]) === false,
+    )
+  )
+    return null;
   const output: Record<string, number> = {};
-  for (const [k, v] of Object.entries(record)) {
-    if (keys.includes(k) === false || isProbability(v) === false) return null;
-    assign(output, k, v);
-  }
+  for (const key of keys) assign(output, key, record[key] as number);
+  if (
+    Math.abs(
+      Object.values(output).reduce((sum, probability) => sum + probability, 0) -
+        1,
+    ) >
+    PROBABILITY_TOLERANCE + keys.length * roundingError
+  )
+    return null;
   return output;
+};
+
+/** AI SDK's absolute tolerance for probability sums and derived values. */
+const PROBABILITY_TOLERANCE = 1e-6;
+
+interface IPrecision {
+  probability: number;
+  score: number;
+}
+
+/** AI SDK's declared decimal-precision rule, without an AI SDK dependency. */
+const readPrecision = (
+  rounding: ILlmEvaluation.IRounding | undefined,
+): IPrecision | null => {
+  if (rounding === undefined) return { probability: 0, score: 0 };
+  const record: Record<string, unknown> | null = object(rounding);
+  if (record === null) return null;
+  const decimalError = (value: unknown): number | null =>
+    value === undefined
+      ? 0
+      : typeof value === "number" &&
+          Number.isInteger(value) &&
+          value >= 0 &&
+          value <= 15
+        ? 0.5 * 10 ** -value
+        : null;
+  const probability: number | null = decimalError(record.probabilityDecimals);
+  const score: number | null = decimalError(record.scoreDecimals);
+  return probability === null || score === null ? null : { probability, score };
 };
 
 /* -----------------------------------------------------------

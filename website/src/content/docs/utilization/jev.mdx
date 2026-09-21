@@ -40,10 +40,13 @@ const { answers } = await client.systemOne({
   state: "The payment page crashes for every customer.",
   questions: toJevQuestions(evaluation.questions),
 });
-const result = evaluation.validate(answers);
+const result = evaluation.decode(answers, {
+  probabilityDecimals: 2,
+  scoreDecimals: 2,
+});
 ```
 
-The answers need no conversion: `validate()` accepts Jev's native `{ type: "noul", noul }` answer as it is, and folds every answer back into `ITriage` by the [conversion rules](/docs/llm/evaluation) of `typia.llm.evaluation<T>()`. The raw `answers` keep what `ITriage` has no room for, such as the probability of every option.
+The answers need no wire-format conversion: `decode()` accepts Jev's native `{ type: "noul", noul }` answer as it is, and folds every answer back into `ITriage` by the [conversion rules](/docs/llm/evaluation) of `typia.llm.evaluation<T>()`. Pass Jev's two-decimal answer precision so rounded distributions and scores are checked correctly. The raw `answers` keep what `ITriage` has no room for, such as the probability of every option.
 
 Pin a versioned model once you tune [probability thresholds](/docs/llm/evaluation), because TypeSafe's aliases such as `jev-latest` move when a new release ships.
 

@@ -12,14 +12,15 @@ import typia from "typia";
  * numeric value of `T`, not to its index.
  *
  * 1. Declare a score whose values are not its indexes.
- * 2. Validate a bimodal distribution, a tied distribution, and positions without a
- *    distribution at and around the half-way boundary.
+ * 2. Validate a bimodal distribution, a complete distribution with a clear
+ *    maximum, and positions without a distribution at and around the half-way
+ *    boundary.
  * 3. Assert the selected values.
  */
 export const test_llm_evaluation_score_level = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const level = (answer: object): unknown => {
-    const result = evaluation.validate({ severity: answer });
+    const result = evaluation.decode({ severity: answer });
     return result.success ? result.data.severity : result.errors;
   };
 
@@ -37,7 +38,7 @@ export const test_llm_evaluation_score_level = (): void => {
     "argmax",
     level({
       type: "score",
-      score: 0.9,
+      score: 1.5,
       probabilities: { "0": 0.2, "1": 0.1, "2": 0.7 },
     }),
     30,
@@ -54,11 +55,6 @@ export const test_llm_evaluation_score_level = (): void => {
   );
   TestEquality.equals("lowest", level({ type: "score", score: 0 }), 10);
   TestEquality.equals("highest", level({ type: "score", score: 2 }), 30);
-  TestEquality.equals(
-    "empty distribution",
-    level({ type: "score", score: 0.4, probabilities: {} }),
-    10,
-  );
 };
 
 interface IDecision {

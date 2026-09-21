@@ -18,13 +18,13 @@ import typia from "typia";
 export const test_llm_evaluation_validate_rejects_key_mismatch = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
 
-  const scalar: IValidation<IDecision> = evaluation.validate("nothing");
+  const scalar: IValidation<IDecision> = evaluation.decode("nothing");
   TestEquality.equals("scalar", paths(scalar), ["$input"]);
 
-  const array: IValidation<IDecision> = evaluation.validate([]);
+  const array: IValidation<IDecision> = evaluation.decode([]);
   TestEquality.equals("array", paths(array), ["$input"]);
 
-  const mismatch: IValidation<IDecision> = evaluation.validate({
+  const mismatch: IValidation<IDecision> = evaluation.decode({
     "refund.requested": { type: "boolean", probability: 0.6 },
     "refund.amount": { type: "boolean", probability: 0.6 },
   });

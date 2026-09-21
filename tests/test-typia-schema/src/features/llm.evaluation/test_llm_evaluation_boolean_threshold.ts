@@ -17,7 +17,7 @@ import typia, { tags } from "typia";
 export const test_llm_evaluation_boolean_threshold = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const decide = (probability: number): IDecision => {
-    const result = evaluation.validate({
+    const result = evaluation.decode({
       plain: { type: "boolean", probability },
       tagged: { type: "boolean", probability },
       commented: { type: "noul", noul: probability },

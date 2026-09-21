@@ -20,7 +20,7 @@ import typia from "typia";
 export const test_llm_evaluation_validate_success = (): void => {
   const result: IValidation<ITicketTriage> = typia.llm
     .evaluation<ITicketTriage>()
-    .validate({
+    .decode({
       urgent: { type: "boolean", probability: 0.83 },
       department: { type: "choice", choice: "technical" },
       frustration: { type: "score", score: 1.4 },

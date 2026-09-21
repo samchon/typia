@@ -14,6 +14,8 @@
 
 Converts typia controllers to Vercel AI SDK tools compatible with OpenAI, Anthropic, Google, and other LLM providers.
 
+Evaluation questions are a separate AI SDK 7 feature. Pass `typia.llm.evaluation<T>().questions` directly to `experimental_evaluate()`, then call the evaluation's `decode(result.answers, result.rounding)`. This path does not need `@typia/vercel`; see the [evaluation guide](https://typia.io/docs/llm/evaluation).
+
 ## Setup
 
 ```bash

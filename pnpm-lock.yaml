@@ -546,6 +546,9 @@ importers:
       '@typia/template':
         specifier: workspace:^
         version: link:../template
+      ai:
+        specifier: ^7.0.103
+        version: 7.0.106(zod@4.4.3)
       ttsc:
         specifier: catalog:typescript
         version: 0.28.1

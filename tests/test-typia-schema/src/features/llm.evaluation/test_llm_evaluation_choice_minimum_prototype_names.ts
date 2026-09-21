@@ -18,19 +18,31 @@ import typia, { tags } from "typia";
  */
 export const test_llm_evaluation_choice_minimum_prototype_names = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
-  for (const name of [
+  const names = [
     "constructor",
     "toString",
     "valueOf",
     "hasOwnProperty",
-  ] as const) {
+    "other",
+  ] as const;
+  for (const name of names.slice(0, -1)) {
     const run = (probabilities: Record<string, number>) =>
-      evaluation.validate({
+      evaluation.decode({
         action: { type: "choice", choice: name, probabilities },
       }).success;
-    TestEquality.equals(`${name} omitted`, run({ other: 0.9 }), false);
-    TestEquality.equals(`${name} below`, run({ [name]: 0.49 }), false);
-    TestEquality.equals(`${name} at`, run({ [name]: 0.5 }), true);
+    const complete = (selected: number): Record<string, number> =>
+      Object.fromEntries(
+        names.map((key) => [
+          key,
+          key === name ? selected : (1 - selected) / (names.length - 1),
+        ]),
+      );
+    const inherited: Record<string, number> = Object.create({ [name]: 0.9 });
+    for (const key of names)
+      if (key !== name) inherited[key] = 1 / (names.length - 1);
+    TestEquality.equals(`${name} omitted`, run(inherited), false);
+    TestEquality.equals(`${name} below`, run(complete(0.49)), false);
+    TestEquality.equals(`${name} at`, run(complete(0.5)), true);
   }
 };
 
@@ -41,5 +53,5 @@ interface IDecision {
     | ("toString" & tags.Probability<0.5>)
     | ("valueOf" & tags.Probability<0.5>)
     | ("hasOwnProperty" & tags.Probability<0.5>)
-    | "other";
+    | ("other" & tags.Probability<0>);
 }
