@@ -69,6 +69,11 @@ type RestTupleIndexedUrgency = [boolean, ...Urgency[]][2];
 type AnnotatedUnionRestArm = true[];
 type AnnotatedUnionRest = AnnotatedUnionRestArm | false[];
 type AnnotatedUnionRestIndexed = [boolean, ...AnnotatedUnionRest][1];
+type UnionFixedRestSelected = [Urgency, boolean] | [boolean, boolean];
+type UnionFixedRestIndexedUrgency = [boolean, ...UnionFixedRestSelected][1];
+/** @probability 0.8 */
+type AnnotatedFixedRestBeforeSuffix = [boolean, boolean];
+type AnnotatedFixedRestSuffix = [boolean, ...AnnotatedFixedRestBeforeSuffix, boolean][3];
 type ArrayInferBranchTrue<T> = T extends Array<infer U> ? (U extends boolean ? Urgency : boolean) : boolean;
 type ArrayInferBranchIndexedUrgency = ArrayInferBranchTrue<[boolean, ...boolean[]]>;
 type ReadonlyRestTupleIndexedUrgency = (readonly [boolean, ...Urgency[]])[2];
@@ -124,6 +129,8 @@ typia.llm.evaluation<{
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
   /** Rest tuple indexed? */ restTupleIndexed: RestTupleIndexedUrgency;
   /** Annotated union rest indexed? */ annotatedUnionRestIndexed: AnnotatedUnionRestIndexed;
+  /** Union fixed rest indexed? */ unionFixedRestIndexed: UnionFixedRestIndexedUrgency;
+  /** Annotated fixed rest suffix? */ annotatedFixedRestSuffix: AnnotatedFixedRestSuffix;
   /** Array infer branch indexed? */ arrayInferBranchIndexed: ArrayInferBranchIndexedUrgency;
   /** Readonly rest tuple indexed? */ readonlyRestTupleIndexed: ReadonlyRestTupleIndexedUrgency;
   /** Suffixed rest tuple indexed? */ suffixedRestTupleIndexed: SuffixedRestTupleIndexedUrgency;
@@ -190,6 +197,8 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.restTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedUnionRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.unionFixedRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedFixedRestSuffix\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferBranchIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.suffixedRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -328,6 +337,9 @@ type ArrayInferBranch<T> = T extends Array<infer U> ? (U extends string ? Unused
 type ArrayInferBranchChosen = ArrayInferBranch<[boolean, ...boolean[]]>;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
+type SelectsNeverUnion<T> = T extends true ? Unused : boolean;
+type NeverUnionChosen = SelectsNeverUnion<never | false>;
+type UnknownUnionChosen = SelectsNeverUnion<unknown | true>;
 type SelectsWide<T> = T extends number ? Unused : boolean;
 type NonDistributive<T> = (T | number) extends string ? Unused : boolean;
 type NonDistributiveTrue<T> = (T | number) extends number ? Unused : boolean;
@@ -353,6 +365,10 @@ type ConditionalParameterChosen = ConditionalParameterSource<true, [boolean, Unu
 type RestTupleChosen = [Unused, ...boolean[]][2];
 type UnionRest = true[] | false[];
 type UnionRestChosen = [Unused, ...UnionRest][1];
+type UnionFixedRest = [boolean, Unused] | [boolean, boolean];
+type UnionFixedRestChosen = [boolean, ...UnionFixedRest][1];
+type UnionFixedRestSuffixChosen = [boolean, ...UnionFixedRest, boolean][1];
+type FixedRestSuffixChosen = [boolean, ...[boolean, Unused], boolean][3];
 type ReadonlyRestTupleChosen = (readonly [Unused, ...boolean[]])[2];
 type SuffixedRestTupleChosen = [Unused, ...boolean[], boolean][3];
 type FixedSpreadChosen = [boolean, ...[boolean, Unused]][1];
@@ -377,6 +393,8 @@ typia.llm.evaluation<{
   /** Second? @probability 0.8 */ second: UrgencyChain;
   /** Third? */ third: Discards<Unused>;
   /** Fourth? */ fourth: Selects<false>;
+  /** Never union chosen? */ neverUnionChosen: NeverUnionChosen;
+  /** Unknown union chosen? */ unknownUnionChosen: UnknownUnionChosen;
   /** Sixth? */ sixth: SelectsWide<string>;
   /** Seventh? */ seventh: NonDistributive<string>;
   /** Eighth? */ eighth: NonDistributiveTrue<string>;
@@ -406,6 +424,9 @@ typia.llm.evaluation<{
   /** Conditional parameter chosen? */ conditionalParameterChosen: ConditionalParameterChosen;
   /** Rest tuple chosen? */ restTupleChosen: RestTupleChosen;
   /** Union rest chosen? */ unionRestChosen: UnionRestChosen;
+  /** Union fixed rest chosen? */ unionFixedRestChosen: UnionFixedRestChosen;
+  /** Union fixed rest suffix chosen? */ unionFixedRestSuffixChosen: UnionFixedRestSuffixChosen;
+  /** Fixed rest suffix chosen? */ fixedRestSuffixChosen: FixedRestSuffixChosen;
   /** Readonly rest tuple chosen? */ readonlyRestTupleChosen: ReadonlyRestTupleChosen;
   /** Suffixed rest tuple chosen? */ suffixedRestTupleChosen: SuffixedRestTupleChosen;
   /** Fixed spread chosen? */ fixedSpreadChosen: FixedSpreadChosen;

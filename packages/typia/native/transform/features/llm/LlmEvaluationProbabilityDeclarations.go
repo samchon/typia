@@ -326,18 +326,27 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
       }
       selectedRest := elements[restIndex]
       rest, _, _ := llmEvaluation_tupleElement(selectedRest.node)
-      restSurfaces := llmEvaluation_restElementSurfaces(checker, rest, selectedRest.bindings)
-      if restSurfaces == nil {
+      offset := index - restIndex
+      alternatives := llmEvaluation_restAlternatives(checker, rest, selectedRest.bindings, offset)
+      if alternatives == nil {
         return nil
       }
-      for _, selected := range restSurfaces {
-        selected.declarations = append(selectedRest.declarations, selected.declarations...)
-        surfaces = append(surfaces, selected)
-      }
-      for i := restIndex + 1; i < len(elements) && i-restIndex-1 <= index-restIndex; i++ {
-        selected := elements[i]
-        selected.node, _, _ = llmEvaluation_tupleElement(selected.node)
-        surfaces = append(surfaces, selected)
+      for _, alternative := range alternatives {
+        for _, selected := range alternative.surfaces {
+          selected.declarations = append(selectedRest.declarations, selected.declarations...)
+          surfaces = append(surfaces, selected)
+        }
+        for i := restIndex + 1; i < len(elements); i++ {
+          length := offset - (i - restIndex - 1)
+          if length < alternative.minimum || alternative.maximum >= 0 && length > alternative.maximum {
+            continue
+          }
+          selected := elements[i]
+          selected.node, _, _ = llmEvaluation_tupleElement(selected.node)
+          selected.declarations = append(selected.declarations, selectedRest.declarations...)
+          selected.declarations = append(selected.declarations, alternative.declarations...)
+          surfaces = append(surfaces, selected)
+        }
       }
     }
     return surfaces
@@ -376,35 +385,91 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   return surfaces
 }
 
-// A rest can be a union of array/tuple alternatives. Each alternative can
-// carry its own alias declaration that remains reachable from the index.
-func llmEvaluation_restElementSurfaces(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) []llmEvaluation_indexedSurface {
+type llmEvaluation_restAlternative struct {
+  surfaces     []llmEvaluation_indexedSurface
+  declarations []*shimast.Node
+  minimum      int
+  maximum      int // -1 means unbounded
+}
+
+// A rest can be a union of fixed tuples and open arrays. Inspect each possible
+// sequence position separately, and retain the length range for later suffixes.
+func llmEvaluation_restAlternatives(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, index int) []llmEvaluation_restAlternative {
   expanded, nested, declarations := llmEvaluation_expandIndexedObject(checker, node, bindings)
   if expanded.Kind == shimast.KindUnionType {
-    output := []llmEvaluation_indexedSurface{}
+    output := []llmEvaluation_restAlternative{}
     for _, part := range expanded.AsUnionTypeNode().Types.Nodes {
-      surfaces := llmEvaluation_restElementSurfaces(checker, part, nested)
-      if surfaces == nil {
+      alternatives := llmEvaluation_restAlternatives(checker, part, nested, index)
+      if alternatives == nil {
         return nil
       }
-      for _, surface := range surfaces {
-        surface.declarations = append(declarations, surface.declarations...)
-        output = append(output, surface)
+      for _, alternative := range alternatives {
+        alternative.declarations = append(declarations, alternative.declarations...)
+        for i := range alternative.surfaces {
+          alternative.surfaces[i].declarations = append(declarations, alternative.surfaces[i].declarations...)
+        }
+        output = append(output, alternative)
       }
     }
     return output
+  }
+  if expanded.Kind == shimast.KindTupleType {
+    elements := llmEvaluation_flattenFixedTupleSpreads(checker, expanded.AsTupleTypeNode().Elements.Nodes, nested, map[*shimast.Node]bool{})
+    restIndex := -1
+    for i, element := range elements {
+      _, _, rest := llmEvaluation_tupleElement(element.node)
+      if rest {
+        restIndex = i
+        break
+      }
+    }
+    if restIndex < 0 {
+      selected := []llmEvaluation_indexedSurface{}
+      if index < len(elements) {
+        surface := elements[index]
+        surface.node, _, _ = llmEvaluation_tupleElement(surface.node)
+        surface.declarations = append(surface.declarations, declarations...)
+        selected = append(selected, surface)
+      }
+      return []llmEvaluation_restAlternative{{surfaces: selected, declarations: declarations, minimum: len(elements), maximum: len(elements)}}
+    }
+    selected := []llmEvaluation_indexedSurface{}
+    if index < restIndex {
+      surface := elements[index]
+      surface.node, _, _ = llmEvaluation_tupleElement(surface.node)
+      selected = append(selected, surface)
+    } else {
+      inner, _, _ := llmEvaluation_tupleElement(elements[restIndex].node)
+      nestedRest := llmEvaluation_restAlternatives(checker, inner, elements[restIndex].bindings, index-restIndex)
+      if nestedRest == nil {
+        return nil
+      }
+      for _, alternative := range nestedRest {
+        selected = append(selected, alternative.surfaces...)
+      }
+      for i := restIndex + 1; i < len(elements) && i-restIndex-1 <= index-restIndex; i++ {
+        surface := elements[i]
+        surface.node, _, _ = llmEvaluation_tupleElement(surface.node)
+        selected = append(selected, surface)
+      }
+    }
+    for i := range selected {
+      selected[i].declarations = append(selected[i].declarations, declarations...)
+    }
+    return []llmEvaluation_restAlternative{{surfaces: selected, declarations: declarations, minimum: len(elements) - 1, maximum: -1}}
   }
   element, _, ok := llmEvaluation_inferArrayElement(checker, expanded)
   if ok == false {
     return nil
   }
-  return []llmEvaluation_indexedSurface{{node: element, bindings: nested, declarations: declarations}}
+  return []llmEvaluation_restAlternative{{surfaces: []llmEvaluation_indexedSurface{{node: element, bindings: nested, declarations: declarations}}, declarations: declarations, minimum: 0, maximum: -1}}
 }
 
 // A spread of a fixed tuple contributes its individual positions, unlike an
 // open array rest whose length can move later tuple elements.
 func llmEvaluation_flattenFixedTupleSpreads(checker *shimchecker.Checker, elements []*shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, active map[*shimast.Node]bool) []llmEvaluation_indexedSurface {
   output := []llmEvaluation_indexedSurface{}
+  preceding := []*shimast.Node{}
   for _, element := range elements {
     inner, _, rest := llmEvaluation_tupleElement(element)
     if rest {
@@ -414,13 +479,15 @@ func llmEvaluation_flattenFixedTupleSpreads(checker *shimchecker.Checker, elemen
         children := llmEvaluation_flattenFixedTupleSpreads(checker, expanded.AsTupleTypeNode().Elements.Nodes, nested, active)
         delete(active, expanded)
         for _, child := range children {
+          child.declarations = append(child.declarations, preceding...)
           child.declarations = append(child.declarations, declarations...)
           output = append(output, child)
         }
+        preceding = append(preceding, declarations...)
         continue
       }
     }
-    output = append(output, llmEvaluation_indexedSurface{node: element, bindings: bindings})
+    output = append(output, llmEvaluation_indexedSurface{node: element, bindings: bindings, declarations: append([]*shimast.Node{}, preceding...)})
   }
   return output
 }
@@ -549,9 +616,26 @@ func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *
     }
     return conditional.FalseType
   }
-  if checkNode.Kind == shimast.KindUnionType {
+  // A written union has a parent and can be normalized by the checker (which
+  // drops never and absorbs unknown). Only a factory-built inference union
+  // lacks a parent; sending that node to the checker would panic.
+  if checkNode.Kind == shimast.KindUnionType && checkNode.Parent == nil {
     var selected *shimast.Node
     for _, part := range checkNode.AsUnionTypeNode().Types.Nodes {
+      partType := checker.GetTypeFromTypeNode(part)
+      if partType != nil && partType.Flags()&shimchecker.TypeFlagsNever != 0 {
+        continue
+      }
+      if partType != nil && partType.Flags()&shimchecker.TypeFlagsUnknown != 0 {
+        assignable, known := llmEvaluation_resolvedAssignable(checker, part, extendsNode, bindings)
+        if known == false {
+          return nil
+        }
+        if assignable {
+          return conditional.TrueType
+        }
+        return conditional.FalseType
+      }
       assignable, known := llmEvaluation_resolvedAssignable(checker, part, extendsNode, bindings)
       if known == false {
         return nil
