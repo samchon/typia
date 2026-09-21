@@ -29,18 +29,11 @@ import { TagBase } from "./TagBase";
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @example
- *   enum Action {
- *   /** @probability 0.8 *\/
- *   escalate = "escalate",
- *   /** @probability 0.5 *\/
- *   reply = "reply",
- *   }
- *
  *   interface ITicketTriage {
- *   // true only when P(true) >= 0.8
- *   refund: boolean & Probability<0.8>;
+ *     // true only when P(true) >= 0.8
+ *     refund: boolean & Probability<0.8>;
  *
- *   action: Action;
+ *     action: Action;
  *   }
  *
  * @template Value The probability requirement, in `[0, 1]`
