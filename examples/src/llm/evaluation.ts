@@ -3,7 +3,11 @@ import { toJevQuestions } from "@typia/jev";
 import typia, { tags } from "typia";
 
 enum Department {
-  /** Payments, invoicing, refunds */
+  /**
+   * Payments, invoicing, refunds
+   *
+   * @probability 0.5
+   */
   billing = "billing",
   /**
    * Bugs, outages, integrations
@@ -11,8 +15,21 @@ enum Department {
    * @probability 0.75
    */
   technical = "technical",
-  /** Pricing, upgrades, new accounts */
+  /**
+   * Pricing, upgrades, new accounts
+   *
+   * @probability 0.5
+   */
   sales = "sales",
+}
+
+enum Frustration {
+  /** Calm or neutral */
+  calm = 0,
+  /** Annoyed but cooperative */
+  annoyed = 1,
+  /** Angry or threatening to leave */
+  angry = 2,
 }
 
 interface ITicketTriage {
@@ -23,7 +40,7 @@ interface ITicketTriage {
   department: Department;
 
   /** How frustrated is the customer? */
-  frustration: 0 | 1 | 2;
+  frustration: Frustration;
 
   /** Which products does the customer mention? */
   products: Array<"card" | "loan" | "deposit">;
@@ -35,7 +52,7 @@ interface ITicketTriage {
 }
 
 const main = async (): Promise<void> => {
-  // Generate the questions and the converting validator
+  // Generate the questions and checked answer decoder.
   const triage = typia.llm.evaluation<ITicketTriage>();
 
   // Ask TypeSafe's Jev in its own wire format
@@ -46,8 +63,9 @@ const main = async (): Promise<void> => {
     questions: toJevQuestions(triage.questions),
   });
 
-  // Validate the answers and fold them back into ITicketTriage
-  const result = triage.validate(answers);
+  // Check and decode the answers into ITicketTriage.
+  // The direct TypeSafe SDK does not declare rounding precision.
+  const result = triage.decode(answers);
   if (result.success === false) {
     console.error("Evaluation failed:", result.errors);
     return;

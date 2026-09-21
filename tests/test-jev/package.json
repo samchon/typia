@@ -16,6 +16,7 @@
     "@types/node": "catalog:utils",
     "@typesafe-ai/sdk": "^0.6.0",
     "@typia/template": "workspace:^",
+    "ai": "^7.0.103",
     "ttsc": "catalog:typescript"
   },
   "dependencies": {

@@ -91,6 +91,15 @@ func MetadataDependency_active(checker *nativechecker.Checker) bool {
   return metadataDependency_listener(checker).active()
 }
 
+// MetadataDependency_touchFile reports a source file consulted outside the
+// metadata iterator, so a complete transform dependency list still watches it.
+func MetadataDependency_touchFile(checker *nativechecker.Checker, fileName string) {
+  listener := metadataDependency_listener(checker)
+  if listener.File != nil {
+    listener.File(fileName)
+  }
+}
+
 // MetadataDependency_touchType reports the declaration files of a consulted
 // type: both the structural symbol (interface / class / enum / object literal)
 // and the type-name symbol (a `type` alias), which differ for aliased types.

@@ -9,6 +9,7 @@ import (
   "path/filepath"
   "sort"
   "strings"
+  "sync"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimcompiler "github.com/microsoft/typescript-go/shim/compiler"
@@ -86,6 +87,7 @@ func runTransform(args []string) int {
   transformDiags := []typiaTransformDiagnostic{}
   transformOptions := pluginOptions.TransformOptions()
   extras := nativecontext.ITypiaContext_Extras{
+    Shared: &sync.Map{},
     AddDiagnostic: func(diag *nativecontext.ITypiaDiagnostic) int {
       transformDiags = append(transformDiags, typiaTransformDiagnosticFrom(diag))
       return len(transformDiags)

@@ -33,6 +33,10 @@ var fileTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 var fileTransformer_jsDocParsingMode sync.Map
 
 func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironments) func(transformer any) FileTransformer_Type {
+  shared := environments.Extras.Shared
+  if shared == nil {
+    shared = &sync.Map{}
+  }
   return func(transformer any) FileTransformer_Type {
     return func(file *shimast.SourceFile) *shimast.SourceFile {
       if file == nil || file.IsDeclarationFile {
@@ -53,6 +57,7 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
         Emit:            environments.EmitContext,
         Importer:        importer,
         Extras:          environments.Extras,
+        Shared:          shared,
       }
       _ = transformer
       fileTransformer_checkJsDocParsingMode(context, file)

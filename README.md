@@ -28,7 +28,7 @@ export namespace llm {
   // collection of function calling schemas + validators/parsers
   export function application<Class>(): ILlmApplication<Class>;
   export function structuredOutput<P>(): ILlmStructuredOutput;
-  // typed questions for evaluation models + answer validator
+  // typed questions for evaluation models + checked answer decoder
   export function evaluation<T>(): ILlmEvaluation<T>;
   // lenient json parser + type coercion
   export function parse<T>(str: string): T;

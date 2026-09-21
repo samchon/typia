@@ -25,13 +25,12 @@ export const test_vercel = async (): Promise<void> => {
   const add: Tool = tools["add"]!;
   check(
     "description reflects JSDoc",
-    add.description?.includes("Add two") === true,
+    typeof add.description === "string" && add.description.includes("Add two"),
   );
 
-  const result: unknown = await add.execute!(
-    { x: 40, y: 2 },
-    { toolCallId: "esm-e2e", messages: [], abortSignal: undefined as any },
-  );
+  // AI SDK 7 requires context; AI SDK 6 ignores the extra property.
+  const options = { toolCallId: "esm-e2e", messages: [], context: undefined };
+  const result: unknown = await add.execute!({ x: 40, y: 2 }, options);
   check(
     "execute returns the computed value",
     JSON.stringify(result) ===

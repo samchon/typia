@@ -1,6 +1,7 @@
 ---
 title: Guide Documents > Utilization Cases > Jev
 ---
+
 import { Callout } from "nextra/components";
 
 # Jev
@@ -15,7 +16,9 @@ npx typia setup
 ```
 
 <Callout type="info">
-Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them. Use `@typia/jev` to call Jev without AI SDK.
+  Through Vercel AI SDK, pass `evaluation.questions` to
+  `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers
+  convert them. Use `@typia/jev` to call Jev without AI SDK.
 </Callout>
 
 ## Usage
@@ -40,10 +43,10 @@ const { answers } = await client.systemOne({
   state: "The payment page crashes for every customer.",
   questions: toJevQuestions(evaluation.questions),
 });
-const result = evaluation.validate(answers);
+const result = evaluation.decode(answers);
 ```
 
-The answers need no conversion: `validate()` accepts Jev's native `{ type: "noul", noul }` answer as it is, and folds every answer back into `ITriage` by the [conversion rules](/docs/llm/evaluation) of `typia.llm.evaluation<T>()`. The raw `answers` keep what `ITriage` has no room for, such as the probability of every option.
+The answers need no wire-format conversion: `decode()` accepts Jev's native `{ type: "noul", noul }` answer as it is, and folds every answer back into `ITriage` by the [conversion rules](/docs/llm/evaluation) of `typia.llm.evaluation<T>()`. The direct TypeSafe SDK does not return an AI SDK-style `rounding` declaration, so this call uses strict distribution checks. Pass a precision only when your endpoint explicitly guarantees it. The raw `answers` keep what `ITriage` has no room for, such as the probability of every option.
 
 Pin a versioned model once you tune [probability thresholds](/docs/llm/evaluation), because TypeSafe's aliases such as `jev-latest` move when a new release ships.
 
@@ -51,10 +54,10 @@ Pin a versioned model once you tune [probability thresholds](/docs/llm/evaluatio
 
 `toJevQuestions()` returns a new map keyed like its input:
 
-| Neutral question | Jev question |
-| --- | --- |
-| `{ type: "boolean", instructions }` | `{ type: "noul", instructions }` |
-| `{ type: "choice", instructions, criteria }` | unchanged |
-| `{ type: "score", instructions, criteria }` | unchanged |
+| Neutral question                             | Jev question                     |
+| -------------------------------------------- | -------------------------------- |
+| `{ type: "boolean", instructions }`          | `{ type: "noul", instructions }` |
+| `{ type: "choice", instructions, criteria }` | unchanged                        |
+| `{ type: "score", instructions, criteria }`  | unchanged                        |
 
 The returned questions type-check against `@typesafe-ai/sdk`'s `Question`, so they can be passed to `systemOne()` directly.

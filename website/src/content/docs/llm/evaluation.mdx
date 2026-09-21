@@ -1,6 +1,7 @@
 ---
 title: Guide Documents > Large Language Model > evaluation() function
 ---
+
 import { Callout, Tabs } from "nextra/components";
 
 import LocalSource from "../../../components/LocalSource";
@@ -20,27 +21,49 @@ export namespace llm {
 ```typescript copy filename="what-you-get"
 interface ILlmEvaluation<T> {
   questions: Record<string, ILlmEvaluation.IQuestion>; // hand this to the model
-  validate: (answers: unknown) => IValidation<T>;      // answers in, T out
+  decode: (
+    answers: unknown,
+    rounding?: ILlmEvaluation.IRounding,
+  ) => IValidation<T>; // answers in, T out
 }
 ```
 
 <Callout type="warning">
-This feature is experimental. It follows Vercel AI SDK's evaluation model specification, which is itself experimental and may change in patch releases.
+  This feature is experimental. It follows Vercel AI SDK's evaluation model
+  specification, which is itself experimental and may change in patch releases.
 </Callout>
 
 ## First example
 
 ```typescript copy filename="triage.ts"
 import { experimental_evaluate } from "ai"; // AI SDK >= 7.0.103
-import typia, { tags } from "typia";
+import typia from "typia";
 
 enum Department {
-  /** Payments, invoicing, refunds */
+  /**
+   * Payments, invoicing, refunds.
+   * @probability 0.8
+   */
   billing = "billing",
-  /** Bugs, outages, integrations */
+  /**
+   * Bugs, outages, integrations.
+   * @probability 0.5
+   */
   technical = "technical",
-  /** Pricing, upgrades, new accounts */
+  /**
+   * Pricing, upgrades, new accounts.
+   * @probability 0.5
+   */
   sales = "sales",
+}
+
+enum Frustration {
+  /** Calm or neutral */
+  calm = 0,
+  /** Annoyed but cooperative */
+  annoyed = 1,
+  /** Angry or threatening to leave */
+  angry = 2,
 }
 
 interface ITicketTriage {
@@ -51,26 +74,30 @@ interface ITicketTriage {
   department: Department;
 
   /** How frustrated is the customer? */
-  frustration: 0 | 1 | 2;
+  frustration: Frustration;
 
   /** Which products does the customer mention? */
   products: Array<"card" | "loan" | "deposit">;
 
   refund: {
-    /** Does the customer ask for a refund? */
-    requested: boolean & tags.Probability<0.8>;
+    /**
+     * Does the customer ask for a refund?
+     * @probability 0.8
+     */
+    requested: boolean;
   };
 }
 
+const ticket = "I was charged twice. Refund it now, or I leave.";
 const triage = typia.llm.evaluation<ITicketTriage>();
 const result = await experimental_evaluate({
-  model: "typesafe-ai/jev-latest",
+  model: "typesafe-ai/jev",
   state: ticket,
   questions: triage.questions,
 });
 
-const validation = triage.validate(result.answers);
-if (validation.success) validation.data; // ITicketTriage
+const decoded = triage.decode(result.answers, result.rounding);
+if (decoded.success) decoded.data; // ITicketTriage
 
 // raw probabilities stay in the answer map, keyed by readable paths
 result.answers["refund.requested"]; // { type: "boolean", probability: 0.83 }
@@ -105,39 +132,53 @@ The transform replaces the call with one compile-time plan. Calling TypeSafe's A
     <LocalSource
       path="examples/src/llm/evaluation.ts"
       filename="examples/src/llm/evaluation.ts"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource
       path="examples/bin/llm/evaluation.js"
       filename="examples/bin/llm/evaluation.js"
-      showLineNumbers />
+      showLineNumbers
+    />
   </Tabs.Tab>
 </Tabs>
 
 ## When to use this
 
-| If you need… | Use |
-|--------------|-----|
-| **Decisions over closed sets**, with probabilities, from an evaluation model | `evaluation<T>()` |
-| **Generated data** of any JSON shape, from a language model | [`structuredOutput<T>()`](/docs/llm/structuredOutput) |
-| **Function calling**, where the LLM picks functions | [`application<Class>()`](/docs/llm/application) |
+| If you need…                                                                 | Use                                                   |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **Decisions over closed sets**, with probabilities, from an evaluation model | `evaluation<T>()`                                     |
+| **Generated data** of any JSON shape, from a language model                  | [`structuredOutput<T>()`](/docs/llm/structuredOutput) |
+| **Function calling**, where the LLM picks functions                          | [`application<Class>()`](/docs/llm/application)       |
 
 ## Type mapping
 
 Every leaf property of `T` becomes one question. Its JSDoc description is the question text, because the question key is not sent to the model.
 
-| Property type | Question | Value in `T` |
-|---|---|---|
-| `boolean` | `boolean` | `true` when P(true) reaches the threshold, `0.5` by default |
-| string enum, or string literal union | `choice` | the returned option |
-| numeric enum, or numeric literal union | `score`, levels in ascending value order | the level (see below) |
-| `Array<U>` of a string literal union or string enum | one `boolean` per member | the members decided `true` |
-| nested object | flattened, one question per leaf | the object rebuilt |
+| Property type                                       | Question                                 | Value in `T`                                                |
+| --------------------------------------------------- | ---------------------------------------- | ----------------------------------------------------------- |
+| `boolean`                                           | `boolean`                                | `true` when P(true) reaches the threshold, `0.5` by default |
+| string enum, or string literal union                | `choice`                                 | the returned option                                         |
+| numeric enum, or numeric literal union              | `score`, levels in ascending value order | the level (see below)                                       |
+| `Array<U>` of a string literal union or string enum | one `boolean` per member                 | the members decided `true`                                  |
+| nested object                                       | flattened, one question per leaf         | the object rebuilt                                          |
 
-Anything an evaluation model cannot answer is a compile error that names the property: `string`, `number`, and other open types; a single literal; a union mixing question kinds; optional, nullable, or `@hidden` properties; arrays of anything but a string literal union or string enum, and array type tags; tuples, dynamic keys, `Map`, `Set`, and recursive types; and a leaf without a JSDoc description.
+Anything an evaluation model cannot answer is a compile error that names the property: `string`, `number`, and other open types; a single literal; a union mixing question kinds; optional, nullable, `@hidden`, or `@internal` properties; arrays of anything but a string literal union or string enum, and array type tags; tuples, dynamic keys, `Map`, `Set`, and recursive types; a leaf without a JSDoc description; and validation refinements such as `tags.MinLength` that the answer decoder cannot enforce. Documentation-only tags may remain.
 
-A choice option is described by its enum member's JSDoc, or by `tags.Constant<V, { description }>` on a literal union member, since TypeScript cannot attach JSDoc to a union member. Without either, only the label is sent. A score level without a description is described by its value.
+Public class and interface getters or setters are decision properties, with their JSDoc supplying the question and optional `@probability`. Methods, private or protected members, symbol-keyed members, and call or construct signatures cannot be decoded into `T` and are compile errors.
+
+`criteria` tells the model how to distinguish the available answers. For a choice it maps each string value to its enum member's JSDoc description. For a score it is an array of numeric enum member descriptions, sorted by numeric value. The provider's score is a possibly fractional position on the array's index scale, from `0` to the last index. `decode()` selects a level by the rules below and maps it back to the enum's numeric value. A missing choice description becomes `null`, while a missing score description becomes the numeric value written as text.
+
+For the `Frustration` enum above, `triage.questions.frustration` is:
+
+```typescript
+{
+  type: "score",
+  instructions: "How frustrated is the customer?",
+  criteria: ["Calm or neutral", "Annoyed but cooperative", "Angry or threatening to leave"],
+}
+```
 
 A set member's question is the property's description followed by `Does the option "card" apply?` and the member's description, if any. That sentence is written by typia in English, so keep it in mind when the rest of your JSDoc is in another language.
 
@@ -145,46 +186,64 @@ A nested object's own JSDoc is not sent anywhere; only the leaves' descriptions 
 
 Question keys are the property paths in typia's accessor notation, such as `refund.requested`, `products.card`, or `["with space"]`.
 
-## Validate
+## Decode answers
 
-`validate()` takes the provider's answer map and returns `IValidation<T>`. It accepts both the neutral boolean answer `{ type: "boolean", probability }` and TypeSafe's native `{ type: "noul", noul }`, and ignores TypeSafe's extra `confidence` and `legend` fields.
+`decode()` checks the provider's answer map and converts it into `T`, returning `IValidation<T>`. It is not `typia.validate<T>()`: that function checks an already-formed `T`, while `decode()` reads the different answer-map shape. For a supported decision type, a successful decode needs no second general validation. It accepts both the neutral boolean answer `{ type: "boolean", probability }` and TypeSafe's native `{ type: "noul", noul }`, and ignores TypeSafe's extra `confidence` and `legend` fields.
 
 - **Boolean**: `true` when P(true) reaches the threshold.
 - **Choice**: the returned option.
 - **Score**: the most probable level when the answer has `probabilities`, where a tie picks the lower level; otherwise the level nearest to the fractional `score`, where a half rounds up. The distribution wins because a bimodal answer's rounded mean can be its least likely level.
 - **Set**: the members whose P(true) reaches their threshold.
 
-A missing or extra answer, a wrong answer `type`, an undeclared option, or a probability or score out of range fails with typia's usual error paths, such as `$input.refund.requested`.
+A missing or extra answer, a wrong answer `type`, an undeclared option, or a probability or score out of range fails with typia's usual error paths, such as `$input.refund.requested`. A choice or score may omit `probabilities`; when it includes them, the map must contain every option exactly once and sum to 1 within the provider's declared rounding precision. The selected choice must have maximum probability, and a score must agree with the distribution's weighted mean within that precision, following AI SDK's evaluation answer contract. Pass `result.rounding` as the second argument when using `experimental_evaluate()`. Without a declaration, `decode()` uses the SDK's strict `1e-6` tolerance; it does not guess a provider's precision.
 
 ## Probability requirements
 
 `tags.Probability<N>` and its JSDoc spelling `@probability N` attach a probability requirement to a decision. They carry metadata only: `is()`, `validate()`, and JSON schemas ignore them.
 
-| Spelling | Meaning |
-|---|---|
-| `boolean & tags.Probability<N>` | boolean threshold: `true` only when P(true) ≥ `N` |
-| `V & tags.Probability<N>` on a literal union member | that member's acceptance minimum; in an `Array<...>` set, its inclusion threshold |
-| `@probability N` on an enum member | the same as the tag on a literal member |
-| `@probability N` on a property | the boolean threshold, or the default minimum (for a set, the default threshold) of the members that carry none |
+| Spelling                              | Meaning                                                                                                         |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `boolean & tags.Probability<N>`       | boolean threshold: `true` only when P(true) ≥ `N`                                                               |
+| `"a" & tags.Probability<N>` in a union | that option's acceptance minimum; in an array set, its inclusion threshold                                     |
+| `@probability N` on every enum member | each member's acceptance minimum; in an enum array set, its inclusion threshold                                 |
+| `@probability N` on a property        | the boolean threshold, or the default minimum (for a set, the default threshold) of members without an override |
 
-A member's own requirement wins over the property's. A choice or score member without either has no minimum, and a set member without either uses the `0.5` threshold, since each set member is its own yes/no decision. Gating only the risky options is the intended use:
+A member's own requirement wins over the property's. Probability requirements are all-or-none for a choice, score, or set: once one member declares one, every member must declare one or the property must provide the default. The compiler rejects a partially covered type. If no member and no property declares a requirement, a choice or score has no minimum and every set member uses the `0.5` threshold.
+
+Put `@probability` on the decision property or enum member, not on a `type`, `interface`, class, or enum declaration. When the program uses `typia.llm.evaluation()`, the compiler rejects declaration-level tags even on unused declarations: TypeScript erases the identity of primitive aliases, so use-site detection cannot reliably distinguish an unused alias from a used one.
+
+`@probability` belongs to the property where it is written. An indexed-access type such as `Source["threshold"]` extracts the property's type, not its JSDoc; put another `@probability` on the resulting evaluation property if it needs the same requirement. Passing `Source` itself to `evaluation<Source>()` does read the original property's comment. For a requirement that must travel through indexed access or generic aliases, put `tags.Probability<N>` on the boolean or individual literal member type; type tags survive that extraction, including members of an array set.
 
 ```typescript copy filename="gated.ts"
+enum Action {
+  /**
+   * Page the on-call.
+   *
+   * @probability 0.8
+   */
+  escalate = "escalate",
+  /**
+   * Answer the customer.
+   *
+   * @probability 0.5
+   */
+  reply = "reply",
+}
+
 interface IDecision {
   /** What should happen next? */
-  action:
-    | (tags.Constant<"escalate", { description: "Page the on-call" }> &
-        tags.Probability<0.9>)
-    | tags.Constant<"reply", { description: "Answer the customer" }>;
+  action: Action;
 }
 ```
 
-When the selected option has a minimum and its probability is below it, `validate()` fails for that path. It never falls back to a less likely option, because that would invert the model's judgment. A gated option also fails when the answer has no `probabilities` to prove it, which is always the case on the OpenAI, Anthropic, and Google adapters; an ungated option passes without one.
+When the selected option has a minimum and its probability is below it, `decode()` fails for that path. It never falls back to a less likely option, because that would invert the model's judgment. A required option also fails when the answer has no `probabilities` to prove it, which is always the case on the OpenAI, Anthropic, and Google adapters. If the type declares no probability requirement at all, an answer without `probabilities` passes.
 
 A member requirement lives on the enum, so it applies at every property that uses that enum.
 
 <Callout type="info">
-Thresholds are tuned against one model's calibration. TypeSafe's aliases such as `jev-latest` move when a new release ships, so pin the versioned model ID when you tune thresholds.
+  Thresholds are tuned against one model's calibration. TypeSafe's aliases such
+  as `jev-latest` move when a new release ships, so pin the versioned model ID
+  when you tune thresholds.
 </Callout>
 
 ## Calling Jev directly
@@ -194,14 +253,40 @@ Jev's own wire format, shared by TypeSafe's API and OpenRouter's Decisions API, 
 ```typescript copy filename="typesafe.ts"
 import { TypeSafeClient } from "@typesafe-ai/sdk";
 import { toJevQuestions } from "@typia/jev";
+import typia from "typia";
+
+enum Urgency {
+  /** Can wait */
+  low = 0,
+  /** Respond today */
+  medium = 1,
+  /** Respond immediately */
+  high = 2,
+}
+
+interface ITicketTriage {
+  /** Does the customer need an urgent response? */
+  urgent: boolean;
+
+  /** How soon should the team respond? */
+  urgency: Urgency;
+}
+
+const ticket = "The payment failed and today's deadline is approaching.";
+const triage = typia.llm.evaluation<ITicketTriage>();
 
 const client = new TypeSafeClient();
 const { answers } = await client.systemOne({
   state: ticket,
   questions: toJevQuestions(triage.questions),
 });
-const validation = triage.validate(answers);
+// The direct TypeSafe SDK does not return `rounding` metadata.
+const decoded = triage.decode(answers);
+if (decoded.success) decoded.data.urgency; // Urgency member
+answers.urgency; // { type: "score", score: 1.6, probabilities: { "0": 0, "1": 0.4, "2": 0.6 }, ... }
 ```
+
+The direct call checks distribution sums and score consistency strictly. Pass an explicit rounding precision to `decode()` only when your endpoint guarantees it; unlike AI SDK's `experimental_evaluate()`, this SDK does not return a precision declaration.
 
 ## Providers
 

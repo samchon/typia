@@ -34,8 +34,8 @@ export interface IJevNoulQuestion {
  * API. Choice and score questions are identical in both formats and pass
  * through. The input is left untouched.
  *
- * The answers need no conversion: `validate()` of the evaluation accepts Jev's
- * native `{ type: "noul", noul }` answer as it is.
+ * The answers need no wire-format conversion: `decode()` accepts Jev's native
+ * `{ type: "noul", noul }` answer as it is.
  *
  * ## Example
  *
@@ -58,7 +58,7 @@ export interface IJevNoulQuestion {
  *   state: "The payment page crashes for every customer.",
  *   questions: toJevQuestions(evaluation.questions),
  * });
- * const result = evaluation.validate(answers);
+ * const result = evaluation.decode(answers);
  * ```
  *
  * @author Jeongho Nam - https://github.com/samchon

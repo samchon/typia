@@ -68,12 +68,13 @@ func (llmSchemaTransformerNamespace) Transform(props nativetransform.ITransformP
 }
 
 type llmTransformer_analyzeProps struct {
-  Context    nativecontext.ITypiaContext
-  Type       *shimchecker.Type
-  Code       string
-  Absorb     bool
-  Functional bool
-  Validate   func(props struct {
+  Context             nativecontext.ITypiaContext
+  Type                *shimchecker.Type
+  Code                string
+  Absorb              bool
+  Functional          bool
+  StrictObjectMembers bool
+  Validate            func(props struct {
     Metadata *schemametadata.MetadataSchema
     Explore  nativefactories.MetadataFactory_IExplore
     Top      *schemametadata.MetadataSchema
@@ -105,11 +106,13 @@ func llmTransformer_analyze(props llmTransformer_analyzeProps) *schemametadata.M
   result := nativefactories.MetadataFactory.Analyze(nativefactories.MetadataFactory_IProps{
     Checker: props.Context.Checker,
     Options: nativefactories.MetadataFactory_IOptions{
-      Absorb:     props.Absorb,
-      Escape:     true,
-      Constant:   true,
-      Functional: props.Functional,
-      Validate:   props.Validate,
+      Absorb:              props.Absorb,
+      Escape:              true,
+      Constant:            true,
+      Functional:          props.Functional,
+      Methods:             props.StrictObjectMembers,
+      StrictObjectMembers: props.StrictObjectMembers,
+      Validate:            props.Validate,
     },
     Components: schemametadata.NewMetadataCollection(&schemametadata.MetadataCollection_IOptions{
       Replace: schemametadata.MetadataCollection_replace,

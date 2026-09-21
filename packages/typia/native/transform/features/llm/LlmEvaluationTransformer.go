@@ -21,10 +21,11 @@ func (llmEvaluationTransformerNamespace) Transform(props nativetransform.ITransf
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{Code: "typia.llm.evaluation", Message: "non-specified generic argument."}))
   }
   metadata := llmTransformer_analyze(llmTransformer_analyzeProps{
-    Context: props.Context,
-    Type:    typ,
-    Code:    "typia.llm.evaluation",
-    Absorb:  true,
+    Context:             props.Context,
+    Type:                typ,
+    Code:                "typia.llm.evaluation",
+    Absorb:              true,
+    StrictObjectMembers: true,
     Validate: func(struct {
       Metadata *schemametadata.MetadataSchema
       Explore  nativefactories.MetadataFactory_IExplore
@@ -34,6 +35,16 @@ func (llmEvaluationTransformerNamespace) Transform(props nativetransform.ITransf
     },
   })
   plan, errors := nativellmprogrammers.LlmEvaluationProgrammer.Compose(metadata)
+  errors = append(errors, llmEvaluation_cachedDeclarationProbabilityErrors(props.Context)...)
+  // The placement scan depends on every program source, including files with
+  // no tag today: adding one later must invalidate a cached successful emit.
+  if props.Context.Program != nil && schemametadata.MetadataDependency_active(props.Context.Checker) {
+    for _, file := range props.Context.Program.SourceFiles() {
+      if file != nil {
+        schemametadata.MetadataDependency_touchFile(props.Context.Checker, file.FileName())
+      }
+    }
+  }
   if len(errors) != 0 {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
       Code:    "typia.llm.evaluation",

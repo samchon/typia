@@ -53,8 +53,19 @@ jobs:
       # `"type": "module"`, and run with plain node.
       - name: Test ESM
         working-directory: experiments/esm
+        env:
+          AI_SDK_MAJOR: '6'
         run: |
           npm install
+          npm run build
+          npm test
+
+      - name: Test ESM with AI SDK 7
+        working-directory: experiments/esm
+        env:
+          AI_SDK_MAJOR: '7'
+        run: |
+          npm install ai@^7.0.103 --no-save --package-lock=false
           npm run build
           npm test
 

@@ -15,7 +15,7 @@ interface IDecision {
  * Verifies `@typia/jev` converts under Node ESM.
  *
  * The bundled `.mjs` must rename the boolean question to `noul` and leave the
- * choice question as it is, and the evaluation's `validate()` must accept a
+ * choice question as it is, and the evaluation's `decode()` must accept a
  * native Jev answer map, so the round trip needs no network.
  */
 export const test_jev = async (): Promise<void> => {
@@ -24,12 +24,12 @@ export const test_jev = async (): Promise<void> => {
   check("boolean question becomes noul", questions.urgent?.type === "noul");
   check("choice question passes through", questions.team?.type === "choice");
 
-  const result = evaluation.validate({
+  const result = evaluation.decode({
     urgent: { type: "noul", noul: 0.7 },
     team: { type: "choice", choice: "technical" },
   });
   check(
-    "native answers validate",
+    "native answers decode",
     result.success === true &&
       result.data.urgent === true &&
       result.data.team === "technical",

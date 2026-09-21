@@ -5,15 +5,15 @@ import type { Experimental_EvaluationQuestion as EvaluationQuestion } from "ai";
  * Verifies the `ILlmEvaluation` contract and its AI SDK compatibility.
  *
  * `typia.llm.evaluation<T>().questions` is documented as directly usable as
- * `experimental_evaluate({ questions })`, and `validate()` as accepting that
+ * `experimental_evaluate({ questions })`, and `decode()` as accepting that
  * call's `result.answers`. The oracle for both claims is AI SDK's own
  * declaration, not a copy of it: a drift in either side breaks this compile
- * instead of a user's. `validate()` takes `unknown`, which the identity check
+ * instead of a user's. `decode()` takes `unknown`, which the identity check
  * pins, so any answer map is accepted by construction. The local shape is
  * pinned by identity, so the flat `IChoice | IScore | IBoolean` union behind
  * `IQuestion` and the `IValidation<T>` result cannot change silently.
  *
- * 1. Assert the question union, the question map, and the validate signature.
+ * 1. Assert the question union, the question map, and the decode signature.
  * 2. Assert every question type is assignable to AI SDK's question type, and a
  *    question map to its `experimental_evaluate` input.
  * 3. Assert `tags.Probability` keeps booleans and literals assignable.
@@ -34,8 +34,11 @@ export type LlmEvaluationContractCases = [
   >,
   Assert<
     IsEqual<
-      ILlmEvaluation<IDecision>["validate"],
-      (answers: unknown) => IValidation<IDecision>
+      ILlmEvaluation<IDecision>["decode"],
+      (
+        answers: unknown,
+        rounding?: ILlmEvaluation.IRounding,
+      ) => IValidation<IDecision>
     >
   >,
 

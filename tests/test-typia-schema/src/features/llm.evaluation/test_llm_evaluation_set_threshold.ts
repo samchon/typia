@@ -18,7 +18,7 @@ import typia, { tags } from "typia";
 export const test_llm_evaluation_set_threshold = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const run = (p: { card: number; loan: number; plain: number }) => {
-    const result = evaluation.validate({
+    const result = evaluation.decode({
       "products.loan": { type: "boolean", probability: p.loan },
       "products.card": { type: "boolean", probability: p.card },
       "channels.email": { type: "boolean", probability: p.plain },

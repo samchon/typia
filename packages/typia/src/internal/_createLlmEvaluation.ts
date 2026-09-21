@@ -54,7 +54,7 @@ export namespace _ILlmEvaluationPlan {
 /**
  * Creates the `ILlmEvaluation` of `typia.llm.evaluation<T>()` from its plan.
  *
- * Both the question map and the validator derive their keys from here, so the
+ * Both the question map and the decoder derive their keys from here, so the
  * readable path encoding has a single owner.
  *
  * @internal
@@ -74,7 +74,10 @@ export const _createLlmEvaluation = <T>(
   }
   return {
     questions,
-    validate: (answers: unknown): IValidation<T> => validate(plan, answers),
+    decode: (
+      answers: unknown,
+      rounding?: ILlmEvaluation.IRounding,
+    ): IValidation<T> => decode(plan, answers, rounding),
   };
 };
 
@@ -139,11 +142,35 @@ const setInstructions = (
 /* -----------------------------------------------------------
   VALIDATION
 ----------------------------------------------------------- */
-const validate = <T>(
+const decode = <T>(
   plan: _ILlmEvaluationPlan[],
   answers: unknown,
+  rounding?: ILlmEvaluation.IRounding,
 ): IValidation<T> => {
-  if (typeof answers !== "object" || answers === null || Array.isArray(answers))
+  const precision: IPrecision | null = (() => {
+    try {
+      return readPrecision(rounding);
+    } catch {
+      // A trapping rounding object is an invalid declaration.
+      return null;
+    }
+  })();
+  if (precision === null)
+    return {
+      success: false,
+      data: answers,
+      errors: [
+        {
+          path: "$input",
+          expected: "rounding decimals in [0, 15]",
+          value: rounding,
+          description:
+            "Evaluation rounding decimals must be integers between 0 and 15.",
+        },
+      ],
+    };
+  const map: Record<string, unknown> | null = object(answers);
+  if (map === null)
     return {
       success: false,
       data: answers,
@@ -156,13 +183,19 @@ const validate = <T>(
       ],
     };
 
-  const map: Record<string, unknown> = answers as Record<string, unknown>;
   const errors: IValidation.IError[] = [];
   const expected: Set<string> = new Set();
   const output: Record<string, unknown> = {};
   const read = (id: string): unknown => {
     expected.add(id);
-    return Object.prototype.hasOwnProperty.call(map, id) ? map[id] : undefined;
+    try {
+      return Object.prototype.hasOwnProperty.call(map, id)
+        ? map[id]
+        : undefined;
+    } catch {
+      // The decision reader reports the inaccessible answer on its own path.
+      return undefined;
+    }
   };
 
   for (const leaf of plan) {
@@ -174,10 +207,12 @@ const validate = <T>(
           path,
           _accessExpressionAsString(member.value),
         ].join("");
-        const probability: number | null = booleanProbability(
-          read(key([...leaf.path, member.value])),
+        const answer: unknown = read(key([...leaf.path, member.value]));
+        const probability: number | null = inspect(
           memberPath,
+          answer,
           errors,
+          () => booleanProbability(answer, memberPath, errors),
         );
         if (probability !== null && probability >= member.threshold)
           values.push(member.value);
@@ -187,32 +222,75 @@ const validate = <T>(
     }
     const answer: unknown = read(key(leaf.path));
     if (leaf.kind === "boolean") {
-      const probability: number | null = booleanProbability(
-        answer,
-        path,
-        errors,
+      const probability: number | null = inspect(path, answer, errors, () =>
+        booleanProbability(answer, path, errors),
       );
       if (probability !== null)
         place(output, leaf.path, probability >= leaf.threshold);
     } else if (leaf.kind === "choice") {
-      const value: string | null = choice(leaf, answer, path, errors);
+      const value: string | null = inspect(path, answer, errors, () =>
+        choice(leaf, answer, path, errors, precision),
+      );
       if (value !== null) place(output, leaf.path, value);
     } else {
-      const value: number | null = score(leaf, answer, path, errors);
+      const value: number | null = inspect(path, answer, errors, () =>
+        score(leaf, answer, path, errors, precision),
+      );
       if (value !== null) place(output, leaf.path, value);
     }
   }
-  for (const id of Object.keys(map))
+  let received: string[];
+  try {
+    received = Object.keys(map);
+  } catch {
+    errors.push({
+      path: "$input",
+      expected: "readable evaluation answer map",
+      value: answers,
+      description: "Evaluation answer keys could not be inspected.",
+    });
+    received = [];
+  }
+  for (const id of received)
     if (expected.has(id) === false)
-      errors.push({
-        path: `$input${_accessExpressionAsString(id)}`,
-        expected: "undefined",
-        value: map[id],
-        description: "The answer does not belong to any question.",
-      });
+      try {
+        errors.push({
+          path: `$input${_accessExpressionAsString(id)}`,
+          expected: "undefined",
+          value: map[id],
+          description: "The answer does not belong to any question.",
+        });
+      } catch {
+        errors.push({
+          path: `$input${_accessExpressionAsString(id)}`,
+          expected: "readable evaluation answer",
+          value: undefined,
+          description: "The extra answer could not be inspected.",
+        });
+      }
   return errors.length === 0
     ? { success: true, data: output as T }
     : { success: false, data: answers, errors };
+};
+
+/** Contain exceptions from getters and proxies at the decision path. */
+const inspect = <T>(
+  path: string,
+  answer: unknown,
+  errors: IValidation.IError[],
+  read: () => T,
+): T | null => {
+  try {
+    return read();
+  } catch {
+    errors.push({
+      path,
+      expected: "readable evaluation answer",
+      value: answer,
+      description: "The answer could not be inspected.",
+    });
+    return null;
+  }
 };
 
 const booleanProbability = (
@@ -221,12 +299,13 @@ const booleanProbability = (
   errors: IValidation.IError[],
 ): number | null => {
   const record: Record<string, unknown> | null = object(answer);
+  const type: unknown = record?.type;
   const probability: unknown =
     record === null
       ? undefined
-      : record.type === "boolean"
+      : type === "boolean"
         ? record.probability
-        : record.type === "noul"
+        : type === "noul"
           ? record.noul
           : undefined;
   if (isProbability(probability)) return probability;
@@ -238,8 +317,8 @@ const booleanProbability = (
     description:
       record === null
         ? "Missing boolean answer."
-        : record.type !== "boolean" && record.type !== "noul"
-          ? `Answer type must be "boolean" or "noul", but got ${label(record.type)}.`
+        : type !== "boolean" && type !== "noul"
+          ? `Answer type must be "boolean" or "noul", but got ${label(type)}.`
           : "Boolean answer needs a probability in [0, 1].",
   });
   return null;
@@ -250,14 +329,17 @@ const choice = (
   answer: unknown,
   path: string,
   errors: IValidation.IError[],
+  precision: IPrecision,
 ): string | null => {
   const expected: string = `{ type: "choice"; choice: ${leaf.options
     .map((option) => JSON.stringify(option.value))
     .join(" | ")}; probabilities?: Record<string, number> }`;
   const record: Record<string, unknown> | null = object(answer);
+  const type: unknown = record?.type;
+  const selected: unknown = type === "choice" ? record?.choice : undefined;
   const option: _ILlmEvaluationPlan.IMember<string> | undefined =
-    record !== null && record.type === "choice"
-      ? leaf.options.find((o) => o.value === record.choice)
+    record !== null && type === "choice"
+      ? leaf.options.find((o) => o.value === selected)
       : undefined;
   if (record === null || option === undefined) {
     errors.push({
@@ -267,8 +349,8 @@ const choice = (
       description:
         record === null
           ? "Missing choice answer."
-          : record.type !== "choice"
-            ? `Answer type must be "choice", but got ${label(record.type)}.`
+          : type !== "choice"
+            ? `Answer type must be "choice", but got ${label(type)}.`
             : "Choice answer must select one of the declared options.",
     });
     return null;
@@ -276,6 +358,7 @@ const choice = (
   const probabilities: Record<string, number> | null | undefined = distribution(
     record.probabilities,
     leaf.options.map((o) => o.value),
+    precision.probability,
   );
   if (probabilities === null) {
     errors.push({
@@ -283,9 +366,26 @@ const choice = (
       expected,
       value: answer,
       description:
-        "Choice probabilities must map declared options to numbers in [0, 1].",
+        "Choice probabilities must contain every declared option exactly once, use numbers in [0, 1], and sum to 1.",
     });
     return null;
+  }
+  if (probabilities !== undefined) {
+    const selected: number = own(probabilities, option.value)!;
+    if (
+      Object.values(probabilities).some(
+        (probability) => probability > selected + PROBABILITY_TOLERANCE,
+      )
+    ) {
+      errors.push({
+        path,
+        expected,
+        value: answer,
+        description:
+          "Choice answer must select an option with maximum probability.",
+      });
+      return null;
+    }
   }
   return accept(
     option,
@@ -305,17 +405,20 @@ const score = (
   answer: unknown,
   path: string,
   errors: IValidation.IError[],
+  precision: IPrecision,
 ): number | null => {
   const last: number = leaf.levels.length - 1;
   const expected: string = `{ type: "score"; score: number; probabilities?: Record<string, number> }`;
   const record: Record<string, unknown> | null = object(answer);
+  const type: unknown = record?.type;
+  const scored: unknown = type === "score" ? record?.score : undefined;
   if (
     record === null ||
-    record.type !== "score" ||
-    typeof record.score !== "number" ||
-    Number.isFinite(record.score) === false ||
-    record.score < 0 ||
-    record.score > last
+    type !== "score" ||
+    typeof scored !== "number" ||
+    Number.isFinite(scored) === false ||
+    scored < 0 ||
+    scored > last
   ) {
     errors.push({
       path,
@@ -324,8 +427,8 @@ const score = (
       description:
         record === null
           ? "Missing score answer."
-          : record.type !== "score"
-            ? `Answer type must be "score", but got ${label(record.type)}.`
+          : type !== "score"
+            ? `Answer type must be "score", but got ${label(type)}.`
             : `Score answer needs a score in [0, ${last}].`,
     });
     return null;
@@ -333,6 +436,7 @@ const score = (
   const probabilities: Record<string, number> | null | undefined = distribution(
     record.probabilities,
     leaf.levels.map((_, i) => String(i)),
+    precision.probability,
   );
   if (probabilities === null) {
     errors.push({
@@ -340,15 +444,38 @@ const score = (
       expected,
       value: answer,
       description:
-        "Score probabilities must map level indexes to numbers in [0, 1].",
+        "Score probabilities must contain every level index exactly once, use numbers in [0, 1], and sum to 1.",
     });
     return null;
+  }
+  if (probabilities !== undefined) {
+    const mean: number = leaf.levels.reduce(
+      (total, _, index) => total + index * own(probabilities, String(index))!,
+      0,
+    );
+    const meanRoundingError: number = leaf.levels.reduce(
+      (total, _, index) => total + index * precision.probability,
+      0,
+    );
+    if (
+      Math.abs(mean - scored) >
+      PROBABILITY_TOLERANCE + meanRoundingError + precision.score
+    ) {
+      errors.push({
+        path,
+        expected,
+        value: answer,
+        description:
+          "Score must equal the probability-weighted mean of its distribution.",
+      });
+      return null;
+    }
   }
 
   // the most probable level when a distribution exists, where a tie resolves
   // to the lower level; otherwise the level nearest to the fractional score,
   // where a half rounds up
-  let index: number = Math.round(record.score);
+  let index: number = Math.round(scored);
   if (probabilities !== undefined && Object.keys(probabilities).length !== 0) {
     index = -1;
     leaf.levels.forEach((_, i) => {
@@ -413,16 +540,63 @@ const accept = (
 const distribution = (
   input: unknown,
   keys: string[],
+  roundingError: number,
 ): Record<string, number> | null | undefined => {
   if (input === undefined) return undefined;
   const record: Record<string, unknown> | null = object(input);
   if (record === null) return null;
+  if (Object.keys(record).length !== keys.length) return null;
   const output: Record<string, number> = {};
-  for (const [k, v] of Object.entries(record)) {
-    if (keys.includes(k) === false || isProbability(v) === false) return null;
-    assign(output, k, v);
+  for (const key of keys) {
+    if (Object.prototype.hasOwnProperty.call(record, key) === false)
+      return null;
+    const probability: unknown = record[key];
+    if (isProbability(probability) === false) return null;
+    assign(output, key, probability);
   }
+  if (
+    Math.abs(
+      Object.values(output).reduce((sum, probability) => sum + probability, 0) -
+        1,
+    ) >
+    PROBABILITY_TOLERANCE + keys.length * roundingError
+  )
+    return null;
   return output;
+};
+
+/** AI SDK's absolute tolerance for probability sums and derived values. */
+const PROBABILITY_TOLERANCE = 1e-6;
+
+interface IPrecision {
+  probability: number;
+  score: number;
+}
+
+/** AI SDK's declared decimal-precision rule, without an AI SDK dependency. */
+const readPrecision = (
+  rounding: ILlmEvaluation.IRounding | undefined,
+): IPrecision | null => {
+  if (rounding === undefined) return { probability: 0, score: 0 };
+  if (
+    typeof rounding !== "object" ||
+    rounding === null ||
+    Array.isArray(rounding)
+  )
+    return null;
+  const record: Record<string, unknown> = rounding as Record<string, unknown>;
+  const decimalError = (value: unknown): number | null =>
+    value === undefined
+      ? 0
+      : typeof value === "number" &&
+          Number.isInteger(value) &&
+          value >= 0 &&
+          value <= 15
+        ? 0.5 * 10 ** -value
+        : null;
+  const probability: number | null = decimalError(record.probabilityDecimals);
+  const score: number | null = decimalError(record.scoreDecimals);
+  return probability === null || score === null ? null : { probability, score };
 };
 
 /* -----------------------------------------------------------
@@ -438,10 +612,20 @@ const label = (value: unknown): string =>
 const accessor = (path: string[]): string =>
   "$input" + path.map(_accessExpressionAsString).join("");
 
-const object = (input: unknown): Record<string, unknown> | null =>
-  typeof input === "object" && input !== null && Array.isArray(input) === false
-    ? (input as Record<string, unknown>)
-    : null;
+/** Match AI SDK's JSON-record boundary, including null-prototype dictionaries. */
+const object = (input: unknown): Record<string, unknown> | null => {
+  if (typeof input !== "object" || input === null) return null;
+  try {
+    if (Array.isArray(input)) return null;
+    const prototype: object | null = Object.getPrototypeOf(input);
+    return prototype === Object.prototype || prototype === null
+      ? (input as Record<string, unknown>)
+      : null;
+  } catch {
+    // A revoked or trapping proxy is not a usable answer record.
+    return null;
+  }
+};
 
 /**
  * Reads an own probability, so an option named like an `Object.prototype`

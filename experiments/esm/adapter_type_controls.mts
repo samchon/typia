@@ -14,7 +14,7 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { toLangChainTools } from "@typia/langchain";
 import { createMcpServer } from "@typia/mcp";
 import { toVercelTools } from "@typia/vercel";
-import type { Tool } from "ai";
+import type { Tool } from "ai" with { "resolution-mode": "import" };
 
 declare const controller: Parameters<typeof createMcpServer>[0];
 

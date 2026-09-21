@@ -60,6 +60,14 @@ assertSingleInstallation(
   "@modelcontextprotocol/sdk/server/mcp.js",
 );
 assertSingleInstallation("@typia/vercel", "ai");
+const expectedAiMajor = process.env.AI_SDK_MAJOR;
+if (expectedAiMajor !== undefined) {
+  const actualAiMajor = require("ai/package.json").version.split(".")[0];
+  if (actualAiMajor !== expectedAiMajor)
+    throw new Error(
+      `Expected AI SDK ${expectedAiMajor}, installed ${actualAiMajor}.`,
+    );
+}
 
 fs.copyFileSync(source, commonjs);
 try {

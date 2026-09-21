@@ -15,7 +15,7 @@ import (
 // Every other shape, a leaf without the JSDoc text that becomes its question,
 // and a decision type that asks nothing must fail at compile time on the exact
 // accessor, instead of emitting a question the model cannot receive or a value
-// validate() can never produce. A valid neighbor type in the same project is
+// decode() can never produce. A valid neighbor type in the same project is
 // the positive twin that must keep compiling.
 //
 //  1. Build one project with one call per rejected shape, and a separate

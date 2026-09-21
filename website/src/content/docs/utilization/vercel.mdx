@@ -7,6 +7,8 @@ import LocalSource from "../../../components/LocalSource";
 
 # Vercel AI SDK
 
+For AI SDK 7's `experimental_evaluate()`, use [`typia.llm.evaluation<T>()`](/docs/llm/evaluation) directly. Its questions already have the AI SDK shape, and its `decode(result.answers, result.rounding)` converts the answers to `T`; `@typia/vercel` is not involved.
+
 [`@typia/vercel`](https://github.com/samchon/typia/tree/master/packages/vercel) plugs typia controllers into the [Vercel AI SDK](https://github.com/vercel/ai). Every method on your TypeScript class — or every endpoint in an OpenAPI document — becomes a `Tool` ready for `generateText`/`streamText`, with the same parse/coerce/validate/feedback machinery as [`typia.llm.application`](/docs/llm/application#the-function-calling-harness) wired in automatically.
 
 ```typescript copy filename="signature"

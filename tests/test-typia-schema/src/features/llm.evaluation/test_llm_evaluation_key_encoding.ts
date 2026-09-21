@@ -11,7 +11,7 @@ import typia from "typia";
  * rewriting either object's prototype.
  *
  * 1. Declare colliding-looking, quoted, spaced, and `__proto__` properties.
- * 2. Generate the question keys and round-trip answers through validate.
+ * 2. Generate the question keys and decode the answer map.
  * 3. Assert the exact keys, the converted value, and untouched prototypes.
  */
 export const test_llm_evaluation_key_encoding = (): void => {
@@ -34,7 +34,7 @@ export const test_llm_evaluation_key_encoding = (): void => {
   const answers: Record<string, unknown> = {};
   for (const [index, key] of Object.keys(evaluation.questions).entries())
     answers[key] = { type: "boolean", probability: index % 2 === 0 ? 1 : 0 };
-  const result = evaluation.validate(answers);
+  const result = evaluation.decode(answers);
   if (result.success === false) throw new Error("unexpected failure");
 
   const data: IDecision = result.data;

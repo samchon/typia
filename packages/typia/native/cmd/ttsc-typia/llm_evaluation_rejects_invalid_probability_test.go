@@ -11,10 +11,11 @@ import (
 // A requirement is a probability, so anything outside `[0, 1]` or not a
 // number is a compile error; two requirements on one target are ambiguous
 // rather than silently resolved; and `@probability` on an object has no
-// decision to govern. Each case pins the accessor and, for members, the member
-// literal, so a rejection lands on the declaration the author must fix. A
-// valid requirement of every spelling, in a separate project, is the positive
-// twin.
+// decision to govern. Once one choice, score, or set member declares a
+// requirement, every member must be covered directly or by a property default.
+// Each case pins the accessor and, for members, the member literal, so a
+// rejection lands on the declaration the author must fix. A valid requirement
+// of every spelling, in a separate project, is the positive twin.
 //
 //  1. Build one project with one call per invalid requirement, and a separate
 //     project with valid requirements.
@@ -35,6 +36,8 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
     "- $input.memberComment\n  - LLM evaluation @probability must be in [0, 1], but got 3. (member \"bad\")",
     "- $input.scoreComment\n  - LLM evaluation @probability must be a number in [0, 1], but got \"x\". (member 1)",
     "- $input.setMember\n  - LLM evaluation tags.Probability must be in [0, 1], but got 7. (member \"card\")",
+    "- $input.partialTag\n  - LLM evaluation probability requirements must cover every member once one member declares one; add tags.Probability or @probability to member \"plain\", or add a property @probability default.",
+    "- $input.partialComment\n  - LLM evaluation probability requirements must cover every member once one member declares one; add tags.Probability or @probability to member \"plain\", or add a property @probability default.",
     "- $input.nested\n  - LLM evaluation @probability must be on a boolean, choice, score, or set property, not on an object.",
     // two tags on one member fail typia's generic exclusive-tag check first
     "- __type.tagTwice: string & Probability0.5 & Probability0.6\n  - the property [\"typia.tag\"] kind 'probability' can't be duplicated.",
@@ -51,7 +54,11 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
 const llmEvaluationProbabilityValidSource = `import typia, { tags } from "typia";
 
 enum Team {
-  /** Payments */
+  /**
+   * Payments
+   *
+   * @probability 0.5
+   */
   billing = "billing",
   /**
    * Outages
@@ -66,6 +73,8 @@ typia.llm.evaluation<IValid>();
 interface IValid {
   /** Tagged? */
   tagged: boolean & tags.Probability<0>;
+  /** Tagged at one? */
+  taggedOne: boolean & tags.Probability<1>;
   /**
    * Commented?
    *
@@ -75,7 +84,9 @@ interface IValid {
   /** Team? */
   team: Team;
   /** Action? */
-  action: ("risky" & tags.Probability<0.9>) | "safe";
+  action:
+    | ("risky" & tags.Probability<0.9>)
+    | ("safe" & tags.Probability<0>);
   /**
    * Products?
    *
@@ -107,6 +118,17 @@ enum Level {
   low = 1,
   /** High */
   high = 2,
+}
+
+enum Partial {
+  /**
+   * Gated
+   *
+   * @probability 0.8
+   */
+  gated = "gated",
+  /** Plain */
+  plain = "plain",
 }
 
 typia.llm.evaluation<{
@@ -155,6 +177,10 @@ typia.llm.evaluation<{
   scoreComment: Level;
   /** Set member? */
   setMember: Array<("card" & tags.Probability<7>) | "loan">;
+  /** Partial tag? */
+  partialTag: ("gated" & tags.Probability<0.8>) | "plain";
+  /** Partial comment? */
+  partialComment: Partial;
   /**
    * Nested?
    *

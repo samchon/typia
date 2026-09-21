@@ -21,7 +21,7 @@ type llmEvaluationProgrammerNamespace struct{}
 // The emitted code is one call to the `_createLlmEvaluation` runtime helper
 // with a compile-time plan: one entry per decision leaf of `T`, carrying its
 // property path, question text, and probability requirements. The helper
-// derives both the question map and the converting validator from that plan,
+// derives both the question map and the checked decoder from that plan,
 // so the question-key encoding has a single owner at runtime.
 var LlmEvaluationProgrammer = llmEvaluationProgrammerNamespace{}
 
@@ -117,6 +117,10 @@ func (c *llmEvaluationComposer) top(metadata *schemametadata.MetadataSchema) *sc
     c.fail("$input", "LLM evaluation type must be a non-nullable and non-undefined object type.")
     return nil
   }
+  if message := llmEvaluation_unsupported_tags(metadata.Objects[0].Tags); message != "" {
+    c.fail("$input", message)
+    return nil
+  }
   return metadata.Objects[0].Type
 }
 
@@ -169,13 +173,17 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       c.fail(accessor, "LLM evaluation does not support union types.")
       return
     }
+    if message := llmEvaluation_unsupported_tags(value.Objects[0].Tags); message != "" {
+      c.fail(accessor, message)
+      return
+    }
     if _, found := llmEvaluation_jsdoc_probability(property.JsDocTags); found {
       c.fail(accessor, "LLM evaluation @probability must be on a boolean, choice, score, or set property, not on an object.")
     }
     plan, errors := len(c.plan), len(c.errors)
     c.object(value.Objects[0].Type, path, accessor)
     if len(c.plan) == plan && len(c.errors) == errors {
-      // no answer could ever create the object, so validate() would return a
+      // no answer could ever create the object, so decode() would return a
       // value missing this required property
       c.fail(accessor, "LLM evaluation object must have at least one decision property.")
     }
@@ -205,6 +213,10 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
   }
   switch kind {
   case "boolean":
+    if message := llmEvaluation_unsupported_tags(value.Atomics[0].Tags); message != "" {
+      c.fail(accessor, message)
+      return
+    }
     threshold := 0.5
     tagged, found, message := llmEvaluation_tag_probability(value.Atomics[0].Tags)
     if message != "" {
@@ -236,7 +248,13 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       })
     }
     members := make([]any, 0, len(entries))
+    hasMemberRequirement := false
+    missingRequirements := make([]*schemametadata.MetadataConstantValue, 0)
     for _, entry := range entries {
+      if message := llmEvaluation_unsupported_tags(entry.Tags); message != "" {
+        c.fail(accessor, fmt.Sprintf("%s (member %s)", message, llmEvaluation_value_text(entry.Value)))
+        continue
+      }
       member := map[string]any{"value": llmEvaluation_value(entry.Value)}
       // an undocumented score level is described by its value, which the
       // runtime writes with JavaScript's own number formatting
@@ -251,6 +269,11 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       if found == false && hasFallback {
         requirement, found = fallback, true
       }
+      if found {
+        hasMemberRequirement = true
+      } else {
+        missingRequirements = append(missingRequirements, entry)
+      }
       if kind == "set" {
         if found == false {
           requirement = 0.5
@@ -261,9 +284,37 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       }
       members = append(members, member)
     }
+    if hasMemberRequirement && len(missingRequirements) != 0 {
+      for _, entry := range missingRequirements {
+        c.fail(accessor, fmt.Sprintf(
+          "LLM evaluation probability requirements must cover every member once one member declares one; add tags.Probability or @probability to member %s, or add a property @probability default.",
+          llmEvaluation_value_text(entry.Value),
+        ))
+      }
+    }
     leaf[map[string]string{"choice": "options", "score": "levels", "set": "members"}[kind]] = members
   }
   c.plan = append(c.plan, leaf)
+}
+
+// A decoded value is trusted as T, so every tag with a validation meaning
+// must either be enforced here or rejected. These kinds only annotate schema
+// documentation or other serializers; probability is enforced by the decoder.
+func llmEvaluation_unsupported_tags(rows [][]schemametadata.IMetadataTypeTag) string {
+  for _, row := range rows {
+    for _, tag := range row {
+      if tag.Validate != "" {
+        return fmt.Sprintf("LLM evaluation does not support type tag %q, because decode() cannot enforce its constraint.", tag.Kind)
+      }
+      switch tag.Kind {
+      case "probability", "constant", "default", "example", "examples", "contentMediaType", "sequence":
+        continue
+      default:
+        return fmt.Sprintf("LLM evaluation does not support type tag %q, because decode() cannot enforce its constraint.", tag.Kind)
+      }
+    }
+  }
+  return ""
 }
 
 // llmEvaluation_kind classifies a non-object property value as one question

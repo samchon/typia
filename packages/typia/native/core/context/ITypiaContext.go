@@ -1,6 +1,8 @@
 package context
 
 import (
+  "sync"
+
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   shimcore "github.com/microsoft/typescript-go/shim/core"
@@ -21,10 +23,12 @@ type ITypiaContext struct {
   Emit     *shimprinter.EmitContext
   Importer *ImportProgrammer
   Extras   ITypiaContext_Extras
+  Shared   *sync.Map
 }
 
 type ITypiaContext_Extras struct {
   AddDiagnostic func(diag *ITypiaDiagnostic) int
+  Shared        *sync.Map
 }
 
 type ITypiaDiagnostic struct {

@@ -62,7 +62,11 @@ func TestLlmEvaluationPlanEmissionTransform(t *testing.T) {
 const llmEvaluationEmissionSource = `import typia, { tags } from "typia";
 
 enum Team {
-  /** Plain member */
+  /**
+   * Plain member
+   *
+   * @probability 0.5
+   */
   billing = "billing",
   /**
    * Summary to be overridden

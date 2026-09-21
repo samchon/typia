@@ -89,8 +89,40 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   }
 
   isClass := props.Type != nil && props.Type.IsClass()
-  isProperty := emplace_metadata_object_significant(props.Options.Functional, props.Options.Methods)
+  isProperty := emplace_metadata_object_significant(props.Options.Functional, props.Options.Methods, props.Options.StrictObjectMembers)
+  rejectMember := func(name string, message string) {
+    if props.Options.StrictObjectMembers == false || props.Errors == nil {
+      return
+    }
+    explore := props.Explore
+    explore.Top = false
+    explore.Object = obj
+    explore.Property = name
+    *props.Errors = append(*props.Errors, MetadataFactory_IError{
+      Name:     obj.Name,
+      Explore:  explore,
+      Messages: []string{message},
+    })
+  }
+  if props.Options.StrictObjectMembers && props.Checker != nil && props.Type != nil {
+    if len(props.Checker.GetSignaturesOfType(props.Type, nativechecker.SignatureKindCall)) != 0 {
+      rejectMember("[call]", "LLM evaluation does not support callable object types.")
+    }
+    if len(props.Checker.GetSignaturesOfType(props.Type, nativechecker.SignatureKindConstruct)) != 0 {
+      rejectMember("[construct]", "LLM evaluation does not support constructable object types.")
+    }
+  }
   pred := func(symbol *nativeast.Symbol, node *nativeast.Node) bool {
+    name := "<anonymous>"
+    if symbol != nil {
+      name = symbol.Name
+    }
+    // Diagnose ES #private before the symbol-key filter so JEV reports the
+    // nominal member rather than its compiler-generated mangled name.
+    if node != nil && (isClass || props.Options.StrictObjectMembers) && node.Name() != nil && node.Name().Kind == nativeast.KindPrivateIdentifier {
+      rejectMember(name, "LLM evaluation does not support private class members.")
+      return false
+    }
     // A `symbol`-keyed member (`[uniqueSymbol]: T`, `[Symbol.toStringTag]: T`,
     // ...) is not a string / number key: it is unreachable through the string
     // index access typia emits, `JSON.stringify` ignores it, and JSON Schema has
@@ -104,25 +136,21 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     // SYMBOL rather than a declaration node so a late-bound member with no
     // reachable declaration is excluded too.
     if symbol != nil && iterate_metadata_intersection_is_symbol_name(symbol.Name) {
+      rejectMember(name, "LLM evaluation does not support symbol-keyed properties.")
       return false
     }
     if node == nil {
       return true
     }
-    if isClass && node.ModifierFlags()&(nativeast.ModifierFlagsPrivate|nativeast.ModifierFlagsProtected) != 0 {
+    if (isClass || props.Options.StrictObjectMembers) && node.ModifierFlags()&(nativeast.ModifierFlagsPrivate|nativeast.ModifierFlagsProtected) != 0 {
+      rejectMember(name, "LLM evaluation does not support private or protected class members.")
       return false
     }
-    // An ES `#private` member (field, method, or accessor) carries no
-    // Private/Protected modifier — its identity is a KindPrivateIdentifier name.
-    // It is installed only by the constructor and is unreachable via index
-    // access, so it is not part of the structural shape; exclude it exactly as a
-    // `private`/`protected` keyword member (see ClassNonPublic). ApparentProperties
-    // otherwise surfaces it as a mangled key that no runtime object carries, so
-    // every real instance would fail its own guard (#2213).
-    if isClass && node.Name() != nil && node.Name().Kind == nativeast.KindPrivateIdentifier {
+    if isProperty(node) == false {
+      rejectMember(name, "LLM evaluation does not support this object member.")
       return false
     }
-    return isProperty(node)
+    return true
   }
 
   insert := func(next emplace_metadata_object_insert) *schemametadata.MetadataProperty {
@@ -135,7 +163,9 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   }
 
   for _, symbol := range props.Components.ApparentProperties(props.Checker, props.Type) {
-    if metadata_is_internal(symbol) {
+    // A complete-shape decoder must see even @internal members so its
+    // programmer can reject them; the ordinary structural consumers omit them.
+    if metadata_is_internal(symbol) && props.Options.StrictObjectMembers == false {
       continue
     }
     var node *nativeast.Node
@@ -188,6 +218,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     // intersections so every symbol-only form stays outside typia's structural
     // JSON shape, just like an explicit symbol-keyed member (#2240).
     if emplace_metadata_object_is_symbol_index_key(index.KeyType()) {
+      rejectMember("[symbol]", "LLM evaluation does not support symbol-keyed properties.")
       continue
     }
     analyzer := func(typ *nativechecker.Type) func(any) *schemametadata.MetadataSchema {
@@ -546,7 +577,7 @@ func emplace_metadata_object_intersection_append(
     return false
   }
   for _, symbol := range props.Components.ApparentProperties(props.Checker, child) {
-    if metadata_is_internal(symbol) {
+    if metadata_is_internal(symbol) && props.Options.StrictObjectMembers == false {
       continue
     }
     var node *nativeast.Node
@@ -652,10 +683,10 @@ func emplace_metadata_object_clone_property(property *schemametadata.MetadataPro
   })
 }
 
-func emplace_metadata_object_significant(functional bool, methods bool) func(node *nativeast.Node) bool {
+func emplace_metadata_object_significant(functional bool, methods bool, strict bool) func(node *nativeast.Node) bool {
   if functional {
     return func(node *nativeast.Node) bool {
-      return node.Kind != nativeast.KindGetAccessor && node.Kind != nativeast.KindSetAccessor
+      return strict || (node.Kind != nativeast.KindGetAccessor && node.Kind != nativeast.KindSetAccessor)
     }
   }
   return func(node *nativeast.Node) bool {
@@ -670,6 +701,9 @@ func emplace_metadata_object_significant(functional bool, methods bool) func(nod
     case nativeast.KindMethodDeclaration,
       nativeast.KindMethodSignature:
       return methods
+    case nativeast.KindGetAccessor,
+      nativeast.KindSetAccessor:
+      return strict
     default:
       return false
     }

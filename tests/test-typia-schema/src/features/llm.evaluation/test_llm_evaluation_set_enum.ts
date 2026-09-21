@@ -10,8 +10,8 @@ import typia from "typia";
  * threshold rather than a choice minimum. The literal-set tests cannot reach
  * either source.
  *
- * 1. Declare an array of an enum with one documented, thresholded member and one
- *    bare member.
+ * 1. Declare an array of an enum whose members have distinct thresholds and one
+ *    documented description.
  * 2. Assert each member question carries its description.
  * 3. Validate probabilities around the member threshold and the 0.5 default.
  */
@@ -31,7 +31,7 @@ export const test_llm_evaluation_set_enum = (): void => {
   });
 
   const run = (email: number, phone: number) => {
-    const result = evaluation.validate({
+    const result = evaluation.decode({
       "channels.email": { type: "boolean", probability: email },
       "channels.phone": { type: "boolean", probability: phone },
     });
@@ -49,6 +49,7 @@ enum Channel {
    * @probability 0.8
    */
   email = "email",
+  /** @probability 0.5 */
   phone = "phone",
 }
 
