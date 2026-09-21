@@ -20,6 +20,7 @@ type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
 type UnionInferWrapper<T> = T extends Array<infer U> ? U : never;
 type AliasedArray = Urgency[];
 type AliasedUnion = Urgency[] | string;
+type NestedAliasedUnion = AliasedArray | string;
 /** @probability 0.8 */
 type AnnotatedArray = boolean[];
 type NonDistributiveTrue<T> = (T | number) extends number ? Urgency : boolean;
@@ -68,6 +69,7 @@ typia.llm.evaluation<{
   /** Union inferred? */ unionInferred: UnionInferWrapper<Urgency[] | string>;
   /** Aliased array inferred? */ aliasedArrayInferred: ArrayInferWrapper<AliasedArray>;
   /** Aliased union inferred? */ aliasedUnionInferred: UnionInferWrapper<AliasedUnion>;
+  /** Nested aliased union inferred? */ nestedAliasedUnionInferred: UnionInferWrapper<NestedAliasedUnion>;
   /** Annotated array inferred? */ annotatedArrayInferred: ArrayInferWrapper<AnnotatedArray>;
   /** Non-distributive true? */ nonDistributiveTrue: NonDistributiveTrue<number>;
   /** Any conditional? */ anyConditional: AnyConditional<any>;
@@ -94,6 +96,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.unionInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedUnionInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.nestedAliasedUnionInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.nonDistributiveTrue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.anyConditional\n  - LLM evaluation @probability on a type alias is not supported",
@@ -164,6 +167,9 @@ func TestLlmEvaluationAcceptsUnannotatedAliasAndPropertyComment(t *testing.T) {
 
 /** @probability 0.9 */
 type Unused = boolean;
+/** @probability 0.8 */
+type AnnotatedString = string;
+type InferFalse<T> = T extends Array<infer U> ? U : boolean;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
@@ -191,6 +197,7 @@ typia.llm.evaluation<{
   /** Seventh? */ seventh: NonDistributive<string>;
   /** Eighth? */ eighth: NonDistributiveTrue<string>;
   /** Ninth? */ ninth: ArrayCheck<string>;
+  /** Tenth? */ tenth: InferFalse<AnnotatedString>;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();

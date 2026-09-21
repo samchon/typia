@@ -75,10 +75,17 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
       conditional := node.AsConditionalTypeNode()
       checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
       inferredBindings := bindings
+      declarations := []*shimast.Node{}
       if conditional.ExtendsType.Kind != shimast.KindInferType && llmEvaluation_containsInfer(conditional.ExtendsType) {
-        var declarations []*shimast.Node
         checkNode, inferredBindings, declarations = llmEvaluation_expandTypeAlias(checker, checkNode, bindings)
-        for _, declaration := range declarations {
+      }
+      reported := map[*shimast.Node]bool{}
+      report := func(rows []*shimast.Node) {
+        for _, declaration := range rows {
+          if reported[declaration] {
+            continue
+          }
+          reported[declaration] = true
           if llmEvaluation_declarationHasProbability(declaration) {
             errors = append(errors, nativellmprogrammers.LlmEvaluationProgrammer_IError{
               Accessor: accessor,
@@ -92,19 +99,23 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
         parameter := checker.GetSymbolAtLocation(rawCheck.AsTypeReferenceNode().TypeName)
         if parameter != nil && parameter.Flags&shimast.SymbolFlagsTypeParameter != 0 && checkNode.Kind == shimast.KindUnionType && llmEvaluation_containsInfer(conditional.ExtendsType) {
           for _, part := range checkNode.AsUnionTypeNode().Types.Nodes {
-            if inferred, ok := llmEvaluation_inferBindings(checker, part, conditional.ExtendsType, inferredBindings); ok {
+            expanded, partBindings, partDeclarations := llmEvaluation_expandTypeAlias(checker, part, inferredBindings)
+            if inferred, ok := llmEvaluation_inferBindings(checker, expanded, conditional.ExtendsType, partBindings); ok {
+              report(declarations)
+              report(partDeclarations)
               walk(conditional.TrueType, accessor, inferred)
-            } else if assignable, known := llmEvaluation_resolvedAssignable(checker, part, conditional.ExtendsType, inferredBindings); known && assignable == false {
-              walk(conditional.FalseType, accessor, inferredBindings)
+            } else if assignable, known := llmEvaluation_resolvedAssignable(checker, expanded, conditional.ExtendsType, partBindings); known && assignable == false {
+              walk(conditional.FalseType, accessor, partBindings)
             } else {
-              walk(conditional.TrueType, accessor, inferredBindings)
-              walk(conditional.FalseType, accessor, inferredBindings)
+              walk(conditional.TrueType, accessor, partBindings)
+              walk(conditional.FalseType, accessor, partBindings)
             }
           }
           return
         }
       }
       if inferred, ok := llmEvaluation_inferBindings(checker, checkNode, conditional.ExtendsType, inferredBindings); ok {
+        report(declarations)
         walk(conditional.TrueType, accessor, inferred)
         return
       }
