@@ -14,8 +14,12 @@ type MetadataFactory_IOptions struct {
   // method) into the collected properties as function-typed values, without
   // switching on full Functional analysis. Used by the compare programmers to
   // detect user-defined comparison methods.
-  Methods  bool
-  Validate func(props struct {
+  Methods bool
+  // StrictObjectMembers is for consumers whose emitted value promises to
+  // satisfy the entire input type. Include accessors and methods in the
+  // structural shape and diagnose members that have no JSON representation.
+  StrictObjectMembers bool
+  Validate            func(props struct {
     Metadata *schemametadata.MetadataSchema
     Explore  MetadataFactory_IExplore
     Top      *schemametadata.MetadataSchema

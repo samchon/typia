@@ -21,10 +21,11 @@ func (llmEvaluationTransformerNamespace) Transform(props nativetransform.ITransf
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{Code: "typia.llm.evaluation", Message: "non-specified generic argument."}))
   }
   metadata := llmTransformer_analyze(llmTransformer_analyzeProps{
-    Context: props.Context,
-    Type:    typ,
-    Code:    "typia.llm.evaluation",
-    Absorb:  true,
+    Context:             props.Context,
+    Type:                typ,
+    Code:                "typia.llm.evaluation",
+    Absorb:              true,
+    StrictObjectMembers: true,
     Validate: func(struct {
       Metadata *schemametadata.MetadataSchema
       Explore  nativefactories.MetadataFactory_IExplore
