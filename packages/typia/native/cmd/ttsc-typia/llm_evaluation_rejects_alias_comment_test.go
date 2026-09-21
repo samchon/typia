@@ -71,6 +71,10 @@ type AnnotatedUnionRest = AnnotatedUnionRestArm | false[];
 type AnnotatedUnionRestIndexed = [boolean, ...AnnotatedUnionRest][1];
 type UnionFixedRestSelected = [Urgency, boolean] | [boolean, boolean];
 type UnionFixedRestIndexedUrgency = [boolean, ...UnionFixedRestSelected][1];
+type NestedNonEmptyRest = [boolean, ...boolean[]] | [boolean];
+type NestedRestWithUrgency = [boolean, ...NestedNonEmptyRest, Urgency];
+type NestedRestUnion = NestedRestWithUrgency | [boolean, boolean, boolean];
+type NestedRestIndexedUrgency = [boolean, ...NestedRestUnion][3];
 /** @probability 0.8 */
 type AnnotatedFixedRestBeforeSuffix = [boolean, boolean];
 type AnnotatedFixedRestSuffix = [boolean, ...AnnotatedFixedRestBeforeSuffix, boolean][3];
@@ -130,6 +134,7 @@ typia.llm.evaluation<{
   /** Rest tuple indexed? */ restTupleIndexed: RestTupleIndexedUrgency;
   /** Annotated union rest indexed? */ annotatedUnionRestIndexed: AnnotatedUnionRestIndexed;
   /** Union fixed rest indexed? */ unionFixedRestIndexed: UnionFixedRestIndexedUrgency;
+  /** Nested rest indexed? */ nestedRestIndexed: NestedRestIndexedUrgency;
   /** Annotated fixed rest suffix? */ annotatedFixedRestSuffix: AnnotatedFixedRestSuffix;
   /** Array infer branch indexed? */ arrayInferBranchIndexed: ArrayInferBranchIndexedUrgency;
   /** Readonly rest tuple indexed? */ readonlyRestTupleIndexed: ReadonlyRestTupleIndexedUrgency;
@@ -198,6 +203,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.restTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedUnionRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.unionFixedRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.nestedRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedFixedRestSuffix\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferBranchIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -339,6 +345,7 @@ type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsNeverUnion<T> = T extends true ? Unused : boolean;
 type NeverUnionChosen = SelectsNeverUnion<never | false>;
+type NeverOnlyChosen = SelectsNeverUnion<never | never> | boolean;
 type UnknownUnionChosen = SelectsNeverUnion<unknown | true>;
 type SelectsWide<T> = T extends number ? Unused : boolean;
 type NonDistributive<T> = (T | number) extends string ? Unused : boolean;
@@ -367,6 +374,10 @@ type UnionRest = true[] | false[];
 type UnionRestChosen = [Unused, ...UnionRest][1];
 type UnionFixedRest = [boolean, Unused] | [boolean, boolean];
 type UnionFixedRestChosen = [boolean, ...UnionFixedRest][1];
+type NestedNonEmptyRestChosen = [boolean, ...boolean[]] | [boolean];
+type NestedRestWithUnused = [boolean, ...NestedNonEmptyRestChosen, Unused];
+type NestedRestUnionChosen = NestedRestWithUnused | [boolean, boolean, boolean];
+type NestedRestChosen = [boolean, ...NestedRestUnionChosen][2];
 type UnionFixedRestSuffixChosen = [boolean, ...UnionFixedRest, boolean][1];
 type FixedRestSuffixChosen = [boolean, ...[boolean, Unused], boolean][3];
 type ReadonlyRestTupleChosen = (readonly [Unused, ...boolean[]])[2];
@@ -394,6 +405,7 @@ typia.llm.evaluation<{
   /** Third? */ third: Discards<Unused>;
   /** Fourth? */ fourth: Selects<false>;
   /** Never union chosen? */ neverUnionChosen: NeverUnionChosen;
+  /** Never only chosen? */ neverOnlyChosen: NeverOnlyChosen;
   /** Unknown union chosen? */ unknownUnionChosen: UnknownUnionChosen;
   /** Sixth? */ sixth: SelectsWide<string>;
   /** Seventh? */ seventh: NonDistributive<string>;
@@ -425,6 +437,7 @@ typia.llm.evaluation<{
   /** Rest tuple chosen? */ restTupleChosen: RestTupleChosen;
   /** Union rest chosen? */ unionRestChosen: UnionRestChosen;
   /** Union fixed rest chosen? */ unionFixedRestChosen: UnionFixedRestChosen;
+  /** Nested rest chosen? */ nestedRestChosen: NestedRestChosen;
   /** Union fixed rest suffix chosen? */ unionFixedRestSuffixChosen: UnionFixedRestSuffixChosen;
   /** Fixed rest suffix chosen? */ fixedRestSuffixChosen: FixedRestSuffixChosen;
   /** Readonly rest tuple chosen? */ readonlyRestTupleChosen: ReadonlyRestTupleChosen;

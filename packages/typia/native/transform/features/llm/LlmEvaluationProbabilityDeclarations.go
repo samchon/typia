@@ -77,6 +77,20 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     if node.Kind == shimast.KindConditionalType {
       conditional := node.AsConditionalTypeNode()
       checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
+      rawCheck := conditional.CheckType
+      for rawCheck.Kind == shimast.KindParenthesizedType {
+        rawCheck = rawCheck.AsParenthesizedTypeNode().Type
+      }
+      if rawCheck.Kind == shimast.KindTypeReference && checkNode.Parent != nil {
+        parameter := checker.GetSymbolAtLocation(rawCheck.AsTypeReferenceNode().TypeName)
+        if parameter != nil && parameter.Flags&shimast.SymbolFlagsTypeParameter != 0 {
+          resolved := checker.GetTypeFromTypeNode(checkNode)
+          if resolved != nil && resolved.Flags()&shimchecker.TypeFlagsNever != 0 {
+            // A distributive conditional over never produces no branch.
+            return
+          }
+        }
+      }
       sourceDeclarations := []*shimast.Node{}
       if checkNode.Kind == shimast.KindTypeReference {
         symbol := checker.GetSymbolAtLocation(checkNode.AsTypeReferenceNode().TypeName)
@@ -107,7 +121,6 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
           }
         }
       }
-      rawCheck := conditional.CheckType
       if rawCheck.Kind == shimast.KindTypeReference {
         parameter := checker.GetSymbolAtLocation(rawCheck.AsTypeReferenceNode().TypeName)
         if parameter != nil && parameter.Flags&shimast.SymbolFlagsTypeParameter != 0 && checkNode.Kind == shimast.KindUnionType && llmEvaluation_containsInfer(conditional.ExtendsType) {
@@ -433,30 +446,52 @@ func llmEvaluation_restAlternatives(checker *shimchecker.Checker, node *shimast.
       }
       return []llmEvaluation_restAlternative{{surfaces: selected, declarations: declarations, minimum: len(elements), maximum: len(elements)}}
     }
-    selected := []llmEvaluation_indexedSurface{}
-    if index < restIndex {
-      surface := elements[index]
-      surface.node, _, _ = llmEvaluation_tupleElement(surface.node)
-      selected = append(selected, surface)
-    } else {
-      inner, _, _ := llmEvaluation_tupleElement(elements[restIndex].node)
-      nestedRest := llmEvaluation_restAlternatives(checker, inner, elements[restIndex].bindings, index-restIndex)
-      if nestedRest == nil {
-        return nil
-      }
-      for _, alternative := range nestedRest {
-        selected = append(selected, alternative.surfaces...)
-      }
-      for i := restIndex + 1; i < len(elements) && i-restIndex-1 <= index-restIndex; i++ {
-        surface := elements[i]
+    inner, _, _ := llmEvaluation_tupleElement(elements[restIndex].node)
+    nestedRest := llmEvaluation_restAlternatives(checker, inner, elements[restIndex].bindings, max(0, index-restIndex))
+    if nestedRest == nil {
+      return nil
+    }
+    output := []llmEvaluation_restAlternative{}
+    suffixCount := len(elements) - restIndex - 1
+    for _, alternative := range nestedRest {
+      selected := []llmEvaluation_indexedSurface{}
+      if index < restIndex {
+        surface := elements[index]
         surface.node, _, _ = llmEvaluation_tupleElement(surface.node)
         selected = append(selected, surface)
+      } else {
+        for _, surface := range alternative.surfaces {
+          surface.declarations = append(surface.declarations, elements[restIndex].declarations...)
+          selected = append(selected, surface)
+        }
+        for i := restIndex + 1; i < len(elements); i++ {
+          length := index - restIndex - (i - restIndex - 1)
+          if length < alternative.minimum || alternative.maximum >= 0 && length > alternative.maximum {
+            continue
+          }
+          surface := elements[i]
+          surface.node, _, _ = llmEvaluation_tupleElement(surface.node)
+          surface.declarations = append(surface.declarations, elements[restIndex].declarations...)
+          surface.declarations = append(surface.declarations, alternative.declarations...)
+          selected = append(selected, surface)
+        }
       }
+      for i := range selected {
+        selected[i].declarations = append(selected[i].declarations, declarations...)
+      }
+      maximum := -1
+      if alternative.maximum >= 0 {
+        maximum = restIndex + alternative.maximum + suffixCount
+      }
+      used := append([]*shimast.Node{}, declarations...)
+      used = append(used, elements[restIndex].declarations...)
+      used = append(used, alternative.declarations...)
+      output = append(output, llmEvaluation_restAlternative{
+        surfaces: selected, declarations: used,
+        minimum: restIndex + alternative.minimum + suffixCount, maximum: maximum,
+      })
     }
-    for i := range selected {
-      selected[i].declarations = append(selected[i].declarations, declarations...)
-    }
-    return []llmEvaluation_restAlternative{{surfaces: selected, declarations: declarations, minimum: len(elements) - 1, maximum: -1}}
+    return output
   }
   element, _, ok := llmEvaluation_inferArrayElement(checker, expanded)
   if ok == false {
