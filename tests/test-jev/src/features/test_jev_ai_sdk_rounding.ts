@@ -4,10 +4,15 @@ import { Experimental_EvaluationMockModelV4 } from "ai/test";
 import typia from "typia";
 
 /**
- * Runs typia's generated questions and decoder through AI SDK 7's actual
- * evaluation path. AI SDK accepts the provider's declared two-decimal
- * precision, and the typia decoder must accept the same result when passed
- * `result.rounding`, without silently weakening the one-argument form.
+ * Verifies typia's questions and decoder integrate with AI SDK 7.
+ *
+ * AI SDK accepts the provider's declared two-decimal precision, and the typia
+ * decoder must accept the same result when passed `result.rounding`, without
+ * silently weakening the one-argument form.
+ *
+ * 1. Return a three-option distribution rounded to two decimals from a mock model.
+ * 2. Assert AI SDK accepts it and strict typia decoding rejects it.
+ * 3. Pass the provider's rounding declaration and assert the decoded value.
  */
 export const test_jev_ai_sdk_rounding = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<IDecision>();

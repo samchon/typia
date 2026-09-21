@@ -8,6 +8,10 @@ import typia from "typia";
  * from their weighted mean because both were rounded independently. An absent
  * declaration stays strict, and a declaration never excuses bad keys, values,
  * an incorrect choice, or a material discrepancy.
+ *
+ * 1. Decode rounded distributions with and without declared precision.
+ * 2. Vary the selected choice, mean, keys, and decimal declarations one at a time.
+ * 3. Assert only deviations within the declared precision pass.
  */
 export const test_llm_evaluation_declared_rounding = (): void => {
   const evaluation: ILlmEvaluation<IDecision> =

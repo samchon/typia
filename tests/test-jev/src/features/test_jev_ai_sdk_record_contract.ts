@@ -3,7 +3,17 @@ import { experimental_evaluate } from "ai";
 import { Experimental_EvaluationMockModelV4 } from "ai/test";
 import typia from "typia";
 
-/** Pins the answer-record boundary to AI SDK 7's real evaluation path. */
+/**
+ * Verifies the answer-record boundary against AI SDK 7's evaluation path.
+ *
+ * A custom prototype with all required own keys still fails the SDK response
+ * check. typia must reject the same root, answer, and distribution containers
+ * instead of returning a trusted decision value.
+ *
+ * 1. Construct otherwise valid choice answers with one custom-prototype layer.
+ * 2. Send each through the AI SDK mock evaluation and typia's decoder.
+ * 3. Assert both reject every non-record container.
+ */
 export const test_jev_ai_sdk_record_contract = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<IDecision>();
   const answer = {

@@ -558,12 +558,17 @@ const accessor = (path: string[]): string =>
 
 /** Match AI SDK's JSON-record boundary, including null-prototype dictionaries. */
 const object = (input: unknown): Record<string, unknown> | null => {
-  if (typeof input !== "object" || input === null || Array.isArray(input))
+  if (typeof input !== "object" || input === null) return null;
+  try {
+    if (Array.isArray(input)) return null;
+    const prototype: object | null = Object.getPrototypeOf(input);
+    return prototype === Object.prototype || prototype === null
+      ? (input as Record<string, unknown>)
+      : null;
+  } catch {
+    // A revoked or trapping proxy is not a usable answer record.
     return null;
-  const prototype: object | null = Object.getPrototypeOf(input);
-  return prototype === Object.prototype || prototype === null
-    ? (input as Record<string, unknown>)
-    : null;
+  }
 };
 
 /**

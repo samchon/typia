@@ -2,9 +2,14 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Matches AI SDK's record boundary for untrusted evaluation answers. A custom
- * prototype is not a response record, even when every required key is an own
- * property. Null-prototype dictionaries remain valid response records.
+ * Verifies the record boundary for untrusted evaluation answers.
+ *
+ * A custom prototype is not a response record, even when every required key is
+ * an own property. Null-prototype dictionaries remain valid response records.
+ *
+ * 1. Answer boolean, choice, and score questions with valid plain records.
+ * 2. Put a custom prototype at each answer-map layer in isolation.
+ * 3. Assert decision-path failures and preserve null-prototype dictionaries.
  */
 export const test_llm_evaluation_decode_rejects_nonrecords = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
