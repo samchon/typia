@@ -23,6 +23,7 @@ type OptionalTupleInferWrapper<T> = T extends [value?: infer U] ? U : never;
 type RestTupleInferWrapper<T> = T extends [infer U, ...infer R] ? U : never;
 type TailTupleInferWrapper<T> = T extends [...infer R, infer U] ? U : never;
 type RestFirstWrapper<T> = T extends [boolean, ...infer R] ? R[0] : never;
+type RestFirstStringWrapper<T> = T extends [boolean, ...infer R] ? R["0"] : never;
 type ReadonlyTupleInferWrapper<T> = T extends readonly [infer U] ? U : never;
 type ReadonlyArrayInferWrapper<T> = T extends ReadonlyArray<infer U> ? U : never;
 type ReadonlyOperatorArrayInferWrapper<T> = T extends readonly (infer U)[] ? U : never;
@@ -56,6 +57,7 @@ interface INumericIndexed {
   /** Ignored? */ 1: boolean;
 }
 type NumericIndexedUrgency = INumericIndexed[0];
+type TupleStringIndexedUrgency = [Urgency, boolean]["0"];
 interface IGenericIndexed<T> {
   /** Selected? */ selected: T;
 }
@@ -82,6 +84,7 @@ typia.llm.evaluation<{
   /** Known? */ known: typeof knownUrgency;
   /** Indexed? */ indexed: IndexedUrgency;
   /** Numeric indexed? */ numericIndexed: NumericIndexedUrgency;
+  /** Tuple string indexed? */ tupleStringIndexed: TupleStringIndexedUrgency;
   /** Generic indexed? */ genericIndexed: GenericIndexedUrgency;
   /** Inherited indexed? */ inheritedIndexed: InheritedIndexedUrgency;
   /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
@@ -95,6 +98,7 @@ typia.llm.evaluation<{
   /** Rest tuple inferred? */ restTupleInferred: RestTupleInferWrapper<[Urgency, boolean, number]>;
   /** Tail tuple inferred? */ tailTupleInferred: TailTupleInferWrapper<[boolean, Urgency]>;
   /** Rest first inferred? */ restFirstInferred: RestFirstWrapper<[boolean, Urgency, boolean]>;
+  /** Rest first string inferred? */ restFirstStringInferred: RestFirstStringWrapper<[boolean, Urgency, boolean]>;
   /** Readonly tuple inferred? */ readonlyTupleInferred: ReadonlyTupleInferWrapper<readonly [Urgency]>;
   /** Readonly array inferred? */ readonlyArrayInferred: ReadonlyArrayInferWrapper<readonly Urgency[]>;
   /** Readonly operator array inferred? */ readonlyOperatorArrayInferred: ReadonlyOperatorArrayInferWrapper<readonly Urgency[]>;
@@ -131,6 +135,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.known\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.indexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.numericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.tupleStringIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.genericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inheritedIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -144,6 +149,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.restTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.tailTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.restFirstInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.restFirstStringInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyOperatorArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
@@ -249,6 +255,7 @@ type ReadonlyTupleDiscard<T> = T extends readonly [infer U] ? boolean : never;
 type RestTupleDiscard<T> = T extends [infer U, ...infer R] ? boolean : never;
 type RestTupleMismatch<T> = T extends [infer U, ...infer R] ? Unused : boolean;
 type RestFirst<T> = T extends [boolean, ...infer R] ? R[0] : never;
+type RestFirstString<T> = T extends [boolean, ...infer R] ? R["0"] : never;
 type MutableTupleOnly<T> = T extends [infer U] ? Unused : boolean;
 type OptionalTupleInfer<T> = T extends [infer U] ? U : boolean;
 type ReadonlyOptionalTupleInfer<T> = T extends readonly [infer U] ? U : boolean;
@@ -269,6 +276,7 @@ interface INumericSource {
   1: Unused;
 }
 type NumericChosen = INumericSource[0];
+type TupleStringChosen = [boolean, Unused]["0"];
 class ClassDecision {
   static ignored: Unused;
   /** Answer? */ answer!: boolean;
@@ -293,6 +301,7 @@ typia.llm.evaluation<{
   /** Rest discarded? */ restDiscarded: RestTupleDiscard<AnnotatedTuple>;
   /** Rest mismatch? */ restMismatch: RestTupleMismatch<[]>;
   /** Rest selected? */ restSelected: RestFirst<[boolean, boolean, Unused]>;
+  /** Rest string selected? */ restStringSelected: RestFirstString<[boolean, boolean, Unused]>;
   /** Mutable tuple false? */ mutableTupleFalse: MutableTupleOnly<readonly [boolean]>;
   /** Optional tuple false? */ optionalTupleFalse: OptionalTupleInfer<[Unused?]>;
   /** Named optional tuple false? */ namedOptionalTupleFalse: OptionalTupleInfer<[value?: Unused]>;
@@ -301,6 +310,7 @@ typia.llm.evaluation<{
   /** Mutable array reference false? */ mutableArrayReferenceFalse: MutableArrayOnly<ReadonlyArray<boolean>>;
   /** Mutable array tuple false? */ mutableArrayTupleFalse: MutableArrayOnly<readonly [boolean]>;
   /** Twelfth? */ twelfth: NumericChosen;
+  /** Tuple string chosen? */ tupleStringChosen: TupleStringChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();

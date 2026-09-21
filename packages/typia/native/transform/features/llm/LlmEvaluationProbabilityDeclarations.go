@@ -268,11 +268,16 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
     elements := objectNode.AsTupleTypeNode().Elements.Nodes
     surfaces := []llmEvaluation_indexedSurface{}
     for _, candidate := range keyType.Distributed() {
-      if candidate.IsNumberLiteral() == false {
+      var key string
+      if candidate.IsNumberLiteral() {
+        key = fmt.Sprint(candidate.AsLiteralType().Value())
+      } else if candidate.IsStringLiteral() {
+        key, _ = candidate.AsLiteralType().Value().(string)
+      } else {
         return nil
       }
-      index, err := strconv.Atoi(fmt.Sprint(candidate.AsLiteralType().Value()))
-      if err != nil || index < 0 || index >= len(elements) {
+      index, err := strconv.Atoi(key)
+      if err != nil || strconv.Itoa(index) != key || index < 0 || index >= len(elements) {
         return nil
       }
       element, _, rest := llmEvaluation_tupleElement(elements[index])
