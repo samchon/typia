@@ -193,6 +193,7 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
             errors = append(errors, nativellmprogrammers.LlmEvaluationProgrammer_IError{Accessor: accessor, Message: message})
           }
         }
+        walk(node.AsIndexedAccessTypeNode().IndexType, accessor, bindings)
         for _, surface := range surfaces {
           walk(surface.node, accessor, surface.bindings)
         }

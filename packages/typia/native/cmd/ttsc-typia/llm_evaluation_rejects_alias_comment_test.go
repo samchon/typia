@@ -58,6 +58,13 @@ interface INumericIndexed {
 }
 type NumericIndexedUrgency = INumericIndexed[0];
 type TupleStringIndexedUrgency = [Urgency, boolean]["0"];
+/** @probability 0.8 */
+type AnnotatedTupleKey = 0;
+type AnnotatedTupleKeyIndexed = [boolean, boolean][AnnotatedTupleKey];
+/** @probability 0.8 */
+type AnnotatedPropertyKey = "selected";
+interface IPlainIndexed { selected: boolean; ignored: boolean }
+type AnnotatedPropertyKeyIndexed = IPlainIndexed[AnnotatedPropertyKey];
 type AliasTupleUrgency = [Urgency, boolean];
 type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
 type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boolean];
@@ -80,6 +87,8 @@ type AnnotatedFixedRestBeforeSuffix = [boolean, boolean];
 type AnnotatedFixedRestSuffix = [boolean, ...AnnotatedFixedRestBeforeSuffix, boolean][3];
 type ArrayInferBranchTrue<T> = T extends Array<infer U> ? (U extends boolean ? Urgency : boolean) : boolean;
 type ArrayInferBranchIndexedUrgency = ArrayInferBranchTrue<[boolean, ...boolean[]]>;
+type ArrayInferRestBranch<T> = T extends Array<infer U> ? (U extends string ? Urgency : boolean) : boolean;
+type ArrayInferRestBranchUrgency = ArrayInferRestBranch<[boolean, ...string[]]>;
 type ReadonlyRestTupleIndexedUrgency = (readonly [boolean, ...Urgency[]])[2];
 type SuffixedRestTupleIndexedUrgency = [boolean, ...boolean[], Urgency][3];
 type FixedSpreadIndexedUrgency = [boolean, ...[Urgency, boolean]][1];
@@ -128,6 +137,8 @@ typia.llm.evaluation<{
   /** Indexed? */ indexed: IndexedUrgency;
   /** Numeric indexed? */ numericIndexed: NumericIndexedUrgency;
   /** Tuple string indexed? */ tupleStringIndexed: TupleStringIndexedUrgency;
+  /** Annotated tuple key indexed? */ annotatedTupleKeyIndexed: AnnotatedTupleKeyIndexed;
+  /** Annotated property key indexed? */ annotatedPropertyKeyIndexed: AnnotatedPropertyKeyIndexed;
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
@@ -137,6 +148,7 @@ typia.llm.evaluation<{
   /** Nested rest indexed? */ nestedRestIndexed: NestedRestIndexedUrgency;
   /** Annotated fixed rest suffix? */ annotatedFixedRestSuffix: AnnotatedFixedRestSuffix;
   /** Array infer branch indexed? */ arrayInferBranchIndexed: ArrayInferBranchIndexedUrgency;
+  /** Array infer rest branch? */ arrayInferRestBranch: ArrayInferRestBranchUrgency;
   /** Readonly rest tuple indexed? */ readonlyRestTupleIndexed: ReadonlyRestTupleIndexedUrgency;
   /** Suffixed rest tuple indexed? */ suffixedRestTupleIndexed: SuffixedRestTupleIndexedUrgency;
   /** Fixed spread indexed? */ fixedSpreadIndexed: FixedSpreadIndexedUrgency;
@@ -197,6 +209,8 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.indexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.numericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.tupleStringIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedTupleKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedPropertyKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -206,6 +220,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.nestedRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedFixedRestSuffix\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferBranchIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.arrayInferRestBranch\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.suffixedRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.fixedSpreadIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -341,6 +356,8 @@ type ReadonlyOptionalTupleInfer<T> = T extends readonly [infer U] ? U : boolean;
 type MutableArrayOnly<T> = T extends Array<infer U> ? Unused : boolean;
 type ArrayInferBranch<T> = T extends Array<infer U> ? (U extends string ? Unused : boolean) : boolean;
 type ArrayInferBranchChosen = ArrayInferBranch<[boolean, ...boolean[]]>;
+type ArrayInferRestFalse<T> = T extends Array<infer U> ? (U extends number ? Unused : boolean) : boolean;
+type ArrayInferRestFalseChosen = ArrayInferRestFalse<[boolean, ...string[]]>;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsNeverUnion<T> = T extends true ? Unused : boolean;
@@ -362,6 +379,11 @@ interface INumericSource {
 }
 type NumericChosen = INumericSource[0];
 type TupleStringChosen = [boolean, Unused]["0"];
+/** @probability 0.8 */
+type UnselectedKey = "ignored";
+type ConditionalKey<T> = T extends true ? UnselectedKey : "selected";
+interface IKeyDecision { selected: boolean; ignored: boolean }
+type ConditionalKeyChosen = IKeyDecision[ConditionalKey<false>];
 type ParenthesizedTupleChosen = ([boolean, Unused])[0];
 type TupleSource = [boolean, Unused];
 type AliasedTupleChosen = TupleSource[0];
@@ -428,8 +450,10 @@ typia.llm.evaluation<{
   /** Mutable array reference false? */ mutableArrayReferenceFalse: MutableArrayOnly<ReadonlyArray<boolean>>;
   /** Mutable array tuple false? */ mutableArrayTupleFalse: MutableArrayOnly<readonly [boolean]>;
   /** Array infer branch chosen? */ arrayInferBranchChosen: ArrayInferBranchChosen;
+  /** Array infer rest false? */ arrayInferRestFalse: ArrayInferRestFalseChosen;
   /** Twelfth? */ twelfth: NumericChosen;
   /** Tuple string chosen? */ tupleStringChosen: TupleStringChosen;
+  /** Conditional key chosen? */ conditionalKeyChosen: ConditionalKeyChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
   /** Conditional tuple chosen? */ conditionalTupleChosen: ConditionalTupleChosen;
