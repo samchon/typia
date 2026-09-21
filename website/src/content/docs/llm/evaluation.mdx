@@ -207,7 +207,7 @@ A missing or extra answer, a wrong answer `type`, an undeclared option, or a pro
 
 A member's own requirement wins over the property's. Probability requirements are all-or-none for a choice, score, or set: once one member declares one, every member must declare one or the property must provide the default. The compiler rejects a partially covered type. If no member and no property declares a requirement, a choice or score has no minimum and every set member uses the `0.5` threshold.
 
-Put `@probability` on the decision property or enum member, not on a `type`, `interface`, or enum declaration. The compiler rejects declaration-level comments because they cannot unambiguously select a decision threshold.
+Put `@probability` on the decision property or enum member, not on a `type`, `interface`, class, or enum declaration. When the program uses `typia.llm.evaluation()`, the compiler rejects declaration-level tags even on unused declarations: TypeScript erases the identity of primitive aliases, so use-site detection cannot reliably distinguish an unused alias from a used one.
 
 ```typescript copy filename="gated.ts"
 enum Action {
