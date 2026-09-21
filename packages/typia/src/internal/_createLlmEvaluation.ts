@@ -162,7 +162,8 @@ const decode = <T>(
         },
       ],
     };
-  if (typeof answers !== "object" || answers === null || Array.isArray(answers))
+  const map: Record<string, unknown> | null = object(answers);
+  if (map === null)
     return {
       success: false,
       data: answers,
@@ -175,7 +176,6 @@ const decode = <T>(
       ],
     };
 
-  const map: Record<string, unknown> = answers as Record<string, unknown>;
   const errors: IValidation.IError[] = [];
   const expected: Set<string> = new Set();
   const output: Record<string, unknown> = {};
@@ -551,10 +551,15 @@ const label = (value: unknown): string =>
 const accessor = (path: string[]): string =>
   "$input" + path.map(_accessExpressionAsString).join("");
 
-const object = (input: unknown): Record<string, unknown> | null =>
-  typeof input === "object" && input !== null && Array.isArray(input) === false
+/** Match AI SDK's JSON-record boundary, including null-prototype dictionaries. */
+const object = (input: unknown): Record<string, unknown> | null => {
+  if (typeof input !== "object" || input === null || Array.isArray(input))
+    return null;
+  const prototype: object | null = Object.getPrototypeOf(input);
+  return prototype === Object.prototype || prototype === null
     ? (input as Record<string, unknown>)
     : null;
+};
 
 /**
  * Reads an own probability, so an option named like an `Object.prototype`
