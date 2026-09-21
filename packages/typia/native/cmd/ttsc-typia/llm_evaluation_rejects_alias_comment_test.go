@@ -65,6 +65,11 @@ type AnnotatedTupleKeyIndexed = [boolean, boolean][AnnotatedTupleKey];
 type AnnotatedPropertyKey = "selected";
 interface IPlainIndexed { selected: boolean; ignored: boolean }
 type AnnotatedPropertyKeyIndexed = IPlainIndexed[AnnotatedPropertyKey];
+interface IAnnotatedSourceProperty {
+  /** @probability 0.8 */ selected: boolean;
+  ignored: boolean;
+}
+type AnnotatedSourcePropertyIndexed = IAnnotatedSourceProperty["selected"];
 type AliasTupleUrgency = [Urgency, boolean];
 type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
 type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boolean];
@@ -139,6 +144,7 @@ typia.llm.evaluation<{
   /** Tuple string indexed? */ tupleStringIndexed: TupleStringIndexedUrgency;
   /** Annotated tuple key indexed? */ annotatedTupleKeyIndexed: AnnotatedTupleKeyIndexed;
   /** Annotated property key indexed? */ annotatedPropertyKeyIndexed: AnnotatedPropertyKeyIndexed;
+  /** Annotated source property indexed? */ annotatedSourcePropertyIndexed: AnnotatedSourcePropertyIndexed;
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
@@ -211,6 +217,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.tupleStringIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedTupleKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedPropertyKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedSourcePropertyIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -384,6 +391,11 @@ type UnselectedKey = "ignored";
 type ConditionalKey<T> = T extends true ? UnselectedKey : "selected";
 interface IKeyDecision { selected: boolean; ignored: boolean }
 type ConditionalKeyChosen = IKeyDecision[ConditionalKey<false>];
+interface IUnselectedSourceProperty {
+  selected: boolean;
+  /** @probability 0.8 */ ignored: boolean;
+}
+type UnselectedSourcePropertyChosen = IUnselectedSourceProperty["selected"];
 type ParenthesizedTupleChosen = ([boolean, Unused])[0];
 type TupleSource = [boolean, Unused];
 type AliasedTupleChosen = TupleSource[0];
@@ -454,6 +466,7 @@ typia.llm.evaluation<{
   /** Twelfth? */ twelfth: NumericChosen;
   /** Tuple string chosen? */ tupleStringChosen: TupleStringChosen;
   /** Conditional key chosen? */ conditionalKeyChosen: ConditionalKeyChosen;
+  /** Unselected source property chosen? */ unselectedSourcePropertyChosen: UnselectedSourcePropertyChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
   /** Conditional tuple chosen? */ conditionalTupleChosen: ConditionalTupleChosen;

@@ -393,7 +393,7 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
           nested = resolved
         }
       }
-      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested, owner: declaration.Parent})
+      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested, owner: declaration.Parent, declarations: []*shimast.Node{declaration}})
     }
   }
   return surfaces
@@ -1187,6 +1187,8 @@ func llmEvaluation_declarationProbabilityMessage(declaration *shimast.Node) stri
   switch declaration.Kind {
   case shimast.KindTypeAliasDeclaration:
     return "LLM evaluation @probability on a type alias is not supported; put it on the decision property or enum member."
+  case shimast.KindPropertySignature, shimast.KindPropertyDeclaration:
+    return "LLM evaluation @probability on an indexed source property is not supported; put it on the decision property or enum member."
   case shimast.KindInterfaceDeclaration, shimast.KindClassDeclaration:
     return "LLM evaluation @probability on an object declaration is not supported; put it on the decision property or enum member."
   case shimast.KindEnumDeclaration:
