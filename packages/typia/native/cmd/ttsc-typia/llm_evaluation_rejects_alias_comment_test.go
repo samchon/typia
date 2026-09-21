@@ -98,6 +98,12 @@ interface IAnnotatedNumericIndexSignature {
 }
 type AnnotatedNumericIndexSignatureIndexed = IAnnotatedNumericIndexSignature[0];
 type AnnotatedNumericIndexBroadKey = IAnnotatedNumericIndexSignature[number];
+interface IOverlappingNumericTemplateIndexes {
+  [key: number]: boolean;
+  /** @probability 0.8 */
+  [key: `+"`"+`${number}`+"`"+`]: boolean;
+}
+type AnnotatedOverlappingTemplateIndex = IOverlappingNumericTemplateIndexes["1"];
 interface IInheritedIndexBase {
   /** @probability 0.8 */
   [key: string]: boolean;
@@ -202,6 +208,7 @@ typia.llm.evaluation<{
   /** String index with broad key? */ annotatedStringIndexBroadKey: AnnotatedStringIndexBroadKey;
   /** Annotated numeric index signature indexed? */ annotatedNumericIndexSignatureIndexed: AnnotatedNumericIndexSignatureIndexed;
   /** Numeric index with broad key? */ annotatedNumericIndexBroadKey: AnnotatedNumericIndexBroadKey;
+  /** Overlapping template index? */ annotatedOverlappingTemplateIndex: AnnotatedOverlappingTemplateIndex;
   /** Inherited index signature indexed? */ inheritedIndexSignatureIndexed: InheritedIndexSignatureIndexed;
   /** Class index signature indexed? */ annotatedClassIndexChosen: AnnotatedClassIndexChosen;
   /** Union index signature indexed? */ annotatedUnionIndexChosen: AnnotatedUnionIndexChosen;
@@ -288,6 +295,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.annotatedStringIndexBroadKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedNumericIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedNumericIndexBroadKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedOverlappingTemplateIndex\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.inheritedIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedClassIndexChosen\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedUnionIndexChosen\n  - LLM evaluation @probability on an indexed source index signature is not supported",
@@ -491,6 +499,14 @@ interface IShadowedIndexBase {
 }
 interface IShadowedIndexChild extends IShadowedIndexBase { [key: string]: boolean }
 type ShadowedIndexChosen = IShadowedIndexChild["selected"];
+interface IImplementedAnnotatedIndex {
+  /** @probability 0.8 */
+  [key: number]: boolean;
+}
+class ImplementsButDoesNotInheritIndex implements IImplementedAnnotatedIndex {
+  [key: string]: boolean;
+}
+type ImplementedIndexNotInherited = ImplementsButDoesNotInheritIndex[0];
 interface INumericStringIndexTypeCheck {
   [key: string]: "string" | "number";
   [key: number]: "number";
@@ -582,6 +598,7 @@ typia.llm.evaluation<{
   /** Decimal string index signature chosen? */ decimalStringIndexSignatureChosen: DecimalStringIndexSignatureChosen;
   /** Exponent string index signature chosen? */ exponentStringIndexSignatureChosen: ExponentStringIndexSignatureChosen;
   /** Shadowed index signature chosen? */ shadowedIndexChosen: ShadowedIndexChosen;
+  /** Implemented index not inherited? */ implementedIndexNotInherited: ImplementedIndexNotInherited;
   /** Explicit over index signature chosen? */ explicitOverIndexSignatureChosen: ExplicitOverIndexSignatureChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;

@@ -469,6 +469,9 @@ func llmEvaluation_indexSignatureSurfaces(checker *shimchecker.Checker, objectNo
       }
       if object.HeritageClauses != nil {
         for _, clause := range object.HeritageClauses.Nodes {
+          if clause.AsHeritageClause().Token != shimast.KindExtendsKeyword {
+            continue
+          }
           for _, base := range clause.AsHeritageClause().Types.Nodes {
             collect(base, seen)
           }
@@ -481,6 +484,9 @@ func llmEvaluation_indexSignatureSurfaces(checker *shimchecker.Checker, objectNo
       }
       if object.HeritageClauses != nil {
         for _, clause := range object.HeritageClauses.Nodes {
+          if clause.AsHeritageClause().Token != shimast.KindExtendsKeyword {
+            continue
+          }
           for _, base := range clause.AsHeritageClause().Types.Nodes {
             collect(base, seen)
           }
@@ -820,6 +826,9 @@ func llmEvaluation_indexedParentBindings(checker *shimchecker.Checker, node *shi
     case shimast.KindClassDeclaration:
       if heritage := declaration.AsClassDeclaration().HeritageClauses; heritage != nil {
         for _, clause := range heritage.Nodes {
+          if clause.AsHeritageClause().Token != shimast.KindExtendsKeyword {
+            continue
+          }
           next = append(next, clause.AsHeritageClause().Types.Nodes...)
         }
       }
