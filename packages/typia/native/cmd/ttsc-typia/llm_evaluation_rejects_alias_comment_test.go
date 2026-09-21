@@ -20,6 +20,9 @@ type ParenthesizedInferWrapper<T> = T extends (infer U) ? U : never;
 type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
 type TupleInferWrapper<T> = T extends [infer U] ? U : never;
 type OptionalTupleInferWrapper<T> = T extends [value?: infer U] ? U : never;
+type RestTupleInferWrapper<T> = T extends [infer U, ...infer R] ? U : never;
+type TailTupleInferWrapper<T> = T extends [...infer R, infer U] ? U : never;
+type RestFirstWrapper<T> = T extends [boolean, ...infer R] ? R[0] : never;
 type ReadonlyTupleInferWrapper<T> = T extends readonly [infer U] ? U : never;
 type ReadonlyArrayInferWrapper<T> = T extends ReadonlyArray<infer U> ? U : never;
 type ReadonlyOperatorArrayInferWrapper<T> = T extends readonly (infer U)[] ? U : never;
@@ -89,6 +92,9 @@ typia.llm.evaluation<{
   /** Tuple inferred? */ tupleInferred: TupleInferWrapper<[Urgency]>;
   /** Optional tuple inferred? */ optionalTupleInferred: OptionalTupleInferWrapper<[value?: Urgency]>;
   /** Required to optional tuple inferred? */ requiredToOptionalTupleInferred: OptionalTupleInferWrapper<[value: Urgency]>;
+  /** Rest tuple inferred? */ restTupleInferred: RestTupleInferWrapper<[Urgency, boolean, number]>;
+  /** Tail tuple inferred? */ tailTupleInferred: TailTupleInferWrapper<[boolean, Urgency]>;
+  /** Rest first inferred? */ restFirstInferred: RestFirstWrapper<[boolean, Urgency, boolean]>;
   /** Readonly tuple inferred? */ readonlyTupleInferred: ReadonlyTupleInferWrapper<readonly [Urgency]>;
   /** Readonly array inferred? */ readonlyArrayInferred: ReadonlyArrayInferWrapper<readonly Urgency[]>;
   /** Readonly operator array inferred? */ readonlyOperatorArrayInferred: ReadonlyOperatorArrayInferWrapper<readonly Urgency[]>;
@@ -135,6 +141,9 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.tupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.optionalTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.requiredToOptionalTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.restTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.tailTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.restFirstInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyOperatorArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
@@ -237,6 +246,9 @@ type TupleDiscard<T> = T extends [infer U] ? boolean : never;
 type ArrayDiscard<T> = T extends Array<infer U> ? boolean : never;
 type ReadonlyArrayDiscard<T> = T extends ReadonlyArray<infer U> ? boolean : never;
 type ReadonlyTupleDiscard<T> = T extends readonly [infer U] ? boolean : never;
+type RestTupleDiscard<T> = T extends [infer U, ...infer R] ? boolean : never;
+type RestTupleMismatch<T> = T extends [infer U, ...infer R] ? Unused : boolean;
+type RestFirst<T> = T extends [boolean, ...infer R] ? R[0] : never;
 type MutableTupleOnly<T> = T extends [infer U] ? Unused : boolean;
 type OptionalTupleInfer<T> = T extends [infer U] ? U : boolean;
 type ReadonlyOptionalTupleInfer<T> = T extends readonly [infer U] ? U : boolean;
@@ -278,6 +290,9 @@ typia.llm.evaluation<{
   /** Array discarded? */ arrayDiscarded: ArrayDiscard<AnnotatedTuple>;
   /** Readonly array discarded? */ readonlyArrayDiscarded: ReadonlyArrayDiscard<AnnotatedTuple>;
   /** Readonly discarded? */ readonlyDiscarded: ReadonlyTupleDiscard<AnnotatedTuple>;
+  /** Rest discarded? */ restDiscarded: RestTupleDiscard<AnnotatedTuple>;
+  /** Rest mismatch? */ restMismatch: RestTupleMismatch<[]>;
+  /** Rest selected? */ restSelected: RestFirst<[boolean, boolean, Unused]>;
   /** Mutable tuple false? */ mutableTupleFalse: MutableTupleOnly<readonly [boolean]>;
   /** Optional tuple false? */ optionalTupleFalse: OptionalTupleInfer<[Unused?]>;
   /** Named optional tuple false? */ namedOptionalTupleFalse: OptionalTupleInfer<[value?: Unused]>;

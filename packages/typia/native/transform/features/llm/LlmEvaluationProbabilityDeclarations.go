@@ -3,6 +3,7 @@ package llm
 import (
   "fmt"
   "path/filepath"
+  "strconv"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
@@ -259,9 +260,31 @@ type llmEvaluation_indexedSurface struct {
 func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimast.IndexedAccessTypeNode, bindings map[*shimast.Symbol]*shimast.Node) []llmEvaluation_indexedSurface {
   objectNode := llmEvaluation_boundTypeNode(checker, indexed.ObjectType, bindings)
   keyNode := llmEvaluation_boundTypeNode(checker, indexed.IndexType, bindings)
-  object := checker.GetTypeFromTypeNode(objectNode)
   keyType := checker.GetTypeFromTypeNode(keyNode)
-  if object == nil || keyType == nil {
+  if keyType == nil {
+    return nil
+  }
+  if objectNode.Kind == shimast.KindTupleType {
+    elements := objectNode.AsTupleTypeNode().Elements.Nodes
+    surfaces := []llmEvaluation_indexedSurface{}
+    for _, candidate := range keyType.Distributed() {
+      if candidate.IsNumberLiteral() == false {
+        return nil
+      }
+      index, err := strconv.Atoi(fmt.Sprint(candidate.AsLiteralType().Value()))
+      if err != nil || index < 0 || index >= len(elements) {
+        return nil
+      }
+      element, _, rest := llmEvaluation_tupleElement(elements[index])
+      if rest {
+        return nil
+      }
+      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: element, bindings: bindings})
+    }
+    return surfaces
+  }
+  object := checker.GetTypeFromTypeNode(objectNode)
+  if object == nil {
     return nil
   }
   surfaces := []llmEvaluation_indexedSurface{}
@@ -593,6 +616,41 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       }
       elements := value.AsTupleTypeNode().Elements.Nodes
       patterns := target.AsTupleTypeNode().Elements.Nodes
+      restIndex := -1
+      for i, pattern := range patterns {
+        _, _, rest := llmEvaluation_tupleElement(pattern)
+        if rest {
+          if restIndex >= 0 {
+            return false
+          }
+          restIndex = i
+        }
+      }
+      if restIndex >= 0 {
+        if len(elements) < len(patterns)-1 {
+          return false
+        }
+        fixed := func(source *shimast.Node, pattern *shimast.Node) bool {
+          source, optional, rest := llmEvaluation_tupleElement(source)
+          pattern, patternOptional, _ := llmEvaluation_tupleElement(pattern)
+          return rest == false && (optional == false || patternOptional) && match(source, pattern)
+        }
+        for i := 0; i < restIndex; i++ {
+          if fixed(elements[i], patterns[i]) == false {
+            return false
+          }
+        }
+        suffix := len(patterns) - restIndex - 1
+        for i := 0; i < suffix; i++ {
+          if fixed(elements[len(elements)-suffix+i], patterns[restIndex+1+i]) == false {
+            return false
+          }
+        }
+        factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+        remainder := factory.NewTupleTypeNode(factory.NewNodeList(elements[restIndex : len(elements)-suffix]))
+        pattern, _, _ := llmEvaluation_tupleElement(patterns[restIndex])
+        return match(remainder, pattern)
+      }
       if len(elements) != len(patterns) {
         return false
       }
@@ -658,7 +716,8 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       return true
     }
     if target.Kind != shimast.KindTypeReference {
-      return false
+      assignable, known := llmEvaluation_resolvedAssignable(checker, value, target, inherited)
+      return known && assignable
     }
     reference := target.AsTypeReferenceNode()
     if reference.TypeArguments == nil || len(reference.TypeArguments.Nodes) != 1 {
