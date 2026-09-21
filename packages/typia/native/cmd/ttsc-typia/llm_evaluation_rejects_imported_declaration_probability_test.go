@@ -15,7 +15,7 @@ import (
 //
 //  1. Define an annotated primitive alias in an imported module.
 //  2. Use it in evaluation calls in two source files.
-//  3. Require the imported declaration's diagnostic for both transforms.
+//  3. Require the imported declaration's diagnostic from both CLI paths.
 func TestLlmEvaluationRejectsImportedDeclarationProbability(t *testing.T) {
   dir := llmEvaluationProject(t, "imported-declaration-probability", `import typia from "typia";
 import type { Urgency } from "./urgency";
@@ -38,5 +38,11 @@ typia.llm.evaluation<{ /** Is it urgent? */ urgent: boolean }>();
   })
   if code != 3 || strings.Count(diagnostics, "type alias Urgency") != 2 {
     t.Fatalf("imported declaration tag must fail in both files: code=%d\n%s", code, diagnostics)
+  }
+  output, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{"--cwd", dir, "--tsconfig", "tsconfig.json"})
+  })
+  if code != 3 || strings.Count(output, "type alias Urgency") != 2 {
+    t.Fatalf("transform path must diagnose both files: code=%d\nstdout=%s\nstderr=%s", code, output, errText)
   }
 }

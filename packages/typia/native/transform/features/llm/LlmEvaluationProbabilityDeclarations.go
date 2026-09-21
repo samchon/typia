@@ -14,13 +14,16 @@ func llmEvaluation_cachedDeclarationProbabilityErrors(context nativecontext.ITyp
   if context.Program == nil {
     return nil
   }
-  analyze := sync.OnceValue(func() []nativellmprogrammers.LlmEvaluationProgrammer_IError {
+  return llmEvaluation_onceDeclarationProbabilityErrors(context.Shared, func() []nativellmprogrammers.LlmEvaluationProgrammer_IError {
     return llmEvaluation_declarationProbabilityErrors(context.Program.SourceFiles())
   })
-  if context.Shared == nil {
+}
+
+func llmEvaluation_onceDeclarationProbabilityErrors(shared *sync.Map, analyze func() []nativellmprogrammers.LlmEvaluationProgrammer_IError) []nativellmprogrammers.LlmEvaluationProgrammer_IError {
+  if shared == nil {
     return analyze()
   }
-  cached, _ := context.Shared.LoadOrStore("llm.evaluation.probability.declarations", analyze)
+  cached, _ := shared.LoadOrStore("llm.evaluation.probability.declarations", sync.OnceValue(analyze))
   return cached.(func() []nativellmprogrammers.LlmEvaluationProgrammer_IError)()
 }
 
