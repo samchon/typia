@@ -597,7 +597,9 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
         return false
       }
       for i, element := range elements {
-        if match(element, patterns[i]) == false {
+        source, sourceOptional, sourceRest := llmEvaluation_tupleElement(element)
+        pattern, patternOptional, patternRest := llmEvaluation_tupleElement(patterns[i])
+        if (sourceOptional && patternOptional == false) || sourceRest != patternRest || match(source, pattern) == false {
           return false
         }
       }
@@ -683,6 +685,19 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
     return nil, false
   }
   return inferred, true
+}
+
+func llmEvaluation_tupleElement(node *shimast.Node) (*shimast.Node, bool, bool) {
+  switch node.Kind {
+  case shimast.KindOptionalType:
+    return node.Type(), true, false
+  case shimast.KindRestType:
+    return node.Type(), false, true
+  case shimast.KindNamedTupleMember:
+    member := node.AsNamedTupleMember()
+    return member.Type, member.QuestionToken != nil, member.DotDotDotToken != nil
+  }
+  return node, false, false
 }
 
 // Extract the written element of an array or tuple while retaining whether
