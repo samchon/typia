@@ -32,8 +32,6 @@ import { TagBase } from "./TagBase";
  *   interface ITicketTriage {
  *     // true only when P(true) >= 0.8
  *     refund: boolean & Probability<0.8>;
- *
- *     action: Action;
  *   }
  *
  * @template Value The probability requirement, in `[0, 1]`

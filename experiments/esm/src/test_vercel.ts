@@ -25,7 +25,7 @@ export const test_vercel = async (): Promise<void> => {
   const add: Tool = tools["add"]!;
   check(
     "description reflects JSDoc",
-    add.description?.includes("Add two") === true,
+    typeof add.description === "string" && add.description.includes("Add two"),
   );
 
   // AI SDK 7 requires context; AI SDK 6 ignores the extra property.
