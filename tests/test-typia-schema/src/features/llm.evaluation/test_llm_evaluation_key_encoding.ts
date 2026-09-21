@@ -11,7 +11,7 @@ import typia from "typia";
  * rewriting either object's prototype.
  *
  * 1. Declare colliding-looking, quoted, spaced, and `__proto__` properties.
- * 2. Generate the question keys and round-trip answers through validate.
+ * 2. Generate the question keys and decode the answer map.
  * 3. Assert the exact keys, the converted value, and untouched prototypes.
  */
 export const test_llm_evaluation_key_encoding = (): void => {

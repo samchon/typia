@@ -34,4 +34,4 @@ Checks per package:
   round-trip through `ai` (the package whose named-only ESM exports broke
   the previous CommonJS-transcoded build).
 - `@typia/jev` — `toJevQuestions` conversion and a native-answer
-  `validate` round-trip, with no network.
+  `decode` round-trip, with no network.
