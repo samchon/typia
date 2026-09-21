@@ -52,6 +52,7 @@ func llmEvaluation_reachableDeclarationErrors(plan []any, errors []nativellmprog
 func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, top *shimast.Node) []nativellmprogrammers.LlmEvaluationProgrammer_IError {
   errors := []nativellmprogrammers.LlmEvaluationProgrammer_IError{}
   active := map[*shimast.Symbol]bool{}
+  trackers := []map[*shimast.Symbol]bool{}
   var walk func(*shimast.Node, string, map[*shimast.Symbol]*shimast.Node)
   walk = func(node *shimast.Node, accessor string, bindings map[*shimast.Symbol]*shimast.Node) {
     if node == nil {
@@ -74,6 +75,16 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     if node.Kind == shimast.KindConditionalType {
       conditional := node.AsConditionalTypeNode()
       checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
+      sourceDeclarations := []*shimast.Node{}
+      if checkNode.Kind == shimast.KindTypeReference {
+        symbol := checker.GetSymbolAtLocation(checkNode.AsTypeReferenceNode().TypeName)
+        if symbol != nil && symbol.Flags&shimast.SymbolFlagsAlias != 0 {
+          symbol = shimchecker.Checker_getAliasedSymbol(checker, symbol)
+        }
+        if symbol != nil {
+          sourceDeclarations = symbol.Declarations
+        }
+      }
       inferredBindings := bindings
       declarations := []*shimast.Node{}
       if conditional.ExtendsType.Kind != shimast.KindInferType && llmEvaluation_containsInfer(conditional.ExtendsType) {
@@ -86,10 +97,10 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
             continue
           }
           reported[declaration] = true
-          if llmEvaluation_declarationHasProbability(declaration) {
+          if message := llmEvaluation_declarationProbabilityMessage(declaration); message != "" && llmEvaluation_declarationHasProbability(declaration) {
             errors = append(errors, nativellmprogrammers.LlmEvaluationProgrammer_IError{
               Accessor: accessor,
-              Message:  "LLM evaluation @probability on a type alias is not supported; put it on the decision property or enum member.",
+              Message:  message,
             })
           }
         }
@@ -101,9 +112,15 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
           for _, part := range checkNode.AsUnionTypeNode().Types.Nodes {
             expanded, partBindings, partDeclarations := llmEvaluation_expandTypeAlias(checker, part, inferredBindings)
             if inferred, ok := llmEvaluation_inferBindings(checker, expanded, conditional.ExtendsType, partBindings); ok {
-              report(declarations)
-              report(partDeclarations)
+              tracked := llmEvaluation_inferSymbols(checker, conditional.ExtendsType)
+              trackers = append(trackers, tracked)
               walk(conditional.TrueType, accessor, inferred)
+              trackers = trackers[:len(trackers)-1]
+              if llmEvaluation_usedInference(tracked) {
+                report(sourceDeclarations)
+                report(declarations)
+                report(partDeclarations)
+              }
             } else if assignable, known := llmEvaluation_resolvedAssignable(checker, expanded, conditional.ExtendsType, partBindings); known && assignable == false {
               walk(conditional.FalseType, accessor, partBindings)
             } else {
@@ -115,8 +132,14 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
         }
       }
       if inferred, ok := llmEvaluation_inferBindings(checker, checkNode, conditional.ExtendsType, inferredBindings); ok {
-        report(declarations)
+        tracked := llmEvaluation_inferSymbols(checker, conditional.ExtendsType)
+        trackers = append(trackers, tracked)
         walk(conditional.TrueType, accessor, inferred)
+        trackers = trackers[:len(trackers)-1]
+        if llmEvaluation_usedInference(tracked) {
+          report(sourceDeclarations)
+          report(declarations)
+        }
         return
       }
       branch := llmEvaluation_conditionalBranch(checker, conditional, inferredBindings)
@@ -170,6 +193,11 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
       if symbol != nil && symbol.Flags&shimast.SymbolFlagsAlias != 0 {
         symbol = shimchecker.Checker_getAliasedSymbol(checker, symbol)
       }
+      for _, tracked := range trackers {
+        if _, found := tracked[symbol]; found {
+          tracked[symbol] = true
+        }
+      }
       if argument := bindings[symbol]; argument != nil {
         walk(argument, accessor, bindings)
         return
@@ -186,17 +214,7 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
           if declaration == nil {
             continue
           }
-          var message string
-          switch declaration.Kind {
-          case shimast.KindTypeAliasDeclaration:
-            message = "LLM evaluation @probability on a type alias is not supported; put it on the decision property or enum member."
-          case shimast.KindInterfaceDeclaration, shimast.KindClassDeclaration:
-            message = "LLM evaluation @probability on an object declaration is not supported; put it on the decision property or enum member."
-          case shimast.KindEnumDeclaration:
-            message = "LLM evaluation @probability on an enum declaration is not supported; put it on the decision property or enum member."
-          case shimast.KindVariableDeclaration:
-            message = "LLM evaluation @probability on a variable declaration is not supported; put it on the decision property or enum member."
-          }
+          message := llmEvaluation_declarationProbabilityMessage(declaration)
           if message == "" {
             continue
           }
@@ -446,6 +464,38 @@ func llmEvaluation_containsInfer(node *shimast.Node) bool {
   return found
 }
 
+func llmEvaluation_inferSymbols(checker *shimchecker.Checker, node *shimast.Node) map[*shimast.Symbol]bool {
+  symbols := map[*shimast.Symbol]bool{}
+  var visit func(*shimast.Node)
+  visit = func(current *shimast.Node) {
+    if current == nil {
+      return
+    }
+    if current.Kind == shimast.KindInferType {
+      parameter := current.AsInferTypeNode().TypeParameter
+      if symbol := checker.GetSymbolAtLocation(parameter.Name()); symbol != nil {
+        symbols[symbol] = false
+      }
+      return
+    }
+    current.ForEachChild(func(child *shimast.Node) bool {
+      visit(child)
+      return false
+    })
+  }
+  visit(node)
+  return symbols
+}
+
+func llmEvaluation_usedInference(symbols map[*shimast.Symbol]bool) bool {
+  for _, used := range symbols {
+    if used {
+      return true
+    }
+  }
+  return false
+}
+
 func llmEvaluation_expandTypeAlias(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) (*shimast.Node, map[*shimast.Symbol]*shimast.Node, []*shimast.Node) {
   active := map[*shimast.Symbol]bool{}
   declarations := []*shimast.Node{}
@@ -517,6 +567,74 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
         return false
       }
       return match(value.AsArrayTypeNode().ElementType, target.AsArrayTypeNode().ElementType)
+    }
+    if target.Kind == shimast.KindTupleType {
+      if value.Kind != shimast.KindTupleType {
+        return false
+      }
+      elements := value.AsTupleTypeNode().Elements.Nodes
+      patterns := target.AsTupleTypeNode().Elements.Nodes
+      if len(elements) != len(patterns) {
+        return false
+      }
+      for i, element := range elements {
+        if match(element, patterns[i]) == false {
+          return false
+        }
+      }
+      return true
+    }
+    if target.Kind == shimast.KindTypeLiteral {
+      for _, expected := range target.AsTypeLiteralNode().Members.Nodes {
+        if expected.Kind != shimast.KindPropertySignature || expected.Name() == nil || expected.Type() == nil {
+          return false
+        }
+        if expected.AsPropertySignatureDeclaration().PostfixToken != nil {
+          return false
+        }
+        found := false
+        if value.Kind == shimast.KindTypeLiteral {
+          for _, actual := range value.AsTypeLiteralNode().Members.Nodes {
+            if actual.Kind != shimast.KindPropertySignature || actual.Name() == nil || actual.Type() == nil || actual.Name().Text() != expected.Name().Text() {
+              continue
+            }
+            if actual.AsPropertySignatureDeclaration().PostfixToken != nil {
+              return false
+            }
+            if match(actual.Type(), expected.Type()) == false {
+              return false
+            }
+            found = true
+            break
+          }
+        } else {
+          object := checker.GetTypeFromTypeNode(value)
+          if object == nil {
+            return false
+          }
+          property := checker.GetPropertyOfType(object, expected.Name().Text())
+          if property == nil {
+            return false
+          }
+          for _, actual := range property.Declarations {
+            if actual == nil || actual.Kind != shimast.KindPropertySignature || actual.Type() == nil || actual.AsPropertySignatureDeclaration().PostfixToken != nil {
+              continue
+            }
+            nested := llmEvaluation_indexedParentBindings(checker, value, actual.Parent, inherited, map[*shimast.Symbol]bool{})
+            if nested == nil {
+              continue
+            }
+            if match(llmEvaluation_boundTypeNode(checker, actual.Type(), nested), expected.Type()) {
+              found = true
+              break
+            }
+          }
+        }
+        if found == false {
+          return false
+        }
+      }
+      return true
     }
     if target.Kind != shimast.KindTypeReference {
       return false
@@ -657,4 +775,18 @@ func llmEvaluation_declarationHasProbability(declaration *shimast.Node) bool {
     }
   }
   return false
+}
+
+func llmEvaluation_declarationProbabilityMessage(declaration *shimast.Node) string {
+  switch declaration.Kind {
+  case shimast.KindTypeAliasDeclaration:
+    return "LLM evaluation @probability on a type alias is not supported; put it on the decision property or enum member."
+  case shimast.KindInterfaceDeclaration, shimast.KindClassDeclaration:
+    return "LLM evaluation @probability on an object declaration is not supported; put it on the decision property or enum member."
+  case shimast.KindEnumDeclaration:
+    return "LLM evaluation @probability on an enum declaration is not supported; put it on the decision property or enum member."
+  case shimast.KindVariableDeclaration:
+    return "LLM evaluation @probability on a variable declaration is not supported; put it on the decision property or enum member."
+  }
+  return ""
 }

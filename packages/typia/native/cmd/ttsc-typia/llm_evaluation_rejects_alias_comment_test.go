@@ -17,6 +17,11 @@ type Wrapper<T> = {
 };
 type InferWrapper<T> = T extends infer U ? U : never;
 type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
+type TupleInferWrapper<T> = T extends [infer U] ? U : never;
+type ObjectInferWrapper<T> = T extends { value: infer U } ? U : never;
+interface IObjectInferBox<T> { value: T }
+/** @probability 0.8 */
+interface IAnnotatedInferBox { value: boolean }
 type UnionInferWrapper<T> = T extends Array<infer U> ? U : never;
 type AliasedArray = Urgency[];
 type AliasedUnion = Urgency[] | string;
@@ -66,6 +71,10 @@ typia.llm.evaluation<{
   /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
   /** Inferred? */ inferred: InferWrapper<Urgency>;
   /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
+  /** Tuple inferred? */ tupleInferred: TupleInferWrapper<[Urgency]>;
+  /** Object inferred? */ objectInferred: ObjectInferWrapper<{ value: Urgency }>;
+  /** Interface object inferred? */ interfaceObjectInferred: ObjectInferWrapper<IObjectInferBox<Urgency>>;
+  /** Annotated interface inferred? */ annotatedInterfaceInferred: ObjectInferWrapper<IAnnotatedInferBox>;
   /** Union inferred? */ unionInferred: UnionInferWrapper<Urgency[] | string>;
   /** Aliased array inferred? */ aliasedArrayInferred: ArrayInferWrapper<AliasedArray>;
   /** Aliased union inferred? */ aliasedUnionInferred: UnionInferWrapper<AliasedUnion>;
@@ -93,6 +102,10 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.tupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.objectInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.interfaceObjectInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedInterfaceInferred\n  - LLM evaluation @probability on an object declaration is not supported",
     "- $input.unionInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedUnionInferred\n  - LLM evaluation @probability on a type alias is not supported",
@@ -170,6 +183,9 @@ type Unused = boolean;
 /** @probability 0.8 */
 type AnnotatedString = string;
 type InferFalse<T> = T extends Array<infer U> ? U : boolean;
+/** @probability 0.8 */
+type AnnotatedTuple = [boolean];
+type TupleDiscard<T> = T extends [infer U] ? boolean : never;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
@@ -198,6 +214,7 @@ typia.llm.evaluation<{
   /** Eighth? */ eighth: NonDistributiveTrue<string>;
   /** Ninth? */ ninth: ArrayCheck<string>;
   /** Tenth? */ tenth: InferFalse<AnnotatedString>;
+  /** Eleventh? */ eleventh: TupleDiscard<AnnotatedTuple>;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
