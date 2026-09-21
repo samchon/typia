@@ -54,7 +54,7 @@ func TestDynamicKeyTagsTransform(t *testing.T) {
   }
   // The key is read into a local before it is tested, so its predicate is the
   // one place the emitted text can show the check exists at all.
-  if !strings.Contains(out, "RegExp(") || !strings.Contains(out, "_stringLength") {
+  if !strings.Contains(out, "RegExp(") || !strings.Contains(out, "_stringLengthGte") {
     t.Fatalf("emitted checker should test the dynamic key, not only its value:\n%s", out)
   }
   dynamicKeyTagsRunRuntimeCases(t, project, out)

@@ -59,7 +59,7 @@ func TestMetadataTypeTagSoleMalformedDiagnostic(t *testing.T) {
     t.Fatalf("sole malformed tag build should fail with code 3, got %d\nstderr=%s", code, errText)
   }
   normalized := strings.ReplaceAll(filepath.ToSlash(errText), "\r\n", "\n")
-  const value = "  - the property [\"typia.tag.value\"] must be a literal type or undefined value."
+  const value = "  - the property [\"typia.tag.value\"] must be a literal, literal tuple, object, or undefined type."
   const validate = "  - the property [\"typia.tag.validate\"] must be a string literal, or an object whose keys are 'boolean', 'bigint', 'number', 'string', 'array', or 'object'."
   for _, expected := range []string{
     "- number & Minimum<number>\n" + value + "\n" + validate,

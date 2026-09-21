@@ -11,9 +11,10 @@ import { TagBase } from "./TagBase";
  * which API documentation tools and code generators can use to show default
  * values or generate code that applies them.
  *
- * Only primitive literal types are supported: `boolean`, `bigint`, `number`,
- * and `string`. For complex defaults, consider using optional properties with
- * runtime default assignment.
+ * Primitive literals and readonly tuples of primitive literals are supported.
+ * Array defaults must be concrete tuples, normally captured with `as const`; an
+ * open array type such as `string[]` does not identify a value to emit. For
+ * object defaults, use optional properties with runtime default assignment.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @example
@@ -24,27 +25,37 @@ import { TagBase } from "./TagBase";
  *     enabled: (boolean & Default<true>) | undefined;
  *     // Default sort order
  *     sortOrder: (string & Default<"asc">) | undefined;
+ *     // Default selected columns
+ *     columns: (string[] & Default<readonly ["id", "name"]>) | undefined;
  *   }
  *
- * @template Value The default value literal (must be a primitive)
+ * @template Value The primitive or readonly tuple default value
  */
-export type Default<Value extends boolean | bigint | number | string> =
-  TagBase<{
-    target: Value extends boolean
+export type Default<Value extends DefaultAtomic | DefaultArray> = TagBase<{
+  target: Value extends DefaultArray
+    ? "array"
+    : Value extends boolean
       ? "boolean"
       : Value extends bigint
         ? "bigint"
         : Value extends number
           ? "number"
           : "string";
-    kind: "default";
-    value: Value;
-    exclusive: true;
-    schema: Value extends bigint
-      ? { default: Numeric<Value> }
-      : { default: Value };
-  }>;
+  kind: "default";
+  value: Value;
+  exclusive: true;
+  schema: { default: JsonDefault<Value> };
+}>;
 
 type Numeric<T extends bigint> = `${T}` extends `${infer N extends number}`
   ? N
   : never;
+
+type DefaultAtomic = boolean | bigint | number | string;
+type DefaultArray = readonly [] | readonly [DefaultAtomic, ...DefaultAtomic[]];
+
+type JsonDefault<Value> = Value extends bigint
+  ? Numeric<Value>
+  : Value extends DefaultArray
+    ? { [Key in keyof Value]: JsonDefault<Value[Key]> }
+    : Value;

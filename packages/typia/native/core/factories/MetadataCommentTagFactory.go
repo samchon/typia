@@ -216,11 +216,12 @@ func (metadataCommentTagFactoryNamespace) Get(props struct {
 // The rule: a template may name only a helper that every `typia` inside the
 // caret range already ships. `isTypeInt8` and its siblings satisfy it --
 // `@typia/interface` 13.0.0 named them and `typia` 13.0.0 shipped them. The
-// four this file and `Type.ts` now name do not: `_stringLength`, `_isMultipleOf`
-// (both first published in 13.1.19), `_isTypeInt64Bigint`, and
-// `_isTypeUint64Bigint` (13.1.19). They are safe only because the release that
-// carries them is a major, where the caret cannot reach a `typia` that predates
-// them. A minor or patch release of this tree reopens #2330.
+// helpers this file and the tag declarations now name do not:
+// `_stringLengthGte`, `_stringLengthLte`, `_isMultipleOf`,
+// `_isTypeInt64Bigint`, and `_isTypeUint64Bigint`. They are safe only because
+// the release that carries them is a major, where the caret cannot reach a
+// `typia` that predates them. A minor or patch release of this tree reopens
+// #2330.
 //
 // Nothing here can enforce that; the release version is the maintainer's, and a
 // campaign pull request never assigns one. This comment is the record.
@@ -331,10 +332,11 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     // `$input.length` counts UTF-16 code units, while the `minLength` and
     // `maxLength` keywords these tags emit count characters, so one astral
     // character would measure 2 against a schema that measures 1.
-    // `_stringLength` first shipped in 13.1.19; see the doc comment above.
+    // The comparison helpers keep that code-point walk but stop when the
+    // declared boundary already determines the answer.
     return metadataCommentTagFactory_TagRecord{"string": {
-      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $importInternal(\"_stringLength\")($input)", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
-      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLength\")($input) <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
+      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: "$importInternal(\"_stringLengthGte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
+      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLengthLte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
     }}
   },
   "minLength": func(props struct {
@@ -342,14 +344,14 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: props.Value + " <= $importInternal(\"_stringLength\")($input)", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: "$importInternal(\"_stringLengthGte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}}}}
   },
   "maxLength": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLength\")($input) <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLengthLte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}}}}
   },
 }
 
