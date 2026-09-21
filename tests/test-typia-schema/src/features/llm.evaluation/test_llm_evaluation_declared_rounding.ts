@@ -42,6 +42,11 @@ export const test_llm_evaluation_declared_rounding = (): void => {
   ]);
   TestEquality.equals("declared two decimals", paths(answers, rounded), []);
   TestEquality.equals(
+    "rounding metadata need not be a response record",
+    paths(answers, Object.assign(Object.create({ provider: true }), rounded)),
+    [],
+  );
+  TestEquality.equals(
     "score uses both kinds of rounding",
     paths(
       {

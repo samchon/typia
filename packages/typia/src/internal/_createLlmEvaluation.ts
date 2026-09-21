@@ -522,8 +522,13 @@ const readPrecision = (
   rounding: ILlmEvaluation.IRounding | undefined,
 ): IPrecision | null => {
   if (rounding === undefined) return { probability: 0, score: 0 };
-  const record: Record<string, unknown> | null = object(rounding);
-  if (record === null) return null;
+  if (
+    typeof rounding !== "object" ||
+    rounding === null ||
+    Array.isArray(rounding)
+  )
+    return null;
+  const record: Record<string, unknown> = rounding as Record<string, unknown>;
   const decimalError = (value: unknown): number | null =>
     value === undefined
       ? 0
