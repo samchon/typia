@@ -106,7 +106,8 @@ typia.llm.evaluation<{
   allowed: Guarded;
 }>();
 `)
-  if !strings.Contains(errText, "$input.allowed") {
+  expected := "- $input.allowed\n  - LLM evaluation does not support type tag \"trueOnly\", because decode() cannot enforce its constraint."
+  if !strings.Contains(errText, expected) {
     t.Fatalf("missing aliased refinement diagnostic:\n%s", errText)
   }
   llmEvaluationAccepts(t, "alias-refinement-control", `import typia, { tags } from "typia";
