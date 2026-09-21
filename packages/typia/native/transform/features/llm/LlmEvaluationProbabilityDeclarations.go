@@ -326,15 +326,14 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
       }
       selectedRest := elements[restIndex]
       rest, _, _ := llmEvaluation_tupleElement(selectedRest.node)
-      rest, nested, declarations := llmEvaluation_expandIndexedObject(checker, rest, selectedRest.bindings)
-      inferred, _, ok := llmEvaluation_inferArrayElement(checker, rest)
-      if ok == false {
+      restSurfaces := llmEvaluation_restElementSurfaces(checker, rest, selectedRest.bindings)
+      if restSurfaces == nil {
         return nil
       }
-      selectedRest.node = inferred
-      selectedRest.bindings = nested
-      selectedRest.declarations = append(selectedRest.declarations, declarations...)
-      surfaces = append(surfaces, selectedRest)
+      for _, selected := range restSurfaces {
+        selected.declarations = append(selectedRest.declarations, selected.declarations...)
+        surfaces = append(surfaces, selected)
+      }
       for i := restIndex + 1; i < len(elements) && i-restIndex-1 <= index-restIndex; i++ {
         selected := elements[i]
         selected.node, _, _ = llmEvaluation_tupleElement(selected.node)
@@ -375,6 +374,31 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
     }
   }
   return surfaces
+}
+
+// A rest can be a union of array/tuple alternatives. Each alternative can
+// carry its own alias declaration that remains reachable from the index.
+func llmEvaluation_restElementSurfaces(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) []llmEvaluation_indexedSurface {
+  expanded, nested, declarations := llmEvaluation_expandIndexedObject(checker, node, bindings)
+  if expanded.Kind == shimast.KindUnionType {
+    output := []llmEvaluation_indexedSurface{}
+    for _, part := range expanded.AsUnionTypeNode().Types.Nodes {
+      surfaces := llmEvaluation_restElementSurfaces(checker, part, nested)
+      if surfaces == nil {
+        return nil
+      }
+      for _, surface := range surfaces {
+        surface.declarations = append(declarations, surface.declarations...)
+        output = append(output, surface)
+      }
+    }
+    return output
+  }
+  element, _, ok := llmEvaluation_inferArrayElement(checker, expanded)
+  if ok == false {
+    return nil
+  }
+  return []llmEvaluation_indexedSurface{{node: element, bindings: nested, declarations: declarations}}
 }
 
 // A spread of a fixed tuple contributes its individual positions, unlike an
@@ -507,11 +531,6 @@ func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *
     checkNode = checkNode.AsParenthesizedTypeNode().Type
   }
   extendsNode := llmEvaluation_boundTypeNode(checker, conditional.ExtendsType, bindings)
-  check := checker.GetTypeFromTypeNode(checkNode)
-  target := checker.GetTypeFromTypeNode(extendsNode)
-  if check == nil || target == nil || check.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
-    return nil
-  }
   var parameter *shimast.Symbol
   rawCheck := conditional.CheckType
   for rawCheck.Kind == shimast.KindParenthesizedType {
@@ -529,6 +548,29 @@ func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *
       return conditional.TrueType
     }
     return conditional.FalseType
+  }
+  if checkNode.Kind == shimast.KindUnionType {
+    var selected *shimast.Node
+    for _, part := range checkNode.AsUnionTypeNode().Types.Nodes {
+      assignable, known := llmEvaluation_resolvedAssignable(checker, part, extendsNode, bindings)
+      if known == false {
+        return nil
+      }
+      branch := conditional.FalseType
+      if assignable {
+        branch = conditional.TrueType
+      }
+      if selected != nil && selected != branch {
+        return nil
+      }
+      selected = branch
+    }
+    return selected
+  }
+  check := checker.GetTypeFromTypeNode(checkNode)
+  target := checker.GetTypeFromTypeNode(extendsNode)
+  if check == nil || target == nil || check.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
+    return nil
   }
   var selected *shimast.Node
   for _, constituent := range check.Distributed() {

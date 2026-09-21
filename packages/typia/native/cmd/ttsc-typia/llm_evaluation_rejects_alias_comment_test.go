@@ -65,6 +65,12 @@ type ConditionalTupleIndexedUrgency = ConditionalTuple<true>[0];
 type ConditionalTupleParameter<T extends boolean, U> = T extends true ? U : [boolean, boolean];
 type ConditionalParameterIndexedUrgency = ConditionalTupleParameter<true, [Urgency, boolean]>[0];
 type RestTupleIndexedUrgency = [boolean, ...Urgency[]][2];
+/** @probability 0.8 */
+type AnnotatedUnionRestArm = true[];
+type AnnotatedUnionRest = AnnotatedUnionRestArm | false[];
+type AnnotatedUnionRestIndexed = [boolean, ...AnnotatedUnionRest][1];
+type ArrayInferBranchTrue<T> = T extends Array<infer U> ? (U extends boolean ? Urgency : boolean) : boolean;
+type ArrayInferBranchIndexedUrgency = ArrayInferBranchTrue<[boolean, ...boolean[]]>;
 type ReadonlyRestTupleIndexedUrgency = (readonly [boolean, ...Urgency[]])[2];
 type SuffixedRestTupleIndexedUrgency = [boolean, ...boolean[], Urgency][3];
 type FixedSpreadIndexedUrgency = [boolean, ...[Urgency, boolean]][1];
@@ -117,6 +123,8 @@ typia.llm.evaluation<{
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
   /** Rest tuple indexed? */ restTupleIndexed: RestTupleIndexedUrgency;
+  /** Annotated union rest indexed? */ annotatedUnionRestIndexed: AnnotatedUnionRestIndexed;
+  /** Array infer branch indexed? */ arrayInferBranchIndexed: ArrayInferBranchIndexedUrgency;
   /** Readonly rest tuple indexed? */ readonlyRestTupleIndexed: ReadonlyRestTupleIndexedUrgency;
   /** Suffixed rest tuple indexed? */ suffixedRestTupleIndexed: SuffixedRestTupleIndexedUrgency;
   /** Fixed spread indexed? */ fixedSpreadIndexed: FixedSpreadIndexedUrgency;
@@ -181,6 +189,8 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.restTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedUnionRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.arrayInferBranchIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.readonlyRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.suffixedRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.fixedSpreadIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -314,6 +324,8 @@ type MutableTupleOnly<T> = T extends [infer U] ? Unused : boolean;
 type OptionalTupleInfer<T> = T extends [infer U] ? U : boolean;
 type ReadonlyOptionalTupleInfer<T> = T extends readonly [infer U] ? U : boolean;
 type MutableArrayOnly<T> = T extends Array<infer U> ? Unused : boolean;
+type ArrayInferBranch<T> = T extends Array<infer U> ? (U extends string ? Unused : boolean) : boolean;
+type ArrayInferBranchChosen = ArrayInferBranch<[boolean, ...boolean[]]>;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
@@ -339,6 +351,8 @@ type ConditionalTupleChosen = ConditionalTupleSource<true>[0];
 type ConditionalParameterSource<T extends boolean, U> = T extends true ? U : [Unused, boolean];
 type ConditionalParameterChosen = ConditionalParameterSource<true, [boolean, Unused]>[0];
 type RestTupleChosen = [Unused, ...boolean[]][2];
+type UnionRest = true[] | false[];
+type UnionRestChosen = [Unused, ...UnionRest][1];
 type ReadonlyRestTupleChosen = (readonly [Unused, ...boolean[]])[2];
 type SuffixedRestTupleChosen = [Unused, ...boolean[], boolean][3];
 type FixedSpreadChosen = [boolean, ...[boolean, Unused]][1];
@@ -383,6 +397,7 @@ typia.llm.evaluation<{
   /** Mutable array false? */ mutableArrayFalse: MutableArrayOnly<readonly boolean[]>;
   /** Mutable array reference false? */ mutableArrayReferenceFalse: MutableArrayOnly<ReadonlyArray<boolean>>;
   /** Mutable array tuple false? */ mutableArrayTupleFalse: MutableArrayOnly<readonly [boolean]>;
+  /** Array infer branch chosen? */ arrayInferBranchChosen: ArrayInferBranchChosen;
   /** Twelfth? */ twelfth: NumericChosen;
   /** Tuple string chosen? */ tupleStringChosen: TupleStringChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
@@ -390,6 +405,7 @@ typia.llm.evaluation<{
   /** Conditional tuple chosen? */ conditionalTupleChosen: ConditionalTupleChosen;
   /** Conditional parameter chosen? */ conditionalParameterChosen: ConditionalParameterChosen;
   /** Rest tuple chosen? */ restTupleChosen: RestTupleChosen;
+  /** Union rest chosen? */ unionRestChosen: UnionRestChosen;
   /** Readonly rest tuple chosen? */ readonlyRestTupleChosen: ReadonlyRestTupleChosen;
   /** Suffixed rest tuple chosen? */ suffixedRestTupleChosen: SuffixedRestTupleChosen;
   /** Fixed spread chosen? */ fixedSpreadChosen: FixedSpreadChosen;
