@@ -17,7 +17,13 @@ type Wrapper<T> = {
 };
 type InferWrapper<T> = T extends infer U ? U : never;
 type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
+type UnionInferWrapper<T> = T extends Array<infer U> ? U : never;
+type AliasedArray = Urgency[];
+type AliasedUnion = Urgency[] | string;
+/** @probability 0.8 */
+type AnnotatedArray = boolean[];
 type NonDistributiveTrue<T> = (T | number) extends number ? Urgency : boolean;
+type AnyConditional<T> = (T | number) extends string ? Urgency : boolean;
 type ArrayCheck<T> = T[] extends number[] ? Urgency : boolean;
 type DefaultWrapper<T = Urgency> = {
   /** Defaulted? */
@@ -59,7 +65,12 @@ typia.llm.evaluation<{
   /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
   /** Inferred? */ inferred: InferWrapper<Urgency>;
   /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
+  /** Union inferred? */ unionInferred: UnionInferWrapper<Urgency[] | string>;
+  /** Aliased array inferred? */ aliasedArrayInferred: ArrayInferWrapper<AliasedArray>;
+  /** Aliased union inferred? */ aliasedUnionInferred: UnionInferWrapper<AliasedUnion>;
+  /** Annotated array inferred? */ annotatedArrayInferred: ArrayInferWrapper<AnnotatedArray>;
   /** Non-distributive true? */ nonDistributiveTrue: NonDistributiveTrue<number>;
+  /** Any conditional? */ anyConditional: AnyConditional<any>;
   /** Array check true? */ arrayCheckTrue: ArrayCheck<number>;
   /** Choice? */ choice: Choice;
   /** Score? */ score: Score;
@@ -80,7 +91,12 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.unionInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.aliasedArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.aliasedUnionInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.nonDistributiveTrue\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.anyConditional\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayCheckTrue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.choice\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.score\n  - LLM evaluation @probability on a type alias is not supported",

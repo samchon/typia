@@ -73,17 +73,48 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     }
     if node.Kind == shimast.KindConditionalType {
       conditional := node.AsConditionalTypeNode()
-      if inferred, ok := llmEvaluation_inferBindings(checker, llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings), conditional.ExtendsType, bindings); ok {
+      checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
+      inferredBindings := bindings
+      if conditional.ExtendsType.Kind != shimast.KindInferType && llmEvaluation_containsInfer(conditional.ExtendsType) {
+        var declarations []*shimast.Node
+        checkNode, inferredBindings, declarations = llmEvaluation_expandTypeAlias(checker, checkNode, bindings)
+        for _, declaration := range declarations {
+          if llmEvaluation_declarationHasProbability(declaration) {
+            errors = append(errors, nativellmprogrammers.LlmEvaluationProgrammer_IError{
+              Accessor: accessor,
+              Message:  "LLM evaluation @probability on a type alias is not supported; put it on the decision property or enum member.",
+            })
+          }
+        }
+      }
+      rawCheck := conditional.CheckType
+      if rawCheck.Kind == shimast.KindTypeReference {
+        parameter := checker.GetSymbolAtLocation(rawCheck.AsTypeReferenceNode().TypeName)
+        if parameter != nil && parameter.Flags&shimast.SymbolFlagsTypeParameter != 0 && checkNode.Kind == shimast.KindUnionType && llmEvaluation_containsInfer(conditional.ExtendsType) {
+          for _, part := range checkNode.AsUnionTypeNode().Types.Nodes {
+            if inferred, ok := llmEvaluation_inferBindings(checker, part, conditional.ExtendsType, inferredBindings); ok {
+              walk(conditional.TrueType, accessor, inferred)
+            } else if assignable, known := llmEvaluation_resolvedAssignable(checker, part, conditional.ExtendsType, inferredBindings); known && assignable == false {
+              walk(conditional.FalseType, accessor, inferredBindings)
+            } else {
+              walk(conditional.TrueType, accessor, inferredBindings)
+              walk(conditional.FalseType, accessor, inferredBindings)
+            }
+          }
+          return
+        }
+      }
+      if inferred, ok := llmEvaluation_inferBindings(checker, checkNode, conditional.ExtendsType, inferredBindings); ok {
         walk(conditional.TrueType, accessor, inferred)
         return
       }
-      branch := llmEvaluation_conditionalBranch(checker, conditional, bindings)
+      branch := llmEvaluation_conditionalBranch(checker, conditional, inferredBindings)
       if branch != nil {
-        walk(branch, accessor, bindings)
+        walk(branch, accessor, inferredBindings)
       } else {
         // An unresolved/distributive conditional can emit either branch.
-        walk(conditional.TrueType, accessor, bindings)
-        walk(conditional.FalseType, accessor, bindings)
+        walk(conditional.TrueType, accessor, inferredBindings)
+        walk(conditional.FalseType, accessor, inferredBindings)
       }
       return
     }
@@ -359,14 +390,18 @@ func llmEvaluation_resolvedAssignable(checker *shimchecker.Checker, source *shim
   }
   if source.Kind == shimast.KindUnionType {
     unknown := false
+    rejected := false
     for _, part := range source.AsUnionTypeNode().Types.Nodes {
       assignable, known := llmEvaluation_resolvedAssignable(checker, part, target, bindings)
       if known && assignable == false {
-        return false, true
+        rejected = true
       }
       unknown = unknown || known == false
     }
-    return true, unknown == false
+    if unknown {
+      return false, false
+    }
+    return rejected == false, true
   }
   if source.Kind == shimast.KindArrayType && target.Kind == shimast.KindArrayType {
     return llmEvaluation_resolvedAssignable(checker, source.AsArrayTypeNode().ElementType, target.AsArrayTypeNode().ElementType, bindings)
@@ -380,6 +415,49 @@ func llmEvaluation_resolvedAssignable(checker *shimchecker.Checker, source *shim
     return false, false
   }
   return checker.IsTypeAssignableTo(left, right), true
+}
+
+func llmEvaluation_containsInfer(node *shimast.Node) bool {
+  if node == nil {
+    return false
+  }
+  if node.Kind == shimast.KindInferType {
+    return true
+  }
+  found := false
+  node.ForEachChild(func(child *shimast.Node) bool {
+    if llmEvaluation_containsInfer(child) {
+      found = true
+      return true
+    }
+    return false
+  })
+  return found
+}
+
+func llmEvaluation_expandTypeAlias(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) (*shimast.Node, map[*shimast.Symbol]*shimast.Node, []*shimast.Node) {
+  active := map[*shimast.Symbol]bool{}
+  declarations := []*shimast.Node{}
+  for node != nil && node.Kind == shimast.KindTypeReference {
+    reference := node.AsTypeReferenceNode()
+    symbol := checker.GetSymbolAtLocation(reference.TypeName)
+    if symbol != nil && symbol.Flags&shimast.SymbolFlagsAlias != 0 {
+      symbol = shimchecker.Checker_getAliasedSymbol(checker, symbol)
+    }
+    if symbol == nil || active[symbol] || len(symbol.Declarations) != 1 || symbol.Declarations[0].Kind != shimast.KindTypeAliasDeclaration {
+      break
+    }
+    active[symbol] = true
+    declaration := symbol.Declarations[0]
+    declarations = append(declarations, declaration)
+    var arguments []*shimast.Node
+    if reference.TypeArguments != nil {
+      arguments = reference.TypeArguments.Nodes
+    }
+    bindings = llmEvaluation_bindTypeArguments(checker, declaration, arguments, bindings)
+    node = llmEvaluation_boundTypeNode(checker, declaration.AsTypeAliasDeclaration().Type, bindings)
+  }
+  return node, bindings, declarations
 }
 
 func llmEvaluation_hasBoundReference(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) bool {
