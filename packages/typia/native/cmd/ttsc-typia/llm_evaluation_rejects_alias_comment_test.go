@@ -75,26 +75,50 @@ class AnnotatedGetterSource {
   get ignored(): boolean { return false; }
 }
 type AnnotatedGetterIndexed = AnnotatedGetterSource["selected"];
+class AnnotatedInferredGetterSource {
+  /** @probability 0.8 */ get selected() { return true; }
+}
+type AnnotatedInferredGetterIndexed = AnnotatedInferredGetterSource["selected"];
+class AnnotatedSetterSource {
+  get selected(): boolean { return true; }
+  /** @probability 0.8 */ set selected(value: boolean) {}
+}
+type AnnotatedSetterIndexed = AnnotatedSetterSource["selected"];
 interface IAnnotatedIndexSignature {
   /** @probability 0.8 */
   [key: string]: boolean;
 }
 type AnnotatedIndexSignatureIndexed = IAnnotatedIndexSignature["selected"];
 type AnnotatedStringIndexNumericKey = IAnnotatedIndexSignature[0];
+type AnnotatedStringIndexBroadKey = IAnnotatedIndexSignature[string];
 interface IAnnotatedNumericIndexSignature {
   [key: string]: boolean;
   /** @probability 0.8 */
   [key: number]: boolean;
 }
 type AnnotatedNumericIndexSignatureIndexed = IAnnotatedNumericIndexSignature[0];
+type AnnotatedNumericIndexBroadKey = IAnnotatedNumericIndexSignature[number];
 interface IInheritedIndexBase {
   /** @probability 0.8 */
   [key: string]: boolean;
 }
 interface IInheritedIndexSource extends IInheritedIndexBase {}
 type InheritedIndexSignatureIndexed = IInheritedIndexSource["selected"];
+class AnnotatedClassIndexSource {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+}
+type AnnotatedClassIndexChosen = AnnotatedClassIndexSource["selected"];
+interface IUnionIndexArm {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+}
+interface IPlainUnionIndexArm { [key: string]: boolean }
+type AnnotatedUnionIndexChosen = (IUnionIndexArm | IPlainUnionIndexArm)["selected"];
 interface IGenericIndexSource<T> { [key: string]: T }
 type GenericIndexValueUrgency = IGenericIndexSource<Urgency>["selected"];
+type GenericIntersectionIndexSource<T> = IGenericIndexSource<T> & { fixed: boolean };
+type GenericIntersectionIndexUrgency = GenericIntersectionIndexSource<Urgency>["selected"];
 type AliasTupleUrgency = [Urgency, boolean];
 type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
 type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boolean];
@@ -171,11 +195,18 @@ typia.llm.evaluation<{
   /** Annotated property key indexed? */ annotatedPropertyKeyIndexed: AnnotatedPropertyKeyIndexed;
   /** Annotated source property indexed? */ annotatedSourcePropertyIndexed: AnnotatedSourcePropertyIndexed;
   /** Annotated getter indexed? */ annotatedGetterIndexed: AnnotatedGetterIndexed;
+  /** Annotated inferred getter indexed? */ annotatedInferredGetterIndexed: AnnotatedInferredGetterIndexed;
+  /** Annotated setter indexed? */ annotatedSetterIndexed: AnnotatedSetterIndexed;
   /** Annotated index signature indexed? */ annotatedIndexSignatureIndexed: AnnotatedIndexSignatureIndexed;
   /** String index with numeric key? */ annotatedStringIndexNumericKey: AnnotatedStringIndexNumericKey;
+  /** String index with broad key? */ annotatedStringIndexBroadKey: AnnotatedStringIndexBroadKey;
   /** Annotated numeric index signature indexed? */ annotatedNumericIndexSignatureIndexed: AnnotatedNumericIndexSignatureIndexed;
+  /** Numeric index with broad key? */ annotatedNumericIndexBroadKey: AnnotatedNumericIndexBroadKey;
   /** Inherited index signature indexed? */ inheritedIndexSignatureIndexed: InheritedIndexSignatureIndexed;
+  /** Class index signature indexed? */ annotatedClassIndexChosen: AnnotatedClassIndexChosen;
+  /** Union index signature indexed? */ annotatedUnionIndexChosen: AnnotatedUnionIndexChosen;
   /** Generic index value? */ genericIndexValue: GenericIndexValueUrgency;
+  /** Generic intersection index value? */ genericIntersectionIndexValue: GenericIntersectionIndexUrgency;
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
@@ -250,11 +281,18 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.annotatedPropertyKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedSourcePropertyIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
     "- $input.annotatedGetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
+    "- $input.annotatedInferredGetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
+    "- $input.annotatedSetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
     "- $input.annotatedIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedStringIndexNumericKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedStringIndexBroadKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedNumericIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedNumericIndexBroadKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.inheritedIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedClassIndexChosen\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedUnionIndexChosen\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.genericIndexValue\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.genericIntersectionIndexValue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -446,6 +484,13 @@ interface IUnselectedStringIndexSignature {
 type UnselectedStringIndexSignatureChosen = IUnselectedStringIndexSignature[0];
 type NumericStringIndexSignatureChosen = IUnselectedStringIndexSignature["0"];
 type DecimalStringIndexSignatureChosen = IUnselectedStringIndexSignature["1.5"];
+type ExponentStringIndexSignatureChosen = IUnselectedStringIndexSignature["1e-7"];
+interface IShadowedIndexBase {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+}
+interface IShadowedIndexChild extends IShadowedIndexBase { [key: string]: boolean }
+type ShadowedIndexChosen = IShadowedIndexChild["selected"];
 interface INumericStringIndexTypeCheck {
   [key: string]: "string" | "number";
   [key: number]: "number";
@@ -453,6 +498,7 @@ interface INumericStringIndexTypeCheck {
 type AssertTrue<T extends true> = T;
 type NumericStringPrefersNumber = AssertTrue<INumericStringIndexTypeCheck["0"] extends "number" ? true : false>;
 type DecimalStringPrefersNumber = AssertTrue<INumericStringIndexTypeCheck["1.5"] extends "number" ? true : false>;
+type ExponentStringPrefersNumber = AssertTrue<INumericStringIndexTypeCheck["1e-7"] extends "number" ? true : false>;
 interface IExplicitOverIndexSignature {
   /** @probability 0.8 */
   [key: string]: boolean;
@@ -534,6 +580,8 @@ typia.llm.evaluation<{
   /** Unselected string index signature chosen? */ unselectedStringIndexSignatureChosen: UnselectedStringIndexSignatureChosen;
   /** Numeric string index signature chosen? */ numericStringIndexSignatureChosen: NumericStringIndexSignatureChosen;
   /** Decimal string index signature chosen? */ decimalStringIndexSignatureChosen: DecimalStringIndexSignatureChosen;
+  /** Exponent string index signature chosen? */ exponentStringIndexSignatureChosen: ExponentStringIndexSignatureChosen;
+  /** Shadowed index signature chosen? */ shadowedIndexChosen: ShadowedIndexChosen;
   /** Explicit over index signature chosen? */ explicitOverIndexSignatureChosen: ExplicitOverIndexSignatureChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;

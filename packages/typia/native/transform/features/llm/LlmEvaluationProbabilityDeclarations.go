@@ -1,7 +1,9 @@
 package llm
 
 import (
+  "encoding/json"
   "fmt"
+  "math"
   "path/filepath"
   "strconv"
   "strings"
@@ -372,14 +374,20 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   surfaces := []llmEvaluation_indexedSurface{}
   for _, candidate := range keyType.Distributed() {
     var key string
+    literal := true
     if candidate.IsStringLiteral() {
       key, _ = candidate.AsLiteralType().Value().(string)
     } else if candidate.IsNumberLiteral() {
       key = fmt.Sprint(candidate.AsLiteralType().Value())
+    } else if candidate == checker.GetStringType() || candidate == checker.GetNumberType() {
+      literal = false
     } else {
       return nil
     }
-    property := checker.GetPropertyOfType(object, key)
+    var property *shimast.Symbol
+    if literal {
+      property = checker.GetPropertyOfType(object, key)
+    }
     if property == nil || len(property.Declarations) == 0 {
       selected := llmEvaluation_indexSignatureSurfaces(checker, objectNode, tupleNode, tupleBindings, candidate)
       if selected == nil {
@@ -389,7 +397,22 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
       continue
     }
     for _, declaration := range property.Declarations {
-      if declaration == nil || declaration.Type() == nil {
+      if declaration == nil {
+        return nil
+      }
+      valueNode := declaration.Type()
+      if valueNode == nil && declaration.Kind == shimast.KindSetAccessor {
+        parameters := declaration.AsSetAccessorDeclaration().Parameters
+        if parameters != nil && len(parameters.Nodes) == 1 {
+          valueNode = parameters.Nodes[0].Type()
+        }
+      }
+      if valueNode == nil && declaration.Kind == shimast.KindGetAccessor {
+        // An inferred getter has no written return type, but its own JSDoc
+        // remains reachable through the selected property declaration.
+        valueNode = declaration.Name()
+      }
+      if valueNode == nil {
         return nil
       }
       nested := bindings
@@ -398,7 +421,7 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
           nested = resolved
         }
       }
-      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested, owner: declaration.Parent, declarations: []*shimast.Node{declaration}})
+      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: valueNode, bindings: nested, owner: declaration.Parent, declarations: []*shimast.Node{declaration}})
     }
   }
   return surfaces
@@ -410,14 +433,14 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
 func llmEvaluation_indexSignatureSurfaces(checker *shimchecker.Checker, objectNode *shimast.Node, source *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, key *shimchecker.Type) []llmEvaluation_indexedSurface {
   signatures := []*shimast.Node{}
   active := map[*shimast.Symbol]bool{}
-  var collect func(*shimast.Node)
-  collect = func(node *shimast.Node) {
+  var collect func(*shimast.Node, map[*shimchecker.Type]bool)
+  collect = func(node *shimast.Node, seen map[*shimchecker.Type]bool) {
     if node == nil {
       return
     }
     switch node.Kind {
     case shimast.KindParenthesizedType:
-      collect(node.AsParenthesizedTypeNode().Type)
+      collect(node.AsParenthesizedTypeNode().Type, seen)
     case shimast.KindTypeReference, shimast.KindExpressionWithTypeArguments:
       var name *shimast.Node
       if node.Kind == shimast.KindTypeReference {
@@ -434,38 +457,71 @@ func llmEvaluation_indexSignatureSurfaces(checker *shimchecker.Checker, objectNo
       }
       active[symbol] = true
       for _, declaration := range symbol.Declarations {
-        collect(declaration)
+        collect(declaration, seen)
       }
       delete(active, symbol)
     case shimast.KindTypeAliasDeclaration:
-      collect(node.AsTypeAliasDeclaration().Type)
+      collect(node.AsTypeAliasDeclaration().Type, seen)
     case shimast.KindInterfaceDeclaration:
       object := node.AsInterfaceDeclaration()
       for _, member := range object.Members.Nodes {
-        collect(member)
+        collect(member, seen)
       }
       if object.HeritageClauses != nil {
         for _, clause := range object.HeritageClauses.Nodes {
           for _, base := range clause.AsHeritageClause().Types.Nodes {
-            collect(base)
+            collect(base, seen)
+          }
+        }
+      }
+    case shimast.KindClassDeclaration:
+      object := node.AsClassDeclaration()
+      for _, member := range object.Members.Nodes {
+        collect(member, seen)
+      }
+      if object.HeritageClauses != nil {
+        for _, clause := range object.HeritageClauses.Nodes {
+          for _, base := range clause.AsHeritageClause().Types.Nodes {
+            collect(base, seen)
           }
         }
       }
     case shimast.KindTypeLiteral:
       for _, member := range node.AsTypeLiteralNode().Members.Nodes {
-        collect(member)
+        collect(member, seen)
       }
-    case shimast.KindIntersectionType:
-      for _, part := range node.AsIntersectionTypeNode().Types.Nodes {
-        collect(part)
+    case shimast.KindIntersectionType, shimast.KindUnionType:
+      var parts []*shimast.Node
+      if node.Kind == shimast.KindIntersectionType {
+        parts = node.AsIntersectionTypeNode().Types.Nodes
+      } else {
+        parts = node.AsUnionTypeNode().Types.Nodes
+      }
+      for _, part := range parts {
+        branch := make(map[*shimchecker.Type]bool, len(seen))
+        for key, value := range seen {
+          branch[key] = value
+        }
+        collect(part, branch)
       }
     case shimast.KindIndexSignature:
+      parameters := node.AsIndexSignatureDeclaration().Parameters
+      if parameters == nil || len(parameters.Nodes) != 1 || parameters.Nodes[0].Type() == nil {
+        return
+      }
+      parameter := checker.GetTypeFromTypeNode(parameters.Nodes[0].Type())
+      if parameter != nil {
+        if seen[parameter] {
+          return
+        }
+        seen[parameter] = true
+      }
       signatures = append(signatures, node)
     }
   }
-  collect(source)
+  collect(source, map[*shimchecker.Type]bool{})
   selected := []llmEvaluation_indexedSurface{}
-  numeric := []llmEvaluation_indexedSurface{}
+  nonString := []llmEvaluation_indexedSurface{}
   numericKey := llmEvaluation_numericIndexKey(key)
   for _, signature := range signatures {
     parameters := signature.AsIndexSignatureDeclaration().Parameters
@@ -484,12 +540,12 @@ func llmEvaluation_indexSignatureSurfaces(checker *shimchecker.Checker, objectNo
     }
     surface := llmEvaluation_indexedSurface{node: signature.Type(), bindings: nested, owner: signature.Parent, declarations: []*shimast.Node{signature}}
     selected = append(selected, surface)
-    if numericKey && parameter.Flags()&shimchecker.TypeFlagsNumberLike != 0 {
-      numeric = append(numeric, surface)
+    if parameter != checker.GetStringType() {
+      nonString = append(nonString, surface)
     }
   }
-  if len(numeric) != 0 {
-    return numeric
+  if len(nonString) != 0 {
+    return nonString
   }
   if len(selected) == 0 {
     return nil
@@ -511,7 +567,23 @@ func llmEvaluation_numericIndexKey(key *shimchecker.Type) bool {
     return false
   }
   value, err := strconv.ParseFloat(text, 64)
-  return err == nil && strconv.FormatFloat(value, 'f', -1, 64) == text
+  if err != nil {
+    return false
+  }
+  if math.IsNaN(value) {
+    return text == "NaN"
+  }
+  if math.IsInf(value, 1) {
+    return text == "Infinity"
+  }
+  if math.IsInf(value, -1) {
+    return text == "-Infinity"
+  }
+  if value >= -9007199254740991 && value <= 9007199254740991 && value == math.Trunc(value) {
+    return strconv.FormatInt(int64(value), 10) == text
+  }
+  encoded, err := json.Marshal(value)
+  return err == nil && string(encoded) == text
 }
 
 type llmEvaluation_restAlternative struct {
@@ -679,6 +751,26 @@ func llmEvaluation_expandIndexedObject(checker *shimchecker.Checker, node *shima
 // A selected property can be declared on a base interface or behind a type
 // alias. Carry each generic substitution to the declaration that owns it.
 func llmEvaluation_indexedParentBindings(checker *shimchecker.Checker, node *shimast.Node, parent *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, active map[*shimast.Symbol]bool) map[*shimast.Symbol]*shimast.Node {
+  if node == nil {
+    return nil
+  }
+  if node.Kind == shimast.KindParenthesizedType {
+    return llmEvaluation_indexedParentBindings(checker, node.AsParenthesizedTypeNode().Type, parent, bindings, active)
+  }
+  if node.Kind == shimast.KindIntersectionType || node.Kind == shimast.KindUnionType {
+    var parts []*shimast.Node
+    if node.Kind == shimast.KindIntersectionType {
+      parts = node.AsIntersectionTypeNode().Types.Nodes
+    } else {
+      parts = node.AsUnionTypeNode().Types.Nodes
+    }
+    for _, part := range parts {
+      if found := llmEvaluation_indexedParentBindings(checker, part, parent, bindings, active); found != nil {
+        return found
+      }
+    }
+    return nil
+  }
   var name *shimast.Node
   var arguments []*shimast.Node
   switch node.Kind {
