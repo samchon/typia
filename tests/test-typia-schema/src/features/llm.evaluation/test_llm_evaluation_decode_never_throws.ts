@@ -16,6 +16,7 @@ import typia from "typia";
  * 2. Decode each answer map.
  * 3. Assert a failure on every decision path, with no exception.
  * 4. Reject trapping and revoked proxies at each record boundary.
+ * 5. Reject throwing getters and key enumerators on every answer shape.
  */
 export const test_llm_evaluation_decode_never_throws = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
@@ -98,6 +99,136 @@ export const test_llm_evaluation_decode_never_throws = (): void => {
       [expected],
     );
   }
+
+  const trappingGet = <T extends object>(value: T): T =>
+    new Proxy(value, {
+      get: () => {
+        throw new Error("value unavailable");
+      },
+    });
+  const trappingKeys = <T extends object>(value: T): T =>
+    new Proxy(value, {
+      ownKeys: () => {
+        throw new Error("keys unavailable");
+      },
+    });
+  const trappingDescriptor = <T extends object>(value: T): T =>
+    new Proxy(value, {
+      getOwnPropertyDescriptor: () => {
+        throw new Error("property unavailable");
+      },
+    });
+  const extra = Object.defineProperty({ ...valid }, "surplus", {
+    enumerable: true,
+    get: () => {
+      throw new Error("extra unavailable");
+    },
+  });
+  for (const [name, answers, expected] of [
+    [
+      "answer map getter",
+      trappingGet(valid),
+      ["$input.urgent", "$input.team", "$input.level"],
+    ],
+    ["answer map keys", trappingKeys(valid), ["$input"]],
+    [
+      "answer map property descriptor",
+      trappingDescriptor(valid),
+      ["$input.urgent", "$input.team", "$input.level", "$input"],
+    ],
+    [
+      "boolean getter",
+      { ...valid, urgent: trappingGet(valid.urgent) },
+      ["$input.urgent"],
+    ],
+    [
+      "choice getter",
+      { ...valid, team: trappingGet(valid.team) },
+      ["$input.team"],
+    ],
+    [
+      "score getter",
+      { ...valid, level: trappingGet(valid.level) },
+      ["$input.level"],
+    ],
+    [
+      "choice distribution getter",
+      {
+        ...valid,
+        team: {
+          ...valid.team,
+          probabilities: trappingGet(valid.team.probabilities),
+        },
+      },
+      ["$input.team"],
+    ],
+    [
+      "choice distribution keys",
+      {
+        ...valid,
+        team: {
+          ...valid.team,
+          probabilities: trappingKeys(valid.team.probabilities),
+        },
+      },
+      ["$input.team"],
+    ],
+    [
+      "choice distribution property descriptor",
+      {
+        ...valid,
+        team: {
+          ...valid.team,
+          probabilities: trappingDescriptor(valid.team.probabilities),
+        },
+      },
+      ["$input.team"],
+    ],
+    [
+      "score distribution getter",
+      {
+        ...valid,
+        level: {
+          type: "score",
+          score: 0.4,
+          probabilities: trappingGet({ "0": 0.6, "1": 0.4, "2": 0 }),
+        },
+      },
+      ["$input.level"],
+    ],
+    ["extra answer getter", extra, ["$input.surplus"]],
+  ] as const) {
+    const result = evaluation.decode(answers);
+    TestEquality.equals(
+      name,
+      result.success ? [] : result.errors.map((error) => error.path),
+      [...expected],
+    );
+  }
+  TestEquality.equals(
+    "rounding getter",
+    (() => {
+      const result = evaluation.decode(
+        valid,
+        trappingGet({ probabilityDecimals: 2 }),
+      );
+      return result.success ? [] : result.errors.map((error) => error.path);
+    })(),
+    ["$input"],
+  );
+  const set = typia.llm.evaluation<{
+    /** Which channels apply? */
+    channels: Array<"email" | "phone">;
+  }>();
+  const setResult = set.decode({
+    "channels.email": trappingGet({ type: "boolean", probability: 0.7 }),
+    "channels.phone": { type: "boolean", probability: 0.3 },
+  });
+  TestEquality.equals(
+    "set member getter",
+    setResult.success ? [] : setResult.errors.map((error) => error.path),
+    ["$input.channels.email"],
+  );
 };
 
 interface IDecision {

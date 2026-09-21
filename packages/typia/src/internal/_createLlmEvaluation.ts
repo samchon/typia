@@ -147,7 +147,14 @@ const decode = <T>(
   answers: unknown,
   rounding?: ILlmEvaluation.IRounding,
 ): IValidation<T> => {
-  const precision: IPrecision | null = readPrecision(rounding);
+  const precision: IPrecision | null = (() => {
+    try {
+      return readPrecision(rounding);
+    } catch {
+      // A trapping rounding object is an invalid declaration.
+      return null;
+    }
+  })();
   if (precision === null)
     return {
       success: false,
@@ -181,7 +188,14 @@ const decode = <T>(
   const output: Record<string, unknown> = {};
   const read = (id: string): unknown => {
     expected.add(id);
-    return Object.prototype.hasOwnProperty.call(map, id) ? map[id] : undefined;
+    try {
+      return Object.prototype.hasOwnProperty.call(map, id)
+        ? map[id]
+        : undefined;
+    } catch {
+      // The decision reader reports the inaccessible answer on its own path.
+      return undefined;
+    }
   };
 
   for (const leaf of plan) {
@@ -193,10 +207,12 @@ const decode = <T>(
           path,
           _accessExpressionAsString(member.value),
         ].join("");
-        const probability: number | null = booleanProbability(
-          read(key([...leaf.path, member.value])),
+        const answer: unknown = read(key([...leaf.path, member.value]));
+        const probability: number | null = inspect(
           memberPath,
+          answer,
           errors,
+          () => booleanProbability(answer, memberPath, errors),
         );
         if (probability !== null && probability >= member.threshold)
           values.push(member.value);
@@ -206,38 +222,75 @@ const decode = <T>(
     }
     const answer: unknown = read(key(leaf.path));
     if (leaf.kind === "boolean") {
-      const probability: number | null = booleanProbability(
-        answer,
-        path,
-        errors,
+      const probability: number | null = inspect(path, answer, errors, () =>
+        booleanProbability(answer, path, errors),
       );
       if (probability !== null)
         place(output, leaf.path, probability >= leaf.threshold);
     } else if (leaf.kind === "choice") {
-      const value: string | null = choice(
-        leaf,
-        answer,
-        path,
-        errors,
-        precision,
+      const value: string | null = inspect(path, answer, errors, () =>
+        choice(leaf, answer, path, errors, precision),
       );
       if (value !== null) place(output, leaf.path, value);
     } else {
-      const value: number | null = score(leaf, answer, path, errors, precision);
+      const value: number | null = inspect(path, answer, errors, () =>
+        score(leaf, answer, path, errors, precision),
+      );
       if (value !== null) place(output, leaf.path, value);
     }
   }
-  for (const id of Object.keys(map))
+  let received: string[];
+  try {
+    received = Object.keys(map);
+  } catch {
+    errors.push({
+      path: "$input",
+      expected: "readable evaluation answer map",
+      value: answers,
+      description: "Evaluation answer keys could not be inspected.",
+    });
+    received = [];
+  }
+  for (const id of received)
     if (expected.has(id) === false)
-      errors.push({
-        path: `$input${_accessExpressionAsString(id)}`,
-        expected: "undefined",
-        value: map[id],
-        description: "The answer does not belong to any question.",
-      });
+      try {
+        errors.push({
+          path: `$input${_accessExpressionAsString(id)}`,
+          expected: "undefined",
+          value: map[id],
+          description: "The answer does not belong to any question.",
+        });
+      } catch {
+        errors.push({
+          path: `$input${_accessExpressionAsString(id)}`,
+          expected: "readable evaluation answer",
+          value: undefined,
+          description: "The extra answer could not be inspected.",
+        });
+      }
   return errors.length === 0
     ? { success: true, data: output as T }
     : { success: false, data: answers, errors };
+};
+
+/** Contain exceptions from getters and proxies at the decision path. */
+const inspect = <T>(
+  path: string,
+  answer: unknown,
+  errors: IValidation.IError[],
+  read: () => T,
+): T | null => {
+  try {
+    return read();
+  } catch {
+    errors.push({
+      path,
+      expected: "readable evaluation answer",
+      value: answer,
+      description: "The answer could not be inspected.",
+    });
+    return null;
+  }
 };
 
 const booleanProbability = (
