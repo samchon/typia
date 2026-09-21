@@ -16,7 +16,7 @@ func TestLlmEvaluationAcceptsPropertyAndEnumMemberProbability(t *testing.T) {
 
 type Urgency = boolean;
 enum Choice {
-  /** @probability 0.8 */ yes = "yes",
+  /** @probability 1 */ yes = "yes",
   /** @probability 0.2 */ no = "no",
 }
 typia.llm.evaluation<{
