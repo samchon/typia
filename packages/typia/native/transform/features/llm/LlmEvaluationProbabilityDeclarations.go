@@ -350,7 +350,11 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
 func llmEvaluation_expandIndexedObject(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) (*shimast.Node, map[*shimast.Symbol]*shimast.Node, []*shimast.Node) {
   seen := map[*shimast.Node]bool{}
   declarations := []*shimast.Node{}
-  for node != nil && seen[node] == false {
+  for node != nil {
+    node = llmEvaluation_boundTypeNode(checker, node, bindings)
+    if seen[node] {
+      break
+    }
     seen[node] = true
     if node.Kind == shimast.KindParenthesizedType {
       node = node.AsParenthesizedTypeNode().Type

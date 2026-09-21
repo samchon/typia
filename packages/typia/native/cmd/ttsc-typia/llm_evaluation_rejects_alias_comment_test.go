@@ -62,6 +62,8 @@ type AliasTupleUrgency = [Urgency, boolean];
 type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
 type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boolean];
 type ConditionalTupleIndexedUrgency = ConditionalTuple<true>[0];
+type ConditionalTupleParameter<T extends boolean, U> = T extends true ? U : [boolean, boolean];
+type ConditionalParameterIndexedUrgency = ConditionalTupleParameter<true, [Urgency, boolean]>[0];
 /** @probability 0.8 */
 type AnnotatedTupleObject = [boolean, boolean];
 type AnnotatedTupleObjectIndexed = AnnotatedTupleObject[0];
@@ -101,6 +103,7 @@ typia.llm.evaluation<{
   /** Tuple string indexed? */ tupleStringIndexed: TupleStringIndexedUrgency;
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
+  /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
   /** Annotated tuple object indexed? */ annotatedTupleObjectIndexed: AnnotatedTupleObjectIndexed;
   /** Annotated indexed object? */ annotatedIndexedObject: AnnotatedIndexedObject;
   /** Inherited annotated indexed? */ inheritedAnnotatedIndexed: InheritedAnnotatedIndexed;
@@ -157,6 +160,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.tupleStringIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedTupleObjectIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedIndexedObject\n  - LLM evaluation @probability on an object declaration is not supported",
     "- $input.inheritedAnnotatedIndexed\n  - LLM evaluation @probability on an object declaration is not supported",
@@ -306,6 +310,8 @@ type TupleSource = [boolean, Unused];
 type AliasedTupleChosen = TupleSource[0];
 type ConditionalTupleSource<T> = T extends true ? [boolean, Unused] : [Unused, boolean];
 type ConditionalTupleChosen = ConditionalTupleSource<true>[0];
+type ConditionalParameterSource<T extends boolean, U> = T extends true ? U : [Unused, boolean];
+type ConditionalParameterChosen = ConditionalParameterSource<true, [boolean, Unused]>[0];
 class ClassDecision {
   static ignored: Unused;
   /** Answer? */ answer!: boolean;
@@ -343,6 +349,7 @@ typia.llm.evaluation<{
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
   /** Conditional tuple chosen? */ conditionalTupleChosen: ConditionalTupleChosen;
+  /** Conditional parameter chosen? */ conditionalParameterChosen: ConditionalParameterChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
