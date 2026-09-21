@@ -299,12 +299,13 @@ const booleanProbability = (
   errors: IValidation.IError[],
 ): number | null => {
   const record: Record<string, unknown> | null = object(answer);
+  const type: unknown = record?.type;
   const probability: unknown =
     record === null
       ? undefined
-      : record.type === "boolean"
+      : type === "boolean"
         ? record.probability
-        : record.type === "noul"
+        : type === "noul"
           ? record.noul
           : undefined;
   if (isProbability(probability)) return probability;
@@ -316,8 +317,8 @@ const booleanProbability = (
     description:
       record === null
         ? "Missing boolean answer."
-        : record.type !== "boolean" && record.type !== "noul"
-          ? `Answer type must be "boolean" or "noul", but got ${label(record.type)}.`
+        : type !== "boolean" && type !== "noul"
+          ? `Answer type must be "boolean" or "noul", but got ${label(type)}.`
           : "Boolean answer needs a probability in [0, 1].",
   });
   return null;
@@ -334,9 +335,11 @@ const choice = (
     .map((option) => JSON.stringify(option.value))
     .join(" | ")}; probabilities?: Record<string, number> }`;
   const record: Record<string, unknown> | null = object(answer);
+  const type: unknown = record?.type;
+  const selected: unknown = type === "choice" ? record?.choice : undefined;
   const option: _ILlmEvaluationPlan.IMember<string> | undefined =
-    record !== null && record.type === "choice"
-      ? leaf.options.find((o) => o.value === record.choice)
+    record !== null && type === "choice"
+      ? leaf.options.find((o) => o.value === selected)
       : undefined;
   if (record === null || option === undefined) {
     errors.push({
@@ -346,8 +349,8 @@ const choice = (
       description:
         record === null
           ? "Missing choice answer."
-          : record.type !== "choice"
-            ? `Answer type must be "choice", but got ${label(record.type)}.`
+          : type !== "choice"
+            ? `Answer type must be "choice", but got ${label(type)}.`
             : "Choice answer must select one of the declared options.",
     });
     return null;
@@ -407,13 +410,15 @@ const score = (
   const last: number = leaf.levels.length - 1;
   const expected: string = `{ type: "score"; score: number; probabilities?: Record<string, number> }`;
   const record: Record<string, unknown> | null = object(answer);
+  const type: unknown = record?.type;
+  const scored: unknown = type === "score" ? record?.score : undefined;
   if (
     record === null ||
-    record.type !== "score" ||
-    typeof record.score !== "number" ||
-    Number.isFinite(record.score) === false ||
-    record.score < 0 ||
-    record.score > last
+    type !== "score" ||
+    typeof scored !== "number" ||
+    Number.isFinite(scored) === false ||
+    scored < 0 ||
+    scored > last
   ) {
     errors.push({
       path,
@@ -422,8 +427,8 @@ const score = (
       description:
         record === null
           ? "Missing score answer."
-          : record.type !== "score"
-            ? `Answer type must be "score", but got ${label(record.type)}.`
+          : type !== "score"
+            ? `Answer type must be "score", but got ${label(type)}.`
             : `Score answer needs a score in [0, ${last}].`,
     });
     return null;
@@ -453,7 +458,7 @@ const score = (
       0,
     );
     if (
-      Math.abs(mean - record.score) >
+      Math.abs(mean - scored) >
       PROBABILITY_TOLERANCE + meanRoundingError + precision.score
     ) {
       errors.push({
@@ -470,7 +475,7 @@ const score = (
   // the most probable level when a distribution exists, where a tie resolves
   // to the lower level; otherwise the level nearest to the fractional score,
   // where a half rounds up
-  let index: number = Math.round(record.score);
+  let index: number = Math.round(scored);
   if (probabilities !== undefined && Object.keys(probabilities).length !== 0) {
     index = -1;
     leaf.levels.forEach((_, i) => {
@@ -540,17 +545,15 @@ const distribution = (
   if (input === undefined) return undefined;
   const record: Record<string, unknown> | null = object(input);
   if (record === null) return null;
-  if (
-    Object.keys(record).length !== keys.length ||
-    keys.some(
-      (key) =>
-        Object.prototype.hasOwnProperty.call(record, key) === false ||
-        isProbability(record[key]) === false,
-    )
-  )
-    return null;
+  if (Object.keys(record).length !== keys.length) return null;
   const output: Record<string, number> = {};
-  for (const key of keys) assign(output, key, record[key] as number);
+  for (const key of keys) {
+    if (Object.prototype.hasOwnProperty.call(record, key) === false)
+      return null;
+    const probability: unknown = record[key];
+    if (isProbability(probability) === false) return null;
+    assign(output, key, probability);
+  }
   if (
     Math.abs(
       Object.values(output).reduce((sum, probability) => sum + probability, 0) -

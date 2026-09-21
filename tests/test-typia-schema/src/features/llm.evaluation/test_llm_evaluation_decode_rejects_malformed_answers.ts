@@ -10,11 +10,13 @@ import typia from "typia";
  * distribution's fractional weighted mean in `[0, levels - 1]`, and an optional
  * distribution contains every declared option or level and sums to one. Each
  * malformed value must fail on its own decision path, while the well-formed
- * neighbor in the same map still converts.
+ * neighbor in the same map still converts. A changing getter must not replace a
+ * checked probability and bypass an enum member's minimum.
  *
  * 1. Build one answer map per malformed case, next to a valid control.
  * 2. Decode each map.
  * 3. Assert exactly the malformed path fails.
+ * 4. Prove an accessor cannot switch values between checking and conversion.
  */
 export const test_llm_evaluation_decode_rejects_malformed_answers =
   (): void => {
@@ -186,6 +188,26 @@ export const test_llm_evaluation_decode_rejects_malformed_answers =
         [path],
       );
     }
+
+    let reads = 0;
+    const changing = { technical: 0.3, sales: 0.3 } as Record<string, unknown>;
+    Object.defineProperty(changing, "billing", {
+      enumerable: true,
+      get: () => (++reads === 1 ? 0.4 : "1"),
+    });
+    const gated = typia.llm.evaluation<IGatedDecision>();
+    TestEquality.equals(
+      "changing distribution getter cannot bypass member minimum",
+      gated.decode({
+        team: {
+          type: "choice",
+          choice: "billing",
+          probabilities: changing,
+        },
+      }).success,
+      false,
+    );
+    TestEquality.equals("probability read once", reads, 1);
   };
 
 interface IDecision {
@@ -197,4 +219,18 @@ interface IDecision {
 
   /** How severe? */
   level: 0 | 1 | 2;
+}
+
+enum GatedTeam {
+  /** @probability 0.5 */
+  billing = "billing",
+  /** @probability 0 */
+  technical = "technical",
+  /** @probability 0 */
+  sales = "sales",
+}
+
+interface IGatedDecision {
+  /** Which team? */
+  team: GatedTeam;
 }
