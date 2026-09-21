@@ -163,7 +163,9 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
   }
 
   for _, symbol := range props.Components.ApparentProperties(props.Checker, props.Type) {
-    if metadata_is_internal(symbol) {
+    // A complete-shape decoder must see even @internal members so its
+    // programmer can reject them; the ordinary structural consumers omit them.
+    if metadata_is_internal(symbol) && props.Options.StrictObjectMembers == false {
       continue
     }
     var node *nativeast.Node
@@ -575,7 +577,7 @@ func emplace_metadata_object_intersection_append(
     return false
   }
   for _, symbol := range props.Components.ApparentProperties(props.Checker, child) {
-    if metadata_is_internal(symbol) {
+    if metadata_is_internal(symbol) && props.Options.StrictObjectMembers == false {
       continue
     }
     var node *nativeast.Node

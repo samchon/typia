@@ -67,6 +67,15 @@ func TestLlmEvaluationCompleteObjectShape(t *testing.T) {
       class Decision extends Base<boolean> { /** Is it active? */ active!: boolean; }`, "private"},
     "interface extends private class": {`class Base { private token!: boolean; }
       interface Decision extends Base { active: boolean; }`, "private"},
+    "internal": {`interface Decision {
+      /** Is it active? */ active: boolean;
+      /** @internal */ secret: boolean;
+    }`, "hidden properties"},
+    "intersection internal": {`type Decision = {
+      /** Is it active? */ active: boolean;
+    } & {
+      /** @internal */ secret: boolean;
+    };`, "hidden properties"},
   }
   for name, testcase := range rejected {
     t.Run(name, func(t *testing.T) {
