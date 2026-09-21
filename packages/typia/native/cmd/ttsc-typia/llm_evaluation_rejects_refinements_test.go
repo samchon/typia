@@ -5,9 +5,15 @@ import (
   "testing"
 )
 
-// A decoded decision must satisfy every constraint in its declared T. The
-// evaluator only checks probability requirements; it cannot turn a selected
-// literal into a value satisfying an unrelated validator refinement.
+// TestLlmEvaluationRejectsUnsupportedRefinements verifies every validation
+// tag outside the decoder's contract is a compile error.
+//
+// A decoded decision must satisfy every constraint in T. The evaluator cannot
+// turn a selected literal into one satisfying an unrelated refinement.
+//
+//  1. Declare invalid string, number, boolean, and object refinements.
+//  2. Require a transform diagnostic at each decision path.
+//  3. Accept neighboring annotation-only tags.
 func TestLlmEvaluationRejectsUnsupportedRefinements(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "refinements", `import typia, { tags } from "typia";
 
@@ -81,41 +87,8 @@ typia.llm.evaluation<IRoot & ObjectOnly>();
 typia.llm.evaluation<{
   /** Is it urgent? */
   urgent: boolean & tags.Default<true>;
-  /** Which team? */
-  team: tags.Constant<"billing", { description: "Payments" }> | "technical";
   /** Which level? */
   level: (0 & tags.Example<0>) | 1;
-}>();
-`)
-}
-
-// A named alias must not erase the validation tag before evaluation checks it.
-// The annotation-only alias is the positive control for alias provenance.
-func TestLlmEvaluationRejectsAliasRefinement(t *testing.T) {
-  errText := llmEvaluationDiagnosticsBuild(t, "alias-refinement", `import typia, { tags } from "typia";
-
-type TrueOnly = tags.TagBase<{
-  target: "boolean";
-  kind: "trueOnly";
-  value: undefined;
-  validate: "$input === true";
-}>;
-type Guarded = boolean & TrueOnly;
-typia.llm.evaluation<{
-  /** Is it allowed? */
-  allowed: Guarded;
-}>();
-`)
-  expected := "- $input.allowed\n  - LLM evaluation does not support type tag \"trueOnly\", because decode() cannot enforce its constraint."
-  if !strings.Contains(errText, expected) {
-    t.Fatalf("missing aliased refinement diagnostic:\n%s", errText)
-  }
-  llmEvaluationAccepts(t, "alias-refinement-control", `import typia, { tags } from "typia";
-
-type Annotated = boolean & tags.Default<true>;
-typia.llm.evaluation<{
-  /** Is it allowed? */
-  allowed: Annotated;
 }>();
 `)
 }

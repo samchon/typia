@@ -5,6 +5,15 @@ import (
   "testing"
 )
 
+// TestLlmEvaluationRejectsDeclarationProbability verifies JSDoc on a type
+// declaration cannot silently become a decision requirement.
+//
+// A primitive alias resolves to the same primitive as an unannotated alias,
+// so the compiler must reject unsupported declaration-level placements.
+//
+//  1. Annotate several declaration kinds, including unused declarations.
+//  2. Compile a neighboring evaluation call.
+//  3. Require a normal diagnostic for every invalid placement.
 func TestLlmEvaluationRejectsDeclarationProbability(t *testing.T) {
   diagnostics := llmEvaluationDiagnosticsBuild(t, "declaration-probability", `import typia from "typia";
 

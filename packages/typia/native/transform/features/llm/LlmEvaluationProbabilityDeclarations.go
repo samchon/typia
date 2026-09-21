@@ -3,10 +3,26 @@ package llm
 import (
   "fmt"
   "strings"
+  "sync"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativellmprogrammers "github.com/samchon/typia/packages/typia/native/core/programmers/llm"
 )
+
+func llmEvaluation_cachedDeclarationProbabilityErrors(context nativecontext.ITypiaContext) []nativellmprogrammers.LlmEvaluationProgrammer_IError {
+  if context.Program == nil {
+    return nil
+  }
+  analyze := sync.OnceValue(func() []nativellmprogrammers.LlmEvaluationProgrammer_IError {
+    return llmEvaluation_declarationProbabilityErrors(context.Program.SourceFiles())
+  })
+  if context.Shared == nil {
+    return analyze()
+  }
+  cached, _ := context.Shared.LoadOrStore("llm.evaluation.probability.declarations", analyze)
+  return cached.(func() []nativellmprogrammers.LlmEvaluationProgrammer_IError)()
+}
 
 // Primitive aliases lose their declaration identity when TypeScript resolves
 // them (boolean aliases become the same boolean type). Consequently, no walk

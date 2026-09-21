@@ -34,9 +34,7 @@ func (llmEvaluationTransformerNamespace) Transform(props nativetransform.ITransf
     },
   })
   plan, errors := nativellmprogrammers.LlmEvaluationProgrammer.Compose(metadata)
-  if props.Context.Program != nil {
-    errors = append(errors, llmEvaluation_declarationProbabilityErrors(props.Context.Program.SourceFiles())...)
-  }
+  errors = append(errors, llmEvaluation_cachedDeclarationProbabilityErrors(props.Context)...)
   if len(errors) != 0 {
     panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
       Code:    "typia.llm.evaluation",

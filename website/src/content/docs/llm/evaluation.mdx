@@ -202,6 +202,7 @@ A missing or extra answer, a wrong answer `type`, an undeclared option, or a pro
 | Spelling                              | Meaning                                                                                                         |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `boolean & tags.Probability<N>`       | boolean threshold: `true` only when P(true) ≥ `N`                                                               |
+| `"a" & tags.Probability<N>` in a union | that option's acceptance minimum; in an array set, its inclusion threshold                                     |
 | `@probability N` on every enum member | each member's acceptance minimum; in an enum array set, its inclusion threshold                                 |
 | `@probability N` on a property        | the boolean threshold, or the default minimum (for a set, the default threshold) of members without an override |
 
@@ -209,7 +210,7 @@ A member's own requirement wins over the property's. Probability requirements ar
 
 Put `@probability` on the decision property or enum member, not on a `type`, `interface`, class, or enum declaration. When the program uses `typia.llm.evaluation()`, the compiler rejects declaration-level tags even on unused declarations: TypeScript erases the identity of primitive aliases, so use-site detection cannot reliably distinguish an unused alias from a used one.
 
-`@probability` belongs to the property where it is written. An indexed-access type such as `Source["threshold"]` extracts the property's type, not its JSDoc; put another `@probability` on the resulting evaluation property if it needs the same requirement. Passing `Source` itself to `evaluation<Source>()` does read the original property's comment.
+`@probability` belongs to the property where it is written. An indexed-access type such as `Source["threshold"]` extracts the property's type, not its JSDoc; put another `@probability` on the resulting evaluation property if it needs the same requirement. Passing `Source` itself to `evaluation<Source>()` does read the original property's comment. For a requirement that must travel through indexed access or generic aliases, put `tags.Probability<N>` on the boolean or individual literal member type; type tags survive that extraction, including members of an array set.
 
 ```typescript copy filename="gated.ts"
 enum Action {
