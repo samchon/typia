@@ -63,13 +63,9 @@ const main = async (): Promise<void> => {
     questions: toJevQuestions(triage.questions),
   });
 
-  // Check and decode the answers into ITicketTriage
-  // Supply the precision guaranteed by this Jev endpoint. This example uses
-  // two-decimal responses; verify that contract for your chosen provider.
-  const result = triage.decode(answers, {
-    probabilityDecimals: 2,
-    scoreDecimals: 2,
-  });
+  // Check and decode the answers into ITicketTriage.
+  // The direct TypeSafe SDK does not declare rounding precision.
+  const result = triage.decode(answers);
   if (result.success === false) {
     console.error("Evaluation failed:", result.errors);
     return;

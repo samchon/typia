@@ -42,13 +42,10 @@ const { answers } = await client.systemOne({
   state: "The payment page crashes for every customer.",
   questions: toJevQuestions(evaluation.questions),
 });
-const result = evaluation.decode(answers, {
-  probabilityDecimals: 2,
-  scoreDecimals: 2,
-}); // IValidation<ITriage>
+const result = evaluation.decode(answers); // IValidation<ITriage>
 ```
 
-The second argument describes a two-decimal response; use only the precision guaranteed by your Jev endpoint. The direct TypeSafe SDK does not return an AI SDK-style `rounding` declaration. Without an explicit declaration, distribution checks use a strict tolerance.
+The direct TypeSafe SDK does not return an AI SDK-style `rounding` declaration, so distribution checks use a strict tolerance. Pass a precision as the second argument only when your endpoint explicitly guarantees it.
 
 Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them.
 

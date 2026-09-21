@@ -134,8 +134,9 @@ export namespace ILlmEvaluation {
      *
      * Each entry explains when its level applies and comes from that numeric
      * enum member's JSDoc description. The entries are ordered by the members'
-     * numeric values, not by declaration order. The wire-level score uses the
-     * array index; {@link ILlmEvaluation.decode} maps that index back to the
+     * numeric values, not by declaration order. The wire-level score is a
+     * possibly fractional position on the array's index scale;
+     * {@link ILlmEvaluation.decode} selects a level and maps it back to the
      * corresponding numeric value of `T`.
      *
      * For example, members `calm = 10` and `angry = 30`, documented as `No
