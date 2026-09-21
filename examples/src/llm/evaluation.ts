@@ -63,7 +63,7 @@ const main = async (): Promise<void> => {
     questions: toJevQuestions(triage.questions),
   });
 
-  // Validate the answers and fold them back into ITicketTriage
+  // Check and decode the answers into ITicketTriage
   // Supply the precision guaranteed by this Jev endpoint. This example uses
   // two-decimal responses; verify that contract for your chosen provider.
   const result = triage.decode(answers, {

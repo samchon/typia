@@ -12,7 +12,7 @@ import typia from "typia";
  *
  * 1. Answer each question family with a bigint `type`, then with a circular
  *    `type`.
- * 2. Validate each answer map.
+ * 2. Decode each answer map.
  * 3. Assert a failure on every decision path, with no exception.
  */
 export const test_llm_evaluation_decode_never_throws = (): void => {

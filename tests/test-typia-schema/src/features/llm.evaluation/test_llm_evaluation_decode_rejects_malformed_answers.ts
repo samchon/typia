@@ -13,7 +13,7 @@ import typia from "typia";
  * neighbor in the same map still converts.
  *
  * 1. Build one answer map per malformed case, next to a valid control.
- * 2. Validate each map.
+ * 2. Decode each map.
  * 3. Assert exactly the malformed path fails.
  */
 export const test_llm_evaluation_decode_rejects_malformed_answers =

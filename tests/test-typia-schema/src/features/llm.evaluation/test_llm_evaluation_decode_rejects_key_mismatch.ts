@@ -11,8 +11,8 @@ import typia from "typia";
  * producing a partial or silently widened result. Missing answers report the
  * decision path, and extra answers report their own key.
  *
- * 1. Validate a non-object input.
- * 2. Validate an answer map missing one question and carrying an unknown key.
+ * 1. Decode a non-object input.
+ * 2. Decode an answer map missing one question and carrying an unknown key.
  * 3. Assert the failure paths.
  */
 export const test_llm_evaluation_decode_rejects_key_mismatch = (): void => {
