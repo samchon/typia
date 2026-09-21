@@ -168,6 +168,7 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
         }
         for _, surface := range surfaces {
           declarations = append(declarations, surface.owner)
+          declarations = append(declarations, surface.declarations...)
         }
         reported := map[*shimast.Node]bool{}
         for _, declaration := range declarations {
@@ -276,9 +277,10 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
 // member of its source interface. Its source member key is not a path segment
 // in the evaluation result.
 type llmEvaluation_indexedSurface struct {
-  node     *shimast.Node
-  bindings map[*shimast.Symbol]*shimast.Node
-  owner    *shimast.Node
+  node         *shimast.Node
+  bindings     map[*shimast.Symbol]*shimast.Node
+  owner        *shimast.Node
+  declarations []*shimast.Node
 }
 
 func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimast.IndexedAccessTypeNode, bindings map[*shimast.Symbol]*shimast.Node) []llmEvaluation_indexedSurface {
@@ -290,7 +292,15 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   }
   tupleNode, tupleBindings, _ := llmEvaluation_expandIndexedObject(checker, objectNode, bindings)
   if tupleNode.Kind == shimast.KindTupleType {
-    elements := tupleNode.AsTupleTypeNode().Elements.Nodes
+    elements := llmEvaluation_flattenFixedTupleSpreads(checker, tupleNode.AsTupleTypeNode().Elements.Nodes, tupleBindings, map[*shimast.Node]bool{})
+    restIndex := -1
+    for i, element := range elements {
+      _, _, rest := llmEvaluation_tupleElement(element.node)
+      if rest {
+        restIndex = i
+        break
+      }
+    }
     surfaces := []llmEvaluation_indexedSurface{}
     for _, candidate := range keyType.Distributed() {
       var key string
@@ -302,14 +312,34 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
         return nil
       }
       index, err := strconv.Atoi(key)
-      if err != nil || strconv.Itoa(index) != key || index < 0 || index >= len(elements) {
+      if err != nil || strconv.Itoa(index) != key || index < 0 || len(elements) == 0 {
         return nil
       }
-      element, _, rest := llmEvaluation_tupleElement(elements[index])
-      if rest {
+      if restIndex < 0 || index < restIndex {
+        if index >= len(elements) {
+          return nil
+        }
+        selected := elements[index]
+        selected.node, _, _ = llmEvaluation_tupleElement(selected.node)
+        surfaces = append(surfaces, selected)
+        continue
+      }
+      selectedRest := elements[restIndex]
+      rest, _, _ := llmEvaluation_tupleElement(selectedRest.node)
+      rest, nested, declarations := llmEvaluation_expandIndexedObject(checker, rest, selectedRest.bindings)
+      inferred, _, ok := llmEvaluation_inferArrayElement(checker, rest)
+      if ok == false {
         return nil
       }
-      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: element, bindings: tupleBindings})
+      selectedRest.node = inferred
+      selectedRest.bindings = nested
+      selectedRest.declarations = append(selectedRest.declarations, declarations...)
+      surfaces = append(surfaces, selectedRest)
+      for i := restIndex + 1; i < len(elements) && i-restIndex-1 <= index-restIndex; i++ {
+        selected := elements[i]
+        selected.node, _, _ = llmEvaluation_tupleElement(selected.node)
+        surfaces = append(surfaces, selected)
+      }
     }
     return surfaces
   }
@@ -347,6 +377,30 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   return surfaces
 }
 
+// A spread of a fixed tuple contributes its individual positions, unlike an
+// open array rest whose length can move later tuple elements.
+func llmEvaluation_flattenFixedTupleSpreads(checker *shimchecker.Checker, elements []*shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, active map[*shimast.Node]bool) []llmEvaluation_indexedSurface {
+  output := []llmEvaluation_indexedSurface{}
+  for _, element := range elements {
+    inner, _, rest := llmEvaluation_tupleElement(element)
+    if rest {
+      expanded, nested, declarations := llmEvaluation_expandIndexedObject(checker, inner, bindings)
+      if expanded.Kind == shimast.KindTupleType && active[expanded] == false {
+        active[expanded] = true
+        children := llmEvaluation_flattenFixedTupleSpreads(checker, expanded.AsTupleTypeNode().Elements.Nodes, nested, active)
+        delete(active, expanded)
+        for _, child := range children {
+          child.declarations = append(child.declarations, declarations...)
+          output = append(output, child)
+        }
+        continue
+      }
+    }
+    output = append(output, llmEvaluation_indexedSurface{node: element, bindings: bindings})
+  }
+  return output
+}
+
 func llmEvaluation_expandIndexedObject(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) (*shimast.Node, map[*shimast.Symbol]*shimast.Node, []*shimast.Node) {
   seen := map[*shimast.Node]bool{}
   declarations := []*shimast.Node{}
@@ -358,6 +412,10 @@ func llmEvaluation_expandIndexedObject(checker *shimchecker.Checker, node *shima
     seen[node] = true
     if node.Kind == shimast.KindParenthesizedType {
       node = node.AsParenthesizedTypeNode().Type
+      continue
+    }
+    if node.Kind == shimast.KindTypeOperator && node.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
+      node = node.Type()
       continue
     }
     if node.Kind == shimast.KindConditionalType {

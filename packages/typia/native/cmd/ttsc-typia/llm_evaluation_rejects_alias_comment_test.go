@@ -64,6 +64,18 @@ type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boole
 type ConditionalTupleIndexedUrgency = ConditionalTuple<true>[0];
 type ConditionalTupleParameter<T extends boolean, U> = T extends true ? U : [boolean, boolean];
 type ConditionalParameterIndexedUrgency = ConditionalTupleParameter<true, [Urgency, boolean]>[0];
+type RestTupleIndexedUrgency = [boolean, ...Urgency[]][2];
+type ReadonlyRestTupleIndexedUrgency = (readonly [boolean, ...Urgency[]])[2];
+type SuffixedRestTupleIndexedUrgency = [boolean, ...boolean[], Urgency][3];
+type FixedSpreadIndexedUrgency = [boolean, ...[Urgency, boolean]][1];
+type AliasSpreadSource = [Urgency, boolean];
+type AliasSpreadIndexedUrgency = [boolean, ...AliasSpreadSource][1];
+/** @probability 0.8 */
+type AnnotatedSpreadSource = [boolean, boolean];
+type AnnotatedSpreadIndexed = [boolean, ...AnnotatedSpreadSource][1];
+/** @probability 0.8 */
+type AnnotatedOpenRest = boolean[];
+type AnnotatedOpenRestIndexed = [boolean, ...AnnotatedOpenRest][1];
 /** @probability 0.8 */
 type AnnotatedTupleObject = [boolean, boolean];
 type AnnotatedTupleObjectIndexed = AnnotatedTupleObject[0];
@@ -104,6 +116,13 @@ typia.llm.evaluation<{
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
+  /** Rest tuple indexed? */ restTupleIndexed: RestTupleIndexedUrgency;
+  /** Readonly rest tuple indexed? */ readonlyRestTupleIndexed: ReadonlyRestTupleIndexedUrgency;
+  /** Suffixed rest tuple indexed? */ suffixedRestTupleIndexed: SuffixedRestTupleIndexedUrgency;
+  /** Fixed spread indexed? */ fixedSpreadIndexed: FixedSpreadIndexedUrgency;
+  /** Alias spread indexed? */ aliasSpreadIndexed: AliasSpreadIndexedUrgency;
+  /** Annotated spread indexed? */ annotatedSpreadIndexed: AnnotatedSpreadIndexed;
+  /** Annotated open rest indexed? */ annotatedOpenRestIndexed: AnnotatedOpenRestIndexed;
   /** Annotated tuple object indexed? */ annotatedTupleObjectIndexed: AnnotatedTupleObjectIndexed;
   /** Annotated indexed object? */ annotatedIndexedObject: AnnotatedIndexedObject;
   /** Inherited annotated indexed? */ inheritedAnnotatedIndexed: InheritedAnnotatedIndexed;
@@ -161,6 +180,13 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.restTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.readonlyRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.suffixedRestTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.fixedSpreadIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.aliasSpreadIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedSpreadIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedOpenRestIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedTupleObjectIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedIndexedObject\n  - LLM evaluation @probability on an object declaration is not supported",
     "- $input.inheritedAnnotatedIndexed\n  - LLM evaluation @probability on an object declaration is not supported",
@@ -312,6 +338,19 @@ type ConditionalTupleSource<T> = T extends true ? [boolean, Unused] : [Unused, b
 type ConditionalTupleChosen = ConditionalTupleSource<true>[0];
 type ConditionalParameterSource<T extends boolean, U> = T extends true ? U : [Unused, boolean];
 type ConditionalParameterChosen = ConditionalParameterSource<true, [boolean, Unused]>[0];
+type RestTupleChosen = [Unused, ...boolean[]][2];
+type ReadonlyRestTupleChosen = (readonly [Unused, ...boolean[]])[2];
+type SuffixedRestTupleChosen = [Unused, ...boolean[], boolean][3];
+type FixedSpreadChosen = [boolean, ...[boolean, Unused]][1];
+type FixedSpreadSuffixChosen = [boolean, ...[boolean, boolean], Unused][1];
+type AliasSpreadSourceChosen = [boolean, Unused];
+type AliasSpreadChosen = [boolean, ...AliasSpreadSourceChosen][1];
+/** @probability 0.8 */
+type UnusedAnnotatedSpreadSource = [boolean, boolean];
+type UnusedAnnotatedSpreadChosen = [boolean, ...UnusedAnnotatedSpreadSource][0];
+/** @probability 0.8 */
+type UnusedAnnotatedOpenRest = boolean[];
+type UnusedAnnotatedOpenRestChosen = [boolean, ...UnusedAnnotatedOpenRest][0];
 class ClassDecision {
   static ignored: Unused;
   /** Answer? */ answer!: boolean;
@@ -350,6 +389,14 @@ typia.llm.evaluation<{
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
   /** Conditional tuple chosen? */ conditionalTupleChosen: ConditionalTupleChosen;
   /** Conditional parameter chosen? */ conditionalParameterChosen: ConditionalParameterChosen;
+  /** Rest tuple chosen? */ restTupleChosen: RestTupleChosen;
+  /** Readonly rest tuple chosen? */ readonlyRestTupleChosen: ReadonlyRestTupleChosen;
+  /** Suffixed rest tuple chosen? */ suffixedRestTupleChosen: SuffixedRestTupleChosen;
+  /** Fixed spread chosen? */ fixedSpreadChosen: FixedSpreadChosen;
+  /** Fixed spread suffix chosen? */ fixedSpreadSuffixChosen: FixedSpreadSuffixChosen;
+  /** Alias spread chosen? */ aliasSpreadChosen: AliasSpreadChosen;
+  /** Unused annotated spread chosen? */ unusedAnnotatedSpreadChosen: UnusedAnnotatedSpreadChosen;
+  /** Unused annotated open rest chosen? */ unusedAnnotatedOpenRestChosen: UnusedAnnotatedOpenRestChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
