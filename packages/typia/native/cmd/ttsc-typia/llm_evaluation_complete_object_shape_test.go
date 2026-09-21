@@ -65,6 +65,8 @@ func TestLlmEvaluationCompleteObjectShape(t *testing.T) {
       class Decision extends Base { /** Is it active? */ active!: boolean; }`, "private"},
     "generic private": {`class Base<T> { private token!: T; }
       class Decision extends Base<boolean> { /** Is it active? */ active!: boolean; }`, "private"},
+    "generic sharp private": {`class Base<T> { #token!: T; }
+      class Decision extends Base<boolean> { /** Is it active? */ active!: boolean; }`, "private"},
     "interface extends private class": {`class Base { private token!: boolean; }
       interface Decision extends Base { active: boolean; }`, "private"},
     "internal": {`interface Decision {
