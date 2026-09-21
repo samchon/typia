@@ -381,7 +381,12 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
     }
     property := checker.GetPropertyOfType(object, key)
     if property == nil || len(property.Declarations) == 0 {
-      return nil
+      selected := llmEvaluation_indexSignatureSurfaces(checker, objectNode, tupleNode, tupleBindings, candidate)
+      if selected == nil {
+        return nil
+      }
+      surfaces = append(surfaces, selected...)
+      continue
     }
     for _, declaration := range property.Declarations {
       if declaration == nil || declaration.Type() == nil {
@@ -397,6 +402,116 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
     }
   }
   return surfaces
+}
+
+// The checker may resolve I["key"] through an index signature without a
+// named property symbol. Follow the written declaration so its JSDoc and the
+// selected value type retain provenance just like an explicit property.
+func llmEvaluation_indexSignatureSurfaces(checker *shimchecker.Checker, objectNode *shimast.Node, source *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, key *shimchecker.Type) []llmEvaluation_indexedSurface {
+  signatures := []*shimast.Node{}
+  active := map[*shimast.Symbol]bool{}
+  var collect func(*shimast.Node)
+  collect = func(node *shimast.Node) {
+    if node == nil {
+      return
+    }
+    switch node.Kind {
+    case shimast.KindParenthesizedType:
+      collect(node.AsParenthesizedTypeNode().Type)
+    case shimast.KindTypeReference, shimast.KindExpressionWithTypeArguments:
+      var name *shimast.Node
+      if node.Kind == shimast.KindTypeReference {
+        name = node.AsTypeReferenceNode().TypeName
+      } else {
+        name = node.AsExpressionWithTypeArguments().Expression
+      }
+      symbol := checker.GetSymbolAtLocation(name)
+      if symbol != nil && symbol.Flags&shimast.SymbolFlagsAlias != 0 {
+        symbol = shimchecker.Checker_getAliasedSymbol(checker, symbol)
+      }
+      if symbol == nil || active[symbol] {
+        return
+      }
+      active[symbol] = true
+      for _, declaration := range symbol.Declarations {
+        collect(declaration)
+      }
+      delete(active, symbol)
+    case shimast.KindTypeAliasDeclaration:
+      collect(node.AsTypeAliasDeclaration().Type)
+    case shimast.KindInterfaceDeclaration:
+      object := node.AsInterfaceDeclaration()
+      for _, member := range object.Members.Nodes {
+        collect(member)
+      }
+      if object.HeritageClauses != nil {
+        for _, clause := range object.HeritageClauses.Nodes {
+          for _, base := range clause.AsHeritageClause().Types.Nodes {
+            collect(base)
+          }
+        }
+      }
+    case shimast.KindTypeLiteral:
+      for _, member := range node.AsTypeLiteralNode().Members.Nodes {
+        collect(member)
+      }
+    case shimast.KindIntersectionType:
+      for _, part := range node.AsIntersectionTypeNode().Types.Nodes {
+        collect(part)
+      }
+    case shimast.KindIndexSignature:
+      signatures = append(signatures, node)
+    }
+  }
+  collect(source)
+  selected := []llmEvaluation_indexedSurface{}
+  numeric := []llmEvaluation_indexedSurface{}
+  numericKey := llmEvaluation_numericIndexKey(key)
+  for _, signature := range signatures {
+    parameters := signature.AsIndexSignatureDeclaration().Parameters
+    if parameters == nil || len(parameters.Nodes) != 1 || parameters.Nodes[0].Type() == nil || signature.Type() == nil {
+      continue
+    }
+    parameter := checker.GetTypeFromTypeNode(parameters.Nodes[0].Type())
+    if parameter == nil || checker.IsTypeAssignableTo(key, parameter) == false && !(numericKey && (parameter == checker.GetStringType() || parameter == checker.GetNumberType())) {
+      continue
+    }
+    nested := bindings
+    if parent := signature.Parent; parent != nil {
+      if resolved := llmEvaluation_indexedParentBindings(checker, objectNode, parent, bindings, map[*shimast.Symbol]bool{}); resolved != nil {
+        nested = resolved
+      }
+    }
+    surface := llmEvaluation_indexedSurface{node: signature.Type(), bindings: nested, owner: signature.Parent, declarations: []*shimast.Node{signature}}
+    selected = append(selected, surface)
+    if numericKey && parameter.Flags()&shimchecker.TypeFlagsNumberLike != 0 {
+      numeric = append(numeric, surface)
+    }
+  }
+  if len(numeric) != 0 {
+    return numeric
+  }
+  if len(selected) == 0 {
+    return nil
+  }
+  return selected
+}
+
+// A canonical numeric string such as "0" or "1.5" selects a number index
+// signature before a string signature in TypeScript.
+func llmEvaluation_numericIndexKey(key *shimchecker.Type) bool {
+  if key.IsNumberLiteral() {
+    return true
+  }
+  if key.IsStringLiteral() == false {
+    return false
+  }
+  text, ok := key.AsLiteralType().Value().(string)
+  if ok == false {
+    return false
+  }
+  value, err := strconv.ParseFloat(text, 64)
+  return err == nil && strconv.FormatFloat(value, 'f', -1, 64) == text
 }
 
 type llmEvaluation_restAlternative struct {
@@ -1187,8 +1302,10 @@ func llmEvaluation_declarationProbabilityMessage(declaration *shimast.Node) stri
   switch declaration.Kind {
   case shimast.KindTypeAliasDeclaration:
     return "LLM evaluation @probability on a type alias is not supported; put it on the decision property or enum member."
-  case shimast.KindPropertySignature, shimast.KindPropertyDeclaration:
+  case shimast.KindPropertySignature, shimast.KindPropertyDeclaration, shimast.KindGetAccessor, shimast.KindSetAccessor:
     return "LLM evaluation @probability on an indexed source property is not supported; put it on the decision property or enum member."
+  case shimast.KindIndexSignature:
+    return "LLM evaluation @probability on an indexed source index signature is not supported; put it on the decision property or enum member."
   case shimast.KindInterfaceDeclaration, shimast.KindClassDeclaration:
     return "LLM evaluation @probability on an object declaration is not supported; put it on the decision property or enum member."
   case shimast.KindEnumDeclaration:

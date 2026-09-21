@@ -70,6 +70,31 @@ interface IAnnotatedSourceProperty {
   ignored: boolean;
 }
 type AnnotatedSourcePropertyIndexed = IAnnotatedSourceProperty["selected"];
+class AnnotatedGetterSource {
+  /** @probability 0.8 */ get selected(): boolean { return true; }
+  get ignored(): boolean { return false; }
+}
+type AnnotatedGetterIndexed = AnnotatedGetterSource["selected"];
+interface IAnnotatedIndexSignature {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+}
+type AnnotatedIndexSignatureIndexed = IAnnotatedIndexSignature["selected"];
+type AnnotatedStringIndexNumericKey = IAnnotatedIndexSignature[0];
+interface IAnnotatedNumericIndexSignature {
+  [key: string]: boolean;
+  /** @probability 0.8 */
+  [key: number]: boolean;
+}
+type AnnotatedNumericIndexSignatureIndexed = IAnnotatedNumericIndexSignature[0];
+interface IInheritedIndexBase {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+}
+interface IInheritedIndexSource extends IInheritedIndexBase {}
+type InheritedIndexSignatureIndexed = IInheritedIndexSource["selected"];
+interface IGenericIndexSource<T> { [key: string]: T }
+type GenericIndexValueUrgency = IGenericIndexSource<Urgency>["selected"];
 type AliasTupleUrgency = [Urgency, boolean];
 type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
 type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boolean];
@@ -145,6 +170,12 @@ typia.llm.evaluation<{
   /** Annotated tuple key indexed? */ annotatedTupleKeyIndexed: AnnotatedTupleKeyIndexed;
   /** Annotated property key indexed? */ annotatedPropertyKeyIndexed: AnnotatedPropertyKeyIndexed;
   /** Annotated source property indexed? */ annotatedSourcePropertyIndexed: AnnotatedSourcePropertyIndexed;
+  /** Annotated getter indexed? */ annotatedGetterIndexed: AnnotatedGetterIndexed;
+  /** Annotated index signature indexed? */ annotatedIndexSignatureIndexed: AnnotatedIndexSignatureIndexed;
+  /** String index with numeric key? */ annotatedStringIndexNumericKey: AnnotatedStringIndexNumericKey;
+  /** Annotated numeric index signature indexed? */ annotatedNumericIndexSignatureIndexed: AnnotatedNumericIndexSignatureIndexed;
+  /** Inherited index signature indexed? */ inheritedIndexSignatureIndexed: InheritedIndexSignatureIndexed;
+  /** Generic index value? */ genericIndexValue: GenericIndexValueUrgency;
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
@@ -218,6 +249,12 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.annotatedTupleKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedPropertyKeyIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedSourcePropertyIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
+    "- $input.annotatedGetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
+    "- $input.annotatedIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedStringIndexNumericKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.annotatedNumericIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.inheritedIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
+    "- $input.genericIndexValue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -396,6 +433,32 @@ interface IUnselectedSourceProperty {
   /** @probability 0.8 */ ignored: boolean;
 }
 type UnselectedSourcePropertyChosen = IUnselectedSourceProperty["selected"];
+class UnselectedGetterSource {
+  get selected(): boolean { return true; }
+  /** @probability 0.8 */ get ignored(): boolean { return false; }
+}
+type UnselectedGetterChosen = UnselectedGetterSource["selected"];
+interface IUnselectedStringIndexSignature {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+  [key: number]: boolean;
+}
+type UnselectedStringIndexSignatureChosen = IUnselectedStringIndexSignature[0];
+type NumericStringIndexSignatureChosen = IUnselectedStringIndexSignature["0"];
+type DecimalStringIndexSignatureChosen = IUnselectedStringIndexSignature["1.5"];
+interface INumericStringIndexTypeCheck {
+  [key: string]: "string" | "number";
+  [key: number]: "number";
+}
+type AssertTrue<T extends true> = T;
+type NumericStringPrefersNumber = AssertTrue<INumericStringIndexTypeCheck["0"] extends "number" ? true : false>;
+type DecimalStringPrefersNumber = AssertTrue<INumericStringIndexTypeCheck["1.5"] extends "number" ? true : false>;
+interface IExplicitOverIndexSignature {
+  /** @probability 0.8 */
+  [key: string]: boolean;
+  selected: boolean;
+}
+type ExplicitOverIndexSignatureChosen = IExplicitOverIndexSignature["selected"];
 type ParenthesizedTupleChosen = ([boolean, Unused])[0];
 type TupleSource = [boolean, Unused];
 type AliasedTupleChosen = TupleSource[0];
@@ -467,6 +530,11 @@ typia.llm.evaluation<{
   /** Tuple string chosen? */ tupleStringChosen: TupleStringChosen;
   /** Conditional key chosen? */ conditionalKeyChosen: ConditionalKeyChosen;
   /** Unselected source property chosen? */ unselectedSourcePropertyChosen: UnselectedSourcePropertyChosen;
+  /** Unselected getter chosen? */ unselectedGetterChosen: UnselectedGetterChosen;
+  /** Unselected string index signature chosen? */ unselectedStringIndexSignatureChosen: UnselectedStringIndexSignatureChosen;
+  /** Numeric string index signature chosen? */ numericStringIndexSignatureChosen: NumericStringIndexSignatureChosen;
+  /** Decimal string index signature chosen? */ decimalStringIndexSignatureChosen: DecimalStringIndexSignatureChosen;
+  /** Explicit over index signature chosen? */ explicitOverIndexSignatureChosen: ExplicitOverIndexSignatureChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
   /** Conditional tuple chosen? */ conditionalTupleChosen: ConditionalTupleChosen;
