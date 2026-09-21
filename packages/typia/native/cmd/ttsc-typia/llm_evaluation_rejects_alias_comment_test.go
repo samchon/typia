@@ -84,6 +84,11 @@ class AnnotatedSetterSource {
   /** @probability 0.8 */ set selected(value: boolean) {}
 }
 type AnnotatedSetterIndexed = AnnotatedSetterSource["selected"];
+class AnnotatedSetterTypeSource {
+  get selected() { return true; }
+  set selected(value: Urgency) {}
+}
+type AnnotatedSetterTypeIndexed = AnnotatedSetterTypeSource["selected"];
 interface IAnnotatedIndexSignature {
   /** @probability 0.8 */
   [key: string]: boolean;
@@ -125,6 +130,11 @@ interface IGenericIndexSource<T> { [key: string]: T }
 type GenericIndexValueUrgency = IGenericIndexSource<Urgency>["selected"];
 type GenericIntersectionIndexSource<T> = IGenericIndexSource<T> & { fixed: boolean };
 type GenericIntersectionIndexUrgency = GenericIntersectionIndexSource<Urgency>["selected"];
+class InheritedAliasBase {
+  /** Answer? */
+  answer!: Urgency;
+}
+class InheritedAliasChild extends InheritedAliasBase {}
 type AliasTupleUrgency = [Urgency, boolean];
 type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
 type ConditionalTuple<T> = T extends true ? [Urgency, boolean] : [boolean, boolean];
@@ -203,6 +213,7 @@ typia.llm.evaluation<{
   /** Annotated getter indexed? */ annotatedGetterIndexed: AnnotatedGetterIndexed;
   /** Annotated inferred getter indexed? */ annotatedInferredGetterIndexed: AnnotatedInferredGetterIndexed;
   /** Annotated setter indexed? */ annotatedSetterIndexed: AnnotatedSetterIndexed;
+  /** Annotated setter type indexed? */ annotatedSetterTypeIndexed: AnnotatedSetterTypeIndexed;
   /** Annotated index signature indexed? */ annotatedIndexSignatureIndexed: AnnotatedIndexSignatureIndexed;
   /** String index with numeric key? */ annotatedStringIndexNumericKey: AnnotatedStringIndexNumericKey;
   /** String index with broad key? */ annotatedStringIndexBroadKey: AnnotatedStringIndexBroadKey;
@@ -214,6 +225,7 @@ typia.llm.evaluation<{
   /** Union index signature indexed? */ annotatedUnionIndexChosen: AnnotatedUnionIndexChosen;
   /** Generic index value? */ genericIndexValue: GenericIndexValueUrgency;
   /** Generic intersection index value? */ genericIntersectionIndexValue: GenericIntersectionIndexUrgency;
+  /** Inherited alias class? */ inheritedAliasClass: InheritedAliasChild;
   /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
   /** Conditional tuple indexed? */ conditionalTupleIndexed: ConditionalTupleIndexedUrgency;
   /** Conditional parameter indexed? */ conditionalParameterIndexed: ConditionalParameterIndexedUrgency;
@@ -290,6 +302,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.annotatedGetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
     "- $input.annotatedInferredGetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
     "- $input.annotatedSetterIndexed\n  - LLM evaluation @probability on an indexed source property is not supported",
+    "- $input.annotatedSetterTypeIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedIndexSignatureIndexed\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedStringIndexNumericKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.annotatedStringIndexBroadKey\n  - LLM evaluation @probability on an indexed source index signature is not supported",
@@ -301,6 +314,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.annotatedUnionIndexChosen\n  - LLM evaluation @probability on an indexed source index signature is not supported",
     "- $input.genericIndexValue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.genericIntersectionIndexValue\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.inheritedAliasClass.answer\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.conditionalParameterIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -484,6 +498,12 @@ class UnselectedGetterSource {
   /** @probability 0.8 */ get ignored(): boolean { return false; }
 }
 type UnselectedGetterChosen = UnselectedGetterSource["selected"];
+class UnselectedSetterTypeSource {
+  /** Selected? */
+  get selected(): boolean { return true; }
+  set selected(value: Unused) {}
+}
+type UnselectedSetterTypeChosen = UnselectedSetterTypeSource["selected"];
 interface IUnselectedStringIndexSignature {
   /** @probability 0.8 */
   [key: string]: boolean;
@@ -573,6 +593,22 @@ interface IImplementedAnnotatedObjectContract { answer: boolean }
 class ImplementsAnnotatedObjectContract implements IImplementedAnnotatedObjectContract {
   /** Answer? */ answer!: boolean;
 }
+class ShadowedAliasBase {
+  /** Old answer? */
+  answer!: Unused;
+}
+class ShadowedAliasChild extends ShadowedAliasBase {
+  /** Answer? */
+  override answer: boolean = true;
+}
+interface IShadowedAliasBase {
+  /** Old answer? */
+  answer: Unused;
+}
+interface IShadowedAliasChild extends IShadowedAliasBase {
+  /** Answer? */
+  answer: boolean;
+}
 typia.llm.evaluation<ImplementsAnnotatedObjectContract>();
 typia.llm.evaluation<{
   /** First? */ first: Urgency;
@@ -609,6 +645,7 @@ typia.llm.evaluation<{
   /** Conditional key chosen? */ conditionalKeyChosen: ConditionalKeyChosen;
   /** Unselected source property chosen? */ unselectedSourcePropertyChosen: UnselectedSourcePropertyChosen;
   /** Unselected getter chosen? */ unselectedGetterChosen: UnselectedGetterChosen;
+  /** Unselected setter type chosen? */ unselectedSetterTypeChosen: UnselectedSetterTypeChosen;
   /** Unselected string index signature chosen? */ unselectedStringIndexSignatureChosen: UnselectedStringIndexSignatureChosen;
   /** Numeric string index signature chosen? */ numericStringIndexSignatureChosen: NumericStringIndexSignatureChosen;
   /** Decimal string index signature chosen? */ decimalStringIndexSignatureChosen: DecimalStringIndexSignatureChosen;
@@ -638,6 +675,8 @@ typia.llm.evaluation<{
   /** Class? */ decision: ClassDecision;
   /** Implemented alias contract? */ implementedAliasContract: ImplementsAliasContract;
   /** Implemented annotated object contract? */ implementedAnnotatedObjectContract: ImplementsAnnotatedObjectContract;
+  /** Shadowed alias class? */ shadowedAliasClass: ShadowedAliasChild;
+  /** Shadowed alias interface? */ shadowedAliasInterface: IShadowedAliasChild;
 }>();
 typia.llm.evaluation<Pick<ISource, "chosen">>();
 `)

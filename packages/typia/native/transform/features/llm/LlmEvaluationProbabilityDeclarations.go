@@ -57,6 +57,10 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
   errors := []nativellmprogrammers.LlmEvaluationProgrammer_IError{}
   active := map[*shimast.Symbol]bool{}
   trackers := []map[*shimast.Symbol]bool{}
+  shadowed := []struct {
+    accessor string
+    names    map[string]bool
+  }{}
   var walk func(*shimast.Node, string, map[*shimast.Symbol]*shimast.Node)
   walk = func(node *shimast.Node, accessor string, bindings map[*shimast.Symbol]*shimast.Node) {
     if node == nil {
@@ -65,8 +69,13 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     if node.ModifierFlags()&shimast.ModifierFlagsStatic != 0 {
       return
     }
-    if node.Kind == shimast.KindPropertySignature || node.Kind == shimast.KindPropertyDeclaration || node.Kind == shimast.KindPropertyAssignment {
+    if node.Kind == shimast.KindPropertySignature || node.Kind == shimast.KindPropertyDeclaration || node.Kind == shimast.KindPropertyAssignment || node.Kind == shimast.KindGetAccessor || node.Kind == shimast.KindSetAccessor {
       if name := node.Name(); name != nil {
+        for _, scope := range shadowed {
+          if scope.accessor == accessor && scope.names[name.Text()] {
+            return
+          }
+        }
         switch name.Kind {
         case shimast.KindIdentifier, shimast.KindStringLiteral, shimast.KindNumericLiteral, shimast.KindNoSubstitutionTemplateLiteral:
           accessor += nativefactories.IdentifierFactory.PathPostfix(name.Text())
@@ -268,6 +277,27 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
           }
           nested := llmEvaluation_bindTypeArguments(checker, declaration, arguments, bindings)
           for _, surface := range llmEvaluation_declarationSurfaces(declaration) {
+            if surface.Kind == shimast.KindHeritageClause && (declaration.Kind == shimast.KindClassDeclaration || declaration.Kind == shimast.KindInterfaceDeclaration) {
+              members := []*shimast.Node{}
+              if declaration.Kind == shimast.KindClassDeclaration {
+                members = declaration.AsClassDeclaration().Members.Nodes
+              } else {
+                members = declaration.AsInterfaceDeclaration().Members.Nodes
+              }
+              names := map[string]bool{}
+              for _, member := range members {
+                if member.Name() != nil && member.ModifierFlags()&shimast.ModifierFlagsStatic == 0 {
+                  names[member.Name().Text()] = true
+                }
+              }
+              shadowed = append(shadowed, struct {
+                accessor string
+                names    map[string]bool
+              }{accessor: accessor, names: names})
+              walk(surface, accessor, nested)
+              shadowed = shadowed[:len(shadowed)-1]
+              continue
+            }
             walk(surface, accessor, nested)
           }
         }
@@ -396,15 +426,28 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
       surfaces = append(surfaces, selected...)
       continue
     }
+    explicitGetter := false
+    for _, declaration := range property.Declarations {
+      if declaration != nil && declaration.Kind == shimast.KindGetAccessor && declaration.Type() != nil {
+        explicitGetter = true
+        break
+      }
+    }
     for _, declaration := range property.Declarations {
       if declaration == nil {
         return nil
       }
       valueNode := declaration.Type()
       if valueNode == nil && declaration.Kind == shimast.KindSetAccessor {
-        parameters := declaration.AsSetAccessorDeclaration().Parameters
-        if parameters != nil && len(parameters.Nodes) == 1 {
-          valueNode = parameters.Nodes[0].Type()
+        if explicitGetter {
+          // A written getter return type wins over the setter's write type.
+          // Keep the setter declaration for its own misplaced JSDoc only.
+          valueNode = declaration.Name()
+        } else {
+          parameters := declaration.AsSetAccessorDeclaration().Parameters
+          if parameters != nil && len(parameters.Nodes) == 1 {
+            valueNode = parameters.Nodes[0].Type()
+          }
         }
       }
       if valueNode == nil && declaration.Kind == shimast.KindGetAccessor {
