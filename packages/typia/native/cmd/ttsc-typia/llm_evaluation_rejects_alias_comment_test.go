@@ -18,6 +18,11 @@ type Wrapper<T> = {
 type InferWrapper<T> = T extends infer U ? U : never;
 type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
 type TupleInferWrapper<T> = T extends [infer U] ? U : never;
+type ReadonlyTupleInferWrapper<T> = T extends readonly [infer U] ? U : never;
+type ReadonlyArrayInferWrapper<T> = T extends ReadonlyArray<infer U> ? U : never;
+type ReadonlyOperatorArrayInferWrapper<T> = T extends readonly (infer U)[] ? U : never;
+/** @probability 0.8 */
+type AnnotatedReadonlyArray = readonly boolean[];
 type ObjectInferWrapper<T> = T extends { value: infer U } ? U : never;
 interface IObjectInferBox<T> { value: T }
 /** @probability 0.8 */
@@ -78,6 +83,10 @@ typia.llm.evaluation<{
   /** Inferred? */ inferred: InferWrapper<Urgency>;
   /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
   /** Tuple inferred? */ tupleInferred: TupleInferWrapper<[Urgency]>;
+  /** Readonly tuple inferred? */ readonlyTupleInferred: ReadonlyTupleInferWrapper<readonly [Urgency]>;
+  /** Readonly array inferred? */ readonlyArrayInferred: ReadonlyArrayInferWrapper<readonly Urgency[]>;
+  /** Readonly operator array inferred? */ readonlyOperatorArrayInferred: ReadonlyOperatorArrayInferWrapper<readonly Urgency[]>;
+  /** Annotated readonly array inferred? */ annotatedReadonlyArrayInferred: ReadonlyArrayInferWrapper<AnnotatedReadonlyArray>;
   /** Object inferred? */ objectInferred: ObjectInferWrapper<{ value: Urgency }>;
   /** Interface object inferred? */ interfaceObjectInferred: ObjectInferWrapper<IObjectInferBox<Urgency>>;
   /** Annotated interface inferred? */ annotatedInterfaceInferred: ObjectInferWrapper<IAnnotatedInferBox>;
@@ -110,6 +119,10 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.tupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.readonlyTupleInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.readonlyArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.readonlyOperatorArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedReadonlyArrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.objectInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.interfaceObjectInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.annotatedInterfaceInferred\n  - LLM evaluation @probability on an object declaration is not supported",
@@ -196,6 +209,9 @@ type InferFalse<T> = T extends Array<infer U> ? U : boolean;
 /** @probability 0.8 */
 type AnnotatedTuple = [boolean];
 type TupleDiscard<T> = T extends [infer U] ? boolean : never;
+type ReadonlyTupleDiscard<T> = T extends readonly [infer U] ? boolean : never;
+type MutableTupleOnly<T> = T extends [infer U] ? Unused : boolean;
+type MutableArrayOnly<T> = T extends Array<infer U> ? Unused : boolean;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
@@ -230,6 +246,9 @@ typia.llm.evaluation<{
   /** Ninth? */ ninth: ArrayCheck<string>;
   /** Tenth? */ tenth: InferFalse<AnnotatedString>;
   /** Eleventh? */ eleventh: TupleDiscard<AnnotatedTuple>;
+  /** Readonly discarded? */ readonlyDiscarded: ReadonlyTupleDiscard<AnnotatedTuple>;
+  /** Mutable tuple false? */ mutableTupleFalse: MutableTupleOnly<readonly [boolean]>;
+  /** Mutable array false? */ mutableArrayFalse: MutableArrayOnly<readonly boolean[]>;
   /** Twelfth? */ twelfth: NumericChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;

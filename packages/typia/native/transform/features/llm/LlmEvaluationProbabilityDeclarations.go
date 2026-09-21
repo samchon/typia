@@ -552,6 +552,12 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       return false
     }
     value = llmEvaluation_boundTypeNode(checker, value, inherited)
+    for value.Kind == shimast.KindParenthesizedType {
+      value = value.AsParenthesizedTypeNode().Type
+    }
+    for target.Kind == shimast.KindParenthesizedType {
+      target = target.AsParenthesizedTypeNode().Type
+    }
     if target.Kind == shimast.KindInferType {
       parameter := target.AsInferTypeNode().TypeParameter
       if parameter.AsTypeParameterDeclaration().Constraint != nil {
@@ -563,6 +569,12 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       }
       inferred[symbol] = value
       return true
+    }
+    if target.Kind == shimast.KindTypeOperator && target.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
+      target = target.Type()
+      if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
+        value = value.Type()
+      }
     }
     if target.Kind == shimast.KindArrayType {
       if value.Kind != shimast.KindArrayType {
@@ -646,8 +658,13 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       return false
     }
     targetSymbol := checker.GetSymbolAtLocation(reference.TypeName)
-    if value.Kind == shimast.KindArrayType && llmEvaluation_builtinArray(targetSymbol) {
-      return match(value.AsArrayTypeNode().ElementType, reference.TypeArguments.Nodes[0])
+    if llmEvaluation_builtinArray(targetSymbol) {
+      if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword && targetSymbol.Name == "ReadonlyArray" {
+        value = value.Type()
+      }
+      if value.Kind == shimast.KindArrayType {
+        return match(value.AsArrayTypeNode().ElementType, reference.TypeArguments.Nodes[0])
+      }
     }
     if value.Kind != shimast.KindTypeReference {
       return false
