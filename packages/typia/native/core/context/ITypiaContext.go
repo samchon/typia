@@ -28,6 +28,7 @@ type ITypiaContext struct {
 
 type ITypiaContext_Extras struct {
   AddDiagnostic func(diag *ITypiaDiagnostic) int
+  Shared        *sync.Map
 }
 
 type ITypiaDiagnostic struct {

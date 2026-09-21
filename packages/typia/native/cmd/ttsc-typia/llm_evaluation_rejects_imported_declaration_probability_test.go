@@ -14,8 +14,8 @@ import (
 // the checker still resolves that alias at the evaluation decision.
 //
 //  1. Define an annotated primitive alias in an imported module.
-//  2. Use it in a local evaluation call.
-//  3. Require the imported declaration's diagnostic.
+//  2. Use it in evaluation calls in two source files.
+//  3. Require the imported declaration's diagnostic for both transforms.
 func TestLlmEvaluationRejectsImportedDeclarationProbability(t *testing.T) {
   dir := llmEvaluationProject(t, "imported-declaration-probability", `import typia from "typia";
 import type { Urgency } from "./urgency";
@@ -27,10 +27,16 @@ export type Urgency = boolean;
   if err := os.WriteFile(filepath.Join(dir, "src", "urgency.ts"), []byte(source), 0o644); err != nil {
     t.Fatal(err)
   }
+  second := `import typia from "typia";
+typia.llm.evaluation<{ /** Is it urgent? */ urgent: boolean }>();
+`
+  if err := os.WriteFile(filepath.Join(dir, "src", "second.ts"), []byte(second), 0o644); err != nil {
+    t.Fatal(err)
+  }
   _, diagnostics, code := ttscTypiaTestCapture(func() int {
     return runBuild([]string{"--cwd", dir, "--tsconfig", "tsconfig.json", "--emit", "--outDir", filepath.Join(dir, "dist")})
   })
-  if code != 3 || !strings.Contains(diagnostics, "type alias Urgency") {
-    t.Fatalf("imported declaration tag must fail: code=%d\n%s", code, diagnostics)
+  if code != 3 || strings.Count(diagnostics, "type alias Urgency") != 2 {
+    t.Fatalf("imported declaration tag must fail in both files: code=%d\n%s", code, diagnostics)
   }
 }
