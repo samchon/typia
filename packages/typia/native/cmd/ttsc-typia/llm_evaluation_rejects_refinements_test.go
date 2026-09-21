@@ -88,3 +88,33 @@ typia.llm.evaluation<{
 }>();
 `)
 }
+
+// A named alias must not erase the validation tag before evaluation checks it.
+// The annotation-only alias is the positive control for alias provenance.
+func TestLlmEvaluationRejectsAliasRefinement(t *testing.T) {
+  errText := llmEvaluationDiagnosticsBuild(t, "alias-refinement", `import typia, { tags } from "typia";
+
+type TrueOnly = tags.TagBase<{
+  target: "boolean";
+  kind: "trueOnly";
+  value: undefined;
+  validate: "$input === true";
+}>;
+type Guarded = boolean & TrueOnly;
+typia.llm.evaluation<{
+  /** Is it allowed? */
+  allowed: Guarded;
+}>();
+`)
+  if !strings.Contains(errText, "$input.allowed") {
+    t.Fatalf("missing aliased refinement diagnostic:\n%s", errText)
+  }
+  llmEvaluationAccepts(t, "alias-refinement-control", `import typia, { tags } from "typia";
+
+type Annotated = boolean & tags.Default<true>;
+typia.llm.evaluation<{
+  /** Is it allowed? */
+  allowed: Annotated;
+}>();
+`)
+}
