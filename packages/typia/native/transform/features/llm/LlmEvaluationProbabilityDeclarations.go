@@ -156,6 +156,29 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     }
     if node.Kind == shimast.KindIndexedAccessType {
       if surfaces := llmEvaluation_indexedSurfaces(checker, node.AsIndexedAccessTypeNode(), bindings); surfaces != nil {
+        source, _, declarations := llmEvaluation_expandIndexedObject(checker, node.AsIndexedAccessTypeNode().ObjectType, bindings)
+        if source.Kind == shimast.KindTypeReference {
+          symbol := checker.GetSymbolAtLocation(source.AsTypeReferenceNode().TypeName)
+          if symbol != nil && symbol.Flags&shimast.SymbolFlagsAlias != 0 {
+            symbol = shimchecker.Checker_getAliasedSymbol(checker, symbol)
+          }
+          if symbol != nil {
+            declarations = append(declarations, symbol.Declarations...)
+          }
+        }
+        for _, surface := range surfaces {
+          declarations = append(declarations, surface.owner)
+        }
+        reported := map[*shimast.Node]bool{}
+        for _, declaration := range declarations {
+          if declaration == nil || reported[declaration] {
+            continue
+          }
+          reported[declaration] = true
+          if message := llmEvaluation_declarationProbabilityMessage(declaration); message != "" && llmEvaluation_declarationHasProbability(declaration) {
+            errors = append(errors, nativellmprogrammers.LlmEvaluationProgrammer_IError{Accessor: accessor, Message: message})
+          }
+        }
         for _, surface := range surfaces {
           walk(surface.node, accessor, surface.bindings)
         }
@@ -255,6 +278,7 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
 type llmEvaluation_indexedSurface struct {
   node     *shimast.Node
   bindings map[*shimast.Symbol]*shimast.Node
+  owner    *shimast.Node
 }
 
 func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimast.IndexedAccessTypeNode, bindings map[*shimast.Symbol]*shimast.Node) []llmEvaluation_indexedSurface {
@@ -264,8 +288,9 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   if keyType == nil {
     return nil
   }
-  if objectNode.Kind == shimast.KindTupleType {
-    elements := objectNode.AsTupleTypeNode().Elements.Nodes
+  tupleNode, tupleBindings, _ := llmEvaluation_expandIndexedObject(checker, objectNode, bindings)
+  if tupleNode.Kind == shimast.KindTupleType {
+    elements := tupleNode.AsTupleTypeNode().Elements.Nodes
     surfaces := []llmEvaluation_indexedSurface{}
     for _, candidate := range keyType.Distributed() {
       var key string
@@ -284,7 +309,7 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
       if rest {
         return nil
       }
-      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: element, bindings: bindings})
+      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: element, bindings: tupleBindings})
     }
     return surfaces
   }
@@ -316,10 +341,29 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
           nested = resolved
         }
       }
-      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested})
+      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested, owner: declaration.Parent})
     }
   }
   return surfaces
+}
+
+func llmEvaluation_expandIndexedObject(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) (*shimast.Node, map[*shimast.Symbol]*shimast.Node, []*shimast.Node) {
+  seen := map[*shimast.Node]bool{}
+  declarations := []*shimast.Node{}
+  for node != nil && seen[node] == false {
+    seen[node] = true
+    if node.Kind == shimast.KindParenthesizedType {
+      node = node.AsParenthesizedTypeNode().Type
+      continue
+    }
+    expanded, nested, rows := llmEvaluation_expandTypeAlias(checker, node, bindings)
+    declarations = append(declarations, rows...)
+    if expanded == node {
+      break
+    }
+    node, bindings = expanded, nested
+  }
+  return node, bindings, declarations
 }
 
 // A selected property can be declared on a base interface or behind a type

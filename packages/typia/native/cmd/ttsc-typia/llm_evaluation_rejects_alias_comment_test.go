@@ -58,6 +58,18 @@ interface INumericIndexed {
 }
 type NumericIndexedUrgency = INumericIndexed[0];
 type TupleStringIndexedUrgency = [Urgency, boolean]["0"];
+type AliasTupleUrgency = [Urgency, boolean];
+type AliasedTupleIndexedUrgency = AliasTupleUrgency[0];
+/** @probability 0.8 */
+type AnnotatedTupleObject = [boolean, boolean];
+type AnnotatedTupleObjectIndexed = AnnotatedTupleObject[0];
+/** @probability 0.8 */
+interface IAnnotatedIndexedObject { selected: boolean }
+type AnnotatedIndexedObject = IAnnotatedIndexedObject["selected"];
+/** @probability 0.8 */
+interface IAnnotatedIndexedBase { selected: boolean }
+interface IInheritedAnnotatedIndexed extends IAnnotatedIndexedBase {}
+type InheritedAnnotatedIndexed = IInheritedAnnotatedIndexed["selected"];
 interface IGenericIndexed<T> {
   /** Selected? */ selected: T;
 }
@@ -85,6 +97,10 @@ typia.llm.evaluation<{
   /** Indexed? */ indexed: IndexedUrgency;
   /** Numeric indexed? */ numericIndexed: NumericIndexedUrgency;
   /** Tuple string indexed? */ tupleStringIndexed: TupleStringIndexedUrgency;
+  /** Aliased tuple indexed? */ aliasedTupleIndexed: AliasedTupleIndexedUrgency;
+  /** Annotated tuple object indexed? */ annotatedTupleObjectIndexed: AnnotatedTupleObjectIndexed;
+  /** Annotated indexed object? */ annotatedIndexedObject: AnnotatedIndexedObject;
+  /** Inherited annotated indexed? */ inheritedAnnotatedIndexed: InheritedAnnotatedIndexed;
   /** Generic indexed? */ genericIndexed: GenericIndexedUrgency;
   /** Inherited indexed? */ inheritedIndexed: InheritedIndexedUrgency;
   /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
@@ -136,6 +152,10 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.indexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.numericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.tupleStringIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.aliasedTupleIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedTupleObjectIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.annotatedIndexedObject\n  - LLM evaluation @probability on an object declaration is not supported",
+    "- $input.inheritedAnnotatedIndexed\n  - LLM evaluation @probability on an object declaration is not supported",
     "- $input.genericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inheritedIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -277,6 +297,9 @@ interface INumericSource {
 }
 type NumericChosen = INumericSource[0];
 type TupleStringChosen = [boolean, Unused]["0"];
+type ParenthesizedTupleChosen = ([boolean, Unused])[0];
+type TupleSource = [boolean, Unused];
+type AliasedTupleChosen = TupleSource[0];
 class ClassDecision {
   static ignored: Unused;
   /** Answer? */ answer!: boolean;
@@ -311,6 +334,8 @@ typia.llm.evaluation<{
   /** Mutable array tuple false? */ mutableArrayTupleFalse: MutableArrayOnly<readonly [boolean]>;
   /** Twelfth? */ twelfth: NumericChosen;
   /** Tuple string chosen? */ tupleStringChosen: TupleStringChosen;
+  /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
+  /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
