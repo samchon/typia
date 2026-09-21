@@ -507,6 +507,12 @@ class ImplementsButDoesNotInheritIndex implements IImplementedAnnotatedIndex {
   [key: string]: boolean;
 }
 type ImplementedIndexNotInherited = ImplementsButDoesNotInheritIndex[0];
+interface IUnselectedNumericTemplate {
+  [key: number]: boolean;
+  /** @probability 0.8 */
+  [key: `+"`"+`${number}`+"`"+`]: boolean;
+}
+type UnselectedTemplateOnNumber = IUnselectedNumericTemplate[1];
 interface INumericStringIndexTypeCheck {
   [key: string]: "string" | "number";
   [key: number]: "number";
@@ -558,6 +564,16 @@ class ClassDecision {
 /** Ordinary alias. */
 type Urgency = boolean;
 type UrgencyChain = Urgency;
+interface IImplementedAliasContract { answer: Unused }
+class ImplementsAliasContract implements IImplementedAliasContract {
+  /** Answer? */ answer!: boolean;
+}
+/** @probability 0.8 */
+interface IImplementedAnnotatedObjectContract { answer: boolean }
+class ImplementsAnnotatedObjectContract implements IImplementedAnnotatedObjectContract {
+  /** Answer? */ answer!: boolean;
+}
+typia.llm.evaluation<ImplementsAnnotatedObjectContract>();
 typia.llm.evaluation<{
   /** First? */ first: Urgency;
   /** Second? @probability 0.8 */ second: UrgencyChain;
@@ -599,6 +615,7 @@ typia.llm.evaluation<{
   /** Exponent string index signature chosen? */ exponentStringIndexSignatureChosen: ExponentStringIndexSignatureChosen;
   /** Shadowed index signature chosen? */ shadowedIndexChosen: ShadowedIndexChosen;
   /** Implemented index not inherited? */ implementedIndexNotInherited: ImplementedIndexNotInherited;
+  /** Unselected template on number? */ unselectedTemplateOnNumber: UnselectedTemplateOnNumber;
   /** Explicit over index signature chosen? */ explicitOverIndexSignatureChosen: ExplicitOverIndexSignatureChosen;
   /** Parenthesized tuple chosen? */ parenthesizedTupleChosen: ParenthesizedTupleChosen;
   /** Aliased tuple chosen? */ aliasedTupleChosen: AliasedTupleChosen;
@@ -619,6 +636,8 @@ typia.llm.evaluation<{
   /** Unused annotated open rest chosen? */ unusedAnnotatedOpenRestChosen: UnusedAnnotatedOpenRestChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
+  /** Implemented alias contract? */ implementedAliasContract: ImplementsAliasContract;
+  /** Implemented annotated object contract? */ implementedAnnotatedObjectContract: ImplementsAnnotatedObjectContract;
 }>();
 typia.llm.evaluation<Pick<ISource, "chosen">>();
 `)

@@ -1371,7 +1371,11 @@ func llmEvaluation_declarationSurfaces(declaration *shimast.Node) []*shimast.Nod
     object := declaration.AsClassDeclaration()
     surfaces := append([]*shimast.Node{}, object.Members.Nodes...)
     if object.HeritageClauses != nil {
-      surfaces = append(surfaces, object.HeritageClauses.Nodes...)
+      for _, clause := range object.HeritageClauses.Nodes {
+        if clause.AsHeritageClause().Token == shimast.KindExtendsKeyword {
+          surfaces = append(surfaces, clause)
+        }
+      }
     }
     return surfaces
   case shimast.KindVariableDeclaration:
