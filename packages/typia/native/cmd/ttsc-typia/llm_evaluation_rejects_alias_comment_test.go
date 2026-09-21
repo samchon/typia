@@ -31,6 +31,10 @@ interface IGenericIndexed<T> {
   /** Selected? */ selected: T;
 }
 type GenericIndexedUrgency = IGenericIndexed<Urgency>["selected"];
+interface IInheritedIndexed<T> extends IGenericIndexed<T> {}
+type InheritedIndexedUrgency = IInheritedIndexed<Urgency>["selected"];
+type AliasIndexed<T> = IGenericIndexed<T>;
+type AliasIndexedUrgency = AliasIndexed<Urgency>["selected"];
 /** @probability invalid */
 type Choice = "yes" | "no";
 /** @probability 0.3 */
@@ -49,6 +53,8 @@ typia.llm.evaluation<{
   /** Known? */ known: typeof knownUrgency;
   /** Indexed? */ indexed: IndexedUrgency;
   /** Generic indexed? */ genericIndexed: GenericIndexedUrgency;
+  /** Inherited indexed? */ inheritedIndexed: InheritedIndexedUrgency;
+  /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
   /** Inferred? */ inferred: InferWrapper<Urgency>;
   /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
   /** Choice? */ choice: Choice;
@@ -66,6 +72,8 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.known\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.indexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.genericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.inheritedIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.choice\n  - LLM evaluation @probability on a type alias is not supported",
@@ -137,6 +145,7 @@ type Unused = boolean;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
+type NonDistributive<T> = (T | number) extends string ? Unused : boolean;
 interface ISource {
   /** Chosen? */ chosen: boolean;
   /** Dropped? */ dropped: Unused;
@@ -155,6 +164,7 @@ typia.llm.evaluation<{
   /** Third? */ third: Discards<Unused>;
   /** Fourth? */ fourth: Selects<false>;
   /** Sixth? */ sixth: SelectsWide<string>;
+  /** Seventh? */ seventh: NonDistributive<string>;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();

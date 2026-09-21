@@ -204,18 +204,6 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
     return nil
   }
   surfaces := []llmEvaluation_indexedSurface{}
-  var objectSymbol *shimast.Symbol
-  var arguments []*shimast.Node
-  if objectNode.Kind == shimast.KindTypeReference {
-    reference := objectNode.AsTypeReferenceNode()
-    objectSymbol = checker.GetSymbolAtLocation(reference.TypeName)
-    if objectSymbol != nil && objectSymbol.Flags&shimast.SymbolFlagsAlias != 0 {
-      objectSymbol = shimchecker.Checker_getAliasedSymbol(checker, objectSymbol)
-    }
-    if reference.TypeArguments != nil {
-      arguments = reference.TypeArguments.Nodes
-    }
-  }
   for _, candidate := range keyType.Distributed() {
     if candidate.IsStringLiteral() == false {
       return nil
@@ -233,8 +221,10 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
         return nil
       }
       nested := bindings
-      if parent := declaration.Parent; parent != nil && objectSymbol != nil && parent.Symbol() == objectSymbol {
-        nested = llmEvaluation_bindTypeArguments(checker, parent, arguments, bindings)
+      if parent := declaration.Parent; parent != nil {
+        if resolved := llmEvaluation_indexedParentBindings(checker, objectNode, parent, bindings, map[*shimast.Symbol]bool{}); resolved != nil {
+          nested = resolved
+        }
       }
       surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested})
     }
@@ -242,8 +232,73 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   return surfaces
 }
 
-// A resolved non-`any` check can select a branch when each distributive
-// constituent makes the same choice. Ambiguous checks keep both arms visible.
+// A selected property can be declared on a base interface or behind a type
+// alias. Carry each generic substitution to the declaration that owns it.
+func llmEvaluation_indexedParentBindings(checker *shimchecker.Checker, node *shimast.Node, parent *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node, active map[*shimast.Symbol]bool) map[*shimast.Symbol]*shimast.Node {
+  var name *shimast.Node
+  var arguments []*shimast.Node
+  switch node.Kind {
+  case shimast.KindTypeReference:
+    reference := node.AsTypeReferenceNode()
+    name = reference.TypeName
+    if reference.TypeArguments != nil {
+      arguments = reference.TypeArguments.Nodes
+    }
+  case shimast.KindExpressionWithTypeArguments:
+    reference := node.AsExpressionWithTypeArguments()
+    name = reference.Expression
+    if reference.TypeArguments != nil {
+      arguments = reference.TypeArguments.Nodes
+    }
+  }
+  if name == nil {
+    return nil
+  }
+  symbol := checker.GetSymbolAtLocation(name)
+  if symbol != nil && symbol.Flags&shimast.SymbolFlagsAlias != 0 {
+    symbol = shimchecker.Checker_getAliasedSymbol(checker, symbol)
+  }
+  if symbol == nil || active[symbol] {
+    return nil
+  }
+  active[symbol] = true
+  defer delete(active, symbol)
+  for _, declaration := range symbol.Declarations {
+    if declaration == nil {
+      continue
+    }
+    nested := llmEvaluation_bindTypeArguments(checker, declaration, arguments, bindings)
+    if declaration == parent {
+      return nested
+    }
+    var next []*shimast.Node
+    switch declaration.Kind {
+    case shimast.KindTypeAliasDeclaration:
+      next = []*shimast.Node{declaration.AsTypeAliasDeclaration().Type}
+    case shimast.KindInterfaceDeclaration:
+      if heritage := declaration.AsInterfaceDeclaration().HeritageClauses; heritage != nil {
+        for _, clause := range heritage.Nodes {
+          next = append(next, clause.AsHeritageClause().Types.Nodes...)
+        }
+      }
+    case shimast.KindClassDeclaration:
+      if heritage := declaration.AsClassDeclaration().HeritageClauses; heritage != nil {
+        for _, clause := range heritage.Nodes {
+          next = append(next, clause.AsHeritageClause().Types.Nodes...)
+        }
+      }
+    }
+    for _, target := range next {
+      if found := llmEvaluation_indexedParentBindings(checker, target, parent, nested, active); found != nil {
+        return found
+      }
+    }
+  }
+  return nil
+}
+
+// Only a naked type parameter makes a conditional distributive. A written
+// union (or a named union alias) is checked as a whole.
 func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *shimast.ConditionalTypeNode, bindings map[*shimast.Symbol]*shimast.Node) *shimast.Node {
   checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
   extendsNode := llmEvaluation_boundTypeNode(checker, conditional.ExtendsType, bindings)
@@ -251,6 +306,16 @@ func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *
   target := checker.GetTypeFromTypeNode(extendsNode)
   if check == nil || target == nil || check.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
     return nil
+  }
+  var parameter *shimast.Symbol
+  if conditional.CheckType.Kind == shimast.KindTypeReference {
+    parameter = checker.GetSymbolAtLocation(conditional.CheckType.AsTypeReferenceNode().TypeName)
+  }
+  if parameter == nil || parameter.Flags&shimast.SymbolFlagsTypeParameter == 0 {
+    if checker.IsTypeAssignableTo(check, target) {
+      return conditional.TrueType
+    }
+    return conditional.FalseType
   }
   var selected *shimast.Node
   for _, constituent := range check.Distributed() {
