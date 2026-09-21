@@ -356,6 +356,12 @@ func llmEvaluation_expandIndexedObject(checker *shimchecker.Checker, node *shima
       node = node.AsParenthesizedTypeNode().Type
       continue
     }
+    if node.Kind == shimast.KindConditionalType {
+      if branch := llmEvaluation_conditionalBranch(checker, node.AsConditionalTypeNode(), bindings); branch != nil {
+        node = branch
+        continue
+      }
+    }
     expanded, nested, rows := llmEvaluation_expandTypeAlias(checker, node, bindings)
     declarations = append(declarations, rows...)
     if expanded == node {
