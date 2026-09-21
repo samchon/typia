@@ -18,6 +18,7 @@ type Wrapper<T> = {
 type InferWrapper<T> = T extends infer U ? U : never;
 type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
 type NonDistributiveTrue<T> = (T | number) extends number ? Urgency : boolean;
+type ArrayCheck<T> = T[] extends number[] ? Urgency : boolean;
 type DefaultWrapper<T = Urgency> = {
   /** Defaulted? */
   defaulted: T;
@@ -59,6 +60,7 @@ typia.llm.evaluation<{
   /** Inferred? */ inferred: InferWrapper<Urgency>;
   /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
   /** Non-distributive true? */ nonDistributiveTrue: NonDistributiveTrue<number>;
+  /** Array check true? */ arrayCheckTrue: ArrayCheck<number>;
   /** Choice? */ choice: Choice;
   /** Score? */ score: Score;
   /** Set? */ set: SetChoice[];
@@ -79,6 +81,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.nonDistributiveTrue\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.arrayCheckTrue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.choice\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.score\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.set\n  - LLM evaluation @probability on a type alias is not supported",
@@ -150,6 +153,7 @@ type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
 type NonDistributive<T> = (T | number) extends string ? Unused : boolean;
 type NonDistributiveTrue<T> = (T | number) extends number ? Unused : boolean;
+type ArrayCheck<T> = T[] extends number[] ? Unused : boolean;
 interface ISource {
   /** Chosen? */ chosen: boolean;
   /** Dropped? */ dropped: Unused;
@@ -170,6 +174,7 @@ typia.llm.evaluation<{
   /** Sixth? */ sixth: SelectsWide<string>;
   /** Seventh? */ seventh: NonDistributive<string>;
   /** Eighth? */ eighth: NonDistributiveTrue<string>;
+  /** Ninth? */ ninth: ArrayCheck<string>;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
