@@ -331,15 +331,18 @@ func metadataTypeTagFactory_validate_property(props struct {
       Message  string
     }{Property: property, Message: "must be a string literal type"})
   }
-  // `tags.Example` and `tags.Examples` declare tuple and `null` values too;
-  // their content reaches the schema through `schema`, which the tag schema
-  // factory walks, so the value only has to be one literal shape
-  if props.Key == "value" && !((props.Value.Size() == 0 && (props.Value.IsRequired() == false || props.Value.Nullable)) ||
-    (props.Value.Size() == 1 && (len(props.Value.Objects) == 1 || len(props.Value.Constants) == 1 || len(props.Value.Tuples) == 1))) {
-    return props.Report(struct {
-      Property *string
-      Message  string
-    }{Property: property, Message: "must be a literal type or undefined value"})
+  // the value must be one concrete literal shape that the tag schema factory
+  // can materialize: a constant, `null`, a tuple of such values, or an object
+  // whose content reaches the schema through `schema`. `tags.Default` reads
+  // the value back, while `tags.Example` and `tags.Examples` only need the
+  // shape to be accepted (samchon/typia#2400, samchon/typia#2403)
+  if props.Key == "value" {
+    if _, ok := metadataTypeTagFactory_get_value(props.Value); ok == false {
+      return props.Report(struct {
+        Property *string
+        Message  string
+      }{Property: property, Message: "must be a literal, literal tuple, object, or undefined type"})
+    }
   }
   if props.Key == "exclusive" {
     return metadataTypeTagFactory_get_exclusive(struct {
@@ -436,8 +439,8 @@ func metadataTypeTagFactory_create_metadata_type_tag(props struct {
   kind := fmt.Sprint(kindProperty.Value.Constants[0].Values[0].Value)
 
   var value any
-  if valueProperty := find("value"); valueProperty != nil && len(valueProperty.Value.Constants) != 0 && len(valueProperty.Value.Constants[0].Values) != 0 {
-    value = valueProperty.Value.Constants[0].Values[0].Value
+  if valueProperty := find("value"); valueProperty != nil {
+    value, _ = metadataTypeTagFactory_get_value(valueProperty.Value)
   }
   exclusive := metadataTypeTagFactory_get_exclusive(struct {
     Report func(struct {
@@ -509,6 +512,55 @@ func metadataTypeTagFactory_create_metadata_type_tag(props struct {
     Exclusive: exclusive,
     Schema:    schema,
   }
+}
+
+// metadataTypeTagFactory_get_value reads a tag's `value` as one concrete
+// literal value, and reports whether the metadata names one at all. The
+// accepted shapes mirror what metadataTypeTagSchemaFactory_iterate can
+// materialize: `undefined`, `null`, a single constant, a fixed tuple of such
+// values, or an object. `null` and an object yield a Go nil value; a tuple
+// yields its members in order.
+func metadataTypeTagFactory_get_value(metadata *schemametadata.MetadataSchema) (any, bool) {
+  if metadata == nil {
+    return nil, false
+  }
+  if metadata.Size() == 0 {
+    // `null` is one literal value; a missing value is the optional `undefined`
+    return nil, metadata.Nullable || metadata.IsRequired() == false
+  }
+  if metadata.Size() != 1 || metadata.Nullable {
+    return nil, false
+  }
+  if len(metadata.Constants) == 1 && len(metadata.Constants[0].Values) == 1 {
+    return metadata.Constants[0].Values[0].Value, true
+  }
+  if metadata.Any || len(metadata.Arrays) != 0 || len(metadata.Atomics) != 0 || len(metadata.Natives) != 0 || len(metadata.Functions) != 0 {
+    return nil, false
+  }
+  if len(metadata.Tuples) == 1 {
+    tuple := metadata.Tuples[0].Type
+    if tuple.Recursive || tuple.IsRest() {
+      return nil, false
+    }
+    output := make([]any, 0, len(tuple.Elements))
+    for _, elem := range tuple.Elements {
+      if elem.IsRequired() == false {
+        return nil, false
+      }
+      value, ok := metadataTypeTagFactory_get_value(elem)
+      if ok == false {
+        return nil, false
+      }
+      output = append(output, value)
+    }
+    return output, true
+  }
+  if len(metadata.Objects) == 1 {
+    // Object-valued metadata predates tuple support. Its concrete value is
+    // carried by the tag's schema object rather than IMetadataTypeTag.Value.
+    return nil, true
+  }
+  return nil, false
 }
 
 func metadataTypeTagFactory_get_exclusive(props struct {

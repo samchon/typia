@@ -42,7 +42,7 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
     // two tags on one member fail typia's generic exclusive-tag check first
     "- __type.tagTwice: string & Probability0.5 & Probability0.6\n  - the property [\"typia.tag\"] kind 'probability' can't be duplicated.",
     // a non-literal value fails typia's generic tag check (samchon/typia#2400)
-    "- __type.tagWide: boolean & Probabilitynumber\n  - the property [\"typia.tag.value\"] must be a literal type or undefined value.",
+    "- __type.tagWide: boolean & Probabilitynumber\n  - the property [\"typia.tag.value\"] must be a literal, literal tuple, object, or undefined type.",
   } {
     if !strings.Contains(errText, expected) {
       t.Fatalf("llm.evaluation probability diagnostic missing %q:\n%s", expected, errText)
