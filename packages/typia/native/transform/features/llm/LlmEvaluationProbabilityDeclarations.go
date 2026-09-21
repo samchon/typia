@@ -570,17 +570,25 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       inferred[symbol] = value
       return true
     }
-    if target.Kind == shimast.KindTypeOperator && target.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
+    targetReadonly := target.Kind == shimast.KindTypeOperator && target.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword
+    if targetReadonly {
       target = target.Type()
       if value.Kind == shimast.KindTypeOperator && value.AsTypeOperatorNode().Operator == shimast.KindReadonlyKeyword {
         value = value.Type()
       }
     }
     if target.Kind == shimast.KindArrayType {
-      if value.Kind != shimast.KindArrayType {
-        return false
+      if value.Kind == shimast.KindArrayType {
+        return match(value.AsArrayTypeNode().ElementType, target.AsArrayTypeNode().ElementType)
       }
-      return match(value.AsArrayTypeNode().ElementType, target.AsArrayTypeNode().ElementType)
+      if value.Kind == shimast.KindTypeReference {
+        reference := value.AsTypeReferenceNode()
+        symbol := checker.GetSymbolAtLocation(reference.TypeName)
+        if llmEvaluation_builtinArray(symbol) && (symbol.Name == "Array" || targetReadonly) && reference.TypeArguments != nil && len(reference.TypeArguments.Nodes) == 1 {
+          return match(reference.TypeArguments.Nodes[0], target.AsArrayTypeNode().ElementType)
+        }
+      }
+      return false
     }
     if target.Kind == shimast.KindTupleType {
       if value.Kind != shimast.KindTupleType {
@@ -664,6 +672,18 @@ func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.N
       }
       if value.Kind == shimast.KindArrayType {
         return match(value.AsArrayTypeNode().ElementType, reference.TypeArguments.Nodes[0])
+      }
+      if value.Kind == shimast.KindTupleType {
+        elements := value.AsTupleTypeNode().Elements.Nodes
+        if len(elements) == 0 {
+          return false
+        }
+        member := elements[0]
+        if len(elements) > 1 {
+          factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+          member = factory.NewUnionTypeNode(factory.NewNodeList(elements))
+        }
+        return match(member, reference.TypeArguments.Nodes[0])
       }
     }
     if value.Kind != shimast.KindTypeReference {
