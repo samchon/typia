@@ -73,6 +73,10 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     }
     if node.Kind == shimast.KindConditionalType {
       conditional := node.AsConditionalTypeNode()
+      if inferred, ok := llmEvaluation_inferBindings(checker, llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings), conditional.ExtendsType, bindings); ok {
+        walk(conditional.TrueType, accessor, inferred)
+        return
+      }
       branch := llmEvaluation_conditionalBranch(checker, conditional, bindings)
       if branch != nil {
         walk(branch, accessor, bindings)
@@ -86,7 +90,7 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
     if node.Kind == shimast.KindIndexedAccessType {
       if surfaces := llmEvaluation_indexedSurfaces(checker, node.AsIndexedAccessTypeNode(), bindings); surfaces != nil {
         for _, surface := range surfaces {
-          walk(surface, accessor, bindings)
+          walk(surface.node, accessor, surface.bindings)
         }
         return
       }
@@ -186,7 +190,12 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
 // An indexed access contributes only the selected property's type, not every
 // member of its source interface. Its source member key is not a path segment
 // in the evaluation result.
-func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimast.IndexedAccessTypeNode, bindings map[*shimast.Symbol]*shimast.Node) []*shimast.Node {
+type llmEvaluation_indexedSurface struct {
+  node     *shimast.Node
+  bindings map[*shimast.Symbol]*shimast.Node
+}
+
+func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimast.IndexedAccessTypeNode, bindings map[*shimast.Symbol]*shimast.Node) []llmEvaluation_indexedSurface {
   objectNode := llmEvaluation_boundTypeNode(checker, indexed.ObjectType, bindings)
   keyNode := llmEvaluation_boundTypeNode(checker, indexed.IndexType, bindings)
   object := checker.GetTypeFromTypeNode(objectNode)
@@ -194,7 +203,19 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   if object == nil || keyType == nil {
     return nil
   }
-  surfaces := []*shimast.Node{}
+  surfaces := []llmEvaluation_indexedSurface{}
+  var objectSymbol *shimast.Symbol
+  var arguments []*shimast.Node
+  if objectNode.Kind == shimast.KindTypeReference {
+    reference := objectNode.AsTypeReferenceNode()
+    objectSymbol = checker.GetSymbolAtLocation(reference.TypeName)
+    if objectSymbol != nil && objectSymbol.Flags&shimast.SymbolFlagsAlias != 0 {
+      objectSymbol = shimchecker.Checker_getAliasedSymbol(checker, objectSymbol)
+    }
+    if reference.TypeArguments != nil {
+      arguments = reference.TypeArguments.Nodes
+    }
+  }
   for _, candidate := range keyType.Distributed() {
     if candidate.IsStringLiteral() == false {
       return nil
@@ -211,27 +232,104 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
       if declaration == nil || declaration.Type() == nil {
         return nil
       }
-      surfaces = append(surfaces, declaration.Type())
+      nested := bindings
+      if parent := declaration.Parent; parent != nil && objectSymbol != nil && parent.Symbol() == objectSymbol {
+        nested = llmEvaluation_bindTypeArguments(checker, parent, arguments, bindings)
+      }
+      surfaces = append(surfaces, llmEvaluation_indexedSurface{node: declaration.Type(), bindings: nested})
     }
   }
   return surfaces
 }
 
-// Only a concrete literal check can select one conditional arm without
-// reproducing TypeScript's distributive and inference rules. Other checks keep
-// both potential decision branches visible to the declaration audit.
+// A resolved non-`any` check can select a branch when each distributive
+// constituent makes the same choice. Ambiguous checks keep both arms visible.
 func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *shimast.ConditionalTypeNode, bindings map[*shimast.Symbol]*shimast.Node) *shimast.Node {
   checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
   extendsNode := llmEvaluation_boundTypeNode(checker, conditional.ExtendsType, bindings)
   check := checker.GetTypeFromTypeNode(checkNode)
   target := checker.GetTypeFromTypeNode(extendsNode)
-  if check == nil || target == nil || check.Flags()&(shimchecker.TypeFlagsBooleanLiteral|shimchecker.TypeFlagsStringLiteral|shimchecker.TypeFlagsNumberLiteral|shimchecker.TypeFlagsEnumLiteral) == 0 {
+  if check == nil || target == nil || check.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
     return nil
   }
-  if checker.IsTypeAssignableTo(check, target) {
-    return conditional.TrueType
+  var selected *shimast.Node
+  for _, constituent := range check.Distributed() {
+    if constituent.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
+      return nil
+    }
+    branch := conditional.FalseType
+    if checker.IsTypeAssignableTo(constituent, target) {
+      branch = conditional.TrueType
+    }
+    if selected != nil && selected != branch {
+      return nil
+    }
+    selected = branch
   }
-  return conditional.FalseType
+  return selected
+}
+
+// Match an inference pattern only where the written source type exposes the
+// inferred argument. This preserves the source alias through TS's normalized
+// conditional result without guessing at arbitrary structural inference.
+func llmEvaluation_inferBindings(checker *shimchecker.Checker, source *shimast.Node, pattern *shimast.Node, inherited map[*shimast.Symbol]*shimast.Node) (map[*shimast.Symbol]*shimast.Node, bool) {
+  inferred := llmEvaluation_bindingsCopy(inherited)
+  var match func(*shimast.Node, *shimast.Node) bool
+  match = func(value *shimast.Node, target *shimast.Node) bool {
+    if value == nil || target == nil {
+      return false
+    }
+    value = llmEvaluation_boundTypeNode(checker, value, inherited)
+    if target.Kind == shimast.KindInferType {
+      parameter := target.AsInferTypeNode().TypeParameter
+      if parameter.AsTypeParameterDeclaration().Constraint != nil {
+        return false
+      }
+      symbol := checker.GetSymbolAtLocation(parameter.Name())
+      if symbol == nil {
+        return false
+      }
+      inferred[symbol] = value
+      return true
+    }
+    if target.Kind == shimast.KindArrayType {
+      if value.Kind != shimast.KindArrayType {
+        return false
+      }
+      return match(value.AsArrayTypeNode().ElementType, target.AsArrayTypeNode().ElementType)
+    }
+    if target.Kind != shimast.KindTypeReference {
+      return false
+    }
+    reference := target.AsTypeReferenceNode()
+    if reference.TypeArguments == nil || len(reference.TypeArguments.Nodes) != 1 {
+      return false
+    }
+    targetSymbol := checker.GetSymbolAtLocation(reference.TypeName)
+    if value.Kind == shimast.KindArrayType && llmEvaluation_builtinArray(targetSymbol) {
+      return match(value.AsArrayTypeNode().ElementType, reference.TypeArguments.Nodes[0])
+    }
+    if value.Kind != shimast.KindTypeReference {
+      return false
+    }
+    sourceReference := value.AsTypeReferenceNode()
+    if sourceReference.TypeArguments == nil || len(sourceReference.TypeArguments.Nodes) != 1 || checker.GetSymbolAtLocation(sourceReference.TypeName) != targetSymbol {
+      return false
+    }
+    return match(sourceReference.TypeArguments.Nodes[0], reference.TypeArguments.Nodes[0])
+  }
+  if match(source, pattern) == false {
+    return nil, false
+  }
+  return inferred, true
+}
+
+func llmEvaluation_bindingsCopy(bindings map[*shimast.Symbol]*shimast.Node) map[*shimast.Symbol]*shimast.Node {
+  copy := make(map[*shimast.Symbol]*shimast.Node, len(bindings)+1)
+  for symbol, argument := range bindings {
+    copy[symbol] = argument
+  }
+  return copy
 }
 
 func llmEvaluation_boundTypeNode(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) *shimast.Node {
@@ -267,10 +365,7 @@ func llmEvaluation_builtinArray(symbol *shimast.Symbol) bool {
 // Bind a generic argument only where the declaration actually uses its type
 // parameter. An unused argument cannot contribute a decision or a threshold.
 func llmEvaluation_bindTypeArguments(checker *shimchecker.Checker, declaration *shimast.Node, arguments []*shimast.Node, inherited map[*shimast.Symbol]*shimast.Node) map[*shimast.Symbol]*shimast.Node {
-  bindings := make(map[*shimast.Symbol]*shimast.Node, len(inherited)+len(arguments))
-  for symbol, argument := range inherited {
-    bindings[symbol] = argument
-  }
+  bindings := llmEvaluation_bindingsCopy(inherited)
   var parameters []*shimast.Node
   switch declaration.Kind {
   case shimast.KindTypeAliasDeclaration:

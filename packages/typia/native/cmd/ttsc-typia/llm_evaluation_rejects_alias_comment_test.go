@@ -15,6 +15,8 @@ type Wrapper<T> = {
   /** Wrapped? */
   wrapped: T;
 };
+type InferWrapper<T> = T extends infer U ? U : never;
+type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
 type DefaultWrapper<T = Urgency> = {
   /** Defaulted? */
   defaulted: T;
@@ -25,6 +27,10 @@ interface IIndexed {
   /** Ignored? */ ignored: boolean;
 }
 type IndexedUrgency = IIndexed["selected"];
+interface IGenericIndexed<T> {
+  /** Selected? */ selected: T;
+}
+type GenericIndexedUrgency = IGenericIndexed<Urgency>["selected"];
 /** @probability invalid */
 type Choice = "yes" | "no";
 /** @probability 0.3 */
@@ -42,6 +48,9 @@ typia.llm.evaluation<{
   /** Default container? */ defaultContainer: DefaultWrapper;
   /** Known? */ known: typeof knownUrgency;
   /** Indexed? */ indexed: IndexedUrgency;
+  /** Generic indexed? */ genericIndexed: GenericIndexedUrgency;
+  /** Inferred? */ inferred: InferWrapper<Urgency>;
+  /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
   /** Choice? */ choice: Choice;
   /** Score? */ score: Score;
   /** Set? */ set: SetChoice[];
@@ -56,6 +65,9 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.defaultContainer.defaulted\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.known\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.indexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.genericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.choice\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.score\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.set\n  - LLM evaluation @probability on a type alias is not supported",
@@ -124,6 +136,7 @@ func TestLlmEvaluationAcceptsUnannotatedAliasAndPropertyComment(t *testing.T) {
 type Unused = boolean;
 type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
+type SelectsWide<T> = T extends number ? Unused : boolean;
 interface ISource {
   /** Chosen? */ chosen: boolean;
   /** Dropped? */ dropped: Unused;
@@ -141,6 +154,7 @@ typia.llm.evaluation<{
   /** Second? @probability 0.8 */ second: UrgencyChain;
   /** Third? */ third: Discards<Unused>;
   /** Fourth? */ fourth: Selects<false>;
+  /** Sixth? */ sixth: SelectsWide<string>;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
