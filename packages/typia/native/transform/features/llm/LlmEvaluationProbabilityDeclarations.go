@@ -38,8 +38,11 @@ func llmEvaluation_declarationProbabilityErrors(files []*shimast.SourceFile) []n
           for _, tag := range parsed.Tags.Nodes {
             if tag != nil && tag.TagName() != nil && tag.TagName().Text() == "probability" {
               name := "<anonymous>"
-              if node.Name() != nil {
-                name = node.Name().Text()
+              if identifier := node.Name(); identifier != nil {
+                switch identifier.Kind {
+                case shimast.KindIdentifier, shimast.KindStringLiteral, shimast.KindNumericLiteral, shimast.KindNoSubstitutionTemplateLiteral:
+                  name = identifier.Text()
+                }
               }
               kind := "declaration"
               switch node.Kind {

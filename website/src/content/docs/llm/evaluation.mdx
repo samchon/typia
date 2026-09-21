@@ -209,6 +209,8 @@ A member's own requirement wins over the property's. Probability requirements ar
 
 Put `@probability` on the decision property or enum member, not on a `type`, `interface`, class, or enum declaration. When the program uses `typia.llm.evaluation()`, the compiler rejects declaration-level tags even on unused declarations: TypeScript erases the identity of primitive aliases, so use-site detection cannot reliably distinguish an unused alias from a used one.
 
+`@probability` belongs to the property where it is written. An indexed-access type such as `Source["threshold"]` extracts the property's type, not its JSDoc; put another `@probability` on the resulting evaluation property if it needs the same requirement. Passing `Source` itself to `evaluation<Source>()` does read the original property's comment.
+
 ```typescript copy filename="gated.ts"
 enum Action {
   /**
