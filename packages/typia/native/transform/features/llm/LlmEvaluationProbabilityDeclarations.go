@@ -1,6 +1,7 @@
 package llm
 
 import (
+  "fmt"
   "path/filepath"
   "strings"
 
@@ -136,7 +137,7 @@ func llmEvaluation_declarationProbabilityErrors(checker *shimchecker.Checker, to
         trackers = append(trackers, tracked)
         walk(conditional.TrueType, accessor, inferred)
         trackers = trackers[:len(trackers)-1]
-        if llmEvaluation_usedInference(tracked) {
+        if conditional.ExtendsType.Kind != shimast.KindInferType && llmEvaluation_usedInference(tracked) {
           report(sourceDeclarations)
           report(declarations)
         }
@@ -265,11 +266,12 @@ func llmEvaluation_indexedSurfaces(checker *shimchecker.Checker, indexed *shimas
   }
   surfaces := []llmEvaluation_indexedSurface{}
   for _, candidate := range keyType.Distributed() {
-    if candidate.IsStringLiteral() == false {
-      return nil
-    }
-    key, ok := candidate.AsLiteralType().Value().(string)
-    if !ok {
+    var key string
+    if candidate.IsStringLiteral() {
+      key, _ = candidate.AsLiteralType().Value().(string)
+    } else if candidate.IsNumberLiteral() {
+      key = fmt.Sprint(candidate.AsLiteralType().Value())
+    } else {
       return nil
     }
     property := checker.GetPropertyOfType(object, key)

@@ -41,6 +41,11 @@ interface IIndexed {
   /** Ignored? */ ignored: boolean;
 }
 type IndexedUrgency = IIndexed["selected"];
+interface INumericIndexed {
+  /** Selected? */ 0: Urgency;
+  /** Ignored? */ 1: boolean;
+}
+type NumericIndexedUrgency = INumericIndexed[0];
 interface IGenericIndexed<T> {
   /** Selected? */ selected: T;
 }
@@ -66,6 +71,7 @@ typia.llm.evaluation<{
   /** Default container? */ defaultContainer: DefaultWrapper;
   /** Known? */ known: typeof knownUrgency;
   /** Indexed? */ indexed: IndexedUrgency;
+  /** Numeric indexed? */ numericIndexed: NumericIndexedUrgency;
   /** Generic indexed? */ genericIndexed: GenericIndexedUrgency;
   /** Inherited indexed? */ inheritedIndexed: InheritedIndexedUrgency;
   /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
@@ -97,6 +103,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.defaultContainer.defaulted\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.known\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.indexed\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.numericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.genericIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inheritedIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
@@ -122,6 +129,9 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     if !strings.Contains(diagnostics, expected) {
       t.Fatalf("llm.evaluation alias probability diagnostic missing %q:\n%s", expected, diagnostics)
     }
+  }
+  if count := strings.Count(diagnostics, "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported"); count != 1 {
+    t.Fatalf("direct infer alias diagnostic must appear once, got %d:\n%s", count, diagnostics)
   }
 }
 
@@ -197,6 +207,11 @@ interface ISource {
   /** Dropped? */ dropped: Unused;
 }
 type Chosen = ISource["chosen"];
+interface INumericSource {
+  0: boolean;
+  1: Unused;
+}
+type NumericChosen = INumericSource[0];
 class ClassDecision {
   static ignored: Unused;
   /** Answer? */ answer!: boolean;
@@ -215,6 +230,7 @@ typia.llm.evaluation<{
   /** Ninth? */ ninth: ArrayCheck<string>;
   /** Tenth? */ tenth: InferFalse<AnnotatedString>;
   /** Eleventh? */ eleventh: TupleDiscard<AnnotatedTuple>;
+  /** Twelfth? */ twelfth: NumericChosen;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();
