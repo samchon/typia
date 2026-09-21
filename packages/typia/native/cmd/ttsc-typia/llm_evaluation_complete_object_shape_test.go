@@ -76,6 +76,10 @@ func TestLlmEvaluationCompleteObjectShape(t *testing.T) {
     } & {
       /** @internal */ secret: boolean;
     };`, "hidden properties"},
+    "overlapping intersection internal": {`type Decision = {
+      /** Is it active? */ active: boolean;
+      /** @internal */ secret: boolean;
+    } & { secret: boolean };`, "hidden properties"},
   }
   for name, testcase := range rejected {
     t.Run(name, func(t *testing.T) {
