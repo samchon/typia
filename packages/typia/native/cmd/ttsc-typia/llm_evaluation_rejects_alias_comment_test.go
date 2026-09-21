@@ -17,6 +17,7 @@ type Wrapper<T> = {
 };
 type InferWrapper<T> = T extends infer U ? U : never;
 type ArrayInferWrapper<T> = T extends Array<infer U> ? U : never;
+type NonDistributiveTrue<T> = (T | number) extends number ? Urgency : boolean;
 type DefaultWrapper<T = Urgency> = {
   /** Defaulted? */
   defaulted: T;
@@ -57,6 +58,7 @@ typia.llm.evaluation<{
   /** Alias indexed? */ aliasIndexed: AliasIndexedUrgency;
   /** Inferred? */ inferred: InferWrapper<Urgency>;
   /** Array inferred? */ arrayInferred: ArrayInferWrapper<Urgency[]>;
+  /** Non-distributive true? */ nonDistributiveTrue: NonDistributiveTrue<number>;
   /** Choice? */ choice: Choice;
   /** Score? */ score: Score;
   /** Set? */ set: SetChoice[];
@@ -76,6 +78,7 @@ typia.llm.evaluation<Pick<IIndexed, "selected">>();
     "- $input.aliasIndexed\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.inferred\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.arrayInferred\n  - LLM evaluation @probability on a type alias is not supported",
+    "- $input.nonDistributiveTrue\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.choice\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.score\n  - LLM evaluation @probability on a type alias is not supported",
     "- $input.set\n  - LLM evaluation @probability on a type alias is not supported",
@@ -146,6 +149,7 @@ type Discards<T> = boolean;
 type Selects<T> = T extends true ? Unused : boolean;
 type SelectsWide<T> = T extends number ? Unused : boolean;
 type NonDistributive<T> = (T | number) extends string ? Unused : boolean;
+type NonDistributiveTrue<T> = (T | number) extends number ? Unused : boolean;
 interface ISource {
   /** Chosen? */ chosen: boolean;
   /** Dropped? */ dropped: Unused;
@@ -165,6 +169,7 @@ typia.llm.evaluation<{
   /** Fourth? */ fourth: Selects<false>;
   /** Sixth? */ sixth: SelectsWide<string>;
   /** Seventh? */ seventh: NonDistributive<string>;
+  /** Eighth? */ eighth: NonDistributiveTrue<string>;
   /** Fifth? */ fifth: Chosen;
   /** Class? */ decision: ClassDecision;
 }>();

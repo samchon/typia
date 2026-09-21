@@ -301,15 +301,44 @@ func llmEvaluation_indexedParentBindings(checker *shimchecker.Checker, node *shi
 // union (or a named union alias) is checked as a whole.
 func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *shimast.ConditionalTypeNode, bindings map[*shimast.Symbol]*shimast.Node) *shimast.Node {
   checkNode := llmEvaluation_boundTypeNode(checker, conditional.CheckType, bindings)
+  for checkNode.Kind == shimast.KindParenthesizedType {
+    checkNode = checkNode.AsParenthesizedTypeNode().Type
+  }
   extendsNode := llmEvaluation_boundTypeNode(checker, conditional.ExtendsType, bindings)
   check := checker.GetTypeFromTypeNode(checkNode)
   target := checker.GetTypeFromTypeNode(extendsNode)
   if check == nil || target == nil || check.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
     return nil
   }
+  if llmEvaluation_hasBoundReference(checker, checkNode, bindings) || llmEvaluation_hasBoundReference(checker, extendsNode, bindings) {
+    // A checker type read from written syntax does not instantiate nested
+    // generic parameters. A union check is decidable constituent by
+    // constituent; other nested substitutions retain both possible arms.
+    if checkNode.Kind != shimast.KindUnionType || llmEvaluation_hasBoundReference(checker, extendsNode, bindings) {
+      return nil
+    }
+    for _, part := range checkNode.AsUnionTypeNode().Types.Nodes {
+      bound := llmEvaluation_boundTypeNode(checker, part, bindings)
+      if llmEvaluation_hasBoundReference(checker, bound, bindings) {
+        return nil
+      }
+      constituent := checker.GetTypeFromTypeNode(bound)
+      if constituent == nil || constituent.Flags()&(shimchecker.TypeFlagsAny|shimchecker.TypeFlagsTypeParameter) != 0 {
+        return nil
+      }
+      if checker.IsTypeAssignableTo(constituent, target) == false {
+        return conditional.FalseType
+      }
+    }
+    return conditional.TrueType
+  }
   var parameter *shimast.Symbol
-  if conditional.CheckType.Kind == shimast.KindTypeReference {
-    parameter = checker.GetSymbolAtLocation(conditional.CheckType.AsTypeReferenceNode().TypeName)
+  rawCheck := conditional.CheckType
+  for rawCheck.Kind == shimast.KindParenthesizedType {
+    rawCheck = rawCheck.AsParenthesizedTypeNode().Type
+  }
+  if rawCheck.Kind == shimast.KindTypeReference {
+    parameter = checker.GetSymbolAtLocation(rawCheck.AsTypeReferenceNode().TypeName)
   }
   if parameter == nil || parameter.Flags&shimast.SymbolFlagsTypeParameter == 0 {
     if checker.IsTypeAssignableTo(check, target) {
@@ -332,6 +361,24 @@ func llmEvaluation_conditionalBranch(checker *shimchecker.Checker, conditional *
     selected = branch
   }
   return selected
+}
+
+func llmEvaluation_hasBoundReference(checker *shimchecker.Checker, node *shimast.Node, bindings map[*shimast.Symbol]*shimast.Node) bool {
+  if node == nil {
+    return false
+  }
+  if node.Kind == shimast.KindTypeReference && bindings[checker.GetSymbolAtLocation(node.AsTypeReferenceNode().TypeName)] != nil {
+    return true
+  }
+  found := false
+  node.ForEachChild(func(child *shimast.Node) bool {
+    if llmEvaluation_hasBoundReference(checker, child, bindings) {
+      found = true
+      return true
+    }
+    return false
+  })
+  return found
 }
 
 // Match an inference pattern only where the written source type exposes the
