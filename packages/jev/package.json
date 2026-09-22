@@ -1,6 +1,6 @@
 {
   "name": "@typia/jev",
-  "version": "14.0.6",
+  "version": "15.0.0",
   "description": "Jev evaluation model integration for typia",
   "main": "src/index.ts",
   "exports": {
