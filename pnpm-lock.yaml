@@ -496,9 +496,6 @@ importers:
       '@typia/template':
         specifier: workspace:^
         version: link:../template
-      jsonc-parser:
-        specifier: ^3.3.1
-        version: 3.3.1
       ttsc:
         specifier: catalog:typescript
         version: 0.28.1

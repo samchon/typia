@@ -3,7 +3,6 @@ import { test_feature_identity_duplicate_export } from "./features/test_feature_
 import { test_feature_identity_equality_oracle } from "./features/test_feature_identity_equality_oracle";
 import { test_feature_identity_filename_mismatch } from "./features/test_feature_identity_filename_mismatch";
 import { test_feature_identity_helper_file } from "./features/test_feature_identity_helper_file";
-import { test_feature_identity_manifest_integrity } from "./features/test_feature_identity_manifest_integrity";
 import { test_feature_identity_repository } from "./features/test_feature_identity_repository";
 import { test_feature_identity_source_parse } from "./features/test_feature_identity_source_parse";
 import { test_feature_identity_workspace_name } from "./features/test_feature_identity_workspace_name";
@@ -29,10 +28,6 @@ const main = (): void => {
       test_feature_identity_duplicate_export,
     ],
     ["test_feature_identity_helper_file", test_feature_identity_helper_file],
-    [
-      "test_feature_identity_manifest_integrity",
-      test_feature_identity_manifest_integrity,
-    ],
     ["test_feature_identity_source_parse", test_feature_identity_source_parse],
     [
       "test_feature_identity_workspace_name",

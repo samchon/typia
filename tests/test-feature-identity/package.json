@@ -23,7 +23,6 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@typia/template": "workspace:^",
-    "jsonc-parser": "^3.3.1",
     "ttsc": "catalog:typescript"
   },
   "dependencies": {
