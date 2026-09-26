@@ -42,6 +42,8 @@ export const test_feature_identity_vacuous_oracle = (): void => {
     `${V}["equals"]("title", x, y);`,
     `const { equals } = ${V};`,
     `import { ${V} as V } from "@nestia/e2e";`,
+    `const T = ${V};`,
+    `const T: typeof ${V} = ${V};`,
     `${V}.error("title", () => task());`,
     `${V}\n  .error("title", () => task());`,
     `${V}?.error("title", () => task());`,
@@ -75,6 +77,8 @@ export const test_feature_identity_vacuous_oracle = (): void => {
     `${V}.predicate("error", true);`,
     `${V}.httpError("title", 401, () => task());`,
     `${V}.errorLike("title", () => task());`,
+    `const { predicate } = ${V};`,
+    `const V2 = ${V}.predicate;`,
   ])
     TestEquality.equals(`prose ${JSON.stringify(prose)}`, calls(prose), []);
 
@@ -211,10 +215,11 @@ const blank = (text: string): string => {
 /**
  * Any member access to `equals` or `error` on `TestValidator`, through a cast
  * or optional chaining included, a destructuring of either, or a renaming
- * import that would hide the name from the rest of the pattern.
+ * import or alias assignment that would hide the name from the rest of the
+ * pattern.
  */
 const PATTERN =
-  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*(?:equals|error)\b|(?:\?\.)?\s*\[\s*["'`](?:equals|error)["'`]\s*\])|\{[^}]*\b(?:equals|error)\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b/g;
+  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*(?:equals|error)\b|(?:\?\.)?\s*\[\s*["'`](?:equals|error)["'`]\s*\])|\{[^}]*\b(?:equals|error)\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b|\b(?:const|let|var)\s+[A-Za-z_$][\w$]*\s*(?::[^=;\n]+)?=\s*TestValidator\s*[;\n]/g;
 
 /**
  * A floor, not an expectation: the tracked suites hold over a thousand sources.
