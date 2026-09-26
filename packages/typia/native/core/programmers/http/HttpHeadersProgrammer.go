@@ -278,8 +278,8 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
   )
   var decoded *shimast.Node
   if isArray {
-    // Keys are matched case-insensitively, as the input is read by its
-    // lowercase name: `"Set-Cookie": string[]` is the same header.
+    // The input is read by the key's lowercase name, so a declared
+    // `"Set-Cookie": string[]` is the same header.
     if strings.ToLower(key) == "set-cookie" {
       decoded = httpHeadersProgrammer_decode_set_cookie(props.Context, typ, input, value.IsRequired())
     } else {

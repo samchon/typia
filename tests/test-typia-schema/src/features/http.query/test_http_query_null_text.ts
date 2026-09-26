@@ -69,6 +69,12 @@ export const test_http_query_null_text = (): void => {
       nullableElements: [null, "x"],
     },
   );
+  // absence is still `undefined`, not `null`
+  TestEquality.equals(
+    "absent optional unknown",
+    typia.http.query<IAdmitting>("unknown=x&any=x").optionalUnknown,
+    undefined,
+  );
 };
 
 const unwrap = <T>(result: IValidation<T>): T | null =>

@@ -1,7 +1,9 @@
 export const _httpQueryReadBoolean = (
   str: string | null,
 ): boolean | null | undefined =>
-  str === null
+  // `undefined` is as absent as `null`, which the contract returns; a
+  // stand-in reader that answers `undefined` must not throw on `.length`.
+  str === null || str === undefined
     ? undefined
     : str === "null"
       ? null

@@ -630,7 +630,7 @@ namespace http {
 
 1. `T` must be an object type
 2. No dynamic keys
-3. **Property keys are case-insensitive**: typia reads each header by its lowercase name, so two keys that differ only by case are rejected
+3. **Property keys are read by their lowercase name**, so two keys that differ only by case are rejected
 4. Property values may be `undefined` but not `null`
 5. Only `boolean | bigint | number | string` or arrays of those
 6. No unions

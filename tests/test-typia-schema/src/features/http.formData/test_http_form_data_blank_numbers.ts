@@ -11,7 +11,8 @@ import typia, { IValidation } from "typia";
  *
  * 1. Decode blank and empty numeric and bigint fields through all eight forms.
  * 2. Require optional blanks to be absent and array blanks to be rejected.
- * 3. Keep `0` and a space-padded `1` as the negative twins.
+ * 3. Keep `0` and a space-padded `1` as the negative twins, and read a non-string
+ *    value from a `FormData` stand-in as absent instead of throwing.
  */
 export const test_http_form_data_blank_numbers = (): void => {
   const decoders: Array<[string, (input: FormData) => IForm | null]> = [
@@ -90,7 +91,8 @@ export const test_http_form_data_blank_numbers = (): void => {
  */
 const foreign = (value: unknown): FormData =>
   ({
-    get: (key: string) => (key === "n" ? value : null),
+    get: (key: string) =>
+      key === "n" || key === "b" ? value : key === "flag" ? undefined : null,
     getAll: () => [],
   }) as unknown as FormData;
 
@@ -106,5 +108,6 @@ const unwrap = <T>(result: IValidation<T>): T | null =>
 interface IForm {
   n?: number;
   b?: bigint;
+  flag?: boolean;
   list: number[];
 }

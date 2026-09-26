@@ -49,7 +49,7 @@ export const test_http_migrate_path_character_names = (): void => {
     ...characters.map((c, i) => `/p${i}${c}x`),
     "/items:batchGet",
     "/items/{id}:cancel",
-    "/caf%C3%A9",
+    "/item%20list",
     "/$metadata",
   ];
   const document: OpenApi.IDocument = {

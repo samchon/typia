@@ -3,7 +3,9 @@ export const _httpFormDataReadBoolean = (
 ): boolean | null | undefined =>
   input instanceof File
     ? (input as any)
-    : input === null
+    : // `undefined` is as absent as `null`, which `FormData.get` returns; a
+      // stand-in that answers `undefined` must not throw on `.length`.
+      input === null || input === undefined
       ? undefined
       : input === "null"
         ? null
