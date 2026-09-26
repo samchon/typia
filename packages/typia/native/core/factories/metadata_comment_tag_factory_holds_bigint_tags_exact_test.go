@@ -2,7 +2,6 @@ package factories
 
 import (
   "fmt"
-  "strings"
   "testing"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -24,8 +23,9 @@ import (
 //
 //  1. Admit integers a double represents exactly, whatever their spelling, and
 //     splice their exact digits into the bigint check.
-//  2. Refuse integers a double cannot represent, and integers beyond int64, as
-//     bigint values, and treat a non-integer as naming no bigint at all.
+//  2. Refuse every other finite value as a bigint bound: integers a double
+//     cannot represent, integers beyond int64, and non-integers, including
+//     ones `Number()` rounds to an integer.
 //  3. Report a refused value on a bigint property, and on the bigint part of a
 //     `number | bigint` one, while a number property and the number part
 //     still take the tag.
@@ -49,9 +49,9 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
     {"-0", 0},
     {"10000000000000000", 10000000000000000},
   } {
-    value, integral, ok := metadataCommentTagFactory_bigint(item.text)
-    if ok == false || integral == false || value != item.value {
-      t.Fatalf("%s must be the bigint %d, got %d (integral=%v ok=%v)", item.text, item.value, value, integral, ok)
+    value, numeric, ok := metadataCommentTagFactory_bigint(item.text)
+    if ok == false || numeric == false || value != item.value {
+      t.Fatalf("%s must be the bigint %d, got %d (numeric=%v ok=%v)", item.text, item.value, value, numeric, ok)
     }
     if spliced := metadataCommentTagFactory_splice_integer(item.text); spliced != fmt.Sprint(item.value) {
       t.Fatalf("%s must splice into a bigint check as %d, got %s", item.text, item.value, spliced)
@@ -59,7 +59,7 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
   }
 
   //----
-  // 2. integers a bigint tag cannot state, and non-integers
+  // 2. finite values no bigint tag states, and text that is no number
   //----
   for _, text := range []string{
     "9007199254740993",     // rounds to ...992
@@ -69,14 +69,18 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
     "0x20000000000001",     // 2^53 + 1 in hexadecimal
     "1152921504606847000",  // `String(2 ** 60)`, which is not 2^60
     "10000000000000000000", // beyond int64
+    "1.5",
+    "1e-3",
+    "5.0000000000000001", // `Number()` reads 5
+    "1e-400",             // `Number()` reads 0
   } {
-    if _, integral, ok := metadataCommentTagFactory_bigint(text); ok || integral == false {
-      t.Fatalf("%s must be an integer no bigint tag states (integral=%v ok=%v)", text, integral, ok)
+    if _, numeric, ok := metadataCommentTagFactory_bigint(text); ok || numeric == false {
+      t.Fatalf("%s must be a finite value no bigint tag states (numeric=%v ok=%v)", text, numeric, ok)
     }
   }
-  for _, text := range []string{"1.5", "1e-3", "Infinity", "abc"} {
-    if _, integral, ok := metadataCommentTagFactory_bigint(text); ok || integral {
-      t.Fatalf("%s names no bigint (integral=%v ok=%v)", text, integral, ok)
+  for _, text := range []string{"Infinity", "abc", "1_000"} {
+    if _, numeric, ok := metadataCommentTagFactory_bigint(text); ok || numeric {
+      t.Fatalf("%s is no finite number (numeric=%v ok=%v)", text, numeric, ok)
     }
   }
 
@@ -126,8 +130,16 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
       t.Fatalf("@%s 9007199254740992 on a bigint must apply, got %#v", name, messages)
     }
   }
-  // A non-integer is no bigint bound, which the target check already says.
-  if _, messages := analyze([]string{"bigint"}, "minimum", "1.5"); len(messages) != 1 || strings.Contains(messages[0], "requires number type") == false {
-    t.Fatalf("@minimum 1.5 on a bigint must require a number, got %#v", messages)
+  // A value `Number()` rounds to an integer still names no bigint bound: the
+  // number part takes it as 5, and the bigint part is reported, not dropped.
+  meta, messages := analyze([]string{"number", "bigint"}, "minimum", "5.0000000000000001")
+  if len(messages) != 1 || messages[0] != "bigint value 5.0000000000000001 is not an int64 integer that a number represents exactly" {
+    t.Fatalf("@minimum 5.0000000000000001 on number | bigint must report the bigint part, got %#v", messages)
+  }
+  if len(meta.Atomics[0].Tags) != 1 || meta.Atomics[0].Tags[0][0].Validate != "5 <= $input" || len(meta.Atomics[1].Tags) != 0 {
+    t.Fatal("@minimum 5.0000000000000001 on number | bigint must constrain the number part only")
+  }
+  if _, messages := analyze([]string{"bigint"}, "minimum", "1.5"); len(messages) != 1 || messages[0] != "bigint value 1.5 is not an int64 integer that a number represents exactly" {
+    t.Fatalf("@minimum 1.5 on a bigint must be refused, got %#v", messages)
   }
 }

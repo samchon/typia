@@ -502,12 +502,13 @@ func metadataCommentTagFactory_numeric(props struct {
   record := metadataCommentTagFactory_TagRecord{
     "number": {{Name: name + "<" + props.Value + ">", Target: "number", Kind: kind, Value: number, Validate: numberValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}},
   }
-  integer, integral, ok := metadataCommentTagFactory_bigint(props.Value)
+  integer, numeric, ok := metadataCommentTagFactory_bigint(props.Value)
   if ok {
     record["bigint"] = []schemametadata.IMetadataTypeTag{{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: integer, Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}}
-  } else if integral {
-    // An empty arm: the value is an integer, so it names a bound for a bigint,
-    // but not one this tag can state. `Analyze` reports it where it would apply.
+  } else if numeric {
+    // An empty arm: the value bounds a bigint, but not with any value this tag
+    // can state. `Analyze` reports it where a bigint occurs, so the bigint part
+    // of a `number | bigint` property is never left unconstrained silently.
     record["bigint"] = []schemametadata.IMetadataTypeTag{}
   }
   return record
@@ -524,18 +525,19 @@ func metadataCommentTagFactory_numeric(props struct {
 // `@minimum 9007199254740993` as 9007199254740992, and let `random` generate
 // values the exact `@multipleOf` check rejects (samchon/typia#2457).
 //
-// integral reports whether the text writes an integer at all. A non-integer
-// names no bigint, so its tag has no bigint arm; an integer that fails the gate
-// is a bigint bound the tag cannot state.
-func metadataCommentTagFactory_bigint(text string) (value int64, integral bool, ok bool) {
+// numeric reports whether the text writes a finite number at all. One that is
+// no such integer -- `1.5`, `5.0000000000000001`, `9007199254740993` -- is a
+// bigint bound the tag cannot state, while text that is no number has already
+// been reported by the number arm.
+func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, ok bool) {
   rational, numeric := nativeutils.NumberUtil.Rational(text)
-  if numeric == false || rational.IsInt() == false {
+  if numeric == false {
     return 0, false, false
   }
-  integer := rational.Num()
-  if integer.IsInt64() == false {
+  if rational.IsInt() == false || rational.Num().IsInt64() == false {
     return 0, true, false
   }
+  integer := rational.Num()
   if _, accuracy := new(big.Float).SetInt(integer).Float64(); accuracy != big.Exact {
     return 0, true, false
   }
