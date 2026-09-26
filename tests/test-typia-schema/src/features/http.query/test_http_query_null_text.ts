@@ -59,10 +59,11 @@ export const test_http_query_null_text = (): void => {
   TestEquality.equals(
     "admitting units",
     typia.http.query<IAdmitting>(
-      "unknown=null&any=null&nullableList=null&nullableElements=null&nullableElements=x",
+      "unknown=null&optionalUnknown=null&any=null&nullableList=null&nullableElements=null&nullableElements=x",
     ),
     {
       unknown: null,
+      optionalUnknown: null,
       any: null,
       nullableList: ["null"],
       nullableElements: [null, "x"],
@@ -75,6 +76,7 @@ const unwrap = <T>(result: IValidation<T>): T | null =>
 
 interface IAdmitting {
   unknown: unknown;
+  optionalUnknown?: unknown;
   any: any;
   nullableList: string[] | null;
   nullableElements: (string | null)[];

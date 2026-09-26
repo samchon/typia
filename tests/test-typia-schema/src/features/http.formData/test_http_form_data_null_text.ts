@@ -51,7 +51,13 @@ export const test_http_form_data_null_text = (): void => {
   // `unknown` and `any` admit `null`; a nullable array's element does not,
   // while an array of nullable strings does
   const admitting = new FormData();
-  for (const key of ["unknown", "any", "nullableList", "nullableElements"])
+  for (const key of [
+    "unknown",
+    "optionalUnknown",
+    "any",
+    "nullableList",
+    "nullableElements",
+  ])
     admitting.append(key, "null");
   admitting.append("nullableElements", "x");
   TestEquality.equals(
@@ -59,6 +65,7 @@ export const test_http_form_data_null_text = (): void => {
     typia.http.formData<IAdmitting>(admitting),
     {
       unknown: null,
+      optionalUnknown: null,
       any: null,
       nullableList: ["null"],
       nullableElements: [null, "x"],
@@ -71,6 +78,7 @@ const unwrap = <T>(result: IValidation<T>): T | null =>
 
 interface IAdmitting {
   unknown: unknown;
+  optionalUnknown?: unknown;
   any: any;
   nullableList: string[] | null;
   nullableElements: (string | null)[];

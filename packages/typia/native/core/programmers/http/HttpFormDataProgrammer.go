@@ -275,7 +275,7 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
       Context:  props.Context,
       Type:     typ,
       Nullable: httpProgrammer_decode_nullable(value),
-      Coalesce: value.Nullable == false && value.IsRequired() == false,
+      Coalesce: value.Nullable == false && value.Any == false && value.IsRequired() == false,
       Input:    input,
     })
   }

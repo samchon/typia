@@ -62,6 +62,13 @@ export const test_http_form_data_blank_numbers = (): void => {
         expected,
       );
 
+  for (const value of [new Blob(["1"]), undefined])
+    TestEquality.equals(
+      "non-string value",
+      typia.http.formData<IForm>(foreign(value)),
+      { n: undefined, b: undefined, list: [] },
+    );
+
   TestEquality.equals(
     "blank element",
     (() => {
@@ -76,6 +83,16 @@ export const test_http_form_data_blank_numbers = (): void => {
     ["$input.list[1]"],
   );
 };
+
+/**
+ * A `FormData` stand-in whose values are not strings, as a polyfill may hand
+ * over: the blank check must not call `.trim()` on them.
+ */
+const foreign = (value: unknown): FormData =>
+  ({
+    get: (key: string) => (key === "n" ? value : null),
+    getAll: () => [],
+  }) as unknown as FormData;
 
 const form = (entries: Array<[string, string]>): FormData => {
   const data = new FormData();
