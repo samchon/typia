@@ -279,7 +279,7 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
   var decoded *shimast.Node
   if isArray {
     if key == "set-cookie" {
-      decoded = input
+      decoded = httpHeadersProgrammer_decode_set_cookie(props.Context, input, value.IsRequired())
     } else {
       decoded = httpHeadersProgrammer_decode_array(struct {
         Context nativecontext.ITypiaContext
@@ -312,6 +312,36 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
     nil,
     nil,
     decoded,
+  )
+}
+
+// httpHeadersProgrammer_decode_set_cookie decodes `set-cookie` without the
+// list decoder: cookie attributes such as `Expires` contain `", "`, so the
+// values are never split or trimmed. It still yields an array like every other
+// array header does: a lone string is one cookie, and an absent required header
+// is `[]` (samchon/typia#2447).
+func httpHeadersProgrammer_decode_set_cookie(context nativecontext.ITypiaContext, input *shimast.Node, required bool) *shimast.Node {
+  f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, context.Emit)
+  absent := f.NewIdentifier("undefined")
+  if required {
+    absent = f.NewArrayLiteralExpression(f.NewNodeList(nil), false)
+  }
+  return nativefactories.ExpressionFactory.Conditional(
+    nativefactories.ExpressionFactory.IsArray(input, context.Emit),
+    input,
+    nativefactories.ExpressionFactory.Conditional(
+      f.NewBinaryExpression(
+        nil,
+        f.NewIdentifier("undefined"),
+        nil,
+        f.NewToken(shimast.KindExclamationEqualsEqualsToken),
+        input,
+      ),
+      f.NewArrayLiteralExpression(f.NewNodeList([]*shimast.Node{input}), false),
+      absent,
+      context.Emit,
+    ),
+    context.Emit,
   )
 }
 
