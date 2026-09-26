@@ -29,8 +29,7 @@ type NumberUtil_Reading struct {
   // Value is what `Number(text)` evaluates to, with negative zero read as zero.
   Value float64
 
-  // Numeric is false when `Number(text)` is NaN, or when the text holds no
-  // digits at all.
+  // Numeric is false when `Number(text)` is NaN, or when the text is blank.
   Numeric bool
 
   // Finite is false for `Infinity`, `-Infinity`, and values that overflow to
@@ -41,8 +40,8 @@ type NumberUtil_Reading struct {
 // Read evaluates text with the grammar of JavaScript's `Number()`.
 //
 // Surrounding JavaScript whitespace is ignored, as `Number()` ignores it. One
-// deliberate difference remains: `Number("")` and `Number("  ")` are 0, but text
-// without any digits names no number, so it reads as non-numeric here.
+// deliberate difference remains: `Number("")` and `Number("  ")` are 0, but
+// blank text names no number, so it reads as non-numeric here.
 func (numberUtilNamespace) Read(text string) NumberUtil_Reading {
   text = strings.TrimFunc(text, numberUtil_isWhiteSpace)
   if text == "" {
@@ -85,21 +84,58 @@ func (numberUtilNamespace) Read(text string) NumberUtil_Reading {
   return numberUtil_reading(value)
 }
 
-// Literal spells a finite value as JavaScript source text.
+// Integer reads text that spells an integer exactly: decimal digits with an
+// optional sign, or an unsigned `0x` / `0o` / `0b` literal.
 //
-// It follows `Number.prototype.toString`: positional notation below 1e21 and
-// down to 1e-6, exponent notation outside that range. Negative zero is spelled
-// `0`, since no caller distinguishes it and JSON cannot. The caller must pass a
-// finite value; a non-finite one has no numeric literal.
-func (numberUtilNamespace) Literal(value float64) string {
-  if value == 0 {
+// `Number()` rounds such text to the nearest double, so `9007199254740993`
+// reads as 9007199254740992. A bigint constraint must not round: splicing the
+// exact digits keeps `$input % 9007199254740993n` exact. Any other spelling,
+// including an integer written with an exponent or a point (`1e3`, `1.0`),
+// reports false; its value is the double `Read` returns.
+func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
+  text = strings.TrimFunc(text, numberUtil_isWhiteSpace)
+  if match := numberUtil_NON_DECIMAL.FindStringSubmatch(text); match != nil {
+    base := 16
+    switch match[1] {
+    case "o", "O":
+      base = 8
+    case "b", "B":
+      base = 2
+    }
+    return new(big.Int).SetString(match[2], base)
+  }
+  if numberUtil_INTEGER.MatchString(text) == false {
+    return nil, false
+  }
+  return new(big.Int).SetString(strings.TrimPrefix(text, "+"), 10)
+}
+
+// String spells a value exactly as JavaScript's `String(value)` does.
+//
+// That is `Number.prototype.toString`: positional notation from 1e-6 up to
+// 1e21, exponent notation outside with a signed exponent of no padded zeros
+// (`1e+21`, `1e-7`), and `NaN`, `Infinity`, `-Infinity`, and `0` for negative
+// zero. Each result is also JavaScript source text that evaluates to the value.
+func (numberUtilNamespace) String(value float64) string {
+  switch {
+  case math.IsNaN(value):
+    return "NaN"
+  case math.IsInf(value, 1):
+    return "Infinity"
+  case math.IsInf(value, -1):
+    return "-Infinity"
+  case value == 0:
     return "0"
   }
   magnitude := math.Abs(value)
-  if magnitude >= 1e21 || magnitude < 1e-6 {
-    return strconv.FormatFloat(value, 'g', -1, 64)
+  if magnitude >= 1e-6 && magnitude < 1e21 {
+    return strconv.FormatFloat(value, 'f', -1, 64)
   }
-  return strconv.FormatFloat(value, 'f', -1, 64)
+  // Go pads the exponent to two digits (`1e-07`); JavaScript does not.
+  text := strconv.FormatFloat(value, 'e', -1, 64)
+  index := strings.IndexByte(text, 'e')
+  mantissa, sign, digits := text[:index], text[index+1:index+2], strings.TrimLeft(text[index+2:], "0")
+  return mantissa + "e" + sign + digits
 }
 
 func numberUtil_reading(value float64) NumberUtil_Reading {
@@ -125,6 +161,9 @@ func numberUtil_isWhiteSpace(r rune) bool {
 // numberUtil_NON_DECIMAL is NonDecimalIntegerLiteral without separators. It
 // takes no sign: `Number("-0x10")` is NaN.
 var numberUtil_NON_DECIMAL = regexp.MustCompile(`^0([xXoObB])([0-9a-fA-F]+)$`)
+
+// numberUtil_INTEGER is a decimal integer with an optional sign.
+var numberUtil_INTEGER = regexp.MustCompile(`^[+-]?[0-9]+$`)
 
 // numberUtil_DECIMAL is StrDecimalLiteral: an optional sign before `Infinity`
 // or a decimal literal whose digits may omit either side of the point, with an

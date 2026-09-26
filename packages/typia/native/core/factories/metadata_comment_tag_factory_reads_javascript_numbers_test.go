@@ -20,9 +20,11 @@ import (
 // values `Number(text)` yields in JavaScript.
 //
 //  1. Read `0x10`, `1e3`, `+5`, and `.5` as their JavaScript values, and splice
-//     the canonical literal into both the number and the bigint records.
+//     the value into both the number and the bigint records, with integer
+//     spellings keeping their exact digits.
 //  2. Report Go-only spellings as invalid numbers and infinities as non-finite.
-//  3. Keep ordinary spellings byte-identical, including the tag name.
+//  3. Keep ordinary spellings byte-identical, and every tag name in its source
+//     spelling.
 func TestMetadataCommentTagFactoryReadsJavaScriptNumbers(t *testing.T) {
   parse := func(name string, value string) (metadataCommentTagFactory_TagRecord, []string) {
     messages := []string{}
@@ -69,6 +71,11 @@ func TestMetadataCommentTagFactoryReadsJavaScriptNumbers(t *testing.T) {
     {"multipleOf", "1e3", "number", 1000, "$importInternal(\"_isMultipleOf\")($input, 1000)"},
     {"minItems", "0b11", "array", 3, "3 <= $input.length"},
     {"minLength", "0o7", "string", 7, "$importInternal(\"_stringLengthGte\")($input, 7)"},
+    {"multipleOf", "+5", "bigint", 5, "$input % 5n === 0n"},
+    {"multipleOf", "007", "bigint", 7, "$input % 7n === 0n"},
+    // Beyond double precision the bigint check keeps the exact digits.
+    {"multipleOf", "9007199254740993", "bigint", 9007199254740992, "$input % 9007199254740993n === 0n"},
+    {"maximum", "0.0000001", "number", 1e-7, "$input <= 1e-7"},
   } {
     record, messages := parse(item.name, item.value)
     if len(messages) != 0 {
@@ -141,5 +148,11 @@ func TestMetadataCommentTagFactoryReadsJavaScriptNumbers(t *testing.T) {
   }
   if actual := single(record, "number"); reflect.DeepEqual(actual, expected) == false {
     t.Fatalf("@minimum 3 changed:\nexpected %#v\nactual   %#v", expected, actual)
+  }
+  // Only the splice is respelled; the tag name keeps the source spelling, so
+  // validation messages and reflected metadata do not change.
+  record, _ = parse("minimum", "1.0")
+  if tag := single(record, "number"); tag.Name != "Minimum<1.0>" || tag.Validate != "1 <= $input" {
+    t.Fatalf("@minimum 1.0 should keep its name and splice 1, got %q / %q", tag.Name, tag.Validate)
   }
 }

@@ -70,7 +70,9 @@ func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitCon
     }
     return f.NewIdentifier("Infinity")
   }
-  if numeric < 0 {
+  // Negative zero takes the same negation as every negative value; its text
+  // `-0` is not a numeric literal on its own.
+  if numeric < 0 || (numeric == 0 && math.Signbit(numeric)) {
     return f.NewPrefixUnaryExpression(
       shimast.KindMinusToken,
       f.NewNumericLiteral(expressionFactory_number_abs_text(numeric), shimast.TokenFlagsNone),

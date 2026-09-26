@@ -20,7 +20,9 @@ import (
 //
 //  1. Build numbers for NaN, positive and negative infinity.
 //  2. Assert they are the `NaN` / `Infinity` identifiers, negated for -Infinity.
-//  3. Assert finite values, negative ones, and zero keep numeric literals.
+//  3. Assert finite values, negative ones, and zero keep numeric literals, with
+//     negative zero negated like any negative value rather than spelled `-0`
+//     inside one literal.
 func TestExpressionFactoryNumberSpellsNonFiniteValues(t *testing.T) {
   identifier := func(node *shimast.Node, name string) bool {
     return node != nil && node.Kind == shimast.KindIdentifier && node.Text() == name
@@ -51,6 +53,7 @@ func TestExpressionFactoryNumberSpellsNonFiniteValues(t *testing.T) {
     {int64(0), false, "0"},
     {-12, true, "12"},
     {-2.5, true, "2.5"},
+    {math.Copysign(0, -1), true, "0"},
   } {
     node := ExpressionFactory.Number(item.value)
     if item.negative {

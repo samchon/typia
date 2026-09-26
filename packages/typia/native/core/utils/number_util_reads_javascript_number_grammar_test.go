@@ -19,7 +19,8 @@ import (
 //  2. Read hexadecimal, octal, and binary integers, and reject signed ones.
 //  3. Classify `Infinity`, overflow, and underflow by finiteness.
 //  4. Reject Go-only spellings, separators, and empty or blank text.
-//  5. Spell finite values back as JavaScript literals.
+//  5. Spell values back exactly as JavaScript's `String()` does.
+//  6. Read integer spellings exactly, beyond double precision.
 func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
   finite := func(value float64) NumberUtil_Reading {
     return NumberUtil_Reading{Value: value, Numeric: true, Finite: true}
@@ -86,6 +87,7 @@ func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
     }
   }
 
+  // String: the oracle is JavaScript's `String(value)`.
   for _, item := range []struct {
     value    float64
     expected string
@@ -95,13 +97,50 @@ func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
     {16, "16"},
     {-2.5, "-2.5"},
     {0.001, "0.001"},
+    {0.000001, "0.000001"},
     {1e6, "1000000"},
+    {123456789012345680000, "123456789012345680000"},
     {1e21, "1e+21"},
-    {1e-7, "1e-07"},
+    {1e-7, "1e-7"},
+    {-1e-7, "-1e-7"},
+    {1.23e-18, "1.23e-18"},
+    {1.5e300, "1.5e+300"},
     {9007199254740993, "9007199254740992"},
+    {math.NaN(), "NaN"},
+    {math.Inf(1), "Infinity"},
+    {math.Inf(-1), "-Infinity"},
   } {
-    if actual := NumberUtil.Literal(item.value); actual != item.expected {
-      t.Fatalf("Literal(%v) = %q, expected %q", item.value, actual, item.expected)
+    if actual := NumberUtil.String(item.value); actual != item.expected {
+      t.Fatalf("String(%v) = %q, expected %q", item.value, actual, item.expected)
+    }
+  }
+
+  // Integer: exact digits for integer spellings, nothing for the rest.
+  for _, item := range []struct {
+    text     string
+    expected string
+    ok       bool
+  }{
+    {"9007199254740993", "9007199254740993", true},
+    {"-12", "-12", true},
+    {"+5", "5", true},
+    {"007", "7", true},
+    {"-0", "0", true},
+    {" 42 ", "42", true},
+    {"0x10", "16", true},
+    {"0b101", "5", true},
+    {"0o17", "15", true},
+    {"0xffffffffffffffffff", "4722366482869645213695", true},
+    {"1e3", "", false},
+    {"1.0", "", false},
+    {"-0x10", "", false},
+    {"0o8", "", false},
+    {"", "", false},
+    {"Infinity", "", false},
+  } {
+    integer, ok := NumberUtil.Integer(item.text)
+    if ok != item.ok || (ok && integer.String() != item.expected) {
+      t.Fatalf("Integer(%q) = %v, %v; expected %q, %v", item.text, integer, ok, item.expected, item.ok)
     }
   }
 }
