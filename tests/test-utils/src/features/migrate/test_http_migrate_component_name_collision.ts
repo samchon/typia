@@ -17,8 +17,9 @@ import { HttpMigration } from "@typia/utils";
  *    input component already owns.
  * 2. Assert every route resolves to its own schema and the input component is
  *    unchanged.
- * 3. Assert the allocation is deterministic and a collision-free route keeps
- *    today's name.
+ * 3. Assert the path order, not the document order, decides the plain name, that
+ *    migrating the migrated document again keeps every name, and that a failed
+ *    route takes no name from a valid one.
  */
 export const test_http_migrate_component_name_collision = (): void => {
   const object = (key: string): OpenApi.IJsonSchema.IObject => ({
@@ -112,16 +113,63 @@ export const test_http_migrate_component_name_collision = (): void => {
     object("mine"),
   );
 
-  // deterministic, and the first route keeps the plain name
-  const again: IHttpMigrateApplication = HttpMigration.application(document);
-  TestEquality.equals(
-    "deterministic",
-    Object.keys(again.document().components.schemas ?? {}),
-    Object.keys(app.document().components.schemas ?? {}),
-  );
+  // the path order decides the plain name, not the document order
+  const names = (target: IHttpMigrateApplication) =>
+    Object.fromEntries(
+      target.routes.map((route) => [
+        `${route.method} ${route.path}`,
+        [route.success?.schema, route.query?.schema, route.body?.schema],
+      ]),
+    );
+  const reversed: IHttpMigrateApplication = HttpMigration.application({
+    ...document,
+    paths: Object.fromEntries(Object.entries(document.paths!).reverse()),
+  });
+  TestEquality.equals("order independent", names(reversed), names(app));
   TestEquality.equals(
     "list keeps the plain name",
     app.routes.find((r) => r.path === "/users")?.success?.schema,
     { $ref: "#/components/schemas/IApiUsers.GetResponse" },
+  );
+
+  // migrating the migrated document again keeps every name
+  const remigrated: IHttpMigrateApplication = HttpMigration.application(
+    app.document(),
+  );
+  TestEquality.equals("remigrated names", names(remigrated), names(app));
+  TestEquality.equals(
+    "remigrated components",
+    Object.keys(remigrated.document().components.schemas ?? {}).sort(),
+    Object.keys(app.document().components.schemas ?? {}).sort(),
+  );
+
+  // a failed route takes no name from a valid one
+  const failed: IHttpMigrateApplication = HttpMigration.application({
+    ...document,
+    paths: {
+      "/users": {
+        get: {
+          // declares a path parameter the path does not have
+          parameters: [id],
+          responses: { 200: { description: "ok", ...json(object("page")) } },
+        },
+      },
+      "/users/{id}": document.paths!["/users/{id}"]!,
+    },
+  });
+  TestEquality.equals(
+    "failed route",
+    failed.errors.map((e) => e.path),
+    ["/users"],
+  );
+  TestEquality.equals(
+    "valid route keeps the plain name",
+    failed.routes[0]?.success?.schema,
+    { $ref: "#/components/schemas/IApiUsers.GetResponse" },
+  );
+  TestEquality.equals(
+    "failed route keeps no component",
+    Object.keys(failed.document().components.schemas ?? {}).sort(),
+    ["IApiOrders.PostBody", "IApiUsers.GetQuery", "IApiUsers.GetResponse"],
   );
 };

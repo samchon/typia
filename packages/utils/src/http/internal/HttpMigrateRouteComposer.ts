@@ -18,6 +18,20 @@ export namespace HttpMigrateRouteComposer {
     operation: OpenApi.IOperation;
   }
   export const compose = (props: IProps): IHttpMigrateRoute | string[] => {
+    const before: Set<string> = new Set(
+      Object.keys(props.document.components.schemas ?? {}),
+    );
+    const result: IHttpMigrateRoute | string[] = composeRoute(props);
+    // A failed route is not migrated, so it keeps no component either, least
+    // of all a name a valid route would otherwise own (#2451).
+    if (Array.isArray(result) && props.document.components.schemas)
+      for (const key of Object.keys(props.document.components.schemas))
+        if (before.has(key) === false)
+          delete props.document.components.schemas[key];
+    return result;
+  };
+
+  const composeRoute = (props: IProps): IHttpMigrateRoute | string[] => {
     sanitizeOperationSchemas(props.document)(props.operation);
 
     //----
@@ -732,7 +746,9 @@ export namespace HttpMigrateRouteComposer {
    * Overwriting made one route silently declare another route's schema (#2451).
    * A taken name is escaped instead, by prefixing `_` to its last segment until
    * it is free, the convention accessors use for duplicates; a route without a
-   * collision keeps its name.
+   * collision keeps its name. A name that already holds the very same schema is
+   * reused, so migrating a migrated document again, which still carries its
+   * inline schemas, keeps every name.
    */
   const emplaceReference = (props: {
     document: OpenApi.IDocument;
@@ -741,17 +757,20 @@ export namespace HttpMigrateRouteComposer {
   }): OpenApi.IJsonSchema.IReference => {
     const schemas: Record<string, OpenApi.IJsonSchema> =
       (props.document.components.schemas ??= {});
+    const schema: OpenApi.IJsonSchema = sanitizeSchema(props.document)(
+      props.schema,
+    );
+    const text: string = JSON.stringify(schema);
     const dot: number = props.name.lastIndexOf(".");
     const namespace: string = props.name.substring(0, dot + 1);
     let member: string = props.name.substring(dot + 1);
-    while (ObjectDictionary.has(schemas, namespace + member))
+    while (
+      ObjectDictionary.has(schemas, namespace + member) &&
+      JSON.stringify(schemas[namespace + member]) !== text
+    )
       member = `_${member}`;
     const name: string = namespace + member;
-    ObjectDictionary.set(
-      schemas,
-      name,
-      sanitizeSchema(props.document)(props.schema),
-    );
+    ObjectDictionary.set(schemas, name, schema);
     return {
       $ref: `#/components/schemas/${name}`,
     } satisfies OpenApi.IJsonSchema.IReference;

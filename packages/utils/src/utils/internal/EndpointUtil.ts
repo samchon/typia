@@ -1,4 +1,5 @@
 import { NamingConvention } from "../NamingConvention";
+import { OpenApiComponentName } from "./OpenApiComponentName";
 
 export namespace EndpointUtil {
   export const capitalize = (str: string): string =>
@@ -8,14 +9,18 @@ export namespace EndpointUtil {
    * Derive a component name from a path.
    *
    * The result is a Components Object key, whose grammar is
-   * `^[a-zA-Z0-9.\-_]+$` (#2443). {@link normalize} leaves `$` in place, because
-   * it is legal in an identifier, so it is mapped here as well.
+   * `^[a-zA-Z0-9.\-_]+$` (#2443). {@link normalize} keeps what an identifier may
+   * hold, `$` and the letters of any script included: `$` becomes `_`, and any
+   * other character outside the key grammar is encoded the way
+   * `OpenApiComponentName` encodes one, so distinct letters stay distinct.
    */
   export const pascal = (path: string): string =>
-    splitWithNormalization(path)
-      .map(NamingConvention.pascal)
-      .join("")
-      .replaceAll("$", "_");
+    OpenApiComponentName.escape(
+      splitWithNormalization(path)
+        .map(NamingConvention.pascal)
+        .join("")
+        .replaceAll("$", "_"),
+    );
 
   /**
    * Split a path into its normalized literal segments.
@@ -42,14 +47,14 @@ export namespace EndpointUtil {
    * A path segment may hold any RFC 3986 `pchar`: Google AIP custom methods
    * write `/items:batchGet`, and `@`, `~`, `+`, `*`, and percent-encodings are
    * all legal. Every character an identifier cannot hold becomes `_`, so the
-   * accessors and names derived from a path are always legal (#2443).
+   * accessors and names derived from a path are always legal (#2443), while the
+   * letters of any script stay, as they did before.
    */
   export const normalize = (str: string): string => {
-    str = str.trim().replace(/[^a-zA-Z0-9_$]/g, "_");
+    str = str.trim().replace(NON_IDENTIFIER, "_");
     if (str.length === 0) return str;
     else if (NamingConvention.reserved(str)) return `_${str}`;
-    else if (str.length !== 0 && "0" <= str[0]! && str[0]! <= "9")
-      str = `_${str}`;
+    else if (IDENTIFIER_START.test(str) === false) str = `_${str}`;
     return str;
   };
 
@@ -57,4 +62,12 @@ export namespace EndpointUtil {
     (keep: string[]) =>
     (change: string): string =>
       keep.includes(change) ? escapeDuplicate(keep)(`_${change}`) : change;
+
+  // Built from strings: the package targets ES2016, below the ES2018 property
+  // escapes a regular expression literal would need.
+  const NON_IDENTIFIER: RegExp = new RegExp(
+    "[^\\p{ID_Continue}$\\u200c\\u200d]",
+    "gu",
+  );
+  const IDENTIFIER_START: RegExp = new RegExp("^[\\p{ID_Start}$_]", "u");
 }
