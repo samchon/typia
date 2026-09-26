@@ -23,6 +23,8 @@ import { TestEquality } from "@typia/template/equality";
  * 2. Pin each unequal pair to fail `equals` in both orders.
  * 3. Pin `subset` to skip only object keys the expected value leaves out.
  * 4. Pin `difference` paths and the failure message.
+ * 5. Pin `thrown` to read a synchronous task's exception, and `null` when it
+ *    returns, the assertion `TestValidator.error` cannot make (#2460).
  *
  * This sits directly under `features` beside `test_total_comparison_shape`: it
  * pins the assertion harness every suite shares.
@@ -232,18 +234,34 @@ export const test_equality_oracle = (): void => {
   );
 
   // the failure names the title and the path
-  const message: string | null = (() => {
-    try {
-      TestEquality.equals("titled", { a: 1n }, { a: 2n });
-      return null;
-    } catch (error) {
-      return (error as Error).message;
-    }
-  })();
+  const message: string | null = TestEquality.thrown(() =>
+    TestEquality.equals("titled", { a: 1n }, { a: 2n }),
+  );
   TestValidator.predicate(
     "failure message",
     message !== null &&
       message.startsWith("Bug on titled: found different values - [.a]:"),
+  );
+
+  // thrown reads what a synchronous task throws, and nothing when it returns
+  TestEquality.equals(
+    "thrown error",
+    TestEquality.thrown(() => {
+      throw new TypeError("lost");
+    }),
+    "lost",
+  );
+  TestEquality.equals(
+    "thrown value",
+    TestEquality.thrown(() => {
+      throw "text";
+    }),
+    "text",
+  );
+  TestEquality.equals(
+    "returned",
+    TestEquality.thrown(() => 1),
+    null,
   );
 };
 

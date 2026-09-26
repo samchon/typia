@@ -138,7 +138,7 @@ export const test_http_llm_application_function_name_fallback =
 
     TestEquality.equals(
       "maxLength 1",
-      thrown(() =>
+      TestEquality.thrown(() =>
         HttpLlm.application({ document: siblings, config: { maxLength: 1 } }),
       )?.startsWith(
         "Error on HttpLlm.application(): maxLength 1 cannot hold a unique name",
@@ -146,13 +146,3 @@ export const test_http_llm_application_function_name_fallback =
       true,
     );
   };
-
-/** The message a task throws, or `null` when it returns. */
-const thrown = (task: () => unknown): string | null => {
-  try {
-    task();
-  } catch (error) {
-    return (error as Error).message;
-  }
-  return null;
-};

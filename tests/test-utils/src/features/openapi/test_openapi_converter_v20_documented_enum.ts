@@ -179,7 +179,7 @@ export const test_openapi_converter_v20_documented_enum = (): void => {
   // typing a form field must not let a malformed union past the gate
   TestEquality.equals(
     "two null members",
-    thrown(() =>
+    TestEquality.thrown(() =>
       OpenApiConverter.downgradeDocument(
         {
           ...source,
@@ -216,14 +216,4 @@ export const test_openapi_converter_v20_documented_enum = (): void => {
     ),
     "SwaggerV2Downgrader: form properties must use simple schemas.",
   );
-};
-
-/** The message a task throws, or `null` when it returns. */
-const thrown = (task: () => unknown): string | null => {
-  try {
-    task();
-  } catch (error) {
-    return (error as Error).message;
-  }
-  return null;
 };
