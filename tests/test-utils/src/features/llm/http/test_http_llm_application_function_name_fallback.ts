@@ -86,6 +86,17 @@ export const test_http_llm_application_function_name_fallback =
             ["security", "2faVerificationForAccountsWithAVeryLongDescription"],
           ),
         },
+        // Too long whole, and a suffix fits only from the digit-leading segment.
+        "/security/recovery": {
+          post: operation(
+            [],
+            [
+              "securityAndIdentityManagement",
+              "accountRecoveryAndVerificationProceduresXY",
+              "2faVerification",
+            ],
+          ),
+        },
       },
     };
 
