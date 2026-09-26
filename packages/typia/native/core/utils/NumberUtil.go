@@ -89,10 +89,9 @@ func (numberUtilNamespace) Read(text string) NumberUtil_Reading {
 //
 // `Number()` rounds such text to the nearest double, so `9007199254740993`
 // reads as 9007199254740992. Splicing the digits as written keeps a check that
-// reads them as a BigInt literal (`$input % 9007199254740993n`) exact. Any other
-// spelling,
-// including an integer written with an exponent or a point (`1e3`, `1.0`),
-// reports false; its value is the double `Read` returns.
+// reads them as a BigInt literal (`$input % 9007199254740993n`) exact. Any
+// other spelling, including an integer written with an exponent or a point
+// (`1e3`, `1.0`), reports false; its value is the double `Read` returns.
 func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
   text = strings.TrimFunc(text, numberUtil_isWhiteSpace)
   if match := numberUtil_NON_DECIMAL.FindStringSubmatch(text); match != nil {
