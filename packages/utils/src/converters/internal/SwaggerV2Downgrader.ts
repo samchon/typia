@@ -1,5 +1,6 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
+import { JsonCanonical } from "../../utils/internal/JsonCanonical";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
@@ -233,9 +234,9 @@ export namespace SwaggerV2Downgrader {
         examples: _examples,
         ...rest
       } = input;
-      const { required: _schemaRequired, ...downgraded } = downgradeSchema(
-        collection,
-      )(schema) as SwaggerV2.IJsonSchema & {
+      const { required: _schemaRequired, ...downgraded } = typeEnumeration(
+        inlineReference(collection)(downgradeSchema(collection)(schema)),
+      ) as SwaggerV2.IJsonSchema & {
         required?: unknown;
       };
       return {
@@ -387,14 +388,127 @@ export namespace SwaggerV2Downgrader {
         ) as SwaggerV2.IJsonSchema.IString;
         return { ...rest, type: "file" };
       }
-      const downgraded: SwaggerV2.IJsonSchema =
-        downgradeSchema(collection)(schema);
+      // A nullable reference downgrades to a `.Nullable` definition reference,
+      // which a form field cannot hold, so it is inlined like a parameter's,
+      // and so is one in the items of an array field.
+      // The simple-schema gate reads the field before `typeEnumeration` adds a
+      // `type`, which would otherwise let a malformed union through as a string.
+      // One visited set spans the items chain, so an array whose items refer
+      // back to itself is a cycle, not an endless descent.
+      const visited: Set<string> = new Set();
+      const inline = (next: SwaggerV2.IJsonSchema): SwaggerV2.IJsonSchema => {
+        const inlined: SwaggerV2.IJsonSchema = inlineReference(
+          collection,
+          visited,
+        )(next);
+        return SwaggerV2TypeChecker.isArray(inlined)
+          ? { ...inlined, items: inline(inlined.items) }
+          : inlined;
+      };
+      const downgraded: SwaggerV2.IJsonSchema = inline(
+        downgradeSchema(collection)(schema),
+      );
       if (isFormDataSchema(downgraded) === false)
         throw new TypeError(
           "SwaggerV2Downgrader: form properties must use simple schemas.",
         );
-      return downgraded;
+      return typeEnumeration(downgraded) as typeof downgraded;
     };
+
+  /**
+   * Inline the definition a non-body parameter's schema refers to.
+   *
+   * A non-body parameter spreads its schema into itself, and a `$ref` item in a
+   * 2.0 `parameters` list names a parameter, not a schema. A spread schema
+   * reference therefore read back as a dangling parameter reference, and the
+   * upgrader dropped the parameter (#2441). The downgraded definition,
+   * including a synthesized `.Nullable` one, is inlined with the reference's
+   * sibling annotations over it. A reference that does not resolve, or resolves
+   * only through a cycle, is not representable.
+   */
+  const inlineReference =
+    (collection: IComponentsCollection, visited: Set<string> = new Set()) =>
+    (schema: SwaggerV2.IJsonSchema): SwaggerV2.IJsonSchema => {
+      let current: SwaggerV2.IJsonSchema = schema;
+      while (SwaggerV2TypeChecker.isReference(current)) {
+        const { $ref, ...siblings } = current;
+        if (visited.has($ref))
+          throw new TypeError(
+            "SwaggerV2Downgrader: non-body parameter references must not form a cycle.",
+          );
+        visited.add($ref);
+        const found: SwaggerV2.IJsonSchema | undefined =
+          OpenApiReferenceKey.get(
+            collection.downgraded,
+            $ref,
+            "#/definitions/",
+          );
+        if (found === undefined)
+          throw new TypeError(
+            "SwaggerV2Downgrader: non-body parameter references must resolve.",
+          );
+        current = {
+          ...found,
+          ...Object.fromEntries(
+            Object.entries(siblings).filter(
+              ([_, value]) => value !== undefined,
+            ),
+          ),
+        } as SwaggerV2.IJsonSchema;
+      }
+      return current;
+    };
+
+  /**
+   * State a documented enumeration as a typed `enum` in a non-body location.
+   *
+   * Annotated constants downgrade to an `x-oneOf` of one-value enums, which
+   * keeps each annotation and reads back losslessly but carries no `type`, so a
+   * 2.0 consumer other than typia sees an untyped parameter, form field, or
+   * header (#2441). When every non-null branch is a constant of one type, the
+   * union is also stated as that `type` with every value in `enum`, and a
+   * `null` member as `x-nullable`. The upgrader reads `x-oneOf` first, so the
+   * round trip is unchanged. Array items are typed the same way.
+   */
+  const typeEnumeration = (
+    schema: SwaggerV2.IJsonSchema,
+  ): SwaggerV2.IJsonSchema => {
+    if (SwaggerV2TypeChecker.isArray(schema))
+      return { ...schema, items: typeEnumeration(schema.items) };
+    if (SwaggerV2TypeChecker.isOneOf(schema) === false) return schema;
+    const branches = schema["x-oneOf"] as Array<{
+      type?: string;
+      enum?: unknown[];
+    }>;
+    const nonNull = branches.filter((branch) => branch.type !== "null");
+    const type: string | undefined = nonNull[0]?.type;
+    if (
+      (type !== "boolean" &&
+        type !== "integer" &&
+        type !== "number" &&
+        type !== "string") ||
+      nonNull.some(
+        (branch) =>
+          branch.type !== type ||
+          Array.isArray(branch.enum) === false ||
+          branch.enum.length === 0,
+      )
+    )
+      return schema;
+    const values: unknown[] = [
+      ...new Set(
+        nonNull.flatMap((branch) =>
+          branch.enum!.filter((value) => value !== null),
+        ),
+      ),
+    ];
+    return {
+      ...schema,
+      type,
+      enum: values,
+      ...(nonNull.length !== branches.length ? { "x-nullable": true } : {}),
+    } as SwaggerV2.IJsonSchema;
+  };
 
   const resolveSchema =
     (collection: IComponentsCollection) =>
@@ -520,7 +634,7 @@ export namespace SwaggerV2Downgrader {
                       key,
                       {
                         ...rest,
-                        ...downgradeSchema(collection)(schema),
+                        ...typeEnumeration(downgradeSchema(collection)(schema)),
                       },
                     ];
                   }),
@@ -1054,7 +1168,7 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           `SwaggerV2Downgrader: ${scope} named examples are not representable.`,
         );
-      if (!sameJson(media.schema, first.schema))
+      if (!JsonCanonical.equals(media.schema, first.schema))
         throw new TypeError(
           `SwaggerV2Downgrader: ${scope} media types must share one schema.`,
         );
@@ -1100,17 +1214,4 @@ export namespace SwaggerV2Downgrader {
 
   const isSwaggerScheme = (input: string): input is SwaggerV2.Scheme =>
     input === "http" || input === "https" || input === "ws" || input === "wss";
-
-  const sameJson = (x: unknown, y: unknown): boolean =>
-    JSON.stringify(canonicalize(x)) === JSON.stringify(canonicalize(y));
-
-  const canonicalize = (value: unknown): unknown => {
-    if (Array.isArray(value)) return value.map(canonicalize);
-    if (value === null || typeof value !== "object") return value;
-    return Object.fromEntries(
-      Object.entries(value)
-        .sort(([x], [y]) => x.localeCompare(y))
-        .map(([key, entry]) => [key, canonicalize(entry)]),
-    );
-  };
 }

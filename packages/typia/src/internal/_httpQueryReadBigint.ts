@@ -1,7 +1,13 @@
 export const _httpQueryReadBigint = (
   str: string | null,
 ): bigint | null | undefined =>
-  !!str?.length ? (str === "null" ? null : (toBigint(str) as any)) : undefined;
+  // Blank text is absent, as the empty string always was: `BigInt(" ")` is 0n,
+  // which would read a whitespace value as a real zero (#2448).
+  typeof str === "string" && str.trim().length !== 0
+    ? str === "null"
+      ? null
+      : (toBigint(str) as any)
+    : undefined;
 
 const toBigint = (str: string): bigint | string => {
   try {

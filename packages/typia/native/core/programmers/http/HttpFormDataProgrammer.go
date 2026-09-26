@@ -5,6 +5,7 @@ import (
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
+  shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
@@ -240,11 +241,13 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
           httpFormDataProgrammer_decode_value(struct {
             Context  nativecontext.ITypiaContext
             Type     string
+            Nullable bool
             Coalesce bool
             Input    *shimast.Node
           }{
             Context:  props.Context,
             Type:     typ,
+            Nullable: httpProgrammer_decode_nullable(value),
             Coalesce: false,
             Input:    f.NewIdentifier("elem"),
           }),
@@ -265,12 +268,14 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
     input = httpFormDataProgrammer_decode_value(struct {
       Context  nativecontext.ITypiaContext
       Type     string
+      Nullable bool
       Coalesce bool
       Input    *shimast.Node
     }{
       Context:  props.Context,
       Type:     typ,
-      Coalesce: value.Nullable == false && value.IsRequired() == false,
+      Nullable: httpProgrammer_decode_nullable(value),
+      Coalesce: value.Nullable == false && value.Any == false && value.IsRequired() == false,
       Input:    input,
     })
   }
@@ -286,6 +291,7 @@ func httpFormDataProgrammer_decode_regular_property(props struct {
 func httpFormDataProgrammer_decode_value(props struct {
   Context  nativecontext.ITypiaContext
   Type     string
+  Nullable bool
   Coalesce bool
   Input    *shimast.Node
 }) *shimast.Node {
@@ -294,7 +300,7 @@ func httpFormDataProgrammer_decode_value(props struct {
     httpParameterProgrammer_internal(props.Context, "httpFormDataRead"+httpParameterProgrammer_capitalize(props.Type)),
     nil,
     nil,
-    f.NewNodeList([]*shimast.Node{props.Input}),
+    f.NewNodeList(httpProgrammer_read_arguments(props.Type, props.Nullable, props.Input, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )
   if props.Coalesce == false {
@@ -371,6 +377,39 @@ func httpProgrammer_property_key(property *schemametadata.MetadataProperty) stri
     return *key
   }
   return ""
+}
+
+// httpProgrammer_decode_nullable tells whether one decoded unit admits `null`:
+// the element for an array property, the property itself otherwise. `any` and
+// `unknown` admit it as well, and decode through the string reader.
+func httpProgrammer_decode_nullable(value *schemametadata.MetadataSchema) bool {
+  admits := func(unit *schemametadata.MetadataSchema) bool {
+    return unit != nil && (unit.Nullable || unit.Any)
+  }
+  if value == nil {
+    return false
+  }
+  if len(value.Arrays) != 0 {
+    return admits(value.Arrays[0].Type.Value)
+  }
+  if len(value.Tuples) != 0 && len(value.Tuples[0].Type.Elements) != 0 {
+    return admits(value.Tuples[0].Type.Elements[0])
+  }
+  return admits(value)
+}
+
+// httpProgrammer_read_arguments lists the arguments of one `_http*Read*` call.
+//
+// A string reader turns the text `"null"` into `null` unless told the type does
+// not admit it (samchon/typia#2450), so a non-nullable string passes `false`.
+// Every other call keeps the single argument, and so does a nullable string,
+// whose emit stays byte-identical to what earlier versions produced.
+func httpProgrammer_read_arguments(typ string, nullable bool, input *shimast.Node, emit ...*shimprinter.EmitContext) []*shimast.Node {
+  if typ != "string" || nullable {
+    return []*shimast.Node{input}
+  }
+  f := nativecontext.EmitFactoryOf(httpFormDataProgrammer_factory, emit...)
+  return []*shimast.Node{input, f.NewKeywordExpression(shimast.KindFalseKeyword)}
 }
 
 func httpProgrammer_decode_type(value *schemametadata.MetadataSchema, blob bool) (string, bool) {

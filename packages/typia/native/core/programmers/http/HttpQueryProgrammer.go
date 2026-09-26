@@ -30,6 +30,14 @@ type HttpQueryProgrammer_DecomposeProps struct {
   AllowOptional bool
   Type          *shimchecker.Type
   Name          *string
+
+  // Missing makes the decoder throw `Error("missing <key>")` for an absent
+  // required non-array property. Only `http.query`, which validates nothing
+  // else, asks for it. The `is`, `assert`, and `validate` variants decode
+  // through this same function and must report the absence through their own
+  // contract instead (`null`, an `IValidation` failure, `TypeGuardError`), so
+  // they leave it off (samchon/typia#2444).
+  Missing bool
 }
 
 var httpQueryProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -78,9 +86,11 @@ func (httpQueryProgrammerNamespace) Decompose(props HttpQueryProgrammer_Decompos
   statements := httpQueryProgrammer_decode_object(struct {
     Context nativecontext.ITypiaContext
     Object  *schemametadata.MetadataObjectType
+    Missing bool
   }{
     Context: props.Context,
     Object:  object,
+    Missing: props.Missing,
   })
   return nativeinternal.FeatureProgrammer_IDecomposed{
     Functions:  map[string]*shimast.Node{},
@@ -124,6 +134,7 @@ func (httpQueryProgrammerNamespace) Write(props HttpQueryProgrammer_IProps) *shi
     AllowOptional: props.AllowOptional,
     Type:          props.Type,
     Name:          props.Name,
+    Missing:       true,
   })
   return nativeinternal.FeatureProgrammer.WriteDecomposed(nativeinternal.FeatureProgrammer_WriteDecomposedProps{
     Modulo:  props.Modulo,
@@ -203,6 +214,7 @@ func (httpQueryProgrammerNamespace) Validate(props struct {
 func httpQueryProgrammer_decode_object(props struct {
   Context nativecontext.ITypiaContext
   Object  *schemametadata.MetadataObjectType
+  Missing bool
 }) []*shimast.Node {
   f := nativecontext.EmitFactoryOf(httpQueryProgrammer_factory, props.Context.Emit)
   input := f.NewIdentifier("input")
@@ -212,9 +224,11 @@ func httpQueryProgrammer_decode_object(props struct {
     properties = append(properties, httpQueryProgrammer_decode_regular_property(struct {
       Context  nativecontext.ITypiaContext
       Property *schemametadata.MetadataProperty
+      Missing  bool
     }{
       Context:  props.Context,
       Property: p,
+      Missing:  props.Missing,
     }))
   }
   return []*shimast.Node{
@@ -253,6 +267,7 @@ func httpQueryProgrammer_decode_object(props struct {
 func httpQueryProgrammer_decode_regular_property(props struct {
   Context  nativecontext.ITypiaContext
   Property *schemametadata.MetadataProperty
+  Missing  bool
 }) *shimast.Node {
   f := nativecontext.EmitFactoryOf(httpQueryProgrammer_factory, props.Context.Emit)
   key := httpProgrammer_property_key(props.Property)
@@ -277,9 +292,9 @@ func httpQueryProgrammer_decode_regular_property(props struct {
       }),
       shimast.NodeFlagsNone,
     )
-    if value.IsRequired() {
-      input = httpQueryProgrammer_assert_required_array(key, input, props.Context.Emit)
-    }
+    // An absent key reads as an empty list. A query string has no other
+    // spelling for `[]`, so a required array decodes it as `[]` rather than as
+    // a missing property, and a nullable one as `null` (samchon/typia#2444).
     input = f.NewCallExpression(
       nativefactories.IdentifierFactory.Access(
         props.Context.Emit,
@@ -301,11 +316,13 @@ func httpQueryProgrammer_decode_regular_property(props struct {
           httpQueryProgrammer_decode_value(struct {
             Context  nativecontext.ITypiaContext
             Type     string
+            Nullable bool
             Coalesce bool
             Input    *shimast.Node
           }{
             Context:  props.Context,
             Type:     typ,
+            Nullable: httpProgrammer_decode_nullable(value),
             Coalesce: false,
             Input:    f.NewIdentifier("elem"),
           }),
@@ -323,18 +340,20 @@ func httpQueryProgrammer_decode_regular_property(props struct {
       Input:    input,
     })
   } else {
-    if value.IsRequired() {
+    if value.IsRequired() && props.Missing {
       input = httpQueryProgrammer_assert_required_value(key, input, props.Context.Emit)
     }
     input = httpQueryProgrammer_decode_value(struct {
       Context  nativecontext.ITypiaContext
       Type     string
+      Nullable bool
       Coalesce bool
       Input    *shimast.Node
     }{
       Context:  props.Context,
       Type:     typ,
-      Coalesce: value.Nullable == false && value.IsRequired() == false,
+      Nullable: httpProgrammer_decode_nullable(value),
+      Coalesce: value.Nullable == false && value.Any == false && value.IsRequired() == false,
       Input:    input,
     })
   }
@@ -350,6 +369,7 @@ func httpQueryProgrammer_decode_regular_property(props struct {
 func httpQueryProgrammer_decode_value(props struct {
   Context  nativecontext.ITypiaContext
   Type     string
+  Nullable bool
   Coalesce bool
   Input    *shimast.Node
 }) *shimast.Node {
@@ -358,7 +378,7 @@ func httpQueryProgrammer_decode_value(props struct {
     httpParameterProgrammer_internal(props.Context, "httpQueryRead"+httpParameterProgrammer_capitalize(props.Type)),
     nil,
     nil,
-    f.NewNodeList([]*shimast.Node{props.Input}),
+    f.NewNodeList(httpProgrammer_read_arguments(props.Type, props.Nullable, props.Input, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )
   if props.Coalesce == false {
@@ -396,43 +416,6 @@ func httpQueryProgrammer_assert_required_value(key string, input *shimast.Node, 
             nil,
             f.NewToken(shimast.KindEqualsEqualsEqualsToken),
             f.NewKeywordExpression(shimast.KindNullKeyword),
-          ),
-          f.NewThrowStatement(httpQueryProgrammer_missing_error(key, emit...)),
-          nil,
-        ),
-        f.NewReturnStatement(value),
-      }), true),
-    ),
-    nil,
-    nil,
-    nil,
-    shimast.NodeFlagsNone,
-  )
-}
-
-func httpQueryProgrammer_assert_required_array(key string, input *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.Node {
-  f := nativecontext.EmitFactoryOf(httpQueryProgrammer_factory, emit...)
-  value := f.NewIdentifier("value")
-  return f.NewCallExpression(
-    f.NewArrowFunction(
-      nil,
-      nil,
-      f.NewNodeList(nil),
-      nil,
-      nil,
-      f.NewToken(shimast.KindEqualsGreaterThanToken),
-      f.NewBlock(f.NewNodeList([]*shimast.Node{
-        nativefactories.StatementFactory.Constant(nativefactories.StatementFactory_ConstantProps{
-          Name:  "value",
-          Value: input,
-        }, emit...),
-        f.NewIfStatement(
-          f.NewBinaryExpression(
-            nil,
-            nativefactories.ExpressionFactory.Number(0, emit...),
-            nil,
-            f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-            nativefactories.IdentifierFactory.Access(nil, value, "length"),
           ),
           f.NewThrowStatement(httpQueryProgrammer_missing_error(key, emit...)),
           nil,

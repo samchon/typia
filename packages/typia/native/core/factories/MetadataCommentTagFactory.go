@@ -6,6 +6,7 @@ import (
   "strings"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativeutils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
 
 type metadataCommentTagFactoryNamespace struct{}
@@ -230,37 +231,37 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    value := metadataCommentTagFactory_parse_integer(struct {
+    value := metadataCommentTagFactory_value(metadataCommentTagFactory_parse_integer(struct {
       Report   func(msg string) any
       Unsigned bool
       Value    string
-    }{Report: props.Report, Value: props.Value, Unsigned: true})
+    }{Report: props.Report, Value: props.Value, Unsigned: true}))
     return metadataCommentTagFactory_TagRecord{"array": {
-      {Name: "MinItems<" + props.Value + ">", Target: "array", Kind: "minItems", Value: value, Validate: props.Value + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minItems"), Schema: map[string]any{"minItems": value}},
-      {Name: "MaxItems<" + props.Value + ">", Target: "array", Kind: "maxItems", Value: value, Validate: "$input.length <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxItems"), Schema: map[string]any{"maxItems": value}},
+      {Name: "MinItems<" + props.Value + ">", Target: "array", Kind: "minItems", Value: value, Validate: metadataCommentTagFactory_splice(props.Value) + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minItems"), Schema: map[string]any{"minItems": value}},
+      {Name: "MaxItems<" + props.Value + ">", Target: "array", Kind: "maxItems", Value: value, Validate: "$input.length <= " + metadataCommentTagFactory_splice(props.Value), Exclusive: metadataCommentTagFactory_exclusive("maxItems"), Schema: map[string]any{"maxItems": value}},
     }}
   },
   "minItems": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    value := metadataCommentTagFactory_parse_integer(struct {
+    value := metadataCommentTagFactory_value(metadataCommentTagFactory_parse_integer(struct {
       Report   func(msg string) any
       Unsigned bool
       Value    string
-    }{Report: props.Report, Value: props.Value, Unsigned: true})
-    return metadataCommentTagFactory_TagRecord{"array": {{Name: "MinItems<" + props.Value + ">", Target: "array", Kind: "minItems", Value: value, Validate: props.Value + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minItems"), Schema: map[string]any{"minItems": value}}}}
+    }{Report: props.Report, Value: props.Value, Unsigned: true}))
+    return metadataCommentTagFactory_TagRecord{"array": {{Name: "MinItems<" + props.Value + ">", Target: "array", Kind: "minItems", Value: value, Validate: metadataCommentTagFactory_splice(props.Value) + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minItems"), Schema: map[string]any{"minItems": value}}}}
   },
   "maxItems": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    value := metadataCommentTagFactory_parse_integer(struct {
+    value := metadataCommentTagFactory_value(metadataCommentTagFactory_parse_integer(struct {
       Report   func(msg string) any
       Unsigned bool
       Value    string
-    }{Report: props.Report, Value: props.Value, Unsigned: true})
-    return metadataCommentTagFactory_TagRecord{"array": {{Name: "MaxItems<" + props.Value + ">", Target: "array", Kind: "maxItems", Value: value, Validate: "$input.length <= " + props.Value, Exclusive: metadataCommentTagFactory_exclusive("maxItems"), Schema: map[string]any{"maxItems": value}}}}
+    }{Report: props.Report, Value: props.Value, Unsigned: true}))
+    return metadataCommentTagFactory_TagRecord{"array": {{Name: "MaxItems<" + props.Value + ">", Target: "array", Kind: "maxItems", Value: value, Validate: "$input.length <= " + metadataCommentTagFactory_splice(props.Value), Exclusive: metadataCommentTagFactory_exclusive("maxItems"), Schema: map[string]any{"maxItems": value}}}}
   },
   "uniqueItems": func(props struct {
     Report func(msg string) any
@@ -273,25 +274,25 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "Minimum", "minimum", props.Value+" <= $input", props.Value+" <= $input")
+    return metadataCommentTagFactory_numeric(props, "Minimum", "minimum", metadataCommentTagFactory_splice(props.Value)+" <= $input", metadataCommentTagFactory_splice(props.Value)+" <= $input")
   },
   "maximum": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "Maximum", "maximum", "$input <= "+props.Value, "$input <= "+props.Value)
+    return metadataCommentTagFactory_numeric(props, "Maximum", "maximum", "$input <= "+metadataCommentTagFactory_splice(props.Value), "$input <= "+metadataCommentTagFactory_splice(props.Value))
   },
   "exclusiveMinimum": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "ExclusiveMinimum", "exclusiveMinimum", props.Value+" < $input", props.Value+" < $input")
+    return metadataCommentTagFactory_numeric(props, "ExclusiveMinimum", "exclusiveMinimum", metadataCommentTagFactory_splice(props.Value)+" < $input", metadataCommentTagFactory_splice(props.Value)+" < $input")
   },
   "exclusiveMaximum": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "ExclusiveMaximum", "exclusiveMaximum", "$input < "+props.Value, "$input < "+props.Value)
+    return metadataCommentTagFactory_numeric(props, "ExclusiveMaximum", "exclusiveMaximum", "$input < "+metadataCommentTagFactory_splice(props.Value), "$input < "+metadataCommentTagFactory_splice(props.Value))
   },
   "multipleOf": func(props struct {
     Report func(msg string) any
@@ -303,7 +304,7 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     // answers a different question than the `multipleOf` keyword this tag emits.
     // The bigint arm needs no helper: a bigint remainder is already exact.
     // `_isMultipleOf` first shipped in 13.1.19; see the doc comment above.
-    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+props.Value+")", "$input % "+props.Value+"n === 0n")
+    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+metadataCommentTagFactory_splice(props.Value)+")", "$input % "+metadataCommentTagFactory_splice(props.Value)+"n === 0n")
   },
   "format": func(props struct {
     Report func(msg string) any
@@ -335,8 +336,8 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     // The comparison helpers keep that code-point walk but stop when the
     // declared boundary already determines the answer.
     return metadataCommentTagFactory_TagRecord{"string": {
-      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: "$importInternal(\"_stringLengthGte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
-      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLengthLte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
+      {Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: "$importInternal(\"_stringLengthGte\")($input, " + metadataCommentTagFactory_splice(props.Value) + ")", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}},
+      {Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLengthLte\")($input, " + metadataCommentTagFactory_splice(props.Value) + ")", Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}},
     }}
   },
   "minLength": func(props struct {
@@ -344,14 +345,14 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: "$importInternal(\"_stringLengthGte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MinLength<" + props.Value + ">", Target: "string", Kind: "minLength", Value: value, Validate: "$importInternal(\"_stringLengthGte\")($input, " + metadataCommentTagFactory_splice(props.Value) + ")", Exclusive: metadataCommentTagFactory_exclusive("minLength"), Schema: map[string]any{"minLength": value}}}}
   },
   "maxLength": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
     value := metadataCommentTagFactory_parse_number(props)
-    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLengthLte\")($input, " + props.Value + ")", Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}}}}
+    return metadataCommentTagFactory_TagRecord{"string": {{Name: "MaxLength<" + props.Value + ">", Target: "string", Kind: "maxLength", Value: value, Validate: "$importInternal(\"_stringLengthLte\")($input, " + metadataCommentTagFactory_splice(props.Value) + ")", Exclusive: metadataCommentTagFactory_exclusive("maxLength"), Schema: map[string]any{"maxLength": value}}}}
   },
 }
 
@@ -495,16 +496,56 @@ func metadataCommentTagFactory_numeric(props struct {
   return record
 }
 
+// metadataCommentTagFactory_value unwraps a parsed count into the record's
+// value and schema. Storing the pointer itself let every consumer that formats
+// a value print an address: strict LLM schemas described `@minItems 2` as
+// `@minItems 0xc000012345`.
+func metadataCommentTagFactory_value(value *int64) any {
+  if value == nil {
+    return nil
+  }
+  return *value
+}
+
 func metadataCommentTagFactory_parse_number(props struct {
   Report func(msg string) any
   Value  string
 }) any {
-  parsed, err := strconv.ParseFloat(props.Value, 64)
-  if err != nil || math.IsNaN(parsed) {
+  reading := nativeutils.NumberUtil.Read(props.Value)
+  if reading.Numeric == false {
     props.Report("invalid number")
     return nil
   }
-  return parsed
+  // A JSON Schema keyword such as `minimum` must be a JSON number, and JSON has
+  // no spelling for an infinity (samchon/typia#2452).
+  if reading.Finite == false {
+    props.Report("non-finite number")
+    return nil
+  }
+  return reading.Value
+}
+
+// metadataCommentTagFactory_splice respells a numeric tag value for the
+// validator the record splices it into (`16 <= $input`, `$input % 1000n`).
+//
+// The spliced text has to be JavaScript for the value the tag was read as, in
+// both the number and the bigint target. The source spelling need not be:
+// `0x10` happens to be, but `1e3`, `1.0`, `+5`, and `007` are integers whose
+// bigint splice (`1e3n`, `1.0n`, `+5n`, `007n`) is no valid BigInt expression
+// (samchon/typia#2442). An integer spelling keeps its digits as written, so the
+// splice never rounds where the source did not: `Number()` would read
+// `9007199254740993` as ...992, while the bigint `@multipleOf` check appends
+// `n` to the digits and compares exactly.
+// Text that does not read as a finite number is passed through; the parser
+// reports it and nothing is emitted.
+func metadataCommentTagFactory_splice(value string) string {
+  if integer, ok := nativeutils.NumberUtil.Integer(value); ok {
+    return integer.String()
+  }
+  if reading := nativeutils.NumberUtil.Read(value); reading.Numeric && reading.Finite {
+    return nativeutils.NumberUtil.String(reading.Value)
+  }
+  return value
 }
 
 func metadataCommentTagFactory_parse_integer(props struct {

@@ -2,6 +2,7 @@ import { IHttpMigrateRoute, OpenApi } from "@typia/interface";
 
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
+import { JsonCanonical } from "../../utils/internal/JsonCanonical";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
@@ -18,6 +19,20 @@ export namespace HttpMigrateRouteComposer {
     operation: OpenApi.IOperation;
   }
   export const compose = (props: IProps): IHttpMigrateRoute | string[] => {
+    const before: Set<string> = new Set(
+      Object.keys(props.document.components.schemas ?? {}),
+    );
+    const result: IHttpMigrateRoute | string[] = composeRoute(props);
+    // A failed route is not migrated, so it keeps no component either, least
+    // of all a name a valid route would otherwise own (#2451).
+    if (Array.isArray(result) && props.document.components.schemas)
+      for (const key of Object.keys(props.document.components.schemas))
+        if (before.has(key) === false)
+          delete props.document.components.schemas[key];
+    return result;
+  };
+
+  const composeRoute = (props: IProps): IHttpMigrateRoute | string[] => {
     sanitizeOperationSchemas(props.document)(props.operation);
 
     //----
@@ -723,19 +738,43 @@ export namespace HttpMigrateRouteComposer {
       },
     );
 
+  /**
+   * Store an inline schema as a component named from its route.
+   *
+   * The name folds `{param}` segments, separators, and letter case, so two
+   * routes can derive the same name (`GET /users` and `GET /users/{id}` both
+   * derive `IApiUsers.GetResponse`), and the document may already own it.
+   * Overwriting made one route silently declare another route's schema (#2451).
+   * A taken name is escaped instead, by prefixing `_` to its last segment until
+   * it is free, the convention accessors use for duplicates; a route without a
+   * collision keeps its name. A name that already holds the very same schema,
+   * whatever its key order, is reused, so migrating a migrated document again,
+   * which still carries its inline schemas, keeps every name, also after a
+   * conversion that reordered their keys.
+   */
   const emplaceReference = (props: {
     document: OpenApi.IDocument;
     name: string;
     schema: OpenApi.IJsonSchema;
   }): OpenApi.IJsonSchema.IReference => {
-    props.document.components.schemas ??= {};
-    ObjectDictionary.set(
-      props.document.components.schemas,
-      props.name,
-      sanitizeSchema(props.document)(props.schema),
+    const schemas: Record<string, OpenApi.IJsonSchema> =
+      (props.document.components.schemas ??= {});
+    const schema: OpenApi.IJsonSchema = sanitizeSchema(props.document)(
+      props.schema,
     );
+    const text: string = JsonCanonical.stringify(schema);
+    const dot: number = props.name.lastIndexOf(".");
+    const namespace: string = props.name.substring(0, dot + 1);
+    let member: string = props.name.substring(dot + 1);
+    while (
+      ObjectDictionary.has(schemas, namespace + member) &&
+      JsonCanonical.stringify(schemas[namespace + member]) !== text
+    )
+      member = `_${member}`;
+    const name: string = namespace + member;
+    ObjectDictionary.set(schemas, name, schema);
     return {
-      $ref: `#/components/schemas/${props.name}`,
+      $ref: `#/components/schemas/${name}`,
     } satisfies OpenApi.IJsonSchema.IReference;
   };
 

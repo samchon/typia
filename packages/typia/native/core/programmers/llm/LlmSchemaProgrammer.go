@@ -15,6 +15,7 @@ import (
   nativeiterate "github.com/samchon/typia/packages/typia/native/core/programmers/iterate"
   nativejson "github.com/samchon/typia/packages/typia/native/core/programmers/json"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativeutils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
 
 type llmSchemaProgrammerNamespace struct{}
@@ -709,11 +710,11 @@ func llmSchemaProgrammer_shift_array(schema map[string]any) map[string]any {
   output := llmSchemaProgrammer_clone(schema)
   tags := []string{}
   if value, ok := output["minItems"]; ok {
-    tags = append(tags, "@minItems "+fmt.Sprint(value))
+    tags = append(tags, "@minItems "+llmSchemaProgrammer_tag_text(value))
     delete(output, "minItems")
   }
   if value, ok := output["maxItems"]; ok {
-    tags = append(tags, "@maxItems "+fmt.Sprint(value))
+    tags = append(tags, "@maxItems "+llmSchemaProgrammer_tag_text(value))
     delete(output, "maxItems")
   }
   if value, ok := output["uniqueItems"].(bool); ok {
@@ -732,7 +733,7 @@ func llmSchemaProgrammer_shift_numeric(schema map[string]any) map[string]any {
   tags := []string{}
   for _, key := range []string{"minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "multipleOf", "default"} {
     if value, ok := output[key]; ok {
-      tags = append(tags, "@"+key+" "+fmt.Sprint(value))
+      tags = append(tags, "@"+key+" "+llmSchemaProgrammer_tag_text(value))
       delete(output, key)
     }
   }
@@ -745,12 +746,41 @@ func llmSchemaProgrammer_shift_string(schema map[string]any) map[string]any {
   tags := []string{}
   for _, key := range []string{"minLength", "maxLength", "format", "pattern", "contentMediaType", "default"} {
     if value, ok := output[key]; ok {
-      tags = append(tags, "@"+key+" "+fmt.Sprint(value))
+      tags = append(tags, "@"+key+" "+llmSchemaProgrammer_tag_text(value))
       delete(output, key)
     }
   }
   llmSchemaProgrammer_write_tag_with_description(output, tags)
   return output
+}
+
+// llmSchemaProgrammer_tag_text writes a shifted constraint value as `@typia/utils`'
+// OpenApiConstraintShifter does, through JavaScript's template interpolation.
+//
+// A numeric literal from a type tag arrives as the compiler's `jsnum.Number`,
+// whose `String()` already follows JavaScript, but a comment tag's value is a
+// plain float64, and `fmt.Sprint` spells it the Go way: `1e+06` for 1000000,
+// `1e-07` for 1e-7, `+Inf` for an infinity (samchon/typia#2452). Every float is
+// therefore spelled by `NumberUtil.String`, whatever its defined type, and a
+// pointer is followed to the value it holds.
+func llmSchemaProgrammer_tag_text(value any) string {
+  reflected := reflect.ValueOf(value)
+  for reflected.IsValid() && reflected.Kind() == reflect.Pointer && reflected.IsNil() == false {
+    reflected = reflected.Elem()
+  }
+  if reflected.IsValid() == false {
+    return fmt.Sprint(value)
+  }
+  switch reflected.Kind() {
+  case reflect.Float32, reflect.Float64:
+    return nativeutils.NumberUtil.String(reflected.Float())
+  case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+    // JavaScript holds the count as a double, rounding past 2^53.
+    return nativeutils.NumberUtil.String(float64(reflected.Int()))
+  case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+    return nativeutils.NumberUtil.String(float64(reflected.Uint()))
+  }
+  return fmt.Sprint(reflected.Interface())
 }
 
 func llmSchemaProgrammer_write_tag_with_description(schema map[string]any, tags []string) {

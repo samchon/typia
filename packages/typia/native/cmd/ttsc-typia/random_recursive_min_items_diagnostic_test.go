@@ -13,7 +13,8 @@ import (
 // with a positive `MinItems` constraint is unsatisfiable. The build command must
 // report a real transform diagnostic across direct aliases, type aliases, graph
 // cycles, map-key and map-value graph cycles, nested direct aliases, and
-// tuple-union nesting for both immediate and factory random entrypoints.
+// tuple-union nesting for both immediate and factory random entrypoints, and
+// for the `@minItems` comment-tag spelling.
 //
 // 1. Build a recursive object whose child array has `MinItems<1>`.
 // 2. Build a direct recursive array alias with `MinItems<1>`.
@@ -25,6 +26,7 @@ func TestRandomRecursiveMinItemsDiagnostic(t *testing.T) {
     source string
   }{
     {"object-child", randomRecursiveMinItemsObjectSource},
+    {"comment-tag", randomRecursiveMinItemsCommentTagSource},
     {"property-alias", randomRecursiveMinItemsPropertyAliasSource},
     {"mutual-graph", randomRecursiveMinItemsGraphSource},
     {"map-key-graph", randomRecursiveMinItemsMapKeyGraphSource},
@@ -115,6 +117,21 @@ const randomRecursiveMinItemsObjectSource = `import typia, { tags } from "typia"
 interface INode {
   value: string;
   children: INode[] & tags.MinItems<1>;
+}
+
+typia.random<INode>();
+typia.createRandom<INode>();
+`
+
+// The JSDoc spelling of the same constraint must fail the same way. Its count
+// used to be stored as a pointer the positivity check could not read, so the
+// comment tag silently let the unsatisfiable type through.
+const randomRecursiveMinItemsCommentTagSource = `import typia from "typia";
+
+interface INode {
+  value: string;
+  /** @minItems 1 */
+  children: INode[];
 }
 
 typia.random<INode>();

@@ -57,7 +57,22 @@ var expressionFactory_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{
 func (expressionFactoryNamespace) Number(value any, emit ...*shimprinter.EmitContext) *shimast.Node {
   f := nativecontext.EmitFactoryOf(expressionFactory_factory, emit...)
   text, numeric := expressionFactory_number_text(value)
-  if numeric < 0 {
+  // Go spells the non-finite floats `NaN`, `+Inf`, and `-Inf`. Only the first
+  // happens to be JavaScript; `+Inf` evaluates an undeclared `Inf` and throws a
+  // ReferenceError when the emitted function first runs (samchon/typia#2452).
+  // Spell them as the globals, as TypeScript's own factory does.
+  if math.IsNaN(numeric) {
+    return f.NewIdentifier("NaN")
+  }
+  if math.IsInf(numeric, 0) {
+    if numeric < 0 {
+      return f.NewPrefixUnaryExpression(shimast.KindMinusToken, f.NewIdentifier("Infinity"))
+    }
+    return f.NewIdentifier("Infinity")
+  }
+  // Negative zero takes the same negation as every negative value; its text
+  // `-0` is not a numeric literal on its own.
+  if numeric < 0 || (numeric == 0 && math.Signbit(numeric)) {
     return f.NewPrefixUnaryExpression(
       shimast.KindMinusToken,
       f.NewNumericLiteral(expressionFactory_number_abs_text(numeric), shimast.TokenFlagsNone),

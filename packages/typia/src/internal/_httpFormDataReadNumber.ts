@@ -3,7 +3,9 @@ export const _httpFormDataReadNumber = (
 ): number | null | undefined =>
   input instanceof File
     ? (input as any)
-    : !!input?.length
+    : // Blank text is absent, as the empty string always was: `Number(" ")`
+      // is 0, which would read a whitespace value as a real zero (#2448).
+      typeof input === "string" && input.trim().length !== 0
       ? input === "null"
         ? null
         : (toNumber(input) as any)
