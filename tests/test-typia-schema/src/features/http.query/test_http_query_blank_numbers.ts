@@ -1,5 +1,5 @@
 import { TestEquality } from "@typia/template/equality";
-import typia, { IValidation } from "typia";
+import typia, { IReadableURLSearchParams, IValidation } from "typia";
 
 /**
  * Verifies blank query values never decode to zero.
@@ -11,7 +11,8 @@ import typia, { IValidation } from "typia";
  *
  * 1. Decode blank and empty numeric and bigint values through all eight forms.
  * 2. Require optional blanks to be absent and array blanks to be rejected.
- * 3. Keep `0`, a space-padded `1`, `1e3`, and `0x10` as the negative twins.
+ * 3. Keep `0`, a space-padded `1`, `1e3`, and `0x10` as the negative twins, and
+ *    read an `undefined` from a stand-in reader as absent.
  */
 export const test_http_query_blank_numbers = (): void => {
   const decoders: Array<[string, (input: string) => IQuery | null]> = [
@@ -40,6 +41,22 @@ export const test_http_query_blank_numbers = (): void => {
     for (const [input, expected] of cases)
       TestEquality.equals(`${name}(${input})`, decode(input), expected);
 
+  // a stand-in reader that answers `undefined` for an absent key reads as
+  // absent in every reader, instead of throwing on `.length`
+  const foreign: IReadableURLSearchParams = {
+    size: 0,
+    get: () => undefined as unknown as null,
+    getAll: () => [],
+    has: () => false,
+    forEach: () => {},
+  } as unknown as IReadableURLSearchParams;
+  TestEquality.equals("stand-in reader", typia.http.query<IQuery>(foreign), {
+    n: undefined,
+    b: undefined,
+    flag: undefined,
+    list: undefined,
+  });
+
   // a blank element is not a number
   TestEquality.equals(
     "blank element",
@@ -57,5 +74,6 @@ const unwrap = <T>(result: IValidation<T>): T | null =>
 interface IQuery {
   n?: number;
   b?: bigint;
+  flag?: boolean;
   list?: number[];
 }
