@@ -165,9 +165,16 @@ func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
     {"-1" + zeros(2000), infinite(-1)},
     {"1" + zeros(800) + "e99999999999999999999", infinite(1)},
     {zeros(900) + "e99999999999999999999", finite(0)},
+    // a tie broken only by a digit past the thousand kept, which the sticky
+    // digit carries into the rounding
+    {"9007199254740993" + zeros(990) + "1e-991", finite(9007199254740994)},
+    // exponents near the int64 edges, which the order must not overflow with
+    {zeros(700) + "1e9223372036854775807", infinite(1)},
+    {"." + zeros(700) + "1e-9223372036854775808", finite(0)},
+    {"-." + zeros(700) + "1e-9223372036854775808", finite(0)},
   } {
     if reading := NumberUtil.Read(item.text); reading != item.expected {
-      t.Fatalf("Read(%d digits) = %#v, expected %#v", len(item.text), reading, item.expected)
+      t.Fatalf("Read(%d-character text) = %#v, expected %#v", len(item.text), reading, item.expected)
     }
   }
 }

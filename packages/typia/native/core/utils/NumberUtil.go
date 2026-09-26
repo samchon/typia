@@ -120,9 +120,10 @@ func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
 // double is the written value itself. `9007199254740993` and
 // `9007199254740993.0` both read as 9007199254740992, but their rational value
 // is 9007199254740993. Text `Read` does not find numeric and finite reports
-// false, and so does text `big.Rat` refuses to expand: a non-zero mantissa
-// whose exponent, net of its fraction digits, lies beyond a million in
-// magnitude (`1e-1000001` reads as 0 but has no exact value here).
+// false, and so does text `big.Rat` refuses to expand: an exponent outside the
+// int64 range, or a non-zero mantissa whose exponent, net of its fraction
+// digits, lies beyond a million in magnitude (`1e-1000001` reads as 0 but has
+// no exact value here).
 func (numberUtilNamespace) Rational(text string) (*big.Rat, bool) {
   if reading := NumberUtil.Read(text); reading.Numeric == false || reading.Finite == false {
     return nil, false
@@ -164,13 +165,17 @@ func (numberUtilNamespace) String(value float64) string {
   return mantissa + "e" + sign + digits
 }
 
-// numberUtil_LONG_MANTISSA is where `strconv.ParseFloat` stops reading a decimal
-// correctly. Its decimal buffer holds 800 digits and places the point by the
-// stored ones, so a longer mantissa with an exponent reads wrong:
-// `1` followed by 800 zeros and `e-800` reads as 0.1, where `Number()` reads 1.
-// Longer mantissas take numberUtil_readLong instead; the margin keeps clear of
-// the buffer's edge.
+// numberUtil_LONG_MANTISSA is the mantissa length from which numberUtil_readLong
+// replaces `strconv.ParseFloat`. The latter's decimal buffer holds 800 digits
+// and places the point by the stored ones, so a mantissa of more than 800
+// significant digits with an exponent reads wrong: `1` followed by 800 zeros
+// and `e-800` reads as 0.1, where `Number()` reads 1. Counting every digit
+// against 700 keeps well clear of that edge.
 const numberUtil_LONG_MANTISSA = 700
+
+// numberUtil_EXPONENT_LIMIT bounds the exponent numberUtil_readLong computes
+// with, far beyond any double yet far from overflowing int64.
+const numberUtil_EXPONENT_LIMIT = int64(1) << 40
 
 // numberUtil_mantissaLength counts the digits before the exponent.
 func numberUtil_mantissaLength(text string) int {
@@ -199,10 +204,11 @@ func numberUtil_readLong(text string) float64 {
   body := strings.TrimLeft(text, "+-")
   exponent := int64(0)
   if index := strings.IndexAny(body, "eE"); index != -1 {
+    // Saturate: any exponent past 2^40 in magnitude puts the value beyond the
+    // double range, and clamping keeps the order below from overflowing int64.
     parsed, err := strconv.ParseInt(body[index+1:], 10, 64)
-    if err != nil {
-      // saturate: any magnitude this large lies beyond the double range
-      parsed = 1 << 40
+    if err != nil || parsed > numberUtil_EXPONENT_LIMIT || parsed < -numberUtil_EXPONENT_LIMIT {
+      parsed = numberUtil_EXPONENT_LIMIT
       if strings.HasPrefix(body[index+1:], "-") {
         parsed = -parsed
       }

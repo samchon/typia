@@ -556,9 +556,9 @@ func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, o
 // Its double, which `NumberUtil.Read` rounds correctly, settles most texts
 // without expanding them. A non-integer double comes only from a non-integer
 // text, and a zero from a text with a non-zero digit is the underflow of a
-// non-integer. A double at 2^63 or beyond in magnitude is refused too: the
-// int64 texts that round there (up from 9223372036854775296) are no doubles, so
-// no bigint record could hold them anyway. `big.Rat` expands only what remains,
+// non-integer. A double at 2^63 or above, or below -2^63, is refused too: the
+// int64 texts that round up to 2^63 (from 9223372036854775296) are no doubles,
+// so no bigint record could hold them anyway. `big.Rat` expands only what remains,
 // so a short text such as `@minimum 1e-1000000` costs nothing, on any target.
 func metadataCommentTagFactory_integer(text string) (*big.Int, bool) {
   reading := nativeutils.NumberUtil.Read(text)
@@ -642,10 +642,11 @@ func metadataCommentTagFactory_splice(value string) string {
 
 // metadataCommentTagFactory_splice_integer respells a tag value for a bigint
 // validator: the exact digits of the integer the text writes, whatever its
-// spelling, for every value a bigint record holds. `1.152921504606846976e18` writes 2^60, while its double spells
-// 1152921504606847000, which spliced before an `n` would check a different
-// integer (samchon/typia#2457). Text that writes no integer has no bigint
-// record, and falls back to the number splice.
+// spelling, for every value a bigint record holds. `1.152921504606846976e18`
+// writes 2^60, while its double spells 1152921504606847000, which spliced
+// before an `n` would check a different integer (samchon/typia#2457). Text
+// that writes no integer has no bigint record, and falls back to the number
+// splice.
 func metadataCommentTagFactory_splice_integer(value string) string {
   if integer, ok := metadataCommentTagFactory_integer(value); ok {
     return integer.String()
