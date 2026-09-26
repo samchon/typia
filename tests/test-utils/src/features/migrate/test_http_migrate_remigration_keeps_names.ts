@@ -1,4 +1,4 @@
-import { IHttpMigrateApplication, OpenApi } from "@typia/interface";
+import { IHttpMigrateApplication } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
 import { HttpMigration, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
@@ -46,20 +46,16 @@ export const test_http_migrate_remigration_keeps_names =
         const app: IHttpMigrateApplication =
           HttpMigration.application(document);
         const expected = references(app);
-        const inputs: Array<[string, OpenApi.IDocument | object]> = [
+        const inputs: Array<
+          [string, Parameters<typeof HttpMigration.application>[0]]
+        > = [
           ["direct", app.document()],
           ["3.1", OpenApiConverter.downgradeDocument(app.document(), "3.1")],
           ["3.0", OpenApiConverter.downgradeDocument(app.document(), "3.0")],
         ];
         for (const [title, input] of inputs) {
-          const again = references(HttpMigration.application(input as any));
-          for (const [key, value] of Object.entries(expected))
-            if (again[key] !== undefined)
-              TestEquality.equals(
-                `${version}/${file} ${title} ${key}`,
-                again[key],
-                value,
-              );
+          const again = references(HttpMigration.application(input));
+          TestEquality.equals(`${version}/${file} ${title}`, again, expected);
         }
       }
     }

@@ -160,6 +160,39 @@ export const test_openapi_converter_v20_reference_parameter = (): void => {
     "non-body parameter references must not form a cycle",
   );
 
+  rejects(
+    "self-referencing form array",
+    () =>
+      OpenApiConverter.downgradeDocument(
+        {
+          ...document([], {
+            schemas: { A: { type: "array", items: reference("A") } },
+          }),
+          paths: {
+            "/f": {
+              post: {
+                requestBody: {
+                  required: true,
+                  content: {
+                    "multipart/form-data": {
+                      schema: {
+                        type: "object",
+                        properties: { a: reference("A") },
+                        required: ["a"],
+                      },
+                    },
+                  },
+                },
+                responses: { 200: { description: "ok" } },
+              },
+            },
+          },
+        },
+        "2.0",
+      ),
+    "non-body parameter references must not form a cycle",
+  );
+
   // a form field is a non-body parameter too: a nullable reference, which
   // downgrades to a `.Nullable` definition reference, reads back as well
   const form: OpenApi.IDocument = {

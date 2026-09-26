@@ -393,9 +393,14 @@ export namespace SwaggerV2Downgrader {
       // and so is one in the items of an array field.
       // The simple-schema gate reads the field before `typeEnumeration` adds a
       // `type`, which would otherwise let a malformed union through as a string.
+      // One visited set spans the items chain, so an array whose items refer
+      // back to itself is a cycle, not an endless descent.
+      const visited: Set<string> = new Set();
       const inline = (next: SwaggerV2.IJsonSchema): SwaggerV2.IJsonSchema => {
-        const inlined: SwaggerV2.IJsonSchema =
-          inlineReference(collection)(next);
+        const inlined: SwaggerV2.IJsonSchema = inlineReference(
+          collection,
+          visited,
+        )(next);
         return SwaggerV2TypeChecker.isArray(inlined)
           ? { ...inlined, items: inline(inlined.items) }
           : inlined;
@@ -422,9 +427,8 @@ export namespace SwaggerV2Downgrader {
    * only through a cycle, is not representable.
    */
   const inlineReference =
-    (collection: IComponentsCollection) =>
+    (collection: IComponentsCollection, visited: Set<string> = new Set()) =>
     (schema: SwaggerV2.IJsonSchema): SwaggerV2.IJsonSchema => {
-      const visited: Set<string> = new Set();
       let current: SwaggerV2.IJsonSchema = schema;
       while (SwaggerV2TypeChecker.isReference(current)) {
         const { $ref, ...siblings } = current;
