@@ -152,6 +152,20 @@ export const test_http_migrate_path_character_names = (): void => {
       "/cafè": body,
       "/사용자": body,
       "/관리자": body,
+      "/١٢": body,
+      "/x/{١id}": {
+        post: {
+          ...body.post!,
+          parameters: [
+            {
+              name: "١id",
+              in: "path",
+              required: true,
+              schema: { type: "string" },
+            },
+          ],
+        },
+      },
     },
   });
   TestEquality.equals(
@@ -162,19 +176,27 @@ export const test_http_migrate_path_character_names = (): void => {
       ["_cafè", "post"],
       ["_사용자", "post"],
       ["_관리자", "post"],
+      // one escape for a non-ASCII lead, as before, not two
+      ["_١٢", "post"],
+      ["x", "postBy_id"],
     ],
+  );
+  TestEquality.equals(
+    "script parameter key",
+    scripts.routes.at(-1)?.parameters.map((p) => p.key),
+    ["_id"],
   );
   const scriptKeys: string[] = Object.keys(
     scripts.document().components.schemas ?? {},
   );
-  TestEquality.equals("script components", scriptKeys.length, 4);
+  TestEquality.equals("script components", scriptKeys.length, 6);
   // distinct letters derive distinct names, so none needs a collision escape
   TestEquality.equals(
     "script names unescaped",
     scripts.routes.map((r) =>
       (r.body?.schema as { $ref: string }).$ref.endsWith(".PostBody"),
     ),
-    [true, true, true, true],
+    [true, true, true, true, true, true],
   );
   for (const key of scriptKeys)
     TestEquality.equals(

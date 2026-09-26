@@ -175,6 +175,10 @@ export const test_openapi_converter_v20_reference_parameter = (): void => {
                   type: "object",
                   properties: {
                     status: { oneOf: [reference("Status"), { type: "null" }] },
+                    statuses: {
+                      type: "array",
+                      items: { oneOf: [reference("Status"), { type: "null" }] },
+                    },
                   },
                   required: ["status"],
                 },
@@ -197,5 +201,17 @@ export const test_openapi_converter_v20_reference_parameter = (): void => {
       ]!.schema as OpenApi.IJsonSchema.IObject
     ).properties!.status,
     { oneOf: [{ const: "on" }, { const: "off" }, { type: "null" }] },
+  );
+  TestEquality.equals(
+    "nullable form reference items",
+    (
+      formUpgraded.paths!["/f"]!.post!.requestBody!.content![
+        "multipart/form-data"
+      ]!.schema as OpenApi.IJsonSchema.IObject
+    ).properties!.statuses,
+    {
+      type: "array",
+      items: { oneOf: [{ const: "on" }, { const: "off" }, { type: "null" }] },
+    },
   );
 };

@@ -389,10 +389,18 @@ export namespace SwaggerV2Downgrader {
         return { ...rest, type: "file" };
       }
       // A nullable reference downgrades to a `.Nullable` definition reference,
-      // which a form field cannot hold, so it is inlined like a parameter's.
+      // which a form field cannot hold, so it is inlined like a parameter's,
+      // and so is one in the items of an array field.
       // The simple-schema gate reads the field before `typeEnumeration` adds a
       // `type`, which would otherwise let a malformed union through as a string.
-      const downgraded: SwaggerV2.IJsonSchema = inlineReference(collection)(
+      const inline = (next: SwaggerV2.IJsonSchema): SwaggerV2.IJsonSchema => {
+        const inlined: SwaggerV2.IJsonSchema =
+          inlineReference(collection)(next);
+        return SwaggerV2TypeChecker.isArray(inlined)
+          ? { ...inlined, items: inline(inlined.items) }
+          : inlined;
+      };
+      const downgraded: SwaggerV2.IJsonSchema = inline(
         downgradeSchema(collection)(schema),
       );
       if (isFormDataSchema(downgraded) === false)
