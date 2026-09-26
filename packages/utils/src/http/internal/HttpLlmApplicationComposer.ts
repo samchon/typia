@@ -462,12 +462,13 @@ export namespace HttpLlmApplicationComposer {
   /**
    * Shortens function names exceeding the character limit.
    *
-   * Takes the longest non-empty accessor suffix of at most `limit - 8`
-   * characters, the room an index prefix needs, and prefixes an index when it
-   * collides. When no suffix fits, it keeps as much of the last accessor
-   * segment as fits beside a hash of the full name. Every result is
-   * deterministic, fits the limit, and starts with no digit; shortening throws
-   * when every such hashed name is taken, as all are below 2.
+   * Tries the non-empty accessor suffixes of at most `limit - 8` characters,
+   * the room an index prefix needs, from the longest down: each as is, or with
+   * an index prefix when that is taken. When none is free, it keeps as much of
+   * the last accessor segment as fits beside a hash of the full name. Every
+   * result is deterministic, fits the limit, and starts with no digit;
+   * shortening throws when every such hashed name is taken, as all are below
+   * 2.
    */
   export const shorten = (
     app: IHttpLlmApplication,
@@ -521,8 +522,8 @@ export namespace HttpLlmApplicationComposer {
  * Abbreviates a function name that no accessor suffix could shorten.
  *
  * Keeps as much of the last accessor segment, the most specific one, as fits
- * beside a hash of the full name, none of it below a limit of 9, and rehashes
- * up to a thousand times until the name is free. This used to be a random UUID:
+ * beside a hash of the full name, none of it below a limit of 9, and tries up
+ * to a thousand hashes until the name is free. This used to be a random UUID:
  * the name changed on every composition, started with a digit ten times in
  * sixteen, which the composer forbids for any other name, and was longer than a
  * `limit` below 36 (#2456).
