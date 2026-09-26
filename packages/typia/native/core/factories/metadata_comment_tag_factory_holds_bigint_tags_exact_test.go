@@ -47,6 +47,8 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
     {"1e3", 1000},
     {"0x10", 16},
     {"-0", 0},
+    {"0e999999999", 0},
+    {"0x0", 0},
     {"10000000000000000", 10000000000000000},
   } {
     value, numeric, ok := metadataCommentTagFactory_bigint(item.text)
@@ -73,7 +75,7 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
     "1e-3",
     "5.0000000000000001", // `Number()` reads 5
     "1e-400",             // `Number()` reads 0
-    "1e-1000001",         // too large an exponent to hold exactly
+    "1e-1000001",         // underflows to 0, but writes no zero
   } {
     if _, numeric, ok := metadataCommentTagFactory_bigint(text); ok || numeric == false {
       t.Fatalf("%s must be a finite value no bigint tag states (numeric=%v ok=%v)", text, numeric, ok)
@@ -143,8 +145,8 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
   if _, messages := analyze([]string{"bigint"}, "minimum", "1.5"); len(messages) != 1 || messages[0] != "bigint value 1.5 is not an int64 integer that a number represents exactly" {
     t.Fatalf("@minimum 1.5 on a bigint must be refused, got %#v", messages)
   }
-  if _, messages := analyze([]string{"number", "bigint"}, "multipleOf", "1e-1000001"); len(messages) != 1 || messages[0] != "bigint value 1e-1000001 is not an int64 integer that a number represents exactly" {
-    t.Fatalf("@multipleOf 1e-1000001 on number | bigint must report the bigint part, got %#v", messages)
+  if _, messages := analyze([]string{"number", "bigint"}, "minimum", "1e-1000001"); len(messages) != 1 || messages[0] != "bigint value 1e-1000001 is not an int64 integer that a number represents exactly" {
+    t.Fatalf("@minimum 1e-1000001 on number | bigint must report the bigint part, got %#v", messages)
   }
   // Text that is no finite number is reported once, as such, on any target.
   for _, item := range []struct {

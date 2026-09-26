@@ -532,22 +532,56 @@ func metadataCommentTagFactory_numeric(props struct {
 //
 // numeric reports whether the text writes a finite number at all. One that is
 // no such integer -- `1.5`, `5.0000000000000001`, `9007199254740993`, or
-// `1e-1000001`, whose exponent is too large to hold exactly -- is a bigint bound
-// the tag cannot state, while text that is no finite number has already been
-// reported by the number arm.
+// `1e-1000001` -- is a bigint bound the tag cannot state, while text that is no
+// finite number has already been reported by the number arm.
 func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, ok bool) {
   if reading := nativeutils.NumberUtil.Read(text); reading.Numeric == false || reading.Finite == false {
     return 0, false, false
   }
-  rational, exact := nativeutils.NumberUtil.Rational(text)
-  if exact == false || rational.IsInt() == false || rational.Num().IsInt64() == false {
+  integer, exact := metadataCommentTagFactory_integer(text)
+  if exact == false || integer.IsInt64() == false {
     return 0, true, false
   }
-  integer := rational.Num()
   if _, accuracy := new(big.Float).SetInt(integer).Float64(); accuracy != big.Exact {
     return 0, true, false
   }
   return integer.Int64(), true, true
+}
+
+// metadataCommentTagFactory_integer is the integer a finite numeric text
+// writes exactly, if it writes one within the int64 range.
+//
+// Its double settles most texts without expanding them. A non-integer double
+// comes only from a non-integer text, a double outside the int64 range from a
+// text outside it too, and a zero from a text with a non-zero digit is the
+// underflow of a non-integer. `big.Rat` expands only what remains, so a short
+// text such as `@minimum 1e-1000000` costs nothing, on any target.
+func metadataCommentTagFactory_integer(text string) (*big.Int, bool) {
+  reading := nativeutils.NumberUtil.Read(text)
+  if reading.Numeric == false ||
+    reading.Finite == false ||
+    reading.Value != math.Trunc(reading.Value) ||
+    reading.Value < metadataCommentTagFactory_INT64_MINIMUM ||
+    reading.Value >= metadataCommentTagFactory_INT64_EXCLUSIVE_MAXIMUM {
+    return nil, false
+  }
+  if reading.Value == 0 {
+    // A zero writes zero only when no digit before its exponent is non-zero;
+    // otherwise it underflowed. A radix literal has no exponent.
+    mantissa := text
+    if index := strings.IndexAny(text, "eE"); index != -1 && strings.ContainsAny(text, "xXoObB") == false {
+      mantissa = text[:index]
+    }
+    if strings.ContainsAny(mantissa, "123456789") {
+      return nil, false
+    }
+    return big.NewInt(0), true
+  }
+  rational, ok := nativeutils.NumberUtil.Rational(text)
+  if ok == false || rational.IsInt() == false {
+    return nil, false
+  }
+  return rational.Num(), true
 }
 
 // metadataCommentTagFactory_value unwraps a parsed count into the record's
@@ -609,8 +643,8 @@ func metadataCommentTagFactory_splice(value string) string {
 // integer (samchon/typia#2457). Text that writes no integer has no bigint
 // record, and falls back to the number splice.
 func metadataCommentTagFactory_splice_integer(value string) string {
-  if rational, ok := nativeutils.NumberUtil.Rational(value); ok && rational.IsInt() {
-    return rational.Num().String()
+  if integer, ok := metadataCommentTagFactory_integer(value); ok {
+    return integer.String()
   }
   return metadataCommentTagFactory_splice(value)
 }
