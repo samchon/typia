@@ -265,7 +265,7 @@ export const test_equality_oracle = (): void => {
     null,
   );
   const refusal: string =
-    "TestEquality.thrown() takes a synchronous task; await an asynchronous one and catch its rejection.";
+    "TestEquality.thrown() takes a synchronous task; await a promise and catch its rejection, or iterate an async iterator, instead.";
   for (const [title, task] of [
     ["resolving task", async () => 1],
     [

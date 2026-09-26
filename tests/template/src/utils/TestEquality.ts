@@ -141,7 +141,7 @@ export namespace TestEquality {
 }
 
 const THROWN_ASYNCHRONOUS: string =
-  "TestEquality.thrown() takes a synchronous task; await an asynchronous one and catch its rejection.";
+  "TestEquality.thrown() takes a synchronous task; await a promise and catch its rejection, or iterate an async iterator, instead.";
 
 const report = (
   title: string,
