@@ -110,6 +110,26 @@ func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
   return new(big.Int).SetString(strings.TrimPrefix(text, "+"), 10)
 }
 
+// Rational is the exact value a finite numeric text writes.
+//
+// `Read` evaluates the text as `Number()` does, rounding it to the nearest
+// double; this keeps what the text says, so a caller can tell whether that
+// double is the written value itself. `9007199254740993` and
+// `9007199254740993.0` both read as 9007199254740992, but their rational value
+// is 9007199254740993. Text `Read` does not find numeric and finite reports
+// false.
+func (numberUtilNamespace) Rational(text string) (*big.Rat, bool) {
+  if reading := NumberUtil.Read(text); reading.Numeric == false || reading.Finite == false {
+    return nil, false
+  }
+  if integer, ok := NumberUtil.Integer(text); ok {
+    return new(big.Rat).SetInt(integer), true
+  }
+  // `Read` admitted only StrDecimalLiteral here, every spelling of which
+  // `big.Rat` parses: `5.`, `.5`, `+5`, and `1E3` included.
+  return new(big.Rat).SetString(strings.TrimFunc(text, numberUtil_isWhiteSpace))
+}
+
 // String spells a value exactly as JavaScript's `String(value)` does.
 //
 // That is `Number.prototype.toString`: positional notation from 1e-6 up to

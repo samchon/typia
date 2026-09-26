@@ -251,6 +251,7 @@ If you'd rather write JSDoc, the same constraints exist as `@`-prefixed tags:
 > - Comment tags only work on **object properties**. They don't apply to element types of `Array` or `Map`, and they can't be combined with union types.
 > - Comment tags can't express union constraints. `@type int32` locks the property to `int32`; you can't follow it with `@type float`.
 > - An item count must fit a signed 64-bit integer. `@minItems 10000000000000000000` is a compile error; it used to convert silently to an unrelated number.
+> - On a `bigint`, a range or `@multipleOf` value must be a 64-bit integer that a `number` represents exactly. `@minimum 9007199254740993` is a compile error there, because the bound would be enforced as 9007199254740992. A `number` property reads the same text as `Number()` does.
 >
 > Comment tags exist for JSDoc-style codebases that want to migrate incrementally without rewriting every property at once.
 
