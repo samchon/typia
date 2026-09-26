@@ -683,10 +683,13 @@ namespace http {
   function parameter<T extends boolean | bigint | number | string | null>(
     input: string,
   ): Resolved<T>;
+  function createParameter<
+    T extends boolean | bigint | number | string | null,
+  >(): (input: string) => Resolved<T>;
 }
 ```
 
-`http.parameter` decodes a single URL path parameter (a string from `:id` in your route) into the expected primitive type, **and always asserts**. Unlike `query` / `headers` / `formData`, there is no `isParameter`, `validateParameter`, or `createParameter` — a single path-parameter string is either parseable into `T` or it isn't, so typia exposes only the asserting form. If the value doesn't match `T`, it throws `TypeGuardError`.
+`http.parameter` decodes a single URL path parameter (a string from `:id` in your route) into the expected primitive type, **and always asserts**. Unlike `query` / `headers` / `formData`, there is no `isParameter` or `validateParameter` — a single path-parameter string is either parseable into `T` or it isn't, so typia exposes only the asserting form, and `createParameter` as its reusable factory. If the value doesn't match `T`, it throws `TypeGuardError`.
 
 ```typescript copy
 const id: number = typia.http.parameter<number>(request.params.id);

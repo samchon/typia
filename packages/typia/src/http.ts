@@ -22,7 +22,8 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * Decodes `FormData` into type `T`.
  *
  * Parses a `FormData` instance with automatic type casting. Properties typed as
- * `boolean` or `Blob` are cast to expected types during decoding.
+ * `boolean`, `bigint`, or `number` are cast from their text, and `Blob` and
+ * `File` properties are read as given.
  *
  * Type `T` constraints:
  *
@@ -31,6 +32,11 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
  *    types allowed
  * 4. No union types allowed
+ *
+ * An absent key decodes a required array to `[]`, a nullable one to `null`, and
+ * an optional one to `undefined`. A string property keeps the text `null`
+ * unless its type admits `null`, and a blank numeric value decodes to
+ * `undefined`.
  *
  * Does not validate the decoded value. For validation, use:
  *
@@ -164,8 +170,8 @@ export function validateFormData(): never {
  * Decodes URL query string into type `T`.
  *
  * Parses a query string or `URLSearchParams` instance with automatic type
- * casting. Properties typed as `boolean` or `number` are cast to expected types
- * during decoding.
+ * casting. Properties typed as `boolean`, `bigint`, or `number` are cast to
+ * expected types during decoding.
  *
  * Type `T` constraints:
  *
@@ -314,8 +320,8 @@ export function validateQuery(): never {
  * Decodes HTTP headers into type `T`.
  *
  * Parses HTTP headers object with automatic type casting. Properties typed as
- * `boolean` or `number` are cast to expected types during decoding. Compatible
- * with Express and Fastify request headers.
+ * `boolean`, `bigint`, or `number` are cast to expected types during decoding.
+ * Compatible with Express and Fastify request headers.
  *
  * Type `T` constraints:
  *
@@ -498,9 +504,12 @@ export function validateHeaders(): never {
  * Decodes URL path parameter into type `T`.
  *
  * Parses a path parameter string with automatic type casting. When type `T` is
- * `boolean` or `number`, casts the string value to the expected type. Also
- * performs type assertion via {@link assert}, throwing {@link TypeGuardError} on
- * mismatch.
+ * `boolean`, `bigint`, or `number`, casts the string value to the expected
+ * type. Also performs type assertion via {@link assert}, throwing
+ * {@link TypeGuardError} on mismatch.
+ *
+ * A blank value is not a number, and a string parameter keeps the text `null`
+ * unless `T` admits `null`.
  *
  * @template T Target atomic type (`boolean`, `bigint`, `number`, `string`, or
  *   `null`)
