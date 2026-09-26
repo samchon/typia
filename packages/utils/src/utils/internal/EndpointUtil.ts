@@ -54,7 +54,7 @@ export namespace EndpointUtil {
     str = str.trim().replace(NON_IDENTIFIER, "_");
     if (str.length === 0) return str;
     else if (NamingConvention.reserved(str)) return `_${str}`;
-    else if (IDENTIFIER_START.test(str) === false) str = `_${str}`;
+    else if ("0" <= str[0]! && str[0]! <= "9") str = `_${str}`;
     return str;
   };
 
@@ -69,5 +69,4 @@ export namespace EndpointUtil {
     "[^\\p{ID_Continue}$\\u200c\\u200d]",
     "gu",
   );
-  const IDENTIFIER_START: RegExp = new RegExp("^[\\p{ID_Start}$_]", "u");
 }

@@ -2,6 +2,7 @@ import { IHttpMigrateRoute, OpenApi } from "@typia/interface";
 
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
+import { JsonCanonical } from "../../utils/internal/JsonCanonical";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
@@ -746,9 +747,10 @@ export namespace HttpMigrateRouteComposer {
    * Overwriting made one route silently declare another route's schema (#2451).
    * A taken name is escaped instead, by prefixing `_` to its last segment until
    * it is free, the convention accessors use for duplicates; a route without a
-   * collision keeps its name. A name that already holds the very same schema is
-   * reused, so migrating a migrated document again, which still carries its
-   * inline schemas, keeps every name.
+   * collision keeps its name. A name that already holds the very same schema,
+   * whatever its key order, is reused, so migrating a migrated document again,
+   * which still carries its inline schemas, keeps every name, also after a
+   * conversion that reordered their keys.
    */
   const emplaceReference = (props: {
     document: OpenApi.IDocument;
@@ -760,13 +762,13 @@ export namespace HttpMigrateRouteComposer {
     const schema: OpenApi.IJsonSchema = sanitizeSchema(props.document)(
       props.schema,
     );
-    const text: string = JSON.stringify(schema);
+    const text: string = JsonCanonical.stringify(schema);
     const dot: number = props.name.lastIndexOf(".");
     const namespace: string = props.name.substring(0, dot + 1);
     let member: string = props.name.substring(dot + 1);
     while (
       ObjectDictionary.has(schemas, namespace + member) &&
-      JSON.stringify(schemas[namespace + member]) !== text
+      JsonCanonical.stringify(schemas[namespace + member]) !== text
     )
       member = `_${member}`;
     const name: string = namespace + member;

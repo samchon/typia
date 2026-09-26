@@ -21,7 +21,8 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Assert no downgraded parameter keeps a top-level `$ref`, and upgrading
  *    returns every parameter with the resolved schema.
  * 3. Assert an unresolvable or cyclic reference throws the representability
- *    `TypeError` instead of being dropped.
+ *    `TypeError` instead of being dropped, and that a nullable reference in a
+ *    form field reads back too.
  */
 export const test_openapi_converter_v20_reference_parameter = (): void => {
   const components: OpenApi.IComponents = {
@@ -127,20 +128,74 @@ export const test_openapi_converter_v20_reference_parameter = (): void => {
   });
 
   // not representable: thrown, never dropped
-  TestValidator.error("unresolvable", () =>
-    OpenApiConverter.downgradeDocument(
-      document([
-        { name: "missing", in: "query", schema: reference("Missing") },
-      ]),
-      "2.0",
-    ),
+  const rejects = (title: string, closure: () => unknown, message: string) =>
+    TestValidator.predicate(title, () => {
+      try {
+        closure();
+      } catch (error) {
+        return error instanceof TypeError && error.message.includes(message);
+      }
+      return false;
+    });
+  rejects(
+    "unresolvable",
+    () =>
+      OpenApiConverter.downgradeDocument(
+        document([
+          { name: "missing", in: "query", schema: reference("Missing") },
+        ]),
+        "2.0",
+      ),
+    "non-body parameter references must resolve",
   );
-  TestValidator.error("cyclic", () =>
-    OpenApiConverter.downgradeDocument(
-      document([{ name: "cyclic", in: "query", schema: reference("A") }], {
-        schemas: { A: reference("B"), B: reference("A") },
-      }),
-      "2.0",
-    ),
+  rejects(
+    "cyclic",
+    () =>
+      OpenApiConverter.downgradeDocument(
+        document([{ name: "cyclic", in: "query", schema: reference("A") }], {
+          schemas: { A: reference("B"), B: reference("A") },
+        }),
+        "2.0",
+      ),
+    "non-body parameter references must not form a cycle",
+  );
+
+  // a form field is a non-body parameter too: a nullable reference, which
+  // downgrades to a `.Nullable` definition reference, reads back as well
+  const form: OpenApi.IDocument = {
+    ...document([]),
+    paths: {
+      "/f": {
+        post: {
+          requestBody: {
+            required: true,
+            content: {
+              "multipart/form-data": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    status: { oneOf: [reference("Status"), { type: "null" }] },
+                  },
+                  required: ["status"],
+                },
+              },
+            },
+          },
+          responses: { 200: { description: "ok" } },
+        },
+      },
+    },
+  };
+  const formUpgraded: OpenApi.IDocument = OpenApiConverter.upgradeDocument(
+    OpenApiConverter.downgradeDocument(form, "2.0"),
+  );
+  TestEquality.equals(
+    "nullable form reference",
+    (
+      formUpgraded.paths!["/f"]!.post!.requestBody!.content![
+        "multipart/form-data"
+      ]!.schema as OpenApi.IJsonSchema.IObject
+    ).properties!.status,
+    { oneOf: [{ const: "on" }, { const: "off" }, { type: "null" }] },
   );
 };

@@ -1,5 +1,6 @@
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 
+import { JsonCanonical } from "../../utils/internal/JsonCanonical";
 import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
@@ -387,14 +388,18 @@ export namespace SwaggerV2Downgrader {
         ) as SwaggerV2.IJsonSchema.IString;
         return { ...rest, type: "file" };
       }
-      const downgraded: SwaggerV2.IJsonSchema = typeEnumeration(
+      // A nullable reference downgrades to a `.Nullable` definition reference,
+      // which a form field cannot hold, so it is inlined like a parameter's.
+      // The simple-schema gate reads the field before `typeEnumeration` adds a
+      // `type`, which would otherwise let a malformed union through as a string.
+      const downgraded: SwaggerV2.IJsonSchema = inlineReference(collection)(
         downgradeSchema(collection)(schema),
       );
       if (isFormDataSchema(downgraded) === false)
         throw new TypeError(
           "SwaggerV2Downgrader: form properties must use simple schemas.",
         );
-      return downgraded;
+      return typeEnumeration(downgraded) as typeof downgraded;
     };
 
   /**
@@ -1151,7 +1156,7 @@ export namespace SwaggerV2Downgrader {
         throw new TypeError(
           `SwaggerV2Downgrader: ${scope} named examples are not representable.`,
         );
-      if (!sameJson(media.schema, first.schema))
+      if (!JsonCanonical.equals(media.schema, first.schema))
         throw new TypeError(
           `SwaggerV2Downgrader: ${scope} media types must share one schema.`,
         );
@@ -1197,17 +1202,4 @@ export namespace SwaggerV2Downgrader {
 
   const isSwaggerScheme = (input: string): input is SwaggerV2.Scheme =>
     input === "http" || input === "https" || input === "ws" || input === "wss";
-
-  const sameJson = (x: unknown, y: unknown): boolean =>
-    JSON.stringify(canonicalize(x)) === JSON.stringify(canonicalize(y));
-
-  const canonicalize = (value: unknown): unknown => {
-    if (Array.isArray(value)) return value.map(canonicalize);
-    if (value === null || typeof value !== "object") return value;
-    return Object.fromEntries(
-      Object.entries(value)
-        .sort(([x], [y]) => x.localeCompare(y))
-        .map(([key, entry]) => [key, canonicalize(entry)]),
-    );
-  };
 }

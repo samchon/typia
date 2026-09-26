@@ -1,6 +1,6 @@
 import { IHttpMigrateApplication, OpenApi } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
-import { HttpMigration } from "@typia/utils";
+import { HttpMigration, OpenApiConverter } from "@typia/utils";
 
 /**
  * Verifies emplaced route schemas never overwrite one another.
@@ -142,6 +142,11 @@ export const test_http_migrate_component_name_collision = (): void => {
     Object.keys(remigrated.document().components.schemas ?? {}).sort(),
     Object.keys(app.document().components.schemas ?? {}).sort(),
   );
+  // also after a conversion that may reorder each schema's keys
+  const converted: IHttpMigrateApplication = HttpMigration.application(
+    OpenApiConverter.downgradeDocument(app.document(), "3.1"),
+  );
+  TestEquality.equals("converted names", names(converted), names(app));
 
   // a failed route takes no name from a valid one
   const failed: IHttpMigrateApplication = HttpMigration.application({

@@ -105,9 +105,21 @@ export namespace HttpLlmApplicationComposer {
     // A function name joins the route accessor with `_`, which is not one to
     // one: `/items:batchGet` and `/items/batchGet`, or `/a.b` and `/a/b`, name
     // the same function (#2443). A repeated name is escaped with a leading `_`,
-    // as accessors escape theirs, so every function stays callable.
+    // as accessors escape theirs, so every function stays callable; the
+    // routes take their names in path and method order, so which one keeps
+    // the plain name does not depend on the order of `paths`.
     const taken: Set<string> = new Set();
-    for (const func of functions) {
+    for (const func of [...functions].sort((x, y) =>
+      x.path < y.path
+        ? -1
+        : x.path > y.path
+          ? 1
+          : x.method < y.method
+            ? -1
+            : x.method > y.method
+              ? 1
+              : 0,
+    )) {
       while (taken.has(func.name)) func.name = `_${func.name}`;
       taken.add(func.name);
     }

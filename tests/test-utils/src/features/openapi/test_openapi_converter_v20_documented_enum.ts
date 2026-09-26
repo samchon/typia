@@ -1,3 +1,4 @@
+import { TestValidator } from "@nestia/e2e";
 import { OpenApi, SwaggerV2 } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
 import { OpenApiConverter } from "@typia/utils";
@@ -174,5 +175,42 @@ export const test_openapi_converter_v20_documented_enum = (): void => {
         .schema as OpenApi.IJsonSchema.IObject
     ).properties!.kind,
     nullable,
+  );
+
+  // typing a form field must not let a malformed union past the gate
+  TestValidator.error("two null members", () =>
+    OpenApiConverter.downgradeDocument(
+      {
+        ...source,
+        paths: {
+          "/f": {
+            post: {
+              requestBody: {
+                required: true,
+                content: {
+                  "multipart/form-data": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        kind: {
+                          oneOf: [
+                            { const: "a", description: "A" },
+                            { type: "null", title: "first" },
+                            { type: "null", title: "second" },
+                          ],
+                        },
+                      },
+                      required: ["kind"],
+                    },
+                  },
+                },
+              },
+              responses: { 200: { description: "ok" } },
+            },
+          },
+        },
+      },
+      "2.0",
+    ),
   );
 };

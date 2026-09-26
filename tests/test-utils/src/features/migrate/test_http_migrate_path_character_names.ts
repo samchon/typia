@@ -168,6 +168,14 @@ export const test_http_migrate_path_character_names = (): void => {
     scripts.document().components.schemas ?? {},
   );
   TestEquality.equals("script components", scriptKeys.length, 4);
+  // distinct letters derive distinct names, so none needs a collision escape
+  TestEquality.equals(
+    "script names unescaped",
+    scripts.routes.map((r) =>
+      (r.body?.schema as { $ref: string }).$ref.endsWith(".PostBody"),
+    ),
+    [true, true, true, true],
+  );
   for (const key of scriptKeys)
     TestEquality.equals(
       `script component ${key}`,
@@ -190,4 +198,19 @@ export const test_http_migrate_path_character_names = (): void => {
   const names: string[] = joined.functions.map((f) => f.name);
   TestEquality.equals("joined functions", names.length, 4);
   TestEquality.equals("unique function names", new Set(names).size, 4);
+  // and which route keeps the plain name does not follow the order of paths
+  const reversed: IHttpLlmApplication = HttpLlm.application({
+    document: {
+      ...document,
+      paths: {
+        "/a/b": body,
+        "/a.b": body,
+        "/items/batchGet": body,
+        "/items:batchGet": body,
+      },
+    },
+  });
+  const byPath = (app: IHttpLlmApplication) =>
+    Object.fromEntries(app.functions.map((f) => [f.path, f.name]));
+  TestEquality.equals("order independent", byPath(reversed), byPath(joined));
 };
