@@ -91,8 +91,6 @@ func TestMetadataCommentTagFactoryReadsJavaScriptNumbers(t *testing.T) {
       value = v
     case int64:
       value = float64(v)
-    case *int64:
-      value = float64(*v)
     default:
       t.Fatalf("@%s %s on %s carried a %T value", item.name, item.value, item.target, tag.Value)
     }

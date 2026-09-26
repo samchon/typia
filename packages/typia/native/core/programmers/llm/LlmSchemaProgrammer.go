@@ -771,8 +771,14 @@ func llmSchemaProgrammer_tag_text(value any) string {
   if reflected.IsValid() == false {
     return fmt.Sprint(value)
   }
-  if reflected.Kind() == reflect.Float32 || reflected.Kind() == reflect.Float64 {
+  switch reflected.Kind() {
+  case reflect.Float32, reflect.Float64:
     return nativeutils.NumberUtil.String(reflected.Float())
+  case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+    // JavaScript holds the count as a double, rounding past 2^53.
+    return nativeutils.NumberUtil.String(float64(reflected.Int()))
+  case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+    return nativeutils.NumberUtil.String(float64(reflected.Uint()))
   }
   return fmt.Sprint(reflected.Interface())
 }
