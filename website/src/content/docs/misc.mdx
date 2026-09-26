@@ -585,6 +585,10 @@ namespace http {
 
 String inputs may be a raw query (`id=1`), a question-prefixed query (`?id=1`), or a complete URL. In question-prefixed or URL-shaped inputs, a literal `#` starts a fragment and is excluded from parsing; in raw query text it remains part of the value. Percent-encoded data such as `%3F` remains part of the query value in every form.
 
+A query string has no spelling for an empty array, so an absent key decodes a required array to `[]`, a nullable one to `null`, and an optional one to `undefined`. An absent required non-array property makes `http.query` throw `Error("missing <key>")`; `assertQuery`, `isQuery`, and `validateQuery` report it as a type mismatch instead.
+
+A blank numeric value is absent rather than `0`. In a string-typed property, the text `null` decodes to `null` only where the type admits `null`; elsewhere it stays the string `"null"`.
+
 **Restrictions** (typia rejects at compile time):
 
 1. `T` must be an object type
@@ -624,11 +628,9 @@ namespace http {
 
 `http.headers` decodes an Express/Fastify-style headers object. Same coercion as `query`, plus a stricter set of restrictions specific to HTTP:
 
-An omitted optional array header is absent from the decoded object. An empty array header is also omitted.
-
 1. `T` must be an object type
 2. No dynamic keys
-3. **Property keys must be lowercase** (HTTP headers are case-insensitive; typia normalizes to lowercase)
+3. **Property keys are case-insensitive**: typia reads each header by its lowercase name, so two keys that differ only by case are rejected
 4. Property values may be `undefined` but not `null`
 5. Only `boolean | bigint | number | string` or arrays of those
 6. No unions
@@ -654,6 +656,8 @@ An omitted optional array header is absent from the decoded object. An empty arr
    - `user-agent`
 
 If you trip one of these rules, typia rejects the call at compile time with a clear error.
+
+An absent or empty optional array header is omitted from the decoded object, while an absent required one decodes to `[]`. Other array headers are split on `, ` (`; ` for `cookie`), but `set-cookie` never is, because cookie attributes such as `Expires` contain `, `: its values are kept as given, and a single string becomes a one-element array. A blank numeric header is absent rather than `0`.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
@@ -689,6 +693,8 @@ const id: number = typia.http.parameter<number>(request.params.id);
 // throws if `request.params.id` isn't a valid number string
 ```
 
+A blank segment is not a number, and a string-typed parameter keeps the text `null` unless `T` admits `null`: `http.parameter<string>("null")` returns the string `"null"`.
+
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
     <LocalSource
@@ -716,6 +722,8 @@ namespace http {
 ```
 
 `http.formData` decodes a `FormData` instance into a typed object. Allowed property types: `boolean | bigint | number | string | Blob | File` or arrays of those.
+
+Absent fields follow the `query` rules: a required array decodes to `[]`, a nullable one to `null`. A blank numeric field is absent rather than `0`, and a string-typed field keeps the text `null` unless its type admits `null`.
 
 ## `reflect`
 

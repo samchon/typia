@@ -174,6 +174,12 @@ export function validateFormData(): never {
  * 3. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
  * 4. No union types allowed
  *
+ * An absent key decodes a required array to `[]`, a nullable one to `null`, and
+ * an optional one to `undefined`, since a query string has no other spelling
+ * for an empty array. An absent required non-array property throws
+ * `Error("missing <key>")`. A string property keeps the text `null` unless its
+ * type admits `null`, and a blank numeric value is absent.
+ *
  * Does not validate the decoded value. For validation, use:
  *
  * - {@link assertQuery} — Throws on type mismatch
@@ -315,7 +321,8 @@ export function validateQuery(): never {
  *
  * 1. Must be an object type
  * 2. No dynamic properties allowed
- * 3. Property keys must be lowercase
+ * 3. Property keys are matched case-insensitively; two keys that differ only by
+ *    case are not allowed
  * 4. Property values cannot be `null` (but `undefined` is allowed)
  * 5. Only `boolean`, `bigint`, `number`, `string` or their array types allowed
  * 6. No union types allowed
@@ -325,6 +332,10 @@ export function validateQuery(): never {
  *    `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
  *    `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`,
  *    `user-agent`
+ *
+ * An absent or empty optional array header is omitted, and an absent required
+ * one decodes to `[]`. `set-cookie` values are never split. A blank numeric
+ * header is absent.
  *
  * Does not validate the decoded value. For validation, use:
  *
