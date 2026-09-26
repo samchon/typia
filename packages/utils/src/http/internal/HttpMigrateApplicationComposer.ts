@@ -12,19 +12,24 @@ export namespace HttpMigrateApplicationComposer {
   export const compose = (
     document: OpenApi.IDocument,
   ): IHttpMigrateApplication => {
-    const entries: IEntry[] = Object.entries({
-      ...(document.paths ?? {}),
-      ...(document.webhooks ?? {}),
-    }).flatMap(([path, collection]) =>
-      METHODS.filter((method) => collection[method] !== undefined).map(
-        (method) => ({ path, method, operation: collection[method]! }),
-      ),
+    // Webhooks are migrated next to paths, not merged into them by key: a
+    // webhook named like a path used to replace that whole path item, so its
+    // operations vanished without a route or an error (#2455).
+    const entries: IEntry[] = [document.paths, document.webhooks].flatMap(
+      (collections) =>
+        Object.entries(collections ?? {}).flatMap(([path, collection]) =>
+          METHODS.filter((method) => collection[method] !== undefined).map(
+            (method) => ({ path, method, operation: collection[method]! }),
+          ),
+        ),
     );
 
     // Compose in path and method order, not document order: a route that
     // emplaces a schema under a name another route also derives takes the
     // name by this order (#2451), so which route owns it must not change when
-    // a tool re-sorts `paths`. The routes are still reported in document order.
+    // a tool re-sorts `paths`. The sort is stable, so a path operation still
+    // precedes a webhook sharing its key and method. The routes are reported
+    // in document order.
     const migrated: Array<IHttpMigrateRoute | string[]> = new Array(
       entries.length,
     );
