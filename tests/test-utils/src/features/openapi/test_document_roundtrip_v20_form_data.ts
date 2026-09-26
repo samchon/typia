@@ -245,9 +245,10 @@ export const test_document_roundtrip_v20_form_data = (): void => {
         uploadKind: undefined,
       },
       {
+        // the documented enum is typed beside its `x-oneOf` (#2441)
         name: "mode",
         in: "formData",
-        type: undefined,
+        type: "string",
         uploadKind: undefined,
       },
     ],
