@@ -587,7 +587,7 @@ String inputs may be a raw query (`id=1`), a question-prefixed query (`?id=1`), 
 
 A query string has no spelling for an empty array, so an absent key decodes a required array to `[]`, a nullable one to `null`, and an optional one to `undefined`. An absent required non-array property makes `http.query` throw `Error("missing <key>")`; `assertQuery`, `isQuery`, and `validateQuery` report it as a type mismatch instead.
 
-A blank numeric value is absent rather than `0`. In a string-typed property, the text `null` decodes to `null` only where the type admits `null`; elsewhere it stays the string `"null"`.
+A blank numeric value decodes to `undefined` rather than `0`. In a string-typed property, the text `null` decodes to `null` only where the type admits `null`; elsewhere it stays the string `"null"`.
 
 **Restrictions** (typia rejects at compile time):
 
@@ -626,7 +626,7 @@ namespace http {
 }
 ```
 
-`http.headers` decodes an Express/Fastify-style headers object. Same coercion as `query`, plus a stricter set of restrictions specific to HTTP:
+`http.headers` decodes an Express/Fastify-style headers object. Numbers and bigints are coerced as in `query`, booleans only from `true` and `false`, with a stricter set of restrictions specific to HTTP:
 
 1. `T` must be an object type
 2. No dynamic keys
@@ -657,7 +657,7 @@ namespace http {
 
 If you trip one of these rules, typia rejects the call at compile time with a clear error.
 
-An absent or empty optional array header is omitted from the decoded object, while an absent required one decodes to `[]`. Other array headers are split on `, ` (`; ` for `cookie`), but `set-cookie` never is, because cookie attributes such as `Expires` contain `, `: its values are kept as given, and a single string becomes a one-element array. A blank numeric header is absent rather than `0`.
+An absent or empty optional array header is omitted from the decoded object, while an absent required one decodes to `[]`. A string value of any other array header is split on `, ` (`; ` for `cookie`), but `set-cookie` never is, because cookie attributes such as `Expires` contain `, `: its string values are kept as given, and a single string becomes a one-element array. A blank numeric header decodes to `undefined` rather than `0`.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
@@ -723,7 +723,7 @@ namespace http {
 
 `http.formData` decodes a `FormData` instance into a typed object. Allowed property types: `boolean | bigint | number | string | Blob | File` or arrays of those.
 
-Absent fields follow the `query` rules: a required array decodes to `[]`, a nullable one to `null`. A blank numeric field is absent rather than `0`, and a string-typed field keeps the text `null` unless its type admits `null`.
+An absent array field decodes like a query array: `[]` when required, `null` when nullable. A blank numeric field decodes to `undefined` rather than `0`, and a string-typed field keeps the text `null` unless its type admits `null`.
 
 ## `reflect`
 
