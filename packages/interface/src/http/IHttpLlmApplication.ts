@@ -45,7 +45,11 @@ export namespace IHttpLlmApplication {
   /** Configuration for HTTP LLM application composition. */
   export interface IConfig extends ILlmSchema.IConfig {
     /**
-     * Maximum function name length. Truncated or UUID if exceeded.
+     * Maximum function name length.
+     *
+     * A longer name drops its leading accessor segments. When even the last
+     * segment is too long, its head is kept with a hash of the full name, so
+     * the name stays deterministic and unique and does not start with a digit.
      *
      * @default 64
      */
