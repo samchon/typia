@@ -47,13 +47,13 @@ export namespace IHttpLlmApplication {
     /**
      * Maximum function name length.
      *
-     * A longer name becomes its longest free non-empty accessor suffix of at
-     * most `maxLength - 8` characters, taken as is or, when that is taken, with
-     * a counter prefix. When no suffix is free, the name keeps as much of its
-     * last segment as fits beside a hash of the full name, none of it below 9.
-     * Every name is deterministic, unique, at most `maxLength`, and does not
-     * start with a digit. Composition throws when a name must be shortened and
-     * every such hashed name is taken, as all are below 2.
+     * A longer name becomes its longest non-empty accessor suffix of at most
+     * `maxLength - 8` characters that is free, as is or with a counter prefix.
+     * When no suffix is free, the name keeps as much of its last segment as
+     * fits beside a hash of the full name, none of it below 9. Every name is
+     * deterministic, unique, at most `maxLength`, and does not start with a
+     * digit. Composition throws when a name must be shortened and every such
+     * hashed name is taken, as all are below 2.
      *
      * @default 64
      */

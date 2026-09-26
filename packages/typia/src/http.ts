@@ -24,8 +24,8 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * Parses a `FormData` instance with automatic type casting. Properties typed as
  * `boolean`, `bigint`, or `number` are cast from their text, and `Blob` and
  * `File` properties are read as given, except that the text `null` reads as
- * `null`, or as `undefined` for an optional property whose type does not admit
- * `null`.
+ * `null`: as `undefined` instead for an optional single property whose type
+ * does not admit `null`, and always as `null` for an array element.
  *
  * Type `T` constraints:
  *
