@@ -231,11 +231,11 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    value := metadataCommentTagFactory_parse_integer(struct {
+    value := metadataCommentTagFactory_value(metadataCommentTagFactory_parse_integer(struct {
       Report   func(msg string) any
       Unsigned bool
       Value    string
-    }{Report: props.Report, Value: props.Value, Unsigned: true})
+    }{Report: props.Report, Value: props.Value, Unsigned: true}))
     return metadataCommentTagFactory_TagRecord{"array": {
       {Name: "MinItems<" + props.Value + ">", Target: "array", Kind: "minItems", Value: value, Validate: metadataCommentTagFactory_splice(props.Value) + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minItems"), Schema: map[string]any{"minItems": value}},
       {Name: "MaxItems<" + props.Value + ">", Target: "array", Kind: "maxItems", Value: value, Validate: "$input.length <= " + metadataCommentTagFactory_splice(props.Value), Exclusive: metadataCommentTagFactory_exclusive("maxItems"), Schema: map[string]any{"maxItems": value}},
@@ -245,22 +245,22 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    value := metadataCommentTagFactory_parse_integer(struct {
+    value := metadataCommentTagFactory_value(metadataCommentTagFactory_parse_integer(struct {
       Report   func(msg string) any
       Unsigned bool
       Value    string
-    }{Report: props.Report, Value: props.Value, Unsigned: true})
+    }{Report: props.Report, Value: props.Value, Unsigned: true}))
     return metadataCommentTagFactory_TagRecord{"array": {{Name: "MinItems<" + props.Value + ">", Target: "array", Kind: "minItems", Value: value, Validate: metadataCommentTagFactory_splice(props.Value) + " <= $input.length", Exclusive: metadataCommentTagFactory_exclusive("minItems"), Schema: map[string]any{"minItems": value}}}}
   },
   "maxItems": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    value := metadataCommentTagFactory_parse_integer(struct {
+    value := metadataCommentTagFactory_value(metadataCommentTagFactory_parse_integer(struct {
       Report   func(msg string) any
       Unsigned bool
       Value    string
-    }{Report: props.Report, Value: props.Value, Unsigned: true})
+    }{Report: props.Report, Value: props.Value, Unsigned: true}))
     return metadataCommentTagFactory_TagRecord{"array": {{Name: "MaxItems<" + props.Value + ">", Target: "array", Kind: "maxItems", Value: value, Validate: "$input.length <= " + metadataCommentTagFactory_splice(props.Value), Exclusive: metadataCommentTagFactory_exclusive("maxItems"), Schema: map[string]any{"maxItems": value}}}}
   },
   "uniqueItems": func(props struct {
@@ -496,6 +496,17 @@ func metadataCommentTagFactory_numeric(props struct {
   return record
 }
 
+// metadataCommentTagFactory_value unwraps a parsed count into the record's
+// value and schema. Storing the pointer itself let every consumer that formats
+// a value print an address: strict LLM schemas described `@minItems 2` as
+// `@minItems 0xc000012345`.
+func metadataCommentTagFactory_value(value *int64) any {
+  if value == nil {
+    return nil
+  }
+  return *value
+}
+
 func metadataCommentTagFactory_parse_number(props struct {
   Report func(msg string) any
   Value  string
@@ -521,8 +532,10 @@ func metadataCommentTagFactory_parse_number(props struct {
 // both the number and the bigint target. The source spelling need not be:
 // `0x10` happens to be, but `1e3`, `1.0`, `+5`, and `007` are integers whose
 // bigint splice (`1e3n`, `1.0n`, `+5n`, `007n`) is no valid BigInt expression
-// (samchon/typia#2442). An integer spelling keeps its exact digits, because
-// `Number()` would round `9007199254740993` and the bigint check must not.
+// (samchon/typia#2442). An integer spelling keeps its digits as written, so the
+// splice never rounds where the source did not: `Number()` would read
+// `9007199254740993` as ...992, while the bigint `@multipleOf` check appends
+// `n` to the digits and compares exactly.
 // Text that does not read as a finite number is passed through; the parser
 // reports it and nothing is emitted.
 func metadataCommentTagFactory_splice(value string) string {

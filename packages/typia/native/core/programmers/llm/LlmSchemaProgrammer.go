@@ -761,14 +761,20 @@ func llmSchemaProgrammer_shift_string(schema map[string]any) map[string]any {
 // whose `String()` already follows JavaScript, but a comment tag's value is a
 // plain float64, and `fmt.Sprint` spells it the Go way: `1e+06` for 1000000,
 // `1e-07` for 1e-7, `+Inf` for an infinity (samchon/typia#2452). Every float is
-// therefore spelled by `NumberUtil.String`, whatever its defined type.
+// therefore spelled by `NumberUtil.String`, whatever its defined type, and a
+// pointer is followed to the value it holds.
 func llmSchemaProgrammer_tag_text(value any) string {
-  if value != nil {
-    if reflected := reflect.ValueOf(value); reflected.Kind() == reflect.Float32 || reflected.Kind() == reflect.Float64 {
-      return nativeutils.NumberUtil.String(reflected.Float())
-    }
+  reflected := reflect.ValueOf(value)
+  for reflected.IsValid() && reflected.Kind() == reflect.Pointer && reflected.IsNil() == false {
+    reflected = reflected.Elem()
   }
-  return fmt.Sprint(value)
+  if reflected.IsValid() == false {
+    return fmt.Sprint(value)
+  }
+  if reflected.Kind() == reflect.Float32 || reflected.Kind() == reflect.Float64 {
+    return nativeutils.NumberUtil.String(reflected.Float())
+  }
+  return fmt.Sprint(reflected.Interface())
 }
 
 func llmSchemaProgrammer_write_tag_with_description(schema map[string]any, tags []string) {

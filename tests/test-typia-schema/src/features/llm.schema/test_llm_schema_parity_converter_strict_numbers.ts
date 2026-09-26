@@ -51,6 +51,7 @@ export const test_llm_schema_parity_converter_strict_numbers = (): void => {
     infinite: "@maximum Infinity",
     commentMillion: "@maximum 1000000",
     commentTiny: "@multipleOf 1e-7",
+    commentItems: "@minItems 2\n@maxItems 5",
   });
 };
 
@@ -65,4 +66,10 @@ interface IRoot {
 
   /** @multipleOf 0.0000001 */
   commentTiny: number;
+
+  /**
+   * @minItems 2
+   * @maxItems 5
+   */
+  commentItems: string[];
 }

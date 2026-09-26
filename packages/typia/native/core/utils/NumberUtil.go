@@ -88,8 +88,9 @@ func (numberUtilNamespace) Read(text string) NumberUtil_Reading {
 // optional sign, or an unsigned `0x` / `0o` / `0b` literal.
 //
 // `Number()` rounds such text to the nearest double, so `9007199254740993`
-// reads as 9007199254740992. A bigint constraint must not round: splicing the
-// exact digits keeps `$input % 9007199254740993n` exact. Any other spelling,
+// reads as 9007199254740992. Splicing the digits as written keeps a check that
+// reads them as a BigInt literal (`$input % 9007199254740993n`) exact. Any other
+// spelling,
 // including an integer written with an exponent or a point (`1e3`, `1.0`),
 // reports false; its value is the double `Read` returns.
 func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
@@ -115,7 +116,8 @@ func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
 // That is `Number.prototype.toString`: positional notation from 1e-6 up to
 // 1e21, exponent notation outside with a signed exponent of no padded zeros
 // (`1e+21`, `1e-7`), and `NaN`, `Infinity`, `-Infinity`, and `0` for negative
-// zero. Each result is also JavaScript source text that evaluates to the value.
+// zero. Each result is also JavaScript source text that evaluates to the value,
+// negative zero reading back as zero.
 func (numberUtilNamespace) String(value float64) string {
   switch {
   case math.IsNaN(value):
