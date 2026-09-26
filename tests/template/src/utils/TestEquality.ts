@@ -108,16 +108,25 @@ export namespace TestEquality {
    * and swallows it (samchon/typia#2460). Comparing the message instead also
    * keeps an unrelated exception from passing the assertion.
    *
-   * @param task Task expected to throw
-   * @returns The thrown error's message, the thrown value as text when it is no
-   *   `Error`, or `null` when the task returns
+   * An asynchronous task would return a promise before it rejects, so it is
+   * refused rather than read as returning; await it and catch its rejection
+   * instead.
+   *
+   * @param task Synchronous task expected to throw
+   * @returns The thrown error's message, the thrown value as text when it is
+   *   not an `Error`, or `null` when the task returns
    */
   export function thrown(task: () => unknown): string | null {
+    let output: unknown;
     try {
-      task();
+      output = task();
     } catch (error) {
       return error instanceof Error ? error.message : String(error);
     }
+    if (output instanceof Promise)
+      throw new Error(
+        "TestEquality.thrown() takes a synchronous task; await an asynchronous one and catch its rejection.",
+      );
     return null;
   }
 }

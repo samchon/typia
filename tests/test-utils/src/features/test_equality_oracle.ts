@@ -24,7 +24,8 @@ import { TestEquality } from "@typia/template/equality";
  * 3. Pin `subset` to skip only object keys the expected value leaves out.
  * 4. Pin `difference` paths and the failure message.
  * 5. Pin `thrown` to read a synchronous task's exception, and `null` when it
- *    returns, the assertion `TestValidator.error` cannot make (#2460).
+ *    returns, the assertion `TestValidator.error` cannot make (#2460), and to
+ *    refuse an asynchronous task rather than read it as returning.
  *
  * This sits directly under `features` beside `test_total_comparison_shape`: it
  * pins the assertion harness every suite shares.
@@ -262,6 +263,17 @@ export const test_equality_oracle = (): void => {
     "returned",
     TestEquality.thrown(() => 1),
     null,
+  );
+  TestValidator.predicate(
+    "asynchronous task refused",
+    (() => {
+      try {
+        TestEquality.thrown(async () => 1);
+        return false;
+      } catch {
+        return true;
+      }
+    })(),
   );
 };
 
