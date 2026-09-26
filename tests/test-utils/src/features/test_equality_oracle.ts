@@ -264,17 +264,32 @@ export const test_equality_oracle = (): void => {
     TestEquality.thrown(() => 1),
     null,
   );
-  TestValidator.predicate(
-    "asynchronous task refused",
-    (() => {
-      try {
-        TestEquality.thrown(async () => 1);
-        return false;
-      } catch {
-        return true;
-      }
-    })(),
-  );
+  const refusal: string =
+    "TestEquality.thrown() takes a synchronous task; await an asynchronous one and catch its rejection.";
+  for (const [title, task] of [
+    ["resolving task", async () => 1],
+    [
+      "rejecting task",
+      async () => {
+        throw new Error("rejected");
+      },
+    ],
+    [
+      "thenable",
+      () => ({ then: (resolve: (value: number) => void) => resolve(1) }),
+    ],
+    [
+      "async generator",
+      async function* () {
+        yield 1;
+      },
+    ],
+  ] as const)
+    TestEquality.equals(
+      `refused ${title}`,
+      TestEquality.thrown(() => TestEquality.thrown(task)),
+      refusal,
+    );
 };
 
 const same_function = (): number => 1;

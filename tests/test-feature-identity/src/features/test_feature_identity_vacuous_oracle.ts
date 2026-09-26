@@ -6,8 +6,8 @@ import path from "path";
 import { Git } from "../Git";
 
 /**
- * Verifies no tracked test source asserts through a vacuous `TestValidator`
- * oracle: `equals` or `error`.
+ * Verifies no tracked test source asserts through an untrustworthy
+ * `TestValidator` oracle: the one-way `equals` or the vacuous `error`.
  *
  * `@nestia/e2e`'s `TestValidator.equals` walks only its first argument's keys
  * and sees no content in `Date`, `Map`, or `Set`, so an assertion that put the
@@ -44,6 +44,9 @@ export const test_feature_identity_vacuous_oracle = (): void => {
     `import { ${V} as V } from "@nestia/e2e";`,
     `const T = ${V};`,
     `const T: typeof ${V} = ${V};`,
+    `let T = ${V};`,
+    `var T = ${V} ;`,
+    `import T = ${V};`,
     `${V}.error("title", () => task());`,
     `${V}\n  .error("title", () => task());`,
     `${V}?.error("title", () => task());`,
@@ -79,6 +82,7 @@ export const test_feature_identity_vacuous_oracle = (): void => {
     `${V}.errorLike("title", () => task());`,
     `const { predicate } = ${V};`,
     `const V2 = ${V}.predicate;`,
+    `const V2 = ${V}\n  .predicate;`,
   ])
     TestEquality.equals(`prose ${JSON.stringify(prose)}`, calls(prose), []);
 
@@ -215,11 +219,11 @@ const blank = (text: string): string => {
 /**
  * Any member access to `equals` or `error` on `TestValidator`, through a cast
  * or optional chaining included, a destructuring of either, or a renaming
- * import or alias assignment that would hide the name from the rest of the
- * pattern.
+ * import or alias declaration (`const T = TestValidator;`, `import T =
+ * TestValidator;`) that would hide the name from the rest of the pattern.
  */
 const PATTERN =
-  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*(?:equals|error)\b|(?:\?\.)?\s*\[\s*["'`](?:equals|error)["'`]\s*\])|\{[^}]*\b(?:equals|error)\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b|\b(?:const|let|var)\s+[A-Za-z_$][\w$]*\s*(?::[^=;\n]+)?=\s*TestValidator\s*[;\n]/g;
+  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*(?:equals|error)\b|(?:\?\.)?\s*\[\s*["'`](?:equals|error)["'`]\s*\])|\{[^}]*\b(?:equals|error)\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b|\b(?:const|let|var|import)\s+[A-Za-z_$][\w$]*\s*(?::[^=;\n]+)?=\s*TestValidator\s*;/g;
 
 /**
  * A floor, not an expectation: the tracked suites hold over a thousand sources.

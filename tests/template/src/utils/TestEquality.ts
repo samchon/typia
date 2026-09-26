@@ -108,9 +108,11 @@ export namespace TestEquality {
    * and swallows it (samchon/typia#2460). Comparing the message instead also
    * keeps an unrelated exception from passing the assertion.
    *
-   * An asynchronous task would return a promise before it rejects, so it is
-   * refused rather than read as returning; await it and catch its rejection
-   * instead.
+   * An asynchronous task would return a promise, a thenable, or an async
+   * iterator before anything it does can throw, so it is refused rather than
+   * read as returning; await it and catch its rejection instead. The refused
+   * promise's own rejection is handled first, so it cannot surface later as an
+   * unhandled rejection that ends the run.
    *
    * @param task Synchronous task expected to throw
    * @returns The thrown error's message, the thrown value as text when it is
@@ -123,13 +125,22 @@ export namespace TestEquality {
     } catch (error) {
       return error instanceof Error ? error.message : String(error);
     }
-    if (output instanceof Promise)
-      throw new Error(
-        "TestEquality.thrown() takes a synchronous task; await an asynchronous one and catch its rejection.",
-      );
+    if (
+      typeof output === "object" &&
+      output !== null &&
+      (typeof (output as PromiseLike<unknown>).then === "function" ||
+        Symbol.asyncIterator in output)
+    ) {
+      if (typeof (output as PromiseLike<unknown>).then === "function")
+        Promise.resolve(output).catch(() => {});
+      throw new Error(THROWN_ASYNCHRONOUS);
+    }
     return null;
   }
 }
+
+const THROWN_ASYNCHRONOUS: string =
+  "TestEquality.thrown() takes a synchronous task; await an asynchronous one and catch its rejection.";
 
 const report = (
   title: string,
