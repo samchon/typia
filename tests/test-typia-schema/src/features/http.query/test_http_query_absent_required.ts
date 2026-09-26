@@ -95,20 +95,42 @@ export const test_http_query_absent_required = (): void => {
       return false;
     });
 
-  // a present but invalid scalar is still rejected
-  TestEquality.equals(
-    "invalid scalar",
-    (() => {
-      const result = typia.http.validateQuery<IQuery>("count=x");
-      return result.success ? [] : result.errors.map((e) => e.path);
-    })(),
-    ["$input.count"],
-  );
+  // a present but invalid scalar is still rejected by every validating form
+  for (const [name, decode] of decoders.slice(1))
+    if (name !== "createQuery")
+      TestValidator.predicate(`${name} rejects an invalid scalar`, () => {
+        try {
+          return decode("count=x") === null;
+        } catch (error) {
+          return error instanceof TypeGuardError;
+        }
+      });
+
+  // a required nullable scalar: absence is not `null`, the text `null` is
+  for (const validate of [
+    (input: string) => typia.http.validateQuery<INullable>(input),
+    typia.http.createValidateQuery<INullable>(),
+  ]) {
+    TestEquality.equals(
+      "nullable scalar absent",
+      (() => {
+        const result = validate("");
+        return result.success ? [] : result.errors.map((e) => e.path);
+      })(),
+      ["$input.text"],
+    );
+    TestEquality.equals("nullable scalar null", unwrap(validate("text=null")), {
+      text: null,
+    });
+  }
 };
 
 const unwrap = <T>(result: IValidation<T>): T | null =>
   result.success ? result.data : null;
 
+interface INullable {
+  text: string | null;
+}
 interface IQuery {
   count: number;
   list: string[];

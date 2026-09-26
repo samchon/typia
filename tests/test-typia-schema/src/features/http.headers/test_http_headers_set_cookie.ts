@@ -13,7 +13,8 @@ import typia, { IValidation } from "typia";
  * 1. Decode absent, empty, single-string, and multi-value `set-cookie` headers
  *    through all eight direct and factory forms.
  * 2. Cover a required and an optional declaration side by side.
- * 3. Keep `Expires` values, which contain `", "`, verbatim.
+ * 3. Keep `Expires` values, which contain `", "`, and surrounding spaces verbatim.
+ * 4. Match a mixed-case declaration, and read a numeric element type.
  */
 export const test_http_headers_set_cookie = (): void => {
   const required: Array<[string, (input: Input) => IRequired | null]> = [
@@ -60,9 +61,9 @@ export const test_http_headers_set_cookie = (): void => {
     ],
     [
       "array",
-      { "set-cookie": [cookie, "b=2"] },
-      { "set-cookie": [cookie, "b=2"] },
-      { "set-cookie": [cookie, "b=2"] },
+      { "set-cookie": [cookie, " b=2 "] },
+      { "set-cookie": [cookie, " b=2 "] },
+      { "set-cookie": [cookie, " b=2 "] },
     ],
   ];
   for (const [title, input, expectedRequired, expectedOptional] of cases) {
@@ -87,6 +88,27 @@ export const test_http_headers_set_cookie = (): void => {
         );
     }
   }
+
+  // The header is matched case-insensitively, and so is `cookie`'s delimiter.
+  TestEquality.equals(
+    "mixed-case set-cookie",
+    typia.http.headers<IMixedCase>({
+      "set-cookie": cookie,
+      cookie: "a=1; b=2",
+    }),
+    { "Set-Cookie": [cookie], Cookie: ["a=1", "b=2"] },
+  );
+  // A non-string element type is read like any other array header's.
+  TestEquality.equals(
+    "numeric set-cookie",
+    unwrap(typia.http.validateHeaders<INumeric>({ "set-cookie": ["1", "2"] })),
+    { "set-cookie": [1, 2] },
+  );
+  TestEquality.equals(
+    "numeric set-cookie string",
+    unwrap(typia.http.validateHeaders<INumeric>({ "set-cookie": "3" })),
+    { "set-cookie": [3] },
+  );
 };
 
 const unwrap = <T>(result: IValidation<T>): T | null =>
@@ -99,4 +121,11 @@ interface IRequired {
 }
 interface IOptional {
   "set-cookie"?: string[];
+}
+interface IMixedCase {
+  "Set-Cookie": string[];
+  Cookie: string[];
+}
+interface INumeric {
+  "set-cookie": number[];
 }

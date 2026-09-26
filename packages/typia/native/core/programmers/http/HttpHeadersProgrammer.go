@@ -278,8 +278,10 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
   )
   var decoded *shimast.Node
   if isArray {
-    if key == "set-cookie" {
-      decoded = httpHeadersProgrammer_decode_set_cookie(props.Context, input, value.IsRequired())
+    // Keys are matched case-insensitively, as the input is read by its
+    // lowercase name: `"Set-Cookie": string[]` is the same header.
+    if strings.ToLower(key) == "set-cookie" {
+      decoded = httpHeadersProgrammer_decode_set_cookie(props.Context, typ, input, value.IsRequired())
     } else {
       decoded = httpHeadersProgrammer_decode_array(struct {
         Context nativecontext.ITypiaContext
@@ -316,19 +318,33 @@ func httpHeadersProgrammer_decode_regular_property(props struct {
 }
 
 // httpHeadersProgrammer_decode_set_cookie decodes `set-cookie` without the
-// list decoder: cookie attributes such as `Expires` contain `", "`, so the
-// values are never split or trimmed. It still yields an array like every other
-// array header does: a lone string is one cookie, and an absent required header
-// is `[]` (samchon/typia#2447).
-func httpHeadersProgrammer_decode_set_cookie(context nativecontext.ITypiaContext, input *shimast.Node, required bool) *shimast.Node {
+// list decoder: cookie attributes such as `Expires` contain `", "`, so a value
+// is never split or trimmed. It still yields an array like every other array
+// header does: a lone string is one cookie, an absent required header is `[]`
+// (samchon/typia#2447), and a non-string element type is read by the same
+// reader other array headers use.
+func httpHeadersProgrammer_decode_set_cookie(context nativecontext.ITypiaContext, typ string, input *shimast.Node, required bool) *shimast.Node {
   f := nativecontext.EmitFactoryOf(httpHeadersProgrammer_factory, context.Emit)
+  array := input
+  single := input
+  if typ != "string" {
+    reader := httpParameterProgrammer_internal(context, "httpHeaderRead"+httpParameterProgrammer_capitalize(typ))
+    array = f.NewCallExpression(
+      nativefactories.IdentifierFactory.Access(context.Emit, input, "map"),
+      nil,
+      nil,
+      f.NewNodeList([]*shimast.Node{reader}),
+      shimast.NodeFlagsNone,
+    )
+    single = f.NewCallExpression(reader, nil, nil, f.NewNodeList([]*shimast.Node{input}), shimast.NodeFlagsNone)
+  }
   absent := f.NewIdentifier("undefined")
   if required {
     absent = f.NewArrayLiteralExpression(f.NewNodeList(nil), false)
   }
   return nativefactories.ExpressionFactory.Conditional(
     nativefactories.ExpressionFactory.IsArray(input, context.Emit),
-    input,
+    array,
     nativefactories.ExpressionFactory.Conditional(
       f.NewBinaryExpression(
         nil,
@@ -337,7 +353,7 @@ func httpHeadersProgrammer_decode_set_cookie(context nativecontext.ITypiaContext
         f.NewToken(shimast.KindExclamationEqualsEqualsToken),
         input,
       ),
-      f.NewArrayLiteralExpression(f.NewNodeList([]*shimast.Node{input}), false),
+      f.NewArrayLiteralExpression(f.NewNodeList([]*shimast.Node{single}), false),
       absent,
       context.Emit,
     ),
@@ -398,7 +414,7 @@ func httpHeadersProgrammer_decode_array(props struct {
     reader = httpParameterProgrammer_internal(props.Context, "httpHeaderRead"+httpParameterProgrammer_capitalize(props.Type))
   }
   delimiter := ", "
-  if props.Key == "cookie" {
+  if strings.ToLower(props.Key) == "cookie" {
     delimiter = "; "
   }
   split := f.NewCallExpression(
