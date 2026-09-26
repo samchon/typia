@@ -11,10 +11,11 @@ import typia from "typia";
  * (#2454). The compile-time cases below are the oracle; the runtime half pins
  * that both forms decode the same value.
  *
- * 1. Equate every factory's result type with its direct twin's for a class, and
- *    keep a plain interface's result the interface itself.
+ * 1. Equate every factory's result type with its direct twin's, for a class (for
+ *    `number` in `createParameter`'s atomic case), and keep a plain interface's
+ *    result the interface itself.
  * 2. Reject a method call on a class-typed factory result.
- * 3. Decode one input through each factory and its direct form.
+ * 3. Decode one input through each non-validating factory and its direct form.
  */
 export const test_http_factory_result_types = (): void => {
   const form = (): FormData => {

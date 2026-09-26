@@ -462,11 +462,12 @@ export namespace HttpLlmApplicationComposer {
   /**
    * Shortens function names exceeding the character limit.
    *
-   * Tries accessor suffixes of at most `limit - 8` characters, the room an
-   * index prefix needs on a collision, then index-prefixed ones, and finally
-   * abbreviates the last accessor segment with a hash of the full name. Every
-   * result is deterministic, fits the limit, and starts with no digit; a limit
-   * below 2 cannot hold such a name and throws.
+   * Tries non-empty accessor suffixes of at most `limit - 8` characters, the
+   * room an index prefix needs on a collision, then index-prefixed ones, and
+   * finally keeps as much of the last accessor segment as fits with a hash of
+   * the full name. Every result is deterministic, fits the limit, and starts
+   * with no digit; when no such name is free, which is always so below 2,
+   * shortening throws.
    */
   export const shorten = (
     app: IHttpLlmApplication,
@@ -498,8 +499,8 @@ export namespace HttpLlmApplicationComposer {
         const shortName: string = legal(
           emend(func.route().accessor.slice(i).join("_")),
         );
-        if (shortName.length > limit - 8)
-          continue; // reserve room for "_N_" prefix
+        if (shortName.length === 0 || shortName.length > limit - 8)
+          continue; // empty, or no room for the "_N_" prefix
         else if (dictionary.has(shortName) === false) rename(shortName);
         else {
           // name collision — prefix with a counter to disambiguate

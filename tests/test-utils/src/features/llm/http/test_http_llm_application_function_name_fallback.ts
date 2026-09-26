@@ -7,8 +7,7 @@ import fs from "fs";
 import { TestGlobal } from "../../../TestGlobal";
 
 /**
- * Verifies a function name no accessor suffix can shorten still obeys every
- * name rule.
+ * Verifies every shortened function name obeys every name rule.
  *
  * `HttpLlm` shortens a name beyond `maxLength` by dropping leading accessor
  * segments down to `maxLength - 8` characters. When no suffix fit, which the
@@ -16,14 +15,16 @@ import { TestGlobal } from "../../../TestGlobal";
  * to a random UUID: the name changed on every composition, started with a digit
  * ten times in sixteen although the composer rejects such names for every other
  * function, and was longer than a `maxLength` below 36 (#2456). The GitHub
- * example has eleven such routes.
+ * example has eleven such routes. Custom `x-samchon-accessor` segments reach
+ * both branches: a digit-leading one must not lead the name, whether a suffix
+ * or the abbreviation keeps it, and an empty one names nothing.
  *
- * 1. Compose the GitHub example and a document of long sibling routes, one with a
- *    custom accessor starting with a digit, twice at several `maxLength`
- *    values.
+ * 1. Compose the GitHub example and a document of long sibling routes, with custom
+ *    accessors whose last segment starts with a digit or is empty, twice at
+ *    several `maxLength` values.
  * 2. Assert the names are identical across compositions, unique, at most
  *    `maxLength`, and of the composer's own grammar.
- * 3. Assert a `maxLength` below 2, which no such name fits, throws.
+ * 3. Assert a `maxLength` below 2, which no shortened name fits, throws.
  */
 export const test_http_llm_application_function_name_fallback =
   async (): Promise<void> => {
@@ -85,6 +86,10 @@ export const test_http_llm_application_function_name_fallback =
             [],
             ["security", "2faVerificationForAccountsWithAVeryLongDescription"],
           ),
+        },
+        // An empty last segment, which no suffix may be.
+        "/security/empty": {
+          post: operation([], ["someVeryLongSegmentNameForTesting", ""]),
         },
         // Too long whole, and a suffix fits only from the digit-leading segment.
         "/security/recovery": {

@@ -49,10 +49,11 @@ export namespace IHttpLlmApplication {
      *
      * A longer name drops leading accessor segments until at most `maxLength -
      * 8` characters remain, which leaves room for a counter prefix should it
-     * collide. When no suffix fits, the head of the last segment is kept with a
-     * hash of the full name. Every name is deterministic, unique, at most
-     * `maxLength`, and does not start with a digit; a `maxLength` below 2
-     * cannot hold one and throws.
+     * collide. When no suffix fits, the name keeps as much of its last segment
+     * as fits with a hash of the full name. Every name is deterministic,
+     * unique, at most `maxLength`, and does not start with a digit; when a name
+     * must be shortened and no such name is free, which is always so below 2,
+     * composition throws.
      *
      * @default 64
      */
