@@ -498,6 +498,11 @@ func metadataCommentTagFactory_numeric(props struct {
   Value  string
 }, name string, kind string, numberValidate string, bigintValidate string) metadataCommentTagFactory_TagRecord {
   number := metadataCommentTagFactory_parse_number(props)
+  if number == nil {
+    // Reported as an invalid or non-finite number already; a record would only
+    // add "requires number type" on a bigint property, which is not the fault.
+    return metadataCommentTagFactory_TagRecord{}
+  }
   exclusive := metadataCommentTagFactory_exclusive(kind)
   record := metadataCommentTagFactory_TagRecord{
     "number": {{Name: name + "<" + props.Value + ">", Target: "number", Kind: kind, Value: number, Validate: numberValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}},
@@ -526,15 +531,16 @@ func metadataCommentTagFactory_numeric(props struct {
 // values the exact `@multipleOf` check rejects (samchon/typia#2457).
 //
 // numeric reports whether the text writes a finite number at all. One that is
-// no such integer -- `1.5`, `5.0000000000000001`, `9007199254740993` -- is a
-// bigint bound the tag cannot state, while text that is no number has already
-// been reported by the number arm.
+// no such integer -- `1.5`, `5.0000000000000001`, `9007199254740993`, or
+// `1e-1000001`, whose exponent is too large to hold exactly -- is a bigint bound
+// the tag cannot state, while text that is no finite number has already been
+// reported by the number arm.
 func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, ok bool) {
-  rational, numeric := nativeutils.NumberUtil.Rational(text)
-  if numeric == false {
+  if reading := nativeutils.NumberUtil.Read(text); reading.Numeric == false || reading.Finite == false {
     return 0, false, false
   }
-  if rational.IsInt() == false || rational.Num().IsInt64() == false {
+  rational, exact := nativeutils.NumberUtil.Rational(text)
+  if exact == false || rational.IsInt() == false || rational.Num().IsInt64() == false {
     return 0, true, false
   }
   integer := rational.Num()

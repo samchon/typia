@@ -28,7 +28,7 @@ import (
 //     ones `Number()` rounds to an integer.
 //  3. Report a refused value on a bigint property, and on the bigint part of a
 //     `number | bigint` one, while a number property and the number part
-//     still take the tag.
+//     still take the tag, and report text that is no finite number once.
 func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
   //----
   // 1. exact integers
@@ -73,6 +73,7 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
     "1e-3",
     "5.0000000000000001", // `Number()` reads 5
     "1e-400",             // `Number()` reads 0
+    "1e-1000001",         // too large an exponent to hold exactly
   } {
     if _, numeric, ok := metadataCommentTagFactory_bigint(text); ok || numeric == false {
       t.Fatalf("%s must be a finite value no bigint tag states (numeric=%v ok=%v)", text, numeric, ok)
@@ -141,5 +142,23 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
   }
   if _, messages := analyze([]string{"bigint"}, "minimum", "1.5"); len(messages) != 1 || messages[0] != "bigint value 1.5 is not an int64 integer that a number represents exactly" {
     t.Fatalf("@minimum 1.5 on a bigint must be refused, got %#v", messages)
+  }
+  if _, messages := analyze([]string{"number", "bigint"}, "multipleOf", "1e-1000001"); len(messages) != 1 || messages[0] != "bigint value 1e-1000001 is not an int64 integer that a number represents exactly" {
+    t.Fatalf("@multipleOf 1e-1000001 on number | bigint must report the bigint part, got %#v", messages)
+  }
+  // Text that is no finite number is reported once, as such, on any target.
+  for _, item := range []struct {
+    text    string
+    message string
+  }{
+    {"abc", "invalid number"},
+    {"Infinity", "non-finite number"},
+    {"1e400", "non-finite number"},
+  } {
+    for _, types := range [][]string{{"bigint"}, {"number", "bigint"}} {
+      if _, messages := analyze(types, "minimum", item.text); len(messages) != 1 || messages[0] != item.message {
+        t.Fatalf("@minimum %s on %v must report %q alone, got %#v", item.text, types, item.message, messages)
+      }
+    }
   }
 }

@@ -117,7 +117,9 @@ func (numberUtilNamespace) Integer(text string) (*big.Int, bool) {
 // double is the written value itself. `9007199254740993` and
 // `9007199254740993.0` both read as 9007199254740992, but their rational value
 // is 9007199254740993. Text `Read` does not find numeric and finite reports
-// false.
+// false, and so does a decimal exponent beyond a million in magnitude, which
+// `big.Rat` refuses to expand (`1e-1000001` reads as 0 but has no exact value
+// here).
 func (numberUtilNamespace) Rational(text string) (*big.Rat, bool) {
   if reading := NumberUtil.Read(text); reading.Numeric == false || reading.Finite == false {
     return nil, false
@@ -125,8 +127,8 @@ func (numberUtilNamespace) Rational(text string) (*big.Rat, bool) {
   if integer, ok := NumberUtil.Integer(text); ok {
     return new(big.Rat).SetInt(integer), true
   }
-  // `Read` admitted only StrDecimalLiteral here, every spelling of which
-  // `big.Rat` parses: `5.`, `.5`, `+5`, and `1E3` included.
+  // `Read` admitted only StrDecimalLiteral here, whose spellings `big.Rat`
+  // parses: `5.`, `.5`, `+5`, and `1E3` included.
   return new(big.Rat).SetString(strings.TrimFunc(text, numberUtil_isWhiteSpace))
 }
 
