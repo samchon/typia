@@ -35,14 +35,12 @@ const scalar = (props: { minimum: number; maximum: number }): number => {
 const getLowerBoundary = (
   schema: OpenApi.IJsonSchema.IInteger,
 ): IBoundary | null => {
-  const inclusive: IBoundary | null =
-    schema.minimum === undefined
-      ? null
-      : { value: schema.minimum, exclusive: false };
-  const exclusive: IBoundary | null =
-    schema.exclusiveMinimum === undefined
-      ? null
-      : { value: schema.exclusiveMinimum, exclusive: true };
+  const inclusive: IBoundary | null = boundary(schema.minimum, false, "lower");
+  const exclusive: IBoundary | null = boundary(
+    schema.exclusiveMinimum,
+    true,
+    "lower",
+  );
   const selected: IBoundary | null = selectBoundary(
     inclusive,
     exclusive,
@@ -60,14 +58,12 @@ const getLowerBoundary = (
 const getUpperBoundary = (
   schema: OpenApi.IJsonSchema.IInteger,
 ): IBoundary | null => {
-  const inclusive: IBoundary | null =
-    schema.maximum === undefined
-      ? null
-      : { value: schema.maximum, exclusive: false };
-  const exclusive: IBoundary | null =
-    schema.exclusiveMaximum === undefined
-      ? null
-      : { value: schema.exclusiveMaximum, exclusive: true };
+  const inclusive: IBoundary | null = boundary(schema.maximum, false, "upper");
+  const exclusive: IBoundary | null = boundary(
+    schema.exclusiveMaximum,
+    true,
+    "upper",
+  );
   const selected: IBoundary | null = selectBoundary(
     inclusive,
     exclusive,
@@ -80,6 +76,25 @@ const getUpperBoundary = (
       : Math.floor(selected.value),
     exclusive: false,
   };
+};
+
+/**
+ * Reads one bound, which may be infinite.
+ *
+ * A type tag built from an overflowing literal (`Maximum<1e400>`) carries an
+ * infinite bound (#2452). `-Infinity` below or `Infinity` above excludes no
+ * finite number, so it is no bound at all; `Infinity` below or `-Infinity`
+ * above excludes every finite number, so no value can be generated.
+ */
+const boundary = (
+  value: number | undefined,
+  exclusive: boolean,
+  side: "lower" | "upper",
+): IBoundary | null => {
+  if (value === undefined) return null;
+  if (Number.isFinite(value)) return { value, exclusive };
+  if (value === (side === "lower" ? -Infinity : Infinity)) return null;
+  throw new Error("Numeric range has no finite value.");
 };
 
 const selectBoundary = (

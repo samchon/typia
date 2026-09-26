@@ -12,6 +12,7 @@ import (
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativeutils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
 
 type llmEvaluationProgrammerNamespace struct{}
@@ -449,10 +450,13 @@ func llmEvaluation_parse_jsdoc_probability(tags []schemametadata.IJsDocTagInfo) 
   if len(texts) != 1 {
     return 0, false, "LLM evaluation @probability is declared more than once; keep only one."
   }
-  value, err := strconv.ParseFloat(texts[0], 64)
-  if err != nil || math.IsNaN(value) || math.IsInf(value, 0) {
+  // The same JavaScript `Number()` grammar every other numeric JSDoc tag reads
+  // (samchon/typia#2442); Go's float syntax would also admit `0x1p-1`.
+  reading := nativeutils.NumberUtil.Read(texts[0])
+  if reading.Numeric == false || reading.Finite == false {
     return 0, false, fmt.Sprintf("LLM evaluation @probability must be a number in [0, 1], but got %q.", texts[0])
   }
+  value := reading.Value
   if value < 0 || value > 1 {
     return 0, false, fmt.Sprintf("LLM evaluation @probability must be in [0, 1], but got %s.", texts[0])
   }

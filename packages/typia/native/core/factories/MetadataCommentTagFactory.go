@@ -6,6 +6,7 @@ import (
   "strings"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativeutils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
 
 type metadataCommentTagFactoryNamespace struct{}
@@ -171,7 +172,7 @@ func metadataCommentTagFactory_parse(props struct {
   return next(struct {
     Report func(msg string) any
     Value  string
-  }{Report: props.Report, Value: value})
+  }{Report: props.Report, Value: metadataCommentTagFactory_canonical(props.Tag.Name, value)})
 }
 
 func (metadataCommentTagFactoryNamespace) Get(props struct {
@@ -187,7 +188,7 @@ func (metadataCommentTagFactoryNamespace) Get(props struct {
       Value  string
     }{
       Report: func(msg string) any { return nil },
-      Value:  props.Value,
+      Value:  metadataCommentTagFactory_canonical(props.Kind, props.Value),
     })[props.Type]
   }
   if output == nil {
@@ -499,12 +500,54 @@ func metadataCommentTagFactory_parse_number(props struct {
   Report func(msg string) any
   Value  string
 }) any {
-  parsed, err := strconv.ParseFloat(props.Value, 64)
-  if err != nil || math.IsNaN(parsed) {
+  reading := nativeutils.NumberUtil.Read(props.Value)
+  if reading.Numeric == false {
     props.Report("invalid number")
     return nil
   }
-  return parsed
+  // A JSON Schema keyword such as `minimum` must be a JSON number, and JSON has
+  // no spelling for an infinity (samchon/typia#2452).
+  if reading.Finite == false {
+    props.Report("non-finite number")
+    return nil
+  }
+  return reading.Value
+}
+
+// metadataCommentTagFactory_NUMERIC names the comment tags whose value is a
+// number.
+var metadataCommentTagFactory_NUMERIC = map[string]bool{
+  "items":            true,
+  "minItems":         true,
+  "maxItems":         true,
+  "minimum":          true,
+  "maximum":          true,
+  "exclusiveMinimum": true,
+  "exclusiveMaximum": true,
+  "multipleOf":       true,
+  "length":           true,
+  "minLength":        true,
+  "maxLength":        true,
+}
+
+// metadataCommentTagFactory_canonical respells a numeric tag value as the
+// JavaScript literal of the number it denotes.
+//
+// Every numeric record splices its value into emitted code (`16 <= $input`,
+// `$input % 1000n === 0n`), so the spliced text has to be JavaScript for the
+// value the tag was read as. The source spelling need not be: `0x10` happens to
+// be, but `1e3` is an integer whose bigint splice `1e3n` is no BigInt literal
+// (samchon/typia#2442). Text that does not read as a finite number is passed
+// through untouched, for the parser to report.
+func metadataCommentTagFactory_canonical(kind string, value string) string {
+  if metadataCommentTagFactory_NUMERIC[kind] == false {
+    return value
+  }
+  reading := nativeutils.NumberUtil.Read(value)
+  if reading.Numeric == false || reading.Finite == false {
+    return value
+  }
+  return nativeutils.NumberUtil.Literal(reading.Value)
 }
 
 func metadataCommentTagFactory_parse_integer(props struct {

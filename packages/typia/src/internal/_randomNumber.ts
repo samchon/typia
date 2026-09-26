@@ -57,12 +57,8 @@ const getLowerBoundary = (
   schema: OpenApi.IJsonSchema.INumber,
 ): IBoundary | null =>
   selectBoundary(
-    schema.minimum === undefined
-      ? null
-      : { value: schema.minimum, exclusive: false },
-    schema.exclusiveMinimum === undefined
-      ? null
-      : { value: schema.exclusiveMinimum, exclusive: true },
+    boundary(schema.minimum, false, "lower"),
+    boundary(schema.exclusiveMinimum, true, "lower"),
     Math.max,
   );
 
@@ -70,14 +66,29 @@ const getUpperBoundary = (
   schema: OpenApi.IJsonSchema.INumber,
 ): IBoundary | null =>
   selectBoundary(
-    schema.maximum === undefined
-      ? null
-      : { value: schema.maximum, exclusive: false },
-    schema.exclusiveMaximum === undefined
-      ? null
-      : { value: schema.exclusiveMaximum, exclusive: true },
+    boundary(schema.maximum, false, "upper"),
+    boundary(schema.exclusiveMaximum, true, "upper"),
     Math.min,
   );
+
+/**
+ * Reads one bound, which may be infinite.
+ *
+ * A type tag built from an overflowing literal (`Maximum<1e400>`) carries an
+ * infinite bound (#2452). `-Infinity` below or `Infinity` above excludes no
+ * finite number, so it is no bound at all; `Infinity` below or `-Infinity`
+ * above excludes every finite number, so no value can be generated.
+ */
+const boundary = (
+  value: number | undefined,
+  exclusive: boolean,
+  side: "lower" | "upper",
+): IBoundary | null => {
+  if (value === undefined) return null;
+  if (Number.isFinite(value)) return { value, exclusive };
+  if (value === (side === "lower" ? -Infinity : Infinity)) return null;
+  throw new Error("Numeric range has no finite value.");
+};
 
 const selectBoundary = (
   x: IBoundary | null,

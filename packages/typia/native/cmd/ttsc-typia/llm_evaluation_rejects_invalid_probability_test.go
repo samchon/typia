@@ -29,6 +29,9 @@ func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
     "- $input.tagUnder\n  - LLM evaluation tags.Probability must be in [0, 1], but got -0.1.",
     "- $input.commentText\n  - LLM evaluation @probability must be a number in [0, 1], but got \"high\".",
     "- $input.commentEmpty\n  - LLM evaluation @probability must be a number in [0, 1], but got \"\".",
+    // Go's float syntax reads `0x1p-1` as 0.5, JavaScript's `Number()` does not
+    // (samchon/typia#2442).
+    "- $input.commentGoFloat\n  - LLM evaluation @probability must be a number in [0, 1], but got \"0x1p-1\".",
     "- $input.commentOver\n  - LLM evaluation @probability must be in [0, 1], but got 2.",
     "- $input.commentTwice\n  - LLM evaluation @probability is declared more than once; keep only one.",
     "- $input.both\n  - LLM evaluation boolean has both tags.Probability and @probability; keep only one.",
@@ -150,6 +153,12 @@ typia.llm.evaluation<{
    * @probability
    */
   commentEmpty: boolean;
+  /**
+   * Go float?
+   *
+   * @probability 0x1p-1
+   */
+  commentGoFloat: boolean;
   /**
    * Over?
    *
