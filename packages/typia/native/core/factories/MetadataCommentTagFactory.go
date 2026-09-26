@@ -549,13 +549,17 @@ func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, o
 }
 
 // metadataCommentTagFactory_integer is the integer a finite numeric text
-// writes exactly, if it writes one within the int64 range.
+// writes exactly, if it writes one whose double lies within the int64 range. A
+// few integers just below -2^63 round to it and pass; the bigint record checks
+// the integer itself.
 //
-// Its double settles most texts without expanding them. A non-integer double
-// comes only from a non-integer text, a double outside the int64 range from a
-// text outside it too, and a zero from a text with a non-zero digit is the
-// underflow of a non-integer. `big.Rat` expands only what remains, so a short
-// text such as `@minimum 1e-1000000` costs nothing, on any target.
+// Its double, which `NumberUtil.Read` rounds correctly, settles most texts
+// without expanding them. A non-integer double comes only from a non-integer
+// text, and a zero from a text with a non-zero digit is the underflow of a
+// non-integer. A double at 2^63 or beyond in magnitude is refused too: the
+// int64 texts that round there (up from 9223372036854775296) are no doubles, so
+// no bigint record could hold them anyway. `big.Rat` expands only what remains,
+// so a short text such as `@minimum 1e-1000000` costs nothing, on any target.
 func metadataCommentTagFactory_integer(text string) (*big.Int, bool) {
   reading := nativeutils.NumberUtil.Read(text)
   if reading.Numeric == false ||
@@ -567,9 +571,9 @@ func metadataCommentTagFactory_integer(text string) (*big.Int, bool) {
   }
   if reading.Value == 0 {
     // A zero writes zero only when no digit before its exponent is non-zero;
-    // otherwise it underflowed. A radix literal has no exponent.
+    // otherwise it underflowed. A radix zero has no `e`, being all zeros.
     mantissa := text
-    if index := strings.IndexAny(text, "eE"); index != -1 && strings.ContainsAny(text, "xXoObB") == false {
+    if index := strings.IndexAny(text, "eE"); index != -1 {
       mantissa = text[:index]
     }
     if strings.ContainsAny(mantissa, "123456789") {
@@ -638,7 +642,7 @@ func metadataCommentTagFactory_splice(value string) string {
 
 // metadataCommentTagFactory_splice_integer respells a tag value for a bigint
 // validator: the exact digits of the integer the text writes, whatever its
-// spelling. `1.152921504606846976e18` writes 2^60, while its double spells
+// spelling, for every value a bigint record holds. `1.152921504606846976e18` writes 2^60, while its double spells
 // 1152921504606847000, which spliced before an `n` would check a different
 // integer (samchon/typia#2457). Text that writes no integer has no bigint
 // record, and falls back to the number splice.

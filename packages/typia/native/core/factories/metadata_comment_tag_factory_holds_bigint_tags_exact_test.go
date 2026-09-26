@@ -2,6 +2,7 @@ package factories
 
 import (
   "fmt"
+  "strings"
   "testing"
 
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -48,7 +49,10 @@ func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
     {"0x10", 16},
     {"-0", 0},
     {"0e999999999", 0},
+    {"0E5", 0},
+    {"0e99999999999999999999", 0}, // an exponent `big.Rat` cannot parse
     {"0x0", 0},
+    {"1" + strings.Repeat("0", 800) + "e-800", 1}, // past ParseFloat's buffer
     {"10000000000000000", 10000000000000000},
   } {
     value, numeric, ok := metadataCommentTagFactory_bigint(item.text)
