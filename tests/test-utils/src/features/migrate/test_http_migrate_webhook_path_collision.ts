@@ -10,14 +10,15 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * named like a path replaced the whole path item: every operation of the path
  * vanished without a route or an error, and the webhook took over its route and
  * component names (#2455). Webhooks are migrated as additional routes, and the
- * oracle is the input document: every operation keeps its own route and
- * schema.
+ * oracle is the input document: every operation keeps its own route and schema,
+ * and a path operation keeps the names it has without the webhook.
  *
  * 1. Migrate a path with `get` and `post` next to no webhook, a distinctly named
  *    one, one sharing the path's key and method, and one sharing only the key.
- * 2. Assert every path and webhook operation has its own route, accessor, and
- *    response schema, with no error.
- * 3. Assert `HttpLlm` keeps one uniquely named function per route.
+ * 2. Assert every path and webhook operation has its own route and response
+ *    schema, with no error, and that the path operations keep their plain
+ *    accessors and component names while a colliding webhook's are escaped.
+ * 3. Assert `HttpLlm` names one function per route after its accessor.
  */
 export const test_http_migrate_webhook_path_collision = (): void => {
   const response = (key: string): OpenApi.IOperation.IResponse => ({
@@ -57,6 +58,11 @@ export const test_http_migrate_webhook_path_collision = (): void => {
           : schema;
       return {
         route: `${route.method} ${route.path}`,
+        accessor: route.accessor.join("."),
+        component:
+          schema !== undefined && "$ref" in schema
+            ? schema.$ref.replace("#/components/schemas/", "")
+            : null,
         payload: Object.keys(
           (found as OpenApi.IJsonSchema.IObject | undefined)?.properties ?? {},
         ),
@@ -68,35 +74,90 @@ export const test_http_migrate_webhook_path_collision = (): void => {
       title: "no webhooks",
       webhooks: undefined,
       expected: [
-        { route: "get /pets", payload: ["list"] },
-        { route: "post /pets", payload: ["created"] },
+        {
+          route: "get /pets",
+          accessor: "pets.get",
+          component: "IApiPets.GetResponse",
+          payload: ["list"],
+        },
+        {
+          route: "post /pets",
+          accessor: "pets.post",
+          component: "IApiPets.PostResponse",
+          payload: ["created"],
+        },
       ],
     },
     {
       title: "distinct name",
       webhooks: { newPet: { post: { responses: { 200: response("hook") } } } },
       expected: [
-        { route: "get /pets", payload: ["list"] },
-        { route: "post /pets", payload: ["created"] },
-        { route: "post newPet", payload: ["hook"] },
+        {
+          route: "get /pets",
+          accessor: "pets.get",
+          component: "IApiPets.GetResponse",
+          payload: ["list"],
+        },
+        {
+          route: "post /pets",
+          accessor: "pets.post",
+          component: "IApiPets.PostResponse",
+          payload: ["created"],
+        },
+        {
+          route: "post newPet",
+          accessor: "newPet.post",
+          component: "IApiNewPet.PostResponse",
+          payload: ["hook"],
+        },
       ],
     },
     {
       title: "same key and method",
       webhooks: { "/pets": { post: { responses: { 200: response("hook") } } } },
       expected: [
-        { route: "get /pets", payload: ["list"] },
-        { route: "post /pets", payload: ["created"] },
-        { route: "post /pets", payload: ["hook"] },
+        {
+          route: "get /pets",
+          accessor: "pets.get",
+          component: "IApiPets.GetResponse",
+          payload: ["list"],
+        },
+        {
+          route: "post /pets",
+          accessor: "pets.post",
+          component: "IApiPets.PostResponse",
+          payload: ["created"],
+        },
+        {
+          route: "post /pets",
+          accessor: "pets._post",
+          component: "IApiPets._PostResponse",
+          payload: ["hook"],
+        },
       ],
     },
     {
       title: "same key only",
       webhooks: { "/pets": { put: { responses: { 200: response("hook") } } } },
       expected: [
-        { route: "get /pets", payload: ["list"] },
-        { route: "post /pets", payload: ["created"] },
-        { route: "put /pets", payload: ["hook"] },
+        {
+          route: "get /pets",
+          accessor: "pets.get",
+          component: "IApiPets.GetResponse",
+          payload: ["list"],
+        },
+        {
+          route: "post /pets",
+          accessor: "pets.post",
+          component: "IApiPets.PostResponse",
+          payload: ["created"],
+        },
+        {
+          route: "put /pets",
+          accessor: "pets.put",
+          component: "IApiPets.PutResponse",
+          payload: ["hook"],
+        },
       ],
     },
   ];
@@ -105,22 +166,12 @@ export const test_http_migrate_webhook_path_collision = (): void => {
     const app: IHttpMigrateApplication = HttpMigration.application(document);
     TestEquality.equals(`${title}: errors`, app.errors, []);
     TestEquality.equals(`${title}: routes`, inventory(app), expected);
-    TestEquality.equals(
-      `${title}: distinct accessors`,
-      new Set(app.routes.map((route) => route.accessor.join("."))).size,
-      app.routes.length,
-    );
 
     const llm = HttpLlm.application({ document });
     TestEquality.equals(
       `${title}: functions`,
-      llm.functions.length,
-      app.routes.length,
-    );
-    TestEquality.equals(
-      `${title}: distinct names`,
-      new Set(llm.functions.map((func) => func.name)).size,
-      llm.functions.length,
+      llm.functions.map((func) => func.name),
+      expected.map((entry) => entry.accessor.split(".").join("_")),
     );
   }
 };
@@ -132,5 +183,7 @@ interface ICase {
 }
 interface IEntry {
   route: string;
+  accessor: string;
+  component: string | null;
   payload: string[];
 }
