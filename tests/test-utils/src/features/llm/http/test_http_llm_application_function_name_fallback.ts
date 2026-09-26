@@ -1,4 +1,3 @@
-import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmApplication, OpenApi } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, OpenApiConverter } from "@typia/utils";
@@ -137,7 +136,23 @@ export const test_http_llm_application_function_name_fallback =
         );
       }
 
-    TestValidator.error("maxLength 1", () =>
-      HttpLlm.application({ document: siblings, config: { maxLength: 1 } }),
+    TestEquality.equals(
+      "maxLength 1",
+      thrown(() =>
+        HttpLlm.application({ document: siblings, config: { maxLength: 1 } }),
+      )?.startsWith(
+        "Error on HttpLlm.application(): maxLength 1 cannot hold a unique name",
+      ),
+      true,
     );
   };
+
+/** The message a task throws, or `null` when it returns. */
+const thrown = (task: () => unknown): string | null => {
+  try {
+    task();
+  } catch (error) {
+    return (error as Error).message;
+  }
+  return null;
+};

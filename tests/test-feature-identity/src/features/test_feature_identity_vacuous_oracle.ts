@@ -6,24 +6,29 @@ import path from "path";
 import { Git } from "../Git";
 
 /**
- * Verifies no tracked test source asserts through `TestValidator.equals`.
+ * Verifies no tracked test source asserts through a vacuous `TestValidator`
+ * oracle: `equals` or `error`.
  *
  * `@nestia/e2e`'s `TestValidator.equals` walks only its first argument's keys
  * and sees no content in `Date`, `Map`, or `Set`, so an assertion that put the
  * actual first passed whatever the actual lost. #2350 triaged the call sites
  * one by one and the trap still returned in #2399; the suites now assert
- * through `TestEquality` instead (#2401). A single new call would reopen the
- * trap silently, because it still passes, so only a scan can catch it.
+ * through `TestEquality` instead (#2401). `TestValidator.error` never fails on
+ * a synchronous task: it throws its own failure inside the `try` meant for the
+ * task's exception and swallows it, so three tests asserted nothing (#2460). A
+ * single new call would reopen either trap silently, because it still passes,
+ * so only a scan can catch it.
  *
- * 1. Assert the matcher finds each planted spelling of the call, so the scan
+ * 1. Assert the matcher finds each planted spelling of either call, so the scan
  *    cannot pass by matching nothing.
- * 2. Assert it ignores prose that only names the function, and that a comment
- *    opener inside a string, template, or regular expression hides nothing.
+ * 2. Assert it ignores prose that only names the functions, siblings such as
+ *    `httpError`, and that a comment opener inside a string, template, or
+ *    regular expression hides nothing.
  * 3. Collect every tracked TypeScript source under `tests/`, and assert the scan
  *    reached them.
- * 4. Assert none of them calls `TestValidator.equals`.
+ * 4. Assert none of them calls `TestValidator.equals` or `TestValidator.error`.
  */
-export const test_feature_identity_equality_oracle = (): void => {
+export const test_feature_identity_vacuous_oracle = (): void => {
   // assembled at run time, so this file does not match its own scan
   const V: string = ["Test", "Validator"].join("");
   for (const planted of [
@@ -37,6 +42,13 @@ export const test_feature_identity_equality_oracle = (): void => {
     `${V}["equals"]("title", x, y);`,
     `const { equals } = ${V};`,
     `import { ${V} as V } from "@nestia/e2e";`,
+    `${V}.error("title", () => task());`,
+    `${V}\n  .error("title", () => task());`,
+    `${V}?.error("title", () => task());`,
+    `(${V} as any).error("title", () => task());`,
+    `${V}["error"]("title", () => task());`,
+    `const { error } = ${V};`,
+    `const { predicate, error: fails } = ${V};`,
   ])
     TestEquality.equals(
       `planted ${JSON.stringify(planted)}`,
@@ -60,6 +72,9 @@ export const test_feature_identity_equality_oracle = (): void => {
     `/*\n * ${V}.equals(\n */`,
     `${V}.predicate("equals", true);`,
     `${V}.equalsLike("title", x, y);`,
+    `${V}.predicate("error", true);`,
+    `${V}.httpError("title", 401, () => task());`,
+    `${V}.errorLike("title", () => task());`,
   ])
     TestEquality.equals(`prose ${JSON.stringify(prose)}`, calls(prose), []);
 
@@ -75,7 +90,7 @@ export const test_feature_identity_equality_oracle = (): void => {
     files.length >= POPULATED,
   );
   TestEquality.equals(
-    "one-way equality calls",
+    "vacuous oracle calls",
     [] as string[],
     files.flatMap((file) =>
       calls(fs.readFileSync(path.join(root, file), "utf8")).map(
@@ -86,7 +101,8 @@ export const test_feature_identity_equality_oracle = (): void => {
 };
 
 /**
- * One-based lines where `text` reaches `TestValidator.equals`.
+ * One-based lines where `text` reaches `TestValidator.equals` or
+ * `TestValidator.error`.
  *
  * Comments are blanked first, keeping their line breaks, so prose that names
  * the function is not a use while any code spelling of it is.
@@ -193,12 +209,12 @@ const blank = (text: string): string => {
 };
 
 /**
- * Any member access to `equals` on `TestValidator`, through a cast or optional
- * chaining included, a destructuring of it, or a renaming import that would
- * hide the name from the rest of the pattern.
+ * Any member access to `equals` or `error` on `TestValidator`, through a cast
+ * or optional chaining included, a destructuring of either, or a renaming
+ * import that would hide the name from the rest of the pattern.
  */
 const PATTERN =
-  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*equals\b|(?:\?\.)?\s*\[\s*["'`]equals["'`]\s*\])|\{[^}]*\bequals\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b/g;
+  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*(?:equals|error)\b|(?:\?\.)?\s*\[\s*["'`](?:equals|error)["'`]\s*\])|\{[^}]*\b(?:equals|error)\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b/g;
 
 /**
  * A floor, not an expectation: the tracked suites hold over a thousand sources.

@@ -53,8 +53,10 @@ export const test_json_schema_non_finite_numbers = (): void => {
   TestValidator.predicate("tag random", () =>
     typia.is<ITagged>(typia.random<ITagged>()),
   );
-  TestValidator.error("unsatisfiable random", () =>
-    typia.random<IUnsatisfiable>(),
+  TestEquality.equals(
+    "unsatisfiable random",
+    thrown(() => typia.random<IUnsatisfiable>()),
+    "Numeric range has no finite value.",
   );
 };
 
@@ -67,3 +69,13 @@ interface ITagged {
 interface IUnsatisfiable {
   value: number & tags.Minimum<1e400>;
 }
+
+/** The message a task throws, or `null` when it returns. */
+const thrown = (task: () => unknown): string | null => {
+  try {
+    task();
+  } catch (error) {
+    return (error as Error).message;
+  }
+  return null;
+};
