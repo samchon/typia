@@ -1,3 +1,4 @@
+import { TestValidator } from "@nestia/e2e";
 import { IHttpLlmApplication, OpenApi } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, OpenApiConverter } from "@typia/utils";
@@ -10,16 +11,19 @@ import { TestGlobal } from "../../../TestGlobal";
  * name rule.
  *
  * `HttpLlm` shortens a name beyond `maxLength` by dropping leading accessor
- * segments. When even the last one, the method alias built from every path
- * parameter, was too long, it fell back to a random UUID: the name changed on
- * every composition, started with a digit ten times in sixteen although the
- * composer rejects such names for every other function, and was longer than a
- * `maxLength` below 36 (#2456). The GitHub example has eleven such routes.
+ * segments down to `maxLength - 8` characters. When no suffix fit, which the
+ * method alias built from every path parameter routinely prevents, it fell back
+ * to a random UUID: the name changed on every composition, started with a digit
+ * ten times in sixteen although the composer rejects such names for every other
+ * function, and was longer than a `maxLength` below 36 (#2456). The GitHub
+ * example has eleven such routes.
  *
- * 1. Compose the GitHub example and a document of long sibling routes twice, at
- *    several `maxLength` values.
+ * 1. Compose the GitHub example and a document of long sibling routes, one with a
+ *    custom accessor starting with a digit, twice at several `maxLength`
+ *    values.
  * 2. Assert the names are identical across compositions, unique, at most
  *    `maxLength`, and of the composer's own grammar.
+ * 3. Assert a `maxLength` below 2, which no such name fits, throws.
  */
 export const test_http_llm_application_function_name_fallback =
   async (): Promise<void> => {
@@ -38,14 +42,26 @@ export const test_http_llm_application_function_name_fallback =
         required: true,
         schema: { type: "string" },
       }));
-    const operation = (names: string[]): OpenApi.IOperation => ({
+    const operation = (
+      names: string[],
+      accessor?: string[],
+    ): OpenApi.IOperation => ({
       parameters: parameters(names),
       responses: {
         200: {
           description: "ok",
-          content: { "application/json": { schema: { type: "string" } } },
+          content: {
+            "application/json": {
+              schema: {
+                type: "object",
+                properties: { id: { type: "string" } },
+                required: ["id"],
+              },
+            },
+          },
         },
       },
+      ...(accessor !== undefined ? { "x-samchon-accessor": accessor } : {}),
     });
     const long: string[] = [
       "organizationId",
@@ -57,23 +73,32 @@ export const test_http_llm_application_function_name_fallback =
       openapi: "3.2.0",
       "x-typia-emended-v12": true,
       components: {},
-      paths: Object.fromEntries(
-        ["alpha", "beta", "gamma"].map((prefix) => [
-          `/${prefix}/{${long.join("}/{")}}`,
-          { get: operation(long), delete: operation(long) },
-        ]),
-      ),
+      paths: {
+        ...Object.fromEntries(
+          ["alpha", "beta", "gamma"].map((prefix) => [
+            `/${prefix}/{${long.join("}/{")}}`,
+            { get: operation(long), delete: operation(long) },
+          ]),
+        ),
+        "/security/verification": {
+          post: operation(
+            [],
+            ["security", "2faVerificationForAccountsWithAVeryLongDescription"],
+          ),
+        },
+      },
     };
 
     for (const [title, document] of [
       ["github", github],
       ["siblings", siblings],
     ] as const)
-      for (const maxLength of [64, 36, 20, 8]) {
+      for (const maxLength of [64, 36, 20, 9, 8, 3]) {
         const compose = (): IHttpLlmApplication =>
           HttpLlm.application({ document, config: { maxLength } });
         const names: string[] = compose().functions.map((func) => func.name);
         const label: string = `${title} maxLength ${maxLength}`;
+        TestEquality.equals(`${label}: composed`, names.length > 0, true);
         TestEquality.equals(
           `${label}: deterministic`,
           compose().functions.map((func) => func.name),
@@ -94,4 +119,8 @@ export const test_http_llm_application_function_name_fallback =
           [],
         );
       }
+
+    TestValidator.error("maxLength 1", () =>
+      HttpLlm.application({ document: siblings, config: { maxLength: 1 } }),
+    );
   };

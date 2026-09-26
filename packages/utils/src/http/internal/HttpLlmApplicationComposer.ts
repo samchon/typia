@@ -462,10 +462,11 @@ export namespace HttpLlmApplicationComposer {
   /**
    * Shortens function names exceeding the character limit.
    *
-   * Tries progressively shorter accessor suffixes first, then index-prefixed
-   * ones, and finally abbreviates the last accessor segment with a hash of the
-   * full name. Every result is deterministic, fits the limit, and starts with
-   * no digit.
+   * Tries accessor suffixes of at most `limit - 8` characters, the room an
+   * index prefix needs on a collision, then index-prefixed ones, and finally
+   * abbreviates the last accessor segment with a hash of the full name. Every
+   * result is deterministic, fits the limit, and starts with no digit; a limit
+   * below 2 cannot hold such a name and throws.
    */
   export const shorten = (
     app: IHttpLlmApplication,
@@ -494,8 +495,8 @@ export namespace HttpLlmApplicationComposer {
       // try dropping leading accessor segments to shorten the name
       // (e.g., "api_users_getById" → "users_getById" → "getById")
       for (let i: number = 1; i < func.route().accessor.length; ++i) {
-        const shortName: string = emend(
-          func.route().accessor.slice(i).join("_"),
+        const shortName: string = legal(
+          emend(func.route().accessor.slice(i).join("_")),
         );
         if (shortName.length > limit - 8)
           continue; // reserve room for "_N_" prefix
@@ -530,22 +531,33 @@ const abbreviate = (
   taken: Set<string>,
 ): string => {
   const accessor: string[] = func.route().accessor;
-  const head: string = emend(accessor[accessor.length - 1] ?? "");
-  for (let salt: number = 0; salt < 1_000; ++salt) {
+  const head: string = legal(emend(accessor[accessor.length - 1] ?? ""));
+  for (let salt: number = 0; salt < 1_000 && limit >= 2; ++salt) {
     const hash: string = hashName(
       salt === 0 ? func.name : `${func.name}#${salt}`,
     );
+    // The leading base-36 digit of a 32-bit hash is only ever 0 or 1, so a
+    // short name keeps the hash's tail.
     const room: number = limit - hash.length - 1;
     const name: string =
       room > 0
         ? `${head.slice(0, room)}_${hash}`
-        : `_${hash.slice(0, Math.max(1, limit - 1))}`;
+        : `_${hash.slice(-Math.floor(limit - 1))}`;
     if (taken.has(name) === false) return name;
   }
   throw new Error(
     `Error on HttpLlm.application(): maxLength ${limit} cannot hold a unique name for ${JSON.stringify(func.name)}.`,
   );
 };
+
+/**
+ * Prefixes `_` to a name that starts with a digit.
+ *
+ * A custom `x-samchon-accessor` segment may start with one, and the composer
+ * refuses such a function name everywhere else.
+ */
+const legal = (name: string): string =>
+  /^[0-9]/.test(name) ? `_${name}` : name;
 
 /** FNV-1a 32-bit hash of a name, in seven base-36 digits. */
 const hashName = (text: string): string => {

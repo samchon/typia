@@ -47,9 +47,12 @@ export namespace IHttpLlmApplication {
     /**
      * Maximum function name length.
      *
-     * A longer name drops its leading accessor segments. When even the last
-     * segment is too long, its head is kept with a hash of the full name, so
-     * the name stays deterministic and unique and does not start with a digit.
+     * A longer name drops leading accessor segments until at most `maxLength -
+     * 8` characters remain, which leaves room for a counter prefix should it
+     * collide. When no suffix fits, the head of the last segment is kept with a
+     * hash of the full name. Every name is deterministic, unique, at most
+     * `maxLength`, and does not start with a digit; a `maxLength` below 2
+     * cannot hold one and throws.
      *
      * @default 64
      */
