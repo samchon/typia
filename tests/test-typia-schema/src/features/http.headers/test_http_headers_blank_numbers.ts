@@ -12,7 +12,7 @@ import typia, { IValidation } from "typia";
  * 1. Decode empty and blank numeric and bigint headers through all eight forms.
  * 2. Require optional blanks to be absent, and required blanks and blank list
  *    elements to be rejected.
- * 3. Keep `0`, ` 1 `, and `1, 2` as the negative twins.
+ * 3. Keep `0`, a space-padded `1`, and `1, 2` as the negative twins.
  */
 export const test_http_headers_blank_numbers = (): void => {
   const decoders: Array<[string, (input: Input) => IHeaders | null]> = [

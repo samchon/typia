@@ -11,7 +11,7 @@ import typia, { IValidation } from "typia";
  *
  * 1. Decode blank and empty numeric and bigint fields through all eight forms.
  * 2. Require optional blanks to be absent and array blanks to be rejected.
- * 3. Keep `0` and ` 1 ` as the negative twins.
+ * 3. Keep `0` and a space-padded `1` as the negative twins.
  */
 export const test_http_form_data_blank_numbers = (): void => {
   const decoders: Array<[string, (input: FormData) => IForm | null]> = [

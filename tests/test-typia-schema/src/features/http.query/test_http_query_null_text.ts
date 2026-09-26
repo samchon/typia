@@ -10,10 +10,12 @@ import typia, { IValidation } from "typia";
  * `null` may read the text as `null`; there the spelling is ambiguous and
  * `null` wins.
  *
- * 1. Decode `null` into required, optional, literal, nullable, and array
- *    string properties through all eight forms.
+ * 1. Decode `null` into required, optional, literal, nullable, and array string
+ *    properties through all eight forms.
  * 2. Require the string `"null"` everywhere `null` is not admitted.
- * 3. Keep nullable strings and nullable numbers reading `null` as the twins.
+ * 3. Keep nullable strings, nullable numbers, `unknown`, `any`, and nullable array
+ *    elements reading `null` as the twins; a nullable array's own element does
+ *    not admit it.
  */
 export const test_http_query_null_text = (): void => {
   const decoders: Array<[string, (input: string) => IQuery | null]> = [
@@ -51,11 +53,32 @@ export const test_http_query_null_text = (): void => {
   };
   for (const [name, decode] of decoders)
     TestEquality.equals(name, decode(input), expected);
+
+  // `unknown` and `any` admit `null`; a nullable array's element does not,
+  // while an array of nullable strings does
+  TestEquality.equals(
+    "admitting units",
+    typia.http.query<IAdmitting>(
+      "unknown=null&any=null&nullableList=null&nullableElements=null&nullableElements=x",
+    ),
+    {
+      unknown: null,
+      any: null,
+      nullableList: ["null"],
+      nullableElements: [null, "x"],
+    },
+  );
 };
 
 const unwrap = <T>(result: IValidation<T>): T | null =>
   result.success ? result.data : null;
 
+interface IAdmitting {
+  unknown: unknown;
+  any: any;
+  nullableList: string[] | null;
+  nullableElements: (string | null)[];
+}
 interface IQuery {
   text: string;
   optional?: string;

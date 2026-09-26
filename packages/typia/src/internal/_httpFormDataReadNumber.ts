@@ -5,7 +5,7 @@ export const _httpFormDataReadNumber = (
     ? (input as any)
     : // Blank text is absent, as the empty string always was: `Number(" ")`
       // is 0, which would read a whitespace value as a real zero (#2448).
-      input !== null && input.trim().length !== 0
+      typeof input === "string" && input.trim().length !== 0
       ? input === "null"
         ? null
         : (toNumber(input) as any)

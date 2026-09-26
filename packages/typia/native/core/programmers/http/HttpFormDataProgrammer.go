@@ -380,18 +380,22 @@ func httpProgrammer_property_key(property *schemametadata.MetadataProperty) stri
 }
 
 // httpProgrammer_decode_nullable tells whether one decoded unit admits `null`:
-// the element for an array property, the property itself otherwise.
+// the element for an array property, the property itself otherwise. `any` and
+// `unknown` admit it as well, and decode through the string reader.
 func httpProgrammer_decode_nullable(value *schemametadata.MetadataSchema) bool {
+  admits := func(unit *schemametadata.MetadataSchema) bool {
+    return unit != nil && (unit.Nullable || unit.Any)
+  }
   if value == nil {
     return false
   }
   if len(value.Arrays) != 0 {
-    return value.Arrays[0].Type.Value != nil && value.Arrays[0].Type.Value.Nullable
+    return admits(value.Arrays[0].Type.Value)
   }
   if len(value.Tuples) != 0 && len(value.Tuples[0].Type.Elements) != 0 {
-    return value.Tuples[0].Type.Elements[0].Nullable
+    return admits(value.Tuples[0].Type.Elements[0])
   }
-  return value.Nullable
+  return admits(value)
 }
 
 // httpProgrammer_read_arguments lists the arguments of one `_http*Read*` call.

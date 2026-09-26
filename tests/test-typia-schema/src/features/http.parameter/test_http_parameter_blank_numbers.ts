@@ -6,14 +6,14 @@ import typia, { TypeGuardError } from "typia";
  * Verifies blank path parameters never decode to zero.
  *
  * `http.parameter` read `""` and `" "` through `Number()` / `BigInt()`, which
- * return zero, so a blank segment passed the assertion as `0` / `0n` (#2448).
- * A path parameter has no absent state, so blank text stays text and the
+ * return zero, so a blank segment passed the assertion as `0` / `0n` (#2448). A
+ * path parameter has no absent state, so blank text stays text and the
  * assertion rejects it.
  *
  * 1. Decode empty and blank segments as number, bigint, and nullable number.
  * 2. Require a `TypeGuardError` for each.
- * 3. Keep `0`, ` 1 `, `null`, and a blank string parameter as the negative
- *    twins.
+ * 3. Keep `0`, a space-padded `1`, `null`, and a blank string parameter as the
+ *    negative twins.
  */
 export const test_http_parameter_blank_numbers = (): void => {
   for (const input of ["", " ", "\t"]) {

@@ -9,10 +9,12 @@ import typia, { IValidation } from "typia";
  * and the literal type `"null"` could never be decoded (#2450). Only a type
  * that admits `null` may read the text as `null`.
  *
- * 1. Decode `null` into required, optional, literal, nullable, and array
- *    string fields through all eight forms.
+ * 1. Decode `null` into required, optional, literal, nullable, and array string
+ *    fields through all eight forms.
  * 2. Require the string `"null"` everywhere `null` is not admitted.
- * 3. Keep nullable strings and nullable numbers reading `null` as the twins.
+ * 3. Keep nullable strings, nullable numbers, `unknown`, `any`, and nullable array
+ *    elements reading `null` as the twins; a nullable array's own element does
+ *    not admit it.
  */
 export const test_http_form_data_null_text = (): void => {
   const decoders: Array<[string, (input: FormData) => IForm | null]> = [
@@ -45,11 +47,34 @@ export const test_http_form_data_null_text = (): void => {
   };
   for (const [name, decode] of decoders)
     TestEquality.equals(name, decode(data), expected);
+
+  // `unknown` and `any` admit `null`; a nullable array's element does not,
+  // while an array of nullable strings does
+  const admitting = new FormData();
+  for (const key of ["unknown", "any", "nullableList", "nullableElements"])
+    admitting.append(key, "null");
+  admitting.append("nullableElements", "x");
+  TestEquality.equals(
+    "admitting units",
+    typia.http.formData<IAdmitting>(admitting),
+    {
+      unknown: null,
+      any: null,
+      nullableList: ["null"],
+      nullableElements: [null, "x"],
+    },
+  );
 };
 
 const unwrap = <T>(result: IValidation<T>): T | null =>
   result.success ? result.data : null;
 
+interface IAdmitting {
+  unknown: unknown;
+  any: any;
+  nullableList: string[] | null;
+  nullableElements: (string | null)[];
+}
 interface IForm {
   text: string;
   optional?: string;

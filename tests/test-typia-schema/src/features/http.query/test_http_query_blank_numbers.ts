@@ -4,14 +4,14 @@ import typia, { IValidation } from "typia";
 /**
  * Verifies blank query values never decode to zero.
  *
- * `Number(" ")` and `BigInt(" ")` are zero, so a whitespace query value read
- * as `0` / `0n` and passed every validator (#2448). The empty value was already
+ * `Number(" ")` and `BigInt(" ")` are zero, so a whitespace query value read as
+ * `0` / `0n` and passed every validator (#2448). The empty value was already
  * absent; blank text must be absent the same way, in scalars and in array
  * elements, while non-blank text keeps its `Number()` reading.
  *
  * 1. Decode blank and empty numeric and bigint values through all eight forms.
  * 2. Require optional blanks to be absent and array blanks to be rejected.
- * 3. Keep `0`, ` 1 `, `1e3`, and `0x10` as the negative twins.
+ * 3. Keep `0`, a space-padded `1`, `1e3`, and `0x10` as the negative twins.
  */
 export const test_http_query_blank_numbers = (): void => {
   const decoders: Array<[string, (input: string) => IQuery | null]> = [

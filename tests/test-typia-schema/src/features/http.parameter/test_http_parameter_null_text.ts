@@ -12,8 +12,8 @@ import typia, { TypeGuardError } from "typia";
  *
  * 1. Decode `null` as `string`, a `"null"` literal union, and a template type.
  * 2. Require the string `"null"` for each.
- * 3. Keep `string | null` and `number | null` reading `null`, and a
- *    non-nullable number rejecting it, as the twins.
+ * 3. Keep `string | null` and `number | null` reading `null`, and a non-nullable
+ *    number rejecting it, as the twins.
  */
 export const test_http_parameter_null_text = (): void => {
   TestEquality.equals("string", typia.http.parameter<string>("null"), "null");
