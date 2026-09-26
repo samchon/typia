@@ -165,12 +165,13 @@ func (numberUtilNamespace) String(value float64) string {
   return mantissa + "e" + sign + digits
 }
 
-// numberUtil_LONG_MANTISSA is the mantissa length from which numberUtil_readLong
-// replaces `strconv.ParseFloat`. The latter's decimal buffer holds 800 digits
-// and places the point by the stored ones, so a mantissa of more than 800
-// significant digits with an exponent reads wrong: `1` followed by 800 zeros
-// and `e-800` reads as 0.1, where `Number()` reads 1. Counting every digit
-// against 700 keeps well clear of that edge.
+// numberUtil_LONG_MANTISSA is the mantissa length beyond which
+// numberUtil_readLong replaces `strconv.ParseFloat`. When its fast paths give
+// up, the latter falls back to a decimal buffer of 800 digits that places the
+// point by the stored ones, so a mantissa of more than 800 significant digits
+// with an exponent can read wrong: `1` followed by 800 zeros and `e-800` reads
+// as 0.1, where `Number()` reads 1. Counting every digit against 700 keeps well
+// clear of that edge.
 const numberUtil_LONG_MANTISSA = 700
 
 // numberUtil_EXPONENT_LIMIT bounds the exponent numberUtil_readLong computes

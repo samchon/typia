@@ -558,8 +558,9 @@ func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, o
 // text, and a zero from a text with a non-zero digit is the underflow of a
 // non-integer. A double at 2^63 or above, or below -2^63, is refused too: the
 // int64 texts that round up to 2^63 (from 9223372036854775296) are no doubles,
-// so no bigint record could hold them anyway. `big.Rat` expands only what remains,
-// so a short text such as `@minimum 1e-1000000` costs nothing, on any target.
+// so no bigint record could hold them anyway. `big.Rat` expands only what
+// remains, so a short text such as `@minimum 1e-1000000` costs nothing, on any
+// target.
 func metadataCommentTagFactory_integer(text string) (*big.Int, bool) {
   reading := nativeutils.NumberUtil.Read(text)
   if reading.Numeric == false ||
