@@ -243,7 +243,13 @@ func httpHeadersProgrammer_decode_object(props struct {
         nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
         nil,
         f.NewToken(shimast.KindEqualsEqualsEqualsToken),
-        nativefactories.IdentifierFactory.Access(props.Context.Emit, access, "length"),
+        f.NewBinaryExpression(
+          nil,
+          nativefactories.IdentifierFactory.Access(props.Context.Emit, access, "length", true),
+          nil,
+          f.NewToken(shimast.KindQuestionQuestionToken),
+          nativefactories.ExpressionFactory.Number(0, props.Context.Emit),
+        ),
       ),
       f.NewExpressionStatement(
         f.NewDeleteExpression(access),

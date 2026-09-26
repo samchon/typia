@@ -624,6 +624,8 @@ namespace http {
 
 `http.headers` decodes an Express/Fastify-style headers object. Same coercion as `query`, plus a stricter set of restrictions specific to HTTP:
 
+An omitted optional array header is absent from the decoded object. An empty array header is also omitted.
+
 1. `T` must be an object type
 2. No dynamic keys
 3. **Property keys must be lowercase** (HTTP headers are case-insensitive; typia normalizes to lowercase)
