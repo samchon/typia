@@ -23,7 +23,8 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  *
  * Parses a `FormData` instance with automatic type casting. Properties typed as
  * `boolean`, `bigint`, or `number` are cast from their text, and `Blob` and
- * `File` properties are read as given.
+ * `File` properties are read as given, except that the text `null` reads as
+ * `null`.
  *
  * Type `T` constraints:
  *
@@ -511,8 +512,8 @@ export function validateHeaders(): never {
  * A blank value is not a number, and a string parameter keeps the text `null`
  * unless `T` admits `null`.
  *
- * @template T Target atomic type (`boolean`, `bigint`, `number`, `string`, or
- *   `null`)
+ * @template T Target atomic type (`boolean`, `bigint`, `number`, or `string`),
+ *   optionally with `null`
  * @param input Path parameter string
  * @returns Decoded value of type `T`
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
