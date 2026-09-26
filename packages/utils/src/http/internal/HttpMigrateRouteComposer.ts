@@ -723,19 +723,37 @@ export namespace HttpMigrateRouteComposer {
       },
     );
 
+  /**
+   * Store an inline schema as a component named from its route.
+   *
+   * The name folds `{param}` segments, separators, and letter case, so two
+   * routes can derive the same name (`GET /users` and `GET /users/{id}` both
+   * derive `IApiUsers.GetResponse`), and the document may already own it.
+   * Overwriting made one route silently declare another route's schema (#2451).
+   * A taken name is escaped instead, by prefixing `_` to its last segment until
+   * it is free, the convention accessors use for duplicates; a route without a
+   * collision keeps its name.
+   */
   const emplaceReference = (props: {
     document: OpenApi.IDocument;
     name: string;
     schema: OpenApi.IJsonSchema;
   }): OpenApi.IJsonSchema.IReference => {
-    props.document.components.schemas ??= {};
+    const schemas: Record<string, OpenApi.IJsonSchema> =
+      (props.document.components.schemas ??= {});
+    const dot: number = props.name.lastIndexOf(".");
+    const namespace: string = props.name.substring(0, dot + 1);
+    let member: string = props.name.substring(dot + 1);
+    while (ObjectDictionary.has(schemas, namespace + member))
+      member = `_${member}`;
+    const name: string = namespace + member;
     ObjectDictionary.set(
-      props.document.components.schemas,
-      props.name,
+      schemas,
+      name,
       sanitizeSchema(props.document)(props.schema),
     );
     return {
-      $ref: `#/components/schemas/${props.name}`,
+      $ref: `#/components/schemas/${name}`,
     } satisfies OpenApi.IJsonSchema.IReference;
   };
 
