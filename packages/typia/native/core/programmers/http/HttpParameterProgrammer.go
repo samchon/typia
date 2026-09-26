@@ -68,9 +68,7 @@ func (httpParameterProgrammerNamespace) Write(props nativecontext.IProgrammerPro
         httpParameterProgrammer_internal(props.Context, "httpParameterRead"+httpParameterProgrammer_capitalize(atomic)),
         nil,
         nil,
-        f.NewNodeList([]*shimast.Node{
-          f.NewIdentifier("input"),
-        }),
+        f.NewNodeList(httpProgrammer_read_arguments(atomic, result.Data.Nullable, f.NewIdentifier("input"), props.Context.Emit)),
         shimast.NodeFlagsNone,
       ),
     }, props.Context.Emit),

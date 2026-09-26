@@ -316,11 +316,13 @@ func httpQueryProgrammer_decode_regular_property(props struct {
           httpQueryProgrammer_decode_value(struct {
             Context  nativecontext.ITypiaContext
             Type     string
+            Nullable bool
             Coalesce bool
             Input    *shimast.Node
           }{
             Context:  props.Context,
             Type:     typ,
+            Nullable: httpProgrammer_decode_nullable(value),
             Coalesce: false,
             Input:    f.NewIdentifier("elem"),
           }),
@@ -344,11 +346,13 @@ func httpQueryProgrammer_decode_regular_property(props struct {
     input = httpQueryProgrammer_decode_value(struct {
       Context  nativecontext.ITypiaContext
       Type     string
+      Nullable bool
       Coalesce bool
       Input    *shimast.Node
     }{
       Context:  props.Context,
       Type:     typ,
+      Nullable: httpProgrammer_decode_nullable(value),
       Coalesce: value.Nullable == false && value.IsRequired() == false,
       Input:    input,
     })
@@ -365,6 +369,7 @@ func httpQueryProgrammer_decode_regular_property(props struct {
 func httpQueryProgrammer_decode_value(props struct {
   Context  nativecontext.ITypiaContext
   Type     string
+  Nullable bool
   Coalesce bool
   Input    *shimast.Node
 }) *shimast.Node {
@@ -373,7 +378,7 @@ func httpQueryProgrammer_decode_value(props struct {
     httpParameterProgrammer_internal(props.Context, "httpQueryRead"+httpParameterProgrammer_capitalize(props.Type)),
     nil,
     nil,
-    f.NewNodeList([]*shimast.Node{props.Input}),
+    f.NewNodeList(httpProgrammer_read_arguments(props.Type, props.Nullable, props.Input, props.Context.Emit)),
     shimast.NodeFlagsNone,
   )
   if props.Coalesce == false {
