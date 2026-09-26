@@ -657,7 +657,7 @@ namespace http {
 
 If you trip one of these rules, typia rejects the call at compile time with a clear error.
 
-An absent or empty optional array header is omitted from the decoded object, while an absent required one decodes to `[]`. A string value of any other array header is split on `, ` (`; ` for `cookie`), but `set-cookie` never is, because cookie attributes such as `Expires` contain `, `: its string values are kept as given, and a single string becomes a one-element array. A blank numeric header decodes to `undefined` rather than `0`.
+An absent optional array header, or one given as an empty array, is omitted from the decoded object, while an absent required one decodes to `[]`. A string value of any other array header is split on `, ` (`; ` for `cookie`), but `set-cookie` never is, because cookie attributes such as `Expires` contain `, `: the values of a `string[]` `set-cookie` are kept as given, and a single string becomes a one-element array. A blank numeric header decodes to `undefined` rather than `0`.
 
 <Tabs items={["TypeScript Source", "Compiled JavaScript"]}>
   <Tabs.Tab>
