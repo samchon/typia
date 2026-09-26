@@ -462,12 +462,12 @@ export namespace HttpLlmApplicationComposer {
   /**
    * Shortens function names exceeding the character limit.
    *
-   * Tries non-empty accessor suffixes of at most `limit - 8` characters, the
-   * room an index prefix needs on a collision, then index-prefixed ones, and
-   * finally keeps as much of the last accessor segment as fits with a hash of
-   * the full name. Every result is deterministic, fits the limit, and starts
-   * with no digit; when no such name is free, which is always so below 2,
-   * shortening throws.
+   * Takes the longest non-empty accessor suffix of at most `limit - 8`
+   * characters, the room an index prefix needs, and prefixes an index when it
+   * collides. When no suffix fits, it keeps as much of the last accessor
+   * segment as fits beside a hash of the full name. Every result is
+   * deterministic, fits the limit, and starts with no digit; shortening throws
+   * when every such hashed name is taken, as all are below 2.
    */
   export const shorten = (
     app: IHttpLlmApplication,
@@ -520,11 +520,12 @@ export namespace HttpLlmApplicationComposer {
 /**
  * Abbreviates a function name that no accessor suffix could shorten.
  *
- * Keeps the head of the last accessor segment, the most specific one, and tells
- * it apart by a hash of the full name, rehashed until the name is free. This
- * used to be a random UUID: the name changed on every composition, started with
- * a digit ten times in sixteen, which the composer forbids for any other name,
- * and was longer than a `limit` below 36 (#2456).
+ * Keeps as much of the last accessor segment, the most specific one, as fits
+ * beside a hash of the full name, none of it below a limit of 9, and rehashes
+ * up to a thousand times until the name is free. This used to be a random UUID:
+ * the name changed on every composition, started with a digit ten times in
+ * sixteen, which the composer forbids for any other name, and was longer than a
+ * `limit` below 36 (#2456).
  */
 const abbreviate = (
   func: IHttpLlmFunction,

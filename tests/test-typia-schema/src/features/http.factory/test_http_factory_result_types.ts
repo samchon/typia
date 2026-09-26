@@ -15,7 +15,8 @@ import typia from "typia";
  *    `number` in `createParameter`'s atomic case), and keep a plain interface's
  *    result the interface itself.
  * 2. Reject a method call on a class-typed factory result.
- * 3. Decode one input through each non-validating factory and its direct form.
+ * 3. Decode one input through each factory but `createValidate*` and its direct
+ *    form.
  */
 export const test_http_factory_result_types = (): void => {
   const form = (): FormData => {

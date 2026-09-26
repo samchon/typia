@@ -130,7 +130,8 @@ export const test_http_llm_application_function_name_fallback =
           names.filter(
             (name) =>
               name.length > maxLength ||
-              /^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(name) === false,
+              /^[a-zA-Z0-9_-]+$/.test(name) === false ||
+              /^[0-9]/.test(name),
           ),
           [],
         );
