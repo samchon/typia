@@ -73,8 +73,9 @@ func TestMetadataCommentTagFactoryReadsJavaScriptNumbers(t *testing.T) {
     {"minLength", "0o7", "string", 7, "$importInternal(\"_stringLengthGte\")($input, 7)"},
     {"multipleOf", "+5", "bigint", 5, "$input % 5n === 0n"},
     {"multipleOf", "007", "bigint", 7, "$input % 7n === 0n"},
-    // Beyond double precision the bigint check keeps the exact digits.
-    {"multipleOf", "9007199254740993", "bigint", 9007199254740992, "$input % 9007199254740993n === 0n"},
+    // Beyond 2^53 a bigint keeps an integer a number literal spells exactly;
+    // one it cannot spell has no bigint record (samchon/typia#2457).
+    {"multipleOf", "18014398509481984", "bigint", 18014398509481984, "$input % 18014398509481984n === 0n"},
     {"maximum", "0.0000001", "number", 1e-7, "$input <= 1e-7"},
   } {
     record, messages := parse(item.name, item.value)

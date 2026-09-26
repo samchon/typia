@@ -24,14 +24,22 @@ export namespace HttpMigrateRouteAccessor {
         .map((str) => (NamingConvention.variable(str) ? str : `_${str}`)),
     )(routes) as Map<string, IElement>;
 
-    for (const props of dict.values())
-      props.entries.forEach((entry, i) => {
+    for (const props of dict.values()) {
+      // Settle one namespace's aliases in path order, the order component
+      // names are settled in (#2451): the first keeps its plain alias, and
+      // each later duplicate is escaped against those settled before it. The
+      // sort is stable, so a path operation precedes a webhook sharing its key.
+      // Escaping every entry against every other left the plain alias to the
+      // last in document order, so a webhook added after a path took the path
+      // operation's accessor and function name (#2455).
+      const settled: string[] = [];
+      for (const entry of [...props.entries].sort((x, y) =>
+        x.route.path < y.route.path ? -1 : x.route.path > y.route.path ? 1 : 0,
+      )) {
         entry.alias = EndpointUtil.escapeDuplicate(
-          [
-            ...props.children,
-            ...props.entries.filter((_, j) => i !== j).map((e) => e.alias),
-          ].map(EndpointUtil.normalize),
+          [...props.children, ...settled].map(EndpointUtil.normalize),
         )(EndpointUtil.normalize(entry.alias));
+        settled.push(entry.alias);
 
         const parameters: { name: string; key: string }[] = [
           ...entry.route.parameters,
@@ -54,7 +62,8 @@ export namespace HttpMigrateRouteAccessor {
         if (accessor !== undefined && predefined.get(accessor.join(".")) === 1)
           entry.route.accessor = accessor;
         else entry.route.accessor = [...props.namespace, entry.alias];
-      });
+      }
+    }
 
     for (const x of routes) {
       while (true) {

@@ -535,10 +535,12 @@ export function createFormData(): never;
  * @template T Target object type
  * @returns Reusable decoder function
  */
-export function createFormData<T extends object>(): (input: FormData) => T;
+export function createFormData<T extends object>(): (
+  input: FormData,
+) => Resolved<T>;
 
 /** @internal */
-export function createFormData<T>(): (input: FormData) => T {
+export function createFormData<T>(): (input: FormData) => Resolved<T> {
   NoTransformConfigurationError("http.createFormData");
 }
 
@@ -567,13 +569,13 @@ export function createAssertFormData<T extends object>(
 ): (
   input: FormData,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertFormData<T>(): (
   input: FormData,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createAssertFormData");
 }
 
@@ -593,10 +595,10 @@ export function createIsFormData(): never;
  */
 export function createIsFormData<T extends object>(): (
   input: FormData,
-) => T | null;
+) => Resolved<T> | null;
 
 /** @internal */
-export function createIsFormData<T>(): (input: FormData) => T | null {
+export function createIsFormData<T>(): (input: FormData) => Resolved<T> | null {
   NoTransformConfigurationError("http.createIsFormData");
 }
 
@@ -641,12 +643,12 @@ export function createQuery(): never;
  */
 export function createQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createQuery<T>(): (
   input: string | IReadableURLSearchParams,
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createQuery");
 }
 
@@ -675,13 +677,13 @@ export function createAssertQuery<T extends object>(
 ): (
   input: string | IReadableURLSearchParams,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertQuery<T>(): (
   input: string | IReadableURLSearchParams,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createAssertQuery");
 }
 
@@ -701,12 +703,12 @@ export function createIsQuery(): never;
  */
 export function createIsQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
-) => T | null;
+) => Resolved<T> | null;
 
 /** @internal */
 export function createIsQuery<T>(): (
   input: string | IReadableURLSearchParams,
-) => T | null {
+) => Resolved<T> | null {
   NoTransformConfigurationError("http.createIsQuery");
 }
 
@@ -751,12 +753,12 @@ export function createHeaders(): never;
  */
 export function createHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createHeaders");
 }
 
@@ -785,13 +787,13 @@ export function createAssertHeaders<T extends object>(
 ): (
   input: Record<string, string | string[] | undefined>,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createAssertHeaders");
 }
 
@@ -811,12 +813,12 @@ export function createIsHeaders(): never;
  */
 export function createIsHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
-) => T | null;
+) => Resolved<T> | null;
 
 /** @internal */
 export function createIsHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
-) => T | null {
+) => Resolved<T> | null {
   NoTransformConfigurationError("http.createIsHeaders");
 }
 
@@ -861,11 +863,11 @@ export function createParameter(): never;
  */
 export function createParameter<T extends Atomic.Type | null>(): (
   input: string,
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createParameter<T extends Atomic.Type | null>(): (
   input: string,
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createParameter");
 }

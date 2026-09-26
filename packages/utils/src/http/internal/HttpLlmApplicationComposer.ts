@@ -462,8 +462,10 @@ export namespace HttpLlmApplicationComposer {
   /**
    * Shortens function names exceeding the character limit.
    *
-   * Tries progressively shorter accessor suffixes first, then falls back to
-   * index-prefixed names, and finally UUID as a last resort.
+   * Tries progressively shorter accessor suffixes first, then index-prefixed
+   * ones, and finally abbreviates the last accessor segment with a hash of the
+   * full name. Every result is deterministic, fits the limit, and starts with
+   * no digit.
    */
   export const shorten = (
     app: IHttpLlmApplication,
@@ -508,17 +510,52 @@ export namespace HttpLlmApplicationComposer {
         break;
       }
       // last resort — all suffix attempts failed or collided
-      if (success === false) rename(randomFormatUuid());
+      if (success === false) rename(abbreviate(func, limit, dictionary));
     }
   };
 }
 
-const randomFormatUuid = (): string =>
-  "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-    const r = (Math.random() * 16) | 0;
-    const v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
+/**
+ * Abbreviates a function name that no accessor suffix could shorten.
+ *
+ * Keeps the head of the last accessor segment, the most specific one, and tells
+ * it apart by a hash of the full name, rehashed until the name is free. This
+ * used to be a random UUID: the name changed on every composition, started with
+ * a digit ten times in sixteen, which the composer forbids for any other name,
+ * and was longer than a `limit` below 36 (#2456).
+ */
+const abbreviate = (
+  func: IHttpLlmFunction,
+  limit: number,
+  taken: Set<string>,
+): string => {
+  const accessor: string[] = func.route().accessor;
+  const head: string = emend(accessor[accessor.length - 1] ?? "");
+  for (let salt: number = 0; salt < 1_000; ++salt) {
+    const hash: string = hashName(
+      salt === 0 ? func.name : `${func.name}#${salt}`,
+    );
+    const room: number = limit - hash.length - 1;
+    const name: string =
+      room > 0
+        ? `${head.slice(0, room)}_${hash}`
+        : `_${hash.slice(0, Math.max(1, limit - 1))}`;
+    if (taken.has(name) === false) return name;
+  }
+  throw new Error(
+    `Error on HttpLlm.application(): maxLength ${limit} cannot hold a unique name for ${JSON.stringify(func.name)}.`,
+  );
+};
+
+/** FNV-1a 32-bit hash of a name, in seven base-36 digits. */
+const hashName = (text: string): string => {
+  let hash: number = 0x811c9dc5;
+  for (let i: number = 0; i < text.length; ++i) {
+    hash ^= text.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(36).padStart(7, "0");
+};
 
 /** Replaces forbidden characters (`$`, `%`, `.`) with underscores. */
 const emend = (str: string): string => {
