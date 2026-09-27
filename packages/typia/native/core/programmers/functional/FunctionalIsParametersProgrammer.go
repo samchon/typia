@@ -2,6 +2,7 @@ package functional
 
 import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
+  shimchecker "github.com/microsoft/typescript-go/shim/checker"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
@@ -91,9 +92,7 @@ func (functionalIsParametersProgrammerNamespace) Decompose(props FunctionalIsPar
         Context: props.Context,
         Modulo:  props.Modulo,
         Config:  nativeprogrammers.IsProgrammer_IConfig{Equals: props.Config.Equals},
-        Type: props.Context.Checker.GetTypeFromTypeNode(
-          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
-        ),
+        Type:    functionalIsProgrammer_parameterCheckerType(props.Context, p),
       }),
     }, props.Context.Emit))
     statements = append(statements, f.NewIfStatement(
@@ -157,7 +156,7 @@ func functionalIsProgrammer_function(
     nil,
     nil,
     nil,
-    functionalIsProgrammer_parameters(declaration, context.Emit),
+    functionalIsProgrammer_wrapperParameters(declaration, context.Emit),
     returnType,
     nil,
     body,
@@ -184,13 +183,64 @@ func functionalIsProgrammer_parameterIdentifiers(declaration *shimast.Node, emit
   parameters := functionalIsProgrammer_parameterNodes(declaration)
   output := make([]*shimast.Node, 0, len(parameters))
   for _, p := range parameters {
-    output = append(output, f.NewIdentifier(functionalIsProgrammer_parameterName(p)))
+    identifier := f.NewIdentifier(functionalIsProgrammer_parameterName(p))
+    // a rest parameter received its arguments as an array; spread them back
+    if p.Kind == shimast.KindParameter && p.AsParameterDeclaration().DotDotDotToken != nil {
+      identifier = f.NewSpreadElement(identifier)
+    }
+    output = append(output, identifier)
   }
   return output
 }
 
+// functionalIsProgrammer_wrapperParameters is the declaration's parameter list
+// for the wrapper, a destructuring pattern renamed to the identifier
+// functionalIsProgrammer_parameterName gives it: the wrapper validates and
+// forwards the whole argument, and a pattern names no single value.
+func functionalIsProgrammer_wrapperParameters(declaration *shimast.Node, emit ...*shimprinter.EmitContext) *shimast.ParameterList {
+  f := nativecontext.EmitFactoryOf(functionalIsProgrammer_factory, emit...)
+  list := functionalIsProgrammer_parameters(declaration, emit...)
+  if list == nil {
+    return list
+  }
+  renamed := false
+  output := make([]*shimast.Node, 0, len(list.Nodes))
+  for _, param := range list.Nodes {
+    if param.Kind == shimast.KindParameter && param.Name() != nil && shimast.IsBindingPattern(param.Name()) {
+      data := param.AsParameterDeclaration()
+      param = f.NewParameterDeclaration(
+        nil,
+        data.DotDotDotToken,
+        f.NewIdentifier(functionalIsProgrammer_parameterName(param)),
+        data.QuestionToken,
+        data.Type,
+        data.Initializer,
+      )
+      renamed = true
+    }
+    output = append(output, param)
+  }
+  if renamed == false {
+    return list
+  }
+  return f.NewNodeList(output)
+}
+
 func functionalIsProgrammer_parameterName(param *shimast.Node) string {
   if param != nil && param.Name() != nil {
+    // A destructuring pattern has no name; the wrapper gives it one by its
+    // position (samchon/typia#2461).
+    if shimast.IsBindingPattern(param.Name()) {
+      index := 0
+      if parent := param.Parent; parent != nil && parent.FunctionLikeData() != nil && parent.FunctionLikeData().Parameters != nil {
+        for i, sibling := range parent.FunctionLikeData().Parameters.Nodes {
+          if sibling == param {
+            index = i
+          }
+        }
+      }
+      return "__param" + functionalIsProgrammer_itoa(index)
+    }
     text := param.Name().Text()
     if text != "" {
       return text
@@ -200,13 +250,22 @@ func functionalIsProgrammer_parameterName(param *shimast.Node) string {
   return "input"
 }
 
-func functionalIsProgrammer_parameterType(param *shimast.Node, fallback *shimast.Node) *shimast.Node {
-  if param != nil && param.Kind == shimast.KindParameter {
-    if typ := param.AsParameterDeclaration().Type; typ != nil {
+// functionalIsProgrammer_parameterCheckerType is the type an argument must
+// satisfy: the parameter symbol's type, which adds `undefined` to an optional
+// parameter and reads a type inferred from a default. The written annotation
+// alone made `y?: string` require a `string` (samchon/typia#2461).
+func functionalIsProgrammer_parameterCheckerType(context nativecontext.ITypiaContext, param *shimast.Node) *shimchecker.Type {
+  if symbol := param.Symbol(); symbol != nil {
+    if typ := context.Checker.GetTypeOfSymbol(symbol); typ != nil {
       return typ
     }
   }
-  return fallback
+  if param.Kind == shimast.KindParameter {
+    if typ := param.AsParameterDeclaration().Type; typ != nil {
+      return context.Checker.GetTypeFromTypeNode(typ)
+    }
+  }
+  return context.Checker.GetAnyType()
 }
 
 func functionalIsProgrammer_asyncModifiers(async bool, emit ...*shimprinter.EmitContext) *shimast.ModifierList {

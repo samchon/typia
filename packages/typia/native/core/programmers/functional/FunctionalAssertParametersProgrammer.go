@@ -96,9 +96,7 @@ func (functionalAssertParametersProgrammerNamespace) Decompose(props FunctionalA
           Equals: props.Config.Equals,
           Guard:  false,
         },
-        Type: props.Context.Checker.GetTypeFromTypeNode(
-          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
-        ),
+        Type: functionalIsProgrammer_parameterCheckerType(props.Context, p),
         Init: FunctionalAssertFunctionProgrammer.HookPath(struct {
           Context  nativecontext.ITypiaContext
           Wrapper  string

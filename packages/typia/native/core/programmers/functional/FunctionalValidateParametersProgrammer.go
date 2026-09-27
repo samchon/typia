@@ -97,9 +97,7 @@ func (functionalValidateParametersProgrammerNamespace) Decompose(props Functiona
         Context: props.Context,
         Modulo:  props.Modulo,
         Config:  nativeprogrammers.ValidateProgrammer_IConfig{Equals: props.Config.Equals},
-        Type: props.Context.Checker.GetTypeFromTypeNode(
-          functionalIsProgrammer_parameterType(p, nativefactories.TypeFactory.Keyword("any", props.Context.Emit)),
-        ),
+        Type:    functionalIsProgrammer_parameterCheckerType(props.Context, p),
       }),
     }, props.Context.Emit))
     results = append(results, f.NewAsExpression(
