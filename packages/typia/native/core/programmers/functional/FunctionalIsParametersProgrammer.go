@@ -206,7 +206,7 @@ func functionalIsProgrammer_wrapperParameters(declaration *shimast.Node, emit ..
   renamed := false
   output := make([]*shimast.Node, 0, len(list.Nodes))
   for _, param := range list.Nodes {
-    if param.Kind == shimast.KindParameter && param.Name() != nil && shimast.IsBindingPattern(param.Name()) {
+    if param.Kind == shimast.KindParameter && param.Name() != nil && functionalIsProgrammer_isBindingPattern(param.Name()) {
       data := param.AsParameterDeclaration()
       param = f.NewParameterDeclaration(
         nil,
@@ -230,7 +230,7 @@ func functionalIsProgrammer_parameterName(param *shimast.Node) string {
   if param != nil && param.Name() != nil {
     // A destructuring pattern has no name; the wrapper gives it one by its
     // position (samchon/typia#2461).
-    if shimast.IsBindingPattern(param.Name()) {
+    if functionalIsProgrammer_isBindingPattern(param.Name()) {
       index := 0
       if parent := param.Parent; parent != nil && parent.FunctionLikeData() != nil && parent.FunctionLikeData().Parameters != nil {
         for i, sibling := range parent.FunctionLikeData().Parameters.Nodes {
@@ -313,4 +313,11 @@ func functionalIsProgrammer_itoa(value int) string {
     value /= 10
   }
   return string(digits)
+}
+
+// functionalIsProgrammer_isBindingPattern reports whether name destructures
+// an object or an array. It compares the kind itself because the shim of the
+// oldest supported ttsc exports no IsBindingPattern.
+func functionalIsProgrammer_isBindingPattern(name *shimast.Node) bool {
+  return name.Kind == shimast.KindObjectBindingPattern || name.Kind == shimast.KindArrayBindingPattern
 }
