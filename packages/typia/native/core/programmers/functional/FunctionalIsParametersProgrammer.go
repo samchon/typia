@@ -203,10 +203,17 @@ func functionalIsProgrammer_wrapperParameters(declaration *shimast.Node, emit ..
   if list == nil {
     return list
   }
-  renamed := false
+  if functionalIsProgrammer_hasBindingPattern(declaration) == false {
+    return list
+  }
+  // A default may read a name an earlier pattern binds (`({ a }, b = a)`),
+  // which the renamed wrapper no longer binds. So no default is copied: the
+  // wrapper forwards what it received, the function applies its own
+  // defaults, and a defaulted argument may be `undefined`; see
+  // functionalIsProgrammer_parameterCheckerType.
   output := make([]*shimast.Node, 0, len(list.Nodes))
   for _, param := range list.Nodes {
-    if param.Kind == shimast.KindParameter && param.Name() != nil && functionalIsProgrammer_isBindingPattern(param.Name()) {
+    if param.Kind == shimast.KindParameter && param.Name() != nil && functionalIsProgrammer_parameterName(param) != "this" {
       data := param.AsParameterDeclaration()
       param = f.NewParameterDeclaration(
         nil,
@@ -214,32 +221,45 @@ func functionalIsProgrammer_wrapperParameters(declaration *shimast.Node, emit ..
         f.NewIdentifier(functionalIsProgrammer_parameterName(param)),
         data.QuestionToken,
         data.Type,
-        data.Initializer,
+        nil,
       )
-      renamed = true
     }
     output = append(output, param)
   }
-  if renamed == false {
-    return list
-  }
   return f.NewNodeList(output)
+}
+
+// functionalIsProgrammer_hasBindingPattern reports whether any parameter of
+// declaration destructures its argument.
+func functionalIsProgrammer_hasBindingPattern(declaration *shimast.Node) bool {
+  if list := functionalIsProgrammer_parameters(declaration); list != nil {
+    for _, param := range list.Nodes {
+      if param.Name() != nil && functionalIsProgrammer_isBindingPattern(param.Name()) {
+        return true
+      }
+    }
+  }
+  return false
 }
 
 func functionalIsProgrammer_parameterName(param *shimast.Node) string {
   if param != nil && param.Name() != nil {
     // A destructuring pattern has no name; the wrapper gives it one by its
-    // position (samchon/typia#2461).
+    // position (samchon/typia#2461), apart from every other parameter's name,
+    // or the wrapper would declare it twice.
     if functionalIsProgrammer_isBindingPattern(param.Name()) {
       index := 0
+      names := []string{}
       if parent := param.Parent; parent != nil && parent.FunctionLikeData() != nil && parent.FunctionLikeData().Parameters != nil {
         for i, sibling := range parent.FunctionLikeData().Parameters.Nodes {
           if sibling == param {
             index = i
+          } else if sibling.Name() != nil && functionalIsProgrammer_isBindingPattern(sibling.Name()) == false {
+            names = append(names, sibling.Name().Text())
           }
         }
       }
-      return "__param" + functionalIsProgrammer_itoa(index)
+      return functionalIsProgrammer_escapeDuplicate(names, "__param"+functionalIsProgrammer_itoa(index))
     }
     text := param.Name().Text()
     if text != "" {
@@ -255,6 +275,18 @@ func functionalIsProgrammer_parameterName(param *shimast.Node) string {
 // parameter and reads a type inferred from a default. The written annotation
 // alone made `y?: string` require a `string` (samchon/typia#2461).
 func functionalIsProgrammer_parameterCheckerType(context nativecontext.ITypiaContext, param *shimast.Node) *shimchecker.Type {
+  typ := functionalIsProgrammer_declaredType(context, param)
+  // A wrapper beside a destructured parameter copies no default, so a
+  // defaulted argument arrives as sent, `undefined` included.
+  if param.Kind == shimast.KindParameter &&
+    param.AsParameterDeclaration().Initializer != nil &&
+    functionalIsProgrammer_hasBindingPattern(param.Parent) {
+    return context.Checker.GetUnionType([]*shimchecker.Type{typ, context.Checker.GetUndefinedType()})
+  }
+  return typ
+}
+
+func functionalIsProgrammer_declaredType(context nativecontext.ITypiaContext, param *shimast.Node) *shimchecker.Type {
   if symbol := param.Symbol(); symbol != nil {
     if typ := context.Checker.GetTypeOfSymbol(symbol); typ != nil {
       return typ

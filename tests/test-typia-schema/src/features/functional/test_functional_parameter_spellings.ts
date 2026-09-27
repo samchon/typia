@@ -15,8 +15,11 @@ import typia from "typia";
  * 1. Call each spelling through the `is`, `assert`, and `validate` variants of
  *    `Function` and `Parameters`, and `isReturn`, and compare with a direct
  *    call.
- * 2. Keep rejecting a wrong optional argument, a wrong rest element, and a wrong
- *    destructured property, naming its path.
+ * 2. Keep a destructured parameter apart from a parameter named like its
+ *    positional stand-in, and let a later default read a name the pattern
+ *    binds.
+ * 3. Keep rejecting a wrong optional argument, rest element, rest tuple element,
+ *    array pattern element, defaulted argument, and destructured property.
  */
 export const test_functional_parameter_spellings = (): void => {
   const optional = (x: number, y?: string): number => x + (y?.length ?? 0);
@@ -28,6 +31,9 @@ export const test_functional_parameter_spellings = (): void => {
   const object = ({ a, b }: { a: number; b: string }): number => a + b.length;
   const array = ([a, b]: [number, string]): number => a + b.length;
   const inferred = (x = 1): number => x * 2;
+  const collide = ({ a }: { a: number }, __param0: number): number =>
+    a * 10 + __param0;
+  const reference = ({ a }: { a: number }, b = a): number => a + b;
 
   const cases: Array<[string, () => unknown, unknown]> = [
     ["optional omitted", () => typia.functional.isFunction(optional)(1), 1],
@@ -75,6 +81,21 @@ export const test_functional_parameter_spellings = (): void => {
     ],
     ["inferred default", () => typia.functional.isFunction(inferred)(), 2],
     ["inferred given", () => typia.functional.isFunction(inferred)(4), 8],
+    [
+      "pattern beside its positional name",
+      () => typia.functional.isFunction(collide)({ a: 1 }, 2),
+      12,
+    ],
+    [
+      "default reading a pattern",
+      () => typia.functional.isFunction(reference)({ a: 1 }),
+      2,
+    ],
+    [
+      "default reading a pattern, given",
+      () => typia.functional.assertFunction(reference)({ a: 1 }, 5),
+      6,
+    ],
   ];
   for (const [title, call, expected] of cases)
     TestEquality.equals(title, call(), expected);
@@ -82,6 +103,21 @@ export const test_functional_parameter_spellings = (): void => {
   TestEquality.equals(
     "wrong optional",
     typia.functional.isFunction(optional)(1, 3 as any),
+    null,
+  );
+  TestEquality.equals(
+    "wrong default beside a pattern",
+    typia.functional.isFunction(reference)({ a: 1 }, "x" as any),
+    null,
+  );
+  TestEquality.equals(
+    "wrong array pattern",
+    typia.functional.isFunction(array)([1, 2] as any),
+    null,
+  );
+  TestEquality.equals(
+    "wrong rest tuple",
+    typia.functional.isFunction(tuple)(1, 2 as any),
     null,
   );
   TestEquality.equals(
