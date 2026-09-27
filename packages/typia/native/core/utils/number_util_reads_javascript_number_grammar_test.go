@@ -2,6 +2,7 @@ package utils
 
 import (
   "math"
+  "strings"
   "testing"
 )
 
@@ -21,6 +22,8 @@ import (
 //  4. Reject Go-only spellings, separators, and empty or blank text.
 //  5. Spell values back exactly as JavaScript's `String()` does.
 //  6. Read integer spellings exactly, beyond double precision.
+//  7. Read decimals longer than `strconv.ParseFloat`'s 800-digit buffer as
+//     `Number()` does: it read `1` followed by 800 zeros and `e-800` as 0.1.
 func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
   finite := func(value float64) NumberUtil_Reading {
     return NumberUtil_Reading{Value: value, Numeric: true, Finite: true}
@@ -141,6 +144,37 @@ func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
     integer, ok := NumberUtil.Integer(item.text)
     if ok != item.ok || (ok && integer.String() != item.expected) {
       t.Fatalf("Integer(%q) = %v, %v; expected %q, %v", item.text, integer, ok, item.expected, item.ok)
+    }
+  }
+
+  // Long mantissas: the expectations are Node's `Number(text)`.
+  zeros := func(n int) string { return strings.Repeat("0", n) }
+  for _, item := range []struct {
+    text     string
+    expected NumberUtil_Reading
+  }{
+    {"1" + zeros(800) + "e-800", finite(1)},
+    {"7" + zeros(810) + "e-810", finite(7)},
+    {"0." + zeros(900) + "1e901", finite(1)},
+    {"-2" + zeros(1000) + "e-1000", finite(-2)},
+    // a tie rounds to even, and one digit past the buffer breaks it
+    {"9007199254740993" + zeros(800) + "e-800", finite(9007199254740992)},
+    {"9007199254740993" + zeros(800) + "1e-801", finite(9007199254740994)},
+    {"1" + zeros(900) + "e-1300", finite(0)},
+    {"1" + zeros(2000), infinite(1)},
+    {"-1" + zeros(2000), infinite(-1)},
+    {"1" + zeros(800) + "e99999999999999999999", infinite(1)},
+    {zeros(900) + "e99999999999999999999", finite(0)},
+    // a tie broken only by a digit past the thousand kept, which the sticky
+    // digit carries into the rounding
+    {"9007199254740993" + zeros(990) + "1e-991", finite(9007199254740994)},
+    // exponents near the int64 edges, which the order must not overflow with
+    {zeros(700) + "1e9223372036854775807", infinite(1)},
+    {"." + zeros(700) + "1e-9223372036854775808", finite(0)},
+    {"-." + zeros(700) + "1e-9223372036854775808", finite(0)},
+  } {
+    if reading := NumberUtil.Read(item.text); reading != item.expected {
+      t.Fatalf("Read(%d-character text) = %#v, expected %#v", len(item.text), reading, item.expected)
     }
   }
 }

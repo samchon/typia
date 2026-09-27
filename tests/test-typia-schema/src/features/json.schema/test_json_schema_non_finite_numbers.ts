@@ -53,8 +53,10 @@ export const test_json_schema_non_finite_numbers = (): void => {
   TestValidator.predicate("tag random", () =>
     typia.is<ITagged>(typia.random<ITagged>()),
   );
-  TestValidator.error("unsatisfiable random", () =>
-    typia.random<IUnsatisfiable>(),
+  TestEquality.equals(
+    "unsatisfiable random",
+    TestEquality.thrown(() => typia.random<IUnsatisfiable>()),
+    "Numeric range has no finite value.",
   );
 };
 

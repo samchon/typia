@@ -99,7 +99,49 @@ export namespace TestEquality {
     compare(output, exception ?? (() => false), true, "", x, y);
     return output;
   }
+
+  /**
+   * Reads the message a synchronous task throws, for comparison with `equals`.
+   *
+   * `TestValidator.error` from `@nestia/e2e` never fails on a synchronous task:
+   * it throws its own failure inside the `try` meant for the task's exception
+   * and swallows it (samchon/typia#2460). Comparing the message instead also
+   * keeps an unrelated exception from passing the assertion.
+   *
+   * An asynchronous task would return a promise, a thenable, or an async
+   * iterator before anything it does can throw, so it is refused rather than
+   * read as returning; await a promise and catch its rejection, or iterate an
+   * async iterator, instead. The refused promise's own rejection is handled
+   * first, so it cannot surface later as an unhandled rejection that ends the
+   * run.
+   *
+   * @param task Synchronous task expected to throw
+   * @returns The thrown error's message, the thrown value as text when it is
+   *   not an `Error`, or `null` when the task returns
+   */
+  export function thrown(task: () => unknown): string | null {
+    let output: unknown;
+    try {
+      output = task();
+    } catch (error) {
+      return error instanceof Error ? error.message : String(error);
+    }
+    if (
+      typeof output === "object" &&
+      output !== null &&
+      (typeof (output as PromiseLike<unknown>).then === "function" ||
+        Symbol.asyncIterator in output)
+    ) {
+      if (typeof (output as PromiseLike<unknown>).then === "function")
+        Promise.resolve(output).catch(() => {});
+      throw new Error(THROWN_ASYNCHRONOUS);
+    }
+    return null;
+  }
 }
+
+const THROWN_ASYNCHRONOUS: string =
+  "TestEquality.thrown() takes a synchronous task; await a promise and catch its rejection, or iterate an async iterator, instead.";
 
 const report = (
   title: string,

@@ -2,6 +2,7 @@ package factories
 
 import (
   "math"
+  "math/big"
   "strconv"
   "strings"
 
@@ -52,6 +53,22 @@ func (metadataCommentTagFactoryNamespace) Analyze(props struct {
       continue
     }
     for key, value := range tagger {
+      // An empty arm names a target the tag's value cannot be stated for; see
+      // metadataCommentTagFactory_bigint. It is an error only where that target
+      // occurs, and the other arms still apply to theirs.
+      if value != nil && len(value) == 0 {
+        for _, atomic := range props.Metadata.Atomics {
+          if atomic.Type == key {
+            text := ""
+            if len(tag.Text) != 0 {
+              text = tag.Text[0].Text
+            }
+            report(key + " value " + strings.TrimSpace(text) + " is not an int64 integer that a number represents exactly")
+            break
+          }
+        }
+        continue
+      }
       filtered := []schemametadata.IMetadataTypeTag{}
       for _, elem := range value {
         filtered = append(filtered, elem)
@@ -274,25 +291,25 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "Minimum", "minimum", metadataCommentTagFactory_splice(props.Value)+" <= $input", metadataCommentTagFactory_splice(props.Value)+" <= $input")
+    return metadataCommentTagFactory_numeric(props, "Minimum", "minimum", metadataCommentTagFactory_splice(props.Value)+" <= $input", metadataCommentTagFactory_splice_integer(props.Value)+" <= $input")
   },
   "maximum": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "Maximum", "maximum", "$input <= "+metadataCommentTagFactory_splice(props.Value), "$input <= "+metadataCommentTagFactory_splice(props.Value))
+    return metadataCommentTagFactory_numeric(props, "Maximum", "maximum", "$input <= "+metadataCommentTagFactory_splice(props.Value), "$input <= "+metadataCommentTagFactory_splice_integer(props.Value))
   },
   "exclusiveMinimum": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "ExclusiveMinimum", "exclusiveMinimum", metadataCommentTagFactory_splice(props.Value)+" < $input", metadataCommentTagFactory_splice(props.Value)+" < $input")
+    return metadataCommentTagFactory_numeric(props, "ExclusiveMinimum", "exclusiveMinimum", metadataCommentTagFactory_splice(props.Value)+" < $input", metadataCommentTagFactory_splice_integer(props.Value)+" < $input")
   },
   "exclusiveMaximum": func(props struct {
     Report func(msg string) any
     Value  string
   }) metadataCommentTagFactory_TagRecord {
-    return metadataCommentTagFactory_numeric(props, "ExclusiveMaximum", "exclusiveMaximum", "$input < "+metadataCommentTagFactory_splice(props.Value), "$input < "+metadataCommentTagFactory_splice(props.Value))
+    return metadataCommentTagFactory_numeric(props, "ExclusiveMaximum", "exclusiveMaximum", "$input < "+metadataCommentTagFactory_splice(props.Value), "$input < "+metadataCommentTagFactory_splice_integer(props.Value))
   },
   "multipleOf": func(props struct {
     Report func(msg string) any
@@ -304,7 +321,7 @@ var metadataCommentTagFactory_PARSER = map[string]metadataCommentTagFactory_pars
     // answers a different question than the `multipleOf` keyword this tag emits.
     // The bigint arm needs no helper: a bigint remainder is already exact.
     // `_isMultipleOf` first shipped in 13.1.19; see the doc comment above.
-    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+metadataCommentTagFactory_splice(props.Value)+")", "$input % "+metadataCommentTagFactory_splice(props.Value)+"n === 0n")
+    return metadataCommentTagFactory_numeric(props, "MultipleOf", "multipleOf", "$importInternal(\"_isMultipleOf\")($input, "+metadataCommentTagFactory_splice(props.Value)+")", "$input % "+metadataCommentTagFactory_splice_integer(props.Value)+"n === 0n")
   },
   "format": func(props struct {
     Report func(msg string) any
@@ -481,19 +498,95 @@ func metadataCommentTagFactory_numeric(props struct {
   Value  string
 }, name string, kind string, numberValidate string, bigintValidate string) metadataCommentTagFactory_TagRecord {
   number := metadataCommentTagFactory_parse_number(props)
-  integer := metadataCommentTagFactory_parse_integer(struct {
-    Report   func(msg string) any
-    Unsigned bool
-    Value    string
-  }{Report: func(string) any { return nil }, Value: props.Value, Unsigned: false})
+  if number == nil {
+    // Reported as an invalid or non-finite number already; a record would only
+    // add "requires number type" on a bigint property, which is not the fault.
+    return metadataCommentTagFactory_TagRecord{}
+  }
   exclusive := metadataCommentTagFactory_exclusive(kind)
   record := metadataCommentTagFactory_TagRecord{
     "number": {{Name: name + "<" + props.Value + ">", Target: "number", Kind: kind, Value: number, Validate: numberValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}},
   }
-  if integer != nil {
-    record["bigint"] = []schemametadata.IMetadataTypeTag{{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: *integer, Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}}
+  integer, numeric, ok := metadataCommentTagFactory_bigint(props.Value)
+  if ok {
+    record["bigint"] = []schemametadata.IMetadataTypeTag{{Name: name + "<" + props.Value + "n>", Target: "bigint", Kind: kind, Value: integer, Validate: bigintValidate, Exclusive: exclusive, Schema: map[string]any{kind: number}}}
+  } else if numeric {
+    // An empty arm: the value bounds a bigint, but not with any value this tag
+    // can state. `Analyze` reports it where a bigint occurs, so the bigint part
+    // of a `number | bigint` property is never left unconstrained silently.
+    record["bigint"] = []schemametadata.IMetadataTypeTag{}
   }
   return record
+}
+
+// metadataCommentTagFactory_bigint reads a numeric tag's value for its bigint
+// arm.
+//
+// Consumers of that arm hold the value as a double: the bound validators splice
+// a number literal, and the schema `random` draws from is numeric. The written
+// integer survives them only when a double represents it exactly, so that is
+// what the arm admits, within the int64 range its value is carried in
+// (samchon/typia#2352). Reading any integer through a double instead enforced
+// `@minimum 9007199254740993` as 9007199254740992, and let `random` generate
+// values the exact `@multipleOf` check rejects (samchon/typia#2457).
+//
+// numeric reports whether the text writes a finite number at all. One that is
+// no such integer -- `1.5`, `5.0000000000000001`, `9007199254740993`, or
+// `1e-1000001` -- is a bigint bound the tag cannot state, while text that is no
+// finite number has already been reported by the number arm.
+func metadataCommentTagFactory_bigint(text string) (value int64, numeric bool, ok bool) {
+  if reading := nativeutils.NumberUtil.Read(text); reading.Numeric == false || reading.Finite == false {
+    return 0, false, false
+  }
+  integer, exact := metadataCommentTagFactory_integer(text)
+  if exact == false || integer.IsInt64() == false {
+    return 0, true, false
+  }
+  if _, accuracy := new(big.Float).SetInt(integer).Float64(); accuracy != big.Exact {
+    return 0, true, false
+  }
+  return integer.Int64(), true, true
+}
+
+// metadataCommentTagFactory_integer is the integer a finite numeric text
+// writes exactly, if it writes one whose double lies within the int64 range. A
+// few integers just below -2^63 round to it and pass; the bigint record checks
+// the integer itself.
+//
+// Its double, which `NumberUtil.Read` rounds correctly, settles most texts
+// without expanding them. A non-integer double comes only from a non-integer
+// text, and a zero from a text with a non-zero digit is the underflow of a
+// non-integer. A double at 2^63 or above, or below -2^63, is refused too: the
+// int64 texts that round up to 2^63 (from 9223372036854775296) are no doubles,
+// so no bigint record could hold them anyway. `big.Rat` expands only what
+// remains, so a short text such as `@minimum 1e-1000000` costs nothing, on any
+// target.
+func metadataCommentTagFactory_integer(text string) (*big.Int, bool) {
+  reading := nativeutils.NumberUtil.Read(text)
+  if reading.Numeric == false ||
+    reading.Finite == false ||
+    reading.Value != math.Trunc(reading.Value) ||
+    reading.Value < metadataCommentTagFactory_INT64_MINIMUM ||
+    reading.Value >= metadataCommentTagFactory_INT64_EXCLUSIVE_MAXIMUM {
+    return nil, false
+  }
+  if reading.Value == 0 {
+    // A zero writes zero only when no digit before its exponent is non-zero;
+    // otherwise it underflowed. A radix zero has no `e`, being all zeros.
+    mantissa := text
+    if index := strings.IndexAny(text, "eE"); index != -1 {
+      mantissa = text[:index]
+    }
+    if strings.ContainsAny(mantissa, "123456789") {
+      return nil, false
+    }
+    return big.NewInt(0), true
+  }
+  rational, ok := nativeutils.NumberUtil.Rational(text)
+  if ok == false || rational.IsInt() == false {
+    return nil, false
+  }
+  return rational.Num(), true
 }
 
 // metadataCommentTagFactory_value unwraps a parsed count into the record's
@@ -546,6 +639,20 @@ func metadataCommentTagFactory_splice(value string) string {
     return nativeutils.NumberUtil.String(reading.Value)
   }
   return value
+}
+
+// metadataCommentTagFactory_splice_integer respells a tag value for a bigint
+// validator: the exact digits of the integer the text writes, whatever its
+// spelling, for every value a bigint record holds. `1.152921504606846976e18`
+// writes 2^60, while its double spells 1152921504606847000, which spliced
+// before an `n` would check a different integer (samchon/typia#2457). Text
+// that writes no integer has no bigint record, and falls back to the number
+// splice.
+func metadataCommentTagFactory_splice_integer(value string) string {
+  if integer, ok := metadataCommentTagFactory_integer(value); ok {
+    return integer.String()
+  }
+  return metadataCommentTagFactory_splice(value)
 }
 
 func metadataCommentTagFactory_parse_integer(props struct {

@@ -22,7 +22,10 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * Decodes `FormData` into type `T`.
  *
  * Parses a `FormData` instance with automatic type casting. Properties typed as
- * `boolean` or `Blob` are cast to expected types during decoding.
+ * `boolean`, `bigint`, or `number` are cast from their text, and `Blob` and
+ * `File` properties are read as given, except that the text `null` reads as
+ * `null`: as `undefined` instead for an optional single property whose type
+ * does not admit `null`, and always as `null` for an array element.
  *
  * Type `T` constraints:
  *
@@ -31,6 +34,11 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array
  *    types allowed
  * 4. No union types allowed
+ *
+ * An absent key decodes a required array to `[]`, a nullable one to `null`, and
+ * an optional one to `undefined`. A string property keeps the text `null`
+ * unless its type admits `null`, and a blank numeric value decodes to
+ * `undefined`.
  *
  * Does not validate the decoded value. For validation, use:
  *
@@ -164,8 +172,8 @@ export function validateFormData(): never {
  * Decodes URL query string into type `T`.
  *
  * Parses a query string or `URLSearchParams` instance with automatic type
- * casting. Properties typed as `boolean` or `number` are cast to expected types
- * during decoding.
+ * casting. Properties typed as `boolean`, `bigint`, or `number` are cast to
+ * expected types during decoding.
  *
  * Type `T` constraints:
  *
@@ -314,8 +322,8 @@ export function validateQuery(): never {
  * Decodes HTTP headers into type `T`.
  *
  * Parses HTTP headers object with automatic type casting. Properties typed as
- * `boolean` or `number` are cast to expected types during decoding. Compatible
- * with Express and Fastify request headers.
+ * `boolean`, `bigint`, or `number` are cast to expected types during decoding.
+ * Compatible with Express and Fastify request headers.
  *
  * Type `T` constraints:
  *
@@ -498,12 +506,15 @@ export function validateHeaders(): never {
  * Decodes URL path parameter into type `T`.
  *
  * Parses a path parameter string with automatic type casting. When type `T` is
- * `boolean` or `number`, casts the string value to the expected type. Also
- * performs type assertion via {@link assert}, throwing {@link TypeGuardError} on
- * mismatch.
+ * `boolean`, `bigint`, or `number`, casts the string value to the expected
+ * type. Also performs type assertion via {@link assert}, throwing
+ * {@link TypeGuardError} on mismatch.
  *
- * @template T Target atomic type (`boolean`, `bigint`, `number`, `string`, or
- *   `null`)
+ * A blank value is not a number, and a string parameter keeps the text `null`
+ * unless `T` admits `null`.
+ *
+ * @template T Target atomic type (`boolean`, `bigint`, `number`, or `string`),
+ *   optionally with `null`
  * @param input Path parameter string
  * @returns Decoded value of type `T`
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
@@ -535,10 +546,12 @@ export function createFormData(): never;
  * @template T Target object type
  * @returns Reusable decoder function
  */
-export function createFormData<T extends object>(): (input: FormData) => T;
+export function createFormData<T extends object>(): (
+  input: FormData,
+) => Resolved<T>;
 
 /** @internal */
-export function createFormData<T>(): (input: FormData) => T {
+export function createFormData<T>(): (input: FormData) => Resolved<T> {
   NoTransformConfigurationError("http.createFormData");
 }
 
@@ -567,13 +580,13 @@ export function createAssertFormData<T extends object>(
 ): (
   input: FormData,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertFormData<T>(): (
   input: FormData,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createAssertFormData");
 }
 
@@ -593,10 +606,10 @@ export function createIsFormData(): never;
  */
 export function createIsFormData<T extends object>(): (
   input: FormData,
-) => T | null;
+) => Resolved<T> | null;
 
 /** @internal */
-export function createIsFormData<T>(): (input: FormData) => T | null {
+export function createIsFormData<T>(): (input: FormData) => Resolved<T> | null {
   NoTransformConfigurationError("http.createIsFormData");
 }
 
@@ -641,12 +654,12 @@ export function createQuery(): never;
  */
 export function createQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createQuery<T>(): (
   input: string | IReadableURLSearchParams,
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createQuery");
 }
 
@@ -675,13 +688,13 @@ export function createAssertQuery<T extends object>(
 ): (
   input: string | IReadableURLSearchParams,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertQuery<T>(): (
   input: string | IReadableURLSearchParams,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createAssertQuery");
 }
 
@@ -701,12 +714,12 @@ export function createIsQuery(): never;
  */
 export function createIsQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
-) => T | null;
+) => Resolved<T> | null;
 
 /** @internal */
 export function createIsQuery<T>(): (
   input: string | IReadableURLSearchParams,
-) => T | null {
+) => Resolved<T> | null {
   NoTransformConfigurationError("http.createIsQuery");
 }
 
@@ -751,12 +764,12 @@ export function createHeaders(): never;
  */
 export function createHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createHeaders");
 }
 
@@ -785,13 +798,13 @@ export function createAssertHeaders<T extends object>(
 ): (
   input: Record<string, string | string[] | undefined>,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createAssertHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createAssertHeaders");
 }
 
@@ -811,12 +824,12 @@ export function createIsHeaders(): never;
  */
 export function createIsHeaders<T extends object>(): (
   input: Record<string, string | string[] | undefined>,
-) => T | null;
+) => Resolved<T> | null;
 
 /** @internal */
 export function createIsHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
-) => T | null {
+) => Resolved<T> | null {
   NoTransformConfigurationError("http.createIsHeaders");
 }
 
@@ -861,11 +874,11 @@ export function createParameter(): never;
  */
 export function createParameter<T extends Atomic.Type | null>(): (
   input: string,
-) => T;
+) => Resolved<T>;
 
 /** @internal */
 export function createParameter<T extends Atomic.Type | null>(): (
   input: string,
-) => T {
+) => Resolved<T> {
   NoTransformConfigurationError("http.createParameter");
 }

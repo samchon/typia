@@ -17,9 +17,9 @@ import { HttpMigration, OpenApiConverter } from "@typia/utils";
  *    input component already owns.
  * 2. Assert every route resolves to its own schema and the input component is
  *    unchanged.
- * 3. Assert the path order, not the document order, decides the plain name, that
- *    migrating the migrated document again keeps every name, and that a failed
- *    route takes no name from a valid one.
+ * 3. Assert the path order, not the document order, decides the plain component
+ *    name and accessor, that migrating the migrated document again keeps every
+ *    name, and that a failed route takes no name from a valid one.
  */
 export const test_http_migrate_component_name_collision = (): void => {
   const object = (key: string): OpenApi.IJsonSchema.IObject => ({
@@ -113,12 +113,18 @@ export const test_http_migrate_component_name_collision = (): void => {
     object("mine"),
   );
 
-  // the path order decides the plain name, not the document order
+  // the path order decides the plain name, not the document order, for the
+  // component and the accessor alike
   const names = (target: IHttpMigrateApplication) =>
     Object.fromEntries(
       target.routes.map((route) => [
         `${route.method} ${route.path}`,
-        [route.success?.schema, route.query?.schema, route.body?.schema],
+        [
+          route.accessor.join("."),
+          route.success?.schema,
+          route.query?.schema,
+          route.body?.schema,
+        ],
       ]),
     );
   const reversed: IHttpMigrateApplication = HttpMigration.application({
@@ -130,6 +136,13 @@ export const test_http_migrate_component_name_collision = (): void => {
     "list keeps the plain name",
     app.routes.find((r) => r.path === "/users")?.success?.schema,
     { $ref: "#/components/schemas/IApiUsers.GetResponse" },
+  );
+  TestEquality.equals(
+    "first path keeps the plain accessor",
+    ["/a-b", "/a.b"].map((path) =>
+      app.routes.find((r) => r.path === path)?.accessor.join("."),
+    ),
+    ["a_b.post", "a_b._post"],
   );
 
   // migrating the migrated document again keeps every name
