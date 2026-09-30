@@ -4,6 +4,7 @@ import (
   "fmt"
   "strconv"
 
+  nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
@@ -61,6 +62,8 @@ func Iterate_metadata_constant(props IMetadataIteratorProps) bool {
       Tags:        [][]schemametadata.IMetadataTypeTag{},
       Description: info.description,
       JsDocTags:   info.jsDocTags,
+      Origin:      props.Type,
+      Duplicated:  filter(nativechecker.TypeFlagsEnumLiteral) && iterate_metadata_constant_shared(props.Checker, props.Type),
     }))
     return true
   }
@@ -100,6 +103,12 @@ func iterate_metadata_constant_add(constant *schemametadata.MetadataConstant, va
   key := iterate_metadata_constant_key(value.Value)
   for _, oldbie := range constant.Values {
     if iterate_metadata_constant_key(oldbie.Value) == key {
+      // A union lists one value through two constituents (an enum member and
+      // a literal, or a literal with and without a type tag), so the second
+      // folds into the first and its documentation and requirements are lost.
+      // TypeScript already deduplicates identical types, so this is never the
+      // same declaration twice.
+      oldbie.Duplicated = true
       return
     }
   }
@@ -139,4 +148,43 @@ func iterate_metadata_constant_key(value any) string {
   default:
     return fmt.Sprint(value)
   }
+}
+
+// iterate_metadata_constant_shared reports whether an enum literal type stands
+// for several members of its enum. TypeScript gives members with one value a
+// single literal type, so the second member's documentation is unreachable
+// from the type and the only witness is the enum declaration.
+func iterate_metadata_constant_shared(checker *nativechecker.Checker, typ *nativechecker.Type) bool {
+  if checker == nil || typ == nil {
+    return false
+  }
+  symbol := typ.Symbol()
+  if symbol == nil || len(symbol.Declarations) == 0 {
+    return false
+  }
+  declaration := symbol.Declarations[0]
+  if declaration == nil || declaration.Kind != nativeast.KindEnumMember || declaration.Parent == nil {
+    return false
+  }
+  enum := declaration.Parent.AsEnumDeclaration()
+  if enum == nil || enum.Members == nil {
+    return false
+  }
+  // compare by value: a member's own type may be the fresh form of the
+  // regular literal type the union holds
+  value := iterate_metadata_constant_key(typ.AsLiteralType().Value())
+  count := 0
+  for _, member := range enum.Members.Nodes {
+    if member == nil || member.Symbol() == nil {
+      continue
+    }
+    memberType := checker.GetTypeOfSymbol(member.Symbol())
+    if memberType == nil || memberType.Flags()&nativechecker.TypeFlagsEnumLiteral == 0 || memberType.Flags()&(nativechecker.TypeFlagsStringLiteral|nativechecker.TypeFlagsNumberLiteral) == 0 {
+      continue
+    }
+    if iterate_metadata_constant_key(memberType.AsLiteralType().Value()) == value {
+      count++
+    }
+  }
+  return count > 1
 }

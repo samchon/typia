@@ -239,6 +239,12 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       c.fail(accessor, "LLM evaluation boolean has both tags.Probability and @probability; keep only one.")
       return
     }
+    // rows are union alternatives, so `(true & A) | false` or
+    // `(true & A) | (false & B)` states no single threshold
+    if found && len(value.Atomics[0].Tags) > 1 {
+      c.fail(accessor, "LLM evaluation boolean has different tags.Probability on true and false; put one on boolean.")
+      return
+    }
     if found {
       threshold = tagged
     } else if hasFallback {
@@ -272,6 +278,13 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
     for _, entry := range entries {
       if message := llmEvaluation_unsupported_tags(entry.Tags); message != "" {
         c.fail(accessor, fmt.Sprintf("%s (member %s)", message, llmEvaluation_value_text(entry.Value)))
+        continue
+      }
+      if entry.Duplicated {
+        c.fail(accessor, fmt.Sprintf(
+          "LLM evaluation does not support enum members or literals sharing the value %s, because their descriptions and probability requirements would collide.",
+          llmEvaluation_value_text(entry.Value),
+        ))
         continue
       }
       member := map[string]any{"value": llmEvaluation_value(entry.Value)}

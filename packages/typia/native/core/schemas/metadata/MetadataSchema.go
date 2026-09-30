@@ -201,6 +201,8 @@ func metadataSchema_cloneConstants(input []*MetadataConstant) []*MetadataConstan
         Tags:        cloneTagMatrix(value.Tags),
         Description: value.Description,
         JsDocTags:   metadataSchema_cloneJsDocTags(value.JsDocTags),
+        Origin:      value.Origin,
+        Duplicated:  value.Duplicated,
       }))
     }
     output = append(output, MetadataConstant_create(MetadataConstant{
@@ -1091,8 +1093,17 @@ func MetadataSchema_merge(x *MetadataSchema, y *MetadataSchema) *MetadataSchema 
       output.Constants = append(output.Constants, target)
     }
     for _, value := range constant.Values {
-      if anyOf(target.Values, func(elem *MetadataConstantValue) bool { return reflect.DeepEqual(elem.Value, value.Value) }) == false {
+      var same *MetadataConstantValue
+      for _, elem := range target.Values {
+        if reflect.DeepEqual(elem.Value, value.Value) {
+          same = elem
+          break
+        }
+      }
+      if same == nil {
         target.Values = append(target.Values, value)
+      } else if value.Duplicated || (same.Origin != nil && value.Origin != nil && same.Origin != value.Origin) {
+        same.Duplicated = true
       }
     }
   }
