@@ -108,11 +108,18 @@ import { test_llm_json_prototype_safe_objects } from "./features/llm/parse/test_
 import { test_llm_schema_empty_required } from "./features/llm/schema/test_llm_schema_empty_required";
 import { test_llm_schema_enum } from "./features/llm/schema/test_llm_schema_enum";
 import { test_llm_schema_enum_reference } from "./features/llm/schema/test_llm_schema_enum_reference";
+import { test_llm_schema_invert } from "./features/llm/schema/test_llm_schema_invert";
 import { test_llm_schema_json_pointer_references } from "./features/llm/schema/test_llm_schema_json_pointer_references";
+import { test_llm_schema_mismatch } from "./features/llm/schema/test_llm_schema_mismatch";
 import { test_llm_schema_nullable } from "./features/llm/schema/test_llm_schema_nullable";
+import { test_llm_schema_oneof } from "./features/llm/schema/test_llm_schema_oneof";
 import { test_llm_schema_recursive_ref } from "./features/llm/schema/test_llm_schema_recursive_ref";
+import { test_llm_schema_reference_escaped_description_of_name } from "./features/llm/schema/test_llm_schema_reference_escaped_description_of_name";
+import { test_llm_schema_reference_escaped_description_of_namespace } from "./features/llm/schema/test_llm_schema_reference_escaped_description_of_namespace";
+import { test_llm_schema_reference_escaped_description_of_property } from "./features/llm/schema/test_llm_schema_reference_escaped_description_of_property";
 import { test_llm_schema_reserved_references } from "./features/llm/schema/test_llm_schema_reserved_references";
 import { test_llm_schema_strict_additionalProperties } from "./features/llm/schema/test_llm_schema_strict_additionalProperties";
+import { test_llm_schema_strict_description } from "./features/llm/schema/test_llm_schema_strict_description";
 import { test_llm_schema_strict_numeric_default } from "./features/llm/schema/test_llm_schema_strict_numeric_default";
 import { test_llm_schema_tuple } from "./features/llm/schema/test_llm_schema_tuple";
 import { test_llm_type_checker_cover_any } from "./features/llm/schema/test_llm_type_checker_cover_any";
@@ -365,5 +372,16 @@ for (const feature of [
   test_llm_schema_strict_additionalProperties,
   test_llm_type_checker_cover_array,
   test_llm_type_checker_cover_any,
+])
+  test(feature.name, feature);
+
+for (const feature of [
+  test_llm_schema_oneof,
+  test_llm_schema_mismatch,
+  test_llm_schema_strict_description,
+  test_llm_schema_reference_escaped_description_of_property,
+  test_llm_schema_reference_escaped_description_of_namespace,
+  test_llm_schema_reference_escaped_description_of_name,
+  test_llm_schema_invert,
 ])
   test(feature.name, feature);
