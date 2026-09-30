@@ -3,7 +3,14 @@ import { IHttpLlmController, ILlmController } from "@typia/interface";
 
 import { McpControllerRegistrar } from "./internal/McpControllerRegistrar";
 
-/** Options of {@link createMcpServer}. */
+/**
+ * Options of {@link createMcpServer}.
+ *
+ * @evidence contracts/common.md#principled-implementation The optional version overrides handshake identity, and textFallback controls only the duplicate text representation of structured results; error and void text remains available.
+ * @evidence contracts/common.md#clear-and-simple-design Two independent options express deployment identity and result representation, with defaults resolved by the server constructor and registrar respectively.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Neither option disables schema validation or changes controller behavior; legacy text duplication is explicit rather than inferred from a particular client.
+ * @evidence contracts/common.md#meaningful-documentation Both properties describe defaults, ownership and consequences, including the payload cost and unconditional text for unstructured results.
+ */
 export interface IMcpServerOptions {
   /**
    * Version of the MCP server implementation announced in the handshake.
@@ -84,6 +91,10 @@ export interface IMcpServerOptions {
  *   `HttpLlm.controller()`
  * @param options Optional behaviors of the server ({@link IMcpServerOptions})
  * @returns McpServer ready to connect to a transport
+ * @evidence contracts/common.md#principled-implementation Explicit version precedes HTTP application version and the class fallback; class instructions are trimmed, and the registered controller owns schemas and execution while the caller owns transport connection.
+ * @evidence contracts/common.md#clear-and-simple-design This function constructs handshake metadata and delegates tool registry and request handling to one registrar, returning the SDK server for caller-selected transport.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It creates the public MCP SDK server and installs public request handlers without transport patches or hand-authored function schemas; arguments and declared outputs stay validated by typia.
+ * @evidence contracts/common.md#meaningful-documentation The API explains class and HTTP metadata, option precedence, validation feedback and transport connection with an executable-shaped example.
  */
 export function createMcpServer<Class extends object = any>(
   controller: ILlmController<Class> | IHttpLlmController,

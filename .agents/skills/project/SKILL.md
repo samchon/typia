@@ -53,6 +53,7 @@ CI uses Node 24.x and Go 1.26.x, while the workspace pins pnpm exactly to 10.6.4
 
 ```bash
 pnpm install
+pnpm evidence
 pnpm format
 pnpm build
 pnpm test

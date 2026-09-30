@@ -1,0 +1,47 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "maintained TypeScript production declarations",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts"
+      ],
+      "symbol": [
+        "type",
+        "function"
+      ],
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "maintained native Go production declarations",
+      "type": "go",
+      "files": [
+        "native/**/*.go",
+        "!native/**/*_test.go",
+        "!native/.tmp-ttsc-typia-tests/**"
+      ],
+      "symbol": [
+        "type",
+        "function"
+      ],
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

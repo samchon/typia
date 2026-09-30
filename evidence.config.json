@@ -1,0 +1,31 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "maintained Node tooling declarations",
+      "type": "javascript",
+      "files": ["scripts/**/*.cjs", ".github/workflows/*.cjs", "!scripts/check-evidence.cjs"],
+      "symbol": ["type", "function"],
+      "reference": {
+        "type": "markdown",
+        "root": ".agents/skills",
+        "files": ["contracts/common.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "Evidence runner native process and resource ownership",
+      "type": "javascript",
+      "files": ["scripts/check-evidence.cjs"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": ".agents/skills",
+        "files": ["contracts/common.md", "contracts/portability.md", "contracts/performance.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

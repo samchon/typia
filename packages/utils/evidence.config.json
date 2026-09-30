@@ -1,0 +1,39 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "maintained TypeScript production declarations",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts",
+        "!src/utils/dedent.ts"
+      ],
+      "symbol": [
+        "type",
+        "function"
+      ],
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "template normalization work and allocation ownership",
+      "type": "typescript",
+      "files": ["src/utils/dedent.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md", "contracts/performance.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

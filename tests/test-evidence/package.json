@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@typia/test-evidence",
+  "version": "15.0.1",
+  "description": "Evidence runner and checker boundary tests.",
+  "scripts": {
+    "start": "node --test src/features/test_*.mjs"
+  },
+  "devDependencies": {
+    "@wrtnlabs/evidence": "0.2.0"
+  }
+}

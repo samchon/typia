@@ -18,7 +18,26 @@ import {
 } from "@typia/interface";
 import { HttpLlm, LlmJson } from "@typia/utils";
 
+/**
+ * Connects reflected controller operations to MCP list and call handlers.
+ *
+ * @evidence contracts/common.md#principled-implementation One Map gives list and call handlers the same named operations; invocation validates arguments and declared outputs, preserving class receivers and HTTP controller transport.
+ * @evidence contracts/common.md#clear-and-simple-design Registration owns the shared registry, while execution composition, schema presentation and result handling are separate private helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Public SDK request handlers distinguish unknown-tool protocol errors from recoverable execution errors; no fabricated successful output or dependency patch bypasses validation.
+ * @evidence contracts/common.md#meaningful-documentation The register comment documents registry lifetime and handler semantics; private comments explain strict-output inversion, omitted arguments and optional duplicate text.
+ */
 export namespace McpControllerRegistrar {
+  /**
+   * Installs list and call handlers over one validated controller registry.
+   *
+   * Duplicate names fail registration. The server's handler closures retain the
+   * registry for its lifetime; calls omit duplicate text unless requested.
+   *
+   * @evidence contracts/common.md#principled-implementation Registration rejects duplicate names and compiles output validation with the originating application's config; both request handlers use that same registry, and absent names throw InvalidParams.
+   * @evidence contracts/common.md#clear-and-simple-design One registry is built before installing two handlers; composeExecute retains protocol details and handleToolCall centralizes validation and representation.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Schema presentation derives from reflected parameters and outputs, invocation checks real arguments before executing, and a failed output validation produces an error rather than structured success.
+   * @evidence contracts/common.md#meaningful-documentation The comment records duplicate rejection, lifetime and text duplication; helper comments explain protocol-error ownership and strict validation config.
+   */
   export const register = (
     server: Server,
     controller: ILlmController | IHttpLlmController,

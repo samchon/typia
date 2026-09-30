@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "@typia/test-utils-unit",
+  "version": "15.0.1",
+  "description": "Direct utility semantics without the typia native transformer.",
+  "scripts": {
+    "start": "ttsx src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
+  },
+  "dependencies": {
+    "@typia/template": "workspace:^",
+    "@typia/utils": "workspace:^"
+  }
+}

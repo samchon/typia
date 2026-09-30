@@ -31,9 +31,24 @@ import { IHttpLlmFunction, ILlmFunction } from "@typia/interface";
  * and would advertise _that_ to the model in place of the parameters — and
  * `StandardJSONSchemaV1` only exists from `@standard-schema/spec@1.1.0`.
  *
+ * @evidence contracts/common.md#principled-implementation Standard JSON Schema separates model-facing schema access from validation; returning the same reflected parameters for input/output and omitting standard.validate leaves coercion and correctable failures to LlmJson.
+ * @evidence contracts/common.md#clear-and-simple-design One converter owns the framework schema carrier, with the unchanged schema callback shared by both directions; execution validation stays in the registrar.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The adapter uses the documented Standard JSON Schema extension and supported dependency floors instead of replacing LangChain internals or accepting raw data through a patched validator.
+ * @evidence contracts/common.md#meaningful-documentation The namespace explains the two schema roles, the validation trap avoided through the public extension, the Vercel equivalent and both required dependency floors with their consequences.
  * @see https://github.com/standard-schema/standard-schema
  */
 export namespace LangChainParameterConverter {
+  /**
+   * Returns a schema-only Standard JSON Schema carrier for one function.
+   *
+   * Input and output advertise the same required final argument shape; the
+   * registrar owns coercion, so the carrier deliberately has no validator.
+   *
+   * @evidence contracts/common.md#principled-implementation Both JSON Schema callbacks return func.parameters because coercion changes values rather than the required final shape; omitting validate preserves the registrar's argument handling.
+   * @evidence contracts/common.md#clear-and-simple-design One shared callback and one standard carrier express the two equivalent schema directions without duplicating schema conversion or runtime checking.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The returned version/vendor/jsonSchema fields implement Standard JSON Schema through its public contract; the function does not mutate LangChain or specialize known methods.
+   * @evidence contracts/common.md#meaningful-documentation The function comment explains shape equivalence and the validation owner, while the namespace supplies the framework semantics and supported-version rationale.
+   */
   export const convert = (
     func: ILlmFunction | IHttpLlmFunction,
   ): StandardJSONSchemaV1 => {

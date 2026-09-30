@@ -16,8 +16,9 @@
     }
   },
   "scripts": {
-    "build": "rimraf lib && ttsc && rolldown -c && cp ../../README.md README.md",
-    "dev": "ttsc --watch"
+    "build": "rimraf lib && ttsc && rolldown -c && node -e \"require('node:fs').copyFileSync('../../README.md', 'README.md')\"",
+    "dev": "ttsc --watch",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

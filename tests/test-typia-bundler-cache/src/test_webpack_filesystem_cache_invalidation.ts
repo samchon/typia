@@ -354,6 +354,15 @@ const fixtureAmbientV2: string = [
  * 5. Retype `Cell` from `string` to `number` in `cell.ts` and rebuild with the
  *    cache kept; assert the previous string-valued dynamic entry now fails and
  *    a numeric one succeeds.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Real webpack builds and executed bundles prove that type-only, ambient, barrel and index-signature changes invalidate a persisted validator; watch-set assertions distinguish source-content narrowing from resolver predicates and an empty set.
+ * @evidence contracts/testing.md#independent-expectations Required fixture properties determine literal expected validation paths independently of generated output; the supported completeness protocol retains resolver predicates while pruning unused source-content edges.
+ * @evidence contracts/testing.md#distinguishing-cases Every cold or changed schema has accepting and one-property-invalid runtime inputs; one workspace transitions through added required fields, a repointed barrel and a string-to-number index-signature value while preserving its cache.
+ * @evidence contracts/testing.md#execution-ownership The explicitly imported exported function runs in test-typia-bundler-cache's start command; it owns actual native transformation, webpack persistence and child-bundle execution, rather than portable schema semantics.
+ * @evidence contracts/e2e.md#necessary-boundary A real compiler plugin, webpack loader, filesystem cache and executable bundle expose stale generated validators that direct emitter or metadata calls cannot detect; the cold watch-set controls separately detect missing or overbroad registration.
+ * @evidence contracts/e2e.md#shared-execution One fixture and filesystem cache survive all mutation stages; each build process closes webpack to persist that cache before the next stage, while every emitted bundle is independently executed with its stage's controls.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity A unique workspace-local temporary project resolves the suite's installed producer and dependencies, begins without a webpack cache, advances mutation mtimes for coarse filesystems, and removes its project in finally after success or failure; child commands have bounded timeouts.
+ * @evidence contracts/e2e.md#preserved-coverage The updated cold oracle permits only directory or missing-file resolver predicates and still forbids existing unused declaration sources; own-entry presence and every positive/negative runtime cache-invalidation assertion remain in this same executable boundary case.
  */
 export const test_webpack_filesystem_cache_invalidation =
   async (): Promise<void> => {
@@ -372,16 +381,20 @@ export const test_webpack_filesystem_cache_invalidation =
       // `dependencies[index.ts]` names typia's `index.ts` and `module.ts` and
       // nothing else outside this project, while `reach(graph.edges,
       // index.ts)` pulls in the whole of `@typia/interface`. So a listed file
-      // that stopped watching the reference closure has no
-      // `packages/interface/src` path in its watch set, and one that did not
-      // has about a hundred.
-      const closure: string[] = watched.filter((entry) =>
-        entry.includes("/packages/interface/src/"),
+      // that stopped watching the source-content closure has no existing
+      // `packages/interface/src` source file in its watch set. Resolver
+      // directory and missing-file predicates remain host-owned inputs even
+      // under completeness; those paths are not source-content dependencies.
+      const closure: string[] = watched.filter(
+        (entry) =>
+          entry.includes("/packages/interface/src/") &&
+          fs.existsSync(entry) &&
+          fs.statSync(entry).isFile(),
       );
       if (closure.length !== 0)
         throw new Error(
           "the entry is still watching reach(graph.edges, index.ts): " +
-            `${closure.length} @typia/interface sources are in its watch set, ` +
+            `${closure.length} existing @typia/interface sources are in its watch set, ` +
             `starting with ${closure[0]}. Either the envelope stopped ` +
             "declaring index.ts complete, or the host stopped narrowing on " +
             "that declaration.",

@@ -1,0 +1,86 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "Evidence checker and runner process boundaries",
+      "type": "javascript",
+      "files": ["test-evidence/src/features/test_*.mjs"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": ["contracts/testing.md", "contracts/e2e.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "authored TypeScript test declarations",
+      "type": "typescript",
+      "files": [
+        "test-*/src/**/*.ts",
+        "!test-interface/src/**",
+        "!test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
+        "!test-*/src/internal/**",
+        "!test-*/src/structures/**",
+        "!test-*/src/controllers/**",
+        "test-*/src/internal/_test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "compile-only interface test declarations",
+      "type": "typescript",
+      "files": ["test-interface/src/**/*.ts"],
+      "symbol": ["type", "function"],
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": ["contracts/testing.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "webpack persistent-cache boundary",
+      "type": "typescript",
+      "files": ["test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": ["contracts/testing.md", "contracts/e2e.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "native Go test declarations",
+      "type": "go",
+      "root": "..",
+      "files": [
+        "packages/typia/native/**/*_test.go",
+        "packages/typia/test/**/*.go"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

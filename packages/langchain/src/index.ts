@@ -65,18 +65,25 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  * @param input Controller, controller list, or conversion properties
  * @param options Conversion options when `input` is not a properties object
  * @returns Array of LangChain DynamicStructuredTool
+ * @evidence contracts/common.md#principled-implementation All overloads normalize to a controller list and prefix before using the same registrar; properties objects retain their own options, and class and HTTP execution remain delegated to their declared controllers.
+ * @evidence contracts/common.md#clear-and-simple-design The public overloads express the three accepted input shapes while two private normalization helpers and one registrar keep conversion behavior shared.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The adapter uses the public LangChain factory through its registrar and typia's validation; normalization does not manufacture controllers, schemas or successful results.
+ * @evidence contracts/common.md#meaningful-documentation The API documents input shapes, prefix behavior and class usage; the registrar explains strict-output validation and model-visible failure results.
  */
 export function toLangChainTools(
   controller: ILangChainController,
   options?: ILangChainToolsOptions | undefined,
 ): DynamicStructuredTool[];
+/** Converts a controller list with one shared prefix option. */
 export function toLangChainTools(
   controllers: ILangChainController[],
   options?: ILangChainToolsOptions | undefined,
 ): DynamicStructuredTool[];
+/** Converts explicit properties using their embedded prefix option. */
 export function toLangChainTools(
   props: ILangChainToolsProps,
 ): DynamicStructuredTool[];
+/** Normalizes the supported call forms before registration. */
 export function toLangChainTools(
   input: ILangChainController | ILangChainController[] | ILangChainToolsProps,
   options?: ILangChainToolsOptions | undefined,

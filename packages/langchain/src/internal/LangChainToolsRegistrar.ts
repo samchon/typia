@@ -16,7 +16,32 @@ import { HttpLlm, LlmJson } from "@typia/utils";
 
 import { LangChainParameterConverter } from "./LangChainParameterConverter";
 
+/**
+ * Registers class and HTTP operations as validated LangChain tools.
+ *
+ * Parameter validation precedes invocation. Output validation uses the source
+ * application's strictness config, and invocation failures become tool
+ * results.
+ *
+ * @evidence contracts/common.md#principled-implementation The registrar preserves class receivers, delegates HTTP transport to the controller or HttpLlm, and validates declared outputs with their application's config before returning model-visible data.
+ * @evidence contracts/common.md#clear-and-simple-design Name checking, protocol-specific invocation and shared tool construction have separate helpers; both protocols share the argument and output validation path.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It uses LangChain's public tool factory and Standard JSON Schema carrier without dependency patches; failed argument validation prevents execution and output failures remain visible.
+ * @evidence contracts/common.md#meaningful-documentation This namespace describes validation order and error ownership; createTool explains the strict-schema inversion and the public JSON Schema carrier cast.
+ */
 export namespace LangChainToolsRegistrar {
+  /**
+   * Converts controllers in declaration order, rejecting cross-controller names
+   * that collide after applying the optional prefix.
+   *
+   * One application's function names are assumed unique, as established by its
+   * controller builder. Every class method must exist before its tool is
+   * added.
+   *
+   * @evidence contracts/common.md#principled-implementation A Map detects collisions for multiple controllers using the exact final tool name; class methods retain their receiver and HTTP operations retain their application and connection.
+   * @evidence contracts/common.md#clear-and-simple-design One traversal checks final names before the protocol-specific registration traversal, while createTool owns the validation and result envelope common to both protocols.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It neither invents schemas nor bypasses typia validation: arguments are validated before transport, declared outputs are checked, and unknown methods fail conversion instead of creating a broken callback.
+   * @evidence contracts/common.md#meaningful-documentation The comment records ordering, prefix collision semantics and the within-application uniqueness premise; private helpers explain result validation and schema conversion ownership.
+   */
   export const convert = (props: {
     controllers: Array<ILlmController | IHttpLlmController>;
     prefix?: boolean | undefined;

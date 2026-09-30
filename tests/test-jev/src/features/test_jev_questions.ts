@@ -15,8 +15,20 @@ import { TestEquality } from "@typia/template/equality";
  * 2. Convert them to the native wire format.
  * 3. Assert the renamed booleans, the passed-through choice and score, the own
  *    `__proto__` key, and the unchanged input.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Calls toJevQuestions and inspects each question's actual representation, own data-key descriptor, output prototype and input snapshot so lost keys, excessive renaming and input mutation are observable.
+ * @evidence contracts/testing.md#independent-expectations Literal noul, choice and score outputs follow the Jev wire contract; own-key and Object.prototype expectations follow ordinary JavaScript record semantics, while the snapshot only proves input nonmutation.
+ * @evidence contracts/testing.md#distinguishing-cases Boolean questions must change and choice/score questions must not; the own __proto__ key distinguishes data-property creation from prototype-setter assignment, and an empty map must produce an empty ordinary record.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers the matching exported test_jev_questions function in the Jev suite; this case directly exercises the converter and requires neither a provider nor a native-generated evaluation object.
  */
 export const test_jev_questions = (): void => {
+  const empty: Record<string, IJevQuestion> = toJevQuestions({});
+  TestEquality.equals("empty questions", {}, empty);
+  TestEquality.equals(
+    "empty prototype",
+    true,
+    Object.getPrototypeOf(empty) === Object.prototype,
+  );
   const questions: Record<string, ILlmEvaluation.IQuestion> = JSON.parse(
     JSON.stringify({
       urgent: { type: "boolean", instructions: "Is it urgent?" },

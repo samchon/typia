@@ -19,7 +19,10 @@
     "package:next": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag next",
     "package:rc": "pnpm run package:prepare && pnpm --filter=./packages/* -r publish --tag rc",
     "package:tgz": "pnpm run package:prepare && node experiments/tarballs",
-    "release": "bumpp -r"
+    "release": "bumpp -r",
+    "evidence": "node scripts/check-evidence.cjs",
+    "evidence:packages": "pnpm --filter=./packages/* --fail-if-no-match -r --no-bail --workspace-concurrency=1 run evidence",
+    "evidence:tests": "evidence --config tests/evidence.config.json"
   },
   "repository": {
     "type": "git",
@@ -69,8 +72,11 @@
   "packageManager": "pnpm@10.6.4",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+    "@wrtnlabs/evidence": "0.2.0",
     "bumpp": "^10.4.1",
     "prettier": "^3.8.1",
-    "prettier-plugin-jsdoc": "^1.8.0"
+    "prettier-plugin-jsdoc": "^1.8.0",
+    "ttsc": "catalog:typescript",
+    "typescript": "catalog:typescript"
   }
 }

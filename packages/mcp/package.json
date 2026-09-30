@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "rimraf lib && ttsc && node ../../scripts/create-conditional-declarations.cjs lib/index.d.ts && rolldown -c",
-    "dev": "ttsc --watch"
+    "dev": "ttsc --watch",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

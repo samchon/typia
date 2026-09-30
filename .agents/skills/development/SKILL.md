@@ -14,8 +14,11 @@ description: Defines typia implementation rules, testing standards, validation, 
 - [Testing](#testing)
 - [Validation](#validation)
 - [Change Integrity](#change-integrity)
+- [Evidence Adoption](#evidence-adoption)
 
 ## Forbidden
+
+Read the [contracts skill](../contracts/SKILL.md) before changing maintained production declarations. Its common checklist owns implementation acknowledgments; scoped checklists apply by responsibility. When a failure disproves an assumption, correct its owner and remove superseded compensations in the same repair.
 
 These four are never acceptable; choosing any one means the approach is already wrong.
 
@@ -57,6 +60,8 @@ Fix the verified class of failure, not only the reported witness. Cover positive
 Test workspaces normally use `typia/lib/transform`. Source-only workspaces such as the benchmark may point at `typia/src/transform.ts`, but that still loads the same descriptor and native command. Do not add a second plugin host to make a local layout pass.
 
 ## Testing
+
+Read the [testing contracts](../contracts/testing.md) for every test and the [E2E contracts](../contracts/e2e.md) when it exercises a necessary real component boundary. Classify by actual execution, not language, directory name, filesystem use, or duration. Maintained helpers answer production contracts when they own implementation decisions.
 
 **One test case per file, named after what it asserts.** This is the rule for new and changed cases in both languages, even where older files predate it.
 
@@ -140,3 +145,17 @@ Treat tests, fixtures, snapshots, CI workflows, package wiring, dependencies, co
 Go source under `packages/typia/native` must ship under a `typia` version newer than the latest published package because npm consumers otherwise continue to install the previous native source tree. Assign that version once in a maintainer-owned release change; multiple unreleased native changes belong to the same future release instead of consuming one patch number each. Issue implementation pull requests never change package versions. A maintainer-owned release change may begin only after campaign completion, or after the user explicitly suspends the campaign and lifts the freeze, and it uses the version the user assigned.
 
 For mechanical ports, migrations, or broad rewrites, preserve the existing algorithm and public behavior in reviewable slices. Prefer a concrete exemplar over abstract instructions, and inspect the diff before trusting a green test run.
+
+## Evidence Adoption
+
+Each production package's `evidence.config.json` selects its maintained TypeScript and Go types and functions and references `contracts/common.md` under `../../.agents/skills`. Properties retain native documentation and are reviewed through their type. Add portability and performance chapters only to the operations that own those decisions. Tests have their own selection and always answer `contracts/testing.md`; actual E2E boundaries also answer `contracts/e2e.md`.
+
+Run root `pnpm evidence` to collect every enrolled owner without stopping at its first failure. Use `pnpm --filter <package> evidence` for one production owner and `pnpm evidence:tests` for tests. JSON configuration keeps the checker independent of compiling typia or evaluating a TypeScript configuration. The existing build workflow owns the CI gate; acknowledgments do not replace behavioral tests.
+
+1. Finish the complete report before repairing obligations. Group missing answers, code and documentation defects, selection mistakes, generated-source provenance, and incomplete analysis by cause.
+2. Inspect each selected declaration and its private helpers against every applicable chapter. Fix verified defects before writing the answer; the acknowledgment describes the resulting implementation.
+3. Write `@evidence contracts/<document>.md#<anchor> <reason>` in native documentation, separated from descriptive prose by a blank comment line. Address the actual question for that declaration. Use `@evidenceExclude` only for a genuinely inapplicable individual chapter with its concrete reason.
+4. Inspect public addresses with `pnpm exec evidence list --config <config>` and resolution with `pnpm exec evidence inspect '<target>' --config <config>`. Account for private helpers, anonymous callbacks, dynamically registered cases, script entry bodies, and compile-only cases that the adapter cannot address. Make executable entries selectable where practical; record remaining review-only coverage honestly.
+5. Recheck the complete population after each coherent repair. Verify composed claims together, including local re-export resolution. Keep the issue open and PR draft while obligations or incomplete analysis remain, and record progress as formal PR reviews.
+
+Do not weaken severity, narrow a maintained population, add generic compliance prose, or exclude a whole document to silence obligations. Exclude generated output, copied fixture input, dependencies and build output only with verified provenance. Authored generators and helpers remain maintained source; generated test cases receive their answers from the owning generator and must remain executed and selected. Verify selection against the actual runners rather than inferring enrollment from globs.

@@ -7,6 +7,8 @@ description: Defines exhaustive solo review, Self-Review, and solo repository-wi
 
 ## Non-Negotiable Review Law
 
+Read the [contracts skill](../contracts/SKILL.md) when reviewing maintained production declarations or tests. Judge every acknowledgment against the actual declaration, native documentation, private helpers, and consequence surface. Evidence proves that an answer exists; review verifies every fact the chapter requests and revalidates existing answers affected by a change. A passing fixture or renamed wrapper does not prove that a disproven implementation assumption was corrected.
+
 One reviewer performs every review in this skill from scratch over the entire declared surface. Do not spawn a subagent, delegate a concern, or load the discussion skill. Do not create a clone or worktree for solo review or Self-Review.
 
 Choose the principled conclusion. Review duration, difficulty, and consequence surface are reasons to inspect more deeply and verify more carefully, never reasons to overlook a sound improvement, accept an unsupported claim, or lower the completion standard.

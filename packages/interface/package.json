@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build": "rimraf lib && ttsc",
-    "dev": "ttsc --watch"
+    "dev": "ttsc --watch",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",
