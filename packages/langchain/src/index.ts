@@ -39,28 +39,27 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  * returns validation error formatted by {@link LlmJson.stringify} so that LLM
  * can correct them automatically.
  *
- * @example
- *   ```typescript
- *   import { initChatModel } from "langchain/chat_models/universal";
- *   import typia from "typia";
- *   import { toLangChainTools } from "@typia/langchain";
+ * ```typescript
+ * import { toLangChainTools } from "@typia/langchain";
+ * import { initChatModel } from "langchain/chat_models/universal";
+ * import typia from "typia";
  *
- *   class Calculator {
+ * class Calculator {
  *   add(input: { a: number; b: number }): { value: number } {
- *   return { value: input.a + input.b };
+ *     return { value: input.a + input.b };
  *   }
- *   }
+ * }
  *
- *   const controller = typia.llm.controller<Calculator>(
+ * const controller = typia.llm.controller<Calculator>(
  *   "calculator",
  *   new Calculator(),
- *   );
- *   const tools = toLangChainTools(controller);
+ * );
+ * const tools = toLangChainTools(controller);
  *
- *   const llm = await initChatModel();
- *   const modelWithTools = llm.bindTools(tools);
- *   const result = await modelWithTools.invoke("What is 10 + 5?");
- *   ```;
+ * const llm = await initChatModel();
+ * const modelWithTools = llm.bindTools(tools);
+ * const result = await modelWithTools.invoke("What is 10 + 5?");
+ * ```
  *
  * @param input Controller, controller list, or conversion properties
  * @param options Conversion options when `input` is not a properties object
