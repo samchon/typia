@@ -50,7 +50,14 @@ func Emend_metadata_atomics(meta *schemametadata.MetadataSchema) {
       // silently dropping the second
       if len(temp.Values) == 2 && temp.Values[0] != nil && temp.Values[1] != nil &&
         reflect.DeepEqual(temp.Values[0].Tags, temp.Values[1].Tags) == false {
-        tags = append(append([][]schemametadata.IMetadataTypeTag{}, temp.Values[0].Tags...), temp.Values[1].Tags...)
+        tags = [][]schemametadata.IMetadataTypeTag{}
+        for _, value := range temp.Values {
+          // a literal without tags is an alternative that states nothing
+          if len(value.Tags) == 0 {
+            tags = append(tags, []schemametadata.IMetadataTypeTag{})
+          }
+          tags = append(tags, value.Tags...)
+        }
       }
       meta.Atomics = append(meta.Atomics, schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{
         Type: "boolean",

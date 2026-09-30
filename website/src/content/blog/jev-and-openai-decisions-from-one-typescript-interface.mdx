@@ -11,7 +11,7 @@ tags:
 ---
 
 ```typescript
-import typia from "typia";
+import typia, { tags } from "typia";
 
 enum Department {
   /**
@@ -62,10 +62,8 @@ interface ITicketTriage {
    * Does the customer ask for their money back?
    *
    * Complaining about a charge is not a request. The customer has to ask.
-   *
-   * @probability 0.8
    */
-  refund: boolean;
+  refund: boolean & tags.Probability<0.8>;
 }
 
 const triage = typia.llm.evaluation<ITicketTriage>();
