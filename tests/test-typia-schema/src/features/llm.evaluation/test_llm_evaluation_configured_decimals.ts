@@ -10,9 +10,12 @@ import typia from "typia";
  * strict. Rounding tolerance never excuses bad keys, values, an incorrect
  * choice, or a material discrepancy.
  *
+ * The evaluation also reports the configuration it was generated with.
+ *
  * 1. Decode rounded distributions with the default and a finer `decimals`.
  * 2. Vary the selected choice, mean, and keys one at a time.
- * 3. Assert only deviations within the configured precision pass.
+ * 3. Assert only deviations within the configured precision pass, and that
+ *    `config` carries the default and the configured decimals.
  */
 export const test_llm_evaluation_configured_decimals = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();
@@ -34,6 +37,8 @@ export const test_llm_evaluation_configured_decimals = (): void => {
     return result.success ? [] : result.errors.map((error) => error.path);
   };
 
+  TestEquality.equals("default config", evaluation.config, { decimals: 2 });
+  TestEquality.equals("configured config", strict.config, { decimals: 6 });
   TestEquality.equals(
     "default is two decimals",
     paths(evaluation, answers),

@@ -54,6 +54,15 @@ export interface ILlmEvaluation<T = unknown> {
   questions: Record<string, ILlmEvaluation.IQuestion>;
 
   /**
+   * Configuration this evaluation was generated with.
+   *
+   * It is the second generic argument of `typia.llm.evaluation<T, Config>()`
+   * with the defaults filled in, so {@link decode} and a caller can both tell
+   * which precision the questions and the decoder were built for.
+   */
+  config: ILlmEvaluation.IConfig;
+
+  /**
    * Check an answer map and decode it into `T`.
    *
    * Unlike `typia.validate<T>()` or `ILlmStructuredOutput.validate()`, this

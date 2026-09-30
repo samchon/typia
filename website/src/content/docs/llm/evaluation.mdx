@@ -24,6 +24,7 @@ export namespace llm {
 ```typescript copy filename="what-you-get"
 interface ILlmEvaluation<T> {
   questions: Record<string, ILlmEvaluation.IQuestion>; // hand this to the model
+  config: ILlmEvaluation.IConfig; // what it was generated with, defaults filled
   decode: (answers: unknown) => IValidation<T>; // answers in, T out
 }
 ```
@@ -206,7 +207,8 @@ The second generic argument is `ILlmEvaluation.IConfig`.
 | `decimals` | `2`     | Decimal places of the model's probabilities and scores. A `@probability` finer than this is a compile error, and `decode()` tolerates that much rounding. |
 
 ```typescript
-typia.llm.evaluation<ITicketTriage, { decimals: 3 }>();
+const triage = typia.llm.evaluation<ITicketTriage, { decimals: 3 }>();
+triage.config.decimals; // 3
 ```
 
 In practice Jev's answers come rounded to two decimals, though TypeSafe does not document the precision. `decimals` is an integer from `0` to `15`, like AI SDK's rounding declaration. The default tolerates two-decimal rounding for every provider, so pass `15` to check a full-precision provider almost exactly.

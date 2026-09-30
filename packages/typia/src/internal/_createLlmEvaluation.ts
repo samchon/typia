@@ -75,6 +75,7 @@ export const _createLlmEvaluation = <T>(
   }
   return {
     questions,
+    config: { decimals },
     decode: (answers: unknown): IValidation<T> =>
       decode(plan, answers, decimals),
   };

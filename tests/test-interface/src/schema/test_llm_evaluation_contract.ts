@@ -33,6 +33,9 @@ export type LlmEvaluationContractCases = [
     >
   >,
   Assert<
+    IsEqual<ILlmEvaluation<IDecision>["config"], ILlmEvaluation.IConfig>
+  >,
+  Assert<
     IsEqual<
       ILlmEvaluation<IDecision>["decode"],
       (answers: unknown) => IValidation<IDecision>
