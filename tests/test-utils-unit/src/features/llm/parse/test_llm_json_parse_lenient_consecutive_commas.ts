@@ -1,6 +1,22 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies extra commas do not create array holes or object members.
+ *
+ * The lenient operation ignores redundant separators. Empty containers and
+ * leading or trailing separators must preserve their distinct container
+ * shapes.
+ *
+ * 1. Parse repeated, leading and trailing commas in arrays and objects.
+ * 2. Compare complete dense values, including all-comma containers and commas
+ *    around an unquoted key.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Eleven direct parse scenarios check success and exact array or object results, rejecting holes, phantom members and lost actual values.
+ * @evidence contracts/testing.md#independent-expectations Literal dense arrays and objects define the expected data under the maintained redundant-comma tolerance; empty array and object expectations remain distinct.
+ * @evidence contracts/testing.md#distinguishing-cases Double and triple separators, leading commas, all-comma array and object inputs, mixed whitespace, an enclosed unquoted member and single or multiple trailing commas preserve all twenty-two assertions. Omitted-separator behavior is owned by comma_optional.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ */
 export const test_llm_json_parse_lenient_consecutive_commas = (): void => {
   // Double comma in array
   const r1 = LlmJson.parse("[1,,2]");

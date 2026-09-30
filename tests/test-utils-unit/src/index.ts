@@ -2,12 +2,20 @@ import test from "node:test";
 
 import { test_llm_json_parse_lenient_bom_prefix } from "./features/llm/parse/test_llm_json_parse_lenient_bom_prefix";
 import { test_llm_json_parse_lenient_boolean_coercion } from "./features/llm/parse/test_llm_json_parse_lenient_boolean_coercion";
+import { test_llm_json_parse_lenient_comma_optional } from "./features/llm/parse/test_llm_json_parse_lenient_comma_optional";
 import { test_llm_json_parse_lenient_comment_only_input } from "./features/llm/parse/test_llm_json_parse_lenient_comment_only_input";
+import { test_llm_json_parse_lenient_comments } from "./features/llm/parse/test_llm_json_parse_lenient_comments";
+import { test_llm_json_parse_lenient_comments_edge } from "./features/llm/parse/test_llm_json_parse_lenient_comments_edge";
+import { test_llm_json_parse_lenient_consecutive_commas } from "./features/llm/parse/test_llm_json_parse_lenient_consecutive_commas";
 import { test_llm_json_parse_lenient_duplicate_keys } from "./features/llm/parse/test_llm_json_parse_lenient_duplicate_keys";
 import { test_llm_json_parse_lenient_empty_containers } from "./features/llm/parse/test_llm_json_parse_lenient_empty_containers";
 import { test_llm_json_parse_lenient_primitive_number } from "./features/llm/parse/test_llm_json_parse_lenient_primitive_number";
 import { test_llm_json_parse_lenient_primitive_string } from "./features/llm/parse/test_llm_json_parse_lenient_primitive_string";
 import { test_llm_json_parse_lenient_standard_roundtrip } from "./features/llm/parse/test_llm_json_parse_lenient_standard_roundtrip";
+import { test_llm_json_parse_lenient_unquoted_keys } from "./features/llm/parse/test_llm_json_parse_lenient_unquoted_keys";
+import { test_llm_json_parse_lenient_unquoted_keys_edge } from "./features/llm/parse/test_llm_json_parse_lenient_unquoted_keys_edge";
+import { test_llm_json_parse_lenient_unquoted_keys_single_char } from "./features/llm/parse/test_llm_json_parse_lenient_unquoted_keys_single_char";
+import { test_llm_json_parse_lenient_whitespace_variations } from "./features/llm/parse/test_llm_json_parse_lenient_whitespace_variations";
 import { test_naming_convention_camel } from "./features/naming/test_naming_convention_camel";
 import { test_naming_convention_empty } from "./features/naming/test_naming_convention_empty";
 import { test_naming_convention_kebab } from "./features/naming/test_naming_convention_kebab";
@@ -57,5 +65,17 @@ for (const feature of [
   test_llm_json_parse_lenient_bom_prefix,
   test_llm_json_parse_lenient_comment_only_input,
   test_llm_json_parse_lenient_boolean_coercion,
+])
+  test(feature.name, feature);
+
+for (const feature of [
+  test_llm_json_parse_lenient_comments,
+  test_llm_json_parse_lenient_comments_edge,
+  test_llm_json_parse_lenient_comma_optional,
+  test_llm_json_parse_lenient_consecutive_commas,
+  test_llm_json_parse_lenient_whitespace_variations,
+  test_llm_json_parse_lenient_unquoted_keys,
+  test_llm_json_parse_lenient_unquoted_keys_single_char,
+  test_llm_json_parse_lenient_unquoted_keys_edge,
 ])
   test(feature.name, feature);

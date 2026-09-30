@@ -1,16 +1,21 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
 /**
- * Tests that the lenient parser accepts missing commas between object
- * properties and array elements.
+ * Verifies missing commas preserve separate object members and array elements.
  *
- * The parser's object/array loops do NOT require commas between entries. After
- * parsing a value, if the next token is not a comma, the loop simply continues
- * and tries to parse the next key/value directly.
+ * Lenient parsing accepts omitted separators without merging adjacent values.
+ * Nested values and ordinary commas must retain the same ordering and member
+ * identity.
  *
- * This is a deliberate lenient behavior that enables parsing of LLM outputs
- * where commas are occasionally omitted.
+ * 1. Parse object members and arrays with omitted commas across scalar and nested
+ *    value kinds.
+ * 2. Compare complete outputs for missing and mixed present-or-missing separators.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Ten direct parse scenarios assert successful recovery and exact object members or ordered arrays, catching dropped or merged values.
+ * @evidence contracts/testing.md#independent-expectations Literal object and array fixtures define the independent recovered values under the maintained missing-comma tolerance, rather than duplicating parser loops.
+ * @evidence contracts/testing.md#distinguishing-cases Four object scenarios cover numbers, keyword values, nested objects and mixed separators; six arrays cover numbers, strings, keywords, objects, arrays and mixed separators. Standard comma-separated values remain owned by standard_roundtrip.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
  */
 export const test_llm_json_parse_lenient_comma_optional = (): void => {
   // =========================================================================

@@ -1,6 +1,23 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies JSON whitespace preserves data but cannot supply a missing value.
+ *
+ * Standard spaces, tabs and line endings may surround tokens without becoming
+ * values. Whitespace-only input must remain a failure rather than an empty
+ * container.
+ *
+ * 1. Parse whitespace-only input and objects or arrays with excessive, mixed and
+ *    CRLF whitespace.
+ * 2. Compare complete data with a compressed input control and assert the
+ *    missing-value diagnostic kind.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Eight direct parse scenarios check rejection or complete data; the failure subset intentionally checks the expected JSON-value diagnostic without pinning its path or description.
+ * @evidence contracts/testing.md#independent-expectations Literal fixtures follow standard JSON whitespace semantics, and the error type independently establishes that valueless input requires a JSON value.
+ * @evidence contracts/testing.md#distinguishing-cases Whitespace-only rejection contrasts with excessive spaces, tabs, mixed newlines, spaced arrays, multiline members, CRLF and compressed nested data; all original success, data and diagnostic assertions survive.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ */
 export const test_llm_json_parse_lenient_whitespace_variations = (): void => {
   // Whitespace only (various types)
   const r1 = LlmJson.parse("   \t\n\r  ");

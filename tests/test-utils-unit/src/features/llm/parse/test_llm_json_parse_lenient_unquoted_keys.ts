@@ -1,6 +1,21 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies unquoted identifiers retain their complete object keys.
+ *
+ * Lenient object keys may use identifier spelling while surrounding values
+ * retain ordinary JSON meaning. Nesting and comments must not alter key
+ * identity.
+ *
+ * 1. Parse mixed quoted and unquoted keys, identifier prefixes and digit suffixes.
+ * 2. Compare complete nested, array-valued, multi-member and commented objects.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Ten direct parse scenarios assert success and complete object data, detecting truncated names, lost values or altered nesting.
+ * @evidence contracts/testing.md#independent-expectations Literal keys and values supply independent expectations under the maintained identifier-key tolerance; no parser output defines an expected member.
+ * @evidence contracts/testing.md#distinguishing-cases Ordinary names, mixed quoting, underscores, digit suffixes, dollar and underscore prefixes, nesting, array values, multiple keys and comments preserve twenty assertions. Single-character and keyword-like names have dedicated neighboring cases.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ */
 export const test_llm_json_parse_lenient_unquoted_keys = (): void => {
   // Simple unquoted key
   const r1 = LlmJson.parse('{name: "John"}');

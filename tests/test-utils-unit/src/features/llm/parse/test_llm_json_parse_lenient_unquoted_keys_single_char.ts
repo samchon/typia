@@ -1,12 +1,21 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
 /**
- * Tests single-character unquoted keys using `$` and `_`, which are valid
- * identifier starts in JavaScript.
+ * Verifies single-character dollar and underscore keys retain their identity.
  *
- * If someone modifies `isIdentifierStart` to remove `$` or `_`, these tests
- * will fail.
+ * Both symbols are valid identifier starts even without a following letter.
+ * They must also remain valid when followed by digits or another identifier
+ * symbol.
+ *
+ * 1. Parse dollar and underscore keys separately, together and with a nested
+ *    value.
+ * 2. Compare complete data for dollar-digit and underscore-dollar names as well.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Six direct parse scenarios compare successful recovery and complete member identity, catching refusal or truncation of symbolic names.
+ * @evidence contracts/testing.md#independent-expectations Literal property names follow the supported identifier-start tolerance for dollar and underscore, independent of the parser implementation.
+ * @evidence contracts/testing.md#distinguishing-cases Singleton dollar and underscore names, both in one object, nested dollar values, dollar followed by zero and underscore followed by dollar retain all twelve assertions. Longer names and keyword prefixes are covered separately.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
  */
 export const test_llm_json_parse_lenient_unquoted_keys_single_char =
   (): void => {
