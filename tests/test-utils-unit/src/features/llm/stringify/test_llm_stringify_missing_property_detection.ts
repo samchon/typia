@@ -1,10 +1,23 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies feedback exposes missing direct properties.
+ *
+ * A missing direct child differs from a descendant whose parent exists and from
+ * an indexed array element.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert feedback exposes missing direct properties; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns simple/multiple missing keys, bracket notation, grandchildren, array indexes and nested missing keys; the index scenario's original assertion only checks the code fence. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_missing_property_detection = (): void => {
   // Test case: getMissingProperties and extractDirectChildKey functions
-  // This tests lines 343-411: finding missing properties from error paths
 
   // Test 1: Simple missing property
   const failure1: IValidation.IFailure = {

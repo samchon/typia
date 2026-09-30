@@ -1,7 +1,21 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies long values and explanations remain in feedback.
+ *
+ * Large authored strings and constraint descriptions must remain available to
+ * the model without changing the formatter's execution layer.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert long values and explanations remain in feedback; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns a ten-thousand-character value, one hundred repeated constraints and five hundred repeated description words; the original presence/length assertions do not prove every character. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_long_string_values = (): void => {
   // Test case: Very long string values in data and expected fields
   // This tests that JSON.stringify handles long strings correctly

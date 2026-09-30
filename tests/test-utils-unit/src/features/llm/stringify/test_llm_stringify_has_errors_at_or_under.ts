@@ -1,11 +1,23 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies feedback retains error-bearing undefined parents.
+ *
+ * An undefined parent can still own a descendant error whose information must
+ * remain visible.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert feedback retains error-bearing undefined parents; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns exact, nested, unrelated and deeply nested error paths; the unrelated scenario's original assertions do not establish unused-key omission. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_has_errors_at_or_under = (): void => {
   // Test case: hasErrorsAtOrUnder function
-  // This tests lines 326-337: checking if errors exist under a path prefix
-  // This is used to determine if undefined entries should be shown (lines 173-180)
 
   // Test 1: Error at exact path
   const failure1: IValidation.IFailure = {
@@ -67,7 +79,6 @@ export const test_llm_stringify_has_errors_at_or_under = (): void => {
   TestEquality.equals("no-match-code-block", output3.includes("```json"), true);
   TestEquality.equals("no-match-name", output3.includes("name"), true);
   // "unused" should NOT appear because it has no errors at or under it
-  // Actually Object.entries would filter it anyway... let's check
 
   // Test 4: Deep nested error path
   const data4: Record<string, unknown> = {

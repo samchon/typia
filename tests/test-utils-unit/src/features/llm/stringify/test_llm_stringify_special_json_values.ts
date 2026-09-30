@@ -1,10 +1,23 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies feedback follows native JSON value spelling.
+ *
+ * Non-finite numbers and negative zero have JSON spellings distinct from their
+ * JavaScript representations.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert feedback follows native JSON value spelling; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns NaN, both infinities, empty string, zero/negative zero and false; BigInt is not exercised by this case. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_special_json_values = (): void => {
   // Test case: Special values that JSON.stringify handles specially
-  // This tests line 263: JSON.stringify(value) ?? String(value)
 
   // Test 1: NaN (JSON.stringify returns null)
   const failure1: IValidation.IFailure = {
@@ -59,10 +72,6 @@ export const test_llm_stringify_special_json_values = (): void => {
   const output3: string = LlmJson.stringify(failure3);
   TestEquality.equals("neginf-code-block", output3.includes("```json"), true);
   TestEquality.equals("neginf-null", output3.includes("null"), true);
-
-  // Test 4: BigInt (JSON.stringify throws, so String(value) is used)
-  // Actually BigInt would throw in JSON.stringify, let's skip this
-  // as it might cause issues
 
   // Test 5: Empty string
   const failure5: IValidation.IFailure = {

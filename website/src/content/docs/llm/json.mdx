@@ -140,6 +140,7 @@ When `validate` reports failures, you want to tell the LLM what it did wrong in 
 What the format does:
 
 - **Inline annotations** — each error sits next to the offending value, prefixed with `// ❌`
+- **Literal content** — marker-like text inside values, expected types or descriptions stays intact; separators follow the data structure
 - **Full path** — `$input.order.product.price` so the LLM knows exactly where to fix
 - **Expected type** — the same intersection syntax typia uses everywhere (`number & Minimum<0>`)
 - **Missing properties** — required properties that are absent are written as `undefined` with the same annotation

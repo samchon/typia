@@ -1,10 +1,23 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies feedback preserves authored error descriptions.
+ *
+ * Explanations are part of model feedback and must survive both single and
+ * grouped failures.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert feedback preserves authored error descriptions; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns one description, two descriptions at one path and an absent description. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_error_description = (): void => {
   // Test case: Error with description field
-  // This tests lines 299-303: the description field is included in error comment
 
   const failure: IValidation.IFailure = {
     success: false,

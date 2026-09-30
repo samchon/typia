@@ -68,6 +68,35 @@ import { test_llm_json_parse_lenient_unquoted_keys_single_char } from "./feature
 import { test_llm_json_parse_lenient_whitespace_variations } from "./features/llm/parse/test_llm_json_parse_lenient_whitespace_variations";
 import { test_llm_json_parse_unicode_string_boundary } from "./features/llm/parse/test_llm_json_parse_unicode_string_boundary";
 import { test_llm_json_prototype_safe_objects } from "./features/llm/parse/test_llm_json_prototype_safe_objects";
+import { test_llm_stringify_array_last_element_error } from "./features/llm/stringify/test_llm_stringify_array_last_element_error";
+import { test_llm_stringify_comma_insertion } from "./features/llm/stringify/test_llm_stringify_comma_insertion";
+import { test_llm_stringify_complex_property_value } from "./features/llm/stringify/test_llm_stringify_complex_property_value";
+import { test_llm_stringify_deep_indentation } from "./features/llm/stringify/test_llm_stringify_deep_indentation";
+import { test_llm_stringify_deep_missing_parent } from "./features/llm/stringify/test_llm_stringify_deep_missing_parent";
+import { test_llm_stringify_empty_array_self_error } from "./features/llm/stringify/test_llm_stringify_empty_array_self_error";
+import { test_llm_stringify_empty_object_self_error } from "./features/llm/stringify/test_llm_stringify_empty_object_self_error";
+import { test_llm_stringify_error_description } from "./features/llm/stringify/test_llm_stringify_error_description";
+import { test_llm_stringify_has_errors_at_or_under } from "./features/llm/stringify/test_llm_stringify_has_errors_at_or_under";
+import { test_llm_stringify_literal_separator } from "./features/llm/stringify/test_llm_stringify_literal_separator";
+import { test_llm_stringify_long_string_values } from "./features/llm/stringify/test_llm_stringify_long_string_values";
+import { test_llm_stringify_min_items_empty_array } from "./features/llm/stringify/test_llm_stringify_min_items_empty_array";
+import { test_llm_stringify_missing_property_detection } from "./features/llm/stringify/test_llm_stringify_missing_property_detection";
+import { test_llm_stringify_mixed_array_object_errors } from "./features/llm/stringify/test_llm_stringify_mixed_array_object_errors";
+import { test_llm_stringify_multiple_errors_same_path } from "./features/llm/stringify/test_llm_stringify_multiple_errors_same_path";
+import { test_llm_stringify_no_errors } from "./features/llm/stringify/test_llm_stringify_no_errors";
+import { test_llm_stringify_nonempty_array_missing_elements } from "./features/llm/stringify/test_llm_stringify_nonempty_array_missing_elements";
+import { test_llm_stringify_object_last_property_error } from "./features/llm/stringify/test_llm_stringify_object_last_property_error";
+import { test_llm_stringify_prefix_false_positive } from "./features/llm/stringify/test_llm_stringify_prefix_false_positive";
+import { test_llm_stringify_primitive_root } from "./features/llm/stringify/test_llm_stringify_primitive_root";
+import { test_llm_stringify_root_array_error } from "./features/llm/stringify/test_llm_stringify_root_array_error";
+import { test_llm_stringify_special_json_values } from "./features/llm/stringify/test_llm_stringify_special_json_values";
+import { test_llm_stringify_tojson_array } from "./features/llm/stringify/test_llm_stringify_tojson_array";
+import { test_llm_stringify_tojson_object } from "./features/llm/stringify/test_llm_stringify_tojson_object";
+import { test_llm_stringify_tojson_primitive } from "./features/llm/stringify/test_llm_stringify_tojson_primitive";
+import { test_llm_stringify_undefined_entries_with_errors } from "./features/llm/stringify/test_llm_stringify_undefined_entries_with_errors";
+import { test_llm_stringify_undefined_in_array } from "./features/llm/stringify/test_llm_stringify_undefined_in_array";
+import { test_llm_stringify_unmappable_errors } from "./features/llm/stringify/test_llm_stringify_unmappable_errors";
+import { test_llm_stringify_value_containing_error_marker } from "./features/llm/stringify/test_llm_stringify_value_containing_error_marker";
 import { test_naming_convention_camel } from "./features/naming/test_naming_convention_camel";
 import { test_naming_convention_empty } from "./features/naming/test_naming_convention_empty";
 import { test_naming_convention_kebab } from "./features/naming/test_naming_convention_kebab";
@@ -190,4 +219,41 @@ for (const feature of [
 test(
   "test_llm_json_parse_unicode_string_boundary",
   test_llm_json_parse_unicode_string_boundary,
+);
+
+for (const feature of [
+  test_llm_stringify_array_last_element_error,
+  test_llm_stringify_comma_insertion,
+  test_llm_stringify_complex_property_value,
+  test_llm_stringify_deep_indentation,
+  test_llm_stringify_deep_missing_parent,
+  test_llm_stringify_empty_array_self_error,
+  test_llm_stringify_empty_object_self_error,
+  test_llm_stringify_error_description,
+  test_llm_stringify_has_errors_at_or_under,
+  test_llm_stringify_long_string_values,
+  test_llm_stringify_min_items_empty_array,
+  test_llm_stringify_missing_property_detection,
+  test_llm_stringify_mixed_array_object_errors,
+  test_llm_stringify_multiple_errors_same_path,
+  test_llm_stringify_nonempty_array_missing_elements,
+  test_llm_stringify_no_errors,
+  test_llm_stringify_object_last_property_error,
+  test_llm_stringify_prefix_false_positive,
+  test_llm_stringify_primitive_root,
+  test_llm_stringify_root_array_error,
+  test_llm_stringify_special_json_values,
+  test_llm_stringify_tojson_array,
+  test_llm_stringify_tojson_object,
+  test_llm_stringify_tojson_primitive,
+  test_llm_stringify_undefined_entries_with_errors,
+  test_llm_stringify_undefined_in_array,
+  test_llm_stringify_unmappable_errors,
+  test_llm_stringify_value_containing_error_marker,
+])
+  test(feature.name, feature);
+
+test(
+  "test_llm_stringify_literal_separator",
+  test_llm_stringify_literal_separator,
 );

@@ -1,11 +1,22 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies annotated siblings retain feedback fields.
+ *
+ * Nested sibling errors and ordinary slash text must survive shared formatting;
+ * precise separator placement is checked by the literal-separator regression.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert annotated siblings retain feedback fields; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns multiple compound properties, array objects, unannotated preceding properties and URL descriptions. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_comma_insertion = (): void => {
-  // Test case: insertCommaBeforeComment function
-  // This tests lines 268-282: comma insertion before error comments
-
   // Test 1: Multiple object properties with errors on non-last properties
   const failure1: IValidation.IFailure = {
     success: false,

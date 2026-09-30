@@ -1,11 +1,23 @@
 import { IValidation } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies missing elements follow existing array data.
+ *
+ * Feedback must show the available values and each missing-element failure
+ * together.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert missing elements follow existing array data; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
+ * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
+ * @evidence contracts/testing.md#distinguishing-cases This case owns two existing strings plus a placeholder and a singleton number plus two missing descriptions. Complementary direct cases preserve their own assertion identity.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ */
 export const test_llm_stringify_nonempty_array_missing_elements = (): void => {
   // Test case: Non-empty array with missing element errors (path ending with [])
-  // This tests lines 122-130: adding missing element placeholders at the end
-  // and line 104: needsComma = !isLastElement || hasMissingElements
   const failure: IValidation.IFailure = {
     success: false,
     data: { items: ["a", "b"] },
