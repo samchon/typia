@@ -1,5 +1,13 @@
 import test from "node:test";
 
+import { test_llm_json_parse_lenient_bom_prefix } from "./features/llm/parse/test_llm_json_parse_lenient_bom_prefix";
+import { test_llm_json_parse_lenient_boolean_coercion } from "./features/llm/parse/test_llm_json_parse_lenient_boolean_coercion";
+import { test_llm_json_parse_lenient_comment_only_input } from "./features/llm/parse/test_llm_json_parse_lenient_comment_only_input";
+import { test_llm_json_parse_lenient_duplicate_keys } from "./features/llm/parse/test_llm_json_parse_lenient_duplicate_keys";
+import { test_llm_json_parse_lenient_empty_containers } from "./features/llm/parse/test_llm_json_parse_lenient_empty_containers";
+import { test_llm_json_parse_lenient_primitive_number } from "./features/llm/parse/test_llm_json_parse_lenient_primitive_number";
+import { test_llm_json_parse_lenient_primitive_string } from "./features/llm/parse/test_llm_json_parse_lenient_primitive_string";
+import { test_llm_json_parse_lenient_standard_roundtrip } from "./features/llm/parse/test_llm_json_parse_lenient_standard_roundtrip";
 import { test_naming_convention_camel } from "./features/naming/test_naming_convention_camel";
 import { test_naming_convention_empty } from "./features/naming/test_naming_convention_empty";
 import { test_naming_convention_kebab } from "./features/naming/test_naming_convention_kebab";
@@ -37,5 +45,17 @@ for (const feature of [
   test_naming_convention_reserved,
   test_naming_convention_snake,
   test_naming_convention_variable,
+])
+  test(feature.name, feature);
+
+for (const feature of [
+  test_llm_json_parse_lenient_empty_containers,
+  test_llm_json_parse_lenient_primitive_number,
+  test_llm_json_parse_lenient_primitive_string,
+  test_llm_json_parse_lenient_standard_roundtrip,
+  test_llm_json_parse_lenient_duplicate_keys,
+  test_llm_json_parse_lenient_bom_prefix,
+  test_llm_json_parse_lenient_comment_only_input,
+  test_llm_json_parse_lenient_boolean_coercion,
 ])
   test(feature.name, feature);

@@ -1,6 +1,23 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson } from "@typia/utils";
 
+/**
+ * Verifies comments cannot invent a missing JSON value.
+ *
+ * Ignoring comments is useful only when a value remains. Comment-only and
+ * unclosed-comment input must fail while comments preceding real data remain
+ * accepted.
+ *
+ * 1. Parse line, block, multiple, whitespace-surrounded and unfinished comments
+ *    without a value.
+ * 2. Compare failure and diagnostic expectations, then check object and scalar
+ *    inputs following line, block, empty and CRLF comments.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct parse calls assert rejection of valueless comments and preservation of following object, number, string or boolean data.
+ * @evidence contracts/testing.md#independent-expectations Literal JSON values establish successful data; the public lenient comment contract and the result error type establish missing-value failures. Subset assertions deliberately pin expected diagnostic kinds without certifying unasserted descriptions or paths.
+ * @evidence contracts/testing.md#distinguishing-cases Comment-only, multiple, unclosed and whitespace-only-comment failures contrast with object and scalar successes; CRLF, empty line comments and a JSON-looking suffix swallowed by an unclosed block retain all fifteen scenarios.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ */
 export const test_llm_json_parse_lenient_comment_only_input = (): void => {
   // Single-line comment only
   const r1 = LlmJson.parse("// this is a comment");
