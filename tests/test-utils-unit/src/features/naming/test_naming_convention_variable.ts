@@ -1,5 +1,5 @@
-import { TestBinding } from "@typia/template/binding";
-import { TestEquality } from "@typia/template/equality";
+import { TestBinding } from "@typia/oracle/binding";
+import { TestEquality } from "@typia/oracle/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**

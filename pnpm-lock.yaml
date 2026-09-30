@@ -446,8 +446,20 @@ importers:
         specifier: catalog:typescript
         version: 0.30.4
 
+  tests/oracle:
+    devDependencies:
+      '@types/node':
+        specifier: catalog:utils
+        version: 25.6.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.30.4
+
   tests/template:
     dependencies:
+      '@typia/oracle':
+        specifier: workspace:^
+        version: link:../oracle
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -860,9 +872,9 @@ importers:
 
   tests/test-utils-unit:
     dependencies:
-      '@typia/template':
+      '@typia/oracle':
         specifier: workspace:^
-        version: link:../template
+        version: link:../oracle
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils

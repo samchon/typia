@@ -11,7 +11,7 @@
     "ttsc": "catalog:typescript"
   },
   "dependencies": {
-    "@typia/template": "workspace:^",
+    "@typia/oracle": "workspace:^",
     "@typia/utils": "workspace:^"
   }
 }

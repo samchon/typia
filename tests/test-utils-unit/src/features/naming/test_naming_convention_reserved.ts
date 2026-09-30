@@ -1,4 +1,4 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { NamingConvention } from "@typia/utils";
 
 /**

@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@typia/oracle",
+  "version": "15.0.1",
+  "description": "Independent assertion and syntax oracles without a typia transform.",
+  "exports": {
+    "./equality": "./src/TestEquality.ts",
+    "./binding": "./src/TestBinding.ts",
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:utils",
+    "ttsc": "catalog:typescript"
+  }
+}
