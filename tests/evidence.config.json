@@ -161,6 +161,23 @@
         "type",
         "function"
       ]
+    },
+    {
+      "name": "strict OpenAPI validation assertion helper",
+      "type": "typescript",
+      "files": [
+        "test-utils-automated/src/internal/_test_validateEquals.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/common.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
     }
   ]
 }
