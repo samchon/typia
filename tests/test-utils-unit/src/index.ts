@@ -1,5 +1,42 @@
 import test from "node:test";
 
+import { test_llm_coerce_anyof_array_union } from "./features/llm/coerce/test_llm_coerce_anyof_array_union";
+import { test_llm_coerce_anyof_discriminated_inner } from "./features/llm/coerce/test_llm_coerce_anyof_discriminated_inner";
+import { test_llm_coerce_anyof_discriminated_second } from "./features/llm/coerce/test_llm_coerce_anyof_discriminated_second";
+import { test_llm_coerce_anyof_discriminated_stringify } from "./features/llm/coerce/test_llm_coerce_anyof_discriminated_stringify";
+import { test_llm_coerce_anyof_nested_coercion } from "./features/llm/coerce/test_llm_coerce_anyof_nested_coercion";
+import { test_llm_coerce_anyof_nested_string } from "./features/llm/coerce/test_llm_coerce_anyof_nested_string";
+import { test_llm_coerce_anyof_nullable } from "./features/llm/coerce/test_llm_coerce_anyof_nullable";
+import { test_llm_coerce_anyof_nullable_null } from "./features/llm/coerce/test_llm_coerce_anyof_nullable_null";
+import { test_llm_coerce_anyof_object_union } from "./features/llm/coerce/test_llm_coerce_anyof_object_union";
+import { test_llm_coerce_anyof_with_string } from "./features/llm/coerce/test_llm_coerce_anyof_with_string";
+import { test_llm_coerce_anyof_without_string } from "./features/llm/coerce/test_llm_coerce_anyof_without_string";
+import { test_llm_coerce_boolean_string_anyof } from "./features/llm/coerce/test_llm_coerce_boolean_string_anyof";
+import { test_llm_coerce_boolean_string_n_anyof } from "./features/llm/coerce/test_llm_coerce_boolean_string_n_anyof";
+import { test_llm_coerce_boolean_string_no } from "./features/llm/coerce/test_llm_coerce_boolean_string_no";
+import { test_llm_coerce_boolean_string_yes } from "./features/llm/coerce/test_llm_coerce_boolean_string_yes";
+import { test_llm_coerce_double_stringify } from "./features/llm/coerce/test_llm_coerce_double_stringify";
+import { test_llm_coerce_double_stringify_array } from "./features/llm/coerce/test_llm_coerce_double_stringify_array";
+import { test_llm_coerce_five_levels_stringify } from "./features/llm/coerce/test_llm_coerce_five_levels_stringify";
+import { test_llm_coerce_mixed_complex } from "./features/llm/coerce/test_llm_coerce_mixed_complex";
+import { test_llm_coerce_mixed_deeply } from "./features/llm/coerce/test_llm_coerce_mixed_deeply";
+import { test_llm_coerce_mixed_primitives } from "./features/llm/coerce/test_llm_coerce_mixed_primitives";
+import { test_llm_coerce_mixed_recursive } from "./features/llm/coerce/test_llm_coerce_mixed_recursive";
+import { test_llm_coerce_mixed_stringify_levels } from "./features/llm/coerce/test_llm_coerce_mixed_stringify_levels";
+import { test_llm_coerce_nested_array_2d } from "./features/llm/coerce/test_llm_coerce_nested_array_2d";
+import { test_llm_coerce_nested_array_3d } from "./features/llm/coerce/test_llm_coerce_nested_array_3d";
+import { test_llm_coerce_nested_array_deep } from "./features/llm/coerce/test_llm_coerce_nested_array_deep";
+import { test_llm_coerce_nested_array_objects } from "./features/llm/coerce/test_llm_coerce_nested_array_objects";
+import { test_llm_coerce_nested_array_whole } from "./features/llm/coerce/test_llm_coerce_nested_array_whole";
+import { test_llm_coerce_nested_object_all_levels } from "./features/llm/coerce/test_llm_coerce_nested_object_all_levels";
+import { test_llm_coerce_nested_object_deep } from "./features/llm/coerce/test_llm_coerce_nested_object_deep";
+import { test_llm_coerce_nested_object_triple } from "./features/llm/coerce/test_llm_coerce_nested_object_triple";
+import { test_llm_coerce_quadruple_stringify } from "./features/llm/coerce/test_llm_coerce_quadruple_stringify";
+import { test_llm_coerce_triple_stringify_array } from "./features/llm/coerce/test_llm_coerce_triple_stringify_array";
+import { test_llm_coerce_triple_stringify_boolean } from "./features/llm/coerce/test_llm_coerce_triple_stringify_boolean";
+import { test_llm_coerce_triple_stringify_null } from "./features/llm/coerce/test_llm_coerce_triple_stringify_null";
+import { test_llm_coerce_triple_stringify_number } from "./features/llm/coerce/test_llm_coerce_triple_stringify_number";
+import { test_llm_coerce_triple_stringify_object } from "./features/llm/coerce/test_llm_coerce_triple_stringify_object";
 import { test_llm_json_parse_lenient_bom_prefix } from "./features/llm/parse/test_llm_json_parse_lenient_bom_prefix";
 import { test_llm_json_parse_lenient_boolean_coercion } from "./features/llm/parse/test_llm_json_parse_lenient_boolean_coercion";
 import { test_llm_json_parse_lenient_comma_optional } from "./features/llm/parse/test_llm_json_parse_lenient_comma_optional";
@@ -257,3 +294,44 @@ test(
   "test_llm_stringify_literal_separator",
   test_llm_stringify_literal_separator,
 );
+
+for (const feature of [
+  test_llm_coerce_anyof_array_union,
+  test_llm_coerce_anyof_discriminated_inner,
+  test_llm_coerce_anyof_discriminated_second,
+  test_llm_coerce_anyof_discriminated_stringify,
+  test_llm_coerce_anyof_nested_coercion,
+  test_llm_coerce_anyof_nested_string,
+  test_llm_coerce_anyof_nullable,
+  test_llm_coerce_anyof_nullable_null,
+  test_llm_coerce_anyof_object_union,
+  test_llm_coerce_anyof_with_string,
+  test_llm_coerce_anyof_without_string,
+  test_llm_coerce_boolean_string_anyof,
+  test_llm_coerce_boolean_string_n_anyof,
+  test_llm_coerce_boolean_string_no,
+  test_llm_coerce_boolean_string_yes,
+  test_llm_coerce_double_stringify,
+  test_llm_coerce_double_stringify_array,
+  test_llm_coerce_five_levels_stringify,
+  test_llm_coerce_mixed_complex,
+  test_llm_coerce_mixed_deeply,
+  test_llm_coerce_mixed_primitives,
+  test_llm_coerce_mixed_recursive,
+  test_llm_coerce_mixed_stringify_levels,
+  test_llm_coerce_nested_array_2d,
+  test_llm_coerce_nested_array_3d,
+  test_llm_coerce_nested_array_deep,
+  test_llm_coerce_nested_array_objects,
+  test_llm_coerce_nested_array_whole,
+  test_llm_coerce_nested_object_all_levels,
+  test_llm_coerce_nested_object_deep,
+  test_llm_coerce_nested_object_triple,
+  test_llm_coerce_quadruple_stringify,
+  test_llm_coerce_triple_stringify_array,
+  test_llm_coerce_triple_stringify_boolean,
+  test_llm_coerce_triple_stringify_null,
+  test_llm_coerce_triple_stringify_number,
+  test_llm_coerce_triple_stringify_object,
+])
+  test(feature.name, feature);
