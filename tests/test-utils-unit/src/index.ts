@@ -106,11 +106,17 @@ import { test_llm_json_parse_lenient_whitespace_variations } from "./features/ll
 import { test_llm_json_parse_unicode_string_boundary } from "./features/llm/parse/test_llm_json_parse_unicode_string_boundary";
 import { test_llm_json_prototype_safe_objects } from "./features/llm/parse/test_llm_json_prototype_safe_objects";
 import { test_llm_schema_empty_required } from "./features/llm/schema/test_llm_schema_empty_required";
+import { test_llm_schema_enum } from "./features/llm/schema/test_llm_schema_enum";
 import { test_llm_schema_enum_reference } from "./features/llm/schema/test_llm_schema_enum_reference";
 import { test_llm_schema_json_pointer_references } from "./features/llm/schema/test_llm_schema_json_pointer_references";
+import { test_llm_schema_nullable } from "./features/llm/schema/test_llm_schema_nullable";
 import { test_llm_schema_recursive_ref } from "./features/llm/schema/test_llm_schema_recursive_ref";
 import { test_llm_schema_reserved_references } from "./features/llm/schema/test_llm_schema_reserved_references";
+import { test_llm_schema_strict_additionalProperties } from "./features/llm/schema/test_llm_schema_strict_additionalProperties";
 import { test_llm_schema_strict_numeric_default } from "./features/llm/schema/test_llm_schema_strict_numeric_default";
+import { test_llm_schema_tuple } from "./features/llm/schema/test_llm_schema_tuple";
+import { test_llm_type_checker_cover_any } from "./features/llm/schema/test_llm_type_checker_cover_any";
+import { test_llm_type_checker_cover_array } from "./features/llm/schema/test_llm_type_checker_cover_array";
 import { test_llm_stringify_array_last_element_error } from "./features/llm/stringify/test_llm_stringify_array_last_element_error";
 import { test_llm_stringify_comma_insertion } from "./features/llm/stringify/test_llm_stringify_comma_insertion";
 import { test_llm_stringify_complex_property_value } from "./features/llm/stringify/test_llm_stringify_complex_property_value";
@@ -349,5 +355,15 @@ for (const feature of [
   test_llm_schema_recursive_ref,
   test_llm_schema_reserved_references,
   test_llm_schema_strict_numeric_default,
+])
+  test(feature.name, feature);
+
+for (const feature of [
+  test_llm_schema_enum,
+  test_llm_schema_nullable,
+  test_llm_schema_tuple,
+  test_llm_schema_strict_additionalProperties,
+  test_llm_type_checker_cover_array,
+  test_llm_type_checker_cover_any,
 ])
   test(feature.name, feature);
