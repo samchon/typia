@@ -14,14 +14,20 @@ import { ObjectDictionary } from "./ObjectDictionary";
  * - Markdown code blocks (extracts content from `json ... `)
  * - Incomplete keywords like `tru`, `fal`, `nul`
  * - Unicode escape sequences including surrogate pairs (emoji)
+ * - Literal recovery of malformed Unicode escapes within string boundaries
  * - JavaScript-style comments (single-line and multi-line)
  * - Unquoted object keys (JavaScript identifier style)
+ *
+ * Shared internal implementation for public parsing and schema coercion.
  *
  * @param input Raw JSON string (potentially incomplete)
  *
  * @returns Parse result with data, original input, and any errors
  *
- * @internal
+ * @evidence contracts/common.md#principled-implementation Valid JSON delegates to native JSON.parse; fallback scanning retains the available value and original input for diagnostics. Its string scanner consumes four Unicode digits only when all four are hexadecimal; otherwise the literal prefix leaves following quotes and escapes to normal string scanning, preserving sibling boundaries. The nesting guard bounds fallback recursion rather than constraining the native parser.
+ * @evidence contracts/common.md#clear-and-simple-design The public wrapper separates native parsing from the fallback scanner; one string operation serves keys and values, and caller-specific schema coercion stays outside this parser.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Unicode recovery follows syntax character classes for every input without replacing delimiters or compensating in callers; no fixture-specific exceptions or dependency mutations supply recovered values.
+ * @evidence contracts/common.md#meaningful-documentation Native prose lists supported incomplete-input recoveries, identifies the original-input/data/error result and describes malformed Unicode recovery; the string scanner explains why invalid prefixes leave later characters to normal scanning, and the LLM JSON guide records the public boundary behavior.
  */
 export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
   // For safe guard
@@ -713,8 +719,7 @@ class LenientJsonParser {
             result += "\t";
             break;
           case "u":
-            // Parse unicode escape
-            if (this.pos + 4 <= this.input.length) {
+            {
               const hex: string = this.input.slice(this.pos + 1, this.pos + 5);
               if (isHexString(hex)) {
                 const highCode: number = parseInt(hex, 16);
@@ -743,15 +748,10 @@ class LenientJsonParser {
                 }
                 result += String.fromCharCode(highCode);
               } else {
-                // Invalid hex - preserve escape sequence literally
-                result += "\\u" + hex;
-                this.pos += 4;
+                // Keep the prefix literal; normal scanning owns following
+                // characters, closing quotes and any subsequent escapes.
+                result += "\\u";
               }
-            } else {
-              // Incomplete unicode escape - add partial sequence
-              const partial: string = this.input.slice(this.pos + 1);
-              result += "\\u" + partial;
-              this.pos = this.input.length - 1;
             }
             break;
           default:

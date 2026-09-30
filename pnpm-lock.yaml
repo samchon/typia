@@ -884,6 +884,12 @@ importers:
 
   tests/test-utils-unit:
     dependencies:
+      '@nestia/e2e':
+        specifier: catalog:utils
+        version: 10.0.2
+      '@typia/interface':
+        specifier: workspace:^
+        version: link:../../packages/interface
       '@typia/oracle':
         specifier: workspace:^
         version: link:../oracle

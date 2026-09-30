@@ -178,6 +178,7 @@ LlmJson.parse<T>(input: string, parameters?: ILlmSchema.IParameters)
 | Junk prefix | `Here is your JSON: {"a": 1}` | Skips to first `{` or `[` |
 | Markdown blocks | ` ```json\n{"a": 1}\n``` ` | Extracts the content |
 | Unicode surrogates | `"😀"` | Handles emoji correctly |
+| Malformed Unicode escapes | `{"text":"\u00","next":1}` | Keeps `\u00` as literal text and preserves the following property |
 
 ### Type coercion
 

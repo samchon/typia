@@ -11,6 +11,8 @@
     "ttsc": "catalog:typescript"
   },
   "dependencies": {
+    "@nestia/e2e": "catalog:utils",
+    "@typia/interface": "workspace:^",
     "@typia/oracle": "workspace:^",
     "@typia/utils": "workspace:^"
   }
