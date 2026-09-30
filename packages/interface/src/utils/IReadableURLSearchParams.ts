@@ -18,6 +18,11 @@
  * implementations.
  *
  * @author https://github.com/miyaji255
+ *
+ * @evidence contracts/common.md#principled-implementation Pick derives the three read member signatures from the standard URLSearchParams type, so compatible query readers preserve its size and repeated-value semantics without requiring mutation methods.
+ * @evidence contracts/common.md#clear-and-simple-design A single structural subset expresses the required reader capability; it introduces no wrapper, implementation or framework dependency.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Compatibility follows member signatures rather than a framework identity check or replacement of URLSearchParams behavior.
+ * @evidence contracts/common.md#meaningful-documentation The native comment identifies the read-only capability, first versus all values and its framework-adapter use; it links each selected standard member and explains when to implement the subset.
  */
 export type IReadableURLSearchParams = Pick<
   URLSearchParams,
