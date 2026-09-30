@@ -26,6 +26,7 @@
         "test-*/src/**/*.ts",
         "!test-interface/src/**",
         "!test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
+        "!test-typia-schema/src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
         "!test-*/src/internal/**",
         "!test-*/src/structures/**",
         "!test-*/src/controllers/**",
@@ -67,10 +68,11 @@
       }
     },
     {
-      "name": "webpack persistent-cache boundary",
+      "name": "authored native and persistent-cache boundaries",
       "type": "typescript",
       "files": [
-        "test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts"
+        "test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
+        "test-typia-schema/src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts"
       ],
       "symbol": "function",
       "reference": {

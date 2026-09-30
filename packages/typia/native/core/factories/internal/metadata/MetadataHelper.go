@@ -2,6 +2,7 @@ package metadata
 
 import (
   "strings"
+  "unicode"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
@@ -587,6 +588,16 @@ func metadata_js_doc_type_expression_text(tag *nativeast.Node) string {
   return metadata_clean_js_doc_text(nativescanner.GetTextOfNode(typ))
 }
 
+// metadata_js_doc_comment_text renders visible text from native JSDoc nodes.
+//
+// Links retain their target or display label. Source-only blank starred lines
+// delimit comment groups and supply no text, even when an unbraced type tag
+// causes the native parser to expose their marker as a JSDocText value.
+//
+// @evidence contracts/common.md#principled-implementation Structured link nodes retain their existing semantic renderer; ordinary text and whitespace come from the parser unless a nonempty marker-only value has an actual source span containing only empty comment syntax.
+// @evidence contracts/common.md#clear-and-simple-design The single node-kind dispatch keeps text and links with their existing owners; one source-span predicate distinguishes empty comment syntax without reparsing tags or introducing consumer-specific branches.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The source check handles comment delimiters for every caller rather than a fixture or tag name, and neither rewrites foreign AST nodes nor removes genuine authored asterisks from text.
+// @evidence contracts/common.md#meaningful-documentation Native prose explains visible-link ownership and why a parser text value may contain only separator syntax; the private source predicate states its first-line and continuation-line distinction.
 func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
   if list == nil {
     return ""
@@ -598,7 +609,9 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
     }
     switch node.Kind {
     case nativeast.KindJSDocText:
-      parts = append(parts, node.Text())
+      if !metadata_js_doc_text_is_separator_artifact(node) {
+        parts = append(parts, node.Text())
+      }
     case nativeast.KindJSDocLink,
       nativeast.KindJSDocLinkCode,
       nativeast.KindJSDocLinkPlain:
@@ -606,6 +619,63 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
     }
   }
   return metadata_clean_js_doc_text(strings.Join(parts, ""))
+}
+
+// metadata_js_doc_text_is_separator_artifact recognizes a marker without content.
+//
+// A span starts inside its first line, so its first asterisk is actual text.
+// Subsequent lines may start with one JSDoc marker after a whitespace token
+// beginning with ASCII horizontal whitespace, as the native JSDoc scanner does;
+// removing that marker must leave only whitespace to establish empty content.
+// Actual whitespace between visible nodes remains text. Missing source
+// provenance leaves the parser result untouched.
+//
+// @evidence contracts/common.md#principled-implementation Only nonempty parser values made of stars and native whitespace require source inspection; preserving the first source line and removing at most one continuation marker after an ASCII-started whitespace token follows the JSDoc scanner. Unicode-only prefixes remain content and real whitespace still separates neighboring visible nodes.
+// @evidence contracts/common.md#clear-and-simple-design One bounded source scan answers only whether the body is empty; it does not reinterpret type expressions, links or nonempty descriptions, and unavailable provenance conservatively preserves the existing parser result.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The predicate follows raw syntax independent of tag names or known outputs; it removes no nonempty text and changes no native parser or global method.
+// @evidence contracts/common.md#meaningful-documentation The comment documents source-span ownership, the first-line versus continuation distinction and conservative treatment of unavailable provenance, which callers need to understand to preserve literal stars.
+func metadata_js_doc_text_is_separator_artifact(node *nativeast.Node) bool {
+  if node == nil {
+    return false
+  }
+  isWhitespace := func(char rune) bool {
+    // Match the native scanner's whitespace, including its BOM and zero-width space.
+    return unicode.IsSpace(char) || char == '\ufeff' || char == '\u200b'
+  }
+  text := strings.TrimFunc(node.Text(), isWhitespace)
+  if text == "" {
+    return false
+  }
+  for _, char := range text {
+    if char != '*' && !isWhitespace(char) {
+      return false
+    }
+  }
+  file := nativeast.GetSourceFileOfNode(node)
+  if file == nil {
+    return false
+  }
+  source := file.Text()
+  start, end := node.Pos(), node.End()
+  if start < 0 || end > len(source) || start >= end {
+    return false
+  }
+  text = strings.ReplaceAll(source[start:end], "\r\n", "\n")
+  text = strings.ReplaceAll(text, "\r", "\n")
+  for index, line := range strings.Split(text, "\n") {
+    if index != 0 {
+      // JSDoc starts whitespace tokens with ASCII horizontal whitespace;
+      // the same token may then include native Unicode whitespace.
+      if len(line) != 0 && strings.ContainsRune(" \t\v\f", rune(line[0])) {
+        line = strings.TrimLeftFunc(line, isWhitespace)
+      }
+      line = strings.TrimPrefix(line, "*")
+    }
+    if strings.TrimFunc(line, isWhitespace) != "" {
+      return false
+    }
+  }
+  return true
 }
 
 func metadata_js_doc_link_text(node *nativeast.Node) string {
