@@ -70,12 +70,12 @@ export const test_llm_coerce_anyof_array_union = (): void => {
   TestEquality.equals(
     "ambiguous parsed array retains strings",
     LlmJson.coerce(stringItems, parameters),
-    stringItems,
+    { items: ["1", "2"] },
   );
   TestEquality.equals(
     "ambiguous encoded array retains strings",
     LlmJson.coerce({ items: JSON.stringify(stringItems.items) }, parameters),
-    stringItems,
+    { items: ["1", "2"] },
   );
   const uniqueParameters: ILlmSchema.IParameters = {
     ...parameters,

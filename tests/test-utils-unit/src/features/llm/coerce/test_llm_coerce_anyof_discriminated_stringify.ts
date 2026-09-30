@@ -115,6 +115,30 @@ export const test_llm_coerce_anyof_discriminated_stringify = (): void => {
   TestEquality.equals(
     "encoded unknown discriminator retains inner text",
     LlmJson.coerce({ animal: JSON.stringify(unknownAnimal) }, parameters),
-    { animal: unknownAnimal },
+    { animal: { type: "bird", meow: "true", lives: "9" } },
+  );
+  TestEquality.equals(
+    "encoded known discriminator converts inner text",
+    LlmJson.coerce(
+      { animal: JSON.stringify({ type: "cat", meow: "true", lives: "9" }) },
+      parameters,
+    ),
+    { animal: { type: "cat", meow: true, lives: 9 } },
+  );
+  const ambiguousParameters: ILlmSchema.IParameters = {
+    ...parameters,
+    properties: {
+      animal: {
+        anyOf: [{ $ref: "#/$defs/IDog" }, { $ref: "#/$defs/ICat" }],
+      },
+    },
+  };
+  TestEquality.equals(
+    "encoded member without discriminator retains inner text",
+    LlmJson.coerce(
+      { animal: JSON.stringify({ type: "cat", meow: "true", lives: "9" }) },
+      ambiguousParameters,
+    ),
+    { animal: { type: "cat", meow: "true", lives: "9" } },
   );
 };

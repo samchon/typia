@@ -121,6 +121,6 @@ export const test_llm_coerce_anyof_discriminated_second = (): void => {
   TestEquality.equals(
     "missing discriminator retains inner text",
     LlmJson.coerce(missing, parameters),
-    missing,
+    { animal: { meow: "false", lives: "9" } },
   );
 };

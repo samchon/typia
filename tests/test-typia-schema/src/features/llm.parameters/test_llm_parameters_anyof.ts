@@ -127,6 +127,6 @@ export const test_llm_parameters_anyof = (): void => {
   TestEquality.equals(
     "unknown generated discriminator retains text",
     LlmJson.coerce(unmatched, params),
-    unmatched,
+    { pet: { type: "bird", name: "Pip", meow: "true" } },
   );
 };

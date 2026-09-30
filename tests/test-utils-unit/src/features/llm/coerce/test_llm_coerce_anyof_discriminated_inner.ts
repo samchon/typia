@@ -121,6 +121,6 @@ export const test_llm_coerce_anyof_discriminated_inner = (): void => {
   TestEquality.equals(
     "unknown discriminator retains inner text",
     LlmJson.coerce(unknown, parameters),
-    unknown,
+    { animal: { type: "bird", bark: "true", age: "5" } },
   );
 };
