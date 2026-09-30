@@ -126,10 +126,10 @@ export namespace TestEquality {
    *
    * An asynchronous task would return a promise, a thenable, or an async
    * iterator before anything it does can throw, so it is refused rather than
-   * read as returning; await a promise and catch its rejection, or iterate an
-   * async iterator, instead. The refused promise's own rejection is handled
-   * first, so it cannot surface later as an unhandled rejection that ends the
-   * run.
+   * read as returning. Callable values can carry these protocols too. Await a
+   * promise and catch its rejection, or iterate an async iterator, instead. The
+   * refused promise's own rejection is handled first, so it cannot surface
+   * later as an unhandled rejection that ends the run.
    *
    * @param task Synchronous task expected to throw
    * @returns The thrown error's message, the thrown value as text when it is
@@ -147,7 +147,7 @@ export namespace TestEquality {
       return error instanceof Error ? error.message : String(error);
     }
     if (
-      typeof output === "object" &&
+      (typeof output === "object" || typeof output === "function") &&
       output !== null &&
       (typeof (output as PromiseLike<unknown>).then === "function" ||
         Symbol.asyncIterator in output)
