@@ -8,7 +8,7 @@
     "build:packages": "pnpm --filter=./packages/* --fail-if-no-match -r build",
     "format": "prettier --write \"**/*.ts\" && pnpm run format:go",
     "format:go": "node scripts/format-go.cjs",
-    "test": "pnpm run test:packages && pnpm run test:toolchain",
+    "test": "pnpm run test:integrity && pnpm run test:packages && pnpm run test:toolchain",
     "test:packages": "pnpm --filter=./tests/test-* --fail-if-no-match -r start",
     "test:go": "pnpm run test:go:public && pnpm run test:go:native",
     "test:go:public": "go -C packages/typia/test test ./...",
@@ -22,7 +22,8 @@
     "release": "bumpp -r",
     "evidence": "node scripts/check-evidence.cjs",
     "evidence:packages": "pnpm --filter=./packages/* --fail-if-no-match -r --no-bail --workspace-concurrency=1 run evidence",
-    "evidence:tests": "evidence --config tests/evidence.config.json"
+    "evidence:tests": "evidence --config tests/evidence.config.json",
+    "test:integrity": "pnpm --filter ./tests/test-feature-identity --fail-if-no-match run check"
   },
   "repository": {
     "type": "git",

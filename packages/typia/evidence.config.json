@@ -5,7 +5,10 @@
       "name": "maintained TypeScript production declarations",
       "type": "typescript",
       "files": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "!src/index.ts",
+        "!src/module.ts",
+        "!src/re-exports.ts"
       ],
       "symbol": [
         "type",

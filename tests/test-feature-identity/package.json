@@ -4,7 +4,8 @@
   "version": "15.0.1",
   "description": "Integrity test of the typia test suites: feature naming, workspace names, and vacuous assertion oracles.",
   "scripts": {
-    "start": "ttsx src/index.ts"
+    "start": "ttsx src/index.ts",
+    "check": "ttsx src/check.ts"
   },
   "repository": {
     "type": "git",

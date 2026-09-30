@@ -1,13 +1,9 @@
-import { TestValidator } from "@nestia/e2e";
 import { TestEquality } from "@typia/template/equality";
-import fs from "fs";
-import path from "path";
 
-import { Git } from "../Git";
+import { AssertionOracle } from "../AssertionOracle";
 
 /**
- * Verifies no tracked test source asserts through an untrustworthy
- * `TestValidator` oracle: the one-way `equals` or the vacuous `error`.
+ * Verifies the prohibited-oracle analyzer distinguishes uses from prose.
  *
  * `@nestia/e2e`'s `TestValidator.equals` walks only its first argument's keys
  * and sees no content in `Date`, `Map`, or `Set`, so an assertion that put the
@@ -24,11 +20,14 @@ import { Git } from "../Git";
  * 2. Assert it ignores prose that only names the functions, siblings such as
  *    `httpError`, and that a comment opener inside a string, template, or
  *    regular expression hides nothing.
- * 3. Collect every tracked TypeScript source under `tests/`, and assert the scan
- *    reached them.
- * 4. Assert none of them calls `TestValidator.equals` or `TestValidator.error`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Calls the public AssertionOracle.find scanner on deliberate source strings and compares one-based diagnostic lines; prohibited accesses and aliases differ from prose and permitted sibling members.
+ * @evidence contracts/testing.md#independent-expectations Literal planted uses and line positions follow the explicit prohibited-oracle source policy, while comments and allowed members establish independent empty-diagnostic controls.
+ * @evidence contracts/testing.md#distinguishing-cases Direct, optional, cast, indexed, destructured and aliased spellings are rejected; comment openers inside strings, templates and regexes must not hide later uses, and prose or predicate/httpError siblings must remain accepted.
+ * @evidence contracts/testing.md#execution-ownership The feature-identity start command explicitly invokes this fixture-only exported function; maintained-tree enforcement belongs to root test:integrity and is not counted as runtime or analyzer-test evidence.
  */
 export const test_feature_identity_vacuous_oracle = (): void => {
+  const calls = AssertionOracle.find;
   // assembled at run time, so this file does not match its own scan
   const V: string = ["Test", "Validator"].join("");
   for (const planted of [
@@ -85,149 +84,4 @@ export const test_feature_identity_vacuous_oracle = (): void => {
     `const V2 = ${V}\n  .predicate;`,
   ])
     TestEquality.equals(`prose ${JSON.stringify(prose)}`, calls(prose), []);
-
-  const root: string = Git.toplevel();
-  const files: string[] = Git.run(["ls-files", "-z", "--", "tests"], root)
-    .split("\0")
-    .filter((file) => /^tests\/[^/]+\/src\/.+\.ts$/.test(file))
-    // the index can still list a file the working tree deleted, which runs
-    // nowhere, as `FeatureIdentity.collect` reasons
-    .filter((file) => fs.existsSync(path.join(root, file)));
-  TestValidator.predicate(
-    `collected test sources (${files.length})`,
-    files.length >= POPULATED,
-  );
-  TestEquality.equals(
-    "vacuous oracle calls",
-    [] as string[],
-    files.flatMap((file) =>
-      calls(fs.readFileSync(path.join(root, file), "utf8")).map(
-        (line) => `${file}:${line}`,
-      ),
-    ),
-  );
 };
-
-/**
- * One-based lines where `text` reaches `TestValidator.equals` or
- * `TestValidator.error`.
- *
- * Comments are blanked first, keeping their line breaks, so prose that names
- * the function is not a use while any code spelling of it is.
- */
-const calls = (text: string): number[] => {
-  const code: string = blank(text);
-  const output: number[] = [];
-  for (const match of code.matchAll(PATTERN))
-    output.push(code.slice(0, match.index).split("\n").length);
-  return output;
-};
-
-/**
- * Blanks every comment, keeping line breaks.
- *
- * A comment opener inside a string, a template, or a regular expression is
- * text, not a comment: a URL's `//` or a `"/*"` literal must not hide the code
- * after it. A `/` starts a regular expression when the previous significant
- * character cannot end an operand, the usual lexer heuristic.
- *
- * This is a lexer, not a parser, on purpose. The repository compiles with
- * TypeScript 7, whose compiler is native and ships no JavaScript parser API;
- * the only `typescript` 5 in the tree is the website's transitive dependency
- * (#2414). Scanning the text is therefore the tool the contract offers, and the
- * planted cases above are what keep it honest.
- */
-const blank = (text: string): string => {
-  const output: string[] = text.split(""); // UTF-16 units, as indexed
-  const erase = (from: number, to: number): void => {
-    for (let k: number = from; k < to; ++k)
-      if (output[k] !== "\n") output[k] = " ";
-  };
-  const templates: number[] = []; // brace depth of each open `${`
-  let previous: string = "";
-  let i: number = 0;
-  const skipQuoted = (quote: string): void => {
-    for (++i; i < text.length && text[i] !== quote; ++i)
-      if (text[i] === "\\") ++i;
-      else if (text[i] === "\n" && quote !== "`") break;
-    ++i;
-  };
-  const skipTemplate = (): void => {
-    for (; i < text.length; ++i)
-      if (text[i] === "\\") ++i;
-      else if (text[i] === "`") {
-        ++i;
-        return;
-      } else if (text[i] === "$" && text[i + 1] === "{") {
-        templates.push(0);
-        i += 2;
-        return;
-      }
-  };
-  while (i < text.length) {
-    const c: string = text[i]!;
-    const n: string | undefined = text[i + 1];
-    if (c === "/" && n === "/") {
-      const end: number = text.indexOf("\n", i);
-      const to: number = end === -1 ? text.length : end;
-      erase(i, to);
-      i = to;
-    } else if (c === "/" && n === "*") {
-      const end: number = text.indexOf("*/", i + 2);
-      const to: number = end === -1 ? text.length : end + 2;
-      erase(i, to);
-      i = to;
-    } else if (c === "'" || c === '"') {
-      skipQuoted(c);
-      previous = c;
-    } else if (c === "`") {
-      ++i;
-      skipTemplate();
-      previous = c;
-    } else if (
-      c === "/" &&
-      (previous === "" || /[(,=:[!&|?{};+\-*%<>~^]/.test(previous))
-    ) {
-      let klass: boolean = false;
-      for (++i; i < text.length && text[i] !== "\n"; ++i)
-        if (text[i] === "\\") ++i;
-        else if (text[i] === "[") klass = true;
-        else if (text[i] === "]") klass = false;
-        else if (text[i] === "/" && klass === false) break;
-      ++i;
-      previous = "/";
-    } else {
-      if (templates.length !== 0 && c === "{")
-        ++templates[templates.length - 1]!;
-      else if (templates.length !== 0 && c === "}") {
-        if (templates[templates.length - 1] === 0) {
-          templates.pop();
-          ++i;
-          skipTemplate();
-          previous = "`";
-          continue;
-        }
-        --templates[templates.length - 1]!;
-      }
-      if (/\s/.test(c) === false) previous = c;
-      ++i;
-    }
-  }
-  return output.join("");
-};
-
-/**
- * Any member access to `equals` or `error` on `TestValidator`, through a cast
- * or optional chaining included, a destructuring of either, or a renaming
- * import or alias declaration (`const T = TestValidator;`, `import T =
- * TestValidator;`) that would hide the name from the rest of the pattern.
- */
-const PATTERN =
-  /\bTestValidator\b(?:\s*\)|\s+as\s+[\w.<>]+)*\s*(?:\??\.\s*(?:equals|error)\b|(?:\?\.)?\s*\[\s*["'`](?:equals|error)["'`]\s*\])|\{[^}]*\b(?:equals|error)\b[^}]*\}\s*=\s*\(?\s*TestValidator\b|\bimport\s*(?:type\s*)?\{[^}]*\bTestValidator\s+as\b|\b(?:const|let|var|import)\s+[A-Za-z_$][\w$]*\s*(?::[^=;\n]+)?=\s*TestValidator\s*;/g;
-
-/**
- * A floor, not an expectation: the tracked suites hold over a thousand sources.
- * Half of that survives any plausible pruning, while a scan that stopped
- * finding the trees falls far below it.
- */
-const POPULATED = 500;

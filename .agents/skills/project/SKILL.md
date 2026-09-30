@@ -37,6 +37,7 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
   - `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, `test-jev`, `test-utils`: function-per-file suites under `src/features/**/test_*.ts`, each file exporting one matching `test_<snake_case>` function discovered by `DynamicExecutor` (from `@nestia/e2e`).
   - `test-typia-automated`, `test-utils-automated`: generator-driven matrix suites over their configured typia operations and `@typia/template` structures; their generated `src/features/` trees are rebuilt by the suite.
   - `test-interface`: compile-time tests for the exported `@typia/interface` types.
+  - `test-utils-unit`: direct utility cases registered through `node:test`, under a TypeScript config without the native typia plugin. Portable utility semantics belong here; preserve each exported case's inputs, assertions and failure identity when transferring it from a transformed workspace.
   - `test-typia-compiler`: compiler-process integration tests that exercise the native plugin through `ttsc` against temporary projects.
   - `test-typia-bundler-cache`: webpack persistent filesystem-cache invalidation through `@ttsc/unplugin`; the only suite that exercises a bundler's cache.
   - `test-typia-exact-optional`: focused `exactOptionalPropertyTypes` behavior.
@@ -59,6 +60,6 @@ pnpm build
 pnpm test
 ```
 
-`pnpm test` runs every `tests/test-*` workspace through `pnpm test:packages`, then runs both Go trees through `pnpm test:toolchain`: `go -C packages/typia/test test ./...` and `go -C packages/typia/test test ../native/...`. It needs `go` on `PATH`. Run `pnpm install` first, or the test Go workspace cannot resolve `ttsc` and its shims through `../node_modules/`. Most feature workspaces execute TypeScript directly through `ttsx`; `test-error` uses a Node harness and `test-interface` invokes `ttsc`. Plugin-building workspaces share the cache under `node_modules/.cache/ttsc`.
+`pnpm test` first enforces the maintained source constraints through `pnpm test:integrity`, then runs every `tests/test-*` workspace through `pnpm test:packages`, then runs both Go trees through `pnpm test:toolchain`: `go -C packages/typia/test test ./...` and `go -C packages/typia/test test ../native/...`. It needs `go` on `PATH`. Run `pnpm install` first, or the test Go workspace cannot resolve `ttsc` and its shims through `../node_modules/`. Most feature workspaces execute TypeScript directly through `ttsx`; `test-error` uses a Node harness and `test-interface` invokes `ttsc`. Plugin-building workspaces share the cache under `node_modules/.cache/ttsc`.
 
 Release-time commands (most contributors skip these): `pnpm package:rc`, `pnpm package:next`, `pnpm package:latest`, and `pnpm release`. `pnpm package:tgz` stages local tarballs in `experiments/tarballs/` for offline testing. See `.agents/skills/pull-request/SKILL.md` for the remote delivery flow.

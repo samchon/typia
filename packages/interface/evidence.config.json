@@ -5,7 +5,16 @@
       "name": "maintained TypeScript production declarations",
       "type": "typescript",
       "files": [
-        "src/**/*.ts"
+        "src/**/*.ts",
+        "!src/http/index.ts",
+        "!src/index.ts",
+        "!src/metadata/index.ts",
+        "!src/openapi/index.ts",
+        "!src/protobuf/index.ts",
+        "!src/schema/index.ts",
+        "!src/tags/index.ts",
+        "!src/typings/index.ts",
+        "!src/utils/index.ts"
       ],
       "symbol": [
         "type",

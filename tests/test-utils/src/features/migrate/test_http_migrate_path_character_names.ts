@@ -3,10 +3,9 @@ import {
   IHttpMigrateApplication,
   OpenApi,
 } from "@typia/interface";
+import { TestBinding } from "@typia/template/binding";
 import { TestEquality } from "@typia/template/equality";
 import { HttpLlm, HttpMigration } from "@typia/utils";
-
-import { _isLegalBinding } from "../../internal/_isLegalBinding";
 
 /**
  * Verifies names derived from path segments are legal for any `pchar`.
@@ -89,7 +88,7 @@ export const test_http_migrate_path_character_names = (): void => {
     for (const segment of route.accessor)
       TestEquality.equals(
         `${route.path} accessor ${segment}`,
-        _isLegalBinding(segment),
+        TestBinding.isLegal(segment),
         true,
       );
   const keys: string[] = Object.keys(app.document().components.schemas ?? {});

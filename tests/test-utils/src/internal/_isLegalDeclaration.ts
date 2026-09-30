@@ -12,8 +12,8 @@ import vm from "node:vm";
  * names.
  *
  * The `"use strict"` + `async` context reproduces the module goal generated SDK
- * artifacts are emitted into; see `_isLegalBinding` for why `vm.Script` is used
- * rather than `vm.SourceTextModule`.
+ * artifacts are emitted into. `vm.Script` needs no experimental VM module flag
+ * and compiles this declaration without executing it.
  *
  * @param props.name Function name taken from the route accessor
  * @param props.parameters Parameter names taken from the route parameter keys

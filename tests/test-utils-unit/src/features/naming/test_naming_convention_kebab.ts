@@ -18,6 +18,11 @@ import { NamingConvention } from "@typia/utils";
  * 2. Convert leading-underscore and acronym-run inputs.
  * 3. Convert underscore-plus-case-boundary and all-caps keys (#2193).
  * 4. Convert degenerate inputs (empty, underscores only, single word).
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct kebab conversion asserts complete strings, catching lost underscore prefixes and missed inner camel boundaries.
+ * @evidence contracts/testing.md#independent-expectations Literal hyphenated expectations follow the documented kebab and KebabCase contract without calling snake or another converter as the oracle.
+ * @evidence contracts/testing.md#distinguishing-cases Camel and Pascal inputs, acronym runs, underscore/case mixtures, preserved leading underscores, trailing separators, ordinary hyphens and empty inputs retain their distinct results.
+ * @evidence contracts/testing.md#execution-ownership The utility-unit Node runner registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_kebab = (): void => {
   const expectations: [string, string][] = [

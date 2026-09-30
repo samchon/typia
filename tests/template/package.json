@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./equality": "./src/utils/TestEquality.ts",
+    "./binding": "./src/utils/TestBinding.ts",
     "./package.json": "./package.json"
   },
   "repository": {

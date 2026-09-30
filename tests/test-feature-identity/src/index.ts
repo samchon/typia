@@ -2,7 +2,6 @@ import { test_feature_identity_collect } from "./features/test_feature_identity_
 import { test_feature_identity_duplicate_export } from "./features/test_feature_identity_duplicate_export";
 import { test_feature_identity_filename_mismatch } from "./features/test_feature_identity_filename_mismatch";
 import { test_feature_identity_helper_file } from "./features/test_feature_identity_helper_file";
-import { test_feature_identity_repository } from "./features/test_feature_identity_repository";
 import { test_feature_identity_source_parse } from "./features/test_feature_identity_source_parse";
 import { test_feature_identity_vacuous_oracle } from "./features/test_feature_identity_vacuous_oracle";
 import { test_feature_identity_workspace_name } from "./features/test_feature_identity_workspace_name";
@@ -17,7 +16,6 @@ import { test_feature_identity_workspace_name } from "./features/test_feature_id
  */
 const main = (): void => {
   const tests: Array<[string, () => void]> = [
-    ["test_feature_identity_repository", test_feature_identity_repository],
     ["test_feature_identity_collect", test_feature_identity_collect],
     [
       "test_feature_identity_filename_mismatch",

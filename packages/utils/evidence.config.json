@@ -6,7 +6,12 @@
       "type": "typescript",
       "files": [
         "src/**/*.ts",
-        "!src/utils/dedent.ts"
+        "!src/utils/dedent.ts",
+        "!src/converters/index.ts",
+        "!src/http/index.ts",
+        "!src/index.ts",
+        "!src/utils/index.ts",
+        "!src/validators/index.ts"
       ],
       "symbol": [
         "type",
@@ -25,12 +30,17 @@
     {
       "name": "template normalization work and allocation ownership",
       "type": "typescript",
-      "files": ["src/utils/dedent.ts"],
+      "files": [
+        "src/utils/dedent.ts"
+      ],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": ["contracts/common.md", "contracts/performance.md"],
+        "files": [
+          "contracts/common.md",
+          "contracts/performance.md"
+        ],
         "symbol": "h2",
         "checklist": true
       }

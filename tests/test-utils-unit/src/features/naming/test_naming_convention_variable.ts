@@ -1,7 +1,6 @@
+import { TestBinding } from "@typia/template/binding";
 import { TestEquality } from "@typia/template/equality";
 import { NamingConvention } from "@typia/utils";
-
-import { _isLegalBinding } from "../../internal/_isLegalBinding";
 
 /**
  * Verifies NamingConvention.variable agrees with the JavaScript engine on
@@ -23,6 +22,11 @@ import { _isLegalBinding } from "../../internal/_isLegalBinding";
  * 3. Pin ordinary and contextual names that must stay valid.
  * 4. Assert the deliberate `module` policy, the identifier-shape boundaries, and
  *    that repeated calls are stable.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct variable calls must reject illegal bindings and accept ordinary identifiers; escaped reserved words and repeated calls detect keyword omissions and stateful regex behavior.
+ * @evidence contracts/testing.md#independent-expectations TestBinding invokes the native parser independently of NamingConvention; literal grammar-boundary verdicts and the explicit module policy supplement that reference.
+ * @evidence contracts/testing.md#distinguishing-cases Reserved and contextual names, restricted eval/arguments, escaped words, invalid character shapes, empty input and repeated positive/negative calls retain their distinct verdicts.
+ * @evidence contracts/testing.md#execution-ownership The utility-unit Node runner registers this exported case without a typia plugin; the oracle compiles a VM script without launching or executing a product host.
  */
 export const test_naming_convention_variable = (): void => {
   // 1. THE ENGINE IS THE ORACLE
@@ -107,7 +111,7 @@ export const test_naming_convention_variable = (): void => {
     TestEquality.equals(
       `variable(${JSON.stringify(word)}) matches the engine`,
       NamingConvention.variable(word),
-      _isLegalBinding(word),
+      TestBinding.isLegal(word),
     );
   }
 
@@ -162,7 +166,7 @@ export const test_naming_convention_variable = (): void => {
   // is asserted explicitly rather than swept.
   TestEquality.equals(
     "module is a legal binding per the engine",
-    _isLegalBinding("module"),
+    TestBinding.isLegal("module"),
     true,
   );
   TestEquality.equals(

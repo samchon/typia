@@ -1,9 +1,9 @@
 import { IHttpMigrateApplication } from "@typia/interface";
+import { TestBinding } from "@typia/template/binding";
 import { TestEquality } from "@typia/template/equality";
 import { HttpMigration } from "@typia/utils";
 import { OpenApi } from "typia";
 
-import { _isLegalBinding } from "../../internal/_isLegalBinding";
 import { _isLegalDeclaration } from "../../internal/_isLegalDeclaration";
 
 /**
@@ -79,13 +79,13 @@ export const test_http_migrate_route_accessor_identifier = (): void => {
     for (const accessor of route.accessor)
       TestEquality.equals(
         `accessor segment ${JSON.stringify(accessor)} of ${route.path} is a legal binding`,
-        _isLegalBinding(accessor),
+        TestBinding.isLegal(accessor),
         true,
       );
     for (const parameter of route.parameters)
       TestEquality.equals(
         `parameter key ${JSON.stringify(parameter.key)} of ${route.path} is a legal binding`,
-        _isLegalBinding(parameter.key),
+        TestBinding.isLegal(parameter.key),
         true,
       );
 

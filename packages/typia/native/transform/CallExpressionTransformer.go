@@ -134,6 +134,13 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
 
 func callExpressionTransformer_targetModule(location string) (string, bool) {
   location = filepath.ToSlash(location)
+  // Root operation declarations live in basic.ts; module.ts remains the
+  // public barrel, including its portable interface aliases. Keep the older
+  // module declaration identity for consumers of earlier package layouts.
+  if strings.HasSuffix(location, "/typia/lib/basic.d.ts") ||
+    strings.HasSuffix(location, "/typia/src/basic.ts") {
+    return "module", true
+  }
   for file := range callExpressionTransformer_FUNCTORS() {
     if strings.HasSuffix(location, "/typia/lib/"+file+".d.ts") ||
       strings.HasSuffix(location, "/typia/src/"+file+".ts") {

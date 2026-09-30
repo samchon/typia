@@ -18,6 +18,11 @@ import { NamingConvention } from "@typia/utils";
  * 2. Convert leading-underscore inputs with and without word separation.
  * 3. Convert underscore-plus-case-boundary and all-caps keys (#2193).
  * 4. Convert degenerate inputs (empty, underscores only, acronym runs).
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct snake conversion asserts exact strings, catching dropped leading underscores and missed case boundaries within underscore-separated segments.
+ * @evidence contracts/testing.md#independent-expectations Literal underscore expectations derive from the documented snake and SnakeCase spellings independently of the converter.
+ * @evidence contracts/testing.md#distinguishing-cases Camel/Pascal names, acronym runs, mixed underscore/case keys, single-character segments, leading/trailing/repeated underscores and empty input pin changed separators and preserved prefixes.
+ * @evidence contracts/testing.md#execution-ownership The utility-unit Node runner registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_snake = (): void => {
   const expectations: [string, string][] = [
