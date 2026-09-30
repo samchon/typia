@@ -99,9 +99,7 @@ interface IDecision {
   channels: Array<"email" | "phone">;
 
   refund: {
-    /**
-     * Does the customer ask for a refund?
-     */
+    /** Does the customer ask for a refund? */
     requested: boolean & tags.Probability<0.8>;
   };
 }
