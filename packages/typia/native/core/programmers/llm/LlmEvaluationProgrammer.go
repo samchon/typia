@@ -260,6 +260,24 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       constant = llmEvaluation_unalias(value.Arrays[0].Type.Value).Constants
     }
     entries := constant[0].Values
+    // TypeSafe's Jev rejects a choice above 255 options and a score above 10
+    // levels, so a larger one only fails when the provider is called
+    if kind == "choice" && len(entries) > llmEvaluation_maxChoiceOptions {
+      c.fail(accessor, fmt.Sprintf(
+        "LLM evaluation does not support a choice of %d options, because an evaluation model accepts at most %d.",
+        len(entries),
+        llmEvaluation_maxChoiceOptions,
+      ))
+      return
+    }
+    if kind == "score" && len(entries) > llmEvaluation_maxScoreLevels {
+      c.fail(accessor, fmt.Sprintf(
+        "LLM evaluation does not support a score of %d levels, because an evaluation model accepts at most %d.",
+        len(entries),
+        llmEvaluation_maxScoreLevels,
+      ))
+      return
+    }
     if kind == "score" {
       entries = append([]*schemametadata.MetadataConstantValue{}, entries...)
       sort.SliceStable(entries, func(i, j int) bool {
@@ -330,6 +348,12 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
   }
   c.plan = append(c.plan, leaf)
 }
+
+// The largest choice and score TypeSafe's API accepts.
+const (
+  llmEvaluation_maxChoiceOptions = 255
+  llmEvaluation_maxScoreLevels   = 10
+)
 
 // grid rejects a declared probability requirement finer than the configured
 // `decimals`, because the model's answers never resolve it. A
