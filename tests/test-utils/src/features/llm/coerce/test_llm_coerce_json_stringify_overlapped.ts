@@ -128,7 +128,7 @@ export const test_llm_coerce_json_stringify_overlapped = (): void => {
   });
   TestEquality.equals(
     "unconvertible radius rejected",
-    TestEquality.thrown(() => typia.assert(invalid)) !== undefined,
+    TestEquality.thrown(() => typia.assert(invalid)) !== null,
     true,
   );
 };
