@@ -16,7 +16,7 @@ import {
 /**
  * Verifies reserved schema names retain own-definition and prototype semantics.
  *
- * Inherited properties are not schemas, and **proto** must remain data rather
+ * Inherited properties are not schemas, and `__proto__` must remain data rather
  * than changing a public dictionary prototype. Conversion, inversion and
  * version conversion must preserve that ownership distinction.
  *
