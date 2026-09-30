@@ -520,9 +520,9 @@ importers:
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
-      '@typia/template':
+      '@typia/oracle':
         specifier: workspace:^
-        version: link:../template
+        version: link:../oracle
       ttsc:
         specifier: catalog:typescript
         version: 0.30.4

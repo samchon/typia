@@ -23,7 +23,7 @@
   "homepage": "https://typia.io",
   "devDependencies": {
     "@types/node": "catalog:utils",
-    "@typia/template": "workspace:^",
+    "@typia/oracle": "workspace:^",
     "ttsc": "catalog:typescript"
   },
   "dependencies": {

@@ -1,4 +1,5 @@
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
+import assert from "node:assert/strict";
 
 /**
  * Verifies every comparison shape fails when the actual lacks a field.
@@ -22,9 +23,13 @@ import { TestEquality } from "@typia/template/equality";
  * 2. Require the tuple shape to catch it.
  * 3. Require the `?? null` object shape to catch it.
  *
- * This sits directly under `features` rather than in a feature directory: it
- * pins the assertion harness every suite shares, not any one of the subjects
- * they test.
+ * Native `node:assert` verifies the caught outcome independently of the shared
+ * comparison under test.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Each equals call compares complete or incomplete report values; native assertions require complete values to pass and missing fields or keys to fail in raw, tuple and null-normalized shapes.
+ * @evidence contracts/testing.md#independent-expectations Literal path and expected-type fields define the report contract; the local caught probe observes throwing directly, and node:assert establishes the expected boolean without invoking the comparison being tested.
+ * @evidence contracts/testing.md#distinguishing-cases A complete report is the positive control for each shape; missing raw fields, missing raw keys, reversed argument order, null-normalized tuples and null-normalized objects retain their distinct regression assertions. General value-kind equality is owned by test_equality_oracle.
+ * @evidence contracts/testing.md#execution-ownership This exported node:test case directly imports the plugin-free oracle and is registered by test-utils-unit start; no native compilation or transformed fixture package is needed. The old test-utils case is removed after all eight assertion outcomes receive this executable owner.
  */
 export const test_total_comparison_shape = (): void => {
   interface IReport {
@@ -47,8 +52,7 @@ export const test_total_comparison_shape = (): void => {
   //----
   // 1. the object shape, in both orders
   //----
-  TestEquality.equals(
-    "the object shape accepts a complete report",
+  assert.deepEqual(
     caught(() =>
       TestEquality.equals(
         "probe",
@@ -57,9 +61,9 @@ export const test_total_comparison_shape = (): void => {
       ),
     ),
     false,
+    "the object shape accepts a complete report",
   );
-  TestEquality.equals(
-    "the object shape catches an absent field, actual first",
+  assert.deepEqual(
     caught(() =>
       TestEquality.equals(
         "probe",
@@ -68,14 +72,14 @@ export const test_total_comparison_shape = (): void => {
       ),
     ),
     true,
+    "the object shape catches an absent field, actual first",
   );
-  TestEquality.equals(
-    "the object shape catches an absent key, actual first",
+  assert.deepEqual(
     caught(() => TestEquality.equals("probe", lost, wanted)),
     true,
+    "the object shape catches an absent key, actual first",
   );
-  TestEquality.equals(
-    "the object shape catches an absent field, expected first",
+  assert.deepEqual(
     caught(() =>
       TestEquality.equals("probe", wanted, {
         path: lost.path,
@@ -83,6 +87,7 @@ export const test_total_comparison_shape = (): void => {
       } as typeof wanted),
     ),
     true,
+    "the object shape catches an absent field, expected first",
   );
 
   //----
@@ -92,19 +97,19 @@ export const test_total_comparison_shape = (): void => {
     report.path ?? null,
     report.expected ?? null,
   ];
-  TestEquality.equals(
-    "the tuple shape accepts a complete report",
+  assert.deepEqual(
     caught(() =>
       TestEquality.equals("probe", tuple(complete), ["$input.value", "number"]),
     ),
     false,
+    "the tuple shape accepts a complete report",
   );
-  TestEquality.equals(
-    "the tuple shape catches an absent field",
+  assert.deepEqual(
     caught(() =>
       TestEquality.equals("probe", tuple(lost), ["$input.value", "number"]),
     ),
     true,
+    "the tuple shape catches an absent field",
   );
 
   //----
@@ -114,14 +119,14 @@ export const test_total_comparison_shape = (): void => {
     path: report.path ?? null,
     expected: report.expected ?? null,
   });
-  TestEquality.equals(
-    "the normalized shape accepts a complete report",
+  assert.deepEqual(
     caught(() => TestEquality.equals("probe", normalized(complete), wanted)),
     false,
+    "the normalized shape accepts a complete report",
   );
-  TestEquality.equals(
-    "the normalized shape catches an absent field",
+  assert.deepEqual(
     caught(() => TestEquality.equals("probe", normalized(lost), wanted)),
     true,
+    "the normalized shape catches an absent field",
   );
 };

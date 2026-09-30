@@ -3,9 +3,8 @@
   "include": ["src"],
   "compilerOptions": {
     "rootDir": "src",
-    // This suite reads the other suites' sources as text and never calls
-    // `typia.*`, so it declares no `typia` dependency and cannot resolve the
-    // shared config's `typia/lib/transform` plugin entry.
+    // Source analyzers and their fixture tests require no native transform.
+    // Their shared oracles also use a project without the typia plugin.
     "plugins": [],
   },
 }

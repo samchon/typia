@@ -1,5 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import cp from "child_process";
 import fs from "fs";
 import os from "os";

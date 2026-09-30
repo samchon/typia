@@ -1,5 +1,5 @@
-import { TestValidator } from "@nestia/e2e";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
+import assert from "node:assert/strict";
 
 /**
  * Verifies the shared assertion oracle reads every value kind as data.
@@ -27,8 +27,13 @@ import { TestEquality } from "@typia/template/equality";
  *    returns, the assertion `TestValidator.error` cannot make (#2460), and to
  *    refuse an asynchronous task rather than read it as returning.
  *
- * This sits directly under `features` beside `test_total_comparison_shape`: it
- * pins the assertion harness every suite shares.
+ * Native `node:assert` checks the comparison outcomes and diagnostic paths; the
+ * oracle under test never decides whether those expectations pass.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct equals, subset, difference and thrown calls exercise the shared oracle; native assertions verify success, rejection, diagnostic paths and exception messages instead of using that same oracle to certify itself.
+ * @evidence contracts/testing.md#independent-expectations Literal equality pairs follow the documented content, identity and ignored-property contract; node:assert checks the boolean probes and literal diagnostic paths without calling TestEquality again to establish the result.
+ * @evidence contracts/testing.md#distinguishing-cases Both argument orders distinguish equal and unequal primitives, missing keys, array elements, dates, maps, sets, binary values, errors and cycles; subsets permit only extra object keys, exception callbacks reach nested members, and synchronous probes preserve messages while refusing object asynchronous results. Callable asynchronous results and rejection observation are owned by test_equality_async_result_refusal.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit registers this exported case through node:test; its direct oracle dependency has no typia plugin, fixture generator or product host. The previous transformed workspace case is removed with every input and assertion outcome retained here.
  */
 export const test_equality_oracle = (): void => {
   const date = (text: string): Date => new Date(text);
@@ -117,29 +122,28 @@ export const test_equality_oracle = (): void => {
     ["error kind", new Error("a"), new TypeError("a")],
   ];
   for (const [name, x, y] of same) {
-    TestValidator.predicate(
-      `same ${name}`,
+    assert.ok(
       passes(() => TestEquality.equals(name, x, y)),
+      `same ${name}`,
     );
-    TestValidator.predicate(
-      `same ${name}, reversed`,
+    assert.ok(
       passes(() => TestEquality.equals(name, y, x)),
+      `same ${name}, reversed`,
     );
   }
   for (const [name, x, y] of different) {
-    TestValidator.predicate(
-      `different ${name}`,
+    assert.ok(
       passes(() => TestEquality.equals(name, x, y)) === false,
+      `different ${name}`,
     );
-    TestValidator.predicate(
-      `different ${name}, reversed`,
+    assert.ok(
       passes(() => TestEquality.equals(name, y, x)) === false,
+      `different ${name}, reversed`,
     );
   }
 
   // exception skips the named key on both sides
-  TestValidator.predicate(
-    "exception",
+  assert.ok(
     passes(() =>
       TestEquality.equals(
         "exception",
@@ -148,11 +152,11 @@ export const test_equality_oracle = (): void => {
         (key) => key === "id",
       ),
     ),
+    "exception",
   );
 
   // exception reaches an error's name too
-  TestValidator.predicate(
-    "exception on an error name",
+  assert.ok(
     passes(() =>
       TestEquality.equals(
         "exception",
@@ -161,11 +165,11 @@ export const test_equality_oracle = (): void => {
         (key) => key === "name",
       ),
     ),
+    "exception on an error name",
   );
 
   // exception reaches set members too
-  TestValidator.predicate(
-    "exception inside a set",
+  assert.ok(
     passes(() =>
       TestEquality.equals(
         "exception",
@@ -174,34 +178,22 @@ export const test_equality_oracle = (): void => {
         (key) => key === "id",
       ),
     ),
+    "exception inside a set",
   );
 
   // subset checks only the object keys the expected value declares
   const subset = (expected: unknown, actual: unknown): boolean =>
     passes(() => TestEquality.subset("subset", expected, actual));
-  TestValidator.predicate("subset extra key", subset({ a: 1 }, { a: 1, b: 2 }));
-  TestValidator.predicate(
-    "subset nested extra key",
+  assert.ok(subset({ a: 1 }, { a: 1, b: 2 }), "subset extra key");
+  assert.ok(
     subset({ a: { b: 1 } }, { a: { b: 1, c: 2 } }),
+    "subset nested extra key",
   );
-  TestValidator.predicate(
-    "subset missing key",
-    subset({ a: 1, b: 2 }, { a: 1 }) === false,
-  );
-  TestValidator.predicate(
-    "subset wrong value",
-    subset({ a: 1 }, { a: 2, b: 2 }) === false,
-  );
-  TestValidator.predicate(
-    "subset array length",
-    subset({ a: [1] }, { a: [1, 2] }) === false,
-  );
-  TestValidator.predicate(
-    "subset array element keys",
-    subset([{ a: 1 }], [{ a: 1, b: 2 }]),
-  );
-  TestValidator.predicate(
-    "subset map entries",
+  assert.ok(subset({ a: 1, b: 2 }, { a: 1 }) === false, "subset missing key");
+  assert.ok(subset({ a: 1 }, { a: 2, b: 2 }) === false, "subset wrong value");
+  assert.ok(subset({ a: [1] }, { a: [1, 2] }) === false, "subset array length");
+  assert.ok(subset([{ a: 1 }], [{ a: 1, b: 2 }]), "subset array element keys");
+  assert.ok(
     subset(
       new Map([["a", 1]]),
       new Map([
@@ -209,60 +201,61 @@ export const test_equality_oracle = (): void => {
         ["b", 2],
       ]),
     ) === false,
+    "subset map entries",
   );
-  TestValidator.predicate(
-    "subset set members",
+  assert.ok(
     subset(new Set([1]), new Set([1, 2])) === false,
+    "subset set members",
   );
-  TestValidator.predicate(
-    "subset date",
+  assert.ok(
     subset({ at: date("2026-01-01") }, { at: date("2026-01-02") }) === false,
+    "subset date",
   );
 
   // difference names every differing path
-  TestEquality.equals(
-    "difference",
+  assert.deepEqual(
     TestEquality.difference(
       { a: { b: [1, 2] }, c: new Map([["k", 1]]), d: 1 },
       { a: { b: [1, 3] }, c: new Map([["k", 2]]), e: 1 },
     ),
     [".a.b[1]", '.c.get("k")', ".d", ".e"],
+    "difference",
   );
-  TestEquality.equals(
-    "no difference",
+  assert.deepEqual(
     TestEquality.difference({ a: [1] }, { a: [1] }),
     [],
+    "no difference",
   );
 
   // the failure names the title and the path
   const message: string | null = TestEquality.thrown(() =>
     TestEquality.equals("titled", { a: 1n }, { a: 2n }),
   );
-  TestValidator.predicate(
-    "failure message",
+  assert.ok(
     message !== null &&
       message.startsWith("Bug on titled: found different values - [.a]:"),
+    "failure message",
   );
 
   // thrown reads what a synchronous task throws, and nothing when it returns
-  TestEquality.equals(
-    "thrown error",
+  assert.deepEqual(
     TestEquality.thrown(() => {
       throw new TypeError("lost");
     }),
     "lost",
+    "thrown error",
   );
-  TestEquality.equals(
-    "thrown value",
+  assert.deepEqual(
     TestEquality.thrown(() => {
       throw "text";
     }),
     "text",
+    "thrown value",
   );
-  TestEquality.equals(
-    "returned",
+  assert.deepEqual(
     TestEquality.thrown(() => 1),
     null,
+    "returned",
   );
   const refusal: string =
     "TestEquality.thrown() takes a synchronous task; await a promise and catch its rejection, or iterate an async iterator, instead.";
@@ -285,10 +278,10 @@ export const test_equality_oracle = (): void => {
       },
     ],
   ] as const)
-    TestEquality.equals(
-      `refused ${title}`,
+    assert.deepEqual(
       TestEquality.thrown(() => TestEquality.thrown(task)),
       refusal,
+      `refused ${title}`,
     );
 };
 
