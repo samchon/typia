@@ -37,7 +37,11 @@
         "!test-feature-identity/src/Git.ts",
         "!test-feature-identity/src/RepositoryIntegrity.ts",
         "!test-typia-schema/src/features/llm.parameters/test_llm_parameters_anyof.ts",
-        "!test-typia-schema/src/features/llm.schema/test_llm_schema_spec_union.ts"
+        "!test-typia-schema/src/features/llm.schema/test_llm_schema_spec_union.ts",
+        "!test-typia-automated/src/build/**/*.ts",
+        "!test-utils-automated/src/TestAutomation.ts",
+        "!test-typia-automated/src/generate.ts",
+        "!test-utils-automated/src/generate.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -134,6 +138,29 @@
         "symbol": "h2",
         "checklist": true
       }
+    },
+    {
+      "reference": {
+        "root": "../.agents/skills",
+        "checklist": true,
+        "files": [
+          "contracts/common.md"
+        ],
+        "type": "markdown",
+        "symbol": "h2"
+      },
+      "name": "maintained test generators",
+      "files": [
+        "test-typia-automated/src/build/**/*.ts",
+        "test-utils-automated/src/TestAutomation.ts",
+        "test-typia-automated/src/generate.ts",
+        "test-utils-automated/src/generate.ts"
+      ],
+      "type": "typescript",
+      "symbol": [
+        "type",
+        "function"
+      ]
     }
   ]
 }

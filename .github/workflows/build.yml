@@ -33,9 +33,6 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Check Implementation Contracts
-        run: pnpm evidence
-
       # ttsc compiles the typia Go plugin on first use into
       # node_modules/.cache/ttsc, keyed by content (plugin source + ttsc/tsgo
       # versions). Restoring a stale cache is safe: a changed source misses the
@@ -48,6 +45,9 @@ jobs:
           path: node_modules/.cache/ttsc
           key: ttsc-cache-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'packages/typia/native/**') }}
           restore-keys: ttsc-cache-${{ runner.os }}-
+
+      - name: Check Implementation Contracts
+        run: pnpm evidence
 
       - name: Build Packages
         run: pnpm run build
