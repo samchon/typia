@@ -625,12 +625,13 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
 //
 // A span starts inside its first line, so its first asterisk is actual text.
 // Subsequent lines may start with one JSDoc marker after a whitespace token
-// beginning with ASCII horizontal whitespace, as the native JSDoc scanner does;
-// removing that marker must leave only whitespace to establish empty content.
+// beginning with ASCII horizontal whitespace, as the native JSDoc scanner does.
+// Removing that marker must leave only whitespace to establish empty content.
+// Unicode line and paragraph separators are not part of the whitespace token.
 // Actual whitespace between visible nodes remains text. Missing source
 // provenance leaves the parser result untouched.
 //
-// @evidence contracts/common.md#principled-implementation Only nonempty parser values made of stars and native whitespace require source inspection; preserving the first source line and removing at most one continuation marker after an ASCII-started whitespace token follows the JSDoc scanner. Unicode-only prefixes remain content and real whitespace still separates neighboring visible nodes.
+// @evidence contracts/common.md#principled-implementation Only nonempty parser values made of stars and native whitespace require source inspection; preserving the first source line and removing at most one continuation marker after an ASCII-started horizontal whitespace token follows the JSDoc scanner. Unicode line characters and Unicode-only prefixes remain content, and real whitespace still separates neighboring visible nodes.
 // @evidence contracts/common.md#clear-and-simple-design One bounded source scan answers only whether the body is empty; it does not reinterpret type expressions, links or nonempty descriptions, and unavailable provenance conservatively preserves the existing parser result.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts The predicate follows raw syntax independent of tag names or known outputs; it removes no nonempty text and changes no native parser or global method.
 // @evidence contracts/common.md#meaningful-documentation The comment documents source-span ownership, the first-line versus continuation distinction and conservative treatment of unavailable provenance, which callers need to understand to preserve literal stars.
@@ -667,7 +668,9 @@ func metadata_js_doc_text_is_separator_artifact(node *nativeast.Node) bool {
       // JSDoc starts whitespace tokens with ASCII horizontal whitespace;
       // the same token may then include native Unicode whitespace.
       if len(line) != 0 && strings.ContainsRune(" \t\v\f", rune(line[0])) {
-        line = strings.TrimLeftFunc(line, isWhitespace)
+        line = strings.TrimLeftFunc(line, func(char rune) bool {
+          return char != '\u2028' && char != '\u2029' && isWhitespace(char)
+        })
       }
       line = strings.TrimPrefix(line, "*")
     }

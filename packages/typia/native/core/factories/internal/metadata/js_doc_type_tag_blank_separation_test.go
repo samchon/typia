@@ -27,7 +27,7 @@ import (
 //
 // @evidence contracts/testing.md#behavioral-verification ParseSourceFile creates actual JSDoc nodes and metadata_node_js_doc_tags extracts their public metadata values; exact tag arrays expose added star payload or dropped legitimate description text.
 // @evidence contracts/testing.md#independent-expectations Literal arrays follow the JSDoc scanner's ASCII-started whitespace and CR/LF delimiter rules; Unicode-only prefixes and Unicode line characters remain content, as confirmed against TypeScript's independent JSDoc parser. Expected link labels, integer values and literal stars are authored separately from the metadata helper.
-// @evidence contracts/testing.md#distinguishing-cases Compact and braced tags, CRLF and ASCII horizontal whitespace, and ASCII-started mixed Unicode whitespace retain integer meaning; inline and continuation literal stars, Unicode-only prefix content and Unicode line characters prevent over-removal. Linked descriptions retain their separating newline. All seventeen spellings report independent subtest identities.
+// @evidence contracts/testing.md#distinguishing-cases Compact and braced tags, CRLF and ASCII horizontal whitespace, and ASCII-started mixed Unicode horizontal whitespace retain integer meaning; inline and continuation literal stars, Unicode-only prefix content and Unicode line characters prevent over-removal. Line and paragraph separators after an ASCII space must not be crossed to strip a genuine star. Linked descriptions retain their separating newline. All nineteen spellings report independent subtest identities.
 // @evidence contracts/testing.md#execution-ownership This tagged same-package Go unit directly calls the parser and owning private metadata helper in one test process, with an in-memory source and no native plugin host or filesystem fixture; the canonical typia_native_internal Go command executes its Test entry and subtests.
 func TestJsDocTypeTagBlankSeparation(t *testing.T) {
   filename, err := filepath.Abs("type-tag.ts")
@@ -41,6 +41,8 @@ func TestJsDocTypeTagBlankSeparation(t *testing.T) {
     minimum     string
   }{
     {"adjacent", "* @type int\n * @minimum 3\n * @title literal * marks", "", "3"},
+    {"ascii-unicode-line-content", "* @type int\n \u2028*\n * @minimum 3\n * @title literal * marks", "*", "3"},
+    {"ascii-unicode-paragraph-content", "* @type int\n \u2029*\n * @minimum 3\n * @title literal * marks", "*", "3"},
     {"separated", "* @type int\n *\n * @minimum 3\n *\n * @title literal * marks", "", "3"},
     {"braced", "* @type {int}\n *\n * @minimum 3\n *\n * @title literal * marks", "", "3"},
     {"inline-star", "* @type int *\n * @minimum 3\n * @title literal * marks", "*", "3"},
