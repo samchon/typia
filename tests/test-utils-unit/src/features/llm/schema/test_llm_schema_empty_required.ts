@@ -4,20 +4,25 @@ import {
   IResult,
   OpenApi,
 } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
- * Verifies LLM converter restores empty object shell fields in every mode.
+ * Verifies empty LLM object schemas retain explicit shell fields.
  *
- * General OpenAPI schemas may omit empty `required` and `properties`, but LLM
- * function-calling schemas must explicitly say that there are no named
- * properties. The converter therefore normalizes default and strict object
- * schemas to `properties: {}` and `required: []`.
+ * Default and strict conversion must explicitly distinguish no named properties
+ * from omitted schema metadata. The parameters entry also owns a closed root
+ * object.
  *
- * 1. Convert an empty OpenAPI object in default and strict modes.
- * 2. Convert the same empty object through the parameters entrypoint.
- * 3. Assert every LLM object shell is explicit.
+ * 1. Convert authored empty objects through both schema modes and the parameters
+ *    entry.
+ * 2. Compare the complete JSON-visible shells against independently authored
+ *    literals.
+ *
+ * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema and parameters must return successful explicit properties/required shells; strict and parameter roots retain their distinct additionalProperties requirements.
+ * @evidence contracts/testing.md#independent-expectations The authored input and public LLM object/parameters contract define the literal shell. The private clean helper removes undefined-valued metadata using native JSON serialization; it verifies JSON-visible shape rather than JavaScript optional-key presence.
+ * @evidence contracts/testing.md#distinguishing-cases Default schema, strict schema and default parameters exercise three distinct entry/configuration combinations. Nonempty fields and recursive definitions are owned by the other direct schema cases.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_empty_required = (): void => {
   const nonStrict = LlmSchemaConverter.schema({

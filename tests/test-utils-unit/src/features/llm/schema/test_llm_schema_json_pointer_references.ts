@@ -1,20 +1,24 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema, OpenApi } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmJson, LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
 
 /**
- * Verifies local LLM references obey JSON Pointer and URI-fragment semantics.
+ * Verifies local LLM references obey JSON Pointer and fragment semantics.
  *
- * Definition keys are unrestricted JSON object keys. References must encode one
- * `$defs` key as one RFC 6901 token, then encode that token as a URI fragment.
- * Valid references must resolve consistently for traversal, conversion,
- * coercion, parsing, coverage, and validation. Malformed or missing references
- * must never degrade to an accept-all schema.
+ * Reference spellings must preserve unrestricted definition identities through
+ * utility traversal, conversion, coercion and validation. Invalid names must
+ * not silently become permissive schemas.
  *
- * 1. Resolve the complete escaped and URI-encoded key matrix in every utility.
- * 2. Reject malformed, missing, and transitively broken reference chains.
- * 3. Preserve canonical references through conversion and discriminators.
+ * 1. Exercise authored valid, alternate, malformed, missing, chained and colliding
+ *    reference inputs.
+ * 2. Check conversion/traversal/coercion/validation/coverage and discriminator
+ *    wiring with retained independent distinctions.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct converter, type-checker and LlmJson operations assert encoded-key coercion, fail-closed validation/coverage, raw identity conversion, legal component allocation and discriminator-to-branch wiring. Every original input and assertion remains.
+ * @evidence contracts/testing.md#independent-expectations Literal key/reference pairs and expected scalar/boolean/schema fragments follow the documented local-reference and JSON Pointer contract. The private independent pointer walker verifies graph wiring; comparing a resolved reference with its emitted component target establishes correspondence, not every unasserted target field. Explicit kind/value and failure assertions supply their separate semantic distinctions.
+ * @evidence contracts/testing.md#distinguishing-cases Plain/empty/slash/tilde/space/percent/Unicode/prototype-sensitive names, encoded tilde alternatives, malformed fragments, missing and transitively broken chains, raw-key collisions, parent descriptions, OpenAPI pointer spellings and both discriminator branches retain their original distinctions. Cyclic coverage is owned by reserved_references.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_json_pointer_references = (): void => {
   const valid = [

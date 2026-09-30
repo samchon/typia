@@ -5,22 +5,26 @@ import {
   IResult,
   OpenApi,
 } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**
- * Verifies strict LLM conversion preserves numeric defaults as description
- * tags.
+ * Verifies strict LLM descriptions retain independently expected numeric
+ * defaults.
  *
- * Numeric constraints are shifted out of schemas that target strict LLM
- * providers. The default must join that complete tag set before the description
- * is serialized, including falsy and fractional values.
+ * Strict conversion moves numeric keywords into description tags. Zero,
+ * negative, fractional and scientific defaults must survive that move with
+ * deterministic spelling and placement.
  *
- * 1. Convert integer and number schemas with existing descriptions and
- *    constraints.
- * 2. Cover zero, negative, fractional, and scientific-notation defaults.
- * 3. Exercise nested properties, array items, unions, and referenced schemas.
- * 4. Assert the default is removed only after its deterministic tag is written.
+ * 1. Convert the authored numeric matrix and nested property, array, union and
+ *    reference inputs.
+ * 2. Compare exact description strings and assert removal of the original default
+ *    field.
+ *
+ * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema executes strict conversion directly and exact description/default-removal assertions distinguish missing defaults, wrong order or spelling and lost nested defaults.
+ * @evidence contracts/testing.md#independent-expectations Each expected description is authored independently from the documented strict description-tag representation and literal numeric values; none is read from converter output. The optional reads explicitly expose a lost description as null in the failure report.
+ * @evidence contracts/testing.md#distinguishing-cases Integer zero/negative and number fractional/scientific defaults, existing descriptions and other constraints, direct properties, array items, union branches and named references retain all original distinctions. Non-strict numeric retention is a separate converter concern, not certified here.
+ * @evidence contracts/testing.md#execution-ownership test-utils-unit start explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_strict_numeric_default = (): void => {
   const cases: Array<{
