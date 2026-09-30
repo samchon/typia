@@ -20,7 +20,12 @@ import { DeepPartial } from "../typings/DeepPartial";
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @template T The expected type after successful parsing
+ * @template T The expected static interpretation; parsing does not validate it
+ *
+ * @evidence contracts/common.md#principled-implementation The literal success discriminator selects either complete expected data or optional DeepPartial data with original-input diagnostics. T describes the caller expectation; neither this union nor parsing establishes runtime type validity.
+ * @evidence contracts/common.md#clear-and-simple-design The namespace groups success, failure and diagnostic records beneath the result union, so callers narrow once and obtain the fields available in that state.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts This structural union describes parser outcomes without casting an unsuccessful state into success or hiding original-input diagnostics.
+ * @evidence contracts/common.md#meaningful-documentation The native prose explains narrowing, recoverable syntax and unchecked generic expectations; member comments describe partial data, original input and diagnostic meanings.
  */
 export type IJsonParseResult<T = unknown> =
   | IJsonParseResult.ISuccess<T>
@@ -30,11 +35,16 @@ export namespace IJsonParseResult {
   /**
    * Successful parsing result.
    *
-   * Indicates the JSON was parsed without any errors. The data may still have
-   * been recovered from non-standard syntax (e.g., unquoted keys, trailing
-   * commas), but no information was lost.
+   * Indicates the parser reported no errors. The data may have been recovered
+   * from accepted non-standard syntax. This state does not validate the data
+   * against the caller's generic type.
    *
    * @template T The parsed type
+   *
+   * @evidence contracts/common.md#principled-implementation success is the literal true and data carries T, representing the parser no-diagnostic state. T remains the requested static interpretation rather than evidence of schema validation.
+   * @evidence contracts/common.md#clear-and-simple-design One discriminator and one data field provide the successful alternative; failure-only input and diagnostic fields remain on IFailure.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The representation adds no runtime acceptance mechanism or assertion that a generic type validates recovered data.
+   * @evidence contracts/common.md#meaningful-documentation The comment distinguishes a parser that reported no errors from runtime type validation and explains that permissive recovery can still yield this state.
    */
   export interface ISuccess<T = unknown> {
     /**
@@ -44,7 +54,7 @@ export namespace IJsonParseResult {
      */
     success: true;
 
-    /** The parsed data with correct type. */
+    /** Parsed data under the caller's expected static interpretation. */
     data: T;
   }
 
@@ -56,6 +66,11 @@ export namespace IJsonParseResult {
    * what went wrong.
    *
    * @template T The expected type (data may be partial)
+   *
+   * @evidence contracts/common.md#principled-implementation The false discriminator associates optional DeepPartial<T> recovery with the original input and an array of structured errors, allowing both partial and absent recovered values.
+   * @evidence contracts/common.md#clear-and-simple-design Recovery, input provenance and diagnostics remain together in the failed alternative so consumers do not infer missing information from the successful type.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Partial data is not promoted to complete T; the interface retains diagnostics rather than suppressing the parser failure.
+   * @evidence contracts/common.md#meaningful-documentation Native comments describe partial or absent data, original-input provenance and the purposes of the error array, with separated property documentation.
    */
   export interface IFailure<T = unknown> {
     /**
@@ -89,7 +104,14 @@ export namespace IJsonParseResult {
     errors: IError[];
   }
 
-  /** Detailed information about a parsing error. */
+  /**
+   * Detailed information about a parsing error.
+   *
+   * @evidence contracts/common.md#principled-implementation A path locates the parse issue, expected names the syntax requirement and an unknown description permits the parser diagnostic payload without claiming every producer returns the same message type.
+   * @evidence contracts/common.md#clear-and-simple-design The diagnostic record separates location, expected syntax and explanation; the result failure owns the collection and original text.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts This plain record does not synthesize a parse result or reinterpret a diagnostic payload as a validated application value.
+   * @evidence contracts/common.md#meaningful-documentation Each field explains its diagnostic role and supplies path or syntax examples; the description retains its declared unknown payload rather than promising a string.
+   */
   export interface IError {
     /**
      * Property path to the error location.

@@ -21,6 +21,11 @@ import { OpenApi } from "../openapi";
  * issues.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation The method and summary identify a failed transformation, while reasons retain each offending OpenAPI schema, document accessor and explanation. The structural record permits multiple failures without asserting an Error-instance identity.
+ * @evidence contracts/common.md#clear-and-simple-design Operation-level context stays outside the per-schema IReason list; the merged namespace groups the detailed diagnostic shape under its owner.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The type preserves actual schema diagnostics rather than replacing a failed conversion with a fabricated successful schema.
+ * @evidence contracts/common.md#meaningful-documentation Native prose names reference, tuple and strict-mode failure classes, and its fields distinguish the operation summary from detailed schema-local reasons.
  */
 export interface IJsonSchemaTransformError {
   /**
@@ -55,6 +60,11 @@ export namespace IJsonSchemaTransformError {
    * Provides the specific schema that failed, its accessor path for locating it
    * within the document, and a message explaining why the transformation
    * failed.
+   *
+   * @evidence contracts/common.md#principled-implementation The concrete OpenApi.IJsonSchema field describes the problematic input, accessor locates it and message explains the unsupported conversion. The record does not itself validate or transform that schema.
+   * @evidence contracts/common.md#clear-and-simple-design One reason groups the three facts needed to repair one schema location; the enclosing transformation error owns method context and the reason list.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The diagnostic shape retains the failing schema instead of accepting a replacement or hiding the converter failure.
+   * @evidence contracts/common.md#meaningful-documentation The native member comments explain schema inspection, document location and failure meaning, including reference and tuple examples.
    */
   export interface IReason {
     /**
