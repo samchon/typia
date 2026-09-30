@@ -3,6 +3,7 @@ import { test_feature_identity_duplicate_export } from "./features/test_feature_
 import { test_feature_identity_filename_mismatch } from "./features/test_feature_identity_filename_mismatch";
 import { test_feature_identity_helper_file } from "./features/test_feature_identity_helper_file";
 import { test_feature_identity_source_parse } from "./features/test_feature_identity_source_parse";
+import { test_feature_identity_syntax_boundary } from "./features/test_feature_identity_syntax_boundary";
 import { test_feature_identity_vacuous_oracle } from "./features/test_feature_identity_vacuous_oracle";
 import { test_feature_identity_workspace_name } from "./features/test_feature_identity_workspace_name";
 
@@ -34,6 +35,10 @@ const main = (): void => {
     [
       "test_feature_identity_vacuous_oracle",
       test_feature_identity_vacuous_oracle,
+    ],
+    [
+      "test_feature_identity_syntax_boundary",
+      test_feature_identity_syntax_boundary,
     ],
   ];
 

@@ -26,6 +26,12 @@ catalogs:
       specifier: ^7.0.2
       version: 7.0.2
   utils:
+    '@babel/parser':
+      specifier: ^7.29.9
+      version: 7.29.9
+    '@babel/types':
+      specifier: ^7.29.8
+      version: 7.29.8
     '@nestia/e2e':
       specifier: ^10.0.2
       version: 10.0.2
@@ -517,6 +523,12 @@ importers:
         specifier: catalog:utils
         version: 10.0.2
     devDependencies:
+      '@babel/parser':
+        specifier: catalog:utils
+        version: 7.29.9
+      '@babel/types':
+        specifier: catalog:utils
+        version: 7.29.8
       '@types/node':
         specifier: catalog:utils
         version: 25.6.0
@@ -1230,8 +1242,16 @@ packages:
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
     engines: {node: '>=6.9.0'}
 
+  '@babel/helper-string-parser@7.29.7':
+    resolution: {integrity: sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==}
+    engines: {node: '>=6.9.0'}
+
   '@babel/helper-validator-identifier@7.28.5':
     resolution: {integrity: sha512-qSs4ifwzKJSV39ucNjsvc6WVHs6b7S03sOh2OcHF9UHfVPqWWALUsNUVzhSBiItjRZoLHx7nIarVjqKVusUZ1Q==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/helper-validator-identifier@7.29.7':
+    resolution: {integrity: sha512-qehxGkRj55h/ff8EMaJ+cYhyaKlHIxqYDn682wQD7RNp9UujOQsHog2uS0r2vzr4pW+sXf90NeeayjcNaX3fFg==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-option@7.27.1':
@@ -1249,6 +1269,11 @@ packages:
 
   '@babel/parser@7.29.2':
     resolution: {integrity: sha512-4GgRzy/+fsBa72/RZVJmGKPmZu9Byn8o4MoLpmNe1m8ZfYnz5emHLQz3U4gLud6Zwl0RZIcgiLD7Uq7ySFuDLA==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
+  '@babel/parser@7.29.9':
+    resolution: {integrity: sha512-CjXrNHTnvqBVqHgdBysY3vk2T8tpJHb5/RMeHJBTyVa9xgugCB0CJTx/3oO8RV2QRQP391RWpB7D6hLjm8V9uA==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -1274,6 +1299,10 @@ packages:
 
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/types@7.29.8':
+    resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
   '@braintree/sanitize-url@7.1.2':
@@ -7078,10 +7107,10 @@ snapshots:
       '@babel/helper-compilation-targets': 7.28.6
       '@babel/helper-module-transforms': 7.28.6(@babel/core@7.17.8)
       '@babel/helpers': 7.29.2
-      '@babel/parser': 7.18.9
+      '@babel/parser': 7.29.2
       '@babel/template': 7.28.6
       '@babel/traverse': 7.17.3
-      '@babel/types': 7.17.0
+      '@babel/types': 7.29.0
       convert-source-map: 1.9.0
       debug: 4.4.3
       gensync: 1.0.0-beta.2
@@ -7092,7 +7121,7 @@ snapshots:
 
   '@babel/generator@7.17.7':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.29.0
       jsesc: 2.5.2
       source-map: 0.5.7
 
@@ -7149,7 +7178,11 @@ snapshots:
 
   '@babel/helper-string-parser@7.27.1': {}
 
+  '@babel/helper-string-parser@7.29.7': {}
+
   '@babel/helper-validator-identifier@7.28.5': {}
+
+  '@babel/helper-validator-identifier@7.29.7': {}
 
   '@babel/helper-validator-option@7.27.1': {}
 
@@ -7160,11 +7193,15 @@ snapshots:
 
   '@babel/parser@7.18.9':
     dependencies:
-      '@babel/types': 7.17.0
+      '@babel/types': 7.29.0
 
   '@babel/parser@7.29.2':
     dependencies:
       '@babel/types': 7.29.0
+
+  '@babel/parser@7.29.9':
+    dependencies:
+      '@babel/types': 7.29.8
 
   '@babel/template@7.28.6':
     dependencies:
@@ -7180,8 +7217,8 @@ snapshots:
       '@babel/helper-function-name': 7.24.7
       '@babel/helper-hoist-variables': 7.24.7
       '@babel/helper-split-export-declaration': 7.24.7
-      '@babel/parser': 7.18.9
-      '@babel/types': 7.17.0
+      '@babel/parser': 7.29.2
+      '@babel/types': 7.29.0
       debug: 4.4.3
       globals: 11.12.0
     transitivePeerDependencies:
@@ -7223,6 +7260,11 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@babel/types@7.29.8':
+    dependencies:
+      '@babel/helper-string-parser': 7.29.7
+      '@babel/helper-validator-identifier': 7.29.7
 
   '@braintree/sanitize-url@7.1.2': {}
 

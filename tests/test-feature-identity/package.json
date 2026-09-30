@@ -22,6 +22,8 @@
   },
   "homepage": "https://typia.io",
   "devDependencies": {
+    "@babel/parser": "catalog:utils",
+    "@babel/types": "catalog:utils",
     "@types/node": "catalog:utils",
     "@typia/oracle": "workspace:^",
     "ttsc": "catalog:typescript"

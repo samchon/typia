@@ -1,3 +1,5 @@
+import { parse as parseModule } from "@babel/parser";
+import type { Expression } from "@babel/types";
 import fs from "fs";
 import path from "path";
 
@@ -17,9 +19,21 @@ import { Git } from "./Git";
  * This namespace turns that contract into a checkable invariant. {@link collect}
  * gathers the tracked feature files, {@link parse} extracts the `test_*`
  * declarations each one exports, and {@link diagnose} reports every violation.
+ *
+ * @evidence contracts/common.md#principled-implementation Tracked source, parsed export identities and per-suite diagnostics represent the naming policy separately; source syntax determines identities and no static result certifies runtime discovery or assertion outcomes.
+ * @evidence contracts/common.md#clear-and-simple-design Collection, extraction and diagnosis expose distinct operations; the shared file record carries only suite identity, path, basename and copied names.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Every maintained feature follows the same policy and failed source collection or parsing propagates instead of supplying a vacuous population or a known-file exception.
+ * @evidence contracts/common.md#meaningful-documentation The namespace explains name-driven discovery and the policy consumers, while exported operations document tracked provenance, syntax limitations and per-suite uniqueness.
  */
 export namespace FeatureIdentity {
-  /** A single tracked feature-tree source file. */
+  /**
+   * Tracked feature identity and copied source-extraction results.
+   *
+   * @evidence contracts/common.md#principled-implementation Suite and repository-relative path establish diagnostic ownership, basename supplies the file identity and ordered extracted names supply its declaration identities without retaining parser nodes.
+   * @evidence contracts/common.md#clear-and-simple-design Four fields carry exactly the data required by per-file and same-suite diagnosis; source parsing and filesystem lifetime are separate operations.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The record contains observed identity data rather than a hardcoded acceptance flag or assertion that its exports have executed.
+   * @evidence contracts/common.md#meaningful-documentation Each field identifies its suite, path spelling, extension-free basename or source-order names so consumers can interpret diagnostics without parser implementation knowledge.
+   */
   export interface IFeatureFile {
     /** Test workspace directory name, such as `test-utils`. */
     suite: string;
@@ -30,7 +44,7 @@ export namespace FeatureIdentity {
     /** File name without its `.ts` extension. */
     basename: string;
 
-    /** Every `test_`-prefixed value the file exports, in source order. */
+    /** Potential function identities extracted from source, in source order. */
     exports: string[];
   }
 
@@ -52,6 +66,11 @@ export namespace FeatureIdentity {
    *
    * @returns One human-readable diagnostic per violation; empty when the tree
    *   satisfies the invariant.
+   *
+   * @evidence contracts/common.md#principled-implementation File/export equality and exactly-one identity are checked independently from same-suite uniqueness; grouping names by suite preserves legitimate cross-suite repetitions and sorted diagnostics report all observed violations.
+   * @evidence contracts/common.md#clear-and-simple-design A per-file pass and a suite/name ownership map separate the two constraints without inspecting source or running tests.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Comparisons use the declared naming policy for every record, not a list of known broken paths, and do not claim static identities establish runtime behavior.
+   * @evidence contracts/common.md#meaningful-documentation Native prose specifies helper, missing, multiple and mismatched identity outcomes and the reason uniqueness is limited to one suite; the return contract identifies complete sorted diagnostics.
    */
   export const diagnose = (files: IFeatureFile[]): string[] => {
     const diagnostics: string[] = [];
@@ -125,6 +144,11 @@ export namespace FeatureIdentity {
    * @param root Repository root; defaults to the enclosing git work tree.
    *
    * @returns Every tracked `tests/<suite>/src/features` source file, parsed.
+   *
+   * @evidence contracts/common.md#principled-implementation NUL-delimited tracked paths preserve Unicode names and staged source provenance; the working-tree existence check excludes removed files, and each surviving feature is parsed before its copied record is returned.
+   * @evidence contracts/common.md#clear-and-simple-design Path selection stays separate from extraction and diagnosis; each surviving file contributes one copied identity record through the same source parser.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Generated trees remain excluded through their untracked provenance, not fixture-name exceptions; failed git, file reads or syntax extraction cannot turn into a successful empty inventory.
+   * @evidence contracts/common.md#meaningful-documentation The native comment explains tracked/staged/deleted ownership, NUL-separated paths and generated-tree responsibility; the return contract identifies the parsed tracked-file records.
    */
   export const collect = (root: string = Git.toplevel()): IFeatureFile[] =>
     Git.run(["ls-files", "-z", "--", "tests"], root)
@@ -148,18 +172,54 @@ export namespace FeatureIdentity {
   /**
    * Extract the `test_`-prefixed values a feature module exports.
    *
-   * Deliberately recognizes only top-level `export const|let|var|function`
-   * declarations, the form every feature file uses. An exotic export — a
-   * renamed re-export or a default export — yields no match, so {@link diagnose}
-   * reports the file as exporting nothing rather than passing it unchecked. The
-   * check fails closed.
+   * Reads complete module-level declarations with Babel TypeScript syntax.
+   * Comments, literal contents, ambient declarations and literal non-functions
+   * contribute no function identity. Erased wrappers do not turn a scalar into
+   * a function. References and computed initializers retain their declaration
+   * identity; this static check does not establish their runtime callability.
+   * Renamed/default exports remain unsupported. Invalid syntax throws instead
+   * of supplying a partial inventory. AST identifier names decode Unicode
+   * escapes; no module is executed to find its identities.
    *
    * @param code TypeScript source text.
    *
    * @returns Exported `test_*` names in source order.
+   *
+   * @evidence contracts/common.md#principled-implementation The TypeScript syntax tree supplies actual module exports and every declared binding in source order; ambient declarations have no runtime value. The private classifier unwraps parentheses and erased assertions, then rejects literals and unary, update or non-logical binary operations because JavaScript semantics cannot produce functions from them. Other computed values remain a static limitation rather than a callability proof.
+   * @evidence contracts/common.md#clear-and-simple-design One module-body pass enumerates actual exports and delegates value classification; the parser supplies decoded identifier names without a compiler Program, module execution or a line-pattern parser.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The supported Babel TypeScript parser supplies declaration context without source rewriting or fixture exceptions; the private classifier neither evaluates modules nor treats a cast as executable proof.
+   * @evidence contracts/common.md#meaningful-documentation The native comment explains syntax completeness, supported and unsupported exports, computed-value limitations and decoded names; syntax failure remains observable rather than yielding a partial result.
    */
-  export const parse = (code: string): string[] =>
-    [...code.matchAll(EXPORTED_TEST)].map((match) => match[1]!);
+  export const parse = (code: string): string[] => {
+    const program = parseModule(code, {
+      sourceType: "module",
+      plugins: ["typescript"],
+      attachComment: false,
+      createParenthesizedExpressions: true,
+    }).program;
+    const output: string[] = [];
+    for (const statement of program.body) {
+      if (statement.type !== "ExportNamedDeclaration") continue;
+      const declaration = statement.declaration;
+      if (declaration?.type === "FunctionDeclaration") {
+        const name = declaration.id?.name;
+        if (name?.startsWith(PREFIX)) output.push(name);
+      } else if (
+        declaration?.type === "VariableDeclaration" &&
+        !declaration.declare
+      )
+        for (const binding of declaration.declarations) {
+          if (
+            binding.id.type !== "Identifier" ||
+            binding.init == null ||
+            !potentialFunction(binding.init)
+          )
+            continue;
+          if (binding.id.name.startsWith(PREFIX)) output.push(binding.id.name);
+        }
+    }
+    return output;
+  };
 
   const PREFIX = "test_";
 
@@ -171,9 +231,45 @@ export namespace FeatureIdentity {
    */
   const FEATURE_PATH = /^tests\/([^/]+)\/src\/features\/.+(?<!\.d)\.ts$/;
 
-  /** A top-level `export const|let|var|function test_*` declaration. */
-  const EXPORTED_TEST =
-    /^export\s+(?:const|let|var|(?:async\s+)?function)\s+(test_[A-Za-z0-9_]*)/gm;
+  /**
+   * Rejects literal and primitive-operation values after erased wrappers.
+   *
+   * References, calls and other computed expressions remain potential
+   * functions; determining their values belongs to type checking and runtime
+   * discovery. AST nodes remain local to this extraction and no parsed tree is
+   * retained.
+   */
+  const potentialFunction = (input: Expression): boolean => {
+    let node = input;
+    for (;;) {
+      switch (node.type) {
+        case "ParenthesizedExpression":
+        case "TSAsExpression":
+        case "TSSatisfiesExpression":
+        case "TSTypeAssertion":
+        case "TSNonNullExpression":
+          node = node.expression;
+          break;
+        default:
+          return !NON_FUNCTION_VALUES.has(node.type);
+      }
+    }
+  };
+
+  const NON_FUNCTION_VALUES = new Set([
+    "NumericLiteral",
+    "BigIntLiteral",
+    "StringLiteral",
+    "TemplateLiteral",
+    "RegExpLiteral",
+    "BooleanLiteral",
+    "NullLiteral",
+    "ObjectExpression",
+    "ArrayExpression",
+    "UnaryExpression",
+    "UpdateExpression",
+    "BinaryExpression",
+  ]);
 
   const describe = (names: string[]): string =>
     `${names.length} test ${names.length === 1 ? "function" : "functions"} ` +

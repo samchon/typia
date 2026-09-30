@@ -27,6 +27,8 @@ catalogs:
   rolldown:
     rolldown: ^1.1.5
   utils:
+    '@babel/parser': ^7.29.9
+    '@babel/types': ^7.29.8
     '@nestia/e2e': ^10.0.2
     '@types/node': ^25.3.0
     '@types/uuid': ^11.0.0
