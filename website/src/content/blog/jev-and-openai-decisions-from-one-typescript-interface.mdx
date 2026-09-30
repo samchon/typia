@@ -69,6 +69,7 @@ interface ITicketTriage {
 }
 
 const triage = typia.llm.evaluation<ITicketTriage>();
+const ticket = "I was charged twice this morning. Refund it now, or I leave.";
 ```
 
 `triage.questions` goes to the model. `triage.decode()` turns its answer into `ITicketTriage`.
@@ -82,7 +83,7 @@ import { toJevQuestions } from "@typia/jev";
 const client = new TypeSafeClient(); // reads TYPESAFE_API_KEY
 const { answers } = await client.systemOne({
   model: "jev-1.13.0",
-  state: "I was charged twice this morning. Refund it now, or I leave.",
+  state: ticket,
   questions: toJevQuestions(triage.questions),
 });
 
@@ -150,7 +151,7 @@ It fails. It never falls back to the runner-up.
 ## Get it
 
 ```bash
-npm install typia @typia/jev @typesafe-ai/sdk
+npm install typia @typia/jev @typesafe-ai/sdk ai @ai-sdk/openai
 npm install -D ttsc typescript
 
 npx ttsc            # build
