@@ -34,7 +34,8 @@ import { TagBase } from "./TagBase";
  *     refund: boolean & Probability<0.8>;
  *   }
  *
- * @template Value The probability requirement, in `[0, 1]`
+ * @template Value The probability requirement, in `[0, 1]`, with at most
+ *   `ILlmEvaluation.IConfig.decimals` (two by default) decimal places
  */
 export type Probability<Value extends number> = TagBase<{
   target: "boolean" | "string" | "number";

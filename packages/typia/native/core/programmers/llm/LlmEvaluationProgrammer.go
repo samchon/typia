@@ -30,6 +30,13 @@ type LlmEvaluationProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Metadata *schemametadata.MetadataSchema
   Name     *string
+  Config   LlmEvaluationProgrammer_IConfig
+}
+
+// LlmEvaluationProgrammer_IConfig is `ILlmEvaluation.IConfig`: the decimal
+// places of the evaluation model's answers, two by default.
+type LlmEvaluationProgrammer_IConfig struct {
+  Decimals int
 }
 
 // LlmEvaluationProgrammer_IError is one rejected position of the decision type.
@@ -50,14 +57,16 @@ func (llmEvaluationProgrammerNamespace) Write(props LlmEvaluationProgrammer_IWri
   if props.Name != nil {
     typeName = *props.Name
   }
+  arguments := []*shimast.Node{
+    nativefactories.LiteralFactory.Write(plan, props.Context.Emit),
+  }
+  arguments = append(arguments, nativefactories.LiteralFactory.Write(float64(props.Config.Decimals), props.Context.Emit))
   return f.NewAsExpression(
     f.NewCallExpression(
       llmProgrammer_internal(props.Context, "createLlmEvaluation"),
       nil,
       nil,
-      f.NewNodeList([]*shimast.Node{
-        nativefactories.LiteralFactory.Write(plan, props.Context.Emit),
-      }),
+      f.NewNodeList(arguments),
       shimast.NodeFlagsNone,
     ),
     llmProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
@@ -70,8 +79,9 @@ func (llmEvaluationProgrammerNamespace) Write(props LlmEvaluationProgrammer_IWri
 
 // Compose walks the decision type and returns the evaluation plan, or every
 // position an evaluation model cannot answer.
-func (llmEvaluationProgrammerNamespace) Compose(metadata *schemametadata.MetadataSchema) ([]any, []LlmEvaluationProgrammer_IError) {
+func (llmEvaluationProgrammerNamespace) Compose(metadata *schemametadata.MetadataSchema, config LlmEvaluationProgrammer_IConfig) ([]any, []LlmEvaluationProgrammer_IError) {
   composer := &llmEvaluationComposer{
+    config:  config,
     plan:    []any{},
     visited: map[*schemametadata.MetadataObjectType]bool{},
   }
@@ -95,6 +105,7 @@ func (llmEvaluationProgrammerNamespace) Message(errors []LlmEvaluationProgrammer
 }
 
 type llmEvaluationComposer struct {
+  config  LlmEvaluationProgrammer_IConfig
   plan    []any
   errors  []LlmEvaluationProgrammer_IError
   visited map[*schemametadata.MetadataObjectType]bool
@@ -233,6 +244,9 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
     } else if hasFallback {
       threshold = fallback
     }
+    if found || hasFallback {
+      c.grid(accessor, threshold)
+    }
     leaf["threshold"] = threshold
   case "choice", "score", "set":
     constant := value.Constants
@@ -272,6 +286,7 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
       }
       if found {
         hasMemberRequirement = true
+        c.grid(accessor, requirement)
       } else {
         missingRequirements = append(missingRequirements, entry)
       }
@@ -296,6 +311,22 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
     leaf[map[string]string{"choice": "options", "score": "levels", "set": "members"}[kind]] = members
   }
   c.plan = append(c.plan, leaf)
+}
+
+// grid rejects a declared probability requirement finer than the configured
+// `decimals`, because the model's answers never resolve it. A
+// default the author did not write is never checked.
+func (c *llmEvaluationComposer) grid(accessor string, number float64) {
+  decimals := c.config.Decimals
+  scale := math.Pow10(decimals)
+  if math.Abs(number*scale-math.Round(number*scale)) <= 1e-9 {
+    return
+  }
+  c.fail(accessor, fmt.Sprintf(
+    "LLM evaluation probability requirement must use at most %d decimal places, the configured decimals, but got %s.",
+    decimals,
+    strconv.FormatFloat(number, 'f', -1, 64),
+  ))
 }
 
 // A decoded value is trusted as T, so every tag with a validation meaning

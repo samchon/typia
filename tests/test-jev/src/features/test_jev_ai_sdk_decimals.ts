@@ -7,15 +7,17 @@ import typia from "typia";
  * Verifies typia's questions and decoder integrate with AI SDK 7.
  *
  * AI SDK accepts the provider's declared two-decimal precision, and the typia
- * decoder must accept the same result when passed `result.rounding`, without
- * silently weakening the one-argument form.
+ * decoder must accept the same result with its default of two decimals, while a
+ * finer `decimals` stays strict.
  *
  * 1. Return a three-option distribution rounded to two decimals from a mock model.
- * 2. Assert AI SDK accepts it and strict typia decoding rejects it.
- * 3. Pass the provider's rounding declaration and assert the decoded value.
+ * 2. Assert AI SDK accepts it and a decoder configured for six decimals rejects
+ *    it.
+ * 3. Decode it with the default decoder and assert the decoded value.
  */
-export const test_jev_ai_sdk_rounding = async (): Promise<void> => {
+export const test_jev_ai_sdk_decimals = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<IDecision>();
+  const strict = typia.llm.evaluation<IDecision, { decimals: 6 }>();
   const answers = {
     team: {
       type: "choice" as const,
@@ -41,13 +43,13 @@ export const test_jev_ai_sdk_rounding = async (): Promise<void> => {
   });
   TestEquality.equals("AI SDK accepts rounded result", result.answers, answers);
   TestEquality.equals(
-    "strict decode rejects",
-    evaluation.decode(answers).success,
+    "finer decimals reject",
+    strict.decode(answers).success,
     false,
   );
-  const decoded = evaluation.decode(result.answers, result.rounding);
+  const decoded = evaluation.decode(result.answers);
   TestEquality.equals(
-    "declared rounding decodes",
+    "default decimals decode",
     decoded.success ? decoded.data : decoded.errors,
     { team: "billing", level: 0 },
   );

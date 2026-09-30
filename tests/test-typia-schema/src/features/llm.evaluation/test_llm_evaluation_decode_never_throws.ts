@@ -205,17 +205,6 @@ export const test_llm_evaluation_decode_never_throws = (): void => {
       [...expected],
     );
   }
-  TestEquality.equals(
-    "rounding getter",
-    (() => {
-      const result = evaluation.decode(
-        valid,
-        trappingGet({ probabilityDecimals: 2 }),
-      );
-      return result.success ? [] : result.errors.map((error) => error.path);
-    })(),
-    ["$input"],
-  );
   const set = typia.llm.evaluation<{
     /** Which channels apply? */
     channels: Array<"email" | "phone">;

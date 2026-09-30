@@ -64,7 +64,6 @@ const main = async (): Promise<void> => {
   });
 
   // Check and decode the answers into ITicketTriage.
-  // The direct TypeSafe SDK does not declare rounding precision.
   const result = triage.decode(answers);
   if (result.success === false) {
     console.error("Evaluation failed:", result.errors);

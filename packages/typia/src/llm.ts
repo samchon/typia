@@ -248,17 +248,21 @@ export function evaluation(): never;
  *
  * 1. Pass {@link ILlmEvaluation.questions} to the evaluation model
  * 2. Receive the answer map keyed by the same question IDs
- * 3. Use {@link ILlmEvaluation.decode} to fold the answers back into `T`; pass the
- *    model's declared rounding precision when available
+ * 3. Use {@link ILlmEvaluation.decode} to fold the answers back into `T`
  *
  * Related functions:
  *
  * - {@link structuredOutput} — Structured output generated as text by an LLM
  *
  * @template T Target decision type (object with static properties)
+ * @template Config Decimal places of the evaluation model's answers, two by
+ *   default; a probability requirement finer than that is a compile error
  * @returns LLM evaluation questions with a checked answer decoder
  */
-export function evaluation<T extends Record<string, any>>(): ILlmEvaluation<T>;
+export function evaluation<
+  T extends Record<string, any>,
+  Config extends Partial<ILlmEvaluation.IConfig> = {},
+>(): ILlmEvaluation<T>;
 
 /** @internal */
 export function evaluation(): never {

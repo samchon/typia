@@ -14,17 +14,17 @@ An **evaluation model** generates no text. You give it a shared `state` and a ma
 
 ```typescript copy filename="signature"
 export namespace llm {
-  function evaluation<T extends Record<string, any>>(): ILlmEvaluation<T>;
+  function evaluation<
+    T extends Record<string, any>,
+    Config extends Partial<ILlmEvaluation.IConfig> = {},
+  >(): ILlmEvaluation<T>;
 }
 ```
 
 ```typescript copy filename="what-you-get"
 interface ILlmEvaluation<T> {
   questions: Record<string, ILlmEvaluation.IQuestion>; // hand this to the model
-  decode: (
-    answers: unknown,
-    rounding?: ILlmEvaluation.IRounding,
-  ) => IValidation<T>; // answers in, T out
+  decode: (answers: unknown) => IValidation<T>; // answers in, T out
 }
 ```
 
@@ -96,7 +96,7 @@ const result = await experimental_evaluate({
   questions: triage.questions,
 });
 
-const decoded = triage.decode(result.answers, result.rounding);
+const decoded = triage.decode(result.answers);
 if (decoded.success) decoded.data; // ITicketTriage
 
 // raw probabilities stay in the answer map, keyed by readable paths
@@ -195,7 +195,21 @@ Question keys are the property paths in typia's accessor notation, such as `refu
 - **Score**: the most probable level when the answer has `probabilities`, where a tie picks the lower level; otherwise the level nearest to the fractional `score`, where a half rounds up. The distribution wins because a bimodal answer's rounded mean can be its least likely level.
 - **Set**: the members whose P(true) reaches their threshold.
 
-A missing or extra answer, a wrong answer `type`, an undeclared option, or a probability or score out of range fails with typia's usual error paths, such as `$input.refund.requested`. A choice or score may omit `probabilities`; when it includes them, the map must contain every option exactly once and sum to 1 within the provider's declared rounding precision. The selected choice must have maximum probability, and a score must agree with the distribution's weighted mean within that precision, following AI SDK's evaluation answer contract. Pass `result.rounding` as the second argument when using `experimental_evaluate()`. Without a declaration, `decode()` uses the SDK's strict `1e-6` tolerance; it does not guess a provider's precision.
+A missing or extra answer, a wrong answer `type`, an undeclared option, or a probability or score out of range fails with typia's usual error paths, such as `$input.refund.requested`. A choice or score may omit `probabilities`; when it includes them, the map must contain every option exactly once and sum to 1 within the rounding of `decimals`. The selected choice must have maximum probability, and a score must agree with the distribution's weighted mean within that precision, following AI SDK's evaluation answer contract.
+
+## Config
+
+The second generic argument is `ILlmEvaluation.IConfig`.
+
+| Option     | Default | Meaning                                                                                                                                                   |
+| ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `decimals` | `2`     | Decimal places of the model's probabilities and scores. A `@probability` finer than this is a compile error, and `decode()` tolerates that much rounding. |
+
+```typescript
+typia.llm.evaluation<ITicketTriage, { decimals: 3 }>();
+```
+
+Jev rounds its answers to two decimals. `decimals` is an integer from `0` to `15`, like AI SDK's rounding declaration.
 
 ## Probability requirements
 
@@ -280,13 +294,12 @@ const { answers } = await client.systemOne({
   state: ticket,
   questions: toJevQuestions(triage.questions),
 });
-// The direct TypeSafe SDK does not return `rounding` metadata.
 const decoded = triage.decode(answers);
 if (decoded.success) decoded.data.urgency; // Urgency member
 answers.urgency; // { type: "score", score: 1.6, probabilities: { "0": 0, "1": 0.4, "2": 0.6 }, ... }
 ```
 
-The direct call checks distribution sums and score consistency strictly. Pass an explicit rounding precision to `decode()` only when your endpoint guarantees it; unlike AI SDK's `experimental_evaluate()`, this SDK does not return a precision declaration.
+Jev rounds its answers to two decimals, the default of `decimals`, so `decode()` accepts them as they are.
 
 ## Providers
 
