@@ -37,8 +37,30 @@ enum Plain {
   /** B */
   b = "y",
 }
+enum Numeric {
+  /** A */
+  a = 1,
+  /** B */
+  b = 1,
+  /** C */
+  c = 2,
+}
+enum Merged {
+  /** A */
+  a = 1,
+}
+enum Merged {
+  /** B */
+  b = 1,
+  /** C */
+  c = 2,
+}
 
 typia.llm.evaluation<{
+  /** Numeric enum? */
+  numericEnum: Numeric;
+  /** Merged enum? */
+  mergedEnum: Merged;
   /** Same enum? */
   sameEnum: Dup;
   /** Enum beside a literal? */
@@ -56,6 +78,8 @@ typia.llm.evaluation<{
 }>();
 `)
   for _, expected := range []string{
+    "- $input.numericEnum\n  - LLM evaluation does not support enum members or literals sharing the value 1",
+    "- $input.mergedEnum\n  - LLM evaluation does not support enum members or literals sharing the value 1",
     "- $input.sameEnum\n  - LLM evaluation does not support enum members or literals sharing the value \"x\"",
     "- $input.enumLiteral\n  - LLM evaluation does not support enum members or literals sharing the value \"x\"",
     "- $input.taggedBare\n  - LLM evaluation does not support enum members or literals sharing the value \"a\"",

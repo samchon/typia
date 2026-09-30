@@ -165,24 +165,35 @@ func iterate_metadata_constant_shared(checker *nativechecker.Checker, typ *nativ
   if declaration == nil || declaration.Kind != nativeast.KindEnumMember || declaration.Parent == nil {
     return false
   }
-  enum := declaration.Parent.AsEnumDeclaration()
-  if enum == nil || enum.Members == nil {
-    return false
+  // declaration merging (`enum E { a = 1 }` beside `enum E { b = 1 }`) spreads
+  // one enum over several declarations
+  declarations := []*nativeast.Node{declaration.Parent}
+  if symbol.Parent != nil && len(symbol.Parent.Declarations) != 0 {
+    declarations = symbol.Parent.Declarations
   }
   // compare by value: a member's own type may be the fresh form of the
   // regular literal type the union holds
   value := iterate_metadata_constant_key(typ.AsLiteralType().Value())
   count := 0
-  for _, member := range enum.Members.Nodes {
-    if member == nil || member.Symbol() == nil {
+  for _, each := range declarations {
+    if each == nil || each.Kind != nativeast.KindEnumDeclaration {
       continue
     }
-    memberType := checker.GetTypeOfSymbol(member.Symbol())
-    if memberType == nil || memberType.Flags()&nativechecker.TypeFlagsEnumLiteral == 0 || memberType.Flags()&(nativechecker.TypeFlagsStringLiteral|nativechecker.TypeFlagsNumberLiteral) == 0 {
+    enum := each.AsEnumDeclaration()
+    if enum == nil || enum.Members == nil {
       continue
     }
-    if iterate_metadata_constant_key(memberType.AsLiteralType().Value()) == value {
-      count++
+    for _, member := range enum.Members.Nodes {
+      if member == nil || member.Symbol() == nil {
+        continue
+      }
+      memberType := checker.GetTypeOfSymbol(member.Symbol())
+      if memberType == nil || memberType.Flags()&nativechecker.TypeFlagsEnumLiteral == 0 || memberType.Flags()&(nativechecker.TypeFlagsStringLiteral|nativechecker.TypeFlagsNumberLiteral) == 0 {
+        continue
+      }
+      if iterate_metadata_constant_key(memberType.AsLiteralType().Value()) == value {
+        count++
+      }
     }
   }
   return count > 1
