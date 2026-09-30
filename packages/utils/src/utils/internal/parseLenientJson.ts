@@ -24,10 +24,7 @@ import { ObjectDictionary } from "./ObjectDictionary";
  *
  * @returns Parse result with data, original input, and any errors
  *
- * @evidence contracts/common.md#principled-implementation Valid JSON delegates to native JSON.parse; fallback scanning retains the available value and original input for diagnostics. Its string scanner consumes four Unicode digits only when all four are hexadecimal; otherwise the literal prefix leaves following quotes and escapes to normal string scanning, preserving sibling boundaries. The nesting guard bounds fallback recursion rather than constraining the native parser.
- * @evidence contracts/common.md#clear-and-simple-design The public wrapper separates native parsing from the fallback scanner; one string operation serves keys and values, and caller-specific schema coercion stays outside this parser.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts Unicode recovery follows syntax character classes for every input without replacing delimiters or compensating in callers; no fixture-specific exceptions or dependency mutations supply recovered values.
- * @evidence contracts/common.md#meaningful-documentation Native prose lists supported incomplete-input recoveries, identifies the original-input/data/error result and describes malformed Unicode recovery; the string scanner explains why invalid prefixes leave later characters to normal scanning, and the LLM JSON guide records the public boundary behavior.
+ * @internal
  */
 export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
   // For safe guard
