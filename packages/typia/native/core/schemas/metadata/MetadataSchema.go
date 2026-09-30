@@ -201,7 +201,6 @@ func metadataSchema_cloneConstants(input []*MetadataConstant) []*MetadataConstan
         Tags:        cloneTagMatrix(value.Tags),
         Description: value.Description,
         JsDocTags:   metadataSchema_cloneJsDocTags(value.JsDocTags),
-        Origin:      value.Origin,
         Duplicated:  value.Duplicated,
       }))
     }
@@ -1102,7 +1101,7 @@ func MetadataSchema_merge(x *MetadataSchema, y *MetadataSchema) *MetadataSchema 
       }
       if same == nil {
         target.Values = append(target.Values, value)
-      } else if value.Duplicated || (same.Origin != nil && value.Origin != nil && same.Origin != value.Origin) {
+      } else if value.Duplicated {
         same.Duplicated = true
       }
     }

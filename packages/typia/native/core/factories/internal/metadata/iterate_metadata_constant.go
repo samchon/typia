@@ -62,7 +62,6 @@ func Iterate_metadata_constant(props IMetadataIteratorProps) bool {
       Tags:        [][]schemametadata.IMetadataTypeTag{},
       Description: info.description,
       JsDocTags:   info.jsDocTags,
-      Origin:      props.Type,
       Duplicated:  filter(nativechecker.TypeFlagsEnumLiteral) && iterate_metadata_constant_shared(props.Checker, props.Type),
     }))
     return true
