@@ -20,6 +20,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `uniqueItems: true` in JSON Schema.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Preferences {
  *     // No duplicate tags allowed

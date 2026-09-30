@@ -16,6 +16,7 @@ export namespace Git {
    * @param args Arguments passed to git, unshelled.
    * @param cwd Directory to run from. A pathspec resolves against this, so a
    *   repository-wide scan must pass {@link toplevel}.
+   *
    * @returns The command's stdout.
    */
   export const run = (args: string[], cwd: string): string => {
@@ -47,6 +48,7 @@ export namespace Git {
    * Absolute path of the enclosing git work tree.
    *
    * @param cwd Directory to resolve from; defaults to this file's own.
+   *
    * @returns The repository root.
    */
   export const toplevel = (cwd: string = __dirname): string =>

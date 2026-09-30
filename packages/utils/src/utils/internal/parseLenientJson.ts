@@ -18,7 +18,9 @@ import { ObjectDictionary } from "./ObjectDictionary";
  * - Unquoted object keys (JavaScript identifier style)
  *
  * @param input Raw JSON string (potentially incomplete)
+ *
  * @returns Parse result with data, original input, and any errors
+ *
  * @internal
  */
 export function parseLenientJson<T>(input: string): IJsonParseResult<T> {
@@ -180,7 +182,9 @@ function isHexString(s: string): boolean {
  * markdown inside is part of a string value.
  *
  * @param input Text that may contain markdown code block
+ *
  * @returns Extracted content or null if no code block found
+ *
  * @internal
  */
 function extractMarkdownCodeBlock(input: string): string | null {
@@ -230,8 +234,10 @@ function extractMarkdownCodeBlock(input: string): string | null {
  * parser.
  *
  * @param input Text that may contain JSON with junk prefix
+ *
  * @returns Index of first `{` or `[` outside comments/strings, or -1 if not
  *   found
+ *
  * @internal
  */
 function findJsonStart(input: string): number {
@@ -299,7 +305,9 @@ function findJsonStart(input: string): number {
  * Skip leading comments and whitespace from input.
  *
  * @param input Text that may start with comments or whitespace
+ *
  * @returns Input with leading comments and whitespace removed
+ *
  * @internal
  */
 function skipCommentsAndWhitespace(input: string): string {
@@ -351,7 +359,9 @@ function skipCommentsAndWhitespace(input: string): string {
  * Check if input starts with a valid JSON primitive token.
  *
  * @param input Trimmed input string
+ *
  * @returns True if input starts with a primitive value
+ *
  * @internal
  */
 function startsWithPrimitive(input: string): boolean {

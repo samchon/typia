@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `minItems` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Order {
  *     // Must have at least 1 item

@@ -15,6 +15,7 @@ export interface ObjectHttpCommentTag {
 
   /**
    * @minItems 10
+   *
    * @maxItems 100
    */
   items: number[];

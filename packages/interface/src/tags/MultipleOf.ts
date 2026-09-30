@@ -25,6 +25,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `multipleOf` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Currency {
  *     // Must be exact cents (0.01, 0.02, ..., 1.00, 1.01, ...)

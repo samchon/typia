@@ -28,6 +28,7 @@ import { TagBase } from "./TagBase";
  * evaluation answer is converted, not the value itself.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface ITicketTriage {
  *     // true only when P(true) >= 0.8

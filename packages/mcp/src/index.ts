@@ -87,10 +87,13 @@ export interface IMcpServerOptions {
  * ```
  *
  * @template Class Executor class type of the controller
+ *
  * @param controller Controller from `typia.llm.controller<Class>()` or
  *   `HttpLlm.controller()`
  * @param options Optional behaviors of the server ({@link IMcpServerOptions})
+ *
  * @returns McpServer ready to connect to a transport
+ *
  * @evidence contracts/common.md#principled-implementation Explicit version precedes HTTP application version and the class fallback; class instructions are trimmed, and the registered controller owns schemas and execution while the caller owns transport connection.
  * @evidence contracts/common.md#clear-and-simple-design This function constructs handshake metadata and delegates tool registry and request handling to one registrar, returning the SDK server for caller-selected transport.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts It creates the public MCP SDK server and installs public request handlers without transport patches or hand-authored function schemas; arguments and declared outputs stay validated by typia.

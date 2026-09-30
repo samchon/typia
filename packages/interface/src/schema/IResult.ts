@@ -17,6 +17,7 @@
  * transformation where errors are expected possibilities.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   const result: IResult<User, ParseError> = parseUser(json);
  *   if (result.success) {

@@ -17,6 +17,7 @@ import { IJsonSchemaAttribute } from "./IJsonSchemaAttribute";
  * to `false`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @see https://typia.io/docs/llm/application
  */
 export type ILlmSchema =

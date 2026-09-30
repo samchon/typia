@@ -16,6 +16,7 @@ import { TagBase } from "./TagBase";
  * {@link Example} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Product {
  *     price: number &

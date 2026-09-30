@@ -47,9 +47,11 @@ export function controller(
  *
  * @template Class Target class or interface type
  * @template Config LLM schema configuration
+ *
  * @param name Controller identifier name
  * @param execute Executor instance
  * @param config LLM application options
+ *
  * @returns LLM function calling controller
  */
 export function controller<
@@ -112,7 +114,9 @@ export function application(
  *
  * @template Class Target class or interface type
  * @template Config LLM schema configuration
+ *
  * @param config LLM application options
+ *
  * @returns LLM function calling application
  */
 export function application<
@@ -177,6 +181,7 @@ export function structuredOutput(): never;
  *
  * @template T Target output type (object with static properties)
  * @template Config LLM schema configuration
+ *
  * @returns LLM structured output interface
  */
 export function structuredOutput<
@@ -257,6 +262,7 @@ export function evaluation(): never;
  * @template T Target decision type (object with static properties)
  * @template Config Decimal places of the evaluation model's answers, two by
  *   default; a probability requirement finer than that is a compile error
+ *
  * @returns LLM evaluation questions with a checked answer decoder
  */
 export function evaluation<
@@ -299,6 +305,7 @@ export function parameters(): never;
  *
  * @template Parameters Target parameters type (object with static properties)
  * @template Config LLM schema configuration
+ *
  * @returns LLM parameters schema
  */
 export function parameters<
@@ -340,7 +347,9 @@ export function schema(): never;
  *
  * @template T Target type
  * @template Config LLM schema configuration
+ *
  * @param $defs Shared schema definitions for `$ref` referencing
+ *
  * @returns LLM type schema
  */
 export function schema<T, Config = {}>(
@@ -394,7 +403,9 @@ export function parse(input: string): never;
  *
  * @template Parameters Target parameters type (object with static properties)
  * @template Config LLM schema configuration
+ *
  * @param input Raw JSON string (potentially incomplete or malformed)
+ *
  * @returns Parse result with typed data on success, or partial data with errors
  */
 export function parse<
@@ -436,7 +447,9 @@ export function parse(): never {
  *
  * @template Parameters Target parameters type (object with static properties)
  * @template Config LLM schema configuration
+ *
  * @param input Parsed arguments object from LLM (with potentially wrong types)
+ *
  * @returns Coerced arguments with corrected types
  */
 export function coerce<
@@ -489,6 +502,7 @@ export function createParse(): never;
  *
  * @template Parameters Target parameters type (object with static properties)
  * @template Config LLM schema configuration
+ *
  * @returns Reusable parser function
  */
 export function createParse<
@@ -535,6 +549,7 @@ export function createCoerce(): never;
  *
  * @template Parameters Target parameters type (object with static properties)
  * @template Config LLM schema configuration
+ *
  * @returns Reusable coercer function
  */
 export function createCoerce<

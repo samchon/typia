@@ -35,7 +35,9 @@ export namespace VercelToolsRegistrar {
    * data.
    *
    * @param props Conversion properties
+   *
    * @returns Record of Vercel AI SDK Tools
+   *
    * @evidence contracts/common.md#principled-implementation A shared final-name map detects cross-controller collisions before dispatch registration; class calls bind execute as receiver, HTTP calls preserve the connection, and common creation applies the function's argument validator and its application's output-schema config.
    * @evidence contracts/common.md#clear-and-simple-design The public conversion validates namespace ownership then delegates protocol-specific registration, while createTool keeps coercion, execution errors and output validation consistent for both protocols.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Duplicate checking assumes the public ILlmFunction contract's within-application uniqueness; supported ordinary names are stored in a record and the historical __proto__ exclusion remains. No known fixture, consumer or foreign SDK method is special-cased.

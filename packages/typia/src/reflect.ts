@@ -21,6 +21,7 @@ export function schemas(): never;
  * `components`. Alias types are stored in `aliases`.
  *
  * @template Types Tuple of target types
+ *
  * @returns Metadata schema collection
  */
 export function schemas<Types extends unknown[]>(): IMetadataSchemaCollection;
@@ -43,6 +44,7 @@ export function schema(): never;
  * Creates {@link IMetadataSchemaUnit} containing metadata for the type.
  *
  * @template Type Target type
+ *
  * @returns Metadata schema unit
  */
 export function schema<Type>(): IMetadataSchemaUnit;
@@ -66,6 +68,7 @@ export function name(): never;
  *
  * @template T Target type
  * @template Regular If `true`, returns regular (normalized) name
+ *
  * @returns Type name string
  */
 export function name<T, Regular extends boolean = false>(): string;
@@ -88,6 +91,7 @@ export function literals(): never;
  * Extracts all members of a union literal type `T` into an array at runtime.
  *
  * @template T Union literal type (e.g., `"A" | "B" | 1`)
+ *
  * @returns Array containing all union members
  */
 export function literals<T extends Atomic.Type | null>(): T[];

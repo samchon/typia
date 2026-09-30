@@ -3,6 +3,7 @@ export class TicketSearch {
    * Search support tickets.
    *
    * @param props Search query
+   *
    * @returns Matching ticket summary in Markdown
    */
   public searchTickets(props: TicketSearch.IProps): TicketSearch.IResult {

@@ -39,6 +39,7 @@ export namespace HttpMigration {
    * Convert OpenAPI document to migration application.
    *
    * @param document OpenAPI document (any version)
+   *
    * @returns Migration application with callable routes
    */
   export const application = (
@@ -57,7 +58,9 @@ export namespace HttpMigration {
    * Execute HTTP route.
    *
    * @param props Fetch properties
+   *
    * @returns Response body
+   *
    * @throws HttpError on non-2xx status
    */
   export const execute = (props: IFetchProps): Promise<unknown> =>
@@ -67,6 +70,7 @@ export namespace HttpMigration {
    * Execute HTTP route and return full response.
    *
    * @param props Fetch properties
+   *
    * @returns Full HTTP response including non-2xx
    */
   export const propagate = (props: IFetchProps): Promise<IHttpResponse> =>

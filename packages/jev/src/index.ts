@@ -72,8 +72,11 @@ export interface IJevNoulQuestion {
  * ```
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @param questions Questions of `typia.llm.evaluation<T>()`
+ *
  * @returns New question map in the Jev wire format
+ *
  * @evidence contracts/common.md#principled-implementation Object.entries visits own enumerable question keys; defineProperty preserves even __proto__ as data, maps boolean to noul, and leaves choice and score questions unchanged without mutating the input.
  * @evidence contracts/common.md#clear-and-simple-design A single pass constructs a fresh question map; the sole branch is the wire-format distinction and needs no conversion registry or additional adapter layer.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The noul spelling is a provider contract and defineProperty implements ordinary own-key semantics; neither depends on known fixture keys nor patches another object.

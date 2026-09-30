@@ -49,6 +49,7 @@ export const test_comment_tag_bigint_exact = (): void => {
 interface IValue {
   /**
    * @minimum 18014398509481984
+   *
    * @maximum 18014398509481984
    */
   pinned: bigint;
@@ -57,14 +58,18 @@ interface IValue {
    * 2^60, whose double spells 1152921504606847000.
    *
    * @minimum 1.152921504606846976e18
+   *
    * @multipleOf 1.152921504606846976e18
+   *
    * @maximum 1.152921504606846976e18
    */
   exponent: bigint;
 
   /**
    * @minimum 50000000000000000
+   *
    * @maximum 60000000000000000
+   *
    * @multipleOf 18014398509481984
    */
   tripled: bigint;

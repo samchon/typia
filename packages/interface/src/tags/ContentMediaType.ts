@@ -20,6 +20,7 @@ import { TagBase } from "./TagBase";
  * - `"application/octet-stream"`: Generic binary data
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Document {
  *     // Base64-encoded PNG image

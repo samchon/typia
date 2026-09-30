@@ -35,6 +35,7 @@ import { IHttpLlmFunction, ILlmFunction } from "@typia/interface";
  * @evidence contracts/common.md#clear-and-simple-design One converter owns the framework schema carrier, with the unchanged schema callback shared by both directions; execution validation stays in the registrar.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The adapter uses the documented Standard JSON Schema extension and supported dependency floors instead of replacing LangChain internals or accepting raw data through a patched validator.
  * @evidence contracts/common.md#meaningful-documentation The namespace explains the two schema roles, the validation trap avoided through the public extension, the Vercel equivalent and both required dependency floors with their consequences.
+ *
  * @see https://github.com/standard-schema/standard-schema
  */
 export namespace LangChainParameterConverter {

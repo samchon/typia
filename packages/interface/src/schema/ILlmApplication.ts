@@ -15,6 +15,7 @@ import { IValidation } from "./IValidation";
  * - {@link ILlmSchema.IConfig.strict}: OpenAI structured output mode
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Class Source class/interface type
  */
 export interface ILlmApplication<Class extends object = any> {

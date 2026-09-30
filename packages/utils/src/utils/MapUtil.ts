@@ -1,12 +1,12 @@
 /**
  * Membership-based lazy initialization of caller-owned maps.
  *
- * @internal
- *
  * @evidence contracts/common.md#principled-implementation Map membership, rather than truthiness, determines reuse so every value admitted by the generic type is preserved; the helper inserts a result only after generation returns, while callback-owned mutations remain the caller's responsibility.
  * @evidence contracts/common.md#clear-and-simple-design The namespace contains one operation with an explicit caller-owned map and generator, without a separate cache or value sentinel.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Native Map.has/get/set semantics handle all keys and values uniformly without a special-case list of falsy values or schema-specific conditions.
  * @evidence contracts/common.md#meaningful-documentation The namespace identifies membership and ownership, and take explains generation, stored undefined values and failure behavior.
+ *
+ * @internal
  */
 export namespace MapUtil {
   /**

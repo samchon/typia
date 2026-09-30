@@ -44,6 +44,7 @@ export const test_json_schemas_v3_0_boolean_default = (): void => {
      * Whether the feature is enabled.
      *
      * @deprecated
+     *
      * @title Enabled
      */
     enabled: boolean & tags.Default<false>;

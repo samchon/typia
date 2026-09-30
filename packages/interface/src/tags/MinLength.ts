@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `minLength` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface User {
  *     // Username must be at least 3 characters

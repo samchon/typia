@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `maxItems` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Upload {
  *     // Maximum 5 files per upload

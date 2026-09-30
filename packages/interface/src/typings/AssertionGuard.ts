@@ -6,7 +6,9 @@
  * assertion guards return void but narrow the input parameter's type.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target type to assert
+ *
  * @throws {TypeGuardError} When validation fails
  */
 export type AssertionGuard<T> = (input: unknown) => asserts input is T;

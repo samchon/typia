@@ -6,6 +6,7 @@
  * excluded.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target class type
  */
 export type ClassProperties<T extends object> = {

@@ -69,6 +69,7 @@ export class HttpError extends Error {
    * Serialize to JSON-compatible object.
    *
    * @template T Expected response body type
+   *
    * @returns Structured HTTP error information
    */
   public toJSON<T>(): HttpError.IProps<T> {

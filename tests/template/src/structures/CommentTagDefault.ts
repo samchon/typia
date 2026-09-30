@@ -61,7 +61,9 @@ export interface CommentTagDefault {
    * Default value on union typed property.
    *
    * @default 7
+   *
    * @minimum 3
+   *
    * @maximum 5
    */
   vulnerable_range: number;

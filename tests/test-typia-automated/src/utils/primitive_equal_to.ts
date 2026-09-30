@@ -13,6 +13,7 @@ import { TestEquality } from "@typia/template/equality";
  * @param y Second value
  * @param tracer Receives the first differing path, like `$input.a[0]`; `silent`
  *   suppresses the console dump for a caller that expects inequality
+ *
  * @returns Whether both values hold the same data
  */
 export function primitive_equal_to<Instance>(

@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * For multiple named examples, use {@link Examples} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface User {
  *     email: string & Format<"email"> & Example<"user@example.com">;

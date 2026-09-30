@@ -17,6 +17,7 @@
  * validation errors to users or log them for debugging.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   const result = typia.validate<User>(input);
  *   if (result.success) {

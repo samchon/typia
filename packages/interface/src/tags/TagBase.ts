@@ -14,6 +14,7 @@
  * directly.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Props Tag properties defining validation behavior and schema output
  */
 export type TagBase<

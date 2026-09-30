@@ -47,6 +47,7 @@ export namespace LlmReference {
    * then `~1` and `~0`.
    *
    * @param fragment Token as written in the reference
+   *
    * @returns The component key, or `undefined` when the fragment is malformed
    */
   export const readToken = (fragment: string): string | undefined => {

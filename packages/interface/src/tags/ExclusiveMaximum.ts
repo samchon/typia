@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It also generates `exclusiveMaximum` in JSON Schema.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Temperature {
  *     // Must be less than 100 (boiling point), not equal

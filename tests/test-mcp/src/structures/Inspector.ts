@@ -17,6 +17,7 @@ export class Inspector {
    * Inspect the resident graph.
    *
    * @param props Query to run against the graph
+   *
    * @returns The matching answer
    */
   public inspect(props: Inspector.IProps): Inspector.IResult {

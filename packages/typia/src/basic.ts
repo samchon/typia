@@ -29,10 +29,13 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * - {@link assertEquals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to validate against
+ *
  * @param input Value to assert
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns The input value typed as `T`
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assert<T>(
@@ -58,10 +61,13 @@ export function assert<T>(
  * - {@link assertEquals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to validate against
+ *
  * @param input Value to assert
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns The input value typed as `T`
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assert<T>(
@@ -93,9 +99,11 @@ export function assert(): never {
  * - {@link assertGuardEquals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to validate against
+ *
  * @param input Value to assert (narrowed to `T` after call)
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertGuard<T>(
@@ -122,9 +130,11 @@ export function assertGuard<T>(
  * - {@link assertGuardEquals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to validate against
+ *
  * @param input Value to assert (narrowed to `T` after call)
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertGuard<T>(
@@ -152,7 +162,9 @@ export function assertGuard(): never {
  * - {@link equals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to check
+ *
  * @param input Value to test
+ *
  * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function is<T>(input: T): input is T;
@@ -172,7 +184,9 @@ export function is<T>(input: T): input is T;
  * - {@link equals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to check
+ *
  * @param input Value to test
+ *
  * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function is<T>(input: unknown): input is T;
@@ -207,7 +221,9 @@ export function is(): never {
  * @template T Target type to check
  * @template N Maximum depth to descend before accepting a value structurally.
  *   Must be a non-negative integer literal. Defaults to `2`.
+ *
  * @param input Value to test
+ *
  * @returns `true` if valid up to depth `N`, `false` otherwise (type predicate
  *   `input is T`)
  */
@@ -238,7 +254,9 @@ export function shallow<T, N extends number = 2>(input: T): input is T;
  * @template T Target type to check
  * @template N Maximum depth to descend before accepting a value structurally.
  *   Must be a non-negative integer literal. Defaults to `2`.
+ *
  * @param input Value to test
+ *
  * @returns `true` if valid up to depth `N`, `false` otherwise (type predicate
  *   `input is T`)
  */
@@ -269,7 +287,9 @@ export function shallow(): never {
  * - {@link validateEquals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to validate against
+ *
  * @param input Value to validate
+ *
  * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validate<T>(input: T): IValidation<T>;
@@ -294,7 +314,9 @@ export function validate<T>(input: T): IValidation<T>;
  * - {@link validateEquals} — Also rejects properties not defined in `T`
  *
  * @template T Target type to validate against
+ *
  * @param input Value to validate
+ *
  * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validate<T>(input: unknown): IValidation<T>;
@@ -322,10 +344,13 @@ export function validate(): never {
  * - {@link assertGuardEquals} — Type guard version with no return value
  *
  * @template T Target type for exact match
+ *
  * @param input Value to validate
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns The input value typed as `T`
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEquals<T>(
@@ -348,10 +373,13 @@ export function assertEquals<T>(
  * - {@link assertGuardEquals} — Type guard version with no return value
  *
  * @template T Target type for exact match
+ *
  * @param input Value to validate
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns The input value typed as `T`
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEquals<T>(
@@ -379,9 +407,11 @@ export function assertEquals(): never {
  * - {@link validateEquals} — Collects all errors without throwing
  *
  * @template T Target type for exact match
+ *
  * @param input Value to assert (narrowed to `T` after call)
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertGuardEquals<T>(
@@ -404,9 +434,11 @@ export function assertGuardEquals<T>(
  * - {@link validateEquals} — Collects all errors without throwing
  *
  * @template T Target type for exact match
+ *
  * @param input Value to assert (narrowed to `T` after call)
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertGuardEquals<T>(
@@ -433,7 +465,9 @@ export function assertGuardEquals(): never {
  * - {@link validateEquals} — Returns all errors without throwing
  *
  * @template T Target type for exact match
+ *
  * @param input Value to test
+ *
  * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function equals<T>(input: T): input is T;
@@ -452,7 +486,9 @@ export function equals<T>(input: T): input is T;
  * - {@link validateEquals} — Returns all errors without throwing
  *
  * @template T Target type for exact match
+ *
  * @param input Value to test
+ *
  * @returns `true` if valid, `false` otherwise (type predicate `input is T`)
  */
 export function equals<T>(input: unknown): input is T;
@@ -481,7 +517,9 @@ export function equals(): never {
  * - {@link equals} — Simple boolean check
  *
  * @template T Target type for exact match
+ *
  * @param input Value to validate
+ *
  * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validateEquals<T>(input: T): IValidation<T>;
@@ -505,7 +543,9 @@ export function validateEquals<T>(input: T): IValidation<T>;
  * - {@link equals} — Simple boolean check
  *
  * @template T Target type for exact match
+ *
  * @param input Value to validate
+ *
  * @returns {@link IValidation} <T> containing either `data` or `errors`
  */
 export function validateEquals<T>(input: unknown): IValidation<T>;
@@ -526,8 +566,11 @@ export function validateEquals(): never {
  * generates its return type instead.
  *
  * @template T Type of data to generate
+ *
  * @param generator Custom random generator implementing {@link IRandomGenerator}
+ *
  * @returns Randomly generated data as `Resolved<T>`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function random(generator?: Partial<IRandomGenerator>): never;
@@ -540,7 +583,9 @@ export function random(generator?: Partial<IRandomGenerator>): never;
  * generates its return type instead.
  *
  * @template T Type of data to generate
+ *
  * @param generator Custom random generator implementing {@link IRandomGenerator}
+ *
  * @returns Randomly generated data as `Resolved<T>`
  */
 export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
@@ -560,9 +605,12 @@ export function random(): never {
  * Useful when the same type validation is needed repeatedly.
  *
  * @template T Target type to validate against
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assert function `(input: unknown, errorFactory?) => T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssert(
@@ -576,8 +624,10 @@ export function createAssert(
  * Useful when the same type validation is needed repeatedly.
  *
  * @template T Target type to validate against
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assert function `(input: unknown, errorFactory?) => T`,
  *   whose own `errorFactory` overrides this one for that single call
  */
@@ -608,9 +658,12 @@ export function createAssert<T>(): (
  * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type to validate against
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assertion guard function
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssertGuard(
@@ -629,8 +682,10 @@ export function createAssertGuard(
  * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type to validate against
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assertion guard function, whose own `errorFactory`
  *   overrides this one for that single call
  */
@@ -656,7 +711,9 @@ export function createAssertGuard<T>(): (
  * recompilation.
  *
  * @template T Target type to check
+ *
  * @returns Reusable type guard function `(input: unknown) => input is T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createIs(): never;
@@ -668,6 +725,7 @@ export function createIs(): never;
  * recompilation.
  *
  * @template T Target type to check
+ *
  * @returns Reusable type guard function `(input: unknown) => input is T`
  */
 export function createIs<T>(): (input: unknown) => input is T;
@@ -686,7 +744,9 @@ export function createIs<T>(): (input: unknown) => input is T {
  * @template T Target type to check
  * @template N Maximum depth to descend before accepting a value structurally.
  *   Must be a non-negative integer literal. Defaults to `2`.
+ *
  * @returns Reusable type guard function `(input: unknown) => input is T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createShallow(): never;
@@ -700,6 +760,7 @@ export function createShallow(): never;
  * @template T Target type to check
  * @template N Maximum depth to descend before accepting a value structurally.
  *   Must be a non-negative integer literal. Defaults to `2`.
+ *
  * @returns Reusable type guard function `(input: unknown) => input is T`
  */
 export function createShallow<T, N extends number = 2>(): (
@@ -719,7 +780,9 @@ export function createShallow<T>(): (input: unknown) => input is T {
  * interoperability.
  *
  * @template T Target type to validate against
+ *
  * @returns Reusable validate function `(input: unknown) => IValidation<T>`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createValidate(): never;
@@ -732,6 +795,7 @@ export function createValidate(): never;
  * interoperability.
  *
  * @template T Target type to validate against
+ *
  * @returns Reusable validate function `(input: unknown) => IValidation<T>`
  */
 export function createValidate<T>(): ((input: unknown) => IValidation<T>) &
@@ -750,10 +814,13 @@ export function createValidate(): ((input: unknown) => IValidation) &
  * be called multiple times without recompilation.
  *
  * @template T Target type for exact match
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assertEquals function `(input: unknown, errorFactory?) =>
  *   T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssertEquals(
@@ -767,8 +834,10 @@ export function createAssertEquals(
  * be called multiple times without recompilation.
  *
  * @template T Target type for exact match
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assertEquals function `(input: unknown, errorFactory?) =>
  *   T`, whose own `errorFactory` overrides this one for that single call
  */
@@ -799,9 +868,12 @@ export function createAssertEquals<T>(): (
  * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type for exact match
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assertion guard function
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssertGuardEquals(
@@ -820,8 +892,10 @@ export function createAssertGuardEquals(
  * TypeGuardError.IProps) => Error) => asserts input is T` when you need it.
  *
  * @template T Target type for exact match
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable assertion guard function, whose own `errorFactory`
  *   overrides this one for that single call
  */
@@ -847,7 +921,9 @@ export function createAssertGuardEquals<T>(): (
  * called multiple times without recompilation.
  *
  * @template T Target type for exact match
+ *
  * @returns Reusable type guard function `(input: unknown) => input is T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createEquals(): never;
@@ -859,6 +935,7 @@ export function createEquals(): never;
  * called multiple times without recompilation.
  *
  * @template T Target type for exact match
+ *
  * @returns Reusable type guard function `(input: unknown) => input is T`
  */
 export function createEquals<T>(): (input: unknown) => input is T;
@@ -875,8 +952,10 @@ export function createEquals<T>(): (input: unknown) => input is T {
  * Also implements {@link StandardSchemaV1} interface for interoperability.
  *
  * @template T Target type for exact match
+ *
  * @returns Reusable validateEquals function `(input: unknown) =>
  *   IValidation<T>`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createValidateEquals(): never;
@@ -888,6 +967,7 @@ export function createValidateEquals(): never;
  * Also implements {@link StandardSchemaV1} interface for interoperability.
  *
  * @template T Target type for exact match
+ *
  * @returns Reusable validateEquals function `(input: unknown) =>
  *   IValidation<T>`
  */
@@ -909,8 +989,11 @@ export function createValidateEquals(): ((input: unknown) => IValidation) &
  * recompilation.
  *
  * @template T Type of data to generate
+ *
  * @param generator Custom random generator implementing {@link IRandomGenerator}
+ *
  * @returns Reusable random function `() => Resolved<T>`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createRandom(generator?: Partial<IRandomGenerator>): never;
@@ -922,7 +1005,9 @@ export function createRandom(generator?: Partial<IRandomGenerator>): never;
  * recompilation.
  *
  * @template T Type of data to generate
+ *
  * @param generator Custom random generator implementing {@link IRandomGenerator}
+ *
  * @returns Reusable random function `() => Resolved<T>`
  */
 export function createRandom<T>(

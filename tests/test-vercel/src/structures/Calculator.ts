@@ -3,6 +3,7 @@ export class Calculator {
    * Add two numbers.
    *
    * @param p The input containing two numbers to add
+   *
    * @returns The sum of a and b
    */
   add(p: Calculator.IProps): Calculator.IResult {
@@ -13,6 +14,7 @@ export class Calculator {
    * Subtract two numbers.
    *
    * @param p The input containing two numbers to subtract
+   *
    * @returns The difference of a and b
    */
   subtract(p: Calculator.IProps): Calculator.IResult {
@@ -23,6 +25,7 @@ export class Calculator {
    * Multiply two numbers.
    *
    * @param p The input containing two numbers to multiply
+   *
    * @returns The product of a and b
    */
   multiply(p: Calculator.IProps): Calculator.IResult {
@@ -33,6 +36,7 @@ export class Calculator {
    * Divide two numbers.
    *
    * @param p The input containing two numbers to divide
+   *
    * @returns The quotient of a and b
    */
   divide(p: Calculator.IProps): Calculator.IResult {

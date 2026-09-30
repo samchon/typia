@@ -31,6 +31,7 @@ export const test_llm_application = (): void => {
      * Get member by ID.
      *
      * @param input Member ID input
+     *
      * @returns Member information
      */
     getMember(input: IGetMemberInput): IMember;
@@ -39,6 +40,7 @@ export const test_llm_application = (): void => {
      * Create a new member.
      *
      * @param input Member creation input
+     *
      * @returns Created member
      */
     createMember(input: ICreateMemberInput): IMember;
@@ -47,6 +49,7 @@ export const test_llm_application = (): void => {
      * Update member information.
      *
      * @param input Member update input
+     *
      * @returns Updated member
      */
     updateMember(input: IUpdateMemberInput): IMember;

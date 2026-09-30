@@ -5,6 +5,7 @@
  * `Instance` where the property value extends `Target`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Instance Source object type
  * @template Target Target value type to match
  */

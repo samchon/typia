@@ -5,6 +5,7 @@
  * otherwise. Works with any TypeScript types including unions.
  *
  * @author Kyungsu Kang - https://github.com/kakasoo
+ *
  * @template X First type to compare
  * @template Y Second type to compare
  */

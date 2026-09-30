@@ -12,6 +12,7 @@ import { ValueOf } from "./internal/ValueOf";
  * structures.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target type to transform
  */
 export type CamelCase<T> = unknown extends T

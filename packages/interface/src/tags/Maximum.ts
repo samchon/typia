@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It also generates `maximum` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Rating {
  *     // Score from 0-100

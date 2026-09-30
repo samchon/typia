@@ -7,6 +7,7 @@ import typia from "typia";
 interface IValue {
   /**
    * @maximum 10
+   *
    * @exclusiveMaximum 5
    */
   value: number;

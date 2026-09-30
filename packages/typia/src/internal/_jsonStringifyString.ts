@@ -8,6 +8,7 @@
  * still being used in `typia` for the string serialization.
  *
  * @reference https://github.com/fastify/fast-json-stringify/blob/master/lib/serializer.js
+ *
  * @blog https://dev.to/samchon/good-bye-typescript-is-ancestor-of-typia-20000x-faster-validator-49fi
  */
 export const _jsonStringifyString = (str: string): string => {

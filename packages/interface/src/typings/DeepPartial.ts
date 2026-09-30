@@ -20,6 +20,7 @@
  * - **Objects**: all properties become optional with `DeepPartial` applied
  *
  * @author Michael - https://github.com/8471919
+ *
  * @template T The type to make deeply partial
  */
 export type DeepPartial<T> = T extends

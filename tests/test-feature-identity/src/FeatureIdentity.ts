@@ -49,6 +49,7 @@ export namespace FeatureIdentity {
    *    in two different suites is legal and is not reported.
    *
    * @param files Feature files to inspect.
+   *
    * @returns One human-readable diagnostic per violation; empty when the tree
    *   satisfies the invariant.
    */
@@ -122,6 +123,7 @@ export namespace FeatureIdentity {
    * is exactly the failure the suite exists to prevent.
    *
    * @param root Repository root; defaults to the enclosing git work tree.
+   *
    * @returns Every tracked `tests/<suite>/src/features` source file, parsed.
    */
   export const collect = (root: string = Git.toplevel()): IFeatureFile[] =>
@@ -153,6 +155,7 @@ export namespace FeatureIdentity {
    * check fails closed.
    *
    * @param code TypeScript source text.
+   *
    * @returns Exported `test_*` names in source order.
    */
   export const parse = (code: string): string[] =>

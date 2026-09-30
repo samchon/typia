@@ -17,6 +17,7 @@ import { TagBase } from "./TagBase";
  * object defaults, use optional properties with runtime default assignment.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Config {
  *     // Default to 10 items per page

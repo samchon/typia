@@ -27,6 +27,7 @@ export namespace NamingConvention {
    * Convert to camelCase.
    *
    * @param str Input string
+   *
    * @returns CamelCase string
    */
   export function camel(str: string): string {
@@ -48,6 +49,7 @@ export namespace NamingConvention {
    * Convert to PascalCase.
    *
    * @param str Input string
+   *
    * @returns PascalCase string
    */
   export function pascal(str: string): string {
@@ -65,6 +67,7 @@ export namespace NamingConvention {
    * Convert to snake_case.
    *
    * @param str Input string
+   *
    * @returns Snake_case string
    */
   export function snake(str: string): string {
@@ -95,6 +98,7 @@ export namespace NamingConvention {
    * hyphens, keeping any leading underscores untouched.
    *
    * @param str Input string
+   *
    * @returns Kebab-case string
    */
   export function kebab(str: string): string {
@@ -111,6 +115,7 @@ export namespace NamingConvention {
    * Capitalize first character.
    *
    * @param str Input string
+   *
    * @returns Capitalized string
    */
   export const capitalize = (str: string): string =>
@@ -120,6 +125,7 @@ export namespace NamingConvention {
    * Lowercase first character.
    *
    * @param str Input string
+   *
    * @returns Localized string
    */
   export const localize = (str: string): string =>
@@ -151,6 +157,7 @@ export namespace NamingConvention {
    * an illegal binding.
    *
    * @param str String to check
+   *
    * @returns True if valid variable name
    */
   export const variable = (str: string): boolean =>
@@ -170,6 +177,7 @@ export namespace NamingConvention {
    * {@link variable} rejects them separately.
    *
    * @param str String to check
+   *
    * @returns True if reserved word
    */
   export const reserved = (str: string): boolean => RESERVED.has(str);

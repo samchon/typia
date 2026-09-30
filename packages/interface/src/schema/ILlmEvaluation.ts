@@ -34,6 +34,7 @@ import { IValidation } from "./IValidation";
  * successful {@link decode} does not require a second `typia.validate<T>()`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T The decision type
  */
 export interface ILlmEvaluation<T = unknown> {
@@ -89,6 +90,7 @@ export interface ILlmEvaluation<T = unknown> {
    *   evaluation answer contract and the configured decimals
    *
    * @param answers Answer map from the evaluation model
+   *
    * @returns Validation result with the converted `T` on success
    */
   decode: (answers: unknown) => IValidation<T>;

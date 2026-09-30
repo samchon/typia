@@ -19,6 +19,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `pattern` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Product {
  *     // SKU format: 3 letters, dash, 4 digits

@@ -24,6 +24,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a null type.
    *
    * @param schema Target schema
+   *
    * @returns Whether null type or not
    */
   export const isNull = (schema: ILlmSchema): schema is ILlmSchema.INull =>
@@ -33,6 +34,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an unknown type.
    *
    * @param schema Target schema
+   *
    * @returns Whether unknown type or not
    */
   export const isUnknown = (
@@ -46,6 +48,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a boolean type.
    *
    * @param schema Target schema
+   *
    * @returns Whether boolean type or not
    */
   export const isBoolean = (
@@ -57,6 +60,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an integer type.
    *
    * @param schema Target schema
+   *
    * @returns Whether integer type or not
    */
   export const isInteger = (
@@ -68,6 +72,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a number type.
    *
    * @param schema Target schema
+   *
    * @returns Whether number type or not
    */
   export const isNumber = (schema: ILlmSchema): schema is ILlmSchema.INumber =>
@@ -77,6 +82,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a string type.
    *
    * @param schema Target schema
+   *
    * @returns Whether string type or not
    */
   export const isString = (schema: ILlmSchema): schema is ILlmSchema.IString =>
@@ -86,6 +92,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an array type.
    *
    * @param schema Target schema
+   *
    * @returns Whether array type or not
    */
   export const isArray = (schema: ILlmSchema): schema is ILlmSchema.IArray =>
@@ -96,6 +103,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an object type.
    *
    * @param schema Target schema
+   *
    * @returns Whether object type or not
    */
   export const isObject = (schema: ILlmSchema): schema is ILlmSchema.IObject =>
@@ -105,6 +113,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a reference type.
    *
    * @param schema Target schema
+   *
    * @returns Whether reference type or not
    */
   export const isReference = (
@@ -115,6 +124,7 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a union type.
    *
    * @param schema Target schema
+   *
    * @returns Whether union type or not
    */
   export const isAnyOf = (schema: ILlmSchema): schema is ILlmSchema.IAnyOf =>
@@ -178,6 +188,7 @@ export namespace LlmTypeChecker {
    * Test whether the `x` schema covers the `y` schema.
    *
    * @param props Properties for testing
+   *
    * @returns Whether the `x` schema covers the `y` schema
    */
   export const covers = (props: {

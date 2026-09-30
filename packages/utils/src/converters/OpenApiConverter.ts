@@ -54,6 +54,7 @@ export namespace OpenApiConverter {
    * the emended type on its word.
    *
    * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
+   *
    * @returns Emended OpenAPI v3.2 document
    */
   export function upgradeDocument(
@@ -81,6 +82,7 @@ export namespace OpenApiConverter {
    *
    * @param document Source emended OpenAPI document
    * @param version Target version "2.0"
+   *
    * @returns Swagger v2.0 document
    */
   export function downgradeDocument(
@@ -93,6 +95,7 @@ export namespace OpenApiConverter {
    *
    * @param document Source emended OpenAPI document
    * @param version Target version "3.0"
+   *
    * @returns OpenAPI v3.0 document
    */
   export function downgradeDocument(
@@ -127,6 +130,7 @@ export namespace OpenApiConverter {
    * Upgrade components to typia's emended format.
    *
    * @param input Source components (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
+   *
    * @returns Emended OpenAPI components
    */
   export function upgradeComponents(
@@ -151,6 +155,7 @@ export namespace OpenApiConverter {
    * @param input Source emended components, as `upgradeDocument()` or
    *   `upgradeComponents()` returns them
    * @param version Target version "2.0"
+   *
    * @returns Swagger v2.0 definitions record
    */
   export function downgradeComponents(
@@ -164,6 +169,7 @@ export namespace OpenApiConverter {
    * @param input Source emended components, as `upgradeDocument()` or
    *   `upgradeComponents()` returns them
    * @param version Target version "3.0"
+   *
    * @returns OpenAPI v3.0 components
    */
   export function downgradeComponents(
@@ -177,6 +183,7 @@ export namespace OpenApiConverter {
    * @param input Source emended components, as `upgradeDocument()` or
    *   `upgradeComponents()` returns them
    * @param version Target version "3.1"
+   *
    * @returns OpenAPI v3.1 components
    */
   export function downgradeComponents(
@@ -207,6 +214,7 @@ export namespace OpenApiConverter {
    *
    * @param props.definitions Swagger v2.0 definitions
    * @param props.schema Schema to upgrade
+   *
    * @returns Emended JSON schema
    */
   export function upgradeSchema(props: {
@@ -219,6 +227,7 @@ export namespace OpenApiConverter {
    *
    * @param props.components OpenAPI v3.0 components
    * @param props.schema Schema to upgrade
+   *
    * @returns Emended JSON schema
    */
   export function upgradeSchema(props: {
@@ -231,6 +240,7 @@ export namespace OpenApiConverter {
    *
    * @param props.components OpenAPI v3.1 components
    * @param props.schema Schema to upgrade
+   *
    * @returns Emended JSON schema
    */
   export function upgradeSchema(props: {
@@ -243,6 +253,7 @@ export namespace OpenApiConverter {
    *
    * @param props.components OpenAPI v3.2 components
    * @param props.schema Schema to upgrade
+   *
    * @returns Emended JSON schema
    */
   export function upgradeSchema(props: {
@@ -285,6 +296,7 @@ export namespace OpenApiConverter {
    * @param props.schema Schema to downgrade
    * @param props.version Target version "2.0"
    * @param props.downgraded Target definitions record (mutated)
+   *
    * @returns Swagger v2.0 schema
    */
   export function downgradeSchema(props: {
@@ -302,6 +314,7 @@ export namespace OpenApiConverter {
    * @param props.schema Schema to downgrade
    * @param props.version Target version "3.0"
    * @param props.downgraded Target components (mutated)
+   *
    * @returns OpenAPI v3.0 schema
    */
   export function downgradeSchema(props: {
@@ -319,6 +332,7 @@ export namespace OpenApiConverter {
    * @param props.schema Schema to downgrade
    * @param props.version Target version "3.1"
    * @param props.downgraded Target components (mutated)
+   *
    * @returns OpenAPI v3.1 schema
    */
   export function downgradeSchema(props: {

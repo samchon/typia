@@ -36,6 +36,7 @@ export function schema(): never;
  *
  * @template Type Target type
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
+ *
  * @returns JSON schema unit
  */
 export function schema<
@@ -66,6 +67,7 @@ export function schemas(): never;
  *
  * @template Types Tuple of target types
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
+ *
  * @returns JSON schema collection
  */
 export function schemas<
@@ -108,6 +110,7 @@ export function application(): never;
  *
  * @template Class Target class or interface type
  * @template Version OpenAPI version (`"3.0"` | `"3.1"`). Default `"3.1"`
+ *
  * @returns JSON function schema application
  */
 export function application<
@@ -145,10 +148,13 @@ export function assertParse(
  * - {@link validateParse} — Returns detailed validation errors
  *
  * @template T Target type for parsed value
+ *
  * @param input JSON string to parse
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Parsed value of type `T`
+ *
  * @throws {TypeGuardError} When parsed value doesn't conform to type `T`
  */
 export function assertParse<T>(
@@ -180,7 +186,9 @@ export function isParse(input: string): never;
  * - {@link validateParse} — Returns detailed validation errors
  *
  * @template T Target type for parsed value
+ *
  * @param input JSON string to parse
+ *
  * @returns Parsed value of type `T`, or `null` if invalid
  */
 export function isParse<T>(input: string): Primitive<T> | null;
@@ -210,7 +218,9 @@ export function validateParse(input: string): never;
  * - {@link isParse} — Returns `null` instead of error details
  *
  * @template T Target type for parsed value
+ *
  * @param input JSON string to parse
+ *
  * @returns Validation result containing parsed value or errors
  */
 export function validateParse<T>(input: string): IValidation<Primitive<T>>;
@@ -236,7 +246,9 @@ export function validateParse<T>(): IValidation<Primitive<T>> {
  * - {@link validateStringify} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to stringify
+ *
  * @returns JSON string
  */
 export function stringify<T>(input: T): string;
@@ -260,10 +272,13 @@ export function stringify(): never {
  * - {@link validateStringify} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to assert and stringify
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns JSON string
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertStringify<T>(
@@ -285,10 +300,13 @@ export function assertStringify<T>(
  * - {@link validateStringify} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to assert and stringify
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns JSON string
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertStringify<T>(
@@ -315,7 +333,9 @@ export function assertStringify(): string {
  * - {@link validateStringify} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to check and stringify
+ *
  * @returns JSON string, or `null` if type check fails
  */
 export function isStringify<T>(input: T): string | null;
@@ -334,7 +354,9 @@ export function isStringify<T>(input: T): string | null;
  * - {@link validateStringify} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to check and stringify
+ *
  * @returns JSON string, or `null` if type check fails
  */
 export function isStringify<T>(input: unknown): string | null;
@@ -359,7 +381,9 @@ export function isStringify(): string | null {
  * - {@link isStringify} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Value to validate and stringify
+ *
  * @returns Validation result containing JSON string or errors
  */
 export function validateStringify<T>(input: T): IValidation<string>;
@@ -379,7 +403,9 @@ export function validateStringify<T>(input: T): IValidation<string>;
  * - {@link isStringify} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Value to validate and stringify
+ *
  * @returns Validation result containing JSON string or errors
  */
 export function validateStringify<T>(input: unknown): IValidation<string>;
@@ -403,6 +429,7 @@ export function createIsParse(): never;
  * Creates reusable {@link isParse} function.
  *
  * @template T Target type for parsed value
+ *
  * @returns Reusable parser function
  */
 export function createIsParse<T>(): (input: string) => Primitive<T> | null;
@@ -425,8 +452,10 @@ export function createAssertParse(
  * Creates reusable {@link assertParse} function.
  *
  * @template T Target type for parsed value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable parser function
  */
 export function createAssertParse<T>(
@@ -455,6 +484,7 @@ export function createValidateParse(): never;
  * Creates reusable {@link validateParse} function.
  *
  * @template T Target type for parsed value
+ *
  * @returns Reusable parser function
  */
 export function createValidateParse<T>(): (
@@ -479,6 +509,7 @@ export function createStringify(): never;
  * Creates reusable {@link stringify} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable stringify function
  */
 export function createStringify<T>(): (input: T) => string;
@@ -501,8 +532,10 @@ export function createAssertStringify(
  * Creates reusable {@link assertStringify} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable stringify function
  */
 export function createAssertStringify<T>(
@@ -531,6 +564,7 @@ export function createIsStringify(): never;
  * Creates reusable {@link isStringify} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable stringify function
  */
 export function createIsStringify<T>(): (input: unknown) => string | null;
@@ -551,6 +585,7 @@ export function createValidateStringify(): never;
  * Creates reusable {@link validateStringify} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable stringify function
  */
 export function createValidateStringify<T>(): (

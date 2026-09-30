@@ -22,6 +22,7 @@ import { TagBase } from "./TagBase";
  * The field number also appears in JSON Schema as `x-protobuf-sequence`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Message {
  *     // Frequently accessed fields use low numbers

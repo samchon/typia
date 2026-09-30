@@ -7,59 +7,73 @@ export namespace CommentTagRange {
   export interface Type {
     /**
      * @type int
+     *
      * @exclusiveMinimum 3
      */
     greater: number;
 
     /**
      * @type int
+     *
      * @minimum 3
      */
     greater_equal: number;
 
     /**
      * @type int
+     *
      * @exclusiveMaximum 7
      */
     less: number;
 
     /**
      * @type int
+     *
      * @maximum 7
      */
     less_equal: number;
 
     /**
      * @type int
+     *
      * @exclusiveMinimum 3
+     *
      * @exclusiveMaximum 7
      */
     greater_less: number;
 
     /**
      * @type int
+     *
      * @minimum 3
+     *
      * @exclusiveMaximum 7
      */
     greater_equal_less: number;
 
     /**
      * @type int
+     *
      * @exclusiveMinimum 3
+     *
      * @maximum 7
      */
     greater_less_equal: number;
 
     /**
      * @type int
+     *
      * @minimum 3
+     *
      * @maximum 7
      */
     greater_equal_less_equal: number;
 
     /**
      * @type int
+     *
      * @minimum 10
+     *
      * @maximum 10
      */
     equal: number;

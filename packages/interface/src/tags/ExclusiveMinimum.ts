@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It also generates `exclusiveMinimum` in JSON Schema.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface PositiveNumber {
  *     // Must be greater than 0, not equal to 0

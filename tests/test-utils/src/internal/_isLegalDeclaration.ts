@@ -17,6 +17,7 @@ import vm from "node:vm";
  *
  * @param props.name Function name taken from the route accessor
  * @param props.parameters Parameter names taken from the route parameter keys
+ *
  * @returns True when the engine accepts the declaration
  */
 export const _isLegalDeclaration = (props: {

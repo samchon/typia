@@ -13,6 +13,7 @@ import { TagBase } from "./TagBase";
  * values may collide with the excluded list.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface IConfig {
  *     port: number & tags.Exclude<[0, 22, 80]>;

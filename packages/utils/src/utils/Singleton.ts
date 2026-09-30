@@ -5,12 +5,12 @@
  * not refresh the value. A synchronous throw permits another attempt; a
  * returned promise is retained even if it later rejects.
  *
- * @internal
- *
  * @evidence contracts/common.md#principled-implementation A private identity sentinel distinguishes uninitialized state from every T, including falsy values; assignment occurs only after the closure returns, and a returned promise itself is the retained value.
  * @evidence contracts/common.md#clear-and-simple-design One initializer and one retained slot express instance-scoped lazy initialization without a map, argument-key policy or independent retry state.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The sentinel is internal state rather than a supported-value exclusion; the class neither patches the initializer nor fabricates results after failures.
  * @evidence contracts/common.md#meaningful-documentation The class documents first-call argument ownership, synchronous retry and promise rejection retention so callers can choose an initializer valid for the instance's lifetime.
+ *
+ * @internal
  */
 export class Singleton<T, Args extends any[] = []> {
   private readonly closure_: (...args: Args) => T;

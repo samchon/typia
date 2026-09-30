@@ -15,6 +15,7 @@ import { TagBase } from "./TagBase";
  * literal type constraint is enforced by TypeScript's type system.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   type OrderStatus =
  *     | Constant<

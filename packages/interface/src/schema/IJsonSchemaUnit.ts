@@ -19,6 +19,7 @@ import { OpenApiV3 } from "../openapi/OpenApiV3";
  * {@link IJsonSchemaApplication}.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Version OpenAPI version ("3.0" or "3.1")
  * @template Type Original TypeScript type
  */

@@ -46,14 +46,14 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  *   import { toLangChainTools } from "@typia/langchain";
  *
  *   class Calculator {
- *     add(input: { a: number; b: number }): { value: number } {
- *       return { value: input.a + input.b };
- *     }
+ *   add(input: { a: number; b: number }): { value: number } {
+ *   return { value: input.a + input.b };
+ *   }
  *   }
  *
  *   const controller = typia.llm.controller<Calculator>(
- *     "calculator",
- *     new Calculator(),
+ *   "calculator",
+ *   new Calculator(),
  *   );
  *   const tools = toLangChainTools(controller);
  *
@@ -64,7 +64,9 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  *
  * @param input Controller, controller list, or conversion properties
  * @param options Conversion options when `input` is not a properties object
+ *
  * @returns Array of LangChain DynamicStructuredTool
+ *
  * @evidence contracts/common.md#principled-implementation All overloads normalize to a controller list and prefix before using the same registrar; properties objects retain their own options, and class and HTTP execution remain delegated to their declared controllers.
  * @evidence contracts/common.md#clear-and-simple-design The public overloads express the three accepted input shapes while two private normalization helpers and one registrar keep conversion behavior shared.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The adapter uses the public LangChain factory through its registrar and typia's validation; normalization does not manufacture controllers, schemas or successful results.

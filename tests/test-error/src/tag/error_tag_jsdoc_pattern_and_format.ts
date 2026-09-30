@@ -6,6 +6,7 @@ import typia from "typia";
 interface IValue {
   /**
    * @pattern ^x
+   *
    * @format email
    */
   value: string;

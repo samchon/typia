@@ -20,7 +20,9 @@
  * @param head Quoted key and colon, emitted by the transform.
  * @param text Serialized member value, or `undefined` when it has none.
  * @param tail Separator following this member, empty for the last one.
+ *
  * @returns Member text, or an empty string when the member is omitted.
+ *
  * @internal
  */
 export const _jsonStringifyProperty = (

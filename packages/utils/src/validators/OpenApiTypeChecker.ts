@@ -37,6 +37,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a nul type.
    *
    * @param schema Target schema
+   *
    * @returns Whether null type or not
    */
   export const isNull = (
@@ -48,6 +49,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is an unknown type.
    *
    * @param schema Target schema
+   *
    * @returns Whether unknown type or not
    */
   export const isUnknown = (
@@ -59,6 +61,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a constant type.
    *
    * @param schema Target schema
+   *
    * @returns Whether constant type or not
    */
   export const isConstant = (
@@ -70,6 +73,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a boolean type.
    *
    * @param schema Target schema
+   *
    * @returns Whether boolean type or not
    */
   export const isBoolean = (
@@ -81,6 +85,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is an integer type.
    *
    * @param schema Target schema
+   *
    * @returns Whether integer type or not
    */
   export const isInteger = (
@@ -92,6 +97,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a number type.
    *
    * @param schema Target schema
+   *
    * @returns Whether number type or not
    */
   export const isNumber = (
@@ -103,6 +109,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a string type.
    *
    * @param schema Target schema
+   *
    * @returns Whether string type or not
    */
   export const isString = (
@@ -114,6 +121,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is an array type.
    *
    * @param schema Target schema
+   *
    * @returns Whether array type or not
    */
   export const isArray = (
@@ -125,6 +133,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a tuple type.
    *
    * @param schema Target schema
+   *
    * @returns Whether tuple type or not
    */
   export const isTuple = (
@@ -136,6 +145,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is an object type.
    *
    * @param schema Target schema
+   *
    * @returns Whether object type or not
    */
   export const isObject = (
@@ -147,6 +157,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is a reference type.
    *
    * @param schema Target schema
+   *
    * @returns Whether reference type or not
    */
   export const isReference = (
@@ -158,6 +169,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the schema is an union type.
    *
    * @param schema Target schema
+   *
    * @returns Whether union type or not
    */
   export const isOneOf = (
@@ -172,6 +184,7 @@ export namespace OpenApiTypeChecker {
    * that the reference is self-recursive or not.
    *
    * @param props Properties for recursive reference test
+   *
    * @returns Whether the schema is recursive reference type or not
    */
   export const isRecursiveReference = (props: {
@@ -204,6 +217,7 @@ export namespace OpenApiTypeChecker {
    * return an {@link IJsonSchemaTransformError} either.
    *
    * @param props Properties for escaping
+   *
    * @returns Escaped schema, or error with reason
    */
   export const escape = (props: {
@@ -233,6 +247,7 @@ export namespace OpenApiTypeChecker {
    * failed and return an {@link IJsonSchemaTransformError} value.
    *
    * @param props Properties of unreference
+   *
    * @returns Unreferenced schema
    */
   export const unreference = (props: {
@@ -281,6 +296,7 @@ export namespace OpenApiTypeChecker {
    * Test whether the `x` schema covers the `y` schema.
    *
    * @param props Properties for testing
+   *
    * @returns Whether the `x` schema covers the `y` schema
    */
   export const covers = (props: {

@@ -6,6 +6,7 @@
  * `success` discriminant to narrow the type.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Success data type
  * @template E Error type
  */

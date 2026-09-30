@@ -5,6 +5,7 @@ export interface CommentTagNaN {
 
   /**
    * @minimum 0
+   *
    * @maximum 100
    */
   ranged: number;

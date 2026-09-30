@@ -12,6 +12,7 @@ export namespace JsonCanonical {
   /**
    * @param x First JSON value
    * @param y Second JSON value
+   *
    * @returns Whether both are the same JSON value
    */
   export const equals = (x: unknown, y: unknown): boolean =>
@@ -19,6 +20,7 @@ export namespace JsonCanonical {
 
   /**
    * @param value JSON value
+   *
    * @returns JSON text with every object's keys in code-unit order
    */
   export const stringify = (value: unknown): string =>

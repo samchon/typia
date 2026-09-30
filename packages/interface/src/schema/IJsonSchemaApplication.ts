@@ -20,6 +20,7 @@ import { OpenApiV3 } from "../openapi/OpenApiV3";
  * - {@link __application}: Phantom property for type inference
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Version OpenAPI version ("3.0" or "3.1")
  * @template App Source class/interface type for type preservation
  */

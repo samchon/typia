@@ -5,6 +5,7 @@ export interface CommentTagBigInt {
 
   /**
    * @minimum 0
+   *
    * @maximum 100
    */
   ranged: bigint;

@@ -7,6 +7,7 @@ import { SpecialFields } from "./SpecialFields";
  * a cleaner type without impossible properties.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target object type
  */
 export type OmitNever<T extends object> = Omit<T, SpecialFields<T, never>>;

@@ -16,6 +16,7 @@ import { ValueOf } from "./internal/ValueOf";
  * any leading underscores untouched.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target type to transform
  */
 export type KebabCase<T> = unknown extends T

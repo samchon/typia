@@ -32,6 +32,7 @@ import { ILlmApplication } from "./ILlmApplication";
  * For OpenAPI/HTTP-based controller, use {@link IHttpLlmController} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Class Class type of the function executor
  */
 export interface ILlmController<Class extends object = any> {

@@ -33,8 +33,10 @@
  * and the base is left out; the resulting shape is identical.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Input Type accepted by the schema before validation
  * @template Output Type produced by the schema after validation
+ *
  * @see https://standardschema.dev
  */
 export interface StandardSchemaV1<Input = unknown, Output = Input> {

@@ -13,6 +13,7 @@ import { ValueOf } from "./internal/ValueOf";
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
+ *
  * @template T Target type to resolve
  */
 export type Resolved<T> = unknown extends T

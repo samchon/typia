@@ -56,6 +56,7 @@ import { ValueOf } from "./internal/ValueOf";
  * `any` inside a property is preserved as-is.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target class (or instance) type to classify into
  */
 export type Classifiable<T> =
@@ -309,6 +310,7 @@ type ClassifiableTuple<T extends readonly any[]> = T extends []
  * per-member to `A | number`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target class (or instance) type to classify into
  */
 export type ClassifyResult<T> = T extends any

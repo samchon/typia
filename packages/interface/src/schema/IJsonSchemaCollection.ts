@@ -21,6 +21,7 @@ import { OpenApiV3 } from "../openapi/OpenApiV3";
  * - {@link IV3_1.__types | __types}: Phantom property for type inference
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Version OpenAPI version ("3.0" or "3.1")
  * @template Types Tuple of original TypeScript types
  */

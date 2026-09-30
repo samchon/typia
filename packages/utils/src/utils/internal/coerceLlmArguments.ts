@@ -16,7 +16,9 @@ import { parseLenientJson } from "./parseLenientJson";
  *
  * @param value Parsed JSON value (potentially with stringified nested values)
  * @param parameters LLM parameters schema
+ *
  * @returns Coerced value with double-stringified JSON parsed
+ *
  * @internal
  */
 export function coerceLlmArguments<T = unknown>(

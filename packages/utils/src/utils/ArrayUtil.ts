@@ -4,11 +4,12 @@
  * Comparators, selectors and initializers are caller-owned callbacks; their
  * side effects and exceptions are not rolled back.
  *
- * @internal
  * @evidence contracts/common.md#principled-implementation Native array searches determine membership before insertion; each operation states its comparison and callback semantics.
  * @evidence contracts/common.md#clear-and-simple-design The namespace groups small array operations without introducing a second collection representation or retained index.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The helpers use ordinary array operations and caller callbacks; there are no fixture-name branches or foreign mutations.
  * @evidence contracts/common.md#meaningful-documentation Native prose identifies in-place ownership and callback effects, and each exported operation documents its distinct return or insertion contract.
+ *
+ * @internal
  */
 export namespace ArrayUtil {
   /**

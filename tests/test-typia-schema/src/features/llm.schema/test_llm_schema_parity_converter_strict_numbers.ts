@@ -69,6 +69,7 @@ interface IRoot {
 
   /**
    * @minItems 2
+   *
    * @maxItems 5
    */
   commentItems: string[];

@@ -41,6 +41,7 @@ export namespace LlmJson {
    *
    * @param input Parsed arguments object from LLM
    * @param parameters LLM function parameters schema for type coercion
+   *
    * @returns Coerced arguments with corrected types
    */
   export function coerce<T = unknown>(
@@ -68,6 +69,7 @@ export namespace LlmJson {
    *
    * @param input Raw JSON string (potentially incomplete or malformed)
    * @param parameters Optional LLM parameters schema for type coercion
+   *
    * @returns Parse result with data on success, or partial data with errors
    */
   export function parse<T = unknown>(
@@ -134,6 +136,7 @@ export namespace LlmJson {
    *   arrives on its own, from `typia.llm.parameters` or from a registry,
    *   carries nothing to read back, and omitting this argument is read as
    *   non-strict.
+   *
    * @returns Validator function that checks data against the schema
    */
   export function validate(
@@ -176,11 +179,13 @@ export namespace LlmJson {
    * errors back to the model for self-correction.
    *
    * @template T Expected arguments type
+   *
    * @param func Target function from `typia.llm.application` /
    *   `typia.llm.controller` (only {@link ILlmFunction.parameters} and
    *   {@link ILlmFunction.validate} are used)
    * @param args Raw arguments from the LLM, possibly with wrong types or
    *   omitted
+   *
    * @returns Validation result with coerced `data` on success, or `errors`
    */
   export function validateArguments<T = unknown>(
@@ -202,6 +207,7 @@ export namespace LlmJson {
    * with all utility functions.
    *
    * @template T The expected output type
+   *
    * @param parameters LLM parameters schema
    * @param equals If `true`, reject extraneous properties on a closed object
    *   during validation. Otherwise, extra properties are ignored. An object
@@ -209,6 +215,7 @@ export namespace LlmJson {
    *   legitimate members, so this flag does not close it.
    * @param config Configuration `parameters` was generated with. See
    *   {@link validate}.
+   *
    * @returns Structured output interface with parse, coerce, and validate
    */
   export function structuredOutput<T>(

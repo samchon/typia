@@ -15,6 +15,7 @@ export class Inspector {
    * Inspect the deferred state.
    *
    * @param props Query to run against the state
+   *
    * @returns The matching answer
    */
   public inspect(props: Inspector.IProps): Inspector.IResult {

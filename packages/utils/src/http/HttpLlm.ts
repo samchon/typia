@@ -53,6 +53,7 @@ export namespace HttpLlm {
    * at once.
    *
    * @param props Controller properties
+   *
    * @returns HTTP LLM controller
    */
   export const controller = (props: {
@@ -96,6 +97,7 @@ export namespace HttpLlm {
    * Converts API operations to LLM-callable functions.
    *
    * @param props Composition properties
+   *
    * @returns LLM function calling application
    */
   export const application = (props: {
@@ -149,7 +151,9 @@ export namespace HttpLlm {
    * non-2xx status.
    *
    * @param props Function call properties
+   *
    * @returns Response body
+   *
    * @throws HttpError on non-2xx status
    */
   export const execute = (props: IFetchProps): Promise<unknown> =>
@@ -162,7 +166,9 @@ export namespace HttpLlm {
    * you need to handle error responses yourself.
    *
    * @param props Function call properties
+   *
    * @returns Full HTTP response
+   *
    * @throws Error only on connection failure
    */
   export const propagate = (props: IFetchProps): Promise<IHttpResponse> =>

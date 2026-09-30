@@ -39,6 +39,7 @@
  * objects is revisited.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @evidence contracts/common.md#principled-implementation A symmetric own-data traversal and intrinsic built-in brand probes distinguish ordinary records from native content; stack-pair tracking terminates cycles, and unordered sets match members one-to-one under the documented data-equivalence rules.
  * @evidence contracts/common.md#clear-and-simple-design Public equality, subset, difference and synchronous-exception operations share one private traversal and diagnostic renderer; exactness is the explicit distinction between complete data comparison and expected-field matching.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The oracle owns its comparison semantics without replacing foreign assertions; function-valued object fields and undefined/absent fields are documented data-policy exclusions rather than fixture-name bypasses.
@@ -52,6 +53,7 @@ export namespace TestEquality {
    * @param x First value
    * @param y Second value
    * @param exception Predicate on property keys to ignore
+   *
    * @evidence contracts/common.md#principled-implementation The exact difference traversal inspects both own-key sets and native content before report throws, so argument order cannot hide a missing output field under the documented data exclusions.
    * @evidence contracts/common.md#clear-and-simple-design Equality delegates path computation and error rendering to their existing owners, keeping this entry limited to an assertion over the symmetric relation.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The same comparator applies to arbitrary inputs and no fixture or foreign assertion supplies an automatic pass.
@@ -77,6 +79,7 @@ export namespace TestEquality {
    * @param expected Fields the actual value must hold
    * @param actual Value under test
    * @param exception Predicate on property keys to ignore
+   *
    * @evidence contracts/common.md#principled-implementation The traversal's non-exact mode visits expected object keys while preserving array-length and native-content comparisons, establishing the explicitly directional subset contract.
    * @evidence contracts/common.md#clear-and-simple-design One traversal-mode argument distinguishes subset from equality while retaining shared key exclusions, cycle handling and error rendering.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Only documented undeclared actual object keys are ignored; built-in contents and array lengths are not relaxed into a generic partial match.
@@ -100,7 +103,9 @@ export namespace TestEquality {
    * @param x First value
    * @param y Second value
    * @param exception Predicate on property keys to ignore
+   *
    * @returns Differing paths, like `.a.b[0]`
+   *
    * @evidence contracts/common.md#principled-implementation The recursive traversal accumulates paths for primitive, shape and native-content differences, uses own-key union for exact records and tracks only active object pairs to terminate cycles without suppressing later independent comparisons.
    * @evidence contracts/common.md#clear-and-simple-design One output array and the shared private compare operation own path construction; intrinsic brand, byte view and set-matching helpers isolate their distinct native decisions.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Paths follow actual data differences, not serialized snapshots or expected fixture names; ignored keys obey the supplied predicate and documented data semantics.
@@ -132,8 +137,10 @@ export namespace TestEquality {
    * later as an unhandled rejection that ends the run.
    *
    * @param task Synchronous task expected to throw
+   *
    * @returns The thrown error's message, the thrown value as text when it is
    *   not an `Error`, or `null` when the task returns
+   *
    * @evidence contracts/common.md#principled-implementation Only the task invocation is caught, keeping the helper's asynchronous-refusal error outside that catch; a synchronous throw yields its message while a normal return yields null, and thenables or async iterators are explicitly refused.
    * @evidence contracts/common.md#clear-and-simple-design Invocation, synchronous exception extraction and post-return asynchronous detection are separate control-flow steps, preventing a helper-generated failure from being mistaken for the task's exception.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The helper invokes the real task without patching foreign validators or treating an unresolved promise as a successful exception probe; refusal observes a thenable rejection to avoid a later unhandled event.

@@ -34,6 +34,7 @@ import { TagBase } from "./TagBase";
  * the `bigint` form when the boundary matters.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Message {
  *     // 32-bit unsigned integer

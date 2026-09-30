@@ -32,8 +32,10 @@ export type Cover<T> = T extends Atomic.Type | null | undefined
  * comparison.
  *
  * @template T Type of values to compare
+ *
  * @param x Left value
  * @param y Right value
+ *
  * @returns Whether both values are equal by structure
  */
 export function equals<T>(x: T, y: T): boolean;
@@ -50,8 +52,10 @@ export function equals(): never {
  * tuples still require identical lengths and compare element-by-element.
  *
  * @template T Type of value to compare
+ *
  * @param x Full value
  * @param y Partial value to match
+ *
  * @returns Whether `x` covers `y`
  */
 export function cover<T>(x: T, y: Cover<T>): boolean;
@@ -84,8 +88,10 @@ export function cover(): never {
  * ```
  *
  * @template T Type of values to compare
+ *
  * @param x Left value
  * @param y Right value
+ *
  * @returns Whether `x` precedes `y`
  */
 export function less<T>(x: T, y: T): boolean;
@@ -109,6 +115,7 @@ export function createEquals(): never;
  * Creates reusable {@link equals} function.
  *
  * @template T Type of values to compare
+ *
  * @returns Reusable equality function
  */
 export function createEquals<T>(): (x: T, y: T) => boolean;
@@ -129,6 +136,7 @@ export function createCover(): never;
  * Creates reusable {@link cover} function.
  *
  * @template T Type of value to compare
+ *
  * @returns Reusable cover function
  */
 export function createCover<T>(): (x: T, y: Cover<T>) => boolean;
@@ -149,6 +157,7 @@ export function createLess(): never;
  * Creates reusable {@link less} function.
  *
  * @template T Type of values to compare
+ *
  * @returns Reusable ordering function
  */
 export function createLess<T>(): (x: T, y: T) => boolean;

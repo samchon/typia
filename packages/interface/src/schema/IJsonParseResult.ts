@@ -19,6 +19,7 @@ import { DeepPartial } from "../typings/DeepPartial";
  *   {@link IJsonParseResult.IFailure.errors}
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T The expected type after successful parsing
  */
 export type IJsonParseResult<T = unknown> =

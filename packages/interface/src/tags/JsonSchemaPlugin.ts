@@ -19,6 +19,7 @@ import { TagBase } from "./TagBase";
  * - Integration with third-party schema consumers
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface FormField {
  *     // Add custom UI hints for form generation

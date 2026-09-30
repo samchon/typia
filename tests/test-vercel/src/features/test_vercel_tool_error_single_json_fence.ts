@@ -58,6 +58,7 @@ class OutputController {
    * Read the stored value.
    *
    * @param input The lookup seed
+   *
    * @returns The stored value
    */
   read(input: OutputController.IInput): OutputController.IResult {

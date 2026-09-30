@@ -15,12 +15,14 @@ export namespace CommentTagArray {
 
     /**
      * @minItems 3
+     *
      * @maxItems 7
      */
     both: string[];
 
     /**
      * @minItems 10
+     *
      * @maxItems 10
      */
     equal: number[];

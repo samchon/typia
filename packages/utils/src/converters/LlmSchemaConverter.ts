@@ -42,6 +42,7 @@ export namespace LlmSchemaConverter {
    * Get configuration with defaults applied.
    *
    * @param config Partial configuration
+   *
    * @returns Full configuration with defaults
    */
   export const getConfig = (
@@ -61,6 +62,7 @@ export namespace LlmSchemaConverter {
    * @param props.schema Object or reference schema to convert
    * @param props.accessor Error path accessor
    * @param props.refAccessor Reference path accessor
+   *
    * @returns Converted parameters or error
    */
   export const parameters = (props: {
@@ -118,6 +120,7 @@ export namespace LlmSchemaConverter {
    * @param props.schema Schema to convert
    * @param props.accessor Error path accessor
    * @param props.refAccessor Reference path accessor
+   *
    * @returns Converted schema or error
    */
   export const schema = (props: {
@@ -513,6 +516,7 @@ export namespace LlmSchemaConverter {
    * @param props.components Target components (mutated with definitions)
    * @param props.schema LLM schema to invert
    * @param props.$defs LLM schema definitions
+   *
    * @returns OpenAPI JSON schema
    */
   export const invert = (props: {
