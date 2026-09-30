@@ -61,7 +61,7 @@ export namespace _ILlmEvaluationPlan {
  */
 export const _createLlmEvaluation = <T>(
   plan: _ILlmEvaluationPlan[],
-  decimals: number,
+  decimals: number = 2,
 ): ILlmEvaluation<T> => {
   const questions: Record<string, ILlmEvaluation.IQuestion> = {};
   for (const leaf of plan) {

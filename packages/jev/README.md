@@ -45,7 +45,7 @@ const { answers } = await client.systemOne({
 const result = evaluation.decode(answers); // IValidation<ITriage>
 ```
 
-Jev rounds its answers to two decimals, which is `decimals`' default, so `decode()` accepts them as they are. Pass `typia.llm.evaluation<ITriage, { decimals: N }>()` for an endpoint with another precision.
+Jev's answers come rounded to two decimals in practice, which is `decimals`' default, so `decode()` accepts them as they are. Pass `typia.llm.evaluation<ITriage, { decimals: N }>()` for an endpoint with another precision.
 
 Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them.
 

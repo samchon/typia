@@ -3,6 +3,7 @@ package llm
 import (
   "math"
   "reflect"
+  "sort"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
@@ -91,7 +92,13 @@ func llmEvaluation_config(raw map[string]any) nativellmprogrammers.LlmEvaluation
     integer := int(number)
     return &integer
   }
+  keys := make([]string, 0, len(raw))
   for key := range raw {
+    keys = append(keys, key)
+  }
+  // the first unknown option in a fixed order, so the diagnostic is stable
+  sort.Strings(keys)
+  for _, key := range keys {
     if key != "decimals" {
       panic(nativetransform.NewTransformerError(nativetransform.TransformerError_IProps{
         Code:    "typia.llm.evaluation",

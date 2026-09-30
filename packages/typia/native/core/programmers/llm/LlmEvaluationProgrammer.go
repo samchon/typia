@@ -262,6 +262,10 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
         return left < right
       })
     }
+    // the property default is one declaration however many members inherit it
+    if hasFallback {
+      c.grid(accessor, fallback)
+    }
     members := make([]any, 0, len(entries))
     hasMemberRequirement := false
     missingRequirements := make([]*schemametadata.MetadataConstantValue, 0)
@@ -281,12 +285,13 @@ func (c *llmEvaluationComposer) property(property *schemametadata.MetadataProper
         c.fail(accessor, fmt.Sprintf("%s (member %s)", message, llmEvaluation_value_text(entry.Value)))
         continue
       }
-      if found == false && hasFallback {
+      if found {
+        c.grid(accessor, requirement)
+      } else if hasFallback {
         requirement, found = fallback, true
       }
       if found {
         hasMemberRequirement = true
-        c.grid(accessor, requirement)
       } else {
         missingRequirements = append(missingRequirements, entry)
       }

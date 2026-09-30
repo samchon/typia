@@ -209,7 +209,7 @@ The second generic argument is `ILlmEvaluation.IConfig`.
 typia.llm.evaluation<ITicketTriage, { decimals: 3 }>();
 ```
 
-Jev rounds its answers to two decimals. `decimals` is an integer from `0` to `15`, like AI SDK's rounding declaration.
+In practice Jev's answers come rounded to two decimals, though TypeSafe does not document the precision. `decimals` is an integer from `0` to `15`, like AI SDK's rounding declaration. The default tolerates two-decimal rounding for every provider, so pass `15` to check a full-precision provider almost exactly.
 
 ## Probability requirements
 
@@ -299,7 +299,7 @@ if (decoded.success) decoded.data.urgency; // Urgency member
 answers.urgency; // { type: "score", score: 1.6, probabilities: { "0": 0, "1": 0.4, "2": 0.6 }, ... }
 ```
 
-Jev rounds its answers to two decimals, the default of `decimals`, so `decode()` accepts them as they are.
+Jev's answers come rounded to two decimals in practice, the default of `decimals`, so `decode()` accepts them as they are.
 
 ## Providers
 

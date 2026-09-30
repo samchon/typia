@@ -18,6 +18,8 @@ import (
 //     decimals, with `decimals: 2`.
 //  2. Require a transform diagnostic at each of them, and the same without a
 //     config.
+//     A property default finer than the grid is reported once, not once per
+//     member.
 //  3. Accept a requirement on the grid, and a finer one with `decimals: 3`.
 func TestLlmEvaluationRejectsFinerThanProbabilityDecimals(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "finer-decimals", `import typia, { tags } from "typia";
@@ -39,6 +41,30 @@ typia.llm.evaluation<{
     if !strings.Contains(errText, expected) {
       t.Fatalf("llm.evaluation decimals diagnostic missing %q:\n%s", expected, errText)
     }
+  }
+  // a property default is one declaration, however many members inherit it
+  inherited := llmEvaluationDiagnosticsBuild(t, "decimals-inherited", `import typia from "typia";
+
+enum Team {
+  /** Payments */
+  billing = "billing",
+  /** Outages */
+  technical = "technical",
+  /** Pricing */
+  sales = "sales",
+}
+
+typia.llm.evaluation<{
+  /**
+   * Which team?
+   *
+   * @probability 0.334
+   */
+  team: Team;
+}>();
+`)
+  if count := strings.Count(inherited, "but got 0.334"); count != 1 {
+    t.Fatalf("a property default must be reported once, got %d:\n%s", count, inherited)
   }
   defaulted := llmEvaluationDiagnosticsBuild(t, "decimals-default", `import typia, { tags } from "typia";
 
