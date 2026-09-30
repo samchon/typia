@@ -125,6 +125,25 @@ func (obj *MetadataSchema) ShallowClone() *MetadataSchema {
   return &clone
 }
 
+// WithOptional returns an independent root with the requested omission flag.
+// Descendant type definitions remain shared; only the root's derived names
+// depend on this contextual change and must be recomputed.
+//
+// @evidence contracts/common.md#principled-implementation Copying the root preserves its type graph and analysis state while changing argument/property presence independently of the value type; derived names are invalidated because IsRequired participates in their rendering.
+// @evidence contracts/common.md#clear-and-simple-design The operation owns the root copy and its name-cache invalidation together, leaving descendant ownership and type exploration unchanged.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The omission flag is caller-supplied context, not a fixture-specific type rewrite; no foreign checker state or shared schema is mutated.
+// @evidence contracts/common.md#meaningful-documentation The native comment states independent root ownership, shared descendants and the derived-name invalidation required by changing omission.
+func (obj *MetadataSchema) WithOptional(optional bool) *MetadataSchema {
+  if obj == nil {
+    return nil
+  }
+  clone := *obj
+  clone.Optional = optional
+  clone.name_ = ""
+  clone.display_name_ = ""
+  return &clone
+}
+
 func (obj *MetadataSchema) Clone() *MetadataSchema {
   return metadataSchema_clone(obj, map[*MetadataSchema]*MetadataSchema{})
 }

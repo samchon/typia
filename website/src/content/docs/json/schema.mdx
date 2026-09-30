@@ -23,6 +23,8 @@ namespace json {
 | `json.schemas<[T1, T2, ...]>()` | Multiple top-level types sharing one `components` map (the common case for an OpenAPI `components.schemas`) |
 | `json.application<Class>()` | Class methods → a list of `{name, parameters, output}` JSON Schemas — handy for framework-neutral tooling that wants per-method schemas without typia's LLM-specific config |
 
+In `json.application`, each parameter's `required` flag follows its selected TypeScript signature. A question token or default initializer permits omission, including a default before a later required parameter; that later argument still must be provided. A required public overload or contextual function type remains required even when its implementation has a default. Return schemas use the inferred return type as well as explicit annotations.
+
 For the LLM-specific shape (with `$defs`, `additionalProperties: false`, strict mode, …), use [`typia.llm.parameters`](/docs/llm/parameters) or [`typia.llm.application`](/docs/llm/application) instead.
 
 `Version` selects the JSON Schema dialect:

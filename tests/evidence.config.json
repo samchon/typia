@@ -28,6 +28,7 @@
         "!test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
         "!test-typia-schema/src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
         "!test-typia-schema/src/features/json.schema/test_json_schema_object_description.ts",
+        "!test-typia-schema/src/features/json.application/test_json_application_parameter_omission.ts",
         "!test-*/src/internal/**",
         "!test-*/src/structures/**",
         "!test-*/src/controllers/**",
@@ -83,6 +84,7 @@
         "test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
         "test-typia-schema/src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
         "test-typia-schema/src/features/json.schema/test_json_schema_object_description.ts",
+        "test-typia-schema/src/features/json.application/test_json_application_parameter_omission.ts",
         "test-typia-schema/src/features/llm.parameters/test_llm_parameters_anyof.ts",
         "test-typia-schema/src/features/llm.schema/test_llm_schema_spec_union.ts"
       ],
