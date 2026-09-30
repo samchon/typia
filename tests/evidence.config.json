@@ -41,7 +41,9 @@
         "!test-typia-automated/src/build/**/*.ts",
         "!test-utils-automated/src/TestAutomation.ts",
         "!test-typia-automated/src/generate.ts",
-        "!test-utils-automated/src/generate.ts"
+        "!test-utils-automated/src/generate.ts",
+        "!test-utils-automated/src/features/validateEquals/test_*.ts",
+        "!test-utils-automated/src/internal/_test_validateEquals.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -173,7 +175,26 @@
         "type": "markdown",
         "root": "../.agents/skills",
         "files": [
-          "contracts/common.md"
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated strict OpenAPI schema-producer boundaries",
+      "type": "typescript",
+      "files": [
+        "test-utils-automated/src/features/validateEquals/test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
         ],
         "symbol": "h2",
         "checklist": true

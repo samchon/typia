@@ -47,6 +47,24 @@ export namespace TestAutomation {
 
       import { _test_validateEquals } from "../../internal/_test_validateEquals";
 
+      /**
+       * Verifies the native-produced ${key} schema supports strict validation.
+       *
+       * The schema's root and component references must compose with the runtime
+       * validator, accepting the fixture before detecting injected extra keys.
+       *
+       * 1. Produce the ${key} schema and validate a clean fixture value.
+       * 2. Inject extra object keys and compare the complete sorted error paths.
+       *
+       * @evidence contracts/testing.md#behavioral-verification This ${key} entry passes typia.json.schema output into _test_validateEquals, which asserts clean success and input identity before comparing every injected surplus path. It detects a schema/validator disagreement and blanket clean-input rejection.
+       * @evidence contracts/testing.md#independent-expectations ${key}.generate supplies the value, while the helper's mutations supply expected extra-key paths independently of the schema output. Full multiset equality detects missing or extra reports; accessor quoting uses NamingConvention and is not independent coverage of that utility. The emitted schema is an input under test, not the expected answer.
+       * @evidence contracts/testing.md#distinguishing-cases The clean ${key} graph is the positive case; adding only non_regular_member to its object nodes is the negative twin. Arrays retain index paths and nested objects contribute each injected key. A value without object nodes contributes zero surplus paths but still owns clean success and identity; declared-value spoilers belong to the separate validate matrix.
+       * @evidence contracts/testing.md#execution-ownership Generated test_validateEquals_${key} is discovered by TestServant under src/features/validateEquals during the automated suite's start command. It is an E2E schema-producer/validator entry; _test_validateEquals owns the portable assertion and traversal implementation.
+       * @evidence contracts/e2e.md#necessary-boundary This entry composes the Go transformer's schema for the ${key} TypeScript declaration with OpenApiValidator, including its generated root and components. Direct validation of a hand-authored schema cannot detect disagreement in those emitted references or object constraints; portable validator rules also have direct unit coverage.
+       * @evidence contracts/e2e.md#shared-execution The entry belongs to one generated suite project and one shared TestServant worker, reusing the workspace's content-keyed native plugin artifact. It performs no installation, compiler launch or worker creation itself, and retains its own discoverable name and failure report.
+       * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The helper generates a fresh ${key} value per invocation, checks it clean and then mutates only that value. Schema/components are not mutated. The suite runner closes its connected worker in finally; ttsc owns native artifact invalidation by content, and this case does not claim a cold-cache transition.
+       * @evidence contracts/e2e.md#preserved-coverage This generated binding retains the ${key} fixture, typia.json.schema call and complete helper invocation. Clean success, identity and every surplus-path assertion remain in _test_validateEquals; this documentation change neither transfers nor deletes an executable distinction.
+       */
       export const test_validateEquals_${key} = () => _test_validateEquals<${key}>({
         ...typia.json.schema<${key}>(),
         factory: ${key},
