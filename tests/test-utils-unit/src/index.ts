@@ -105,6 +105,7 @@ import { test_llm_json_parse_lenient_unquoted_keys_single_char } from "./feature
 import { test_llm_json_parse_lenient_whitespace_variations } from "./features/llm/parse/test_llm_json_parse_lenient_whitespace_variations";
 import { test_llm_json_parse_unicode_string_boundary } from "./features/llm/parse/test_llm_json_parse_unicode_string_boundary";
 import { test_llm_json_prototype_safe_objects } from "./features/llm/parse/test_llm_json_prototype_safe_objects";
+import { test_llm_schema_discriminator } from "./features/llm/schema/test_llm_schema_discriminator";
 import { test_llm_schema_empty_required } from "./features/llm/schema/test_llm_schema_empty_required";
 import { test_llm_schema_enum } from "./features/llm/schema/test_llm_schema_enum";
 import { test_llm_schema_enum_reference } from "./features/llm/schema/test_llm_schema_enum_reference";
@@ -385,3 +386,5 @@ for (const feature of [
   test_llm_schema_invert,
 ])
   test(feature.name, feature);
+
+test(test_llm_schema_discriminator.name, test_llm_schema_discriminator);
