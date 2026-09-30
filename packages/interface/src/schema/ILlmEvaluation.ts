@@ -54,6 +54,15 @@ export interface ILlmEvaluation<T = unknown> {
   questions: Record<string, ILlmEvaluation.IQuestion>;
 
   /**
+   * Configuration this evaluation was generated with.
+   *
+   * It is the second generic argument of `typia.llm.evaluation<T, Config>()`
+   * with the defaults filled in, so {@link decode} and a caller can both tell
+   * which precision the questions and the decoder were built for.
+   */
+  config: ILlmEvaluation.IConfig;
+
+  /**
    * Check an answer map and decode it into `T`.
    *
    * Unlike `typia.validate<T>()` or `ILlmStructuredOutput.validate()`, this
@@ -77,23 +86,28 @@ export interface ILlmEvaluation<T = unknown> {
    *   default
    * - An optional choice or score `probabilities` map must be complete, sum to
    *   one, and agree with the selected choice or score, following AI SDK's
-   *   evaluation answer contract and any declared rounding precision
+   *   evaluation answer contract and the configured decimals
    *
    * @param answers Answer map from the evaluation model
-   * @param rounding Optional provider-declared precision. Pass AI SDK's
-   *   `result.rounding` here; without it, distribution checks remain strict.
    * @returns Validation result with the converted `T` on success
    */
-  decode: (
-    answers: unknown,
-    rounding?: ILlmEvaluation.IRounding,
-  ) => IValidation<T>;
+  decode: (answers: unknown) => IValidation<T>;
 }
 export namespace ILlmEvaluation {
-  /** Decimal precision declared by an evaluation model for its answer values. */
-  export interface IRounding {
-    probabilityDecimals?: number;
-    scoreDecimals?: number;
+  /** Configuration of `typia.llm.evaluation<T, Config>()`. */
+  export interface IConfig {
+    /**
+     * Decimal places of the evaluation model's probabilities and scores.
+     *
+     * A probability requirement (`@probability`, `tags.Probability`) finer than
+     * this is a compile error, because the model's answers never resolve it.
+     * `decode()` tolerates the rounding of that many decimals in the answers'
+     * distribution sums and weighted scores. An integer in `[0, 15]`, like AI
+     * SDK's rounding declaration.
+     *
+     * @default 2
+     */
+    decimals: number;
   }
 
   /** Any evaluation question. */

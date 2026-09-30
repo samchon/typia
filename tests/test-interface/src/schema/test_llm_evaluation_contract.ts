@@ -32,13 +32,11 @@ export type LlmEvaluationContractCases = [
       Record<string, ILlmEvaluation.IQuestion>
     >
   >,
+  Assert<IsEqual<ILlmEvaluation<IDecision>["config"], ILlmEvaluation.IConfig>>,
   Assert<
     IsEqual<
       ILlmEvaluation<IDecision>["decode"],
-      (
-        answers: unknown,
-        rounding?: ILlmEvaluation.IRounding,
-      ) => IValidation<IDecision>
+      (answers: unknown) => IValidation<IDecision>
     >
   >,
 

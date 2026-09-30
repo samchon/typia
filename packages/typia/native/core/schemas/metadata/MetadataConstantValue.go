@@ -28,7 +28,10 @@ type MetadataConstantValue struct {
   Tags        [][]IMetadataTypeTag
   Description *string
   JsDocTags   []IJsDocTagInfo
-  name_       string
+  // Duplicated marks that another declaration with the same value was folded
+  // into this one. It is analysis-only: it is never serialized.
+  Duplicated bool
+  name_      string
 }
 
 func MetadataConstantValue_create(props MetadataConstantValue) *MetadataConstantValue {
@@ -37,6 +40,7 @@ func MetadataConstantValue_create(props MetadataConstantValue) *MetadataConstant
     Tags:        props.Tags,
     Description: props.Description,
     JsDocTags:   props.JsDocTags,
+    Duplicated:  props.Duplicated,
   }
 }
 

@@ -45,7 +45,7 @@ const { answers } = await client.systemOne({
 const result = evaluation.decode(answers); // IValidation<ITriage>
 ```
 
-The direct TypeSafe SDK does not return an AI SDK-style `rounding` declaration, so distribution checks use a strict tolerance. Pass a precision as the second argument only when your endpoint explicitly guarantees it.
+Jev's answers come rounded to two decimals in practice, which is `decimals`' default, so `decode()` accepts them as they are. Pass `typia.llm.evaluation<ITriage, { decimals: N }>()` for an endpoint with another precision.
 
 Through Vercel AI SDK, pass `evaluation.questions` to `experimental_evaluate()` as they are; its TypeSafe and OpenRouter providers convert them.
 

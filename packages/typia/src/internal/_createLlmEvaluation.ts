@@ -61,6 +61,7 @@ export namespace _ILlmEvaluationPlan {
  */
 export const _createLlmEvaluation = <T>(
   plan: _ILlmEvaluationPlan[],
+  decimals: number = 2,
 ): ILlmEvaluation<T> => {
   const questions: Record<string, ILlmEvaluation.IQuestion> = {};
   for (const leaf of plan) {
@@ -74,10 +75,9 @@ export const _createLlmEvaluation = <T>(
   }
   return {
     questions,
-    decode: (
-      answers: unknown,
-      rounding?: ILlmEvaluation.IRounding,
-    ): IValidation<T> => decode(plan, answers, rounding),
+    config: { decimals },
+    decode: (answers: unknown): IValidation<T> =>
+      decode(plan, answers, decimals),
   };
 };
 
@@ -145,30 +145,13 @@ const setInstructions = (
 const decode = <T>(
   plan: _ILlmEvaluationPlan[],
   answers: unknown,
-  rounding?: ILlmEvaluation.IRounding,
+  decimals: number,
 ): IValidation<T> => {
-  const precision: IPrecision | null = (() => {
-    try {
-      return readPrecision(rounding);
-    } catch {
-      // A trapping rounding object is an invalid declaration.
-      return null;
-    }
-  })();
-  if (precision === null)
-    return {
-      success: false,
-      data: answers,
-      errors: [
-        {
-          path: "$input",
-          expected: "rounding decimals in [0, 15]",
-          value: rounding,
-          description:
-            "Evaluation rounding decimals must be integers between 0 and 15.",
-        },
-      ],
-    };
+  // half a unit in the last decimal place per rounded value
+  const precision: IPrecision = {
+    probability: 0.5 * 10 ** -decimals,
+    score: 0.5 * 10 ** -decimals,
+  };
   const map: Record<string, unknown> | null = object(answers);
   if (map === null)
     return {
@@ -572,32 +555,6 @@ interface IPrecision {
   probability: number;
   score: number;
 }
-
-/** AI SDK's declared decimal-precision rule, without an AI SDK dependency. */
-const readPrecision = (
-  rounding: ILlmEvaluation.IRounding | undefined,
-): IPrecision | null => {
-  if (rounding === undefined) return { probability: 0, score: 0 };
-  if (
-    typeof rounding !== "object" ||
-    rounding === null ||
-    Array.isArray(rounding)
-  )
-    return null;
-  const record: Record<string, unknown> = rounding as Record<string, unknown>;
-  const decimalError = (value: unknown): number | null =>
-    value === undefined
-      ? 0
-      : typeof value === "number" &&
-          Number.isInteger(value) &&
-          value >= 0 &&
-          value <= 15
-        ? 0.5 * 10 ** -value
-        : null;
-  const probability: number | null = decimalError(record.probabilityDecimals);
-  const score: number | null = decimalError(record.scoreDecimals);
-  return probability === null || score === null ? null : { probability, score };
-};
 
 /* -----------------------------------------------------------
   HELPERS
