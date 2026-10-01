@@ -18,7 +18,7 @@
  *   one to one;
  * - Typed arrays, `DataView`, and `ArrayBuffer` by their kind and bytes;
  * - An `Error` by name and message as well as its own fields;
- * - `NaN` as equal to `NaN`;
+ * - `NaN` as equal to `NaN`, and positive versus negative zero as distinct;
  * - Two objects of different built-in kinds as different, so a `Uint8Array` never
  *   equals a plain object. A kind is read from the value's internal slots, so
  *   an object that only inherits a built-in prototype, or only carries its
@@ -40,7 +40,7 @@
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @evidence contracts/common.md#principled-implementation A symmetric own-data traversal and intrinsic built-in brand probes distinguish ordinary records from native content; stack-pair tracking terminates cycles, and unordered sets match members one-to-one under the documented data-equivalence rules.
+ * @evidence contracts/common.md#principled-implementation SameValue primitive comparison preserves NaN equality and distinguishes zero signs. A symmetric own-data traversal and intrinsic built-in brand probes distinguish ordinary records from native content; stack-pair tracking terminates cycles, and unordered sets match members one-to-one under the documented data-equivalence rules.
  * @evidence contracts/common.md#clear-and-simple-design Public equality, subset, difference and synchronous-exception operations share one private traversal and diagnostic renderer; exactness is the explicit distinction between complete data comparison and expected-field matching.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The oracle owns its comparison semantics without replacing foreign assertions; function-valued object fields and undefined/absent fields are documented data-policy exclusions rather than fixture-name bypasses.
  * @evidence contracts/common.md#meaningful-documentation Native prose states built-in content, ignored keys, function identity, prototype and cycle semantics; each public operation describes assertion direction, failure reporting or synchronous-task restrictions.
@@ -199,9 +199,8 @@ const compare = (
   y: unknown,
   visiting: Map<object, Set<object>> = new Map(),
 ): void => {
-  if (x === y) return;
+  if (Object.is(x, y)) return;
   if (typeof x === "number" && typeof y === "number") {
-    if (Number.isNaN(x) && Number.isNaN(y)) return;
     output.push(path);
     return;
   }

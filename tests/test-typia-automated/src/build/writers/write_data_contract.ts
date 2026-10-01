@@ -67,13 +67,13 @@ const FACTS: Record<
   },
   "plain.clone": {
     behavior:
-      "_test_plain_clone compares the callback result with the fixture's declared resolved projection through resolved_equal_to. It checks projected data and the strict oracle's applicable value/brand distinctions; it does not require a distinct object graph or independently prove clone alias isolation.",
+      "The shared _test_plain_clone snapshots the authored projection before the actual callback, then requires faithful data, unchanged original properties/references/prototypes/array lengths and no source data object reachable from the returned graph. Null and empty containers remain distinct; undefined versus absent record members follow the shared TestEquality data policy.",
     oracle:
-      "The input and optional authored factory.RESOLVE supply the reference projection rather than using another native clone as the oracle. The comparison runs after the callback on the shared input; it does not independently establish pre-call data preservation. The resolving oracle also permits absent/null/empty-container equivalences for protocol round trips, so this case does not certify their suitability for every clone input.",
+      "Authored input and optional factory.RESOLVE are observed before callback execution. An independent ordinary-data snapshot fixes expected content; source snapshots and identity sets establish non-mutation and graph separation without another native clone or transport omission equivalence.",
     contribution:
-      "The JSONABLE and RESOLVABLE fixture supplies one clean projection/clone comparison. This case applies no fixture SPOILERS and does not replace a separate clone-ownership regression.",
+      "The JSONABLE and RESOLVABLE fixture supplies its finite ordinary/class data graph to one clean scenario. No SPOILERS are applied here; portable units separately distinguish identity, shallow, lossy and destructive callbacks. Native/callable/effectful-accessor graphs are outside this selected fixture premise.",
     state:
-      "One fresh fixture value and callback result are local to the helper. Factory projection is authored rather than replaced; alias independence and source non-mutation are not asserted by this helper and remain review obligations.",
+      "One fresh fixture, pre-call snapshots and result remain local until the check completes. Authored projection is not replaced; source data and snapshots are not reused across cases. The comparison retains TestEquality's documented data policy rather than claiming prototype equality between a class input and plain output.",
   },
   "plain.prune": {
     behavior:

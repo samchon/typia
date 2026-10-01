@@ -172,6 +172,8 @@ import { test_openapi_validation_reference_paths } from "./features/openapi/test
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
+import { test_clone_oracle_data_ownership } from "./features/oracle/test_clone_oracle_data_ownership";
+import { test_equality_signed_zero } from "./features/oracle/test_equality_signed_zero";
 import { test_prune_oracle_graph_preservation } from "./features/oracle/test_prune_oracle_graph_preservation";
 import { test_prune_oracle_mutation_contract } from "./features/oracle/test_prune_oracle_mutation_contract";
 import { test_prune_validation_success_report } from "./features/oracle/test_prune_validation_success_report";
@@ -457,3 +459,6 @@ test(
   test_structure_selection_declared_eligibility.name,
   test_structure_selection_declared_eligibility,
 );
+
+test(test_clone_oracle_data_ownership.name, test_clone_oracle_data_ownership);
+test(test_equality_signed_zero.name, test_equality_signed_zero);

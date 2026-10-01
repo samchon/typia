@@ -10,7 +10,8 @@
     "./predicate": "./src/TestPredicate.ts",
     "./structure-selector": "./src/TestStructureSelector.ts",
     "./openapi-validation": "./src/TestOpenApiValidation.ts",
-    "./prune": "./src/TestPrune.ts"
+    "./prune": "./src/TestPrune.ts",
+    "./clone": "./src/TestClone.ts"
   },
   "devDependencies": {
     "@types/node": "catalog:utils",
