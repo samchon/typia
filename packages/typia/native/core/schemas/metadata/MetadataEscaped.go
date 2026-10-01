@@ -1,15 +1,37 @@
 package metadata
 
+// IMetadataSchema_IEscaped is the JSON form of an escaped type: the schema of the
+// original type and the schema of what its `toJSON` method returns.
+//
+// @evidence contracts/common.md#principled-implementation A type with `toJSON` has two shapes, the declared one and the serialized one, and both must survive serialization.
+// @evidence contracts/common.md#clear-and-simple-design Two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
 type IMetadataSchema_IEscaped struct {
   Original *IMetadataSchema
   Returns  *IMetadataSchema
 }
 
+// MetadataEscaped is a type with a `toJSON` method: Original is the declared
+// schema and Returns is the schema of the value `toJSON` returns, which is what
+// JSON serialization actually sees.
+//
+// @evidence contracts/common.md#principled-implementation The declared type and the value `toJSON` returns are two different shapes, so both are kept side by side.
+// @evidence contracts/common.md#clear-and-simple-design Two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states which schema each field is.
 type MetadataEscaped struct {
   Original *MetadataSchema
   Returns  *MetadataSchema
 }
 
+// MetadataEscaped_from builds an escaped type from its JSON form by loading both
+// schemas against dict.
+//
+// @evidence contracts/common.md#principled-implementation Each schema is loaded by MetadataSchema_from so reference resolution has one implementation.
+// @evidence contracts/common.md#clear-and-simple-design One constructor call over two loads.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is added or dropped.
+// @evidence contracts/common.md#meaningful-documentation The doc states the source and the dictionary.
 func MetadataEscaped_from(props IMetadataSchema_IEscaped, dict IMetadataDictionary) *MetadataEscaped {
   return MetadataEscaped_create(MetadataEscaped{
     Original: MetadataSchema_from(props.Original, dict),
@@ -17,6 +39,13 @@ func MetadataEscaped_from(props IMetadataSchema_IEscaped, dict IMetadataDictiona
   })
 }
 
+// MetadataEscaped_create builds an escaped type from props, storing both schemas
+// as given.
+//
+// @evidence contracts/common.md#principled-implementation The two schemas are the definition of the type and are shared with the caller.
+// @evidence contracts/common.md#clear-and-simple-design One constructor.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is dropped.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the schemas are stored, not copied.
 func MetadataEscaped_create(props MetadataEscaped) *MetadataEscaped {
   return &MetadataEscaped{
     Original: props.Original,
@@ -24,14 +53,33 @@ func MetadataEscaped_create(props MetadataEscaped) *MetadataEscaped {
   }
 }
 
+// GetName returns the identity name of the returned schema, which is the name
+// that describes the serialized value.
+//
+// @evidence contracts/common.md#principled-implementation The serialized value is what other code compares and keys on, so the name is the returned schema's.
+// @evidence contracts/common.md#clear-and-simple-design One delegation.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No separate cache or alternate spelling.
+// @evidence contracts/common.md#meaningful-documentation The doc states which schema it names.
 func (obj *MetadataEscaped) GetName() string {
   return obj.Returns.GetName()
 }
 
+// GetDisplayName returns the human-facing name of the returned schema.
+//
+// @evidence contracts/common.md#principled-implementation It mirrors GetName for messages.
+// @evidence contracts/common.md#clear-and-simple-design One delegation.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No rewriting.
+// @evidence contracts/common.md#meaningful-documentation The doc states which schema it names.
 func (obj *MetadataEscaped) GetDisplayName() string {
   return obj.Returns.GetDisplayName()
 }
 
+// ToJSON returns the JSON form of the escaped type; both schemas must be set.
+//
+// @evidence contracts/common.md#principled-implementation Both schemas are converted by MetadataSchema.ToJSON.
+// @evidence contracts/common.md#clear-and-simple-design One record construction.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A nil schema is a caller error that the doc states.
+// @evidence contracts/common.md#meaningful-documentation The doc states the precondition.
 func (obj *MetadataEscaped) ToJSON() IMetadataSchema_IEscaped {
   return IMetadataSchema_IEscaped{
     Original: obj.Original.ToJSON(),

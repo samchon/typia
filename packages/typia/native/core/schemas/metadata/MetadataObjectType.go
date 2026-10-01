@@ -2,6 +2,14 @@ package metadata
 
 import "strings"
 
+// IMetadataSchema_IObjectType is the JSON form of an object type: name,
+// properties, description, JSDoc tags, index, recursion flag and nullability list.
+// The class facts of MetadataObjectType are analysis-only and are not part of it.
+//
+// @evidence contracts/common.md#principled-implementation The JSON form lists what an object needs to be rebuilt as data.
+// @evidence contracts/common.md#clear-and-simple-design One flat record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
 type IMetadataSchema_IObjectType struct {
   Name        string
   Properties  []*IMetadataSchema_IProperty
@@ -12,6 +20,16 @@ type IMetadataSchema_IObjectType struct {
   Nullables   []bool
 }
 
+// MetadataObjectType is an object type shared by every use of it: its names,
+// properties, documentation, collection index and flags, plus the class facts
+// documented on the fields that the `plain.classify` programmer reads in
+// process. Those facts, the parent objects and the check properties are not
+// serialized and are not copied by MetadataObjectType_create.
+//
+// @evidence contracts/common.md#principled-implementation Object shape and documentation belong to the type and are kept once; the class facts are collected during analysis for a single consumer and are explained at each field.
+// @evidence contracts/common.md#clear-and-simple-design One record with the cached literal and required-literal answers.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The record does not claim that the in-process fields survive create or JSON.
+// @evidence contracts/common.md#meaningful-documentation The doc and the field comments state what is serialized and what is not.
 type MetadataObjectType struct {
   Name        string
   DisplayName string
@@ -63,6 +81,15 @@ type MetadataObjectType struct {
   required_literal_ *bool
 }
 
+// MetadataObjectType_create builds an object type from props. Invalid UTF-8 in
+// the name becomes `__`. Properties are stored as given, the JSDoc tag slice and
+// the nullability list are copied, and the in-process class facts, parent objects
+// and check properties are not carried over.
+//
+// @evidence contracts/common.md#principled-implementation A name with invalid UTF-8 would break emitted identifiers, so it is normalized once at creation, and the slices others append to are copied.
+// @evidence contracts/common.md#clear-and-simple-design One constructor.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The dropped in-process fields are listed rather than hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states the normalization and what is not carried.
 func MetadataObjectType_create(props MetadataObjectType) *MetadataObjectType {
   name := strings.ToValidUTF8(props.Name, "__")
   name = strings.ReplaceAll(name, "\uFFFD", "__")
@@ -80,6 +107,14 @@ func MetadataObjectType_create(props MetadataObjectType) *MetadataObjectType {
   }
 }
 
+// MetadataObjectType__From_without_properties builds the object type of a JSON
+// record with no properties and Validated false. The components add the
+// properties after every type exists, which is how recursive objects load.
+//
+// @evidence contracts/common.md#principled-implementation Loading is two-phase so that a property can refer to an object that does not exist yet.
+// @evidence contracts/common.md#clear-and-simple-design One constructor reusing MetadataObjectType_create.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The empty property list is the documented first phase.
+// @evidence contracts/common.md#meaningful-documentation The doc states the first phase.
 func MetadataObjectType__From_without_properties(obj IMetadataSchema_IObjectType) *MetadataObjectType {
   return MetadataObjectType_create(MetadataObjectType{
     Name:        obj.Name,
@@ -96,6 +131,11 @@ func MetadataObjectType__From_without_properties(obj IMetadataSchema_IObjectType
 // GetDisplayName returns the human-facing rendering of the type: the
 // structural form for anonymous (inline) types, the identifier name otherwise.
 // Identity-sensitive logic (function keys, deduplication) must keep using Name.
+//
+// @evidence contracts/common.md#principled-implementation The display name is used when it was recorded, which is the structural form of an anonymous object type, and otherwise the identifier name, while identity logic keeps reading Name.
+// @evidence contracts/common.md#clear-and-simple-design One branch.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The two names are separate fields and the identity name is not overwritten.
+// @evidence contracts/common.md#meaningful-documentation The doc states the rule and the identity warning.
 func (obj *MetadataObjectType) GetDisplayName() string {
   if obj.DisplayName != "" {
     return obj.DisplayName
@@ -103,6 +143,13 @@ func (obj *MetadataObjectType) GetDisplayName() string {
   return obj.Name
 }
 
+// CheckProperties returns the properties that a validator must check: the
+// recorded check properties when set and otherwise all properties.
+//
+// @evidence contracts/common.md#principled-implementation Intersections can narrow the checked set, so the narrowed list is preferred when present.
+// @evidence contracts/common.md#clear-and-simple-design One branch.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No copy is made, so the caller must not modify the returned slice.
+// @evidence contracts/common.md#meaningful-documentation The doc states the fallback.
 func (obj *MetadataObjectType) CheckProperties() []*MetadataProperty {
   if obj.Check_properties_ != nil {
     return obj.Check_properties_
@@ -110,6 +157,14 @@ func (obj *MetadataObjectType) CheckProperties() []*MetadataProperty {
   return obj.Properties
 }
 
+// HasRequiredLiteralProperty reports whether this object or a parent object has
+// a required property whose key is a single literal. The answer is computed once
+// and cached.
+//
+// @evidence contracts/common.md#principled-implementation A required literal key is the discriminant a union test can rely on, and parents contribute their own.
+// @evidence contracts/common.md#clear-and-simple-design A cached search over parents and checked properties.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache is not invalidated, so the properties must be final before the first call.
+// @evidence contracts/common.md#meaningful-documentation The doc states the rule and the caching.
 func (obj *MetadataObjectType) HasRequiredLiteralProperty() bool {
   if obj.required_literal_ != nil {
     return *obj.required_literal_
@@ -131,6 +186,15 @@ func (obj *MetadataObjectType) HasRequiredLiteralProperty() bool {
   return value
 }
 
+// IsPlain reports whether the object is a simple record: not recursive, fewer
+// than ten properties, every key a single literal and every value a required,
+// non-null atomic or, for one level, a plain object. No transform path calls it
+// today.
+//
+// @evidence contracts/common.md#principled-implementation The predicate classifies simple record shapes by the stated limits and is covered by unit tests; no transform path calls it today, which the doc says.
+// @evidence contracts/common.md#clear-and-simple-design One loop with a depth parameter.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The ten-property and one-level limits are written in the doc, not hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states each condition.
 func (obj *MetadataObjectType) IsPlain(level ...int) bool {
   lv := 0
   if len(level) > 0 {
@@ -157,6 +221,14 @@ func (obj *MetadataObjectType) IsPlain(level ...int) bool {
   return true
 }
 
+// IsLiteral reports whether the type is an anonymous object literal: not
+// recursive and named `__type` or `__object` (or such a name with the
+// collection's duplicate suffix) or containing `readonly [`. The answer is cached.
+//
+// @evidence contracts/common.md#principled-implementation Anonymous types are inlined by the schema generators instead of becoming components, and the check recognizes the names the analysis gives them.
+// @evidence contracts/common.md#clear-and-simple-design A cached name test using the collection's suffix constant.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The suffix is read from the same constant the collection writes, not respelled.
+// @evidence contracts/common.md#meaningful-documentation The doc states the name rule and the caching.
 func (obj *MetadataObjectType) IsLiteral() bool {
   if obj.literal_ != nil {
     return *obj.literal_
@@ -188,6 +260,13 @@ func metadataObjectType_isAnonymousName(name string, marker string) bool {
     strings.HasPrefix(name, marker+metadataCollection_duplicateSuffix)
 }
 
+// ToJSON returns the JSON form of the object type. The class facts and the
+// display name are not included.
+//
+// @evidence contracts/common.md#principled-implementation It is the serializable projection of the type.
+// @evidence contracts/common.md#clear-and-simple-design One loop and one record construction.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The slices are copied.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is omitted.
 func (obj *MetadataObjectType) ToJSON() IMetadataSchema_IObjectType {
   properties := make([]*IMetadataSchema_IProperty, 0, len(obj.Properties))
   for _, property := range obj.Properties {
@@ -205,6 +284,14 @@ func (obj *MetadataObjectType) ToJSON() IMetadataSchema_IObjectType {
   }
 }
 
+// MetadataObjectType_covers reports whether x has no fewer properties than y
+// and every property key name of x also occurs in y, which holds when both have
+// the same key names. Property value types are not compared.
+//
+// @evidence contracts/common.md#principled-implementation The union ordering needs to know when two object shapes list the same keys, and the code answers exactly that by key name.
+// @evidence contracts/common.md#clear-and-simple-design Two nested loops over the property lists.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The doc states that values are not compared and does not call it value coverage.
+// @evidence contracts/common.md#meaningful-documentation The doc states the key-name rule.
 func MetadataObjectType_covers(x *MetadataObjectType, y *MetadataObjectType) bool {
   if len(x.Properties) < len(y.Properties) {
     return false

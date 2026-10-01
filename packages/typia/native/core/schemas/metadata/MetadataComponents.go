@@ -1,5 +1,12 @@
 package metadata
 
+// IMetadataComponents is the JSON form of the shared types of a graph: its
+// objects, aliases, arrays and tuples.
+//
+// @evidence contracts/common.md#principled-implementation The shared types are serialized once here and referenced by name elsewhere.
+// @evidence contracts/common.md#clear-and-simple-design Four slices.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds and which function reads or writes it.
 type IMetadataComponents struct {
   Objects []IMetadataSchema_IObjectType
   Aliases []IMetadataSchema_IAliasType
@@ -7,6 +14,13 @@ type IMetadataComponents struct {
   Tuples  []IMetadataSchema_ITupleType
 }
 
+// MetadataComponents are the shared types of a loaded graph, as lists in the
+// order of their JSON form and as the dictionary that resolves references.
+//
+// @evidence contracts/common.md#principled-implementation A loaded graph needs the type lists and the dictionary built from the same values.
+// @evidence contracts/common.md#clear-and-simple-design Five fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the order and the dictionary.
 type MetadataComponents struct {
   Aliases    []*MetadataAliasType
   Objects    []*MetadataObjectType
@@ -15,6 +29,16 @@ type MetadataComponents struct {
   Dictionary IMetadataDictionary
 }
 
+// MetadataComponents_from loads shared types from their JSON form in two phases:
+// it creates every type without its content and then fills in properties,
+// values and elements, so references between them, recursive ones included,
+// resolve. The lists keep the order of the JSON and repeat no name. It is the
+// inverse of MetadataCollection.ToJSON; no transform path calls it today.
+//
+// @evidence contracts/common.md#principled-implementation Two phases are what make a graph with cycles loadable, and keeping the JSON order makes the result and its JSON deterministic.
+// @evidence contracts/common.md#clear-and-simple-design Two loops over four kinds and a generic ordering helper.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A test pins the order; no map iteration decides the output.
+// @evidence contracts/common.md#meaningful-documentation The doc states the phases and the ordering guarantee.
 func MetadataComponents_from(json IMetadataComponents) *MetadataComponents {
   dictionary := IMetadataDictionary{
     Objects: map[string]*MetadataObjectType{},
@@ -56,14 +80,32 @@ func MetadataComponents_from(json IMetadataComponents) *MetadataComponents {
   }
 
   return &MetadataComponents{
-    Aliases:    metadataComponents_aliases(dictionary.Aliases),
-    Objects:    metadataComponents_objects(dictionary.Objects),
-    Arrays:     metadataComponents_arrays(dictionary.Arrays),
-    Tuples:     metadataComponents_tuples(dictionary.Tuples),
+    Aliases: metadataComponents_ordered(
+      metadataComponents_names(json.Aliases, func(x IMetadataSchema_IAliasType) string { return x.Name }),
+      dictionary.Aliases,
+    ),
+    Objects: metadataComponents_ordered(
+      metadataComponents_names(json.Objects, func(x IMetadataSchema_IObjectType) string { return x.Name }),
+      dictionary.Objects,
+    ),
+    Arrays: metadataComponents_ordered(
+      metadataComponents_names(json.Arrays, func(x IMetadataSchema_IArrayType) string { return x.Name }),
+      dictionary.Arrays,
+    ),
+    Tuples: metadataComponents_ordered(
+      metadataComponents_names(json.Tuples, func(x IMetadataSchema_ITupleType) string { return x.Name }),
+      dictionary.Tuples,
+    ),
     Dictionary: dictionary,
   }
 }
 
+// ToJSON returns the JSON form of the shared types in the order of the lists.
+//
+// @evidence contracts/common.md#principled-implementation Each type is converted by its own ToJSON.
+// @evidence contracts/common.md#clear-and-simple-design Four loops.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The order is that of the lists.
+// @evidence contracts/common.md#meaningful-documentation The doc states the order.
 func (components *MetadataComponents) ToJSON() IMetadataComponents {
   aliases := make([]IMetadataSchema_IAliasType, 0, len(components.Aliases))
   for _, alias := range components.Aliases {
@@ -89,34 +131,25 @@ func (components *MetadataComponents) ToJSON() IMetadataComponents {
   }
 }
 
-func metadataComponents_aliases(input map[string]*MetadataAliasType) []*MetadataAliasType {
-  output := make([]*MetadataAliasType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
+// metadataComponents_ordered lists the dictionary entries in the order their
+// names first appear, so the result does not depend on map iteration order.
+func metadataComponents_ordered[T any](names []string, input map[string]*T) []*T {
+  output := make([]*T, 0, len(input))
+  seen := make(map[string]struct{}, len(input))
+  for _, name := range names {
+    if _, ok := seen[name]; ok {
+      continue
+    }
+    seen[name] = struct{}{}
+    output = append(output, input[name])
   }
   return output
 }
 
-func metadataComponents_objects(input map[string]*MetadataObjectType) []*MetadataObjectType {
-  output := make([]*MetadataObjectType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
-  }
-  return output
-}
-
-func metadataComponents_arrays(input map[string]*MetadataArrayType) []*MetadataArrayType {
-  output := make([]*MetadataArrayType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
-  }
-  return output
-}
-
-func metadataComponents_tuples(input map[string]*MetadataTupleType) []*MetadataTupleType {
-  output := make([]*MetadataTupleType, 0, len(input))
-  for _, value := range input {
-    output = append(output, value)
+func metadataComponents_names[T any](input []T, name func(T) string) []string {
+  output := make([]string, 0, len(input))
+  for _, elem := range input {
+    output = append(output, name(elem))
   }
   return output
 }
