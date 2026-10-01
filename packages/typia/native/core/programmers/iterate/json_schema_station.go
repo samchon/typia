@@ -12,6 +12,15 @@ type json_schema_station_props struct {
   metadata   *nativemetadata.MetadataSchema
 }
 
+// Json_schema_station_props is the argument record of Json_schema_station, which
+// converts a metadata schema to a JSON schema. BlockNever makes the conversion
+// return nil instead of a null-typed schema when the metadata yields no member,
+// and Attribute holds the keywords that are merged into the result.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Json_schema_station, which converts a metadata schema to a JSON schema; its 4 fields (BlockNever, Components, Attribute, Metadata) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type Json_schema_station_props struct {
   BlockNever bool
   Components *OpenApi_IComponents
@@ -19,6 +28,13 @@ type Json_schema_station_props struct {
   Metadata   *nativemetadata.MetadataSchema
 }
 
+// Json_schema_station converts a metadata schema to a JSON schema, registering
+// the components it refers to and merging the given attributes.
+//
+// @evidence contracts/common.md#principled-implementation It converts a metadata schema to a JSON schema, registering the components it refers to and merging the given attributes.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The only state it changes is the components record it is given.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Json_schema_station(props Json_schema_station_props) JsonSchema {
   return json_schema_station(json_schema_station_props{
     blockNever: props.BlockNever,

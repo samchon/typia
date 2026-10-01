@@ -14,12 +14,27 @@ type jsonSchemaProgrammerNamespace struct{}
 
 var JsonSchemaProgrammer = jsonSchemaProgrammerNamespace{}
 
+// JsonSchemaProgrammer_IWriteProps is the argument record of
+// JsonSchemaProgrammer.Write, which builds the JSON schema of one type. Version
+// is the OpenAPI version to emit.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of JsonSchemaProgrammer.Write, which builds the JSON schema of one type; its 3 fields (Context, Version, Metadata) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type JsonSchemaProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Version  string
   Metadata *nativemetadata.MetadataSchema
 }
 
+// JsonSchemaProgrammer_IJsonSchemaUnit is the result of JsonSchemaProgrammer:
+// the version, the shared components and the schema of one type.
+//
+// @evidence contracts/common.md#principled-implementation It is the result of JsonSchemaProgrammer: the version, the shared components and the schema of one type; its 3 fields (Version, Components, Schema) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type JsonSchemaProgrammer_IJsonSchemaUnit struct {
   Version    string
   Components *nativeiterate.OpenApi_IComponents

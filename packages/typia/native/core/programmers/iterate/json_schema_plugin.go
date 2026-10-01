@@ -2,6 +2,13 @@ package iterate
 
 import nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 
+// JsonSchema is one JSON schema, an untyped keyword map. The keywords are the
+// ones of the OpenAPI schema dialect that the schema builders emit.
+//
+// @evidence contracts/common.md#principled-implementation It is one JSON schema, an untyped keyword map. The keywords are the ones of the OpenAPI schema dialect that the schema builders emit.
+// @evidence contracts/common.md#clear-and-simple-design A single type declaration.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the type is.
 type JsonSchema map[string]any
 
 func json_schema_plugin(props struct {

@@ -26,6 +26,14 @@ type llmEvaluationProgrammerNamespace struct{}
 // so the question-key encoding has a single owner at runtime.
 var LlmEvaluationProgrammer = llmEvaluationProgrammerNamespace{}
 
+// LlmEvaluationProgrammer_IWriteProps is the argument record of
+// LlmEvaluationProgrammer.Write, which builds the evaluation function of a
+// decision type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of LlmEvaluationProgrammer.Write, which builds the evaluation function of a decision type; its 4 fields (Context, Metadata, Name, Config) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type LlmEvaluationProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Metadata *schemametadata.MetadataSchema
@@ -35,11 +43,21 @@ type LlmEvaluationProgrammer_IWriteProps struct {
 
 // LlmEvaluationProgrammer_IConfig is `ILlmEvaluation.IConfig`: the decimal
 // places of the evaluation model's answers, two by default.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of the evaluation function, which is the number of decimal places of the evaluation model's answers; its 1 fields (Decimals) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 1-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type LlmEvaluationProgrammer_IConfig struct {
   Decimals int
 }
 
 // LlmEvaluationProgrammer_IError is one rejected position of the decision type.
+//
+// @evidence contracts/common.md#principled-implementation It is one rejected position of the decision type, with its validation path and its message; its 2 fields (Accessor, Message) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type LlmEvaluationProgrammer_IError struct {
   // Accessor is the typia validation path of the position, like
   // `$input.refund.requested`.

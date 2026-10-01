@@ -8,12 +8,26 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Check_stringProps is the argument record of Check_string, which builds the
+// check entry of a string atomic.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Check_string, which builds the check entry of a string atomic; its 3 fields (Context, Atomic, Input) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type Check_stringProps struct {
   Context nativecontext.ITypiaContext
   Atomic  *nativemetadata.MetadataAtomic
   Input   *shimast.Expression
 }
 
+// Check_string builds the check entry of a string atomic: a `typeof input ===
+// "string"` guard plus the atomic's type-tag conditions.
+//
+// @evidence contracts/common.md#principled-implementation It builds the check entry of a string atomic: a `typeof input === "string"` guard plus the atomic's type-tag conditions.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_string(props Check_stringProps) nativehelpers.ICheckEntry {
   f := nativecontext.EmitFactoryOf(check_string_factory, props.Context.Emit)
   conditions := check_string_type_tags(props)

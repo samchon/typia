@@ -14,15 +14,14 @@ type llmParseProgrammerNamespace struct{}
 
 var LlmParseProgrammer = llmParseProgrammerNamespace{}
 
-type LlmParseProgrammer_IProps struct {
-  Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
-  Type    any
-  Name    *string
-  Init    *shimast.Node
-  Config  map[string]any
-}
-
+// LlmParseProgrammer_DecomposeProps is the argument record of
+// LlmParseProgrammer.Decompose, which builds the `llm.parse` function. Config is
+// the call's literal configuration.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of LlmParseProgrammer.Decompose, which builds the `llm.parse` function; its 6 fields (Context, Config, Modulo, Functor, Metadata, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type LlmParseProgrammer_DecomposeProps struct {
   Context  nativecontext.ITypiaContext
   Config   map[string]any
@@ -32,6 +31,14 @@ type LlmParseProgrammer_DecomposeProps struct {
   Name     *string
 }
 
+// LlmParseProgrammer_IWriteProps is the argument record of
+// LlmParseProgrammer.Write, which builds the `llm.parse` function. Config is the
+// call's literal configuration.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of LlmParseProgrammer.Write, which builds the `llm.parse` function; its 5 fields (Context, Modulo, Metadata, Config, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type LlmParseProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Modulo   *shimast.Node
@@ -113,6 +120,14 @@ func (llmParseProgrammerNamespace) Validate(props struct {
   return LlmParametersProgrammer.Validate(props)
 }
 
+// ImportTypeIParameters returns the import type request that refers to
+// `ILlmSchema.IParameters` of the typia package, using the emit context when one
+// is given.
+//
+// @evidence contracts/common.md#principled-implementation It returns the import type request that refers to `ILlmSchema.IParameters` of the typia package, using the emit context when one is given.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func ImportTypeIParameters(emit ...*shimprinter.EmitContext) nativecontext.ImportProgrammer_TypeProps {
   return nativecontext.ImportProgrammer_TypeProps{
     File: "typia",

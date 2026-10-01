@@ -11,6 +11,15 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Check_dynamic_propertiesProps is the argument record of
+// Check_dynamic_properties, which checks the keys of an object that is exact or
+// has index signatures. Regular holds the entries of the sole-literal keys and
+// Dynamic those of the index signatures.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Check_dynamic_properties, which checks the keys of an object that is exact or has index signatures; its 5 fields (Config, Context, Regular, Dynamic, Input) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type Check_dynamic_propertiesProps struct {
   Config  Check_object_IConfig
   Context nativecontext.ITypiaContext
@@ -19,6 +28,15 @@ type Check_dynamic_propertiesProps struct {
   Input   *shimast.Expression
 }
 
+// Check_dynamic_properties builds the check over an object's keys: for an exact
+// object without index signatures it compares the number of keys with the
+// declared ones, and with index signatures it tests every key that no regular
+// property claims.
+//
+// @evidence contracts/common.md#principled-implementation It builds the check over an object's keys: for an exact object without index signatures it compares the number of keys with the declared ones, and with index signatures it tests every key that no regular property claims.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_dynamic_properties(props Check_dynamic_propertiesProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(check_dynamic_properties_factory, props.Context.Emit)
   length := nativefactories.IdentifierFactory.Access(

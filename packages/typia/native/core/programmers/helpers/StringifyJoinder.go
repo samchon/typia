@@ -15,11 +15,25 @@ type stringifyJoinerNamespace struct{}
 
 var StringifyJoiner = stringifyJoinerNamespace{}
 
+// StringifyJoiner_ObjectProps is the argument record of StringifyJoiner.Object,
+// which builds the JSON text of an object from its property entries.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of StringifyJoiner.Object, which builds the JSON text of an object from its property entries; its 2 fields (Context, Entries) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type StringifyJoiner_ObjectProps struct {
   Context nativecontext.ITypiaContext
   Entries []IExpressionEntry
 }
 
+// StringifyJoiner_ArrayProps is the argument record of StringifyJoiner.Array,
+// which builds the JSON text of an array from its element arrow.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of StringifyJoiner.Array, which builds the JSON text of an array from its element arrow; its 4 fields (Context, Input, Arrow, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type StringifyJoiner_ArrayProps struct {
   Context nativecontext.ITypiaContext
   Input   *shimast.Expression
@@ -27,6 +41,13 @@ type StringifyJoiner_ArrayProps struct {
   Emit    *shimprinter.EmitContext
 }
 
+// StringifyJoiner_TupleProps is the argument record of StringifyJoiner.Tuple,
+// which builds the JSON text of a tuple from its element and rest expressions.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of StringifyJoiner.Tuple, which builds the JSON text of a tuple from its element and rest expressions; its 3 fields (Elements, Rest, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type StringifyJoiner_TupleProps struct {
   Elements []*shimast.Expression
   Rest     *shimast.Expression
@@ -217,21 +238,26 @@ func stringifyJoiner_entry_omittable(entry IExpressionEntry) bool {
     stringifyJoiner_result_undefinable(entry.Meta)
 }
 
-// stringifyJoiner_result_undefinable reports whether a value that is present can
+// StringifyJoiner_ResultUndefinable reports whether a value that is present can
 // still serialize to nothing, which is the case an input test cannot see.
 //
 // `any` and `unknown` are serialized by JSON.stringify, which answers
 // `undefined` for a function, a symbol, and a `toJSON` returning nothing. A
 // declared `toJSON` is the same case without `any`: the member's text is its
 // return value, so a return type that admits `undefined` admits a member with no
-// text (#2253).
-// StringifyJoiner_ResultUndefinable exposes the same question to the element
-// positions the joiner does not build itself, so a tuple slot and an object
+// text (#2253). The joiner and the element positions it does not build itself,
+// such as a tuple slot, ask this one question, so a tuple slot and an object
 // member classify a value identically.
+//
+// @evidence contracts/common.md#principled-implementation A present value can still serialize to nothing, as `any`, `unknown`, a function, a symbol or a `toJSON` that returns undefined can, which an input test cannot see, so the same classifier answers for object members and for tuple slots.
+// @evidence contracts/common.md#clear-and-simple-design A one-line exported delegate over the package-private classifier.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Both positions call one classifier and the rule is not repeated.
+// @evidence contracts/common.md#meaningful-documentation The doc states the cases and cites #2253.
 func StringifyJoiner_ResultUndefinable(meta *nativemetadata.MetadataSchema) bool {
   return stringifyJoiner_result_undefinable(meta)
 }
 
+// stringifyJoiner_result_undefinable implements StringifyJoiner_ResultUndefinable.
 func stringifyJoiner_result_undefinable(meta *nativemetadata.MetadataSchema) bool {
   if meta == nil {
     return false

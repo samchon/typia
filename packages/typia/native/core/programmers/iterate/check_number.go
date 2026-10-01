@@ -10,6 +10,14 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Check_numberProps is the argument record of Check_number, which builds the
+// check entry of a number atomic. Numeric says whether the number is also tested
+// for being finite or not NaN, as the options decide.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Check_number, which builds the check entry of a number atomic; its 4 fields (Numeric, Context, Atomic, Input) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type Check_numberProps struct {
   Numeric bool
   Context nativecontext.ITypiaContext
@@ -17,6 +25,14 @@ type Check_numberProps struct {
   Input   *shimast.Expression
 }
 
+// Check_number builds the check entry of a number atomic: a `typeof input ===
+// "number"` guard, extended by `Number.isFinite` or `!Number.isNaN` when the
+// options ask for it, plus the atomic's type-tag conditions.
+//
+// @evidence contracts/common.md#principled-implementation It builds the check entry of a number atomic: a `typeof input === "number"` guard, extended by `Number.isFinite` or `!Number.isNaN` when the options ask for it, plus the atomic's type-tag conditions.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_number(props Check_numberProps) nativehelpers.ICheckEntry {
   f := nativecontext.EmitFactoryOf(check_number_factory, props.Context.Emit)
   base := f.NewBinaryExpression(

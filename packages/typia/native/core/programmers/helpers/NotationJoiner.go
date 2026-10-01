@@ -12,6 +12,15 @@ type notationJoinerNamespace struct{}
 
 var NotationJoiner = notationJoinerNamespace{}
 
+// NotationJoiner_ObjectProps is the argument record of NotationJoiner.Object,
+// which builds the renamed object. Rename converts a static key, DynamicRename
+// and DynamicAssign build the key conversion and the assignment for a dynamic
+// key, and ThrowCollision builds the error for two keys that convert to one.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of NotationJoiner.Object, which builds the renamed object; its 7 fields (Rename, DynamicRename, DynamicAssign, ThrowCollision, Input, Entries, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 7-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type NotationJoiner_ObjectProps struct {
   Rename         func(str string) string
   DynamicRename  func() *shimast.Node
@@ -22,12 +31,26 @@ type NotationJoiner_ObjectProps struct {
   Emit           *shimprinter.EmitContext
 }
 
+// NotationJoiner_TupleProps is the argument record of NotationJoiner.Tuple,
+// which builds the converted tuple from its element and rest expressions.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of NotationJoiner.Tuple, which builds the converted tuple from its element and rest expressions; its 3 fields (Elements, Rest, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type NotationJoiner_TupleProps struct {
   Elements []*shimast.Expression
   Rest     *shimast.Expression
   Emit     *shimprinter.EmitContext
 }
 
+// NotationJoiner_ArrayProps is the argument record of NotationJoiner.Array,
+// which converts an array by mapping its elements with Arrow.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of NotationJoiner.Array, which converts an array by mapping its elements with Arrow; its 3 fields (Input, Arrow, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type NotationJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression

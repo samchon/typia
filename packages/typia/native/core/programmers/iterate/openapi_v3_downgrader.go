@@ -14,17 +14,20 @@ import (
 // nullable type. None of those exist in 3.0, which spells the same three things
 // as `enum`, `items` + `minItems`/`maxItems`, and the `nullable` flag.
 //
-// This is a port of `@typia/utils`' OpenApiV3Downgrader, which the TypeScript
-// implementation of JsonSchemasProgrammer called through
-// `OpenApiConverter.downgradeComponents` / `downgradeSchema` before the Go port
-// replaced it. The Go transform cannot call into TypeScript, so the two are
-// necessarily separate implementations of one contract; the port is kept
-// deliberately literal so the correspondence stays reviewable, and
+// This is a port of `@typia/utils`' OpenApiV3Downgrader. The Go transform cannot
+// call into TypeScript, so the two are necessarily separate implementations of
+// one contract; the port is kept deliberately literal so the correspondence stays
+// reviewable, and
 // `tests/test-typia-schema/src/features/json.schemas/test_json_schemas_v3_0_parity_converter.ts`
 // pins the two owners against each other on every emitted construct.
 //
 // Only the components-and-schemas surface is ported. The TypeScript owner also
 // downgrades paths, operations, and security schemes, none of which typia emits.
+//
+// @evidence contracts/common.md#principled-implementation It is the working state of OpenApiV3Downgrader; its 2 fields (Original, Downgraded) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type OpenApiV3Downgrader_IComponentsCollection struct {
   // Original is the emended 3.1 collection, read to resolve `$ref` targets
   // while deciding nullability. It is never mutated.
@@ -39,6 +42,11 @@ type OpenApiV3Downgrader_IComponentsCollection struct {
 // downgraded before its own key is registered, so the `X.Nullable` companions
 // that its references create land ahead of it exactly as the TypeScript owner's
 // argument-evaluation order places them.
+//
+// @evidence contracts/common.md#principled-implementation Every schema is downgraded in discovery order before its own key is registered, so the `X.Nullable` companions that its references create land ahead of it, and the input collection is only read.
+// @evidence contracts/common.md#clear-and-simple-design One loop over the ordered keys that delegates each schema to the schema downgrade.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Order comes from the recorded Order and not from sorting.
+// @evidence contracts/common.md#meaningful-documentation The doc states the order and why the companions come first.
 func OpenApiV3Downgrader_downgrade_components(input *OpenApi_IComponents) *OpenApiV3Downgrader_IComponentsCollection {
   collection := &OpenApiV3Downgrader_IComponentsCollection{
     Original:   input,
@@ -67,6 +75,11 @@ func OpenApiV3Downgrader_downgrade_components(input *OpenApi_IComponents) *OpenA
 // into a union of concrete members, the null member is dropped, and the
 // surviving members carry `nullable: true` instead. Constants collapse into the
 // `enum` of a member of the same primitive type.
+//
+// @evidence contracts/common.md#principled-implementation OpenAPI 3.0 has no `const`, null member or union nullability, so the schema is flattened into concrete members, constants are merged into the enum of a member of the same primitive type, the null member becomes a `nullable` flag, a nullable reference is redirected to an `X.Nullable` companion, and a discriminator survives only when each branch stays one member.
+// @evidence contracts/common.md#clear-and-simple-design One recursive function with a visitor over the schema kinds, delegating tuples, objects and nullable references to named helpers.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The rewrite follows the schema kinds and keywords of the dialect and special-cases no type name.
+// @evidence contracts/common.md#meaningful-documentation The doc states the flattening, the null handling and the constant folding.
 func OpenApiV3Downgrader_downgrade_schema(collection *OpenApiV3Downgrader_IComponentsCollection, input JsonSchema) JsonSchema {
   nullable := openApiV3Downgrader_is_nullable(map[string]bool{}, collection.Original, input)
   union := []JsonSchema{}

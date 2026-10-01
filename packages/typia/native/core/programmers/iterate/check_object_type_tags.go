@@ -8,12 +8,27 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Check_object_type_tagsProps is the argument record of Check_object_type_tags,
+// which builds the check entry of an object type's type-tag conditions.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Check_object_type_tags, which builds the check entry of an object type's type-tag conditions; its 3 fields (Context, Object, Input) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type Check_object_type_tagsProps struct {
   Context nativecontext.ITypiaContext
   Object  *nativemetadata.MetadataObject
   Input   *shimast.Expression
 }
 
+// Check_object_type_tags builds the check entry of an object type: its display
+// name as the expected description and its type-tag conditions, with no guard
+// expression of its own.
+//
+// @evidence contracts/common.md#principled-implementation It builds the check entry of an object type: its display name as the expected description and its type-tag conditions, with no guard expression of its own.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_object_type_tags(props Check_object_type_tagsProps) nativehelpers.ICheckEntry {
   conditions := check_object_type_tags(props)
   return nativehelpers.ICheckEntry{

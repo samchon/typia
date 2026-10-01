@@ -14,6 +14,16 @@ type unionExplorerNamespace struct{}
 
 var UnionExplorer = unionExplorerNamespace{}
 
+// UnionExplorer_IExplore is where a union is being explored. Tracable says
+// whether the path of the value is tracked, Source is where the value is checked
+// (`top` or `function`), From is the kind of parent (`top`, `array` or
+// `object`), Postfix is the path suffix and Start is the index offset of a rest
+// element.
+//
+// @evidence contracts/common.md#principled-implementation It is where a union is being explored; its 5 fields (Tracable, Source, From, Postfix, Start) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type UnionExplorer_IExplore struct {
   Tracable bool
   Source   string
@@ -22,10 +32,27 @@ type UnionExplorer_IExplore struct {
   Start    *int
 }
 
+// UnionExplorer_ObjectConfig is the configuration of UnionExplorer.Object, which
+// supplies the object operations.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of UnionExplorer.Object, which supplies the object operations; its 1 members (Objector) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 1-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role.
 type UnionExplorer_ObjectConfig struct {
   Objector UnionExplorer_IObjector
 }
 
+// UnionExplorer_IObjector is the object operations that a feature supplies to
+// UnionExplorer.Object. Checker, Decoder, Unionizer, Failure, Full and Joiner
+// build the feature's checks and results; Is and Required test the input, and
+// Type is the checked type. Joiner is typed any because each feature has its own
+// joiner record.
+//
+// @evidence contracts/common.md#principled-implementation It is the object operations that a feature supplies to UnionExplorer.Object; its 9 members (Checker, Decoder, Joiner, Unionizer, Failure, Is, Required, Full, Type) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 9-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type UnionExplorer_IObjector struct {
   Checker   func(props UnionExplorer_ObjectorCheckerProps) *shimast.Node
   Decoder   func(props UnionExplorer_ObjectorDecoderProps) *shimast.Node
@@ -38,30 +65,68 @@ type UnionExplorer_IObjector struct {
   Type      *shimast.TypeNode
 }
 
+// UnionExplorer_ObjectorCheckerProps is the argument of the Checker operation,
+// which tests an input against one metadata schema. Explore is typed any because
+// the explore state comes in several spellings that unionExplorer_with_tracable
+// normalizes.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Checker operation, which tests an input against one metadata schema; its 3 fields (Metadata, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type UnionExplorer_ObjectorCheckerProps struct {
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
   Explore  any
 }
 
+// UnionExplorer_ObjectorDecoderProps is the argument of the Decoder operation,
+// which decodes an input as one object type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Decoder operation, which decodes an input as one object type; its 3 fields (Input, Object, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ObjectorDecoderProps struct {
   Input   *shimast.Expression
   Object  *nativemetadata.MetadataObjectType
   Explore any
 }
 
+// UnionExplorer_ObjectorUnionizerProps is the argument of the Unionizer
+// operation, which handles several object types that no property can
+// discriminate.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Unionizer operation, which handles several object types that no property can discriminate; its 3 fields (Objects, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ObjectorUnionizerProps struct {
   Objects []*nativemetadata.MetadataObjectType
   Input   *shimast.Expression
   Explore any
 }
 
+// UnionExplorer_ObjectorFailureProps is the argument of the Failure operation,
+// which reports that no object type matched.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Failure operation, which reports that no object type matched; its 3 fields (Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ObjectorFailureProps struct {
   Input    *shimast.Expression
   Expected string
   Explore  any
 }
 
+// UnionExplorer_ObjectorFullProps is the argument of the Full operation, which
+// wraps a matched condition with the expected description.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Full operation, which wraps a matched condition with the expected description; its 4 fields (Condition, Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ObjectorFullProps struct {
   Condition *shimast.Expression
   Input     *shimast.Expression
@@ -69,6 +134,14 @@ type UnionExplorer_ObjectorFullProps struct {
   Explore   any
 }
 
+// UnionExplorer_ObjectProps is the argument record of UnionExplorer.Object,
+// which explores a union of object types. Level is the nesting depth: it grows
+// when the object types left after the first discrimination are explored again.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of UnionExplorer.Object, which explores a union of object types; its 6 fields (Config, Level, Objects, Input, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type UnionExplorer_ObjectProps struct {
   Config  UnionExplorer_ObjectConfig
   Level   int
@@ -78,6 +151,14 @@ type UnionExplorer_ObjectProps struct {
   Emit    *shimprinter.EmitContext
 }
 
+// UnionExplorer_ArrayLikeConfig is the configuration shared by the array, tuple,
+// set and map explorers, which supplies their operations. Empty and Success are
+// the nodes returned for an empty input and for a match.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration shared by the array, tuple, set and map explorers, which supplies their operations; its 6 members (Checker, Candidate, Decoder, Empty, Success, Failure) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 6-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type UnionExplorer_ArrayLikeConfig struct {
   Checker   func(props UnionExplorer_ArrayLikeCheckerProps) *shimast.Node
   Candidate func(props UnionExplorer_ArrayLikeCandidateProps) *shimast.Node
@@ -87,6 +168,13 @@ type UnionExplorer_ArrayLikeConfig struct {
   Failure   func(props UnionExplorer_ArrayLikeFailureProps) *shimast.Node
 }
 
+// UnionExplorer_ArrayLikeCheckerProps is the argument of the Checker operation
+// of an array-like union, which tests one definition against the input.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Checker operation of an array-like union, which tests one definition against the input; its 4 fields (Input, Definition, Explore, Container) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeCheckerProps struct {
   Input      *shimast.Expression
   Definition any
@@ -94,24 +182,53 @@ type UnionExplorer_ArrayLikeCheckerProps struct {
   Container  *shimast.Expression
 }
 
+// UnionExplorer_ArrayLikeDecoderProps is the argument of the Decoder operation
+// of an array-like union, which decodes the input as one definition.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Decoder operation of an array-like union, which decodes the input as one definition; its 3 fields (Input, Definition, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeDecoderProps struct {
   Input      *shimast.Expression
   Definition any
   Explore    any
 }
 
+// UnionExplorer_ArrayLikeCandidateProps is the argument of the Candidate
+// operation of an array-like union, which tests the whole array against one
+// definition before it is decoded.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Candidate operation of an array-like union, which tests the whole array against one definition before it is decoded; its 3 fields (Input, Definition, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeCandidateProps struct {
   Input      *shimast.Expression
   Definition any
   Explore    any
 }
 
+// UnionExplorer_ArrayLikeFailureProps is the argument of the Failure operation
+// of an array-like union, which reports that no definition matched.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Failure operation of an array-like union, which reports that no definition matched; its 3 fields (Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayLikeFailureProps struct {
   Input    *shimast.Expression
   Expected string
   Explore  any
 }
 
+// UnionExplorer_TupleProps is the argument record of UnionExplorer.Tuple, which
+// explores a union of tuple types.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of UnionExplorer.Tuple, which explores a union of tuple types; its 6 fields (Config, Parameters, Input, Tuples, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_TupleProps struct {
   Config     UnionExplorer_ArrayLikeConfig
   Parameters []*shimast.Node
@@ -121,6 +238,13 @@ type UnionExplorer_TupleProps struct {
   Emit       *shimprinter.EmitContext
 }
 
+// UnionExplorer_ArrayProps is the argument record of UnionExplorer.Array, which
+// explores a union of array types.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of UnionExplorer.Array, which explores a union of array types; its 6 fields (Config, Parameters, Input, Arrays, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayProps struct {
   Config     UnionExplorer_ArrayLikeConfig
   Parameters []*shimast.Node
@@ -130,6 +254,14 @@ type UnionExplorer_ArrayProps struct {
   Emit       *shimprinter.EmitContext
 }
 
+// UnionExplorer_ArrayOrTupleProps is the argument record of
+// UnionExplorer.Array_or_tuple, which explores a union of array and tuple
+// definitions in one pass.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of UnionExplorer.Array_or_tuple, which explores a union of array and tuple definitions in one pass; its 6 fields (Config, Parameters, Input, Definitions, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_ArrayOrTupleProps struct {
   Config      UnionExplorer_ArrayLikeConfig
   Parameters  []*shimast.Node
@@ -139,6 +271,13 @@ type UnionExplorer_ArrayOrTupleProps struct {
   Emit        *shimprinter.EmitContext
 }
 
+// UnionExplorer_SetProps is the argument record of UnionExplorer.Set, which
+// explores a union of set types.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of UnionExplorer.Set, which explores a union of set types; its 6 fields (Config, Parameters, Input, Sets, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_SetProps struct {
   Config     UnionExplorer_ArrayLikeConfig
   Parameters []*shimast.Node
@@ -148,6 +287,13 @@ type UnionExplorer_SetProps struct {
   Emit       *shimprinter.EmitContext
 }
 
+// UnionExplorer_MapProps is the argument record of UnionExplorer.Map, which
+// explores a union of map types.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of UnionExplorer.Map, which explores a union of map types; its 6 fields (Config, Parameters, Input, Maps, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type UnionExplorer_MapProps struct {
   Config     UnionExplorer_ArrayLikeConfig
   Parameters []*shimast.Node

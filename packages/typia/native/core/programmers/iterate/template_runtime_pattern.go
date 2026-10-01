@@ -31,6 +31,11 @@ type templateCapture struct {
 // Consumers that only need template membership can share the checker's exact
 // pattern without duplicating its lowering. Runtime tag conditions remain owned
 // by Check_template because they require the checker context and capture map.
+//
+// @evidence contracts/common.md#principled-implementation Other consumers that only need template membership share the checker's own lowering of a template row, and the capture map that the runtime tag conditions need stays with Check_template.
+// @evidence contracts/common.md#clear-and-simple-design One function that discards the capture map of the private lowering.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The pattern is the checker's and is not duplicated.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is shared and what Check_template keeps.
 func TemplateRuntimePattern(row []*nativemetadata.MetadataSchema) string {
   pattern, _ := template_runtime_pattern(row)
   return pattern

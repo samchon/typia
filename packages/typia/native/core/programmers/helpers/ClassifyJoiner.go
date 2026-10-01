@@ -12,6 +12,14 @@ type classifyJoinerNamespace struct{}
 
 var ClassifyJoiner = classifyJoinerNamespace{}
 
+// ClassifyJoiner_ObjectProps is the argument record of ClassifyJoiner.Object,
+// which builds the object that `plain.classify` returns. ClassRef names the
+// class value to instantiate; when it is nil the bare object name is used.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of ClassifyJoiner.Object, which builds the object that `plain.classify` returns; its 5 fields (Input, Entries, Object, ClassRef, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type ClassifyJoiner_ObjectProps struct {
   Input   *shimast.Expression
   Entries []IExpressionEntry

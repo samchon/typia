@@ -14,6 +14,15 @@ type jsonApplicationProgrammerNamespace struct{}
 
 var JsonApplicationProgrammer = jsonApplicationProgrammerNamespace{}
 
+// JsonApplicationProgrammer_IWriteProps is the argument record of
+// JsonApplicationProgrammer.Write, which builds the JSON schema application of a
+// type. Version is the OpenAPI version to emit, and Filter, when set, drops the
+// properties that it rejects.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of JsonApplicationProgrammer.Write, which builds the JSON schema application of a type; its 4 fields (Context, Version, Metadata, Filter) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type JsonApplicationProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Version  string
