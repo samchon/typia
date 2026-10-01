@@ -70,7 +70,19 @@
         "!test-utils-automated/src/features/validate/test_*.ts",
         "!test-utils-automated/src/internal/_test_validate.ts",
         "!test-typia-automated/src/internal/_test_plain_validatePrune.ts",
-        "!test-typia-automated/src/composite/test_plain_validatePrune_ObjectSimple.ts"
+        "!test-typia-automated/src/composite/test_plain_validatePrune_ObjectSimple.ts",
+        "!test-typia-automated/src/features/json.stringify/test_*.ts",
+        "!test-typia-automated/src/features/json.createStringify/test_*.ts",
+        "!test-typia-automated/src/features/plain.clone/test_*.ts",
+        "!test-typia-automated/src/features/plain.createClone/test_*.ts",
+        "!test-typia-automated/src/features/plain.prune/test_*.ts",
+        "!test-typia-automated/src/features/plain.createPrune/test_*.ts",
+        "!test-typia-automated/src/features/http.query/test_*.ts",
+        "!test-typia-automated/src/features/http.createQuery/test_*.ts",
+        "!test-typia-automated/src/features/http.headers/test_*.ts",
+        "!test-typia-automated/src/features/http.createHeaders/test_*.ts",
+        "!test-typia-automated/src/features/http.formData/test_*.ts",
+        "!test-typia-automated/src/features/http.createFormData/test_*.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -188,7 +200,8 @@
         "test-typia-automated/src/build/**/*.ts",
         "test-utils-automated/src/TestAutomation.ts",
         "test-typia-automated/src/generate.ts",
-        "test-utils-automated/src/generate.ts"
+        "test-utils-automated/src/generate.ts",
+        "!test-typia-automated/src/build/writers/write_data_contract.ts"
       ],
       "type": "typescript",
       "symbol": [
@@ -388,6 +401,53 @@
         "files": [
           "contracts/testing.md",
           "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated data operation boundaries",
+      "type": "typescript",
+      "files": [
+        "test-typia-automated/src/features/json.stringify/test_*.ts",
+        "test-typia-automated/src/features/json.createStringify/test_*.ts",
+        "test-typia-automated/src/features/plain.clone/test_*.ts",
+        "test-typia-automated/src/features/plain.createClone/test_*.ts",
+        "test-typia-automated/src/features/plain.prune/test_*.ts",
+        "test-typia-automated/src/features/plain.createPrune/test_*.ts",
+        "test-typia-automated/src/features/http.query/test_*.ts",
+        "test-typia-automated/src/features/http.createQuery/test_*.ts",
+        "test-typia-automated/src/features/http.headers/test_*.ts",
+        "test-typia-automated/src/features/http.createHeaders/test_*.ts",
+        "test-typia-automated/src/features/http.formData/test_*.ts",
+        "test-typia-automated/src/features/http.createFormData/test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "data contract rendering owner",
+      "type": "typescript",
+      "files": [
+        "test-typia-automated/src/build/writers/write_data_contract.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/performance.md"
         ],
         "symbol": "h2",
         "checklist": true

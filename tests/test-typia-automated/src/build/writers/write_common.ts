@@ -1,5 +1,6 @@
 import { NamingConvention, dedent } from "@typia/utils";
 
+import { write_data_contract } from "./write_data_contract";
 import { write_validation_contract } from "./write_validation_contract";
 
 export const write_common =
@@ -20,7 +21,7 @@ export const write_common =
           : p.method,
       })}";
 
-      ${write_validation_contract(p, structure)}
+      ${write_validation_contract(p, structure) || write_data_contract(p, structure)}
       export const ${file(p)}_${structure} = (): ${
         p.asynchronous === true ? "Promise<void>" : "void"
       } => _${file({
