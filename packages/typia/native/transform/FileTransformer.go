@@ -46,43 +46,38 @@ type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
 
 var fileTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-// Transform builds the per-file transformer of a host. The returned function
-// ignores its argument and exists for the curried call shape of the callers.
-// Every file gets its own importer, a TransformerError raised while a node is
+// Transform builds the per-file transformer of a host. Every file gets its own importer, a TransformerError raised while a node is
 // transformed becomes a diagnostic and leaves the node unchanged, and the
 // importer's statements are inserted after the leading directive prologue.
-func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironments) func(transformer any) FileTransformer_Type {
+func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironments) FileTransformer_Type {
   shared := environments.Extras.Shared
   if shared == nil {
     shared = &sync.Map{}
   }
-  return func(transformer any) FileTransformer_Type {
-    return func(file *shimast.SourceFile) *shimast.SourceFile {
-      if file == nil || file.IsDeclarationFile {
-        return file
-      }
-      importer := nativecontext.NewImportProgrammer(nativecontext.ImportProgrammer_IOptions{
-        InternalPrefix: "typia_transform_",
-        Runtime:        environments.Options.Runtime,
-      })
-      if environments.EmitContext != nil {
-        importer.SetEmitContext(environments.EmitContext)
-      }
-      context := nativecontext.ITypiaContext{
-        Program:         fileTransformer_program(environments.Program),
-        CompilerOptions: fileTransformer_compilerOptions(environments.CompilerOptions),
-        Checker:         fileTransformer_checker(environments.Checker),
-        Options:         environments.Options,
-        Emit:            environments.EmitContext,
-        Importer:        importer,
-        Extras:          environments.Extras,
-        Shared:          shared,
-      }
-      _ = transformer
-      visited := fileTransformer_iterate_file(context, file)
-      result := fileTransformer_inject_imports(visited, importer.ToStatements(), environments.EmitContext)
-      return result
+  return func(file *shimast.SourceFile) *shimast.SourceFile {
+    if file == nil || file.IsDeclarationFile {
+      return file
     }
+    importer := nativecontext.NewImportProgrammer(nativecontext.ImportProgrammer_IOptions{
+      InternalPrefix: "typia_transform_",
+      Runtime:        environments.Options.Runtime,
+    })
+    if environments.EmitContext != nil {
+      importer.SetEmitContext(environments.EmitContext)
+    }
+    context := nativecontext.ITypiaContext{
+      Program:         fileTransformer_program(environments.Program),
+      CompilerOptions: fileTransformer_compilerOptions(environments.CompilerOptions),
+      Checker:         fileTransformer_checker(environments.Checker),
+      Options:         environments.Options,
+      Emit:            environments.EmitContext,
+      Importer:        importer,
+      Extras:          environments.Extras,
+      Shared:          shared,
+    }
+    visited := fileTransformer_iterate_file(context, file)
+    result := fileTransformer_inject_imports(visited, importer.ToStatements(), environments.EmitContext)
+    return result
   }
 }
 

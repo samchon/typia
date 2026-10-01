@@ -41,7 +41,7 @@ export const value = 1;
   if file == nil {
     t.Fatal("source file parse failed")
   }
-  transformer := FileTransformer.Transform(FileTransformer_IEnvironments{})(nil)
+  transformer := FileTransformer.Transform(FileTransformer_IEnvironments{})
   if transformer(nil) != nil {
     t.Fatal("nil source file should remain nil")
   }

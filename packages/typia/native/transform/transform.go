@@ -43,7 +43,7 @@ func Transform(program *driver.Program, options *nativecontext.ITransformOptions
     Options:         opt,
     Extras:          extras,
     EmitContext:     ec,
-  })(nil))
+  }))
 }
 
 func transform_compilerOptions(program *driver.Program) *shimcore.CompilerOptions {
