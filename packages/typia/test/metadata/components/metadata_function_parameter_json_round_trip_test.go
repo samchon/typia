@@ -16,6 +16,11 @@ import (
 // 1. Build function metadata with one documented parameter.
 // 2. Convert the function metadata to JSON and back.
 // 3. Assert parameter name, async flag, and output metadata are preserved.
+//
+// @evidence contracts/testing.md#behavioral-verification Function metadata with an async flag, boolean output and one documented parameter is converted to JSON and back; the flag, output name, parameter name, type and description are compared.
+// @evidence contracts/testing.md#independent-expectations The authored construction values are the expectation, so a dropped field fails independently of the converter.
+// @evidence contracts/testing.md#distinguishing-cases One function with one parameter; functions without parameters or descriptions are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It converts in memory with no filesystem fixture, process or native command build.
 func TestMetadataFunctionParameterJSONRoundTrip(t *testing.T) {
 	description := "input value"
 	fn := metadata.MetadataFunction_from(metadata.MetadataFunction_create(metadata.MetadataFunction{

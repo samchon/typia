@@ -17,6 +17,11 @@ import (
 // 2. Assert it occupies one metadata slot and one bucket.
 // 3. Assert it stays required.
 // 4. Assert the sole-literal accessor returns the original string.
+//
+// @evidence contracts/testing.md#behavioral-verification Size, Bucket, IsRequired and IsSoleLiteral are read on a one-value string literal schema.
+// @evidence contracts/testing.md#independent-expectations A property-key literal has one slot, one bucket, is required and returns its value; these are authored from the key representation.
+// @evidence contracts/testing.md#distinguishing-cases One literal schema; multi-value and non-string literals are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It constructs metadata and reads accessors directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaSoleLiteralAndSize(t *testing.T) {
 	literal := testutil.StringLiteralMetadata("member_id")
 

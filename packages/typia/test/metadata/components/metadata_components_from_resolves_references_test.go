@@ -18,6 +18,11 @@ import (
 // 2. Convert them into runtime components.
 // 3. Assert every named component is present in the dictionary.
 // 4. Assert JSON conversion preserves the same component counts.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataComponents_from loads authored DTOs for an object, alias, array and tuple, and the dictionary membership and the counts of ToJSON are asserted.
+// @evidence contracts/testing.md#independent-expectations Each component name and the count of one per kind are authored in the DTO input; nothing is taken from the loader's output except the checks themselves.
+// @evidence contracts/testing.md#distinguishing-cases One component of each kind separates the two restoration passes; recursive components and unresolved references are not covered by this case.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It converts DTOs in memory with no filesystem fixture, process or native command build.
 func TestMetadataComponentsFromResolvesReferences(t *testing.T) {
 	components := metadata.MetadataComponents_from(metadata.IMetadataComponents{
 		Objects: []metadata.IMetadataSchema_IObjectType{{

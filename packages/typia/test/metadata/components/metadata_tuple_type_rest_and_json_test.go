@@ -16,6 +16,11 @@ import (
 // 1. Build a tuple type whose final element contains rest metadata.
 // 2. Assert the tuple is recognized as a rest tuple.
 // 3. Convert it to JSON and assert both elements are serialized.
+//
+// @evidence contracts/testing.md#behavioral-verification IsRest and ToJSON are called on a tuple whose final element carries rest metadata.
+// @evidence contracts/testing.md#independent-expectations A tuple is a rest tuple exactly when its last element has rest metadata; the authored tuple and the two expected elements follow that definition.
+// @evidence contracts/testing.md#distinguishing-cases Only the positive rest tuple is asserted; the non-rest negative is not asserted here.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It builds and converts the tuple in memory with no filesystem fixture, process or native command build.
 func TestMetadataTupleTypeRestAndJSON(t *testing.T) {
 	tuple := metadata.MetadataTupleType_create(metadata.MetadataTupleType{
 		Name: "PairRest",

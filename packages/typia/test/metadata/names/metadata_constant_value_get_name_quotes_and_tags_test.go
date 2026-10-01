@@ -17,6 +17,11 @@ import (
 // 2. Assert its name uses JSON string escaping.
 // 3. Build a tagged constant value.
 // 4. Assert the tag name is appended to the literal display name.
+//
+// @evidence contracts/testing.md#behavioral-verification GetName on a string constant containing a quote and newline and on a tagged constant returns exact strings.
+// @evidence contracts/testing.md#independent-expectations JSON string escaping defines the quoted spelling and the tag format defines the intersection; both expected strings are authored.
+// @evidence contracts/testing.md#distinguishing-cases An escaping case and a tagged case; numeric constants are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads names from constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataConstantValueGetNameQuotesAndTags(t *testing.T) {
 	quoted := metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{Value: "a\"\n"})
 	if got := quoted.GetName(); got != "\"a\\\"\\n\"" {

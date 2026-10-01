@@ -19,6 +19,11 @@ import (
 // 2. Reject non-literal property keys and nullable values.
 // 3. Accept a one-level nested plain object.
 // 4. Reject the same nested object when the recursion level is already one.
+//
+// @evidence contracts/testing.md#behavioral-verification The plain-object predicate runs on recursive, ten-property, non-literal-key, nullable, one-level nested and depth-limited objects.
+// @evidence contracts/testing.md#independent-expectations The documented plainness limits (non-recursive, small, literal keys, non-nullable, one nesting level) define the verdicts; shapes are authored.
+// @evidence contracts/testing.md#distinguishing-cases Four rejections, one accepted nested object and the same object rejected at the depth limit isolate each condition.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the predicate on constructed types with no filesystem fixture, process or native command build.
 func TestMetadataObjectTypePlainObjectEdges(t *testing.T) {
 	recursive := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
 		Name:      "__type.recursive",

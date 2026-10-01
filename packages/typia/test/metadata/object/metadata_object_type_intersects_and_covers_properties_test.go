@@ -18,6 +18,11 @@ import (
 // 2. Assert they intersect by property name.
 // 3. Assert equal property sets cover each other.
 // 4. Assert a smaller property set does not cover a larger one.
+//
+// @evidence contracts/testing.md#behavioral-verification Intersects and covers are called on object types sharing an id property, equal property sets and a smaller set.
+// @evidence contracts/testing.md#independent-expectations Property-name overlap and set containment are the authored rules; verdicts are literals.
+// @evidence contracts/testing.md#distinguishing-cases Shared name, equal sets and strictly smaller set cover positive and negative directions; disjoint objects are not asserted.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported methods on constructed types with no filesystem fixture, process or native command build.
 func TestMetadataObjectTypeIntersectsAndCoversProperties(t *testing.T) {
   left := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
     Name: "Left",

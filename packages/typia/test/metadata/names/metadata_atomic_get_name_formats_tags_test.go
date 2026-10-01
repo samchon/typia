@@ -16,6 +16,11 @@ import (
 // 1. Build untagged atomic metadata and assert its bare name.
 // 2. Build a one-row tagged atomic and assert intersection formatting.
 // 3. Build a multi-row tagged atomic and assert union formatting.
+//
+// @evidence contracts/testing.md#behavioral-verification GetName on bare, one-row tagged and multi-row tagged atomic metadata returns exact strings.
+// @evidence contracts/testing.md#independent-expectations The expected formats (number & Minimum & Maximum) and the union of intersections are authored literals following the tag-name rule.
+// @evidence contracts/testing.md#distinguishing-cases Bare, single-row and multi-row cases flip the intersection versus union formatting.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads names from constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataAtomicGetNameFormatsTags(t *testing.T) {
 	if got := metadata.MetadataAtomic_create(metadata.MetadataAtomic{Type: "string"}).GetName(); got != "string" {
 		t.Fatalf("unexpected bare atomic name: %q", got)

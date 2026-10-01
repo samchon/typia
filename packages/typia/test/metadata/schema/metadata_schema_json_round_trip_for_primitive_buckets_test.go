@@ -20,6 +20,11 @@ import (
 // 2. Convert it to the JSON DTO and back.
 // 3. Assert required and nullable flags are preserved.
 // 4. Assert every primitive bucket survives with the original values.
+//
+// @evidence contracts/testing.md#behavioral-verification ToJSON followed by MetadataSchema_from preserves required, nullable, size and the atomic, constant and native buckets of an authored schema.
+// @evidence contracts/testing.md#independent-expectations The round trip must return the authored values; the expected values are the construction inputs, which are independent of the converter.
+// @evidence contracts/testing.md#distinguishing-cases One schema with the three primitive bucket kinds and both flags; bucket kinds needing a dictionary are owned by the components cases.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It converts in memory with no filesystem fixture, process or native command build.
 func TestMetadataSchemaJSONRoundTripForPrimitiveBuckets(t *testing.T) {
 	meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
 		Required: true,

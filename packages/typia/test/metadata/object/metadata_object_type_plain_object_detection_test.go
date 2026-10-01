@@ -20,6 +20,11 @@ import (
 // 2. Assert it is treated as both plain and literal.
 // 3. Make one property optional.
 // 4. Assert the object is no longer plain.
+//
+// @evidence contracts/testing.md#behavioral-verification The plain-object and literal predicates run on a required-atomic literal object and again after one property becomes optional.
+// @evidence contracts/testing.md#independent-expectations A plain object needs literal keys and required values; the authored shape and its one-axis change give the expected verdicts.
+// @evidence contracts/testing.md#distinguishing-cases The happy path and the optional flip are the pair; the other disqualifiers are owned by the edges case.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the predicates on constructed types with no filesystem fixture, process or native command build.
 func TestMetadataObjectTypePlainObjectDetection(t *testing.T) {
 	object := metadata.MetadataObjectType_create(metadata.MetadataObjectType{
 		Name: "__type-o1",

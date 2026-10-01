@@ -16,6 +16,11 @@ import (
 // 1. Assert the {true, false} constant pair covers atomic boolean.
 // 2. Assert a sole boolean literal does not cover atomic boolean.
 // 3. Assert atomic boolean still covers the literal pair.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_covers compares the {true, false} literal pair, a sole boolean literal and atomic boolean in both directions; a missing exhaustiveness rule or a sole literal that covers boolean fails.
+// @evidence contracts/testing.md#independent-expectations true | false accepts exactly the values boolean accepts, while true alone accepts fewer; the three authored booleans follow that value-set reasoning.
+// @evidence contracts/testing.md#distinguishing-cases The exhaustive pair covering atomic is the positive case, the single literal not covering is its one-axis negative, and atomic covering the pair is the reverse direction. Other literal types are not covered here.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported coverage function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaCoversBooleanLiteralPair(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.ConstantMetadata("boolean", true, false),

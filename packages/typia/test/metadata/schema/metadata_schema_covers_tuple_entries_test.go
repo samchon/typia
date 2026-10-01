@@ -21,6 +21,11 @@ import (
 //  6. Assert empty tuple targets and rest wrappers cannot fall through.
 //  7. Assert source tuple rest elements cover fixed target tail elements and
 //     align with compatible target rest tails only.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_covers compares tuples: compatible and mismatched elements, repeated extra elements, empty tuple targets and rest tuples; each Fatal names the tuple relation it protects.
+// @evidence contracts/testing.md#independent-expectations Element-wise containment, the repeated-extra-element rule and rest semantics define the expected booleans; the tuples are constructed in the test with literal element schemas.
+// @evidence contracts/testing.md#distinguishing-cases Positive and negative pairs exist for plain elements, repeated extras (including wrapping across several extras and reused element pointers), empty targets and rest tuples.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It builds tuple metadata with local helpers and calls the exported coverage function directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaCoversTupleEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.TupleMetadata(testutil.AtomicMetadata("number")),

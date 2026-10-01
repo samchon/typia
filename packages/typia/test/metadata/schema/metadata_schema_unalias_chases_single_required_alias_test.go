@@ -17,6 +17,11 @@ import (
 // 2. Wrap it in a required schema containing only that alias.
 // 3. Unalias the wrapper.
 // 4. Assert the returned metadata is the alias value.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_unalias is called on a required schema holding one alias of string atomic metadata and the returned value is compared with the alias value.
+// @evidence contracts/testing.md#independent-expectations The documented collapse of a single required alias gives the alias value as the expectation.
+// @evidence contracts/testing.md#distinguishing-cases Only the collapsing case is asserted; the nullable, optional and multi-bucket cases the helper leaves intact are not asserted by this test.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It constructs metadata and calls the helper directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaUnaliasChasesSingleRequiredAlias(t *testing.T) {
 	target := testutil.AtomicMetadata("string")
 	alias := metadata.MetadataAliasType_create(metadata.MetadataAliasType{

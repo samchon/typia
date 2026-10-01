@@ -15,6 +15,11 @@ import (
 // 1. Build alias, array, object, and tuple DTO shells.
 // 2. Construct runtime component shells without child schemas.
 // 3. Assert names, recursive flags, and nullability vectors are preserved.
+//
+// @evidence contracts/testing.md#behavioral-verification The without-value constructors for alias, array, object and tuple shells are called and their names, recursive flags, nullability vectors and empty children are compared.
+// @evidence contracts/testing.md#independent-expectations The authored DTO fields are the expected values and the shell contract is that children are absent until resolution.
+// @evidence contracts/testing.md#distinguishing-cases Four shell kinds with recursive flags and nullability vectors of differing length; shells with children supplied are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It constructs shells in memory with no filesystem fixture, process or native command build.
 func TestMetadataTypeWithoutValueConstructors(t *testing.T) {
 	alias := metadata.MetadataAliasType__From_without_value(metadata.IMetadataSchema_IAliasType{
 		Name: "Alias",

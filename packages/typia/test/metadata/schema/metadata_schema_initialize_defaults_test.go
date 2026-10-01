@@ -16,6 +16,11 @@ import (
 // 1. Initialize metadata with parent resolution enabled.
 // 2. Assert required, optional, nullable, and parent flags.
 // 3. Assert all primary bucket slices are initialized empty.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_initialize is called and its flags, bucket slices and emptiness are asserted.
+// @evidence contracts/testing.md#independent-expectations The documented initializer contract (required, not optional, not nullable, empty non-nil slices) supplies the expected values as literals.
+// @evidence contracts/testing.md#distinguishing-cases One initialization with parent resolution enabled; the disabled variant and non-default flags are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported initializer directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaInitializeDefaults(t *testing.T) {
 	meta := metadata.MetadataSchema_initialize(true)
 

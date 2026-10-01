@@ -16,6 +16,11 @@ import (
 // 1. Build array, object, and alias references with one tag row.
 // 2. Read each generated metadata name.
 // 3. Assert every name contains the base reference and tag.
+//
+// @evidence contracts/testing.md#behavioral-verification GetName on array, object and alias references with one tag row returns an exact string for each.
+// @evidence contracts/testing.md#independent-expectations The expected strings such as (UserArray & MinItems) are authored from the documented reference-name format.
+// @evidence contracts/testing.md#distinguishing-cases Three reference kinds share one format; multi-row tags are owned by the atomic and native name cases.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads names from constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataArrayObjectAliasGetNameWithTags(t *testing.T) {
 	array := metadata.MetadataArray_create(metadata.MetadataArray{
 		Type: metadata.MetadataArrayType_create(metadata.MetadataArrayType{

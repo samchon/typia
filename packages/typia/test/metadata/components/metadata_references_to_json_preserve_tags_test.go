@@ -16,6 +16,11 @@ import (
 // 1. Build array, tuple, object, and alias references with one tag each.
 // 2. Convert each reference to JSON.
 // 3. Assert the reference name and first tag name are preserved.
+//
+// @evidence contracts/testing.md#behavioral-verification ToJSON runs on array, tuple, object and alias references each carrying one named tag, and the exact reference name and tag name of every result are compared.
+// @evidence contracts/testing.md#independent-expectations Names (Items, Pair, User, UserId) and tags (ArrayTag, TupleTag, ObjectTag, AliasTag) are authored constants in the test.
+// @evidence contracts/testing.md#distinguishing-cases Four reference kinds each own one tag row; multiple tag rows and tag values are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It converts in memory with no filesystem fixture, process or native command build.
 func TestMetadataReferencesToJSONPreserveTags(t *testing.T) {
 	array := metadata.MetadataArray_create(metadata.MetadataArray{
 		Type: metadata.MetadataArrayType_create(metadata.MetadataArrayType{Name: "Items", Value: testutil.AtomicMetadata("string")}),
@@ -34,10 +39,19 @@ func TestMetadataReferencesToJSONPreserveTags(t *testing.T) {
 		Tags: [][]metadata.IMetadataTypeTag{{testutil.NamedTag("AliasTag")}},
 	}).ToJSON()
 
-	cases := []metadata.IMetadataSchema_IReference{array, tuple, object, alias}
-	for _, ref := range cases {
-		if ref.Name == "" || len(ref.Tags) != 1 || len(ref.Tags[0]) != 1 || ref.Tags[0][0].Name == "" {
-			t.Fatalf("reference JSON lost name or tag: %#v", ref)
+	cases := []struct {
+		ref  metadata.IMetadataSchema_IReference
+		name string
+		tag  string
+	}{
+		{array, "Items", "ArrayTag"},
+		{tuple, "Pair", "TupleTag"},
+		{object, "User", "ObjectTag"},
+		{alias, "UserId", "AliasTag"},
+	}
+	for _, c := range cases {
+		if c.ref.Name != c.name || len(c.ref.Tags) != 1 || len(c.ref.Tags[0]) != 1 || c.ref.Tags[0][0].Name != c.tag {
+			t.Fatalf("reference JSON lost name %q or tag %q: %#v", c.name, c.tag, c.ref)
 		}
 	}
 }
