@@ -1,3 +1,4 @@
+import { isErrorClass } from "@typia/oracle/error-class";
 import { TestStructure } from "@typia/template";
 import { NamingConvention } from "@typia/utils";
 import typia, { AssertionGuard, TypeGuardError } from "typia";
@@ -13,7 +14,7 @@ export const _test_assertGuardEquals =
       assertEquals(input);
     } catch (exp) {
       if (
-        (exp as Function).constructor?.name === ErrorClass.name &&
+        isErrorClass(exp, ErrorClass) &&
         typia.is<TypeGuardError.IProps>(exp)
       ) {
         throw new Error(
@@ -51,7 +52,7 @@ export const _test_assertGuardEquals =
         );
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp) &&
           (exp.method === "typia.assertGuardEquals" ||
             exp.method === "typia.createAssertGuardEquals") &&
@@ -63,7 +64,7 @@ export const _test_assertGuardEquals =
           delete value[key];
           continue;
         } else if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         ) {
           console.log({

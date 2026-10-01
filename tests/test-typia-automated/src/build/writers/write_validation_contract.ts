@@ -34,15 +34,15 @@ export const write_validation_contract = (
     },
     assert: {
       behavior:
-        "_test_assert requires the clean input identity and rejects every spoiled input with the expected constructor name, diagnostic property shape and a path belonging to that spoiler's authored path set. It asserts one reported path, not every possible invalid leaf.",
+        "_test_assert requires the clean input identity and rejects every spoiled input with an error whose prototype is the expected class, diagnostic property shape and a path belonging to that spoiler's authored path set. It asserts one reported path, not every possible invalid leaf.",
       oracle:
-        "Fixture spoilers independently define invalid input and allowed diagnostic paths. The helper additionally uses typia.is for TypeGuardError property consistency; that generated check is not an independent error-shape oracle or a proof of constructor identity.",
+        "Fixture spoilers independently define invalid input and allowed diagnostic paths. The helper additionally uses typia.is for TypeGuardError property consistency; that generated check is not an independent error-shape oracle.",
     },
     assertGuard: {
       behavior:
-        "_test_assertGuard requires clean input acceptance and rejects each spoiled input with the expected constructor name, diagnostic property shape and one authored spoiler path. Guard calls have no return-identity assertion.",
+        "_test_assertGuard requires clean input acceptance and rejects each spoiled input with an error whose prototype is the expected class, diagnostic property shape and one authored spoiler path. Guard calls have no return-identity assertion.",
       oracle:
-        "The fixture and its mutations supply acceptance/rejection and allowed paths independently. The additional typia.is diagnostic-property check shares the native producer and does not prove constructor identity or independently establish error shape.",
+        "The fixture and its mutations supply acceptance/rejection and allowed paths independently. The additional typia.is diagnostic-property check shares the native producer and does not independently establish error shape.",
     },
     validate: {
       behavior:
@@ -64,15 +64,15 @@ export const write_validation_contract = (
     },
     assertEquals: {
       behavior:
-        "_test_assertEquals requires clean input identity, then injects one surplus member into each reachable object in turn and requires an exception with the selected constructor name, permitted method, an independently traced path, expected undefined and the injected value. It removes each key after the accepted exception; it does not apply fixture SPOILERS.",
+        "_test_assertEquals requires clean input identity, then injects one surplus member into each reachable object in turn and requires an exception whose prototype is the selected class, permitted method, an independently traced path, expected undefined and the injected value. It removes each key after the accepted exception; it does not apply fixture SPOILERS.",
       oracle:
-        "The fixture and helper-owned surplus keys establish acceptance and rejection independently. Private traversal records object identities and reachable paths, while NamingConvention supplies accessor quoting; that formatter is not independently verified here. Constructor-name and generated typia.is property checks do not prove constructor identity or independently certify error shape. Random choice of identifier versus quoted surplus keys does not guarantee both choices in one run.",
+        "The fixture and helper-owned surplus keys establish acceptance and rejection independently. Private traversal records object identities and reachable paths, while NamingConvention supplies accessor quoting; that formatter is not independently verified here. The generated typia.is property check does not independently certify error shape. Random choice of identifier versus quoted surplus keys does not guarantee both choices in one run.",
     },
     assertGuardEquals: {
       behavior:
-        "_test_assertGuardEquals requires clean acceptance without a return-value assertion, then injects one surplus member into each reachable object in turn and requires the selected constructor name, permitted method, traced path, expected undefined and injected value. It removes the member after an accepted exception; it does not apply fixture SPOILERS.",
+        "_test_assertGuardEquals requires clean acceptance without a return-value assertion, then injects one surplus member into each reachable object in turn and requires an exception whose prototype is the selected class, permitted method, traced path, expected undefined and injected value. It removes the member after an accepted exception; it does not apply fixture SPOILERS.",
       oracle:
-        "The authored clean fixture and injected surplus member establish the expected decisions. Private traversal tracks object identities and reachable paths; its NamingConvention quoting shares the product formatter. The extra generated typia.is property check and constructor-name comparison do not independently prove error shape or constructor identity. Random key spelling does not promise both accessor forms in one execution.",
+        "The authored clean fixture and injected surplus member establish the expected decisions. Private traversal tracks object identities and reachable paths; its NamingConvention quoting shares the product formatter. The extra generated typia.is property check does not independently prove error shape. Random key spelling does not promise both accessor forms in one execution.",
     },
     validateEquals: {
       behavior:

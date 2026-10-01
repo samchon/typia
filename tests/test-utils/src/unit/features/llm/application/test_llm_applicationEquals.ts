@@ -14,9 +14,9 @@ import { HttpLlm } from "@typia/utils";
  * 3. Check valid, wrong-type, missing-field and surplus-field inputs in both
  *    modes.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct HttpLlm.application composition and its function.validate closure must reject a surplus body property in equals mode while accepting the same input in ordinary mode. The original result-success and result-errors assertions remain.
+ * @evidence contracts/testing.md#behavioral-verification Direct HttpLlm.application composition and its function.validate closure must reject a surplus body property in equals mode while accepting the same input in ordinary mode.
  * @evidence contracts/testing.md#independent-expectations The authored OpenAPI schema requires one numeric value field, and IHttpLlmApplication.IConfig.equals defines rejection of surplus properties. Literal input and diagnostic expectations follow those contracts rather than another validator's output.
- * @evidence contracts/testing.md#distinguishing-cases The same body is checked with equals true and false. Clean numeric data succeeds, surplus data differs only by equals mode, and missing or string-valued required data fails in both modes; the original undefined expectation remains checked on strict surplus rejection.
+ * @evidence contracts/testing.md#distinguishing-cases The same body is checked with equals true and false. Clean numeric data succeeds, surplus data differs only by equals mode, and missing or string-valued required data fails in both modes; strict surplus rejection also checks the undefined result data.
  * @evidence contracts/testing.md#execution-ownership The exported test_llm_applicationEquals case is registered by test-utils test:unit node:test runner under its plugin-free configuration. HttpLlm and the independent oracle are called directly; no schema producer, installed consumer, HTTP transport or native artifact is needed.
  */
 export const test_llm_applicationEquals = (): void => {

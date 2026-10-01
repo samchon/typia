@@ -1,4 +1,5 @@
 import { prepareClone } from "@typia/oracle/clone";
+import { isErrorClass } from "@typia/oracle/error-class";
 import { TestStructure } from "@typia/template";
 import typia, { Resolved, TypeGuardError } from "typia";
 
@@ -47,7 +48,7 @@ export const _test_plain_assertClone =
         clone(elem);
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         )
           if (exp.path && expected.includes(exp.path) === true) continue;

@@ -1,3 +1,4 @@
+import { isErrorClass } from "@typia/oracle/error-class";
 import { TestStructure } from "@typia/template";
 import typia, { TypeGuardError } from "typia";
 
@@ -13,7 +14,7 @@ export const _test_assert =
       if (input !== output)
         throw new Error("Bug on typia.assert(): failed to return input value.");
     } catch (exp) {
-      if ((exp as Function).constructor?.name === ErrorClass.name) {
+      if (isErrorClass(exp, ErrorClass)) {
         console.log(exp);
         throw new Error(
           `Bug on typia.assert(): failed to understand the ${name} type.`,
@@ -29,7 +30,7 @@ export const _test_assert =
         assert(elem);
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         ) {
           if (exp.path && expected.includes(exp.path) === true) continue;

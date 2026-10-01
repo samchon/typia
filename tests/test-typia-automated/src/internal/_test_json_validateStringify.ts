@@ -1,13 +1,16 @@
+import { prepareStringify } from "@typia/oracle/stringify";
 import { TestStructure } from "@typia/template";
 import typia from "typia";
-
-import { primitive_equal_to } from "../utils/primitive_equal_to";
 
 export const _test_json_validateStringify =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (stringify: (input: T) => typia.IValidation<string>): void => {
     const input: T = factory.generate();
+    const check = prepareStringify(
+      input,
+      `Bug on typia.json.validateStringify(): failed to understand the ${name} type.`,
+    );
     const valid: typia.IValidation<string> = stringify(input);
     if (valid.success === false)
       throw new Error(
@@ -15,11 +18,7 @@ export const _test_json_validateStringify =
       );
 
     typia.assertEquals(valid);
-    if (predicate(input, valid.data) === false) {
-      throw new Error(
-        `Bug on typia.json.validateStringify(): failed to understand the ${name} type.`,
-      );
-    }
+    check(valid.data);
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {
@@ -56,21 +55,4 @@ export const _test_json_validateStringify =
 interface ISpoiled {
   expected: string[];
   actual: string[];
-}
-
-function predicate<T>(data: any, optimized: string): boolean {
-  // SPECIAL CASE, UNDEFINED
-  if (
-    optimized === undefined &&
-    (data === undefined ||
-      typeof data === "function" ||
-      (data.toJSON && data.toJSON() === undefined))
-  )
-    return true;
-
-  // DO COMPARE
-  const parsed: T = JSON.parse(optimized);
-  const expected: T = JSON.parse(JSON.stringify(data));
-
-  return primitive_equal_to(parsed, expected);
 }

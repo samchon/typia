@@ -1,3 +1,4 @@
+import { isErrorClass } from "@typia/oracle/error-class";
 import { TestStructure } from "@typia/template";
 import { NamingConvention } from "@typia/utils";
 import typia, { TypeGuardError } from "typia";
@@ -17,7 +18,7 @@ export const _test_assertEquals =
           "Bug on typia.assertEquals(): failed to return input value.",
         );
     } catch (exp) {
-      if ((exp as Function).constructor?.name === ErrorClass.name) {
+      if (isErrorClass(exp, ErrorClass)) {
         throw new Error(
           `Bug on typia.assertEquals(): failed to understand the ${name} type.`,
         );
@@ -53,7 +54,7 @@ export const _test_assertEquals =
         );
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp) &&
           (exp.method === "typia.assertEquals" ||
             exp.method === "typia.createAssertEquals") &&
@@ -65,7 +66,7 @@ export const _test_assertEquals =
           delete value[key];
           continue;
         } else if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         ) {
           console.log({

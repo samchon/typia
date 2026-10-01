@@ -1,7 +1,7 @@
+import { isErrorClass } from "@typia/oracle/error-class";
+import { prepareStringify } from "@typia/oracle/stringify";
 import { TestStructure } from "@typia/template";
 import typia, { TypeGuardError } from "typia";
-
-import { primitive_equal_to } from "../utils/primitive_equal_to";
 
 export const _test_json_assertStringify =
   (ErrorClass: Function) =>
@@ -9,13 +9,11 @@ export const _test_json_assertStringify =
   <T>(factory: TestStructure<T>) =>
   (stringify: (input: T) => string): void => {
     const data: T = factory.generate();
-    const optimized: string = stringify(data);
-
-    if (predicate(data, optimized) === false) {
-      throw new Error(
-        `Bug on typia.json.assertStringify(): failed to understand the ${name} type.`,
-      );
-    }
+    const check = prepareStringify(
+      data,
+      `Bug on typia.json.assertStringify(): failed to understand the ${name} type.`,
+    );
+    check(stringify(data));
 
     for (const spoil of factory.SPOILERS ?? []) {
       const elem: T = factory.generate();
@@ -25,7 +23,7 @@ export const _test_json_assertStringify =
         stringify(elem);
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         )
           if (exp.path && expected.includes(exp.path) === true) continue;
@@ -40,20 +38,3 @@ export const _test_json_assertStringify =
       );
     }
   };
-
-function predicate<T>(data: any, optimized: string): boolean {
-  // SPECIAL CASE, UNDEFINED
-  if (
-    optimized === undefined &&
-    (data === undefined ||
-      typeof data === "function" ||
-      (data.toJSON && data.toJSON() === undefined))
-  )
-    return true;
-
-  // DO COMPARE
-  const parsed: T = JSON.parse(optimized);
-  const expected: T = JSON.parse(JSON.stringify(data));
-
-  return primitive_equal_to(parsed, expected);
-}

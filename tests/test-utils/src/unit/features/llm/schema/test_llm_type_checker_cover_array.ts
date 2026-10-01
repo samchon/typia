@@ -15,7 +15,7 @@ import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
  *
  * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema feeds LlmTypeChecker.covers directly; ten existing comparisons distinguish shape direction, item unions, array unions and missing variants.
  * @evidence contracts/testing.md#independent-expectations Authored required 2D/3D fields and separate literal booleans establish structural coverage direction. The check helper requires conversion success before inspecting coverage; no expected boolean is computed by covers.
- * @evidence contracts/testing.md#distinguishing-cases Four positive comparisons and six negative comparisons retain the original Plan/Box, item-union and array-union distinctions. Native object/array schema emission remains in its matrix.
+ * @evidence contracts/testing.md#distinguishing-cases Four positive comparisons and six negative comparisons keep the Plan/Box, item-union and array-union distinctions. Native object/array schema emission remains in its matrix.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from declared fields rather than generated at execution. Private local helpers remain reviewed through this owning case.
  */
 export const test_llm_type_checker_cover_array = () => {

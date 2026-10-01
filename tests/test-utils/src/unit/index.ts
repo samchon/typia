@@ -254,9 +254,11 @@ import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
 import { test_clone_oracle_data_ownership } from "./features/oracle/test_clone_oracle_data_ownership";
 import { test_equality_signed_zero } from "./features/oracle/test_equality_signed_zero";
+import { test_error_class_identity } from "./features/oracle/test_error_class_identity";
 import { test_prune_oracle_graph_preservation } from "./features/oracle/test_prune_oracle_graph_preservation";
 import { test_prune_oracle_mutation_contract } from "./features/oracle/test_prune_oracle_mutation_contract";
 import { test_prune_validation_success_report } from "./features/oracle/test_prune_validation_success_report";
+import { test_stringify_oracle_input_ownership } from "./features/oracle/test_stringify_oracle_input_ownership";
 import { test_structure_selection_declared_eligibility } from "./features/oracle/test_structure_selection_declared_eligibility";
 import { test_dedent_interpolation } from "./features/test_dedent_interpolation";
 import { test_equality_async_result_refusal } from "./features/test_equality_async_result_refusal";
@@ -905,4 +907,10 @@ test(
 test(
   test_openapi_validator_unique_items_name.name,
   test_openapi_validator_unique_items_name,
+);
+
+test(test_error_class_identity.name, test_error_class_identity);
+test(
+  test_stringify_oracle_input_ownership.name,
+  test_stringify_oracle_input_ownership,
 );

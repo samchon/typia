@@ -11,7 +11,9 @@
     "./structure-selector": "./src/TestStructureSelector.ts",
     "./openapi-validation": "./src/TestOpenApiValidation.ts",
     "./prune": "./src/TestPrune.ts",
-    "./clone": "./src/TestClone.ts"
+    "./clone": "./src/TestClone.ts",
+    "./stringify": "./src/TestStringify.ts",
+    "./error-class": "./src/TestErrorClass.ts"
   },
   "devDependencies": {
     "@types/node": "catalog:utils",

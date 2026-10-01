@@ -18,7 +18,7 @@ import { LlmSchemaConverter, LlmTypeChecker } from "@typia/utils";
  *
  * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter.parameters feeds LlmTypeChecker.covers; the unconstrained member covers nullable/optional strings, and both reverse comparisons must fail.
  * @evidence contracts/testing.md#independent-expectations An empty OpenAPI schema means unconstrained values, the null/string union means those two kinds, and the required list controls optionality. Separate boolean expectations follow those public meanings.
- * @evidence contracts/testing.md#distinguishing-cases The nullable and optional members retain both original positives, with their one-axis reverse negatives. Actual native any/union/required generation remains in the schema matrix.
+ * @evidence contracts/testing.md#distinguishing-cases The nullable and optional members each have a positive, with their one-axis reverse negatives. Actual native any/union/required generation remains in the schema matrix.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from declared fields rather than generated at execution. Private local helpers remain reviewed through this owning case.
  */
 export const test_llm_type_checker_cover_any = () => {

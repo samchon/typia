@@ -1,3 +1,4 @@
+import { isErrorClass } from "@typia/oracle/error-class";
 import { TestStructure } from "@typia/template";
 import typia, { AssertionGuard, TypeGuardError } from "typia";
 
@@ -11,7 +12,7 @@ export const _test_assertGuard =
       assert(input);
     } catch (exp) {
       if (
-        (exp as Function).constructor?.name === ErrorClass.name &&
+        isErrorClass(exp, ErrorClass) &&
         typia.is<TypeGuardError.IProps>(exp)
       ) {
         console.log(exp);
@@ -29,7 +30,7 @@ export const _test_assertGuard =
         assert(elem);
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         )
           if (exp.path && expected.includes(exp.path) === true) continue;

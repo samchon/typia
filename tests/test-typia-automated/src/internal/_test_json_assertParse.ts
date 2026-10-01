@@ -1,3 +1,4 @@
+import { isErrorClass } from "@typia/oracle/error-class";
 import { TestStructure } from "@typia/template";
 import typia, { Primitive, TypeGuardError } from "typia";
 
@@ -29,7 +30,7 @@ export const _test_json_assertParse =
         parse(JSON.stringify(elem));
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         )
           if (exp.path && expected.includes(exp.path) === true) continue;

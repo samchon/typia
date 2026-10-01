@@ -21,7 +21,7 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Retain the original owner-description and reference-description checks and
  *    contrast default mode.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.parameters in strict mode retains both original property-prose fragments on the owner, excludes distinct target prose there and removes hobby reference description; default mode retains reference prose.
+ * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.parameters in strict mode retains both property-prose fragments on the owner, excludes distinct target prose there and removes hobby reference description; default mode retains reference prose.
  * @evidence contracts/testing.md#independent-expectations Authored A hobby/The main hobby property text and separate The hobby type target text independently identify prose provenance. The assertions check these fragments and presence, not every formatting character.
  * @evidence contracts/testing.md#distinguishing-cases Strict/default option differences, property versus target text and absent reference description distinguish wrong provenance and wrong placement. Native JSDoc extraction stays in native strict/schema description cases.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. Inline OpenAPI or LLM fixtures establish portable input meaning independently; local private helpers are reviewed through this owning case. Native JSON/LLM emission and JSDoc extraction remain in their existing schema/spec batches.
