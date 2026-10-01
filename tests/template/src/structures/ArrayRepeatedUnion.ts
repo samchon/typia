@@ -41,6 +41,12 @@ export namespace ArrayRepeatedUnion {
   }
 
   export const ADDABLE: boolean = false;
+
+  /**
+   * Keeps schema surplus-member assertions over the closed IBox3D/IPoint3D
+   * nodes.
+   */
+  export const SCHEMA_EQUALS = true;
   export const BINARABLE = false;
   export const SPOILERS: Spoiler<ArrayRepeatedUnion>[] = [
     (input) => {

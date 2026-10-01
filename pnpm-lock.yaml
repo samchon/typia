@@ -859,6 +859,9 @@ importers:
       '@typia/interface':
         specifier: workspace:^
         version: link:../../packages/interface
+      '@typia/oracle':
+        specifier: workspace:^
+        version: link:../oracle
       '@typia/template':
         specifier: workspace:^
         version: link:../template

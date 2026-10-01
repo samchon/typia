@@ -1,3 +1,4 @@
+import { TestStructureSelector } from "@typia/oracle/structure-selector";
 import * as template from "@typia/template";
 import { dedent } from "@typia/utils";
 import fs from "fs";
@@ -85,8 +86,8 @@ export namespace TestAutomation {
    * Matching source text means prose decides coverage: a doc comment that
    * merely mentioned one of those words dropped a structure from the matrix
    * silently, with nothing to observe (#2136). The set below reproduces those
-   * three scans exactly — the same 148 structures resolve to the same 83
-   * validate and 80 equality cases.
+   * three scans' population. Its suite-specific exclusions remain separate from
+   * the declaration-based ordinary/equality eligibility selector.
    *
    * The reason belongs here rather than on the fixture because it describes the
    * emitted schema, not the fixture: nothing about `DynamicSimple` makes it
@@ -173,62 +174,33 @@ export namespace TestAutomation {
     TypeTagType: "integer width tags emit no range",
   };
 
+  /**
+   * Discovers schema-matrix candidates and selects their declared eligibility.
+   *
+   * The schema equality override preserves independently useful assertions
+   * whose native equality flag differs. No fixture source content is read.
+   *
+   * @evidence contracts/common.md#principled-implementation Directory basenames bind to the actual template exports through TestStructureSelector. Own JSONABLE and schema/native equality flags decide admitted candidates independently of TypeScript syntax. The existing suite-specific held-out and Comment/ToJson/custom-tag restrictions remain an unresolved selection limitation, not a declaration of complete schema coverage.
+   * @evidence contracts/common.md#clear-and-simple-design This wrapper owns one directory read and existing suite candidate restrictions; the shared pure selector owns export identity and eligibility precedence. It neither executes fixture generators nor duplicates the selector's flag rules.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No raw source substring or special-case override for the four typed-false fixtures remains. Their explicit SCHEMA_EQUALS describes the schema assertion population. The legacy name-based HELD_OUT and specialized-fixture restrictions are retained visibly for separate consequence verification; this answer does not certify those exclusions as a complete or principled final policy.
+   * @evidence contracts/common.md#meaningful-documentation The comment explains discovery, the two equality populations and source independence. The retained held-out reasons and acknowledgment identify remaining selection limitations rather than attributing them to the repaired source scan.
+   */
   export const getStructures = async (equals: boolean): Promise<string[]> => {
     const directory: string[] = await fs.promises.readdir(
       `${TestGlobal.ROOT}/../template/src/structures`,
     );
-    const declarations: Record<string, IStructureDeclaration> =
-      template as unknown as Record<string, IStructureDeclaration>;
-    const result: string[] = [];
-    for (const file of directory) {
-      if (
-        file.endsWith(".ts") === false ||
-        file === "index.ts" ||
-        file === "TypeTagCustom.ts" ||
-        file.startsWith("Comment") ||
-        file.startsWith("ToJson")
-      )
-        continue;
-      const name: string = file.substring(0, file.length - 3);
-      // `Object.hasOwn`, not a truthiness test: a fixture named after an
-      // `Object.prototype` member would otherwise resolve against the prototype
-      // and be held out silently — the very failure this selector is shedding.
-      if (Object.hasOwn(declarations, name) === false)
-        throw new Error(`@typia/template does not export ${name}`);
-      const structure: IStructureDeclaration = declarations[name]!;
-      // Read what the fixture declares about itself, so that prose cannot
-      // decide the matrix. `JSONABLE === false` marks a type whose value has no
-      // faithful JSON form.
-      if (structure.JSONABLE === false) continue;
-      else if (Object.hasOwn(HELD_OUT, name)) continue;
-      // `ADDABLE` is still read from source text, and deliberately so: four
-      // fixtures spell it `ADDABLE: boolean = false`, which this scan does not
-      // match, so they sit in the equality matrix despite declaring otherwise.
-      // Reading the declaration instead would drop them — and two of the four
-      // (ArrayRepeatedUnion, ArrayRepeatedUnionWithTuple) assert 270 superfluous
-      // paths each, so the "faithful" read silently deletes real coverage. That
-      // is a decision about *which* structures the matrix covers, so it is left
-      // to #2136's follow-up rather than smuggled in behind a refactor.
-      else if (equals === true) {
-        const content: string = await fs.promises.readFile(
-          `${TestGlobal.ROOT}/../template/src/structures/${file}`,
-          "utf-8",
-        );
-        if (content.includes("ADDABLE = false")) continue;
-      }
-      result.push(name);
-    }
-    return result;
+    return TestStructureSelector.select({
+      files: directory.filter(
+        (file) =>
+          file !== "TypeTagCustom.ts" &&
+          !file.startsWith("Comment") &&
+          !file.startsWith("ToJson"),
+      ),
+      declarations: template as unknown as Record<
+        string,
+        TestStructureSelector.IStructure
+      >,
+      equals,
+    }).filter((name) => !Object.hasOwn(HELD_OUT, name));
   };
-}
-
-/**
- * The part of a `@typia/template` structure this selector reads.
- *
- * Mirrors `TestAutomationMetadata` in `test-typia-automated`, which narrows the
- * same namespaces to the flags its own matrix consumes. Only declared members
- * belong here: a flag this selector does not read would be dead configuration.
- */
-interface IStructureDeclaration {
-  JSONABLE?: boolean;
 }

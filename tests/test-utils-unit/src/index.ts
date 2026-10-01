@@ -167,6 +167,7 @@ import { test_naming_convention_variable } from "./features/naming/test_naming_c
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
+import { test_structure_selection_declared_eligibility } from "./features/oracle/test_structure_selection_declared_eligibility";
 import { test_dedent_interpolation } from "./features/test_dedent_interpolation";
 import { test_equality_async_result_refusal } from "./features/test_equality_async_result_refusal";
 import { test_equality_oracle } from "./features/test_equality_oracle";
@@ -408,4 +409,9 @@ test(
 test(
   test_boolean_predicate_is_prune_results.name,
   test_boolean_predicate_is_prune_results,
+);
+
+test(
+  test_structure_selection_declared_eligibility.name,
+  test_structure_selection_declared_eligibility,
 );

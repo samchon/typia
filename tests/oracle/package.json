@@ -7,7 +7,8 @@
     "./equality": "./src/TestEquality.ts",
     "./binding": "./src/TestBinding.ts",
     "./package.json": "./package.json",
-    "./predicate": "./src/TestPredicate.ts"
+    "./predicate": "./src/TestPredicate.ts",
+    "./structure-selector": "./src/TestStructureSelector.ts"
   },
   "devDependencies": {
     "@types/node": "catalog:utils",
