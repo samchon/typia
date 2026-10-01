@@ -9,6 +9,13 @@ type promiseTypeFactoryNamespace struct{}
 
 var PromiseTypeFactory = promiseTypeFactoryNamespace{}
 
+// PromiseTypeFactory_IOutput is a type after unwrapping a Promise and whether a
+// Promise was unwrapped.
+//
+// @evidence contracts/common.md#principled-implementation The result holds the type after unwrapping a Promise and a flag saying whether it was unwrapped, so a caller can mark a function asynchronous without losing the returned type.
+// @evidence contracts/common.md#clear-and-simple-design A two-field result record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type PromiseTypeFactory_IOutput struct {
   Type  *shimchecker.Type
   Async bool

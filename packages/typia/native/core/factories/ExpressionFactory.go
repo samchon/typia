@@ -65,9 +65,33 @@ type ExpressionFactory_TranspileProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states that it is the importer's slice that expressions use.
 type ExpressionFactory_Importer interface {
+  // Internal returns the reference to an internal runtime helper and registers its import.
+//
+// @evidence contracts/common.md#principled-implementation Returns the reference to an internal runtime helper by name, which is the only way expression helpers reach typia's internal functions, so every such reference is registered with the importer.
+// @evidence contracts/common.md#clear-and-simple-design One interface method.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The method comment states that it returns a helper reference and registers the import.
   Internal(name string) *shimast.Node
+  // Instance returns the reference to a named export of a file and registers the import.
+//
+// @evidence contracts/common.md#principled-implementation Returns the reference to a named export of a file, registering the import.
+// @evidence contracts/common.md#clear-and-simple-design One interface method.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The method comment states the reference and the registration.
   Instance(props ExpressionFactory_IInstance) *shimast.Node
+  // Namespace returns the reference to a file's namespace import and registers the import.
+//
+// @evidence contracts/common.md#principled-implementation Returns the reference to a file's namespace import, registering the import.
+// @evidence contracts/common.md#clear-and-simple-design One interface method.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The method comment states the reference and the registration.
   Namespace(props ExpressionFactory_INamespace) *shimast.Node
+  // Default returns the reference to a file's default import and registers the import.
+//
+// @evidence contracts/common.md#principled-implementation Returns the reference to a file's default import, registering the import.
+// @evidence contracts/common.md#clear-and-simple-design One interface method.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The method comment states the reference and the registration.
   Default(props ExpressionFactory_IDefault) *shimast.Node
 }
 
