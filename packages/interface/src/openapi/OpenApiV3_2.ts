@@ -228,7 +228,7 @@ export namespace OpenApiV3_2 {
   /**
    * Path item containing operations by HTTP method.
    *
-   * @evidence contracts/common.md#principled-implementation A partial method map, which now includes `query`, plus an `additionalOperations` record for non-standard methods such as LINK and PURGE, replacing the extension spelling used in earlier versions.
+   * @evidence contracts/common.md#principled-implementation A partial method map, which includes `query`, plus an `additionalOperations` record for non-standard methods such as LINK and PURGE, replacing the extension spelling used in earlier versions.
    * @evidence contracts/common.md#clear-and-simple-design The record keeps the same members as 3.1 with the standard name for additional operations.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
    * @evidence contracts/common.md#meaningful-documentation Each field has a comment, with examples of additional methods.

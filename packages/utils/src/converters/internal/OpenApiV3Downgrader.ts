@@ -17,7 +17,7 @@ import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
  * @evidence contracts/common.md#principled-implementation The emended document is rewritten to 3.0 by turning numeric exclusive bounds into the draft-04 boolean form, `null` members into `nullable`, constants into enums, tuples into bounded arrays and by dropping `examples`; a nullable reference gets a generated `.Nullable` component so `nullable` can be expressed on a reference.
  * @evidence contracts/common.md#clear-and-simple-design Per-object helpers in one namespace; the rewrites that only 3.0 needs are private to it.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The generated component name suffix is a documented, collision-checked convention; nothing is faked to satisfy a consumer.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment was added that lists the rewrites.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites.
  */
 export namespace OpenApiV3Downgrader {
   /**
@@ -26,7 +26,7 @@ export namespace OpenApiV3Downgrader {
    * @evidence contracts/common.md#principled-implementation A pair of the original and downgraded components lets nullable references consult the source schemas while the target is being built.
    * @evidence contracts/common.md#clear-and-simple-design Two fields.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-   * @evidence contracts/common.md#meaningful-documentation A one-line comment was added.
+   * @evidence contracts/common.md#meaningful-documentation A one-line comment states the role.
    */
   export interface IComponentsCollection {
     original: OpenApi.IComponents;
@@ -43,7 +43,7 @@ export namespace OpenApiV3Downgrader {
    * @evidence contracts/common.md#principled-implementation The components are downgraded first and then paths are rewritten against the collection; `query` and additional operations have no 3.0 form and are carried to `x-additionalOperations`, while webhooks, which 3.0 has no place for, are not carried and are lost.
    * @evidence contracts/common.md#clear-and-simple-design One function over the shared helpers.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Extension fields are documented ones.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgrade = (input: OpenApi.IDocument): OpenApiV3.IDocument => {
     const collection: IComponentsCollection = downgradeComponents(
@@ -237,7 +237,7 @@ export namespace OpenApiV3Downgrader {
    * @evidence contracts/common.md#principled-implementation Every schema is downgraded into a new store keyed by the same names, while the security schemes are carried over unchanged.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data transformation with no hidden state.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgradeComponents = (
     input: OpenApi.IComponents,
@@ -271,7 +271,7 @@ export namespace OpenApiV3Downgrader {
    * @evidence contracts/common.md#principled-implementation A nullable schema, found by following `oneOf` and references, gets `nullable` on each member, constants merge into enums per type, tuples bound their length and exclusive bounds are rewritten, so the 3.0 reading of each keyword matches its emended meaning.
    * @evidence contracts/common.md#clear-and-simple-design One recursive function with helpers for nullable references, example removal and bounds.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rewrites follow the 3.0 dialect and the bound rewrite cites its issue.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result; helpers have comments.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result; helpers have comments.
    */
   export const downgradeSchema =
     (collection: IComponentsCollection) =>

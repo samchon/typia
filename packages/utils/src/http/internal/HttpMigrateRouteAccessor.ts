@@ -13,7 +13,7 @@ import { EndpointUtil } from "../../utils/internal/EndpointUtil";
  * @evidence contracts/common.md#principled-implementation Static path segments become a namespace and each route a method-like alias, with aliases escaped against siblings in path order so the first route keeps the plain alias, parameter keys escaped against each other and the reserved `connection` argument, and any accessor that is a prefix of another escaped, which keeps every route callable.
  * @evidence contracts/common.md#clear-and-simple-design One exported overwrite function with private collection and naming helpers; MapUtil.take lazily creates namespace entries, and that helper stays as ordinary shared code because its own declaration is not a selectable host.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The rules are structural and carry no route names; `x-samchon-accessor` is honored only when it is unambiguous.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added that state the alias settling, the key escaping and the prefix rule.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and the function doc state the alias settling, the key escaping and the prefix rule.
  */
 export namespace HttpMigrateRouteAccessor {
   /**

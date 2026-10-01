@@ -34,7 +34,7 @@ export namespace LlmDescriptionInverter {
    * @evidence contracts/common.md#principled-implementation Tags for bounds, multipleOf and default are parsed as numbers, with the exclusive and inclusive bound pair settled, and every consumed tag line is removed from the description; a value that is not a number yields no keyword. Outside strict mode nothing is read.
    * @evidence contracts/common.md#clear-and-simple-design One function listing the keys it owns, using the shared tag finder.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Only tags actually found reach the result, so a failed lookup cannot delete a real schema keyword.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that names the arguments and the result; inline comments explain the default tag.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the arguments and the result; inline comments explain the default tag.
    */
   export const numeric = (props: {
     config: ILlmSchema.IConfig;
@@ -114,7 +114,7 @@ export namespace LlmDescriptionInverter {
    * @evidence contracts/common.md#principled-implementation Tags for format, pattern, content type, length bounds and default are read as strings or numbers and consumed from the description, and nothing is read outside strict mode.
    * @evidence contracts/common.md#clear-and-simple-design One function mirroring numeric for the string keys.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Only tags actually found reach the result.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that names the arguments and the result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the arguments and the result.
    */
   export const string = (props: {
     config: ILlmSchema.IConfig;
@@ -192,7 +192,7 @@ export namespace LlmDescriptionInverter {
    * @evidence contracts/common.md#principled-implementation Tags for item bounds and uniqueness are read, where the presence of a `@uniqueItems` line means true, and consumed from the description; nothing is read outside strict mode.
    * @evidence contracts/common.md#clear-and-simple-design One function mirroring numeric for the array keys.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Only tags actually found reach the result.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that names the arguments and the result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the arguments and the result.
    */
   export const array = (props: {
     config: ILlmSchema.IConfig;

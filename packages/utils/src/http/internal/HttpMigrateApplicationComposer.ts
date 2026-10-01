@@ -18,7 +18,7 @@ import { HttpMigrateRouteComposer } from "./HttpMigrateRouteComposer";
  * @evidence contracts/common.md#principled-implementation Operations from paths and webhooks are listed together without merging by key, composed in path and method order and reported in document order, then the accessors are assigned over all successful routes; this ordering keeps schema and accessor name ownership independent of how the document was sorted.
  * @evidence contracts/common.md#clear-and-simple-design A single exported compose function with a method table and entry comparator; accessor naming is delegated to HttpMigrateRouteAccessor.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Ordering follows a stated rule with issue references and not an arrangement chosen to match a test document.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and a function doc were added, and inline comments explain the webhook handling and the ordering.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract, and inline comments explain the webhook handling and the ordering.
  */
 export namespace HttpMigrateApplicationComposer {
   /**

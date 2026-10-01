@@ -482,7 +482,7 @@ export namespace HttpLlmApplicationComposer {
    *
    * @evidence contracts/common.md#principled-implementation A name longer than the limit tries its non-empty accessor suffixes from the longest that leaves room for a counter prefix, each as is or with a counter, and otherwise takes a part of its last segment beside a hash, all deterministic and within the limit; it throws if every hashed candidate is taken.
    * @evidence contracts/common.md#clear-and-simple-design The suffix search is in this function, and the hash fallback and legal-name helper are separate private functions.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts The earlier random identifier was replaced by a deterministic hash instead of retried or patched, as the abbreviate comment records.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The abbreviation uses a deterministic hash and not a random identifier, as the abbreviate comment records.
    * @evidence contracts/common.md#meaningful-documentation The doc and the abbreviate doc give the rule, the constants and the issue behind the hash.
    */
   export const shorten = (

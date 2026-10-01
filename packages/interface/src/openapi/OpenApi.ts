@@ -26,7 +26,7 @@ import * as tags from "../tags";
  * @evidence contracts/common.md#principled-implementation The namespace is typia's single normalized target for every OpenAPI input version: references to schemas use one path form, other references are inlined, nullable and allOf are rewritten to oneOf and merged forms, and every consumer is written once against this one shape. The marker field on the document records that this normalization has run.
  * @evidence contracts/common.md#clear-and-simple-design One namespace holding the document and its parts so a consumer imports one name; version-specific shapes live in separate namespaces and are converted by the utils package.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The type describes the normalized form and does not itself convert or patch any input document.
- * @evidence contracts/common.md#meaningful-documentation The comment lists the simplifications, names the marker used by the converters and points to the LLM conversion that consumes it; its stray escape and the earlier marker name have been corrected.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the simplifications, names the marker used by the converters and points to the LLM conversion that consumes it.
  */
 export namespace OpenApi {
   /**

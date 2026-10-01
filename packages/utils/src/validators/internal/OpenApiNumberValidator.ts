@@ -9,7 +9,7 @@ import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
  * @evidence contracts/common.md#principled-implementation A number is a finite value, so `NaN` and the infinities are rejected, then the bounds and divisor are checked independently with the decimal multiple test.
  * @evidence contracts/common.md#clear-and-simple-design One function mirroring the integer validator without the width and floor test.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts No tolerance values are used.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract.
  */
 export namespace OpenApiNumberValidator {
   /**
@@ -23,7 +23,7 @@ export namespace OpenApiNumberValidator {
    * @evidence contracts/common.md#principled-implementation Non-numbers and non-finite numbers are reported with the plain expected name; each bound and the divisor then produce their own messages.
    * @evidence contracts/common.md#clear-and-simple-design One function listing the five checks.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts No tolerance values are used.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the function does.
    */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.INumber>,

@@ -42,7 +42,7 @@ import { HttpLlmFunctionFetcher } from "./internal/HttpLlmFunctionFetcher";
  * @evidence contracts/common.md#principled-implementation The namespace is the entry point that turns an OpenAPI document of any supported version into an LLM application and executes its functions; conversion goes through the migration application, which upgrades the document to the normalized form first.
  * @evidence contracts/common.md#clear-and-simple-design Two composers and two fetchers with one request type, each delegating to an internal namespace that owns its algorithm, so the public surface is a short list.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Execution always goes through the migrate route fetcher, so there is no second HTTP implementation to drift from it.
- * @evidence contracts/common.md#meaningful-documentation The comment lists the functions and the workflow; a stale mention of a function that does not exist and the missing 3.2 version were corrected.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the functions and the workflow; it lists only functions that exist and the supported versions.
  */
 export namespace HttpLlm {
   /* -----------------------------------------------------------

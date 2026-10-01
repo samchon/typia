@@ -11,7 +11,7 @@ import { OpenApiComponentName } from "./OpenApiComponentName";
  * @evidence contracts/common.md#principled-implementation Path-derived names are built by splitting on slashes, dropping parameter segments, turning every character an identifier cannot hold into an underscore and escaping reserved or digit-leading segments, so the result is always a legal accessor or component key while letters of any script survive.
  * @evidence contracts/common.md#clear-and-simple-design Small single-purpose functions compose in one namespace so the accessor composers and component naming share one normalization and no caller repeats it.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The character policy is a general class (`ID_Continue` plus `$` and the joiners) and not a list of known path spellings.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment was added for the purpose and the main functions carry the reasons with issue references.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment states the purpose and the main functions carry the reasons with issue references.
  */
 export namespace EndpointUtil {
   /**
@@ -27,7 +27,7 @@ export namespace EndpointUtil {
    * @evidence contracts/common.md#principled-implementation The first character is uppercased and the rest lowercased, which is the capitalization a PascalCase word needs once its source word has been split.
    * @evidence contracts/common.md#clear-and-simple-design One expression with an empty-string guard.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts General string transformation.
-   * @evidence contracts/common.md#meaningful-documentation The doc was added and states the lowercased tail that distinguishes it from NamingConvention.capitalize.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the lowercased tail that distinguishes it from NamingConvention.capitalize.
    */
   export const capitalize = (str: string): string =>
     str.length !== 0 ? str[0]!.toUpperCase() + str.slice(1).toLowerCase() : str;
@@ -83,7 +83,7 @@ export namespace EndpointUtil {
    * @evidence contracts/common.md#principled-implementation Every non-nested brace expression becomes a colon parameter and a missing leading slash is added, which converts an OpenAPI template to the colon form used by routers. Nested braces inside one parameter are not handled.
    * @evidence contracts/common.md#clear-and-simple-design One replacement and one prefix expression.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A general template rewrite.
-   * @evidence contracts/common.md#meaningful-documentation The doc was added and states the colon form and leading slash.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the colon form and leading slash.
    */
   export const reJoinWithDecimalParameters = (path: string) => {
     path = path.replace(/\{([^{}]+)\}/g, ":$1");
@@ -122,7 +122,7 @@ export namespace EndpointUtil {
    * @evidence contracts/common.md#principled-implementation The returned function prefixes an underscore until the name is not in the kept list, which terminates because each step lengthens the name and the kept list is finite.
    * @evidence contracts/common.md#clear-and-simple-design A curried function so one kept list serves many candidates.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A general collision rule without special names.
-   * @evidence contracts/common.md#meaningful-documentation The doc was added and states the parameters and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the parameters and result.
    */
   export const escapeDuplicate =
     (keep: string[]) =>

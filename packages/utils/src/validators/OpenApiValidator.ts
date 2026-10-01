@@ -28,7 +28,7 @@ import { OpenApiStationValidator } from "./internal/OpenApiStationValidator";
  * @evidence contracts/common.md#principled-implementation A value is validated against an emended schema by one recursive walk that reports every violation with its path, expected type name and value, instead of stopping at the first, which is what an LLM needs to correct several mistakes in one turn. `equals` closes only objects that declare no additional properties, so one document can mix open and closed objects.
  * @evidence contracts/common.md#clear-and-simple-design A thin namespace over the station validator, with a path-aware reporter; each schema kind has its own validator module and the namespace only collects the errors.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The validator reports data errors as values and does not throw for them, and it does not special-case any schema or consumer. It does not handle an invalid `pattern` string, which makes the regular expression constructor throw.
- * @evidence contracts/common.md#meaningful-documentation The comment states the purpose, the two functions and the meaning of `equals`; the functions were given docs.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the purpose, the two functions and the meaning of `equals`.
  */
 export namespace OpenApiValidator {
   /**
@@ -45,7 +45,7 @@ export namespace OpenApiValidator {
    * @evidence contracts/common.md#principled-implementation The returned function closes over the components, schema and flags and validates each value through `validate`, so a validator built once gives the same answers as one-shot calls.
    * @evidence contracts/common.md#clear-and-simple-design A curried one-line wrapper with no cache of its own.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no behavior beyond validate.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameters and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameters and result.
    */
   export const create =
     (props: {
@@ -77,7 +77,7 @@ export namespace OpenApiValidator {
    * @evidence contracts/common.md#principled-implementation Errors are collected in a list through a reporter that keeps an error only when it is exceptionable and its path is neither an ancestor nor a descendant of the last kept one, so a failing leaf is not reported again as every enclosing value. The result is a success carrying the value or a failure carrying the value and errors, and an `undefined` value gets a default description telling the model to fill it.
    * @evidence contracts/common.md#clear-and-simple-design One function and a private reporter whose ancestor test is a small local predicate.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The suppression rule is path-based and general and not tuned to a document.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that states the collection, the suppression of related paths and the result.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the collection, the suppression of related paths and the result.
    */
   export const validate = (props: {
     components: OpenApi.IComponents;

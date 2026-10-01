@@ -10,7 +10,7 @@ import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
  * @evidence contracts/common.md#principled-implementation A string must be a string by `typeof`, its length is counted in code points through the shared helper only when a bound exists, and the length bounds, the pattern and the format are checked independently, so each violated constraint is reported. A format that is not registered is accepted. The pattern is compiled with `new RegExp` on every call and an invalid pattern throws instead of being reported.
  * @evidence contracts/common.md#clear-and-simple-design One function that builds the list of independent results.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The format dispatch is the registered table and the pattern comes from the schema; there is no fixture rule. The per-call regular expression construction is a stated cost and the invalid-pattern throw an unresolved limitation.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract.
  */
 export namespace OpenApiStringValidator {
   /**
@@ -24,7 +24,7 @@ export namespace OpenApiStringValidator {
    * @evidence contracts/common.md#principled-implementation Non-strings are reported with the plain expected name, and the combined result falls back to the plain report when any check failed, which the reporter suppresses because it has the same path as the specific report.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The repeated report is intentional and removed by the reporter's related-path rule.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the function does.
    */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IString>,

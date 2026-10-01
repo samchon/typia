@@ -18,7 +18,7 @@ import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
  * @evidence contracts/common.md#principled-implementation A route is built by sanitizing the operation's schemas, classifying request and response bodies by media type, grouping header, cookie and query parameters into single objects with per-parameter serialization records, completing and checking path parameters, and emplacing anonymous schemas as named components whose names are escaped on collision. Failures are collected and returned together so one report names every problem.
  * @evidence contracts/common.md#clear-and-simple-design The exported compose wraps one large composeRoute and private helpers for bodies, schema sanitation, reference emplacement and comment writing; each handles one concern and is used by that function.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Style and media-type support follow the OpenAPI rules enumerated in the code, unsupported ones are rejected with a message, and nothing is accepted by naming a particular route or fixture.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment was added; emplaceReference carries a long rationale with issue references and failure messages state the exact limitation.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment states the purpose; emplaceReference carries a long rationale with issue references and failure messages state the exact limitation.
  */
 export namespace HttpMigrateRouteComposer {
   const SCHEMAS = "#/components/schemas/";
@@ -29,7 +29,7 @@ export namespace HttpMigrateRouteComposer {
    * @evidence contracts/common.md#principled-implementation The record carries the document, the method, original and emended paths and the operation, which is the minimum needed to name schemas and compose the route.
    * @evidence contracts/common.md#clear-and-simple-design Five fields that are all used by compose.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-   * @evidence contracts/common.md#meaningful-documentation A comment was added that names it as the properties of compose.
+   * @evidence contracts/common.md#meaningful-documentation A comment names it as the properties of compose.
    */
   export interface IProps {
     document: OpenApi.IDocument;
@@ -53,7 +53,7 @@ export namespace HttpMigrateRouteComposer {
    * @evidence contracts/common.md#principled-implementation The route is composed against the live document and, when it fails, the component schemas that this call added are deleted so a failed route owns no name; the document and operation are modified during composition, which callers must accept.
    * @evidence contracts/common.md#clear-and-simple-design A small wrapper that snapshots component names around composeRoute.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rollback restores only names this call created, so no existing component is removed.
-   * @evidence contracts/common.md#meaningful-documentation A doc comment was added that states the mutation and the rollback.
+   * @evidence contracts/common.md#meaningful-documentation The doc comment states the mutation and the rollback.
    */
   export const compose = (props: IProps): IHttpMigrateRoute | string[] => {
     const before: Set<string> = new Set(

@@ -10,7 +10,7 @@ import { OpenApiStationValidator } from "./OpenApiStationValidator";
  * @evidence contracts/common.md#principled-implementation A tuple is an array whose length is at least the minimum (the prefix length by default), at most the maximum, with unique elements when required, and no longer than the prefix unless additional items are allowed; each position is then validated against its prefix schema or the additional items schema, and a hole or an `undefined` element is reported. Structural failures return at once, so the first violated length or uniqueness rule is the only one reported for the array.
  * @evidence contracts/common.md#clear-and-simple-design One function with the structural checks first and the per-element map after.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The rules are those of the emended tuple type and nothing is tuned to a document.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract.
  */
 export namespace OpenApiTupleValidator {
   /**
@@ -25,7 +25,7 @@ export namespace OpenApiTupleValidator {
    * @evidence contracts/common.md#principled-implementation The array checks run in a fixed order and return at the first failure, then each element is validated at its index path, with `additionalItems` of `true` or a schema permitting extras and `false` or an absent value refusing them.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The early return is a deliberate report policy.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the function does.
    */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.ITuple>,

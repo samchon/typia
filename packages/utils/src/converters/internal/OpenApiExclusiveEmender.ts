@@ -6,7 +6,7 @@ import { OpenApi } from "@typia/interface";
  * @evidence contracts/common.md#principled-implementation The emended form allows one lower and one upper numeric bound, so a schema with both an inclusive and an exclusive bound keeps the stricter one: the larger lower bound and the smaller upper bound, preferring the exclusive form on a tie.
  * @evidence contracts/common.md#clear-and-simple-design One function applied by upgraders and by the constraint shifter.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The choice follows the mathematical meaning of the bounds, not any particular schema.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment was added that states the rule.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment states the rule.
  */
 export namespace OpenApiExclusiveEmender {
   /**
@@ -24,7 +24,7 @@ export namespace OpenApiExclusiveEmender {
    * @evidence contracts/common.md#principled-implementation For each side the two values are compared and the weaker or equal-inclusive one is set to undefined, so the result has at most one lower and one upper bound; non-numeric values, such as a boolean 3.0 flag, leave the pair untouched.
    * @evidence contracts/common.md#clear-and-simple-design One function with a lower and an upper expression.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It returns a copy and does not modify its input.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that states the tie rule and the copy.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the tie rule and the copy.
    */
   export const emend = <
     Schema extends Pick<

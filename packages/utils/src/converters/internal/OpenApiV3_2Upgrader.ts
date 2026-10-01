@@ -27,7 +27,7 @@ export namespace OpenApiV3_2Upgrader {
    * @evidence contracts/common.md#principled-implementation An emended input is returned as is, otherwise tags, paths and webhooks are converted and the emended marker is set.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The marker is the contract marker.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that states the pass-through.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the pass-through.
    */
   export const convert = (input: OpenApiV3_2.IDocument): OpenApi.IDocument => {
     if ((input as OpenApi.IDocument)["x-typia-emended-v12"] === true)
@@ -395,7 +395,7 @@ export namespace OpenApiV3_2Upgrader {
    * @evidence contracts/common.md#principled-implementation Component schemas are converted through the 3.1 schema conversion and security schemes kept.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts No unreachable component is retained.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added that states what is kept.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what is kept.
    */
   export const convertComponents = (
     input: OpenApiV3_2.IComponents,

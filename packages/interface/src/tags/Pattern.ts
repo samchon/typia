@@ -31,7 +31,7 @@ import { TagBase } from "./TagBase";
  *
  * @template Value Regular expression pattern as a string literal
  *
- * @evidence contracts/common.md#principled-implementation The validate text builds `RegExp("<escaped>").test($input)`, where the private Serialize walks the pattern literal and escapes quote, backslash and control characters so the emitted string literal evaluates back to the original pattern; `string` and other non-literal types produce `never`. The test is unanchored, so a pattern matches anywhere unless it carries its own anchors, which the comment now states. It excludes Format.
+ * @evidence contracts/common.md#principled-implementation The validate text builds `RegExp("<escaped>").test($input)`, where the private Serialize walks the pattern literal and escapes quote, backslash and control characters so the emitted string literal evaluates back to the original pattern; `string` and other non-literal types produce `never`. The test is unanchored, so a pattern matches anywhere unless it carries its own anchors, which the comment states. It excludes Format.
  * @evidence contracts/common.md#clear-and-simple-design The Serialize and Escaper helpers handle one concern, string-literal escaping, and keep the tag declaration to a single template.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The escaping follows JavaScript string-literal grammar and the pattern is not rewritten or special-cased by content.
  * @evidence contracts/common.md#meaningful-documentation The comment states that the pattern is a regular expression source without slashes, how it is tested, why it excludes Format and shows SKU and phone examples.

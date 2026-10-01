@@ -37,7 +37,7 @@ import { HttpMigrateRouteFetcher } from "./internal/HttpMigrateRouteFetcher";
  * @evidence contracts/common.md#principled-implementation The namespace converts any supported OpenAPI version into the migrated route application and runs its routes, by upgrading the document through OpenApiConverter before composing.
  * @evidence contracts/common.md#clear-and-simple-design One composer and two fetchers with one request type, each delegating to an internal owner.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts It uses the same fetcher as HttpLlm, so there is one request implementation.
- * @evidence contracts/common.md#meaningful-documentation The comment contrasts it with HttpLlm, lists the main functions and now includes version 3.2.
+ * @evidence contracts/common.md#meaningful-documentation The comment contrasts it with HttpLlm, lists the main functions and includes version 3.2.
  */
 export namespace HttpMigration {
   /**

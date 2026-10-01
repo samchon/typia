@@ -251,7 +251,7 @@ export namespace LlmTypeChecker {
    *
    * @returns Whether the `x` schema covers the `y` schema
    *
-   * @evidence contracts/common.md#principled-implementation The comparison flattens unions and dereferences, then requires every flattened member of the covered schema to be covered by some flattened member of the covering one. Atomics honor enums before ranges; arrays compare item bounds and item schemas; objects compare additional properties, required keys and the property schemas; a visited table assumes coverage for a pair under comparison so recursion ends. A number schema now covers an integer schema, as the OpenAPI checker already did, because integers are numbers; before that correction the dispatch accepted only a number as the covered schema.
+   * @evidence contracts/common.md#principled-implementation The comparison flattens unions and dereferences, then requires every flattened member of the covered schema to be covered by some flattened member of the covering one. Atomics honor enums before ranges; arrays compare item bounds and item schemas; objects compare additional properties, required keys and the property schemas; a visited table assumes coverage for a pair under comparison so recursion ends. A number schema covers an integer schema, as in the OpenAPI checker, because integers are numbers.
    * @evidence contracts/common.md#clear-and-simple-design A public wrapper plus private cover helpers per shape, each used once.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The rule is set inclusion over the declared constraints and not a list of known pairs.
    * @evidence contracts/common.md#meaningful-documentation The doc states the question the function answers and the properties.

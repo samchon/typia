@@ -381,7 +381,7 @@ export namespace SwaggerV2 {
   /**
    * JSON Schema type for Swagger.
    *
-   * @evidence contracts/common.md#principled-implementation A union of variants, now including the allOf composition that the upgrader already reads, discriminated by `type`, `$ref`, `allOf` and the `x-` union keys, so the nullable and union features that 2.0 lacks are represented only by extension keys that real tools emit.
+   * @evidence contracts/common.md#principled-implementation A union of variants, including the allOf composition that the upgrader reads, discriminated by `type`, `$ref`, `allOf` and the `x-` union keys, so the nullable and union features that 2.0 lacks are represented only by extension keys that real tools emit.
    * @evidence contracts/common.md#clear-and-simple-design One alias over variants in the same-named namespace.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts It represents the input form and does not normalize it.
    * @evidence contracts/common.md#meaningful-documentation The one-line comment names the version.

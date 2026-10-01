@@ -14,7 +14,7 @@ import { ObjectDictionary } from "./ObjectDictionary";
  * @evidence contracts/common.md#principled-implementation The namespace derives descriptions for references and objects from schema descriptions: a reference inherits the descriptions of its dotted ancestors, and an object lists its documented reference properties as quoted blocks, so a model reading a schema sees the prose of related types.
  * @evidence contracts/common.md#clear-and-simple-design Two functions that build text; both read the component dictionary through ObjectDictionary and neither mutates the document.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The dotted-key reading is a stated invariant that each producer owes, and not a patch for a particular producer.
- * @evidence contracts/common.md#meaningful-documentation The comments on both functions explain the key reading and the produced layout; a namespace comment was added that states the purpose and that the document is not modified.
+ * @evidence contracts/common.md#meaningful-documentation The comments on both functions explain the key reading and the produced layout; the namespace comment states the purpose and that the document is not modified.
  */
 export namespace JsonDescriptor {
   /**
@@ -91,7 +91,7 @@ export namespace JsonDescriptor {
    * @evidence contracts/common.md#principled-implementation The object's own description followed by a blockquoted description for each property that is a documented reference gives a combined description; the property name is written as a plain name or as a JSON string when it is not a valid variable name. No result is returned for empty text.
    * @evidence contracts/common.md#clear-and-simple-design One function that filters, maps and joins.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A general text composition without special properties.
-   * @evidence contracts/common.md#meaningful-documentation A doc comment was added that states the contributed sections, the property-name quoting rule and the undefined result.
+   * @evidence contracts/common.md#meaningful-documentation The doc comment states the contributed sections, the property-name quoting rule and the undefined result.
    */
   export const take = (o: OpenApi.IJsonSchema.IObject): string | undefined => {
     const result: string = [

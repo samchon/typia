@@ -19,7 +19,7 @@ import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
  * @evidence contracts/common.md#principled-implementation The emended document becomes Swagger 2.0 only when every part can be expressed: servers must share host, base path and schemes, request bodies become one body or form-data parameter set, nullable and unions use extension keys and constants become enums; a part that cannot be expressed throws TypeError with a message and is not dropped.
  * @evidence contracts/common.md#clear-and-simple-design A long namespace with private helpers per object kind, server reduction and schema rewriting; the failure cases are explicit checks rather than silent drops.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Loss is refused, and the helper that inlines references or enumerates types follows the stated rewrite and not a fixture.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment was added that lists the mappings and the rejection rule; the larger helpers carry their own comments.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the mappings and the rejection rule; the larger helpers carry their own comments.
  */
 export namespace SwaggerV2Downgrader {
   /**
@@ -29,7 +29,7 @@ export namespace SwaggerV2Downgrader {
    * @evidence contracts/common.md#principled-implementation A pair of the original components and the definitions being built.
    * @evidence contracts/common.md#clear-and-simple-design Two fields.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-   * @evidence contracts/common.md#meaningful-documentation A short comment was added.
+   * @evidence contracts/common.md#meaningful-documentation A short comment states the role.
    */
   export interface IComponentsCollection {
     original: OpenApi.IComponents;
@@ -46,7 +46,7 @@ export namespace SwaggerV2Downgrader {
    * @evidence contracts/common.md#principled-implementation Components, servers and security definitions are downgraded first and paths are rewritten against them, so references and server reduction use one consistent view.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rejection of unrepresentable servers and bodies happens in the helpers it calls.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgrade = (input: OpenApi.IDocument): SwaggerV2.IDocument => {
     const collection: IComponentsCollection = downgradeComponents(
@@ -693,7 +693,7 @@ export namespace SwaggerV2Downgrader {
    * @evidence contracts/common.md#principled-implementation Each schema is downgraded into a definitions record keyed by the same names.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts No hidden state.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgradeComponents = (
     input: OpenApi.IComponents,
@@ -724,7 +724,7 @@ export namespace SwaggerV2Downgrader {
    * @evidence contracts/common.md#principled-implementation Nullable and union schemas use the vendor extensions, tuples and constants become the nearest Swagger forms, references may be inlined where Swagger requires, and constructs that cannot be represented are rejected; each rewrite is the inverse of what the upgrader reads.
    * @evidence contracts/common.md#clear-and-simple-design One large recursive function with helpers for nullable references, enumerations and form-data schemas.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rejection and documented extension keys are used in place of silent loss.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result; helpers carry comments.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result; helpers carry comments.
    */
   export const downgradeSchema =
     (collection: IComponentsCollection) =>

@@ -11,7 +11,7 @@ import { OpenApiStationValidator } from "./OpenApiStationValidator";
  * @evidence contracts/common.md#principled-implementation A value must be a plain object by its `Object` string tag, then each declared property is validated as required or optional by the `required` list, additional properties that have a schema are validated for keys not declared, and for a closed object `equals` reports every undeclared key that has a value. A key with value `undefined` has no JSON form, so it is neither required nor superfluous. Property access goes through own-key lookup, so inherited names are not read.
  * @evidence contracts/common.md#clear-and-simple-design One function that concatenates three groups of checks and a private equals checker; path building is the shared naming rule.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Openness is read from the boolean keyword itself and not from its type, as the comment records, and no key is special-cased.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added, and the comments on additional properties and `equals` explain the rules.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract, and the comments on additional properties and `equals` explain the rules.
  */
 export namespace OpenApiObjectValidator {
   /**
@@ -26,7 +26,7 @@ export namespace OpenApiObjectValidator {
    * @evidence contracts/common.md#principled-implementation Non-objects, arrays and values whose string tag is not `Object` are reported with the object expected name; the checks of the three groups are all evaluated so every problem is reported.
    * @evidence contracts/common.md#clear-and-simple-design One function with the property, additional property and equals groups.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The string tag test rejects values such as dates and maps and accepts a class instance with the ordinary tag, which fits the JSON data model.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the function does.
    */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IObject>,

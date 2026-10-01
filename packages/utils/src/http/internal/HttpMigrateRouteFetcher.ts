@@ -13,7 +13,7 @@ import type { HttpMigration } from "../HttpMigration";
  * @evidence contracts/common.md#principled-implementation The request is built by checking the arguments against the route's groups, serializing path, query, header and cookie values by their OpenAPI style, encoding the body by media type and sending it through the connection's fetch or the global one; the response body is parsed by content type. Non-2xx responses are thrown only by execute.
  * @evidence contracts/common.md#clear-and-simple-design Two exported functions over one private request function; serialization, parsing and encoding helpers are module-level because they are used by the request builder only.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The connection fetch is the supported replacement point, and no global is patched.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function docs were added for the request, serialization and error contract.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function docs cover the request, serialization and error contract.
  */
 export namespace HttpMigrateRouteFetcher {
   /**

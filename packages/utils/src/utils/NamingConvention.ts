@@ -161,7 +161,7 @@ export namespace NamingConvention {
    * @evidence contracts/common.md#principled-implementation The first character is lowercased and the rest is kept verbatim, with the empty string unchanged.
    * @evidence contracts/common.md#clear-and-simple-design One expression with an empty-string guard, the mirror of capitalize.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A general string transformation without special cases.
-   * @evidence contracts/common.md#meaningful-documentation The doc says it lowercases the first character; its return description was corrected to say the first character is lowercased.
+   * @evidence contracts/common.md#meaningful-documentation The doc says it lowercases the first character; its return description says the first character is lowercased.
    */
   export const localize = (str: string): string =>
     str.length !== 0 ? str[0]!.toLowerCase() + str.slice(1) : str;

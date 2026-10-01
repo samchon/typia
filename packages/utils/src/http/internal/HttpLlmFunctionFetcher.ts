@@ -14,7 +14,7 @@ import { HttpMigrateRouteFetcher } from "./HttpMigrateRouteFetcher";
  * @evidence contracts/common.md#principled-implementation The function's migrated route already knows its parameter groups, so the fetcher only maps the keyworded input into those groups by key and defers the request to the route fetcher.
  * @evidence contracts/common.md#clear-and-simple-design Two exported functions share one private argument builder.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts There is no second request implementation.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment and function docs were added for the adapter role, thrown errors and results.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function docs cover the adapter role, thrown errors and results.
  */
 export namespace HttpLlmFunctionFetcher {
   /**

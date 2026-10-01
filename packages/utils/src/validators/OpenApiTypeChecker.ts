@@ -290,7 +290,7 @@ export namespace OpenApiTypeChecker {
    *
    * @returns Escaped schema, or error with reason
    *
-   * @evidence contracts/common.md#principled-implementation References are replaced by their targets, with the description of the reference cascaded from its namespace ancestors; a reference seen again is expanded again until the visit count passes `recursive`, and with `false` or `0` a recursive reference fails. A reference whose key cannot be read or whose component is missing fails with a reason naming the accessor, and a union branch that was cut by the depth limit is dropped. The method name placed in the error was corrected from a nonexistent one to `OpenApiTypeChecker.escape`.
+   * @evidence contracts/common.md#principled-implementation References are replaced by their targets, with the description of the reference cascaded from its namespace ancestors; a reference seen again is expanded again until the visit count passes `recursive`, and with `false` or `0` a recursive reference fails. A reference whose key cannot be read or whose component is missing fails with a reason naming the accessor, and a union branch that was cut by the depth limit is dropped. The error names the real operation, `OpenApiTypeChecker.escape`.
    * @evidence contracts/common.md#clear-and-simple-design A wrapper that supplies the prefix and method name; the recursion is in the shared base with a per-path visit map.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Depth is an explicit parameter and failure is reported, instead of an arbitrary built-in cap or a silent empty schema.
    * @evidence contracts/common.md#meaningful-documentation The doc explains the escape rule, the recursion depth, the two failure causes and the properties.

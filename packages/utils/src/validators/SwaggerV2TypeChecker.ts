@@ -17,7 +17,7 @@ import { SwaggerV2 } from "@typia/interface";
  * @evidence contracts/common.md#principled-implementation The namespace holds the guards for Swagger 2.0 schemas, where unions exist only as the `x-oneOf` and `x-anyOf` extensions and nullability as `x-nullable`; the guards read those extension keys so documents emitted by tools that use them are converted.
  * @evidence contracts/common.md#clear-and-simple-design A flat set of one-line guards with no operation beyond narrowing.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The extension keys are the documented spellings of the dialect and not special cases.
- * @evidence contracts/common.md#meaningful-documentation The comment lists the limitations of the dialect, which now name the extensions, and points to the normalized checker.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the limitations of the dialect, which name the extensions, and points to the normalized checker.
  */
 export namespace SwaggerV2TypeChecker {
   /**

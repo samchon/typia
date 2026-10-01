@@ -15,7 +15,7 @@ import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
  * @evidence contracts/common.md#principled-implementation The emended document is rewritten to 3.1 by moving `query` and additional operations to `x-additionalOperations`, writing `byte` as base64 content encoding, turning example maps into arrays and removing the device authorization flow, while schemas keep their 2020-12 form.
  * @evidence contracts/common.md#clear-and-simple-design Per-object helpers in one namespace.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Extension fields are documented ones; unsupported flows are removed and not renamed.
- * @evidence contracts/common.md#meaningful-documentation A namespace comment was added that lists the rewrites.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites.
  */
 export namespace OpenApiV3_1Downgrader {
   /**
@@ -24,7 +24,7 @@ export namespace OpenApiV3_1Downgrader {
    * @evidence contracts/common.md#principled-implementation A pair of the original and downgraded components.
    * @evidence contracts/common.md#clear-and-simple-design Two fields.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-   * @evidence contracts/common.md#meaningful-documentation A one-line comment was added.
+   * @evidence contracts/common.md#meaningful-documentation A one-line comment states the role.
    */
   export interface IComponentsCollection {
     original: OpenApi.IComponents;
@@ -41,7 +41,7 @@ export namespace OpenApiV3_1Downgrader {
    * @evidence contracts/common.md#principled-implementation Components are downgraded first and paths and webhooks are rewritten against the collection.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts No hidden state.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgrade = (
     input: OpenApi.IDocument,
@@ -253,7 +253,7 @@ export namespace OpenApiV3_1Downgrader {
    * @evidence contracts/common.md#principled-implementation Each schema is downgraded into a new store under the same name and security schemes are rewritten for 3.1.
    * @evidence contracts/common.md#clear-and-simple-design One function.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts No hidden state.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgradeComponents = (
     input: OpenApi.IComponents,
@@ -289,7 +289,7 @@ export namespace OpenApiV3_1Downgrader {
    * @evidence contracts/common.md#principled-implementation Members of a `oneOf` are flattened into one union, null and constants are written in their 3.1 forms, strings get their base64 encoding, and tuples and objects recurse, with a discriminator kept only while the union kept one member per branch.
    * @evidence contracts/common.md#clear-and-simple-design One recursive function with a small examples helper.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts Rewrites follow the 3.1 dialect and no keyword is invented.
-   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameter and result.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
    */
   export const downgradeSchema =
     (collection: IComponentsCollection) =>
