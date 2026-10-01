@@ -45,24 +45,6 @@ func MetadataConstant_create(props MetadataConstant) *MetadataConstant {
   }
 }
 
-// MetadataConstant_from builds a group from its JSON form. The analysis-only
-// Duplicated mark is not part of the JSON and is lost.
-//
-// @evidence contracts/common.md#principled-implementation Each JSON value becomes a value record and the group is built by the constructor.
-// @evidence contracts/common.md#clear-and-simple-design One loop and one call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The lost flag is the documented property of the JSON form.
-// @evidence contracts/common.md#meaningful-documentation The doc states what is lost.
-func MetadataConstant_from(json IMetadataSchema_IConstant) *MetadataConstant {
-  values := make([]*MetadataConstantValue, 0, len(json.Values))
-  for _, value := range json.Values {
-    values = append(values, MetadataConstantValue_from(value))
-  }
-  return MetadataConstant_create(MetadataConstant{
-    Type:   json.Type,
-    Values: values,
-  })
-}
-
 // ToJSON returns the JSON form of the group.
 //
 // @evidence contracts/common.md#principled-implementation Each value is converted by its own ToJSON.

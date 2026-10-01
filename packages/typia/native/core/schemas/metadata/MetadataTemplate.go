@@ -46,24 +46,6 @@ func MetadataTemplate_create(props MetadataTemplate) *MetadataTemplate {
   }
 }
 
-// MetadataTemplate_from builds a template from its JSON form, loading every row
-// schema against dict.
-//
-// @evidence contracts/common.md#principled-implementation Each element is loaded through MetadataSchema_from.
-// @evidence contracts/common.md#clear-and-simple-design One loop.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is added.
-// @evidence contracts/common.md#meaningful-documentation The doc states the dictionary use.
-func MetadataTemplate_from(json IMetadataSchema_ITemplate, dict IMetadataDictionary) *MetadataTemplate {
-  row := make([]*MetadataSchema, 0, len(json.Row))
-  for _, elem := range json.Row {
-    row = append(row, MetadataSchema_from(elem, dict))
-  }
-  return &MetadataTemplate{
-    Row:  row,
-    Tags: cloneTagMatrix(json.Tags),
-  }
-}
-
 // GetName returns the base name with the tags applied, cached after the first call.
 //
 // @evidence contracts/common.md#principled-implementation The name is the template text intersected with its tag alternatives.

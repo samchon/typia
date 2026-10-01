@@ -49,22 +49,6 @@ func MetadataParameter_create(props MetadataParameter) *MetadataParameter {
   }
 }
 
-// MetadataParameter_from builds a parameter from its JSON form, loading the type
-// schema against dict. TsType is not in the JSON and is nil.
-//
-// @evidence contracts/common.md#principled-implementation The schema is loaded through MetadataSchema_from so reference resolution has one implementation.
-// @evidence contracts/common.md#clear-and-simple-design One constructor call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The missing compiler type is the documented JSON contract.
-// @evidence contracts/common.md#meaningful-documentation The doc states the nil TsType.
-func MetadataParameter_from(json IMetadataSchema_IParameter, dict IMetadataDictionary) *MetadataParameter {
-  return MetadataParameter_create(MetadataParameter{
-    Name:        json.Name,
-    Type:        MetadataSchema_from(json.Type, dict),
-    Description: json.Description,
-    JsDocTags:   json.JsDocTags,
-  })
-}
-
 // ToJSON returns the JSON form of the parameter; the type schema must be set.
 //
 // @evidence contracts/common.md#principled-implementation The type schema is converted by its own ToJSON and the JSDoc tags are copied.

@@ -51,21 +51,6 @@ func ReadText(t *testing.T, file string) string {
   return string(content)
 }
 
-// Returns a metadata dictionary with empty object, alias, array and tuple tables.
-//
-// @evidence contracts/testing.md#behavioral-verification EmptyMetadataDictionary only constructs an empty metadata dictionary and asserts nothing; the tests that call it assert the behavior of the code under test on that value, so a wrong construction surfaces as a failing assertion in those callers.
-// @evidence contracts/testing.md#independent-expectations The constructed value is authored input derived from the arguments and not from the code under test.
-// @evidence contracts/testing.md#distinguishing-cases EmptyMetadataDictionary supplies an empty metadata dictionary for positive and negative cases chosen by its callers and owns no case distinction itself.
-// @evidence contracts/testing.md#execution-ownership The helper is compiled into the packages/typia/test module (pnpm test:go:public) and called in process by the Go tests; it starts no process and builds no native command.
-func EmptyMetadataDictionary() metadata.IMetadataDictionary {
-  return metadata.IMetadataDictionary{
-    Objects: map[string]*metadata.MetadataObjectType{},
-    Aliases: map[string]*metadata.MetadataAliasType{},
-    Arrays:  map[string]*metadata.MetadataArrayType{},
-    Tuples:  map[string]*metadata.MetadataTupleType{},
-  }
-}
-
 // Builds a property whose key is a string literal.
 //
 // @evidence contracts/testing.md#behavioral-verification Property only constructs a metadata property with a literal key and asserts nothing; the tests that call it assert the behavior of the code under test on that value, so a wrong construction surfaces as a failing assertion in those callers.

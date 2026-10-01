@@ -80,22 +80,6 @@ func MetadataConstantValue_create(props MetadataConstantValue) *MetadataConstant
   }
 }
 
-// MetadataConstantValue_from builds a value from its JSON form. Duplicated is
-// not in the JSON and is false.
-//
-// @evidence contracts/common.md#principled-implementation It goes through the constructor so the copying rule is in one place.
-// @evidence contracts/common.md#clear-and-simple-design One call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The omitted flag is the documented JSON contract.
-// @evidence contracts/common.md#meaningful-documentation The doc states the flag.
-func MetadataConstantValue_from(json IMetadataSchema_IConstant_IValue) *MetadataConstantValue {
-  return MetadataConstantValue_create(MetadataConstantValue{
-    Value:       json.Value,
-    Tags:        json.Tags,
-    Description: json.Description,
-    JsDocTags:   json.JsDocTags,
-  })
-}
-
 // GetName returns the literal as written (a string is JSON-quoted) and, with
 // tags, `(literal & (row | row))`, with the tags of a row joined by `&`.
 //

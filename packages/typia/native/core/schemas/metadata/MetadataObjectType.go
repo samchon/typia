@@ -107,27 +107,6 @@ func MetadataObjectType_create(props MetadataObjectType) *MetadataObjectType {
   }
 }
 
-// MetadataObjectType__From_without_properties builds the object type of a JSON
-// record with no properties and Validated false. The components add the
-// properties after every type exists, which is how recursive objects load.
-//
-// @evidence contracts/common.md#principled-implementation Loading is two-phase so that a property can refer to an object that does not exist yet.
-// @evidence contracts/common.md#clear-and-simple-design One constructor reusing MetadataObjectType_create.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The empty property list is the documented first phase.
-// @evidence contracts/common.md#meaningful-documentation The doc states the first phase.
-func MetadataObjectType__From_without_properties(obj IMetadataSchema_IObjectType) *MetadataObjectType {
-  return MetadataObjectType_create(MetadataObjectType{
-    Name:        obj.Name,
-    Properties:  []*MetadataProperty{},
-    Description: obj.Description,
-    JsDocTags:   obj.JsDocTags,
-    Index:       obj.Index,
-    Validated:   false,
-    Recursive:   obj.Recursive,
-    Nullables:   obj.Nullables,
-  })
-}
-
 // GetDisplayName returns the human-facing rendering of the type: the
 // structural form for anonymous (inline) types, the identifier name otherwise.
 // Identity-sensitive logic (function keys, deduplication) must keep using Name.
@@ -184,41 +163,6 @@ func (obj *MetadataObjectType) HasRequiredLiteralProperty() bool {
   }
   obj.required_literal_ = &value
   return value
-}
-
-// IsPlain reports whether the object is a simple record: not recursive, fewer
-// than ten properties, every key a single literal and every value a required,
-// non-null atomic or, for one level, a plain object. No transform path calls it
-// today.
-//
-// @evidence contracts/common.md#principled-implementation The predicate classifies simple record shapes by the stated limits and is covered by unit tests; no transform path calls it today, which the doc says.
-// @evidence contracts/common.md#clear-and-simple-design One loop with a depth parameter.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The ten-property and one-level limits are written in the doc, not hidden.
-// @evidence contracts/common.md#meaningful-documentation The doc states each condition.
-func (obj *MetadataObjectType) IsPlain(level ...int) bool {
-  lv := 0
-  if len(level) > 0 {
-    lv = level[0]
-  }
-  if obj.Recursive || len(obj.Properties) >= 10 {
-    return false
-  }
-  for _, property := range obj.Properties {
-    if property.Key.IsSoleLiteral() == false ||
-      property.Value.Size() != 1 ||
-      property.Value.IsRequired() == false ||
-      property.Value.Nullable {
-      return false
-    }
-    if len(property.Value.Atomics) == 1 {
-      continue
-    }
-    if lv < 1 && len(property.Value.Objects) == 1 && property.Value.Objects[0].Type.IsPlain(lv+1) {
-      continue
-    }
-    return false
-  }
-  return true
 }
 
 // IsLiteral reports whether the type is an anonymous object literal: not

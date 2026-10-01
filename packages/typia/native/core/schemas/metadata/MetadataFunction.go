@@ -41,25 +41,6 @@ func MetadataFunction_create(props MetadataFunction) *MetadataFunction {
   }
 }
 
-// MetadataFunction_from builds a function from its JSON form, loading every
-// parameter and the output against dict.
-//
-// @evidence contracts/common.md#principled-implementation Each part is loaded through its own from function so reference resolution has one implementation.
-// @evidence contracts/common.md#clear-and-simple-design One loop and one constructor call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts A nil parameter or output is a caller error and is not masked.
-// @evidence contracts/common.md#meaningful-documentation The doc states the dictionary use.
-func MetadataFunction_from(json IMetadataSchema_IFunction, dict IMetadataDictionary) *MetadataFunction {
-  parameters := make([]*MetadataParameter, 0, len(json.Parameters))
-  for _, p := range json.Parameters {
-    parameters = append(parameters, MetadataParameter_from(*p, dict))
-  }
-  return MetadataFunction_create(MetadataFunction{
-    Parameters: parameters,
-    Output:     MetadataSchema_from(json.Output, dict),
-    Async:      json.Async,
-  })
-}
-
 // ToJSON returns the JSON form of the function; the output schema must be set.
 //
 // @evidence contracts/common.md#principled-implementation Each parameter and the output are converted by their own ToJSON.

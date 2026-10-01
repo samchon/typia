@@ -66,7 +66,7 @@ func Explore_metadata(props Explore_metadata_IProps) *schemametadata.MetadataSch
   if props.Errors != nil {
     errorCount = len(*props.Errors)
   }
-  metadata := schemametadata.MetadataSchema_initialize(props.Explore.Escaped)
+  metadata := schemametadata.MetadataSchema_initialize()
   if props.Type == nil {
     return metadata
   }

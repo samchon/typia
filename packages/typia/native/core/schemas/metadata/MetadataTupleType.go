@@ -33,23 +33,6 @@ type MetadataTupleType struct {
   Of_map      *bool
 }
 
-// MetadataTupleType__From_without_elements builds the tuple type of a JSON record
-// with no elements, to be filled once every type exists.
-//
-// @evidence contracts/common.md#principled-implementation Loading is two-phase so that a recursive tuple can refer to a type that does not exist yet.
-// @evidence contracts/common.md#clear-and-simple-design One constructor reusing MetadataTupleType_create.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The missing elements are the documented first phase.
-// @evidence contracts/common.md#meaningful-documentation The doc states the first phase.
-func MetadataTupleType__From_without_elements(props IMetadataSchema_ITupleType) *MetadataTupleType {
-  return MetadataTupleType_create(MetadataTupleType{
-    Name:      props.Name,
-    Index:     props.Index,
-    Elements:  nil,
-    Recursive: props.Recursive,
-    Nullables: append([]bool{}, props.Nullables...),
-  })
-}
-
 // MetadataTupleType_create builds a tuple type from props. The nullability list
 // is copied; the element slice and the other fields are stored as given.
 //

@@ -43,19 +43,6 @@ func MetadataAtomic_create(props MetadataAtomic) *MetadataAtomic {
   }
 }
 
-// MetadataAtomic_from builds an atomic from its JSON form.
-//
-// @evidence contracts/common.md#principled-implementation It delegates to the constructor so the copying rule is in one place.
-// @evidence contracts/common.md#clear-and-simple-design One call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is added or dropped.
-// @evidence contracts/common.md#meaningful-documentation The doc states the source.
-func MetadataAtomic_from(json IMetadataSchema_IAtomic) *MetadataAtomic {
-  return MetadataAtomic_create(MetadataAtomic{
-    Type: json.Type,
-    Tags: json.Tags,
-  })
-}
-
 // GetName returns the type, or `(type & tag)` for one row, or
 // `(type & (row | row))` for several, with the tags of a row joined by `&`.
 //

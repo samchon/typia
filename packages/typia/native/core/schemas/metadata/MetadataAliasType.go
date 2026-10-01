@@ -53,25 +53,6 @@ func MetadataAliasType_create(props MetadataAliasType) *MetadataAliasType {
   }
 }
 
-// MetadataAliasType__From_without_value builds the alias type of a JSON record
-// with Value left nil. The components fill it in after every type exists, which
-// is how recursive aliases load; ToJSON must not be called before that.
-//
-// @evidence contracts/common.md#principled-implementation A recursive alias refers to itself through its value, so loading is two-phase: create every type, then resolve the values against the full dictionary.
-// @evidence contracts/common.md#clear-and-simple-design One constructor reusing MetadataAliasType_create.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The missing value is the documented first phase, not a placeholder.
-// @evidence contracts/common.md#meaningful-documentation The doc states the first phase and the nil Value restriction.
-func MetadataAliasType__From_without_value(props IMetadataSchema_IAliasType) *MetadataAliasType {
-  return MetadataAliasType_create(MetadataAliasType{
-    Name:        props.Name,
-    Value:       nil,
-    Description: props.Description,
-    Recursive:   props.Recursive,
-    JsDocTags:   append([]IJsDocTagInfo{}, props.JsDocTags...),
-    Nullables:   append([]bool{}, props.Nullables...),
-  })
-}
-
 // GetDisplayName returns the human-facing rendering of the type: the
 // structural form for anonymous (inline) types, the identifier name otherwise.
 // Identity-sensitive logic (function keys, deduplication) must keep using Name.

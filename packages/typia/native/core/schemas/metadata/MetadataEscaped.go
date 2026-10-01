@@ -25,20 +25,6 @@ type MetadataEscaped struct {
   Returns  *MetadataSchema
 }
 
-// MetadataEscaped_from builds an escaped type from its JSON form by loading both
-// schemas against dict.
-//
-// @evidence contracts/common.md#principled-implementation Each schema is loaded by MetadataSchema_from so reference resolution has one implementation.
-// @evidence contracts/common.md#clear-and-simple-design One constructor call over two loads.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is added or dropped.
-// @evidence contracts/common.md#meaningful-documentation The doc states the source and the dictionary.
-func MetadataEscaped_from(props IMetadataSchema_IEscaped, dict IMetadataDictionary) *MetadataEscaped {
-  return MetadataEscaped_create(MetadataEscaped{
-    Original: MetadataSchema_from(props.Original, dict),
-    Returns:  MetadataSchema_from(props.Returns, dict),
-  })
-}
-
 // MetadataEscaped_create builds an escaped type from props, storing both schemas
 // as given.
 //

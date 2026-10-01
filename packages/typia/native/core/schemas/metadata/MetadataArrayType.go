@@ -32,24 +32,6 @@ type MetadataArrayType struct {
   Index       *int
 }
 
-// MetadataArrayType__From_without_value builds the array type of a JSON record
-// with Value left nil, to be filled once every type exists. ToJSON must not be
-// called before that.
-//
-// @evidence contracts/common.md#principled-implementation Loading is two-phase so that a recursive array can refer to a type that does not exist yet.
-// @evidence contracts/common.md#clear-and-simple-design One constructor reusing MetadataArrayType_create.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The missing value is the documented first phase.
-// @evidence contracts/common.md#meaningful-documentation The doc states the first phase and the Value restriction.
-func MetadataArrayType__From_without_value(props IMetadataSchema_IArrayType) *MetadataArrayType {
-  return MetadataArrayType_create(MetadataArrayType{
-    Name:      props.Name,
-    Value:     nil,
-    Index:     props.Index,
-    Recursive: props.Recursive,
-    Nullables: append([]bool{}, props.Nullables...),
-  })
-}
-
 // MetadataArrayType_create builds an array type from props. The nullability list
 // is copied; Value and Index are stored as given.
 //

@@ -51,23 +51,6 @@ func MetadataProperty_create(props MetadataProperty) *MetadataProperty {
   }
 }
 
-// MetadataProperty_from builds a property from its JSON form, loading the key
-// and value schemas against dict.
-//
-// @evidence contracts/common.md#principled-implementation Both schemas are loaded through MetadataSchema_from.
-// @evidence contracts/common.md#clear-and-simple-design One constructor call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is added.
-// @evidence contracts/common.md#meaningful-documentation The doc states the dictionary use.
-func MetadataProperty_from(property IMetadataSchema_IProperty, dict IMetadataDictionary) *MetadataProperty {
-  return MetadataProperty_create(MetadataProperty{
-    Key:         MetadataSchema_from(property.Key, dict),
-    Value:       MetadataSchema_from(property.Value, dict),
-    Description: property.Description,
-    JsDocTags:   append([]IJsDocTagInfo{}, property.JsDocTags...),
-    Mutability:  property.Mutability,
-  })
-}
-
 // ToJSON returns the JSON form of the property; the key and value schemas must
 // be set.
 //

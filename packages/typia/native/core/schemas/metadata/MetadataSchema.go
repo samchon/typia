@@ -43,8 +43,7 @@ type IMetadataSchema struct {
 // MetadataSchema is everything a type can be at one position: the flags Any,
 // Required, Optional and Nullable, and one list for each member kind. A value is
 // the union of its members, so `string | number[]` has one atomic and one array.
-// The name caches, the sequence and sole-literal caches and the parent-resolved
-// mark are analysis state, and Union_index, Fixed_ and Boolean_literal_intersected_
+// The name caches and the sole-literal cache are analysis state, and Union_index, Fixed_ and Boolean_literal_intersected_
 // are analysis marks that Clone copies and the JSON form omits. The caches are not
 // invalidated when the lists change after the first read.
 //
@@ -76,11 +75,9 @@ type MetadataSchema struct {
 
   name_                        string
   display_name_                string
-  parent_resolved_             bool
   Union_index                  *int
   Fixed_                       *int
   Boolean_literal_intersected_ *bool
-  is_sequence_                 *bool
   sole_literal_cached_         bool
   sole_literal_                *string
 }
@@ -118,19 +115,14 @@ func MetadataSchema_create(props MetadataSchema) *MetadataSchema {
 }
 
 // MetadataSchema_initialize returns an empty schema: required, not optional, not
-// nullable, with every member list allocated. The optional argument sets the
-// parent-resolved mark.
+// nullable, with every member list allocated.
 //
 // @evidence contracts/common.md#principled-implementation The analysis starts every position from an empty required schema and adds the members it finds.
-// @evidence contracts/common.md#clear-and-simple-design One call to MetadataSchema_create and one mark.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The only variation is the documented mark.
+// @evidence contracts/common.md#clear-and-simple-design One call to MetadataSchema_create.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts There is no variation.
 // @evidence contracts/common.md#meaningful-documentation The doc states the starting state.
-func MetadataSchema_initialize(parentResolved ...bool) *MetadataSchema {
-  resolved := false
-  if len(parentResolved) > 0 {
-    resolved = parentResolved[0]
-  }
-  meta := MetadataSchema_create(MetadataSchema{
+func MetadataSchema_initialize() *MetadataSchema {
+  return MetadataSchema_create(MetadataSchema{
     Any:       false,
     Nullable:  false,
     Required:  true,
@@ -149,8 +141,6 @@ func MetadataSchema_initialize(parentResolved ...bool) *MetadataSchema {
     Sets:      []*MetadataSet{},
     Maps:      []*MetadataMap{},
   })
-  meta.parent_resolved_ = resolved
-  return meta
 }
 
 // ShallowClone copies the schema record, or returns nil for nil. The member lists
@@ -195,7 +185,7 @@ func (obj *MetadataSchema) WithOptional(optional bool) *MetadataSchema {
 // Clone copies a schema and everything it contains: the member records, tag
 // rows, constant values, template rows, function parameters and nested schemas.
 // The shared type values (object, alias, array and tuple types) are not copied,
-// and cyclic schema references are copied once. The name and sequence caches are
+// and cyclic schema references are copied once. The name caches are
 // not copied, so the clone recomputes them.
 //
 // @evidence contracts/common.md#principled-implementation An exploration result must be reused or edited without affecting its origin, while the shared types must stay shared so identities remain.
@@ -218,7 +208,6 @@ func metadataSchema_clone(obj *MetadataSchema, visited map[*MetadataSchema]*Meta
     Required:                     obj.Required,
     Optional:                     obj.Optional,
     Nullable:                     obj.Nullable,
-    parent_resolved_:             obj.parent_resolved_,
     Union_index:                  metadataSchema_cloneInt(obj.Union_index),
     Fixed_:                       metadataSchema_cloneInt(obj.Fixed_),
     Boolean_literal_intersected_: metadataSchema_cloneBool(obj.Boolean_literal_intersected_),
@@ -529,114 +518,6 @@ func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
   return output
 }
 
-// MetadataSchema_from builds a schema from its JSON form, resolving references
-// against dict. It panics when a referenced array, tuple, object or alias is not in
-// the dictionary.
-//
-// @evidence contracts/common.md#principled-implementation The loader is the inverse of ToJSON and an unknown reference means the input is not a valid graph, which is reported by name instead of producing a half-linked schema.
-// @evidence contracts/common.md#clear-and-simple-design One loop per member kind and one constructor call.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts A missing reference fails loudly with the kind and name.
-// @evidence contracts/common.md#meaningful-documentation The doc states the panic.
-func MetadataSchema_from(meta *IMetadataSchema, dict IMetadataDictionary) *MetadataSchema {
-  functions := make([]*MetadataFunction, 0, len(meta.Functions))
-  for _, f := range meta.Functions {
-    functions = append(functions, MetadataFunction_from(*f, dict))
-  }
-  constants := make([]*MetadataConstant, 0, len(meta.Constants))
-  for _, c := range meta.Constants {
-    constants = append(constants, MetadataConstant_from(c))
-  }
-  atomics := make([]*MetadataAtomic, 0, len(meta.Atomics))
-  for _, a := range meta.Atomics {
-    atomics = append(atomics, MetadataAtomic_from(a))
-  }
-  templates := make([]*MetadataTemplate, 0, len(meta.Templates))
-  for _, tpl := range meta.Templates {
-    templates = append(templates, MetadataTemplate_from(tpl, dict))
-  }
-
-  var escaped *MetadataEscaped
-  if meta.Escaped != nil {
-    escaped = MetadataEscaped_from(*meta.Escaped, dict)
-  }
-  var rest *MetadataSchema
-  if meta.Rest != nil {
-    rest = MetadataSchema_from(meta.Rest, dict)
-  }
-
-  arrays := make([]*MetadataArray, 0, len(meta.Arrays))
-  for _, ref := range meta.Arrays {
-    typ := dict.Arrays[ref.Name]
-    if typ == nil {
-      panic(fmt.Sprintf("Error on Metadata.from(): failed to find array %q.", ref.Name))
-    }
-    arrays = append(arrays, MetadataArray_create(MetadataArray{Type: typ, Tags: cloneTagMatrix(ref.Tags)}))
-  }
-  tuples := make([]*MetadataTuple, 0, len(meta.Tuples))
-  for _, ref := range meta.Tuples {
-    typ := dict.Tuples[ref.Name]
-    if typ == nil {
-      panic(fmt.Sprintf("Error on Metadata.from(): failed to find tuple %q.", ref.Name))
-    }
-    tuples = append(tuples, MetadataTuple_create(MetadataTuple{Type: typ, Tags: cloneTagMatrix(ref.Tags)}))
-  }
-  objects := make([]*MetadataObject, 0, len(meta.Objects))
-  for _, ref := range meta.Objects {
-    found := dict.Objects[ref.Name]
-    if found == nil {
-      panic(fmt.Sprintf("Error on Metadata.from(): failed to find object %q.", ref.Name))
-    }
-    objects = append(objects, MetadataObject_create(MetadataObject{Type: found, Tags: cloneTagMatrix(ref.Tags)}))
-  }
-  aliases := make([]*MetadataAlias, 0, len(meta.Aliases))
-  for _, ref := range meta.Aliases {
-    typ := dict.Aliases[ref.Name]
-    if typ == nil {
-      panic(fmt.Sprintf("Error on Metadata.from(): failed to find alias %q.", ref.Name))
-    }
-    aliases = append(aliases, MetadataAlias_create(MetadataAlias{Type: typ, Tags: cloneTagMatrix(ref.Tags)}))
-  }
-  natives := make([]*MetadataNative, 0, len(meta.Natives))
-  for _, native := range meta.Natives {
-    natives = append(natives, MetadataNative_create(MetadataNative{Name: native.Name, Tags: cloneTagMatrix(native.Tags)}))
-  }
-  sets := make([]*MetadataSet, 0, len(meta.Sets))
-  for _, set := range meta.Sets {
-    sets = append(sets, MetadataSet_create(MetadataSet{
-      Value: MetadataSchema_from(set.Value, dict),
-      Tags:  cloneTagMatrix(set.Tags),
-    }))
-  }
-  maps := make([]*MetadataMap, 0, len(meta.Maps))
-  for _, m := range meta.Maps {
-    maps = append(maps, MetadataMap_create(MetadataMap{
-      Key:   MetadataSchema_from(m.Key, dict),
-      Value: MetadataSchema_from(m.Value, dict),
-      Tags:  cloneTagMatrix(m.Tags),
-    }))
-  }
-
-  return MetadataSchema_create(MetadataSchema{
-    Any:       meta.Any,
-    Required:  meta.Required,
-    Optional:  meta.Optional,
-    Nullable:  meta.Nullable,
-    Functions: functions,
-    Constants: constants,
-    Atomics:   atomics,
-    Templates: templates,
-    Escaped:   escaped,
-    Rest:      rest,
-    Arrays:    arrays,
-    Tuples:    tuples,
-    Objects:   objects,
-    Aliases:   aliases,
-    Natives:   natives,
-    Sets:      sets,
-    Maps:      maps,
-  })
-}
-
 // GetName returns the identity name of the schema in union notation: `any` for
 // Any, otherwise the sorted member names, with `null` and `undefined` when they
 // apply, joined by ` | ` and parenthesized, a single member unparenthesized and
@@ -764,40 +645,6 @@ func (obj *MetadataSchema) Bucket() int {
   return size
 }
 
-// IsSequence reports whether any atomic, constant value, template, array or
-// object, or a `Uint8Array` native, carries a protobuf sequence tag. The answer is
-// cached. No transform path calls it today.
-//
-// @evidence contracts/common.md#principled-implementation A schema is a sequence when any member carries the tag, so the members are tested with an OR; a unit test pins that one member is enough.
-// @evidence contracts/common.md#clear-and-simple-design One search over the member lists and a cache.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache is not invalidated when tags change, and the doc says no transform path calls it.
-// @evidence contracts/common.md#meaningful-documentation The doc states the members searched and the caching.
-func (obj *MetadataSchema) IsSequence() bool {
-  if obj.is_sequence_ != nil {
-    return *obj.is_sequence_
-  }
-  exists := func(tags [][]IMetadataTypeTag) bool {
-    for _, row := range tags {
-      for _, t := range row {
-        if IMetadataTypeTag_getSequence(t) != nil {
-          return true
-        }
-      }
-    }
-    return false
-  }
-  value := anyOf(obj.Atomics, func(atomic *MetadataAtomic) bool { return exists(atomic.Tags) }) ||
-    anyOf(obj.Constants, func(c *MetadataConstant) bool {
-      return anyOf(c.Values, func(v *MetadataConstantValue) bool { return exists(v.Tags) })
-    }) ||
-    anyOf(obj.Templates, func(tpl *MetadataTemplate) bool { return exists(tpl.Tags) }) ||
-    anyOf(obj.Arrays, func(array *MetadataArray) bool { return exists(array.Tags) }) ||
-    anyOf(obj.Objects, func(object *MetadataObject) bool { return exists(object.Tags) }) ||
-    anyOf(obj.Natives, func(native *MetadataNative) bool { return native.Name == "Uint8Array" && exists(native.Tags) })
-  obj.is_sequence_ = &value
-  return value
-}
-
 // IsConstant reports whether the constants are the only kind present, which is
 // also true for a schema with no member at all.
 //
@@ -884,18 +731,6 @@ func (obj *MetadataSchema) GetSoleLiteral() *string {
 // @evidence contracts/common.md#meaningful-documentation The doc states the delegation.
 func (obj *MetadataSchema) IsSoleLiteral() bool {
   return obj.GetSoleLiteral() != nil
-}
-
-// IsParentResolved returns the mark that MetadataSchema_initialize was given,
-// which is false unless a caller passed true. No transform path passes true or
-// reads the mark today.
-//
-// @evidence contracts/common.md#principled-implementation The mark is part of the recorded state that Clone preserves, and the accessor only reads it.
-// @evidence contracts/common.md#clear-and-simple-design One field read.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts No logic is hidden in the accessor, and the doc says it is unused today.
-// @evidence contracts/common.md#meaningful-documentation The doc states where the mark comes from and that nothing uses it.
-func (obj *MetadataSchema) IsParentResolved() bool {
-  return obj.parent_resolved_
 }
 
 // MetadataSchema_intersects reports whether two schemas may accept a common
