@@ -23,7 +23,7 @@
     "evidence": "pnpm run evidence:prepare && node scripts/check-evidence.cjs",
     "evidence:prepare": "pnpm --filter=./tests/test-*-automated --fail-if-no-match --workspace-concurrency=1 -r run generate",
     "evidence:packages": "pnpm --filter=./packages/* --fail-if-no-match -r --no-bail --workspace-concurrency=1 run evidence",
-    "evidence:tests": "pnpm run evidence:prepare && evidence --config tests/evidence.config.json"
+    "evidence:tests": "pnpm run evidence:prepare && pnpm --filter=./tests/* --fail-if-no-match -r --no-bail --workspace-concurrency=1 run evidence"
   },
   "repository": {
     "type": "git",

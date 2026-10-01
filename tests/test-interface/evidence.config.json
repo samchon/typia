@@ -1,0 +1,25 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "compile-only interface test declarations",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts"
+      ],
+      "symbol": [
+        "type",
+        "function"
+      ],
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

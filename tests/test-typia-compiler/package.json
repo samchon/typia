@@ -3,7 +3,8 @@
   "name": "@typia/test-typia-compiler",
   "description": "Compiler process integration tests for typia.",
   "scripts": {
-    "start": "ttsx src/index.ts"
+    "start": "ttsx src/index.ts",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

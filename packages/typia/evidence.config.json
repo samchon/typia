@@ -45,6 +45,24 @@
         "symbol": "h2",
         "checklist": true
       }
+    },
+    {
+      "name": "maintained native Go unit test declarations",
+      "type": "go",
+      "files": [
+        "native/**/*_test.go",
+        "test/**/*.go"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
     }
   ]
 }

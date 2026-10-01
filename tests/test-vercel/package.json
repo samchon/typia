@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ttsx src/index.ts",
     "tool-calling": "ttsx src/experimental/tool-calling.ts",
-    "structured-output": "ttsx src/experimental/structured-output.ts"
+    "structured-output": "ttsx src/experimental/structured-output.ts",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,107 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "authored TypeScript test declarations",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts",
+        "!src/internal/**",
+        "!src/structures/**",
+        "!src/controllers/**",
+        "src/internal/_test_*.ts",
+        "!src/TestAutomation.ts",
+        "!src/generate.ts",
+        "!src/features/validateEquals/test_*.ts",
+        "!src/internal/_test_validateEquals.ts",
+        "!src/features/validate/test_*.ts",
+        "!src/internal/_test_validate.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "reference": {
+        "root": "../../.agents/skills",
+        "checklist": true,
+        "files": [
+          "contracts/common.md"
+        ],
+        "type": "markdown",
+        "symbol": "h2"
+      },
+      "name": "maintained test generators",
+      "files": [
+        "src/TestAutomation.ts",
+        "src/generate.ts"
+      ],
+      "type": "typescript",
+      "symbol": [
+        "type",
+        "function"
+      ]
+    },
+    {
+      "name": "strict OpenAPI validation assertion helper",
+      "type": "typescript",
+      "files": [
+        "src/internal/_test_validateEquals.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated strict OpenAPI schema-producer boundaries",
+      "type": "typescript",
+      "files": [
+        "src/features/validateEquals/test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated ordinary OpenAPI schema boundaries",
+      "type": "typescript",
+      "files": [
+        "src/features/validate/test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

@@ -7,7 +7,8 @@
     "dev": "ttsc --watch",
     "start": "pnpm run test:unit && pnpm run test:integration",
     "test:unit": "ttsx --no-plugins --project tsconfig.unit.json src/unit/index.ts",
-    "test:integration": "ttsx src/index.ts"
+    "test:integration": "ttsx src/index.ts",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,45 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "authored TypeScript test declarations",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts",
+        "!src/internal/**",
+        "!src/structures/**",
+        "!src/controllers/**",
+        "src/internal/_test_*.ts",
+        "!src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "authored native boundaries",
+      "type": "typescript",
+      "files": [
+        "src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

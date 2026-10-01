@@ -1,0 +1,124 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "independent binding and equality oracles",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts",
+        "!src/TestPredicate.ts",
+        "!src/TestOpenApiValidation.ts",
+        "!src/TestPrune.ts",
+        "!src/TestClone.ts",
+        "!src/TestStringify.ts",
+        "!src/TestErrorClass.ts"
+      ],
+      "symbol": [
+        "type",
+        "function"
+      ],
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable predicate assertion helpers",
+      "type": "typescript",
+      "files": [
+        "src/TestPredicate.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "ordinary OpenAPI validation assertion helper",
+      "type": "typescript",
+      "files": [
+        "src/TestOpenApiValidation.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable pruning scenario owners",
+      "type": "typescript",
+      "files": [
+        "src/TestPrune.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md",
+          "contracts/performance.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable clone scenario owners",
+      "type": "typescript",
+      "files": [
+        "src/TestClone.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md",
+          "contracts/performance.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable JSON serialization and error-class oracles",
+      "type": "typescript",
+      "files": [
+        "src/TestStringify.ts",
+        "src/TestErrorClass.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

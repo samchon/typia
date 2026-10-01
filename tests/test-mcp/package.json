@@ -4,7 +4,8 @@
   "version": "15.0.1",
   "description": "Test suite for @typia/mcp package",
   "scripts": {
-    "start": "ttsx src/index.ts"
+    "start": "ttsx src/index.ts",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,8 @@
   "version": "15.0.1",
   "description": "Type tests for @typia/interface.",
   "scripts": {
-    "start": "ttsc"
+    "start": "ttsc",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",

@@ -38,11 +38,16 @@ function checkEvidence(
     .filter((entry) => entry.isDirectory())
     .map((entry) => `packages/${entry.name}/evidence.config.json`)
     .sort();
-  const configs = [
-    ...owners,
-    "tests/evidence.config.json",
-    "evidence.config.json",
-  ];
+  const tests = fs
+    .readdirSync(path.join(root, "tests"), { withFileTypes: true })
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        fs.existsSync(path.join(root, "tests", entry.name, "evidence.config.json")),
+    )
+    .map((entry) => `tests/${entry.name}/evidence.config.json`)
+    .sort();
+  const configs = [...owners, ...tests, "evidence.config.json"];
   let status = 0;
   for (const config of configs) {
     console.log(`Evidence owner: ${config}`);

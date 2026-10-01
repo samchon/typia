@@ -1,0 +1,53 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "authored TypeScript test declarations",
+      "type": "typescript",
+      "files": [
+        "src/**/*.ts",
+        "!src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
+        "!src/features/json.schema/test_json_schema_object_description.ts",
+        "!src/features/json.application/test_json_application_parameter_omission.ts",
+        "!src/internal/**",
+        "!src/structures/**",
+        "!src/controllers/**",
+        "src/internal/_test_*.ts",
+        "!src/features/llm.parameters/test_llm_parameters_anyof.ts",
+        "!src/features/llm.schema/test_llm_schema_spec_union.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "authored native boundaries",
+      "type": "typescript",
+      "files": [
+        "src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
+        "src/features/json.schema/test_json_schema_object_description.ts",
+        "src/features/json.application/test_json_application_parameter_omission.ts",
+        "src/features/llm.parameters/test_llm_parameters_anyof.ts",
+        "src/features/llm.schema/test_llm_schema_spec_union.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}
