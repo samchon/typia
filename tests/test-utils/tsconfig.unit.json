@@ -1,0 +1,12 @@
+{
+  "extends": "../../config/tsconfig.json",
+  "include": [
+    "src/unit"
+  ],
+  "compilerOptions": {
+    "rootDir": "src/unit",
+    "target": "ESNext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext"
+  }
+}

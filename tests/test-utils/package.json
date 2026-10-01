@@ -5,7 +5,9 @@
   "description": "Automated test features of typia.",
   "scripts": {
     "dev": "ttsc --watch",
-    "start": "ttsx src/index.ts"
+    "start": "pnpm run test:unit && pnpm run test:integration",
+    "test:unit": "ttsx --project tsconfig.unit.json src/unit/index.ts",
+    "test:integration": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "@nestia/e2e": "catalog:utils",
     "@standard-schema/spec": "^1.0.0",
     "@typia/interface": "workspace:^",
+    "@typia/oracle": "workspace:^",
     "@typia/utils": "workspace:^",
     "chalk": "^5.6.2",
     "tstl": "catalog:utils",

@@ -14,7 +14,9 @@ import { Git } from "./Git";
  * `--exclude` filter and the report entry on that exported name. A file whose
  * export disagrees with its own basename is therefore unreachable by its own
  * name, and two files exporting the same name inside one suite report two
- * indistinguishable executions.
+ * indistinguishable executions. A suite's plugin-free unit cases under
+ * `src/unit/features` register the same exported names with `node:test`, so
+ * they share the naming rule and the suite's uniqueness domain.
  *
  * This namespace turns that contract into a checkable invariant. {@link collect}
  * gathers the tracked feature files, {@link parse} extracts the `test_*`
@@ -143,7 +145,8 @@ export namespace FeatureIdentity {
    *
    * @param root Repository root; defaults to the enclosing git work tree.
    *
-   * @returns Every tracked `tests/<suite>/src/features` source file, parsed.
+   * @returns Every tracked `tests/<suite>/src/features` and
+   *   `tests/<suite>/src/unit/features` source file, parsed.
    *
    * @evidence contracts/common.md#principled-implementation NUL-delimited tracked paths preserve Unicode names and staged source provenance; the working-tree existence check excludes removed files, and each surviving feature is parsed before its copied record is returned.
    * @evidence contracts/common.md#clear-and-simple-design Path selection stays separate from extraction and diagnosis; each surviving file contributes one copied identity record through the same source parser.
@@ -224,12 +227,17 @@ export namespace FeatureIdentity {
   const PREFIX = "test_";
 
   /**
-   * A tracked `tests/<suite>/src/features` source file.
+   * A tracked `tests/<suite>/src/features` or `tests/<suite>/src/unit/features`
+   * source file.
    *
+   * A suite may register portable unit cases under `src/unit` beside its
+   * `DynamicExecutor` population. Both populations draw on the suite's exported
+   * test names, so one naming rule and one uniqueness domain judge them.
    * Declaration files are excluded: they carry no runnable export, so judging
    * them against the naming rule would only invent false diagnostics.
    */
-  const FEATURE_PATH = /^tests\/([^/]+)\/src\/features\/.+(?<!\.d)\.ts$/;
+  const FEATURE_PATH =
+    /^tests\/([^/]+)\/src\/(?:unit\/)?features\/.+(?<!\.d)\.ts$/;
 
   /**
    * Rejects literal and primitive-operation values after erased wrappers.

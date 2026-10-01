@@ -17,10 +17,15 @@ import { FeatureIdentity } from "../FeatureIdentity";
  * outright. The live tree cannot pin any of that — it holds no such file — so
  * this builds a throwaway repository that does.
  *
+ * A suite's plugin-free unit cases live under `src/unit/features` beside its
+ * `src/features` population; both must reach the check, while the unit
+ * registration index and declarations stay outside it.
+ *
  * 1. Stage a feature tree holding an ordinary test, a non-ASCII-named test, a
- *    helper, a declaration file, a file outside `features`, and a staged file
- *    deleted from the working tree.
- * 2. Assert the collector returns the three real sources and nothing else.
+ *    helper, a declaration file, a file outside `features`, a unit-feature test
+ *    with its unit index, and a staged file deleted from the working tree.
+ * 2. Assert the collector returns the real feature sources of both populations and
+ *    nothing else.
  * 3. Assert the non-ASCII file is parsed and its mismatch reported, so the quoting
  *    path stays wired end to end.
  */
@@ -42,6 +47,13 @@ export const test_feature_identity_collect = (): void => {
     );
     write(root, "tests/test-alpha/src/features/typings.d.ts");
     write(root, "tests/test-alpha/src/index.ts");
+    write(
+      root,
+      "tests/test-alpha/src/unit/features/test_alpha_unit.ts",
+      "export const test_alpha_unit = (): void => {};",
+    );
+    write(root, "tests/test-alpha/src/unit/index.ts");
+    write(root, "tests/test-alpha/src/unit/features/typings.d.ts");
     write(root, "tests/test-alpha/src/features/test_alpha_removed.ts");
     git(["add", "-A"], root);
     fs.rmSync(`${root}/tests/test-alpha/src/features/test_alpha_removed.ts`);
@@ -55,6 +67,7 @@ export const test_feature_identity_collect = (): void => {
         "tests/test-alpha/src/features/Helper.ts",
         "tests/test-alpha/src/features/test_alpha_ordinary.ts",
         "tests/test-alpha/src/features/test_alpha_é.ts",
+        "tests/test-alpha/src/unit/features/test_alpha_unit.ts",
       ],
       files.map((file) => file.path).sort(),
     );
@@ -75,7 +88,7 @@ export const test_feature_identity_collect = (): void => {
     );
 
     // Only the unicode file misnames its export, so it is the lone
-    // diagnostic. Asserting the exact count keeps the other five shapes
+    // diagnostic. Asserting the exact count keeps the other shapes
     // proven silent rather than merely unmentioned.
     const diagnostics: string[] = FeatureIdentity.diagnose(files);
     TestEquality.equals("diagnostics", 1, diagnostics.length);

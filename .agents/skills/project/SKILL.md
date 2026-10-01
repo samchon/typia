@@ -36,13 +36,13 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
 - `tests/oracle`: `@typia/oracle`, the shared equality and binding-syntax oracles under a config without the typia plugin. Direct unit cases import this owner so source dependencies do not prepare the transformed fixture package; template's existing subpaths forward to the same declarations for boundary suites.
 - `tests/test-*`: feature-test workspaces:
   - `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, `test-jev`, `test-utils`: function-per-file suites under `src/features/**/test_*.ts`, each file exporting one matching `test_<snake_case>` function discovered by `DynamicExecutor` (from `@nestia/e2e`).
+  - `test-utils` also holds direct utility cases under `src/unit/features/**/test_*.ts`, registered explicitly through `node:test` by `src/unit/index.ts` under `tsconfig.unit.json`, which has no native typia plugin. Its `start` runs the unit population before the plugin-built `DynamicExecutor` population. Portable utility semantics belong in the unit population; preserve each exported case's inputs, assertions and failure identity when transferring it from a transformed suite.
   - `test-typia-automated`, `test-utils-automated`: generator-driven matrix suites over their configured typia operations and `@typia/template` structures; their generated `src/features/` trees are rebuilt by the suite.
   - `test-interface`: compile-time tests for the exported `@typia/interface` types.
-  - `test-utils-unit`: direct utility cases registered through `node:test`, under a TypeScript config without the native typia plugin. Portable utility semantics belong here; preserve each exported case's inputs, assertions and failure identity when transferring it from a transformed workspace.
   - `test-typia-compiler`: compiler-process integration tests that exercise the native plugin through `ttsc` against temporary projects.
   - `test-typia-bundler-cache`: webpack persistent filesystem-cache invalidation through `@ttsc/unplugin`; the only suite that exercises a bundler's cache.
   - `test-typia-exact-optional`: focused `exactOptionalPropertyTypes` behavior.
-  - `test-feature-identity`: repository check that every suite's tracked `src/features` file exports exactly one `test_*` function named after the file, that one suite never exports a name twice, and that every `tests/*` workspace declares the package name `@typia/<directory>`.
+  - `test-feature-identity`: repository check that every suite's tracked `src/features` and `src/unit/features` file exports exactly one `test_*` function named after the file, that one suite never exports a name twice, and that every `tests/*` workspace declares the package name `@typia/<directory>`.
   - `test-error`: transform-rejection verification; the build must fail and every fixture must be named by a typia diagnostic.
 - `tests/debug`: `@typia/debug`, a one-off `ttsx` runner for ad-hoc local repros.
 - `benchmark/`: `@typia/benchmark`, performance generators with archived results under `benchmark/results/**`. See `.agents/skills/benchmark/SKILL.md`.
