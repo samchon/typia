@@ -34,6 +34,11 @@ import { TagBase } from "./TagBase";
  *
  * @template Value The literal value (boolean, number, string, or bigint)
  * @template Content Object with optional `title` and `description` properties
+ *
+ * @evidence contracts/common.md#principled-implementation The literal value is intersected with a TagBase whose kind is `constant` and whose `schema` carries the caller's title and description, so the value type is untouched and the metadata reaches the JSON Schema by the same tag channel as other constraints. The tag has no `validate` text, so no runtime check is emitted; membership comes from the literal type itself.
+ * @evidence contracts/common.md#clear-and-simple-design A single intersection of Value and one TagBase record; Content is the only extra parameter, with no helper types.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The type contributes documentation metadata only and neither fabricates a validator nor special-cases a particular enum or consumer.
+ * @evidence contracts/common.md#meaningful-documentation The comment explains the enum-documentation use, that no validation is performed and gives a complete OrderStatus example with both template parameters described.
  */
 export type Constant<
   Value extends boolean | number | string | bigint,

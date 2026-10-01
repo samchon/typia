@@ -11,6 +11,11 @@
  * and {@link body} contains the parsed response body (typically JSON-decoded).
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation Status is a number, headers map each name to a string or a list of strings so repeated headers such as Set-Cookie are not lost, and body is `unknown` because its type depends on the endpoint and content type and is not validated here.
+ * @evidence contracts/common.md#clear-and-simple-design Three fields that are all required for a received response.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts `unknown` forces callers to validate rather than hiding a cast.
+ * @evidence contracts/common.md#meaningful-documentation The comment and member comments describe status codes, multi-valued headers and parsed body, and name the producing library.
  */
 export interface IHttpResponse {
   /**

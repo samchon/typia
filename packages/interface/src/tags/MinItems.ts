@@ -27,6 +27,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value Minimum number of elements required
+ *
+ * @evidence contracts/common.md#principled-implementation The check is `N <= $input.length`, the definition of a lower bound on length, and `schema.minItems` repeats the number. The tag is exclusive, so one lower bound applies per array.
+ * @evidence contracts/common.md#clear-and-simple-design One TagBase record, mirroring MaxItems.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A general template with no consumer-specific expression.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the constraint, the pairing with MaxItems and UniqueItems and shows required and ranged arrays.
  */
 export type MinItems<Value extends number> = TagBase<{
   target: "array";

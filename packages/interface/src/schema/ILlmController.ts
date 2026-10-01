@@ -34,6 +34,11 @@ import { ILlmApplication } from "./ILlmApplication";
  * @author Jeongho Nam - https://github.com/samchon
  *
  * @template Class Class type of the function executor
+ *
+ * @evidence contracts/common.md#principled-implementation The `protocol: "class"` literal discriminates it from the HTTP controller, and it pairs the application schemas with the class instance that executes the methods, typed by the same Class parameter.
+ * @evidence contracts/common.md#clear-and-simple-design Four members, each with one role: discriminator, name, schemas and executor instance.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The instance is supplied by the caller, and the type does not reach into or modify the class.
+ * @evidence contracts/common.md#meaningful-documentation The comment shows creation and serving through an MCP server and links the HTTP alternative.
  */
 export interface ILlmController<Class extends object = any> {
   /** Protocol discriminator. */

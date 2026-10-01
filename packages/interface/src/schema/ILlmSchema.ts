@@ -18,6 +18,11 @@ import { IJsonSchemaAttribute } from "./IJsonSchemaAttribute";
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
+ * @evidence contracts/common.md#principled-implementation The union of ten variants each keyed by its `type` or `$ref` or `anyOf` shape matches the LLM-compatible JSON Schema subset, which omits tuples, const and mixed unions; strict mode additionally requires properties and forbids additional ones.
+ * @evidence contracts/common.md#clear-and-simple-design One alias over the variants in the namespace, each extending the JSON schema attribute family.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It narrows the schema space to what providers accept and does not carry provider-specific escape hatches.
+ * @evidence contracts/common.md#meaningful-documentation The comment states what is omitted, how definitions are shared with `$defs` and what strict mode changes, and links the guide.
+ *
  * @see https://typia.io/docs/llm/application
  */
 export type ILlmSchema =
@@ -37,6 +42,11 @@ export namespace ILlmSchema {
    *
    * Controls how TypeScript types are converted to LLM-compatible JSON schemas.
    * These settings affect OpenAI structured output compatibility.
+   *
+   * @evidence contracts/common.md#principled-implementation The only setting is the strict flag that selects OpenAI structured output behavior: every property required and additional properties false.
+   * @evidence contracts/common.md#clear-and-simple-design One required boolean field.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain configuration record.
+   * @evidence contracts/common.md#meaningful-documentation The comment gives the default and the effect of the flag.
    */
   export interface IConfig {
     /**
@@ -59,6 +69,11 @@ export namespace ILlmSchema {
    *
    * The `additionalProperties` is always `false` for parameters to ensure
    * strict argument validation and prevent unexpected properties.
+   *
+   * @evidence contracts/common.md#principled-implementation It extends the object schema without its additionalProperties and redeclares that field as `false`, adding a `$defs` map for named definitions, so arguments cannot include unknown properties and recursive types can be referenced.
+   * @evidence contracts/common.md#clear-and-simple-design Omit plus two members expresses the delta from IObject precisely.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It does not allow a looser setting than the strict argument contract.
+   * @evidence contracts/common.md#meaningful-documentation The comment explains `$defs`, the fixed false value and why it is fixed.
    */
   export interface IParameters extends Omit<IObject, "additionalProperties"> {
     /**
@@ -85,6 +100,11 @@ export namespace ILlmSchema {
    *
    * Represents a JSON Schema boolean type with optional enum constraints and
    * default value. Used for true/false parameters and flags.
+   *
+   * @evidence contracts/common.md#principled-implementation Boolean extends the JSON schema boolean attribute with an optional enum of booleans and an optional default.
+   * @evidence contracts/common.md#clear-and-simple-design Two optional members added to the shared attribute.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain data record.
+   * @evidence contracts/common.md#meaningful-documentation The comment says what the constraints are and notes that enum is rarely used.
    */
   export interface IBoolean extends IJsonSchemaAttribute.IBoolean {
     /**
@@ -110,6 +130,11 @@ export namespace ILlmSchema {
    * Represents a JSON Schema integer type with numeric constraints. Maps to
    * TypeScript `number` with integer validation. Supports range constraints,
    * enum restrictions, and divisibility checks.
+   *
+   * @evidence contracts/common.md#principled-implementation Constraint fields are typed as `number & Type<"int64">`, which restricts the schema to whole numbers in the 64-bit range, and multipleOf additionally requires uint64 and a positive value, since a zero or negative divisor is meaningless.
+   * @evidence contracts/common.md#clear-and-simple-design The integer constraints repeat across fields by the same tag type, and each is a separate member because they are independent in JSON Schema.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It uses the declared type tags and not custom range logic.
+   * @evidence contracts/common.md#meaningful-documentation Each member says what it constrains and gives examples for multipleOf.
    */
   export interface IInteger extends IJsonSchemaAttribute.IInteger {
     /**
@@ -170,6 +195,11 @@ export namespace ILlmSchema {
    * Represents a JSON Schema number type for floating-point values. Maps to
    * TypeScript `number` type. Supports range constraints, enum restrictions,
    * and precision checks via multipleOf.
+   *
+   * @evidence contracts/common.md#principled-implementation Number constraints are plain numbers with the same keywords as integer, with multipleOf required to be exclusively above zero.
+   * @evidence contracts/common.md#clear-and-simple-design Seven optional members with no helper types.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain data record.
+   * @evidence contracts/common.md#meaningful-documentation Each member states its meaning and examples for decimal precision.
    */
   export interface INumber extends IJsonSchemaAttribute.INumber {
     /**
@@ -230,6 +260,11 @@ export namespace ILlmSchema {
    * Represents a JSON Schema string type with format validation, pattern
    * matching, and length constraints. Maps to TypeScript `string` type with
    * optional semantic format annotations.
+   *
+   * @evidence contracts/common.md#principled-implementation It lists optional enum, default, format, pattern, content media type and unsigned length bounds; the format is a union of known names or any other string, which allows custom formats while keeping completion for the known ones.
+   * @evidence contracts/common.md#clear-and-simple-design One interface for all string constraints.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Length bounds are typed with tags and not enforced in this declaration.
+   * @evidence contracts/common.md#meaningful-documentation Each member is documented, with a caution that LLMs handle complex patterns poorly.
    */
   export interface IString extends IJsonSchemaAttribute.IString {
     /**
@@ -317,6 +352,11 @@ export namespace ILlmSchema {
    * Represents a JSON Schema array type with item type validation and size
    * constraints. Maps to TypeScript `T[]` or `Array<T>` types. Note: Tuple
    * types are not supported by LLM schemas.
+   *
+   * @evidence contracts/common.md#principled-implementation The array has a required `items` schema, optional uniqueness and unsigned size bounds; heterogeneous elements are expressed with anyOf, and tuples are not representable.
+   * @evidence contracts/common.md#clear-and-simple-design Four members, with the item schema recursive through the union.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain data record.
+   * @evidence contracts/common.md#meaningful-documentation The comment says tuples are unsupported and each member describes its constraint.
    */
   export interface IArray extends IJsonSchemaAttribute.IArray {
     /**
@@ -356,6 +396,11 @@ export namespace ILlmSchema {
    * Represents a JSON Schema object type with named properties. Maps to
    * TypeScript interface or object type. Supports required property
    * declarations and dynamic additional properties.
+   *
+   * @evidence contracts/common.md#principled-implementation It has required `properties` and `required`, which the generator always writes even when empty, and an optional additionalProperties that is boolean or a schema; strict mode forces it false.
+   * @evidence contracts/common.md#clear-and-simple-design Three members expressing JSON Schema object semantics directly.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain data record.
+   * @evidence contracts/common.md#meaningful-documentation The comment and member comments explain defaults, strictness and always-present fields.
    */
   export interface IObject extends IJsonSchemaAttribute.IObject {
     /**
@@ -396,6 +441,11 @@ export namespace ILlmSchema {
    * avoid schema duplication and enable recursive type definitions. The
    * reference path format is `#/$defs/TypeName`, where `TypeName` is one RFC
    * 6901 token encoded as a URI fragment.
+   *
+   * @evidence contracts/common.md#principled-implementation A reference is a `$ref` string pointing to the `$defs` map in the form `#/$defs/Name`, extending only the attribute record, so the reference carries documentation but no structural keywords.
+   * @evidence contracts/common.md#clear-and-simple-design One field added to the attribute record.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The pointer string is not parsed or resolved by the type.
+   * @evidence contracts/common.md#meaningful-documentation The comment explains the pointer format and encoding of the type name.
    */
   export interface IReference extends IJsonSchemaAttribute {
     /**
@@ -413,6 +463,11 @@ export namespace ILlmSchema {
    * Represents a TypeScript union type where the value can match any one of the
    * member schemas. Use discriminated unions with `x-discriminator` when
    * possible for better LLM comprehension.
+   *
+   * @evidence contracts/common.md#principled-implementation Union members are in `anyOf`, whose element type excludes nested anyOf so unions are flattened, with an optional discriminator that names the property and maps values to references.
+   * @evidence contracts/common.md#clear-and-simple-design Two members and a nested discriminator type in the namespace.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Flattening is enforced by the type and not by a runtime step here.
+   * @evidence contracts/common.md#meaningful-documentation The comment advises discriminated unions and each member says what it holds.
    */
   export interface IAnyOf extends IJsonSchemaAttribute {
     /**
@@ -437,6 +492,11 @@ export namespace ILlmSchema {
      *
      * Specifies which property distinguishes between union variants and maps
      * discriminator values to their corresponding schemas.
+     *
+     * @evidence contracts/common.md#principled-implementation A property name plus an optional map from literal values to `$ref` strings describes how to select the variant of a tagged union.
+     * @evidence contracts/common.md#clear-and-simple-design Two members, with the mapping optional because the value may be inferred.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts The type only describes the discriminator and does not check that members share the property.
+     * @evidence contracts/common.md#meaningful-documentation The comment says what the property and mapping are and the requirement for unique literals.
      */
     export interface IDiscriminator {
       /**
@@ -462,6 +522,11 @@ export namespace ILlmSchema {
    *
    * Represents the JSON null value. In TypeScript union types like `T | null`,
    * this schema appears in an `anyOf` alongside the T schema.
+   *
+   * @evidence contracts/common.md#principled-implementation The null variant inherits the null attribute record, whose literal "null" type identifies the JSON null value; a nullable type appears as an anyOf containing it.
+   * @evidence contracts/common.md#clear-and-simple-design An empty extension.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no members.
+   * @evidence contracts/common.md#meaningful-documentation The comment states how nullable unions use it.
    */
   export interface INull extends IJsonSchemaAttribute.INull {}
 
@@ -471,6 +536,11 @@ export namespace ILlmSchema {
    * Represents TypeScript `any` or `unknown` types where no specific type
    * constraint is defined. Use sparingly as LLMs may generate unexpected values
    * for unconstrained types.
+   *
+   * @evidence contracts/common.md#principled-implementation The unknown variant inherits the attribute record with no type, so it represents a value without constraint.
+   * @evidence contracts/common.md#clear-and-simple-design An empty extension.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no members.
+   * @evidence contracts/common.md#meaningful-documentation The comment says it stands for any or unknown and warns of its looseness.
    */
   export interface IUnknown extends IJsonSchemaAttribute.IUnknown {}
 }

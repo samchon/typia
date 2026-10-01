@@ -14,6 +14,11 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  *
  * @template T Target type to transform
+ *
+ * @evidence contracts/common.md#principled-implementation Keys are remapped by a template-literal algorithm: leading underscores are kept, snake_case words are joined with the next letter capitalized, all-uppercase keys are lowercased and PascalCase keys get a lowercased first letter. Methods are erased, boxed primitives unwrapped, native classes preserved and recursion is guarded for tuples.
+ * @evidence contracts/common.md#clear-and-simple-design Private Camelize helpers separate object, array and string conversion and reuse the shared type utilities.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts General string-literal conversion with no consumer key names, casts or runtime code.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the conversion and method erasure; it does not enumerate the key-algorithm cases, which are in the private helpers.
  */
 export type CamelCase<T> = unknown extends T
   ? T

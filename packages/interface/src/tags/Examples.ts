@@ -34,6 +34,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value Record mapping example names to their values
+ *
+ * @evidence contracts/common.md#principled-implementation The record of names to values is copied unchanged to `schema.examples`, with each key being the example label; values are restricted to JSON-compatible kinds including null. The tag is exclusive because only one `examples` object can exist.
+ * @evidence contracts/common.md#clear-and-simple-design One TagBase carrying the record; no conversion helper, so bigint values are accepted by the constraint but are not rewritten as they are in Example.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Metadata only and no assertion that example values satisfy the annotated type.
+ * @evidence contracts/common.md#meaningful-documentation The comment contrasts it with Example, explains when multiple examples help and shows string and number samples.
  */
 export type Examples<
   Value extends Record<

@@ -24,6 +24,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value The example value (any JSON-compatible type)
+ *
+ * @evidence contracts/common.md#principled-implementation The value is stored verbatim in `schema.example` for any JSON-compatible target; a bigint example is converted to a number through the same text-template inference as Default, which cannot preserve integers beyond the safe range. The tag is exclusive because JSON Schema has one `example` slot.
+ * @evidence contracts/common.md#clear-and-simple-design A single TagBase over the value and a conditional for the bigint case; the local Numeric helper is repeated in each tag file and is not shared.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Metadata only; the example is not checked against the property type at runtime.
+ * @evidence contracts/common.md#meaningful-documentation The comment distinguishes it from Examples, lists the supported JSON-compatible kinds and gives examples for string, number and array properties.
  */
 export type Example<
   Value extends

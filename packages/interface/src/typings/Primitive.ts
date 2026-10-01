@@ -17,6 +17,11 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Michael - https://github.com/8471919
  *
  * @template T Target type to convert
+ *
+ * @evidence contracts/common.md#principled-implementation The type follows JSON.stringify semantics: boxed primitives unwrap, bigint, functions and non-Date native classes become `never`, Date becomes `string & Format<"date-time">`, a `toJSON` return replaces the object and other classes become plain objects with methods removed. Tuples keep their positions, including optional and variadic forms through a local IsPrimitiveTuple.
+ * @evidence contracts/common.md#clear-and-simple-design The exported alias applies the Equal short-circuit and the private PrimitiveMain, PrimitiveObject and tuple helpers each own one branch of the JSON mapping.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The mapping encodes the JSON serialization contract, not a fixture; no cast or runtime logic is involved. Its `toJSON` support is structural, so a `toJSON` that does not return a plain JSON value is mapped on its declared return type without checking it.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the transformations and the never cases; the local variadic-tuple helper explains why it differs from the shared IsTuple.
  */
 export type Primitive<T> =
   Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;

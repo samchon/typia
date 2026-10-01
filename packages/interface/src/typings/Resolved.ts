@@ -15,6 +15,11 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Kyungsu Kang - https://github.com/kakasoo
  *
  * @template T Target type to resolve
+ *
+ * @evidence contracts/common.md#principled-implementation The type maps boxed primitives to primitives, erases function members, preserves native classes, keeps Set, Map and readonly array containers, and recurses through properties. Recursive tuple rests are cut by TupleStack, and arrays bypass the Equal comparison to avoid eager evaluation of recursive aliases.
+ * @evidence contracts/common.md#clear-and-simple-design A thin alias chooses between the original and the resolved form and delegates structure-specific work to ResolvedMain, ResolvedObject and ResolvedArray.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It is a structural mapping over the type with no consumer names, casts or runtime code.
+ * @evidence contracts/common.md#meaningful-documentation The comment states what is resolved and which categories are preserved; recursion and tuple guards are explained in line comments at their private declarations.
  */
 export type Resolved<T> = unknown extends T
   ? T

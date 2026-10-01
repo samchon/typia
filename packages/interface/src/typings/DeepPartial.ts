@@ -22,6 +22,11 @@
  * @author Michael - https://github.com/8471919
  *
  * @template T The type to make deeply partial
+ *
+ * @evidence contracts/common.md#principled-implementation Primitives, null, undefined and functions are returned as-is, arrays and tuples are mapped homomorphically so tuple positions and readonly are preserved, and other objects become mapped types with optional properties recursively. Conditional types distribute over unions. Built-in objects such as Date, Map and Set are treated as ordinary objects, so their members become optional too.
+ * @evidence contracts/common.md#clear-and-simple-design One recursive conditional of four mutually exclusive arms; no helper or option.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A structural mapped type, with no cast or runtime component.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the behaviors per kind and its use in IJsonParseResult.IFailure; the built-in-object limitation is not documented there.
  */
 export type DeepPartial<T> = T extends
   | string

@@ -28,6 +28,11 @@
  *
  * @template T Type of the success value
  * @template E Type of the error value
+ *
+ * @evidence contracts/common.md#principled-implementation A union of a success variant carrying the value and a failure variant carrying the error, discriminated by the boolean literal `success`, which is the standard Result representation where narrowing on one field selects the payload.
+ * @evidence contracts/common.md#clear-and-simple-design One alias with the two variants in the namespace.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It makes the failure explicit in the type and nothing is thrown or hidden.
+ * @evidence contracts/common.md#meaningful-documentation The comment explains the discriminator and gives a usage example.
  */
 export type IResult<T, E> = IResult.ISuccess<T> | IResult.IFailure<E>;
 export namespace IResult {
@@ -38,6 +43,11 @@ export namespace IResult {
    * value. Access via {@link value} after checking {@link success} is `true`.
    *
    * @template T Type of the success value
+   *
+   * @evidence contracts/common.md#principled-implementation The literal `success: true` and the value field define the success variant; the value type is the generic T.
+   * @evidence contracts/common.md#clear-and-simple-design Two fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain data record.
+   * @evidence contracts/common.md#meaningful-documentation The comment and field comments describe narrowing before reading the value.
    */
   export interface ISuccess<T> {
     /**
@@ -64,6 +74,11 @@ export namespace IResult {
    * {@link error} after checking {@link success} is `false`.
    *
    * @template E Type of the error value
+   *
+   * @evidence contracts/common.md#principled-implementation The literal `success: false` and the error field define the failure variant with a separate error type E.
+   * @evidence contracts/common.md#clear-and-simple-design Two fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A plain data record.
+   * @evidence contracts/common.md#meaningful-documentation The comment and field comments describe narrowing before reading the error.
    */
   export interface IFailure<E> {
     /**

@@ -27,6 +27,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value Maximum number of elements allowed
+ *
+ * @evidence contracts/common.md#principled-implementation The generated check is `$input.length <= N`, which is the definition of an upper bound on array length, and `schema.maxItems` repeats the same number. The tag is exclusive, so one upper bound applies per array.
+ * @evidence contracts/common.md#clear-and-simple-design One TagBase record parameterized by the bound, with no helper type.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The comparison is a general template over the bound, not a consumer-specific expression.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the constraint, how it pairs with MinItems and UniqueItems, where it is enforced and gives two array examples.
  */
 export type MaxItems<Value extends number> = TagBase<{
   target: "array";

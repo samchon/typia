@@ -17,6 +17,11 @@ import { IValidation } from "./IValidation";
  * @author Jeongho Nam - https://github.com/samchon
  *
  * @template Class Source class/interface type
+ *
+ * @evidence contracts/common.md#principled-implementation The record holds the callable function schemas, the configuration used, an optional application description and an optional phantom `__class` that preserves the Class generic so tools can recover the source class type. The phantom member is optional and always undefined at runtime.
+ * @evidence contracts/common.md#clear-and-simple-design Four members; the configuration and hook types are in the namespace, and the type parameter exists only for the phantom and the validation hook mapping.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The phantom member is declared type-level metadata and no runtime object is mutated to carry it.
+ * @evidence contracts/common.md#meaningful-documentation The comment relates the application to ILlmFunction and the configuration, and the members explain the description's role and the phantom pattern.
  */
 export interface ILlmApplication<Class extends object = any> {
   /**
@@ -71,6 +76,11 @@ export namespace ILlmApplication {
    * Extends {@link ILlmSchema.IConfig} with application-specific options for
    * custom validation. These settings control how the application schema is
    * generated from the source class.
+   *
+   * @evidence contracts/common.md#principled-implementation It extends the schema configuration with an optional per-method custom validation map, null meaning use the default validators, and keeps the Class parameter so hook keys are checked against the class.
+   * @evidence contracts/common.md#clear-and-simple-design One added field on top of ILlmSchema.IConfig rather than an independent options type.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Custom validators are supplied through a declared configuration member, not injected into generated code by patching.
+   * @evidence contracts/common.md#meaningful-documentation The comment explains the purpose and default and says that it is for rules JSON Schema cannot express.
    */
   export interface IConfig<Class extends object = any>
     extends ILlmSchema.IConfig {
@@ -94,6 +104,11 @@ export namespace ILlmApplication {
    * match the expected argument types.
    *
    * @template Class - The source class type for type inference
+   *
+   * @evidence contracts/common.md#principled-implementation A mapped type over the class keys yields, for a method taking a single argument object, a validator from unknown to IValidation of that argument type, and `never` for other members, so a hook can only be written for a method it fits. Hooks are optional per method.
+   * @evidence contracts/common.md#clear-and-simple-design A single mapped conditional with the argument type inferred from the method.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds type safety to hook registration without any runtime component or cast.
+   * @evidence contracts/common.md#meaningful-documentation The comment explains the mapping from method name to validator and the inference of the argument type.
    */
   export type IValidationHook<Class extends object> = {
     [K in keyof Class]?: Class[K] extends (args: infer Argument) => unknown

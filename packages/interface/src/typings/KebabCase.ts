@@ -18,6 +18,11 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  *
  * @template T Target type to transform
+ *
+ * @evidence contracts/common.md#principled-implementation Keys are first converted to snake_case with the same underscore-insertion rule as SnakeCase, then every non-leading underscore becomes a hyphen while leading underscores stay. Method erasure, boxed-primitive unwrapping, native class preservation and recursive tuple guards match the sibling converters.
+ * @evidence contracts/common.md#clear-and-simple-design Private Kebabage helpers separate object, array and string conversion; the snake_case string helpers are repeated locally in this module and are not imported from SnakeCase.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The algorithm is general over string literals and names no consumer key; no casts or runtime effects.
+ * @evidence contracts/common.md#meaningful-documentation The comment documents the two-step conversion and the leading-underscore rule that are not obvious from the name.
  */
 export type KebabCase<T> = unknown extends T
   ? T

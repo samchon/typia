@@ -14,6 +14,11 @@ import { ValueOf } from "./internal/ValueOf";
  * @author Jeongho Nam - https://github.com/samchon
  *
  * @template T Target type to transform
+ *
+ * @evidence contracts/common.md#principled-implementation Keys are remapped by a template-literal algorithm: leading underscores are kept, snake_case segments are split and capitalized with the remainder lowercased, and other keys are capitalized. Methods are erased, boxed primitives unwrapped, native classes preserved and the same any, unknown and recursive tuple guards as the sibling converters apply.
+ * @evidence contracts/common.md#clear-and-simple-design One public alias and private Pascalize helpers split object, array and string concerns, reusing the shared Equal, IsTupleLike, IsBroadString, NativeClass and ValueOf types.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The key algorithm is general over string literal types and does not name any consumer key; no casts or runtime effects.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the conversion, method erasure and recursion; it does not enumerate how acronyms or digits are rewritten, which follow the private algorithm.
  */
 export type PascalCase<T> = unknown extends T
   ? T

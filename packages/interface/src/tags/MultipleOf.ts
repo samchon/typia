@@ -37,6 +37,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value The divisor (value must be evenly divisible by this)
+ *
+ * @evidence contracts/common.md#principled-implementation A bigint is checked with exact `%` against a `BigInt(N)` divisor, which is divisibility on integers; a number is checked by the internal `_isMultipleOf`, which decomposes both operands as decimals so `0.3` is a multiple of `0.1` as the printed values suggest. `schema.multipleOf` carries the divisor, rendered as a JSON number for bigint. The tag is exclusive.
+ * @evidence contracts/common.md#clear-and-simple-design The numeric and bigint branches differ in method, so the validate conditional separates them; Cast and Numeric are private and used by those branches only.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Decimal division is the contract of the tag, stated in its comment, and not a patch over binary floating error for chosen cases.
+ * @evidence contracts/common.md#meaningful-documentation The comment explains the decimal reading of number operands, the exact bigint rule, common uses and the exclusivity.
  */
 export type MultipleOf<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

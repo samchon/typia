@@ -22,9 +22,21 @@ import * as tags from "../tags";
  * {@link OpenApi}.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation The namespace mirrors the raw OpenAPI 3.2 object model, which is the 3.1 model plus the `query` method, additional operations, a querystring parameter location, richer tags, streaming item schemas and the OAuth2 device flow; the emended OpenApi type is built from it.
+ * @evidence contracts/common.md#clear-and-simple-design The same layout as the sibling version namespaces so each version's converter reads one namespace.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It describes an input format and performs no conversion.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the 3.2 additions and links the normalized type.
  */
 export namespace OpenApiV3_2 {
-  /** HTTP method of the operation. */
+  /**
+   * HTTP method of the operation.
+   *
+   * @evidence contracts/common.md#principled-implementation The nine methods of a 3.2 path item, which include `query`.
+   * @evidence contracts/common.md#clear-and-simple-design One alias used by IPath.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A literal union.
+   * @evidence contracts/common.md#meaningful-documentation The one-line comment names the HTTP method of an operation.
+   */
   export type Method =
     | "get"
     | "post"
@@ -39,7 +51,14 @@ export namespace OpenApiV3_2 {
   /* -----------------------------------------------------------
     DOCUMENTS
   ----------------------------------------------------------- */
-  /** OpenAPI document structure. */
+  /**
+   * OpenAPI document structure.
+   *
+   * @evidence contracts/common.md#principled-implementation The version is `3.2.${number}`; webhooks and components follow the 3.1 shape.
+   * @evidence contracts/common.md#clear-and-simple-design One flat record with metadata types in its namespace.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+   */
   export interface IDocument {
     /** OpenAPI version. */
     openapi: `3.2.${number}`;
@@ -69,7 +88,14 @@ export namespace OpenApiV3_2 {
     tags?: IDocument.ITag[];
   }
   export namespace IDocument {
-    /** API metadata. */
+    /**
+     * API metadata.
+     *
+     * @evidence contracts/common.md#principled-implementation Title and version are required, with summary and description optional as in 3.1.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IInfo {
       /** API title. */
       title: string;
@@ -93,7 +119,14 @@ export namespace OpenApiV3_2 {
       version: string;
     }
 
-    /** Tag for grouping operations. */
+    /**
+     * Tag for grouping operations.
+     *
+     * @evidence contracts/common.md#principled-implementation A name with optional summary, description, parent and kind, so tags can form a hierarchy and carry a classification, which are 3.2 additions.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment, with example kinds.
+     */
     export interface ITag {
       /** Tag name. */
       name: string;
@@ -111,7 +144,14 @@ export namespace OpenApiV3_2 {
       kind?: string;
     }
 
-    /** Contact information. */
+    /**
+     * Contact information.
+     *
+     * @evidence contracts/common.md#principled-implementation All fields are optional and the email carries the Format email tag.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts The tag is a declared constraint, not a check made here.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IContact {
       /** Contact name. */
       name?: string;
@@ -123,7 +163,14 @@ export namespace OpenApiV3_2 {
       email?: string & tags.Format<"email">;
     }
 
-    /** License information. */
+    /**
+     * License information.
+     *
+     * @evidence contracts/common.md#principled-implementation A name with an optional SPDX identifier and URL.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface ILicense {
       /** License name. */
       name: string;
@@ -136,7 +183,14 @@ export namespace OpenApiV3_2 {
     }
   }
 
-  /** Server providing the API. */
+  /**
+   * Server providing the API.
+   *
+   * @evidence contracts/common.md#principled-implementation A required URL with optional description and template variables.
+   * @evidence contracts/common.md#clear-and-simple-design One record.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+   */
   export interface IServer {
     /** Server URL. */
     url: string;
@@ -148,7 +202,14 @@ export namespace OpenApiV3_2 {
     variables?: Record<string, IServer.IVariable>;
   }
   export namespace IServer {
-    /** URL template variable. */
+    /**
+     * URL template variable.
+     *
+     * @evidence contracts/common.md#principled-implementation A required default with an optional non-empty enum and description.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IVariable {
       /** Default value. */
       default: string;
@@ -164,7 +225,14 @@ export namespace OpenApiV3_2 {
   /* -----------------------------------------------------------
     OPERATORS
   ----------------------------------------------------------- */
-  /** Path item containing operations by HTTP method. */
+  /**
+   * Path item containing operations by HTTP method.
+   *
+   * @evidence contracts/common.md#principled-implementation A partial method map, which now includes `query`, plus an `additionalOperations` record for non-standard methods such as LINK and PURGE, replacing the extension spelling used in earlier versions.
+   * @evidence contracts/common.md#clear-and-simple-design The record keeps the same members as 3.1 with the standard name for additional operations.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation Each field has a comment, with examples of additional methods.
+   */
   export interface IPath extends Partial<Record<Method, IOperation>> {
     /** Path-level parameters. */
     parameters?: Array<
@@ -189,7 +257,14 @@ export namespace OpenApiV3_2 {
     additionalOperations?: Record<string, IOperation>;
   }
 
-  /** API operation metadata. */
+  /**
+   * API operation metadata.
+   *
+   * @evidence contracts/common.md#principled-implementation Parameters, request bodies and responses may be inline or `$ref` forms with typed component prefixes.
+   * @evidence contracts/common.md#clear-and-simple-design One record with the inline forms in its namespace.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+   */
   export interface IOperation {
     /** Unique operation identifier. */
     operationId?: string;
@@ -232,7 +307,14 @@ export namespace OpenApiV3_2 {
     deprecated?: boolean;
   }
   export namespace IOperation {
-    /** Operation parameter. */
+    /**
+     * Operation parameter.
+     *
+     * @evidence contracts/common.md#principled-implementation Location adds `querystring`, whose schema is therefore optional and replaced by a media-type-keyed `content`; style adds `cookie`.
+     * @evidence contracts/common.md#clear-and-simple-design One record; the optionality of schema is what separates it from the earlier versions.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment, including the querystring case.
+     */
     export interface IParameter {
       /** Parameter name. */
       name?: string;
@@ -276,7 +358,14 @@ export namespace OpenApiV3_2 {
       >;
     }
 
-    /** Request body. */
+    /**
+     * Request body.
+     *
+     * @evidence contracts/common.md#principled-implementation Optional description, required flag and a map from media type string to media type record.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IRequestBody {
       /** Body description. */
       description?: string;
@@ -288,7 +377,14 @@ export namespace OpenApiV3_2 {
       content?: Record<string, IMediaType>;
     }
 
-    /** Response definition. */
+    /**
+     * Response definition.
+     *
+     * @evidence contracts/common.md#principled-implementation Content, headers and description are optional, with response headers as parameters without a location or as `$ref` forms.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IResponse {
       /** Response content by media type. */
       content?: Record<string, IMediaType>;
@@ -304,7 +400,14 @@ export namespace OpenApiV3_2 {
       description?: string;
     }
 
-    /** Media type definition. */
+    /**
+     * Media type definition.
+     *
+     * @evidence contracts/common.md#principled-implementation A media type adds an optional item schema for streamed payloads such as server-sent events to the schema and examples.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IMediaType {
       /** Content schema. */
       schema?: IJsonSchema;
@@ -323,7 +426,14 @@ export namespace OpenApiV3_2 {
     }
   }
 
-  /** Example value definition. */
+  /**
+   * Example value definition.
+   *
+   * @evidence contracts/common.md#principled-implementation Optional summary, description, inline value and external value URL.
+   * @evidence contracts/common.md#clear-and-simple-design One record.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+   */
   export interface IExample {
     /** Example summary. */
     summary?: string;
@@ -341,7 +451,14 @@ export namespace OpenApiV3_2 {
   /* -----------------------------------------------------------
     SCHEMA DEFINITIONS
   ----------------------------------------------------------- */
-  /** Reusable components storage. */
+  /**
+   * Reusable components storage.
+   *
+   * @evidence contracts/common.md#principled-implementation The same eight component maps as 3.1, including path items.
+   * @evidence contracts/common.md#clear-and-simple-design Optional maps.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+   */
   export interface IComponents {
     /** Named schemas. */
     schemas?: Record<string, IJsonSchema>;
@@ -368,7 +485,14 @@ export namespace OpenApiV3_2 {
     examples?: Record<string, IExample>;
   }
 
-  /** JSON Schema type for OpenAPI v3.1. */
+  /**
+   * JSON Schema type for OpenAPI v3.1.
+   *
+   * @evidence contracts/common.md#principled-implementation A union of variants as in 3.1, because 3.2 keeps the 2020-12 schema dialect.
+   * @evidence contracts/common.md#clear-and-simple-design One alias over variants in the same-named namespace.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It represents the input form and does not normalize it.
+   * @evidence contracts/common.md#meaningful-documentation The one-line comment names the version.
+   */
   export type IJsonSchema =
     | IJsonSchema.IMixed
     | IJsonSchema.IConstant
@@ -386,7 +510,14 @@ export namespace OpenApiV3_2 {
     | IJsonSchema.INull
     | IJsonSchema.IUnknown;
   export namespace IJsonSchema {
-    /** Mixed type (multiple types in array). */
+    /**
+     * Mixed type (multiple types in array).
+     *
+     * @evidence contracts/common.md#principled-implementation The case where `type` is an array of type names; it inherits the keywords of every single-type variant and widens default and enum.
+     * @evidence contracts/common.md#clear-and-simple-design One interface assembled through Omit so keyword definitions stay in one place.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts The type admits keywords that apply to only some of the listed types and does not check which type a keyword belongs to.
+     * @evidence contracts/common.md#meaningful-documentation The comment says it covers multiple types in an array.
+     */
     export interface IMixed
       extends
         IConstant,
@@ -417,7 +548,14 @@ export namespace OpenApiV3_2 {
       enum?: any[];
     }
 
-    /** Constant value type. */
+    /**
+     * Constant value type.
+     *
+     * @evidence contracts/common.md#principled-implementation A `const` of boolean, number or string, with the nullable flag retained from older spellings.
+     * @evidence contracts/common.md#clear-and-simple-design Two fields on the shared attribute record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IConstant extends __IAttribute {
       /** Constant value. */
       const: boolean | number | string;
@@ -426,7 +564,14 @@ export namespace OpenApiV3_2 {
       nullable?: boolean;
     }
 
-    /** Boolean type. */
+    /**
+     * Boolean type.
+     *
+     * @evidence contracts/common.md#principled-implementation Optional nullable flag, default and enum that may include null.
+     * @evidence contracts/common.md#clear-and-simple-design Optional fields.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IBoolean
       extends Omit<IJsonSchemaAttribute.IBoolean, "examples">, __IAttribute {
       /** Whether nullable. */
@@ -439,7 +584,14 @@ export namespace OpenApiV3_2 {
       enum?: Array<boolean | null>;
     }
 
-    /** Integer type. */
+    /**
+     * Integer type.
+     *
+     * @evidence contracts/common.md#principled-implementation Integer keywords with int64 numbers and exclusive bounds that may be numbers or the older boolean flag.
+     * @evidence contracts/common.md#clear-and-simple-design Optional keywords on the integer attribute record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IInteger
       extends Omit<IJsonSchemaAttribute.IInteger, "examples">, __IAttribute {
       /** Whether nullable. */
@@ -467,7 +619,14 @@ export namespace OpenApiV3_2 {
       multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
-    /** Number (double) type. */
+    /**
+     * Number (double) type.
+     *
+     * @evidence contracts/common.md#principled-implementation Number keywords with exclusive bounds as numbers or booleans and multipleOf above zero.
+     * @evidence contracts/common.md#clear-and-simple-design Optional keywords on the number attribute record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface INumber
       extends Omit<IJsonSchemaAttribute.INumber, "examples">, __IAttribute {
       /** Whether nullable. */
@@ -495,7 +654,14 @@ export namespace OpenApiV3_2 {
       multipleOf?: number & tags.ExclusiveMinimum<0>;
     }
 
-    /** String type. */
+    /**
+     * String type.
+     *
+     * @evidence contracts/common.md#principled-implementation String keywords with format as the known set or any string, pattern, content media type and encoding, and unsigned length bounds.
+     * @evidence contracts/common.md#clear-and-simple-design Optional keywords on the string attribute record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record that does not validate pattern or format.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IString
       extends Omit<IJsonSchemaAttribute.IString, "examples">, __IAttribute {
       /** Whether nullable. */
@@ -550,7 +716,14 @@ export namespace OpenApiV3_2 {
       maxLength?: number & tags.Type<"uint64">;
     }
 
-    /** Object type. */
+    /**
+     * Object type.
+     *
+     * @evidence contracts/common.md#principled-implementation Properties, required names, additional properties and property-count bounds are optional, with nullable retained.
+     * @evidence contracts/common.md#clear-and-simple-design Optional fields on the object attribute record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IObject
       extends Omit<IJsonSchemaAttribute.IObject, "examples">, __IAttribute {
       /** Whether nullable. */
@@ -572,7 +745,14 @@ export namespace OpenApiV3_2 {
       minProperties?: number;
     }
 
-    /** Array type. */
+    /**
+     * Array type.
+     *
+     * @evidence contracts/common.md#principled-implementation Items may be a schema or a list of schemas alongside `prefixItems` and `additionalItems`, so both tuple spellings are representable.
+     * @evidence contracts/common.md#clear-and-simple-design Optional fields on the array attribute record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts The type accepts both spellings and leaves their reconciliation to the upgrader.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IArray
       extends Omit<IJsonSchemaAttribute.IArray, "examples">, __IAttribute {
       /** Whether nullable. */
@@ -597,31 +777,66 @@ export namespace OpenApiV3_2 {
       maxItems?: number & tags.Type<"uint64">;
     }
 
-    /** Reference to a named schema. */
+    /**
+     * Reference to a named schema.
+     *
+     * @evidence contracts/common.md#principled-implementation A `$ref` typed by a key parameter defaulting to string.
+     * @evidence contracts/common.md#clear-and-simple-design One generic field.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record that does not resolve references.
+     * @evidence contracts/common.md#meaningful-documentation The one-line comment says it references a named schema.
+     */
     export interface IReference<Key = string> extends __IAttribute {
       /** Reference path. */
       $ref: Key;
     }
 
-    /** Recursive reference. */
+    /**
+     * Recursive reference.
+     *
+     * @evidence contracts/common.md#principled-implementation A `$recursiveRef` string for recursive structures.
+     * @evidence contracts/common.md#clear-and-simple-design One field.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record that does not resolve the reference.
+     * @evidence contracts/common.md#meaningful-documentation The one-line comment names it as a recursive reference.
+     */
     export interface IRecursiveReference extends __IAttribute {
       /** Recursive reference path. */
       $recursiveRef: string;
     }
 
-    /** All-of combination. */
+    /**
+     * All-of combination.
+     *
+     * @evidence contracts/common.md#principled-implementation A list of schemas that must all match.
+     * @evidence contracts/common.md#clear-and-simple-design One field.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record that does not merge.
+     * @evidence contracts/common.md#meaningful-documentation The one-line comment names the combination.
+     */
     export interface IAllOf extends __IAttribute {
       /** Schemas to combine. */
       allOf: IJsonSchema[];
     }
 
-    /** Any-of union. */
+    /**
+     * Any-of union.
+     *
+     * @evidence contracts/common.md#principled-implementation A list of member schemas of which at least one must match.
+     * @evidence contracts/common.md#clear-and-simple-design One field.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation The one-line comment names the union.
+     */
     export interface IAnyOf extends __IAttribute {
       /** Union member schemas. */
       anyOf: IJsonSchema[];
     }
 
-    /** One-of union. */
+    /**
+     * One-of union.
+     *
+     * @evidence contracts/common.md#principled-implementation A list of member schemas of which exactly one must match, with an optional discriminator.
+     * @evidence contracts/common.md#clear-and-simple-design Two fields.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation The one-line comment names the union.
+     */
     export interface IOneOf extends __IAttribute {
       /** Union member schemas. */
       oneOf: IJsonSchema[];
@@ -630,7 +845,14 @@ export namespace OpenApiV3_2 {
       discriminator?: IOneOf.IDiscriminator;
     }
     export namespace IOneOf {
-      /** Discriminator for tagged unions. */
+      /**
+       * Discriminator for tagged unions.
+       *
+       * @evidence contracts/common.md#principled-implementation A property name with an optional value to reference map.
+       * @evidence contracts/common.md#clear-and-simple-design Two fields.
+       * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+       * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+       */
       export interface IDiscriminator {
         /** Discriminator property name. */
         propertyName: string;
@@ -640,14 +862,28 @@ export namespace OpenApiV3_2 {
       }
     }
 
-    /** Null type. */
+    /**
+     * Null type.
+     *
+     * @evidence contracts/common.md#principled-implementation The standalone null type with an optional null default.
+     * @evidence contracts/common.md#clear-and-simple-design One optional field.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation One-line comments on the type and the default.
+     */
     export interface INull
       extends Omit<IJsonSchemaAttribute.INull, "examples">, __IAttribute {
       /** Default value. */
       default?: null;
     }
 
-    /** Unknown type. */
+    /**
+     * Unknown type.
+     *
+     * @evidence contracts/common.md#principled-implementation A schema with no type and an optional default of any value.
+     * @evidence contracts/common.md#clear-and-simple-design One optional field.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation One-line comments on the type and the default.
+     */
     export interface IUnknown
       extends Omit<IJsonSchemaAttribute.IUnknown, "examples">, __IAttribute {
       /** Type discriminator (undefined for unknown). */
@@ -667,7 +903,14 @@ export namespace OpenApiV3_2 {
     }
   }
 
-  /** Security scheme types. */
+  /**
+   * Security scheme types.
+   *
+   * @evidence contracts/common.md#principled-implementation A union of five schemes discriminated by `type` and, for http, by `scheme`.
+   * @evidence contracts/common.md#clear-and-simple-design One alias over five records.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A representation; no secrets or checks.
+   * @evidence contracts/common.md#meaningful-documentation The one-line comment names the security scheme types.
+   */
   export type ISecurityScheme =
     | ISecurityScheme.IApiKey
     | ISecurityScheme.IHttpBasic
@@ -675,7 +918,14 @@ export namespace OpenApiV3_2 {
     | ISecurityScheme.IOAuth2
     | ISecurityScheme.IOpenId;
   export namespace ISecurityScheme {
-    /** API key authentication. */
+    /**
+     * API key authentication.
+     *
+     * @evidence contracts/common.md#principled-implementation The `apiKey` scheme with optional location and name.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IApiKey {
       /** Scheme type. */
       type: "apiKey";
@@ -690,7 +940,14 @@ export namespace OpenApiV3_2 {
       description?: string;
     }
 
-    /** HTTP basic authentication. */
+    /**
+     * HTTP basic authentication.
+     *
+     * @evidence contracts/common.md#principled-implementation The `http` type with the literal scheme `basic`.
+     * @evidence contracts/common.md#clear-and-simple-design Separate from bearer because the fields differ.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IHttpBasic {
       /** Scheme type. */
       type: "http";
@@ -702,7 +959,14 @@ export namespace OpenApiV3_2 {
       description?: string;
     }
 
-    /** HTTP bearer authentication. */
+    /**
+     * HTTP bearer authentication.
+     *
+     * @evidence contracts/common.md#principled-implementation The `http` type with the literal scheme `bearer` and an optional token format.
+     * @evidence contracts/common.md#clear-and-simple-design Separate from basic because only bearer has a format.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IHttpBearer {
       /** Scheme type. */
       type: "http";
@@ -717,7 +981,14 @@ export namespace OpenApiV3_2 {
       description?: string;
     }
 
-    /** OAuth2 authentication. */
+    /**
+     * OAuth2 authentication.
+     *
+     * @evidence contracts/common.md#principled-implementation The `oauth2` type with required flows and an optional metadata discovery URL, which 3.2 added.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IOAuth2 {
       /** Scheme type. */
       type: "oauth2";
@@ -732,7 +1003,14 @@ export namespace OpenApiV3_2 {
       description?: string;
     }
 
-    /** OpenID Connect authentication. */
+    /**
+     * OpenID Connect authentication.
+     *
+     * @evidence contracts/common.md#principled-implementation The `openIdConnect` type with a required discovery URL.
+     * @evidence contracts/common.md#clear-and-simple-design One record.
+     * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+     * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+     */
     export interface IOpenId {
       /** Scheme type. */
       type: "openIdConnect";
@@ -744,7 +1022,14 @@ export namespace OpenApiV3_2 {
       description?: string;
     }
     export namespace IOAuth2 {
-      /** OAuth2 flow configurations. */
+      /**
+       * OAuth2 flow configurations.
+       *
+       * @evidence contracts/common.md#principled-implementation The four earlier flows with Omit removing the unused URL, plus an optional device authorization flow.
+       * @evidence contracts/common.md#clear-and-simple-design One record using Omit over the shared flow shape and a separate device flow record.
+       * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+       * @evidence contracts/common.md#meaningful-documentation Each field names its flow.
+       */
       export interface IFlowSet {
         /** Authorization code flow. */
         authorizationCode?: IFlow;
@@ -762,7 +1047,14 @@ export namespace OpenApiV3_2 {
         deviceAuthorization?: IDeviceFlow;
       }
 
-      /** OAuth2 flow configuration. */
+      /**
+       * OAuth2 flow configuration.
+       *
+       * @evidence contracts/common.md#principled-implementation Optional authorization, token and refresh URLs and scopes, since the required ones depend on the flow.
+       * @evidence contracts/common.md#clear-and-simple-design One record shared by several flows.
+       * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+       * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+       */
       export interface IFlow {
         /** Authorization URL. */
         authorizationUrl?: string;
@@ -777,7 +1069,14 @@ export namespace OpenApiV3_2 {
         scopes?: Record<string, string>;
       }
 
-      /** OAuth2 device authorization flow. */
+      /**
+       * OAuth2 device authorization flow.
+       *
+       * @evidence contracts/common.md#principled-implementation The device authorization URL and token URL are required and the refresh URL and scopes optional, since the device grant needs both endpoints.
+       * @evidence contracts/common.md#clear-and-simple-design A separate record because its required fields differ from IFlow.
+       * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+       * @evidence contracts/common.md#meaningful-documentation Each field has a one-line comment.
+       */
       export interface IDeviceFlow {
         /** Device authorization URL. */
         deviceAuthorizationUrl: string;

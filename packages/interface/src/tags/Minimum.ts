@@ -25,6 +25,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value The minimum allowed value (inclusive)
+ *
+ * @evidence contracts/common.md#principled-implementation The check is `N <= $input` for numbers and `BigInt(N) <= $input` for bigint, which is the inclusive lower bound in the value's own type; `schema.minimum` carries the bound, rendered as a JSON number for bigint and therefore inexact beyond the safe-integer range. It is exclusive with ExclusiveMinimum.
+ * @evidence contracts/common.md#clear-and-simple-design Private Cast and Numeric helpers mirror the other bound tags and are used once each here.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A general comparison template without a special-cased value.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the inclusive meaning, the exclusion of ExclusiveMinimum and gives price and quantity examples.
  */
 export type Minimum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

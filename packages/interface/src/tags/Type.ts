@@ -46,6 +46,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value Numeric type identifier
+ *
+ * @evidence contracts/common.md#principled-implementation Each width maps to an internal check (`isTypeInt8` through `isTypeFloat`); int64 and uint64 have separate number and bigint checks, with bigint exact on the inclusive bounds and number inclusive of the rounded power-of-two maximum, as the comment explains. `double` emits `true`. The schema is deliberately coarser than the runtime check (integer, minimum 0 for unsigned) and its source comment says why.
+ * @evidence contracts/common.md#clear-and-simple-design One conditional chain over the closed width union, with no helper types; the target conditional widens only the 64-bit forms to bigint.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The coarse schema and the number-path precision are acknowledged limits in the declaration rather than compensated by invented bounds.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists each width with its range, the protobuf scalar relationship and the 64-bit number versus bigint boundary behavior, with an example.
  */
 export type Type<
   Value extends
