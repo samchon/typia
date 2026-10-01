@@ -40,7 +40,6 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
   - `test-typia-automated`, `test-utils-automated`: generator-driven matrix suites over their configured typia operations and `@typia/template` structures; their generated `src/features/` trees are rebuilt by the suite.
   - `test-interface`: compile-time tests for the exported `@typia/interface` types.
   - `test-typia-compiler`: compiler-process integration tests that exercise the native plugin through `ttsc` against temporary projects.
-  - `test-typia-bundler-cache`: webpack persistent filesystem-cache invalidation through `@ttsc/unplugin`; the only suite that exercises a bundler's cache.
   - `test-typia-exact-optional`: focused `exactOptionalPropertyTypes` behavior.
   - `test-feature-identity`: repository check that every suite's tracked `src/features` and `src/unit/features` file exports exactly one `test_*` function named after the file, that one suite never exports a name twice, and that every `tests/*` workspace declares the package name `@typia/<directory>`.
   - `test-error`: transform-rejection verification; the build must fail and every fixture must be named by a typia diagnostic.

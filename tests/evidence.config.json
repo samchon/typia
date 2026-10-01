@@ -25,7 +25,6 @@
       "files": [
         "test-*/src/**/*.ts",
         "!test-interface/src/**",
-        "!test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
         "!test-typia-schema/src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
         "!test-typia-schema/src/features/json.schema/test_json_schema_object_description.ts",
         "!test-typia-schema/src/features/json.application/test_json_application_parameter_omission.ts",
@@ -120,10 +119,9 @@
       }
     },
     {
-      "name": "authored native and persistent-cache boundaries",
+      "name": "authored native boundaries",
       "type": "typescript",
       "files": [
-        "test-typia-bundler-cache/src/test_webpack_filesystem_cache_invalidation.ts",
         "test-typia-schema/src/features/reflect.schema/test_reflect_schema_jsdoc_type_separator.ts",
         "test-typia-schema/src/features/json.schema/test_json_schema_object_description.ts",
         "test-typia-schema/src/features/json.application/test_json_application_parameter_omission.ts",
