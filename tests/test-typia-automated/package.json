@@ -37,6 +37,7 @@
     "tgrid": "catalog:utils",
     "tstl": "catalog:utils",
     "typia": "workspace:^",
-    "uuid": "catalog:utils"
+    "uuid": "catalog:utils",
+    "@typia/oracle": "workspace:^"
   }
 }

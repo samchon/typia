@@ -6,7 +6,8 @@
   "exports": {
     "./equality": "./src/TestEquality.ts",
     "./binding": "./src/TestBinding.ts",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./predicate": "./src/TestPredicate.ts"
   },
   "devDependencies": {
     "@types/node": "catalog:utils",

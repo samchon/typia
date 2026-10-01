@@ -164,6 +164,9 @@ import { test_naming_convention_pascal } from "./features/naming/test_naming_con
 import { test_naming_convention_reserved } from "./features/naming/test_naming_convention_reserved";
 import { test_naming_convention_snake } from "./features/naming/test_naming_convention_snake";
 import { test_naming_convention_variable } from "./features/naming/test_naming_convention_variable";
+import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
+import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
+import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
 import { test_dedent_interpolation } from "./features/test_dedent_interpolation";
 import { test_equality_async_result_refusal } from "./features/test_equality_async_result_refusal";
 import { test_equality_oracle } from "./features/test_equality_oracle";
@@ -394,3 +397,15 @@ test(test_llm_schema_discriminator.name, test_llm_schema_discriminator);
 test(test_llm_applicationEquals.name, test_llm_applicationEquals);
 
 test(test_llm_application_mismatch.name, test_llm_application_mismatch);
+
+test(test_boolean_predicate_is_results.name, test_boolean_predicate_is_results);
+
+test(
+  test_boolean_predicate_equals_results.name,
+  test_boolean_predicate_equals_results,
+);
+
+test(
+  test_boolean_predicate_is_prune_results.name,
+  test_boolean_predicate_is_prune_results,
+);
