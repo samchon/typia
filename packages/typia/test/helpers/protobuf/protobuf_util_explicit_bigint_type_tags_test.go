@@ -18,6 +18,11 @@ import (
 // 2. Extract protobuf bigint buckets.
 // 3. Assert uint64 is selected.
 // 4. Assert the default int64 bucket is not emitted for that tagged row.
+//
+// @evidence contracts/testing.md#behavioral-verification A bigint atomic with an explicit uint64 type tag is extracted and the selected bucket and the absence of the default int64 bucket are asserted.
+// @evidence contracts/testing.md#independent-expectations An explicit type tag overrides defaults by contract; both literal expectations are authored.
+// @evidence contracts/testing.md#distinguishing-cases Tagged bigint with presence and absence assertions; other tags are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilExplicitBigintTypeTags(t *testing.T) {
 	meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
 		Atomics: []*metadata.MetadataAtomic{

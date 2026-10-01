@@ -16,6 +16,11 @@ import (
 // 2. Register a local name and assert it is remembered.
 // 3. Assert an unused local name is absent.
 // 4. Assert the sequence counter increments monotonically.
+//
+// @evidence contracts/testing.md#behavioral-verification A function programmer registers a local name and the lookup, an absent name and the sequence counter are asserted.
+// @evidence contracts/testing.md#independent-expectations Remembering a registered name, not remembering an unregistered one and a counter starting at one are authored expectations of the bookkeeping contract.
+// @evidence contracts/testing.md#distinguishing-cases Registered and unregistered names are the pair; sequence monotonicity is asserted for two calls only.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported programmer methods in memory with no filesystem fixture, process or native command build.
 func TestFunctionProgrammerTracksLocalsAndSequence(t *testing.T) {
 	programmer := helpers.NewFunctionProgrammer("is")
 

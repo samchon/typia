@@ -17,6 +17,11 @@ import (
 // 2. Encode it through `ProtobufNameEncoder`.
 // 3. Assert the encoded name differs from the original.
 // 4. Decode the name and assert the original text is restored.
+//
+// @evidence contracts/testing.md#behavioral-verification A name with every supported special symbol is encoded, checked for change, decoded and compared with the input.
+// @evidence contracts/testing.md#independent-expectations Reversibility is the contract, so the authored input is the expectation for the decoded name.
+// @evidence contracts/testing.md#distinguishing-cases One name containing all symbol classes; names with literal token text are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported encoder and decoder on strings with no filesystem fixture, process or native command build.
 func TestProtobufNameEncoderRoundTrip(t *testing.T) {
 	input := `$User & Admin | {"list"<T>}[0], 'quoted' "double" space`
 

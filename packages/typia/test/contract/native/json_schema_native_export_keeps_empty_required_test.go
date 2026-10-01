@@ -17,6 +17,11 @@ import (
 // 1. Export a non-built-in native metadata component.
 // 2. Read the generated component schema.
 // 3. Assert it is an empty object with an empty `required` key.
+//
+// @evidence contracts/testing.md#behavioral-verification Json_schema_native_export runs on a custom native; the returned references and the registered component type, properties and required are asserted.
+// @evidence contracts/testing.md#independent-expectations A named empty object keeps properties {} and required [] by the object schema contract; the expected values are authored.
+// @evidence contracts/testing.md#distinguishing-cases One custom native; built-in natives are not asserted here.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported export function in memory with no filesystem fixture, process or native command build.
 func TestJsonSchemaNativeExportKeepsEmptyRequired(t *testing.T) {
   components := &nativeiterate.OpenApi_IComponents{}
 

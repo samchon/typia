@@ -17,6 +17,11 @@ import (
 // 2. Assert protobuf extraction deduces uint64.
 // 3. Build bigint constants with a negative value.
 // 4. Assert protobuf extraction deduces int64.
+//
+// @evidence contracts/testing.md#behavioral-verification Bigint constant unions with only positive values and with a negative value are passed to the protobuf extraction.
+// @evidence contracts/testing.md#independent-expectations Negative values require a signed scalar and all-positive values fit unsigned; the two scalars are authored.
+// @evidence contracts/testing.md#distinguishing-cases All-positive and sign-mixed unions form the pair.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilBigintConstantDeduction(t *testing.T) {
 	unsigned := helpers.ProtobufUtil.GetBigints(testutil.BigintConstantMetadata("1", "2"))
 	if _, ok := unsigned["uint64"]; !ok {

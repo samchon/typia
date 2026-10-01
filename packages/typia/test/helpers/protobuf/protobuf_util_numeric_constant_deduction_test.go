@@ -19,6 +19,11 @@ import (
 // 2. Assert protobuf extraction deduces int32.
 // 3. Build metadata for a value outside int32 range and assert int64.
 // 4. Build metadata for a fractional value and assert double.
+//
+// @evidence contracts/testing.md#behavioral-verification Number constants of small integers, large integers and fractions are passed to the numeric extraction.
+// @evidence contracts/testing.md#independent-expectations Narrowest-scalar thresholds (int32, int64, double) are the protobuf mapping rules, authored in the test.
+// @evidence contracts/testing.md#distinguishing-cases Three value ranges flip the scalar choice; exact threshold boundary values are not asserted.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilNumericConstantDeduction(t *testing.T) {
 	int32Meta := testutil.NumberConstantMetadata(1, 2, 3)
 	if _, ok := helpers.ProtobufUtil.GetNumbers(int32Meta)["int32"]; !ok {

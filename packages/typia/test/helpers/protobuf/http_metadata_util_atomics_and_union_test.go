@@ -20,6 +20,11 @@ import (
 // 2. Collect HTTP atomic buckets.
 // 3. Assert boolean, number, and string buckets are present.
 // 4. Assert the mixed shape is considered a union.
+//
+// @evidence contracts/testing.md#behavioral-verification The HTTP atomic collection runs on metadata with a boolean atomic, a number constant and a template row, and the union decision on the mixed shape.
+// @evidence contracts/testing.md#independent-expectations Constants contribute their declared atomic type and templates are strings, so boolean, number and string buckets are authored expectations.
+// @evidence contracts/testing.md#distinguishing-cases Three bucket sources are positives and the multi-category mix is the union case; single-category metadata is not asserted here.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestHttpMetadataUtilAtomicsAndUnion(t *testing.T) {
 	meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
 		Atomics: []*metadata.MetadataAtomic{

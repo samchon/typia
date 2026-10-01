@@ -19,6 +19,11 @@ import (
 // 2. Reuse a caller-owned union map while extracting atomic scalars.
 // 3. Assert fallback sequence and unsupported sequence-tag branches.
 // 4. Exercise numeric atomic defaults and unsupported integer conversion.
+//
+// @evidence contracts/testing.md#behavioral-verification Scalar extraction runs on boolean, bigint, number, string and template buckets with a caller-owned union map, and on unsupported sequence tags and number-only input.
+// @evidence contracts/testing.md#independent-expectations Scalar defaults (double, uint64 for positive bigint, int32 for small constants) are authored from the protobuf mapping rules.
+// @evidence contracts/testing.md#distinguishing-cases Several fallback branches are checked in one matrix, so a failure is located by the Fatal message rather than a case name.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilBranchMatrix(t *testing.T) {
 	existing := map[string]*int{"existing": nil}
 	meta := metadata.MetadataSchema_create(metadata.MetadataSchema{

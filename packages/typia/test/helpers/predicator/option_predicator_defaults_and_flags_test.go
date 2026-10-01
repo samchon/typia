@@ -17,6 +17,11 @@ import (
 // 2. Assert undefined defaults to enabled and the other flags default disabled.
 // 3. Enable finite and assert numeric follows finite.
 // 4. Explicitly disable undefined and assert the predicate follows the flag.
+//
+// @evidence contracts/testing.md#behavioral-verification The option predicates are evaluated on empty options, with finite enabled and with undefined explicitly disabled; each default and implication is asserted.
+// @evidence contracts/testing.md#independent-expectations The documented option semantics (undefined on by default, numeric/finite/functional off, finite implying numeric) give literal expectations.
+// @evidence contracts/testing.md#distinguishing-cases Defaults, the finite-implies-numeric flip and the explicit undefined=false flip each change exactly one flag.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported predicates with constructed option values and no filesystem fixture, process or native command build.
 func TestOptionPredicatorDefaultsAndFlags(t *testing.T) {
 	options := nativecontext.ITransformOptions{}
 	if helpers.OptionPredicator.Numeric(options) {

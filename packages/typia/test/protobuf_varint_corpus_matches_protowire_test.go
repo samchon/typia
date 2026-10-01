@@ -34,6 +34,11 @@ import (
 //  2. Require protowire to return exactly the recorded width, value, and error code.
 //  3. Require the same verdict when the varint stands in a tag, a length prefix,
 //     and a whole field, so the fault belongs to the varint and not to a position.
+//
+// @evidence contracts/testing.md#behavioral-verification Every entry of the shared varint corpus is checked for internal consistency and decoded by the protowire reference in four positions; recorded widths, values and error codes must match.
+// @evidence contracts/testing.md#independent-expectations google.golang.org/protobuf protowire is the independent reference implementation for the wire rule; the test validates the committed corpus against it and does not exercise typia code.
+// @evidence contracts/testing.md#distinguishing-cases Accepted, truncated, overlong and overflow entries with tag, length-prefix and field positions distinguish corpus errors; it can never detect a typia regression and does not claim to.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads the committed JSON corpus through the testutil resolver and calls only protowire, with no process or native command build.
 func TestProtobufVarintCorpusMatchesProtowire(t *testing.T) {
   corpus := testutil.ReadJSON[protobufVarintCorpus](t, filepath.Join(
     testutil.RepoRoot(t),

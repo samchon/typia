@@ -17,6 +17,11 @@ import (
 // 1. Build a positive bigint constant that deduces uint64.
 // 2. Add only a protobuf sequence tag to the constant.
 // 3. Assert GetBigints keeps the sequence under uint64 and not int64.
+//
+// @evidence contracts/testing.md#behavioral-verification A positive bigint constant with only a sequence tag is extracted and the bucket scalar and sequence are asserted.
+// @evidence contracts/testing.md#independent-expectations A sequence tag does not choose a scalar, so the value-deduced uint64 must remain; this is authored from the tag contract.
+// @evidence contracts/testing.md#distinguishing-cases One sequence-only constant, asserting both presence under uint64 and absence under int64.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilBigintConstantSequenceKeepsDeducedScalar(t *testing.T) {
   sequence := 17
   meta := metadata.MetadataSchema_create(metadata.MetadataSchema{

@@ -22,6 +22,11 @@ import (
 // 1. Render a document whose scalars are required, optional, and nullable.
 // 2. Require every singular field to keep an explicit presence label.
 // 3. Require `required` to be gone, and repeated fields to stay unlabeled.
+//
+// @evidence contracts/testing.md#behavioral-verification A rendered document must declare the exact optional and repeated field lines, carry no required label and no optional repeated combination.
+// @evidence contracts/testing.md#independent-expectations Explicit presence is required so default values survive the wire; the expected field lines are authored from the protobuf syntax, not derived from the renderer.
+// @evidence contracts/testing.md#distinguishing-cases Required, nullable, optional and repeated fields give each label decision; this case relies on substring checks and so cannot assert layout beyond those lines, while legality is owned by the compile case.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It renders in memory with no filesystem fixture, process or native command build.
 func TestProtobufMessageDocumentExplicitPresence(t *testing.T) {
   document := protobufMessageDocumentRender([]*schemametadata.MetadataObjectType{
     protobufMessageDocumentObject("IPresence",
