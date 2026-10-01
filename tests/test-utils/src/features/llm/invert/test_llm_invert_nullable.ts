@@ -16,6 +16,11 @@ import { _test_llm_invert } from "../../../internal/_test_llm_invert";
  *    nullable object, as LLM schemas.
  * 2. Invert each and compare it, constraints included, with `typia.json.schema` of
  *    the same type.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Nullable boolean, constrained number, string, array and object types are inverted from natively generated LLM schemas and compared, constraints included, with typia.json.schema.
+ * @evidence contracts/testing.md#independent-expectations typia.json.schema produces the expected OneOf shape independently, and empty definitions would invert to an empty oneOf, which the comparison catches.
+ * @evidence contracts/testing.md#distinguishing-cases Each nullable family is separate; non-nullable unions are in the oneOf case.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. both schemas come from the native transform; the helper compares in process.
  */
 export const test_llm_invert_nullable = (): void => {
   const $defs: Record<string, ILlmSchema> = {};

@@ -21,6 +21,11 @@ import typia from "typia";
  *    list.
  * 2. Convert every source key through the matching `NamingConvention` helper.
  * 3. Require each helper output to equal the notation-produced key.
+ *
+ * @evidence contracts/testing.md#behavioral-verification NamingConvention snake, kebab, camel and pascal are compared per key with the keys the native typia.notations transform produces over the witness matrix.
+ * @evidence contracts/testing.md#independent-expectations typia.notations is an independent native implementation of the case-conversion contract, so each key is judged against it and not against a literal copy of the utility.
+ * @evidence contracts/testing.md#distinguishing-cases The witness keys mix underscores with internal case boundaries and all-caps runs, where the copies diverged; keys outside the matrix are not compared.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.notations is transformed by the native host, which is the producer this parity needs.
  */
 export const test_naming_convention_notation_parity = (): void => {
   // The #2190 witness matrix: keys mixing an underscore with a case boundary,

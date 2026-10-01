@@ -18,6 +18,11 @@ import typia, { tags } from "typia";
  * 3. Assert a value violating only the documented property is rejected.
  * 4. Assert the undocumented twin's violation is rejected identically, and that a
  *    conforming value still passes.
+ *
+ * @evidence contracts/testing.md#behavioral-verification LlmJson.validate is built from natively generated parameters and must reject the same violation on a documented and an undocumented property and accept a conforming value.
+ * @evidence contracts/testing.md#independent-expectations Two properties that differ only by a JSDoc comment must give one verdict, and the violating values are authored; no verdict is read from the validator.
+ * @evidence contracts/testing.md#distinguishing-cases Documented violation, undocumented twin and conforming value are the three cases.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.llm.parameters is produced by the native transform; validation runs in process.
  */
 export const test_llm_invert_documented_validation_verdict = (): void => {
   interface IMember {

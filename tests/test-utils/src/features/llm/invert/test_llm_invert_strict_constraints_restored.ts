@@ -23,6 +23,11 @@ import typia, { tags } from "typia";
  * 2. Invert it back with `config.strict` set, matching the conversion.
  * 3. Assert each of the thirteen numeric, string, and array keywords is restored.
  * 4. Assert each leaf's description keeps its prose and drops its tags.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Strict LLM schemas, where constraints live in the description, are inverted and each of thirteen keywords is asserted on its own with a message naming it; consumed tags must leave plain prose.
+ * @evidence contracts/testing.md#independent-expectations The expected values are the tags declared on the TypeScript type, and the schemas come from the native producer in strict mode.
+ * @evidence contracts/testing.md#distinguishing-cases Every keyword has its own assertion and format and pattern sit on separate leaves; the non-strict twin is a separate case.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.llm.schema in strict mode is produced by the native transform; the inversion runs in process.
  */
 export const test_llm_invert_strict_constraints_restored = (): void => {
   interface IMember {

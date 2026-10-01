@@ -18,6 +18,11 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @param llm LLM schema to invert
  * @param $defs Definitions `llm` was written into
  * @param json OpenAPI schema of the same type
+ *
+ * @evidence contracts/testing.md#behavioral-verification The helper inverts a natively generated LLM schema and compares the normalized result with the natively generated JSON schema of the same type; an erased keyword, unresolved union or empty definition changes the comparison.
+ * @evidence contracts/testing.md#independent-expectations typia.json.schema is an independent producer of the OpenAPI shape for the type, and references and union order are normalized on both sides before comparison, so the inverter's own input is not the expectation.
+ * @evidence contracts/testing.md#distinguishing-cases The helper owns the comparison policy only (descriptions skipped, members as a set); the type families are supplied by the invert cases.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the native-plugin test:integration process, called by cases whose schemas come from the native transform; the comparison itself is plain TypeScript.
  */
 export const _test_llm_invert = (
   title: string,

@@ -27,6 +27,11 @@ import typia, { ILlmSchema, tags } from "typia";
  *    leaves.
  * 4. Assert the documented and undocumented inversions agree in both directions
  *    apart from `description`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification invert runs on non-strict schemas whose properties carry documentation and each of thirteen constraint keywords is asserted on its own with a message naming it, so erasing any keyword fails by name.
+ * @evidence contracts/testing.md#independent-expectations The expected keywords are the tags declared on the TypeScript type; the schemas come from the native producer and the keywords are compared with the declared values.
+ * @evidence contracts/testing.md#distinguishing-cases Numeric, string and array inverters, documented versus undocumented properties and the format and pattern separation each flip a keyword; the strict counterpart is a separate case.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.llm.schema is produced by the native transform, while the inversion runs in process.
  */
 export const test_llm_invert_documented_constraints_survive = (): void => {
   interface IDocumented {

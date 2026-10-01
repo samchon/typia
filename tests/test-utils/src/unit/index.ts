@@ -49,6 +49,8 @@ import { test_http_llm_function_multipart } from "./features/llm/http/test_http_
 import { test_http_llm_function_tags } from "./features/llm/http/test_http_llm_function_tags";
 import { test_llm_invert_description_tag_prose_not_promoted } from "./features/llm/invert/test_llm_invert_description_tag_prose_not_promoted";
 import { test_llm_invert_empty_required } from "./features/llm/invert/test_llm_invert_empty_required";
+import { test_llm_invert_non_enumerable_definition } from "./features/llm/invert/test_llm_invert_non_enumerable_definition";
+import { test_llm_invert_openapi_component_names } from "./features/llm/invert/test_llm_invert_openapi_component_names";
 import { test_llm_json_parse_lenient_bom_prefix } from "./features/llm/parse/test_llm_json_parse_lenient_bom_prefix";
 import { test_llm_json_parse_lenient_boolean_coercion } from "./features/llm/parse/test_llm_json_parse_lenient_boolean_coercion";
 import { test_llm_json_parse_lenient_comma_optional } from "./features/llm/parse/test_llm_json_parse_lenient_comma_optional";
@@ -181,8 +183,11 @@ import { test_http_migrate_remigration_keeps_names } from "./features/migrate/te
 import { test_http_migrate_request_contract } from "./features/migrate/test_http_migrate_request_contract";
 import { test_http_migrate_response_contract } from "./features/migrate/test_http_migrate_response_contract";
 import { test_http_migrate_route_accessor } from "./features/migrate/test_http_migrate_route_accessor";
+import { test_http_migrate_route_accessor_identifier } from "./features/migrate/test_http_migrate_route_accessor_identifier";
+import { test_http_migrate_route_accessor_reserved } from "./features/migrate/test_http_migrate_route_accessor_reserved";
 import { test_http_migrate_route_accessor_slice } from "./features/migrate/test_http_migrate_route_accessor_slice";
 import { test_http_migrate_route_comment } from "./features/migrate/test_http_migrate_route_comment";
+import { test_http_migrate_route_parameter_key_escape } from "./features/migrate/test_http_migrate_route_parameter_key_escape";
 import { test_http_migrate_route_plugin } from "./features/migrate/test_http_migrate_route_plugin";
 import { test_http_migrate_route_return_type_void } from "./features/migrate/test_http_migrate_route_return_type_void";
 import { test_http_migrate_route_success_null } from "./features/migrate/test_http_migrate_route_success_null";
@@ -913,4 +918,29 @@ test(test_error_class_identity.name, test_error_class_identity);
 test(
   test_stringify_oracle_input_ownership.name,
   test_stringify_oracle_input_ownership,
+);
+
+test(
+  test_llm_invert_non_enumerable_definition.name,
+  test_llm_invert_non_enumerable_definition,
+);
+
+test(
+  test_llm_invert_openapi_component_names.name,
+  test_llm_invert_openapi_component_names,
+);
+
+test(
+  test_http_migrate_route_accessor_identifier.name,
+  test_http_migrate_route_accessor_identifier,
+);
+
+test(
+  test_http_migrate_route_accessor_reserved.name,
+  test_http_migrate_route_accessor_reserved,
+);
+
+test(
+  test_http_migrate_route_parameter_key_escape.name,
+  test_http_migrate_route_parameter_key_escape,
 );

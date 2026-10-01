@@ -1,8 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
-import { OpenApi } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
-import { ILlmSchema } from "typia";
 
 /**
  * Verifies component allocation covers every definition inversion can resolve.

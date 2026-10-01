@@ -13,6 +13,11 @@ import { _test_llm_invert } from "../../../internal/_test_llm_invert";
  *
  * 1. Write a boolean, a numeric, and a string literal union as LLM schemas.
  * 2. Invert each and compare it with `typia.json.schema` of the same type.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Boolean, numeric and string literal unions are inverted from natively generated LLM schemas and compared with typia.json.schema of the same type through the shared helper.
+ * @evidence contracts/testing.md#independent-expectations typia.json.schema is an independent producer of the emended OpenAPI schema for the same TypeScript type, so the expectation is not the inverter's own input.
+ * @evidence contracts/testing.md#distinguishing-cases Three literal families are separate comparisons; mixed unions are covered by the oneOf case.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. both schemas come from the native transform; the helper normalizes references and union order in process.
  */
 export const test_llm_invert_enum = (): void => {
   const $defs: Record<string, ILlmSchema> = {};

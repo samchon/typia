@@ -1,7 +1,10 @@
-import { IHttpMigrateApplication, IHttpMigrateRoute } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import {
+  IHttpMigrateApplication,
+  IHttpMigrateRoute,
+  OpenApi,
+} from "@typia/interface";
+import { TestEquality } from "@typia/oracle/equality";
 import { HttpMigration } from "@typia/utils";
-import { OpenApi } from "typia";
 
 export const test_http_migrate_route_accessor_reserved = (): void => {
   const document: OpenApi.IDocument = {

@@ -3,6 +3,21 @@ import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
+/**
+ * Verifies array and union coverage on schemas generated for 2D and 3D shapes.
+ *
+ * OpenApiTypeChecker.covers must follow structural containment for natively
+ * generated array schemas.
+ *
+ * 1. Generate schemas of Plan2D, Plan3D, Box2D and Box3D natively.
+ * 2. Compare coverage in both directions for arrays and unions.
+ * 3. Assert each authored verdict.
+ *
+ * @evidence contracts/testing.md#behavioral-verification covers is called on natively generated schemas and each titled comparison is asserted.
+ * @evidence contracts/testing.md#independent-expectations Containment between a 3D and a 2D shape (more required fields) is authored from the type declarations.
+ * @evidence contracts/testing.md#distinguishing-cases Positive and negative directions for arrays, item unions and array unions are separate titles.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. the schemas are produced by typia.json.schemas in the native transform; covers runs in process.
+ */
 export const test_json_schema_type_checker_cover_array = (): void => {
   const app: IJsonSchemaCollection =
     typia.json.schemas<[Plan2D, Plan3D, Box2D, Box3D]>();

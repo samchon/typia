@@ -18,6 +18,11 @@ import typia from "typia";
  * 3. Assert `validateArguments` succeeds with coerced data while the bare
  *    `func.validate` fails, and that non-coercible / omitted input still
  *    fails.
+ *
+ * @evidence contracts/testing.md#behavioral-verification validateArguments and the bare function validate are run on stringified number and boolean payloads; the first must succeed with corrected primitives and the second must fail.
+ * @evidence contracts/testing.md#independent-expectations The loosely typed payload values and expected corrected types are authored from the documented coercion purpose.
+ * @evidence contracts/testing.md#distinguishing-cases Coercible payload through both paths and a non-coercible payload separate coerce-then-validate from validate alone.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. the function schema comes from the native producer; validation and coercion run in process.
  */
 export const test_llm_validate_arguments = (): void => {
   interface ICalculator {

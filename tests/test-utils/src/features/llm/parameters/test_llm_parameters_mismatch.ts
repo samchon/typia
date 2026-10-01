@@ -8,6 +8,22 @@ import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
+/**
+ * Verifies broken references in native schemas are reported with every
+ * accessor.
+ *
+ * A parameters conversion over a collection whose references were corrupted
+ * must report all failing locations rather than stopping at the first.
+ *
+ * 1. Generate a schema collection natively and corrupt three references.
+ * 2. Convert it with LlmSchemaConverter.parameters.
+ * 3. Assert failure and the accessors of all three locations.
+ *
+ * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.parameters runs on a natively generated collection with edited references and the success flag and reported accessors are asserted.
+ * @evidence contracts/testing.md#independent-expectations The corrupted reference names are authored and the expected accessors follow the authored structure, not the converter.
+ * @evidence contracts/testing.md#distinguishing-cases Root property, nested object and array item references are separate failure locations; a valid collection is the unit twin.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. the collection is produced by the native typia.json.schemas; the conversion runs in process.
+ */
 export const test_llm_parameters_mismatch = (): void => {
   const collection: IJsonSchemaCollection = typia.json.schemas<
     [

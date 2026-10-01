@@ -1,8 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
-import { OpenApi } from "@typia/interface";
-import { TestEquality } from "@typia/template/equality";
+import { ILlmSchema, OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/oracle/equality";
 import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
-import { ILlmSchema } from "typia";
 
 export const test_llm_invert_openapi_component_names = (): void => {
   const keys: string[] = [

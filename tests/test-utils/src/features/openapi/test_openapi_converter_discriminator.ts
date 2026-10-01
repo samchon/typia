@@ -14,6 +14,11 @@ import typia, { IJsonSchemaCollection } from "typia";
  * 1. Upgrade and downgrade a generated tagged union through every 3.x path.
  * 2. Exercise mapping-less and nested discriminators plus input immutability.
  * 3. Assert synthetic, collapsed, and Swagger 2.0 controls stay untagged.
+ *
+ * @evidence contracts/testing.md#behavioral-verification A tagged union generated natively is upgraded and downgraded through every 3.x path, with mapping-less and nested discriminators and input immutability; discriminators must be preserved where valid and absent in synthetic, collapsed and Swagger 2.0 controls.
+ * @evidence contracts/testing.md#independent-expectations The discriminator topology rule is stated in the test and the unions are produced by typia.json.schemas; expected presence and absence are authored.
+ * @evidence contracts/testing.md#distinguishing-cases Preserved, nested, mapping-less, synthetic, collapsed and 2.0 controls each flip the decision.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. the tagged unions are produced by the native transform; conversion runs in process.
  */
 export const test_openapi_converter_discriminator = (): void => {
   for (const version of ["3.1", "3.2"] as const) {
