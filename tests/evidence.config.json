@@ -45,7 +45,16 @@
         "!test-utils-automated/src/generate.ts",
         "!test-utils-automated/src/features/validateEquals/test_*.ts",
         "!test-utils-automated/src/internal/_test_validateEquals.ts",
-        "!test-utils/src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
+        "!test-utils/src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts",
+        "!test-typia-automated/src/features/assert/test_*.ts",
+        "!test-typia-automated/src/features/assertGuard/test_*.ts",
+        "!test-typia-automated/src/features/createAssert/test_*.ts",
+        "!test-typia-automated/src/features/createAssertGuard/test_*.ts",
+        "!test-typia-automated/src/features/createIs/test_*.ts",
+        "!test-typia-automated/src/features/createValidate/test_*.ts",
+        "!test-typia-automated/src/features/is/test_*.ts",
+        "!test-typia-automated/src/features/standardSchema.createValidate/test_*.ts",
+        "!test-typia-automated/src/features/validate/test_*.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -191,6 +200,32 @@
       "type": "typescript",
       "files": [
         "test-utils-automated/src/features/validateEquals/test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated normal validator boundaries",
+      "type": "typescript",
+      "files": [
+        "test-typia-automated/src/features/assert/test_*.ts",
+        "test-typia-automated/src/features/assertGuard/test_*.ts",
+        "test-typia-automated/src/features/createAssert/test_*.ts",
+        "test-typia-automated/src/features/createAssertGuard/test_*.ts",
+        "test-typia-automated/src/features/createIs/test_*.ts",
+        "test-typia-automated/src/features/createValidate/test_*.ts",
+        "test-typia-automated/src/features/is/test_*.ts",
+        "test-typia-automated/src/features/standardSchema.createValidate/test_*.ts",
+        "test-typia-automated/src/features/validate/test_*.ts"
       ],
       "symbol": "function",
       "reference": {

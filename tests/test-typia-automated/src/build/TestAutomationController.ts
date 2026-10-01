@@ -149,11 +149,18 @@ export namespace TestAutomationController {
                   `${method}<${struct.name}>(input, (p) => new CustomGuardError(p))`,
                 )
         : (str: string) => str;
+    const comment = content.lastIndexOf("/**", from);
+    const commentEnd = comment === -1 ? -1 : content.indexOf("*/", comment);
+    const importAt =
+      commentEnd !== -1 && content.substring(commentEnd + 2, from).trim() === ""
+        ? comment
+        : from;
     return [
-      content.substring(0, from),
+      content.substring(0, importAt),
       feat.custom === true
         ? `import { CustomGuardError } from "../../internal/CustomGuardError";\n\n`
         : `import { TypeGuardError } from "typia";\n\n`,
+      content.substring(importAt, from),
       feat.custom === true
         ? content
             .substring(from, to)

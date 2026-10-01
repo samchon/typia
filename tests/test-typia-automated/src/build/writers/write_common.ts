@@ -1,5 +1,7 @@
 import { NamingConvention, dedent } from "@typia/utils";
 
+import { write_validation_contract } from "./write_validation_contract";
+
 export const write_common =
   (p: IProps) => (create: boolean) => (structure: string) =>
     dedent`
@@ -18,6 +20,7 @@ export const write_common =
           : p.method,
       })}";
 
+      ${write_validation_contract(p, structure)}
       export const ${file(p)}_${structure} = (): ${
         p.asynchronous === true ? "Promise<void>" : "void"
       } => _${file({
