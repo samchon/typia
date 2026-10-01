@@ -7,11 +7,21 @@
       "files": [
         "src/**/*.ts",
         "!src/utils/dedent.ts",
+        "!src/validators/functional/_isStringFormat.ts",
         "!src/converters/index.ts",
         "!src/http/index.ts",
         "!src/index.ts",
         "!src/utils/index.ts",
-        "!src/validators/index.ts"
+        "!src/validators/index.ts",
+        "!src/validators/functional/_isBigintString.ts",
+        "!src/validators/functional/_isFormatByte.ts",
+        "!src/validators/functional/_isFormatDate.ts",
+        "!src/validators/functional/_isFormatDateTime.ts",
+        "!src/validators/functional/_isFormatTime.ts",
+        "!src/validators/functional/_isFormatRegex.ts",
+        "!src/validators/functional/_isFormatPassword.ts",
+        "!src/validators/functional/_isFormatUuid.ts",
+        "!src/validators/functional/_stringLength.ts"
       ],
       "symbol": [
         "type",
@@ -32,6 +42,33 @@
       "type": "typescript",
       "files": [
         "src/utils/dedent.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/performance.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable scalar predicate work and dispatch",
+      "type": "typescript",
+      "files": [
+        "src/validators/functional/_isStringFormat.ts",
+        "src/validators/functional/_isBigintString.ts",
+        "src/validators/functional/_isFormatByte.ts",
+        "src/validators/functional/_isFormatDate.ts",
+        "src/validators/functional/_isFormatDateTime.ts",
+        "src/validators/functional/_isFormatTime.ts",
+        "src/validators/functional/_isFormatRegex.ts",
+        "src/validators/functional/_isFormatPassword.ts",
+        "src/validators/functional/_isFormatUuid.ts",
+        "src/validators/functional/_stringLength.ts"
       ],
       "symbol": "function",
       "reference": {

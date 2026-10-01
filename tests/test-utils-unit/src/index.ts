@@ -164,6 +164,7 @@ import { test_naming_convention_pascal } from "./features/naming/test_naming_con
 import { test_naming_convention_reserved } from "./features/naming/test_naming_convention_reserved";
 import { test_naming_convention_snake } from "./features/naming/test_naming_convention_snake";
 import { test_naming_convention_variable } from "./features/naming/test_naming_convention_variable";
+import { test_openapi_unknown_string_formats } from "./features/openapi/test_openapi_unknown_string_formats";
 import { test_openapi_unreference_alias_chains } from "./features/openapi/test_openapi_unreference_alias_chains";
 import { test_openapi_validation_invalid_references } from "./features/openapi/test_openapi_validation_invalid_references";
 import { test_openapi_validation_path_grouping } from "./features/openapi/test_openapi_validation_path_grouping";
@@ -407,6 +408,11 @@ test(test_llm_applicationEquals.name, test_llm_applicationEquals);
 test(
   test_openapi_unreference_alias_chains.name,
   test_openapi_unreference_alias_chains,
+);
+
+test(
+  test_openapi_unknown_string_formats.name,
+  test_openapi_unknown_string_formats,
 );
 test(
   test_openapi_validation_reference_paths.name,
