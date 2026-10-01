@@ -211,7 +211,7 @@ func openApiV3Downgrader_downgrade_tuple(collection *OpenApiV3Downgrader_ICompon
     elements := []JsonSchema{}
     elements = append(elements, prefixItems...)
     if rest := openApiV3Downgrader_schema(additional); rest != nil {
-      elements = append(elements, OpenApiV3Downgrader_downgrade_schema(collection, rest))
+      elements = append(elements, rest)
     }
     if len(elements) == 0 {
       items = JsonSchema{}
