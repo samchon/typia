@@ -44,7 +44,8 @@
         "!test-typia-automated/src/generate.ts",
         "!test-utils-automated/src/generate.ts",
         "!test-utils-automated/src/features/validateEquals/test_*.ts",
-        "!test-utils-automated/src/internal/_test_validateEquals.ts"
+        "!test-utils-automated/src/internal/_test_validateEquals.ts",
+        "!test-utils/src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -86,7 +87,8 @@
         "test-typia-schema/src/features/json.schema/test_json_schema_object_description.ts",
         "test-typia-schema/src/features/json.application/test_json_application_parameter_omission.ts",
         "test-typia-schema/src/features/llm.parameters/test_llm_parameters_anyof.ts",
-        "test-typia-schema/src/features/llm.schema/test_llm_schema_spec_union.ts"
+        "test-typia-schema/src/features/llm.schema/test_llm_schema_spec_union.ts",
+        "test-utils/src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
       ],
       "symbol": "function",
       "reference": {

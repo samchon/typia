@@ -1,5 +1,7 @@
 import test from "node:test";
 
+import { test_llm_applicationEquals } from "./features/llm/application/test_llm_applicationEquals";
+import { test_llm_application_mismatch } from "./features/llm/application/test_llm_application_mismatch";
 import { test_llm_coerce_anyof_array_union } from "./features/llm/coerce/test_llm_coerce_anyof_array_union";
 import { test_llm_coerce_anyof_discriminated_inner } from "./features/llm/coerce/test_llm_coerce_anyof_discriminated_inner";
 import { test_llm_coerce_anyof_discriminated_second } from "./features/llm/coerce/test_llm_coerce_anyof_discriminated_second";
@@ -388,3 +390,7 @@ for (const feature of [
   test(feature.name, feature);
 
 test(test_llm_schema_discriminator.name, test_llm_schema_discriminator);
+
+test(test_llm_applicationEquals.name, test_llm_applicationEquals);
+
+test(test_llm_application_mismatch.name, test_llm_application_mismatch);
