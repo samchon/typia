@@ -14,7 +14,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Ten direct parse scenarios assert success and complete object data, detecting truncated names, lost values or altered nesting.
  * @evidence contracts/testing.md#independent-expectations Literal keys and values supply independent expectations under the maintained identifier-key tolerance; no parser output defines an expected member.
  * @evidence contracts/testing.md#distinguishing-cases Ordinary names, mixed quoting, underscores, digit suffixes, dollar and underscore prefixes, nesting, array values, multiple keys and comments preserve twenty assertions. Single-character and keyword-like names have dedicated neighboring cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_unquoted_keys = (): void => {
   // Simple unquoted key

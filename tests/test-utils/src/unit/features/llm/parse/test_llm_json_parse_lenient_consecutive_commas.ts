@@ -15,7 +15,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Eleven direct parse scenarios check success and exact array or object results, rejecting holes, phantom members and lost actual values.
  * @evidence contracts/testing.md#independent-expectations Literal dense arrays and objects define the expected data under the maintained redundant-comma tolerance; empty array and object expectations remain distinct.
  * @evidence contracts/testing.md#distinguishing-cases Double and triple separators, leading commas, all-comma array and object inputs, mixed whitespace, an enclosed unquoted member and single or multiple trailing commas preserve all twenty-two assertions. Omitted-separator behavior is owned by comma_optional.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_consecutive_commas = (): void => {
   // Double comma in array

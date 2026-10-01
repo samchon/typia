@@ -62,7 +62,10 @@ export const test_clone_oracle_data_ownership = (): void => {
       return structuredClone(input);
     },
   ])
-    assert.throws(() => run(clone), Error);
+    assert.throws(
+      () => run(clone),
+      /^Error: (?:Bug on )?Bug on typia\.plain\.clone\(\): failed to clone the authored ownership type\./,
+    );
   assert.throws(
     () =>
       run(() => {

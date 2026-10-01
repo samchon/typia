@@ -17,7 +17,7 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema rejects three absent references and reports all original accessors; restoring the declared component names must succeed.
  * @evidence contracts/testing.md#independent-expectations The authored graph and separate literal accessor strings establish the expected failures. Fixture-only native assertion calls formerly checked arranged producer input and are replaced by typed authored input, not represented as behavioral product coverage.
  * @evidence contracts/testing.md#distinguishing-cases Root property, nested object property and array-item property failures are all retained, with the valid-reference graph as an adjacent negative twin.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. Inline OpenAPI or LLM fixtures establish portable input meaning independently; the original assertion names remain, and local private helpers are reviewed through this owning case. Native JSON/LLM emission and JSDoc extraction remain in their existing schema/spec batches.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. Inline OpenAPI or LLM fixtures establish portable input meaning independently; local private helpers are reviewed through this owning case. Native JSON/LLM emission and JSDoc extraction remain in their existing schema/spec batches.
  */
 export const test_llm_schema_mismatch = (): void => {
   const collection: IJsonSchemaCollection = {

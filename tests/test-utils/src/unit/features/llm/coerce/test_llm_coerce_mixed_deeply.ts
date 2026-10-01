@@ -23,8 +23,8 @@ interface IDeeplyMixed {
  *    input.
  * 2. Call LlmJson directly and compare every retained result distinction.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse/coerce calls check that nested array/object encodings preserve both independently asserted numeric leaves; every original assertion title and outcome is preserved.
- * @evidence contracts/testing.md#independent-expectations Literal schema kinds are authored from the declared fixture shape, not produced by typia. Original values and explicit scalar, field or complete-array expectations establish the result independently of the conversion implementation; these assertions do not certify unasserted properties.
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse/coerce calls check that nested array/object encodings preserve both independently asserted numeric leaves.
+ * @evidence contracts/testing.md#independent-expectations Literal schema kinds are authored from the declared fixture shape, not produced by typia. Authored values and explicit scalar, field or complete-array expectations establish the result independently of the conversion implementation; these assertions do not certify unasserted properties.
  * @evidence contracts/testing.md#distinguishing-cases The distinguishing contribution is that nested array/object encodings preserve both independently asserted numeric leaves. Complementary string/no-string, nullable/non-null and affirmative/negative cases run in the same direct population. This case does not establish malformed-input rejection, reference-cycle handling or the correctness of compiler-produced schemas.
  * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under a plugin-free configuration and oracle. No native producer, installed consumer or host is needed for these assertions; transformer-to-utility assembly remains a separate boundary responsibility.
  */

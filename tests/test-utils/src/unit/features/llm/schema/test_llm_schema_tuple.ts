@@ -18,7 +18,7 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter.schema rejects all original tuple locations and compares exact error accessors; an ordinary array succeeds with independently specified item meaning.
  * @evidence contracts/testing.md#independent-expectations Literal accessor strings follow the authored graph and original error contract, not the converter traversal. The private validate helper retains its original success and sorted accessor comparisons.
  * @evidence contracts/testing.md#distinguishing-cases Root tuple, two sibling tuples, nested tuple and an ordinary-array negative twin preserve location and rejection distinctions. Actual native tuple emission remains in JSON schema tuple cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from the prior fixture's declared fields rather than generated at execution; all original converter/coverage assertions and failure names remain. Removed TypeScript-only producer fixture declarations are represented by those input fields. Private local helpers remain reviewed through this owning case.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from declared fields rather than generated at execution. Private local helpers remain reviewed through this owning case.
  */
 export const test_llm_schema_tuple = (): void => {
   const collection: IJsonSchemaCollection = {

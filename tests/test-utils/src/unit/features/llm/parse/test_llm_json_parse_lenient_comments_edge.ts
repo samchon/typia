@@ -16,7 +16,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Nine direct parse scenarios compare success and exact recovered data, exposing comment text leaked into values or comments consuming subsequent data.
  * @evidence contracts/testing.md#independent-expectations Literal data outside comments supplies the expectations; comment delimiter semantics and the existing leading-junk tolerance define which input contributes a value.
  * @evidence contracts/testing.md#distinguishing-cases JSON-shaped comment content, braces, punctuation, array separators, multiline blocks, configuration comments, EOF line comments and star runs contrast with a single slash. Quoted delimiter preservation is owned by comments.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_comments_edge = (): void => {
   // Comment containing JSON-like content

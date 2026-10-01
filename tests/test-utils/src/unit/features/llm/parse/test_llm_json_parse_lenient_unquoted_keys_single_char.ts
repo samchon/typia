@@ -15,7 +15,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Six direct parse scenarios compare successful recovery and complete member identity, catching refusal or truncation of symbolic names.
  * @evidence contracts/testing.md#independent-expectations Literal property names follow the supported identifier-start tolerance for dollar and underscore, independent of the parser implementation.
  * @evidence contracts/testing.md#distinguishing-cases Singleton dollar and underscore names, both in one object, nested dollar values, dollar followed by zero and underscore followed by dollar retain all twelve assertions. Longer names and keyword prefixes are covered separately.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_unquoted_keys_single_char =
   (): void => {

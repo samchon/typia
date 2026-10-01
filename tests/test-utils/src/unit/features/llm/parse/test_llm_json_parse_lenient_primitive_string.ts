@@ -15,7 +15,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification LlmJson.parse is called directly and each data assertion checks decoded text rather than merely successful acceptance.
  * @evidence contracts/testing.md#independent-expectations Literal decoded strings follow JSON escape semantics; the unfinished-string expectation follows the public parse comment permitting unclosed strings and partial recovery.
  * @evidence contracts/testing.md#distinguishing-cases Plain text, newline escape, empty content, unclosed content, Unicode escapes and combined quote, slash, backslash and control escapes preserve six success/data pairs; malformed escape coverage remains in the dedicated escape cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_primitive_string = (): void => {
   // Simple string at root

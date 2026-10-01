@@ -11,10 +11,10 @@ import { LlmJson } from "@typia/utils";
  *    errors, and a valid sibling before invalid text.
  * 2. Compare the retained results and original assertion outcomes.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions, preserving every original input, assertion title and outcome.
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output. Diagnostic subsets pin selected expected fields rather than every diagnostic detail.
  * @evidence contracts/testing.md#distinguishing-cases This case owns plain, fenced, prefixed and commented failures, nested and multiple errors, and a valid sibling before invalid text; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; the former transformed-suite entry is removed and no consumer installation, native producer or host is needed.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_error_output_format = (): void => {
   const JSON_VALUE_EXPECTED =

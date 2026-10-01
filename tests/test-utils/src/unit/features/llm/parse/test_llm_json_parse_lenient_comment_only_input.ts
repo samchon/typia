@@ -16,7 +16,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct parse calls assert rejection of valueless comments and preservation of following object, number, string or boolean data.
  * @evidence contracts/testing.md#independent-expectations Literal JSON values establish successful data; the public lenient comment contract and the result error type establish missing-value failures. Subset assertions deliberately pin expected diagnostic kinds without certifying unasserted descriptions or paths.
  * @evidence contracts/testing.md#distinguishing-cases Comment-only, multiple, unclosed and whitespace-only-comment failures contrast with object and scalar successes; CRLF, empty line comments and a JSON-looking suffix swallowed by an unclosed block retain all fifteen scenarios.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_comment_only_input = (): void => {
   // Single-line comment only

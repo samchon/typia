@@ -15,7 +15,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Ten direct parse scenarios compare success and exact member names and values, exposing keyword-prefix truncation or scalar misclassification.
  * @evidence contracts/testing.md#independent-expectations Literal expected objects independently establish member identity under the maintained unquoted-key tolerance; keyword spelling in key position does not generate a scalar result.
  * @evidence contracts/testing.md#distinguishing-cases Three keyword prefixes, uppercase, underscore-only and dollar-rich names, a long identifier, internal digit and exact true or null names retain twenty assertions. Ordinary and single-character keys are owned by adjacent units.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. The former transformed test-utils entry is removed; original inputs, assertion titles and outcomes execute here without an installation, native artifact, transformed fixture or host.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_unquoted_keys_edge = (): void => {
   // Unquoted key that starts with 'true' prefix

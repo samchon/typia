@@ -15,7 +15,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification LlmJson.parse must preserve complete original fixture data and primitive values; structural comparisons detect lost fields and altered nesting.
  * @evidence contracts/testing.md#independent-expectations Native JSON.stringify serializes independently constructed values; those original values, not output from LlmJson, define standard JSON round-trip expectations.
  * @evidence contracts/testing.md#distinguishing-cases Mixed nested values, every escape type, Unicode, six object levels, a 100-element array and true, false, null, zero, negative, fractional and string scalars retain their assertions; empty shapes are owned by empty_containers.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_standard_roundtrip = (): void => {
   // Verify that valid JSON roundtrips perfectly through the parser

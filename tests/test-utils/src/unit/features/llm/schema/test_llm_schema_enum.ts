@@ -17,7 +17,7 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter.parameters must succeed and retain html/md/txt in the asserted order; an adjacent string-only input must remain unconstrained.
  * @evidence contracts/testing.md#independent-expectations The original TypeScript literal union and the authored OpenAPI const values independently define the expected enum; the expectation is an existing separate literal, never converter output.
  * @evidence contracts/testing.md#distinguishing-cases Three distinct literal alternatives and the string-only negative twin distinguish enum aggregation from broadening. Native literal-union generation remains in the schema matrix.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from the prior fixture's declared fields rather than generated at execution; all original converter/coverage assertions and failure names remain. Removed TypeScript-only producer fixture declarations are represented by those input fields. Private local helpers remain reviewed through this owning case.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from declared fields rather than generated at execution. Private local helpers remain reviewed through this owning case.
  */
 export const test_llm_schema_enum = (): void => {
   const collection: IJsonSchemaCollection = {

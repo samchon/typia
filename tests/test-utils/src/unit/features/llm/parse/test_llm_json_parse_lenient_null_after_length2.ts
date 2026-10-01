@@ -11,10 +11,10 @@ import { LlmJson } from "@typia/utils";
  *    identifier used as a key.
  * 2. Compare the retained results and original assertion outcomes.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions, preserving every original input, assertion title and outcome.
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output. Diagnostic subsets pin selected expected fields rather than every diagnostic detail.
  * @evidence contracts/testing.md#distinguishing-cases This case owns nu/nul/null versus n, object and array values, and a nullable identifier used as a key; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; the former transformed-suite entry is removed and no consumer installation, native producer or host is needed.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_null_after_length2 = (): void => {
   // "nu" should match null (length >= 2)

@@ -14,7 +14,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification LlmJson.parse receives the actual BOM-prefixed strings and must return complete object or array data.
  * @evidence contracts/testing.md#independent-expectations Literal JSON values define the data following the transport prefix; this pins the existing public parser tolerance without deriving expected fields from its output.
  * @evidence contracts/testing.md#distinguishing-cases Object and array roots plus BOM followed by whitespace preserve three independent success/data pairs; unprefixed native JSON inputs are owned by standard_roundtrip.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_bom_prefix = (): void => {
   // UTF-8 BOM prefix before JSON object

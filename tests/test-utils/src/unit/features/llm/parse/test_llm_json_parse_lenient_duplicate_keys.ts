@@ -15,7 +15,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct parse calls retain each final duplicate member; an additional trailing-comma fixture exercises lenient recovery rather than only the native fast path.
  * @evidence contracts/testing.md#independent-expectations Original literals and native JSON.parse of the corresponding strict input define the last-member result independently of LlmJson.
  * @evidence contracts/testing.md#distinguishing-cases Two and three repeated names, number-to-string replacement and array-to-object replacement retain their eight outcomes; the trailing-comma twin checks identical duplicate semantics across strict and lenient paths.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_duplicate_keys = (): void => {
   // Last value wins for duplicate keys (matches JSON.parse behavior)

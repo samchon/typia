@@ -11,10 +11,10 @@ import { LlmJson } from "@typia/utils";
  *    arrays, including a valid property before the error.
  * 2. Compare the retained results and original assertion outcomes.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions, preserving every original input, assertion title and outcome.
+ * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output. Diagnostic subsets pin selected expected fields rather than every diagnostic detail.
  * @evidence contracts/testing.md#distinguishing-cases This case owns invalid identifier text and at/hash/percent tokens in objects and arrays, including a valid property before the error; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; the former transformed-suite entry is removed and no consumer installation, native producer or host is needed.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_invalid_value = (): void => {
   // Invalid character as value (not a valid JSON token)

@@ -16,7 +16,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls distinguish true from false data and reject ambiguous n; success flags alone cannot satisfy the result assertions.
  * @evidence contracts/testing.md#independent-expectations The maintained response vocabulary supplies explicit true and false expectations for yes, y, on, no and off; the ambiguous n expectation is literal and independent of parser output. This is a product-tolerance rule rather than standard JSON syntax.
  * @evidence contracts/testing.md#distinguishing-cases Lower, capitalized and upper-case yes/no, single-letter y/Y, on/ON and off/OFF retain twelve success/data pairs, with n as the negative twin; JSON true and false are owned by standard_roundtrip.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol. The former test-utils entry is removed and its original inputs, assertion titles and outcomes survive here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_boolean_coercion = (): void => {
   // "yes" -> true
