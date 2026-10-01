@@ -10,6 +10,14 @@ import (
   "github.com/samchon/ttsc/packages/ttsc/driver"
 )
 
+// ITypiaContext carries everything a programmer needs while it rewrites one call:
+// the program, compiler options and checker, the typia options, the emit context
+// and importer, the diagnostic sink and a shared cache.
+//
+// @evidence contracts/common.md#principled-implementation The context bundles what rewriting one call needs: the driver program, compiler options, checker, typia options, the emit context that tsgo provides, the importer, the host services and a shared map, with the comment on Emit explaining that generated nodes should go through its factory so the printer can recover symbols.
+// @evidence contracts/common.md#clear-and-simple-design A flat record of independent services passed by value to programmers; the optional extras are separated into their own record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts It holds references to host objects and does not copy or replace them.
+// @evidence contracts/common.md#meaningful-documentation The doc states the contents and the field comment explains the emit context.
 type ITypiaContext struct {
   Program         *driver.Program
   CompilerOptions *shimcore.CompilerOptions
@@ -26,11 +34,26 @@ type ITypiaContext struct {
   Shared   *sync.Map
 }
 
+// ITypiaContext_Extras holds the services the host adds to the context: a
+// diagnostic callback that returns the number of diagnostics reported so far, and
+// a shared cache.
+//
+// @evidence contracts/common.md#principled-implementation The host's diagnostic callback returns the running count so a caller can tell whether its own report was added, and the shared map is a cache that survives across calls.
+// @evidence contracts/common.md#clear-and-simple-design Two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both members.
 type ITypiaContext_Extras struct {
   AddDiagnostic func(diag *ITypiaDiagnostic) int
   Shared        *sync.Map
 }
 
+// ITypiaDiagnostic is one diagnostic of the transform, with an optional source
+// range, a code and a message.
+//
+// @evidence contracts/common.md#principled-implementation A diagnostic has an optional source file and start and length, which are pointers because some diagnostics have no location, a code and a message.
+// @evidence contracts/common.md#clear-and-simple-design One flat record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the range is optional.
 type ITypiaDiagnostic struct {
   File    *shimast.SourceFile
   Start   *int
