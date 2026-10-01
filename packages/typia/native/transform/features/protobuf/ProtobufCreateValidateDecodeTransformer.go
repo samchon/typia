@@ -16,7 +16,7 @@ func (protobufCreateValidateDecodeTransformerNamespace) Transform(props nativein
     ITransformProps: props,
     Method:          "protobuf.createValidateDecode",
     Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
-      return nativeprotobufprogrammers.ProtobufValidateDecodeProgrammer.Write(nativeprotobufprogrammers.ProtobufValidateDecodeProgrammer_IProps(x))
+      return nativeprotobufprogrammers.ProtobufValidateDecodeProgrammer.Write(nativeprotobufprogrammers.ProtobufValidateDecodeProgrammer_IProps{Context: x.Context, Modulo: x.Modulo, Type: x.Type, Name: x.Name})
     },
   })
 }

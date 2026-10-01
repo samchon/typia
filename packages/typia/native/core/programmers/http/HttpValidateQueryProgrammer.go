@@ -18,8 +18,8 @@ var HttpValidateQueryProgrammer = httpValidateQueryProgrammerNamespace{}
 // an IValidation. AllowOptional lets the query object be undefined when every
 // property is optional.
 //
-// @evidence contracts/common.md#principled-implementation It is the argument record of HttpValidateQueryProgrammer.Write, which builds the query decoder that returns an IValidation; its 6 fields (Context, Modulo, Type, Name, Init, AllowOptional) are named so that a producer and a consumer cannot transpose them.
-// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#principled-implementation It is the argument record of HttpValidateQueryProgrammer.Write, which builds the query decoder that returns an IValidation; its 5 fields (Context, Modulo, Type, Name, AllowOptional) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type HttpValidateQueryProgrammer_IProps struct {
@@ -27,7 +27,6 @@ type HttpValidateQueryProgrammer_IProps struct {
   Modulo        *shimast.Node
   Type          *shimchecker.Type
   Name          *string
-  Init          *shimast.Node
   AllowOptional bool
 }
 

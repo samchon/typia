@@ -901,36 +901,36 @@ func callExpressionTransformer_functionalAssertReturn(props nativefunctionaltran
 
 func callExpressionTransformer_functionalIsFunction(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalIsFunctionProgrammer.Write(nativefunctionalprogrammers.FunctionalIsFunctionProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalIsParameters(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalIsParametersProgrammer.Write(nativefunctionalprogrammers.FunctionalIsParametersProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalIsReturn(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalIsReturnProgrammer.Write(nativefunctionalprogrammers.FunctionalIsReturnProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalValidateFunction(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer.Write(nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalValidateParameters(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalValidateParametersProgrammer.Write(nativefunctionalprogrammers.FunctionalValidateParametersProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalValidateReturn(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalValidateReturnProgrammer.Write(nativefunctionalprogrammers.FunctionalValidateReturnProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }

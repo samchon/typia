@@ -14,22 +14,20 @@ type protobufValidateEncodeProgrammerNamespace struct{}
 
 var ProtobufValidateEncodeProgrammer = protobufValidateEncodeProgrammerNamespace{}
 
-// ProtobufValidateEncodeProgrammer_IProps is the input of Write for the protobuf
-// validate encode generator: Context (the transform context), Modulo (the call's
-// callee expression), Type (the type to generate for), Name (an optional type
-// name) and Init (forwarded by the transform but not read here, because the
-// generated function has no initializer parameter).
+// ProtobufValidateEncodeProgrammer_IProps is the input of Write for the
+// protobuf validate encode generator: Context (the transform context), Modulo
+// (the call's callee expression), Type (the type to generate for) and Name (an
+// optional type name).
 //
-// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for and an optional type name, and the record carries them in one argument; Init is part of the shape the generic transformer fills for every programmer and is ignored here.
-// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 4 fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc names each field and says that Init is not read.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ProtobufValidateEncodeProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
   Type    *shimchecker.Type
   Name    *string
-  Init    *shimast.Node
 }
 
 // ProtobufValidateEncodeProgrammer_DecomposeProps is the input of Decompose for

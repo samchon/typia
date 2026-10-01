@@ -31,20 +31,18 @@ type ValidateProgrammer_IConfig struct {
 
 // ValidateProgrammer_IProps is the input of Write for the validate generator:
 // Context (the transform context), Modulo (the call's callee expression), Type
-// (the type to generate for), Name (an optional type name), Init (forwarded by
-// the transform but not read here, because the generated function has no
-// initializer parameter) and Config (the configuration).
+// (the type to generate for), Name (an optional type name) and Config (the
+// configuration).
 //
-// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for, an optional type name and the configuration, and the record carries them in one argument; Init is part of the shape the generic transformer fills for every programmer and is ignored here.
-// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for, an optional type name and the configuration, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc names each field and says that Init is not read.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ValidateProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
   Type    *nativechecker.Type
   Name    *string
-  Init    *shimast.Node
   Config  ValidateProgrammer_IConfig
 }
 

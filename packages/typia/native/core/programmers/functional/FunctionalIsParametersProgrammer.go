@@ -29,21 +29,18 @@ type FunctionalIsParametersProgrammer_IConfig struct {
 // FunctionalIsParametersProgrammer_IProps is the input of Write for the is
 // parameters generator: Context (the transform context), Modulo (the call's
 // callee expression), Config (the configuration), Declaration (the function
-// declaration), Expression (the function expression) and Init (forwarded by the
-// transform but not read here, because the generated function has no initializer
-// parameter).
+// declaration) and Expression (the function expression).
 //
-// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the configuration, the function declaration and the function expression, and the record carries them in one argument; Init is part of the shape the generic transformer fills for every programmer and is ignored here.
-// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the configuration, the function declaration and the function expression, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
-// @evidence contracts/common.md#meaningful-documentation The doc names each field and says that Init is not read.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalIsParametersProgrammer_IProps struct {
   Context     nativecontext.ITypiaContext
   Modulo      *shimast.Node
   Config      FunctionalIsParametersProgrammer_IConfig
   Declaration *shimast.Node
   Expression  *shimast.Node
-  Init        *shimast.Node
 }
 
 // FunctionalIsParametersProgrammer_IDecomposeProps is the input of Decompose for

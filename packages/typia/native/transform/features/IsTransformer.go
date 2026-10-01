@@ -26,7 +26,6 @@ func (isTransformerNamespace) Transform(config nativeprogrammers.IsProgrammer_IC
           Modulo:  x.Modulo,
           Type:    x.Type,
           Name:    x.Name,
-          Init:    x.Init,
           Config:  config,
         })
       },

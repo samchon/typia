@@ -16,7 +16,7 @@ func (protobufEncodeTransformerNamespace) Transform(props nativeinternal.ITransf
     ITransformProps: props,
     Method:          "protobuf.encode",
     Write: func(x nativecontext.IProgrammerProps) *shimast.Node {
-      return nativeprotobufprogrammers.ProtobufEncodeProgrammer.Write(nativeprotobufprogrammers.ProtobufEncodeProgrammer_IProps(x))
+      return nativeprotobufprogrammers.ProtobufEncodeProgrammer.Write(nativeprotobufprogrammers.ProtobufEncodeProgrammer_IProps{Context: x.Context, Modulo: x.Modulo, Type: x.Type, Name: x.Name})
     },
   })
 }

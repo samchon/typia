@@ -26,7 +26,6 @@ func (validateTransformerNamespace) Transform(config nativeprogrammers.ValidateP
           Modulo:  x.Modulo,
           Type:    x.Type,
           Name:    x.Name,
-          Init:    x.Init,
           Config:  config,
         })
       },
