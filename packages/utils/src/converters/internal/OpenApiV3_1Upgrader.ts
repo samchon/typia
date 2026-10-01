@@ -6,7 +6,33 @@ import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker"
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
+/**
+ * Upgrades an OpenAPI 3.1 document to the emended OpenAPI 3.2 form.
+ *
+ * Besides the work shared with the 3.0 upgrader, it resolves webhook and
+ * component references, turns `type` arrays and tuple spellings into the
+ * emended union and tuple forms, and reads `contentEncoding: base64` as the
+ * `byte` format. The 3.2 upgrader reuses its schema conversion.
+ *
+ * @evidence contracts/common.md#principled-implementation A 3.1 document is brought to the emended form with the 3.0 rewrites plus webhooks and path-item references, `type` arrays, `const`, both tuple spellings and base64 content encoding, with schema references rewritten to the components path.
+ * @evidence contracts/common.md#clear-and-simple-design Private helpers per object kind; the schema conversion is exported because the 3.2 upgrader reuses it, and the document-level helpers duplicate the 3.0 ones, which is a limitation.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The declared dialect decides every rewrite; no example document is special-cased.
+ * @evidence contracts/common.md#meaningful-documentation A namespace comment was added that lists the rewrites and the reuse by 3.2.
+ */
 export namespace OpenApiV3_1Upgrader {
+  /**
+   * Upgrade a whole 3.1 document; a document that is already emended is
+   * returned as it is.
+   *
+   * @param input OpenAPI 3.1 document
+   *
+   * @returns Emended document marked with `x-typia-emended-v12`
+   *
+   * @evidence contracts/common.md#principled-implementation An emended input is returned unchanged, otherwise the version and marker are set and components, paths and webhooks are converted.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The marker is the contract marker.
+   * @evidence contracts/common.md#meaningful-documentation A doc was added that states the pass-through of an emended document.
+   */
   export const convert = (input: OpenApiV3_1.IDocument): OpenApi.IDocument => {
     if ((input as unknown as OpenApi.IDocument)["x-typia-emended-v12"] === true)
       return input as unknown as OpenApi.IDocument;
@@ -346,6 +372,19 @@ export namespace OpenApiV3_1Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Upgrade the components of a 3.1 or 3.2 document; only schemas and security
+   * schemes are kept.
+   *
+   * @param input OpenAPI 3.1 components
+   *
+   * @returns Emended components
+   *
+   * @evidence contracts/common.md#principled-implementation Component schemas are converted and security schemes kept; other component kinds are not needed once references are inlined.
+   * @evidence contracts/common.md#clear-and-simple-design One function, also used for 3.2 and for the component entry of OpenApiConverter.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No unreachable component is retained.
+   * @evidence contracts/common.md#meaningful-documentation A doc was added that states what is kept.
+   */
   export const convertComponents = (
     input: OpenApiV3_1.IComponents,
   ): OpenApi.IComponents => ({
@@ -357,6 +396,23 @@ export namespace OpenApiV3_1Upgrader {
     securitySchemes: input.securitySchemes,
   });
 
+  /**
+   * Upgrade one 3.1 schema, as the 3.2 upgrader does too.
+   *
+   * A `type` array becomes a union with one member per listed type. A non-empty
+   * `enum` restricts every listed type to its own values, and a type that none
+   * of them has is not a member. A tuple in either spelling becomes
+   * `prefixItems` with its rest schema.
+   *
+   * @param components Components used to resolve references
+   *
+   * @returns Function that converts a 3.1 schema to the emended schema
+   *
+   * @evidence contracts/common.md#principled-implementation A type array is expanded to one visit per listed type, so each member is a normal single-type schema, and a non-empty enum restricts each listed type to its own values; this replaces the earlier test that was true for every non-empty enum and kept a member for a type with no enum value. Remaining rules follow the 3.0 conversion plus tuple, recursive reference and base64 handling.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function with a mixed-type branch that reuses the single-type branches.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The enum restriction follows JSON Schema's simultaneous type and enum constraint, and the corrected condition is the principled form, not a patch for one input.
+   * @evidence contracts/common.md#meaningful-documentation A doc was added that states the type array, enum and tuple rules.
+   */
   export const convertSchema =
     (components: OpenApiV3_1.IComponents) =>
     (input: OpenApiV3_1.IJsonSchema): OpenApi.IJsonSchema => {
@@ -450,35 +506,36 @@ export namespace OpenApiV3_1Upgrader {
                 $ref: undefined,
               },
             });
-          for (const type of schema.type)
-            if (type === "boolean" || type === "number" || type === "string")
-              visit({
-                ...schema,
-                ...{
-                  enum:
-                    schema.enum?.length && schema.enum.filter((e) => e !== null)
-                      ? schema.enum.filter((x) => typeof x === type)
-                      : undefined,
-                },
-                type: type as any,
-              });
-            else if (type === "integer")
-              visit({
-                ...schema,
-                ...{
-                  enum:
-                    schema.enum?.length && schema.enum.filter((e) => e !== null)
-                      ? schema.enum.filter(
-                          (x) =>
-                            x !== null &&
-                            typeof x === "number" &&
-                            Number.isInteger(x),
-                        )
-                      : undefined,
-                },
-                type: type as any,
-              });
-            else visit({ ...schema, type: type as any });
+          // A non-empty enum restricts every listed type to the values of that
+          // type; a type none of them has is not a member.
+          const enumerated: boolean =
+            schema.enum !== undefined && schema.enum.length !== 0;
+          for (const type of schema.type) {
+            const values: unknown[] | undefined = !enumerated
+              ? undefined
+              : type === "boolean" || type === "number" || type === "string"
+                ? schema.enum!.filter((x) => typeof x === type)
+                : type === "integer"
+                  ? schema.enum!.filter(
+                      (x) => typeof x === "number" && Number.isInteger(x),
+                    )
+                  : type === "null"
+                    ? schema.enum!.filter((x) => x === null)
+                    : undefined;
+            if (values !== undefined && values.length === 0) continue;
+            visit({
+              ...schema,
+              ...(type === "null"
+                ? { enum: undefined }
+                : type === "boolean" ||
+                    type === "number" ||
+                    type === "string" ||
+                    type === "integer"
+                  ? { enum: values as any }
+                  : {}),
+              type: type as any,
+            });
+          }
         }
         // UNION TYPE CASE
         else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {

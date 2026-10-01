@@ -3,7 +3,28 @@ import { OpenApi } from "@typia/interface";
 import { _isMultipleOf } from "../functional/_isMultipleOf";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 
+/**
+ * Validates a value against an integer schema.
+ *
+ * @evidence contracts/common.md#principled-implementation An integer is a finite number equal to its floor, then the inclusive and exclusive bounds and the divisor are checked independently so every violated constraint is reported; the divisor test uses the decimal comparison, so `multipleOf: 0.1` behaves as written. The reported type name echoes a `format` width only when the converted document carried one.
+ * @evidence contracts/common.md#clear-and-simple-design One function and a private naming helper whose rule matches the naming rule module.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The width is read from the schema and not assumed, as the helper comment records for the earlier hardcoded one.
+ * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added, and the helper explains the format echo.
+ */
 export namespace OpenApiIntegerValidator {
+  /**
+   * Validate that the value is a finite whole number and satisfies the bounds
+   * and the divisor, reporting each violated constraint.
+   *
+   * @param ctx Validation context
+   *
+   * @returns Whether the value satisfies the schema
+   *
+   * @evidence contracts/common.md#principled-implementation Non-numbers, non-finite numbers and fractions are reported with the plain expected name; each bound and the divisor then produce their own messages with the type name.
+   * @evidence contracts/common.md#clear-and-simple-design One function listing the five checks.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No tolerance values are used.
+   * @evidence contracts/common.md#meaningful-documentation A doc was added.
+   */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IInteger>,
   ): boolean => {

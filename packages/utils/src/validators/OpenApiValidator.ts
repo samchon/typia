@@ -24,8 +24,29 @@ import { OpenApiStationValidator } from "./internal/OpenApiStationValidator";
  * members, so `equals` does not close it.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation A value is validated against an emended schema by one recursive walk that reports every violation with its path, expected type name and value, instead of stopping at the first, which is what an LLM needs to correct several mistakes in one turn. `equals` closes only objects that declare no additional properties, so one document can mix open and closed objects.
+ * @evidence contracts/common.md#clear-and-simple-design A thin namespace over the station validator, with a path-aware reporter; each schema kind has its own validator module and the namespace only collects the errors.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The validator reports data errors as values and does not throw for them, and it does not special-case any schema or consumer. It does not handle an invalid `pattern` string, which makes the regular expression constructor throw.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the purpose, the two functions and the meaning of `equals`; the functions were given docs.
  */
 export namespace OpenApiValidator {
+  /**
+   * Create a reusable validator for one schema.
+   *
+   * @param props.components Components used to resolve references
+   * @param props.schema Schema to validate against
+   * @param props.required Whether `undefined` is rejected at the root
+   * @param props.equals Whether superfluous properties of closed objects are
+   *   rejected
+   *
+   * @returns Function that validates a value and returns its result
+   *
+   * @evidence contracts/common.md#principled-implementation The returned function closes over the components, schema and flags and validates each value through `validate`, so a validator built once gives the same answers as one-shot calls.
+   * @evidence contracts/common.md#clear-and-simple-design A curried one-line wrapper with no cache of its own.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no behavior beyond validate.
+   * @evidence contracts/common.md#meaningful-documentation A doc was added with the parameters and result.
+   */
   export const create =
     (props: {
       components: OpenApi.IComponents;
@@ -36,6 +57,28 @@ export namespace OpenApiValidator {
     (value: unknown): IValidation<unknown> =>
       validate({ ...props, value });
 
+  /**
+   * Validate one value against a schema.
+   *
+   * Every violation is collected, with its path, expected type and value, but
+   * an error is not reported when its path is an ancestor or descendant of the
+   * previously reported one, so one failing leaf does not also report its
+   * parents.
+   *
+   * @param props.components Components used to resolve references
+   * @param props.schema Schema to validate against
+   * @param props.value Value to validate
+   * @param props.required Whether `undefined` is rejected at the root
+   * @param props.equals Whether superfluous properties of closed objects are
+   *   rejected
+   *
+   * @returns Success with the value, or failure with the collected errors
+   *
+   * @evidence contracts/common.md#principled-implementation Errors are collected in a list through a reporter that keeps an error only when it is exceptionable and its path is neither an ancestor nor a descendant of the last kept one, so a failing leaf is not reported again as every enclosing value. The result is a success carrying the value or a failure carrying the value and errors, and an `undefined` value gets a default description telling the model to fill it.
+   * @evidence contracts/common.md#clear-and-simple-design One function and a private reporter whose ancestor test is a small local predicate.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The suppression rule is path-based and general and not tuned to a document.
+   * @evidence contracts/common.md#meaningful-documentation A doc was added that states the collection, the suppression of related paths and the result.
+   */
   export const validate = (props: {
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema;

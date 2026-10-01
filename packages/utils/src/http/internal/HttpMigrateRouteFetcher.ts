@@ -3,7 +3,34 @@ import { IHttpMigrateRoute, IHttpResponse } from "@typia/interface";
 import { HttpError } from "../HttpError";
 import type { HttpMigration } from "../HttpMigration";
 
+/**
+ * Performs the HTTP request that a migrated route describes.
+ *
+ * The caller's arguments are checked against the route, serialized by the
+ * OpenAPI style rules of each parameter group, and sent through the
+ * connection's `fetch` or the global one.
+ *
+ * @evidence contracts/common.md#principled-implementation The request is built by checking the arguments against the route's groups, serializing path, query, header and cookie values by their OpenAPI style, encoding the body by media type and sending it through the connection's fetch or the global one; the response body is parsed by content type. Non-2xx responses are thrown only by execute.
+ * @evidence contracts/common.md#clear-and-simple-design Two exported functions over one private request function; serialization, parsing and encoding helpers are module-level because they are used by the request builder only.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The connection fetch is the supported replacement point, and no global is patched.
+ * @evidence contracts/common.md#meaningful-documentation A namespace comment and function docs were added for the request, serialization and error contract.
+ */
 export namespace HttpMigrateRouteFetcher {
+  /**
+   * Send the request and return the body of a 2xx response.
+   *
+   * @param props Route, connection and arguments
+   *
+   * @returns Parsed response body
+   *
+   * @throws HttpError on a non-2xx status, and Error when the arguments do not
+   *   match the route
+   *
+   * @evidence contracts/common.md#principled-implementation It awaits the propagated response and throws HttpError for any status outside 200 to 299, marking the body as already parsed so the error does not reparse it, and otherwise returns the body.
+   * @evidence contracts/common.md#clear-and-simple-design A short function over propagateRequest.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Status handling is only the range check.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the body, the thrown errors and the parameter.
+   */
   export const execute = async (
     props: HttpMigration.IFetchProps,
   ): Promise<unknown> => {
@@ -20,6 +47,21 @@ export namespace HttpMigrateRouteFetcher {
     return result.body;
   };
 
+  /**
+   * Send the request and return the whole response.
+   *
+   * @param props Route, connection and arguments
+   *
+   * @returns Status, headers and parsed body, including non-2xx responses
+   *
+   * @throws Error when the arguments do not match the route, or when the
+   *   connection fails
+   *
+   * @evidence contracts/common.md#principled-implementation It returns the response of the shared request function without a status check, so every status is data and only argument and connection failures throw.
+   * @evidence contracts/common.md#clear-and-simple-design A one-line delegation.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no behavior beyond the request function.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the full response and the thrown errors.
+   */
   export const propagate = (
     props: HttpMigration.IFetchProps,
   ): Promise<IHttpResponse> => propagateRequest("propagate", props);

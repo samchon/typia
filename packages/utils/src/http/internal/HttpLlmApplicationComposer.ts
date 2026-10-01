@@ -22,6 +22,11 @@ import { OpenApiValidator } from "../../validators/OpenApiValidator";
  * filtering out unsupported methods (HEAD) and content types
  * (multipart/form-data), and shortening function names to fit the configured
  * maximum length.
+ *
+ * @evidence contracts/common.md#principled-implementation Each migrated route becomes a function unless it is a human-only endpoint, a HEAD route or a multipart route, which become error records with a reason, and all names are made unique and then shortened to the configured length; migration errors that are not human-only are carried over, so every operation appears once as a function or an error.
+ * @evidence contracts/common.md#clear-and-simple-design Public application and shorten functions with private helpers for route composition, description concatenation, name emending and abbreviation, each used once.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Rejections are by documented media type and method, and name policy follows the stated rules and not specific route names.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the filtering and shortening; each exported function and helper explains its rule, including the hash abbreviation and its history.
  */
 export namespace HttpLlmApplicationComposer {
   const SCHEMAS = "#/components/schemas/";
@@ -31,6 +36,11 @@ export namespace HttpLlmApplicationComposer {
    *
    * Iterates all routes, converts each to an {@link IHttpLlmFunction}, and
    * collects conversion errors. Applies function name shortening at the end.
+   *
+   * @evidence contracts/common.md#principled-implementation Functions are composed route by route with the parameter groups merged into one object schema, converted to LLM parameters and output, and checked for name shape and description length; duplicate names are escaped in path and method order so the plain name does not depend on `paths` order, and a failed route is recorded with its messages. The validator combines the generated OpenAPI validator with extra checks for object parameters that are conditionally required.
+   * @evidence contracts/common.md#clear-and-simple-design A long function split into private composeFunction, name and description helpers; the conditional group validator is built beside the parameters it depends on.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Limits are the documented ones (64-character names, 1,024-character descriptions, no leading digit) and are reported as errors and not silently truncated.
+   * @evidence contracts/common.md#meaningful-documentation The comment describes iteration, errors and shortening; the inline comments explain the HEAD and multipart rejection, name escaping and the object-group validation.
    */
   export const application = (props: {
     migrate: IHttpMigrateApplication;
@@ -469,6 +479,11 @@ export namespace HttpLlmApplicationComposer {
    * result is deterministic, fits the limit, and starts with no digit;
    * shortening throws when every such hashed name is taken, as all are below
    * 2.
+   *
+   * @evidence contracts/common.md#principled-implementation A name longer than the limit tries its non-empty accessor suffixes from the longest that leaves room for a counter prefix, each as is or with a counter, and otherwise takes a part of its last segment beside a hash, all deterministic and within the limit; it throws if every hashed candidate is taken.
+   * @evidence contracts/common.md#clear-and-simple-design The suffix search is in this function, and the hash fallback and legal-name helper are separate private functions.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The earlier random identifier was replaced by a deterministic hash instead of retried or patched, as the abbreviate comment records.
+   * @evidence contracts/common.md#meaningful-documentation The doc and the abbreviate doc give the rule, the constants and the issue behind the hash.
    */
   export const shorten = (
     app: IHttpLlmApplication,

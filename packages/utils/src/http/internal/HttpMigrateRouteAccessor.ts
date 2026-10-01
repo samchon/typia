@@ -4,7 +4,34 @@ import { MapUtil } from "../../utils/MapUtil";
 import { NamingConvention } from "../../utils/NamingConvention";
 import { EndpointUtil } from "../../utils/internal/EndpointUtil";
 
+/**
+ * Assigns the accessor, parameter keys and argument names of migrated routes.
+ *
+ * Names are derived from the static path segments and settled in path order, so
+ * a route keeps the plain name when another route derives the same one.
+ *
+ * @evidence contracts/common.md#principled-implementation Static path segments become a namespace and each route a method-like alias, with aliases escaped against siblings in path order so the first route keeps the plain alias, parameter keys escaped against each other and the reserved `connection` argument, and any accessor that is a prefix of another escaped, which keeps every route callable.
+ * @evidence contracts/common.md#clear-and-simple-design One exported overwrite function with private collection and naming helpers; MapUtil.take lazily creates namespace entries, and that helper stays as ordinary shared code because its own declaration is not a selectable host.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The rules are structural and carry no route names; `x-samchon-accessor` is honored only when it is unambiguous.
+ * @evidence contracts/common.md#meaningful-documentation A namespace comment and function doc were added that state the alias settling, the key escaping and the prefix rule.
+ */
 export namespace HttpMigrateRouteAccessor {
+  /**
+   * Overwrite the placeholder accessor and the parameter keys of every route.
+   *
+   * Routes are grouped by namespace, an alias is escaped against its siblings,
+   * and an `x-samchon-accessor` is honored only when exactly one route declares
+   * it. A route whose accessor would also be a namespace of another route gets
+   * an underscore prefix on the clashing segment. The routes are modified in
+   * place.
+   *
+   * @param routes Routes whose accessors are still the lazy placeholder
+   *
+   * @evidence contracts/common.md#principled-implementation It groups routes by namespace, settles aliases in path order, escapes parameter keys against one another and `connection`, applies an unambiguous custom accessor and then prefixes accessors that would be both a namespace and a function. The final prefix check is repeated per route and scans all routes, which is quadratic in the number of routes.
+   * @evidence contracts/common.md#clear-and-simple-design One function using small private helpers for grouping, names and predefined accessors.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Collision handling is by escaping and not by dropping routes.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the order dependency, the custom accessor rule and the in-place change.
+   */
   export const overwrite = (routes: IHttpMigrateRoute[]): void => {
     const predefined: Map<string, number> = getPredefinedAccessors(routes);
     const dict: Map<string, IElement> = collect((op) =>

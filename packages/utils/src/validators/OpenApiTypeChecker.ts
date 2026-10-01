@@ -28,17 +28,27 @@ import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase
  * {@link OpenApiV3_1TypeChecker}, or {@link SwaggerV2TypeChecker}.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation The namespace groups the guards and the traversal operations over the emended schema union, delegating to OpenApiTypeCheckerBase with the emended component prefix so the four version-specific checkers elsewhere stay separate; the guards are the discriminants of the emended form and the operations (escape, visit, covers) follow references through the components map.
+ * @evidence contracts/common.md#clear-and-simple-design A public facade whose bodies are one-line delegations; the algorithms live in one internal base shared with other checkers, and unreference is documented separately.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Behavior is the dialect's, delegated to the shared base; no fixture, foreign method or global is used.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the guards and operations and points to the checkers for the other versions.
  */
 export namespace OpenApiTypeChecker {
   /* -----------------------------------------------------------
     TYPE CHECKERS
   ----------------------------------------------------------- */
   /**
-   * Test whether the schema is a nul type.
+   * Test whether the schema is a null type.
    *
    * @param schema Target schema
    *
    * @returns Whether null type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `null` and narrows the schema union to the null variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isNull = (
     schema: OpenApi.IJsonSchema,
@@ -51,6 +61,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether unknown type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads an absent `type` together with no `const`, `oneOf` or `$ref` and narrows the schema union to the unconstrained variant; it inspects no other member, so a schema that is malformed beyond that member still passes. Attribute-only schemas, such as one with just a description, count as unknown.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isUnknown = (
     schema: OpenApi.IJsonSchema,
@@ -63,6 +78,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether constant type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads a defined `const` and narrows the schema union to the constant variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isConstant = (
     schema: OpenApi.IJsonSchema,
@@ -75,6 +95,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether boolean type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `boolean` and narrows the schema union to the boolean variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isBoolean = (
     schema: OpenApi.IJsonSchema,
@@ -87,6 +112,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether integer type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `integer` and narrows the schema union to the integer variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isInteger = (
     schema: OpenApi.IJsonSchema,
@@ -99,6 +129,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether number type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `number` and narrows the schema union to the number variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isNumber = (
     schema: OpenApi.IJsonSchema,
@@ -111,6 +146,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether string type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `string` and narrows the schema union to the string variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isString = (
     schema: OpenApi.IJsonSchema,
@@ -123,6 +163,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether array type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `array` with a defined `items` and narrows the schema union to the homogeneous array variant; it inspects no other member, so a schema that is malformed beyond that member still passes. A tuple has no `items`, so it is not an array here.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isArray = (
     schema: OpenApi.IJsonSchema,
@@ -135,6 +180,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether tuple type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `array` with a defined `prefixItems` and narrows the schema union to the tuple variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isTuple = (
     schema: OpenApi.IJsonSchema,
@@ -147,6 +197,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether object type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `object` and narrows the schema union to the object variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isObject = (
     schema: OpenApi.IJsonSchema,
@@ -159,6 +214,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether reference type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads a defined `$ref` and narrows the schema union to the reference variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isReference = (
     schema: OpenApi.IJsonSchema,
@@ -171,6 +231,11 @@ export namespace OpenApiTypeChecker {
    * @param schema Target schema
    *
    * @returns Whether union type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads a defined `oneOf` and narrows the schema union to the union variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isOneOf = (
     schema: OpenApi.IJsonSchema,
@@ -186,6 +251,11 @@ export namespace OpenApiTypeChecker {
    * @param props Properties for recursive reference test
    *
    * @returns Whether the schema is recursive reference type or not
+   *
+   * @evidence contracts/common.md#principled-implementation A reference is recursive when the schema it names reaches a reference to the same component again: the traversal visits the target through the components map and counts references to the starting key, with the starting reference being the first, so a count above one means the component refers back to itself, directly or through other components.
+   * @evidence contracts/common.md#clear-and-simple-design One wrapper that supplies the emended prefix and calls the shared base traversal, which reuses visit.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The check follows the references in the data and has no list of known recursive types.
+   * @evidence contracts/common.md#meaningful-documentation The doc says it tests for a self-recursive reference and documents the properties.
    */
   export const isRecursiveReference = (props: {
     components: OpenApi.IComponents;
@@ -219,6 +289,11 @@ export namespace OpenApiTypeChecker {
    * @param props Properties for escaping
    *
    * @returns Escaped schema, or error with reason
+   *
+   * @evidence contracts/common.md#principled-implementation References are replaced by their targets, with the description of the reference cascaded from its namespace ancestors; a reference seen again is expanded again until the visit count passes `recursive`, and with `false` or `0` a recursive reference fails. A reference whose key cannot be read or whose component is missing fails with a reason naming the accessor, and a union branch that was cut by the depth limit is dropped. The method name placed in the error was corrected from a nonexistent one to `OpenApiTypeChecker.escape`.
+   * @evidence contracts/common.md#clear-and-simple-design A wrapper that supplies the prefix and method name; the recursion is in the shared base with a per-path visit map.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Depth is an explicit parameter and failure is reported, instead of an arbitrary built-in cap or a silent empty schema.
+   * @evidence contracts/common.md#meaningful-documentation The doc explains the escape rule, the recursion depth, the two failure causes and the properties.
    */
   export const escape = (props: {
     components: OpenApi.IComponents;
@@ -230,7 +305,7 @@ export namespace OpenApiTypeChecker {
     OpenApiTypeCheckerBase.escape({
       ...props,
       prefix: "#/components/schemas/",
-      method: "OpenApiTypeChecker.method",
+      method: "OpenApiTypeChecker.escape",
     });
 
   /**
@@ -282,6 +357,11 @@ export namespace OpenApiTypeChecker {
    * - {@link OpenApi.IJsonSchema.ITuple.additionalItems}
    *
    * @param props Properties for visiting
+   *
+   * @evidence contracts/common.md#principled-implementation The closure is called for the schema and then for each nested schema in union, object, array and tuple positions, and for the target of a reference once per component, with the accessor path of each; the visited-key set stops cycles, so every reachable schema is seen once through its first reference.
+   * @evidence contracts/common.md#clear-and-simple-design A wrapper over the shared traversal that supplies the emended prefix.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Traversal follows the schema structure and calls the supplied function; nothing is mutated here.
+   * @evidence contracts/common.md#meaningful-documentation The doc lists every nested position that is visited and documents the properties.
    */
   export const visit = (props: {
     closure: (schema: OpenApi.IJsonSchema, accessor: string) => void;
@@ -301,6 +381,11 @@ export namespace OpenApiTypeChecker {
    * @param props Properties for testing
    *
    * @returns Whether the `x` schema covers the `y` schema
+   *
+   * @evidence contracts/common.md#principled-implementation The comparison is structural subsumption: unknown covers everything, atomics compare their constraints, arrays and objects compare recursively, and a union is covered when each branch of the covered schema is covered by some branch of the covering one, with a visited table that assumes coverage for a pair under comparison so recursive components terminate. It decides coverage of the declared constraints and is not a general JSON Schema subset test.
+   * @evidence contracts/common.md#clear-and-simple-design A wrapper that supplies the emended prefix; the algorithm is in the shared base.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The rules follow the declared constraint semantics, for example number covering integer, and no consumer case is hardcoded.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the question the function answers and the properties; the rules are in the shared base.
    */
   export const covers = (props: {
     components: OpenApi.IComponents;

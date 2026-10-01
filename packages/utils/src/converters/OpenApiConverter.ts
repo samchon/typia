@@ -40,6 +40,11 @@ import { SwaggerV2Upgrader } from "./internal/SwaggerV2Upgrader";
  * merges `allOf`, converts `nullable` to union types, etc.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation Every supported version is converted through one emended 3.2 form: documents and schemas are upgraded into it and downgraded out of it, so each version needs one pair of converters rather than one per version pair. An already emended document is only normalized, because a hand-built or parsed one may omit `items`, which the emended type promises.
+ * @evidence contracts/common.md#clear-and-simple-design The namespace selects a converter by a version predicate and keeps the version-specific work in seven internal namespaces; the document-shape normalization is module-level because upgrade and downgrade share it.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Version detection is by the declared `swagger` or `openapi` string and the emended marker, not by sniffing fixtures, and an unknown document throws instead of being guessed.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the upgrade and downgrade paths and the normalizations; the overloads document each target version, and the implementation signatures are marked internal.
  */
 export namespace OpenApiConverter {
   /* -----------------------------------------------------------
@@ -56,6 +61,11 @@ export namespace OpenApiConverter {
    * @param document Source document (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
    *
    * @returns Emended OpenAPI v3.2 document
+   *
+   * @evidence contracts/common.md#principled-implementation The first matching predicate chooses the upgrader (emended, 3.2, 3.1, 3.0, Swagger 2.0); the emended case is normalized in place of converted, and the `never` check makes a new document type a compile error. A document matching no predicate throws.
+   * @evidence contracts/common.md#clear-and-simple-design One dispatch over the five predicates.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts There is no per-document special case; each version's behavior lives in its upgrader.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the accepted versions, the emended normalization rule and the returned form.
    */
   export function upgradeDocument(
     document:
@@ -132,6 +142,11 @@ export namespace OpenApiConverter {
    * @param input Source components (Swagger v2.0, OpenAPI v3.0/v3.1/v3.2)
    *
    * @returns Emended OpenAPI components
+   *
+   * @evidence contracts/common.md#principled-implementation A Swagger input is converted from its definitions, and every 3.x components shape goes through the 3.1 upgrader and is normalized, since 3.1 and 3.2 share their schema dialect and the 3.1 path also accepts an emended input.
+   * @evidence contracts/common.md#clear-and-simple-design One branch for Swagger and one shared path for the 3.x shapes.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The cast to the 3.1 type reflects the shared dialect and is not used to silence a mismatch of shapes the upgrader cannot read.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the accepted inputs and the emended result.
    */
   export function upgradeComponents(
     input:

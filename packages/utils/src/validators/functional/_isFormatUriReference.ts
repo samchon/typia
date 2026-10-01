@@ -1,3 +1,14 @@
+/**
+ * Checks the RFC 3986 URI reference spelling of the `uri-reference` format.
+ *
+ * Accepts every absolute URI and every relative reference, with the same
+ * authority, path, query and fragment grammar as {@link _isFormatUri}.
+ *
+ * @evidence contracts/common.md#principled-implementation The same RFC 3986 grammar as the URI predicate with the scheme optional, so absolute URIs and relative references (network-path, absolute-path and relative-path) are accepted.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern, identical to the typia copy; the pattern repeats the URI expression with the optional scheme and is not generated from it.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The grammar is the standard's.
+ * @evidence contracts/common.md#meaningful-documentation A doc was added that states the accepted forms.
+ */
 export const _isFormatUriReference = (str: string): boolean =>
   PATTERN.test(str);
 

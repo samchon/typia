@@ -137,6 +137,7 @@ import { test_llm_schema_strict_numeric_default } from "./features/llm/schema/te
 import { test_llm_schema_tuple } from "./features/llm/schema/test_llm_schema_tuple";
 import { test_llm_type_checker_cover_any } from "./features/llm/schema/test_llm_type_checker_cover_any";
 import { test_llm_type_checker_cover_array } from "./features/llm/schema/test_llm_type_checker_cover_array";
+import { test_llm_type_checker_cover_number_integer } from "./features/llm/schema/test_llm_type_checker_cover_number_integer";
 import { test_llm_stringify_array_last_element_error } from "./features/llm/stringify/test_llm_stringify_array_last_element_error";
 import { test_llm_stringify_comma_insertion } from "./features/llm/stringify/test_llm_stringify_comma_insertion";
 import { test_llm_stringify_complex_property_value } from "./features/llm/stringify/test_llm_stringify_complex_property_value";
@@ -233,6 +234,7 @@ import { test_openapi_emended_items_omitted_boundary } from "./features/openapi/
 import { test_openapi_naming_numeric_constraints } from "./features/openapi/test_openapi_naming_numeric_constraints";
 import { test_openapi_reference_key_escaped } from "./features/openapi/test_openapi_reference_key_escaped";
 import { test_openapi_type_checker_escape_empty_required } from "./features/openapi/test_openapi_type_checker_escape_empty_required";
+import { test_openapi_type_checker_escape_error_method } from "./features/openapi/test_openapi_type_checker_escape_error_method";
 import { test_openapi_unknown_string_formats } from "./features/openapi/test_openapi_unknown_string_formats";
 import { test_openapi_unreference_alias_chains } from "./features/openapi/test_openapi_unreference_alias_chains";
 import { test_openapi_validation_invalid_references } from "./features/openapi/test_openapi_validation_invalid_references";
@@ -246,6 +248,7 @@ import { test_openapi_validator_nested_discriminator } from "./features/openapi/
 import { test_openapi_validator_object_additional_properties } from "./features/openapi/test_openapi_validator_object_additional_properties";
 import { test_openapi_validator_report_path_boundary } from "./features/openapi/test_openapi_validator_report_path_boundary";
 import { test_openapi_validator_unicode_length } from "./features/openapi/test_openapi_validator_unicode_length";
+import { test_openapi_validator_unique_items_name } from "./features/openapi/test_openapi_validator_unique_items_name";
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
@@ -887,4 +890,19 @@ test(
 test(
   test_openapi_validator_unicode_length.name,
   test_openapi_validator_unicode_length,
+);
+
+test(
+  test_llm_type_checker_cover_number_integer.name,
+  test_llm_type_checker_cover_number_integer,
+);
+
+test(
+  test_openapi_type_checker_escape_error_method.name,
+  test_openapi_type_checker_escape_error_method,
+);
+
+test(
+  test_openapi_validator_unique_items_name.name,
+  test_openapi_validator_unique_items_name,
 );

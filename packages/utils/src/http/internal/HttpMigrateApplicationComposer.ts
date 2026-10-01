@@ -8,7 +8,36 @@ import { EndpointUtil } from "../../utils/internal/EndpointUtil";
 import { HttpMigrateRouteAccessor } from "./HttpMigrateRouteAccessor";
 import { HttpMigrateRouteComposer } from "./HttpMigrateRouteComposer";
 
+/**
+ * Composes {@link IHttpMigrateApplication} from an emended OpenAPI document.
+ *
+ * Every path and webhook operation becomes a route or a failure record, and the
+ * accessors of the successful routes are assigned together once all routes are
+ * known.
+ *
+ * @evidence contracts/common.md#principled-implementation Operations from paths and webhooks are listed together without merging by key, composed in path and method order and reported in document order, then the accessors are assigned over all successful routes; this ordering keeps schema and accessor name ownership independent of how the document was sorted.
+ * @evidence contracts/common.md#clear-and-simple-design A single exported compose function with a method table and entry comparator; accessor naming is delegated to HttpMigrateRouteAccessor.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Ordering follows a stated rule with issue references and not an arrangement chosen to match a test document.
+ * @evidence contracts/common.md#meaningful-documentation A namespace comment and a function doc were added, and inline comments explain the webhook handling and the ordering.
+ */
 export namespace HttpMigrateApplicationComposer {
+  /**
+   * Migrate every operation of the document.
+   *
+   * Routes are composed in path and method order so that name collisions are
+   * settled independently of the order of `paths`, and are reported in document
+   * order. The document is modified: route composition sanitizes schemas and
+   * emplaces component schemas, and a failed route leaves no component behind.
+   *
+   * @param document Emended OpenAPI document
+   *
+   * @returns Routes, per-operation errors and an accessor to the document
+   *
+   * @evidence contracts/common.md#principled-implementation Entries are flattened from paths and webhooks, composed in sorted order into route or message-list results and then split into routes and errors; the sort is stable so a path operation precedes a webhook with the same key and method. It modifies the supplied document through the route composer.
+   * @evidence contracts/common.md#clear-and-simple-design One function with a private entry type, a method order table and a comparator.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The method order table is the supported method set, not a special case.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the ordering, the document modification and the result shape.
+   */
   export const compose = (
     document: OpenApi.IDocument,
   ): IHttpMigrateApplication => {
