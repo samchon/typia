@@ -1,8 +1,6 @@
 package testutil
 
 import (
-	"os"
-	"os/exec"
 	"testing"
 
 	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
@@ -24,13 +22,4 @@ func assertConstantValues(t *testing.T, schema *metadata.MetadataSchema, kind st
 		}
 	}
 }
-
-func assertHelperProcessFails(t *testing.T, testName string, envName string) {
-	t.Helper()
-
-	command := exec.Command(os.Args[0], "-test.run=^"+testName+"$")
-	command.Env = append(os.Environ(), envName+"=1")
-	if err := command.Run(); err == nil {
-		t.Fatalf("expected helper process %s to fail", envName)
-	}
-}
+

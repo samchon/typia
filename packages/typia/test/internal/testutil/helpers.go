@@ -15,7 +15,7 @@ var runtimeCaller = runtime.Caller
 
 func RepoRoot(t *testing.T) string {
   t.Helper()
-  _, file, _, ok := runtimeCaller(0)
+  _, file, _, ok := runtime.Caller(0)
   testfatal.IfFalse(t, ok, "runtime.Caller failed")
   return filepath.Clean(filepath.Join(filepath.Dir(file), "..", "..", "..", "..", ".."))
 }
