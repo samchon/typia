@@ -19,6 +19,11 @@ import { Calculator } from "../structures/Calculator";
  *    branch.
  * 3. Assert the tool returns `{ success: false, error }` with the original
  *    message.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (runtime error should be returned as a failure object; typed undefined result should be returned as a failure object). The case documents its purpose as: Verifies runtime controller errors become model-readable tool results.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: LangChain should still throw `ToolInputParsingException` for invalid arguments, but a valid tool call whose implementation throws is feedback for the model, not an adapter crash. Returning the same failure object shape as `@typia/vercel` keeps the tool-call loop recoverable. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (runtime error should be returned as a failure object; typed undefined result should be returned as a failure object) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-langchain start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_langchain_class_controller_error_handling is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_langchain_class_controller_error_handling =
   async (): Promise<void> => {

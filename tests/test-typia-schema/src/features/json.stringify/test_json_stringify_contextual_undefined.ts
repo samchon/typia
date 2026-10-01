@@ -41,6 +41,11 @@ interface INested {
  * 2. Take the expected document from native `JSON.stringify` of the same input,
  *    never from typia's own emit.
  * 3. Assert every success payload parses and equals the oracle document.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.stringify, typia.json.isStringify, typia.json.assertStringify is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (… / isStringify accepts; … / validateStringify accepts; invalid neighbor rejected). The case documents its purpose as: Verifies typia.json stringify output stays JSON wherever a child serializes to undefined.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `any` and `unknown` delegate to JSON.stringify, which answers JavaScript `undefined` for a function, a symbol, and a toJSON that returns nothing; a property typed `undefined` has nothing to serialize; and an array hole reads as undefined at every element type. Those children used to be concatenated verbatim, so the emitted text carried the token `undefined` or an empty array slot and failed JSON.parse, while isStringify / assertStringify / validateStringify reported that text as success. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… / isStringify accepts; … / validateStringify accepts; invalid neighbor rejected) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_stringify_contextual_undefined is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_stringify_contextual_undefined = (): void => {
   // Compare a typia payload with what ECMAScript JSON.stringify writes for the

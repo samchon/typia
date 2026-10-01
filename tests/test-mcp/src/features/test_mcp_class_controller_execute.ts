@@ -19,6 +19,11 @@ import { Calculator } from "../structures/Calculator";
  * 1. Serve a `Calculator` controller and grab its tools/call handler.
  * 2. Call add, subtract, multiply, and divide with concrete operands.
  * 3. Assert each returns the correct arithmetic result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (add(10, 5) should return 15; subtract(10, 3) should return 7; multiply(4, 7) should return 28; divide(20, 4) should return 5). The case documents its purpose as: Verifies each class method executes as a tool and returns its result.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Locks the happy-path dispatch of the tools/call handler: the method named in the request runs on the controller instance and its object return ships back as `structuredContent`. A regression would misroute the call or drop the computed value. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (add(10, 5) should return 15; subtract(10, 3) should return 7; multiply(4, 7) should return 28; divide(20, 4) should return 5) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_class_controller_execute is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_mcp_class_controller_execute = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =

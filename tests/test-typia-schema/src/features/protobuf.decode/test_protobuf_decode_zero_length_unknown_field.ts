@@ -17,6 +17,11 @@ import typia from "typia";
  *    through every direct and factory decoder.
  * 3. Assert the record leaves a required, optional, packed, and surrounding known
  *    field intact, and that a truncated record is still rejected.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.encode, typia.protobuf.decode, typia.protobuf.createDecode is evaluated by the native host on the types declared in this case and the result is checked by 12 assertions. The case documents its purpose as: Verifies generated Protobuf decoders accept unknown zero-length length-delimited fields.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: An empty string, an empty bytes value, an empty embedded message, and an empty packed repeated field all serialize to the same length-delimited record with a declared length of zero. Skipping such a record must consume exactly its two bytes, otherwise a reader that does not know the field desynchronizes and rejects a well-formed payload, which is the forward compatibility that unknown-field skipping exists to provide. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_decode_zero_length_unknown_field is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_decode_zero_length_unknown_field = (): void => {
   // field 2 length-delimited declaring a length of zero, around field 1 = "a"

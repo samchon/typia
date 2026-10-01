@@ -20,6 +20,11 @@ interface IBinaryPayload {
 /**
  * Verifies plain clone and classify preserve binary native ranges and storage
  * independence.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.plain.createClone, typia.plain.createClassify, typia.plain.clone is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (… root identity; factory rejects DataView twin; direct rejects DataView twin). The case documents its purpose as: Verifies plain clone and classify preserve binary native ranges and storage independence.
+ * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… root identity; factory rejects DataView twin; direct rejects DataView twin) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_plain_native_clone_data_view is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_plain_native_clone_data_view = (): void => {
   const clone = typia.plain.createClone<IBinaryPayload>();

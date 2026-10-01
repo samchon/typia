@@ -21,6 +21,11 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *    varint the buffer truncates before that limit still reports overflow.
  * 3. Assert every fault carries the standard prefix and restores the reader, and
  *    that legal wire types and legal ten-byte values are left untouched.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.decode is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions. The case documents its purpose as: Verifies every fault the runtime Protobuf reader raises while skipping an unknown field identifies typia and bounds its varint.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Skipping unknown fields is the one reader surface a payload author fully controls, so both of these faults are reachable from `typia.protobuf.decode`. A reserved wire type must not report an anonymous error that leaves the caller unable to attribute the failure, and a varint must not be consumed past the ten bytes a 64-bit value can legally occupy merely because the skip path discards the bytes it reads. Value and skip paths must enforce the same tenth-byte payload boundary so the limit does not depend on which method happens to consume the varint. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_reader_unknown_field_faults is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_reader_unknown_field_faults = (): void => {
   //----

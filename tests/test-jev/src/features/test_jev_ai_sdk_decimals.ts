@@ -14,6 +14,11 @@ import typia from "typia";
  * 2. Assert AI SDK accepts it and a decoder configured for six decimals rejects
  *    it.
  * 3. Decode it with the default decoder and assert the decoded value.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (AI SDK accepts rounded result; finer decimals reject; default decimals decode). The case documents its purpose as: Verifies typia's questions and decoder integrate with AI SDK 7.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: AI SDK accepts the provider's declared two-decimal precision, and the typia decoder must accept the same result with its default of two decimals, while a finer `decimals` stays strict. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (AI SDK accepts rounded result; finer decimals reject; default decimals decode) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-jev start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_jev_ai_sdk_decimals is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_jev_ai_sdk_decimals = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<IDecision>();

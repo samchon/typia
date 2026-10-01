@@ -17,6 +17,11 @@ import typia from "typia";
  * 2. Reject a method call on a class-typed factory result.
  * 3. Decode one input through each factory but `createValidate*` and its direct
  *    form.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.createQuery, typia.http.query, typia.http.createAssertQuery is evaluated by the native host on the types declared in this case and the result is checked by 10 assertions (query; assertQuery; isQuery; formData; assertFormData; isFormData). The case documents its purpose as: Verifies each `http.create*` factory returns what its direct form returns.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The direct decoders return `Resolved<T>`, the plain object they build, but nine factories declared `T`. For a class `T`, `Resolved<T>` turns a method into `never`, so calling it on a direct result is a compile error, while the same call on a factory result compiled and threw `TypeError` at runtime (#2454). The compile-time cases below are the oracle; the runtime half pins that both forms decode the same value. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (query; assertQuery; isQuery; formData; assertFormData; isFormData) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_factory_result_types is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_factory_result_types = (): void => {
   const form = (): FormData => {
@@ -174,6 +179,14 @@ export type HttpFactoryResultCases = [
   >,
 ];
 
+/**
+ * Holds compile-time assertions about the types of factory results.
+ *
+ * @evidence contracts/testing.md#behavioral-verification methodOnFactoryResult is never executed; its @ts-expect-error lines make the compiler fail the project if a decoded query or form value gains a method.
+ * @evidence contracts/testing.md#independent-expectations The TypeScript compiler is the oracle for the expected type errors.
+ * @evidence contracts/testing.md#distinguishing-cases Each factory entry point has one expected error line; there is no runtime negative.
+ * @evidence contracts/testing.md#execution-ownership It is evaluated at type-check time when the project is compiled for the test-typia-schema start command, not at run time.
+ */
 export const methodOnFactoryResult = () => [
   // @ts-expect-error a decoded `Query` has no `twice` method.
   typia.http.createQuery<Query>()(url).twice(),

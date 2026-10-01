@@ -69,6 +69,11 @@ interface IExotic {
  * 2. Repeat for all-optional, `any`-typed, dynamic-keyed and nested shapes, and
  *    for every stringify flavor and factory.
  * 3. Require each result to equal `JSON.stringify` of the same value and to parse.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.stringify, typia.json.assertStringify, typia.json.isStringify is evaluated by the native host on the types declared in this case and the result is checked by 1 assertion. The case documents its purpose as: Verifies json.stringify emits members in declaration order.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The emitter sorted every omissible member — optional, `any`-typed, or function-typed — ahead of the required ones, so `{ a, b?, c, d?, e }` serialized as `{"b","d","a","c","e"}`. The guide promises the opposite twice: output "identical to `JSON.stringify`" and members "in the order your type declares". A caller computing an ETag, a signature, or a golden file over the text saw a different string from the one `JSON.stringify` produces for the same value (#2295). Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_stringify_declaration_order is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_stringify_declaration_order = (): void => {
   const same = (title: string, mine: string, value: unknown): void => {

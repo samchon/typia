@@ -20,6 +20,11 @@ interface IMember {
  *    create-time factory.
  * 2. Call each with no override and require the create-time factory's error.
  * 3. Call each with an override and require the override's error instead.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.createAssertParse, typia.plain.createAssertClone is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (… message; … path). The case documents its purpose as: Verifies the declared call-time errorFactory really overrides the create-time one.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `create*Assert*` emits `(input, errorFactory = <create-time factory>)`, and the declarations now name that second parameter. This is the runtime twin of that declaration: the parameter has to be honored against the shipped `_assertGuard`, not only type-check, and omitting it has to keep falling back to the factory the caller configured when the function was created. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… message; … path) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_assert_error_factory_call_time_override is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_assert_error_factory_call_time_override = (): void => {
   const created = (props: TypeGuardError.IProps): Error =>

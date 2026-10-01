@@ -52,27 +52,60 @@ export namespace ProtobufVarintCorpus {
     fault: Fault | null;
   }
 
-  /** Every corpus row, in file order. */
+  /**
+   * Every corpus row, in file order.
+   *
+   * @evidence contracts/testing.md#behavioral-verification entries only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const entries = (): IEntry[] => document().entries;
 
-  /** Rows the oracle accepts, each carrying a decoded value. */
+  /**
+   * Rows the oracle accepts, each carrying a decoded value.
+   *
+   * @evidence contracts/testing.md#behavioral-verification accepted only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const accepted = (): IEntry[] =>
     entries().filter((entry) => entry.fault === null);
 
   /**
    * Rows the oracle rejects for leaving the wire domain rather than for running
    * out of buffer, so no further byte could rescue them.
+   *
+   * @evidence contracts/testing.md#behavioral-verification malformed only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
    */
   export const malformed = (): IEntry[] =>
     entries().filter(
       (entry) => entry.fault === "overlong" || entry.fault === "overflow",
     );
 
-  /** Rows whose buffer ends before the varint terminates. */
+  /**
+   * Rows whose buffer ends before the varint terminates.
+   *
+   * @evidence contracts/testing.md#behavioral-verification truncated only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const truncated = (): IEntry[] =>
     entries().filter((entry) => entry.fault === "truncated");
 
-  /** The row carrying `name`, or a failure naming the missing row. */
+  /**
+   * The row carrying `name`, or a failure naming the missing row.
+   *
+   * @evidence contracts/testing.md#behavioral-verification find only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const find = (name: string): IEntry => {
     const entry: IEntry | undefined = entries().find(
       (candidate) => candidate.name === name,
@@ -84,7 +117,14 @@ export namespace ProtobufVarintCorpus {
     return entry;
   };
 
-  /** Corpus bytes as octets. */
+  /**
+   * Corpus bytes as octets.
+   *
+   * @evidence contracts/testing.md#behavioral-verification bytes only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const bytes = (entry: IEntry): number[] =>
     (entry.bytes.match(/../g) ?? []).map((pair) => Number.parseInt(pair, 16));
 
@@ -93,6 +133,11 @@ export namespace ProtobufVarintCorpus {
    *
    * Only the leading byte is replaced, and only by another continuation byte,
    * so the varint keeps its recorded width and therefore its recorded fault.
+   *
+   * @evidence contracts/testing.md#behavioral-verification asTag only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
    */
   export const asTag = (entry: IEntry): number[] => {
     const octets: number[] = bytes(entry);
@@ -103,7 +148,14 @@ export namespace ProtobufVarintCorpus {
     return [0x88, ...octets.slice(1)];
   };
 
-  /** The decoded value of an accepted row. */
+  /**
+   * The decoded value of an accepted row.
+   *
+   * @evidence contracts/testing.md#behavioral-verification value only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const value = (entry: IEntry): bigint => {
     if (entry.value === null)
       throw new Error(
@@ -112,7 +164,14 @@ export namespace ProtobufVarintCorpus {
     return BigInt(entry.value);
   };
 
-  /** The exact error typia must raise for a rejected row. */
+  /**
+   * The exact error typia must raise for a rejected row.
+   *
+   * @evidence contracts/testing.md#behavioral-verification message only reads the shared corpus file and projects entries for the varint regression cases; it asserts nothing itself.
+   * @evidence contracts/testing.md#independent-expectations The corpus is verified against the protowire reference by the Go test that owns the file; the helper adds no expectation.
+   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; callers select accepted, malformed or truncated entries.
+   * @evidence contracts/testing.md#execution-ownership It reads a committed JSON file in process from the test-typia-schema start process.
+   */
   export const message = (entry: IEntry): string => {
     if (entry.fault === null)
       throw new Error(

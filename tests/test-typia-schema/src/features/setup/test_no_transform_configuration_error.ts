@@ -37,6 +37,11 @@ const EXPECTED = [
  * 1. Alias `typia.json.schema` so the invocation remains untransformed.
  * 2. Require the fallback to identify the API, supported toolchains, diagnostic
  *    command, unsupported compilers, and setup documentation.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (no transform guidance). The case documents its purpose as: Verifies that an untransformed typia call explains every supported setup.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Issue #2373 exposed a runtime fallback that could only recommend the wrong compiler command, while the actual intersection diagnostic is available at transform time. An indirect alias deliberately avoids the call-expression transformer so this test can exercise that fallback without weakening the native diagnostic. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (no transform guidance) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_no_transform_configuration_error is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_no_transform_configuration_error = (): void => {
   const schema: () => never = typia.json.schema;

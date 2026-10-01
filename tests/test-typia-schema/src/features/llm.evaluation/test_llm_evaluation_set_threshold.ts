@@ -14,6 +14,11 @@ import typia, { tags } from "typia";
  *    set.
  * 2. Validate probabilities around each threshold.
  * 3. Assert the included members.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (below both; at both; only default). The case documents its purpose as: Verifies typia.llm.evaluation includes set members at their thresholds.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: A literal-set array asks one independent boolean per member, so each member is included iff its P(true) reaches its own threshold: the member's `tags.Probability<N>` first, then the property's `@probability`, then `0.5`. Inclusion follows the order the member questions are emitted in, typia's canonical member order, never the key order of the answer map. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (below both; at both; only default) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_set_threshold is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_set_threshold = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();

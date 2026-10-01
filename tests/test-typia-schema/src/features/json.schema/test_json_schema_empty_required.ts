@@ -13,6 +13,11 @@ import typia, { tags } from "typia";
  * 1. Generate schemas for optional-only, filtered, record, and required objects.
  * 2. Assert named objects keep empty required lists and validate optionality.
  * 3. Assert pure record schemas omit named-object keywords.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 8 assertions (optional-only required; optional-only properties; optional-only validator; filtered-only properties; filtered-only required; record required omitted). The case documents its purpose as: Verifies JSON schema keeps empty object keywords on named objects.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Locks the JSON schema boundary for named objects without required properties. Empty objects still need explicit `properties: {}` and `required: []`; only pure record schemas omit both named-object keywords. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (optional-only required; optional-only properties; optional-only validator; filtered-only properties; filtered-only required; record required omitted) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_empty_required is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schema_empty_required = (): void => {
   interface IOptionalOnly {

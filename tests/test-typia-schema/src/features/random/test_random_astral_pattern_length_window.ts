@@ -18,6 +18,11 @@ import typia, { tags } from "typia";
  * 2. Require every draw of a lower-bounded, an upper-bounded, and a two-sided
  *    astral window to satisfy its own type through both random APIs.
  * 3. Keep an ASCII control, where the two measures cannot disagree.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.is, typia.random is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (… (first invalid: …); every astral draw carried two different counts). The case documents its purpose as: Verifies random pattern generation measures its length window in characters.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `MinLength` and `MaxLength` count Unicode characters, so the retry filter in `_randomPattern` has to count them too. RandExp quantifies over UTF-16 code units, so a pattern carrying an astral character emits draws whose two counts differ: under `Pattern<"^😀+$"> & MinLength<3>` a code-unit filter accepts a three-unit draw that is only two characters long, and `typia.random` would hand back a value its own `typia.is` rejects. Every other string generator draws from an ASCII alphabet, where the two counts agree, so this pattern is the reachable case. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… (first invalid: …); every astral draw carried two different counts) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_astral_pattern_length_window is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_astral_pattern_length_window = (): void => {
   type AtLeastThree = string & tags.Pattern<"^😀+$"> & tags.MinLength<3>;

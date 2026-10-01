@@ -129,6 +129,11 @@ const DRAWS = 8;
  *    format's own validator accepts.
  * 3. Require an unrealizable length to throw instead of yielding an invalid value,
  *    and require one-sided windows to respect their single bound.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 1 assertion (format length grammar (…)). The case documents its purpose as: Verifies every string-format generator covers the exact set of lengths its own validator accepts.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `typia.random<T>()` can only be written against a literal type, so the per-format sibling test pins the end-to-end path at chosen lengths while this one walks the whole window matrix through the helpers the transform emits. The two directions are what make the class impossible to half-fix: a generator that widens its output would satisfy "never throws", and one that keeps a fixed shape would satisfy "throws when asked for something odd" (#2284). Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (format length grammar (…)) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_format_length_grammar is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_format_length_grammar = (): void => {
   const failures: string[] = [];

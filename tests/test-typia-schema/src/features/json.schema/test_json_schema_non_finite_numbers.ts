@@ -17,6 +17,11 @@ import typia, { tags } from "typia";
  * 2. Assert none of them throws and each carries `Infinity`.
  * 3. Assert the validators and the random generator still behave, and that the
  *    generator refuses a range no finite number satisfies.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schema, typia.llm.parameters, typia.reflect.schema is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (literal const; literal llm enum; literal metadata; literal validator; tag maximum; tag validator). The case documents its purpose as: Verifies non-finite numbers emit as JavaScript, not as Go's `+Inf`.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The emitter spelled an infinity the way Go formats it, so every generated function carrying one threw `ReferenceError: Inf is not defined` on its first run (#2452). A numeric literal type that overflows (`1e400`) and a type tag built from one are TypeScript's own `Infinity`, so the emitted schemas must carry that value instead of crashing. The validators, which already worked, are the control. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (literal const; literal llm enum; literal metadata; literal validator; tag maximum; tag validator) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_non_finite_numbers is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schema_non_finite_numbers = (): void => {
   const literal: any =

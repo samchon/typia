@@ -14,6 +14,11 @@ import typia from "typia";
  *    tuple — one witness for each dialect difference.
  * 2. Emit its schema collection under "3.0".
  * 3. Assert the 3.0 spellings are used and that no 3.1-only keyword survives.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schemas is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (collection version; root reference; downgraded component; no … under 3.0). The case documents its purpose as: Verifies typia.json.schemas emits the OpenAPI 3.0 dialect under "3.0".
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The "3.0" writer used to build the 3.1 document and rewrite only its version string, so a document declaring 3.0 still carried the three constructs 3.0 does not define: a `{"type": "null"}` union member instead of the `nullable` flag, `const`, and `prefixItems`. The expectations below come from the OpenAPI 3.0 specification, not from what the emitter happens to produce. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (collection version; root reference; downgraded component; no … under 3.0) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schemas_v3_0_dialect is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schemas_v3_0_dialect = (): void => {
   interface IV3Target {

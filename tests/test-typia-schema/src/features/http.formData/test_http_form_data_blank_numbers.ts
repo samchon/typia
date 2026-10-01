@@ -13,6 +13,11 @@ import typia, { IValidation } from "typia";
  * 2. Require optional blanks to be absent and array blanks to be rejected.
  * 3. Keep `0` and a space-padded `1` as the negative twins, and read a non-string
  *    value from a `FormData` stand-in as absent instead of throwing.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.formData, typia.http.isFormData, typia.http.validateFormData is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (…(…); non-string value; blank element). The case documents its purpose as: Verifies blank form fields never decode to zero.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `Number(" ")` and `BigInt(" ")` are zero, so a whitespace form field read as `0` / `0n` and passed every validator (#2448). The empty field was already absent; blank text must be absent the same way, and a blank array element must be rejected. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (…(…); non-string value; blank element) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_form_data_blank_numbers is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_form_data_blank_numbers = (): void => {
   const decoders: Array<[string, (input: FormData) => IForm | null]> = [

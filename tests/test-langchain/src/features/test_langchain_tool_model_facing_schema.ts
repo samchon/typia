@@ -25,6 +25,11 @@ import { Calculator } from "../structures/Calculator";
  * 2. Assert `toJsonSchema` yields typia's parameters document unchanged.
  * 3. Assert the OpenAI tool definition LangChain sends carries the same document,
  *    with the properties and required list the model needs.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (toJsonSchema yields typia's parameters unchanged; the tool definition sent to the model carries typia's parameters; the model is still shown both operands and their requirement). The case documents its purpose as: Verifies a LangChain tool still shows the model typia's parameters schema.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: A LangChain tool's `schema` is read for two different purposes: LangChain validates arguments against it, and `toJsonSchema` turns it into the parameters the model is shown. Because typia validates arguments itself, the registrar declines the first role by registering Standard JSON Schema — and the whole point of that shape is that it does not cost the second. Nothing else asserts the model-facing artifact, so a regression that traded the schema away to reclaim validation would leave the model calling tools blind, with every other test still green. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (toJsonSchema yields typia's parameters unchanged; the tool definition sent to the model carries typia's parameters; the model is still shown both operands and their requirement) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-langchain start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_langchain_tool_model_facing_schema is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_langchain_tool_model_facing_schema =
   async (): Promise<void> => {

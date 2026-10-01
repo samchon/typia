@@ -29,6 +29,11 @@ import typia, { tags } from "typia";
  * 4. Confirm the emitted JSON and LLM schemas keep the exact length keywords.
  * 5. Require the shared `@typia/utils` OpenAPI validator to answer identically on
  *    the emitted schema, for every value.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.is, typia.validate, typia.assert is evaluated by the native host on the types declared in this case and the result is checked by 10 assertions (the sample matrix carries values whose two counts differ; … type tag …; … JSDoc tag …; MinLength<2> validate …; MinLength<2> assert …; JSON schema is string). The case documents its purpose as: Verifies transformed string length tags count Unicode characters.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `minLength` and `maxLength` are defined by JSON Schema as the number of characters as RFC 8259 defines them — code points, not the UTF-16 code units `String.prototype.length` returns. typia emits those keywords and must validate the same values they do, so an astral character, a flag, and a ZWJ sequence have to measure the same on both sides. The expectation comes from `[...value].length`, the specification's count, never from what the transformer happens to emit. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (the sample matrix carries values whose two counts differ; … type tag …; … JSDoc tag …; MinLength<2> validate …; MinLength<2> assert …; JSON schema is string) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_validate_unicode_string_length is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_validate_unicode_string_length = (): void => {
   // Every sample is spelled with escapes. The two accent forms are one code

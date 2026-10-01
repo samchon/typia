@@ -14,6 +14,11 @@ import { _stringLengthLte } from "typia/lib/internal/_stringLengthLte";
  * 1. Compare both helpers with a code-point-count oracle over boundary values.
  * 2. Wrap the native string iterator and count reads made by decisive checks.
  * 3. Require zero-bound checks to return without opening the iterator at all.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 10 assertions (greater-than-or-equal …; less-than-or-equal …; minimum result; minimum decisive reads; maximum result; maximum decisive reads). The case documents its purpose as: Verifies the string-length comparison helpers preserve exact code-point semantics while stopping once a boundary determines their result.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The generated validators no longer compute a complete numeric length for `MinLength` and `MaxLength`. The replacement predicates must remain equal to comparing `[...value].length`, including zero, fractional, and Unicode cases, and their loops must not read beyond a decisive character. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (greater-than-or-equal …; less-than-or-equal …; minimum result; minimum decisive reads; maximum result; maximum decisive reads) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_validate_string_length_short_circuit is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_validate_string_length_short_circuit = (): void => {
   const values: string[] = [

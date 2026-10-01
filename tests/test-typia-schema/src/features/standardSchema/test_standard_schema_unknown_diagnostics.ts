@@ -17,6 +17,11 @@ interface IValue {
  * 1. Validate symbols, null-prototype objects, cycles, and hostile proxies.
  * 2. Exercise both createValidate and createValidateEquals at root/property paths.
  * 3. Preserve readable primitive/object messages and ordinary success results.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 14 assertions (ordinary object message; ordinary primitive message; success value; … issue count; … message; … path). The case documents its purpose as: Verifies Standard Schema diagnostics are total for arbitrary unknown values.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Validation itself accepts `unknown`, but message construction previously invoked user coercion and could throw after a normal failure. The adapter must return stable issues for roots and properties through both validators. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (ordinary object message; ordinary primitive message; success value; … issue count; … message; … path) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_standard_schema_unknown_diagnostics is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_standard_schema_unknown_diagnostics = (): void => {
   const cyclic: Record<string, unknown> = { bigint: 1n };

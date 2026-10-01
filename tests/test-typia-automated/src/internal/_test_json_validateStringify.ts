@@ -2,6 +2,24 @@ import { prepareStringify } from "@typia/oracle/stringify";
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
+/**
+ * Verifies a native typia.json.validateStringify callback reports success with
+ * faithful text and failure with the expected paths.
+ *
+ * The success result must carry text matching a pre-callback reference, and
+ * each spoiler must yield a failed validation whose sorted error paths equal
+ * the spoiler's authored path list.
+ *
+ * 1. Prepare the stringify check and require the clean result to succeed with
+ *    matching data.
+ * 2. For each spoiler, require a failed result whose sorted paths equal the
+ *    authored paths.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The prepared check judges the success data and a failed result for the clean fixture fails the helper; for spoilers the path lists must match exactly in length and content.
+ * @evidence contracts/testing.md#independent-expectations The reference is the pre-callback JSON.stringify and the spoiler path lists are authored; the generated typia.assertEquals check on the result shape shares the native producer and is not independent.
+ * @evidence contracts/testing.md#distinguishing-cases Clean success against one failure per spoiler with exact path-list comparison, which also detects missing or extra paths.
+ * @evidence contracts/testing.md#execution-ownership Executes through the generated test_json_validateStringify cases of test-typia-automated. The generated cases in this workspace call the helper from TestServant workers with native-transformed callbacks, so the assembly with the native producer is this suite's boundary, while the expectation policy executes in the plugin-free oracle unit.
+ */
 export const _test_json_validateStringify =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>

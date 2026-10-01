@@ -17,6 +17,11 @@ import typia from "typia";
  * 3. Assert a failure on every decision path, with no exception.
  * 4. Reject trapping and revoked proxies at each record boundary.
  * 5. Reject throwing getters and key enumerators on every answer shape.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (set member getter). The case documents its purpose as: Verifies typia.llm.evaluation decode reports, never throws, on hostile answer types.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Malformed answer values should return an `IValidation` result. Its "wrong answer type" messages describe the received `type`, and a bigint or circular value there makes `JSON.stringify` throw, which would escape as an exception instead of a failure on the decision path. A proxy may also throw while its prototype is inspected for the answer-record check. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (set member getter) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_decode_never_throws is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_decode_never_throws = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();

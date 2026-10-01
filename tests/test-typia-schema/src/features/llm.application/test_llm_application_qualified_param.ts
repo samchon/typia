@@ -15,6 +15,11 @@ import typia from "typia";
  * 3. Assert the function exists and its single object parameter was inlined, so
  *    the parameter schema's `properties` carry the object's own keys (`value`),
  *    exactly as published typia emits.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.application is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (function exists; parameter schema exists). The case documents its purpose as: Verifies typia.llm.application accepts dotted JSDoc parameter names.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: TypeScript-Go parses `@param input.value` as a qualified name. The native metadata reader must preserve that text without calling `Node.Text()` on the qualified-name node, otherwise controller documentation from Nestia-style inputs can abort the transform before an application schema is emitted. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (function exists; parameter schema exists) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_application_qualified_param is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_application_qualified_param = (): void => {
   interface IRequest {

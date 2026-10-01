@@ -24,6 +24,11 @@ import typia from "typia";
  *    case.
  * 3. Assert a constrained scalar at the default is judged by its constraint on the
  *    seeded `0`, the precise diagnostic, not an `invalid type` on `undefined`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.decode, typia.protobuf.createDecode, typia.protobuf.assertDecode is evaluated by the native host on the types declared in this case and the result is checked by 11 assertions. The case documents its purpose as: Verifies a decoded absent required scalar takes its proto3 typed default for every scalar kind, not only `string`.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: In proto3 a singular scalar equal to its default is not written on the wire, so a conformant peer encodes an all-defaults message as the empty payload and an absent scalar must decode to its type default: `number -> 0`, `boolean -> false`, `bigint -> 0n`, `string -> ""`. typia seeded an absent required `number`/`boolean`/`bigint` with `undefined` instead, so `decode` returned `undefined` and every validating decoder threw `invalid type` on a valid peer message. The typia encoder writes every required non-nullable field unconditionally even at the default, so this never surfaced in a typia-only round-trip; the oracle here is a hand-built absent-field payload, not typia's own encode output. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_decode_absent_scalar_defaults is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_decode_absent_scalar_defaults = (): void => {
   // an all-defaults proto3 message: a conformant peer omits every field equal

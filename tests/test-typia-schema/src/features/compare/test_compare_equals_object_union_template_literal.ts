@@ -19,6 +19,11 @@ type INested = { value: ITemplateUnion };
  * 2. Exercise different and equal `b_*` values, `a_*` values, cross-member values,
  *    and invalid discriminators through factory and direct equals.
  * 3. Repeat the membership controls with the union nested in an object.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.plain.createClone, typia.compare.createEquals, typia.compare.equals is evaluated by the native host on the types declared in this case and the result is checked by 22 assertions (is accepts left b member; is accepts right b member; factory compares different b; direct compares different b; factory compares equal b; direct compares equal b). The case documents its purpose as: Verifies compare.equals preserves template-literal object-union membership.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The non-discriminable fallback introduced for samchon/typia#2225 once weakened a template-literal property to `typeof string`. Valid `b_*` values then resolved to the `a_*` member, so a difference in `b` disappeared even though is and clone selected the later member and preserved that property. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (is accepts left b member; is accepts right b member; factory compares different b; direct compares different b; factory compares equal b; direct compares equal b) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_compare_equals_object_union_template_literal is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_compare_equals_object_union_template_literal = (): void => {
   const is = typia.createIs<ITemplateUnion>();

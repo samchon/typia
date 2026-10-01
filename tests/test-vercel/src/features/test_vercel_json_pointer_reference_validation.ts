@@ -11,6 +11,11 @@ import typia from "typia";
  * 1. Convert a recursive slash-key controller through the public adapter.
  * 2. Coerce numeric input strings and validate the referenced result.
  * 3. Reject a wrong referenced result through Vercel's failure branch.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (advertises a canonical slash reference; valid referenced output succeeds; invalid referenced output fails). The case documents its purpose as: Verifies Vercel advertises and enforces generated canonical local references.
+ * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (advertises a canonical slash reference; valid referenced output succeeds; invalid referenced output fails) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-vercel start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_vercel_json_pointer_reference_validation is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_vercel_json_pointer_reference_validation =
   async (): Promise<void> => {

@@ -49,6 +49,11 @@ const DRAWS = 128;
  * 2. Require a window whose floor exceeds the domain to throw every time, naming
  *    the domain.
  * 3. Require a wide domain to still produce several distinct lengths.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 6 assertions (a floor above the domain fails, naming the domain; a wide domain stays valid; a wide domain keeps varying its length (…); … draws a valid value; … draws no more than its domain holds; … reaches its whole domain (… of …)). The case documents its purpose as: Verifies a `UniqueItems` array is drawn at a count its element domain can reach.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `_randomArray` picks the item count before anything is known about how many distinct values the element can take, so every domain smaller than the drawn count used to exhaust the retry budget and throw. `Array<boolean> & UniqueItems` failed on two draws in three, which made a generator whose whole job is producing a valid value flaky for a declaration that `[true, false]` satisfies. #2032 gave that failure its message and #2304 widened two element domains that had collapsed to one value; neither changed how the count is chosen. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (a floor above the domain fails, naming the domain; a wide domain stays valid; a wide domain keeps varying its length (…); … draws a valid value; … draws no more than its domain holds; … reaches its whole domain (… of …)) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_unique_items_domain is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_unique_items_domain = (): void => {
   // POSITIVE: a domain smaller than the count the generator would like.

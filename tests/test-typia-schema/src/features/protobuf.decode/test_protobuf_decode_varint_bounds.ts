@@ -25,6 +25,11 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  *    the value of an unknown varint field the decoder only skips.
  * 3. Preserve every accepted row's decoded value, trailing fields, and encoder
  *    round trips.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.encode, typia.tags.Type, typia.protobuf.decode is evaluated by the native host on the types declared in this case and the result is checked by 8 assertions. The case documents its purpose as: Verifies generated Protobuf decoders reject malformed varints before validation.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The generated decoder shares `uint32` between scalar values, field tags, and every length-delimited frame, while all 64-bit scalar projections share the corresponding wide reader. Every raw, assertion, predicate, and validation wrapper must therefore surface the same wire error instead of returning a product-shaped value, `null`, or an `IValidation` result. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_decode_varint_bounds is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_decode_varint_bounds = (): void => {
   const baseline: Uint8Array = typia.protobuf.encode<ISurface>({

@@ -10,6 +10,11 @@ import typia from "typia";
  * 1. Decode raw, prefixed, absolute-URL, relative-URL, and URL-valued inputs.
  * 2. Exercise direct and factory forms of query/assert/is/validate.
  * 3. Require identical typed values and preserve encoded question marks.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.createQuery, typia.http.createAssertQuery, typia.http.createIsQuery is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (decoder … for …; URL without query; raw URL-valued decoder …; key-only raw decoder … for …). The case documents its purpose as: Verifies every HTTP query decoder accepts raw and URL-shaped strings.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The shared runtime parser previously replaced a string without `?` with an empty query, so every direct and factory operation lost normal raw input. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (decoder … for …; URL without query; raw URL-valued decoder …; key-only raw decoder … for …) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_query_raw_strings is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_query_raw_strings = (): void => {
   const expected: IQuery = {

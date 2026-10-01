@@ -17,6 +17,11 @@ import typia from "typia";
  * 2. Decode each map.
  * 3. Assert exactly the malformed path fails.
  * 4. Prove an accessor cannot switch values between checking and conversion.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (control; changing distribution getter cannot bypass member minimum; probability read once). The case documents its purpose as: Verifies typia.llm.evaluation decode rejects malformed answer values.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The AI SDK `EvaluationModelV4` answer spec bounds every value: P(true) is in `[0, 1]`, a choice is one declared maximum-probability option, a score is the distribution's fractional weighted mean in `[0, levels - 1]`, and an optional distribution contains every declared option or level and sums to one. Each malformed value must fail on its own decision path, while the well-formed neighbor in the same map still converts. A changing getter must not replace a checked probability and bypass an enum member's minimum. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (control; changing distribution getter cannot bypass member minimum; probability read once) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_decode_rejects_malformed_answers is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_decode_rejects_malformed_answers =
   (): void => {

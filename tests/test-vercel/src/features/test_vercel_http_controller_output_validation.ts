@@ -16,6 +16,11 @@ import type { Tool } from "ai";
  * 2. Accept a valid body through the public Vercel tool.
  * 3. Reject a wrong nested body with an actionable validation path.
  * 4. Preserve a thrown HTTP executor exception in the failure branch.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 4 assertions (valid HTTP body uses the success branch; invalid HTTP body uses the actionable failure branch; HTTP executor exception remains a failure result). The case documents its purpose as: Verifies HTTP controller bodies obey their advertised Vercel output schema.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: HTTP tools execute a response-body adapter distinct from class methods. Its valid data must use the typed success branch, while wrong response bodies and thrown executor errors must use the same advertised failure branch. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (valid HTTP body uses the success branch; invalid HTTP body uses the actionable failure branch; HTTP executor exception remains a failure result) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-vercel start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_vercel_http_controller_output_validation is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_vercel_http_controller_output_validation =
   async (): Promise<void> => {

@@ -15,6 +15,11 @@ import typia, { tags } from "typia";
  * 2. Require the unconstrained array to span `1..6`.
  * 3. Require `MaxItems` to cap only the maximum, keeping the minimum at 1.
  * 4. Require `MinItems` alone and a `MinItems`/`MaxItems` pair to honor both.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (… plain length; … capped length; … wide length; … floor length; … bounded length). The case documents its purpose as: Verifies typia.random resolves array length defaults against item-count tags.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: An unconstrained non-recursive array draws from `1..6`. Unlike strings, whose default minimum is 5, the array minimum is 1, so a `MaxItems` above 1 only caps the maximum (`MaxItems<8>` stays `1..8`) while a `MaxItems` of 0 collapses the whole range. A lone `MinItems` keeps the `+5` span. The arithmetic mirrors `_randomString` and is just as easy to regress, so the draws are pinned at both ends of `Math.random`. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… plain length; … capped length; … wide length; … floor length; … bounded length) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_array_length is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_array_length = (): void => {
   const minimum: ILengths = withRandom(0, () => typia.random<ILengths>());

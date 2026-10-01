@@ -17,6 +17,11 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 3. Assert every skip lands on the exact following byte, that a zero-length skip
  *    honors an enclosing `fork` boundary, and that truncated fields are still
  *    rejected atomically.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.decode is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions. The case documents its purpose as: Verifies the runtime Protobuf reader skips every unknown wire type by its exact width.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: A length-delimited field may legally declare a length of zero, so the skip operation must not read a length of zero as a request to consume a varint. That confusion swallows the following field's tag and desynchronizes the parser on well-formed input, while the varint wire type carries no length prefix and genuinely needs the varint-consuming skip. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_reader_zero_length_skip is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_reader_zero_length_skip = (): void => {
   assertSkip("zero-length LEN before another field", [0x00, 0x0a], 1, (r) =>

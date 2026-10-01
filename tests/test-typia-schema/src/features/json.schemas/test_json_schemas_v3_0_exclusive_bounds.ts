@@ -37,6 +37,11 @@ interface IBounds {
  *    carry a boolean beside the inclusive keyword it qualifies.
  * 3. Require no numeric `exclusive*` to survive anywhere in the 3.0 document, at
  *    any depth.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schemas is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (3.1 keeps a numeric exclusiveMinimum; 3.1 keeps a numeric exclusiveMaximum; 3.0 exclusive bounds become boolean flags; 3.0 keeps an inclusive bound beside an exclusive one; an inclusive bound stays inclusive; a zero bound survives as a flag). The case documents its purpose as: Verifies a document emitted for OpenAPI 3.0 spells an exclusive bound the way that dialect defines it.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The 3.0 Schema Object descends from JSON Schema draft-04, where `exclusiveMinimum` and `exclusiveMaximum` are booleans qualifying `minimum` and `maximum`; the numeric spelling belongs to 3.1. The downgrader carried the number through, so a document labeled 3.0 held a 3.1 keyword with no `minimum` beside it — and a 3.0 reader taking the value as the boolean its dialect declares drops the bound entirely (#2300). Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (3.1 keeps a numeric exclusiveMinimum; 3.1 keeps a numeric exclusiveMaximum; 3.0 exclusive bounds become boolean flags; 3.0 keeps an inclusive bound beside an exclusive one; an inclusive bound stays inclusive; a zero bound survives as a flag) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schemas_v3_0_exclusive_bounds is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   const v31 = typia.json.schemas<[IBounds], "3.1">();

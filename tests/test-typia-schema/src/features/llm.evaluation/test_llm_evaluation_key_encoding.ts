@@ -13,6 +13,11 @@ import typia from "typia";
  * 1. Declare colliding-looking, quoted, spaced, and `__proto__` properties.
  * 2. Generate the question keys and decode the answer map.
  * 3. Assert the exact keys, the converted value, and untouched prototypes.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 12 assertions (keys; questions prototype; a.b; a → b; space; quote). The case documents its purpose as: Verifies typia.llm.evaluation question keys are unique and prototype-safe.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Keys are readable property paths in typia's accessor notation, so a property named `a.b` must not collide with the nested path `a` → `b`, names with spaces or quotes must stay distinct, and a `__proto__` property must become an own key of the question map and of the converted value instead of rewriting either object's prototype. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (keys; questions prototype; a.b; a → b; space; quote) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_key_encoding is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_key_encoding = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();

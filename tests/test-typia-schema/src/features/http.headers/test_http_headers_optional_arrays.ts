@@ -11,6 +11,11 @@ import typia from "typia";
  * 1. Exercise direct and factory forms of every headers decoder.
  * 2. Check omitted, explicitly undefined, empty, and populated arrays.
  * 3. Require omitted and empty arrays to be absent from the result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.headers, typia.http.assertHeaders, typia.http.isHeaders is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (decoder …, case …). The case documents its purpose as: Verifies omitted optional array headers decode without a runtime error.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The generated decoder removes empty optional arrays after decoding. An omitted header also reaches that branch as `undefined`, including the special `set-cookie` array, and must be removed without reading its length. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (decoder …, case …) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_headers_optional_arrays is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_headers_optional_arrays = (): void => {
   const decoders = [

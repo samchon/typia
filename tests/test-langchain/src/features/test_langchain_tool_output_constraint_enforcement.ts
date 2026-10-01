@@ -27,6 +27,11 @@ import typia, { tags } from "typia";
  * 3. Assert a result violating `Minimum` is reported with its failing path, in
  *    both modes, and the same for `Format<"email">`.
  * 4. Assert a method that declares no output keeps its plain success.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (a strict controller reports the config it was built with; … conforming output accepted; … … violation is reported; … undeclared output stays a success). The case documents its purpose as: Verifies a tool result is checked against the output type its method declared.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The registrar consulted `ILlmFunction.output` for its existence alone: a method returning nothing was reported, a method returning the wrong shape was not, so a value violating its own declared range reached the model as a success while `@typia/mcp` and `@typia/vercel` both refused it (#2302). Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (a strict controller reports the config it was built with; … conforming output accepted; … … violation is reported; … undeclared output stays a success) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-langchain start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_langchain_tool_output_constraint_enforcement is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_langchain_tool_output_constraint_enforcement =
   async (): Promise<void> => {

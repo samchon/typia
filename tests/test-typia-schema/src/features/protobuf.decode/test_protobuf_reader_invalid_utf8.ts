@@ -14,6 +14,11 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *    strings without altering a single code point.
  * 2. Reject every authoritative malformed UTF-8 class with one stable error.
  * 3. Read the same malformed octets through `bytes()` without changing them.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.decode is evaluated by the native host on the types declared in this case and the result is checked by 7 assertions. The case documents its purpose as: Verifies Protobuf strings reject malformed UTF-8 without narrowing bytes.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Locks the shared reader boundary where proto3 `string` and `bytes` stop sharing semantics. A regression here either accepts lossy replacement text or incorrectly rejects arbitrary octets from a bytes field. The byte order mark cases pin the decoder's second lossy branch: a payload is a length-delimited byte string with no encoding preamble to strip, so a leading U+FEFF must survive exactly as the writer's `TextEncoder` emitted it. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_reader_invalid_utf8 is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_reader_invalid_utf8 = (): void => {
   for (const [label, text] of VALID_TEXTS) {

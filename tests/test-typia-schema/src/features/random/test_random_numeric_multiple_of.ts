@@ -18,6 +18,11 @@ import typia, { tags } from "typia";
  * 2. Require every generated object to satisfy its own type through `typia.is`.
  * 3. Compare every value with an independent exact decimal oracle.
  * 4. Require both random APIs to reject an impossible multiple range promptly.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random, typia.is is evaluated by the native host on the types declared in this case and the result is checked by 11 assertions (… validates at …; … honors every bound at …; … decimal oracle at …; … exclusive oracle at …; … upper-only oracle at …; … lower-only oracle at …). The case documents its purpose as: Verifies numeric random generation snaps within value-unit bounds.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Multiplying fallback bounds by `multipleOf` can invert one-sided ranges, so every generated value is checked against its declared bounds and against an exact decimal oracle for its divisor. The generator picks an integer quotient over exact decimals and the generated validator divides the same way, so the round trip closes for every divisor including a fractional one and one whose quotient runs past `Number.MAX_SAFE_INTEGER` — a divisor such as `0.01` used to break it, because the remainder check answered about the stored binary double rather than the decimal the value prints back. Empty discrete ranges must still fail without an unbounded retry. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… validates at …; … honors every bound at …; … decimal oracle at …; … exclusive oracle at …; … upper-only oracle at …; … lower-only oracle at …) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_numeric_multiple_of is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_numeric_multiple_of = (): void => {
   interface IValues {

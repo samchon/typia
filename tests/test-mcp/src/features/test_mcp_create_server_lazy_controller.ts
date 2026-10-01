@@ -23,6 +23,11 @@ import { Inspector } from "../structures/Inspector";
  * 2. Assert the class JSDoc reached the handshake instructions and that
  *    `tools/list` never triggered the closure.
  * 3. Invoke the tool and assert the closure ran exactly once with the result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (class JSDoc should reach the handshake instructions; tools/list must not build the state; first call builds the state once; call returns the reflected result). The case documents its purpose as: Verifies createMcpServer serves a lazily-constructed controller — the `@ttsc/graph` adoption pattern.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `@ttsc/graph` builds its resident graph only on the first tool call so a large project cannot stall the handshake, and hangs its usage contract off the interface JSDoc. createMcpServer must reflect that JSDoc into `instructions` and list/serve the tool without ever touching the deferred state until a call arrives — otherwise the inline server it replaces would lose either the lazy build or the contract. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (class JSDoc should reach the handshake instructions; tools/list must not build the state; first call builds the state once; call returns the reflected result) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_create_server_lazy_controller is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_mcp_create_server_lazy_controller =
   async (): Promise<void> => {

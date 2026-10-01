@@ -7,6 +7,22 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies vercel generate text multiple tools against the native
+ * typia.llm.controller output.
+ *
+ * The case builds its input in this file and asserts should have 3 tool calls,
+ * should have 3 tool results, add(10, 5) should be 15, multiply(3, 7) should be
+ * 21, subtract(100, 42) should be 58.
+ *
+ * 1. Generate the value from the types declared in this file.
+ * 2. Assert the properties listed above.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (should have 3 tool calls; should have 3 tool results; add(10, 5) should be 15; multiply(3, 7) should be 21; subtract(100, 42) should be 58).
+ * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (should have 3 tool calls; should have 3 tool results; add(10, 5) should be 15; multiply(3, 7) should be 21; subtract(100, 42) should be 58) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-vercel start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_vercel_generate_text_multiple_tools is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ */
 export const test_vercel_generate_text_multiple_tools =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

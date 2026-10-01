@@ -20,6 +20,11 @@ import typia, { Primitive, tags } from "typia";
  *    itself under a bounded name.
  * 3. Compare against a named recursive union, which must keep validating and must
  *    still name its component from the declaration.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.is, typia.validate, typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 14 assertions (accepts …; rejects …; validate reports failure; validate names the path; validate keeps the expectation readable; one component emitted). The case documents its purpose as: Verifies a self-recursive conditional alias validates and names itself.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `Primitive<T>` over `type Node = Date | Node[]` resolves to a union whose array member's sole type argument is that very union, so the transformer's name builders walked back into a type whose name was still being composed and recursed until the plugin died of a stack overflow (#2331). The fix names such a revisited type after its own symbol, so this pins both halves: the type has to transform at all, and the name it settles on has to stay usable as a schema component key rather than a structural dump of the elided rendering. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (accepts …; rejects …; validate reports failure; validate names the path; validate keeps the expectation readable; one component emitted) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_validate_recursive_conditional_alias is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_validate_recursive_conditional_alias = (): void => {
   type Node = Date | Node[];

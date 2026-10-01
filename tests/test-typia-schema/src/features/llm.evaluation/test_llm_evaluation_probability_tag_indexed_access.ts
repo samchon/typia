@@ -11,6 +11,11 @@ import typia, { tags } from "typia";
  * 1. Tag boolean, choice, score, and set member types in a source interface.
  * 2. Select all four through generic indexed-access aliases.
  * 3. Decode values at and below their inherited requirements.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (at every boundary; boolean and set below thresholds; choice below minimum; score below minimum). The case documents its purpose as: Verifies type-level probability requirements survive generic indexed access.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Unlike property JSDoc, a `tags.Probability` intersection is part of the selected value type. Boolean thresholds and individual string/number literal requirements must reach the decoder, including literals inside an array set. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (at every boundary; boolean and set below thresholds; choice below minimum; score below minimum) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_probability_tag_indexed_access is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_probability_tag_indexed_access = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();

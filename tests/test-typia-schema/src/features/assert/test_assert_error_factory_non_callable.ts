@@ -22,6 +22,11 @@ interface IMember {
  * 2. Require a TypeGuardError naming the real failure at index 0, 1 and 2.
  * 3. Pin the same fallback when a create-time factory was configured, and confirm
  *    that factory still wins for an ordinary single-argument call.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 9 assertions (valid elements pass; index … method; index … path; index … expected; configured factory message). The case documents its purpose as: Verifies a non-callable error factory still raises TypeGuardError.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The function a `create*Assert*` factory returns really takes a second `errorFactory` parameter, so `rows.map(assertMember)` fills it with the element index. `_assertGuard` used to accept any truthy value there and call it, which reported `factory is not a function` for every index except the falsy `0`. The declaration now rejects that hand-off at compile time, but builds compiled against an already-published declaration still make the call, so the runtime helper is what has to absorb it. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (valid elements pass; index … method; index … path; index … expected; configured factory message) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_assert_error_factory_non_callable is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_assert_error_factory_non_callable = (): void => {
   // The cast is the point: it reproduces what the pre-fix declaration allowed

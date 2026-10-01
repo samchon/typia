@@ -15,6 +15,11 @@ import typia from "typia";
  * 2. Validate selections at, below, and around every requirement, with and without
  *    complete distributions.
  * 3. Assert which selections pass and which paths fail.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 11 assertions (tag at minimum; tag below minimum; tag without distribution; required without distribution; reply at minimum; … gated below). The case documents its purpose as: Verifies typia.llm.evaluation enforces choice acceptance minimums.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Member requirements are all-or-none: every enum member declares `@probability N`, or a property `@probability` fills the members without an override. A failed gate never falls back to a less likely member. A requirement needs the answer's distribution, including a zero requirement. Each rule is paired with the one-axis twin that must not trigger it. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (tag at minimum; tag below minimum; tag without distribution; required without distribution; reply at minimum; … gated below) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_choice_minimum is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_choice_minimum = (): void => {
   const evaluation = typia.llm.evaluation<IDecision>();

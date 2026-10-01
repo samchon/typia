@@ -37,6 +37,11 @@ interface IJsonable {
  * 3. Require `isStringify` and `validateStringify` to answer rather than throw.
  * 4. Keep the positive twin passing: a real `toJSON` still serializes through its
  *    return value.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.stringify, typia.json.isStringify, typia.json.validateStringify is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (stringify answers with JSON; isStringify answers instead of throwing; validateStringify answers instead of throwing; the twin serializes through toJSON). The case documents its purpose as: Verifies a non-callable `toJSON` is answered, never thrown on.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Serializing a `toJSON`-bearing type means calling `toJSON`, and the emitted union arm that does so carries its own `typeof input.toJSON === "function"` test. When that arm was the only one, the surrounding code dropped the test along with the choice — there is nothing to choose between — and left the call unguarded. A value whose `toJSON` is a non-function then threw `input.value.toJSON is not a function` from inside the serializer, so `isStringify` and `validateStringify`, whose whole purpose is to answer for untrusted input without a `try`/`catch`, threw on exactly the input they exist to handle. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (stringify answers with JSON; isStringify answers instead of throwing; validateStringify answers instead of throwing; the twin serializes through toJSON) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_is_stringify_non_callable_to_json is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_is_stringify_non_callable_to_json = (): void => {
   const invalid: IJsonable = { keep: 1, value: { toJSON: 1 } } as never;

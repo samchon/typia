@@ -42,6 +42,11 @@ interface ICommentBigint {
  * 4. Require `typia.random` output for the constrained type to satisfy it, and pin
  *    the window it actually draws from, since a bare type tag publishes no
  *    upper schema bound for the generator to follow.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.is, typia.protobuf.decode, typia.protobuf.encode is evaluated by the native host on the types declared in this case and the result is checked by 19 assertions (2 ** 64 is not a uint64; the largest double below 2 ** 64 is a uint64; _isTypeUint64(…) === …; number type tag on … === …; number comment tag on … === …; _isTypeUint64(…)). The case documents its purpose as: Verifies uint64 enforces the unsigned 64-bit range on the number and bigint paths.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Uint64-max is `2 ** 64 - 1`, which no `number` can represent — it rounds to `2 ** 64` — so the number path accepts `2 ** 64` as that maximum's only float form. A `bigint` represents the bound exactly, so its arm holds the true inclusive range; it used to carry a lower bound and no upper one, which certified `2n ** 64n` while `typia.protobuf.encode` truncated it. The oracle is a BigInt comparison and the Protocol Buffer wire format, never typia's own output. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (2 ** 64 is not a uint64; the largest double below 2 ** 64 is a uint64; _isTypeUint64(…) === …; number type tag on … === …; number comment tag on … === …; _isTypeUint64(…)) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_type_uint64_range is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_type_uint64_range = (): void => {
   const MINIMUM: bigint = 0n;

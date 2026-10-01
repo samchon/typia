@@ -17,6 +17,11 @@ import typia, { tags } from "typia";
  *    boundaries, and an infinite one.
  * 2. Convert the same type through `@typia/utils` under `strict`.
  * 3. Assert the native descriptions equal the converter's, and pin the text.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schemas, typia.llm.schema is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (strict descriptions; pinned). The case documents its purpose as: Verifies strict LLM constraint text spells numbers as JavaScript does.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Under `strict`, constraints move into the description as `@tag value` lines. `@typia/utils` writes the value with JavaScript's `String()`, while the Go emitter used `fmt.Sprint`. A type tag's value is the compiler's own number, which already prints the JavaScript way, but a comment tag's value is a Go float, printed `1e+06` for 1000000 and `1e-07` for 0.0000001 (#2452). The converter's output is the oracle. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (strict descriptions; pinned) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_schema_parity_converter_strict_numbers is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_schema_parity_converter_strict_numbers = (): void => {
   const collection: IJsonSchemaCollection = typia.json.schemas<[IRoot]>();

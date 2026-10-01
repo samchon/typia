@@ -18,6 +18,11 @@ import typia from "typia";
  *
  * 1. Convert a static-key object under each notation and read every declared key.
  * 2. Convert the same keys through a `Record` (dynamic) and compare the key set.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.notations.snake, typia.notations.camel, typia.notations.pascal is evaluated by the native host on the types declared in this case and the result is checked by 38 assertions (snake foo_bar_baz; snake open_ai_key; snake http_foo_bar; snake foo_bar; snake foo_bar_; snake _foo_bar). The case documents its purpose as: Verifies notation runtime output equals the `*Case<T>` type on underscore keys.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Issue #2190: on a key mixing an underscore with a case boundary the `snake`/`kebab` conversion lowercased each underscore-delimited segment atomically (`fooBar_baz` -> `foobar_baz`) and `camel`/`pascal` collapsed a trailing underscore onto the underscore-free path (`fooBar_` -> `FooBar`), so the produced key disagreed with the declared `SnakeCase`/... return type and reading the declared key was `undefined` — a soundness hole. This pins both runtime producers against the type: the static-key path (computed by the Go compile-time emit) by assigning to the `*Case<T>` type and reading the declared key, and the dynamic-key path (the runtime `_notation*` helper) by comparing the produced key set to the type oracle. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (snake foo_bar_baz; snake open_ai_key; snake http_foo_bar; snake foo_bar; snake foo_bar_; snake _foo_bar) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_notation_underscore_boundary is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_notation_underscore_boundary = (): void => {
   const value: Battery = {

@@ -45,6 +45,11 @@ interface IPromisedReturnApplication {
  * 1. Declare derived class/interface and branded Promise return shapes.
  * 2. Contrast them with synchronous and shadowed-name controls.
  * 3. Assert reflection, JSON, LLM, and controller output parity.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.reflect.schema, typia.json.application, typia.llm.application is evaluated by the native host on the types declared in this case and the result is checked by 13 assertions (reflected application component exists; reflect … async; reflect … output is fulfilled; reflect … sync; reflected fake Promise output is not unwrapped; json … async). The case documents its purpose as: Verifies promised return semantics reach every metadata consumer.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Functional metadata feeds reflection, JSON Schema applications, LLM applications, and controllers. These surfaces must agree on both async classification and the fulfilled output schema instead of trusting a type's symbol spelling. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (reflected application component exists; reflect … async; reflect … output is fulfilled; reflect … sync; reflected fake Promise output is not unwrapped; json … async) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_application_promised_return_semantics is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_application_promised_return_semantics = (): void => {
   const promisedNames = [

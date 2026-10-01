@@ -22,6 +22,11 @@ class CollisionController {
  * 1. Create class and HTTP controllers that both expose `run_post`.
  * 2. Reject every colliding class/HTTP combination in deterministic order.
  * 3. Accept mixed controllers when their prefixes make the final names unique.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (HTTP function name; unique prefixed names). The case documents its purpose as: Verifies LangChain validates the final prefixed tool-name namespace.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Prefixing normally separates controllers, but controllers with the same name can still emit the same tool name. This regression pins both protocol orders so registration cannot depend on which controller type is visited first. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (HTTP function name; unique prefixed names) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-langchain start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_langchain_prefixed_tool_name_namespace is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_langchain_prefixed_tool_name_namespace = (): void => {
   const classController: ILlmController<CollisionController> =

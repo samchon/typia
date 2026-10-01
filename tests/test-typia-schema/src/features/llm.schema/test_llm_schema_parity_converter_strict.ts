@@ -21,6 +21,11 @@ import typia, { tags } from "typia";
  * 1. Declare properties covering the full numeric, string, and array tag sets.
  * 2. Convert the same type through `@typia/utils` under `strict`.
  * 3. Assert the native schema and `$defs` equal the converter's output.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schemas, typia.llm.schema is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (strict schema; strict $defs). The case documents its purpose as: Verifies the native strict LLM schema agrees with `@typia/utils`' converter.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Under `strict`, constraint keywords are shifted out of the schema and into the description as `@tag value` lines. Two owners implement that shift — the Go emitter `typia.llm.*` calls, and `OpenApiConstraintShifter` in `@typia/utils` — and they once disagreed on `default`, which the numeric path deleted instead of shifting. The oracle below was already correct when that shipped; only the fixture was blind, because it omitted the single tag they disagreed on. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (strict schema; strict $defs) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_schema_parity_converter_strict is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_schema_parity_converter_strict = (): void => {
   interface IStrictChild {

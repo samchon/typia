@@ -15,6 +15,11 @@ import typia from "typia";
  * 2. Draw it at the maximum, where every level selects the recursive variant.
  * 3. Require that maximum tree to be all arrays of width 2, bottoming out at the
  *    depth cap, through both `typia.random` and `typia.createRandom`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (recursive union minimum; … union maximum all arrays; … union maximum width; … union maximum depth). The case documents its purpose as: Verifies recursive arrays whose element is a union pick variants per level.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: A recursive array alias whose element is `Self | string` stores its element variants as a `oneOf` on the component schema, so the random programmer has to expand that `oneOf` into one candidate per variant and let the depth guard cap the self-referential branch. A regression in the expansion would either drop a variant or recurse without termination. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (recursive union minimum; … union maximum all arrays; … union maximum width; … union maximum depth) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_recursive_union is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_recursive_union = (): void => {
   TestEquality.equals(

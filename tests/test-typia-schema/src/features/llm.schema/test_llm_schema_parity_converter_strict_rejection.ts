@@ -13,6 +13,11 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Convert strict objects with partial and missing required lists.
  * 2. Assert non-empty optional properties are rejected.
  * 3. Assert an empty object without `required` is accepted and restored.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 8 assertions (optional property rejected; optional reason; empty strict object accepted; empty strict required restored; missing required rejected; missing required reason). The case documents its purpose as: Verifies strict LLM converter rejects optional object properties.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Strict function-calling schemas require every object property to appear in `required`, but empty objects still need to be accepted and normalized with `required: []` after JSON Schema omits the empty keyword. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (optional property rejected; optional reason; empty strict object accepted; empty strict required restored; missing required rejected; missing required reason) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_schema_parity_converter_strict_rejection is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_llm_schema_parity_converter_strict_rejection = (): void => {
   const optional = LlmSchemaConverter.schema({

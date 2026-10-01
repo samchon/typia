@@ -16,6 +16,11 @@ import typia, { IValidation } from "typia";
  * 3. Keep nullable strings, nullable numbers, `unknown`, `any`, and nullable array
  *    elements reading `null` as the twins; a nullable array's own element does
  *    not admit it.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.query, typia.http.isQuery, typia.http.validateQuery is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (admitting units; absent optional unknown). The case documents its purpose as: Verifies the query text `null` is a string unless the type admits `null`.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The string reader mapped `"null"` to `null` for every string, so a required `string` rejected the value `"null"`, an optional one dropped it, and the literal type `"null"` could never be decoded (#2450). Only a type that admits `null` may read the text as `null`; there the spelling is ambiguous and `null` wins. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (admitting units; absent optional unknown) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_query_null_text is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_query_null_text = (): void => {
   const decoders: Array<[string, (input: string) => IQuery | null]> = [

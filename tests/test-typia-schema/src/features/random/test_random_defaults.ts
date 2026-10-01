@@ -18,6 +18,11 @@ import typia, { tags } from "typia";
  *    recursive array default range.
  * 5. Generate a non-recursive MinItems<1> array and require the constraint to
  *    remain accepted and forwarded to the custom array generator.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 13 assertions (recursive children length; plain labels length; recursive property; plain array property; non-recursive minItems schema; non-recursive minItems output). The case documents its purpose as: Verifies typia.random uses fixture-oriented defaults for strings and arrays.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Unconstrained strings and arrays are valid when empty, but random data is most useful as a concrete fixture. Explicit zero-length constraints must still win, and recursive arrays need a context flag so custom generators can keep graph termination under control. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (recursive children length; plain labels length; recursive property; plain array property; non-recursive minItems schema; non-recursive minItems output) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_defaults is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_defaults = (): void => {
   const minimum: IRandomDefaults = withRandom(0, () =>

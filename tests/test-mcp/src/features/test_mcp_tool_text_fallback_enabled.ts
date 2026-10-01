@@ -20,6 +20,11 @@ import { Calculator } from "../structures/Calculator";
  * 2. Call `add` through tools/call.
  * 3. Assert `structuredContent` carries the typed result and the text block
  *    serializes the same object.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (structuredContent should carry the typed result; text block should serialize the same object). The case documents its purpose as: Verifies `textFallback: true` adds the serialized text copy next to `structuredContent`.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Structured results ship once by default. The MCP spec's backwards compatibility recommendation — the same JSON serialized into a text block — is an opt-in for servers whose clients ignore `outputSchema`. A regression would strand those clients with an empty `content` array. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (structuredContent should carry the typed result; text block should serialize the same object) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_tool_text_fallback_enabled is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_mcp_tool_text_fallback_enabled = async (): Promise<void> => {
   const server: McpServer = createMcpServer(

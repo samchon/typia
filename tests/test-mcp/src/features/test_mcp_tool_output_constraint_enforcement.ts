@@ -31,6 +31,11 @@ import typia, { tags } from "typia";
  * 3. Assert a result violating `Minimum` is reported as a tool error in both
  *    modes.
  * 4. Assert the same for a result violating `Format<"email">`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (a strict controller reports the config it was built with; … conforming output accepted; … conforming structured content; … … violation is a tool error; … … violation reports its path). The case documents its purpose as: Verifies tool output constraints are enforced in both schema modes.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `createMcpServer` validates a declared result by inverting its LLM schema, and the two modes keep constraints in different places: a non-strict schema keeps `minimum` and `format` as keywords, while a strict one moves them into the description as `@minimum 0` tags. The inverter only reads those tags back when told the schema is strict, so the registrar has to hand it the application's own config — and every property here is documented, because a description is exactly what used to make the non-strict keywords disappear. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (a strict controller reports the config it was built with; … conforming output accepted; … conforming structured content; … … violation is a tool error; … … violation reports its path) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_tool_output_constraint_enforcement is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_mcp_tool_output_constraint_enforcement =
   async (): Promise<void> => {

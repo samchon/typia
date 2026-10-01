@@ -22,6 +22,11 @@ import { CalculatorApi } from "../structures/CalculatorApi";
  * 2. Assert `tools/list` exposes the operation with its response `outputSchema`.
  * 3. Call it and assert the response body arrives as `structuredContent` with no
  *    text duplicate.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 5 assertions (every converted operation should be listed; the operation should advertise its response outputSchema; http tool call should not be an error; response body should arrive as structuredContent; content should stay empty without the opt-in text fallback). The case documents its purpose as: Verifies an OpenAPI operation served as an MCP tool executes end-to-end.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `createMcpServer` accepts an `IHttpLlmController`, registering every converted operation as a tool that runs through the controller's executor and ships the response body as `structuredContent`. A regression would confine `@typia/mcp` back to class controllers while the sibling adapters keep serving OpenAPI documents. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (every converted operation should be listed; the operation should advertise its response outputSchema; http tool call should not be an error; response body should arrive as structuredContent; content should stay empty without the opt-in text fallback) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_http_controller_execute is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_mcp_http_controller_execute = async (): Promise<void> => {
   const controller: IHttpLlmController = HttpLlm.controller({

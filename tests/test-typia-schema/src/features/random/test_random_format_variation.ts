@@ -148,6 +148,11 @@ const DRAWS = 32;
  *    generator and the only property a constant cannot fake.
  * 3. Require an eight-element unique array of the two formats to be drawn and to
  *    validate, which is what the constant made impossible.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random, typia.is is evaluated by the native host on the types declared in this case and the result is checked by 1 assertion (format variation (…)). The case documents its purpose as: Verifies an unconstrained string format draws a value instead of naming one.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `byte` and `regex` each returned a single hard-coded constant when the leaf carried no length tag, so their generators had a domain of exactly one value. Nothing caught it: the sibling length tests ask whether a draw is valid and whether it lands in its window, and a constant answers both. The visible consequence was `UniqueItems`, which asks `_randomArray` for values that cannot repeat — it retried a thousand times and reported the element domain as too small, of a base64 string with 64 characters to spend per position (issue #2304). Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (format variation (…)) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_format_variation is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_format_variation = (): void => {
   const failures: string[] = [];

@@ -18,6 +18,11 @@ import typia from "typia";
  *    first skips and the second is rejected.
  * 3. Assert both faults surface identically from every decoder variant, and that a
  *    known field, a valid payload, and the merged contracts are untouched.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.decode, typia.protobuf.createDecode, typia.protobuf.assertDecode is evaluated by the native host on the types declared in this case and the result is checked by 6 assertions. The case documents its purpose as: Verifies generated Protobuf decoders attribute every unknown-field fault to typia and bind an unknown varint to ten bytes.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: A generated decoder routes every field it does not know to the reader's `skipType` with `tag & 0x07`, so a payload author reaches wire types 6 and 7 and a bare END_GROUP, none of which are skippable, and reaches the varint skip with as many continuation bytes as they like. The first case must not surface an anonymous error that no user can trace back to typia, and the second must not accept a varint longer than a 64-bit value can occupy while `uint32` on the very same buffer stops at ten. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_decode_unknown_field_faults is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_decode_unknown_field_faults = (): void => {
   // IValue field 1 = "a", then an unknown field 2 with the given wire type

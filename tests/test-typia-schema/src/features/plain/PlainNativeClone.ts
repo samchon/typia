@@ -1,6 +1,14 @@
 import { TestValidator } from "@nestia/e2e";
 import { TestEquality } from "@typia/template/equality";
 
+/**
+ * Asserts a cloned DataView is an independent view over its own buffer.
+ *
+ * @evidence contracts/testing.md#behavioral-verification assertDataViewClone compares an input and the output of a native clone: instance kind, identity difference and the data the kind owns; a shared reference, lost bytes or wrong kind fails.
+ * @evidence contracts/testing.md#independent-expectations The expected values are derived from the input the caller supplied before cloning, and instance and identity checks use language semantics.
+ * @evidence contracts/testing.md#distinguishing-cases assertDataViewClone owns the comparison for one kind; the positive clone and the negative (shared or changed output) inputs are chosen by the callers.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the test-typia-schema start process and is called by the native clone cases; it calls no typia producer itself.
+ */
 export const assertDataViewClone = (
   label: string,
   input: DataView,
@@ -50,6 +58,14 @@ export const assertDataViewClone = (
   }
 };
 
+/**
+ * Asserts a cloned typed array owns its own copy of the elements.
+ *
+ * @evidence contracts/testing.md#behavioral-verification assertTypedArrayClone compares an input and the output of a native clone: instance kind, identity difference and the data the kind owns; a shared reference, lost bytes or wrong kind fails.
+ * @evidence contracts/testing.md#independent-expectations The expected values are derived from the input the caller supplied before cloning, and instance and identity checks use language semantics.
+ * @evidence contracts/testing.md#distinguishing-cases assertTypedArrayClone owns the comparison for one kind; the positive clone and the negative (shared or changed output) inputs are chosen by the callers.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the test-typia-schema start process and is called by the native clone cases; it calls no typia producer itself.
+ */
 export const assertTypedArrayClone = (
   label: string,
   input: Uint16Array | Uint8Array,
@@ -79,6 +95,14 @@ export const assertTypedArrayClone = (
   }
 };
 
+/**
+ * Asserts a cloned Buffer owns its own bytes.
+ *
+ * @evidence contracts/testing.md#behavioral-verification assertBufferClone compares an input and the output of a native clone: instance kind, identity difference and the data the kind owns; a shared reference, lost bytes or wrong kind fails.
+ * @evidence contracts/testing.md#independent-expectations The expected values are derived from the input the caller supplied before cloning, and instance and identity checks use language semantics.
+ * @evidence contracts/testing.md#distinguishing-cases assertBufferClone owns the comparison for one kind; the positive clone and the negative (shared or changed output) inputs are chosen by the callers.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the test-typia-schema start process and is called by the native clone cases; it calls no typia producer itself.
+ */
 export const assertBufferClone = (
   label: string,
   input: ArrayBuffer | SharedArrayBuffer,
@@ -108,6 +132,14 @@ export const assertBufferClone = (
   }
 };
 
+/**
+ * Asserts a cloned Blob has the same size, type and bytes.
+ *
+ * @evidence contracts/testing.md#behavioral-verification assertBlobClone compares an input and the output of a native clone: instance kind, identity difference and the data the kind owns; a shared reference, lost bytes or wrong kind fails.
+ * @evidence contracts/testing.md#independent-expectations The expected values are derived from the input the caller supplied before cloning, and instance and identity checks use language semantics.
+ * @evidence contracts/testing.md#distinguishing-cases assertBlobClone owns the comparison for one kind; the positive clone and the negative (shared or changed output) inputs are chosen by the callers.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the test-typia-schema start process and is called by the native clone cases; it calls no typia producer itself.
+ */
 export const assertBlobClone = async (
   label: string,
   input: Blob,
@@ -124,6 +156,14 @@ export const assertBlobClone = async (
   );
 };
 
+/**
+ * Asserts a cloned File has the same name, size, type and bytes.
+ *
+ * @evidence contracts/testing.md#behavioral-verification assertFileClone compares an input and the output of a native clone: instance kind, identity difference and the data the kind owns; a shared reference, lost bytes or wrong kind fails.
+ * @evidence contracts/testing.md#independent-expectations The expected values are derived from the input the caller supplied before cloning, and instance and identity checks use language semantics.
+ * @evidence contracts/testing.md#distinguishing-cases assertFileClone owns the comparison for one kind; the positive clone and the negative (shared or changed output) inputs are chosen by the callers.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the test-typia-schema start process and is called by the native clone cases; it calls no typia producer itself.
+ */
 export const assertFileClone = async (
   label: string,
   input: File,
@@ -139,6 +179,15 @@ export const assertFileClone = async (
   );
 };
 
+/**
+ * Asserts a cloned RegExp has the same source and flags and is a distinct
+ * instance.
+ *
+ * @evidence contracts/testing.md#behavioral-verification assertRegExpClone compares an input and the output of a native clone: instance kind, identity difference and the data the kind owns; a shared reference, lost bytes or wrong kind fails.
+ * @evidence contracts/testing.md#independent-expectations The expected values are derived from the input the caller supplied before cloning, and instance and identity checks use language semantics.
+ * @evidence contracts/testing.md#distinguishing-cases assertRegExpClone owns the comparison for one kind; the positive clone and the negative (shared or changed output) inputs are chosen by the callers.
+ * @evidence contracts/testing.md#execution-ownership It runs inside the test-typia-schema start process and is called by the native clone cases; it calls no typia producer itself.
+ */
 export const assertRegExpClone = (
   label: string,
   input: RegExp,

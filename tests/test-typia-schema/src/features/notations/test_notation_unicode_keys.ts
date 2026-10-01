@@ -32,6 +32,11 @@ import typia from "typia";
  *
  * 1. Convert a static-key object under each notation and read every declared key.
  * 2. Convert the same keys through a `Record` (dynamic) and compare the key set.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.notations.snake, typia.notations.camel, typia.notations.pascal is evaluated by the native host on the types declared in this case and the result is checked by 32 assertions (snake \u00E9cole; snake \u00F6lwert; snake \u65E5\u672C\u8A9E; snake key_\u00F6lig; snake \u00F6; snake e\u0301cole). The case documents its purpose as: Verifies notation output equals the `*Case<T>` type on non-ASCII keys.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Issue #2227: the Go compile-time emit computed each renamed key by slicing one _byte_ (`value[:1]`) before case converting it, so a multi-byte rune's lead byte could not be decoded and came back as U+FFFD — `pascal` of `\u00C9cole` produced a mojibake key. The static-key path (the emit) then disagreed with the dynamic-key path (the runtime `_notation*` helper) and with the declared return type, so one object could carry two renamings of the same character and reading a declared key returned `undefined`. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (snake \u00E9cole; snake \u00F6lwert; snake \u65E5\u672C\u8A9E; snake key_\u00F6lig; snake \u00F6; snake e\u0301cole) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_notation_unicode_keys is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_notation_unicode_keys = (): void => {
   const value: Battery = {

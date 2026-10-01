@@ -22,6 +22,11 @@ import { Calculator } from "../structures/Calculator";
  * 1. Serve a `Calculator` controller and grab its tools/call handler.
  * 2. Call a tool name that isn't registered.
  * 3. Assert it throws `McpError` with code `InvalidParams` naming the tool.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 1 assertion (unknown tool raises InvalidParams protocol error naming the tool). The case documents its purpose as: Verifies calling an unknown tool raises an `InvalidParams` protocol error.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The MCP spec classifies an unknown tool as a protocol error (JSON-RPC `-32602`), not an in-band tool-execution error: unlike bad arguments, a model cannot self-correct a call to a tool that does not exist, and the reference `McpServer` throws `McpError` here too. The handler must therefore throw `McpError(InvalidParams)`, which the low-level Server turns into the error response — a regression returning `isError` content would misreport the failure category. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (unknown tool raises InvalidParams protocol error naming the tool) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_class_controller_unknown_tool is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_mcp_class_controller_unknown_tool =
   async (): Promise<void> => {

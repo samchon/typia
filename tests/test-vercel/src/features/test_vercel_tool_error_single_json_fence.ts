@@ -20,6 +20,11 @@ import { Calculator } from "../structures/Calculator";
  * 1. Build a controller whose method both takes and returns a typed value.
  * 2. Force an argument failure and count the fences in its feedback.
  * 3. Force an output failure and count the fences in its feedback.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (argument feedback is typia's; argument feedback opens exactly one json fence; output feedback is typia's; output feedback opens exactly one json fence). The case documents its purpose as: Verifies Vercel tool feedback fences typia's annotated JSON exactly once.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `LlmJson.stringify` already wraps its output in a JSON fence, so a caller that adds a second one hands the model two opening fences with nothing between them. `VercelToolsRegistrar` formats that same result on two separate paths — once for invalid arguments and once for an invalid output — and a fence added back to either one is invisible to a check that merely looks for an opening fence, which passes with one fence or two. Counting the fence on both paths is what pins it. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (argument feedback is typia's; argument feedback opens exactly one json fence; output feedback is typia's; output feedback opens exactly one json fence) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-vercel start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_vercel_tool_error_single_json_fence is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_vercel_tool_error_single_json_fence =
   async (): Promise<void> => {

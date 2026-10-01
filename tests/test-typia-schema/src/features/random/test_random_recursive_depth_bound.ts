@@ -22,6 +22,11 @@ import typia, { IRandomGenerator } from "typia";
  * 2. Require the deepest chain of all three to be identical.
  * 3. Require that depth to sit at the cutoff, so a raised or lowered constant is a
  *    visible change rather than a silent one.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (every escape stops at the same depth; the shared depth is the cutoff). The case documents its purpose as: Verifies every recursion escape stops at the same depth, over many draws.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `test_random_recursive_terminates` draws each shape once and asks whether it is finite. That was a weak oracle for the nullable and optional escapes, because before they were bounded their depth was geometric: each level was a coin flip, so a single draw exceeded the bound a fraction of a percent of the time and the suite went red at random rather than reporting the defect. A probe that a broken build passes 99 times in 100 cannot hold a bound. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (every escape stops at the same depth; the shared depth is the cutoff) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_recursive_depth_bound is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_recursive_depth_bound = (): void => {
   const grow: Partial<IRandomGenerator> = {

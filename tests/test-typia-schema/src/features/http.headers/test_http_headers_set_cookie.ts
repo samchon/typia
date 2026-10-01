@@ -15,6 +15,11 @@ import typia, { IValidation } from "typia";
  * 2. Cover a required and an optional declaration side by side.
  * 3. Keep `Expires` values, which contain `", "`, and surrounding spaces verbatim.
  * 4. Match a mixed-case declaration, and read a numeric element type.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.headers, typia.http.assertHeaders, typia.http.isHeaders is evaluated by the native host on the types declared in this case and the result is checked by 6 assertions (… required …; … optional …; … optional … own key; mixed-case set-cookie; numeric set-cookie; numeric set-cookie string). The case documents its purpose as: Verifies `set-cookie` decodes to an array like every other array header.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `set-cookie` skipped the list decoder because its values contain `", "` (#2447), but it skipped the array shape with it: an absent required `set-cookie` stayed `undefined`, which every validator rejected while other absent required array headers read `[]`, and a lone string stayed a string typed as `string[]`. The values must still never be split or trimmed. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… required …; … optional …; … optional … own key; mixed-case set-cookie; numeric set-cookie; numeric set-cookie string) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_headers_set_cookie is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_headers_set_cookie = (): void => {
   const required: Array<[string, (input: Input) => IRequired | null]> = [

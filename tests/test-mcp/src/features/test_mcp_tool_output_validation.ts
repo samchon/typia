@@ -20,6 +20,11 @@ import typia from "typia";
  * 2. Accept one valid nested object under both text-fallback modes.
  * 3. Reject every non-object and wrong-shaped declared result with stable paths.
  * 4. Preserve true void success and thrown-exception tool errors.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (declared result advertises outputSchema; void result omits outputSchema; valid structured output; valid text fallback; … returns a tool error; … reports its validation path). The case documents its purpose as: Verifies declared class outputs fail in-band before MCP schema enforcement.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The SDK client validates `structuredContent` after `tools/list`, so a server that returns a malformed success leaks protocol errors instead of a tool error the model can repair. This matrix crosses the real in-memory transport with both text-fallback modes and distinguishes output failures from void and exception results. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (declared result advertises outputSchema; void result omits outputSchema; valid structured output; valid text fallback; … returns a tool error; … reports its validation path) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_tool_output_validation is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_mcp_tool_output_validation = async (): Promise<void> => {
   for (const textFallback of [false, true]) {

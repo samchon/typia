@@ -20,6 +20,11 @@ import typia from "typia";
  *    binds.
  * 3. Keep rejecting a wrong optional argument, rest element, rest tuple element,
  *    array pattern element, defaulted argument, and destructured property.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.functional.isFunction, typia.functional.assertFunction, typia.functional.validateFunction is evaluated by the native host on the types declared in this case and the result is checked by 8 assertions (wrong optional; wrong default beside a pattern; wrong array pattern; wrong rest tuple; wrong inferred; wrong rest element). The case documents its purpose as: Verifies functional wrappers accept every call their function accepts.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The wrappers reused each parameter node and validated its written annotation, forwarding the arguments as one array. So an optional `y?: string` was validated as a required `string` and an omitted or `undefined` argument was rejected, a rest parameter reached the function as one array (`sum(1, 2, 3)` returned `"102,3"`), a rest tuple with an optional element rejected a legal call, and a destructured parameter or one typed by its default made the transform panic (#2461). Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (wrong optional; wrong default beside a pattern; wrong array pattern; wrong rest tuple; wrong inferred; wrong rest element) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_functional_parameter_spellings is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_functional_parameter_spellings = (): void => {
   const optional = (x: number, y?: string): number => x + (y?.length ?? 0);

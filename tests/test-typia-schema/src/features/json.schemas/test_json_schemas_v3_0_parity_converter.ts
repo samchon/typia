@@ -20,6 +20,11 @@ import typia, { tags } from "typia";
  * 1. Emit the same types under "3.1" and under "3.0".
  * 2. Downgrade the "3.1" collection with `@typia/utils`' converter.
  * 3. Assert the native "3.0" output equals the converter's downgrade.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schemas is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (version; downgraded components; downgraded schemas). The case documents its purpose as: Verifies the native "3.0" writer agrees with `@typia/utils`' downgrader.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Two owners implement one OpenAPI 3.0 downgrade contract: the Go emitter that `typia.json.*` calls, and `OpenApiConverter` in `@typia/utils`, which the TypeScript implementation of this programmer called directly before the Go port replaced it. The Go transform cannot call into TypeScript, so the pair cannot be collapsed into one owner — this test is what keeps them aligned, and it fails whichever of the two drifts. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (version; downgraded components; downgraded schemas) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schemas_v3_0_parity_converter is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schemas_v3_0_parity_converter = (): void => {
   interface IParityChild {

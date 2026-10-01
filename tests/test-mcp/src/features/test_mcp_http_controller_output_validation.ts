@@ -19,6 +19,11 @@ import { HttpLlm } from "@typia/utils";
  * 2. Accept its valid body through an SDK client and in-memory transport.
  * 3. Reject a wrong nested body with an actionable validation path.
  * 4. Preserve a thrown HTTP executor exception as a tool error.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 4 assertions (valid HTTP body is structured; invalid HTTP body is an actionable tool error; HTTP executor exception remains a tool error). The case documents its purpose as: Verifies HTTP controller bodies obey their advertised MCP output schema.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: HTTP execution has a separate response-body path from class methods. It must apply the same output trust boundary while leaving thrown transport or controller failures in the pre-existing execution-error channel. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (valid HTTP body is structured; invalid HTTP body is an actionable tool error; HTTP executor exception remains a tool error) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_http_controller_output_validation is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_mcp_http_controller_output_validation =
   async (): Promise<void> => {

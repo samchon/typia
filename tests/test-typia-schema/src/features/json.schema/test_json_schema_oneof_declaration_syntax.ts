@@ -22,6 +22,11 @@ import typia from "typia";
  *    identical across them too.
  * 3. Assert a union without a common literal tag, and one with a non-object
  *    member, still emit no discriminator.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 8 assertions (… union is oneOf; interface union discriminator; alias union discriminator; mixed union discriminator; alias chain union discriminator; … union oneOf targets). The case documents its purpose as: Verifies a union discriminator survives `type` alias members.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Discriminator eligibility must depend on every union member being an object type with a common literal tag, never on whether `interface` or `type` declared it. The generator files an `interface` member under metadata `Objects` and a `type` alias of an object literal under `Aliases`, and the eligibility gate used to accept only the former, so one alias member silently dropped the discriminator for the whole union while `oneOf` kept the very same `$ref` targets. Negative shapes are pinned beside the positives so resolving aliases cannot start over-emitting. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… union is oneOf; interface union discriminator; alias union discriminator; mixed union discriminator; alias chain union discriminator; … union oneOf targets) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_oneof_declaration_syntax is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schema_oneof_declaration_syntax = (): void => {
   interface PCircle {

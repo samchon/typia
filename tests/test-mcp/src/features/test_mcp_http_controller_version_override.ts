@@ -18,6 +18,11 @@ import { CalculatorApi } from "../structures/CalculatorApi";
  * 1. Build an HTTP controller whose document carries a known API version.
  * 2. Create the MCP server with a different explicit implementation version.
  * 3. Assert the public initialize handshake announces the explicit version.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 1 assertion (explicit version overrides OpenAPI info.version). The case documents its purpose as: Verifies an explicit implementation version overrides OpenAPI inference.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: OpenAPI `info.version` remains the useful default for an HTTP controller, but it describes the served API rather than necessarily the deployed MCP server. A host-supplied implementation identity must therefore take precedence. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (explicit version overrides OpenAPI info.version) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_http_controller_version_override is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_mcp_http_controller_version_override =
   async (): Promise<void> => {

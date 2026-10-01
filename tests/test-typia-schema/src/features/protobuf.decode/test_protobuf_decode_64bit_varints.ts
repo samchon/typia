@@ -10,6 +10,11 @@ import typia from "typia";
  * 1. Frame canonical uint64 and int64 wire vectors as scalar and packed fields.
  * 2. Decode them through direct, factory, and validating public APIs.
  * 3. Assert every projection and the canonical encode-decode round trip.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.createDecode, typia.protobuf.createValidateDecode, typia.protobuf.decode is evaluated by the native host on the types declared in this case and the result is checked by 7 assertions. The case documents its purpose as: Verifies generated decoders preserve official 64-bit varint vectors.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The runtime reader is shared by scalar and packed generated paths and by bigint and number projections. This pins all of those consumers across direct, factory, and validating decoder entry points. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_decode_64bit_varints is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_decode_64bit_varints = (): void => {
   const input: Uint8Array = Uint8Array.from([

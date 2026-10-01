@@ -17,6 +17,11 @@ import typia from "typia";
  *    declared out of order and an undocumented choice option.
  * 2. Generate the evaluation.
  * 3. Assert the exact question map.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.evaluation is evaluated by the native host on the types declared in this case and the result is checked by 1 assertion (questions). The case documents its purpose as: Verifies typia.llm.evaluation emits one neutral question per decision leaf.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The question map is the request body evaluation models consume, so its shape is dictated by the provider-neutral AI SDK `EvaluationModelV4` question spec, not by typia's implementation: a boolean asks `{ type: "boolean" }`, a string enum asks a `choice` whose criteria map each option to its member description (or `null`), a numeric enum asks a `score` whose criteria list the levels in ascending value order, a literal-set array asks one boolean per member, and nested objects flatten into readable path keys. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (questions) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_evaluation_questions is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_llm_evaluation_questions = (): void => {
   const evaluation: ILlmEvaluation<ITicketTriage> =

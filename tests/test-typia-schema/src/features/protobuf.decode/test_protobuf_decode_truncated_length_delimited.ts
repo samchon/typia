@@ -10,6 +10,11 @@ import typia from "typia";
  * 1. Exercise every direct and factory decoder with truncated strings and bytes.
  * 2. Cover optional, repeated, map, nested, packed, unknown, and fixed-width data.
  * 3. Pair every one-byte-short case with zero-length or exact-end valid input.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.protobuf.decode, typia.protobuf.createDecode, typia.protobuf.assertDecode is evaluated by the native host on the types declared in this case and the result is checked by 10 assertions. The case documents its purpose as: Verifies generated Protobuf decoders reject truncated sized wire records.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Decoder validation runs after wire parsing, so `is` and `validate` variants must not turn a partial string or byte view into a successful product value. Nested, packed, map, and unknown-field paths must share the reader boundary. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_decode_truncated_length_delimited is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_protobuf_decode_truncated_length_delimited = (): void => {
   const decoders: Array<readonly [string, (input: Uint8Array) => unknown]> = [

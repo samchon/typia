@@ -15,6 +15,11 @@ import typia, { IRandomGenerator } from "typia";
  * 1. Generate nullable-, optional-, array-, set-, map-, and union-escaped types.
  * 2. Force every container generator to emit one element so depth keeps climbing.
  * 3. Require each value to be finite and to pass `typia.assert`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.random, typia.assert is evaluated by the native host on the types declared in this case and the result is checked by 7 assertions (nullable recursion finite; optional recursion finite; array recursion finite; set recursion finite; map-key recursion finite; map-value recursion finite). The case documents its purpose as: Verifies recursive random terminates whenever the cycle has an escape.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Random generation stops a recursive type at the depth cutoff through one of its escapes — a nullable edge becomes `null`, an optional property is dropped, an array, set, or map empties, or a union picks a finite variant. Each shape below forces the recursive branch through a custom generator (so the cutoff, not luck, is what stops it) and must still produce a finite value that satisfies its type. The valveless counterparts are rejected at compile time, so they cannot appear here. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (nullable recursion finite; optional recursion finite; array recursion finite; set recursion finite; map-key recursion finite; map-value recursion finite) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_recursive_terminates is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_random_recursive_terminates = (): void => {
   const grow: Partial<IRandomGenerator> = {

@@ -115,6 +115,11 @@ interface IApplication {
  * 1. Generate schema, schemas, and application output for OAS 3.0 and 3.1.
  * 2. Check legal/illegal names, recursive alias/array/object refs, and mappings.
  * 3. Reorder discovery and validate the generated graph through public utils.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.json.schema, typia.json.schemas, typia.json.application is evaluated by the native host on the types declared in this case and the result is checked by 27 assertions (ordinary control; hyphen control; underscore control; escape-shaped legal control; forbidden input does not alias escape-shaped legal input; dotted literal does not alias its hyphenated peer). The case documents its purpose as: Verifies every generated OpenAPI component name is legal and resolvable.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Metadata names feed component keys, recursive references, and discriminator mappings across all three public JSON generators. The same allocator must preserve legal controls, separate normalization collisions independently of discovery order, and keep typia's validators aligned with an RFC oracle. A dot is legal in a key but is not a preserved control: it is read back as a namespace boundary, so only a real qualification may carry one. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (ordinary control; hyphen control; underscore control; escape-shaped legal control; forbidden input does not alias escape-shaped legal input; dotted literal does not alias its hyphenated peer) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_openapi_component_names is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_json_schema_openapi_component_names = (): void => {
   const forward30 = typia.json.schema<IForward, "3.0">();

@@ -19,6 +19,11 @@ import typia, { tags } from "typia";
  *    cannot pass by rejecting everything.
  * 4. Require a declared property to stay exempt from the signature's tag, so the
  *    rejection reaches dynamic keys only.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.validate, typia.assert is evaluated by the native host on the types declared in this case and the result is checked by 6 assertions (a short key is rejected; the report names the key type and the key; assert names the key type too; a satisfying key is accepted; a declared property is exempt from the key tag; a plain signature accepts any key). The case documents its purpose as: Verifies a rejected dynamic key is reported as a bad key, not as an extra property.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Rejecting the key was the fix (#2347); reporting it correctly is a separate question the fix raised. The report an extra property already used says the property is not defined in the object type and advises removing it — both false here, because the property _is_ declared and only its key broke a constraint. Advising a caller to delete their only property would be worse than the silence it replaced. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (a short key is rejected; the report names the key type and the key; assert names the key type too; a satisfying key is accepted; a declared property is exempt from the key tag; a plain signature accepts any key) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_validate_dynamic_key_report is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_validate_dynamic_key_report = (): void => {
   interface ILengthKey {

@@ -18,6 +18,11 @@ import typia, { IValidation, TypeGuardError } from "typia";
  * 2. Omit a required scalar and require each form's own failure shape.
  * 3. Keep present arrays, an empty `list=` value, and an invalid present scalar as
  *    the negative twins.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.http.query, typia.http.assertQuery, typia.http.isQuery is evaluated by the native host on the types declared in this case and the result is checked by 10 assertions (…(…); query keeps missing; isQuery returns null; validateQuery reports the path; assertQuery throws TypeGuardError; isQuery rejects an invalid scalar). The case documents its purpose as: Verifies absent required query properties decode or fail by each contract.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The query decoder threw a plain `Error("missing <key>")` for every absent required key (#2444). For an array that made `[]` undecodable, since a query string has no other spelling for it, and made an absent `string[] | null` throw instead of reading `null`. Because the `is`, `assert`, and `validate` variants share the decoder, the throw also escaped their contracts: `null`, an `IValidation` failure, and `TypeGuardError`. `http.query` itself keeps `missing` for an absent required scalar. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (…(…); query keeps missing; isQuery returns null; validateQuery reports the path; assertQuery throws TypeGuardError; isQuery rejects an invalid scalar) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_http_query_absent_required is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_http_query_absent_required = (): void => {
   const decoders: Array<[string, (input: string) => IQuery | null]> = [

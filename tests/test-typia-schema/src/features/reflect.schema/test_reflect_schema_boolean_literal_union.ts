@@ -18,6 +18,11 @@ import typia from "typia";
  * 2. Reflect `{ ok: false; ... } | { ok: true; ... }`.
  * 3. Collect every object's `ok` boolean constant and assert both `false` and
  *    `true` are present (neither branch collapsed).
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.reflect.schema is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (false literal constant type; false literal constant value; false branch survives; true branch survives). The case documents its purpose as: Verifies a boolean-literal discriminant survives in a tagged union's metadata.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Pins the boolean-literal constant collection reported in #1841: a union keyed on `ok: false | true` must keep both literal values, one per branch. The collector reads each branch's `ok` constant independently, so a regression that defaulted the value (or compared the wrong literal) would collapse both branches onto `true` and silently break discriminated-union narrowing — while the existing `<true>`-only coverage in `test_reflect_schema_constant` stayed green. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (false literal constant type; false literal constant value; false branch survives; true branch survives) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_reflect_schema_boolean_literal_union is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_reflect_schema_boolean_literal_union = (): void => {
   // 1) a bare `false` literal must report `false`, not the `true`-only path

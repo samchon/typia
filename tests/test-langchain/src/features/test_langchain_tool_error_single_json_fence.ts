@@ -25,6 +25,11 @@ import { Calculator } from "../structures/Calculator";
  * 3. Assert the message opens exactly one JSON fence.
  * 4. Assert the message is the registrar's title followed by `LlmJson.stringify`
  *    verbatim.
+ *
+ * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (argument feedback opens exactly one json fence; argument feedback is LlmJson.stringify verbatim, wrapped in nothing). The case documents its purpose as: Verifies a LangChain argument failure fences typia's feedback exactly once.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: `LlmJson.stringify` owns the markdown fence around its annotated JSON, so a caller that adds a second fence hands the model two opening JSON fences with nothing between them — broken markdown, in the one payload whose whole purpose is to be read back and corrected. Counting the fence is what pins this: an assertion that the feedback merely contains an opening JSON fence passes with one fence or two, and asserting the body equals `LlmJson.stringify`'s output verbatim additionally pins that the registrar wraps it in nothing at all. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The assertion titles (argument feedback opens exactly one json fence; argument feedback is LlmJson.stringify verbatim, wrapped in nothing) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-langchain start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_langchain_tool_error_single_json_fence is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
  */
 export const test_langchain_tool_error_single_json_fence =
   async (): Promise<void> => {

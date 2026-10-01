@@ -30,6 +30,11 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  *    group-contained lengths and as a group's field tag.
  * 3. Preserve the decoded value of every accepted row, exact pointer advancement,
  *    and the trailing byte behind it.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 10 assertions. The case documents its purpose as: Verifies every runtime Protobuf varint reader matches the reference Go parser over the shared corpus.
+ * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: A ten-byte varint has room for only one payload bit in its final byte. The scalar readers, length readers, and unknown-field skipper must reject both a continuing tenth byte and a terminating tenth byte with any higher payload bit, instead of returning a truncated value or accepting a zero length. Properties of the generated value that are not asserted are not certified.
+ * @evidence contracts/testing.md#distinguishing-cases The case owns the single scenario its assertions describe. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
+ * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_protobuf_reader_varint_bounds is the exported entry; this case calls no typia producer, so it needs no native host and runs here only because the workspace has no separate plugin-free unit population, which is a recorded departure from the unit and boundary separation.
  */
 export const test_protobuf_reader_varint_bounds = (): void => {
   const entries: ProtobufVarintCorpus.IEntry[] = ProtobufVarintCorpus.entries();
