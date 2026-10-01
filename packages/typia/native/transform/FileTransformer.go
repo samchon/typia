@@ -15,6 +15,15 @@ type fileTransformerNamespace struct{}
 
 var FileTransformer = fileTransformerNamespace{}
 
+// FileTransformer_IEnvironments is what the file transformer needs from the host:
+// the program, compiler options and checker, typia's options and extras, and the
+// emit context that selects the emit mode. The first three are untyped so the
+// host can pass whatever it holds; a value of another type is treated as absent.
+//
+// @evidence contracts/common.md#principled-implementation The host hands over its program, options and checker as untyped values and the transform narrows them with checked conversions, so a value of another type yields a nil and not a panic; the optional emit context selects the emit mode that the field comment explains.
+// @evidence contracts/common.md#clear-and-simple-design Six fields read once by Transform.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the untyped fields and the absent-value rule, and the field comment explains the emit context.
 type FileTransformer_IEnvironments struct {
   Program         any
   CompilerOptions any
@@ -27,11 +36,21 @@ type FileTransformer_IEnvironments struct {
   EmitContext *shimprinter.EmitContext
 }
 
+// FileTransformer_Type rewrites one source file and returns the rewritten file.
+//
+// @evidence contracts/common.md#principled-implementation A per-file transformer maps a source file to its rewritten source file.
+// @evidence contracts/common.md#clear-and-simple-design One function type.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the mapping.
 type FileTransformer_Type func(file *shimast.SourceFile) *shimast.SourceFile
 
 var fileTransformer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-var fileTransformer_jsDocParsingMode sync.Map
 
+// Transform builds the per-file transformer of a host. The returned function
+// ignores its argument and exists for the curried call shape of the callers.
+// Every file gets its own importer, a TransformerError raised while a node is
+// transformed becomes a diagnostic and leaves the node unchanged, and the
+// importer's statements are inserted after the leading directive prologue.
 func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironments) func(transformer any) FileTransformer_Type {
   shared := environments.Extras.Shared
   if shared == nil {
@@ -60,7 +79,6 @@ func (fileTransformerNamespace) Transform(environments FileTransformer_IEnvironm
         Shared:          shared,
       }
       _ = transformer
-      fileTransformer_checkJsDocParsingMode(context, file)
       visited := fileTransformer_iterate_file(context, file)
       result := fileTransformer_inject_imports(visited, importer.ToStatements(), environments.EmitContext)
       return result
@@ -100,6 +118,13 @@ func fileTransformer_iterate_file(context nativecontext.ITypiaContext, file *shi
   return output.AsSourceFile()
 }
 
+// FileTransformer_TryTransformNodeProps is the context, the file and the node that
+// is about to be transformed.
+//
+// @evidence contracts/common.md#principled-implementation Transforming one node needs the context, the file that supplies the diagnostic location and the node.
+// @evidence contracts/common.md#clear-and-simple-design Three fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type FileTransformer_TryTransformNodeProps struct {
   Context nativecontext.ITypiaContext
   File    *shimast.SourceFile
@@ -111,16 +136,9 @@ func fileTransformer_try_transform_node(props FileTransformer_TryTransformNodePr
     if exp := recover(); exp != nil {
       // typia raises a TransformerError to report a user-facing transform error
       // (e.g. `typia.llm.schema<Record<...>>` whose argument is not a literal
-      // object). core/programmers panic nativecontext.TransformerError while
-      // transform/features panic the transform-layer alias; both must turn into
-      // a diagnostic, not a repanic that kills the whole emit (the legacy text
-      // adapter swallowed every panic, so the node path must at least handle
-      // both error types).
+      // object). The programmers and the transformers raise the same type, and it
+      // must turn into a diagnostic, not a repanic that kills the whole emit.
       switch err := exp.(type) {
-      case *TransformerError:
-        fileTransformer_addDiagnostic(props, err.Code, err.Message)
-        output = nil
-        return
       case *nativecontext.TransformerError:
         fileTransformer_addDiagnostic(props, err.Code, err.Message)
         output = nil
@@ -193,15 +211,6 @@ func fileTransformer_find_import_injection_index(file *shimast.SourceFile) int {
     }
   }
   return i
-}
-
-func fileTransformer_checkJsDocParsingMode(context nativecontext.ITypiaContext, file *shimast.SourceFile) {
-  if file == nil || context.Extras.AddDiagnostic == nil {
-    return
-  }
-  if _, loaded := fileTransformer_jsDocParsingMode.LoadOrStore(file.FileName(), struct{}{}); loaded {
-    return
-  }
 }
 
 func fileTransformer_program(value any) *driver.Program {

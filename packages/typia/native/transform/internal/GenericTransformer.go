@@ -1,135 +1,75 @@
 package internal
 
 import (
-  "encoding/json"
   "strings"
 
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimchecker "github.com/microsoft/typescript-go/shim/checker"
   shimscanner "github.com/microsoft/typescript-go/shim/scanner"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-  nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 type genericTransformerNamespace struct{}
 
 var GenericTransformer = genericTransformerNamespace{}
 
+// ITransformProps is the input of a feature transformer: the context, the module
+// expression and the call expression.
+//
+// @evidence contracts/common.md#principled-implementation A feature transformer receives the context, the module expression and the call.
+// @evidence contracts/common.md#clear-and-simple-design Three fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type ITransformProps struct {
   Context    nativecontext.ITypiaContext
   Modulo     *shimast.Node
   Expression *shimast.CallExpression
 }
 
-type TransformerError struct {
-  Code    string
-  Message string
-}
+// The transform reports unsupported input with the error that the programmers
+// raise, so one type and one message format serve both layers.
+// TransformerError is the error that the transform raises for an unsupported
+// input. It aliases the programmers' type.
+//
+// @evidence contracts/common.md#principled-implementation The transform layer raises the programmers' error type, which makes one type and one message format serve both layers.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states that it aliases the programmers' type.
+type TransformerError = nativecontext.TransformerError
+// TransformerError_IProps holds the properties of a TransformerError.
+//
+// @evidence contracts/common.md#principled-implementation The properties are the programmers' record under this package's name.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it holds.
+type TransformerError_IProps = nativecontext.TransformerError_IProps
+// TransformerError_MetadataFactory_IError describes one unsupported type.
+//
+// @evidence contracts/common.md#principled-implementation One unsupported type is described by the programmers' record under this package's name.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it describes.
+type TransformerError_MetadataFactory_IError = nativecontext.TransformerError_MetadataFactory_IError
+// TransformerError_MetadataFactory_IExplore locates a metadata error.
+//
+// @evidence contracts/common.md#principled-implementation The location of an unsupported type is the programmers' record under this package's name.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it locates.
+type TransformerError_MetadataFactory_IExplore = nativecontext.TransformerError_MetadataFactory_IExplore
 
-func NewTransformerError(props TransformerError_IProps) *TransformerError {
-  return &TransformerError{
-    Code:    props.Code,
-    Message: props.Message,
-  }
-}
+// NewTransformerError creates a TransformerError from its properties.
+var NewTransformerError = nativecontext.NewTransformerError
+// TransformerError_from builds the error that lists unsupported types.
+var TransformerError_from = nativecontext.TransformerError_from
 
-func (err *TransformerError) Error() string {
-  return err.Message
-}
-
-type TransformerError_IProps struct {
-  Code    string
-  Message string
-}
-
-type TransformerError_MetadataFactory_IError struct {
-  Name     string
-  Explore  TransformerError_MetadataFactory_IExplore
-  Messages []string
-}
-
-type TransformerError_MetadataFactory_IExplore struct {
-  Object    *nativemetadata.MetadataObjectType
-  Property  any
-  Parameter any
-  Output    bool
-}
-
-func TransformerError_from(props struct {
-  Code   string
-  Errors []TransformerError_MetadataFactory_IError
-}) *TransformerError {
-  lines := make([]string, 0, len(props.Errors))
-  for _, err := range props.Errors {
-    subject := ""
-    if err.Explore.Object != nil {
-      subject = transformerError_join(err.Explore.Object, err.Explore.Property)
-    }
-    middle := ""
-    if err.Explore.Parameter != nil {
-      middle = "(parameter: " + transformerError_json(err.Explore.Parameter) + ")"
-    } else if err.Explore.Output {
-      middle = "(return type)"
-    }
-    typ := err.Name
-    if subject != "" {
-      typ = subject + ": " + typ
-    }
-    messages := make([]string, 0, len(err.Messages))
-    for _, msg := range err.Messages {
-      messages = append(messages, "  - "+msg)
-    }
-    lines = append(lines, "- "+typ+middle+"\n"+strings.Join(messages, "\n"))
-  }
-  return NewTransformerError(TransformerError_IProps{
-    Code:    props.Code,
-    Message: "unsupported type detected\n\n" + strings.Join(lines, "\n\n"),
-  })
-}
-
-func transformerError_join(object *nativemetadata.MetadataObjectType, key any) string {
-  if key == nil {
-    return object.Name
-  }
-  if _, ok := key.(map[string]any); ok {
-    return object.Name + "[key]"
-  }
-  if str, ok := key.(string); ok {
-    if transformerError_variable(str) {
-      return object.Name + "." + str
-    }
-    return object.Name + "[" + transformerError_json(str) + "]"
-  }
-  return object.Name + "[key]"
-}
-
-func transformerError_variable(str string) bool {
-  if str == "" {
-    return false
-  }
-  for i, ch := range str {
-    if i == 0 {
-      if ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') || ch == '_' || ch == '$' {
-        continue
-      }
-      return false
-    }
-    if ('A' <= ch && ch <= 'Z') || ('a' <= ch && ch <= 'z') || ('0' <= ch && ch <= '9') || ch == '_' || ch == '$' {
-      continue
-    }
-    return false
-  }
-  return true
-}
-
-func transformerError_json(value any) string {
-  data, err := json.Marshal(value)
-  if err != nil {
-    return "null"
-  }
-  return string(data)
-}
-
+// GenericTransformer_IProps is a feature transformer's input plus the typia
+// method name for diagnostics and the programmer that writes the code.
+//
+// @evidence contracts/common.md#principled-implementation The scalar and factory transformers share the feature input and add the method name that diagnostics cite and the programmer that writes the code.
+// @evidence contracts/common.md#clear-and-simple-design An embedded record and two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the added fields.
 type GenericTransformer_IProps struct {
   ITransformProps
   Method string

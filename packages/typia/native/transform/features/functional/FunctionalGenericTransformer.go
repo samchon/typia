@@ -11,16 +11,38 @@ type functionalGenericTransformerNamespace struct{}
 
 var FunctionalGenericTransformer = functionalGenericTransformerNamespace{}
 
+// FunctionalGenericTransformer_IConfig holds Equals, which selects the equality
+// variant of a functional validator.
+//
+// @evidence contracts/common.md#principled-implementation The only variation between the functional validators is whether they compare strictly, which is one flag.
+// @evidence contracts/common.md#clear-and-simple-design One field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the flag.
 type FunctionalGenericTransformer_IConfig struct {
   Equals bool
 }
 
+// FunctionalGenericTransformer_ISpecification names a functional method, its
+// configuration and the programmer that builds its code.
+//
+// @evidence contracts/common.md#principled-implementation Each functional method is described by its name, which Transform puts in diagnostics, its configuration and the programmer that builds the code, so the transformer is shared by every method.
+// @evidence contracts/common.md#clear-and-simple-design Three fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type FunctionalGenericTransformer_ISpecification struct {
   Method     string
   Config     FunctionalGenericTransformer_IConfig
   Programmer func(props FunctionalGenericTransformer_IProgrammerProps) *shimast.Node
 }
 
+// FunctionalGenericTransformer_IProgrammerProps is what the programmer receives:
+// the context, the module, the function expression and its declaration, the
+// configuration and the optional second argument of the call.
+//
+// @evidence contracts/common.md#principled-implementation The programmer gets the context, the module, the function expression, the declaration that the type resolves to, the configuration and the optional second argument, which are exactly the values Transform derives from the call.
+// @evidence contracts/common.md#clear-and-simple-design Six fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc lists the parts.
 type FunctionalGenericTransformer_IProgrammerProps struct {
   Context     nativecontext.ITypiaContext
   Modulo      *shimast.Node

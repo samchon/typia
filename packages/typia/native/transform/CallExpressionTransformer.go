@@ -26,11 +26,26 @@ type callExpressionTransformerNamespace struct{}
 
 var CallExpressionTransformer = callExpressionTransformerNamespace{}
 
+// CallExpressionTransformer_TransformProps is the context and the call expression
+// to rewrite.
+//
+// @evidence contracts/common.md#principled-implementation Deciding whether a call is typia's needs the context, whose checker resolves the callee, and the call itself.
+// @evidence contracts/common.md#clear-and-simple-design Two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type CallExpressionTransformer_TransformProps struct {
   Context    nativecontext.ITypiaContext
   Expression *shimast.CallExpression
 }
 
+// CallExpressionTransformer_TransformKnownProps is a call that is already known
+// to be typia's: the context, the call, and the module and method names that
+// select its transformer.
+//
+// @evidence contracts/common.md#principled-implementation Once the declaring module and the method are resolved, the lookup is keyed by that module and method name, so they travel with the context and the call.
+// @evidence contracts/common.md#clear-and-simple-design Four fields consumed by TransformKnown's table lookup.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the call is already known to be typia's and what selects its transformer.
 type CallExpressionTransformer_TransformKnownProps struct {
   Context    nativecontext.ITypiaContext
   Expression *shimast.CallExpression
