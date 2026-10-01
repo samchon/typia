@@ -8,6 +8,15 @@ import (
   "strings"
 )
 
+// IMetadataSchema is the JSON form of a schema: the four flags and one list per
+// member kind. Atomics, constants, templates, escaped, sets, maps, functions and
+// the rest schema are written inline, and arrays, tuples, objects, aliases and
+// natives are written as references by name and tags.
+//
+// @evidence contracts/common.md#principled-implementation Shared types are serialized once in the components and referenced by name, while members without a shared declaration are written where they occur.
+// @evidence contracts/common.md#clear-and-simple-design One flat record that mirrors MetadataSchema.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states which members are inline and which are references.
 type IMetadataSchema struct {
   Any       bool
   Required  bool
@@ -31,6 +40,18 @@ type IMetadataSchema struct {
   Maps    []IMetadataSchema_IMap
 }
 
+// MetadataSchema is everything a type can be at one position: the flags Any,
+// Required, Optional and Nullable, and one list for each member kind. A value is
+// the union of its members, so `string | number[]` has one atomic and one array.
+// The name caches, the sequence and sole-literal caches and the parent-resolved
+// mark are analysis state, and Union_index, Fixed_ and Boolean_literal_intersected_
+// are analysis marks that Clone copies and the JSON form omits. The caches are not
+// invalidated when the lists change after the first read.
+//
+// @evidence contracts/common.md#principled-implementation A union type needs one place that lists every alternative by kind, so the validators, schemas and sorters can reason about a type without re-reading the compiler type.
+// @evidence contracts/common.md#clear-and-simple-design One record of flags, member lists and caches, with the logic in methods and functions.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated and no member kind is hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states the meaning of a schema and which fields are analysis state.
 type MetadataSchema struct {
   Any      bool
   Required bool
@@ -64,6 +85,13 @@ type MetadataSchema struct {
   sole_literal_                *string
 }
 
+// MetadataSchema_create builds a schema from props. The flags and the member
+// lists are stored as given, and the analysis marks and caches start empty.
+//
+// @evidence contracts/common.md#principled-implementation The constructor is the one place a schema is created from parts, and it does not guess defaults for omitted lists.
+// @evidence contracts/common.md#clear-and-simple-design One struct literal.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A nil list stays nil, which the methods accept; MetadataSchema_initialize is the constructor with allocated lists.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is stored and what starts empty.
 func MetadataSchema_create(props MetadataSchema) *MetadataSchema {
   return &MetadataSchema{
     Any:       props.Any,
@@ -89,6 +117,14 @@ func MetadataSchema_create(props MetadataSchema) *MetadataSchema {
   }
 }
 
+// MetadataSchema_initialize returns an empty schema: required, not optional, not
+// nullable, with every member list allocated. The optional argument sets the
+// parent-resolved mark.
+//
+// @evidence contracts/common.md#principled-implementation The analysis starts every position from an empty required schema and adds the members it finds.
+// @evidence contracts/common.md#clear-and-simple-design One call to MetadataSchema_create and one mark.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The only variation is the documented mark.
+// @evidence contracts/common.md#meaningful-documentation The doc states the starting state.
 func MetadataSchema_initialize(parentResolved ...bool) *MetadataSchema {
   resolved := false
   if len(parentResolved) > 0 {
@@ -117,17 +153,29 @@ func MetadataSchema_initialize(parentResolved ...bool) *MetadataSchema {
   return meta
 }
 
+// ShallowClone copies the schema record, or returns nil for nil. The member lists
+// and the records in them are shared with the original, so only the flags may be
+// edited on the copy. The name caches are cleared because the callers change a
+// flag, which changes the name.
+//
+// @evidence contracts/common.md#principled-implementation Callers need a separate flag set over the same members, and a cached name that was computed with the old flags would be wrong for the copy, so the name caches start empty.
+// @evidence contracts/common.md#clear-and-simple-design One struct copy and two cache resets.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The sharing is stated, so the copy must not have its lists edited in place, and a unit test pins the cache reset.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is shared and why the names are cleared.
 func (obj *MetadataSchema) ShallowClone() *MetadataSchema {
   if obj == nil {
     return nil
   }
   clone := *obj
+  clone.name_ = ""
+  clone.display_name_ = ""
   return &clone
 }
 
 // WithOptional returns an independent root with the requested omission flag.
-// Descendant type definitions remain shared; only the root's derived names
-// depend on this contextual change and must be recomputed.
+// The member lists and descendant type definitions remain shared, so only the
+// flags may be edited on the copy; the root's derived names depend on this
+// contextual change and are recomputed.
 //
 // @evidence contracts/common.md#principled-implementation Copying the root preserves its type graph and analysis state while changing argument/property presence independently of the value type; derived names are invalidated because IsRequired participates in their rendering.
 // @evidence contracts/common.md#clear-and-simple-design The operation owns the root copy and its name-cache invalidation together, leaving descendant ownership and type exploration unchanged.
@@ -144,6 +192,16 @@ func (obj *MetadataSchema) WithOptional(optional bool) *MetadataSchema {
   return &clone
 }
 
+// Clone copies a schema and everything it contains: the member records, tag
+// rows, constant values, template rows, function parameters and nested schemas.
+// The shared type values (object, alias, array and tuple types) are not copied,
+// and cyclic schema references are copied once. The name and sequence caches are
+// not copied, so the clone recomputes them.
+//
+// @evidence contracts/common.md#principled-implementation An exploration result must be reused or edited without affecting its origin, while the shared types must stay shared so identities remain.
+// @evidence contracts/common.md#clear-and-simple-design One recursive copy with a visited map and one helper per member kind.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The shared types are an explicit boundary of the copy.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is copied, what is shared and what is recomputed.
 func (obj *MetadataSchema) Clone() *MetadataSchema {
   return metadataSchema_clone(obj, map[*MetadataSchema]*MetadataSchema{})
 }
@@ -413,6 +471,13 @@ func metadataSchema_cloneJsDocTags(input []IJsDocTagInfo) []IJsDocTagInfo {
   return output
 }
 
+// ToJSON returns the JSON form of the schema. Shared types are written by name and
+// tags, and nested schemas are converted recursively.
+//
+// @evidence contracts/common.md#principled-implementation The JSON form has one inline part and one by-name part, matching how the components are written.
+// @evidence contracts/common.md#clear-and-simple-design One loop per member kind.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Nothing is filtered or reordered.
+// @evidence contracts/common.md#meaningful-documentation The doc states the by-name references.
 func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
   output := &IMetadataSchema{
     Any:      obj.Any,
@@ -464,6 +529,14 @@ func (obj *MetadataSchema) ToJSON() *IMetadataSchema {
   return output
 }
 
+// MetadataSchema_from builds a schema from its JSON form, resolving references
+// against dict. It panics when a referenced array, tuple, object or alias is not in
+// the dictionary.
+//
+// @evidence contracts/common.md#principled-implementation The loader is the inverse of ToJSON and an unknown reference means the input is not a valid graph, which is reported by name instead of producing a half-linked schema.
+// @evidence contracts/common.md#clear-and-simple-design One loop per member kind and one constructor call.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A missing reference fails loudly with the kind and name.
+// @evidence contracts/common.md#meaningful-documentation The doc states the panic.
 func MetadataSchema_from(meta *IMetadataSchema, dict IMetadataDictionary) *MetadataSchema {
   functions := make([]*MetadataFunction, 0, len(meta.Functions))
   for _, f := range meta.Functions {
@@ -564,6 +637,15 @@ func MetadataSchema_from(meta *IMetadataSchema, dict IMetadataDictionary) *Metad
   })
 }
 
+// GetName returns the identity name of the schema in union notation: `any` for
+// Any, otherwise the sorted member names, with `null` and `undefined` when they
+// apply, joined by ` | ` and parenthesized, a single member unparenthesized and
+// `unknown` for none. The name is cached after the first call.
+//
+// @evidence contracts/common.md#principled-implementation A stable name for the whole union is what keys, deduplication and messages need, and sorting the member names makes it independent of discovery order.
+// @evidence contracts/common.md#clear-and-simple-design A cache check and one private composer shared with the display name.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is documented on the record.
+// @evidence contracts/common.md#meaningful-documentation The doc gives the composition rules.
 func (obj *MetadataSchema) GetName() string {
   if obj.name_ == "" {
     obj.name_ = metadataSchema_getName(obj, false)
@@ -575,6 +657,11 @@ func (obj *MetadataSchema) GetName() string {
 // anonymous (inline) member types structurally instead of by their synthetic
 // "__type" identifiers. Use it for human-facing expected strings only;
 // identity-sensitive logic (function keys, deduplication) must keep GetName.
+//
+// @evidence contracts/common.md#principled-implementation The display name composes the same union as GetName but renders anonymous container members structurally, so human-facing messages do not show synthetic `__type` ids, while identity logic keeps GetName.
+// @evidence contracts/common.md#clear-and-simple-design One cached call to the composer with a display flag.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The two names share one composer and do not drift apart.
+// @evidence contracts/common.md#meaningful-documentation The doc states which logic must use which name.
 func (obj *MetadataSchema) GetDisplayName() string {
   if obj.display_name_ == "" {
     obj.display_name_ = metadataSchema_getName(obj, true)
@@ -582,10 +669,25 @@ func (obj *MetadataSchema) GetDisplayName() string {
   return obj.display_name_
 }
 
+// Empty reports whether the schema has no member: Bucket or Size is zero.
+//
+// @evidence contracts/common.md#principled-implementation A schema can have flags but nothing to validate, which callers treat as empty.
+// @evidence contracts/common.md#clear-and-simple-design One expression.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No state is cached.
+// @evidence contracts/common.md#meaningful-documentation The doc states the rule.
 func (obj *MetadataSchema) Empty() bool {
   return obj.Bucket() == 0 || obj.Size() == 0
 }
 
+// Size counts the individual alternatives: Any, the escaped member, the size of
+// the rest schema, templates, atomics, every constant value, arrays, tuples,
+// natives, maps, sets, objects, functions and aliases. `null` and `undefined` are
+// not counted.
+//
+// @evidence contracts/common.md#principled-implementation A caller asking whether a schema is a single alternative needs the number of values, not the number of kinds, so every constant value counts.
+// @evidence contracts/common.md#clear-and-simple-design One sum over the lists.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No state is cached.
+// @evidence contracts/common.md#meaningful-documentation The doc lists what is counted and what is not.
 func (obj *MetadataSchema) Size() int {
   size := 0
   if obj.Any {
@@ -607,6 +709,14 @@ func (obj *MetadataSchema) Size() int {
   return size
 }
 
+// Bucket counts the kinds that have members: Any, escaped, templates, atomics,
+// constants, arrays, tuples, natives, sets, maps, objects, functions and aliases,
+// one each, plus the Size of the rest schema.
+//
+// @evidence contracts/common.md#principled-implementation A caller asking how many different kinds of alternative exist, such as a union test, needs the kind count.
+// @evidence contracts/common.md#clear-and-simple-design One sum over the lists.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The rest schema contributes its Size and not its kind count, which the doc states.
+// @evidence contracts/common.md#meaningful-documentation The doc lists what is counted.
 func (obj *MetadataSchema) Bucket() int {
   size := 0
   if obj.Any {
@@ -654,6 +764,14 @@ func (obj *MetadataSchema) Bucket() int {
   return size
 }
 
+// IsSequence reports whether any atomic, constant value, template, array or
+// object, or a `Uint8Array` native, carries a protobuf sequence tag. The answer is
+// cached. No transform path calls it today.
+//
+// @evidence contracts/common.md#principled-implementation A schema is a sequence when any member carries the tag, so the members are tested with an OR; a unit test pins that one member is enough.
+// @evidence contracts/common.md#clear-and-simple-design One search over the member lists and a cache.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache is not invalidated when tags change, and the doc says no transform path calls it.
+// @evidence contracts/common.md#meaningful-documentation The doc states the members searched and the caching.
 func (obj *MetadataSchema) IsSequence() bool {
   if obj.is_sequence_ != nil {
     return *obj.is_sequence_
@@ -668,18 +786,25 @@ func (obj *MetadataSchema) IsSequence() bool {
     }
     return false
   }
-  value := anyOf(obj.Atomics, func(atomic *MetadataAtomic) bool { return exists(atomic.Tags) }) &&
+  value := anyOf(obj.Atomics, func(atomic *MetadataAtomic) bool { return exists(atomic.Tags) }) ||
     anyOf(obj.Constants, func(c *MetadataConstant) bool {
       return anyOf(c.Values, func(v *MetadataConstantValue) bool { return exists(v.Tags) })
-    }) &&
-    anyOf(obj.Templates, func(tpl *MetadataTemplate) bool { return exists(tpl.Tags) }) &&
-    anyOf(obj.Arrays, func(array *MetadataArray) bool { return exists(array.Tags) }) &&
-    anyOf(obj.Objects, func(object *MetadataObject) bool { return exists(object.Tags) }) &&
+    }) ||
+    anyOf(obj.Templates, func(tpl *MetadataTemplate) bool { return exists(tpl.Tags) }) ||
+    anyOf(obj.Arrays, func(array *MetadataArray) bool { return exists(array.Tags) }) ||
+    anyOf(obj.Objects, func(object *MetadataObject) bool { return exists(object.Tags) }) ||
     anyOf(obj.Natives, func(native *MetadataNative) bool { return native.Name == "Uint8Array" && exists(native.Tags) })
   obj.is_sequence_ = &value
   return value
 }
 
+// IsConstant reports whether the constants are the only kind present, which is
+// also true for a schema with no member at all.
+//
+// @evidence contracts/common.md#principled-implementation A schema made only of literals is a constant set, and the test compares the kind count with the constants kind.
+// @evidence contracts/common.md#clear-and-simple-design One comparison.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The empty-schema case is stated, not hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states the empty case.
 func (obj *MetadataSchema) IsConstant() bool {
   count := 0
   if len(obj.Constants) != 0 {
@@ -688,10 +813,24 @@ func (obj *MetadataSchema) IsConstant() bool {
   return obj.Bucket() == count
 }
 
+// IsRequired reports whether the value must be present: Required is true and
+// Optional is false.
+//
+// @evidence contracts/common.md#principled-implementation Required and Optional are separate flags, and presence needs both.
+// @evidence contracts/common.md#clear-and-simple-design One expression.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No state is cached.
+// @evidence contracts/common.md#meaningful-documentation The doc states both flags.
 func (obj *MetadataSchema) IsRequired() bool {
   return obj.Required == true && obj.Optional == false
 }
 
+// IsUnionBucket reports whether more than one kind of alternative exists, where
+// atomics together with constants count once.
+//
+// @evidence contracts/common.md#principled-implementation A constant of a type that an atomic of the same type already accepts adds no kind, so the pair counts as one.
+// @evidence contracts/common.md#clear-and-simple-design One comparison over the Bucket count.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The adjustment is stated, not hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states the adjustment.
 func (obj *MetadataSchema) IsUnionBucket() bool {
   size := obj.Bucket()
   emended := size
@@ -701,6 +840,13 @@ func (obj *MetadataSchema) IsUnionBucket() bool {
   return emended > 1
 }
 
+// GetSoleLiteral returns the text when the schema is exactly one string literal
+// and nothing else, and nil otherwise. The answer is cached.
+//
+// @evidence contracts/common.md#principled-implementation A property key is usable as a literal only when it is exactly one string, so every other member kind rules it out.
+// @evidence contracts/common.md#clear-and-simple-design One condition over the member lists and a cache.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache is not invalidated when members change.
+// @evidence contracts/common.md#meaningful-documentation The doc states the rule and the caching.
 func (obj *MetadataSchema) GetSoleLiteral() *string {
   if obj.sole_literal_cached_ {
     return obj.sole_literal_
@@ -730,14 +876,38 @@ func (obj *MetadataSchema) GetSoleLiteral() *string {
   return nil
 }
 
+// IsSoleLiteral reports whether GetSoleLiteral has a result.
+//
+// @evidence contracts/common.md#principled-implementation It is the boolean view of GetSoleLiteral.
+// @evidence contracts/common.md#clear-and-simple-design One call.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No separate rule.
+// @evidence contracts/common.md#meaningful-documentation The doc states the delegation.
 func (obj *MetadataSchema) IsSoleLiteral() bool {
   return obj.GetSoleLiteral() != nil
 }
 
+// IsParentResolved returns the mark that MetadataSchema_initialize was given,
+// which is false unless a caller passed true. No transform path passes true or
+// reads the mark today.
+//
+// @evidence contracts/common.md#principled-implementation The mark is part of the recorded state that Clone preserves, and the accessor only reads it.
+// @evidence contracts/common.md#clear-and-simple-design One field read.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts No logic is hidden in the accessor, and the doc says it is unused today.
+// @evidence contracts/common.md#meaningful-documentation The doc states where the mark comes from and that nothing uses it.
 func (obj *MetadataSchema) IsParentResolved() bool {
   return obj.parent_resolved_
 }
 
+// MetadataSchema_intersects reports whether two schemas may accept a common
+// value. It answers true when either is Any, when both are optional or both
+// nullable, when both have a member of the same container kind, when atomics,
+// constants, natives or templates of compatible types meet, or when escaped
+// members intersect. Constants of one type intersect only on equal values.
+//
+// @evidence contracts/common.md#principled-implementation The union analysis needs a sound test for possible overlap, so every pair of kinds that can share a value answers true and constants are compared by value.
+// @evidence contracts/common.md#clear-and-simple-design One chain of kind tests with small private helpers for natives that behave as atomics and for constant keys.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Container kinds are treated as overlapping without comparing contents, which is the safe direction for the callers and is stated.
+// @evidence contracts/common.md#meaningful-documentation The doc lists the cases.
 func MetadataSchema_intersects(x *MetadataSchema, y *MetadataSchema) bool {
   if x.Any || y.Any {
     return true
@@ -873,6 +1043,17 @@ func metadataSchema_constantValueKey(value any) string {
   }
 }
 
+// MetadataSchema_covers reports whether x accepts every value y accepts, as far as
+// it can tell without evaluating tag predicates: a tag-constrained atomic does
+// not cover a literal, and tag rows must match verbatim. It under-reports, which
+// only affects union ordering. A schema never covers itself at the top level. The
+// variadic argument is read for its first boolean, which marks an escaped
+// comparison.
+//
+// @evidence contracts/common.md#principled-implementation Union members are ordered so that narrower ones are tried first, which needs a conservative cover test that cycles cannot defeat, so visited pairs answer true.
+// @evidence contracts/common.md#clear-and-simple-design One recursive comparison over the member kinds with private helpers for tags, templates and atomic-like natives.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The approximation and its direction are stated; no predicate evaluation is faked.
+// @evidence contracts/common.md#meaningful-documentation The doc states the approximation and the top-level rule.
 func MetadataSchema_covers(x *MetadataSchema, y *MetadataSchema, levelAndEscaped ...any) bool {
   escaped := false
   for _, value := range levelAndEscaped {
@@ -1068,37 +1249,51 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
   return true
 }
 
+// MetadataSchema_merge returns the union of two schemas without changing either:
+// flags combine (Any, Nullable and Optional by OR, Required by AND), members of
+// the same type or name are joined and their tag rows are combined by tag names,
+// constants of one type are joined without duplicate values, and the first
+// non-empty function list is kept.
+//
+// @evidence contracts/common.md#principled-implementation Merging pattern property schemas must give one schema that accepts what either accepts, and the inputs belong to the objects they came from, so both are copied first.
+// @evidence contracts/common.md#clear-and-simple-design Two Clone calls, one pass per member kind and generic helpers for the tag merging.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A test pins that neither input, nor a chained intermediate result, is edited.
+// @evidence contracts/common.md#meaningful-documentation The doc states the combination rules and that the inputs are unchanged.
 func MetadataSchema_merge(x *MetadataSchema, y *MetadataSchema) *MetadataSchema {
+  // The merge extends tag rows and constant values in place, so it works on
+  // copies of both inputs and leaves them unchanged.
+  base := x.Clone()
+  other := y.Clone()
   output := MetadataSchema_create(MetadataSchema{
-    Any:       x.Any || y.Any,
-    Nullable:  x.Nullable || y.Nullable,
-    Required:  x.Required && y.Required,
-    Optional:  x.Optional || y.Optional,
-    Functions: firstNonEmpty(x.Functions, y.Functions),
-    Escaped:   mergeEscaped(x.Escaped, y.Escaped),
-    Atomics:   append([]*MetadataAtomic{}, x.Atomics...),
-    Constants: append([]*MetadataConstant{}, x.Constants...),
-    Templates: append([]*MetadataTemplate{}, x.Templates...),
-    Rest:      mergeRest(x.Rest, y.Rest),
-    Arrays:    append([]*MetadataArray{}, x.Arrays...),
-    Tuples:    append([]*MetadataTuple{}, x.Tuples...),
-    Objects:   append([]*MetadataObject{}, x.Objects...),
-    Aliases:   append([]*MetadataAlias{}, x.Aliases...),
-    Natives:   append([]*MetadataNative{}, x.Natives...),
-    Sets:      append([]*MetadataSet{}, x.Sets...),
-    Maps:      append([]*MetadataMap{}, x.Maps...),
+    Any:       base.Any || other.Any,
+    Nullable:  base.Nullable || other.Nullable,
+    Required:  base.Required && other.Required,
+    Optional:  base.Optional || other.Optional,
+    Functions: firstNonEmpty(base.Functions, other.Functions),
+    Escaped:   mergeEscaped(base.Escaped, other.Escaped),
+    Atomics:   base.Atomics,
+    Constants: base.Constants,
+    Templates: base.Templates,
+    Rest:      mergeRest(base.Rest, other.Rest),
+    Arrays:    base.Arrays,
+    Tuples:    base.Tuples,
+    Objects:   base.Objects,
+    Aliases:   base.Aliases,
+    Natives:   base.Natives,
+    Sets:      base.Sets,
+    Maps:      base.Maps,
   })
-  mergeTagged(&output.Atomics, y.Atomics, func(a, b *MetadataAtomic) bool { return a.Type == b.Type }, func(v *MetadataAtomic) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Arrays, y.Arrays, func(a, b *MetadataArray) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataArray) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Tuples, y.Tuples, func(a, b *MetadataTuple) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataTuple) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Objects, y.Objects, func(a, b *MetadataObject) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataObject) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Aliases, y.Aliases, func(a, b *MetadataAlias) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataAlias) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Natives, y.Natives, func(a, b *MetadataNative) bool { return a.Name == b.Name }, func(v *MetadataNative) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Sets, y.Sets, func(a, b *MetadataSet) bool { return a.Value.GetName() == b.Value.GetName() }, func(v *MetadataSet) *[][]IMetadataTypeTag { return &v.Tags })
-  mergeTagged(&output.Maps, y.Maps, func(a, b *MetadataMap) bool {
+  mergeTagged(&output.Atomics, other.Atomics, func(a, b *MetadataAtomic) bool { return a.Type == b.Type }, func(v *MetadataAtomic) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Arrays, other.Arrays, func(a, b *MetadataArray) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataArray) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Tuples, other.Tuples, func(a, b *MetadataTuple) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataTuple) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Objects, other.Objects, func(a, b *MetadataObject) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataObject) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Aliases, other.Aliases, func(a, b *MetadataAlias) bool { return a.Type.Name == b.Type.Name }, func(v *MetadataAlias) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Natives, other.Natives, func(a, b *MetadataNative) bool { return a.Name == b.Name }, func(v *MetadataNative) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Sets, other.Sets, func(a, b *MetadataSet) bool { return a.Value.GetName() == b.Value.GetName() }, func(v *MetadataSet) *[][]IMetadataTypeTag { return &v.Tags })
+  mergeTagged(&output.Maps, other.Maps, func(a, b *MetadataMap) bool {
     return a.Key.GetName() == b.Key.GetName() && a.Value.GetName() == b.Value.GetName()
   }, func(v *MetadataMap) *[][]IMetadataTypeTag { return &v.Tags })
-  for _, constant := range y.Constants {
+  for _, constant := range other.Constants {
     var target *MetadataConstant
     for _, elem := range output.Constants {
       if elem.Type == constant.Type {
@@ -1128,6 +1323,14 @@ func MetadataSchema_merge(x *MetadataSchema, y *MetadataSchema) *MetadataSchema 
   return output
 }
 
+// MetadataSchema_unalias follows a schema that is exactly one required, non-null
+// alias to the alias's value, repeatedly, and stops at any other shape or at a
+// repeated schema. Tags on the alias use are not carried over.
+//
+// @evidence contracts/common.md#principled-implementation Callers that look through plain alias wrappers need the underlying schema, and a cycle guard keeps recursive aliases from looping.
+// @evidence contracts/common.md#clear-and-simple-design One loop with a visited set.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A wrapper that is optional or nullable is left alone, which the doc states.
+// @evidence contracts/common.md#meaningful-documentation The doc states the conditions and the lost tags.
 func MetadataSchema_unalias(w *MetadataSchema) *MetadataSchema {
   visited := map[*MetadataSchema]struct{}{}
   for w.Size() == 1 && w.Nullable == false && w.IsRequired() && len(w.Aliases) == 1 {
@@ -1402,12 +1605,25 @@ func metadataSchema_hasAtomicLikeNative(meta *MetadataSchema, atomic string) boo
 // through its atomic, constant, or wrapper-native buckets. JSON-derived
 // validators use it to emit a single bigint diagnostic instead of one per
 // bucket.
+//
+// @evidence contracts/common.md#principled-implementation A bigint can arrive through an atomic, a constant or a `BigInt` wrapper native, so the three places are tested together for the callers that report one diagnostic.
+// @evidence contracts/common.md#clear-and-simple-design One OR over three small helpers.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The wrapper rule comes from the shared atomic-like native table.
+// @evidence contracts/common.md#meaningful-documentation The doc states the three buckets and the purpose.
 func MetadataSchema_hasBigint(meta *MetadataSchema) bool {
   return metadataSchema_hasAtomic(meta, "bigint") ||
     metadataSchema_hasConstant(meta, "bigint") ||
     metadataSchema_hasAtomicLikeNative(meta, "bigint")
 }
 
+// MetadataSchema_atomicLikeNative maps the wrapper class names `Boolean`, `BigInt`,
+// `Number` and `String` to the atomic type they stand for, and reports false for
+// any other name.
+//
+// @evidence contracts/common.md#principled-implementation The wrapper objects accept the same values as the primitives in the checks that compare buckets, and one table names them.
+// @evidence contracts/common.md#clear-and-simple-design One switch.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Unlisted names report false and are never guessed.
+// @evidence contracts/common.md#meaningful-documentation The doc lists the four names.
 func MetadataSchema_atomicLikeNative(name string) (string, bool) {
   switch name {
   case "Boolean":

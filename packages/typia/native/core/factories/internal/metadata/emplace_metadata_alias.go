@@ -18,15 +18,14 @@ func Emplace_metadata_alias(props IMetadataIteratorProps) *schemametadata.Metada
   alias, newbie, closure := props.Components.EmplaceAlias(
     props.Checker,
     props.Type,
-    symbol,
   )
   metadata_array_util_add_bool(&alias.Nullables, props.Metadata.Nullable)
   if newbie == false {
     return alias
   }
 
-  // The MetadataCollection layer stubs description / tags (the AST JSDoc helpers
-  // live in this factory package), so fill them here from the alias symbol. The
+  // The collection creates the entry without documentation (the AST JSDoc
+  // helpers live in this factory package), so fill it here from the alias symbol. The
   // type-level readers skip default-library declarations, so a standard-library
   // alias such as `NonNullable<...>` does not leak its own JSDoc.
   alias.Description = metadata_node_type_description(symbol)
