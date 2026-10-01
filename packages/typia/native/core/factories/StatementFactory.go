@@ -10,18 +10,38 @@ type statementFactoryNamespace struct{}
 
 var StatementFactory = statementFactoryNamespace{}
 
+// StatementFactory_MutProps names a mutable variable with an optional type and
+// initializer.
+//
+// @evidence contracts/common.md#principled-implementation A mutable variable declaration needs a name and optionally a type and an initializer, and with neither it is typed any.
+// @evidence contracts/common.md#clear-and-simple-design A three-field argument record for Mut.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the optional parts.
 type StatementFactory_MutProps struct {
   Name        string
   Type        *shimast.TypeNode
   Initializer *shimast.Expression
 }
 
+// StatementFactory_ConstantProps names a constant with an optional type and its
+// value.
+//
+// @evidence contracts/common.md#principled-implementation A constant declaration needs a name, an optional type and the value.
+// @evidence contracts/common.md#clear-and-simple-design A three-field argument record for Constant.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the fields.
 type StatementFactory_ConstantProps struct {
   Name  string
   Type  *shimast.TypeNode
   Value *shimast.Expression
 }
 
+// StatementFactory_EntryProps names the two bindings of the `[key, value]` array pattern of an entry declaration.
+//
+// @evidence contracts/common.md#principled-implementation An entry declaration destructures a `[key, value]` pair, so the two binding names are the whole argument.
+// @evidence contracts/common.md#clear-and-simple-design A two-field argument record for Entry.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the two bindings.
 type StatementFactory_EntryProps struct {
   Key   string
   Value string

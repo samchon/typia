@@ -8,6 +8,17 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Emplace_metadata_object returns the collection's entry for the object type,
+// building its properties the first time it is seen.
+//
+// It records documentation, the declaring file and class facts, skips members
+// that have no JSON form, analyzes every property and index signature and
+// delegates to the intersection merge when the type is an intersection.
+//
+// @evidence contracts/common.md#principled-implementation An object type is stored once, and on first sight its description, declaring file, class facts and private fields are recorded, its heritage is reported to the dependency listener and its members are analyzed: members without a JSON form (private, protected, symbol-keyed, ES private and, outside functional mode, methods) are skipped, every visible property becomes a key and value schema, index signatures become dynamic properties and an intersection is delegated to the intersection merge. In strict mode skipped members are reported as errors.
+// @evidence contracts/common.md#clear-and-simple-design One long function that holds the member filter as a closure and delegates heritage touching, privacy detection, symbol-name tests and property creation to private helpers; the length reflects the many member kinds a TypeScript object can have.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The member filter is by symbol and modifier kinds, with the symbol rule referencing the cited issue, and no property name is special-cased.
+// @evidence contracts/common.md#meaningful-documentation Long comments explain each rule at its place; the exported function has its own doc.
 func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.MetadataObjectType {
   obj, newbie := props.Components.Emplace(props.Checker, props.Type)
   metadata_array_util_add_bool(&obj.Nullables, props.Metadata.Nullable)

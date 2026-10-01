@@ -16,6 +16,13 @@ type protobufFactoryNamespace struct{}
 
 var ProtobufFactory = protobufFactoryNamespace{}
 
+// ProtobufFactory_IProps is the input of a protobuf metadata analysis. Method is
+// the whole typia API name as it appears in diagnostics.
+//
+// @evidence contracts/common.md#principled-implementation The analysis needs the checker, the collection and the type, and the method is the complete API name because it becomes the diagnostic code verbatim, which the field comment explains.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record for Metadata.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc and the field comment state the full-name rule.
 type ProtobufFactory_IProps struct {
   // Method is the fully qualified typia API the call site invoked, exactly as
   // it must appear in the diagnostic code (`typia.protobuf.encode`). It is the

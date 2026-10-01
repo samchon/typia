@@ -19,22 +19,51 @@ type expressionFactoryNamespace struct{}
 
 var ExpressionFactory = expressionFactoryNamespace{}
 
+// ExpressionFactory_IsObjectProps selects the checks of an object test on Input:
+// whether null and arrays are excluded.
+//
+// @evidence contracts/common.md#principled-implementation The object test is built from the input expression and two switches, so the same builder yields `typeof x === "object"` with or without the null and array exclusions that a caller's type allows.
+// @evidence contracts/common.md#clear-and-simple-design A three-field argument record for IsObject.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the two switches.
 type ExpressionFactory_IsObjectProps struct {
   CheckNull  bool
   CheckArray bool
   Input      *shimast.Expression
 }
 
+// ExpressionFactory_CurryingProps is a function expression and the arguments of
+// the call to build.
+//
+// @evidence contracts/common.md#principled-implementation A curried call needs the function expression and the argument list, so the builder can emit a call of a call without the caller assembling nodes.
+// @evidence contracts/common.md#clear-and-simple-design A two-field argument record for Currying.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type ExpressionFactory_CurryingProps struct {
   Function  *shimast.Expression
   Arguments []*shimast.Expression
 }
 
+// ExpressionFactory_TranspileProps is a script text and the importer that
+// resolves the helpers that the script refers to.
+//
+// @evidence contracts/common.md#principled-implementation Transpile parses a script into an expression once and substitutes the caller's input, so it needs the script text and an importer for references that the script makes to internal helpers.
+// @evidence contracts/common.md#clear-and-simple-design A two-field argument record for Transpile.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type ExpressionFactory_TranspileProps struct {
   Importer ExpressionFactory_Importer
   Script   string
 }
 
+// ExpressionFactory_Importer is the part of the import programmer that expression
+// helpers need: references to internal helpers and to named, namespace and
+// default imports.
+//
+// @evidence contracts/common.md#principled-implementation Expression helpers reference internal helpers and imports only through four calls, so the interface lists exactly those and any importer, including the ImportProgrammer, satisfies it without a dependency cycle.
+// @evidence contracts/common.md#clear-and-simple-design A four-method interface that the importer implements; the aliases below it keep the argument types owned by the context package.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states that it is the importer's slice that expressions use.
 type ExpressionFactory_Importer interface {
   Internal(name string) *shimast.Node
   Instance(props ExpressionFactory_IInstance) *shimast.Node
@@ -44,10 +73,36 @@ type ExpressionFactory_Importer interface {
 
 // ImportProgrammer owns these import argument shapes in core/context. This
 // package only aliases them so expression helpers do not duplicate the contract.
+//
+// @evidence contracts/common.md#principled-implementation The alias names the importer's default import request, so this package repeats no field list.
+// @evidence contracts/common.md#clear-and-simple-design A type alias to the context package's record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The comment states that the context package owns the shape.
 type ExpressionFactory_IDefault = nativecontext.ImportProgrammer_IDefault
+// ExpressionFactory_IInstance is the importer's named-import request, aliased so
+// this package does not repeat the contract.
+//
+// @evidence contracts/common.md#principled-implementation The alias names the importer's named-import request.
+// @evidence contracts/common.md#clear-and-simple-design A type alias to the context package's record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the context package owns the shape.
 type ExpressionFactory_IInstance = nativecontext.ImportProgrammer_IInstance
+// ExpressionFactory_INamespace is the importer's namespace-import request,
+// aliased so this package does not repeat the contract.
+//
+// @evidence contracts/common.md#principled-implementation The alias names the importer's namespace-import request.
+// @evidence contracts/common.md#clear-and-simple-design A type alias to the context package's record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the context package owns the shape.
 type ExpressionFactory_INamespace = nativecontext.ImportProgrammer_INamespace
 
+// ExpressionFactory_GetEscapedTextProps holds the expression whose escaped text
+// is wanted.
+//
+// @evidence contracts/common.md#principled-implementation GetEscapedText returns the text of an identifier or string literal and otherwise the name of the expression, so a single input expression is the whole argument.
+// @evidence contracts/common.md#clear-and-simple-design A one-field argument record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the field.
 type ExpressionFactory_GetEscapedTextProps struct {
   Input *shimast.Expression
 }

@@ -13,12 +13,26 @@ type typeFactoryNamespace struct{}
 
 var TypeFactory = typeFactoryNamespace{}
 
+// TypeFactory_GetReturnTypeOfClassMethodProps names a method of a class type
+// whose return type is wanted.
+//
+// @evidence contracts/common.md#principled-implementation Finding a method's return type needs the checker, the class type and the method name.
+// @evidence contracts/common.md#clear-and-simple-design A three-field argument record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it names.
 type TypeFactory_GetReturnTypeOfClassMethodProps struct {
   Checker  *shimchecker.Checker
   Class    *shimchecker.Type
   Function string
 }
 
+// TypeFactory_GetFullNameProps selects the type or symbol whose full name is
+// wanted and whether alias type arguments are included.
+//
+// @evidence contracts/common.md#principled-implementation A full name is derived from a type or a symbol with the checker, with an optional switch for alias type arguments, which is a pointer so that unset can be told from false.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the selection and the switch.
 type TypeFactory_GetFullNameProps struct {
   Checker            *shimchecker.Checker
   Type               *shimchecker.Type

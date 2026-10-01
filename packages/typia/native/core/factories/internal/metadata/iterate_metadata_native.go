@@ -7,6 +7,16 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_native records a built-in class such as Date, a typed array,
+// Blob, File or WeakMap as a native entry.
+//
+// The type must resolve to the runtime-provided symbol of that name, so a package
+// or user declaration with the same name is analyzed structurally instead.
+//
+// @evidence contracts/common.md#principled-implementation The type's name is normalized by stripping module qualifiers such as `global.` and `node:buffer.` that appear for ambient declarations, looked up in a table of built-in classes, and accepted only when the symbol is the runtime-provided one, so a same-named user class is analyzed structurally; the generic WeakMap and WeakSet are matched by prefix with the arity guard and the same gate.
+// @evidence contracts/common.md#clear-and-simple-design One function with the provenance gate in a helper and a static table of the supported natives.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Qualifier stripping only restores the lookup and the identity gate still decides, as the comment says.
+// @evidence contracts/common.md#meaningful-documentation The doc states the gate and the table.
 func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   var symbol *nativeast.Symbol
   name := ""

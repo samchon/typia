@@ -5,11 +5,25 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Emplace_metadata_array_type_IProps is the iterator state plus the array type to
+// record.
+//
+// @evidence contracts/common.md#principled-implementation The iterator state is embedded and the array type to record is added, because the entry is keyed by the type and its element is read from it.
+// @evidence contracts/common.md#clear-and-simple-design An embedded record and one field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the composition.
 type Emplace_metadata_array_type_IProps struct {
   IMetadataIteratorProps
   Array *nativechecker.Type
 }
 
+// Emplace_metadata_array_type returns the collection's entry for the array type,
+// analyzing its element type the first time it is seen.
+//
+// @evidence contracts/common.md#principled-implementation An array type is stored once in the collection and a repeat only records nullability, so a recursive array is analyzed once; the element type is the first type argument of the array type and is explored with the aliased and escaped states cleared.
+// @evidence contracts/common.md#clear-and-simple-design One function over the collection's emplace service.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The element is taken from the checker's type arguments, not from the source text.
+// @evidence contracts/common.md#meaningful-documentation The doc states the once-per-type rule and the element source.
 func Emplace_metadata_array_type(props Emplace_metadata_array_type_IProps) *schemametadata.MetadataArrayType {
   array, newbie, setValue := props.Components.EmplaceArray(
     props.Checker,

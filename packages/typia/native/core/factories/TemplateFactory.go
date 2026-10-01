@@ -12,6 +12,13 @@ type templateFactoryNamespace struct{}
 
 var TemplateFactory = templateFactoryNamespace{}
 
+// TemplateFactory_IIterator is the running state of a template build: the literal
+// text gathered so far and the index of the next expression.
+//
+// @evidence contracts/common.md#principled-implementation A template is built by alternating literal text and expressions, so the builder needs the text gathered so far and the position of the next expression, which one mutable record holds across the gather calls.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record shared by the generate and gather functions.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the two fields.
 type TemplateFactory_IIterator struct {
   Value string
   Index int

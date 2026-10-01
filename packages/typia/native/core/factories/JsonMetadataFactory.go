@@ -10,6 +10,13 @@ type jsonMetadataFactoryNamespace struct{}
 
 var JsonMetadataFactory = jsonMetadataFactoryNamespace{}
 
+// JsonMetadataFactory_IProps describes one JSON analysis: the typia method name
+// for diagnostics, the checker and type, and a validator of the metadata.
+//
+// @evidence contracts/common.md#principled-implementation A JSON analysis needs the method name for diagnostic codes, the checker and type to analyze and a validator that adds the call-specific rules to the shared JSON validation.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record for Analyze.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field is for.
 type JsonMetadataFactory_IProps struct {
   Method   string
   Checker  *nativechecker.Checker
@@ -17,6 +24,13 @@ type JsonMetadataFactory_IProps struct {
   Validate MetadataFactory_Validator
 }
 
+// JsonMetadataFactory_IOutput is the analyzed metadata and the collection of
+// named types it refers to.
+//
+// @evidence contracts/common.md#principled-implementation The analysis returns both the root schema and the collection of named types that it refers to, because the schema refers to components by name.
+// @evidence contracts/common.md#clear-and-simple-design A two-field result record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both parts.
 type JsonMetadataFactory_IOutput struct {
   Collection *schemametadata.MetadataCollection
   Metadata   *schemametadata.MetadataSchema

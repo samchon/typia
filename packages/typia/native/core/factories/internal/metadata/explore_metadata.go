@@ -5,6 +5,14 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Explore_metadata_IProps is the input of one exploration: options, checker, the
+// collection, the error sink, the type, the location and the Intersected, NoCache
+// and Prunable flags.
+//
+// @evidence contracts/common.md#principled-implementation An exploration needs the options, checker, collection, error sink, type and location plus three flags, NoCache to bypass the cache, Intersected for the inside of an intersection and Prunable for never pruning.
+// @evidence contracts/common.md#clear-and-simple-design One flat record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc lists the inputs.
 type Explore_metadata_IProps struct {
   Options     MetadataFactory_IOptions
   Checker     *nativechecker.Checker
@@ -17,6 +25,16 @@ type Explore_metadata_IProps struct {
   Prunable    bool
 }
 
+// Explore_metadata analyzes a type into a new metadata schema.
+//
+// A result is cached in the collection by type and by the options that change
+// it, but only when the type is not inside an intersection and no error was
+// reported. Atomics are emended after the iterators ran.
+//
+// @evidence contracts/common.md#principled-implementation A fresh schema is filled by Iterate_metadata and emended; the result is cached in the collection by the type and by the options and location bits that change it, but never inside an intersection (unless every member is a plain object) and never when the analysis reported an error, so a cached schema is always a complete, error-free analysis of exactly that key.
+// @evidence contracts/common.md#clear-and-simple-design One function with the cache lookup before and the cache store after the iteration.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache key lists every input that can change the result, and an uncacheable analysis simply recomputes.
+// @evidence contracts/common.md#meaningful-documentation The doc states the cache conditions.
 func Explore_metadata(props Explore_metadata_IProps) *schemametadata.MetadataSchema {
   plainObjectIntersection := false
   if props.Checker != nil && props.Type != nil && props.Type.IsIntersection() {

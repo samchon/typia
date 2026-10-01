@@ -9,6 +9,16 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_sort orders the buckets of every schema reachable from the
+// collection and the metadata so that the narrower members come first.
+//
+// Objects, arrays and tuples are ordered by coverage, string and number
+// constants by value, and boolean constants with false first.
+//
+// @evidence contracts/common.md#principled-implementation Alternatives are ordered so that narrower members are tried first: objects by a key-set signature with more properties first, arrays by element coverage, tuples by coverage and constants by value, with false before true; the traversal visits each schema once through a visited set and records the union index of multi-object unions. The comparator is not a total order, so the stable sort only moves a covering member ahead of a covered one.
+// @evidence contracts/common.md#clear-and-simple-design One function with a recursive visitor, a coverage comparator for objects with a key cache, and a numeric conversion helper.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The ordering is by coverage, not by type names.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is ordered and the stable sort limit is explained here.
 func Iterate_metadata_sort(props struct {
   Collection *schemametadata.MetadataCollection
   Metadata   *schemametadata.MetadataSchema

@@ -2,6 +2,14 @@ package metadata
 
 import schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 
+// Iterate_metadata_collection finishes a collection after analysis: it marks
+// recursive arrays, tuples and objects and reads comment tags into object
+// properties.
+//
+// @evidence contracts/common.md#principled-implementation After analysis, arrays and tuples are marked recursive by a visited-set search for a path back to themselves, and objects by strongly connected components over the object reference graph, where a component of more than one object or an object with a self edge is recursive; comment tags are then applied to each object's properties.
+// @evidence contracts/common.md#clear-and-simple-design One function with private recursion checkers for arrays and tuples and a Tarjan search for objects, which need different edge sets.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The graph search is a recognized algorithm and no type is named.
+// @evidence contracts/common.md#meaningful-documentation The doc states the marking and the comment tag step.
 func Iterate_metadata_collection(props struct {
   Errors     *[]MetadataFactory_IError
   Collection *schemametadata.MetadataCollection

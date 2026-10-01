@@ -2,6 +2,13 @@ package metadata
 
 import schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 
+// Iterate_metadata_set records the runtime global `Set` type with its element
+// metadata. A same-named user declaration is not treated as a Set.
+//
+// @evidence contracts/common.md#principled-implementation Only a type whose symbol is the runtime global `Set` with one type argument is a set, with the same provenance gate as Map; the element is explored and an existing entry with the same element name is kept.
+// @evidence contracts/common.md#clear-and-simple-design One function over the shared provenance test.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The identity check is the cited gate.
+// @evidence contracts/common.md#meaningful-documentation The doc states the provenance rule.
 func Iterate_metadata_set(props IMetadataIteratorProps) bool {
   if props.Checker == nil || props.Type == nil {
     return false

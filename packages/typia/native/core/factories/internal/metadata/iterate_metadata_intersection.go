@@ -9,6 +9,18 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_intersection resolves an intersection type.
+//
+// Plain object intersections are left to the object merge. Otherwise each member
+// is analyzed, type tag objects are separated, phantom brands and call-only arms
+// are dropped and exactly one base member must remain, which is analyzed again
+// with the tags attached. Anything else is reported as a nonsensible
+// intersection.
+//
+// @evidence contracts/common.md#principled-implementation A union-distribution reduction and a plain-object test come first, because an intersection of plain objects is merged by the object path. Otherwise every member is analyzed in a scratch copy of the collection with errors captured; type tag objects are separated, a call-signature-only arm is dropped when something else survives, phantom brands (optional or symbol-keyed members only) are dropped, and exactly one single-bucket base must remain, which is analyzed alone with the tags attached to its constants, atomics, templates, arrays, objects, natives, sets or maps; any other combination is an error. The collection is restored from the copy so the trial analysis leaves no residue.
+// @evidence contracts/common.md#clear-and-simple-design One long function that lists the decision steps in order and delegates classification to private helpers (brand and signature tests, never detection, literal disjointness, tag analysis, identity gates); the helpers are private because only this iterator and the explorer need them.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Each rejection reports the exact intersection, and the brand and signature rules are structural; the long inline comments record the cases that a simpler rule would break.
+// @evidence contracts/common.md#meaningful-documentation The doc states the order of steps, and the helpers carry comments with the reasons and issue references.
 func Iterate_metadata_intersection(props IMetadataIteratorProps) bool {
   if props.Intersected == true {
     return false
