@@ -29,12 +29,13 @@ export namespace Format {
   /**
    * Supported format identifiers.
    *
-   * Standard JSON Schema formats:
+   * JSON Schema format identifiers and typia extensions:
    *
    * - `email`, `idn-email`: Email addresses
    * - `hostname`, `idn-hostname`: Hostnames
-   * - `uri`, `uri-reference`, `uri-template`, `url`: URLs
-   * - `iri`, `iri-reference`: Internationalized URLs
+   * - `uri`, `uri-reference`, `uri-template`: URI forms
+   * - `iri`, `iri-reference`: Internationalized URI forms
+   * - `url`: Public web URLs (http, https or ftp; dotted domains or public IPv4)
    * - `uuid`: UUID strings
    * - `ipv4`, `ipv6`: IP addresses
    * - `date-time`, `date`, `time`, `duration`: Date/time formats
@@ -43,7 +44,7 @@ export namespace Format {
    * - `byte`: Base64-encoded data
    * - `password`: Password fields (for documentation only)
    *
-   * @evidence contracts/common.md#principled-implementation A closed literal union names exactly the formats the transform and runtime support, which are standard JSON Schema formats plus typia's `byte` and `password`.
+   * @evidence contracts/common.md#principled-implementation A closed literal union names the supported JSON Schema format identifiers and the `url`, `byte` and `password` extensions. The URL extension uses the public-web grammar; generic URI forms have their own identifiers.
    * @evidence contracts/common.md#clear-and-simple-design One union; the tag uses it both as the type parameter bound and as the schema value.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A static name list; it does not validate anything itself, and its membership has to match the runtime functions that implement each format.
    * @evidence contracts/common.md#meaningful-documentation The comment groups the formats by family and notes that password is documentation only.

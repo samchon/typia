@@ -4,19 +4,12 @@
     {
       "name": "maintained TypeScript production declarations",
       "type": "typescript",
-      "files": [
-        "src/**/*.ts"
-      ],
-      "symbol": [
-        "type",
-        "function"
-      ],
+      "files": ["src/**/*.ts"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md"
-        ],
+        "files": ["contracts/common.md"],
         "symbol": "h2",
         "checklist": true
       }

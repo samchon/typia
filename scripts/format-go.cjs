@@ -4,7 +4,7 @@ const { spawnSync } = require("node:child_process");
 const files = listGoFiles();
 
 if (files.length !== 0) {
-  run("gofmt", ["-w", ...files]);
+  formatGoFiles(files);
   for (const file of files) {
     const before = fs.readFileSync(file, "utf8");
     const after = before.replace(/^\t+/gm, (tabs) => "  ".repeat(tabs.length));
@@ -76,14 +76,44 @@ function isGenerated(file) {
   return /^\/\/ Code generated .* DO NOT EDIT\./m.test(prefix);
 }
 
-function run(command, args) {
-  const result = spawnSync(command, args, {
-    stdio: "inherit",
-  });
-  if (result.error) {
-    throw result.error;
+/**
+ * Formats every selected Go file in bounded argument batches.
+ *
+ * Windows has a finite command-line length. Splitting independent gofmt inputs
+ * preserves each file's formatting while collecting all batch failures before
+ * the caller applies its indentation convention.
+ *
+ * @evidence contracts/common.md#principled-implementation gofmt formats each input independently, so ordered disjoint batches preserve the complete selected population. A conservative UTF-16 argument budget accounts for quoting and escaping; arguments stay separate from shell syntax. Every batch runs and any spawn or exit failure prevents indentation postprocessing and successful completion.
+ * @evidence contracts/common.md#clear-and-simple-design This helper owns argument partitioning and synchronous process failure collection; file selection and indentation normalization remain with their existing owners.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The same path-length budget applies to every selected file without omitting a fixture, changing the comparison base or retrying a failed formatter with weaker inputs.
+ * @evidence contracts/common.md#meaningful-documentation The comment states why batching is necessary and explains complete-population and failure behavior before indentation normalization.
+ */
+function formatGoFiles(files) {
+  const batches = [];
+  let batch = [];
+  let units = 16;
+  for (const file of files) {
+    const argumentUnits = file.length * 2 + 3;
+    if (batch.length !== 0 && units + argumentUnits > 8192) {
+      batches.push(batch);
+      batch = [];
+      units = 16;
+    }
+    batch.push(file);
+    units += argumentUnits;
   }
-  if (result.status !== 0) {
-    process.exit(result.status ?? 1);
+  if (batch.length !== 0) batches.push(batch);
+
+  console.log(`Formatting ${files.length} Go files in ${batches.length} batches.`);
+  const errors = [];
+  let exitCode = 0;
+  for (const inputs of batches) {
+    const result = spawnSync("gofmt", ["-w", ...inputs], {
+      stdio: "inherit",
+    });
+    if (result.error) errors.push(result.error);
+    if (result.status !== 0) exitCode = result.status ?? 1;
   }
+  for (const error of errors) console.error(error);
+  if (errors.length !== 0 || exitCode !== 0) process.exit(exitCode || 1);
 }

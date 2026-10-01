@@ -1,8 +1,9 @@
 /**
  * Protocol Buffers atomic (scalar) type names.
  *
- * Union of all primitive type identifiers used in Protocol Buffers wire format
- * encoding/decoding.
+ * Supported scalar type identifiers used by typia's Protocol Buffers
+ * encoding/decoding. This subset does not enumerate every protobuf scalar
+ * spelling, such as `bytes`, `sint32` or `fixed64`.
  *
  * @author Jeongho Nam - https://github.com/samchon
  *

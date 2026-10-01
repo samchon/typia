@@ -4,19 +4,21 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Converts a type to its resolved form by erasing all methods.
+ * Converts a type to its resolved form by mapping callable values to never.
  *
  * `Resolved<T>` transforms classes to plain objects, extracts primitive values
  * from boxed types (Boolean→boolean, Number→number, String→string), and
- * recursively processes nested structures. Native classes (Date, Set, Map,
- * etc.) are preserved unchanged.
+ * recursively processes nested public properties. Arrays, tuples, Set and Map
+ * retain their container shape while their contents are resolved recursively,
+ * including readonly containers. Date and other supported native classes pass
+ * through unchanged; WeakSet and WeakMap become `never`.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  *
  * @template T Target type to resolve
  *
- * @evidence contracts/common.md#principled-implementation The type maps boxed primitives to primitives, erases function members, preserves native classes, keeps Set, Map and readonly array containers, and recurses through properties. Recursive tuple rests are cut by TupleStack, and arrays bypass the Equal comparison to avoid eager evaluation of recursive aliases.
+ * @evidence contracts/common.md#principled-implementation Conditional types unwrap boxed primitives, map callable values to never and recursively resolve public properties and array, tuple, Set and Map contents. Supported native classes pass through after the container branches; weak collections become never. Broad unknown/object inputs remain unchanged. TupleStack preserves a revisited tuple-rest identity rather than imposing a depth limit, and arrays bypass the Equal comparison to avoid eager recursive-alias evaluation.
  * @evidence contracts/common.md#clear-and-simple-design A thin alias chooses between the original and the resolved form and delegates structure-specific work to ResolvedMain, ResolvedObject and ResolvedArray.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts It is a structural mapping over the type with no consumer names, casts or runtime code.
  * @evidence contracts/common.md#meaningful-documentation The comment states what is resolved and which categories are preserved; recursion and tuple guards are explained in line comments at their private declarations.
