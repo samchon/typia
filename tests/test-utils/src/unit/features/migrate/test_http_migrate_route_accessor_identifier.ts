@@ -21,6 +21,11 @@ import { _isLegalDeclaration } from "../../internal/_isLegalDeclaration";
  * 2. Assert every accessor segment and parameter key is a legal binding.
  * 3. Compile the SDK-shaped declaration each route implies.
  * 4. Assert the already-escaped and ordinary routes keep their exact names.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration.application runs on documents with reserved-word and punctuated paths and each route's accessor and parameter keys are compiled as a function declaration by the JavaScript engine through a vm.Script.
+ * @evidence contracts/testing.md#independent-expectations The engine's own grammar decides legality, which is independent of NamingConvention.variable that the migrator uses; expected accessors are authored where compared.
+ * @evidence contracts/testing.md#distinguishing-cases Reserved words as path segments and as parameters, escaped names and duplicate parameters under strict mode are separate routes.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The engine check compiles a script in process through node:vm without executing it; no native producer or process is involved.
  */
 export const test_http_migrate_route_accessor_identifier = (): void => {
   const words: string[] = [

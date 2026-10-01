@@ -3,6 +3,25 @@ import { ILlmSchema, OpenApi } from "@typia/interface";
 import { TestEquality } from "@typia/oracle/equality";
 import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
 
+/**
+ * Verifies inverted component names stay legal, distinct and independent of
+ * definition order.
+ *
+ * LLM definition keys may contain characters the OpenAPI Components Object key
+ * grammar forbids. Inversion must allocate legal names, never merge two keys,
+ * and give the same result whatever order the definitions arrive in.
+ *
+ * 1. Build definitions for legal controls and for slash, tilde, percent, space,
+ *    unicode and escape-like keys.
+ * 2. Invert them in several orders.
+ * 3. Assert every allocated key is legal, keys stay distinct and the mapping is
+ *    order independent.
+ *
+ * @evidence contracts/testing.md#behavioral-verification invert is run on definitions with problematic keys in several orders and the allocated component keys, their legality, distinctness and the property-to-key mapping are asserted.
+ * @evidence contracts/testing.md#independent-expectations The Components Object key grammar defines legality and the authored key list defines distinctness; legal controls must keep their names.
+ * @evidence contracts/testing.md#distinguishing-cases Legal controls, encoded keys and keys that collide after escaping (for example _x2F_ and /) are the rows, each checked for order independence.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The inversion runs in process on authored definitions with no native producer.
+ */
 export const test_llm_invert_openapi_component_names = (): void => {
   const keys: string[] = [
     "Legal.Control",

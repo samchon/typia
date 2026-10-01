@@ -21,6 +21,11 @@ import { _isLegalDeclaration } from "../../internal/_isLegalDeclaration";
  * 2. Assert each pair resolves to distinct, legal keys rather than colliding.
  * 3. Assert numeric-leading and `connection` escaping are unchanged.
  * 4. Compile each declaration, since duplicate parameters are a `SyntaxError`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration.application runs on routes with {let} beside {_let}, numeric-leading segments and a parameter named connection; each parameter key list is compiled as a declaration and keys must stay unique.
+ * @evidence contracts/testing.md#independent-expectations The JavaScript engine's strict-mode rule (no duplicate parameter names, legal identifiers) is the oracle through a vm.Script, independent of the migrator's escape loop.
+ * @evidence contracts/testing.md#distinguishing-cases Words moved from the second to the first iteration of the escape loop, numeric-leading keys and the reserved receiver each isolate an off-by-one collision.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The engine check compiles a script in process through node:vm without executing it; no native producer or process is involved.
  */
 export const test_http_migrate_route_parameter_key_escape = (): void => {
   const path = (route: string, names: string[]) => ({
