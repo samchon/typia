@@ -7,9 +7,9 @@
  * scheme. Authority, port and path structure are not parsed.
  *
  * @evidence contracts/common.md#principled-implementation Characters that no IRI may contain (controls, space, lone surrogates and a few ASCII delimiters) and malformed percent escapes are rejected, and a colon before the first path delimiter must be the end of a valid scheme, which separates `a:b` from the relative `./a:b`. Authority, port and path structure are not parsed, so the predicate is a character and scheme check and not full grammar validation.
- * @evidence contracts/common.md#clear-and-simple-design One predicate with three private patterns, identical to the typia copy.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate with three private patterns, identical to the copy in the typia package that emitted code imports.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The forbidden set comes from the IRI grammar and not from examples.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states what is rejected and what is not parsed.
+ * @evidence contracts/common.md#meaningful-documentation The doc states what is rejected and what is not parsed.
  */
 export const _isFormatIriReference = (str: string): boolean => {
   if (FORBIDDEN.test(str) || INVALID_PERCENT.test(str)) return false;

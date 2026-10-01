@@ -11,7 +11,7 @@ import { _isFormatDate } from "./_isFormatDate";
  * @evidence contracts/common.md#principled-implementation The syntax expression bounds clock and offset fields and delegates the date to the calendar predicate. UTC setters preserve literal years, and offset subtraction determines whether a potential leap second occupies the permitted month-end minute.
  * @evidence contracts/common.md#clear-and-simple-design Ordinary seconds finish after syntax/calendar validation; only the leap-second branch constructs the UTC instant needed for the boundary decision.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts UTC conversion and the potential leap-second boundary are uniform rules. The implementation neither relies on local timezone nor special-cases fixture dates; historical announcements are outside this check.
- * @evidence contracts/common.md#meaningful-documentation Native prose states the accepted representation and its important limits, so callers can distinguish this predicate from a broader policy or conversion. Descriptive prose and review acknowledgments are separated.
+ * @evidence contracts/common.md#meaningful-documentation The doc states that an offset is required, when a second of 60 is allowed and that no leap-second announcement table is consulted.
  */
 export const _isFormatDateTime = (str: string): boolean => {
   const match: RegExpExecArray | null = PATTERN.exec(str);

@@ -8,9 +8,9 @@
  * number of elements.
  *
  * @evidence contracts/common.md#principled-implementation Every pair of elements is compared with a structural equality that is strict for primitives, handles arrays, sets, maps, boxed primitives, dates, expressions, files, blobs and binary buffers and compares plain objects by own enumerable keys, with a pair table so cycles end. Sets and maps are matched without regard to order. The pairwise scan costs quadratic time in the number of elements, which is stated in the doc.
- * @evidence contracts/common.md#clear-and-simple-design One predicate over a private equality builder and a bytes helper, identical to the typia copy.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate over a private equality builder and a bytes helper, identical to the copy in the typia package that emitted code imports.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Equality rules are the documented ones and no element is special-cased.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states the equality rules, the cycle tolerance and the quadratic cost.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the equality rules, the cycle tolerance and the quadratic cost.
  */
 export const _isUniqueItems = (elements: any[]): boolean => {
   for (let i = 0; i < elements.length; i++)

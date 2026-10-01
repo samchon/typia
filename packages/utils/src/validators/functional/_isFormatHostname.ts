@@ -6,9 +6,9 @@
  * case. A name of a single label is valid.
  *
  * @evidence contracts/common.md#principled-implementation A lookahead bounds the name to 253 characters before an optional trailing dot, then labels of one to 63 letters, digits and interior hyphens are required, which is the RFC 1123 hostname grammar; a single label is valid and underscores are not.
- * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern, identical to the typia copy.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern, identical to the copy in the typia package that emitted code imports.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The limits are the standard's own numbers.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states the length and label rules.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the length and label rules.
  */
 export const _isFormatHostname = (str: string): boolean => PATTERN.test(str);
 

@@ -8,12 +8,12 @@
  * @evidence contracts/common.md#principled-implementation The expression bounds clock and offset fields. Offset subtraction and a nonnegative modulo of 1440 minutes identify the final UTC minute without pretending a date is present.
  * @evidence contracts/common.md#clear-and-simple-design Ordinary seconds use the syntax result; the extra arithmetic is confined to the leap-second branch and needs no Date allocation.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Clock ranges and day wrapping apply to all inputs; no local-time conversion or fixture-specific leap-second allowance is used.
- * @evidence contracts/common.md#meaningful-documentation Native prose states the accepted representation and its important limits, so callers can distinguish this predicate from a broader policy or conversion. Descriptive prose and review acknowledgments are separated.
+ * @evidence contracts/common.md#meaningful-documentation The doc states that an offset is required, that there is no date to verify and how a second of 60 maps to 23:59 UTC with negative offsets normalized into the day.
  * @evidence contracts/performance.md#efficient-algorithms One grammar scan accounts for the fractional-second spelling. All remaining captured fields have bounded length, and the leap-second branch uses constant offset/modulo arithmetic without constructing a Date or enumerating clock values.
  *
- * @evidenceExclude contracts/performance.md#reuse-equivalent-work This predicate owns one value decision and coordinates no equivalent request population or completed-result cache. Stable module constants are reused where present; caller request coordination does not belong to this operation.
+ * @evidenceExclude contracts/performance.md#reuse-equivalent-work The verdict for one string is independent of every other, so there is no computation to share between requests, and caching results keyed by arbitrary input strings would add retention without any validity contract.
  *
- * @evidence contracts/performance.md#bound-retention-and-release-resources Module-level constants and predicate references have a fixed population. Per-call counters, captures or Date state remain local and become reclaimable after the verdict; no validated input, request history or handle is retained.
+ * @evidence contracts/performance.md#bound-retention-and-release-resources Only the pattern and the minutes-per-day constants are retained; the match array of one call is local and reclaimed on return, and the input string is not kept.
  */
 export const _isFormatTime = (str: string): boolean => {
   const match: RegExpExecArray | null = PATTERN.exec(str);

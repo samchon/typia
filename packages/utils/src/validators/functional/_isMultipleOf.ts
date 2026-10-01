@@ -13,7 +13,7 @@ interface IDecimal {
  * @evidence contracts/common.md#principled-implementation Each number is decomposed from its shortest decimal string into an integer coefficient and a power of ten, and the dividend is tested for divisibility by the divisor in exact big-integer arithmetic after aligning the exponents, so a decimal such as `0.3` is a multiple of `0.1` as printed, where binary remainder would give the wrong answer. Non-finite values and non-positive divisors are false.
  * @evidence contracts/common.md#clear-and-simple-design One predicate and a private decomposition shared with `_integerMultipleOfStep`; a different decomposition is used by the typia copy, which imports a shared helper module.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The decimal reading is the tag's documented meaning and not a patch for particular values.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states the decimal reading and the false cases.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the decimal reading and the false cases.
  */
 export const _isMultipleOf = (value: number, multipleOf: number): boolean => {
   const dividend: IDecimal | null = decompose(value);
@@ -40,7 +40,7 @@ export const _isMultipleOf = (value: number, multipleOf: number): boolean => {
  * @evidence contracts/common.md#principled-implementation For an integer value to be a multiple of a decimal divisor `c * 10^e`, the divisor is the integer itself when `e` is not negative and otherwise `c / gcd(c, 10^-e)`, which is the smallest integer whose multiples are the integers divisible by the divisor; an absent divisor gives 1 and an unusable one gives null.
  * @evidence contracts/common.md#clear-and-simple-design One function that reuses the decomposition and a small gcd helper.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The step follows from the arithmetic and no divisor is special-cased.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states the three cases and the null result.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the three cases and the null result.
  */
 export const _integerMultipleOfStep = (
   multipleOf: number | undefined,

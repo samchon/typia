@@ -7,7 +7,7 @@
  * @evidence contracts/common.md#principled-implementation Captured ranges establish month and positive day bounds before indexing the month-length table. The divisible-by-400 or divisible-by-4-but-not-100 rule adds the February leap day, so syntactically valid impossible dates fail.
  * @evidence contracts/common.md#clear-and-simple-design The private syntax expression and month-length table separate lexical ranges from the one calendar calculation that syntax cannot establish.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The table and divisibility rules represent the calendar uniformly; no dates or consumers receive special outcomes.
- * @evidence contracts/common.md#meaningful-documentation Native prose states the accepted representation and its important limits, so callers can distinguish this predicate from a broader policy or conversion. Descriptive prose and review acknowledgments are separated.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the four-digit year, month and day syntax and the Gregorian month length, that year zero is accepted and that Date parsing does not decide validity.
  */
 export const _isFormatDate = (str: string): boolean => {
   const match: RegExpExecArray | null = PATTERN.exec(str);

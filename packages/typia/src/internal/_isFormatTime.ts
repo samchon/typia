@@ -8,7 +8,7 @@
  * @evidence contracts/common.md#principled-implementation The expression bounds clock and offset fields. Offset subtraction and a nonnegative modulo of 1440 minutes identify the final UTC minute without pretending a date is present.
  * @evidence contracts/common.md#clear-and-simple-design Ordinary seconds use the syntax result; the extra arithmetic is confined to the leap-second branch and needs no Date allocation.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Clock ranges and day wrapping apply to all inputs; no local-time conversion or fixture-specific leap-second allowance is used.
- * @evidence contracts/common.md#meaningful-documentation Native prose states the accepted representation and its important limits, so callers can distinguish this predicate from a broader policy or conversion. Descriptive prose and review acknowledgments are separated.
+ * @evidence contracts/common.md#meaningful-documentation The doc states that an offset is required, that there is no date to verify and how a second of 60 maps to 23:59 UTC with negative offsets normalized into the day.
  */
 export const _isFormatTime = (str: string): boolean => {
   const match: RegExpExecArray | null = PATTERN.exec(str);

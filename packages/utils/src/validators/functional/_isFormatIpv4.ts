@@ -5,9 +5,9 @@
  * leading zeros.
  *
  * @evidence contracts/common.md#principled-implementation Four octets of 0 to 255 without leading zeros are matched by an alternation of the decimal ranges, so values above 255 and zero-padded octets are rejected.
- * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern, identical to the typia copy.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern, identical to the copy in the typia package that emitted code imports.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The ranges are the dotted-decimal grammar's.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states the octet rule.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the octet rule.
  */
 export const _isFormatIpv4 = (str: string): boolean => PATTERN.test(str);
 

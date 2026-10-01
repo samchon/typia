@@ -7,9 +7,9 @@
  * predicate does not check that the components are in a calendar range.
  *
  * @evidence contracts/common.md#principled-implementation One anchored expression encodes the ISO 8601 duration grammar as RFC 3339 Appendix A gives it: designators in order Y, M, D, then an optional T with H, M, S, or weeks alone, with a lookahead that rejects a bare `P` and a `T` with no time part. Components are integers only.
- * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern; the same predicate is also present in the typia package, which cannot depend on this one, and the two copies are kept identical.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate and one private pattern; the typia package keeps an identical copy under its internal folder because its emitted code imports predicates from there, and this package cannot import typia.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The grammar comes from the specification and the predicate has no accepted examples hardcoded.
- * @evidence contracts/common.md#meaningful-documentation A doc was added that states the accepted forms and what is not checked.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the accepted forms and what is not checked.
  */
 export const _isFormatDuration = (str: string): boolean => PATTERN.test(str);
 
