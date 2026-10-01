@@ -13,6 +13,11 @@ import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
  * 1. Downgrade scalar string, number, and boolean constants.
  * 2. Group duplicate same-type constants and preserve mixed-type branches.
  * 3. Assert top-level attributes and nullable union behavior remain intact.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.downgradeSchema runs on authored constant unions targeting Swagger 2; the resulting enums, their deduplication, attribute retention and nullable branches are compared exactly, including round trips of attributed constants.
+ * @evidence contracts/testing.md#independent-expectations Swagger 2's lack of const and its typed enum model decide the expected output; authored literals specify type, enum order and attributes rather than copying converter output.
+ * @evidence contracts/testing.md#distinguishing-cases String, number and boolean constants, duplicate same-type constants, mixed-type unions, attributed and single-attribute branches and nullable branches each flip a grouping decision.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_downgrade_v20_enum = (): void => {
   const convert = (schema: OpenApi.IJsonSchema): SwaggerV2.IJsonSchema =>

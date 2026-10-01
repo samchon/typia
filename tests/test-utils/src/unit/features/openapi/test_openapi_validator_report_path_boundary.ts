@@ -13,6 +13,11 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Require every independent property and array-index failure.
  * 3. Make a failing array constraint suppress its redundant child failures.
  * 4. Keep a referenced array union's selected indexed failure.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs the same invalid value against both property orders and array shapes; the set of reported paths must contain every independent failure and suppress only real ancestors.
+ * @evidence contracts/testing.md#independent-expectations Path ancestry follows property and index boundaries; expected path lists are authored rather than read from the reporter.
+ * @evidence contracts/testing.md#distinguishing-cases a versus ab siblings in both orders, quoted keys, array indexes, a redundant array parent and a referenced array union distinguish raw-prefix tests from real ancestry.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_report_path_boundary = (): void => {
   const input = {

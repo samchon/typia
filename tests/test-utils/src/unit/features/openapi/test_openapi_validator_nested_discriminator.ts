@@ -14,6 +14,11 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Accept a valid value from every level under both branch permutations.
  * 3. Reject invalid present middle/top keys at their exact diagnostic paths.
  * 4. Keep the first matching object discriminator responsible for ambiguity.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs cumulative object variants in both branch orders; valid values pass, invalid present keys are rejected at exact paths and the first matching discriminator keeps ambiguity.
+ * @evidence contracts/testing.md#independent-expectations Cumulative required keys define which variant each value belongs to; expected acceptance and paths are authored, not taken from the validator.
+ * @evidence contracts/testing.md#distinguishing-cases Values from every level, both orderings, middle and top key failures and the first-match ambiguity each flip a fall-through decision.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_nested_discriminator = (): void => {
   const base: OpenApi.IJsonSchema.IObject = {

@@ -21,6 +21,11 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 2. Require each upgrade to emit the open `items: {}` array form.
  * 3. Validate empty, populated, and non-array values against each result.
  * 4. Require a present `items` to survive untouched beside the omitted case.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrades a bare array component from each source version and OpenApiValidator validates empty, populated and non-array values against the result; a throw, an empty tuple or a closed items schema fails.
+ * @evidence contracts/testing.md#independent-expectations JSON Schema semantics (omitted items accept any element) decide the validation outcomes, and the expected open items form is an authored literal.
+ * @evidence contracts/testing.md#distinguishing-cases Every source version, empty, populated and non-array values and a present items schema surviving untouched distinguish the open array from a tuple or a dropped schema.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and validation run in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_upgrade_items_omitted = (): void => {
   const versions: [string, OpenApi.IJsonSchema][] = [

@@ -27,6 +27,11 @@ import {
  * 4. Assert `upgradeComponents()` and `downgradeDocument()` normalize a raw
  *    emended input on entry too, that normalization adds no holder the input
  *    left out, and that an absent holder the input carries is kept as it is.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter entry points, downgraders, OpenApiValidator and HttpMigration run on a hand-built emended document with an items-less array; entry normalization, open-array downgrade, validator rejection and absence of phantom keys are asserted.
+ * @evidence contracts/testing.md#independent-expectations The emended type demands items and JSON Schema treats missing items as open; the expected normalized shapes are authored, and phantom-key checks compare against the input.
+ * @evidence contracts/testing.md#distinguishing-cases Normalization on entry, each consumer afterwards, a non-array rejection, a pipe-delimited migration and the no-extra-keys boundary each pin one consequence of the entry-boundary rule.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion, validation and migration run in process on authored documents with no native build, installation or host.
  */
 export const test_openapi_emended_items_omitted_boundary = (): void => {
   const bare = { type: "array" } as unknown as OpenApi.IJsonSchema;

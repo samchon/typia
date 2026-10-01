@@ -27,6 +27,11 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * 4. Assert ordinary paths keep their exact accessors and component names, the
  *    letters of any script stay distinct, and function names joined from
  *    accessors stay unique.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration.application and HttpLlm.application run on one authored route per path character; every accessor segment, component key and function name is checked against the binding and key grammars, and the control, script and joined names are compared.
+ * @evidence contracts/testing.md#independent-expectations The binding-identifier grammar from @typia/oracle/binding and the OpenAPI Components Object key pattern are independent of the migrator's escaping, and exact accessors and component names for ordinary paths are authored literals.
+ * @evidence contracts/testing.md#distinguishing-cases Characters such as colon, tilde and percent, ordinary-path controls, non-Latin letters that must stay distinct, order independence and joined-function uniqueness each pin a different escaping decision; paths longer than the function-name limit are covered by the HttpLlm name cases.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration and LLM composition run in process on authored documents with no native build, installation or host.
  */
 export const test_http_migrate_path_character_names = (): void => {
   const characters: string[] = [

@@ -16,6 +16,11 @@ import { OpenApiConverter } from "@typia/utils";
  *    precedence.
  * 3. Downgrade the emended document and verify schemes, host, basePath, consumes,
  *    and produces remain semantically equivalent.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrades authored Swagger 2 documents and downgrades the result; servers, global and operation consumes and produces, response examples and the downgraded endpoint fields are compared.
+ * @evidence contracts/testing.md#independent-expectations Swagger's scheme, host, basePath, consumes and produces precedence rules and the source document decide the expected servers and media maps; expectations are authored literals.
+ * @evidence contracts/testing.md#distinguishing-cases Global versus operation overrides, response-media order, empty response content, root server normalization and host casing each isolate one conversion decision; unrepresentable combinations are rejected by test_document_downgrade_v20_unrepresentable.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_document_roundtrip_v20_server_media = (): void => {
   const input: SwaggerV2.IDocument = {

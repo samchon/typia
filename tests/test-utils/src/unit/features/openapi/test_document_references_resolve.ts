@@ -33,6 +33,11 @@ import { TestGlobal } from "../../../TestGlobal";
  * 3. Assert the collections are empty, and that at least one fixture carried a key
  *    the URI-fragment charset forbids, so the check cannot pass on tidy inputs
  *    alone.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Every example document is upgraded and walked with OpenApiTypeChecker, OpenApiValidator and LlmSchemaConverter; the collections of unescaped, unresolved and validator or converter rejected references must be empty, so a reader that decodes pointers differently fails.
+ * @evidence contracts/testing.md#independent-expectations RFC 6901 pointer escaping defines what each reference must resolve to, computed from the source document's component keys rather than from the converters; the fixtures are real-world documents read from disk.
+ * @evidence contracts/testing.md#distinguishing-cases A final assertion requires at least one fixture with a key the URI-fragment charset forbids, so tidy documents alone cannot satisfy the empty-collection assertions. Behavior for documents outside the checked-in fixtures is not covered.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Fixtures are read from disk and processed in process with no native build, installation or host.
  */
 export const test_document_references_resolve = async (): Promise<void> => {
   const unresolved: string[] = [];

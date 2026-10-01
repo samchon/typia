@@ -12,6 +12,11 @@ import { OpenApiValidator } from "@typia/utils";
  * 1. Accept decimal, negative, integer, scientific, and extreme finite cases.
  * 2. Reject nearby values whose exact decimal quotient is not an integer.
  * 3. Exercise both number and integer schemas through the public validator.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs numeric and integer schemas with multipleOf over a matrix of values; accepted and rejected values are asserted, so remainder arithmetic that rejects 0.03 against 0.01 fails.
+ * @evidence contracts/testing.md#independent-expectations JSON Schema's integer-quotient rule decides the matrix, with values authored as decimal literals and checked by exact decimal reasoning rather than the validator's own arithmetic.
+ * @evidence contracts/testing.md#distinguishing-cases Decimal, negative, integer, scientific and extreme finite values are accepted, and nearby values with a non-integer quotient are rejected, through both number and integer schemas.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_decimal_multiple_of = (): void => {
   const matrices: Array<{

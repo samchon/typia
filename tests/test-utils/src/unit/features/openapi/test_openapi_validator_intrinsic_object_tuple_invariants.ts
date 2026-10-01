@@ -15,6 +15,11 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Reject non-finite numbers and unresolved inherited references.
  * 3. Exercise tuple min/max/unique, optional prefixes, required present elements,
  *    typed rest items, false rest items, and empty tuples.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs objects, numbers, references and tuples; native instances, arrays, non-finite numbers, unresolved inherited references and tuple bounds, uniqueness, optional prefixes and rest items decide acceptance.
+ * @evidence contracts/testing.md#independent-expectations The test states its expectations come from the JSON data model and JSON Schema 2020-12 rather than the previous implementation; the values are authored.
+ * @evidence contracts/testing.md#distinguishing-cases Plain and null-prototype objects versus arrays and native instances, finite versus non-finite numbers, and each tuple constraint with accepted and rejected values distinguish branches; two grouped assertions locate failures by message.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_intrinsic_object_tuple_invariants =
   (): void => {

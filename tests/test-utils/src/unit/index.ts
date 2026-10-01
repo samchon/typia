@@ -222,6 +222,7 @@ import { test_json_schema_upgrade_items_omitted } from "./features/openapi/test_
 import { test_json_schema_upgrade_v20_example } from "./features/openapi/test_json_schema_upgrade_v20_example";
 import { test_json_schema_upgrade_v30_example } from "./features/openapi/test_json_schema_upgrade_v30_example";
 import { test_json_schema_upgrade_v31_examples } from "./features/openapi/test_json_schema_upgrade_v31_examples";
+import { test_json_schema_upgrade_v31_mixed_type_enum } from "./features/openapi/test_json_schema_upgrade_v31_mixed_type_enum";
 import { test_json_schema_upgrade_v31_tuple_items } from "./features/openapi/test_json_schema_upgrade_v31_tuple_items";
 import { test_json_schema_upgrade_v32_examples } from "./features/openapi/test_json_schema_upgrade_v32_examples";
 import { test_openapi_converter_empty_required } from "./features/openapi/test_openapi_converter_empty_required";
@@ -791,6 +792,11 @@ test(
 test(
   test_json_schema_upgrade_v31_examples.name,
   test_json_schema_upgrade_v31_examples,
+);
+
+test(
+  test_json_schema_upgrade_v31_mixed_type_enum.name,
+  test_json_schema_upgrade_v31_mixed_type_enum,
 );
 
 test(

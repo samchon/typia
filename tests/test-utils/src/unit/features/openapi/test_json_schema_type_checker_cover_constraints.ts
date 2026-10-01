@@ -12,6 +12,11 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 1. Check positive and negative numeric/string constant containment.
  * 2. Check inclusive/exclusive ranges and exact decimal divisibility.
  * 3. Check arrays, tuples, uniqueness, and reference-flattened constraints.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiTypeChecker.covers is called on authored constrained schema pairs and the result for each pair is asserted; treating same-typed constants as covered, or ignoring exclusive endpoints, divisibility, uniqueness or tuple length, flips a result.
+ * @evidence contracts/testing.md#independent-expectations Mathematical containment of the value sets (ranges, multiples, uniqueness and tuple arity) decides each expected boolean, written as authored pairs rather than computed by the checker.
+ * @evidence contracts/testing.md#distinguishing-cases Positive and negative constant containment, inclusive and exclusive ranges, decimal divisibility, arrays, tuples, uniqueness and reference-flattened constraints each have an adjacent opposite case.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The predicate runs in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_type_checker_cover_constraints = (): void => {
   const components: OpenApi.IComponents = {

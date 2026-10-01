@@ -19,6 +19,11 @@ import { OpenApiValidator } from "@typia/utils";
  * 3. Assert a differing declared width is echoed rather than flattened to `int32`,
  *    and that the verdict itself never changes.
  * 4. Assert a `format` that is not a string names no width at all.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs integer schemas violating each of five bounds with and without a declared format; the rejection, reported expected type and acceptance of a conforming value are asserted.
+ * @evidence contracts/testing.md#independent-expectations The width must come from the schema's own format, so expected messages are authored from the declared constraints instead of the implementation's fixed default.
+ * @evidence contracts/testing.md#distinguishing-cases No format, int32, int64 and a non-string format across five bounds distinguish an invented width from a declared one.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_integer_bound_message = (): void => {
   // Each case isolates one bound: the reporter keeps only the first error at a

@@ -18,6 +18,11 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Assert each carries `type` and `enum` beside `x-oneOf`.
  * 3. Assert upgrading returns the original annotated `oneOf`, and that a mixed
  *    union and a schema-level definition stay untouched.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter downgrades documented enums in non-body Swagger 2 locations and upgrades them back; typed enum fields, x-nullable, untyped mixed unions and the round trips are compared.
+ * @evidence contracts/testing.md#independent-expectations The source document and the official Swagger 2 field set (type, enum) are the oracle, as the test states; expected objects are authored.
+ * @evidence contracts/testing.md#distinguishing-cases Query, header, array item, form field and response header locations, nullable members, mixed-type unions that must stay untyped and an untouched definition each flip a branch.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_openapi_converter_v20_documented_enum = (): void => {
   const documented: OpenApi.IJsonSchema = {

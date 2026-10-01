@@ -13,6 +13,11 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 1. Upgrade schema, false, and omitted `items` rest forms beside prefixItems.
  * 2. Require the emended additionalItems form to preserve each meaning.
  * 3. Validate positive and negative boundary values after conversion.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema runs on prefixItems with schema, false and omitted items, and OpenApiValidator checks values at the boundaries of each result, so a dropped rest schema or use of additionalItems changes acceptance.
+ * @evidence contracts/testing.md#independent-expectations JSON Schema 2020-12 defines items as the rest schema beside prefixItems and deprecates additionalItems; accepted and rejected values follow from that rule.
+ * @evidence contracts/testing.md#distinguishing-cases Schema, false and omitted rest forms each have positive and negative boundary values.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and validation run in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_upgrade_v31_tuple_items = (): void => {
   const schemaRest = upgrade({

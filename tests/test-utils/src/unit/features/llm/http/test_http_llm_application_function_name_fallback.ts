@@ -24,6 +24,11 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 2. Assert the names are identical across compositions, unique, at most
  *    `maxLength`, and of the composer's own grammar.
  * 3. Assert a `maxLength` below 2, which no shortened name fits, throws.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpLlm.application is composed repeatedly for the GitHub example and for an authored sibling-route document across six maxLength values; length, uniqueness, deterministic repetition and the name grammar are checked on the produced functions, and an impossible maxLength must throw the documented message.
+ * @evidence contracts/testing.md#independent-expectations The limits come from the composer's published rules: at most maxLength characters, the [a-zA-Z0-9_-] alphabet, no leading digit, uniqueness and identical output on repeated composition. Operations and custom accessors are authored in the test, so nothing is derived from the shortening implementation's own output.
+ * @evidence contracts/testing.md#distinguishing-cases Digit-leading and empty last accessor segments, long sibling routes whose suffixes collide, maxLength values from 64 down to 3 and the below-2 failure each flip a branch of the shortening fallback. Default-length composition is covered by test_http_llm_application_function_name_length and non-throwing boundaries between 2 and 3 are not asserted here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Composition runs in process on authored documents plus the checked-in GitHub example read from disk, with no native build, installation or network.
  */
 export const test_http_llm_application_function_name_fallback =
   async (): Promise<void> => {

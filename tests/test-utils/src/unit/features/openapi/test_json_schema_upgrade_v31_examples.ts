@@ -15,6 +15,11 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Upgrade the schema to typia's emended representation.
  * 3. Assert every raw examples array is converted to a deterministic `v0`, `v1`
  *    record.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema runs on a 3.1 schema with examples on the object, a property, an array and its item; every raw array must become the deterministic named record.
+ * @evidence contracts/testing.md#independent-expectations JSON Schema's array-shaped examples and typia's v0, v1 record rule give the authored expectation, not converter output.
+ * @evidence contracts/testing.md#distinguishing-cases Four nesting levels distinguish recursive conversion from a top-level copy; schemas without examples are not covered here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on an authored schema with no native build, installation or host.
  */
 export const test_json_schema_upgrade_v31_examples = (): void => {
   const input: OpenApiV3_1.IJsonSchema = {

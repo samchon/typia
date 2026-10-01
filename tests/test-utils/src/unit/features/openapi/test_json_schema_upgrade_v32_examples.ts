@@ -13,6 +13,11 @@ import { OpenApiConverter } from "@typia/utils";
  * 1. Build an OpenAPI 3.2 string schema with raw examples.
  * 2. Upgrade the schema to typia's emended representation.
  * 3. Assert the array is converted to a deterministic named record.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema runs on an authored 3.2 string schema and the examples array becomes the deterministic named record.
+ * @evidence contracts/testing.md#independent-expectations OpenAPI 3.2 shares JSON Schema 2020-12 examples semantics, so the expected record is authored from that rule.
+ * @evidence contracts/testing.md#distinguishing-cases The 3.2 entry path is the only case; nested examples are covered by the 3.1 case.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on an authored schema with no native build, installation or host.
  */
 export const test_json_schema_upgrade_v32_examples = (): void => {
   const input: OpenApiV3_2.IJsonSchema = {

@@ -15,6 +15,11 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * 1. Compose required and optional header, cookie, query, and body inputs.
  * 2. Ignore reserved OpenAPI headers and check the LLM validation boundary.
  * 3. Capture request headers, cookies, body, and style/explode query output.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration, HttpLlm and HttpMigration.execute run on an authored 3.1 document; route groups, LLM validation, captured headers, cookies, body and the exact query wire text are compared, so dropped groups, forced requirements or wrong array serialization fail.
+ * @evidence contracts/testing.md#independent-expectations Header, cookie and query strings are authored literals following the OpenAPI style and explode tables, with reserved headers and the connection authorization as documented overrides; the fetch double is the test's own.
+ * @evidence contracts/testing.md#distinguishing-cases Required and optional groups, form, pipe, space and deep-object styles, exploded and non-exploded arrays, matrix and label paths and header and cookie overrides each flip a branch.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Requests are captured by a fetch double and run in process with no native build, installation or host.
  */
 export const test_http_migrate_request_contract = async (): Promise<void> => {
   const migration = HttpMigration.application(document);

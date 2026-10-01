@@ -14,6 +14,11 @@ import { HttpError, HttpMigration } from "@typia/utils";
  *    bodies.
  * 2. Read repeated Set-Cookie fields and structured HttpError JSON.
  * 3. Check every host/path slash boundary without rewriting the base path.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration.application, execute and propagate run against a fetch double that returns authored responses; success classification, HttpError status and structured body, repeated Set-Cookie fields and URL joins are compared.
+ * @evidence contracts/testing.md#independent-expectations Status classification follows the HTTP status-class definitions and the URL expectations are authored strings; responses come from the test's own fetch double.
+ * @evidence contracts/testing.md#distinguishing-cases 2xx, 204, 205, 299 and 300 statuses, JSON, text and legacy error bodies, repeated cookies and host and path slash combinations are each distinct, with 300 as the not-success boundary.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Responses come from a fetch double supplied by the test, so no network, native build, installation or host is involved.
  */
 export const test_http_migrate_response_contract = async (): Promise<void> => {
   const application = HttpMigration.application(document);

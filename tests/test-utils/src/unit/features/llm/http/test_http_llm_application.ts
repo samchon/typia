@@ -9,6 +9,27 @@ import fs from "fs";
 
 import { TestGlobal } from "../../../../TestGlobal";
 
+/**
+ * Verifies each composed HttpLlm function exposes exactly its route's argument
+ * keys.
+ *
+ * An LLM function's parameter object is assembled from the migrated route's
+ * path parameters, headers, cookies, query and body. A composer regression that
+ * dropped, renamed or reordered a key would hide an argument from the model or
+ * advertise one the route cannot accept.
+ *
+ * 1. Upgrade the checked-in swagger fixture and compose it through
+ *    HttpLlm.application.
+ * 2. For every function, read its migrated route and assert the parameter schema
+ *    is an object.
+ * 3. Assert the property keys equal the route's path-parameter keys followed by
+ *    headers, cookies, query and body when present.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpLlm.application and each function's route() run directly on the fixture document; dropping, renaming, reordering or inventing a parameter key changes the compared key list or the object type check.
+ * @evidence contracts/testing.md#independent-expectations The fixture is an authored swagger document and the expected key order follows the documented route-to-parameter mapping, computed from each function's route() record instead of the produced schema. route() shares the migrator with the code under test, so route extraction itself is not independently verified here.
+ * @evidence contracts/testing.md#distinguishing-cases The fixture routes carry path-only, path plus query, path plus body and path plus query plus body arguments, so presence and absence of query and body both decide the expected keys. It has no header or cookie route and asserts keys, not property schemas; deprecation, tags and unsupported multipart belong to their own cases.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. HttpLlm and OpenApiConverter run in process and the resolver reads swagger.json from disk; no native build, consumer installation or host is involved.
+ */
 export const test_http_llm_application = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(
     JSON.parse(

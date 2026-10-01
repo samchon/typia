@@ -2,6 +2,22 @@ import { OpenApi, OpenApiV3 } from "@typia/interface";
 import { TestEquality } from "@typia/oracle/equality";
 import { OpenApiConverter } from "@typia/utils";
 
+/**
+ * Verifies an OpenAPI 3.0 upgrade turns nullable into a null member and keeps
+ * annotations.
+ *
+ * The emended schema expresses nullability as a union with null. Title and
+ * example on the 3.0 schema must remain on the resulting union.
+ *
+ * 1. Build an OpenAPI 3.0 nullable integer schema with an example and a title.
+ * 2. Upgrade it.
+ * 3. Assert a oneOf of integer and null with the title and example.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema runs on the authored schema and the whole output is compared, so a lost annotation or missing null member fails.
+ * @evidence contracts/testing.md#independent-expectations The expected union is an authored literal following the emended representation and OpenAPI 3.0's nullable keyword.
+ * @evidence contracts/testing.md#distinguishing-cases One nullable annotated scalar is the owned case; the non-nullable form is not asserted here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on an authored schema with no native build, installation or host.
+ */
 export const test_json_schema_upgrade_v30_example = (): void => {
   const input: OpenApiV3.IJsonSchema = {
     type: "integer",

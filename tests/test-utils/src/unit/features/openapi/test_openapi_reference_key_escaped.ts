@@ -29,6 +29,11 @@ import {
  *    a malformed `~` escape names no component.
  * 6. Assert the type checker, the validator, and the LLM converter answer every
  *    spelling alike, including a percent-encoded separator and a literal `%`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrades and downgrades documents referencing a component through an escaped pointer and walkers visit them; operations, definition keys and 3.0 nullability are compared.
+ * @evidence contracts/testing.md#independent-expectations RFC 6901 token decoding decides which component each reference names, and the expected operations and keys are authored from the source documents.
+ * @evidence contracts/testing.md#distinguishing-cases 3.0 and 2.0 inputs, parameter, request body and response positions, a nullable escaped reference and the walker visit each flip a decoding or lookup decision.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_openapi_reference_key_escaped = (): void => {
   const reference = { $ref: "#/components/schemas/A~1B" };

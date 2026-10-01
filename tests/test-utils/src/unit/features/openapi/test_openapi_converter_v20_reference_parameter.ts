@@ -23,6 +23,11 @@ import { OpenApiConverter } from "@typia/utils";
  * 3. Assert an unresolvable or cyclic reference throws the representability
  *    `TypeError` instead of being dropped, and that a nullable reference in a
  *    form field reads back too.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter downgrades referenced schemas into Swagger 2 non-body parameters and upgrades them back; the compared results fail if a parameter is dropped, loses its reference or its annotation, or loses nullability.
+ * @evidence contracts/testing.md#independent-expectations The source document is the oracle: every parameter must survive and every schema must read back as the definition it referenced. Expected shapes are authored.
+ * @evidence contracts/testing.md#distinguishing-cases Object, enum alias, nullable, annotated and list references, and a form field, each exercise a different rewrite; inline schemas are covered by other cases.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_openapi_converter_v20_reference_parameter = (): void => {
   const components: OpenApi.IComponents = {

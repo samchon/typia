@@ -18,6 +18,11 @@ import { HttpMigration } from "@typia/utils";
  *    query/header parameters, request bodies, and response bodies.
  * 2. Resolve synthesized and referenced route schemas.
  * 3. Assert every object keeps its shape and omits empty `required`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration.application migrates an authored document and every synthesized query, header, body and response schema is resolved and compared, so a reintroduced empty required array or a lost property changes an assertion.
+ * @evidence contracts/testing.md#independent-expectations The authored document states which schemas have no required members and expects the key to be absent; the OpenAPI rule against an empty required array is the oracle, and objects that do require members must keep them.
+ * @evidence contracts/testing.md#distinguishing-cases Primitive queries, inline and referenced object queries and headers, bodies, nested objects and the single-object parameter fast path are each checked, with a required-preserved case as the counterexample to blanket removal.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration runs in process on an authored document with no native build, installation or host.
  */
 export const test_http_migrate_empty_required = (): void => {
   const document: OpenApi.IDocument = {

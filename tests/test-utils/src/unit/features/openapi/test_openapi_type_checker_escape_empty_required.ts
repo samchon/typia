@@ -12,6 +12,11 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 1. Escape a referenced optional-only object schema.
  * 2. Escape a `oneOf` wrapper carrying an empty `required` sibling.
  * 3. Assert escaped objects and wrappers do not own a `required` key.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiTypeChecker.escape runs on a referenced optional-only object and a oneOf wrapper with an empty required sibling; the escaped schemas are compared and must not own a required key.
+ * @evidence contracts/testing.md#independent-expectations The OpenAPI rule against emitting empty required arrays decides the expectation; the own-property checks keep an explicit undefined from passing.
+ * @evidence contracts/testing.md#distinguishing-cases A referenced object and a wrapper are the two shapes; escaped objects with remaining required members are not asserted here.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The checker runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_type_checker_escape_empty_required = (): void => {
   const escaped = OpenApiTypeChecker.escape({

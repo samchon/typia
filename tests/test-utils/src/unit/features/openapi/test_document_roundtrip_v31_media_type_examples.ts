@@ -16,6 +16,11 @@ import { OpenApiConverter } from "@typia/utils";
  *    examples as a map.
  * 3. Downgrade back to OpenAPI 3.1 and assert schema examples are arrays while
  *    media examples remain a map.
+ *
+ * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrades and downgrades an authored 3.1 document and the media examples map and schema examples array are compared after each step, so applying the schema array rule to media examples fails.
+ * @evidence contracts/testing.md#independent-expectations The OpenAPI 3.1 shapes (array for Schema Object examples, named map for Media Type Object examples) are authored expectations independent of the converter.
+ * @evidence contracts/testing.md#distinguishing-cases Both example kinds in one document distinguish the two rules; response media examples and header examples are not covered.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on an authored document with no native build, installation or host.
  */
 export const test_document_roundtrip_v31_media_type_examples = (): void => {
   const input: OpenApiV3_1.IDocument = {

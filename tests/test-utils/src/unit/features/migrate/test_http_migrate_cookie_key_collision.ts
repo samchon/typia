@@ -12,6 +12,11 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  * 1. Compose a route with colliding path and cookie group names.
  * 2. Check that the LLM schema advertises two distinct required properties.
  * 3. Execute both arguments and require the correct path and Cookie header.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration, HttpLlm.application and HttpMigration.execute run on an authored document with a path parameter named cookie plus a cookie group; distinct route keys, distinct required LLM properties, the request path and the Cookie header are compared, so a colliding key or a cookie argument read twice fails.
+ * @evidence contracts/testing.md#independent-expectations The document is authored and the expectations are literals (/users/samchon, sid=token) plus the invariant that two argument keys differ; the key names are read from the route record because the migrator chooses the replacement name.
+ * @evidence contracts/testing.md#distinguishing-cases The colliding path and cookie names are the positive case. A document without a collision is not asserted here, so the test does not prove keys stay unchanged when no collision exists.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. A fetch double captures the request; no socket, native build, installation or host is involved.
  */
 export const test_http_migrate_cookie_key_collision =
   async (): Promise<void> => {

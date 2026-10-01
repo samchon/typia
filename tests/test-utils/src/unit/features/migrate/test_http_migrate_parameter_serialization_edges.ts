@@ -16,6 +16,11 @@ import { HttpLlm, HttpMigration, LlmJson } from "@typia/utils";
  * 1. Compose referenced arrays, delimited/open objects, and optional objects.
  * 2. Exercise direct serialization and the corresponding LLM validators.
  * 3. Reject undefined explode combinations with deterministic diagnostics.
+ *
+ * @evidence contracts/testing.md#behavioral-verification HttpMigration, HttpLlm and LlmJson.validateArguments run on authored parameter documents; serialized query text, advertised LLM properties, validator outcomes and composition diagnostics are compared, so a dropped referenced array, a rejected delimited style, a lost open object entry or a promoted optional member fails.
+ * @evidence contracts/testing.md#independent-expectations Serialized strings and diagnostics are authored literals following the OpenAPI style and explode tables; the LLM validation outcomes follow from the declared requiredness rather than from a stored snapshot.
+ * @evidence contracts/testing.md#distinguishing-cases Space and pipe delimiters, referenced arrays, open and implicit objects, required versus optional object members and invalid style and explode combinations each decide a different branch, with partial and complete inputs as accept and reject twins.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The wire format is captured through a fetch double and validators run in process, so no native build, installation or host is involved.
  */
 export const test_http_migrate_parameter_serialization_edges =
   async (): Promise<void> => {
