@@ -1,3 +1,4 @@
+import { preparePrune } from "@typia/oracle/prune";
 import { TestStructure } from "@typia/template";
 import { IValidation, assertEquals } from "typia";
 
@@ -7,29 +8,15 @@ export const _test_plain_validatePrune =
   (prune: (input: T) => IValidation<T>): void => {
     const input: T = factory.generate();
 
-    // SPOIL OBJECTS
-    iterate((obj: any) =>
-      new Array(10)
-        .fill("")
-        .forEach((_, i) => (obj[`__non_regular_type__${i}`] = "vulnerable")),
-    )(input);
-
-    // DO VALIDATE
+    const check = preparePrune(
+      input,
+      `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
+    );
     if (prune(input).success === false)
       throw new Error(
         `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
       );
-    else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
-      iterate((obj: any) => {
-        if (
-          Object.keys(obj).some(
-            (key) => key.indexOf("__non_regular_type__") === 0,
-          )
-        )
-          throw new Error(
-            `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
-          );
-      })(input);
+    check();
 
     // SPOIL
     const wrong: ISpoiled[] = [];
@@ -68,27 +55,3 @@ interface ISpoiled {
   expected: string[];
   actual: string[];
 }
-
-const iterate =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    if (Array.isArray(input)) return iterate_array(closure)(input);
-    else if (
-      input !== null &&
-      typeof input === "object" &&
-      typeof input.valueOf() === "object"
-    )
-      return iterate_object(closure)(input);
-  };
-
-const iterate_object =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    closure(input);
-    for (const value of Object.values(input)) iterate(closure)(value);
-  };
-
-const iterate_array =
-  (closure: (obj: any) => void) =>
-  (input: any): void =>
-    input.forEach((elem: any) => iterate(closure)(elem));

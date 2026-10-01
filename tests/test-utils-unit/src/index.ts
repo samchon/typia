@@ -171,6 +171,8 @@ import { test_openapi_validation_reference_paths } from "./features/openapi/test
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
+import { test_prune_oracle_graph_preservation } from "./features/oracle/test_prune_oracle_graph_preservation";
+import { test_prune_oracle_mutation_contract } from "./features/oracle/test_prune_oracle_mutation_contract";
 import { test_structure_selection_declared_eligibility } from "./features/oracle/test_structure_selection_declared_eligibility";
 import { test_dedent_interpolation } from "./features/test_dedent_interpolation";
 import { test_equality_async_result_refusal } from "./features/test_equality_async_result_refusal";
@@ -430,6 +432,14 @@ test(
 test(
   test_boolean_predicate_is_prune_results.name,
   test_boolean_predicate_is_prune_results,
+);
+test(
+  test_prune_oracle_mutation_contract.name,
+  test_prune_oracle_mutation_contract,
+);
+test(
+  test_prune_oracle_graph_preservation.name,
+  test_prune_oracle_graph_preservation,
 );
 
 test(

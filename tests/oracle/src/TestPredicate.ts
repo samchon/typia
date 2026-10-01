@@ -1,3 +1,5 @@
+import { preparePrune } from "./TestPrune";
+
 /** The minimal fixture behavior used by portable predicate assertion helpers. */
 interface ITestPredicateFixture<T> {
   /** Supplies a separately usable authored value for each scenario. */
@@ -104,12 +106,12 @@ function spoilEqualsArray(array: any): boolean {
  * malformed non-Boolean status. The clean and spoiled result contracts must
  * both remain observable.
  *
- * @evidence contracts/common.md#principled-implementation The surplus-spoiled clean value must return literal true and lose the injected keys; each independently invalid fixture spoiler must return literal false. The existing emitted-source catch-all guard still bypasses the surplus-removal check and remains an unresolved oracle limitation.
- * @evidence contracts/common.md#clear-and-simple-design The existing private object/array traversal and injection population are preserved. The predicate receives the same mutated clean value that is checked after pruning; invalid cases start from separately generated values. The finite acyclic fixture premise and catch-all source guard remain visible.
+ * @evidence contracts/common.md#principled-implementation The surplus-spoiled clean value must return literal true and lose the injected keys; each independently invalid fixture spoiler must return literal false. The shared deletion-only graph check also rejects lost or replaced authored valid data.
+ * @evidence contracts/common.md#clear-and-simple-design Shared preparePrune owns valid-data capture and fresh surplus injection for ordinary object/array fixtures. This entry checks exact Boolean statuses; invalid cases start from separately generated values. Shared references and cycles are handled by graph identity.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Supplied callbacks are executed directly without replacing product methods or accepting fixture-specific expected outputs. The existing fixture traversal decisions are retained; exact Boolean comparisons reject malformed results rather than compensating for them.
  * @evidence contracts/common.md#meaningful-documentation Native prose identifies the return-value contract and fixture ownership; the acknowledgments state the precise assertions, original traversal premises and any oracle limitation.
- * @evidence contracts/testing.md#behavioral-verification The surplus-spoiled clean value must return literal true and lose the injected keys; each independently invalid fixture spoiler must return literal false. The existing emitted-source catch-all guard still bypasses the surplus-removal check and remains an unresolved oracle limitation.
- * @evidence contracts/testing.md#independent-expectations The fixture generator/spoilers establish valid and invalid field values; the helper authors the surplus-key population. Literal true/false expectations follow the isPrune contract. Source-text detection of a catch-all is not an independent pruning oracle and is retained for separate investigation.
+ * @evidence contracts/testing.md#behavioral-verification The surplus-spoiled clean value must return literal true and lose the injected keys; each independently invalid fixture spoiler must return literal false. The shared deletion-only graph check also rejects lost or replaced authored valid data.
+ * @evidence contracts/testing.md#independent-expectations The fixture generator/spoilers establish valid and invalid field values; the helper authors the surplus-key population. Literal true/false expectations follow the isPrune contract. Valid properties are captured before the callback; callback source spelling has no role in acceptance.
  * @evidence contracts/testing.md#distinguishing-cases Surplus removal on otherwise-valid data and rejection of each fixture spoiler are separate checks. Plugin-free sensitivity cases use a pruning callback that removes keys correctly while injecting malformed results independently on clean and invalid calls.
  * @evidence contracts/testing.md#execution-ownership This shared oracle executes only the supplied callback and fixture operations. Matching test-utils-unit cases call it under a plugin-free configuration; the existing automated/composite wrappers retain their actual native-produced callbacks and their own boundary execution.
  */
@@ -119,29 +121,15 @@ export const _test_plain_isPrune =
   (prune: (input: T) => boolean): void => {
     const input: T = factory.generate();
 
-    // SPOIL OBJECTS
-    iteratePrune((obj: any) =>
-      new Array(10)
-        .fill("")
-        .forEach((_, i) => (obj[`__non_regular_type__${i}`] = "vulnerable")),
-    )(input);
-
-    // DO VALIDATE
+    const check = preparePrune(
+      input,
+      `Bug on typia.plain.isPrune(): failed to prune the ${name} type.`,
+    );
     if (prune(input) !== true)
       throw new Error(
         `Bug on typia.plain.isPrune(): failed to understand the ${name} type.`,
       );
-    else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
-      iteratePrune((obj: any) => {
-        if (
-          Object.keys(obj).some(
-            (key) => key.indexOf("__non_regular_type__") === 0,
-          )
-        )
-          throw new Error(
-            `Bug on typia.plain.isPrune(): failed to prune the ${name} type.`,
-          );
-      })(input);
+    check();
 
     // SPOIL
     for (const spoil of factory.SPOILERS ?? []) {
@@ -154,27 +142,3 @@ export const _test_plain_isPrune =
         );
     }
   };
-
-const iteratePrune =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    if (Array.isArray(input)) return iteratePruneArray(closure)(input);
-    else if (
-      input !== null &&
-      typeof input === "object" &&
-      typeof input.valueOf() === "object"
-    )
-      return iteratePruneObject(closure)(input);
-  };
-
-const iteratePruneObject =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    closure(input);
-    for (const value of Object.values(input)) iteratePrune(closure)(value);
-  };
-
-const iteratePruneArray =
-  (closure: (obj: any) => void) =>
-  (input: any): void =>
-    input.forEach((elem: any) => iteratePrune(closure)(elem));

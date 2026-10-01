@@ -58,6 +58,7 @@
         "!test-typia-automated/src/internal/_test_is.ts",
         "!test-typia-automated/src/internal/_test_equals.ts",
         "!test-typia-automated/src/internal/_test_plain_isPrune.ts",
+        "!test-typia-automated/src/internal/_test_plain_prune.ts",
         "!test-typia-automated/src/features/equals/test_*.ts",
         "!test-typia-automated/src/features/createEquals/test_*.ts",
         "!test-typia-automated/src/features/assertEquals/test_*.ts",
@@ -153,7 +154,8 @@
         "test-feature-identity/src/RepositoryIntegrity.ts",
         "oracle/src/**/*.ts",
         "!oracle/src/TestPredicate.ts",
-        "!oracle/src/TestOpenApiValidation.ts"
+        "!oracle/src/TestOpenApiValidation.ts",
+        "!oracle/src/TestPrune.ts"
       ],
       "symbol": [
         "type",
@@ -320,6 +322,24 @@
       "type": "typescript",
       "files": [
         "oracle/src/TestOpenApiValidation.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable pruning mutation helpers",
+      "type": "typescript",
+      "files": [
+        "oracle/src/TestPrune.ts"
       ],
       "symbol": "function",
       "reference": {
