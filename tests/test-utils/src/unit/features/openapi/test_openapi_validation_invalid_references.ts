@@ -17,7 +17,7 @@ import assert from "node:assert/strict";
  * @evidence contracts/testing.md#behavioral-verification Direct validator clean acceptance is a positive control, then the shared _test_validate must throw the literal invalid-schema reason during expected-path normalization. The cases distinguish explicit reference failure from an empty-schema fallback and do not replace a product method.
  * @evidence contracts/testing.md#independent-expectations Authored union edges, missing own components and malformed local tokens determine each literal reason. The clean number field and string spoiler are independently stated; the validator's error output never supplies expected paths or messages.
  * @evidence contracts/testing.md#distinguishing-cases Covers absent dictionaries, missing targets, malformed tilde and foreign references, inherited-only components and self/two-key alias cycles alongside a valid object branch. Each case retains the same clean value and changes only its numeric field before normalization reaches the invalid neighbor.
- * @evidence contracts/testing.md#execution-ownership The matching exported case is registered by test-utils' unit plugin-free node:test entry and directly executes the actual shared oracle and validator. No native schema producer is needed to test malformed authored reference graphs.
+ * @evidence contracts/testing.md#execution-ownership The matching exported case is registered by test-utils unit plugin-free node:test entry and directly executes the actual shared oracle and validator. No native schema producer is needed to test malformed authored reference graphs.
  */
 export const test_openapi_validation_invalid_references = (): void => {
   const leaf: OpenApi.IJsonSchema = {

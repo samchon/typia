@@ -39,6 +39,16 @@ import { test_llm_coerce_triple_stringify_boolean } from "./features/llm/coerce/
 import { test_llm_coerce_triple_stringify_null } from "./features/llm/coerce/test_llm_coerce_triple_stringify_null";
 import { test_llm_coerce_triple_stringify_number } from "./features/llm/coerce/test_llm_coerce_triple_stringify_number";
 import { test_llm_coerce_triple_stringify_object } from "./features/llm/coerce/test_llm_coerce_triple_stringify_object";
+import { test_http_llm_application } from "./features/llm/http/test_http_llm_application";
+import { test_http_llm_application_function_name_fallback } from "./features/llm/http/test_http_llm_application_function_name_fallback";
+import { test_http_llm_application_function_name_length } from "./features/llm/http/test_http_llm_application_function_name_length";
+import { test_http_llm_application_human } from "./features/llm/http/test_http_llm_application_human";
+import { test_http_llm_application_version } from "./features/llm/http/test_http_llm_application_version";
+import { test_http_llm_function_deprecated } from "./features/llm/http/test_http_llm_function_deprecated";
+import { test_http_llm_function_multipart } from "./features/llm/http/test_http_llm_function_multipart";
+import { test_http_llm_function_tags } from "./features/llm/http/test_http_llm_function_tags";
+import { test_llm_invert_description_tag_prose_not_promoted } from "./features/llm/invert/test_llm_invert_description_tag_prose_not_promoted";
+import { test_llm_invert_empty_required } from "./features/llm/invert/test_llm_invert_empty_required";
 import { test_llm_json_parse_lenient_bom_prefix } from "./features/llm/parse/test_llm_json_parse_lenient_bom_prefix";
 import { test_llm_json_parse_lenient_boolean_coercion } from "./features/llm/parse/test_llm_json_parse_lenient_boolean_coercion";
 import { test_llm_json_parse_lenient_comma_optional } from "./features/llm/parse/test_llm_json_parse_lenient_comma_optional";
@@ -156,6 +166,26 @@ import { test_llm_stringify_undefined_entries_with_errors } from "./features/llm
 import { test_llm_stringify_undefined_in_array } from "./features/llm/stringify/test_llm_stringify_undefined_in_array";
 import { test_llm_stringify_unmappable_errors } from "./features/llm/stringify/test_llm_stringify_unmappable_errors";
 import { test_llm_stringify_value_containing_error_marker } from "./features/llm/stringify/test_llm_stringify_value_containing_error_marker";
+import { test_http_migrate_body_media_contract } from "./features/migrate/test_http_migrate_body_media_contract";
+import { test_http_migrate_component_name_collision } from "./features/migrate/test_http_migrate_component_name_collision";
+import { test_http_migrate_cookie_key_collision } from "./features/migrate/test_http_migrate_cookie_key_collision";
+import { test_http_migrate_cookie_serialization_contract } from "./features/migrate/test_http_migrate_cookie_serialization_contract";
+import { test_http_migrate_empty_required } from "./features/migrate/test_http_migrate_empty_required";
+import { test_http_migrate_parameter_serialization_edges } from "./features/migrate/test_http_migrate_parameter_serialization_edges";
+import { test_http_migrate_path_character_names } from "./features/migrate/test_http_migrate_path_character_names";
+import { test_http_migrate_path_parameter_names } from "./features/migrate/test_http_migrate_path_parameter_names";
+import { test_http_migrate_prototype_safe_components } from "./features/migrate/test_http_migrate_prototype_safe_components";
+import { test_http_migrate_querystring_contract } from "./features/migrate/test_http_migrate_querystring_contract";
+import { test_http_migrate_remigration_keeps_names } from "./features/migrate/test_http_migrate_remigration_keeps_names";
+import { test_http_migrate_request_contract } from "./features/migrate/test_http_migrate_request_contract";
+import { test_http_migrate_response_contract } from "./features/migrate/test_http_migrate_response_contract";
+import { test_http_migrate_route_accessor } from "./features/migrate/test_http_migrate_route_accessor";
+import { test_http_migrate_route_accessor_slice } from "./features/migrate/test_http_migrate_route_accessor_slice";
+import { test_http_migrate_route_comment } from "./features/migrate/test_http_migrate_route_comment";
+import { test_http_migrate_route_plugin } from "./features/migrate/test_http_migrate_route_plugin";
+import { test_http_migrate_route_return_type_void } from "./features/migrate/test_http_migrate_route_return_type_void";
+import { test_http_migrate_route_success_null } from "./features/migrate/test_http_migrate_route_success_null";
+import { test_http_migrate_webhook_path_collision } from "./features/migrate/test_http_migrate_webhook_path_collision";
 import { test_naming_convention_camel } from "./features/naming/test_naming_convention_camel";
 import { test_naming_convention_empty } from "./features/naming/test_naming_convention_empty";
 import { test_naming_convention_kebab } from "./features/naming/test_naming_convention_kebab";
@@ -164,11 +194,57 @@ import { test_naming_convention_pascal } from "./features/naming/test_naming_con
 import { test_naming_convention_reserved } from "./features/naming/test_naming_convention_reserved";
 import { test_naming_convention_snake } from "./features/naming/test_naming_convention_snake";
 import { test_naming_convention_variable } from "./features/naming/test_naming_convention_variable";
+import { test_document_downgrade_v20_unrepresentable } from "./features/openapi/test_document_downgrade_v20_unrepresentable";
+import { test_document_references_resolve } from "./features/openapi/test_document_references_resolve";
+import { test_document_roundtrip_v20_form_arrays } from "./features/openapi/test_document_roundtrip_v20_form_arrays";
+import { test_document_roundtrip_v20_form_data } from "./features/openapi/test_document_roundtrip_v20_form_data";
+import { test_document_roundtrip_v20_server_media } from "./features/openapi/test_document_roundtrip_v20_server_media";
+import { test_document_roundtrip_v20_urlencoded_file } from "./features/openapi/test_document_roundtrip_v20_urlencoded_file";
+import { test_document_roundtrip_v31_media_type_examples } from "./features/openapi/test_document_roundtrip_v31_media_type_examples";
+import { test_json_schema_byte_content_encoding } from "./features/openapi/test_json_schema_byte_content_encoding";
+import { test_json_schema_downgrade_v20_enum } from "./features/openapi/test_json_schema_downgrade_v20_enum";
+import { test_json_schema_downgrade_v20_example } from "./features/openapi/test_json_schema_downgrade_v20_example";
+import { test_json_schema_downgrade_v20_nullable } from "./features/openapi/test_json_schema_downgrade_v20_nullable";
+import { test_json_schema_downgrade_v30_enum } from "./features/openapi/test_json_schema_downgrade_v30_enum";
+import { test_json_schema_downgrade_v30_example } from "./features/openapi/test_json_schema_downgrade_v30_example";
+import { test_json_schema_downgrade_v30_examples } from "./features/openapi/test_json_schema_downgrade_v30_examples";
+import { test_json_schema_downgrade_v30_nullable } from "./features/openapi/test_json_schema_downgrade_v30_nullable";
+import { test_json_schema_downgrade_v31_enum } from "./features/openapi/test_json_schema_downgrade_v31_enum";
+import { test_json_schema_downgrade_v31_example } from "./features/openapi/test_json_schema_downgrade_v31_example";
+import { test_json_schema_downgrade_v31_examples } from "./features/openapi/test_json_schema_downgrade_v31_examples";
+import { test_json_schema_downgrade_v31_nullable } from "./features/openapi/test_json_schema_downgrade_v31_nullable";
+import { test_json_schema_roundtrip_v31_examples } from "./features/openapi/test_json_schema_roundtrip_v31_examples";
+import { test_json_schema_type_checker_cover_any } from "./features/openapi/test_json_schema_type_checker_cover_any";
+import { test_json_schema_type_checker_cover_constraints } from "./features/openapi/test_json_schema_type_checker_cover_constraints";
+import { test_json_schema_type_checker_cover_nullable } from "./features/openapi/test_json_schema_type_checker_cover_nullable";
+import { test_json_schema_type_checker_cover_number } from "./features/openapi/test_json_schema_type_checker_cover_number";
+import { test_json_schema_upgrade_items_omitted } from "./features/openapi/test_json_schema_upgrade_items_omitted";
+import { test_json_schema_upgrade_v20_example } from "./features/openapi/test_json_schema_upgrade_v20_example";
+import { test_json_schema_upgrade_v30_example } from "./features/openapi/test_json_schema_upgrade_v30_example";
+import { test_json_schema_upgrade_v31_examples } from "./features/openapi/test_json_schema_upgrade_v31_examples";
+import { test_json_schema_upgrade_v31_tuple_items } from "./features/openapi/test_json_schema_upgrade_v31_tuple_items";
+import { test_json_schema_upgrade_v32_examples } from "./features/openapi/test_json_schema_upgrade_v32_examples";
+import { test_openapi_converter_empty_required } from "./features/openapi/test_openapi_converter_empty_required";
+import { test_openapi_converter_parameter_required } from "./features/openapi/test_openapi_converter_parameter_required";
+import { test_openapi_converter_v20_documented_enum } from "./features/openapi/test_openapi_converter_v20_documented_enum";
+import { test_openapi_converter_v20_reference_parameter } from "./features/openapi/test_openapi_converter_v20_reference_parameter";
+import { test_openapi_emended_items_omitted_boundary } from "./features/openapi/test_openapi_emended_items_omitted_boundary";
+import { test_openapi_naming_numeric_constraints } from "./features/openapi/test_openapi_naming_numeric_constraints";
+import { test_openapi_reference_key_escaped } from "./features/openapi/test_openapi_reference_key_escaped";
+import { test_openapi_type_checker_escape_empty_required } from "./features/openapi/test_openapi_type_checker_escape_empty_required";
 import { test_openapi_unknown_string_formats } from "./features/openapi/test_openapi_unknown_string_formats";
 import { test_openapi_unreference_alias_chains } from "./features/openapi/test_openapi_unreference_alias_chains";
 import { test_openapi_validation_invalid_references } from "./features/openapi/test_openapi_validation_invalid_references";
 import { test_openapi_validation_path_grouping } from "./features/openapi/test_openapi_validation_path_grouping";
 import { test_openapi_validation_reference_paths } from "./features/openapi/test_openapi_validation_reference_paths";
+import { test_openapi_validator_array_union_permutation } from "./features/openapi/test_openapi_validator_array_union_permutation";
+import { test_openapi_validator_decimal_multiple_of } from "./features/openapi/test_openapi_validator_decimal_multiple_of";
+import { test_openapi_validator_integer_bound_message } from "./features/openapi/test_openapi_validator_integer_bound_message";
+import { test_openapi_validator_intrinsic_object_tuple_invariants } from "./features/openapi/test_openapi_validator_intrinsic_object_tuple_invariants";
+import { test_openapi_validator_nested_discriminator } from "./features/openapi/test_openapi_validator_nested_discriminator";
+import { test_openapi_validator_object_additional_properties } from "./features/openapi/test_openapi_validator_object_additional_properties";
+import { test_openapi_validator_report_path_boundary } from "./features/openapi/test_openapi_validator_report_path_boundary";
+import { test_openapi_validator_unicode_length } from "./features/openapi/test_openapi_validator_unicode_length";
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
@@ -462,3 +538,347 @@ test(
 
 test(test_clone_oracle_data_ownership.name, test_clone_oracle_data_ownership);
 test(test_equality_signed_zero.name, test_equality_signed_zero);
+
+test(test_http_llm_application.name, test_http_llm_application);
+
+test(
+  test_http_llm_application_function_name_fallback.name,
+  test_http_llm_application_function_name_fallback,
+);
+
+test(
+  test_http_llm_application_function_name_length.name,
+  test_http_llm_application_function_name_length,
+);
+
+test(test_http_llm_application_human.name, test_http_llm_application_human);
+
+test(test_http_llm_application_version.name, test_http_llm_application_version);
+
+test(test_http_llm_function_deprecated.name, test_http_llm_function_deprecated);
+
+test(test_http_llm_function_multipart.name, test_http_llm_function_multipart);
+
+test(test_http_llm_function_tags.name, test_http_llm_function_tags);
+
+test(
+  test_llm_invert_description_tag_prose_not_promoted.name,
+  test_llm_invert_description_tag_prose_not_promoted,
+);
+
+test(test_llm_invert_empty_required.name, test_llm_invert_empty_required);
+
+test(
+  test_http_migrate_body_media_contract.name,
+  test_http_migrate_body_media_contract,
+);
+
+test(
+  test_http_migrate_component_name_collision.name,
+  test_http_migrate_component_name_collision,
+);
+
+test(
+  test_http_migrate_cookie_key_collision.name,
+  test_http_migrate_cookie_key_collision,
+);
+
+test(
+  test_http_migrate_cookie_serialization_contract.name,
+  test_http_migrate_cookie_serialization_contract,
+);
+
+test(test_http_migrate_empty_required.name, test_http_migrate_empty_required);
+
+test(
+  test_http_migrate_parameter_serialization_edges.name,
+  test_http_migrate_parameter_serialization_edges,
+);
+
+test(
+  test_http_migrate_path_character_names.name,
+  test_http_migrate_path_character_names,
+);
+
+test(
+  test_http_migrate_path_parameter_names.name,
+  test_http_migrate_path_parameter_names,
+);
+
+test(
+  test_http_migrate_prototype_safe_components.name,
+  test_http_migrate_prototype_safe_components,
+);
+
+test(
+  test_http_migrate_querystring_contract.name,
+  test_http_migrate_querystring_contract,
+);
+
+test(
+  test_http_migrate_remigration_keeps_names.name,
+  test_http_migrate_remigration_keeps_names,
+);
+
+test(
+  test_http_migrate_request_contract.name,
+  test_http_migrate_request_contract,
+);
+
+test(
+  test_http_migrate_response_contract.name,
+  test_http_migrate_response_contract,
+);
+
+test(test_http_migrate_route_accessor.name, test_http_migrate_route_accessor);
+
+test(
+  test_http_migrate_route_accessor_slice.name,
+  test_http_migrate_route_accessor_slice,
+);
+
+test(test_http_migrate_route_comment.name, test_http_migrate_route_comment);
+
+test(test_http_migrate_route_plugin.name, test_http_migrate_route_plugin);
+
+test(
+  test_http_migrate_route_return_type_void.name,
+  test_http_migrate_route_return_type_void,
+);
+
+test(
+  test_http_migrate_route_success_null.name,
+  test_http_migrate_route_success_null,
+);
+
+test(
+  test_http_migrate_webhook_path_collision.name,
+  test_http_migrate_webhook_path_collision,
+);
+
+test(
+  test_document_downgrade_v20_unrepresentable.name,
+  test_document_downgrade_v20_unrepresentable,
+);
+
+test(test_document_references_resolve.name, test_document_references_resolve);
+
+test(
+  test_document_roundtrip_v20_form_arrays.name,
+  test_document_roundtrip_v20_form_arrays,
+);
+
+test(
+  test_document_roundtrip_v20_form_data.name,
+  test_document_roundtrip_v20_form_data,
+);
+
+test(
+  test_document_roundtrip_v20_server_media.name,
+  test_document_roundtrip_v20_server_media,
+);
+
+test(
+  test_document_roundtrip_v20_urlencoded_file.name,
+  test_document_roundtrip_v20_urlencoded_file,
+);
+
+test(
+  test_document_roundtrip_v31_media_type_examples.name,
+  test_document_roundtrip_v31_media_type_examples,
+);
+
+test(
+  test_json_schema_byte_content_encoding.name,
+  test_json_schema_byte_content_encoding,
+);
+
+test(
+  test_json_schema_downgrade_v20_enum.name,
+  test_json_schema_downgrade_v20_enum,
+);
+
+test(
+  test_json_schema_downgrade_v20_example.name,
+  test_json_schema_downgrade_v20_example,
+);
+
+test(
+  test_json_schema_downgrade_v20_nullable.name,
+  test_json_schema_downgrade_v20_nullable,
+);
+
+test(
+  test_json_schema_downgrade_v30_enum.name,
+  test_json_schema_downgrade_v30_enum,
+);
+
+test(
+  test_json_schema_downgrade_v30_example.name,
+  test_json_schema_downgrade_v30_example,
+);
+
+test(
+  test_json_schema_downgrade_v30_examples.name,
+  test_json_schema_downgrade_v30_examples,
+);
+
+test(
+  test_json_schema_downgrade_v30_nullable.name,
+  test_json_schema_downgrade_v30_nullable,
+);
+
+test(
+  test_json_schema_downgrade_v31_enum.name,
+  test_json_schema_downgrade_v31_enum,
+);
+
+test(
+  test_json_schema_downgrade_v31_example.name,
+  test_json_schema_downgrade_v31_example,
+);
+
+test(
+  test_json_schema_downgrade_v31_examples.name,
+  test_json_schema_downgrade_v31_examples,
+);
+
+test(
+  test_json_schema_downgrade_v31_nullable.name,
+  test_json_schema_downgrade_v31_nullable,
+);
+
+test(
+  test_json_schema_roundtrip_v31_examples.name,
+  test_json_schema_roundtrip_v31_examples,
+);
+
+test(
+  test_json_schema_type_checker_cover_any.name,
+  test_json_schema_type_checker_cover_any,
+);
+
+test(
+  test_json_schema_type_checker_cover_constraints.name,
+  test_json_schema_type_checker_cover_constraints,
+);
+
+test(
+  test_json_schema_type_checker_cover_nullable.name,
+  test_json_schema_type_checker_cover_nullable,
+);
+
+test(
+  test_json_schema_type_checker_cover_number.name,
+  test_json_schema_type_checker_cover_number,
+);
+
+test(
+  test_json_schema_upgrade_items_omitted.name,
+  test_json_schema_upgrade_items_omitted,
+);
+
+test(
+  test_json_schema_upgrade_v20_example.name,
+  test_json_schema_upgrade_v20_example,
+);
+
+test(
+  test_json_schema_upgrade_v30_example.name,
+  test_json_schema_upgrade_v30_example,
+);
+
+test(
+  test_json_schema_upgrade_v31_examples.name,
+  test_json_schema_upgrade_v31_examples,
+);
+
+test(
+  test_json_schema_upgrade_v31_tuple_items.name,
+  test_json_schema_upgrade_v31_tuple_items,
+);
+
+test(
+  test_json_schema_upgrade_v32_examples.name,
+  test_json_schema_upgrade_v32_examples,
+);
+
+test(
+  test_openapi_converter_empty_required.name,
+  test_openapi_converter_empty_required,
+);
+
+test(
+  test_openapi_converter_parameter_required.name,
+  test_openapi_converter_parameter_required,
+);
+
+test(
+  test_openapi_converter_v20_documented_enum.name,
+  test_openapi_converter_v20_documented_enum,
+);
+
+test(
+  test_openapi_converter_v20_reference_parameter.name,
+  test_openapi_converter_v20_reference_parameter,
+);
+
+test(
+  test_openapi_emended_items_omitted_boundary.name,
+  test_openapi_emended_items_omitted_boundary,
+);
+
+test(
+  test_openapi_naming_numeric_constraints.name,
+  test_openapi_naming_numeric_constraints,
+);
+
+test(
+  test_openapi_reference_key_escaped.name,
+  test_openapi_reference_key_escaped,
+);
+
+test(
+  test_openapi_type_checker_escape_empty_required.name,
+  test_openapi_type_checker_escape_empty_required,
+);
+
+test(
+  test_openapi_validator_array_union_permutation.name,
+  test_openapi_validator_array_union_permutation,
+);
+
+test(
+  test_openapi_validator_decimal_multiple_of.name,
+  test_openapi_validator_decimal_multiple_of,
+);
+
+test(
+  test_openapi_validator_integer_bound_message.name,
+  test_openapi_validator_integer_bound_message,
+);
+
+test(
+  test_openapi_validator_intrinsic_object_tuple_invariants.name,
+  test_openapi_validator_intrinsic_object_tuple_invariants,
+);
+
+test(
+  test_openapi_validator_nested_discriminator.name,
+  test_openapi_validator_nested_discriminator,
+);
+
+test(
+  test_openapi_validator_object_additional_properties.name,
+  test_openapi_validator_object_additional_properties,
+);
+
+test(
+  test_openapi_validator_report_path_boundary.name,
+  test_openapi_validator_report_path_boundary,
+);
+
+test(
+  test_openapi_validator_unicode_length.name,
+  test_openapi_validator_unicode_length,
+);

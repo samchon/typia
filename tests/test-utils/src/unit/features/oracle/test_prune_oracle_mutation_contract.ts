@@ -15,7 +15,7 @@ import assert from "node:assert/strict";
  * @evidence contracts/testing.md#behavioral-verification Both actual shared prune and isPrune helpers accept surplus-only deletion and reject marker-bearing no-ops, ordinary no-ops, removal and replacement of the authored value. These distinguish source-text bypasses and data-loss-blind removal checks.
  * @evidence contracts/testing.md#independent-expectations The authored fixture declares value=1; the in-place pruning contract permits removing only surplus keys. Expected acceptance follows those declared values independently of callback output or source spelling.
  * @evidence contracts/testing.md#distinguishing-cases Correct pruning is the positive control. Identical no-op behavior with two spellings, deletion of the required field and changed required data are separate negative twins.
- * @evidence contracts/testing.md#execution-ownership The matching exported case is registered by test-utils' unit plugin-free node:test entry and directly executes the maintained shared oracle with authored callbacks.
+ * @evidence contracts/testing.md#execution-ownership The matching exported case is registered by test-utils unit plugin-free node:test entry and directly executes the maintained shared oracle with authored callbacks.
  */
 export const test_prune_oracle_mutation_contract = (): void => {
   for (const helper of [_test_plain_prune, _test_plain_isPrune]) {

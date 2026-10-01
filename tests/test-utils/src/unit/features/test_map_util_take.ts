@@ -16,7 +16,7 @@ import { MapUtil } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification The public take function must preserve stored values while call counts expose unwanted regeneration; absent keys are inserted once, the helper does not insert after a throw, and callback-owned mutations are not rolled back.
  * @evidence contracts/testing.md#independent-expectations Map.has establishes membership independently of the helper; literal values and strict identity comparisons establish retrieval semantics, while explicit call counters distinguish reuse from recomputation.
  * @evidence contracts/testing.md#distinguishing-cases False, positive and negative zero, empty string, null, undefined, NaN and truthy values share existing-key expectations; absent undefined values, distinct object identities and throwing generators distinguish adjacent boundary behavior.
- * @evidence contracts/testing.md#execution-ownership test-utils' unit start command loads its explicit node:test registrations, including this exported function; its tsconfig inherits no typia plugin and directly exercises the helper without a product native artifact, HTTP service or SDK client.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit command loads its explicit node:test registrations, including this exported function; its tsconfig inherits no typia plugin and directly exercises the helper without a product native artifact, HTTP service or SDK client.
  */
 export const test_map_util_take = (): void => {
   for (const value of [
