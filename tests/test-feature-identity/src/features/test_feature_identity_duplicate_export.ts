@@ -16,6 +16,11 @@ import { FeatureIdentity } from "../FeatureIdentity";
  * 1. Assert one name exported by two files of the same suite is reported once,
  *    naming both files.
  * 2. Assert the same name exported by two files of different suites is silent.
+ *
+ * @evidence contracts/testing.md#behavioral-verification FeatureIdentity.diagnose receives authored file records; one same-suite name collision must yield exactly one uniqueness diagnostic (the colliding record also violates the identity rule, which is a separate diagnostic) naming both files and a cross-suite duplicate must yield none.
+ * @evidence contracts/testing.md#independent-expectations The policy states that the report is keyed by one suite's executions; inputs and the expected single diagnostic and empty list are authored, not derived from the implementation.
+ * @evidence contracts/testing.md#distinguishing-cases The same-suite collision is the positive case and the identical name across two suites is its negative twin, so ignoring the suite in either direction fails; three-way collisions and unit versus native files of one suite are not asserted separately.
+ * @evidence contracts/testing.md#execution-ownership The test-feature-identity start command explicitly imports and calls this exported case; it invokes the pure diagnose function on in-memory records with no git, native artifact or feature module execution.
  */
 export const test_feature_identity_duplicate_export = (): void => {
   // 1. SAME SUITE: A COLLISION
@@ -26,6 +31,11 @@ export const test_feature_identity_duplicate_export = (): void => {
       exports: ["test_http_llm_application"],
     },
   ]);
+  TestEquality.equals(
+    "uniqueness diagnostics",
+    1,
+    collision.filter((line) => line.includes("is exported by 2 files")).length,
+  );
   TestValidator.predicate(
     `collision reported: ${collision.join(" | ")}`,
     collision.some(

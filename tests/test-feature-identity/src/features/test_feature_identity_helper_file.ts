@@ -17,6 +17,11 @@ import { FeatureIdentity } from "../FeatureIdentity";
  *
  * 1. Assert a helper exporting no test function is silent.
  * 2. Assert a helper exporting a test function is reported.
+ *
+ * @evidence contracts/testing.md#behavioral-verification FeatureIdentity.diagnose receives an authored helper record with and without a hidden test export; the silent result and the single diagnostic naming the hidden test are asserted.
+ * @evidence contracts/testing.md#independent-expectations DynamicExecutor runs every test_-prefixed export it finds, so a hidden test is a defect; the records and expectations are authored from that discovery rule rather than the diagnose implementation.
+ * @evidence contracts/testing.md#distinguishing-cases A helper without a test export is silent and the same helper exporting one is reported; helpers outside feature trees are filtered by collection, not asserted here.
+ * @evidence contracts/testing.md#execution-ownership The test-feature-identity start command explicitly imports and calls this exported case; it invokes the pure diagnose function on in-memory records with no git, native artifact or feature module execution.
  */
 export const test_feature_identity_helper_file = (): void => {
   // 1. AN ORDINARY HELPER IS FINE

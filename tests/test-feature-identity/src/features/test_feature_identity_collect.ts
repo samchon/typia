@@ -28,6 +28,11 @@ import { FeatureIdentity } from "../FeatureIdentity";
  *    nothing else.
  * 3. Assert the non-ASCII file is parsed and its mismatch reported, so the quoting
  *    path stays wired end to end.
+ *
+ * @evidence contracts/testing.md#behavioral-verification FeatureIdentity.collect runs against a throwaway git repository built by the test; the collected paths, suites, the Unicode file's parsed export and the single resulting diagnostic fail if a quoted path, declaration file, unit index, unstaged deletion or unit-feature test is mishandled.
+ * @evidence contracts/testing.md#independent-expectations The repository contents are authored by the test, so the expected path list, suite set, export name and diagnostic count are literals about what git tracks; they are not produced by the collector. The scratch repository is the only source of the tracked-file population.
+ * @evidence contracts/testing.md#distinguishing-cases An ordinary feature, a non-ASCII name, a helper, a unit-feature test, a declaration file, files outside the feature trees and a staged-then-deleted file each flip a different filter, and the exact diagnostic count proves only the misnamed Unicode file is reported. Generated trees are excluded by tracking, not exercised here.
+ * @evidence contracts/testing.md#execution-ownership The test-feature-identity start command explicitly imports and calls this exported case. It spawns the git executable against a temporary directory, which is a fixture resolver boundary rather than a native typia artifact, installation or host; repository-wide enforcement is separately owned by the integrity check command.
  */
 export const test_feature_identity_collect = (): void => {
   const root: string = fs.mkdtempSync(path.join(os.tmpdir(), "typia-fid-"));

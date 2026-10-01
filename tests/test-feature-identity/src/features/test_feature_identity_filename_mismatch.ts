@@ -16,6 +16,11 @@ import { FeatureIdentity } from "../FeatureIdentity";
  * 2. Assert a file exporting a different name is reported, naming both sides.
  * 3. Assert a file exporting nothing, and a file exporting two tests, are both
  *    reported.
+ *
+ * @evidence contracts/testing.md#behavioral-verification FeatureIdentity.diagnose receives authored file records and the count and text of each diagnostic are asserted for matching, mismatched, empty and doubled exports.
+ * @evidence contracts/testing.md#independent-expectations The identity rule (one export equal to the basename) is the repository's declared contract; records and expected counts are authored, and the mismatch text must name both sides rather than match a snapshot.
+ * @evidence contracts/testing.md#distinguishing-cases The matching file is the negative twin, while a different name, no export and two exports are the rejection cases; non-test helper files are owned by test_feature_identity_helper_file.
+ * @evidence contracts/testing.md#execution-ownership The test-feature-identity start command explicitly imports and calls this exported case; it invokes the pure diagnose function on in-memory records with no git, native artifact or feature module execution.
  */
 export const test_feature_identity_filename_mismatch = (): void => {
   // 1. THE MATCHING TWIN STAYS SILENT
