@@ -10,10 +10,29 @@ type functionalValidateFunctionProgrammerNamespace struct{}
 
 var FunctionalValidateFunctionProgrammer = functionalValidateFunctionProgrammerNamespace{}
 
+// FunctionalValidateFunctionProgrammer_IConfig selects the generator's variants:
+// Equals is the strict form that also rejects properties the type does not
+// declare.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 1 field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalValidateFunctionProgrammer_IConfig struct {
   Equals bool
 }
 
+// FunctionalValidateFunctionProgrammer_IProps is the input of Write for the
+// validate function generator: Context (the transform context), Modulo (the
+// call's callee expression), Config (the configuration), Declaration (the
+// function declaration), Expression (the function expression) and Init
+// (forwarded by the transform but not read here, because the generated function
+// has no initializer parameter).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the configuration, the function declaration and the function expression, and the record carries them in one argument; Init is part of the shape the generic transformer fills for every programmer and is ignored here.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and says that Init is not read.
 type FunctionalValidateFunctionProgrammer_IProps struct {
   Context     nativecontext.ITypiaContext
   Modulo      *shimast.Node

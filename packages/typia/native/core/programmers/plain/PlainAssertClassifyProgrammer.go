@@ -14,6 +14,16 @@ type plainAssertClassifyProgrammerNamespace struct{}
 
 var PlainAssertClassifyProgrammer = plainAssertClassifyProgrammerNamespace{}
 
+// PlainAssertClassifyProgrammer_DecomposeProps is the input of Decompose for the
+// plain assert classify generator: Context (the transform context), Functor (the
+// collector of the helper functions that the generator emits), Type (the type to
+// generate for), Name (an optional type name), Init (the optional initializer of
+// the error factory parameter) and Modulo (the call's callee expression).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the collector of the helper functions that the generator emits, the type to generate for, an optional type name, the optional initializer of the error factory parameter and the call's callee expression, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainAssertClassifyProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer

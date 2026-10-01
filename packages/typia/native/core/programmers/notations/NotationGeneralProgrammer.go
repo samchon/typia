@@ -23,22 +23,51 @@ type notationGeneralProgrammerNamespace struct{}
 
 var NotationGeneralProgrammer = notationGeneralProgrammerNamespace{}
 
+// NotationGeneralProgrammer_IRename is a key conversion: its Name selects the
+// runtime helper and the `*Case` type, and Func converts one key.
+//
+// @evidence contracts/common.md#principled-implementation The case name picks the runtime helper and the return type and Func is the conversion that the transform applies to emitted keys, so one record defines a notation.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type NotationGeneralProgrammer_IRename struct {
   Name string
   Func func(str string) string
 }
 
+// NotationGeneralProgrammer_IProps is the shared programmer props plus the
+// Rename that selects the key conversion.
+//
+// @evidence contracts/common.md#principled-implementation The embedded shared props carry the context, call site, type, name and initializer, so the notation programmers take what every generic programmer takes and only add the conversion.
+// @evidence contracts/common.md#clear-and-simple-design An embedded record and one field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names the embedded record and the rename.
 type NotationGeneralProgrammer_IProps struct {
   nativecontext.IProgrammerProps
   Rename NotationGeneralProgrammer_IRename
 }
 
+// NotationGeneralProgrammer_ReturnTypeProps is the Rename, the transform context
+// and the name of the type whose `*Case` return type is built.
+//
+// @evidence contracts/common.md#principled-implementation The return type is typia's case type applied to the type name, so those three inputs are enough.
+// @evidence contracts/common.md#clear-and-simple-design A three-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type NotationGeneralProgrammer_ReturnTypeProps struct {
   Rename  NotationGeneralProgrammer_IRename
   Context nativecontext.ITypiaContext
   Type    string
 }
 
+// NotationGeneralProgrammer_DecomposeProps is the input of Decompose: the
+// Rename, whether the input is already Validated, the transform context, the
+// Functor and the type with its optional name.
+//
+// @evidence contracts/common.md#principled-implementation When a caller has already validated the input the is-helpers are not emitted again, so the flag is part of the input.
+// @evidence contracts/common.md#clear-and-simple-design A six-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and the meaning of Validated.
 type NotationGeneralProgrammer_DecomposeProps struct {
   Rename    NotationGeneralProgrammer_IRename
   Validated bool

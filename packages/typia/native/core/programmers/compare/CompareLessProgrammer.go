@@ -18,6 +18,14 @@ type compareLessProgrammerNamespace struct{}
 
 var CompareLessProgrammer = compareLessProgrammerNamespace{}
 
+// CompareLessProgrammer_IProps is the input of Write for the compare less
+// generator: Context (the transform context), Modulo (the call's callee
+// expression) and Type (the type to generate for).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression and the type to generate for, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 3 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type CompareLessProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node

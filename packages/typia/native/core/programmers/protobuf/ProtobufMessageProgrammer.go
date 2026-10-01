@@ -17,6 +17,13 @@ type protobufMessageProgrammerNamespace struct{}
 
 var ProtobufMessageProgrammer = protobufMessageProgrammerNamespace{}
 
+// ProtobufMessageProgrammer_IProps is the transform context and the type whose
+// protobuf message schema is written.
+//
+// @evidence contracts/common.md#principled-implementation A message schema is derived from the type alone, so the record has no call site, name or initializer.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type ProtobufMessageProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Type    *shimchecker.Type

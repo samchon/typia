@@ -14,6 +14,16 @@ type protobufIsDecodeProgrammerNamespace struct{}
 
 var ProtobufIsDecodeProgrammer = protobufIsDecodeProgrammerNamespace{}
 
+// ProtobufIsDecodeProgrammer_IProps is the input of Write for the protobuf is
+// decode generator: Context (the transform context), Modulo (the call's callee
+// expression), Type (the type to generate for), Name (an optional type name) and
+// Init (forwarded by the transform but not read here, because the generated
+// function has no initializer parameter).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for and an optional type name, and the record carries them in one argument; Init is part of the shape the generic transformer fills for every programmer and is ignored here.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and says that Init is not read.
 type ProtobufIsDecodeProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
@@ -22,6 +32,16 @@ type ProtobufIsDecodeProgrammer_IProps struct {
   Init    *shimast.Node
 }
 
+// ProtobufIsDecodeProgrammer_DecomposeProps is the input of Decompose for the
+// protobuf is decode generator: Context (the transform context), Modulo (the
+// call's callee expression), Functor (the collector of the helper functions that
+// the generator emits), Type (the type to generate for) and Name (an optional
+// type name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the call's callee expression, the collector of the helper functions that the generator emits, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ProtobufIsDecodeProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node

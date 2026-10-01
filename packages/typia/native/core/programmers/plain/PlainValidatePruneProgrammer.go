@@ -14,6 +14,16 @@ type plainValidatePruneProgrammerNamespace struct{}
 
 var PlainValidatePruneProgrammer = plainValidatePruneProgrammerNamespace{}
 
+// PlainValidatePruneProgrammer_DecomposeProps is the input of Decompose for the
+// plain validate prune generator: Context (the transform context), Modulo (the
+// call's callee expression), Functor (the collector of the helper functions that
+// the generator emits), Type (the type to generate for) and Name (an optional
+// type name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the call's callee expression, the collector of the helper functions that the generator emits, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainValidatePruneProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node

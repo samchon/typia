@@ -14,6 +14,15 @@ type protobufAssertDecodeProgrammerNamespace struct{}
 
 var ProtobufAssertDecodeProgrammer = protobufAssertDecodeProgrammerNamespace{}
 
+// ProtobufAssertDecodeProgrammer_IProps is the input of Write for the protobuf
+// assert decode generator: Context (the transform context), Modulo (the call's
+// callee expression), Type (the type to generate for), Name (an optional type
+// name) and Init (the optional initializer of the error factory parameter).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for, an optional type name and the optional initializer of the error factory parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ProtobufAssertDecodeProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
@@ -22,6 +31,16 @@ type ProtobufAssertDecodeProgrammer_IProps struct {
   Init    *shimast.Node
 }
 
+// ProtobufAssertDecodeProgrammer_DecomposeProps is the input of Decompose for
+// the protobuf assert decode generator: Context (the transform context), Modulo
+// (the call's callee expression), Functor (the collector of the helper functions
+// that the generator emits), Type (the type to generate for), Name (an optional
+// type name) and Init (the optional initializer of the error factory parameter).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the call's callee expression, the collector of the helper functions that the generator emits, the type to generate for, an optional type name and the optional initializer of the error factory parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ProtobufAssertDecodeProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node

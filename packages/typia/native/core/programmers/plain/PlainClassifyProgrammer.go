@@ -21,6 +21,16 @@ type plainClassifyProgrammerNamespace struct{}
 
 var PlainClassifyProgrammer = plainClassifyProgrammerNamespace{}
 
+// PlainClassifyProgrammer_DecomposeProps is the input of Decompose for the plain
+// classify generator: Validated (whether an enclosing check has already
+// validated the input), Context (the transform context), Functor (the collector
+// of the helper functions that the generator emits), Type (the type to generate
+// for), Name (an optional type name) and Modulo (the call's callee expression).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs whether an enclosing check has already validated the input, the transform context, the collector of the helper functions that the generator emits, the type to generate for, an optional type name and the call's callee expression, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainClassifyProgrammer_DecomposeProps struct {
   Validated bool
   Context   nativecontext.ITypiaContext

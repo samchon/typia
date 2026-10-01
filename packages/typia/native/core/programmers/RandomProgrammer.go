@@ -23,6 +23,15 @@ type randomProgrammerNamespace struct{}
 
 var RandomProgrammer = randomProgrammerNamespace{}
 
+// RandomProgrammer_IProps is the input of Write for the random generator:
+// Context (the transform context), Modulo (the call's callee expression), Type
+// (the type to generate for), Name (an optional type name) and Init (the
+// optional initializer of the generator parameter).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for, an optional type name and the optional initializer of the generator parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type RandomProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
@@ -31,6 +40,16 @@ type RandomProgrammer_IProps struct {
   Init    *shimast.Node
 }
 
+// RandomProgrammer_IDecomposeProps is the input of Decompose for the random
+// generator: Context (the transform context), Functor (the collector of the
+// helper functions that the generator emits), Type (the type to generate for),
+// Name (an optional type name) and Init (the optional initializer of the
+// generator parameter).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the collector of the helper functions that the generator emits, the type to generate for, an optional type name and the optional initializer of the generator parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type RandomProgrammer_IDecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer

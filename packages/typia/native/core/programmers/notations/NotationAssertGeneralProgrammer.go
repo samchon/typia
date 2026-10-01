@@ -14,8 +14,25 @@ type notationAssertGeneralProgrammerNamespace struct{}
 
 var NotationAssertGeneralProgrammer = notationAssertGeneralProgrammerNamespace{}
 
+// NotationAssertGeneralProgrammer_IProps is an alias of the shared notation
+// props, so assert wrapper takes the same props as the base programmer.
+//
+// @evidence contracts/common.md#principled-implementation The wrapper takes exactly the base programmer's props, so the alias states that equality without repeating the fields.
+// @evidence contracts/common.md#clear-and-simple-design One alias declaration.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A type alias with no behavior.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias equals.
 type NotationAssertGeneralProgrammer_IProps = NotationGeneralProgrammer_IProps
 
+// NotationAssertGeneralProgrammer_DecomposeProps is the input of Decompose for
+// the notation assert general generator: Rename (the key conversion), Context
+// (the transform context), Functor (the collector of the helper functions that
+// the generator emits), Type (the type to generate for), Name (an optional type
+// name) and Init (the optional initializer of the error factory parameter).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the key conversion, the transform context, the collector of the helper functions that the generator emits, the type to generate for, an optional type name and the optional initializer of the error factory parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type NotationAssertGeneralProgrammer_DecomposeProps struct {
   Rename  NotationGeneralProgrammer_IRename
   Context nativecontext.ITypiaContext
