@@ -19,6 +19,11 @@ import (
 // 1. A format or pattern without a length tag emits no length argument.
 // 2. A format or pattern with a length tag forwards exactly one length object.
 // 3. The length-argument helper is nil without a length tag.
+//
+// @evidence contracts/testing.md#behavioral-verification The random programmer composes constrained string leaves with and without length bounds for email, date-time and pattern forms; the argument count of the emitted call decides whether the length object is forwarded.
+// @evidence contracts/testing.md#independent-expectations The generated value must satisfy minLength and maxLength, so forwarding the length object is required exactly when bounds exist; the expected argument counts are authored.
+// @evidence contracts/testing.md#distinguishing-cases Each format and pattern is checked with and without length, so dropped bounds fail.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It builds AST nodes in memory and counts call arguments, with no checker, filesystem fixture or process.
 func TestRandomProgrammerComposeAtomicThreadsLength(t *testing.T) {
   emit := shimprinter.NewEmitContext()
 

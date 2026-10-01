@@ -19,6 +19,11 @@ import "testing"
 // 5. Exercise schema name, size, bucket, intersect, cover, merge, and unalias branches.
 // 6. Mark recursive components and compare string slice equality cases.
 // 7. Cover false sequence tags, mismatched cover branches, and merge fallbacks.
+//
+// @evidence contracts/testing.md#behavioral-verification Sequence detection, Map, Set and template JSON conversion, recursive aliases and tag-row equality are exercised on constructed schemas; sequence detection and conversions are compared while some checks only require a non-failure.
+// @evidence contracts/testing.md#independent-expectations Authored tags and schemas state the sequences and expected flags; presence-only checks have no independent oracle.
+// @evidence contracts/testing.md#distinguishing-cases Float64 and integer sequence tags and a tagless schema give positives and a negative; many other branches are visited once.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test converts in memory with no filesystem fixture, process or native command build.
 func TestSchemaSequenceAndJSONCoverage(t *testing.T) {
 	sequenceTag := IMetadataTypeTag{
 		Name:   "sequence",

@@ -17,6 +17,11 @@ import (
 //  1. Build a strict optional clone entry and assert it uses only value presence.
 //  2. Build an explicit undefined-union optional entry and assert it also checks
 //     property presence with the `in` operator.
+//
+// @evidence contracts/testing.md#behavioral-verification The clone joiner builds entries for optional?: T and optional?: T | undefined; the strict entry must test only value presence and the explicit-union entry must add an in-operator presence test on the literal key of the original input.
+// @evidence contracts/testing.md#independent-expectations Exact optional property semantics decide which guard each form needs; the expected condition shapes are authored in the test and inspected on the AST.
+// @evidence contracts/testing.md#distinguishing-cases Strict optional is the baseline and explicit undefined union the one-axis variant; required properties are not asserted here.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It builds AST nodes in memory and inspects them, with no checker, filesystem fixture or process.
 func TestCloneJoinerOptionalConditionDistinguishesExplicitUndefined(t *testing.T) {
   factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
   input := factory.NewIdentifier("input")

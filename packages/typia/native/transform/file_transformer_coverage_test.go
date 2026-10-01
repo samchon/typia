@@ -25,6 +25,11 @@ import (
 // 2. Inject import statements after directive prologue expressions.
 // 3. Recover transformer diagnostics from a controlled panic path.
 // 4. Exercise environment cast helpers and strict-option fallback helpers.
+//
+// @evidence contracts/testing.md#behavioral-verification The file transformer is called with nil, declaration and parsed source files, import injection and diagnostic recovery; guards are compared exactly and some branches only require that a statement was added.
+// @evidence contracts/testing.md#independent-expectations Authored sources state which files must stay unchanged; presence-only checks have no independent oracle.
+// @evidence contracts/testing.md#distinguishing-cases Nil, declaration and source inputs give guard negatives and one injection positive.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses in-memory sources with the typescript-go parser, with no filesystem fixture or process.
 func TestFileTransformerCoverage(t *testing.T) {
   file := shimparser.ParseSourceFile(
     shimast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "file.ts"))},

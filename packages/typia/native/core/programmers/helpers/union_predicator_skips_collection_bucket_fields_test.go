@@ -16,6 +16,11 @@ import (
 // 2. Build two branches sharing a Map property with different key/value schemas.
 // 3. Build two branches sharing an array/tuple property with shared values.
 // 4. Assert branch-unique properties are selected instead of the collection key.
+//
+// @evidence contracts/testing.md#behavioral-verification Union specialization runs on branches sharing Set, Map or array/tuple properties with different element schemas; none of them may be selected as a discriminator.
+// @evidence contracts/testing.md#independent-expectations Empty collections satisfy any element schema and arrays overlap tuples, so shared collection properties are unsafe; the authored shapes state the sharing.
+// @evidence contracts/testing.md#distinguishing-cases Set, Map and array-versus-tuple sharing are three negatives; collection properties unique to one branch are not asserted.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the predicator on constructed metadata with no checker, filesystem fixture or process.
 func TestUnionPredicatorSkipsCollectionBucketFields(t *testing.T) {
   cases := []struct {
     name   string

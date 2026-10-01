@@ -19,6 +19,11 @@ import (
 // 2. Assert only rows whose tags all validate are returned.
 // 3. Build string atomic metadata with a partially validated row.
 // 4. Assert that metadata is still treated as a pure string key.
+//
+// @evidence contracts/testing.md#behavioral-verification The dynamic-key tag row filter and the string-constraint predicate run on empty, fully validating and partially validating tag rows and on native String keys.
+// @evidence contracts/testing.md#independent-expectations A row counts only when every tag supplies a runtime validation expression, which is the stated rule; the rows and the expected two surviving rows are authored.
+// @evidence contracts/testing.md#distinguishing-cases Empty, valid and partial rows and the pure-string key cover accepted and rejected rows.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the helper on constructed rows with no checker, filesystem fixture or process.
 func TestCheckDynamicKeyTagRows(t *testing.T) {
 	rows := [][]nativemetadata.IMetadataTypeTag{
 		{},

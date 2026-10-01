@@ -20,6 +20,11 @@ import (
 // 2. Sort number, string, bigint, and boolean constant buckets.
 // 3. Verify the metadata union index path runs with an empty collection.
 // 4. Assert sorted values land in deterministic ascending order.
+//
+// @evidence contracts/testing.md#behavioral-verification Numeric conversion helpers run on float, integer, unsigned and unknown values and constant buckets are sorted; the sorted order and conversion zero are asserted.
+// @evidence contracts/testing.md#independent-expectations Numeric ordering of authored constants defines the expected order.
+// @evidence contracts/testing.md#distinguishing-cases Each numeric representation and four constant types are sorted once; stability is not asserted.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the helpers on constructed metadata with no program load or process.
 func TestSortConstantsCoverage(t *testing.T) {
 	for _, value := range []any{float64(1.5), float32(2.5), int(3), int64(4), int32(5), uint(6), uint64(7), uint32(8)} {
 		if iterate_metadata_sort_float(value) == 0 {

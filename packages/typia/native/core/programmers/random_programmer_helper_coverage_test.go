@@ -27,6 +27,11 @@ import (
 // 3. Cover internal and type import fallbacks with and without an importer.
 // 4. Verify naming, formatting, first-element, and schema-copy helpers.
 // 5. Decode mixed metadata, recursive tuple, native object, and error adapter branches.
+//
+// @evidence contracts/testing.md#behavioral-verification Typed-array detection, range tuples, ArrayBuffer and SharedArrayBuffer random expressions and import fallbacks are called per native name; detection and ranges are compared exactly and the expression builders only require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations The range table of each typed array is authored from the element widths; non-nil checks have no independent oracle.
+// @evidence contracts/testing.md#distinguishing-cases Every supported typed array name and Date as the negative are checked; expression shapes are not compared.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestRandomProgrammerHelperCoverage(t *testing.T) {
 	emit := shimprinter.NewEmitContext()
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

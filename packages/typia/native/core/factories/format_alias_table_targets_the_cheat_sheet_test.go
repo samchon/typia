@@ -15,6 +15,11 @@ import "testing"
 // 1. Require every alias to resolve to an existing cheat sheet entry.
 // 2. Require no alias to shadow a cheat sheet key of its own name.
 // 3. Require resolution to reject a format the cheat sheet does not own.
+//
+// @evidence contracts/testing.md#behavioral-verification The alias table is enumerated, every alias must target a cheat sheet format, must not shadow a cheat sheet name and must resolve to its canonical entry; canonical names resolve to themselves and an unsupported name does not resolve.
+// @evidence contracts/testing.md#independent-expectations The cheat sheet is the authoritative set of formats and the table is judged against it; the test does not copy the table's entries as expectations.
+// @evidence contracts/testing.md#distinguishing-cases Aliases, canonical names and an unsupported name are the three resolution cases; this is a consistency invariant of one data structure with its resolver and does not check emitted validators, which the sibling case owns.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It reads the package tables and calls the resolver in memory with no filesystem fixture or process.
 func TestFormatAliasTableTargetsTheCheatSheet(t *testing.T) {
   if len(formatCheatSheet_ALIASES) == 0 {
     t.Fatal("the alias table should stay the enumerable owner of every alternative spelling")

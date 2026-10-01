@@ -19,6 +19,11 @@ import (
 //  1. Feed the reader each payload shape the host can produce.
 //  2. Assert the three on/off options and the tri-state `undefined` option.
 //  3. Cover the sibling-entry, missing-entry, and empty-payload boundaries.
+//
+// @evidence contracts/testing.md#behavioral-verification ReadPluginOptions is called with authored host payloads: the plugin's own entry with on, off and undefined options, payloads carrying other plugins' entries, and an undecodable payload; options must equal the authored table and a bad payload must be an error.
+// @evidence contracts/testing.md#independent-expectations The host contract (it hands each plugin its own entry) and the authored payload table decide every expected option; defaults are not read from the decoder.
+// @evidence contracts/testing.md#distinguishing-cases Own-entry options in both directions, foreign entries that must be ignored and the error case form the matrix.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It decodes in-memory JSON payloads with no filesystem fixture, process or native command build.
 func TestReadPluginOptionsPayloadMatrix(t *testing.T) {
   truth := true
   lie := false

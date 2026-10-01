@@ -22,6 +22,11 @@ import (
 // 2. Assert the transformer returns the original call expression.
 // 3. Build a tuple with a nil child and assert the same fallback behavior.
 // 4. Build an empty tuple and assert it leaves the fallback path.
+//
+// @evidence contracts/testing.md#behavioral-verification The reflect metadata transformer is called with a non-tuple type argument, a tuple with a nil child and an empty tuple; each must return the original call.
+// @evidence contracts/testing.md#independent-expectations Guard branches must fall back to the unchanged call, which the test compares by identity.
+// @evidence contracts/testing.md#distinguishing-cases Three guard inputs; successful rewrites are owned by other tests.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the transformer on synthetic nodes with no checker, filesystem fixture or process.
 func TestReflectMetadataTransformerEdgeBranches(t *testing.T) {
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 	props := func(top *shimast.Node) nativetransform.ITransformProps {

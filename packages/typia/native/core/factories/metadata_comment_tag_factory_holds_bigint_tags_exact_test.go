@@ -29,6 +29,11 @@ import (
 //  3. Report a refused value on a bigint property, and on the bigint part of a
 //     `number | bigint` one, while a number property and the number part
 //     still take the tag, and report text that is no finite number once.
+//
+// @evidence contracts/testing.md#behavioral-verification Numeric comment tags on bigint targets are parsed from large integers, non-integers, infinities and malformed text; exact bigint values, spliced checks and the single refusal report are compared, and number targets must still apply.
+// @evidence contracts/testing.md#independent-expectations Arbitrary-precision integer semantics determine the expected bigint values; the values are authored as decimal literals and compared as big integers, not through doubles.
+// @evidence contracts/testing.md#distinguishing-cases Exactly representable and rounding-hazard values, non-finite text and the number-target control separate exact bigint bounds from lossy ones.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory in memory with no checker, filesystem fixture or process.
 func TestMetadataCommentTagFactoryHoldsBigintTagsExact(t *testing.T) {
   //----
   // 1. exact integers

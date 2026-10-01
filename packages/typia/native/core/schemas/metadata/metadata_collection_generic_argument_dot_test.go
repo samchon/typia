@@ -23,6 +23,11 @@ import (
 //  2. Rewrite every dot that belongs to a flattened nested rendering.
 //  3. Prove the rewrite keeps distinct names distinct and legal, and that the
 //     LLM key space is deliberately left alone.
+//
+// @evidence contracts/testing.md#behavioral-verification OpenAPI name normalization is called on qualified and generic names and the results are compared with authored strings; Unicode qualification, key legality and name merging are asserted.
+// @evidence contracts/testing.md#independent-expectations The Components Object key grammar and the rule that only a type's own namespace dot survives are authored in the expected table.
+// @evidence contracts/testing.md#distinguishing-cases Qualified, generic argument, Unicode and colliding names are rows, with legality and distinctness checks across them.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported normalizer on strings with no filesystem fixture, process or native command build.
 func TestMetadataCollectionGenericArgumentDot(t *testing.T) {
   // 1. AND 2. THE RULE
   expected := map[string]string{

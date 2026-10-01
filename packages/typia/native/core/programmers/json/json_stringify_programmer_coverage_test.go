@@ -25,6 +25,11 @@ import (
 // 3. Decode recursive and inline array, tuple, and object stringify branches.
 // 4. Explore array stringify union paths with a direct decoder config.
 // 5. Verify predicate helpers, importer overrides, method text, and tuple names.
+//
+// @evidence contracts/testing.md#behavioral-verification Stringify helpers are called for function fallback in array and object contexts, functional wrappers, top-level, array and union decoders; the functional fallback text is compared and most decoder calls only require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations Only the fallback comparison has an authored expectation; the non-nil checks are limitations.
+// @evidence contracts/testing.md#distinguishing-cases Array and object fallbacks differ and several decoder shapes are visited once; negatives are few.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestJsonStringifyProgrammerCoverage(t *testing.T) {
 	emit := shimprinter.NewEmitContext()
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

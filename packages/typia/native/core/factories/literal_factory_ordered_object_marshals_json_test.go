@@ -15,6 +15,11 @@ import (
 // The JSON form must be the plain object the printer would emit: entries in
 // Keys order, entries absent from Values skipped, nil-like values skipped,
 // and nested ordered objects (value or pointer) serialized the same way.
+//
+// @evidence contracts/testing.md#behavioral-verification An ordered object is marshaled with encoding/json and the whole text is compared with the expected JSON object.
+// @evidence contracts/testing.md#independent-expectations The expected JSON object, keys in insertion order, is authored from the OpenAPI schema shape consumers need.
+// @evidence contracts/testing.md#distinguishing-cases One ordered object; empty and nested objects are not asserted.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It marshals in memory with no checker, filesystem fixture or process.
 func TestLiteralFactoryOrderedObjectMarshalsJSON(t *testing.T) {
   input := LiteralFactory_OrderedObject{
     Keys: []string{"second", "first", "absent", "nil", "nested"},

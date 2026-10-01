@@ -18,6 +18,11 @@ import (
 //     decision while still detecting that an owner path exists below them.
 //  3. Check tuple owners and map-key graph cycles.
 //  4. Ignore arrays of a separate recursive object when the current owner differs.
+//
+// @evidence contracts/testing.md#behavioral-verification The random joiner's recursive-array decision is called on direct recursive arrays, fixed edges to the owner, owner tuples and a separate recursive object; guards are required for the first three and not for the last, and boundaries terminate inside nested containers.
+// @evidence contracts/testing.md#independent-expectations A depth guard is needed exactly when the array is the variable edge back to the owning recursive object; authored graphs state which edge is which.
+// @evidence contracts/testing.md#distinguishing-cases Required and not-required guards are both asserted, with several container shapes for the boundary case.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the helper on constructed metadata with no checker, filesystem fixture or process.
 func TestRandomJoinerRequiresRecursiveArrayGuardFor(t *testing.T) {
   stringMeta := randomJoinerGuardAtomic("string")
   direct := nativemetadata.MetadataArrayType_create(nativemetadata.MetadataArrayType{

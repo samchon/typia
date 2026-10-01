@@ -19,6 +19,11 @@ import "testing"
 //  2. Assert each equals the `*Case<T>` value byte for byte.
 //  3. Re-cover underscore-free and all-caps-segment keys so the boundary walk
 //     did not regress them (`userID`, `XMLParser`, `MAX_COUNT`, #2186's pascal).
+//
+// @evidence contracts/testing.md#behavioral-verification snake, kebab, camel and pascal conversions are called on keys mixing an underscore with a case boundary and compared with the type-level results.
+// @evidence contracts/testing.md#independent-expectations The SnakeCase, KebabCase, CamelCase and PascalCase type oracle defines each expected string; the table is authored from those types.
+// @evidence contracts/testing.md#distinguishing-cases Internal and trailing underscores combined with camel boundaries give rows for each conversion.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the conversion functions on strings with no checker, filesystem fixture or process.
 func TestNotationGeneralProgrammerUnderscoreBoundary(t *testing.T) {
   type row struct {
     input  string

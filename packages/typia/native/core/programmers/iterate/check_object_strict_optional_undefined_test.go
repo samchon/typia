@@ -18,6 +18,11 @@ import (
 // 1. Build a strict optional regular entry.
 // 2. Assert its object-check expression first tests property absence.
 // 3. Assert the original strict property expression stays on the right branch.
+//
+// @evidence contracts/testing.md#behavioral-verification The object checker's strict optional property expression is built and its AST is inspected: it must be an || whose left side negates a key-presence in test.
+// @evidence contracts/testing.md#independent-expectations Exact optional semantics reject a present undefined but not a missing key, so a key-presence short circuit is required; the expected shape is authored.
+// @evidence contracts/testing.md#distinguishing-cases Only the strict optional expression is asserted; non-strict optional is owned by the predicator case.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It builds AST nodes in memory and inspects them, with no checker, filesystem fixture or process.
 func TestCheckObjectStrictOptionalUndefinedAllowsMissingKey(t *testing.T) {
   factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
   input := factory.NewIdentifier("input")

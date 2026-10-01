@@ -21,6 +21,11 @@ import (
 //  1. Drive the symbol-key predicate across every case.
 //  2. Drive the per-property phantom predicate (optional / symbol / required).
 //  3. Drive the removable-brand object predicate end to end.
+//
+// @evidence contracts/testing.md#behavioral-verification The phantom-brand predicates run on nil, symbol-keyed, optional, required literal and required non-literal properties and objects; each Fatal names the accepted or rejected shape.
+// @evidence contracts/testing.md#independent-expectations A marker is phantom only when every property is optional or symbol-keyed; shapes and verdicts are authored from that rule.
+// @evidence contracts/testing.md#distinguishing-cases Eighteen assertions give positives and one-axis negatives for key kind, requiredness and object shape.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls pure predicates on constructed metadata with no program load or process.
 func TestIterateMetadataIntersectionBrandCoverage(t *testing.T) {
   atomic := func(typ string) *schemametadata.MetadataSchema {
     m := schemametadata.MetadataSchema_initialize()

@@ -20,6 +20,11 @@ import (
 // 2. Exercise direct self-reference and visited/nil guard branches.
 // 3. Walk alias, tuple, array, map, set, escaped, and rest edges for arrays.
 // 4. Walk the same edge families for tuple and object recursion.
+//
+// @evidence contracts/testing.md#behavioral-verification Recursion detection walks authored array, tuple, object, alias, map, set, escaped and rest graphs; flags set on collection types, nil and visited inputs and recursion through each edge kind are asserted.
+// @evidence contracts/testing.md#independent-expectations Graph cycles are constructed by the test, so recursion is a fact of the authored shape rather than an output of the walker.
+// @evidence contracts/testing.md#distinguishing-cases Each edge kind has a recursive graph, plus nil and visited controls; non-recursive graphs for every kind are not all asserted.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the internal walkers on constructed graphs with no program load or process.
 func TestIterateMetadataCollectionBranchMatrix(t *testing.T) {
 	collection := schemametadata.NewMetadataCollection()
 	arrayType, _, setArray := collection.EmplaceArray(nil, nil)

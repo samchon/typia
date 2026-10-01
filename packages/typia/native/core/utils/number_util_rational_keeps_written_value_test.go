@@ -17,6 +17,11 @@ import (
 //  1. Keep integers past 2^53, in every spelling.
 //  2. Keep fractions and point-edge spellings exactly.
 //  3. Refuse what `Read` refuses, and infinities.
+//
+// @evidence contracts/testing.md#behavioral-verification NumberUtil.Rational is called on numeric spellings; the exact written value is compared with an authored expected value and spellings with no exact value are rejected.
+// @evidence contracts/testing.md#independent-expectations The expected exact values are authored decimal or integer numerals computed independently of floating point, checked against the spelling.
+// @evidence contracts/testing.md#distinguishing-cases Exactly representable and rounding-hazard spellings and non-numbers are separate rows.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported utility on strings with no filesystem fixture, process or native command build.
 func TestNumberUtilRationalKeepsWrittenValue(t *testing.T) {
   exact := func(text string) *big.Rat {
     value, ok := new(big.Rat).SetString(text)

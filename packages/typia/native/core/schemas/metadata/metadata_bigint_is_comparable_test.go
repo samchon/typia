@@ -23,6 +23,11 @@ import (
 //  2. Compare a different value, and a negative against its positive.
 //  3. Check the two renderings every consumer reads: `fmt.Sprint` for the emit
 //     and `encoding/json` for metadata a downstream tool marshals.
+//
+// @evidence contracts/testing.md#behavioral-verification Equality is evaluated on independently built values of the same and different bigints, including after boxing in an interface value and for a negative and its positive.
+// @evidence contracts/testing.md#independent-expectations Go comparison semantics for the chosen representation are the oracle; the test pins that the constant value representation stays comparable with ==, which the factories rely on.
+// @evidence contracts/testing.md#distinguishing-cases Equal, boxed equal, distinct and sign-flipped values separate comparability from identity.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It evaluates comparisons in memory with no filesystem fixture, process or native command build.
 func TestMetadataBigintIsComparable(t *testing.T) {
   const digits = "9007199254740993"
   left := MetadataBigint{Text: digits}

@@ -21,6 +21,11 @@ import (
 // 2. Render object property, dynamic-key, parameter, and return diagnostics.
 // 3. Exercise JSON fallback formatting for unmarshalable values.
 // 4. Verify identifier path validation for edge names.
+//
+// @evidence contracts/testing.md#behavioral-verification Transformer errors are rendered from direct errors and metadata factory errors; the message text, required fragments, null rendering of unmarshalable values and variable-path classification are checked.
+// @evidence contracts/testing.md#independent-expectations Authored errors and the expected fragments follow the documented diagnostic format.
+// @evidence contracts/testing.md#distinguishing-cases Direct errors, factory errors, unmarshalable values and path segments each flip a formatting branch.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the formatter on constructed errors with no checker, filesystem fixture or process.
 func TestTransformerErrorFormatting(t *testing.T) {
 	err := NewTransformerError(TransformerError_IProps{
 		Code:    "typia.test",

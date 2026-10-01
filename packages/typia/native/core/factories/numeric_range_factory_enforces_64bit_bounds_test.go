@@ -17,6 +17,11 @@ import (
 //
 // 1. Require neither bigint type to emit a bare `true` keyword.
 // 2. Require every number predicate to use an inclusive upper bound.
+//
+// @evidence contracts/testing.md#behavioral-verification Range predicates for number and bigint tags are generated and inspected; bigint ranges must emit real comparisons and number ranges must bound inclusively.
+// @evidence contracts/testing.md#independent-expectations The documented inclusive bounds of each tag are authored; the check that no bare true is emitted is a structural observation of the produced node.
+// @evidence contracts/testing.md#distinguishing-cases Number and bigint paths separate a fall-through returning true from real bounds.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestNumericRangeFactoryEnforces64BitBounds(t *testing.T) {
   input := numericRangeFactory_factory.NewIdentifier("input")
 

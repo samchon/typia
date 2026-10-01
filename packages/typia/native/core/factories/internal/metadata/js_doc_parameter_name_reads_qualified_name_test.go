@@ -23,6 +23,11 @@ import (
 // 2. Walk the parsed JSDoc tags.
 // 3. Read each parameter name through the metadata helper.
 // 4. Assert the dotted name is returned without a panic.
+//
+// @evidence contracts/testing.md#behavioral-verification A dotted @param name in an interface member is parsed and the discovered parameter comment must include the qualified name without a panic.
+// @evidence contracts/testing.md#independent-expectations The source span of the authored comment is the expectation.
+// @evidence contracts/testing.md#distinguishing-cases One qualified name; simple names are exercised by other metadata tests.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses in-memory source with the typescript-go parser, with no filesystem fixture or process.
 func TestJSDocParameterNameReadsQualifiedName(t *testing.T) {
 	file := nativeparser.ParseSourceFile(
 		nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "qualified.ts"))},

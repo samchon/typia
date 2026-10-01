@@ -29,6 +29,11 @@ import (
 // 6. Build object, map, and discriminator-union protobuf encode blocks.
 // 7. Exercise encode union, wrapper, container, and fallback helper branches.
 // 8. Exercise protobuf decode property, array, map, default, and importer helpers.
+//
+// @evidence contracts/testing.md#behavioral-verification Protobuf helpers are called to read bigint names from property and schema variants, convert explore values and build checker explores; names and conversions are compared and builder calls only require non-nil nodes.
+// @evidence contracts/testing.md#independent-expectations Authored schema variants give expected bigint names and conversions; non-nil checks are limitations.
+// @evidence contracts/testing.md#distinguishing-cases Supported and unsupported bigint variants are covered; builders have no negative twins.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls helpers on constructed metadata with no checker, filesystem fixture or process.
 func TestProtobufProgrammerHelperCoverage(t *testing.T) {
 	emit := shimprinter.NewEmitContext()
 	if protobufDecodeProgrammer_bigintName(&schemaprotobuf.IProtobufPropertyType_IBigint{

@@ -25,6 +25,11 @@ import (
 // 2. Generate recursive helper functions and recursive call expressions.
 // 3. Exercise prune config type, generator, decoder, objector, and unionizer callbacks.
 // 4. Verify statement normalization and object exploration branches.
+//
+// @evidence contracts/testing.md#behavioral-verification Recursive prune array and tuple helpers and the prune configuration callbacks are generated from constructed components; the test requires the helpers to be generated and callbacks to return nodes.
+// @evidence contracts/testing.md#independent-expectations Authored components state that arrays and tuples are recursive; checks are structural presence checks with no exact output oracle.
+// @evidence contracts/testing.md#distinguishing-cases Array, tuple and configuration branches are each visited once.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestPlainPruneProgrammerBranchMatrix(t *testing.T) {
   emit := shimprinter.NewEmitContext()
   factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

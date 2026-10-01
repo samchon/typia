@@ -20,6 +20,11 @@ import (
 // 2. Emit import declarations and require every asset family to produce output.
 // 3. Verify internal file ranking buckets used to sort helper imports.
 // 4. Check internal alias text and duplicate default type promotion.
+//
+// @evidence contracts/testing.md#behavioral-verification Default, namespace, named, aliased, type and internal imports are registered and emitted; the internal alias text is compared and the remaining checks require non-nil nodes and a statement count.
+// @evidence contracts/testing.md#independent-expectations The alias text is authored; the non-nil and count checks have no independent oracle.
+// @evidence contracts/testing.md#distinguishing-cases Every import family is registered once; ordering is asserted only through the counted statements.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds import statements in memory with no checker, filesystem fixture or process.
 func TestImportProgrammerStatementCoverage(t *testing.T) {
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 	programmer := NewImportProgrammer(ImportProgrammer_IOptions{InternalPrefix: "p"})

@@ -23,6 +23,11 @@ import (
 //  3. Assert finite values, negative ones, and zero keep numeric literals, with
 //     negative zero negated like any negative value rather than spelled `-0`
 //     inside one literal.
+//
+// @evidence contracts/testing.md#behavioral-verification ExpressionFactory.Number is called with NaN, both infinities, finite values, negatives and negative zero, and the produced AST node kinds and texts are compared; the pre-fix +Inf and Inf spellings would fail the identifier checks.
+// @evidence contracts/testing.md#independent-expectations The expected shapes are the JavaScript globals NaN and Infinity (negated for minus infinity) as TypeScript's own factory prints them, authored in the test rather than read from the factory.
+// @evidence contracts/testing.md#distinguishing-cases Finite values and zero are the negative twins that must keep numeric literals, negative values must be negated and negative zero is checked separately from positive zero.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It builds AST nodes in memory and reads their kinds, with no checker, filesystem fixture or process.
 func TestExpressionFactoryNumberSpellsNonFiniteValues(t *testing.T) {
   identifier := func(node *shimast.Node, name string) bool {
     return node != nil && node.Kind == shimast.KindIdentifier && node.Text() == name

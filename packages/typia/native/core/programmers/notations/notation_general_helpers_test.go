@@ -28,6 +28,11 @@ import (
 // 4. Explore notation set, map, and object-union metadata.
 // 5. Format metadata factory errors through the notation error adapter.
 // 6. Trigger multi-union predicates, recursive generators, and rest tuple joins.
+//
+// @evidence contracts/testing.md#behavioral-verification Notation rename and capitalize helpers are compared with authored strings and tuple, native and error helpers are called on constructed metadata; exact string checks are strong and the AST decoder calls only require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations Expected renamed strings are authored; the AST checks have no oracle.
+// @evidence contracts/testing.md#distinguishing-cases Several rename cases are compared; decoder paths are visited once.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls helpers on strings and constructed metadata with no checker, filesystem fixture or process.
 func TestNotationGeneralHelpers(t *testing.T) {
 	cases := []struct {
 		actual   string

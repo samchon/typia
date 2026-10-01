@@ -13,6 +13,11 @@ import "testing"
 //
 // 1. Convert representative internal, scoped, numeric, and empty module names.
 // 2. Assert each result matches the identifier base used by the printer.
+//
+// @evidence contracts/testing.md#behavioral-verification Module names (internal, scoped, numeric-leading, punctuated and Windows-separated) are converted to identifier bases and compared with authored strings.
+// @evidence contracts/testing.md#independent-expectations JavaScript identifier rules define legal bases; the expected identifiers are authored literals.
+// @evidence contracts/testing.md#distinguishing-cases Each name class is a row; uniqueness across modules is not asserted here.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the private converter directly in the same package with no checker, filesystem fixture or process.
 func TestImportProgrammerModuleIdentifier(t *testing.T) {
   cases := map[string]string{
     "typia/lib/internal/_randomNumber": "_randomNumber",

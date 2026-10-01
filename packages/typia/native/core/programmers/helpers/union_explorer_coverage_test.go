@@ -21,6 +21,11 @@ import (
 // 2. Exercise tuple-only, array-only, and mixed array-or-tuple union paths.
 // 3. Exercise direct array disambiguation, explore copying, and return wrapping.
 // 4. Verify protobuf utility first-row extraction and numeric conversions.
+//
+// @evidence contracts/testing.md#behavioral-verification The array-like union explorer is called for tuple-only, array-only and mixed unions, disambiguation and failure text; most checks require a non-nil node or that props are complete, and a few check that the failure text names the expected type.
+// @evidence contracts/testing.md#independent-expectations Only the failure-text checks compare with an authored expectation; the non-nil checks have none and certify only construction.
+// @evidence contracts/testing.md#distinguishing-cases Tuple, array and mixed paths are each visited once without negative twins.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestUnionExplorerCoverage(t *testing.T) {
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 	input := factory.NewIdentifier("input")

@@ -29,6 +29,11 @@ import "testing"
 //  3. Keep the existing non-integer and unsigned diagnostics untouched.
 //  4. Require the accepted range to be int64's on every platform, not the
 //     compiling platform's `int`.
+//
+// @evidence contracts/testing.md#behavioral-verification Integer comment tag parsing is called on values beyond the int range and on in-range boundary values; out-of-range values must be rejected and reported, in-range ones parsed exactly.
+// @evidence contracts/testing.md#independent-expectations The destination integer range and the documented rule that no value may wrap silently supply the expectations, which are authored numerals.
+// @evidence contracts/testing.md#distinguishing-cases Large positive and negative magnitudes are the negatives and boundary in-range values the positives.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the parser in memory with no checker, filesystem fixture or process.
 func TestMetadataCommentTagFactoryRejectsOutOfRangeInteger(t *testing.T) {
   parse := func(value string, unsigned bool) (*int64, []string) {
     messages := []string{}

@@ -16,6 +16,11 @@ import (
 // 1. Combine each array-form tag with a kind absent from its exclusive list.
 // 2. Combine bool-form tags of differing kinds, which the untouched branch owns.
 // 3. Require every combination, and each tag alone, to validate.
+//
+// @evidence contracts/testing.md#behavioral-verification The type tag validator is called on single tags, opposite-end bound pairs and bool-form tags of different kinds, and must report nothing.
+// @evidence contracts/testing.md#independent-expectations The declared exclusive lists, transcribed in the test, name the only forbidden pairs, so combinations outside them are legal by specification.
+// @evidence contracts/testing.md#distinguishing-cases This is the negative twin of the rejection cases and guards against over-matching.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed tags with no checker, filesystem fixture or process.
 func TestMetadataTypeTagFactoryAcceptsLegalTagCombinations(t *testing.T) {
   declarations := metadataTypeTagFactoryTestDeclarations()
   byKind := map[string]metadataTypeTagFactoryTestDeclaration{}

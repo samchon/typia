@@ -27,6 +27,11 @@ import (
 // 4. Explore clone array, set, map, and object-union metadata.
 // 5. Drive top-level clone and prune union decoders across rich metadata.
 // 6. Verify prune tuple filters and generic name joiners.
+//
+// @evidence contracts/testing.md#behavioral-verification Clone and prune helper functions are called for throw statements, explore conversion, tuple decoding and name joining; explore conversion is compared and most builders only require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations Only the conversion comparison has an authored expectation; the non-nil checks are limitations.
+// @evidence contracts/testing.md#distinguishing-cases Each helper is visited once without negative twins.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestPlainProgrammerHelperCoverage(t *testing.T) {
   emit := shimprinter.NewEmitContext()
   factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

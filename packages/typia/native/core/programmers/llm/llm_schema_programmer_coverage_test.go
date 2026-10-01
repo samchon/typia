@@ -26,6 +26,11 @@ import (
 // 3. Verify strict mode moves unsupported JSON schema tags into descriptions.
 // 4. Verify referenced schemas are copied into LLM `$defs`.
 // 5. Cover validation failures and fallback helper branches directly.
+//
+// @evidence contracts/testing.md#behavioral-verification LLM schema size and conversion helpers are called on JSON schema fragments and mixed metadata; size, union and reference conversion and the strict tag-to-description move are compared while other checks require a non-nil result.
+// @evidence contracts/testing.md#independent-expectations Authored fragments and expected counts or text are independent for the exact checks; non-nil checks have no oracle.
+// @evidence contracts/testing.md#distinguishing-cases Object, array, string, number, constant and reference conversions and strict versus default modes are visited once.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls programmers on constructed metadata with no checker, filesystem fixture or process.
 func TestLlmSchemaProgrammerCoverage(t *testing.T) {
 	meta := schemametadata.MetadataSchema_initialize()
 	meta.Atomics = append(meta.Atomics,

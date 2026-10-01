@@ -17,6 +17,11 @@ import (
 //  1. Allocate a legal name and the escaped name that shares its base.
 //  2. Collect every dotted prefix each allocation exposes.
 //  3. Require no allocation to expose another allocation as its parent.
+//
+// @evidence contracts/testing.md#behavioral-verification The OpenAPI name allocator is called on escaped names and must never produce a name whose dotted prefix is another allocated component; collisions are rejected.
+// @evidence contracts/testing.md#independent-expectations A dotted prefix would be read as a namespace parent, so the check compares allocated names for that structure instead of a snapshot.
+// @evidence contracts/testing.md#distinguishing-cases Escaped names with and without existing parents give the positives and the collision check.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the allocator in memory with no filesystem fixture, process or native command build.
 func TestMetadataCollectionOpenApiNameCascade(t *testing.T) {
   inputs := []string{
     "A_x2F_B",

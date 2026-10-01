@@ -20,6 +20,11 @@ import (
 // 2. Reject nil, empty, required, and incomplete tag object shapes.
 // 3. Verify analyzer dispatch with and without a registered tag analyzer.
 // 4. Restore the package analyzer after the scenario.
+//
+// @evidence contracts/testing.md#behavioral-verification The typia.tag shape predicates run on a complete tag object, nil, empty, required and incomplete shapes, and the analyzer hook runs with nil.
+// @evidence contracts/testing.md#independent-expectations The exact wrapper and nested tag structure is the authored specification of an acceptable tag object.
+// @evidence contracts/testing.md#distinguishing-cases One accepted shape and four rejected shapes; the analyzer-props checks are presence checks.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls pure predicates on constructed metadata with no program load or process.
 func TestIterateMetadataIntersectionCoverage(t *testing.T) {
 	literal := func(value string) *schemametadata.MetadataSchema {
 		meta := schemametadata.MetadataSchema_initialize()

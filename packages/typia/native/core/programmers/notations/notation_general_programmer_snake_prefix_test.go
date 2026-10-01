@@ -9,6 +9,11 @@ import "testing"
 // produced `"foo"` and `snake("___")` produced `""`, diverging from the
 // `SnakeCase<T>` typing which preserves such keys verbatim. The kebab
 // derivation composes over snake and must inherit the corrected behavior.
+//
+// @evidence contracts/testing.md#behavioral-verification snake and kebab conversions are called on underscore-prefixed and underscore-only keys and compared with authored results.
+// @evidence contracts/testing.md#independent-expectations The SnakeCase typing preserves such keys, so expected strings are authored from the type contract.
+// @evidence contracts/testing.md#distinguishing-cases Leading and only-underscore keys are the rows; internal separators are owned by sibling cases.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the conversion functions on strings with no checker, filesystem fixture or process.
 func TestNotationGeneralProgrammerSnakePrefix(t *testing.T) {
   snake := []struct{ input, expected string }{
     {"userId", "user_id"},

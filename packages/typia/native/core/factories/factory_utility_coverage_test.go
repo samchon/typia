@@ -30,6 +30,11 @@ import (
 // 3. Cover comment merging and statement helper branches.
 // 4. Verify fallback AST, literal, protobuf, sequence validation, and type-tag factory paths.
 // 5. Resolve TypeScript checker-backed type names and synthetic function declarations.
+//
+// @evidence contracts/testing.md#behavioral-verification Small factory helpers are called directly: numeric and bigint range predicates, currying, self-call, escaped-text and comment-merging helpers. Roughly half of the assertions only require a non-nil AST node, so they detect a missing result and not a wrong one; the others compare exact text or structure.
+// @evidence contracts/testing.md#independent-expectations Where text is compared the expectations are authored literals; the non-nil checks have no independent expectation and certify only that a node was produced. This is a limitation of the test, not a verification of emitted code.
+// @evidence contracts/testing.md#distinguishing-cases Every supported numeric tag, bigint, object, currying and escaping branch is visited once; most branches have no negative twin, so an over-matching helper could still pass.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. It constructs AST nodes in memory with the node factory and needs no compiler program, filesystem fixture or process.
 func TestFactoryUtilityCoverage(t *testing.T) {
   emit := shimprinter.NewEmitContext()
   input := expressionFactory_factory.NewIdentifier("input")

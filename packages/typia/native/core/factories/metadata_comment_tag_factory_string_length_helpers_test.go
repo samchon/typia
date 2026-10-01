@@ -15,6 +15,11 @@ import (
 //
 //  1. Parse @length and require both comparison helpers at the same boundary.
 //  2. Parse @minLength and @maxLength and require their corresponding helper.
+//
+// @evidence contracts/testing.md#behavioral-verification @length, @minLength and @maxLength comment tags are parsed and the emitted validators must name the same comparison helpers as the type-tag spellings.
+// @evidence contracts/testing.md#independent-expectations The type-tag declarations are the reference for which helpers a length constraint imports; the expected helper names come from that reference.
+// @evidence contracts/testing.md#distinguishing-cases Three spellings are checked for both bounds and one bound each.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory in memory with no checker, filesystem fixture or process.
 func TestMetadataCommentTagFactoryStringLengthHelpers(t *testing.T) {
   parse := func(name string, value string) []schemametadata.IMetadataTypeTag {
     t.Helper()

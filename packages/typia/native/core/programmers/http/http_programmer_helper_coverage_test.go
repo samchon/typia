@@ -21,6 +21,11 @@ import (
 // 2. Build nullable and optional form-data array readers.
 // 3. Build header array readers for string, number, and cookie delimiters.
 // 4. Verify HTTP import, property-key, type decoding, and debug helpers.
+//
+// @evidence contracts/testing.md#behavioral-verification HTTP array reader helpers are called for required, nullable, optional, string, number and cookie-delimited cases; only the unchanged required array and the debug and method text helpers are compared exactly, the other checks require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations Exact checks use authored text; the non-nil checks have no independent oracle and certify only construction.
+// @evidence contracts/testing.md#distinguishing-cases Required, nullable, optional and delimiter variants are each visited once; few negatives exist.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestHttpProgrammerHelperCoverage(t *testing.T) {
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 	input := factory.NewIdentifier("input")

@@ -10,6 +10,11 @@ import "testing"
 // sort order, so the comparator must never report containment a predicate can
 // break. The sound approximation without predicate implication is row
 // inclusion over validating tags; tags without predicates stay transparent.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_covers is called on tagged and untagged number schemas and on tag matrices in both directions; each titled row compares the verdict with an authored boolean.
+// @evidence contracts/testing.md#independent-expectations A tagged type accepts a subset of the untagged one, so covers(number & Minimum<5>, number) is false; the rows are authored from that rule.
+// @evidence contracts/testing.md#distinguishing-cases Equal, stricter and looser tags, and matrices with one or several rows, are positive and negative pairs.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported coverage function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaCoversTagMatrix(t *testing.T) {
   minimum := IMetadataTypeTag{
     Target:   "number",

@@ -19,6 +19,11 @@ import (
 //  1. Load ten return-shape declarations through the real checker.
 //  2. Resolve the fulfilled type for every genuine Promise shape.
 //  3. Reject plain, partial, and malformed PromiseLike controls without replacing their types.
+//
+// @evidence contracts/testing.md#behavioral-verification A temporary TypeScript program is loaded in-process and promised-type resolution is called on derived classes, interfaces, branded intersections, an unrelated Promise class and PromiseLike; the first group must unwrap and the rest must stay synchronous.
+// @evidence contracts/testing.md#independent-expectations TypeScript structural typing of Promise defines which types unwrap; the authored sources state the types.
+// @evidence contracts/testing.md#distinguishing-cases Unwrapping and non-unwrapping types sit side by side.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It writes a temporary project and loads it with the in-process typescript-go program API; no tsc or ttsc process or native command build is started.
 func TestPromiseTypeFactorySemantics(t *testing.T) {
   dir := t.TempDir()
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(`{

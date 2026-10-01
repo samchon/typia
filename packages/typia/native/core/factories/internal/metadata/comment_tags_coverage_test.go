@@ -24,6 +24,11 @@ import (
 // 3. Exercise analyzer error reporting and idempotent object tagging.
 // 4. Parse JSDoc AST nodes and cover type-expression/comment fallback helpers.
 // 5. Cover nil object and nil analyzer fallbacks.
+//
+// @evidence contracts/testing.md#behavioral-verification Comment tags are applied to constructed string, number, bigint and array metadata through an installed test analyzer and JSDoc rows are parsed; several checks assert tags landed in every bucket and not twice, others only that helpers return empty text for nil.
+// @evidence contracts/testing.md#independent-expectations Authored rows and the documented once-only application are the expectations; nil-returns-empty checks have no independent oracle.
+// @evidence contracts/testing.md#distinguishing-cases Every tag bucket, repeated application and parsing are exercised once; this test has few negatives.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls internal helpers with constructed metadata and an installed analyzer; it needs no program load or process.
 func TestCommentTagsCoverage(t *testing.T) {
 	oldAnalyzer := MetadataCommentTagAnalyzer
 	MetadataCommentTagAnalyzer = func(props struct {

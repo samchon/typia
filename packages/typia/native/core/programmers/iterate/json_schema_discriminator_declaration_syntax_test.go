@@ -21,6 +21,11 @@ import (
 // 3. Assert the negative shapes -- no common tag, a non-object member, a
 //    literal (inline) member, and an alias that does not name a lone object --
 //    still emit no discriminator, so the resolution cannot over-emit.
+//
+// @evidence contracts/testing.md#behavioral-verification Discriminator emission is run on union members declared as interfaces and as type aliases; each case must emit the discriminator with the same property name and a mapping object of the expected size.
+// @evidence contracts/testing.md#independent-expectations Both declaration forms export the same $ref, so eligibility cannot depend on syntax; the labeled cases and the expected property name and mapping size are authored.
+// @evidence contracts/testing.md#distinguishing-cases Interface and alias forms are positives; shapes that must not produce a discriminator are covered by the negative rows of the same table.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the schema writer on constructed metadata with no checker, filesystem fixture or process.
 func TestJsonSchemaDiscriminatorDeclarationSyntax(t *testing.T) {
   circle := func() *nativemetadata.MetadataObject {
     return discriminatorObject("Circle", "type", "circle")

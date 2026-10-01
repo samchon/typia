@@ -8,6 +8,11 @@ import "testing"
 // Object validators ask this question repeatedly when array element decoders
 // revisit the same metadata. The answer depends only on the completed property
 // list, so the object type caches it after the first scan.
+//
+// @evidence contracts/testing.md#behavioral-verification The required-literal-property query is called repeatedly on an object, an inheriting child and a parent; results and the cached state are asserted, and parent properties must not leak into the child's check-only list.
+// @evidence contracts/testing.md#independent-expectations Authored property lists state the answer; the cache assertions pin an implementation property (compute once) and are performance-oriented, not behavioral.
+// @evidence contracts/testing.md#distinguishing-cases Detected, cached, inherited and non-leaking cases; objects with no required literal are not asserted.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported methods in memory with no filesystem fixture, process or native command build.
 func TestMetadataObjectTypeRequiredLiteralPropertyCaches(t *testing.T) {
   key := MetadataSchema_initialize()
   key.Constants = append(key.Constants, MetadataConstant_create(MetadataConstant{

@@ -25,6 +25,11 @@ import (
 //  2. Report Go-only spellings as invalid numbers and infinities as non-finite.
 //  3. Keep ordinary spellings byte-identical, and every tag name in its source
 //     spelling.
+//
+// @evidence contracts/testing.md#behavioral-verification Numeric comment tags are parsed from JavaScript number spellings (hex, exponent, infinity) and Go-only spellings; accepted tags must carry the right value and splice a JavaScript-valid validator text.
+// @evidence contracts/testing.md#independent-expectations The JavaScript number grammar defines which spellings are numbers and what they evaluate to; expected values and spliced text are authored.
+// @evidence contracts/testing.md#distinguishing-cases Accepted JavaScript spellings, rejected Go-only spellings and several tag targets give positive and negative rows.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory in memory with no checker, filesystem fixture or process.
 func TestMetadataCommentTagFactoryReadsJavaScriptNumbers(t *testing.T) {
   parse := func(name string, value string) (metadataCommentTagFactory_TagRecord, []string) {
     messages := []string{}

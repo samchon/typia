@@ -26,6 +26,11 @@ import (
 // 2. Parse one representative JSDoc comment per tag kind through the factory.
 // 3. Assert the produced tag's kind and `Exclusive` match the authority exactly,
 //    so `@format`/`@pattern` carry `["format", "pattern"]` and no list drifts.
+//
+// @evidence contracts/testing.md#behavioral-verification Every JSDoc comment tag is parsed and the produced tag key and Exclusive list are compared with the @typia/interface declaration transcribed in the test.
+// @evidence contracts/testing.md#independent-expectations The interface declarations are the specification of exclusivity; the transcription is authored separately from the factory's per-parser copies.
+// @evidence contracts/testing.md#distinguishing-cases One row per tag, so a drifted exclusive list on any single tag fails; tags added to the interface later are not detected automatically.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory in memory with no checker, filesystem fixture or process.
 func TestMetadataCommentTagFactoryExclusivityMatchesInterface(t *testing.T) {
   arrayForm := map[string][]string{}
   for _, declaration := range metadataTypeTagFactoryTestDeclarations() {

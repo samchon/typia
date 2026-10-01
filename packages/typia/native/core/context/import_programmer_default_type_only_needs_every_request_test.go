@@ -19,6 +19,11 @@ import (
 // 1. Request one default as a type and then as a value.
 // 2. Request a second default only as a type.
 // 3. Assert the first import has no type phase modifier and the second has one.
+//
+// @evidence contracts/testing.md#behavioral-verification The import programmer receives a default import requested as a value and as a type, and one requested only as a type; the emitted import is type-only exactly in the second case.
+// @evidence contracts/testing.md#independent-expectations A type-only default cannot be referenced as a value, so the expected flag is authored from TypeScript import semantics.
+// @evidence contracts/testing.md#distinguishing-cases Mixed requests versus type-only requests is the one-axis pair.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the programmer and inspects emitted nodes in memory with no checker, filesystem fixture or process.
 func TestImportProgrammerDefaultTypeOnlyNeedsEveryRequest(t *testing.T) {
   programmer := NewImportProgrammer()
   programmer.Default(ImportProgrammer_IDefault{File: "mixed", Name: "Mixed", Type: true})

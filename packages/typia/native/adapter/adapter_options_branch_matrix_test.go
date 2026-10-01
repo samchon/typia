@@ -15,6 +15,11 @@ import "testing"
 // 2. Convert true options and verify each boolean pointer is populated.
 // 3. Preserve an explicitly supplied undefined pointer.
 // 4. Exercise boolPointer directly for both branches.
+//
+// @evidence contracts/testing.md#behavioral-verification The adapter option conversion is called on zero-value options and on enabled options; false flags must stay nil and enabled values and the tri-state undefined option must be forwarded.
+// @evidence contracts/testing.md#independent-expectations The adapter contract (false is indistinguishable from absent, true and the tri-state undefined are forwarded) supplies the authored expectations.
+// @evidence contracts/testing.md#distinguishing-cases Zero options and enabled options are the two rows; individual flag combinations are owned by the public adapter options test.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the exported conversion in memory with no filesystem fixture, process or native command build.
 func TestAdapterOptionsBranchMatrix(t *testing.T) {
 	zero := PluginOptions{}.TransformOptions()
 	if zero.Runtime != "typia" ||

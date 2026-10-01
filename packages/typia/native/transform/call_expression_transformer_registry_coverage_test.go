@@ -22,6 +22,11 @@ import (
 // 2. Check target-path matching for typia source, typia declarations, and misses.
 // 3. Confirm standalone AST nodes without a source file report no source file.
 // 4. Materialize every registered module method transformer closure.
+//
+// @evidence contracts/testing.md#behavioral-verification The call transformer is called with nil, the module path matcher is called with typia source, declaration and foreign paths, source file lookup with a standalone node, and every registered closure is materialized; path and nil checks compare exact values while closure materialization only requires a non-nil result.
+// @evidence contracts/testing.md#independent-expectations Authored paths state which module each belongs to; the closure check has no independent oracle.
+// @evidence contracts/testing.md#distinguishing-cases Matching and non-matching paths are paired; the registry sweep visits every entry once.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls private helpers in the same package with no checker, filesystem fixture or process.
 func TestCallExpressionTransformerRegistryCoverage(t *testing.T) {
 	if CallExpressionTransformer.Transform(CallExpressionTransformer_TransformProps{
 		Context: nativecontext.ITypiaContext{},
