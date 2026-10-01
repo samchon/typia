@@ -148,6 +148,11 @@ export const test_llm_application_mismatch = (): void => {
   });
   TestEquality.equals("corrected-functions", corrected.functions.length, 3);
   TestEquality.equals("corrected-errors", corrected.errors, []);
+  TestEquality.equals(
+    "corrected-paths",
+    corrected.functions.map((func) => func.path).sort(),
+    ["/circle", "/point", "/rectangle"],
+  );
   const bodies = {
     "/point": { x: 1, y: 2 },
     "/circle": { radius: 3, center: { x: 1, y: 2 } },

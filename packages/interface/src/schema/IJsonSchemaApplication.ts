@@ -249,8 +249,8 @@ export namespace IJsonSchemaApplication {
     /**
      * Parameter title for documentation.
      *
-     * Optional title from a title annotation or the initial sentence of the
-     * parameter documentation when that sentence ends with a period.
+     * Optional title from a title annotation or the first documentation line
+     * when its trimmed text ends with a period. That final period is removed.
      */
     title?: string | undefined;
 
