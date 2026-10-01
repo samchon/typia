@@ -164,6 +164,10 @@ import { test_naming_convention_pascal } from "./features/naming/test_naming_con
 import { test_naming_convention_reserved } from "./features/naming/test_naming_convention_reserved";
 import { test_naming_convention_snake } from "./features/naming/test_naming_convention_snake";
 import { test_naming_convention_variable } from "./features/naming/test_naming_convention_variable";
+import { test_openapi_unreference_alias_chains } from "./features/openapi/test_openapi_unreference_alias_chains";
+import { test_openapi_validation_invalid_references } from "./features/openapi/test_openapi_validation_invalid_references";
+import { test_openapi_validation_path_grouping } from "./features/openapi/test_openapi_validation_path_grouping";
+import { test_openapi_validation_reference_paths } from "./features/openapi/test_openapi_validation_reference_paths";
 import { test_boolean_predicate_equals_results } from "./features/oracle/test_boolean_predicate_equals_results";
 import { test_boolean_predicate_is_prune_results } from "./features/oracle/test_boolean_predicate_is_prune_results";
 import { test_boolean_predicate_is_results } from "./features/oracle/test_boolean_predicate_is_results";
@@ -396,6 +400,23 @@ for (const feature of [
 test(test_llm_schema_discriminator.name, test_llm_schema_discriminator);
 
 test(test_llm_applicationEquals.name, test_llm_applicationEquals);
+
+test(
+  test_openapi_unreference_alias_chains.name,
+  test_openapi_unreference_alias_chains,
+);
+test(
+  test_openapi_validation_reference_paths.name,
+  test_openapi_validation_reference_paths,
+);
+test(
+  test_openapi_validation_path_grouping.name,
+  test_openapi_validation_path_grouping,
+);
+test(
+  test_openapi_validation_invalid_references.name,
+  test_openapi_validation_invalid_references,
+);
 
 test(test_llm_application_mismatch.name, test_llm_application_mismatch);
 

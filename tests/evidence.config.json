@@ -65,7 +65,9 @@
         "!test-typia-automated/src/features/assertGuardEquals/test_*.ts",
         "!test-typia-automated/src/features/createAssertGuardEquals/test_*.ts",
         "!test-typia-automated/src/features/validateEquals/test_*.ts",
-        "!test-typia-automated/src/features/createValidateEquals/test_*.ts"
+        "!test-typia-automated/src/features/createValidateEquals/test_*.ts",
+        "!test-utils-automated/src/features/validate/test_*.ts",
+        "!test-utils-automated/src/internal/_test_validate.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -150,7 +152,8 @@
         "test-feature-identity/src/Git.ts",
         "test-feature-identity/src/RepositoryIntegrity.ts",
         "oracle/src/**/*.ts",
-        "!oracle/src/TestPredicate.ts"
+        "!oracle/src/TestPredicate.ts",
+        "!oracle/src/TestOpenApiValidation.ts"
       ],
       "symbol": [
         "type",
@@ -289,6 +292,42 @@
         "files": [
           "contracts/testing.md",
           "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "generated ordinary OpenAPI schema boundaries",
+      "type": "typescript",
+      "files": [
+        "test-utils-automated/src/features/validate/test_*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "ordinary OpenAPI validation assertion helper",
+      "type": "typescript",
+      "files": [
+        "oracle/src/TestOpenApiValidation.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
         ],
         "symbol": "h2",
         "checklist": true

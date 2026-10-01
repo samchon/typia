@@ -234,21 +234,24 @@ export namespace OpenApiTypeChecker {
     });
 
   /**
-   * Unreference the schema.
+   * Resolves a root schema reference to its terminal schema.
    *
-   * Unreference the schema, replacing the {@link OpenApi.IJsonSchema.IReference}
-   * type to the actual schema. Different with {@link escape} is, the
-   * `unreference` function does not resolve every references in the schema, but
-   * resolve only one time.
+   * Follows component aliases and returns the original terminal object. Unlike
+   * {@link escape}, it leaves references inside that object's properties, items
+   * and union branches untouched. A non-reference input is unchanged.
    *
-   * If there's a {@link OpenApi.IJsonSchema.IReference} type which cannot find
-   * the matched type in the {@link OpenApi.IComponents.schemas}, and you've
-   * called this `unreference()` function with the reference, it would also be
-   * failed and return an {@link IJsonSchemaTransformError} value.
+   * Missing or malformed local references and cyclic alias chains return an
+   * {@link IJsonSchemaTransformError}. Component lookups require own entries;
+   * exceptions from component accessors propagate to the caller.
    *
    * @param props Properties of unreference
    *
    * @returns Unreferenced schema
+   *
+   * @evidence contracts/common.md#principled-implementation The private root-only traversal follows aliases through the shared RFC 6901 component reader and own-entry dictionary lookup. A per-call visited-key set detects all alias cycles; a terminal non-reference is returned by identity without descending into its fields. Missing or malformed targets retain structured diagnostic context.
+   * @evidence contracts/common.md#clear-and-simple-design The public wrapper supplies the OpenAPI prefix and method identity to the shared internal owner. Its iterative chain traversal separates root alias resolution from recursive schema escaping and uses no call stack proportional to alias depth; temporary visited state is bounded by keys reached in this call and released on return.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Every component key follows the same decoded-reference and own-property rules, with no fixture-name exception, foreign method replacement or fabricated empty-schema fallback. Cycles are diagnosed from repeated chain keys rather than an arbitrary depth cap, and exotic lookup errors are not swallowed.
+   * @evidence contracts/common.md#meaningful-documentation Native prose distinguishes root aliases from nested references, specifies terminal identity and unchanged inputs, and documents structured missing/cycle errors and propagated component accessor exceptions. These facts explain the public operation's use without claiming a behavioral verification result.
    */
   export const unreference = (props: {
     components: OpenApi.IComponents;

@@ -8,10 +8,15 @@
     "./binding": "./src/TestBinding.ts",
     "./package.json": "./package.json",
     "./predicate": "./src/TestPredicate.ts",
-    "./structure-selector": "./src/TestStructureSelector.ts"
+    "./structure-selector": "./src/TestStructureSelector.ts",
+    "./openapi-validation": "./src/TestOpenApiValidation.ts"
   },
   "devDependencies": {
     "@types/node": "catalog:utils",
     "ttsc": "catalog:typescript"
+  },
+  "dependencies": {
+    "@typia/interface": "workspace:^",
+    "@typia/utils": "workspace:^"
   }
 }

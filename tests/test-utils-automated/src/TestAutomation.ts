@@ -29,6 +29,24 @@ export namespace TestAutomation {
 
       import { _test_validate } from "../../internal/_test_validate";
 
+      /**
+       * Verifies the native-produced ${key} schema validates its fixture values.
+       *
+       * Clean acceptance and authored invalid mutations exercise the connection
+       * between the TypeScript schema producer and runtime OpenAPI validation.
+       *
+       * 1. Produce the ${key} root and components and validate a clean value.
+       * 2. Apply each declared spoiler and compare the complete grouped paths.
+       *
+       * @evidence contracts/testing.md#behavioral-verification This ${key} entry passes typia.json.schema output to _test_validate, which checks clean success and input identity, requires rejection of each declared spoiler, and compares the entire sorted diagnostic-path population including multiplicity after expected-path grouping.
+       * @evidence contracts/testing.md#independent-expectations ${key}.generate and .SPOILERS supply valid values, invalid mutations and original expected paths independently of OpenApiValidator output. The helper's normalization consults the emitted schema and OpenApiTypeChecker to group ambiguous union leaves; that grouping is not an independent oracle of the schema or branch-selection utility. Actual reported paths remain unnormalized.
+       * @evidence contracts/testing.md#distinguishing-cases A clean ${key} value is the positive case and each declared spoiler changes an invalid value for this fixture. A fixture with no spoilers contributes only clean success and identity. Distinct fixture declarations retain their array, nullable, optional, recursive, scalar and tagged contexts; surplus-member assertions belong to the separate equality matrix.
+       * @evidence contracts/testing.md#execution-ownership Generated test_validate_${key} is discovered by TestServant in src/features/validate during test-utils-automated start. The entry owns its native schema binding and fixture identity; _test_validate owns validation and its private expected-path normalization.
+       * @evidence contracts/e2e.md#necessary-boundary The Go producer's root and components for ${key} must compose with OpenApiValidator, including reference and object constraints. A direct validator call on an authored schema cannot verify the TypeScript-to-schema connection. Portable validator rules have separate direct unit owners; this entry retains the real emitted-schema connection.
+       * @evidence contracts/e2e.md#shared-execution The suite generates both matrices before starting one shared TestServant worker. Entries share that workspace project and its content-keyed native artifact without per-fixture installation or worker creation, and every case keeps its own discoverable failure identity. The entry does not certify minimum preparation across the parent generation entry and worker project load.
+       * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The helper creates one validator for this schema and calls the fixture generator separately for clean and each spoiled scenario. Normalization uses local path/visit collections without mutating schema or components; spoilers mutate their supplied value. The runner closes its connected worker in finally and ttsc owns artifact invalidation. This case does not prove cold-cache behavior or isolation of a fixture's global random state.
+       * @evidence contracts/e2e.md#preserved-coverage This binding retains the ${key} fixture, native schema call, selected helper and discoverable export. Every existing clean/spoiler invocation and complete path comparison remains executed. The emitted schema is an input under test, and no unit or compiler boundary assertion is removed or replaced by this documentation.
+       */
       export const test_validate_${key} = () => _test_validate<${key}>({
         ...typia.json.schema<${key}>(),
         factory: ${key},
