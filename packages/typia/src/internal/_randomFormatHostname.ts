@@ -2,6 +2,14 @@ import { _randomInteger } from "./_randomInteger";
 import { _randomString } from "./_randomString";
 import { _ILengthProps } from "./_randomStringLength";
 
+/**
+ * Generate a hostname at a length the bounds allow.
+ *
+ * @evidence contracts/common.md#principled-implementation A hostname is dot-joined labels of one to 63 characters, at most 253 in total, so the requested total is realized by splitting it into full labels and a remainder, never making a label longer than 63; an impossible window throws.
+ * @evidence contracts/common.md#clear-and-simple-design One function, with the label builder exported because the internationalized variant shares it.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The limits are those of the hostname grammar.
+ * @evidence contracts/common.md#meaningful-documentation Inline comments and the label builder's doc explain the split.
+ */
 export const _randomFormatHostname = (props?: _ILengthProps): string => {
   if (props?.minLength === undefined && props?.maxLength === undefined)
     return `${random(10)}.${random(3)}`;
@@ -31,6 +39,11 @@ const pickLength = (props: _ILengthProps): number => {
  * Builds dot-joined hostname labels totaling exactly `length` characters, each
  * label within 63 chars. Shared with the idn-hostname generator, which realizes
  * its length the same way since #2317 gave the two formats one structure.
+ *
+ * @evidence contracts/common.md#principled-implementation A target length is spent as full 63-character labels with joining dots and a final label, with the one awkward remainder of 64 split into two labels so no label exceeds 63.
+ * @evidence contracts/common.md#clear-and-simple-design One function shared by the hostname and idn hostname generators.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The splitting rule is the grammar's.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the total length and the label limit.
  */
 export const _randomHostnameLabels = (length: number): string => {
   const parts: string[] = [];

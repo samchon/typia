@@ -6,6 +6,14 @@ import {
 } from "./_randomStringLength";
 import { __randomComposition } from "./private/__randomComposition";
 
+/**
+ * Generate an IPv4 address at a length the bounds allow.
+ *
+ * @evidence contracts/common.md#principled-implementation Four octets of one to three digits give lengths from seven to fifteen, and a requested length is realized by distributing the digit count across the octets within those limits and drawing each octet in the range for its digit count, with 255 as the top of a three-digit octet.
+ * @evidence contracts/common.md#clear-and-simple-design One function over the composition helper.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The limits are the dotted quad's.
+ * @evidence contracts/common.md#meaningful-documentation Inline comments explain the length range and the octet bounds.
+ */
 export const _randomFormatIpv4 = (props?: _ILengthProps): string => {
   if (props?.minLength === undefined && props?.maxLength === undefined)
     return new Array(4).fill(0).map(random).join(".");

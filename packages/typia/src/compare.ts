@@ -9,6 +9,18 @@ import { Atomic } from "@typia/interface";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+/**
+ * The partial form of `T` that `typia.compare.cover` matches against.
+ *
+ * Atomics, null, undefined and functions stay as they are, an array becomes an
+ * array of covered elements and every property of an object becomes optional
+ * and covered in turn.
+ *
+ * @evidence contracts/common.md#principled-implementation The mapped type keeps atomics, null, undefined and functions as they are, turns an array into an array of covered elements and an object into a record whose properties are optional and covered recursively, which is the shape `typia.compare.cover` accepts as the partial value to match. Arrays stay arrays of the covered element, so a partial array is not expressible, matching the lengths that the function requires to be identical.
+ * @evidence contracts/common.md#clear-and-simple-design One recursive conditional alias used by the `cover` signature.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A type-level description with no runtime effect; the transform decides what the call compares.
+ * @evidence contracts/common.md#meaningful-documentation A comment states what the alias describes and how it relates to the cover operation.
+ */
 export type Cover<T> = T extends Atomic.Type | null | undefined
   ? T
   : T extends (...args: any[]) => any

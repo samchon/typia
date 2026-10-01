@@ -1,5 +1,19 @@
 import { IReadableURLSearchParams } from "@typia/interface";
 
+/**
+ * Parse a query input into URLSearchParams.
+ *
+ * A string may be a bare query, a query with a leading `?`, or a URL; a prefix
+ * before the first `?` is dropped when it looks like a URL prefix (a scheme, a
+ * slash or dot path, or text without `=` or `&`), and a fragment is removed
+ * from a URL. An object that already reads like URLSearchParams is returned as
+ * it is.
+ *
+ * @evidence contracts/common.md#principled-implementation A string input is reduced to its query: a leading `?` is dropped, text before a `?` is dropped when it looks like a URL prefix (a scheme, a leading slash or dot path, or text without `=` or `&`), and a fragment is removed for URL inputs; an object that already reads like URLSearchParams is returned as is. The URL-prefix test is a heuristic, so a bare query string whose first key contains no `=` or `&` is read as a prefix.
+ * @evidence contracts/common.md#clear-and-simple-design One function and two private prefix predicates.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The heuristic is stated and has a defined boundary instead of a list of known URLs.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the accepted inputs and the heuristic.
+ */
 export const _httpQueryParseURLSearchParams = (
   input: string | IReadableURLSearchParams,
 ): IReadableURLSearchParams => {

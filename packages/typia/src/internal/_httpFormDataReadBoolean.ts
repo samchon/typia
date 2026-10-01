@@ -1,3 +1,14 @@
+/**
+ * Read one form field as a boolean.
+ *
+ * An empty value is true, `true` and `1` are true, `false` and `0` are false,
+ * `null` is null and other text is kept for the assertion to reject.
+ *
+ * @evidence contracts/common.md#principled-implementation A file is passed through, a missing field is absent, the text `null` is null, an empty value is true (a present flag), `true` and `1` are true, `false` and `0` are false, and any other text is returned for the validator to reject.
+ * @evidence contracts/common.md#clear-and-simple-design One conditional chain.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The mapping is the form-data contract and not keyed on a field.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the mapping.
+ */
 export const _httpFormDataReadBoolean = (
   input: string | File | null,
 ): boolean | null | undefined =>

@@ -24,6 +24,18 @@ const _notationSnakeWord = (str: string): string => {
   return ret;
 };
 
+/**
+ * Convert a key to snake_case.
+ *
+ * Leading underscores are kept and the word boundaries are found inside each
+ * underscore-delimited segment, with consecutive capitals collapsed into one
+ * word.
+ *
+ * @evidence contracts/common.md#principled-implementation Leading underscores are kept, each underscore-delimited segment is walked at its ASCII capitals with consecutive capitals collapsed into one word, and the lowercased pieces are joined with underscores, matching the SnakeCase typing and the utilities' converter.
+ * @evidence contracts/common.md#clear-and-simple-design One function and a private word converter, duplicated in the utilities package, which typia cannot reach from the emitted-code path.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The rule is general over ASCII capitals and no key is special-cased.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the boundary rule and the per-segment walk.
+ */
 export const _notationSnake = (str: string): string => {
   if (str.length === 0) return str;
 

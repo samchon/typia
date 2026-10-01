@@ -1,5 +1,19 @@
 import { IValidation } from "@typia/interface";
 
+/**
+ * Create the reporter that validation functions use to collect errors.
+ *
+ * The returned function keeps an error only when it is exceptionable and its
+ * path is neither an ancestor nor a descendant of the last kept path, so a
+ * failing leaf is not also reported as every enclosing value. An undefined
+ * value gets a default description. It always returns false so emitted code can
+ * return it directly.
+ *
+ * @evidence contracts/common.md#principled-implementation The reporter pushes an error onto the list only when it is exceptionable and its path is neither an ancestor nor a descendant of the last pushed one, so a failing leaf is not also reported as every enclosing value, and an undefined value gets a description telling the caller to fill it; it always returns false so emitted code can return it directly.
+ * @evidence contracts/common.md#clear-and-simple-design One closure with two private predicates.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The suppression is path-based and general.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the suppression and the false result.
+ */
 export const _validateReport = (array: IValidation.IError[]) => {
   const isAncestor = (ancestor: string, descendant: string): boolean =>
     descendant === ancestor ||

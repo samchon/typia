@@ -2,6 +2,18 @@ import { OpenApi } from "@typia/interface";
 
 import { _randomMultiple } from "./_randomMultiple";
 
+/**
+ * Generate a random number from a number schema.
+ *
+ * The stricter of the inclusive and exclusive bounds wins, a missing side
+ * defaults to a window of one hundred, and a step is satisfied through the
+ * decimal multiple generator.
+ *
+ * @evidence contracts/common.md#principled-implementation The bounds are selected from the inclusive and exclusive values with the stricter winning, a missing side defaults to a window of one hundred, a uniform value is drawn between them and an exclusive bound that is hit exactly is replaced by the midpoint, and a step is handled by the decimal multiple generator.
+ * @evidence contracts/common.md#clear-and-simple-design One function with private boundary helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Errors are explicit for empty and infinite ranges.
+ * @evidence contracts/common.md#meaningful-documentation The boundary helper explains the infinite bound rule.
+ */
 export const _randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
   const lower: IBoundary | null = getLowerBoundary(schema);
   const upper: IBoundary | null = getUpperBoundary(schema);

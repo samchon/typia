@@ -10,6 +10,19 @@ import {
 } from "./_decimal";
 import { _isMultipleOf } from "./_isMultipleOf";
 
+/**
+ * Generate a number that is a multiple of a decimal step inside a range.
+ *
+ * The quotient range is computed exactly, nearby candidates are tested for
+ * being doubles that the multiple test accepts, and representable multiples are
+ * searched across exponent bands when none is found; an unsatisfiable range
+ * throws.
+ *
+ * @evidence contracts/common.md#principled-implementation The step is read as a decimal, the bounds are converted to the nearest quotient range with exact big-integer arithmetic, a quotient is drawn and several nearby candidates are checked for being valid doubles that the multiple test accepts, and, when none is representable, it searches representable multiples across integer and decimal exponent bands before throwing. A value is accepted only after the exact multiple test, so the answer does not depend on rounding assumptions.
+ * @evidence contracts/common.md#clear-and-simple-design One public function and many private helpers for bounds, candidates and alignment, each used by the search; the search is long because doubles cannot represent every decimal multiple.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The final check uses the same predicate as the validator, and an unsatisfiable range throws.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the exact quotient range, the candidate search and the failure case; the private helpers are covered by this function's answer.
+ */
 export const _randomMultiple = (props: {
   minimum: number;
   maximum: number;

@@ -17,6 +17,19 @@ const DEFAULT_RECURSIVE_RANGE = 2;
  */
 const STALE_LIMIT = 64;
 
+/**
+ * Generate a random array from an array schema.
+ *
+ * The length is drawn between the bounds, with a default minimum of one, or
+ * zero on a recursive cycle. For a unique array the count is a preference above
+ * the minimum: drawing stops after a run of duplicates and a result below the
+ * minimum throws.
+ *
+ * @evidence contracts/common.md#principled-implementation The length is drawn between the schema's bounds with a default minimum of one, or zero on a recursive cycle so graph-shaped data ends, and elements come from the supplied callback; for a unique array the callback is drawn until the requested count is reached or a run of sixty-four duplicates, once the minimum is met, says the element domain is exhausted, and a result below the minimum throws. The count is therefore a preference above the minimum and a contract below it.
+ * @evidence contracts/common.md#clear-and-simple-design One function with a plain branch and a unique branch; defaults are module constants.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The unique branch fails only when the minimum is unreachable, instead of failing whenever the preferred count is, which the comment explains with a two-valued domain.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the length rule, the unique-draw budget and the stale limit, and the module comments explain the reasoning.
+ */
 export const _randomArray = <T>(
   props: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
     element: (index: number, count: number) => T;

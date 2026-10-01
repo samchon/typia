@@ -1,5 +1,18 @@
 import { Resolved } from "@typia/interface";
 
+/**
+ * Clone an untyped value into plain data.
+ *
+ * Arrays, sets, maps, dates, regular expressions, typed arrays, buffers, blobs,
+ * files, boxed primitives and plain objects are rebuilt; functions and
+ * undefined members are dropped and weak collections throw. Cycles are not
+ * tracked.
+ *
+ * @evidence contracts/common.md#principled-implementation The clone walks the value and rebuilds arrays, sets, maps, boxed primitives, dates, regular expressions, typed arrays, buffers, data views, blobs, files and plain objects, drops functions and undefined members, and throws for weak collections. Native objects are recognized through the intrinsic accessors of their prototypes, called with `Reflect.apply`, so an object that merely claims a tag, or whose own members shadow a getter, is not mistaken for a native and is cloned as a plain object. Cycles are not tracked, so a cyclic value does not terminate.
+ * @evidence contracts/common.md#clear-and-simple-design One entry function over a recognition function, a native cloner and a buffer range copier; the accessor captures are module-level constants because they are looked up once from the prototypes.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Recognition uses the intrinsic prototype accessors and no foreign method is replaced; native tags are checked through them and not by the forgeable string tag alone.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the cloned kinds, the dropped members and the cycle limitation.
+ */
 export const _plainCloneAny = <T>(value: T): Resolved<T> =>
   cloneMain(value) as Resolved<T>;
 

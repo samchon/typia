@@ -1,5 +1,13 @@
 import { _randomInteger } from "../_randomInteger";
 
+/**
+ * Bounds of a random instant, in milliseconds since the epoch.
+ *
+ * @evidence contracts/common.md#principled-implementation Two optional millisecond numbers bound an instant, either of which may be open.
+ * @evidence contracts/common.md#clear-and-simple-design Two fields.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the unit and the meaning of each side.
+ */
 export interface __IEpochProps {
   minimum?: number;
   maximum?: number;
@@ -18,6 +26,11 @@ export interface __IEpochProps {
  *
  * With no bound at all the window ends at the present instant; with only a
  * lower bound it spans one year from there.
+ *
+ * @evidence contracts/common.md#principled-implementation The upper bound defaults to now when there is no bound and to one year after the lower bound when only that is given, resolved in one place so the date and date-time generators cannot disagree, and an explicit maximum, including zero, is honored.
+ * @evidence contracts/common.md#clear-and-simple-design One function.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The default window is stated and the precedence bug that once made the maximum ignored is the reason for sharing the code.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the defaults and the shared use.
  */
 export const __randomEpoch = (props?: __IEpochProps): number => {
   const minimum: number = props?.minimum ?? 0;

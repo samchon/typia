@@ -5,6 +5,16 @@ import { _randomInteger } from "./_randomInteger";
 const DEFAULT_MIN_LENGTH = 5;
 const DEFAULT_RANGE = 5;
 
+/**
+ * Generate a random lowercase string within the schema's length bounds.
+ *
+ * The default length is five to ten characters.
+ *
+ * @evidence contracts/common.md#principled-implementation The length is drawn between the schema's bounds with default floor five and range five and every character is a random lowercase letter, so the result satisfies length bounds and, as a letters-only string, most formats the generator does not know.
+ * @evidence contracts/common.md#clear-and-simple-design One function over the integer generator.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The alphabet and defaults are constants of the generator.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the alphabet and the default length.
+ */
 export const _randomString = (props: OpenApi.IJsonSchema.IString) => {
   const minimum: number =
     props.minLength ??

@@ -7,6 +7,14 @@ import {
 } from "./_randomStringLength";
 import { __randomBase64 } from "./private/__randomComposition";
 
+/**
+ * Generate a Base64 string for the `byte` format at a length the bounds allow.
+ *
+ * @evidence contracts/common.md#principled-implementation Base64 lengths are multiples of four, so an unconstrained draw spends four to twelve groups, and a constrained one raises the window floor to the first multiple of four it contains and steps by four; an empty window throws. Each character is from the alphabet that the validator allows, so no encoding step is needed and no padding is produced.
+ * @evidence contracts/common.md#clear-and-simple-design One function over the shared length window and Base64 helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The length rule is the format's.
+ * @evidence contracts/common.md#meaningful-documentation An inline comment explains the grouping.
+ */
 export const _randomFormatByte = (props?: _ILengthProps): string => {
   // Base64 encodes three bytes as four characters, so a valid length is always
   // a multiple of four; an unconstrained draw spends between four and twelve

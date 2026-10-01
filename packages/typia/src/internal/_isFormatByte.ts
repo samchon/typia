@@ -1,3 +1,15 @@
+/**
+ * Checks the padded Base64 spelling accepted by the byte format.
+ *
+ * Empty data is valid. The predicate checks alphabet, four-character grouping
+ * and terminal padding; it does not decode bytes or require canonical zero
+ * padding bits.
+ *
+ * @evidence contracts/common.md#principled-implementation Full-input grouping admits complete four-symbol blocks and only the two valid padded tail lengths. The fixed alphabet and suffix positions establish lexical validity without byte allocation.
+ * @evidence contracts/common.md#clear-and-simple-design One private expression owns this lexical check; decoding and content interpretation remain with their consumers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Alphabet and grouping are format rules rather than special inputs. The predicate applies the same expression to every supplied string.
+ * @evidence contracts/common.md#meaningful-documentation Native prose states the accepted representation and its important limits, so callers can distinguish this predicate from a broader policy or conversion. Descriptive prose and review acknowledgments are separated.
+ */
 export const _isFormatByte = (str: string): boolean => PATTERN.test(str);
 
 const PATTERN =

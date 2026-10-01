@@ -7,6 +7,14 @@ import {
 } from "./_randomStringLength";
 import { __randomComposition } from "./private/__randomComposition";
 
+/**
+ * Generate an IPv6 address at a length the bounds allow.
+ *
+ * @evidence contracts/common.md#principled-implementation The length window selects among the compressed form for short lengths, the eight-group form for the middle and a six-group form with a dotted IPv4 tail for the longest, composing hexadecimal digits so every length from two to the longest form is reachable.
+ * @evidence contracts/common.md#clear-and-simple-design One function with three length ranges and shared composers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The forms are those of the address grammar.
+ * @evidence contracts/common.md#meaningful-documentation Inline comments explain the three forms.
+ */
 export const _randomFormatIpv6 = (props?: _ILengthProps): string => {
   if (props?.minLength === undefined && props?.maxLength === undefined)
     return new Array(GROUPS).fill(0).map(random).join(":");

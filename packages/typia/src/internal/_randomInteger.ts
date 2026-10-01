@@ -2,6 +2,18 @@ import { OpenApi } from "@typia/interface";
 
 import { _randomMultiple } from "./_randomMultiple";
 
+/**
+ * Generate a random integer from an integer schema.
+ *
+ * Bounds are tightened to the integers they contain, a missing side defaults to
+ * a window of one hundred beside the other, and a step is satisfied through the
+ * decimal multiple generator.
+ *
+ * @evidence contracts/common.md#principled-implementation The bounds are tightened to the integers they contain, an exclusive bound moves to the next integer, a missing side defaults to a window of one hundred around the other, an infinite bound that excludes nothing is dropped and one that excludes everything throws; the draw is a uniform floor of a random fraction, or a multiple of the step through the decimal multiple generator.
+ * @evidence contracts/common.md#clear-and-simple-design One function with private boundary helpers shared in shape with the number generator.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Errors are explicit, and the default window of one hundred is an arbitrary generator choice that is documented by its use only.
+ * @evidence contracts/common.md#meaningful-documentation The doc states how the bounds, the missing side and the step are handled, and the boundary helper explains the infinite bound rule.
+ */
 export const _randomInteger = (
   schema: OpenApi.IJsonSchema.IInteger,
 ): number => {

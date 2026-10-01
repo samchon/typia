@@ -1,3 +1,15 @@
+/**
+ * Checks an offset-qualified clock and possible UTC leap-second minute.
+ *
+ * There is no calendar date to verify. A second of 60 requires the supplied
+ * clock and offset to map to 23:59 UTC, with negative offsets normalized into
+ * the day.
+ *
+ * @evidence contracts/common.md#principled-implementation The expression bounds clock and offset fields. Offset subtraction and a nonnegative modulo of 1440 minutes identify the final UTC minute without pretending a date is present.
+ * @evidence contracts/common.md#clear-and-simple-design Ordinary seconds use the syntax result; the extra arithmetic is confined to the leap-second branch and needs no Date allocation.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Clock ranges and day wrapping apply to all inputs; no local-time conversion or fixture-specific leap-second allowance is used.
+ * @evidence contracts/common.md#meaningful-documentation Native prose states the accepted representation and its important limits, so callers can distinguish this predicate from a broader policy or conversion. Descriptive prose and review acknowledgments are separated.
+ */
 export const _isFormatTime = (str: string): boolean => {
   const match: RegExpExecArray | null = PATTERN.exec(str);
   if (match === null) return false;

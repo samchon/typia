@@ -12,6 +12,11 @@ export const _RANDOM_LENGTH_ERROR =
  * `_randomPattern` helpers whenever the string leaf also carries a `MinLength`
  * or `MaxLength` tag, so a constrained format or pattern is generated at a
  * length its own validator accepts (issue #2189).
+ *
+ * @evidence contracts/common.md#principled-implementation Two optional numbers carry the minimum and maximum length of a string leaf to a format or pattern generator.
+ * @evidence contracts/common.md#clear-and-simple-design Two fields.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+ * @evidence contracts/common.md#meaningful-documentation The comment says when the generated code passes it.
  */
 export interface _ILengthProps {
   minLength?: number;
@@ -27,6 +32,11 @@ export interface _ILengthProps {
  * on that side, and `minimum` is the smallest segment the format still
  * validates with. Throws when the window cannot be satisfied by this format's
  * shape (e.g. `Format<"email"> & MaxLength<3>`).
+ *
+ * @evidence contracts/common.md#principled-implementation A variable segment is drawn so that a fixed overhead plus the segment fits the requested window, with a floor for the shortest valid segment, and a window the shape cannot meet throws.
+ * @evidence contracts/common.md#clear-and-simple-design One function over the string generator.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Failure is explicit.
+ * @evidence contracts/common.md#meaningful-documentation The doc defines fixed, fallback and minimum.
  */
 export const _randomSegmentLength = (
   props: _ILengthProps | undefined,
@@ -60,6 +70,11 @@ export const _randomSegmentLength = (
  * the distinction the retry driver below cannot make: it redraws one shape, so
  * it gives up on every length that shape never emits even when the format
  * itself accepts one (issue #2284).
+ *
+ * @evidence contracts/common.md#principled-implementation The requested bounds are intersected with the lengths the grammar admits, with a spread for an open side, and an empty intersection throws, which is the one case where no length can satisfy both.
+ * @evidence contracts/common.md#clear-and-simple-design One function that returns a window and leaves the step to the caller.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The window is arithmetic and is not a retry.
+ * @evidence contracts/common.md#meaningful-documentation The doc explains the window, the spread and the issue.
  */
 export const _randomLengthWindow = (
   props: _ILengthProps | undefined,
@@ -78,7 +93,14 @@ export const _randomLengthWindow = (
   return { low, high };
 };
 
-/** Draws a length inside a window produced by {@link _randomLengthWindow}. */
+/**
+ * Draws a length inside a window produced by {@link _randomLengthWindow}.
+ *
+ * @evidence contracts/common.md#principled-implementation A length is drawn uniformly inside the window through the integer generator.
+ * @evidence contracts/common.md#clear-and-simple-design One function.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It uses the shared generator.
+ * @evidence contracts/common.md#meaningful-documentation The one-line doc states the use.
+ */
 export const _randomLengthPick = (window: {
   low: number;
   high: number;
@@ -98,6 +120,11 @@ export const _randomLengthPick = (window: {
  * one length must build its value at a length drawn from
  * {@link _randomLengthWindow} instead; redrawing one shape cannot reach a length
  * that shape never emits.
+ *
+ * @evidence contracts/common.md#principled-implementation A fixed-length format is generated and accepted only when its length in characters fits the window, up to 256 draws, and otherwise throws, which is correct for a grammar with exactly one length and wrong for formats with several, as the doc says.
+ * @evidence contracts/common.md#clear-and-simple-design One function.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Characters, not code units, are counted to stay consistent with the length tags.
+ * @evidence contracts/common.md#meaningful-documentation The doc states when to use it and when not to.
  */
 export const _randomFormatLength = (
   props: _ILengthProps | undefined,

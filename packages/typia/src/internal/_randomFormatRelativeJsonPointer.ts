@@ -7,6 +7,14 @@ import {
 } from "./_randomStringLength";
 import { __randomNumeric } from "./private/__randomComposition";
 
+/**
+ * Generate a relative JSON pointer at a length the bounds allow.
+ *
+ * @evidence contracts/common.md#principled-implementation A relative pointer is a leading integer and then a hash or a token, so a length of one is a digit, two is a digit and a hash and longer ones add a `/` token that absorbs the remainder.
+ * @evidence contracts/common.md#clear-and-simple-design One function over the digit and string helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The shapes are the grammar's.
+ * @evidence contracts/common.md#meaningful-documentation An inline comment explains the shortest forms.
+ */
 export const _randomFormatRelativeJsonPointer = (
   props?: _ILengthProps,
 ): string => {
