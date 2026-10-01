@@ -512,12 +512,6 @@ importers:
         specifier: catalog:typescript
         version: 0.30.4
 
-  tests/test-evidence:
-    devDependencies:
-      '@wrtnlabs/evidence':
-        specifier: 0.2.0
-        version: 0.2.0(ttsc@0.30.4)(typescript@7.0.2)
-
   tests/test-interface:
     dependencies:
       '@typia/interface':
