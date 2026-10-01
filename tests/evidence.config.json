@@ -32,10 +32,6 @@
         "!test-*/src/structures/**",
         "!test-*/src/controllers/**",
         "test-*/src/internal/_test_*.ts",
-        "!test-feature-identity/src/AssertionOracle.ts",
-        "!test-feature-identity/src/FeatureIdentity.ts",
-        "!test-feature-identity/src/Git.ts",
-        "!test-feature-identity/src/RepositoryIntegrity.ts",
         "!test-typia-schema/src/features/llm.parameters/test_llm_parameters_anyof.ts",
         "!test-typia-schema/src/features/llm.schema/test_llm_schema_spec_union.ts",
         "!test-typia-automated/src/build/**/*.ts",
@@ -161,18 +157,16 @@
       }
     },
     {
-      "name": "test-source integrity and independent binding analyzers",
+      "name": "independent binding and equality oracles",
       "type": "typescript",
       "files": [
-        "test-feature-identity/src/AssertionOracle.ts",
-        "test-feature-identity/src/FeatureIdentity.ts",
-        "test-feature-identity/src/Git.ts",
-        "test-feature-identity/src/RepositoryIntegrity.ts",
         "oracle/src/**/*.ts",
         "!oracle/src/TestPredicate.ts",
         "!oracle/src/TestOpenApiValidation.ts",
         "!oracle/src/TestPrune.ts",
-        "!oracle/src/TestClone.ts"
+        "!oracle/src/TestClone.ts",
+        "!oracle/src/TestStringify.ts",
+        "!oracle/src/TestErrorClass.ts"
       ],
       "symbol": [
         "type",
@@ -470,6 +464,25 @@
           "contracts/common.md",
           "contracts/testing.md",
           "contracts/performance.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable JSON serialization and error-class oracles",
+      "type": "typescript",
+      "files": [
+        "oracle/src/TestStringify.ts",
+        "oracle/src/TestErrorClass.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
         ],
         "symbol": "h2",
         "checklist": true
