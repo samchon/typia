@@ -1524,25 +1524,25 @@ func featureProgrammer_union_objector(objector FeatureProgrammer_IConfig_IObject
       return objector.Checker(FeatureProgrammer_ObjectorCheckerProps{
         Metadata: props.Metadata,
         Input:    props.Input,
-        Explore:  featureProgrammer_as_explore(props.Explore),
+        Explore:  props.Explore,
       })
     },
     Decoder: func(props nativehelpers.UnionExplorer_ObjectorDecoderProps) *shimast.Node {
       return objector.Decoder(FeatureProgrammer_ObjectorDecoderProps{
         Input:   props.Input,
         Object:  props.Object,
-        Explore: featureProgrammer_as_explore(props.Explore),
+        Explore: props.Explore,
       })
     },
     Unionizer: func(props nativehelpers.UnionExplorer_ObjectorUnionizerProps) *shimast.Node {
       return objector.Unionizer(FeatureProgrammer_ObjectorUnionizerProps{
         Objects: props.Objects,
         Input:   props.Input,
-        Explore: featureProgrammer_as_explore(props.Explore),
+        Explore: props.Explore,
       })
     },
     Failure: func(props nativehelpers.UnionExplorer_ObjectorFailureProps) *shimast.Node {
-      explore := featureProgrammer_as_explore(props.Explore)
+      explore := props.Explore
       return objector.Failure(FeatureProgrammer_ObjectorFailureProps{
         Input:    props.Input,
         Expected: props.Expected,
@@ -1559,7 +1559,7 @@ func featureProgrammer_union_objector(objector FeatureProgrammer_IConfig_IObject
         Condition: props.Condition,
         Input:     props.Input,
         Expected:  props.Expected,
-        Explore:   featureProgrammer_as_explore(props.Explore),
+        Explore:   props.Explore,
       })
     },
     Type: objector.Type,
@@ -1575,31 +1575,3 @@ func featureProgrammer_from_iterate_explore(input nativeiterate.Feature_object_e
   }
 }
 
-func featureProgrammer_as_explore(input any) FeatureProgrammer_IExplore {
-  switch value := input.(type) {
-  case FeatureProgrammer_IExplore:
-    return value
-  case *FeatureProgrammer_IExplore:
-    return *value
-  case map[string]any:
-    output := FeatureProgrammer_IExplore{}
-    if v, ok := value["tracable"].(bool); ok {
-      output.Tracable = v
-    }
-    if v, ok := value["source"].(string); ok {
-      output.Source = v
-    }
-    if v, ok := value["from"].(string); ok {
-      output.From = v
-    }
-    if v, ok := value["postfix"].(string); ok {
-      output.Postfix = v
-    }
-    if v, ok := value["start"].(int); ok {
-      output.Start = &v
-    }
-    return output
-  default:
-    return FeatureProgrammer_IExplore{}
-  }
-}

@@ -66,9 +66,7 @@ type UnionExplorer_IObjector struct {
 }
 
 // UnionExplorer_ObjectorCheckerProps is the argument of the Checker operation,
-// which tests an input against one metadata schema. Explore is typed any because
-// the explore state comes in several spellings that unionExplorer_with_tracable
-// normalizes.
+// which tests an input against one metadata schema.
 //
 // @evidence contracts/common.md#principled-implementation It is the argument of the Checker operation, which tests an input against one metadata schema; its 3 fields (Metadata, Input, Explore) are named so that a producer and a consumer cannot transpose them.
 // @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
@@ -77,7 +75,7 @@ type UnionExplorer_IObjector struct {
 type UnionExplorer_ObjectorCheckerProps struct {
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
-  Explore  any
+  Explore  UnionExplorer_IExplore
 }
 
 // UnionExplorer_ObjectorDecoderProps is the argument of the Decoder operation,
@@ -90,7 +88,7 @@ type UnionExplorer_ObjectorCheckerProps struct {
 type UnionExplorer_ObjectorDecoderProps struct {
   Input   *shimast.Expression
   Object  *nativemetadata.MetadataObjectType
-  Explore any
+  Explore UnionExplorer_IExplore
 }
 
 // UnionExplorer_ObjectorUnionizerProps is the argument of the Unionizer
@@ -104,7 +102,7 @@ type UnionExplorer_ObjectorDecoderProps struct {
 type UnionExplorer_ObjectorUnionizerProps struct {
   Objects []*nativemetadata.MetadataObjectType
   Input   *shimast.Expression
-  Explore any
+  Explore UnionExplorer_IExplore
 }
 
 // UnionExplorer_ObjectorFailureProps is the argument of the Failure operation,
@@ -117,7 +115,7 @@ type UnionExplorer_ObjectorUnionizerProps struct {
 type UnionExplorer_ObjectorFailureProps struct {
   Input    *shimast.Expression
   Expected string
-  Explore  any
+  Explore  UnionExplorer_IExplore
 }
 
 // UnionExplorer_ObjectorFullProps is the argument of the Full operation, which
@@ -131,7 +129,7 @@ type UnionExplorer_ObjectorFullProps struct {
   Condition *shimast.Expression
   Input     *shimast.Expression
   Expected  string
-  Explore   any
+  Explore   UnionExplorer_IExplore
 }
 
 // UnionExplorer_ObjectProps is the argument record of UnionExplorer.Object,
@@ -147,7 +145,7 @@ type UnionExplorer_ObjectProps struct {
   Level   int
   Objects []*nativemetadata.MetadataObjectType
   Input   *shimast.Expression
-  Explore any
+  Explore UnionExplorer_IExplore
   Emit    *shimprinter.EmitContext
 }
 
@@ -178,7 +176,7 @@ type UnionExplorer_ArrayLikeConfig struct {
 type UnionExplorer_ArrayLikeCheckerProps struct {
   Input      *shimast.Expression
   Definition any
-  Explore    any
+  Explore    UnionExplorer_IExplore
   Container  *shimast.Expression
 }
 
@@ -192,7 +190,7 @@ type UnionExplorer_ArrayLikeCheckerProps struct {
 type UnionExplorer_ArrayLikeDecoderProps struct {
   Input      *shimast.Expression
   Definition any
-  Explore    any
+  Explore    UnionExplorer_IExplore
 }
 
 // UnionExplorer_ArrayLikeCandidateProps is the argument of the Candidate
@@ -206,7 +204,7 @@ type UnionExplorer_ArrayLikeDecoderProps struct {
 type UnionExplorer_ArrayLikeCandidateProps struct {
   Input      *shimast.Expression
   Definition any
-  Explore    any
+  Explore    UnionExplorer_IExplore
 }
 
 // UnionExplorer_ArrayLikeFailureProps is the argument of the Failure operation
@@ -219,7 +217,7 @@ type UnionExplorer_ArrayLikeCandidateProps struct {
 type UnionExplorer_ArrayLikeFailureProps struct {
   Input    *shimast.Expression
   Expected string
-  Explore  any
+  Explore  UnionExplorer_IExplore
 }
 
 // UnionExplorer_TupleProps is the argument record of UnionExplorer.Tuple, which
@@ -234,7 +232,7 @@ type UnionExplorer_TupleProps struct {
   Parameters []*shimast.Node
   Input      *shimast.Expression
   Tuples     []*nativemetadata.MetadataTuple
-  Explore    any
+  Explore    UnionExplorer_IExplore
   Emit       *shimprinter.EmitContext
 }
 
@@ -250,7 +248,7 @@ type UnionExplorer_ArrayProps struct {
   Parameters []*shimast.Node
   Input      *shimast.Expression
   Arrays     []*nativemetadata.MetadataArray
-  Explore    any
+  Explore    UnionExplorer_IExplore
   Emit       *shimprinter.EmitContext
 }
 
@@ -267,7 +265,7 @@ type UnionExplorer_ArrayOrTupleProps struct {
   Parameters  []*shimast.Node
   Input       *shimast.Expression
   Definitions []any
-  Explore     any
+  Explore     UnionExplorer_IExplore
   Emit        *shimprinter.EmitContext
 }
 
@@ -283,7 +281,7 @@ type UnionExplorer_SetProps struct {
   Parameters []*shimast.Node
   Input      *shimast.Expression
   Sets       []*nativemetadata.MetadataSet
-  Explore    any
+  Explore    UnionExplorer_IExplore
   Emit       *shimprinter.EmitContext
 }
 
@@ -299,7 +297,7 @@ type UnionExplorer_MapProps struct {
   Parameters []*shimast.Node
   Input      *shimast.Expression
   Maps       []*nativemetadata.MetadataMap
-  Explore    any
+  Explore    UnionExplorer_IExplore
   Emit       *shimprinter.EmitContext
 }
 
@@ -715,7 +713,7 @@ type unionExplorer_check_union_array_likeProps struct {
   Parameters  []*shimast.Node
   Input       *shimast.Expression
   Definitions []any
-  Explore     any
+  Explore     UnionExplorer_IExplore
   Emit        *shimprinter.EmitContext
 }
 
@@ -1206,49 +1204,15 @@ func unionExplorer_return_or_statement(node *shimast.Node, emit ...*shimprinter.
   return f.NewReturnStatement(node)
 }
 
-func unionExplorer_with_tracable(base any, tracable bool) any {
-  switch value := base.(type) {
-  case UnionExplorer_IExplore:
-    value.Tracable = tracable
-    return value
-  case *UnionExplorer_IExplore:
-    next := *value
-    next.Tracable = tracable
-    return next
-  case map[string]any:
-    next := map[string]any{}
-    for k, v := range value {
-      next[k] = v
-    }
-    next["tracable"] = tracable
-    return next
-  default:
-    return base
-  }
+func unionExplorer_with_tracable(base UnionExplorer_IExplore, tracable bool) UnionExplorer_IExplore {
+  base.Tracable = tracable
+  return base
 }
 
-func unionExplorer_with_postfix(base any, tracable bool, postfix string) any {
-  switch value := base.(type) {
-  case UnionExplorer_IExplore:
-    value.Tracable = tracable
-    value.Postfix = postfix
-    return value
-  case *UnionExplorer_IExplore:
-    next := *value
-    next.Tracable = tracable
-    next.Postfix = postfix
-    return next
-  case map[string]any:
-    next := map[string]any{}
-    for k, v := range value {
-      next[k] = v
-    }
-    next["tracable"] = tracable
-    next["postfix"] = postfix
-    return next
-  default:
-    return base
-  }
+func unionExplorer_with_postfix(base UnionExplorer_IExplore, tracable bool, postfix string) UnionExplorer_IExplore {
+  base.Tracable = tracable
+  base.Postfix = postfix
+  return base
 }
 
 var unionExplorer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

@@ -6,6 +6,7 @@ import (
   shimast "github.com/microsoft/typescript-go/shim/ast"
   shimprinter "github.com/microsoft/typescript-go/shim/printer"
   nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -25,7 +26,7 @@ type Decode_union_objectProps struct {
   Escaper func(next Decode_union_object_escape) *shimast.Node
   Objects []*nativemetadata.MetadataObjectType
   Input   *shimast.Expression
-  Explore any
+  Explore nativehelpers.UnionExplorer_IExplore
   Emit    *shimprinter.EmitContext
 }
 
@@ -39,7 +40,7 @@ type Decode_union_objectProps struct {
 type Decode_union_object_next struct {
   Input   *shimast.Expression
   Object  *nativemetadata.MetadataObjectType
-  Explore any
+  Explore nativehelpers.UnionExplorer_IExplore
 }
 
 // Decode_union_object_escape is the argument of the Escaper callback of

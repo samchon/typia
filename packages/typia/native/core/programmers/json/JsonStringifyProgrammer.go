@@ -354,7 +354,7 @@ func jsonStringifyProgrammer_decode(props struct {
           Functor:  next.Functor,
           Metadata: next.Metadata,
           Input:    next.Input,
-          Explore:  jsonStringifyProgrammer_checker_explore(next.Explore),
+          Explore:  next.Explore,
           Prefix:   jsonStringifyProgrammer_checker_prefix(next.Validated),
         })
       },
@@ -393,7 +393,7 @@ func jsonStringifyProgrammer_decode(props struct {
             Functor:  props.Functor,
             Metadata: partial,
             Input:    props.Input,
-            Explore:  jsonStringifyProgrammer_checker_explore(props.Explore),
+            Explore:  props.Explore,
             Prefix:   jsonStringifyProgrammer_checker_prefix(props.Validated),
           })
         },
@@ -427,7 +427,7 @@ func jsonStringifyProgrammer_decode(props struct {
             Functor:  props.Functor,
             Metadata: partial,
             Input:    props.Input,
-            Explore:  jsonStringifyProgrammer_checker_explore(props.Explore),
+            Explore:  props.Explore,
             Prefix:   jsonStringifyProgrammer_checker_prefix(props.Validated),
           })
         },
@@ -461,7 +461,7 @@ func jsonStringifyProgrammer_decode(props struct {
             Functor:  props.Functor,
             Metadata: partial,
             Input:    props.Input,
-            Explore:  jsonStringifyProgrammer_checker_explore(props.Explore),
+            Explore:  props.Explore,
             Prefix:   jsonStringifyProgrammer_checker_prefix(props.Validated),
           })
         },
@@ -490,7 +490,7 @@ func jsonStringifyProgrammer_decode(props struct {
           Functor:  props.Functor,
           Metadata: partial,
           Input:    props.Input,
-          Explore:  jsonStringifyProgrammer_checker_explore(props.Explore),
+          Explore:  props.Explore,
           Prefix:   jsonStringifyProgrammer_checker_prefix(props.Validated),
         })
       },
@@ -1061,7 +1061,7 @@ func jsonStringifyProgrammer_explore_arrays(props jsonStringifyProgrammer_explor
               Functor:  props.Functor,
               Metadata: v.Definition.(*schemametadata.MetadataSchema),
               Input:    v.Input,
-              Explore:  jsonStringifyProgrammer_checker_explore(v.Explore),
+              Explore:  v.Explore,
               Prefix:   jsonStringifyProgrammer_checker_prefix(props.Validated),
             })
           },
@@ -1072,7 +1072,7 @@ func jsonStringifyProgrammer_explore_arrays(props jsonStringifyProgrammer_explor
               Functor: props.Functor,
               Input:   v.Input,
               Array:   v.Definition.(*schemametadata.MetadataArray),
-              Explore: jsonStringifyProgrammer_feature_explore(v.Explore),
+              Explore: v.Explore,
             })
           },
           Empty:   f.NewStringLiteral("[]", shimast.TokenFlagsNone),
@@ -1314,7 +1314,7 @@ func jsonStringifyProgrammer_configure(props struct {
           Functor:  props.Functor,
           Metadata: next.Metadata,
           Input:    next.Input,
-          Explore:  jsonStringifyProgrammer_checker_explore(next.Explore),
+          Explore:  next.Explore,
           Prefix:   checkerPrefix,
         })
       },
@@ -1340,7 +1340,7 @@ func jsonStringifyProgrammer_configure(props struct {
               Functor: props.Functor,
               Input:   v.Input,
               Object:  v.Object,
-              Explore: jsonStringifyProgrammer_feature_explore(v.Explore),
+              Explore: v.Explore,
               Prefix:  checkerPrefix,
             })
           },
@@ -1350,7 +1350,7 @@ func jsonStringifyProgrammer_configure(props struct {
               Input   *shimast.Node
               Object  *schemametadata.MetadataObjectType
               Explore nativeinternal.FeatureProgrammer_IExplore
-            }{Functor: props.Functor, Input: v.Input, Object: v.Object, Explore: jsonStringifyProgrammer_feature_explore(v.Explore)})
+            }{Functor: props.Functor, Input: v.Input, Object: v.Object, Explore: v.Explore})
           },
           Success: func(exp *shimast.Expression) *shimast.Node {
             return exp
@@ -1495,28 +1495,6 @@ func jsonStringifyProgrammer_checker_prefix(validated bool) string {
     return jsonStringifyProgrammer_CHECKER_PREFIX_VALIDATED
   }
   return jsonStringifyProgrammer_CHECKER_PREFIX
-}
-
-func jsonStringifyProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {
-  switch v := input.(type) {
-  case nativeinternal.FeatureProgrammer_IExplore:
-    return v
-  case *nativeinternal.FeatureProgrammer_IExplore:
-    return *v
-  default:
-    return nativeinternal.FeatureProgrammer_IExplore{}
-  }
-}
-
-func jsonStringifyProgrammer_checker_explore(input any) nativeinternal.CheckerProgrammer_IExplore {
-  v := jsonStringifyProgrammer_feature_explore(input)
-  return nativeinternal.CheckerProgrammer_IExplore{
-    Tracable: v.Tracable,
-    Source:   v.Source,
-    From:     v.From,
-    Postfix:  v.Postfix,
-    Start:    v.Start,
-  }
 }
 
 func jsonStringifyProgrammer_explore_with(explore nativeinternal.FeatureProgrammer_IExplore, source string, from string) nativeinternal.FeatureProgrammer_IExplore {

@@ -1003,7 +1003,7 @@ func metadataSchema_covers(x *MetadataSchema, y *MetadataSchema, escaped bool, v
   for _, yo := range y.Objects {
     if anyOf(x.Objects, func(xo *MetadataObject) bool {
       return metadataSchema_coversTagMatrix(xo.Tags, yo.Tags) &&
-        MetadataObjectType_covers(xo.Type, yo.Type)
+        metadataObjectType_covers(xo.Type, yo.Type, visited)
     }) == false {
       return false
     }

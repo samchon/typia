@@ -61,8 +61,7 @@ func TestPlainProgrammerHelperCoverage(t *testing.T) {
   }) == nil || plainCloneProgrammer_internal(context, "helper") == nil {
     t.Fatal("plain clone throw or internal helper returned nil")
   }
-  if plainCloneProgrammer_checker_explore(explore).Postfix != "\"\"" ||
-    plainCloneProgrammer_checker_explore_with_postfix(&explore, ".x").Postfix != "\"\".x" ||
+  if plainCloneProgrammer_checker_explore_with_postfix(explore, ".x").Postfix != "\"\".x" ||
     plainCloneProgrammer_explore_with(explore, "function", "array").From != "array" {
     t.Fatal("plain clone explore conversion mismatch")
   }
@@ -259,7 +258,6 @@ func TestPlainProgrammerHelperCoverage(t *testing.T) {
       Name:     "Failure",
       Messages: []string{"bad"},
     }})) != 1 ||
-    plainCloneProgrammer_feature_explore("unknown").Postfix != "" ||
     !plainCloneProgrammer_some_arrays([]*schemametadata.MetadataArray{array}, func(*schemametadata.MetadataArray) bool { return true }) ||
     plainCloneProgrammer_some_arrays([]*schemametadata.MetadataArray{array}, func(*schemametadata.MetadataArray) bool { return false }) ||
     !plainCloneProgrammer_some_tuples([]*schemametadata.MetadataTuple{tuple}, func(*schemametadata.MetadataTuple) bool { return true }) ||

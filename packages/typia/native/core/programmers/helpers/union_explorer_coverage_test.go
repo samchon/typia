@@ -104,16 +104,14 @@ func TestUnionExplorerCoverage(t *testing.T) {
 		t.Fatal("return-or-statement helper returned unexpected node")
 	}
 	explore := UnionExplorer_IExplore{Source: "source"}
-	if unionExplorer_with_tracable(explore, true).(UnionExplorer_IExplore).Tracable != true ||
-		unionExplorer_with_tracable(&explore, true).(UnionExplorer_IExplore).Source != "source" ||
-		unionExplorer_with_tracable(map[string]any{"source": "source"}, true).(map[string]any)["tracable"] != true ||
-		unionExplorer_with_tracable("plain", true).(string) != "plain" {
+	if unionExplorer_with_tracable(explore, true).Tracable != true ||
+		unionExplorer_with_tracable(explore, true).Source != "source" ||
+		explore.Tracable {
 		t.Fatal("tracable explore helper mismatch")
 	}
-	if unionExplorer_with_postfix(explore, true, ".x").(UnionExplorer_IExplore).Postfix != ".x" ||
-		unionExplorer_with_postfix(&explore, true, ".x").(UnionExplorer_IExplore).Postfix != ".x" ||
-		unionExplorer_with_postfix(map[string]any{"source": "source"}, true, ".x").(map[string]any)["postfix"] != ".x" ||
-		unionExplorer_with_postfix("plain", true, ".x").(string) != "plain" {
+	if unionExplorer_with_postfix(explore, true, ".x").Postfix != ".x" ||
+		unionExplorer_with_postfix(explore, true, ".x").Tracable != true ||
+		explore.Postfix != "" {
 		t.Fatal("postfix explore helper mismatch")
 	}
 

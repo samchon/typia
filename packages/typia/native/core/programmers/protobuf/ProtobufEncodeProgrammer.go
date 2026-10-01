@@ -883,7 +883,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
           Functor: props.Functor,
           Object:  v.Object,
           Input:   v.Input,
-          Explore: protobufEncodeProgrammer_feature_explore(v.Explore),
+          Explore: v.Explore,
         })
       },
       Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -947,7 +947,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
         Functor:  props.Functor,
         Input:    accessor,
         Metadata: spec.Property.Value,
-        Explore:  protobufEncodeProgrammer_checker_explore(explore),
+        Explore:  explore,
       })
     } else {
       pred = nativefactories.ExpressionFactory.IsRequired(accessor, props.Context.Emit)
@@ -1239,28 +1239,6 @@ func protobufEncodeProgrammer_numberCandidates(union []schemaprotobuf.IProtobufP
     }
   }
   return output
-}
-
-func protobufEncodeProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {
-  switch typed := input.(type) {
-  case nativeinternal.FeatureProgrammer_IExplore:
-    return typed
-  case *nativeinternal.FeatureProgrammer_IExplore:
-    return *typed
-  default:
-    return nativeinternal.FeatureProgrammer_IExplore{}
-  }
-}
-
-func protobufEncodeProgrammer_checker_explore(input any) nativeinternal.CheckerProgrammer_IExplore {
-  value := protobufEncodeProgrammer_feature_explore(input)
-  return nativeinternal.CheckerProgrammer_IExplore{
-    Tracable: value.Tracable,
-    Source:   value.Source,
-    From:     value.From,
-    Postfix:  value.Postfix,
-    Start:    value.Start,
-  }
 }
 
 func protobufEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {

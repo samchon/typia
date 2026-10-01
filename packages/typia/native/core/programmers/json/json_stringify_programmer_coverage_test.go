@@ -383,10 +383,7 @@ func TestJsonStringifyProgrammerCoverage(t *testing.T) {
 	}
 	if jsonStringifyProgrammer_internal(nativecontext.ITypiaContext{Importer: nativecontext.NewImportProgrammer()}, "helper") == nil ||
 		jsonStringifyProgrammer_method_text(nil) != "" ||
-		jsonStringifyProgrammer_method_text(factory.NewIdentifier("method")) != "method" ||
-		jsonStringifyProgrammer_feature_explore(explore).Postfix != "\"\"" ||
-		jsonStringifyProgrammer_feature_explore(&explore).Postfix != "\"\"" ||
-		jsonStringifyProgrammer_feature_explore("unknown").Postfix != "" {
+		jsonStringifyProgrammer_method_text(factory.NewIdentifier("method")) != "method" {
 		t.Fatal("json stringify importer or explore helper mismatch")
 	}
 	configured := jsonStringifyProgrammer_configure(struct {

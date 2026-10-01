@@ -228,27 +228,23 @@ func (obj *MetadataObjectType) ToJSON() IMetadataSchema_IObjectType {
   }
 }
 
-// MetadataObjectType_covers reports whether x has no fewer properties than y
-// and every property key name of x also occurs in y, which holds when both have
-// the same key names. Property value types are not compared.
-//
-// @evidence contracts/common.md#principled-implementation The union ordering needs to know when two object shapes list the same keys, and the code answers exactly that by key name.
-// @evidence contracts/common.md#clear-and-simple-design Two nested loops over the property lists.
-// @evidence contracts/common.md#prohibited-implementation-shortcuts The doc states that values are not compared and does not call it value coverage.
-// @evidence contracts/common.md#meaningful-documentation The doc states the key-name rule.
-func MetadataObjectType_covers(x *MetadataObjectType, y *MetadataObjectType) bool {
+// metadataObjectType_covers reports whether x covers y: x has no fewer
+// properties than y, every property key name of x also occurs in y, and the value
+// of each property of x covers the value of the property of y with that name. In
+// effect both list the same keys and x accepts every value that y does.
+func metadataObjectType_covers(x *MetadataObjectType, y *MetadataObjectType, visited map[metadataSchemaCoversPair]struct{}) bool {
   if len(x.Properties) < len(y.Properties) {
     return false
   }
   for _, prop := range x.Properties {
-    found := false
+    var opposite *MetadataProperty
     for _, oppo := range y.Properties {
       if prop.Key.GetName() == oppo.Key.GetName() {
-        found = true
+        opposite = oppo
         break
       }
     }
-    if found == false {
+    if opposite == nil || metadataSchema_covers(prop.Value, opposite.Value, false, visited) == false {
       return false
     }
   }

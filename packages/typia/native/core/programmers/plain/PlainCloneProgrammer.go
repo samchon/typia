@@ -706,7 +706,7 @@ func plainCloneProgrammer_explore_arrays(props plainCloneProgrammer_exploreArray
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
-            Explore:  plainCloneProgrammer_checker_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -716,7 +716,7 @@ func plainCloneProgrammer_explore_arrays(props plainCloneProgrammer_exploreArray
             Functor: props.Functor,
             Input:   v.Input,
             Array:   v.Definition.(*schemametadata.MetadataArray),
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Empty:   f.NewIdentifier("[]"),
@@ -763,7 +763,7 @@ func plainCloneProgrammer_explore_sets(props plainCloneProgrammer_exploreSetsPro
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
-            Explore:  plainCloneProgrammer_checker_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -777,7 +777,7 @@ func plainCloneProgrammer_explore_sets(props plainCloneProgrammer_exploreSetsPro
                 Functor: props.Functor,
                 Input:   v.Input,
                 Array:   v.Definition.(*schemametadata.MetadataArray),
-                Explore: plainCloneProgrammer_feature_explore(v.Explore),
+                Explore: v.Explore,
               }),
             }),
           )
@@ -856,7 +856,7 @@ func plainCloneProgrammer_explore_maps(props plainCloneProgrammer_exploreMapsPro
                 Functor: props.Functor,
                 Input:   v.Input,
                 Array:   v.Definition.(*schemametadata.MetadataArray),
-                Explore: plainCloneProgrammer_feature_explore(v.Explore),
+                Explore: v.Explore,
               }),
             }),
           )
@@ -985,7 +985,7 @@ func plainCloneProgrammer_configure(props struct {
         Functor:  props.Functor,
         Input:    next.Input,
         Metadata: next.Metadata,
-        Explore:  plainCloneProgrammer_checker_explore(next.Explore),
+        Explore:  next.Explore,
       })
     },
     Decoder: func(next nativeinternal.FeatureProgrammer_ObjectorDecoderProps) *shimast.Node {
@@ -1016,7 +1016,7 @@ func plainCloneProgrammer_configure(props struct {
             Functor: props.Functor,
             Input:   v.Input,
             Object:  v.Object,
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -1029,7 +1029,7 @@ func plainCloneProgrammer_configure(props struct {
             Functor: props.Functor,
             Input:   v.Input,
             Object:  v.Object,
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Success: func(exp *shimast.Node) *shimast.Node { return exp },
@@ -1212,32 +1212,9 @@ func plainCloneProgrammer_errors(errors []nativefactories.MetadataFactory_IError
   return output
 }
 
-func plainCloneProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {
-  switch v := input.(type) {
-  case nativeinternal.FeatureProgrammer_IExplore:
-    return v
-  case *nativeinternal.FeatureProgrammer_IExplore:
-    return *v
-  default:
-    return nativeinternal.FeatureProgrammer_IExplore{}
-  }
-}
-
-func plainCloneProgrammer_checker_explore(input any) nativeinternal.CheckerProgrammer_IExplore {
-  v := plainCloneProgrammer_feature_explore(input)
-  return nativeinternal.CheckerProgrammer_IExplore{
-    Tracable: v.Tracable,
-    Source:   v.Source,
-    From:     v.From,
-    Postfix:  v.Postfix,
-    Start:    v.Start,
-  }
-}
-
-func plainCloneProgrammer_checker_explore_with_postfix(input any, postfix string) nativeinternal.CheckerProgrammer_IExplore {
-  v := plainCloneProgrammer_checker_explore(input)
-  v.Postfix = v.Postfix + postfix
-  return v
+func plainCloneProgrammer_checker_explore_with_postfix(input nativeinternal.CheckerProgrammer_IExplore, postfix string) nativeinternal.CheckerProgrammer_IExplore {
+  input.Postfix = input.Postfix + postfix
+  return input
 }
 
 func plainCloneProgrammer_explore_with(explore nativeinternal.FeatureProgrammer_IExplore, source string, from string) nativeinternal.FeatureProgrammer_IExplore {

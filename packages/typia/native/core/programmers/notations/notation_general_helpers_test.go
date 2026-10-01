@@ -187,15 +187,6 @@ func TestNotationGeneralHelpers(t *testing.T) {
 	}
 
 	explore := nativeinternal.FeatureProgrammer_IExplore{Postfix: "$input"}
-	if notationGeneralProgrammer_feature_explore(&explore).Postfix != "$input" {
-		t.Fatal("pointer feature explore was not copied")
-	}
-	if notationGeneralProgrammer_feature_explore("x").Postfix != "" {
-		t.Fatal("unknown feature explore should return empty value")
-	}
-	if notationGeneralProgrammer_checker_explore(explore).Postfix != "$input" {
-		t.Fatal("checker explore conversion lost postfix")
-	}
 	if notationGeneralProgrammer_checker_explore_with_postfix(explore, ".x").Postfix != "$input.x" {
 		t.Fatal("checker postfix helper failed")
 	}

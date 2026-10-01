@@ -231,7 +231,7 @@ func plainPruneProgrammer_decode(props struct {
           Functor:  props.Functor,
           Metadata: partial,
           Input:    props.Input,
-          Explore:  plainCloneProgrammer_checker_explore(props.Explore),
+          Explore:  props.Explore,
         })
       },
       Value: func() *shimast.Node {
@@ -586,7 +586,7 @@ func plainPruneProgrammer_explore_arrays(props plainPruneProgrammer_exploreArray
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
-            Explore:  plainCloneProgrammer_checker_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -596,7 +596,7 @@ func plainPruneProgrammer_explore_arrays(props plainPruneProgrammer_exploreArray
             Functor: props.Functor,
             Input:   v.Input,
             Array:   v.Definition.(*schemametadata.MetadataArray),
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Empty:   f.NewStringLiteral("[]", shimast.TokenFlagsNone),
@@ -710,7 +710,7 @@ func plainPruneProgrammer_configure(props struct {
         Functor:  props.Functor,
         Input:    next.Input,
         Metadata: next.Metadata,
-        Explore:  plainCloneProgrammer_checker_explore(next.Explore),
+        Explore:  next.Explore,
       })
     },
     Decoder: func(next nativeinternal.FeatureProgrammer_ObjectorDecoderProps) *shimast.Node {
@@ -737,7 +737,7 @@ func plainPruneProgrammer_configure(props struct {
             Functor: props.Functor,
             Input:   v.Input,
             Object:  v.Object,
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -746,7 +746,7 @@ func plainPruneProgrammer_configure(props struct {
             Input   *shimast.Node
             Object  *schemametadata.MetadataObjectType
             Explore nativeinternal.FeatureProgrammer_IExplore
-          }{Functor: props.Functor, Input: v.Input, Object: v.Object, Explore: plainCloneProgrammer_feature_explore(v.Explore)})
+          }{Functor: props.Functor, Input: v.Input, Object: v.Object, Explore: v.Explore})
         },
         Success: func(exp *shimast.Node) *shimast.Node { return exp },
         Escaper: func(v nativeiterate.Decode_union_object_escape) *shimast.Node {

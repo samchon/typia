@@ -317,7 +317,7 @@ func notationGeneralProgrammer_decode(props struct {
           Functor:  props.Functor,
           Input:    props.Input,
           Metadata: partial,
-          Explore:  notationGeneralProgrammer_checker_explore(props.Explore),
+          Explore:  props.Explore,
         })
       },
       Value: func() *shimast.Node {
@@ -705,7 +705,7 @@ func notationGeneralProgrammer_explore_sets(props notationGeneralProgrammer_expl
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
-            Explore:  notationGeneralProgrammer_checker_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -719,7 +719,7 @@ func notationGeneralProgrammer_explore_sets(props notationGeneralProgrammer_expl
                 Functor: props.Functor,
                 Input:   v.Input,
                 Array:   v.Definition.(*schemametadata.MetadataArray),
-                Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+                Explore: v.Explore,
               }),
             }),
           )
@@ -798,7 +798,7 @@ func notationGeneralProgrammer_explore_maps(props notationGeneralProgrammer_expl
                 Functor: props.Functor,
                 Input:   v.Input,
                 Array:   v.Definition.(*schemametadata.MetadataArray),
-                Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+                Explore: v.Explore,
               }),
             }),
           )
@@ -894,7 +894,7 @@ func notationGeneralProgrammer_explore_arrays(props notationGeneralProgrammer_ex
               Functor:  props.Functor,
               Input:    v.Input,
               Metadata: v.Definition.(*schemametadata.MetadataSchema),
-              Explore:  notationGeneralProgrammer_checker_explore(v.Explore),
+              Explore:  v.Explore,
             })
           },
           Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -904,7 +904,7 @@ func notationGeneralProgrammer_explore_arrays(props notationGeneralProgrammer_ex
               Functor: props.Functor,
               Input:   v.Input,
               Array:   v.Definition.(*schemametadata.MetadataArray),
-              Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+              Explore: v.Explore,
             })
           },
           Empty:   f.NewIdentifier("[]"),
@@ -1044,7 +1044,7 @@ func notationGeneralProgrammer_configure(props struct {
           Functor:  props.Functor,
           Input:    next.Input,
           Metadata: next.Metadata,
-          Explore:  notationGeneralProgrammer_checker_explore(next.Explore),
+          Explore:  next.Explore,
         })
       },
       Decoder: func(next nativeinternal.FeatureProgrammer_ObjectorDecoderProps) *shimast.Node {
@@ -1090,7 +1090,7 @@ func notationGeneralProgrammer_configure(props struct {
               Functor: props.Functor,
               Object:  v.Object,
               Input:   v.Input,
-              Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+              Explore: v.Explore,
             })
           },
           Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -1099,7 +1099,7 @@ func notationGeneralProgrammer_configure(props struct {
               Object  *schemametadata.MetadataObjectType
               Input   *shimast.Node
               Explore nativeinternal.FeatureProgrammer_IExplore
-            }{Functor: props.Functor, Object: v.Object, Input: v.Input, Explore: notationGeneralProgrammer_feature_explore(v.Explore)})
+            }{Functor: props.Functor, Object: v.Object, Input: v.Input, Explore: v.Explore})
           },
           Success: func(exp *shimast.Expression) *shimast.Node {
             return exp
@@ -1261,32 +1261,9 @@ func notationGeneralProgrammer_method_text(modulo *shimast.Node) string {
   return nativehelpers.ModuloMethodText(modulo)
 }
 
-func notationGeneralProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {
-  switch v := input.(type) {
-  case nativeinternal.FeatureProgrammer_IExplore:
-    return v
-  case *nativeinternal.FeatureProgrammer_IExplore:
-    return *v
-  default:
-    return nativeinternal.FeatureProgrammer_IExplore{}
-  }
-}
-
-func notationGeneralProgrammer_checker_explore(input any) nativeinternal.CheckerProgrammer_IExplore {
-  v := notationGeneralProgrammer_feature_explore(input)
-  return nativeinternal.CheckerProgrammer_IExplore{
-    Tracable: v.Tracable,
-    Source:   v.Source,
-    From:     v.From,
-    Postfix:  v.Postfix,
-    Start:    v.Start,
-  }
-}
-
-func notationGeneralProgrammer_checker_explore_with_postfix(input any, postfix string) nativeinternal.CheckerProgrammer_IExplore {
-  v := notationGeneralProgrammer_checker_explore(input)
-  v.Postfix = v.Postfix + postfix
-  return v
+func notationGeneralProgrammer_checker_explore_with_postfix(input nativeinternal.CheckerProgrammer_IExplore, postfix string) nativeinternal.CheckerProgrammer_IExplore {
+  input.Postfix = input.Postfix + postfix
+  return input
 }
 
 func notationGeneralProgrammer_explore_with(explore nativeinternal.FeatureProgrammer_IExplore, source string, from string) nativeinternal.FeatureProgrammer_IExplore {

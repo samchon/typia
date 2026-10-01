@@ -27,7 +27,7 @@ import (
 // 3. Build tuple, array, and mixed array-like union explorers.
 // 4. Decode checker array and tuple helpers in inline and recursive modes.
 // 5. Verify map, set, and object-like union exploration helpers.
-// 6. Verify helper functions for binary joins, definition naming, and explore conversion.
+// 6. Verify helper functions for binary joins, and definition naming.
 // 7. Cover configured checker objectors, recursive writers, and direct decode branches.
 //
 // @evidence contracts/testing.md#behavioral-verification Checker, feature writer and escaped toJSON helpers are called on small metadata graphs; text arguments handed to checker combiners are compared with authored strings, while most other checks require a non-nil result.
@@ -340,18 +340,6 @@ func TestInternalUtilityCoverage(t *testing.T) {
 		Input: input,
 	}) == nil {
 		t.Fatal("checker map or set explorer returned nil")
-	}
-	converted := featureProgrammer_as_explore(map[string]any{
-		"tracable": true,
-		"source":   "source",
-		"from":     "from",
-		"postfix":  ".value",
-		"start":    3,
-	})
-	if converted.Start == nil || *converted.Start != 3 ||
-		featureProgrammer_as_explore(&converted).Postfix != ".value" ||
-		featureProgrammer_as_explore("unknown").Source != "" {
-		t.Fatal("feature explore conversion mismatch")
 	}
 	if CheckerProgrammer.Write(CheckerProgrammer_WriteProps{
 		Context: context,

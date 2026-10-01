@@ -17,21 +17,19 @@ import (
 
 // TestProtobufProgrammerHelperCoverage exercises protobuf helper branches.
 //
-// Protobuf encode and decode helpers normalize schema variants and feature
-// explore values before larger reader/writer generation starts. They are pure
+// Protobuf encode and decode helpers normalize schema variants before larger
+// reader/writer generation starts. They are pure
 // helpers, so direct unit calls are enough to keep these branches visible.
 //
 // 1. Read bigint names from property and schema bigint variants.
 // 2. Verify unsupported bigint schema variants return an empty name.
-// 3. Convert feature explore values from value, pointer, and unknown inputs.
-// 4. Convert feature explore values into checker explore values.
-// 5. Visit encode/decode schema switches for every protobuf property variant.
-// 6. Build object, map, and discriminator-union protobuf encode blocks.
-// 7. Exercise encode union, wrapper, container, and fallback helper branches.
-// 8. Exercise protobuf decode property, array, map, default, and importer helpers.
+// 3. Visit encode/decode schema switches for every protobuf property variant.
+// 4. Build object, map, and discriminator-union protobuf encode blocks.
+// 5. Exercise encode union, wrapper, container, and fallback helper branches.
+// 6. Exercise protobuf decode property, array, map, default, and importer helpers.
 //
-// @evidence contracts/testing.md#behavioral-verification Protobuf helpers are called to read bigint names from property and schema variants, convert explore values and build checker explores; names and conversions are compared and builder calls only require non-nil nodes.
-// @evidence contracts/testing.md#independent-expectations Authored schema variants give expected bigint names and conversions; non-nil checks are limitations.
+// @evidence contracts/testing.md#behavioral-verification Protobuf helpers are called to read bigint names from property and schema variants, and build encode and decode blocks; names are compared and builder calls only require non-nil nodes.
+// @evidence contracts/testing.md#independent-expectations Authored schema variants give expected bigint names; non-nil checks are limitations.
 // @evidence contracts/testing.md#distinguishing-cases Supported and unsupported bigint variants are covered; builders have no negative twins.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls helpers on constructed metadata with no checker, filesystem fixture or process.
 func TestProtobufProgrammerHelperCoverage(t *testing.T) {
@@ -44,15 +42,6 @@ func TestProtobufProgrammerHelperCoverage(t *testing.T) {
 	if protobufDecodeProgrammer_bigintName(schemaprotobuf.IProtobufSchema_IBigint{Name: "uint64"}) != "uint64" ||
 		protobufDecodeProgrammer_bigintName(schemaprotobuf.IProtobufSchema_IString{}) != "" {
 		t.Fatal("protobuf bigint schema name mismatch")
-	}
-	explore := nativeinternal.FeatureProgrammer_IExplore{Tracable: true, Source: "source", From: "from", Postfix: ".x"}
-	if protobufEncodeProgrammer_feature_explore(explore).Postfix != ".x" ||
-		protobufEncodeProgrammer_feature_explore(&explore).Source != "source" ||
-		protobufEncodeProgrammer_feature_explore("unknown").Postfix != "" {
-		t.Fatal("protobuf feature explore conversion mismatch")
-	}
-	if protobufEncodeProgrammer_checker_explore(&explore).From != "from" {
-		t.Fatal("protobuf checker explore conversion mismatch")
 	}
 
 	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
