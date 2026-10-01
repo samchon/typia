@@ -21,8 +21,7 @@ interface IObjectUnion {
  *
  * This case checks that the referenced a variant preserves its discriminator
  * and numeric value after whole-member parsing. Authored schema input isolates
- * utility semantics from compiler production; the original assertions remain
- * intact.
+ * utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

@@ -9,7 +9,7 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Exercise 10000 literal characters, 500 independently constructed escape
  *    segments, 200 numbered keys and 500 array elements.
- * 2. Compare the retained results and original assertion outcomes.
+ * 2. Compare the retained results with literal expectations.
  *
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations Repeated literal characters, authored escape segments, numbered keys and integer sequences construct expectations independently of parsing; no expected value is obtained from LlmJson.

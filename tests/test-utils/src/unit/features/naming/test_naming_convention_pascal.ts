@@ -22,7 +22,7 @@ import { NamingConvention } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct pascal conversion asserts exact PascalCase spellings, detecting all-caps tail retention and incorrect trailing-underscore preservation.
  * @evidence contracts/testing.md#independent-expectations Literal outputs encode the PascalCase contract independently of other conversion implementations.
  * @evidence contracts/testing.md#distinguishing-cases Camel/Pascal names, all-caps and mixed underscore segments, leading/trailing/repeated underscores, single-character runs and empty input expose the camel-versus-pascal asymmetry.
- * @evidence contracts/testing.md#execution-ownership The utility-unit Node runner registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_pascal = (): void => {
   const expectations: [string, string][] = [

@@ -23,8 +23,7 @@ interface IAnimal {
  *
  * This case checks that the dog discriminator selects the first referenced
  * object and converts its boolean and number fields. Authored schema input
- * isolates utility semantics from compiler production; the original assertions
- * remain intact.
+ * isolates utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

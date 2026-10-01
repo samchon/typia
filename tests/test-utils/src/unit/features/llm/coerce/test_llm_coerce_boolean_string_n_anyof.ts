@@ -19,8 +19,7 @@ interface IBooleanNullUnion {
  *
  * This case checks that the same n input becomes false or null with a unique
  * kind, but remains text when both kinds are available. Authored schema input
- * isolates utility semantics from compiler production; the original assertions
- * remain intact.
+ * isolates utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

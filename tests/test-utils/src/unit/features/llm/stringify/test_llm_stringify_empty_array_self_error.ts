@@ -14,7 +14,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert empty arrays retain errors on the array itself; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
  * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
  * @evidence contracts/testing.md#distinguishing-cases This case owns nested and root empty arrays with self errors. Complementary direct cases preserve their own assertion identity.
- * @evidence contracts/testing.md#execution-ownership test-utils unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
  */
 export const test_llm_stringify_empty_array_self_error = (): void => {
   // Test case: Empty array [] with an error on the array itself (not its elements)

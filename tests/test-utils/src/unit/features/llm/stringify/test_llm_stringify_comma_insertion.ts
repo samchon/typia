@@ -14,7 +14,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert annotated siblings retain feedback fields; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
  * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
  * @evidence contracts/testing.md#distinguishing-cases This case owns multiple compound properties, array objects, unannotated preceding properties and URL descriptions. Complementary direct cases preserve their own assertion identity.
- * @evidence contracts/testing.md#execution-ownership test-utils unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
  */
 export const test_llm_stringify_comma_insertion = (): void => {
   // Test 1: Multiple object properties with errors on non-last properties

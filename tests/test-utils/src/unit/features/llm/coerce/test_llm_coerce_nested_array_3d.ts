@@ -11,7 +11,7 @@ interface ICube3D {
  *
  * This case checks that stringified outer and inner array levels preserve both
  * cube rows. Authored schema input isolates utility semantics from compiler
- * production; the original assertions remain intact.
+ * production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

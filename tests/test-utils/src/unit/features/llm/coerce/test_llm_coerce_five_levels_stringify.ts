@@ -11,7 +11,7 @@ interface ISimple {
  *
  * This case checks that four nested string encodings of a numeric leaf recover
  * 999. Authored schema input isolates utility semantics from compiler
- * production; the original assertions remain intact.
+ * production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

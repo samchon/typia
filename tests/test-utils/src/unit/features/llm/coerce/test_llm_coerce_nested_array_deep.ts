@@ -15,7 +15,7 @@ interface IObjectWithNestedArrays {
  *
  * This case checks that object and nested numeric-array encodings preserve both
  * complete value arrays. Authored schema input isolates utility semantics from
- * compiler production; the original assertions remain intact.
+ * compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

@@ -11,8 +11,7 @@ interface IArrayUnion {
  *
  * This case checks that two array alternatives preserve the parsed numeric
  * array without choosing an item conversion branch. Authored schema input
- * isolates utility semantics from compiler production; the original assertions
- * remain intact.
+ * isolates utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

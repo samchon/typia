@@ -9,7 +9,7 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Exercise 515 unclosed object levels and the required depth diagnostic;
  *    511/512/513-level twins distinguish the value-depth boundary.
- * 2. Compare the retained results and original assertion outcomes.
+ * 2. Compare the retained results with literal expectations.
  *
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations The declared 512-level fallback limit establishes the expected failure for the authored 515-level input; the diagnostic is checked for the depth reason rather than copied from a prior run.

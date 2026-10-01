@@ -17,7 +17,7 @@ interface IDeeplyMixed {
  *
  * This case checks that nested array/object encodings preserve both
  * independently asserted numeric leaves. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

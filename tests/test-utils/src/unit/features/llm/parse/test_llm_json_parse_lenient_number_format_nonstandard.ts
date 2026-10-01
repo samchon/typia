@@ -11,7 +11,7 @@ import { LlmJson } from "@typia/utils";
  * 1. Exercise leading dot/plus, repeated decimal/exponent markers,
  *    hex/octal/binary prefixes, trailing identifiers, double signs,
  *    safe-integer overflow and large/infinite exponents.
- * 2. Compare the retained results and original assertion outcomes.
+ * 2. Compare the retained results with literal expectations.
  *
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output. Diagnostic subsets pin selected expected fields rather than every diagnostic detail.

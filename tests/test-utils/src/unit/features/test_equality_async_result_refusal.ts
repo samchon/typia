@@ -11,7 +11,7 @@ import assert from "node:assert/strict";
  * @evidence contracts/testing.md#behavioral-verification Actual thrown calls must reject object and callable asynchronous results, observe rejected thenables, and retain ordinary synchronous return/exception behavior; a typeof-object-only guard lets callable fixtures return null instead.
  * @evidence contracts/testing.md#independent-expectations Native Promise.resolve and for-await establish the callable fixtures' asynchronous protocols; node:assert checks the documented refusal message independently of the oracle being tested.
  * @evidence contracts/testing.md#distinguishing-cases Ordinary function and undefined returns remain accepted, synchronous throws retain their message, and promise, object thenable, callable resolving/rejecting thenable and callable async iterable returns require refusal.
- * @evidence contracts/testing.md#execution-ownership The plugin-free utility-unit Node runner registers and awaits this exported function; native promise/iterator operations exercise language semantics without a consumer installation or typia transform.
+ * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils test:unit command registers and awaits this exported function; native promise/iterator operations exercise language semantics without a consumer installation or typia transform.
  */
 export const test_equality_async_result_refusal = async (): Promise<void> => {
   const message =

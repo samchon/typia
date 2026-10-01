@@ -16,7 +16,7 @@ interface IRecursiveLike {
  *
  * This case checks that the parent numeric value and two child values survive
  * nested object and element encodings. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

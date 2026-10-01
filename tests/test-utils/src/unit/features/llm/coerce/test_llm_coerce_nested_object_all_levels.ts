@@ -15,7 +15,7 @@ interface ISimpleNested {
  *
  * This case checks that two stringified object levels recover the deepest
  * numeric value. Authored schema input isolates utility semantics from compiler
- * production; the original assertions remain intact.
+ * production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

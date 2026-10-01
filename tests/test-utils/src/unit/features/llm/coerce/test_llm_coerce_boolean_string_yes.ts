@@ -11,7 +11,7 @@ interface IBool {
  *
  * This case checks that yes, YES, y and on all convert to true, complementing
  * the negative spelling case. Authored schema input isolates utility semantics
- * from compiler production; the original assertions remain intact.
+ * from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

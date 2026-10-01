@@ -11,7 +11,7 @@ interface IBool {
  *
  * This case checks that two nested string encodings recover true rather than
  * retaining JSON text. Authored schema input isolates utility semantics from
- * compiler production; the original assertions remain intact.
+ * compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

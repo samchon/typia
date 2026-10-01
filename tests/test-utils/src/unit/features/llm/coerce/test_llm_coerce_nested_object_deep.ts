@@ -19,8 +19,7 @@ interface IDeepNested {
  *
  * This case checks that a stringified object at the fourth level recovers its
  * numeric member without collapsing ancestors. Authored schema input isolates
- * utility semantics from compiler production; the original assertions remain
- * intact.
+ * utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

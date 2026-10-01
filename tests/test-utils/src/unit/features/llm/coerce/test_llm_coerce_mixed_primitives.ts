@@ -13,7 +13,7 @@ interface IPrimitiveArrays {
  *
  * This case checks that numeric, boolean and null array members preserve their
  * kind, order and population. Authored schema input isolates utility semantics
- * from compiler production; the original assertions remain intact.
+ * from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

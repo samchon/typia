@@ -11,7 +11,7 @@ interface IBool {
  *
  * This case checks that no, NO, n and off all convert to false, complementing
  * the affirmative spelling case. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

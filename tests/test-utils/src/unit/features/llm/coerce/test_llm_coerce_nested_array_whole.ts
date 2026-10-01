@@ -11,7 +11,7 @@ interface ISimpleArray {
  *
  * This case checks that a whole stringified array recovers all four numbers in
  * order. Authored schema input isolates utility semantics from compiler
- * production; the original assertions remain intact.
+ * production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

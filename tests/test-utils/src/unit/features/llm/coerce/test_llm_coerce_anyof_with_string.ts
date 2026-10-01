@@ -11,7 +11,7 @@ interface IWithStringUnion {
  *
  * This case checks that a string alternative keeps numeric-looking text as a
  * string. Authored schema input isolates utility semantics from compiler
- * production; the original assertions remain intact.
+ * production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

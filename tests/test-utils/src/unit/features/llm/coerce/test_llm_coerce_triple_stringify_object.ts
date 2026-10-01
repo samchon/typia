@@ -14,7 +14,7 @@ interface IObject {
  *
  * This case checks that two nested string encodings recover both the numeric
  * identifier and unchanged text name. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

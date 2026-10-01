@@ -14,7 +14,7 @@ import { LlmJson } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert feedback follows native JSON value spelling; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
  * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
  * @evidence contracts/testing.md#distinguishing-cases This case owns NaN, both infinities, empty string, zero/negative zero and false; BigInt is not exercised by this case. Complementary direct cases preserve their own assertion identity.
- * @evidence contracts/testing.md#execution-ownership test-utils unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
  */
 export const test_llm_stringify_special_json_values = (): void => {
   // Test case: Special values that JSON.stringify handles specially

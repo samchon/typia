@@ -18,7 +18,7 @@ import { NamingConvention } from "@typia/utils";
  * @evidence contracts/testing.md#behavioral-verification Calling all six string converters on empty input asserts a returned empty string and exposes a partial member that throws.
  * @evidence contracts/testing.md#independent-expectations The namespace's total empty-string contract supplies the literal empty expectation independently of every converter.
  * @evidence contracts/testing.md#distinguishing-cases This shared boundary checks empty input across siblings, including capitalize; nonempty conversion distinctions execute in the individual naming cases.
- * @evidence contracts/testing.md#execution-ownership The utility-unit Node runner registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_empty = (): void => {
   const helpers: [string, (str: string) => string][] = [

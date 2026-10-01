@@ -16,7 +16,7 @@ import assert from "node:assert/strict";
  * @evidence contracts/testing.md#behavioral-verification The actual portable clean-scenario operation invokes authored callbacks and checks reports and mutation. Malformed discriminators, foreign/missing data and incorrect mutation fail; true/original-data reports with correct mutation pass.
  * @evidence contracts/testing.md#independent-expectations IValidation.ISuccess requires literal true and original validated data. Authored fixtures precede callback execution; accepted values are original references and SameValue primitives, independently of producer output.
  * @evidence contracts/testing.md#distinguishing-cases False and nine non-Boolean statuses isolate discriminator checking; missing/changed/equal-distinct data isolate identity checking. Undefined/null/NaN/-0 and empty array/record controls prevent over-rejection, while -0 replaced by +0 fails. No-op, data loss and callback throws cover mutation/execution failures.
- * @evidence contracts/testing.md#execution-ownership This exported case is registered in the plugin-free test-utils unit node:test runner and calls the maintained shared operation. The native validatePrune composite delegates the same clean scenario and retains existing invalid-input report/path checks.
+ * @evidence contracts/testing.md#execution-ownership This exported case is registered in the plugin-free test-utils test:unit node:test runner and calls the maintained shared operation. The native validatePrune composite delegates the same clean scenario and retains existing invalid-input report/path checks.
  */
 export const test_prune_validation_success_report = (): void => {
   type Input = Record<string, unknown>;

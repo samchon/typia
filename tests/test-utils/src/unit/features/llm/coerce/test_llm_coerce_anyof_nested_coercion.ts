@@ -11,8 +11,7 @@ interface IUnionWithNestedCoercion {
  *
  * This case checks that a nullable object branch recursively converts its
  * nested stringified object and numeric leaf. Authored schema input isolates
- * utility semantics from compiler production; the original assertions remain
- * intact.
+ * utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

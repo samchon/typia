@@ -11,7 +11,7 @@ interface IUnion {
  *
  * This case checks that yes/on and no/off retain their opposite boolean
  * outcomes in a boolean-number union. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

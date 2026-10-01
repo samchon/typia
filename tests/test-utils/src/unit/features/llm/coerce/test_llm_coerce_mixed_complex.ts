@@ -21,8 +21,7 @@ interface IComplexNested {
  *
  * This case checks that profile text, tag arrays, scores and metadata survive
  * mixed object and array stringification. Authored schema input isolates
- * utility semantics from compiler production; the original assertions remain
- * intact.
+ * utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

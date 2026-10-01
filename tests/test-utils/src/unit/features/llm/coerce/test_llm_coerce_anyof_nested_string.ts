@@ -13,7 +13,7 @@ interface INestedUnion {
  *
  * This case checks that a string alternative preserves JSON-looking text even
  * within a converted parent object. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

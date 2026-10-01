@@ -15,7 +15,7 @@ import assert from "node:assert/strict";
  * @evidence contracts/testing.md#behavioral-verification Actual equals, subset and difference calls must reject opposite zero signs while accepting matching signs and NaN. Primitive, record, array and map-value contexts exercise the shared comparison path used by clone checks.
  * @evidence contracts/testing.md#independent-expectations JavaScript reciprocals distinguish positive Infinity from negative Infinity for the two authored zeros. Native assertions inspect the oracle's throws and path results rather than using the oracle itself to establish the expected distinction.
  * @evidence contracts/testing.md#distinguishing-cases Both argument orders isolate zero sign; matching signs and NaN prevent blanket numeric rejection. Nested records, arrays and map values ensure the distinction survives recursive comparison, with literal primitive/record/array diagnostic paths.
- * @evidence contracts/testing.md#execution-ownership This exported case is registered by the plugin-free test-utils unit node:test runner and invokes the real shared oracle directly. No native artifact, fixture metadata or product host is prepared to reach numeric equality.
+ * @evidence contracts/testing.md#execution-ownership This exported case is registered by the plugin-free test-utils test:unit node:test runner and invokes the real shared oracle directly. No native artifact, fixture metadata or product host is prepared to reach numeric equality.
  */
 export const test_equality_signed_zero = (): void => {
   assert.equal(1 / 0, Infinity);

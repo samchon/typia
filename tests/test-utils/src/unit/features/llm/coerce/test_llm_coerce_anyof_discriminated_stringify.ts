@@ -23,7 +23,7 @@ interface IAnimal {
  *
  * This case checks that parsing an entire cat member precedes discriminator
  * selection and inner conversion. Authored schema input isolates utility
- * semantics from compiler production; the original assertions remain intact.
+ * semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

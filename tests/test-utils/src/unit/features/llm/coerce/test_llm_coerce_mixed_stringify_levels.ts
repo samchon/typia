@@ -13,8 +13,7 @@ interface IMixed {
  *
  * This case checks that numeric and boolean leaves with different encoding
  * depths convert while ordinary text remains intact. Authored schema input
- * isolates utility semantics from compiler production; the original assertions
- * remain intact.
+ * isolates utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

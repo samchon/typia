@@ -11,7 +11,7 @@ interface IMatrix2D {
  *
  * This case checks that two individually stringified rows preserve their exact
  * numeric contents. Authored schema input isolates utility semantics from
- * compiler production; the original assertions remain intact.
+ * compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.

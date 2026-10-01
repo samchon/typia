@@ -16,7 +16,7 @@ import assert from "node:assert/strict";
  * @evidence contracts/testing.md#behavioral-verification Actual LlmJson.parse calls compare complete recovered strings, objects and arrays, so swallowed delimiters and lost siblings fail even when success is true; coerce and parameter-directed parse check the shared string-as-JSON path.
  * @evidence contracts/testing.md#independent-expectations Literal expected text preserves malformed Unicode prefixes within authored quote boundaries, while valid escapes follow JSON UTF-16 decoding. Authored schemas establish number coercion and property ownership without deriving expectations from parser output.
  * @evidence contracts/testing.md#distinguishing-cases Zero through three hex digits before closing quotes and an EOF-truncated prefix contrast with four valid digits and invalid hex; keys, values, arrays, nested containers, subsequent escaped quotes, newlines and backslashes, complete and partial surrogate pairs retain independent complete data and later fields.
- * @evidence contracts/testing.md#execution-ownership test-utils unit explicitly registers this direct utility case with node:test; string fixtures and authored schemas call portable runtime owners without a native producer, consumer installation or host process.
+ * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this direct utility case with node:test; string fixtures and authored schemas call portable runtime owners without a native producer, consumer installation or host process.
  */
 export const test_llm_json_parse_unicode_string_boundary = (): void => {
   const cases: Array<[string, string, unknown]> = [

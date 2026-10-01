@@ -9,7 +9,7 @@ import { LlmJson } from "@typia/utils";
  *
  * 1. Exercise opening bracket, value/comma/string/keyword boundaries and nested
  *    object/array prefixes through the complete array.
- * 2. Compare the retained results and original assertion outcomes.
+ * 2. Compare the retained results with literal expectations.
  *
  * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
  * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output.

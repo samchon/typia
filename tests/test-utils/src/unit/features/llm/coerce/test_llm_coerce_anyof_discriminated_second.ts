@@ -23,8 +23,7 @@ interface IAnimal {
  *
  * This case checks that the cat discriminator selects the second referenced
  * object rather than the first object alternative. Authored schema input
- * isolates utility semantics from compiler production; the original assertions
- * remain intact.
+ * isolates utility semantics from compiler production.
  *
  * 1. Supply the explicit schema and original malformed or repeatedly encoded
  *    input.
