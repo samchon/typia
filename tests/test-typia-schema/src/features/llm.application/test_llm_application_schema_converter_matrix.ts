@@ -4,20 +4,26 @@ import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
- * Verifies llm application schema converter matrix against the native
- * typia.llm.application output.
+ * Verifies the native animal-service application retains method documentation,
+ * parameter required names, cat/dog union discrimination, dictionary string
+ * constraints and UUID output fields.
  *
- * The case builds its input in this file and asserts create function exists,
- * function description, application parameters are strict, application
- * parameter required, input animal anyOf, input animal variants.
+ * Input/output object shells, referenced union definitions, dynamic metadata
+ * values and output format are separately asserted. Shape predicates precede
+ * narrower field checks, so a wrong schema branch cannot bypass them.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Execute the native calls for the declarations and inputs in this file.
+ * 2. Compare the observed schema fragments or runtime results with the stated
+ *    expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.llm.application is evaluated by the native host on the types declared in this case and the result is checked by 17 assertions (create function exists; function description; application parameters are strict; application parameter required; input animal anyOf; input animal variants).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (create function exists; function description; application parameters are strict; application parameter required; input animal anyOf; input animal variants) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_application_schema_converter_matrix is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The native animal-service application retains method documentation, parameter required names, cat/dog union discrimination, dictionary string constraints and UUID output fields.
+ * @evidence contracts/testing.md#independent-expectations Handwritten expected required names, discriminator type, variant count, MinLength<1> and UUID format come from the local interfaces and tags, not from another generated schema.
+ * @evidence contracts/testing.md#distinguishing-cases Input/output object shells, referenced union definitions, dynamic metadata values and output format are separately asserted. Shape predicates precede narrower field checks, so a wrong schema branch cannot bypass them.
+ * @evidence contracts/testing.md#execution-ownership test_llm_application_schema_converter_matrix is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.llm.application through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.
+ * @evidence contracts/e2e.md#necessary-boundary The native analyzer/emitter connects the declared methods, parameter/output types, documentation and options to the runtime application/controller fields exercised here. Portable utility calls on handwritten schemas cannot prove this generated assembly or custom callback wiring.
+ * @evidence contracts/e2e.md#shared-execution This case joins the existing schema-suite ttsx invocation and DynamicExecutor population; it starts no per-case project, installation, native binary build or worker. The typia.llm.application call sites use the same workspace/compiler configuration as their sibling cases. Compiler host and content-keyed artifact reuse are owned by ttsx, not asserted as a cold-cache transition here.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The source declarations, JSDoc, tags and generic configuration are part of the compilation input, so changed producer inputs require recompilation. Schema maps, payloads, callbacks and counters declared here are case-local; this file owns no process or persistent cache and shares no mutated result with another case. ttsx owns the compiler/host lifetime; cache invalidation is not this scenario.
+ * @evidence contracts/e2e.md#preserved-coverage The original public calls, input declarations and assertions remain in this exported case. Input/output object shells, referenced union definitions, dynamic metadata values and output format are separately asserted. Shape predicates precede narrower field checks, so a wrong schema branch cannot bypass them. Added literal or shape controls strengthen those observations; no generated schema comparison replaces an existing independent expected value, and no case is removed from execution.
  */
 export const test_llm_application_schema_converter_matrix = (): void => {
   interface ICat {

@@ -2,18 +2,25 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies llm structuredOutput coerce against the native
- * typia.llm.structuredOutput output.
+ * Verifies the generated structured output coercer preserves Bob and converts
+ * age/score strings to 42 and 95.5; already typed values remain unchanged.
  *
- * The case builds its input in this file and asserts name, age, score.
+ * Integer/fractional conversion, preserved string field and already typed
+ * controls distinguish the bound coercer behavior; no validation verdict is
+ * attributed to coercion alone.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Execute the native calls for the declarations and inputs in this file.
+ * 2. Compare the observed schema fragments or runtime results with the stated
+ *    expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.llm.structuredOutput is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (name; age; score).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (name; age; score) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_llm_structuredOutput_coerce is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The generated structured output coercer preserves Bob and converts age/score strings to 42 and 95.5; already typed values remain unchanged.
+ * @evidence contracts/testing.md#independent-expectations The expected integer and fractional number literals follow the local input and IInput field types, independently of the generated schema.
+ * @evidence contracts/testing.md#distinguishing-cases Integer/fractional conversion, preserved string field and already typed controls distinguish the bound coercer behavior; no validation verdict is attributed to coercion alone.
+ * @evidence contracts/testing.md#execution-ownership test_llm_structuredOutput_coerce is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.llm.structuredOutput through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.
+ * @evidence contracts/e2e.md#necessary-boundary The native type analyzer/emitter connects the declared TypeScript type and options to the schema or bound runtime operation observed here. A utility unit with a handwritten schema cannot detect a missing rewrite, wrong emitted type shape or incorrect binding at this public producer.
+ * @evidence contracts/e2e.md#shared-execution This case joins the existing schema-suite ttsx invocation and DynamicExecutor population; it starts no per-case project, installation, native binary build or worker. The typia.llm.structuredOutput call sites use the same workspace/compiler configuration as their sibling cases. Compiler host and content-keyed artifact reuse are owned by ttsx, not asserted as a cold-cache transition here.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The source declarations, JSDoc, tags and generic configuration are part of the compilation input, so changed producer inputs require recompilation. Schema maps, payloads, callbacks and counters declared here are case-local; this file owns no process or persistent cache and shares no mutated result with another case. ttsx owns the compiler/host lifetime; cache invalidation is not this scenario.
+ * @evidence contracts/e2e.md#preserved-coverage The original public calls, input declarations and assertions remain in this exported case. Integer/fractional conversion, preserved string field and already typed controls distinguish the bound coercer behavior; no validation verdict is attributed to coercion alone. Added literal or shape controls strengthen those observations; no generated schema comparison replaces an existing independent expected value, and no case is removed from execution.
  */
 export const test_llm_structuredOutput_coerce = (): void => {
   interface IInput {
@@ -34,4 +41,10 @@ export const test_llm_structuredOutput_coerce = (): void => {
   TestEquality.equals("name", coerced.name, "Bob");
   TestEquality.equals("age", coerced.age, 42);
   TestEquality.equals("score", coerced.score, 95.5);
+
+  TestEquality.equals(
+    "already typed control",
+    output.coerce({ name: "Ada", age: 0, score: 0.5 }),
+    { name: "Ada", age: 0, score: 0.5 },
+  );
 };
