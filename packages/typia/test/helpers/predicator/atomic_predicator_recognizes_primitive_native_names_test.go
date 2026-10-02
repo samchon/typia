@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
 
 // TestAtomicPredicatorRecognizesPrimitiveNativeNames verifies primitive lookup.
@@ -21,12 +21,12 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Mixed-case spellings of each wrapper are positives and Date is the unrelated negative; other native names are not enumerated.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported predicate on strings with no filesystem fixture, process or native command build.
 func TestAtomicPredicatorRecognizesPrimitiveNativeNames(t *testing.T) {
-	for _, name := range []string{"Boolean", "BIGINT", "number", "String"} {
-		if !helpers.AtomicPredicator.Native(name) {
-			t.Fatalf("primitive native name should be recognized: %q", name)
-		}
-	}
-	if helpers.AtomicPredicator.Native("Date") {
-		t.Fatal("Date should not be treated as primitive native name")
-	}
+  for _, name := range []string{"Boolean", "BIGINT", "number", "String"} {
+    if !helpers.AtomicPredicator.Native(name) {
+      t.Fatalf("primitive native name should be recognized: %q", name)
+    }
+  }
+  if helpers.AtomicPredicator.Native("Date") {
+    t.Fatal("Date should not be treated as primitive native name")
+  }
 }

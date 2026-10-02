@@ -1,11 +1,12 @@
 export namespace TestGlobal {
   /**
-   * Reads the values that follow a command-line flag up to the next flag.
+   * Reads one value per occurrence of the requested double-dash flag. Missing
+   * flags return an empty list.
    *
-   * @evidence contracts/testing.md#behavioral-verification getArguments only parses process arguments for the include and exclude filters; it asserts nothing about typia and a wrong parse changes which cases run, not any verdict.
-   * @evidence contracts/testing.md#independent-expectations It has no expectation of its own; the filter semantics are those of DynamicExecutor include and exclude names.
-   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; absent flags and repeated flags are handled by its loop without a dedicated test.
-   * @evidence contracts/testing.md#execution-ownership It runs inside the test-mcp start process (DynamicExecutor under ttsx with the native typia plugin) and is called in process by the cases that import it; it starts no process of its own.
+   * @evidence contracts/common.md#principled-implementation The argv scan collects one following argument for each occurrence of the requested flag, preserving occurrence order. It does not treat a sequence of unprefixed words as several filter values.
+   * @evidence contracts/common.md#clear-and-simple-design One loop owns flag recognition and the result array; advancing past each consumed value keeps it from being interpreted as another flag.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The requested key is compared with its complete double-dash spelling; no fixture or test outcome affects parsing.
+   * @evidence contracts/common.md#meaningful-documentation Native prose explains one-value-per-occurrence filtering and the absent-flag empty result, rather than claiming this runner helper is a behavioral test.
    */
   export const getArguments = (key: string): string[] => {
     const values: string[] = [];

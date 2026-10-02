@@ -1,22 +1,28 @@
 import { TestValidator } from "@nestia/e2e";
 import { OpenApi } from "@typia/interface";
+import { TestEquality } from "@typia/template/equality";
 import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
 /**
- * Verifies json schema recursive against the native typia.json.schema output.
+ * Verifies recursive ICategory children remain an array referring to their own
+ * component.
  *
- * The case builds its input in this file and asserts ICategory exists in
- * components, is object type, has name property, has children property,
- * children is array, children items is ref.
+ * Native recursive metadata must emit a finite component graph that reconnects
+ * the child to its own source type.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Invoke the schema producer on the type declarations in this file.
+ * 2. Assert named root, name/children fields and array/reference shape remain;
+ *    missing properties now fail and the child reference target is asserted.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 6 assertions (ICategory exists in components; is object type; has name property; has children property; children is array; children items is ref).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (ICategory exists in components; is object type; has name property; has children property; children is array; children items is ref) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_recursive is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that recursive ICategory children remain an array referring to their own component.
+ * @evidence contracts/testing.md#independent-expectations The authored self-recursive interface fixes the target #/components/schemas/ICategory; kind alone is insufficient to establish identity.
+ * @evidence contracts/testing.md#distinguishing-cases Named root, name/children fields and array/reference shape remain; missing properties now fail and the child reference target is asserted.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_recursive through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native recursive metadata must emit a finite component graph that reconnects the child to its own source type. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Named root, name/children fields and array/reference shape remain; missing properties now fail and the child reference target is asserted. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_recursive = (): void => {
   interface ICategory {
@@ -47,7 +53,8 @@ export const test_json_schema_recursive = (): void => {
   if (OpenApiTypeChecker.isObject(actualSchema)) {
     const obj = actualSchema as OpenApi.IJsonSchema.IObject;
     const props = obj.properties;
-    if (props === undefined) return;
+    if (props === undefined)
+      throw new Error("the recursive object must publish its properties");
 
     TestValidator.predicate("has name property", () => "name" in props);
     TestValidator.predicate("has children property", () => "children" in props);
@@ -62,6 +69,12 @@ export const test_json_schema_recursive = (): void => {
         TestValidator.predicate("children items is ref", () =>
           OpenApiTypeChecker.isReference(children.items),
         );
+        if (OpenApiTypeChecker.isReference(children.items))
+          TestEquality.equals(
+            "children references its own recursive component",
+            children.items.$ref,
+            "#/components/schemas/ICategory",
+          );
       }
     }
   }

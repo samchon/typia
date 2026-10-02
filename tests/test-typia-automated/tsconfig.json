@@ -12,4 +12,5 @@
     ]
   },
   "include": ["src"],
+  "exclude": ["src/native-profiles/**", "src/composite/test_native_identity_*.ts"],
 }

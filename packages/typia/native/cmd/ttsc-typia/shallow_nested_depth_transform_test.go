@@ -8,20 +8,17 @@ import (
   "testing"
 )
 
-// TestShallowNestedDepthTransform verifies typia.shallow<T, N> stops
-// descending once N nesting levels are consumed.
+// TestShallowNestedDepthTransform checks the authored operation results described below.
 //
-// At depth 1 the top-level object properties are still checked, but a nested
-// object two levels down must collapse to a bare structural object guard rather
-// than a full property walk. This pins the decrementing depth budget: a
-// regression that ignored N past the root would emit the deep `inner.value`
-// check and behave like a full `is`.
+// Each object descent consumes one depth unit, so a direct discriminant is visible at one while a nested string requires two.
 //
-//  1. Transform an shallow<Outer, 1> call site whose type nests an inner
-//     object holding a string property.
-//  2. Assert the top-level discriminant is checked but the inner string
-//     property check never appears.
-//  3. Assert the inner object is still guarded structurally.
+// 1. The same nested shape is transformed at adjacent budgets one and two, pairing required outer preservation with excluded/included inner checking.
+// 2. Depth one keeps input.kind without input.inner.value; depth two includes input.inner.value.
+//
+// @evidence contracts/testing.md#behavioral-verification Depth one keeps input.kind without input.inner.value; depth two includes input.inner.value.
+// @evidence contracts/testing.md#independent-expectations Each object descent consumes one depth unit, so a direct discriminant is visible at one while a nested string requires two.
+// @evidence contracts/testing.md#distinguishing-cases The same nested shape is transformed at adjacent budgets one and two, pairing required outer preservation with excluded/included inner checking.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestShallowNestedDepthTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestShallowNestedDepthTransform(t *testing.T) {
   project := shallowNestedProject(t)
   out := shallowNestedTransform(t, project, "ts")

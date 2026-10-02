@@ -2,28 +2,14 @@
   "severity": "error",
   "claims": [
     {
-      "name": "authored TypeScript test declarations",
+      "name": "generated schema and fatal-event boundaries",
       "type": "typescript",
-      "files": [
-        "src/**/*.ts",
-        "!src/internal/**",
-        "!src/structures/**",
-        "!src/controllers/**",
-        "src/internal/_test_*.ts",
-        "!src/TestAutomation.ts",
-        "!src/generate.ts",
-        "!src/features/validateEquals/test_*.ts",
-        "!src/internal/_test_validateEquals.ts",
-        "!src/features/validate/test_*.ts",
-        "!src/internal/_test_validate.ts"
-      ],
+      "files": ["src/features/**/*.ts", "src/regressions/test_process_fatal_events.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md"
-        ],
+        "files": ["contracts/testing.md", "contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }
@@ -32,76 +18,53 @@
       "reference": {
         "root": "../../.agents/skills",
         "checklist": true,
-        "files": [
-          "contracts/common.md"
-        ],
+        "files": ["contracts/common.md"],
         "type": "markdown",
         "symbol": "h2"
       },
       "name": "maintained test generators",
-      "files": [
-        "src/TestAutomation.ts",
-        "src/generate.ts"
-      ],
+      "files": ["src/TestAutomation.ts", "src/generate.ts"],
       "type": "typescript",
-      "symbol": [
-        "type",
-        "function"
-      ]
+      "symbol": ["type", "function"]
     },
     {
       "name": "strict OpenAPI validation assertion helper",
       "type": "typescript",
-      "files": [
-        "src/internal/_test_validateEquals.ts"
-      ],
+      "files": ["src/internal/_test_validateEquals.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/testing.md"
-        ],
+        "files": ["contracts/common.md", "contracts/testing.md"],
         "symbol": "h2",
         "checklist": true
       }
     },
     {
-      "name": "generated strict OpenAPI schema-producer boundaries",
+      "name": "maintained runner helpers",
       "type": "typescript",
-      "files": [
-        "src/features/validateEquals/test_*.ts"
-      ],
+      "files": ["src/TestGlobal.ts", "src/servant/index.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
+        "files": ["contracts/common.md"],
         "symbol": "h2",
         "checklist": true
       }
     },
     {
-      "name": "generated ordinary OpenAPI schema boundaries",
-      "type": "typescript",
-      "files": [
-        "src/features/validate/test_*.ts"
-      ],
-      "symbol": "function",
       "reference": {
-        "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
+        "checklist": true,
+        "files": ["contracts/common.md", "contracts/portability.md", "contracts/performance.md"],
+        "type": "markdown",
+        "symbol": "h2"
+      },
+      "name": "automated suite execution owner",
+      "files": ["src/index.ts"],
+      "type": "typescript",
+      "symbol": "function"
     }
   ]
 }

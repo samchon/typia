@@ -69,6 +69,7 @@ type MetadataFactory_Validator = func(props struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record configures.
 type MetadataFactory_IOptions = nativemetadata.MetadataFactory_IOptions
+
 // MetadataFactory_IExplore locates the node that is being analyzed.
 //
 // @evidence contracts/common.md#principled-implementation The alias names the location record that the metadata package owns.
@@ -76,6 +77,7 @@ type MetadataFactory_IOptions = nativemetadata.MetadataFactory_IOptions
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the record locates.
 type MetadataFactory_IExplore = nativemetadata.MetadataFactory_IExplore
+
 // MetadataFactory_IError is one analysis failure with its location and reasons.
 //
 // @evidence contracts/common.md#principled-implementation The alias names the error record that the metadata package owns.

@@ -1,1 +1,1 @@
-export { _test_equals } from "@typia/oracle/predicate";
+export { _test_equals } from "@typia/template/predicate";

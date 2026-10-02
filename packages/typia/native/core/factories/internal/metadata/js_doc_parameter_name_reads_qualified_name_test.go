@@ -4,12 +4,12 @@
 package metadata
 
 import (
-	"path/filepath"
-	"testing"
+  "path/filepath"
+  "testing"
 
-	nativeast "github.com/microsoft/typescript-go/shim/ast"
-	nativecore "github.com/microsoft/typescript-go/shim/core"
-	nativeparser "github.com/microsoft/typescript-go/shim/parser"
+  nativeast "github.com/microsoft/typescript-go/shim/ast"
+  nativecore "github.com/microsoft/typescript-go/shim/core"
+  nativeparser "github.com/microsoft/typescript-go/shim/parser"
 )
 
 // TestJSDocParameterNameReadsQualifiedName verifies dotted JSDoc parameter names.
@@ -29,32 +29,32 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases One qualified name; simple names are exercised by other metadata tests.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test parses in-memory source with the typescript-go parser, with no filesystem fixture or process.
 func TestJSDocParameterNameReadsQualifiedName(t *testing.T) {
-	file := nativeparser.ParseSourceFile(
-		nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "qualified.ts"))},
-		`interface Box {
+  file := nativeparser.ParseSourceFile(
+    nativeast.SourceFileParseOptions{FileName: filepath.ToSlash(filepath.Join(t.TempDir(), "qualified.ts"))},
+    `interface Box {
   /**
    * @param input.value nested value
    */
   field: string;
 }
 `,
-		nativecore.ScriptKindTS,
-	)
-	member := file.Statements.Nodes[0].AsInterfaceDeclaration().Members.Nodes[0]
+    nativecore.ScriptKindTS,
+  )
+  member := file.Statements.Nodes[0].AsInterfaceDeclaration().Members.Nodes[0]
 
-	found := false
-	for _, jsdoc := range member.JSDoc(nil) {
-		doc := jsdoc.AsJSDoc()
-		if doc == nil || doc.Tags == nil {
-			continue
-		}
-		for _, tag := range doc.Tags.Nodes {
-			if metadata_js_doc_parameter_name(tag) == "input.value" {
-				found = true
-			}
-		}
-	}
-	if found == false {
-		t.Fatal("qualified JSDoc parameter name was not discovered")
-	}
+  found := false
+  for _, jsdoc := range member.JSDoc(nil) {
+    doc := jsdoc.AsJSDoc()
+    if doc == nil || doc.Tags == nil {
+      continue
+    }
+    for _, tag := range doc.Tags.Nodes {
+      if metadata_js_doc_parameter_name(tag) == "input.value" {
+        found = true
+      }
+    }
+  }
+  if found == false {
+    t.Fatal("qualified JSDoc parameter name was not discovered")
+  }
 }

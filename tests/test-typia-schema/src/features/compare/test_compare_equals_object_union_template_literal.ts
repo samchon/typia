@@ -20,10 +20,14 @@ type INested = { value: ITemplateUnion };
  *    and invalid discriminators through factory and direct equals.
  * 3. Repeat the membership controls with the union nested in an object.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.plain.createClone, typia.compare.createEquals, typia.compare.equals is evaluated by the native host on the types declared in this case and the result is checked by 22 assertions (is accepts left b member; is accepts right b member; factory compares different b; direct compares different b; factory compares equal b; direct compares equal b). The case documents its purpose as: Verifies compare.equals preserves template-literal object-union membership.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The non-discriminable fallback introduced for samchon/typia#2225 once weakened a template-literal property to `typeof string`. Valid `b_*` values then resolved to the `a_*` member, so a difference in `b` disappeared even though is and clone selected the later member and preserved that property. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (is accepts left b member; is accepts right b member; factory compares different b; direct compares different b; factory compares equal b; direct compares equal b) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_compare_equals_object_union_template_literal is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Direct/factory equality retains comparisons inside template-literal union members.
+ * @evidence contracts/testing.md#independent-expectations Authored a_/b_ values and literal is/clone/equality expectations supply the oracle independently.
+ * @evidence contracts/testing.md#distinguishing-cases Different/equal/cross-member and invalid c_ values remain at root and nested locations across direct/factory forms.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_compare_equals_object_union_template_literal in the schema start suite under ttsx and the native plugin; its exported body owns all runtime assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native template-literal member dispatch must preserve scalar equality inside matching union members.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native artifact; input variants do not create separate hosts or builds.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs, generated results and captured errors are local to the exported body. The suite owns host lifetime; no cold cache or invalidation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Different/equal/cross-member and invalid c_ values remain at root and nested locations across direct/factory forms. Every original input/call/assertion remains; final execution is reported separately from source review.
  */
 export const test_compare_equals_object_union_template_literal = (): void => {
   const is = typia.createIs<ITemplateUnion>();

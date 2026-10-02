@@ -1295,45 +1295,64 @@ namespace Case_union_type {
  * 1. Build one invalid value per case and validate it with typia.validate.
  * 2. Render the failure with LlmJson.stringify.
  * 3. Assert the fenced block, the error marker and the authored error path.
+ * 4. Run every case before reporting all failed names and original errors.
  *
  * @evidence contracts/testing.md#behavioral-verification Each case validates an invalid value with the native-transformed typia.validate and renders the real failure with LlmJson.stringify; the fenced block, the error marker and the authored error path must appear, so a changed typia error path format or a dropped annotation fails with the case name in the assertion title.
  * @evidence contracts/testing.md#independent-expectations The error paths ($input.scores[1], $input.name and similar) are literals authored from the typia error path convention and the invalid values are built in the test; the native validator is the producer of the failure and not of the expectation. The assertions are presence checks and do not compare the complete rendered text, which the unit stringify cases do for authored failures.
  * @evidence contracts/testing.md#distinguishing-cases Constraint failures (minimum length, items, range, pattern, format, integer), structural failures (missing, undefined, null, wrong container), nested and multiple errors, unions, tuples and unicode or bracket-notation keys are separate namespaces with their own titles; valid values without errors are owned by the unit no-errors case.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.validate is rewritten by the native transform, so the real producer-to-utility connection is this suite's boundary; the rendering rules themselves run in the plugin-free unit population.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.validate is rewritten by the native transform, so the real producer-to-utility connection is this suite's boundary; the rendering rules themselves run in the plugin-free unit population. The batch executes every namespace even after an earlier failure, then reports its names and original errors together.
+ * @evidence contracts/e2e.md#necessary-boundary Real native typia.validate reports must reach LlmJson.stringify without losing the producer's diagnostic paths or annotation markers. Authored unit reports establish portable rendering rules but cannot establish this actual producer-to-consumer connection.
+ * @evidence contracts/e2e.md#shared-execution All 34 native validation scenarios share the integration suite's single TypeScript project, installed native artifact and process. Namespace callbacks own only their input and assertions; none starts another compiler, worker or installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each callback constructs its own mutable input and validation result. No scenario shares mutated input with another. The suite/compiler own artifact identity and teardown; this function retains at most its 34 local failures until the aggregate is reported.
+ * @evidence contracts/e2e.md#preserved-coverage The 34 original scenario bodies and assertions remain in their named namespaces. All callbacks execute despite earlier exceptions, and AggregateError retains original failures and every failing name; portable authored-report rendering cases separately execute under test:unit.
  */
 export const test_llm_stringify_native_validation_failures = (): void => {
-  Case_array_element.run();
-  Case_array_expected_object.run();
-  Case_array_of_objects.run();
-  Case_bracket_notation_keys.run();
-  Case_complex_object.run();
-  Case_empty_array.run();
-  Case_empty_object.run();
-  Case_format_email.run();
-  Case_format_output.run();
-  Case_format_url.run();
-  Case_integer_constraint.run();
-  Case_literal_type.run();
-  Case_min_items.run();
-  Case_min_length.run();
-  Case_mixed_nested_errors.run();
-  Case_multiple_array_errors.run();
-  Case_multiple_errors.run();
-  Case_nested_array.run();
-  Case_nested_constraint.run();
-  Case_nested_object.run();
-  Case_null_value.run();
-  Case_object_expected_array.run();
-  Case_object_instead_of_primitive.run();
-  Case_object_with_array.run();
-  Case_optional_missing.run();
-  Case_pattern_constraint.run();
-  Case_primitive_boolean.run();
-  Case_primitive_number.run();
-  Case_primitive_string.run();
-  Case_range_constraint.run();
-  Case_tuple_type.run();
-  Case_undefined_value.run();
-  Case_unicode_property_names.run();
-  Case_union_type.run();
+  const cases: [string, () => void][] = [
+    ["array_element", Case_array_element.run],
+    ["array_expected_object", Case_array_expected_object.run],
+    ["array_of_objects", Case_array_of_objects.run],
+    ["bracket_notation_keys", Case_bracket_notation_keys.run],
+    ["complex_object", Case_complex_object.run],
+    ["empty_array", Case_empty_array.run],
+    ["empty_object", Case_empty_object.run],
+    ["format_email", Case_format_email.run],
+    ["format_output", Case_format_output.run],
+    ["format_url", Case_format_url.run],
+    ["integer_constraint", Case_integer_constraint.run],
+    ["literal_type", Case_literal_type.run],
+    ["min_items", Case_min_items.run],
+    ["min_length", Case_min_length.run],
+    ["mixed_nested_errors", Case_mixed_nested_errors.run],
+    ["multiple_array_errors", Case_multiple_array_errors.run],
+    ["multiple_errors", Case_multiple_errors.run],
+    ["nested_array", Case_nested_array.run],
+    ["nested_constraint", Case_nested_constraint.run],
+    ["nested_object", Case_nested_object.run],
+    ["null_value", Case_null_value.run],
+    ["object_expected_array", Case_object_expected_array.run],
+    ["object_instead_of_primitive", Case_object_instead_of_primitive.run],
+    ["object_with_array", Case_object_with_array.run],
+    ["optional_missing", Case_optional_missing.run],
+    ["pattern_constraint", Case_pattern_constraint.run],
+    ["primitive_boolean", Case_primitive_boolean.run],
+    ["primitive_number", Case_primitive_number.run],
+    ["primitive_string", Case_primitive_string.run],
+    ["range_constraint", Case_range_constraint.run],
+    ["tuple_type", Case_tuple_type.run],
+    ["undefined_value", Case_undefined_value.run],
+    ["unicode_property_names", Case_unicode_property_names.run],
+    ["union_type", Case_union_type.run],
+  ];
+  const failures: { name: string; error: unknown }[] = [];
+  for (const [name, run] of cases)
+    try {
+      run();
+    } catch (error) {
+      failures.push({ name, error });
+    }
+  if (failures.length !== 0)
+    throw new AggregateError(
+      failures.map(({ error }) => error),
+      `Native stringify cases failed: ${failures.map(({ name }) => name).join(", ")}`,
+    );
 };

@@ -7,15 +7,17 @@ import (
   "testing"
 )
 
-// TestBuildNoEmitReportsTransformDiagnostics verifies analysis-only transforms.
+// TestBuildNoEmitReportsTransformDiagnostics checks the authored operation results described below.
 //
-// TypeScript-clean source can still be invalid for typia. Check mode, an
-// explicit --noEmit flag, and tsconfig-owned noEmit must all run the same typia
-// analysis as emit mode without publishing any compiler artifact.
+// NoEmit suppresses publication rather than transform analysis, so an invalid typia call still requires its transform diagnostic. Verbose summaries belong only to the explicit verbose mode.
 //
-//  1. Create equivalent invalid projects for all three no-emit entry paths.
-//  2. Require the preserved typia source location, code, and message.
-//  3. Prove quiet/verbose reporting while every output path stays absent.
+// 1. Configured and command-selected noEmit paths are checked in quiet and verbose modes, including absent output directories and incremental files.
+// 2. Quiet and verbose noEmit builds return status three with the exact source location, typia.is code and missing-generic cause; neither emits artifacts.
+//
+// @evidence contracts/testing.md#behavioral-verification Quiet and verbose noEmit builds return status three with the exact source location, typia.is code and missing-generic cause; neither emits artifacts.
+// @evidence contracts/testing.md#independent-expectations NoEmit suppresses publication rather than transform analysis, so an invalid typia call still requires its transform diagnostic. Verbose summaries belong only to the explicit verbose mode.
+// @evidence contracts/testing.md#distinguishing-cases Configured and command-selected noEmit paths are checked in quiet and verbose modes, including absent output directories and incremental files.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestBuildNoEmitReportsTransformDiagnostics as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestBuildNoEmitReportsTransformDiagnostics(t *testing.T) {
   cases := []struct {
     name       string

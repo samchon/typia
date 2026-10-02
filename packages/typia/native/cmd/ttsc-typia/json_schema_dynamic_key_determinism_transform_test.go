@@ -4,26 +4,40 @@ import (
   "bytes"
   "crypto/sha256"
   "os"
-  "os/exec"
   "path/filepath"
   "testing"
 )
 
-// TestJsonSchemaDynamicKeyDeterminismTransform verifies dynamic-key schemas emit deterministically.
+// TestJsonSchemaDynamicKeyDeterminismTransform checks the authored operation results described below.
 //
-// Multiple template and numeric index signatures used to reach a Go map before
-// their value metadata was merged. Repeating one unchanged transform therefore
-// has to compare the complete output bytes, while runtime checks ensure a stable
-// order is not achieved by losing, duplicating, or broadening schema branches.
+// Deterministic source/schema generation must not depend on Go map enumeration order. Repetition is an ordering oracle only; semantic branch-preservation checks are separate assertions on the authored fixture.
 //
-//  1. Transform unchanged tag-free dynamic-key fixtures repeatedly to TypeScript and JavaScript.
-//  2. Require every complete emit to match the first emit byte for byte.
-//  3. Execute the JavaScript and assert branch completeness plus unrelated ordering controls.
+// 1. Composite, template, key-union, fixed-property, singleton-dynamic and ordinary-union shapes coexist, and TypeScript/JavaScript outputs are checked independently.
+// 2. Both output modes produce identical complete bytes across thirty-two transforms of one unchanged dynamic-key project.
+//
+// @evidence contracts/testing.md#behavioral-verification Both output modes retain the authored fixed-property types, required keys, dynamic value-type unions, single dynamic value and ordinary primitive union, then produce identical complete bytes across thirty-two transforms of one unchanged project.
+// @evidence contracts/testing.md#independent-expectations Deterministic source/schema generation must not depend on Go map enumeration order. Repetition is an ordering oracle only; semantic branch-preservation checks are separate assertions on the authored fixture.
+// @evidence contracts/testing.md#distinguishing-cases Composite, template, key-union, fixed-property, singleton-dynamic and ordinary-union shapes coexist, and TypeScript/JavaScript outputs are checked independently.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestJsonSchemaDynamicKeyDeterminismTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestJsonSchemaDynamicKeyDeterminismTransform(t *testing.T) {
   project := jsonSchemaDynamicKeyDeterminismProject(t)
-  var javascript string
   for _, output := range []string{"ts", "js"} {
     baseline := jsonSchemaDynamicKeyDeterminismTransform(t, project, output)
+    unit := ttscTypiaTestSchemaLiteral(t, baseline)
+    for name, expected := range map[string][]any{
+      "DynamicComposite": {map[string]any{"type": "number"}, map[string]any{"type": "string"}, map[string]any{"type": "boolean"}},
+      "DynamicTemplate":  {map[string]any{"type": "string"}, map[string]any{"type": "number"}, map[string]any{"type": "boolean"}},
+      "DynamicUnion":     {map[string]any{"type": "string"}, map[string]any{"type": "number"}},
+    } {
+      ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", name, "additionalProperties", "oneOf"), expected)
+    }
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "DynamicComposite", "properties"), map[string]any{"id": map[string]any{"type": "string"}, "name": map[string]any{"type": "string"}})
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "DynamicComposite", "required"), []any{"id", "name"})
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "LiteralOnly", "properties"), map[string]any{"z": map[string]any{"type": "string"}, "a": map[string]any{"type": "number"}})
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "LiteralOnly", "required"), []any{"z", "a"})
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "LiteralOnly", "additionalProperties"), false)
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "SingleDynamic", "additionalProperties"), map[string]any{"type": "string"})
+    ttscTypiaTestSchemaEqual(t, ttscTypiaTestSchemaPath(t, unit, "components", "schemas", "OrdinaryUnion", "oneOf"), []any{map[string]any{"type": "string"}, map[string]any{"type": "number"}})
     for iteration := 1; iteration < 32; iteration++ {
       current := jsonSchemaDynamicKeyDeterminismTransform(t, project, output)
       if bytes.Equal([]byte(current), []byte(baseline)) == false {
@@ -38,11 +52,7 @@ func TestJsonSchemaDynamicKeyDeterminismTransform(t *testing.T) {
       }
     }
     t.Logf("%s emit remained byte-identical across 32 transforms: sha256=%x", output, sha256.Sum256([]byte(baseline)))
-    if output == "js" {
-      javascript = baseline
-    }
   }
-  jsonSchemaDynamicKeyDeterminismRunRuntimeCases(t, project, javascript)
 }
 
 func jsonSchemaDynamicKeyDeterminismProject(t *testing.T) string {
@@ -99,33 +109,6 @@ func jsonSchemaDynamicKeyDeterminismFirstDifference(x string, y string) int {
     }
   }
   return limit
-}
-
-func jsonSchemaDynamicKeyDeterminismRunRuntimeCases(t *testing.T, project string, javascript string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, javascript)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(jsonSchemaDynamicKeyDeterminismRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("dynamic-key schema runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const jsonSchemaDynamicKeyDeterminismTSConfig = `{
@@ -186,61 +169,4 @@ export const schemas = typia.json.schemas<[
   SingleDynamic,
   OrdinaryUnion,
 ]>();
-`
-
-const jsonSchemaDynamicKeyDeterminismRuntimeRunner = `const unit = require("./main.cjs").schemas;
-
-const components = unit.components?.schemas ?? {};
-const assertTypes = (name, expected) => {
-  const additional = components[name]?.additionalProperties;
-  const actual = Array.isArray(additional?.oneOf)
-    ? additional.oneOf.map((schema) => schema.type)
-    : [additional?.type];
-  if (JSON.stringify(actual) !== JSON.stringify(expected)) {
-    throw new Error(name + " branches were " + JSON.stringify(actual) + ", expected " + JSON.stringify(expected));
-  }
-};
-
-assertTypes("DynamicComposite", ["number", "string", "boolean"]);
-assertTypes("DynamicTemplate", ["string", "number", "boolean"]);
-assertTypes("DynamicUnion", ["string", "number"]);
-
-const literal = components.LiteralOnly;
-const literalShape = {
-  type: literal?.type,
-  propertyKeys: Object.keys(literal?.properties ?? {}),
-  propertyTypes: Object.values(literal?.properties ?? {}).map((schema) => schema.type),
-  required: literal?.required,
-  additionalProperties: literal?.additionalProperties,
-};
-const expectedLiteralShape = {
-  type: "object",
-  propertyKeys: ["z", "a"],
-  propertyTypes: ["string", "number"],
-  required: ["z", "a"],
-  additionalProperties: false,
-};
-if (JSON.stringify(literalShape) !== JSON.stringify(expectedLiteralShape)) {
-  throw new Error("zero-dynamic literal schema changed: " + JSON.stringify(literalShape));
-}
-if (components.SingleDynamic?.additionalProperties?.type !== "string") {
-  throw new Error("single dynamic-key schema changed: " + JSON.stringify(components.SingleDynamic));
-}
-const ordinaryTypes = components.OrdinaryUnion?.oneOf?.map((schema) => schema.type) ?? [];
-if (JSON.stringify(ordinaryTypes) !== JSON.stringify(["string", "number"])) {
-  throw new Error("ordinary union branches changed: " + JSON.stringify(ordinaryTypes));
-}
-
-const refs = unit.schemas.map((schema) => schema.$ref);
-const expectedRefs = [
-  "#/components/schemas/DynamicComposite",
-  "#/components/schemas/DynamicTemplate",
-  "#/components/schemas/DynamicUnion",
-  "#/components/schemas/LiteralOnly",
-  "#/components/schemas/SingleDynamic",
-  "#/components/schemas/OrdinaryUnion",
-];
-if (JSON.stringify(refs) !== JSON.stringify(expectedRefs)) {
-  throw new Error("schema order changed: " + JSON.stringify(refs));
-}
 `

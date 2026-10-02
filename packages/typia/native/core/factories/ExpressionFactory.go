@@ -103,6 +103,7 @@ type ExpressionFactory_Importer interface {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The comment states that the context package owns the shape.
 type ExpressionFactory_IDefault = nativecontext.ImportProgrammer_IDefault
+
 // ExpressionFactory_IInstance is the importer's named-import request, aliased so
 // this package does not repeat the contract.
 //
@@ -111,6 +112,7 @@ type ExpressionFactory_IDefault = nativecontext.ImportProgrammer_IDefault
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states that the context package owns the shape.
 type ExpressionFactory_IInstance = nativecontext.ImportProgrammer_IInstance
+
 // ExpressionFactory_INamespace is the importer's namespace-import request,
 // aliased so this package does not repeat the contract.
 //

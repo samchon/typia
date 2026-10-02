@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
 
 // TestOptionPredicatorDefaultsAndFlags verifies transform-option defaults.
@@ -23,28 +23,28 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Defaults, the finite-implies-numeric flip and the explicit undefined=false flip each change exactly one flag.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported predicates with constructed option values and no filesystem fixture, process or native command build.
 func TestOptionPredicatorDefaultsAndFlags(t *testing.T) {
-	options := nativecontext.ITransformOptions{}
-	if helpers.OptionPredicator.Numeric(options) {
-		t.Fatal("numeric should default to false")
-	}
-	if helpers.OptionPredicator.Functional(options) {
-		t.Fatal("functional should default to false")
-	}
-	if helpers.OptionPredicator.Finite(options) {
-		t.Fatal("finite should default to false")
-	}
-	if !helpers.OptionPredicator.Undefined(options) {
-		t.Fatal("undefined should default to true")
-	}
+  options := nativecontext.ITransformOptions{}
+  if helpers.OptionPredicator.Numeric(options) {
+    t.Fatal("numeric should default to false")
+  }
+  if helpers.OptionPredicator.Functional(options) {
+    t.Fatal("functional should default to false")
+  }
+  if helpers.OptionPredicator.Finite(options) {
+    t.Fatal("finite should default to false")
+  }
+  if !helpers.OptionPredicator.Undefined(options) {
+    t.Fatal("undefined should default to true")
+  }
 
-	enabled := true
-	disabled := false
-	options.Finite = &enabled
-	options.Undefined = &disabled
-	if !helpers.OptionPredicator.Numeric(options) {
-		t.Fatal("finite=true should imply numeric=true")
-	}
-	if helpers.OptionPredicator.Undefined(options) {
-		t.Fatal("undefined=false should disable undefined checks")
-	}
+  enabled := true
+  disabled := false
+  options.Finite = &enabled
+  options.Undefined = &disabled
+  if !helpers.OptionPredicator.Numeric(options) {
+    t.Fatal("finite=true should imply numeric=true")
+  }
+  if helpers.OptionPredicator.Undefined(options) {
+    t.Fatal("undefined=false should disable undefined checks")
+  }
 }

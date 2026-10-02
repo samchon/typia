@@ -1,5 +1,5 @@
-import { _test_plain_validatePrune_success } from "@typia/oracle/prune";
 import { TestStructure } from "@typia/template";
+import { _test_plain_validatePrune_success } from "@typia/template/prune";
 import { IValidation, assertEquals } from "typia";
 
 /**

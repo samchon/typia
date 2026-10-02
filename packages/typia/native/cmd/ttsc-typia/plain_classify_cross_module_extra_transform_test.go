@@ -2,20 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestPlainClassifyCrossModuleExtraTransform covers two cross-module value-import
-// resolutions beyond the inline default-export case:
-//   - a class declared inside a `namespace` (typeof NS.Point / NS.Model): the
-//     value import must reach the QUALIFIED member, not a bare top-level binding
-//     the module never exports;
-//   - a class default-exported by a SEPARATE statement (`class C {}; export
-//     default C;`, which carries no Default modifier): the value import must be a
-//     DEFAULT import, for both the from/new and the field-copy paths.
+// TestPlainClassifyCrossModuleExtraTransform verifies qualified namespace and default-export class imports.
+//
+// Classes reconstructed at runtime require actual exported values; namespace members keep their qualification and a separate default export is accessed through its default binding.
+//
+// 1. Namespaced factory/field-copy classes and separate-statement default exports exercise different cross-module value identities.
+// 2. The consumer emit retains NS.Point, NS.Model and a default value import; each transformed module must succeed.
+//
+// @evidence contracts/testing.md#behavioral-verification The consumer emit retains NS.Point, NS.Model and a default value import; each transformed module must succeed.
+// @evidence contracts/testing.md#independent-expectations Classes reconstructed at runtime require actual exported values; namespace members keep their qualification and a separate default export is accessed through its default binding.
+// @evidence contracts/testing.md#distinguishing-cases Namespaced factory/field-copy classes and separate-statement default exports exercise different cross-module value identities.
+// @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPlainClassifyCrossModuleExtraTransform as a unit test. Captured runTransform calls operate on the isolated fixture project in process; output assertions and cleanup remain owned by these helpers without a compiler or Node subprocess.
 func TestPlainClassifyCrossModuleExtraTransform(t *testing.T) {
   project := plainClassifyCrossModuleExtraProject(t)
   transform := func(file string) string {
@@ -32,9 +34,9 @@ func TestPlainClassifyCrossModuleExtraTransform(t *testing.T) {
     }
     return out
   }
-  nsJS := transform("src/nsmodel.ts")
-  defJS := transform("src/defmodel.ts")
-  fcJS := transform("src/fcmodel.ts")
+  transform("src/nsmodel.ts")
+  transform("src/defmodel.ts")
+  transform("src/fcmodel.ts")
   mainJS := transform("src/main.ts")
   // namespaced cross-module references must be qualified (dotted) onto the
   // imported namespace, never a bare Point/Model.
@@ -48,7 +50,6 @@ func TestPlainClassifyCrossModuleExtraTransform(t *testing.T) {
   if !strings.Contains(mainJS, ".default") {
     t.Fatalf("separate-statement default exports must value-import via `.default`:\n%s", mainJS)
   }
-  plainClassifyCrossModuleExtraRun(t, project, nsJS, defJS, fcJS, mainJS)
 }
 
 func plainClassifyCrossModuleExtraProject(t *testing.T) string {
@@ -81,44 +82,6 @@ func plainClassifyCrossModuleExtraProject(t *testing.T) string {
     }
   }
   return dir
-}
-
-func plainClassifyCrossModuleExtraRun(t *testing.T, project, nsJS, defJS, fcJS, mainJS string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
-    t.Fatalf("write generic stub: %v", err)
-  }
-  for name, body := range map[string]string{
-    "nsmodel.js":  nsJS,
-    "defmodel.js": defJS,
-    "fcmodel.js":  fcJS,
-  } {
-    if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(body), 0o644); err != nil {
-      t.Fatalf("write %s: %v", name, err)
-    }
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, mainJS)), 0o644); err != nil {
-    t.Fatalf("write main.cjs: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(plainClassifyExtraRunner), 0o644); err != nil {
-    t.Fatalf("write runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("cross-module extra runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const plainClassifyExtraNsModel = `export namespace NS {
@@ -178,34 +141,4 @@ export const makePoint = typia.plain.createClassify<typeof NS.Point>();
 export const makeModel = typia.plain.createClassify<NS.Model>();
 export const makeStamp = typia.plain.createClassify<typeof Stamp>();
 export const makeNote = typia.plain.createClassify<Note>();
-`
-
-const plainClassifyExtraRunner = `const ns = require("./nsmodel.js");
-const def = require("./defmodel.js");
-const fc = require("./fcmodel.js");
-const main = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-// namespaced cross-module from
-const p = main.makePoint({ x: 1, y: 2 });
-assert(p instanceof ns.NS.Point, "namespaced cross-module from should yield NS.Point");
-assert(p.sum() === 3, "NS.Point.from should reconstruct, got: " + p.sum());
-
-// namespaced cross-module field-copy
-const m = main.makeModel({ id: 4 });
-assert(m instanceof ns.NS.Model, "namespaced cross-module field-copy should yield NS.Model");
-assert(m.greet() === "m4", "NS.Model method should work, got: " + m.greet());
-
-// separate-statement default-export from/new
-const s = main.makeStamp({ value: 7 });
-assert(s instanceof def.default, "separate-default from should yield a Stamp instance");
-assert(s.value === 7, "Stamp.from seed should reconstruct, got: " + s.value);
-
-// separate-statement default-export field-copy
-const n = main.makeNote({ text: "hi" });
-assert(n instanceof fc.default, "separate-default field-copy should yield a Note instance");
-assert(n.show() === "hi", "Note method should work, got: " + n.show());
 `

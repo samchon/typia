@@ -11,6 +11,11 @@ import { ClassProperties } from "@typia/interface";
  * 1. Strip the method from a class with a nested class member.
  * 2. Confirm the nested class is preserved verbatim (not flattened).
  * 3. Confirm a getter-backed member survives.
+ *
+ * @evidence contracts/testing.md#behavioral-verification ClassProperties must remove root methods while retaining data, a readonly getter result and the unchanged nested Bar class.
+ * @evidence contracts/testing.md#independent-expectations Authored object shapes and the original Bar type establish shallow extraction independently of ClassProperties.
+ * @evidence contracts/testing.md#distinguishing-cases Bar and Foo separate a removed root method from a preserved nested class method; getter readonly and string/number data retain modifiers and values.
+ * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported ClassPropertiesCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type ClassPropertiesCases = [
   Assert<IsEqual<ClassProperties<Bar>, { x: number }>>,

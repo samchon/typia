@@ -3,19 +3,23 @@ import { TestEquality } from "@typia/template/equality";
 import typia, { IMetadataSchemaCollection } from "typia";
 
 /**
- * Verifies reflect schemas components against the native typia.reflect.schemas
- * output.
+ * Verifies base/derived reflection components preserve recursive child metadata
+ * and the parent property.
  *
- * The case builds its input in this file and asserts schemas count, has IBase,
- * has IChild, IChild is recursive, IChild has parent property.
+ * Native inheritance and recursion analysis must expose a resolving named
+ * metadata collection.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Invoke the reflection producer on the type arguments declared here.
+ * 2. Compare emitted values with their independent source-derived expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.reflect.schemas is evaluated by the native host on the types declared in this case and the result is checked by 5 assertions (schemas count; has IBase; has IChild; IChild is recursive; IChild has parent property).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (schemas count; has IBase; has IChild; IChild is recursive; IChild has parent property) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_reflect_schemas_components is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The exported case asserts that base/derived reflection components preserve recursive child metadata and the parent property.
+ * @evidence contracts/testing.md#independent-expectations Authored IBase and self-referential IChild establish component names, recursive:true and the parent key.
+ * @evidence contracts/testing.md#distinguishing-cases Both component names and recursion/parent-key predicates remain; inherited id/name metadata beyond those predicates is not certified.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_reflect_schemas_components in test-typia-schema start. Actual typia.reflect call expressions are transformed in the suite project and their emitted reflection values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native inheritance and recursion analysis must expose a resolving named metadata collection. Direct metadata/emitter unit calls do not establish public call resolution and evaluation of the emitted JavaScript together.
+ * @evidence contracts/e2e.md#shared-execution All inputs in this declaration join the existing ttsx schema-suite project and process; siblings reuse the same content-keyed native plugin artifact. The case adds no compiler subprocess, installation or independent host per variant.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Reflected values, projections and assertion accumulators belong to this invocation. Shared source declarations are read without mutation; ttsc owns plugin artifact invalidation and the suite owns process termination. No cold-cache transition is claimed.
+ * @evidence contracts/e2e.md#preserved-coverage Both component names and recursion/parent-key predicates remain; inherited id/name metadata beyond those predicates is not certified. All original producer invocations and assertions stay enrolled under the unchanged exported case; no meaningful distinction was removed as redundant.
  */
 export const test_reflect_schemas_components = (): void => {
   interface IBase {

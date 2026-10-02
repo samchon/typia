@@ -10,6 +10,11 @@ import { SnakeCase } from "@typia/interface";
  * 1. Snake-case a battery of representative key spellings.
  * 2. Snake-case through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification SnakeCase must produce ExpectedBattery and nested underscore keys, preserving Date and mapping methods to never.
+ * @evidence contracts/testing.md#independent-expectations Authored output interfaces establish the supported key policy without computing expectations with SnakeCase.
+ * @evidence contracts/testing.md#distinguishing-cases Camel/Pascal, existing snake, leading underscores, all-caps and digits are contrasted with unchanged native values and removed methods at nested/array contexts.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks SnakeCaseCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type SnakeCaseCases = [
   Assert<IsEqual<SnakeCase<Battery>, ExpectedBattery>>,

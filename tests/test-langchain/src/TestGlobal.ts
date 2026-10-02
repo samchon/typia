@@ -6,32 +6,36 @@ import typia from "typia";
 
 export namespace TestGlobal {
   /**
-   * Reads the environment variables of an experimental provider run.
+   * Loads and expands dotenv once for a manual provider experiment, then
+   * validates the optional provider key in process.env.
    *
-   * @evidence contracts/testing.md#behavioral-verification getEnvironments loads dotenv files and validates process.env with a natively generated assertion; it asserts nothing about typia behavior and is used only by the manual experimental scripts.
-   * @evidence contracts/testing.md#independent-expectations It has no expectation; the optional OPENROUTER_API_KEY shape is its own declaration.
-   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction.
-   * @evidence contracts/testing.md#execution-ownership It runs inside the test-langchain start process (DynamicExecutor under ttsx with the native typia plugin) and is called in process by the cases that import it; it starts no process of its own.
+   * @evidence contracts/common.md#principled-implementation The singleton initializer loads dotenv, expands substitutions and passes process.env to the declared optional-string assertion. It validates that shape without copying or reverting the environment mutations owned by dotenv.
+   * @evidence contracts/common.md#clear-and-simple-design A fixed singleton keeps initialization and the exported read separate; its initializer owns dotenv and assertion effects, and subsequent reads reuse the same environment object.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts dotenv uses its supported configuration/expansion APIs; no foreign method or global is replaced. process.env changes are the explicit purpose of this manual experiment setup.
+   * @evidence contracts/common.md#meaningful-documentation The native comment identifies manual provider use, first-read effects and the optional provider key shape. It does not claim to execute as a DynamicExecutor test.
    */
   export const getEnvironments = (): IEnvironments => environments.get();
 
   /**
-   * Fetches a hosted OpenAPI document for manual provider experiments.
+   * Fetches and upgrades the hosted shopping OpenAPI document once for manual
+   * provider experiments. Repeated reads share the same promise, including
+   * rejection.
    *
-   * @evidence contracts/testing.md#behavioral-verification getSwagger downloads a third-party hosted document and upgrades it; it is used only by the manual experimental scripts and by no DynamicExecutor case, because a network dependency would make a case non-hermetic.
-   * @evidence contracts/testing.md#independent-expectations It has no expectation of its own.
-   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction.
-   * @evidence contracts/testing.md#execution-ownership It is not reached by the DynamicExecutor population; the experimental scripts run it by hand with network access.
+   * @evidence contracts/common.md#principled-implementation The singleton fetches the authored endpoint, parses its JSON and delegates version conversion to OpenApiConverter. It assumes the endpoint returns an OpenAPI document; HTTP status and document structure are not separately validated here.
+   * @evidence contracts/common.md#clear-and-simple-design One exported read delegates one fixed-document promise to the singleton. The private initializer owns network, JSON parsing and conversion without duplicating the converter.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The fixed URL is the actual experiment input rather than an expected test output. Fetch and conversion use public APIs without patching a provider or selecting a result by fixture name.
+   * @evidence contracts/common.md#meaningful-documentation The native prose identifies the external document, manual-use purpose, promise reuse and retained rejection; it makes no claim of hermetic test execution.
    */
   export const getSwagger = (): Promise<OpenApi.IDocument> => swagger.get();
 
   /**
-   * Reads the values that follow a command-line flag up to the next flag.
+   * Reads one value per occurrence of the requested double-dash flag. Missing
+   * flags return an empty list.
    *
-   * @evidence contracts/testing.md#behavioral-verification getArguments only parses process arguments for the include and exclude filters; it asserts nothing about typia and a wrong parse changes which cases run, not any verdict.
-   * @evidence contracts/testing.md#independent-expectations It has no expectation of its own; the filter semantics are those of DynamicExecutor include and exclude names.
-   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; absent flags and repeated flags are handled by its loop without a dedicated test.
-   * @evidence contracts/testing.md#execution-ownership It runs inside the test-langchain start process (DynamicExecutor under ttsx with the native typia plugin) and is called in process by the cases that import it; it starts no process of its own.
+   * @evidence contracts/common.md#principled-implementation The argv scan collects one following argument for each occurrence of the requested flag, preserving occurrence order. It does not treat a sequence of unprefixed words as several filter values.
+   * @evidence contracts/common.md#clear-and-simple-design One loop owns flag recognition and the result array; advancing past each consumed value keeps it from being interpreted as another flag.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The requested key is compared with its complete double-dash spelling; no fixture or test outcome affects parsing.
+   * @evidence contracts/common.md#meaningful-documentation Native prose explains one-value-per-occurrence filtering and the absent-flag empty result, rather than claiming this runner helper is a behavioral test.
    */
   export const getArguments = (key: string): string[] => {
     const values: string[] = [];

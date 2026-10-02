@@ -1,0 +1,60 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "independent binding and equality oracles",
+      "type": "typescript",
+      "files": [
+        "src/utils/TestBinding.ts",
+        "src/utils/TestOracleEquality.ts",
+        "src/utils/TestStructureSelector.ts",
+        "src/utils/TestTransportStrictEquality.ts",
+        "src/utils/TestPrimitiveEquality.ts",
+        "src/utils/TestResolveProjection.ts",
+        "src/utils/TestResolvedEquality.ts",
+        "src/utils/TestResolvedEqualityAsync.ts",
+        "src/utils/TestFormData.ts",
+        "src/ProtobufVarintCorpus.ts"
+      ],
+      "symbol": ["type", "function"],
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable assertion and serialization helpers",
+      "type": "typescript",
+      "files": [
+        "src/utils/TestPredicate.ts",
+        "src/utils/TestOpenApiValidation.ts",
+        "src/utils/TestStringify.ts",
+        "src/utils/TestErrorClass.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md", "contracts/testing.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable pruning and clone scenario owners",
+      "type": "typescript",
+      "files": ["src/utils/TestPrune.ts", "src/utils/TestClone.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md", "contracts/testing.md", "contracts/performance.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

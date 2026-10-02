@@ -38,10 +38,14 @@ interface IJsonable {
  * 4. Keep the positive twin passing: a real `toJSON` still serializes through its
  *    return value.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.stringify, typia.json.isStringify, typia.json.validateStringify is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (stringify answers with JSON; isStringify answers instead of throwing; validateStringify answers instead of throwing; the twin serializes through toJSON). The case documents its purpose as: Verifies a non-callable `toJSON` is answered, never thrown on.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Serializing a `toJSON`-bearing type means calling `toJSON`, and the emitted union arm that does so carries its own `typeof input.toJSON === "function"` test. When that arm was the only one, the surrounding code dropped the test along with the choice — there is nothing to choose between — and left the call unguarded. A value whose `toJSON` is a non-function then threw `input.value.toJSON is not a function` from inside the serializer, so `isStringify` and `validateStringify`, whose whole purpose is to answer for untrusted input without a `try`/`catch`, threw on exactly the input they exist to handle. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (stringify answers with JSON; isStringify answers instead of throwing; validateStringify answers instead of throwing; the twin serializes through toJSON) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_is_stringify_non_callable_to_json is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Stringify variants handle a non-callable declared toJSON property without invoking it.
+ * @evidence contracts/testing.md#independent-expectations Authored projected shapes and a callable positive twin anchor raw output; guarded accepted branches must parse to the fixed declared projection, while a rejected validation branch must contain diagnostics. The invalid verdict itself remains permitted to accept or reject.
+ * @evidence contracts/testing.md#distinguishing-cases The invalid input retains all raw/is/validate calls and no-throw checks, with accepted-output or nonempty-rejection diagnostics checks added; the callable twin now supplies positive JSON-output controls for all three forms.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_json_is_stringify_non_callable_to_json through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native function-property projection and runtime toJSON callability checks must connect without a TypeError.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage The invalid input retains all raw/is/validate calls and no-throw checks, with accepted-output or nonempty-rejection diagnostics checks added; the callable twin now supplies positive JSON-output controls for all three forms. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_json_is_stringify_non_callable_to_json = (): void => {
   const invalid: IJsonable = { keep: 1, value: { toJSON: 1 } } as never;
@@ -59,6 +63,15 @@ export const test_json_is_stringify_non_callable_to_json = (): void => {
     guarded === null || typeof guarded === "string",
     true,
   );
+  if (guarded !== null)
+    TestEquality.equals(
+      "isStringify accepted projection",
+      JSON.parse(guarded),
+      {
+        keep: 1,
+        value: {},
+      },
+    );
 
   const validated: IValidation<string> =
     typia.json.validateStringify<IJsonable>(invalid);
@@ -67,10 +80,39 @@ export const test_json_is_stringify_non_callable_to_json = (): void => {
     typeof validated.success,
     "boolean",
   );
+  if (validated.success)
+    TestEquality.equals(
+      "validateStringify accepted projection",
+      JSON.parse(validated.data),
+      { keep: 1, value: {} },
+    );
+  else
+    TestEquality.equals(
+      "validateStringify rejection has diagnostics",
+      validated.errors.length > 0,
+      true,
+    );
 
   TestEquality.equals(
     "the twin serializes through toJSON",
     JSON.parse(typia.json.stringify<IJsonable>(valid)),
     JSON.parse(JSON.stringify(valid)),
+  );
+  const expected = { keep: 1, value: "x" };
+  const guardedValid = typia.json.isStringify<IJsonable>(valid);
+  if (guardedValid === null)
+    throw new Error("The callable toJSON twin must pass isStringify.");
+  TestEquality.equals(
+    "isStringify callable twin",
+    JSON.parse(guardedValid),
+    expected,
+  );
+  const validatedValid = typia.json.validateStringify<IJsonable>(valid);
+  if (!validatedValid.success)
+    throw new Error("The callable toJSON twin must pass validateStringify.");
+  TestEquality.equals(
+    "validateStringify callable twin",
+    JSON.parse(validatedValid.data),
+    expected,
   );
 };

@@ -23,6 +23,11 @@ import (
 //  2. Require the first build to fail through the transform-diagnostic path.
 //  3. Require each rejected accessor with its message, and the valid project
 //     to compile.
+//
+// @evidence contracts/testing.md#behavioral-verification Unsupported decision shapes and missing questions report their authored accessors and causes, while the supported decision project compiles.
+// @evidence contracts/testing.md#independent-expectations Evaluation answers closed boolean, choice, score and membership questions; unconstrained values, mixed question kinds and absent question text cannot supply a decodable decision.
+// @evidence contracts/testing.md#distinguishing-cases Empty and invalid roots, unsupported leaf kinds, singleton literals, mixed unions, nullable/optional positions and valid neighboring decisions distinguish the supported domain.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsUndecidableTypes as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsUndecidableTypes(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "undecidable", llmEvaluationUndecidableSource)
   for _, expected := range []string{

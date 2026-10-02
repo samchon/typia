@@ -1,0 +1,91 @@
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { CallToolResult, Tool } from "@modelcontextprotocol/sdk/types.js";
+import { TestValidator } from "@nestia/e2e";
+import { IHttpLlmController } from "@typia/interface";
+import { createMcpServer } from "@typia/mcp";
+import { TestEquality } from "@typia/template/equality";
+import { HttpLlm } from "@typia/utils";
+
+import { CalculatorApi } from "../../structures/CalculatorApi";
+
+/**
+ * Verifies an OpenAPI operation executes through the MCP adapter handler.
+ *
+ * `createMcpServer` accepts an `IHttpLlmController`, registering every
+ * converted operation as a tool that runs through the controller's executor and
+ * ships the response body as `structuredContent`. A regression would confine
+ * `@typia/mcp` back to class controllers while the sibling adapters keep
+ * serving OpenAPI documents.
+ *
+ * 1. Build an HTTP controller whose executor answers in-process (no network).
+ * 2. Assert `tools/list` exposes the operation with its response `outputSchema`.
+ * 3. Call it and assert the response body arrives as `structuredContent` with no
+ *    text duplicate.
+ *
+ * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 5 assertions (every converted operation should be listed; the operation should advertise its response outputSchema; http tool call should not be an error; response body should arrive as structuredContent; content should stay empty without the opt-in text fallback). The case documents its purpose as: Verifies an OpenAPI operation executes through the MCP adapter handler.
+ * @evidence contracts/testing.md#independent-expectations The authored OpenAPI document supplies required numeric body and numeric response data, and literal arithmetic value 15 plus disabled fallback define expected delivery. Listed names are compared with controller.application.functions, so that assertion establishes registration propagation rather than independently proving HttpLlm name conversion.
+ * @evidence contracts/testing.md#distinguishing-cases One authored HTTP operation contributes successful listing, advertised output, injected execution, structured value 15 and absence of fallback content. This unit owns no malformed output or transport assertion; the separate HTTP output-validation SDK case owns valid/malformed/exception transport behavior.
+ * @evidence contracts/testing.md#execution-ownership The test-mcp test:unit command registers this export with node:test using a plugin-free project. Authored OpenAPI input, an injected in-process executor and direct handlers exercise portable adapter behavior; no native producer or transport connection is required.
+ */
+export const test_mcp_http_controller_execute = async (): Promise<void> => {
+  const controller: IHttpLlmController = HttpLlm.controller({
+    name: "calculator",
+    document: CalculatorApi.document(),
+    connection: { host: "http://localhost:0" },
+    execute: async (props) => {
+      const { body } = props.arguments as { body: { x: number; y: number } };
+      return {
+        status: 200,
+        headers: {},
+        body: { value: body.x + body.y },
+      };
+    },
+  });
+  const server: McpServer = createMcpServer(controller);
+
+  const rawServer: Server = server.server;
+  const requestHandlers: Map<string, Function> = (rawServer as any)
+    ._requestHandlers;
+
+  const listHandler: Function = requestHandlers.get("tools/list")!;
+  const listed: { tools: Tool[] } = await listHandler(
+    { method: "tools/list", params: {} },
+    { signal: new AbortController().signal },
+  );
+  TestEquality.equals(
+    "every converted operation should be listed",
+    listed.tools.map((tool: Tool) => tool.name),
+    controller.application.functions.map((func) => func.name),
+  );
+  TestValidator.predicate(
+    "the operation should advertise its response outputSchema",
+    listed.tools[0]!.outputSchema !== undefined,
+  );
+
+  const callHandler: Function = requestHandlers.get("tools/call")!;
+  const result: CallToolResult = await callHandler(
+    {
+      method: "tools/call",
+      params: {
+        name: controller.application.functions[0]!.name,
+        arguments: { body: { x: 10, y: 5 } },
+      },
+    },
+    { signal: new AbortController().signal },
+  );
+  TestValidator.predicate(
+    "http tool call should not be an error",
+    result.isError !== true,
+  );
+  TestEquality.equals(
+    "response body should arrive as structuredContent",
+    result.structuredContent,
+    { value: 15 },
+  );
+  TestEquality.equals(
+    "content should stay empty without the opt-in text fallback",
+    result.content,
+    [],
+  );
+};

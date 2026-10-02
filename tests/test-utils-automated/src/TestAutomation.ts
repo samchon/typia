@@ -1,11 +1,31 @@
-import { TestStructureSelector } from "@typia/oracle/structure-selector";
 import * as template from "@typia/template";
+import { TestStructureSelector } from "@typia/template/structure-selector";
 import { dedent } from "@typia/utils";
 import fs from "fs";
 
 import { TestGlobal } from "./TestGlobal";
 
+/**
+ * Owns generation of the ordinary and surplus-member OpenAPI schema matrices.
+ *
+ * Source discovery, suite enrollment and both declaration writers stay
+ * together; generated callbacks supply the native schema boundary to reusable
+ * helpers.
+ *
+ * @evidence contracts/common.md#principled-implementation generate completes both validate and validateEquals populations from getStructures before their runner starts a worker. Private writers retain each fixture's native json.schema binding and existing helper; copied schema-specific enrollment preserves the four recursive arrays without mutating template declarations.
+ * @evidence contracts/common.md#clear-and-simple-design One namespace groups discovery policy and two writers. Filesystem ownership belongs to generate, eligibility to getStructures and its pure selector, and behavior assertions to the supplied helper owners.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Generation does not compute expected validation reports or replace native callbacks. The existing HELD_OUT and specialized-fixture restrictions remain visible limitations; this acknowledgment does not certify exhaustive product schema coverage.
+ * @evidence contracts/common.md#meaningful-documentation The namespace introduces the two matrices, getStructures records enrollment limitations and generated comments distinguish native producer assertions from portable helper policy.
+ */
 export namespace TestAutomation {
+  /**
+   * Regenerates both schema-validation feature directories before execution.
+   *
+   * @evidence contracts/common.md#principled-implementation The function removes the prior features tree, creates both family directories and awaits every selected ordinary and equality file write. Rejections propagate rather than allowing stale partial generation to be treated as successful preparation.
+   * @evidence contracts/common.md#clear-and-simple-design Directory initialization precedes two sequential selected-fixture loops; private writers own declaration text. No worker or assertion runs during generation.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The real selected populations and native bindings are materialized, without cached verdicts or handwritten schema substitutions. Root paths come from TestGlobal and deletion is restricted to the generated features locations.
+   * @evidence contracts/common.md#meaningful-documentation The native introduction states replacement and preparation ordering; the namespace and selector comments expose the exact selection responsibilities and limitations.
+   */
   export const generate = async (): Promise<void> => {
     const directories: string[] = [
       `${TestGlobal.ROOT}/src/features`,
@@ -200,7 +220,7 @@ export namespace TestAutomation {
    *
    * @evidence contracts/common.md#principled-implementation Directory basenames bind to the actual template exports through TestStructureSelector. Own JSONABLE and schema/native equality flags decide admitted candidates independently of TypeScript syntax. The existing suite-specific held-out and Comment/ToJson/custom-tag restrictions remain an unresolved selection limitation, not a declaration of complete schema coverage.
    * @evidence contracts/common.md#clear-and-simple-design This wrapper owns one directory read and existing suite candidate restrictions; the shared pure selector owns export identity and eligibility precedence. It neither executes fixture generators nor duplicates the selector's flag rules.
-   * @evidence contracts/common.md#prohibited-implementation-shortcuts No raw source substring or special-case override for the four typed-false fixtures remains. Their explicit SCHEMA_EQUALS describes the schema assertion population. The legacy name-based HELD_OUT and specialized-fixture restrictions are retained visibly for separate consequence verification; this answer does not certify those exclusions as a complete or principled final policy.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No raw source substring decides eligibility. The suite declares SCHEMA_EQUALS on copied metadata for its four existing recursive-array cases, preserving their schema-only assertions without changing the master template fixtures or native ADDABLE policy. The legacy name-based HELD_OUT and specialized-fixture restrictions are retained visibly for separate consequence verification; this answer does not certify those exclusions as a complete or principled final policy.
    * @evidence contracts/common.md#meaningful-documentation The comment explains discovery, the two equality populations and source independence. The retained held-out reasons and acknowledgment identify remaining selection limitations rather than attributing them to the repaired source scan.
    */
   export const getStructures = async (equals: boolean): Promise<string[]> => {
@@ -214,10 +234,29 @@ export namespace TestAutomation {
           !file.startsWith("Comment") &&
           !file.startsWith("ToJson"),
       ),
-      declarations: template as unknown as Record<
-        string,
-        TestStructureSelector.IStructure
-      >,
+      // These four existing schema cases are distinct from native equality:
+      // the nullable/required cases pin clean acceptance; the union cases also
+      // pin nested surplus paths. Keep their enrollment in this suite rather
+      // than changing the shared master fixture's native ADDABLE policy.
+      declarations: {
+        ...template,
+        ArrayRepeatedNullable: {
+          ...template.ArrayRepeatedNullable,
+          SCHEMA_EQUALS: true,
+        },
+        ArrayRepeatedRequired: {
+          ...template.ArrayRepeatedRequired,
+          SCHEMA_EQUALS: true,
+        },
+        ArrayRepeatedUnion: {
+          ...template.ArrayRepeatedUnion,
+          SCHEMA_EQUALS: true,
+        },
+        ArrayRepeatedUnionWithTuple: {
+          ...template.ArrayRepeatedUnionWithTuple,
+          SCHEMA_EQUALS: true,
+        },
+      } as unknown as Record<string, TestStructureSelector.IStructure>,
       equals,
     }).filter((name) => !Object.hasOwn(HELD_OUT, name));
   };

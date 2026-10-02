@@ -32,12 +32,12 @@ func TestMetadataCollectionGenericArgumentDot(t *testing.T) {
   // 1. AND 2. THE RULE
   expected := map[string]string{
     // a real namespace qualification is the whole point of the cascade
-    "Merged.Child":      "Merged.Child",
-    "A.B.C":             "A.B.C",
-    "Plain":             "Plain",
-    "__type":            "__type",
-    "_":                 "_",
-    "RecursiveA_x2F_B":  "RecursiveA_x2F_B",
+    "Merged.Child":     "Merged.Child",
+    "A.B.C":            "A.B.C",
+    "Plain":            "Plain",
+    "__type":           "__type",
+    "_":                "_",
+    "RecursiveA_x2F_B": "RecursiveA_x2F_B",
     // a flattened type argument is not this type's namespace boundary
     "Gen<Ns.Inner>":     "GenNs-Inner",
     "IPage<IShop.ISum>": "IPageIShop-ISum",
@@ -45,9 +45,9 @@ func TestMetadataCollectionGenericArgumentDot(t *testing.T) {
     "Gen<A.B, C.D>":     "GenA-BC-D",
     "Gen<Gen<A.B>>":     "GenGenA-B",
     // nor is a flattened union member's
-    "Array<A.B | C.D>":  "ArrayA-BC-D",
+    "Array<A.B | C.D>": "ArrayA-BC-D",
     // no dot, no change
-    "Gen<Plain>":        "GenPlain",
+    "Gen<Plain>": "GenPlain",
   }
   for input, want := range expected {
     if actual := MetadataCollection_replaceOpenApi(input); actual != want {

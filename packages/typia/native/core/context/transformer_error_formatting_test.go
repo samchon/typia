@@ -4,10 +4,10 @@
 package context
 
 import (
-	"strings"
-	"testing"
+  "strings"
+  "testing"
 
-	schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestTransformerErrorFormatting covers metadata error rendering.
@@ -27,79 +27,79 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Direct errors, factory errors, unmarshalable values and path segments each flip a formatting branch.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the formatter on constructed errors with no checker, filesystem fixture or process.
 func TestTransformerErrorFormatting(t *testing.T) {
-	err := NewTransformerError(TransformerError_IProps{
-		Code:    "typia.test",
-		Message: "message",
-	})
-	if err.Error() != "message" {
-		t.Fatalf("direct error message mismatch: %s", err.Error())
-	}
+  err := NewTransformerError(TransformerError_IProps{
+    Code:    "typia.test",
+    Message: "message",
+  })
+  if err.Error() != "message" {
+    t.Fatalf("direct error message mismatch: %s", err.Error())
+  }
 
-	object := schemametadata.MetadataObjectType{Name: "IObject"}
-	formatted := TransformerError_from(struct {
-		Code   string
-		Errors []TransformerError_MetadataFactory_IError
-	}{
-		Code: "typia.fixture",
-		Errors: []TransformerError_MetadataFactory_IError{
-			{
-				Name: "string",
-				Explore: TransformerError_MetadataFactory_IExplore{
-					Object:   &object,
-					Property: "validName",
-				},
-				Messages: []string{"valid property"},
-			},
-			{
-				Name: "number",
-				Explore: TransformerError_MetadataFactory_IExplore{
-					Object:   &object,
-					Property: "invalid-name",
-				},
-				Messages: []string{"quoted property"},
-			},
-			{
-				Name: "dynamic",
-				Explore: TransformerError_MetadataFactory_IExplore{
-					Object:   &object,
-					Property: map[string]any{"key": true},
-				},
-				Messages: []string{"dynamic key"},
-			},
-			{
-				Name: "parameter",
-				Explore: TransformerError_MetadataFactory_IExplore{
-					Parameter: map[string]any{"index": 0},
-				},
-				Messages: []string{"parameter message"},
-			},
-			{
-				Name: "output",
-				Explore: TransformerError_MetadataFactory_IExplore{
-					Output: true,
-				},
-				Messages: []string{"return message"},
-			},
-		},
-	})
-	text := formatted.Error()
-	for _, part := range []string{
-		"IObject.validName: string",
-		"IObject[\"invalid-name\"]: number",
-		"IObject[key]: dynamic",
-		"(parameter: {\"index\":0})",
-		"(return type)",
-	} {
-		if !strings.Contains(text, part) {
-			t.Fatalf("formatted transformer error missing %q:\n%s", part, text)
-		}
-	}
-	if transformerError_json(func() {}) != "null" {
-		t.Fatal("unmarshalable values should render as null")
-	}
-	for _, name := range []string{"", "1bad", "bad-name"} {
-		if transformerError_variable(name) {
-			t.Fatalf("%q should not be a variable path segment", name)
-		}
-	}
+  object := schemametadata.MetadataObjectType{Name: "IObject"}
+  formatted := TransformerError_from(struct {
+    Code   string
+    Errors []TransformerError_MetadataFactory_IError
+  }{
+    Code: "typia.fixture",
+    Errors: []TransformerError_MetadataFactory_IError{
+      {
+        Name: "string",
+        Explore: TransformerError_MetadataFactory_IExplore{
+          Object:   &object,
+          Property: "validName",
+        },
+        Messages: []string{"valid property"},
+      },
+      {
+        Name: "number",
+        Explore: TransformerError_MetadataFactory_IExplore{
+          Object:   &object,
+          Property: "invalid-name",
+        },
+        Messages: []string{"quoted property"},
+      },
+      {
+        Name: "dynamic",
+        Explore: TransformerError_MetadataFactory_IExplore{
+          Object:   &object,
+          Property: map[string]any{"key": true},
+        },
+        Messages: []string{"dynamic key"},
+      },
+      {
+        Name: "parameter",
+        Explore: TransformerError_MetadataFactory_IExplore{
+          Parameter: map[string]any{"index": 0},
+        },
+        Messages: []string{"parameter message"},
+      },
+      {
+        Name: "output",
+        Explore: TransformerError_MetadataFactory_IExplore{
+          Output: true,
+        },
+        Messages: []string{"return message"},
+      },
+    },
+  })
+  text := formatted.Error()
+  for _, part := range []string{
+    "IObject.validName: string",
+    "IObject[\"invalid-name\"]: number",
+    "IObject[key]: dynamic",
+    "(parameter: {\"index\":0})",
+    "(return type)",
+  } {
+    if !strings.Contains(text, part) {
+      t.Fatalf("formatted transformer error missing %q:\n%s", part, text)
+    }
+  }
+  if transformerError_json(func() {}) != "null" {
+    t.Fatal("unmarshalable values should render as null")
+  }
+  for _, name := range []string{"", "1bad", "bad-name"} {
+    if transformerError_variable(name) {
+      t.Fatalf("%q should not be a variable path segment", name)
+    }
+  }
 }

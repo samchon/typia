@@ -45,12 +45,6 @@ export namespace ArrayRepeatedUnionWithTuple {
   }
 
   export const ADDABLE: boolean = false;
-
-  /**
-   * Keeps schema surplus-member assertions over the closed object nodes in
-   * arrays and tuples.
-   */
-  export const SCHEMA_EQUALS = true;
   export const SPOILERS: Spoiler<ArrayRepeatedUnionWithTuple>[] = [
     (input) => {
       (input as any)[0] = undefined!;

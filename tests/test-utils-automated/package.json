@@ -5,7 +5,6 @@
   "description": "Automated test features of openapi.",
   "scripts": {
     "generate": "ttsx --project tsconfig.generate.json src/generate.ts",
-    "prestart": "ttsx src/regressions/test_process_fatal_events.ts",
     "start": "ttsx src/index.ts",
     "evidence": "evidence"
   },
@@ -13,10 +12,7 @@
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
-  "keywords": [
-    "typia",
-    "test"
-  ],
+  "keywords": ["typia", "test"],
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {
@@ -29,7 +25,6 @@
     "ttsc": "catalog:typescript"
   },
   "dependencies": {
-    "@typia/oracle": "workspace:^",
     "@nestia/e2e": "catalog:utils",
     "@typia/interface": "workspace:^",
     "@typia/template": "workspace:^",

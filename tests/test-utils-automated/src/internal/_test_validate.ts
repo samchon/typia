@@ -1,1 +1,1 @@
-export { _test_validate } from "@typia/oracle/openapi-validation";
+export { _test_validate } from "@typia/template/openapi-validation";

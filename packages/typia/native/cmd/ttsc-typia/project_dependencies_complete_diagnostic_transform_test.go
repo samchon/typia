@@ -25,6 +25,11 @@ import (
 //  3. Assert the diagnostic names `rejected.ts`, so the fixture failed for the
 //     reason the test intends.
 //  4. Assert `control.ts` is declared complete and `rejected.ts` is not.
+//
+// @evidence contracts/testing.md#behavioral-verification A rejected call produces status 3 and a diagnostic owned by rejected.ts; the clean source remains complete and rejected.ts is withheld.
+// @evidence contracts/testing.md#independent-expectations A failed lowering cannot promise a bounded successful dependency set, while a different successful file need not lose its own claim.
+// @evidence contracts/testing.md#distinguishing-cases One project contains both a clean and a rejected call, pinning per-file failure isolation.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCompleteDiagnosticTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCompleteDiagnosticTransform(t *testing.T) {
   project := projectDependenciesCompleteDiagnosticProject(t)
   out, _, code := ttscTypiaTestCapture(func() int {

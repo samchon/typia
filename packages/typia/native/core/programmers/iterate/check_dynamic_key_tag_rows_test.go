@@ -4,9 +4,9 @@
 package iterate
 
 import (
-	"testing"
+  "testing"
 
-	nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestCheckDynamicKeyTagRows filters fully validated tag rows.
@@ -25,27 +25,27 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Empty, valid and partial rows and the pure-string key cover accepted and rejected rows.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls the helper on constructed rows with no checker, filesystem fixture or process.
 func TestCheckDynamicKeyTagRows(t *testing.T) {
-	rows := [][]nativemetadata.IMetadataTypeTag{
-		{},
-		{{Name: "MinLength", Validate: "input.length >= 1"}},
-		{{Name: "Format"}, {Name: "Pattern", Validate: "pattern.test(input)"}},
-	}
-	filtered := check_dynamic_key_fully_validated_tag_rows(rows)
-	if len(filtered) != 2 {
-		t.Fatalf("expected two fully validated rows, got %#v", filtered)
-	}
+  rows := [][]nativemetadata.IMetadataTypeTag{
+    {},
+    {{Name: "MinLength", Validate: "input.length >= 1"}},
+    {{Name: "Format"}, {Name: "Pattern", Validate: "pattern.test(input)"}},
+  }
+  filtered := check_dynamic_key_fully_validated_tag_rows(rows)
+  if len(filtered) != 2 {
+    t.Fatalf("expected two fully validated rows, got %#v", filtered)
+  }
 
-	meta := nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
-		Atomics: []*nativemetadata.MetadataAtomic{
-			nativemetadata.MetadataAtomic_create(nativemetadata.MetadataAtomic{
-				Type: "string",
-				Tags: [][]nativemetadata.IMetadataTypeTag{{
-					{Name: "Format"},
-				}},
-			}),
-		},
-	})
-	if !check_dynamic_key_has_pure_string(meta) {
-		t.Fatal("string atomic with non-validating tags should be treated as pure string")
-	}
+  meta := nativemetadata.MetadataSchema_create(nativemetadata.MetadataSchema{
+    Atomics: []*nativemetadata.MetadataAtomic{
+      nativemetadata.MetadataAtomic_create(nativemetadata.MetadataAtomic{
+        Type: "string",
+        Tags: [][]nativemetadata.IMetadataTypeTag{{
+          {Name: "Format"},
+        }},
+      }),
+    },
+  })
+  if !check_dynamic_key_has_pure_string(meta) {
+    t.Fatal("string atomic with non-validating tags should be treated as pure string")
+  }
 }

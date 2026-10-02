@@ -2,15 +2,28 @@
   "severity": "error",
   "claims": [
     {
-      "name": "authored TypeScript test declarations",
+      "name": "native utility and schema-producer boundaries",
       "type": "typescript",
       "files": [
-        "src/**/*.ts",
-        "!src/internal/**",
-        "!src/structures/**",
-        "!src/controllers/**",
-        "src/internal/_test_*.ts",
-        "!src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
+        "src/features/**/*.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/testing.md",
+          "contracts/e2e.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable utility unit cases",
+      "type": "typescript",
+      "files": [
+        "src/unit/features/**/*.ts"
       ],
       "symbol": "function",
       "reference": {
@@ -24,18 +37,54 @@
       }
     },
     {
-      "name": "authored native boundaries",
+      "name": "maintained runner helpers",
       "type": "typescript",
       "files": [
-        "src/features/llm/coerce/test_llm_coerce_json_stringify_overlapped.ts"
+        "src/TestGlobal.ts"
       ],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
         "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
+          "contracts/common.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable declaration and inversion assertion helpers",
+      "type": "typescript",
+      "files": [
+        "src/unit/internal/**/*.ts",
+        "src/internal/_test_llm_invert.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/testing.md"
+        ],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "portable JSON fixture discovery",
+      "type": "typescript",
+      "files": [
+        "src/internal/_readJsonFixturePaths.ts"
+      ],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": [
+          "contracts/common.md",
+          "contracts/portability.md"
         ],
         "symbol": "h2",
         "checklist": true

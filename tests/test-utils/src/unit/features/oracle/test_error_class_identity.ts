@@ -1,4 +1,4 @@
-import { isErrorClass } from "@typia/oracle/error-class";
+import { isErrorClass } from "@typia/template/error-class";
 import assert from "node:assert/strict";
 import vm from "node:vm";
 

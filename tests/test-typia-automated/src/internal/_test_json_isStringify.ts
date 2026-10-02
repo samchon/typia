@@ -1,5 +1,5 @@
-import { prepareStringify } from "@typia/oracle/stringify";
 import { TestStructure } from "@typia/template";
+import { prepareStringify } from "@typia/template/stringify";
 
 /**
  * Verifies a native typia.json.isStringify callback serializes valid input and
@@ -12,10 +12,14 @@ import { TestStructure } from "@typia/template";
  *    require non-null text matching the reference.
  * 2. For each spoiler, mutate a fresh fixture and require null.
  *
+ * @evidence contracts/common.md#principled-implementation The clean text is judged by the prepared stringify check and a null result fails it; each spoiled fixture must produce null, so an accepting guard fails. The reference is JSON.stringify of the clean fixture before the callback, and the spoilers are authored beside the fixture declarations as independent invalid inputs.
+ * @evidence contracts/common.md#clear-and-simple-design prepareStringify owns the pre-call platform reference and source snapshots; this wrapper owns operation-specific clean result adaptation and each separate fixture spoiler scenario.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Actual callbacks and authored spoilers execute unchanged; no text-presence or fixture-name shortcut replaces serialization or rejection. Result/error shape checks retain their native correlated-oracle limitation where present.
+ * @evidence contracts/common.md#meaningful-documentation The native scenario explains clean serialization and the operation-specific invalid result; the answers identify the shared portable owner and actual committed ObjectSimple composite.
  * @evidence contracts/testing.md#behavioral-verification The clean text is judged by the prepared stringify check and a null result fails it; each spoiled fixture must produce null, so an accepting guard fails.
  * @evidence contracts/testing.md#independent-expectations The reference is JSON.stringify of the clean fixture before the callback, and the spoilers are authored beside the fixture declarations as independent invalid inputs.
  * @evidence contracts/testing.md#distinguishing-cases Positive clean fixture against one negative per authored spoiler; spoilers that stringify to null for another reason are not distinguished.
- * @evidence contracts/testing.md#execution-ownership Executes through the generated test_json_isStringify cases of test-typia-automated. The generated cases in this workspace call the helper from TestServant workers with native-transformed callbacks, so the assembly with the native producer is this suite's boundary, while the expectation policy executes in the plugin-free oracle unit.
+ * @evidence contracts/testing.md#execution-ownership Executes through the committed test_json_isStringify_ObjectSimple composite of test-typia-automated. Native cases in this workspace call the helper from the shared TestServant worker with native-transformed callbacks, so the assembly with the native producer is this suite's boundary, while the expectation policy executes in the plugin-free test-utils unit population.
  */
 export const _test_json_isStringify =
   (name: string) =>

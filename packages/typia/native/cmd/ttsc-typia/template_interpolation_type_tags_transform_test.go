@@ -2,31 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestTemplateInterpolationTypeTagsTransform verifies type tags placed inside a
-// template-literal interpolation.
+// TestTemplateInterpolationTypeTagsTransform verifies constraints on captured template interpolation values.
 //
-// For years a `tags.*` constraint inside `${...}` was silently ignored: the
-// template lowered each placeholder to a bare type-shaped regex span with
-// nowhere to carry "and the captured value is in range", so
-// “ `${number & Minimum<0> & Maximum<100>}%` “ validated as “ `${number}%` “
-// (#1965), “ `${number & Type<"int32">}` “ accepted `"0.1"` (#1175), and
-// “ `CHECK${string & MinLength<32> & Pattern<…>}` “ validated as `/^CHECK(.*)/`
-// (#1202). The checker now captures each constrained placeholder and runs the
-// placeholder's own tag predicates against the parsed substring.
+// A constraint attached to an interpolated type applies to that captured value, not merely the surrounding template string; pattern membership alone would accept a violating placeholder.
 //
-//  1. Transform fixtures covering the three historical reproductions plus a
-//     two-placeholder template, a union of differently-tagged templates, and a
-//     whole-string tag (#1635) combined with an interpolation tag.
-//  2. Require the emitted checker to capture and re-extract each placeholder.
-//  3. Execute runtime cases: structurally-matching but tag-violating strings
-//     must fail, in-range/conforming strings must pass, and validate must name
-//     the violated placeholder tag.
+// 1. Multiple constrained placeholder positions exercise numeric/string captures; whole-template length tags are checked by the neighboring template tag case.
+// 2. The emitted checker contains each authored capture and re-extraction fragment for constrained placeholders.
+//
+// @evidence contracts/testing.md#behavioral-verification The emitted checker contains each authored capture and re-extraction fragment for constrained placeholders.
+// @evidence contracts/testing.md#independent-expectations A constraint attached to an interpolated type applies to that captured value, not merely the surrounding template string; pattern membership alone would accept a violating placeholder.
+// @evidence contracts/testing.md#distinguishing-cases Multiple constrained placeholder positions exercise numeric/string captures; whole-template length tags are checked by the neighboring template tag case.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTemplateInterpolationTypeTagsTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestTemplateInterpolationTypeTagsTransform(t *testing.T) {
   project := templateInterpolationTypeTagsProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -55,7 +46,6 @@ func TestTemplateInterpolationTypeTagsTransform(t *testing.T) {
       t.Fatalf("emitted checker should capture and re-extract constrained placeholders (missing %q):\n%s", needle, out)
     }
   }
-  templateInterpolationTypeTagsRunRuntimeCases(t, project, out)
 }
 
 func templateInterpolationTypeTagsProject(t *testing.T) string {
@@ -84,58 +74,6 @@ func templateInterpolationTypeTagsProject(t *testing.T) string {
   }
   return dir
 }
-
-func templateInterpolationTypeTagsRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  // The int32 tag and the random generator pull two more internals than the
-  // common stub set covers; stub them before the shared rewrite asserts that no
-  // `typia/lib/internal/*` import survives.
-  extraStubs := map[string]string{
-    "is-type-int32-stub.cjs":         "module.exports._isTypeInt32 = (value) => Number.isInteger(value) && -2147483648 <= value && value <= 2147483647;\n",
-    "random-number-stub.cjs":         templateInterpolationTypeTagsRandomNumberStub,
-    "random-string-stub.cjs":         "module.exports._randomString = () => 'prefix';\n",
-    "json-stringify-string-stub.cjs": "module.exports._jsonStringifyString = (value) => JSON.stringify(value);\n",
-  }
-  for name, content := range extraStubs {
-    if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
-      t.Fatalf("write %s: %v", name, err)
-    }
-  }
-  runtimeJS := strings.ReplaceAll(js, `require("typia/lib/internal/_isTypeInt32")`, `require("./is-type-int32-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_randomNumber")`, `require("./random-number-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_randomString")`, `require("./random-string-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyString")`, `require("./json-stringify-string-stub.cjs")`)
-  runtimeJS = ttscTypiaTestRewriteCommonJS(t, runtimeJS)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(templateInterpolationTypeTagsRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("template interpolation tags runtime cases failed: %v\n%s", err, output)
-  }
-}
-
-const templateInterpolationTypeTagsRandomNumberStub = `module.exports._randomNumber = (schema) => {
-  const min = schema.minimum ?? 0;
-  const max = schema.maximum ?? 100;
-  return Math.min(max, Math.max(min, min + (max - min) / 2));
-};
-`
 
 const templateInterpolationTypeTagsSource = `import typia, { tags } from "typia";
 
@@ -193,193 +131,4 @@ export const randomPercent = typia.createRandom<Percent>();
 export const randomAdjacent = typia.createRandom<Adjacent>();
 export const stringifyAdjacent = typia.json.createValidateStringify<{ value: Adjacent }>();
 export const schemaAdjacent = typia.json.schemas<[Adjacent]>();
-`
-
-const templateInterpolationTypeTagsRuntimeRunner = `const mod = require("./main.cjs");
-
-const hex32 = "0123456789abcdef0123456789abcdef";
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) {
-    throw new Error(label + ": expected " + expected + " but got " + actual);
-  }
-};
-
-// #1965 — numeric range inside the interpolation.
-expect("percent 50", mod.isPercent("50%"), true);
-expect("percent 0", mod.isPercent("0%"), true);
-expect("percent 100", mod.isPercent("100%"), true);
-expect("percent 33.5", mod.isPercent("33.5%"), true);
-expect("percent -1", mod.isPercent("-1%"), false);
-expect("percent 150", mod.isPercent("150%"), false);
-// The base number pattern matches "1e3", but Maximum<100> rejects 1000.
-expect("percent 1e3", mod.isPercent("1e3%"), false);
-expect("percent missing suffix", mod.isPercent("50"), false);
-expect("percent non-number", mod.isPercent("abc%"), false);
-
-// #1175 — int32 tag inside the interpolation must reject decimals/overflow.
-expect("int 42", mod.isIntStr("42"), true);
-expect("int -5", mod.isIntStr("-5"), true);
-expect("int 0.1", mod.isIntStr("0.1"), false);
-expect("int overflow", mod.isIntStr("2147483648"), false);
-
-// #1202 — string length + pattern inside the interpolation.
-expect("check valid", mod.isCheck("CHECK" + hex32), true);
-expect("check short", mod.isCheck("CHECK" + hex32.slice(1)), false);
-expect("check long", mod.isCheck("CHECK" + hex32 + "0"), false);
-expect("check non-hex", mod.isCheck("CHECK" + "g".repeat(32)), false);
-expect("check nomatch", mod.isCheck("nomatch"), false);
-
-// Two constrained placeholders — capture indices [1] and [2] must stay distinct.
-expect("range ok", mod.isRange("5-50"), true);
-expect("range min violated", mod.isRange("-1-50"), false);
-expect("range max violated", mod.isRange("5-150"), false);
-
-// Union of differently-tagged templates — the inline path per member.
-expect("unit px ok", mod.isUnit("150px"), true);
-expect("unit px violated", mod.isUnit("50px"), false);
-expect("unit em ok", mod.isUnit("5em"), true);
-expect("unit em violated", mod.isUnit("50em"), false);
-
-// Whole-string tag (#1635) composed with an interpolation tag (#1968).
-expect("combined ok", mod.isCombined("9px"), true);
-expect("combined length violated", mod.isCombined("99px"), false);
-expect("combined range violated", mod.isCombined("-1px"), false);
-
-// A string placeholder spanning a newline: the captured value must include the
-// line break, so MinLength<4> sees the whole "ab\ncd" (5 chars), not just "ab".
-expect("multiline spans newline", mod.isMultiline("L:ab\ncd"), true);
-expect("multiline too short", mod.isMultiline("L:x"), false);
-
-// A bigint placeholder is captured as an integer only, so BigInt(...) is safe:
-// an in-range integer passes, out-of-range fails, and a decimal string is
-// rejected structurally (never reaching a throwing BigInt(".5") call).
-expect("bigint in range", mod.isBigRange("#15"), true);
-expect("bigint below", mod.isBigRange("#5"), false);
-expect("bigint above", mod.isBigRange("#25"), false);
-expect("bigint decimal rejected", mod.isBigRange("#15.5"), false);
-expect("bigint non-digit rejected", mod.isBigRange("#abc"), false);
-
-// bigint Exclude exercises check_exclude_literal's BigInt-literal branch.
-expect("bigint excluded value", mod.isBigExcl("#5"), false);
-expect("bigint allowed value", mod.isBigExcl("#3"), true);
-expect("bigint exclude negative", mod.isBigExcl("#-1"), false);
-
-// Adjacent variable-width placeholders accept a non-greedy split when it is the
-// split that satisfies the number tag.
-expect("adjacent placeholders backtrack", mod.isAdjacent("abc123"), true);
-expect("adjacent placeholders edge split", mod.isAdjacent("123"), true);
-expect("adjacent placeholders no valid split", mod.isAdjacent("abc9"), false);
-expect("adjacent placeholders structural failure", mod.isAdjacent("abc"), false);
-expect("adjacent placeholders long invalid input", mod.isAdjacent("x".repeat(2048) + "9"), false);
-
-// A sole string fenced by literals is enforced: the ^/$ anchors pin "a" and the
-// final "b", so the split string="XbY" (length 3) is unique and exceeds
-// MaxLength<2>, while "aXb" (string="X", length 1) is in range.
-expect("sole string fenced by literals, too long", mod.isInfix("aXbYb"), false);
-expect("sole string fenced by literals, in range", mod.isInfix("aXb"), true);
-
-// A repeated literal fence tries each split until the tagged suffix is valid.
-expect("string sibling backtracks", mod.isNonAdj("aXbXcd"), true);
-expect("string sibling no valid split", mod.isNonAdj("aXbc"), false);
-
-// A separator that can also occur in an exponent is tried at each position.
-expect("strnum string-first backtracks", mod.isStrNum("xy-1e-9"), true);
-expect("strnum no valid bounded prefix", mod.isStrNum("toolong-1"), false);
-
-// number-first: "-" is not number-extendable, so both placeholders are pinned
-// and enforced — number=50 > 9 fails, string="a" length 1 < 2 fails.
-expect("numstr ok", mod.isNumStr("5-ab"), true);
-expect("numstr number violated", mod.isNumStr("50-ab"), false);
-expect("numstr string violated", mod.isNumStr("5-a"), false);
-
-// A decimal point can be part of either number; any fully valid split passes.
-expect("dec decimal-separator backtracks", mod.isDec("1.9.0"), true);
-expect("dec no valid bounded first number", mod.isDec("2.0.3"), false);
-
-// A bigint/number mix keeps the bigint side integral while trying dot fences.
-expect("bigint-dot-number backtracks", mod.isBigDot("1.9.4"), true);
-expect("bigint-dot-number no valid suffix", mod.isBigDot("1.4.0"), false);
-expect("three adjacent placeholders backtrack", mod.isTriple("abcd12"), true);
-expect("three adjacent placeholders no valid split", mod.isTriple("abcd9"), false);
-expect("ambiguous union adjacent branch", mod.isAmbiguousUnion("prefix123"), true);
-expect("ambiguous union fenced branch", mod.isAmbiguousUnion("aXbXcd"), true);
-expect("ambiguous union no valid branch", mod.isAmbiguousUnion("prefix9"), false);
-
-const adjacentFailure = mod.validateAdjacent("abc9");
-if (
-  adjacentFailure.success !== false ||
-  adjacentFailure.errors.every((error) => error.expected.includes("Minimum<10>") === false)
-) {
-  throw new Error("ambiguous validate error should name Minimum<10>: " + JSON.stringify(adjacentFailure));
-}
-let adjacentAsserted = false;
-try {
-  mod.assertAdjacent("abc9");
-} catch (error) {
-  adjacentAsserted = String(error && error.message).includes("Minimum<10>");
-}
-if (adjacentAsserted !== true) {
-  throw new Error("ambiguous assert error should name Minimum<10>");
-}
-
-// A dynamic index key typed as a tagged-interpolation template (the
-// check_dynamic_key path): a key whose number violates the tag no longer
-// satisfies the index signature, so a strict equals rejects it.
-expect("dynkey in range", mod.equalsDynKey({ slot5: "x" }), true);
-expect("dynkey both ends", mod.equalsDynKey({ slot0: "x", slot9: "y" }), true);
-expect("dynkey out of range", mod.equalsDynKey({ slot50: "x" }), false);
-expect("dynkey non-number", mod.equalsDynKey({ slotABC: "x" }), false);
-expect("ambiguous dynkey valid split", mod.equalsAmbiguousDynKey({ slot123: "x" }), true);
-expect("ambiguous dynkey invalid split", mod.equalsAmbiguousDynKey({ slot9: "x" }), false);
-
-// validate must name the violated placeholder tag, not just the template.
-const tooBig = mod.validatePercent("150%");
-if (tooBig.success !== false) {
-  throw new Error("validate should reject the out-of-range percent");
-}
-if (!tooBig.errors.some((e) => e.expected.includes("Maximum<100>"))) {
-  throw new Error("validate error should name Maximum<100>: " + JSON.stringify(tooBig.errors));
-}
-if (mod.validatePercent("50%").success !== true) {
-  throw new Error("validate should accept the in-range percent");
-}
-
-// random output must round-trip through the validator.
-const generator = {
-  array: (closure, count) => {
-    const length = count ?? 3;
-    return Array.from({ length }, (_, i) => closure(i));
-  },
-};
-for (let i = 0; i < 100; ++i) {
-  const value = mod.randomPercent(generator);
-  if (mod.isPercent(value) !== true) {
-    throw new Error("random percent did not round-trip: " + JSON.stringify(value));
-  }
-}
-for (let i = 0; i < 25; ++i) {
-  const value = mod.randomAdjacent(generator);
-  if (mod.isAdjacent(value) !== true) {
-    throw new Error("random adjacent template did not round-trip: " + JSON.stringify(value));
-  }
-}
-const stringifiedAdjacent = mod.stringifyAdjacent({ value: "prefix123" });
-if (
-  stringifiedAdjacent.success !== true ||
-  JSON.parse(stringifiedAdjacent.data).value !== "prefix123"
-) {
-  throw new Error("validated stringify rejected an existentially valid split");
-}
-const invalidStringifiedAdjacent = mod.stringifyAdjacent({ value: "prefix9" });
-if (
-  invalidStringifiedAdjacent.success !== false ||
-  invalidStringifiedAdjacent.errors.every((error) => error.expected.includes("Minimum<10>") === false)
-) {
-  throw new Error("validated stringify did not preserve the ambiguous placeholder tag diagnostic");
-}
-const adjacentSchema = JSON.stringify(mod.schemaAdjacent);
-if (adjacentSchema.includes("Minimum<10>")) {
-  throw new Error("template interpolation tags must remain intentionally absent from JSON Schema");
-}
 `

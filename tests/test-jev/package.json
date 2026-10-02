@@ -4,8 +4,10 @@
   "version": "15.0.1",
   "description": "Test suite for @typia/jev package",
   "scripts": {
-    "start": "ttsx src/index.ts",
-    "evidence": "evidence"
+    "start": "pnpm run test:unit && pnpm run test:integration",
+    "evidence": "evidence",
+    "test:unit": "ttsx --no-plugins --project tsconfig.unit.json src/unit/index.ts",
+    "test:integration": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",

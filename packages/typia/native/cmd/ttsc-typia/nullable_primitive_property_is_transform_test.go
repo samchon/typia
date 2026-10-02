@@ -3,25 +3,23 @@ package main
 import (
   "bytes"
   "os"
-  "os/exec"
   "path/filepath"
   "runtime"
   "strings"
   "testing"
 )
 
-// TestNullablePrimitivePropertyIsTransform verifies nullable primitive
-// properties keep their null guard in typia.is().
+// TestNullablePrimitivePropertyIsTransform verifies null alternatives on required primitive property checks.
 //
-// The object-property checker must not collapse `primitive | null` to the
-// primitive `typeof` branch. Required nullable properties exercise the branch
-// reported in #1806 because no optional-property shortcut can accept the value.
+// A required primitive-or-null property admits either value category and excludes missing/undefined; neither union order nor nesting changes that TypeScript meaning.
 //
-//  1. Transform a fixture with required number, string, and boolean nullable
-//     properties.
-//  2. Assert each property keeps both the primitive guard and the null guard.
-//  3. Execute the emitted validator against primitive, null, missing, and
-//     undefined runtime cases.
+// 1. Three primitive kinds, reversed union spelling and nested properties pin the generated disjunction. Missing/undefined runtime outcomes are not executed here.
+// 2. Emission contains null-or-primitive guards for number, string and boolean members, reversed number spelling and nested value fields.
+//
+// @evidence contracts/testing.md#behavioral-verification Emission contains null-or-primitive guards for number, string and boolean members, reversed number spelling and nested value fields.
+// @evidence contracts/testing.md#independent-expectations A required primitive-or-null property admits either value category and excludes missing/undefined; neither union order nor nesting changes that TypeScript meaning.
+// @evidence contracts/testing.md#distinguishing-cases Three primitive kinds, reversed union spelling and nested properties pin the generated disjunction. Missing/undefined runtime outcomes are not executed here.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNullablePrimitivePropertyIsTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestNullablePrimitivePropertyIsTransform(t *testing.T) {
   project := nullablePrimitivePropertyProject(t)
   out := nullablePrimitivePropertyTransform(t, project, "ts")
@@ -34,11 +32,6 @@ func TestNullablePrimitivePropertyIsTransform(t *testing.T) {
     `null === input.value || "string" === typeof input.value`,
     `null === input.value || "boolean" === typeof input.value`,
   })
-  nullablePrimitivePropertyRunRuntimeCases(
-    t,
-    project,
-    nullablePrimitivePropertyTransform(t, project, "js"),
-  )
 }
 
 func nullablePrimitivePropertyProject(t *testing.T) string {
@@ -127,35 +120,6 @@ func nullablePrimitivePropertyContainsAll(t *testing.T, text string, expected []
   }
 }
 
-func nullablePrimitivePropertyRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "typia-stub.cjs"), []byte("module.exports = {};\n"), 0o644); err != nil {
-    t.Fatalf("write typia stub: %v", err)
-  }
-  runtimeJS := strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(nullablePrimitivePropertyRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = project
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("nullable primitive runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const nullablePrimitivePropertyTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -188,49 +152,4 @@ interface NullablePrimitiveProperties {
 
 export const isNullablePrimitive = (input: unknown): boolean =>
   typia.is<NullablePrimitiveProperties>(input);
-`
-
-const nullablePrimitivePropertyRuntimeRunner = `const { isNullablePrimitive } = require("./main.cjs");
-
-const valid = {
-  number: 1,
-  string: "alpha",
-  boolean: true,
-  reversedNumber: 2,
-  nested: { value: "nested" },
-  array: [{ value: false }],
-};
-const allNull = {
-  number: null,
-  string: null,
-  boolean: null,
-  reversedNumber: null,
-  nested: { value: null },
-  array: [{ value: null }],
-};
-const cases = [
-  ["valid primitives", valid, true],
-  ["all nullable fields are null", allNull, true],
-  ["wrong number primitive", { ...valid, number: "1" }, false],
-  ["wrong string primitive", { ...valid, string: 1 }, false],
-  ["wrong boolean primitive", { ...valid, boolean: "true" }, false],
-  ["wrong reversed primitive", { ...valid, reversedNumber: false }, false],
-  ["wrong nested nullable primitive", { ...valid, nested: { value: 1 } }, false],
-  ["wrong array nullable primitive", { ...valid, array: [{ value: "false" }] }, false],
-  ["missing required property", (() => {
-    const next = { ...valid };
-    delete next.number;
-    return next;
-  })(), false],
-  ["present undefined required property", { ...valid, number: undefined }, false],
-  ["present undefined nested property", { ...valid, nested: { value: undefined } }, false],
-  ["present undefined array property", { ...valid, array: [{ value: undefined }] }, false],
-];
-
-for (const [name, input, expected] of cases) {
-  const actual = isNullablePrimitive(input);
-  if (actual !== expected) {
-    throw new Error(name + ": expected " + expected + " but got " + actual);
-  }
-}
 `

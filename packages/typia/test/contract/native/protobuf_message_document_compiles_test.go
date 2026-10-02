@@ -20,10 +20,10 @@ import (
 // The substring assertions in the sibling suites cannot see this — a compiler
 // is the only oracle that can, so the document goes to one here.
 //
-// 1. Build objects covering required scalars, the all-optional boundary,
-//    nullable fields, arrays, maps, bytes, nested messages, and a `oneof`.
-// 2. Render each through the message programmer's document writer.
-// 3. Require a strict Protobuf compiler to accept every rendered document.
+//  1. Build objects covering required scalars, the all-optional boundary,
+//     nullable fields, arrays, maps, bytes, nested messages, and a `oneof`.
+//  2. Render each through the message programmer's document writer.
+//  3. Require a strict Protobuf compiler to accept every rendered document.
 //
 // @evidence contracts/testing.md#behavioral-verification Authored objects are rendered to a proto3 document and each document is compiled by a strict Protobuf compiler front end, so an illegal label fails compilation.
 // @evidence contracts/testing.md#independent-expectations A Protobuf compiler is the independent oracle for document legality; the authored metadata states each shape and no substring of the output decides acceptance.

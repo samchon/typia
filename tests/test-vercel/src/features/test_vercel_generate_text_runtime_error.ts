@@ -19,10 +19,14 @@ import { Calculator } from "../structures/Calculator";
  * 1. Generate the value from the types declared in this file.
  * 2. Assert the properties listed above.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (should have 1 tool call; should have 1 tool result; result should be failure; error should contain division by zero).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (should have 1 tool call; should have 1 tool result; result should be failure; error should contain division by zero) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-vercel start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_vercel_generate_text_runtime_error is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Runs AI SDK generateText with a mock divide10/0 call, verifies one call/result and success:false with Division by zero feedback.
+ * @evidence contracts/testing.md#independent-expectations The declared Calculator exception establishes the expected failure payload; real SDK orchestration must retain the adapter-returned failure rather than losing the result.
+ * @evidence contracts/testing.md#distinguishing-cases This covers a controller exception after valid argument parsing, whereas generate_text_validation_error rejects malformed arguments before execution.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_generate_text_runtime_error in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary The real AI SDK orchestration consumes the native-generated schema or tool callbacks through its supported injected mock-model protocol. This tests SDK assembly without an external provider or network.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each entry creates its own controller, seeds and mock model or callback counters. Awaited tool/SDK Promises expose failures to DynamicExecutor; this case opens no server, live-provider session or separate process.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_generate_text_runtime_error =
   async (): Promise<void> => {

@@ -1,4 +1,4 @@
-import { _test_is } from "@typia/oracle/predicate";
+import { _test_is } from "@typia/template/predicate";
 import assert from "node:assert/strict";
 
 /**

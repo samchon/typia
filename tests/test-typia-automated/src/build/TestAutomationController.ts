@@ -7,7 +7,30 @@ import { TestAutomationMetadata } from "./TestAutomationMetadata";
 import { TestAutomationTemplate } from "./TestAutomationTemplate";
 import { write_common } from "./writers/write_common";
 
+/**
+ * Owns fixture discovery, feature replacement and suite directory enrollment.
+ *
+ * The visitor receives completed families, including the authored composite
+ * directory. It may collect these locations before starting a shared worker.
+ *
+ * @evidence contracts/common.md#principled-implementation loadMetadata binds every structure filename to its exported declaration and rejects missing exports; generateFeatureSet applies each operation's declared capability flags before writing direct and factory bindings. writeScript inserts assertion error classes without separating the generated declaration from its contract comment.
+ * @evidence contracts/common.md#clear-and-simple-design Discovery, eligibility, rendering and visitation have private owners under this namespace. The visitor owns execution; generation neither starts a worker nor computes expected results.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Selection uses fixture capability flags and configured operations, not source-word scans. Existing Dynamic-name exclusion is limited to templates declaring dynamic false, currently inactive notation configuration; this controller does not certify that disabled families are covered.
+ * @evidence contracts/common.md#meaningful-documentation The namespace explains generation and visitor ownership; iterate documents destructive replacement, completion and failure ordering. Generated assertions retain their individual writer documentation.
+ */
 export namespace TestAutomationController {
+  /**
+   * Replaces generated features and visits every completed family in order.
+   *
+   * A rejected write or visit stops preparation; the caller must not execute a
+   * partially generated project as a successful matrix. Composites are
+   * retained.
+   *
+   * @evidence contracts/common.md#principled-implementation The entire generated tree is removed first, metadata is loaded once, and each configured direct/factory family is written before its visitor runs. createOnly avoids a direct half; creatable adds the factory half. Existing composites receive their own visit without regeneration.
+   * @evidence contracts/common.md#clear-and-simple-design One ordered orchestration delegates export binding, eligibility and rendering to private helpers. Awaited writes and visits expose failures to the caller, while the visitor permits generation-only preparation or collection for shared execution.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Every eligible structure retains its normal writer and declaration identity. No verdict, native output or expected diagnostic is cached in this controller; filesystem replacement is restricted to the generated feature tree.
+   * @evidence contracts/common.md#meaningful-documentation The comment states replacement, visitation ordering, partial-failure behavior and preservation of composites. The namespace explains which helpers own the nonobvious selection and assertion-import work.
+   */
   export const iterate = async (
     visit: (location: string) => Promise<void>,
   ): Promise<void> => {

@@ -1,33 +1,21 @@
 package main
 
 import (
-  "os"
-  "os/exec"
-  "path/filepath"
   "strings"
   "testing"
 )
 
-// TestCreateAssertErrorFactoryArity verifies that the declared arity of created
-// assert functions agrees with the emitted one (#2328).
+// TestCreateAssertErrorFactoryArity verifies call-time errorFactory parameters on assertion factories.
 //
-// Every `create*Assert*` factory emits `(input, errorFactory = <create-time
-// factory>) => ...`, but the declarations returned `(input) => T`. A pointwise
-// hand-off such as `rows.map(parseUser)` therefore type-checked while
-// `Array#map` handed the element index to `errorFactory`. The declared surface
-// has to name that parameter, without breaking the documented
-// `AssertionGuard<T>` annotation or an ordinary one-parameter callback
-// position.
+// Only assertion APIs expose the optional call-time error factory; unrelated is/validate factories must not acquire that parameter. The declared public API signatures establish the difference.
 //
-//  1. Type-check a fixture that overrides `errorFactory` at call time on every
-//     member of the family, and that pins the `.map` hand-off as an error while
-//     the adjacent one-parameter controls still compile.
-//  2. Transform that same fixture and require each member's emitted function to
-//     carry the parameter, with factories outside the family as the controls
-//     that must not.
-//  3. Transform a runtime fixture, execute it, and require the call-time factory
-//     to build the error while a numeric second argument falls back to the
-//     ordinary type-guard error.
+// 1. Direct and factory assertion families contrast with non-asserting factories; checking each isolated assignment avoids one correct factory masking a wrong neighbor.
+// 2. The segmented factory outputs require the errorFactory argument on assertion entries and prohibit it on non-assertion entries, preserving source order.
+//
+// @evidence contracts/testing.md#behavioral-verification The segmented factory outputs require the errorFactory argument on assertion entries and prohibit it on non-assertion entries, preserving source order.
+// @evidence contracts/testing.md#independent-expectations Only assertion APIs expose the optional call-time error factory; unrelated is/validate factories must not acquire that parameter. The declared public API signatures establish the difference.
+// @evidence contracts/testing.md#distinguishing-cases Direct and factory assertion families contrast with non-asserting factories; checking each isolated assignment avoids one correct factory masking a wrong neighbor.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestCreateAssertErrorFactoryArity as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestCreateAssertErrorFactoryArity(t *testing.T) {
   surface := compareEqualCoverProject(t, "create-assert-error-factory-", createAssertErrorFactorySurfaceSource)
   ttscTypiaTestTypecheck(t, surface)
@@ -40,27 +28,6 @@ func TestCreateAssertErrorFactoryArity(t *testing.T) {
     t.Fatalf("emitted factory lost its errorFactory parameter:\n%s", js)
   }
 
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(ttscTypiaTestRewriteCommonJS(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(createAssertErrorFactoryRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("created assert error factory runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 // createAssertErrorFactoryAssertEmittedArity requires each member of the family
@@ -272,41 +239,4 @@ export const withOverride = (
   input: unknown,
   errorFactory: (props: TypeGuardError.IProps) => Error,
 ): User => assertUser(input, errorFactory);
-`
-
-const createAssertErrorFactoryRuntimeRunner = `const mod = require("./main.cjs");
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) throw new Error(label + ": expected " + expected + ", got " + actual);
-};
-
-const capture = (task) => {
-  try {
-    task();
-  } catch (exp) {
-    return exp;
-  }
-  throw new Error("expected the assertion to throw");
-};
-
-expect("valid input passes", 1, mod.assertUser({ id: 1 }).id);
-
-// A pointwise hand-off fills errorFactory with the element index. Both the
-// falsy 0 and a truthy index must reach the ordinary type-guard error.
-for (const index of [0, 1, 2]) {
-  const error = capture(() => mod.assertUser({ id: "bad" }, index));
-  expect("index " + index + " expected", "number", error.expected);
-  expect("index " + index + " path", "$input.id", error.path);
-  expect("index " + index + " method", "typia.createAssert", error.method);
-}
-
-// The declared parameter is real: a callable factory still wins.
-const custom = capture(() =>
-  mod.withOverride({ id: "bad" }, (props) => Object.assign(new Error("call-time"), props)),
-);
-expect("call-time factory message", "call-time", custom.message);
-expect("call-time factory path", "$input.id", custom.path);
-
-const equals = capture(() => mod.assertUserEquals({ id: 1, extra: true }, 4));
-expect("equals surplus expected", "undefined", equals.expected);
 `

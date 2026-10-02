@@ -8,25 +8,17 @@ import (
   "testing"
 )
 
-// TestShadowedTypiaModuleDeclarationDiagnostic verifies a redeclared typia call
-// is reported instead of silently skipped (#2328).
+// TestShadowedTypiaModuleDeclarationDiagnostic checks the authored operation results described below.
 //
-// The transformer attributes a call by the file its resolved signature is
-// declared in, which is what stops another package from claiming typia's
-// transform. A project-local `declare module "typia"` moves that declaration out
-// of typia's own files, so the identity test misses and the call used to pass
-// through untransformed with no diagnostic — `ttsc.transform()` returned
-// `type: "success"` with an empty diagnostic list, and the failure surfaced only
-// at run time as `no transform has been configured`. The identity test stays;
-// the silence does not.
+// A project-local module redeclaration cannot claim the installed typia declaration identity or silently invoke its untransformed stub. Only actual registered operations require this diagnostic.
 //
-//  1. Build a project with typia installed and an ambient `declare module
-//     "typia"` that redeclares `createAssert`, `json.createAssertParse`, and a
-//     `json.createAssert` that names no typia operation at all.
-//  2. Run the transform over the project.
-//  3. Require one diagnostic for each of the two real operations, at its call
-//     site, naming the operation as written and the shadowing file — and none
-//     for the third, whose spelling puts a root operation in a namespace.
+// 1. Root and JSON namespace operations contrast with a nonexistent namespace spelling; duplicate diagnostic codes and foreign source positions are rejected.
+// 2. Exactly two real shadowed operations report status three with source call positions, full operation names and the shadowing declaration; the fake namespace operation has no diagnostic.
+//
+// @evidence contracts/testing.md#behavioral-verification Exactly two real shadowed operations report status three with source call positions, full operation names and the shadowing declaration; the fake namespace operation has no diagnostic.
+// @evidence contracts/testing.md#independent-expectations A project-local module redeclaration cannot claim the installed typia declaration identity or silently invoke its untransformed stub. Only actual registered operations require this diagnostic.
+// @evidence contracts/testing.md#distinguishing-cases Root and JSON namespace operations contrast with a nonexistent namespace spelling; duplicate diagnostic codes and foreign source positions are rejected.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestShadowedTypiaModuleDeclarationDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestShadowedTypiaModuleDeclarationDiagnostic(t *testing.T) {
   project := shadowedTypiaModuleProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

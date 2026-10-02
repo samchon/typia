@@ -3,7 +3,7 @@ import type {
   IJsonSchemaCollection,
   OpenApi,
 } from "@typia/interface";
-import { TestEquality } from "@typia/oracle/equality";
+import { TestEquality } from "@typia/template/oracle-equality";
 import { HttpLlm } from "@typia/utils";
 
 /**

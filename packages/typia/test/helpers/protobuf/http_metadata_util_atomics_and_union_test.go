@@ -1,11 +1,11 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestHttpMetadataUtilAtomicsAndUnion verifies HTTP metadata bucket
@@ -26,32 +26,32 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Three bucket sources are positives and the multi-category mix is the union case; single-category metadata is not asserted here.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestHttpMetadataUtilAtomicsAndUnion(t *testing.T) {
-	meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
-		Atomics: []*metadata.MetadataAtomic{
-			metadata.MetadataAtomic_create(metadata.MetadataAtomic{Type: "boolean"}),
-		},
-		Constants: []*metadata.MetadataConstant{
-			metadata.MetadataConstant_create(metadata.MetadataConstant{
-				Type: "number",
-				Values: []*metadata.MetadataConstantValue{
-					metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{Value: 1}),
-				},
-			}),
-		},
-		Templates: []*metadata.MetadataTemplate{
-			metadata.MetadataTemplate_create(metadata.MetadataTemplate{
-				Row: []*metadata.MetadataSchema{testutil.StringLiteralMetadata("prefix")},
-			}),
-		},
-	})
+  meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Atomics: []*metadata.MetadataAtomic{
+      metadata.MetadataAtomic_create(metadata.MetadataAtomic{Type: "boolean"}),
+    },
+    Constants: []*metadata.MetadataConstant{
+      metadata.MetadataConstant_create(metadata.MetadataConstant{
+        Type: "number",
+        Values: []*metadata.MetadataConstantValue{
+          metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{Value: 1}),
+        },
+      }),
+    },
+    Templates: []*metadata.MetadataTemplate{
+      metadata.MetadataTemplate_create(metadata.MetadataTemplate{
+        Row: []*metadata.MetadataSchema{testutil.StringLiteralMetadata("prefix")},
+      }),
+    },
+  })
 
-	atomics := helpers.HttpMetadataUtil.Atomics(meta)
-	for _, key := range []string{"boolean", "number", "string"} {
-		if _, ok := atomics[key]; !ok {
-			t.Fatalf("missing HTTP atomic bucket %q in %#v", key, atomics)
-		}
-	}
-	if !helpers.HttpMetadataUtil.IsUnion(meta) {
-		t.Fatal("mixed atomic/template metadata should be treated as an HTTP union")
-	}
+  atomics := helpers.HttpMetadataUtil.Atomics(meta)
+  for _, key := range []string{"boolean", "number", "string"} {
+    if _, ok := atomics[key]; !ok {
+      t.Fatalf("missing HTTP atomic bucket %q in %#v", key, atomics)
+    }
+  }
+  if !helpers.HttpMetadataUtil.IsUnion(meta) {
+    t.Fatal("mixed atomic/template metadata should be treated as an HTTP union")
+  }
 }

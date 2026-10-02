@@ -7,8 +7,17 @@ import (
   "testing"
 )
 
-// TestWrongTypeTagTargetDiagnostic verifies a rejected tag names its declared
-// target once and leaves a compatible tag untouched.
+// TestWrongTypeTagTargetDiagnostic checks the authored operation results described below.
+//
+// Tag target metadata describes the permitted base category, independently of its host declaration shape; errors belong to the tagged property and must not leak to a valid array sibling.
+//
+// 1. One invalid boolean property and one valid array property use the same array-target tag, distinguishing exact ownership and duplicate-report boundaries.
+// 2. One wrong-target array tag diagnoses Payload.invalid once with the proper target cause; the host boolean and Payload.valid control are not blamed.
+//
+// @evidence contracts/testing.md#behavioral-verification One wrong-target array tag diagnoses Payload.invalid once with the proper target cause; the host boolean and Payload.valid control are not blamed.
+// @evidence contracts/testing.md#independent-expectations Tag target metadata describes the permitted base category, independently of its host declaration shape; errors belong to the tagged property and must not leak to a valid array sibling.
+// @evidence contracts/testing.md#distinguishing-cases One invalid boolean property and one valid array property use the same array-target tag, distinguishing exact ownership and duplicate-report boundaries.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestWrongTypeTagTargetDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestWrongTypeTagTargetDiagnostic(t *testing.T) {
   project := wrongTypeTagTargetDiagnosticProject(t)
   _, errText, code := ttscTypiaTestCapture(func() int {

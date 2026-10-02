@@ -36,6 +36,7 @@ type ITransformProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states that it aliases the programmers' type.
 type TransformerError = nativecontext.TransformerError
+
 // TransformerError_IProps holds the properties of a TransformerError.
 //
 // @evidence contracts/common.md#principled-implementation The properties are the programmers' record under this package's name.
@@ -43,6 +44,7 @@ type TransformerError = nativecontext.TransformerError
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it holds.
 type TransformerError_IProps = nativecontext.TransformerError_IProps
+
 // TransformerError_MetadataFactory_IError describes one unsupported type.
 //
 // @evidence contracts/common.md#principled-implementation One unsupported type is described by the programmers' record under this package's name.
@@ -50,6 +52,7 @@ type TransformerError_IProps = nativecontext.TransformerError_IProps
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states what it describes.
 type TransformerError_MetadataFactory_IError = nativecontext.TransformerError_MetadataFactory_IError
+
 // TransformerError_MetadataFactory_IExplore locates a metadata error.
 //
 // @evidence contracts/common.md#principled-implementation The location of an unsupported type is the programmers' record under this package's name.
@@ -60,6 +63,7 @@ type TransformerError_MetadataFactory_IExplore = nativecontext.TransformerError_
 
 // NewTransformerError creates a TransformerError from its properties.
 var NewTransformerError = nativecontext.NewTransformerError
+
 // TransformerError_from builds the error that lists unsupported types.
 var TransformerError_from = nativecontext.TransformerError_from
 

@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	utils "github.com/samchon/typia/packages/typia/native/core/utils"
+  utils "github.com/samchon/typia/packages/typia/native/core/utils"
 )
 
 // TestProtobufNameEncoderRoundTrip verifies protobuf-safe name encoding.
@@ -23,15 +23,15 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases One name containing all symbol classes; names with literal token text are not covered.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported encoder and decoder on strings with no filesystem fixture, process or native command build.
 func TestProtobufNameEncoderRoundTrip(t *testing.T) {
-	input := `$User & Admin | {"list"<T>}[0], 'quoted' "double" space`
+  input := `$User & Admin | {"list"<T>}[0], 'quoted' "double" space`
 
-	encoded := utils.ProtobufNameEncoder.Encode(input)
-	decoded := utils.ProtobufNameEncoder.Decode(encoded)
+  encoded := utils.ProtobufNameEncoder.Encode(input)
+  decoded := utils.ProtobufNameEncoder.Decode(encoded)
 
-	if encoded == input {
-		t.Fatal("encoded protobuf name should change special characters")
-	}
-	if decoded != input {
-		t.Fatalf("protobuf name round-trip mismatch:\nexpected %q\nactual   %q", input, decoded)
-	}
+  if encoded == input {
+    t.Fatal("encoded protobuf name should change special characters")
+  }
+  if decoded != input {
+    t.Fatalf("protobuf name round-trip mismatch:\nexpected %q\nactual   %q", input, decoded)
+  }
 }

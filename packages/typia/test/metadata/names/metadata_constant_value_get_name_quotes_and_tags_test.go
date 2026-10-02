@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataConstantValueGetNameQuotesAndTags verifies literal formatting.
@@ -23,16 +23,16 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases An escaping case and a tagged case; numeric constants are not covered.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads names from constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataConstantValueGetNameQuotesAndTags(t *testing.T) {
-	quoted := metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{Value: "a\"\n"})
-	if got := quoted.GetName(); got != "\"a\\\"\\n\"" {
-		t.Fatalf("unexpected quoted constant name: %q", got)
-	}
+  quoted := metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{Value: "a\"\n"})
+  if got := quoted.GetName(); got != "\"a\\\"\\n\"" {
+    t.Fatalf("unexpected quoted constant name: %q", got)
+  }
 
-	tagged := metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{
-		Value: "id",
-		Tags:  [][]metadata.IMetadataTypeTag{{testutil.NamedTag("Uuid")}},
-	})
-	if got := tagged.GetName(); got != "(\"id\" & (Uuid))" {
-		t.Fatalf("unexpected tagged constant name: %q", got)
-	}
+  tagged := metadata.MetadataConstantValue_create(metadata.MetadataConstantValue{
+    Value: "id",
+    Tags:  [][]metadata.IMetadataTypeTag{{testutil.NamedTag("Uuid")}},
+  })
+  if got := tagged.GetName(); got != "(\"id\" & (Uuid))" {
+    t.Fatalf("unexpected tagged constant name: %q", got)
+  }
 }

@@ -8,16 +8,17 @@ import (
   "testing"
 )
 
-// TestIntersectionNonsensibleBackstop pins the intersection boundary of issue
-// #1967. The only sound `&` is `Base & TaggedObject…` — a real base (primitive,
-// array, tuple, object) carrying phantom/tag marker objects that drop away,
-// leaving the base validated. Intersecting two genuine constraint carriers
-// (`array & array`, `array & tuple`, `tuple & tuple`, template & template, a
-// real data object onto a non-object base) is a misuse with no sound result, so
-// it must keep raising a clear `nonsensible` diagnostic.
+// TestIntersectionNonsensibleBackstop checks the authored operation results described below.
 //
-// The accepted rows pin the positive side (Base & tag) so a future change cannot
-// quietly collapse the boundary.
+// An intersection must have an inhabitable supported representation; phantom optional metadata may be stripped without discarding actual incompatible value constraints.
+//
+// 1. Constructed invalid intersections are paired with supported branded counterparts, distinguishing rejection from an overbroad intersection ban.
+// 2. Unsupported array, tuple, template and required-data intersections produce a typia.createIs transformation diagnostic, while the phantom-brand strip controls build successfully.
+//
+// @evidence contracts/testing.md#behavioral-verification Unsupported array, tuple, template and required-data intersections produce a typia.createIs transformation diagnostic, while the phantom-brand strip controls build successfully.
+// @evidence contracts/testing.md#independent-expectations An intersection must have an inhabitable supported representation; phantom optional metadata may be stripped without discarding actual incompatible value constraints.
+// @evidence contracts/testing.md#distinguishing-cases Constructed invalid intersections are paired with supported branded counterparts, distinguishing rejection from an overbroad intersection ban.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestIntersectionNonsensibleBackstop as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestIntersectionNonsensibleBackstop(t *testing.T) {
   rejected := []struct {
     name string
@@ -54,10 +55,9 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
       _, errText, code := ttscTypiaTestCapture(func() int {
         return runBuild([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--emit"})
       })
-      if code == 0 {
-        t.Fatalf("%q was unexpectedly accepted; the nonsensible backstop must reject it", tc.decl)
+      if code != 3 || !strings.Contains(errText, "typia.createIs") {
+        t.Fatalf("%q must fail through typia.createIs transformation, not an unrelated compiler failure: code=%d stderr=\n%s", tc.decl, code, errText)
       }
-      _ = errText
     })
   }
 

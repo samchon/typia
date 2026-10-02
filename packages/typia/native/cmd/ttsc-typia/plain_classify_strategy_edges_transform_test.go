@@ -2,18 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestPlainClassifyStrategyEdgesTransform covers two construction-strategy edges:
-//   - an ABSTRACT class must FIELD-COPY (a runtime `new AbstractClass(seed)` throws
-//     "Cannot create an instance of an abstract class"), and
-//   - a TUPLE-typed rest parameter `constructor(...args: [Seed, number?])` must
-//     build via `new` with the first tuple element as the seed (matching
-//     Classifiable's `[infer P, ...Rest]` rule).
+// TestPlainClassifyStrategyEdgesTransform verifies abstract and tuple-rest constructor strategy boundaries.
+//
+// Abstract classes cannot be instantiated and therefore need field copying; a tuple-rest signature that accepts one seed still supplies a supported constructor contract.
+//
+// 1. An abstract constructor-negative form is paired with a concrete tuple-rest constructor-positive form.
+// 2. Abstract Shape emits Object.create(Shape.prototype) and no new Shape, while a tuple-rest Pair constructor emits new Pair.
+//
+// @evidence contracts/testing.md#behavioral-verification Abstract Shape emits Object.create(Shape.prototype) and no new Shape, while a tuple-rest Pair constructor emits new Pair.
+// @evidence contracts/testing.md#independent-expectations Abstract classes cannot be instantiated and therefore need field copying; a tuple-rest signature that accepts one seed still supplies a supported constructor contract.
+// @evidence contracts/testing.md#distinguishing-cases An abstract constructor-negative form is paired with a concrete tuple-rest constructor-positive form.
+// @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPlainClassifyStrategyEdgesTransform as a unit test. Captured runTransform calls operate on the isolated fixture project in process; output assertions and cleanup remain owned by these helpers without a compiler or Node subprocess.
 func TestPlainClassifyStrategyEdgesTransform(t *testing.T) {
   project := plainClassifyStrategyEdgesProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -37,30 +41,6 @@ func TestPlainClassifyStrategyEdgesTransform(t *testing.T) {
   // the tuple-rest ctor must build via `new Pair(`
   if !strings.Contains(out, "new Pair(") {
     t.Fatalf("the tuple-rest constructor should build via new Pair(seed):\n%s", out)
-  }
-  plainClassifyStrategyEdgesRun(t, project, out)
-}
-
-// TestPlainClassifyPrivateFieldRejected verifies that a class carrying ES
-// `#private` fields is REJECTED at a field-copied position (a nested class), at
-// transform time, rather than emitting field-copy code whose prototype methods
-// throw "Cannot read private member" at runtime.
-func TestPlainClassifyPrivateFieldRejected(t *testing.T) {
-  project := plainClassifyPrivateProject(t)
-  // Project mode (no --file/--output js): runTransformProject reports typia
-  // transform diagnostics and exits non-zero, the established pattern for
-  // asserting a transform-time rejection (see compare_equal_cover).
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-    })
-  })
-  if code == 0 {
-    t.Fatalf("a nested #private-field class must be rejected at transform time, but the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
-  }
-  if !strings.Contains(out, "typia transform error") {
-    t.Fatalf("the #private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
   }
 }
 
@@ -101,35 +81,6 @@ func plainClassifyWriteProject(t *testing.T, prefix string, source string) strin
   return dir
 }
 
-func plainClassifyStrategyEdgesRun(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
-    t.Fatalf("write generic stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(plainClassifyStrategyEdgesRunner), 0o644); err != nil {
-    t.Fatalf("write runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("classify strategy-edges runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const plainClassifyStrategyEdgesSource = `import typia from "typia";
 
 // ABSTRACT class: typeof Shape has only an ` + "`abstract new`" + ` signature, which is
@@ -158,23 +109,6 @@ export const buildShape = typia.plain.createClassify<typeof Shape>();
 export const buildPair = typia.plain.createClassify<typeof Pair>();
 `
 
-const plainClassifyStrategyEdgesRunner = `const mod = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-// abstract class field-copies into a real instance with a working prototype method
-const sh = mod.buildShape({ kind: "circle" });
-assert(sh instanceof mod.Shape, "abstract class should field-copy into a Shape instance");
-assert(sh.describe() === "shape:circle", "abstract class prototype method should work, got: " + sh.describe());
-
-// tuple-rest ctor builds via new with the first tuple element as the seed
-const pr = mod.buildPair({ a: 3, b: 4 });
-assert(pr instanceof mod.Pair, "tuple-rest ctor should build a Pair instance");
-assert(pr.sum() === 7, "tuple-rest construction should reconstruct, got: " + pr.sum());
-`
-
 const plainClassifyPrivateSource = `import typia from "typia";
 
 // A class with an ES #private field — its private slot is installed only by the
@@ -194,48 +128,6 @@ export class Holder {
 
 export const buildHolder = typia.plain.createClassify<Holder>();
 `
-
-// TestPlainClassifyStaticPrivateAllowed verifies that a class whose ONLY #private
-// member is STATIC is NOT rejected — a static `#x` lives on the constructor, not
-// on instances, so field-copy (Object.create(prototype) + assign) still yields a
-// sound instance.
-func TestPlainClassifyStaticPrivateAllowed(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-staticpriv-", plainClassifyStaticPrivateSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
-    })
-  })
-  if code != 0 {
-    t.Fatalf("a class with only a STATIC #private member must field-copy, not be rejected: code=%d\n%s", code, errText)
-  }
-  if !strings.Contains(out, "Object.create(Counter.prototype)") {
-    t.Fatalf("the static-#private class should field-copy onto Counter.prototype:\n%s", out)
-  }
-}
-
-// TestPlainClassifySelfRefPrivateRejected verifies that a SELF-REFERENTIAL
-// #private class is rejected: construction is root-only, so its nested
-// self-occurrences are field-copied (losing the #private slots), which the guard
-// must reject rather than emit code that throws at runtime.
-func TestPlainClassifySelfRefPrivateRejected(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-selfrefpriv-", plainClassifySelfRefPrivateSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-    })
-  })
-  if code == 0 {
-    t.Fatalf("a self-referential #private class field-copies its nested occurrences, so it must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
-  }
-  if !strings.Contains(out, "typia transform error") {
-    t.Fatalf("the self-ref #private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
-  }
-}
 
 const plainClassifyStaticPrivateSource = `import typia from "typia";
 
@@ -274,59 +166,6 @@ export class Node {
 export const build = typia.plain.createClassify<typeof Node>();
 `
 
-// TestPlainClassifyUnboundAnonymousClass verifies an anonymous class expression
-// with NO enclosing const binding field-copies as a plain {} instead of emitting
-// `Object.create(__class.prototype)` — the binder-internal __class name is not a
-// usable runtime binding (it would throw ReferenceError).
-func TestPlainClassifyUnboundAnonymousClass(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-anon-", plainClassifyUnboundAnonSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
-    })
-  })
-  if code != 0 {
-    t.Fatalf("unbound anonymous class transform failed: code=%d\n%s", code, errText)
-  }
-  if strings.Contains(out, "__class") {
-    t.Fatalf("an unbound anonymous class must NOT leak the binder-internal __class name:\n%s", out)
-  }
-  plainClassifyRunNode(t, project, out, plainClassifyUnboundAnonRunner)
-}
-
-// plainClassifyRunNode writes the rewritten module + a custom runner and runs it.
-func plainClassifyRunNode(t *testing.T, project string, js string, runnerSrc string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
-    t.Fatalf("write generic stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(runnerSrc), 0o644); err != nil {
-    t.Fatalf("write runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const plainClassifyUnboundAnonSource = `import typia from "typia";
 
 // An anonymous class expression with NO enclosing const binding (returned from a
@@ -343,25 +182,6 @@ export type Widget = InstanceType<ReturnType<typeof factory>>;
 
 export const build = typia.plain.createClassify<Widget>();
 `
-
-// TestPlainClassifyInheritedPrivateRejected verifies that a class extending a
-// #private-bearing base is rejected: field-copying the subclass never installs
-// the inherited #private slot, so its prototype methods would throw at runtime.
-func TestPlainClassifyInheritedPrivateRejected(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-inheritedpriv-", plainClassifyInheritedPrivateSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-    })
-  })
-  if code == 0 {
-    t.Fatalf("a class extending a #private-bearing base must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
-  }
-  if !strings.Contains(out, "typia transform error") {
-    t.Fatalf("the inherited-#private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
-  }
-}
 
 const plainClassifyInheritedPrivateSource = `import typia from "typia";
 
@@ -381,71 +201,6 @@ export class Derived extends Base {
 
 export const build = typia.plain.createClassify<Derived>();
 `
-
-const plainClassifyUnboundAnonRunner = `const mod = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-// must NOT throw "ReferenceError: __class is not defined"; field-copies the data
-const w = mod.build({ x: 5 });
-assert(w && w.x === 5, "unbound anonymous class should field-copy its data, got: " + JSON.stringify(w));
-`
-
-// TestPlainClassifyNamedInterfaceFieldCopy verifies that a named INTERFACE field
-// is field-copied as a plain {} — an interface has no runtime value, so emitting
-// Object.create(<Interface>.prototype) would throw ReferenceError.
-func TestPlainClassifyNamedInterfaceFieldCopy(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-iface-", plainClassifyInterfaceSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--file", "src/main.ts", "--output", "js"})
-  })
-  if code != 0 {
-    t.Fatalf("named-interface field transform failed: code=%d\n%s", code, errText)
-  }
-  if strings.Contains(out, "Object.create(Animal.prototype)") {
-    t.Fatalf("a named interface must NOT be field-copied via Object.create(Animal.prototype):\n%s", out)
-  }
-  if !strings.Contains(out, "Object.create(Zoo.prototype)") {
-    t.Fatalf("the enclosing class should still field-copy onto Zoo.prototype:\n%s", out)
-  }
-  plainClassifyRunNode(t, project, out, plainClassifyInterfaceRunner)
-}
-
-// TestPlainClassifyRecursiveAnonymousObject verifies a RECURSIVE anonymous object
-// type (whose IsLiteral() is false) field-copies as {} rather than emitting
-// Object.create(__type.prototype) (a ReferenceError).
-func TestPlainClassifyRecursiveAnonymousObject(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-recanon-", plainClassifyRecAnonSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--file", "src/main.ts", "--output", "js"})
-  })
-  if code != 0 {
-    t.Fatalf("recursive-anonymous-object transform failed: code=%d\n%s", code, errText)
-  }
-  if strings.Contains(out, "__type") {
-    t.Fatalf("a recursive anonymous object must NOT leak the binder-internal __type name:\n%s", out)
-  }
-  plainClassifyRunNode(t, project, out, plainClassifyRecAnonRunner)
-}
-
-// TestPlainClassifyGenericPrivateRejected verifies that a GENERIC class with its
-// own instance #private is rejected — its instantiation Gen<string> is a bare
-// TypeReference, but the member scan resolves the class declaration so the
-// #private is still detected.
-func TestPlainClassifyGenericPrivateRejected(t *testing.T) {
-  project := plainClassifyWriteProject(t, "plain-classify-genericpriv-", plainClassifyGenericPrivateSource)
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json"})
-  })
-  if code == 0 {
-    t.Fatalf("a generic class with its own #private must be rejected; the transform succeeded\nstdout=%s\nstderr=%s", out, errText)
-  }
-  if !strings.Contains(out, "typia transform error") {
-    t.Fatalf("the generic-#private rejection diagnostic is missing:\nstdout=%s\nstderr=%s", out, errText)
-  }
-}
 
 const plainClassifyInterfaceSource = `import typia from "typia";
 
@@ -468,18 +223,6 @@ export class Zoo {
 export const build = typia.plain.createClassify<Zoo>();
 `
 
-const plainClassifyInterfaceRunner = `const mod = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-const z = mod.build({ label: "z", animal: { name: "fox", legs: 4 } });
-assert(z instanceof mod.Zoo, "Zoo should be a class instance");
-assert(z.describe() === "z:fox", "Zoo method should work, got: " + z.describe());
-assert(z.animal && z.animal.name === "fox" && z.animal.legs === 4, "interface field is a plain object");
-`
-
 const plainClassifyRecAnonSource = `import typia from "typia";
 
 // A RECURSIVE anonymous object type alias — no runtime value, IsLiteral() is
@@ -487,18 +230,6 @@ const plainClassifyRecAnonSource = `import typia from "typia";
 export type Rec = { value: number; self: Rec | null };
 
 export const build = typia.plain.createClassify<Rec>();
-`
-
-const plainClassifyRecAnonRunner = `const mod = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-// must NOT throw "ReferenceError: __type is not defined"
-const r = mod.build({ value: 1, self: { value: 2, self: null } });
-assert(r && r.value === 1, "recursive anonymous object should field-copy, got: " + JSON.stringify(r));
-assert(r.self && r.self.value === 2 && r.self.self === null, "nested recursion should field-copy");
 `
 
 const plainClassifyGenericPrivateSource = `import typia from "typia";

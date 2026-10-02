@@ -16,11 +16,11 @@ import (
 // referenced object type carrying a common literal tag, never on which bucket
 // the metadata factory happened to file it under.
 //
-// 1. Build the interface, alias, and mixed forms of one tagged union.
-// 2. Assert each emits the identical propertyName and mapping.
-// 3. Assert the negative shapes -- no common tag, a non-object member, a
-//    literal (inline) member, and an alias that does not name a lone object --
-//    still emit no discriminator, so the resolution cannot over-emit.
+//  1. Build the interface, alias, and mixed forms of one tagged union.
+//  2. Assert each emits the identical propertyName and mapping.
+//  3. Assert the negative shapes -- no common tag, a non-object member, a
+//     literal (inline) member, and an alias that does not name a lone object --
+//     still emit no discriminator, so the resolution cannot over-emit.
 //
 // @evidence contracts/testing.md#behavioral-verification Discriminator emission is run on union members declared as interfaces and as type aliases; each case must emit the discriminator with the same property name and a mapping object of the expected size.
 // @evidence contracts/testing.md#independent-expectations Both declaration forms export the same $ref, so eligibility cannot depend on syntax; the labeled cases and the expected property name and mapping size are authored.

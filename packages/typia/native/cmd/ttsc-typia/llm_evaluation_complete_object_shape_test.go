@@ -7,6 +7,11 @@ import (
 
 // Evaluation promises to decode the entire T. Every required member must
 // become a question or fail compilation, including inherited/nested members.
+//
+// @evidence contracts/testing.md#behavioral-verification Accepted getter/setter shapes emit urgent and threshold one; unsupported required-member shapes must produce their authored diagnostics.
+// @evidence contracts/testing.md#independent-expectations Evaluation promises to reconstruct the entire declared decision object, including inherited/accessor members, so each supported leaf must become a question and unsupported members cannot vanish silently.
+// @evidence contracts/testing.md#distinguishing-cases Getter-only, class, inherited, interface and nested accessors contrast with required members the evaluator cannot decode; named subtests retain each shape identity.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationCompleteObjectShape as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationCompleteObjectShape(t *testing.T) {
   accepted := map[string]string{
     "getter only": `class Decision {

@@ -23,10 +23,14 @@ interface ICommentFloat {
  * 2. Reject non-finite values and numbers outside the float32 range.
  * 3. Require Float32Array random generation to expose the same range.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.is, typia.random is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (_isTypeFloat accepts …; type tag accepts …; comment tag accepts …; _isTypeFloat rejects …; type tag rejects …; comment tag rejects …). The case documents its purpose as: Verifies that every float validator uses the finite float32 range.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Float tags are implemented independently by the runtime helper, native JSDoc-tag generation, and typed-array random generation. This test pins the symmetric positive and negative range, representative normal and subnormal values, and the schema supplied to custom Float32Array generators. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (_isTypeFloat accepts …; type tag accepts …; comment tag accepts …; _isTypeFloat rejects …; type tag rejects …; comment tag rejects …) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_type_float_range is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Float type/comment validators and typed-array random metadata preserve finite float32 range.
+ * @evidence contracts/testing.md#independent-expectations Authored symmetric limits and literal verdicts anchor validation; the custom generator captures actual schema bounds and expected fround output.
+ * @evidence contracts/testing.md#distinguishing-cases Twelve zero/subnormal/normal/edge values and seven outside/nonfinite values remain through helper and both native tag forms.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_type_float_range in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native tag checks and typed-array generator emission must connect to the same numeric range.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Twelve zero/subnormal/normal/edge values and seven outside/nonfinite values remain through helper and both native tag forms. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_type_float_range = (): void => {
   const limit = 3.4028235e38;

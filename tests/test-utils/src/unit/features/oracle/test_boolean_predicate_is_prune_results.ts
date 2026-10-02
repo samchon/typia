@@ -1,4 +1,4 @@
-import { _test_plain_isPrune } from "@typia/oracle/predicate";
+import { _test_plain_isPrune } from "@typia/template/predicate";
 import assert from "node:assert/strict";
 
 /**

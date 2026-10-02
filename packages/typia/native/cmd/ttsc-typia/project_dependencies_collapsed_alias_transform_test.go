@@ -23,6 +23,11 @@ import (
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `dependencies["src/a.ts"]` contains `t.ts`, `u.ts`, and `v.ts`.
 //  4. Assert it does NOT contain `w.ts` (body-only reference).
+//
+// @evidence contracts/testing.md#behavioral-verification The envelope includes outer, property and top-level intrinsic alias files but excludes the body-only reference.
+// @evidence contracts/testing.md#independent-expectations Written aliases can be interned to intrinsic types, losing checker symbols although edits to their declarations still affect validation.
+// @evidence contracts/testing.md#distinguishing-cases Three collapsed alias positions are paired with a function-body-only name.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCollapsedAliasTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCollapsedAliasTransform(t *testing.T) {
   project := projectDependenciesCollapsedAliasProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

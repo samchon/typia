@@ -26,6 +26,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains `key.ts`, `value.ts`, and
 //     `kept.ts`.
 //  4. Assert it does NOT contain the body-only `body.ts`.
+//
+// @evidence contracts/testing.md#behavioral-verification Index-signature aliases retain the files named by consulted key/value types and exclude unused aliases.
+// @evidence contracts/testing.md#independent-expectations Index-signature validation reads its key and value type declarations even when aliases collapse into primitive checker types.
+// @evidence contracts/testing.md#distinguishing-cases Consulted index-signature aliases are contrasted with a sibling outside the validated shape.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesIndexSignatureAliasTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesIndexSignatureAliasTransform(t *testing.T) {
   project := projectDependenciesIndexSignatureAliasProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

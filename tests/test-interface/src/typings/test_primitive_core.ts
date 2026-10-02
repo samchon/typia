@@ -11,6 +11,11 @@ import { Primitive, tags } from "@typia/interface";
  * 1. Convert atomics, Date, bigint, and native classes individually.
  * 2. Convert a method-bearing nested class.
  * 3. Confirm a `toJSON`-bearing type uses its serialized return.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Primitive must produce tagged Date strings, unbox atomics, map bigint/typed-array values to never and project class/toJSON shapes.
+ * @evidence contracts/testing.md#independent-expectations Handwritten object shapes and the documented static Primitive projection establish expected types; this is not a claim that the alias models every JSON.stringify behavior.
+ * @evidence contracts/testing.md#distinguishing-cases Date versus non-Date natives, boxed/bare Boolean/number, bigint exclusion, nested methods and toJSON precedence isolate conversion categories.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks PrimitiveCoreCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type PrimitiveCoreCases = [
   Assert<IsEqual<Primitive<Date>, string & tags.Format<"date-time">>>,

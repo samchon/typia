@@ -13,6 +13,11 @@ import { Classifiable } from "@typia/interface";
  * 1. Default / no-arg constructors collapse to the property shape only.
  * 2. Rest-parameter constructor and two-argument `from` behave per the rule.
  * 3. A cyclic class recurses through the property arm (methods omitted).
+ *
+ * @evidence contracts/testing.md#behavioral-verification Classifiable must select property-only shapes for default/no-arg or unusable factories, honor rest constructor seeds and last-overload inference, and accept a cyclic plain value.
+ * @evidence contracts/testing.md#independent-expectations Literal seed/property outputs follow single-argument usability and documented inference of the last overload; the cyclic assignment is authored independent data.
+ * @evidence contracts/testing.md#distinguishing-cases Implicit/explicit no-arg constructors, rest parameters, two-required-argument from and overloaded constructors isolate arity decisions; a recursive object/array value pins compilation termination.
+ * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableStrategyEdgeCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableStrategyEdgeCases = [
   // default constructor → property shape only (must NOT become `unknown`)

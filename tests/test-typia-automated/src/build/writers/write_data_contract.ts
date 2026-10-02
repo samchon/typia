@@ -9,13 +9,13 @@ import { NamingConvention } from "@typia/utils";
  *
  * @evidence contracts/common.md#principled-implementation Module and normalized method identify a reviewed data helper. Its authored-fixture, conversion, comparison and mutation facts determine the generated explanation; unknown operation keys return no answer instead of receiving unrelated validator claims.
  * @evidence contracts/common.md#clear-and-simple-design A fixed operation table owns differing helper facts and one renderer owns shared declaration/fixture/native-boundary wording. The common script writer places the selected description beside the same executable case it already generated.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts This operation renders documentation and changes no fixture eligibility, callback, comparison or expected result. Operation keys identify real helper responsibilities, not fixture exceptions; unresolved oracle and cross-family reuse limits remain explicit.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts This operation renders documentation and changes no fixture eligibility, callback, comparison or expected result. Operation keys identify real helper responsibilities, not fixture exceptions; unresolved oracle limits remain explicit.
  * @evidence contracts/common.md#meaningful-documentation Generated prose names the operation, fixture and scenario. Testing/E2E answers identify independent expectation sources, real native connection and ownership limits, separated from the ordinary description.
  * @evidence contracts/performance.md#efficient-algorithms Key normalization and lookup select one fixed description without scanning all modes. Rendering traverses the output fragments once and allocates the necessary fixture-specific comment; work and output storage grow with that comment's length.
  *
  * @evidenceExclude contracts/performance.md#reuse-equivalent-work The fixed helper facts are initialized once and shared across fixtures. This renderer coordinates no repeated completed or in-flight rendering requests; different fixture or public-method names require different output.
  *
- * @evidence contracts/performance.md#bound-retention-and-release-resources The module retains a fixed six-entry description table. Request strings and fragments are local; the returned comment transfers to the writer, and no fixture history, file handle, process or task is retained here.
+ * @evidence contracts/performance.md#bound-retention-and-release-resources The module retains a fixed operation-description table. Request strings and fragments are local; the returned comment transfers to the writer, and no fixture history, file handle, process or task is retained here.
  */
 export const write_data_contract = (
   props: { module: string | null; method: string },
@@ -43,7 +43,7 @@ export const write_data_contract = (
     ` * @evidence contracts/testing.md#distinguishing-cases ${facts.contribution} This entry does not claim an invalid-input or malformed-output matrix that its helper does not execute; other declarations supply their distinct representation and boundary shapes.`,
     " * @evidence contracts/testing.md#execution-ownership The matching test export is discovered by TestServant in this operation's feature directory during test-typia-automated start. The entry owns its declaration/callback binding; the selected helper owns assertions and its utility dependencies.",
     ` * @evidence contracts/e2e.md#necessary-boundary The Go transformer must assemble ${operation} for ${structure} with the correct type-specific branches and runtime helper imports. Handwritten callbacks can test assertion semantics but cannot prove this emitted direct/factory operation or its declaration binding.`,
-    " * @evidence contracts/e2e.md#shared-execution Cases within this feature directory share a TestServant worker and the workspace content-keyed plugin artifact, without per-fixture installation or build. Separate feature-family workers still cause repeated project/process preparation; minimum cross-family reuse remains unresolved.",
+    " * @evidence contracts/e2e.md#shared-execution All generated feature families and composites share one TestServant worker, one fully generated project and the workspace content-keyed plugin artifact. No case installs, rebuilds or opens its own worker.",
     ` * @evidence contracts/e2e.md#state-isolation-and-reuse-validity ${facts.state} The callback and fixture factory are not replaced. The runner closes the connected worker in finally and ttsc owns content-keyed artifact validity; this entry does not certify cold-cache recovery or cross-family state isolation.`,
     " * @evidence contracts/e2e.md#preserved-coverage Documentation preserves the same fixture, callback construction, direct/factory spelling, helper invocation and discoverable export. Portable assertion responsibilities remain visible and must be reviewed independently; no executable assertion or coverage population is removed here.",
     " */",
@@ -57,13 +57,13 @@ const FACTS: Record<
 > = {
   "json.stringify": {
     behavior:
-      "_test_json_stringify parses the actual JSON text and compares complete JSON-shaped data with the parsed built-in JSON.stringify result. Its special undefined-output branch handles undefined, functions and deterministic toJSON returning undefined; it checks semantic content rather than exact whitespace or property-order bytes.",
+      "_test_json_stringify prepares the built-in JSON.stringify reference before invoking the native serializer. The shared check parses the actual text and compares complete JSON-shaped data, while requiring original input state to remain unchanged. Undefined-reference behavior is judged by the shared owner; this checks semantic content rather than exact whitespace or property-order bytes.",
     oracle:
-      "Built-in JSON serialization and parsing establish the reference projection; primitive_equal_to delegates symmetric data comparison to the shared TestEquality oracle. The reference is computed after the native callback on the shared input, so pre-call input preservation is not independently established. Authored fixture conversions are assumed deterministic.",
+      "Built-in JSON serialization and parsing establish the pre-call reference projection; the shared portable check owns symmetric data comparison and original-input snapshots. Its finite ordinary-data fixture premise and authored deterministic conversion behavior remain assumptions; expected content never comes from the native output.",
     contribution:
       "The eligible JSONABLE fixture supplies a clean serialization scenario, including its nested or scalar values and declared conversion behavior. SPOILERS are not applied by this stringify helper.",
     state:
-      "The helper generates one local value and local JSON texts/projections. Deterministic fixture conversion is required because native and built-in serialization observe the same value; the helper does not assert input non-mutation or arbitrary stateful toJSON behavior.",
+      "The helper generates one local value and captures its reference and source state before invoking the native serializer. Conversion callbacks retain the shared owner's deterministic/effect-free premise; arbitrary stateful toJSON behavior is not certified here.",
   },
   "plain.clone": {
     behavior:
@@ -114,5 +114,35 @@ const FACTS: Record<
       "The FORMDATA-eligible fixture contributes its supported scalar/array and binary parts to a clean decoding scenario. This case applies no SPOILERS or malformed multipart matrix and does not claim a network-server boundary.",
     state:
       "The helper creates a fresh fixture/FormData/result and awaits the complete binary comparison before returning. The generated Promise<void> is returned to DynamicExecutor, so an oracle rejection stays attached to this case rather than escaping after completion.",
+  },
+  "http.assertHeaders": {
+    behavior:
+      "The assertion decoder must reproduce the clean fixture's resolved data, then reject each authored spoiler with the exact selected error prototype, native-checked TypeGuardError properties and one authored diagnostic path. A normal spoiled return fails.",
+    oracle:
+      "headers_to_string prepares transport from authored data, and RESOLVE supplies the expected projection. Spoiler mutations and paths are independent of decoder output; the native property-shape checker is correlated with the emitter, while error prototype identity is compared directly.",
+    contribution:
+      "Each HEADERS fixture retains clean data equality and every declared invalid-value rejection. One allowed error path is asserted per spoiler, rather than every invalid leaf; raw malformed transport spellings belong to separate header cases.",
+    state:
+      "A clean value and a separate generated value for each spoiler produce local header records. Mutation never replaces the factory or shared schema; no request history is retained.",
+  },
+  "http.isHeaders": {
+    behavior:
+      "The predicate decoder must return non-null clean data equal to the resolved projection and return null for every authored spoiled value.",
+    oracle:
+      "The fixture and optional RESOLVE supply expected data, and authored spoilers establish invalid values independently of the decoder. headers_to_string is maintained transport preparation; this does not independently establish every raw spelling or separator rule.",
+    contribution:
+      "Each HEADERS fixture contributes clean non-null content and one null rejection per spoiler. Error paths and malformed raw syntax are not asserted by this predicate helper.",
+    state:
+      "Each scenario gets a fresh fixture and local encoded/decoded data. No mutated value or transport record is reused between scenarios.",
+  },
+  "http.validateHeaders": {
+    behavior:
+      "The validation decoder must report clean success with faithful resolved data, then reject every authored spoiler with the complete sorted path multiset. Native assertEquals additionally checks result-record consistency.",
+    oracle:
+      "Authored data/RESOLVE and spoiler-returned paths establish clean content and invalid diagnostics before decoding. The extra native record check is not an independent shape oracle; transport preparation is owned by headers_to_string.",
+    contribution:
+      "Each HEADERS fixture contributes clean success/content and every declared invalid-value path population, including count and multiplicity. Raw transport syntax and independent result-record shape checks remain outside this helper.",
+    state:
+      "Fresh clean/spoiled values and local header records prevent mutation from determining another scenario. Sorted expected/actual lists and accumulated mismatches live only for this invocation.",
   },
 };

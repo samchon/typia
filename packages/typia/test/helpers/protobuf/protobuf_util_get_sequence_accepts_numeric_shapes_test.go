@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestProtobufUtilGetSequenceAcceptsNumericShapes verifies sequence parsing.
@@ -23,24 +23,24 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Three accepted representations; rejected shapes are owned by the type-tag sequence case.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported parser with no filesystem fixture, process or native command build.
 func TestProtobufUtilGetSequenceAcceptsNumericShapes(t *testing.T) {
-	cases := []struct {
-		value any
-		want  int
-	}{
-		{value: 3, want: 3},
-		{value: float64(4), want: 4},
-		{value: "5", want: 5},
-	}
+  cases := []struct {
+    value any
+    want  int
+  }{
+    {value: 3, want: 3},
+    {value: float64(4), want: 4},
+    {value: "5", want: 5},
+  }
 
-	for _, tc := range cases {
-		got := helpers.ProtobufUtil.GetSequence([]metadata.IMetadataTypeTag{{
-			Kind: "sequence",
-			Schema: map[string]any{
-				"x-protobuf-sequence": tc.value,
-			},
-		}})
-		if got == nil || *got != tc.want {
-			t.Fatalf("sequence value %v parsed as %#v, want %d", tc.value, got, tc.want)
-		}
-	}
+  for _, tc := range cases {
+    got := helpers.ProtobufUtil.GetSequence([]metadata.IMetadataTypeTag{{
+      Kind: "sequence",
+      Schema: map[string]any{
+        "x-protobuf-sequence": tc.value,
+      },
+    }})
+    if got == nil || *got != tc.want {
+      t.Fatalf("sequence value %v parsed as %#v, want %d", tc.value, got, tc.want)
+    }
+  }
 }

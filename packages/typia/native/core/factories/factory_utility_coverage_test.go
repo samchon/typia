@@ -21,9 +21,9 @@ import (
 // TestFactoryUtilityCoverage covers small factory helpers.
 //
 // Most factory paths are exercised through TypeScript transforms, but simple
-// AST helper branches and text-formatting helpers do not need a compiler
-// program. This test keeps those deterministic helper checks local to the
-// factories package.
+// AST helper branches and text-formatting helpers are called directly. The
+// checker-backed type-name cases also load a temporary TypeScript fixture in
+// process. Both remain local to the factories package.
 //
 // 1. Generate numeric range predicates for all supported numeric tags.
 // 2. Exercise bigint, object, currying, self-call, and escaped-text helpers.
@@ -34,7 +34,7 @@ import (
 // @evidence contracts/testing.md#behavioral-verification Small factory helpers are called directly: numeric and bigint range predicates, currying, self-call, escaped-text and comment-merging helpers. Roughly half of the assertions only require a non-nil AST node, so they detect a missing result and not a wrong one; the others compare exact text or structure.
 // @evidence contracts/testing.md#independent-expectations Where text is compared the expectations are authored literals; the non-nil checks have no independent expectation and certify only that a node was produced. This is a limitation of the test, not a verification of emitted code.
 // @evidence contracts/testing.md#distinguishing-cases Every supported numeric tag, bigint, object, currying and escaping branch is visited once; most branches have no negative twin, so an over-matching helper could still pass.
-// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. It constructs AST nodes in memory with the node factory and needs no compiler program, filesystem fixture or process.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package unit Test in process. AST helpers use the node factory; checker-backed cases write a temporary TypeScript fixture, load it through driver.LoadProgram, and close the program. No compiler or JavaScript subprocess is launched.
 func TestFactoryUtilityCoverage(t *testing.T) {
   emit := shimprinter.NewEmitContext()
   input := expressionFactory_factory.NewIdentifier("input")

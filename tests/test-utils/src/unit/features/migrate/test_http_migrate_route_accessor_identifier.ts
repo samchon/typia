@@ -1,6 +1,6 @@
 import { IHttpMigrateApplication, OpenApi } from "@typia/interface";
-import { TestBinding } from "@typia/oracle/binding";
-import { TestEquality } from "@typia/oracle/equality";
+import { TestBinding } from "@typia/template/binding";
+import { TestEquality } from "@typia/template/oracle-equality";
 import { HttpMigration } from "@typia/utils";
 
 import { _isLegalDeclaration } from "../../internal/_isLegalDeclaration";

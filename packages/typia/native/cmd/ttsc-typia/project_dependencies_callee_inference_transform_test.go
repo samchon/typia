@@ -49,6 +49,11 @@ import (
 //     callee resolves to a local `const helper = () => ...` keeps its
 //     declaration -- that name decides nothing, and charging it costs 65 more
 //     files across the test workspaces than the fix needs.
+//
+// @evidence contracts/testing.md#behavioral-verification The emitted validators are checked before testing omission of inferred-return callers from completeness and retention of annotated twins.
+// @evidence contracts/testing.md#independent-expectations An inferred nested return can depend on initializer values outside the reported name chain; a written return type bounds that identity.
+// @evidence contracts/testing.md#distinguishing-cases Computed arguments/callees and inferred function returns contrast with annotated forms and an outer local helper. The borrowed-value overload remains an explicitly unpinned fixture limitation.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCalleeInferenceTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCalleeInferenceTransform(t *testing.T) {
   project := projectDependenciesCalleeInferenceProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

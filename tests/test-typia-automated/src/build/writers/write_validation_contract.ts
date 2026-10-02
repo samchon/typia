@@ -8,7 +8,7 @@
  *
  * @evidence contracts/common.md#principled-implementation The selected normal or strict validator helper determines the result and diagnostic assertions; rendering only those reviewed modes avoids attributing validator semantics to codecs, pruning or random generation. Fixture and public method names identify the actual binding.
  * @evidence contracts/common.md#clear-and-simple-design One operation description supplies the differing assertion/oracle facts and one renderer supplies shared native-boundary ownership. An unknown family returns no acknowledgment rather than inventing its semantics.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts This function writes documentation only. It does not alter a fixture, operation, assertion, selector or expected result, and it explicitly records the unresolved cross-family worker reuse instead of declaring minimum host preparation achieved.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts This function writes documentation only. It does not alter a fixture, operation, assertion, selector or expected result, and its shared-execution answer names the actual single-worker suite owner.
  * @evidence contracts/common.md#meaningful-documentation Generated prose names the actual operation, fixture, positive/spoiled input distinctions, oracle limits and execution owner. The JSDoc block is emitted before the case declaration and separates descriptions from checklist answers.
  */
 export const write_validation_contract = (
@@ -127,12 +127,12 @@ export const write_validation_contract = (
     " * @evidence contracts/e2e.md#necessary-boundary The Go transformer must replace this " +
       structure +
       " direct/factory call with a callable validator and preserve the TypeScript declaration's acceptance decisions. Direct calls to the assertion helper with a handwritten function cannot verify emitted predicate branches, runtime helper binding or factory assembly.",
-    " * @evidence contracts/e2e.md#shared-execution Cases in this feature directory reuse its TestServant worker and the workspace's content-keyed plugin artifact, with no per-fixture installation or build. The current runner still starts separate workers across feature families; minimum cross-family project/host reuse remains unresolved and is not certified here.",
+    " * @evidence contracts/e2e.md#shared-execution All generated feature families and composites reuse one TestServant worker after generation completes, sharing one project and content-keyed plugin artifact without per-case installation, build or worker creation.",
     " * @evidence contracts/e2e.md#state-isolation-and-reuse-validity " +
       (strict
         ? "The helper generates its own clean input. equals generates a separate value for each surplus repetition; assertion helpers remove each injected member on their accepted-exception path; validateEquals retains its mutated local input only for the final comparison. Factories and passed operations are not replaced. "
         : "The helper requests fresh fixture values for clean and spoiled calls and does not replace fixture factories, spoilers or the passed operation. ") +
-      "The runner closes each connected feature worker in finally; ttsc owns content-keyed artifact validity. This case does not claim a cold-cache transition or cross-family isolation proof.",
+      "The runner closes its single connected suite worker in finally; ttsc owns content-keyed artifact validity. This case does not claim a cold-cache transition or cross-family isolation proof.",
     " * @evidence contracts/e2e.md#preserved-coverage Documentation retains this fixture, public operation spelling, selected helper, existing input mutations and discoverable export. No executable assertion is deleted, moved or weakened; unrelated operation families retain their own assertions.",
     " */",
   ].join("\n");

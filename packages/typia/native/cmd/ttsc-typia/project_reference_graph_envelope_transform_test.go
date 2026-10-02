@@ -7,30 +7,17 @@ import (
   "testing"
 )
 
-// TestProjectReferenceGraphEnvelopeTransform verifies the project transform
-// envelope carries the ttsc driver SDK's host-owned reference `graph` section
-// alongside typia's precise `dependencies`.
+// TestProjectReferenceGraphEnvelopeTransform checks the authored operation results described below.
 //
-// `graph` is the plugin-agnostic sound invalidation baseline: the ttsc consumer
-// registers reach(edges, F) ∪ globals ∪ configs ∪ dependencies[F], so a
-// consulted file the precise `dependencies` collection might not attribute is
-// still guarded by the host baseline (samchon/typia#2107). This pins that
-// typia's hand-rolled envelope now routes through driver.NewTransformGraph:
-// direct reference edges (type-only included), ambient global-scope files, and
-// the tsconfig `extends` chain, all keyed by the same driver.TransformOutputKey
-// convention as the `typescript`/`dependencies` sections so a consumer joins
-// them by key.
+// Host reference closure, global contributors and inherited configs are independently invalidating inputs that complement typia precise declaration dependencies. All sections join through the same normalized source keys.
 //
-//  1. Build a project where `a.ts` imports `Bee` from `b.ts` (and calls
-//     `typia.validate<Bee>()`), `b.ts` imports type-only `Cee` from `c.ts`, an
-//     ambient `globals.d.ts` contributes a global augmentation, and
-//     `tsconfig.json` extends `tsconfig.base.json`.
-//  2. Run project transform mode and decode the JSON envelope's `graph`.
-//  3. Assert the `a.ts -> b.ts` and the type-only `b.ts -> c.ts` edges, the
-//     `globals.d.ts` global entry, and the `tsconfig.json` + `tsconfig.base.json`
-//     configs chain, all under keys that join with the `typescript` section.
-//  4. Assert `dependencies` is still emitted next to `graph`, and that a
-//     non-global source is not misreported as a global.
+// 1. Runtime and type-only imports contrast with ambient and module declarations; a config extends chain exercises transitive configuration ownership.
+// 2. The envelope carries a-to-b and type-only b-to-c edges, ambient globals and both extends configs alongside precise dependencies; a module source is not classified as global.
+//
+// @evidence contracts/testing.md#behavioral-verification The envelope carries a-to-b and type-only b-to-c edges, ambient globals and both extends configs alongside precise dependencies; a module source is not classified as global.
+// @evidence contracts/testing.md#independent-expectations Host reference closure, global contributors and inherited configs are independently invalidating inputs that complement typia precise declaration dependencies. All sections join through the same normalized source keys.
+// @evidence contracts/testing.md#distinguishing-cases Runtime and type-only imports contrast with ambient and module declarations; a config extends chain exercises transitive configuration ownership.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectReferenceGraphEnvelopeTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestProjectReferenceGraphEnvelopeTransform(t *testing.T) {
   project := projectReferenceGraphEnvelopeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

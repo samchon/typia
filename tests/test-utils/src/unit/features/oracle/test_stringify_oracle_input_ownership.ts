@@ -1,4 +1,4 @@
-import { prepareStringify } from "@typia/oracle/stringify";
+import { prepareStringify } from "@typia/template/stringify";
 import assert from "node:assert/strict";
 
 /**

@@ -4,7 +4,7 @@
   "version": "15.0.1",
   "description": "Type tests for @typia/interface.",
   "scripts": {
-    "start": "ttsc",
+    "start": "tsc --noEmit -p tsconfig.json",
     "evidence": "evidence"
   },
   "repository": {
@@ -26,6 +26,7 @@
     "@standard-schema/spec": "^1.1.0",
     "ai": "^7.0.103",
     "ttsc": "catalog:typescript",
+    "typia": "workspace:^",
     "typescript": "catalog:typescript"
   },
   "dependencies": {

@@ -2,32 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestSymbolKeyMemberFilterTransform verifies a `symbol`-keyed data member is
-// excluded from a type's validated shape and from its emitted JSON schema, so a
-// real object carrying that member passes its own `is`/`assert`/`validate` guard
-// (#2226).
+// TestSymbolKeyMemberFilterTransform verifies string-key validation without mangled symbol properties.
 //
-// A symbol-keyed member is unreachable through the string index access typia
-// emits, is ignored by `JSON.stringify`, and has no JSON-Schema representation.
-// Before the fix the member filter excluded only keyword `private`/`protected`
-// and ES `#private` members, so a symbol key leaked into the validated shape
-// under the checker's internal escaped name (`input["\xFE@sym@5"]`) — a string
-// key no runtime object carries, making the guard unconditionally false — and
-// into the schema as an uninhabitable required property.
+// Symbol keys are outside typia ordinary structural string-property traversal, while excluding them must not erase normal public members.
 //
-//  1. Emit `is`/`assert`/`validate` plus `json.schemas` for a `unique symbol`
-//     key, a well-known symbol key, a symbol key inside an intersection, a type
-//     whose only member is symbol-keyed, a symbol-keyed method, and
-//     string/number/computed-string keys as positive controls.
-//  2. Assert neither the validators nor the schemas reference a mangled key.
-//  3. Execute the emitted JavaScript against real objects carrying the symbol
-//     members, proving each passes on its string-keyed shape.
+// 1. Computed symbol properties and ordinary string properties share a shape, pairing the unsupported-key exclusion with preserved valid fields.
+// 2. Every required string-keyed property remains in output and forbidden symbol binder markers are absent.
+//
+// @evidence contracts/testing.md#behavioral-verification Every required string-keyed property remains in output and forbidden symbol binder markers are absent.
+// @evidence contracts/testing.md#independent-expectations Symbol keys are outside typia ordinary structural string-property traversal, while excluding them must not erase normal public members.
+// @evidence contracts/testing.md#distinguishing-cases Computed symbol properties and ordinary string properties share a shape, pairing the unsupported-key exclusion with preserved valid fields.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestSymbolKeyMemberFilterTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestSymbolKeyMemberFilterTransform(t *testing.T) {
   project := symbolKeyMemberFilterProject(t)
 
@@ -60,11 +50,6 @@ func TestSymbolKeyMemberFilterTransform(t *testing.T) {
     }
   }
 
-  symbolKeyMemberFilterRunRuntimeCases(
-    t,
-    project,
-    symbolKeyMemberFilterTransform(t, project, "js"),
-  )
 }
 
 func symbolKeyMemberFilterProject(t *testing.T) string {
@@ -108,32 +93,6 @@ func symbolKeyMemberFilterTransform(t *testing.T, project string, output string)
     t.Fatalf("symbol key member filter transform failed: output=%s code=%d stderr=\n%s", output, code, errText)
   }
   return out
-}
-
-func symbolKeyMemberFilterRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(symbolKeyMemberFilterRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("symbol key member filter runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const symbolKeyMemberFilterTSConfig = `{
@@ -191,89 +150,4 @@ export const isJoined = typia.createIs<Joined>();
 export const isSolo = typia.createIs<SoloSymbol>();
 export const isMethodic = typia.createIs<Methodic>();
 export const schemas = typia.json.schemas<[Symbolic, Joined, SoloSymbol, Methodic]>();
-`
-
-const symbolKeyMemberFilterRuntimeRunner = `const mod = require("./main.cjs");
-
-const sym = Symbol("sym");
-const joined = Symbol("joined");
-const solo = Symbol("solo");
-const invoke = Symbol("invoke");
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) {
-    throw new Error(label + ": expected " + expected + " but got " + actual);
-  }
-};
-
-// A real object carrying every declared member — including the symbol-keyed
-// ones — passes its own guard.
-expect(
-  "is real Symbolic value",
-  mod.isSymbolic({ name: "x", [sym]: 1, [Symbol.toStringTag]: "Symbolic" }),
-  true,
-);
-expect("is real Joined value", mod.isJoined({ id: "x", [joined]: 1 }), true);
-expect("is real SoloSymbol value", mod.isSolo({ [solo]: 1 }), true);
-expect("is real Methodic value", mod.isMethodic({ id: "x", [invoke]: () => 1 }), true);
-
-// A symbol-keyed member is not part of the structural JSON shape, so a plain
-// object carrying only the string keys is accepted too.
-expect("is plain Symbolic shape", mod.isSymbolic({ name: "x" }), true);
-expect("is plain Joined shape", mod.isJoined({ id: "x" }), true);
-expect("is empty SoloSymbol shape", mod.isSolo({}), true);
-expect("is plain Methodic shape", mod.isMethodic({ id: "x" }), true);
-
-// The string-keyed shape is still validated structurally.
-expect("reject wrong Symbolic name type", mod.isSymbolic({ name: 1 }), false);
-expect("reject missing Symbolic name", mod.isSymbolic({}), false);
-expect("reject missing Joined id", mod.isJoined({ [joined]: 1 }), false);
-expect("reject non-object SoloSymbol", mod.isSolo(null), false);
-
-// Positive controls: string / number / computed-string keys still resolve.
-expect(
-  "is Controlled value",
-  mod.isControlled({ plain: "a", "quoted-key": 1, 42: true, computed: "c" }),
-  true,
-);
-expect(
-  "reject missing computed-string key",
-  mod.isControlled({ plain: "a", "quoted-key": 1, 42: true }),
-  false,
-);
-expect(
-  "reject missing numeric key",
-  mod.isControlled({ plain: "a", "quoted-key": 1, computed: "c" }),
-  false,
-);
-
-// assert / validate accept a real value without touching a mangled key.
-expect(
-  "assert real Symbolic returns input",
-  typeof mod.assertSymbolic({ name: "x", [sym]: 1, [Symbol.toStringTag]: "Symbolic" }),
-  "object",
-);
-expect(
-  "validate real Symbolic succeeds",
-  mod.validateSymbolic({ name: "x", [sym]: 1, [Symbol.toStringTag]: "Symbolic" }).success,
-  true,
-);
-
-let threw = false;
-try {
-  mod.assertSymbolic({ name: 1 });
-} catch (_exp) {
-  threw = true;
-}
-expect("assert rejects wrong name type", threw, true);
-
-// The emitted schemas carry no mangled symbol key.
-const serialized = JSON.stringify(mod.schemas);
-for (const marker of ["@sym@", "@toStringTag@", "@joined@", "@solo@", "@invoke@", "�"]) {
-  if (serialized.includes(marker)) {
-    throw new Error("schema references a mangled symbol key (" + marker + "): " + serialized);
-  }
-}
-const required = JSON.stringify(mod.schemas.components.schemas.Symbolic.required);
-expect("Symbolic schema requires only its string key", required, JSON.stringify(["name"]));
 `

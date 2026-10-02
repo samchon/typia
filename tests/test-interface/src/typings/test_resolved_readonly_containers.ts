@@ -11,6 +11,11 @@ import { Resolved } from "@typia/interface";
  * 1. Resolve mutable, readonly, and branded arrays plus tuple variants.
  * 2. Resolve mutable and readonly sets and maps.
  * 3. Confirm nested methods disappear without losing container readonlyness.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Resolved must preserve mutable/readonly container kinds and optional/rest tuple structure while converting Mutable members to Plain.
+ * @evidence contracts/testing.md#independent-expectations The handwritten Plain shape retains data and maps methods to never; authored container outputs establish readonlyness and element/key conversion.
+ * @evidence contracts/testing.md#distinguishing-cases Mutable/readonly/branded arrays, optional-only/rest tuples and mutable/readonly Set/Map distinguish shape from nested projection.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ResolvedReadonlyContainerCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ResolvedReadonlyContainerCases = [
   Assert<IsEqual<Resolved<Mutable[]>, Plain[]>>,

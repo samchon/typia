@@ -33,10 +33,14 @@ interface ICamelAlias {
  * 2. Assert all three agree on ordinary, rolled-over, and leap-second inputs.
  * 3. Pin February 30th as rejected and the legal leap second as accepted.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.is, typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (@format date-time accepts …; @format datetime accepts …; @format dateTime accepts …; @format date-time rejects …; @format datetime rejects …; @format dateTime rejects …). The case documents its purpose as: Verifies the `@format datetime` aliases validate exactly as `@format date-time` does.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The aliases emit `format: "date-time"` but once carried a validator of their own, `!isNaN(new Date($input).getTime())`. That accepted "2020-02-30T00:00:00Z", because `Date` silently rolls February 30th over to March 1, and rejected the RFC 3339 leap second, because `Date` cannot parse `:60` — leaving typia's emitted schema contradicting typia's generated validator on a type typia itself accepted. An alias is not an alias while it owns a second validator. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (@format date-time accepts …; @format datetime accepts …; @format dateTime accepts …; @format date-time rejects …; @format datetime rejects …; @format dateTime rejects …) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_format_datetime_alias is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Three datetime spellings share RFC-style date validation and emitted format.
+ * @evidence contracts/testing.md#independent-expectations Four authored accepted and six rejected timestamp strings have literal expected verdicts; each schema format is fixed date-time.
+ * @evidence contracts/testing.md#distinguishing-cases Leap day/leap seconds/offset fraction, impossible calendar dates/second/month and arbitrary text remain across all three spellings.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_format_datetime_alias in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native alias metadata must select the same runtime predicate and schema format as the canonical spelling.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Leap day/leap seconds/offset fraction, impossible calendar dates/second/month and arbitrary text remain across all three spellings. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_format_datetime_alias = (): void => {
   const valids: string[] = [

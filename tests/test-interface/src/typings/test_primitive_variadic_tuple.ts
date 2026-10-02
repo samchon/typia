@@ -1,5 +1,21 @@
 import { Primitive, tags } from "@typia/interface";
 
+/**
+ * Verifies Primitive preserves tuple positions while projecting repeated
+ * members.
+ *
+ * Variadic head and tail literals must remain restrictive after Date and
+ * boxed-data conversion.
+ *
+ * 1. Compare every tuple and array form with its authored output type.
+ * 2. Accept valid empty/short/long repeats and reject changed literals or
+ *    unconverted members.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Primitive must retain authored tuple positions and recursively convert Date/boxed members, with valid assignments and expected-error counterexamples.
+ * @evidence contracts/testing.md#independent-expectations Explicit Expected aliases describe required head/tail literals, date-time brands and unboxed object fields independently of Primitive; expect-error directives require invalid assignments to remain rejected.
+ * @evidence contracts/testing.md#distinguishing-cases Empty/long middle repeats, leading/middle/trailing Date rests, optional-head fallback, readonly/branded arrays, object tails and union tuples pin shape and member conversion.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks PrimitiveVariadicTupleCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
+ */
 export type PrimitiveVariadicTupleCases = [
   Assert<IsEqual<LiteralVariadic, ExpectedLiteralVariadic>>,
   Assert<IsEqual<DateRest, ExpectedDateRest>>,

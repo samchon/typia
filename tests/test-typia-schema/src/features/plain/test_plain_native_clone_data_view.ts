@@ -21,10 +21,14 @@ interface IBinaryPayload {
  * Verifies plain clone and classify preserve binary native ranges and storage
  * independence.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.plain.createClone, typia.plain.createClassify, typia.plain.clone is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (… root identity; factory rejects DataView twin; direct rejects DataView twin). The case documents its purpose as: Verifies plain clone and classify preserve binary native ranges and storage independence.
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (… root identity; factory rejects DataView twin; direct rejects DataView twin) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_plain_native_clone_data_view is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Clone/classify preserve visible binary ranges and independent storage.
+ * @evidence contracts/testing.md#independent-expectations Original visible bytes, exact lengths/offsets/brands and deliberate source/result mutations independently anchor clones.
+ * @evidence contracts/testing.md#distinguishing-cases Four clone/classify forms, root-any direct/factory, empty/full/sliced union views, foreign-realm typed/any values and both DataView wrong-brand negatives remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor executes test_plain_native_clone_data_view under the schema ttsx/native suite. PlainNativeClone helpers inspect actual emitted outputs and async Blob/File checks are awaited.
+ * @evidence contracts/e2e.md#necessary-boundary Native typed/union/any emission must connect to binary cloning with correct visible offsets, brands and cross-realm dispatch.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load/native artifact and generated factories across its input variants; no extra host process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each operation constructs local input payloads. Helper byte mutations are restored; RegExp helpers deliberately set local lastIndex to verify independence. Foreign VM objects are case-local; the suite owns host lifetime.
+ * @evidence contracts/e2e.md#preserved-coverage Four clone/classify forms, root-any direct/factory, empty/full/sliced union views, foreign-realm typed/any values and both DataView wrong-brand negatives remain. All helper assertions and original calls remain; source review does not substitute for final runtime checks.
  */
 export const test_plain_native_clone_data_view = (): void => {
   const clone = typia.plain.createClone<IBinaryPayload>();

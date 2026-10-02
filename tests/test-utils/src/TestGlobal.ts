@@ -2,16 +2,13 @@ export class TestGlobal {
   public static readonly ROOT: string = `${__dirname}/..`;
 
   /**
-   * Reads the values that follow a command-line flag up to the next flag.
+   * Reads all values after the first requested double-dash flag, stopping at
+   * the next flag. A missing flag returns an empty list.
    *
-   * @param type Flag name without its leading dashes.
-   *
-   * @returns The values after `--type`, or an empty list when the flag is absent.
-   *
-   * @evidence contracts/testing.md#behavioral-verification This runner helper only parses process arguments for the include and exclude filters; it asserts nothing about typia and a wrong parse changes which cases run, not any verdict.
-   * @evidence contracts/testing.md#independent-expectations It has no expectation of its own; the filter semantics are those of DynamicExecutor include and exclude names.
-   * @evidence contracts/testing.md#distinguishing-cases It owns no case distinction; absent flags and multiple values are handled by its two branches without a dedicated test.
-   * @evidence contracts/testing.md#execution-ownership It runs inside the test-utils test:integration process before DynamicExecutor starts and uses no native producer itself.
+   * @evidence contracts/common.md#principled-implementation The first matching flag starts a slice ending before the next double-dash argument. An absent flag returns an empty array, allowing the caller to choose its default filter.
+   * @evidence contracts/common.md#clear-and-simple-design Two index searches and one slice expose the first-occurrence policy without changing process.argv or holding filter state between calls.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The parser uses argv values and the requested flag spelling; it reads no fixture contents and cannot manufacture a test verdict.
+   * @evidence contracts/common.md#meaningful-documentation Native prose states first-occurrence, multi-value and absent-flag behavior so callers can distinguish default selection from an explicitly empty filter.
    */
   public static getArguments(type: string): string[] {
     const from: number = process.argv.indexOf(`--${type}`) + 1;

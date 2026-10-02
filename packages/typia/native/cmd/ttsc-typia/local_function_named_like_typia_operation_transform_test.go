@@ -8,25 +8,17 @@ import (
   "testing"
 )
 
-// TestLocalFunctionNamedLikeTypiaOperationTransform verifies the shadowed-typia
-// diagnostic does not fire on a name collision (#2328).
+// TestLocalFunctionNamedLikeTypiaOperationTransform checks the authored operation results described below.
 //
-// The diagnostic that reports a redeclared typia call keys off the called name,
-// and those names are ordinary words: a project may well own its own
-// `createAssert`, import one from an unrelated package, or augment typia with a
-// name that only exists under one of its namespaces. Reporting any of them
-// would break builds that are correct today, so the name alone must never be
-// enough — the callee has to reach typia through typia's own module specifier
-// and spell the operation in the namespace it lives in.
+// Typia call recognition follows the resolved declaration owner, not an operation-like function name; foreign helper calls retain their original meaning.
 //
-//  1. Build a project that defines a local `createAssert`, imports a `createIs`
-//     from a relative module and a `createValidate` from a package whose name
-//     merely begins with "typia", and augments typia with a root `parse` — an
-//     operation name that exists only under a namespace.
-//  2. Require a clean no-emit build, which proves every decoy really resolves,
-//     and a project transform with no diagnostic.
-//  3. Require the one genuine `typia.createIs` call in the same file to still
-//     be rewritten, so silence is not the transform giving up on the file.
+// 1. Same-spelled local and member decoys contrast with a genuine typia call in the same source, preventing both overmatch and under-transform.
+// 2. The local name-collision program typechecks, transforms without diagnostics and emits a real number validator while each decoy call survives unchanged.
+//
+// @evidence contracts/testing.md#behavioral-verification The local name-collision program typechecks, transforms without diagnostics and emits a real number validator while each decoy call survives unchanged.
+// @evidence contracts/testing.md#independent-expectations Typia call recognition follows the resolved declaration owner, not an operation-like function name; foreign helper calls retain their original meaning.
+// @evidence contracts/testing.md#distinguishing-cases Same-spelled local and member decoys contrast with a genuine typia call in the same source, preventing both overmatch and under-transform.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLocalFunctionNamedLikeTypiaOperationTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestLocalFunctionNamedLikeTypiaOperationTransform(t *testing.T) {
   project := localTypiaNameCollisionProject(t)
 

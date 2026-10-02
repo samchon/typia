@@ -16,6 +16,11 @@ import { Classifiable } from "@typia/interface";
  * 2. A `constructor(seed: String)` (boxed) yields `string`, not `string[]`.
  * 3. A tuple seed PRESERVES its shape (arity/positions/readonly), while a `Set`
  *    seed — which has no JSON form of its own — renders as its element array.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Classifiable must recursively project nested class/boxed/tuple/Set constructor seeds to the authored decodable input forms.
+ * @evidence contracts/testing.md#independent-expectations PlainInner, string, explicit tuple shapes and a number array supply independent expected seed representations.
+ * @evidence contracts/testing.md#distinguishing-cases Nested methods, boxed String versus iterable treatment, mutable/readonly tuple arity and Set-to-array conversion distinguish recursion, unboxing and container shape.
+ * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableSeedRecursionCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableSeedRecursionCases = [
   Assert<IsEqual<Classifiable<typeof NestedSeed>, { inner: PlainInner }>>,

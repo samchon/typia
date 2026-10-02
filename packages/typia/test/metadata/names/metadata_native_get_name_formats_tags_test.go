@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataNativeGetNameFormatsTags verifies native tag display names.
@@ -23,18 +23,18 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Untagged and multi-row tagged cases separate plain from branded names.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads names from constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataNativeGetNameFormatsTags(t *testing.T) {
-	if got := metadata.MetadataNative_create(metadata.MetadataNative{Name: "Date"}).GetName(); got != "Date" {
-		t.Fatalf("unexpected native name: %q", got)
-	}
+  if got := metadata.MetadataNative_create(metadata.MetadataNative{Name: "Date"}).GetName(); got != "Date" {
+    t.Fatalf("unexpected native name: %q", got)
+  }
 
-	tagged := metadata.MetadataNative_create(metadata.MetadataNative{
-		Name: "Uint8Array",
-		Tags: [][]metadata.IMetadataTypeTag{
-			{testutil.NamedTag("Bytes")},
-			{testutil.NamedTag("MinLength"), testutil.NamedTag("MaxLength")},
-		},
-	})
-	if got := tagged.GetName(); got != "(Uint8Array & (Bytes | (MinLength & MaxLength)))" {
-		t.Fatalf("unexpected tagged native name: %q", got)
-	}
+  tagged := metadata.MetadataNative_create(metadata.MetadataNative{
+    Name: "Uint8Array",
+    Tags: [][]metadata.IMetadataTypeTag{
+      {testutil.NamedTag("Bytes")},
+      {testutil.NamedTag("MinLength"), testutil.NamedTag("MaxLength")},
+    },
+  })
+  if got := tagged.GetName(); got != "(Uint8Array & (Bytes | (MinLength & MaxLength)))" {
+    t.Fatalf("unexpected tagged native name: %q", got)
+  }
 }

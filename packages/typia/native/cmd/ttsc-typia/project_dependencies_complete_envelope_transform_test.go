@@ -29,6 +29,11 @@ import (
 //  4. Assert the declared list for `src/a.ts` still carries `src/b.ts` and
 //     `src/c.ts`, because the declaration narrows to that entry and an entry
 //     that lost a consulted file would now serve a stale validator.
+//
+// @evidence contracts/testing.md#behavioral-verification Sorted completeness keys equal the published TypeScript keys; a.ts retains direct and transitive declarations and the untouched d.ts has no dependencies.
+// @evidence contracts/testing.md#independent-expectations Complete metadata must cover every published source and every declaration consulted for it, including transitively reached properties.
+// @evidence contracts/testing.md#distinguishing-cases Transformed direct/transitive references contrast with an untouched source whose bounded set is empty.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCompleteEnvelopeTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCompleteEnvelopeTransform(t *testing.T) {
   project := projectDependenciesCompleteEnvelopeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

@@ -9,13 +9,21 @@ import { _randomMultiple } from "./_randomMultiple";
  * a window of one hundred beside the other, and a step is satisfied through the
  * decimal multiple generator.
  *
- * @evidence contracts/common.md#principled-implementation The bounds are tightened to the integers they contain, an exclusive bound moves to the next integer, a missing side defaults to a window of one hundred around the other, an infinite bound that excludes nothing is dropped and one that excludes everything throws; the draw is a uniform floor of a random fraction, or a multiple of the step through the decimal multiple generator.
+ * The optional source supplies draws in [0, 1); it defaults to the platform
+ * source resolved when this helper is called. Nested draws use the same
+ * source.
+ *
+ * @evidence contracts/common.md#principled-implementation The bounds are tightened to the integers they contain, an exclusive bound moves to the next representable integer, a missing side defaults to a window of one hundred around the other, an infinite bound that excludes nothing is dropped and one that excludes everything throws; the scalar draw maps the source fraction with floor(source() * (maximum - minimum + 1)) + minimum when the width is finite, or weighted finite endpoints otherwise, and clamps rounding to the selected bounds, or selects a multiple through the decimal multiple generator. Uniform index probabilities on exactly representable integer intervals require a uniform source; intervals beyond exact integer precision can return only representable numbers. An injected deterministic source retains the same bound arithmetic.
+ * @evidence contracts/performance.md#efficient-algorithms Scalar sampling consumes one draw with constant-time arithmetic. Overflowing widths use weighted endpoints, and exclusive boundaries use an exact adjacent binary64 value when needed; no rejection loop is added. Decimal multiple selection retains its existing bounded search.
+ * @evidence contracts/performance.md#reuse-equivalent-work Selected bounds and the single source draw are reused within the call. Results are not shared across calls because invoking the supplied source is an observable effect; changed schemas or sources require fresh sampling, so there is no cross-call cache identity or invalidation state.
+ * @evidence contracts/performance.md#bound-retention-and-release-resources The function owns only call-local boundary records and at most two eight-byte adjacency buffers. They become unreachable on return or failure; no source, schema or historical result is retained across calls, and there are no handles or running tasks to cancel.
  * @evidence contracts/common.md#clear-and-simple-design One function with private boundary helpers shared in shape with the number generator.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Errors are explicit, and the default window of one hundred is an arbitrary generator choice that is documented by its use only.
  * @evidence contracts/common.md#meaningful-documentation The doc states how the bounds, the missing side and the step are handled, and the boundary helper explains the infinite bound rule.
  */
 export const _randomInteger = (
   schema: OpenApi.IJsonSchema.IInteger,
+  source: () => number = Math.random,
 ): number => {
   const lower: IBoundary | null = getLowerBoundary(schema);
   const upper: IBoundary | null = getUpperBoundary(schema);
@@ -26,22 +34,35 @@ export const _randomInteger = (
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
   return schema.multipleOf === undefined
-    ? scalar({ minimum, maximum })
-    : _randomMultiple({
-        minimum,
-        maximum,
-        multipleOf: schema.multipleOf,
-        exclusiveMinimum: lower?.exclusive ?? false,
-        exclusiveMaximum: upper?.exclusive ?? false,
-        integer: true,
-      });
+    ? scalar({ minimum, maximum }, source)
+    : _randomMultiple(
+        {
+          minimum,
+          maximum,
+          multipleOf: schema.multipleOf,
+          exclusiveMinimum: lower?.exclusive ?? false,
+          exclusiveMaximum: upper?.exclusive ?? false,
+          integer: true,
+        },
+        source,
+      );
 };
 
-const scalar = (props: { minimum: number; maximum: number }): number => {
+const scalar = (
+  props: { minimum: number; maximum: number },
+  source: () => number,
+): number => {
   const minimum: number = Math.ceil(props.minimum);
   const maximum: number = Math.floor(props.maximum);
   if (minimum > maximum) throw new Error("The integer range is empty.");
-  return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+  if (!Number.isFinite(minimum) || !Number.isFinite(maximum))
+    throw new Error("The integer range has no finite value.");
+  const draw: number = source();
+  const width: number = maximum - minimum + 1;
+  const value: number = Number.isFinite(width)
+    ? Math.floor(draw * width) + minimum
+    : Math.floor((1 - draw) * minimum + draw * maximum);
+  return Math.max(minimum, Math.min(maximum, value));
 };
 
 const getLowerBoundary = (
@@ -59,10 +80,14 @@ const getLowerBoundary = (
     Math.max,
   );
   if (selected === null) return null;
+  const integer: number = selected.exclusive
+    ? Math.floor(selected.value) + 1
+    : Math.ceil(selected.value);
   return {
-    value: selected.exclusive
-      ? Math.floor(selected.value) + 1
-      : Math.ceil(selected.value),
+    value:
+      selected.exclusive && integer <= selected.value
+        ? nextRepresentable(selected.value, true)
+        : integer,
     exclusive: false,
   };
 };
@@ -82,10 +107,14 @@ const getUpperBoundary = (
     Math.min,
   );
   if (selected === null) return null;
+  const integer: number = selected.exclusive
+    ? Math.ceil(selected.value) - 1
+    : Math.floor(selected.value);
   return {
-    value: selected.exclusive
-      ? Math.ceil(selected.value) - 1
-      : Math.floor(selected.value),
+    value:
+      selected.exclusive && integer >= selected.value
+        ? nextRepresentable(selected.value, false)
+        : integer,
     exclusive: false,
   };
 };
@@ -125,3 +154,16 @@ interface IBoundary {
   value: number;
   exclusive: boolean;
 }
+
+/**
+ * Advances one IEEE 754 binary64 bit pattern, including signed zero and
+ * subnormals.
+ */
+const nextRepresentable = (value: number, upward: boolean): number => {
+  if (value === 0) return upward ? Number.MIN_VALUE : -Number.MIN_VALUE;
+  const view: DataView = new DataView(new ArrayBuffer(8));
+  view.setFloat64(0, value);
+  const bits: bigint = view.getBigUint64(0);
+  view.setBigUint64(0, bits + (value > 0 === upward ? BigInt(1) : -BigInt(1)));
+  return view.getFloat64(0);
+};

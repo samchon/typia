@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
 
 // TestFunctionProgrammerTracksLocalsAndSequence verifies state bookkeeping.
@@ -22,18 +22,18 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Registered and unregistered names are the pair; sequence monotonicity is asserted for two calls only.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported programmer methods in memory with no filesystem fixture, process or native command build.
 func TestFunctionProgrammerTracksLocalsAndSequence(t *testing.T) {
-	programmer := helpers.NewFunctionProgrammer("is")
+  programmer := helpers.NewFunctionProgrammer("is")
 
-	if programmer.UseLocal("input") != "input" {
-		t.Fatal("UseLocal should return the registered name")
-	}
-	if !programmer.HasLocal("input") {
-		t.Fatal("registered local should be present")
-	}
-	if programmer.HasLocal("output") {
-		t.Fatal("unregistered local should be absent")
-	}
-	if first, second := programmer.Increment(), programmer.Increment(); first != 1 || second != 2 {
-		t.Fatalf("sequence should increment from one: first=%d second=%d", first, second)
-	}
+  if programmer.UseLocal("input") != "input" {
+    t.Fatal("UseLocal should return the registered name")
+  }
+  if !programmer.HasLocal("input") {
+    t.Fatal("registered local should be present")
+  }
+  if programmer.HasLocal("output") {
+    t.Fatal("unregistered local should be absent")
+  }
+  if first, second := programmer.Increment(), programmer.Increment(); first != 1 || second != 2 {
+    t.Fatalf("sequence should increment from one: first=%d second=%d", first, second)
+  }
 }

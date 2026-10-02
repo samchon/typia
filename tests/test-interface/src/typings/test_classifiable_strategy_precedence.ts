@@ -15,6 +15,11 @@ import { Classifiable } from "@typia/interface";
  * 1. `from` wins over an available constructor and field copy.
  * 2. A single-argument constructor wins over field copy.
  * 3. Neither a usable `from` nor a single-argument constructor → field copy.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Classifiable must choose exactly from, then a usable constructor, then field copy, and distribute that choice for a constructor union.
+ * @evidence contracts/testing.md#independent-expectations Distinct authored factory/constructor/property shapes ensure identity rejects a union of all strategies; literal input interfaces define each permitted representation independently.
+ * @evidence contracts/testing.md#distinguishing-cases Factory with optional/single/multi-arg constructors, optional/required first seeds, required multi-arg fallback, instance form and class union cover precedence and distribution.
+ * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableStrategyPrecedenceCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableStrategyPrecedenceCases = [
   // 1. `from` wins even though the ctor is single-arg and the class is

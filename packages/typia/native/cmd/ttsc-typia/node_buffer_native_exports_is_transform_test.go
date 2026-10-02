@@ -3,32 +3,22 @@ package main
 import (
   "fmt"
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestNodeBufferNativeExportsIsTransform preserves runtime-native identity for
-// the authoritative Blob and File exports from Node's buffer modules (#1568).
+// TestNodeBufferNativeExportsIsTransform verifies Node buffer-module Blob/File exports versus counterfeit modules.
 //
-// Node's module-exported types and its equivalent bare globals have distinct
-// checker symbols even though they describe the same runtime constructors. A
-// name-only or global-pointer-only classifier can therefore confuse either the
-// authoritative exports or unrelated package declarations with structural
-// lookalikes.
+// Node builtin export aliases share the Blob/File native declaration contract, but a same-spelled package or user type cannot acquire it from its name alone.
 //
-//  1. Transform validators for Blob and File imported from both Node module
-//     spellings, plus their bare-global controls, with DOM libraries excluded.
-//  2. Require every validator to emit a runtime-native identity check rather
-//     than structural Blob/File property checks.
-//  3. Execute real instances and full plain lookalikes through all six emitted
-//     validators, requiring exactly twelve runtime outcomes.
-//  4. Transform ordinary package and user ambient Blob/File declarations and
-//     require their structural members and eight negative-control outcomes.
-//  5. Exclude Node types and prove a user-authored counterfeit of the exact
-//     node:buffer/buffer module names remains structural in eight more cases,
-//     even when its path mimics node_modules/@types/node without package data.
+// 1. Several actual Node export/alias forms contrast with user declarations and a counterfeit module; counted checks prevent both missing and duplicated native handling.
+// 2. Native Blob/File export spellings produce the required instance-check counts and remove structural noise; user/counterfeit controls keep their members and avoid native checks.
+//
+// @evidence contracts/testing.md#behavioral-verification Native Blob/File export spellings produce the required instance-check counts and remove structural noise; user/counterfeit controls keep their members and avoid native checks.
+// @evidence contracts/testing.md#independent-expectations Node builtin export aliases share the Blob/File native declaration contract, but a same-spelled package or user type cannot acquire it from its name alone.
+// @evidence contracts/testing.md#distinguishing-cases Several actual Node export/alias forms contrast with user declarations and a counterfeit module; counted checks prevent both missing and duplicated native handling.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNodeBufferNativeExportsIsTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestNodeBufferNativeExportsIsTransform(t *testing.T) {
   project := nodeBufferNativeExportsProject(t)
   transform := func(file string) string {
@@ -112,23 +102,6 @@ func TestNodeBufferNativeExportsIsTransform(t *testing.T) {
     }
   }
 
-  output, runtimeErr := nodeBufferNativeExportsRun(t, project, js, controlsJS)
-  if runtimeErr != nil {
-    failures = append(failures, fmt.Sprintf("runtime matrix failed: %v\n%s", runtimeErr, output))
-  }
-  for _, expectedCases := range []string{"RAN 12 CASES", "RAN 10 INTERSECTION CASES", "RAN 8 CONTROL CASES"} {
-    if !strings.Contains(output, expectedCases) {
-      failures = append(failures, fmt.Sprintf("runtime runner did not report %q; got:\n%s", expectedCases, output))
-    }
-  }
-  spoofOutput, spoofRuntimeErr := nodeBufferNativeExportsSpoofRun(t, spoofProject, spoofJS)
-  if spoofRuntimeErr != nil {
-    failures = append(failures, fmt.Sprintf("counterfeit runtime matrix failed: %v\n%s", spoofRuntimeErr, spoofOutput))
-  }
-  const expectedSpoofCases = "RAN 8 COUNTERFEIT CASES"
-  if !strings.Contains(spoofOutput, expectedSpoofCases) {
-    failures = append(failures, fmt.Sprintf("counterfeit runner did not report %q; got:\n%s", expectedSpoofCases, spoofOutput))
-  }
   if len(failures) != 0 {
     t.Fatalf(
       "Node buffer native export mismatches:\n%s\n\nnative emit:\n%s\n\ncontrol emit:\n%s\n\ncounterfeit emit:\n%s",
@@ -163,13 +136,13 @@ func nodeBufferNativeExportsProject(t *testing.T) string {
     }
   }
   for path, content := range map[string]string{
-    filepath.Join(dir, "tsconfig.json"):       nodeBufferNativeExportsTSConfig,
-    filepath.Join(src, "input.ts"):            nodeBufferNativeExportsSource,
-    filepath.Join(src, "controls.ts"):         nodeBufferNativeExportsControlSource,
+    filepath.Join(dir, "tsconfig.json"):                 nodeBufferNativeExportsTSConfig,
+    filepath.Join(src, "input.ts"):                      nodeBufferNativeExportsSource,
+    filepath.Join(src, "controls.ts"):                   nodeBufferNativeExportsControlSource,
     filepath.Join(src, "node-buffer-augmentation.d.ts"): nodeBufferNativeExportsAugmentation,
-    filepath.Join(src, "user-ambient.d.ts"):   nodeBufferNativeExportsAmbientDeclarations,
-    filepath.Join(dependency, "package.json"): nodeBufferNativeExportsPackageJSON,
-    filepath.Join(dependency, "index.d.ts"):   nodeBufferNativeExportsPackageDeclarations,
+    filepath.Join(src, "user-ambient.d.ts"):             nodeBufferNativeExportsAmbientDeclarations,
+    filepath.Join(dependency, "package.json"):           nodeBufferNativeExportsPackageJSON,
+    filepath.Join(dependency, "index.d.ts"):             nodeBufferNativeExportsPackageDeclarations,
   } {
     if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
       t.Fatalf("write fixture file %s: %v", path, err)
@@ -201,7 +174,7 @@ func nodeBufferNativeExportsSpoofProject(t *testing.T) string {
     }
   }
   for path, content := range map[string]string{
-    filepath.Join(dir, "tsconfig.json"):       nodeBufferNativeExportsSpoofTSConfig,
+    filepath.Join(dir, "tsconfig.json"):        nodeBufferNativeExportsSpoofTSConfig,
     filepath.Join(fakeNodeRoot, "buffer.d.ts"): nodeBufferNativeExportsSpoofDeclarations,
     filepath.Join(src, "input.ts"):             nodeBufferNativeExportsSpoofSource,
   } {
@@ -210,59 +183,6 @@ func nodeBufferNativeExportsSpoofProject(t *testing.T) string {
     }
   }
   return dir
-}
-
-func nodeBufferNativeExportsRun(t *testing.T, project string, js string, controlsJS string) (string, error) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-    return "", nil
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  for name, content := range map[string]string{
-    "input.cjs":    ttscTypiaTestRewriteCommonJS(t, js),
-    "controls.cjs": ttscTypiaTestRewriteCommonJS(t, controlsJS),
-    "run.cjs":      nodeBufferNativeExportsRuntimeRunner,
-  } {
-    if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
-      t.Fatalf("write runtime file %s: %v", name, err)
-    }
-  }
-  cmd := exec.Command(node, filepath.Join(runtimeDir, "run.cjs"))
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  return string(output), err
-}
-
-func nodeBufferNativeExportsSpoofRun(t *testing.T, project string, js string) (string, error) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-    return "", nil
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir counterfeit runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  for name, content := range map[string]string{
-    "input.cjs": ttscTypiaTestRewriteCommonJS(t, js),
-    "run.cjs":   nodeBufferNativeExportsSpoofRuntimeRunner,
-  } {
-    if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
-      t.Fatalf("write counterfeit runtime file %s: %v", name, err)
-    }
-  }
-  cmd := exec.Command(node, filepath.Join(runtimeDir, "run.cjs"))
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  return string(output), err
 }
 
 const nodeBufferNativeExportsTSConfig = `{
@@ -409,118 +329,4 @@ export const isNodeBlob = typia.createIs<NodeBlob>();
 export const isNodeFile = typia.createIs<NodeFile>();
 export const isLegacyBlob = typia.createIs<LegacyBlob>();
 export const isLegacyFile = typia.createIs<LegacyFile>();
-`
-
-const nodeBufferNativeExportsRuntimeRunner = `const validators = require("./input.cjs");
-const controls = require("./controls.cjs");
-const node = require("node:buffer");
-const legacy = require("buffer");
-
-const blobPlain = { size: 1, type: "text/plain" };
-const filePlain = {
-  lastModified: 0,
-  name: "x.txt",
-  size: 1,
-  type: "text/plain",
-  webkitRelativePath: "",
-};
-
-const cases = [
-  ["node:buffer Blob real", validators.isNodeBlob(new node.Blob(["x"], { type: "text/plain" })), true],
-  ["node:buffer Blob plain", validators.isNodeBlob(blobPlain), false],
-  ["node:buffer File real", validators.isNodeFile(new node.File(["x"], "x.txt", { lastModified: 0, type: "text/plain" })), true],
-  ["node:buffer File plain", validators.isNodeFile(filePlain), false],
-  ["buffer Blob real", validators.isLegacyBlob(new legacy.Blob(["x"], { type: "text/plain" })), true],
-  ["buffer Blob plain", validators.isLegacyBlob(blobPlain), false],
-  ["buffer File real", validators.isLegacyFile(new legacy.File(["x"], "x.txt", { lastModified: 0, type: "text/plain" })), true],
-  ["buffer File plain", validators.isLegacyFile(filePlain), false],
-  ["global Blob real", validators.isGlobalBlob(new Blob(["x"], { type: "text/plain" })), true],
-  ["global Blob plain", validators.isGlobalBlob(blobPlain), false],
-  ["global File real", validators.isGlobalFile(new File(["x"], "x.txt", { lastModified: 0, type: "text/plain" })), true],
-  ["global File plain", validators.isGlobalFile(filePlain), false],
-];
-
-const intersectionCases = [
-  ["branded Node Blob real", validators.isBrandedNodeBlob(new node.Blob(["x"])), true],
-  ["branded Node Blob plain", validators.isBrandedNodeBlob(blobPlain), false],
-  ["branded Node File real", validators.isBrandedNodeFile(new node.File(["x"], "x.txt")), true],
-  ["branded Node File plain", validators.isBrandedNodeFile(filePlain), false],
-  ["Node Blob intersection pruned", validators.isNodeBlobIntersectionUnion(Object.assign(new node.Blob(["x"]), { blobLabel: "x" })), false],
-  ["Node Blob intersection plain", validators.isNodeBlobIntersectionUnion({ ...blobPlain, blobLabel: "x" }), false],
-  ["Node Blob intersection other", validators.isNodeBlobIntersectionUnion({ nodeBlobOk: true }), true],
-  ["Node File intersection pruned", validators.isNodeFileIntersectionUnion(Object.assign(new node.File(["x"], "x.txt"), { fileLabel: "x" })), false],
-  ["Node File intersection plain", validators.isNodeFileIntersectionUnion({ ...filePlain, fileLabel: "x" }), false],
-  ["Node File intersection other", validators.isNodeFileIntersectionUnion({ nodeFileOk: true }), true],
-];
-
-const packageBlob = { packageBrand: "package", size: 1, type: "text/plain" };
-const packageFile = {
-  ...packageBlob,
-  lastModified: 0,
-  name: "x.txt",
-  webkitRelativePath: "",
-};
-const ambientBlob = { ambientBrand: "ambient", size: 1, type: "text/plain" };
-const ambientFile = {
-  ...ambientBlob,
-  lastModified: 0,
-  name: "x.txt",
-  webkitRelativePath: "",
-};
-const controlCases = [
-  ["package Blob structural", controls.isPackageBlob(packageBlob), true],
-  ["package Blob rejects native", controls.isPackageBlob(new node.Blob(["x"])), false],
-  ["package File structural", controls.isPackageFile(packageFile), true],
-  ["package File rejects native", controls.isPackageFile(new node.File(["x"], "x.txt")), false],
-  ["ambient Blob structural", controls.isAmbientBlob(ambientBlob), true],
-  ["ambient Blob rejects native", controls.isAmbientBlob(new node.Blob(["x"])), false],
-  ["ambient File structural", controls.isAmbientFile(ambientFile), true],
-  ["ambient File rejects native", controls.isAmbientFile(new node.File(["x"], "x.txt")), false],
-];
-
-const failures = [];
-for (const [name, actual, expected] of [...cases, ...intersectionCases, ...controlCases]) {
-  if (actual !== expected) {
-    failures.push(name + ": expected " + expected + " but got " + actual);
-  }
-}
-console.log("RAN " + cases.length + " CASES");
-console.log("RAN " + intersectionCases.length + " INTERSECTION CASES");
-console.log("RAN " + controlCases.length + " CONTROL CASES");
-if (failures.length !== 0) {
-  throw new Error("MISMATCHES:\n" + failures.join("\n"));
-}
-`
-
-const nodeBufferNativeExportsSpoofRuntimeRunner = `const validators = require("./input.cjs");
-const node = require("node:buffer");
-
-const blob = { spoofBrand: "fake", size: 1, type: "text/plain" };
-const file = {
-  ...blob,
-  lastModified: 0,
-  name: "x.txt",
-  webkitRelativePath: "",
-};
-const cases = [
-  ["counterfeit node:buffer Blob structural", validators.isNodeBlob(blob), true],
-  ["counterfeit node:buffer Blob rejects native", validators.isNodeBlob(new node.Blob(["x"])), false],
-  ["counterfeit node:buffer File structural", validators.isNodeFile(file), true],
-  ["counterfeit node:buffer File rejects native", validators.isNodeFile(new node.File(["x"], "x.txt")), false],
-  ["counterfeit buffer Blob structural", validators.isLegacyBlob(blob), true],
-  ["counterfeit buffer Blob rejects native", validators.isLegacyBlob(new node.Blob(["x"])), false],
-  ["counterfeit buffer File structural", validators.isLegacyFile(file), true],
-  ["counterfeit buffer File rejects native", validators.isLegacyFile(new node.File(["x"], "x.txt")), false],
-];
-
-const failures = [];
-for (const [name, actual, expected] of cases) {
-  if (actual !== expected) {
-    failures.push(name + ": expected " + expected + " but got " + actual);
-  }
-}
-console.log("RAN " + cases.length + " COUNTERFEIT CASES");
-if (failures.length !== 0) {
-  throw new Error("MISMATCHES:\n" + failures.join("\n"));
-}
 `

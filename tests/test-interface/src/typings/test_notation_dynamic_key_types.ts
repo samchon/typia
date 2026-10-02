@@ -10,6 +10,11 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  * 1. Declare snake-keyed and camel-keyed string records.
  * 2. Apply each notation alias to its matching source record.
  * 3. Require broad string keys and the correctly converted nested value type.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The four notation aliases must preserve broad string/number domains and recursively convert their value keys, including template-key lookups.
+ * @evidence contracts/testing.md#independent-expectations Handwritten Record outputs, numeric-key outputs and literal template-key access results establish the expected key/value types.
+ * @evidence contracts/testing.md#distinguishing-cases Broad string and numeric records, numeric literal 0 and template-literal keys distinguish domain preservation from narrowing and nested key conversion.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks NotationDynamicKeyTypeCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type NotationDynamicKeyTypeCases = [
   Assert<

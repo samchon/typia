@@ -4,7 +4,9 @@
   "version": "15.0.1",
   "description": "Test suite for @typia/langchain package",
   "scripts": {
-    "start": "ttsx src/index.ts",
+    "start": "pnpm run test:unit && pnpm run test:integration",
+    "test:unit": "ttsx --no-plugins --project tsconfig.unit.json src/unit/index.ts",
+    "test:integration": "ttsx src/index.ts",
     "structured-output": "ttsx src/structured-output.ts",
     "tool-calling": "ttsx src/experimental/tool-calling.ts",
     "evidence": "evidence"

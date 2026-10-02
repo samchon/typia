@@ -1,4 +1,4 @@
-import { TestStructureSelector } from "@typia/oracle/structure-selector";
+import { TestStructureSelector } from "@typia/template/structure-selector";
 import assert from "node:assert/strict";
 
 /**

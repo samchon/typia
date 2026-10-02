@@ -17,6 +17,11 @@ import type { Experimental_EvaluationQuestion as EvaluationQuestion } from "ai";
  * 2. Assert every question type is assignable to AI SDK's question type, and a
  *    question map to its `experimental_evaluate` input.
  * 3. Assert `tags.Probability` keeps booleans and literals assignable.
+ *
+ * @evidence contracts/testing.md#behavioral-verification ILlmEvaluation question/config/decode shapes must match authored declarations and actual AI SDK question assignability; Probability tags must preserve value assignability.
+ * @evidence contracts/testing.md#independent-expectations The installed ai declaration is the independent compatibility oracle. Explicit question union/map and decode signature fix local shape; decode unknown acceptance is signature coverage, not runtime validation.
+ * @evidence contracts/testing.md#distinguishing-cases Choice/score/Boolean variants, generic decision map, unknown decode input and tagged Boolean/string literals distinguish local structure from foreign compatibility.
+ * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over this compile-only LlmEvaluationContractCases declaration. Assert/type identity, assignability, return checking and expect-error directives apply as written; no runtime invocation or native artifact is required.
  */
 export type LlmEvaluationContractCases = [
   // the local shape

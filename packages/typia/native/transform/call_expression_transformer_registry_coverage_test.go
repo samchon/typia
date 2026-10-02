@@ -4,11 +4,11 @@
 package transform
 
 import (
-	"path/filepath"
-	"testing"
+  "path/filepath"
+  "testing"
 
-	shimast "github.com/microsoft/typescript-go/shim/ast"
-	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
 )
 
 // TestCallExpressionTransformerRegistryCoverage exercises registry helpers.
@@ -28,31 +28,31 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Matching and non-matching paths are paired; the registry sweep visits every entry once.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls private helpers in the same package with no checker, filesystem fixture or process.
 func TestCallExpressionTransformerRegistryCoverage(t *testing.T) {
-	if CallExpressionTransformer.Transform(CallExpressionTransformer_TransformProps{
-		Context: nativecontext.ITypiaContext{},
-	}) != nil {
-		t.Fatal("nil call expressions should not transform")
-	}
-	if module, ok := callExpressionTransformer_targetModule(filepath.Join("node_modules", "typia", "src", "module.ts")); !ok || module != "module" {
-		t.Fatalf("typia source module target mismatch: module=%q ok=%v", module, ok)
-	}
-	if module, ok := callExpressionTransformer_targetModule(filepath.Join("node_modules", "typia", "lib", "json.d.ts")); !ok || module != "json" {
-		t.Fatalf("typia declaration target mismatch: module=%q ok=%v", module, ok)
-	}
-	if _, ok := callExpressionTransformer_targetModule(filepath.Join("node_modules", "other", "src", "module.ts")); ok {
-		t.Fatal("typia target path detection mismatch")
-	}
-	if callExpressionTransformer_sourceFile(shimast.NewNodeFactory(shimast.NodeFactoryHooks{}).NewIdentifier("standalone")) != nil {
-		t.Fatal("standalone nodes should not resolve a source file")
-	}
-	for module, methods := range callExpressionTransformer_FUNCTORS() {
-		if len(methods) == 0 {
-			t.Fatalf("%s registry should not be empty", module)
-		}
-		for name, materialize := range methods {
-			if materialize == nil || materialize() == nil {
-				t.Fatalf("%s.%s registry closure returned nil", module, name)
-			}
-		}
-	}
+  if CallExpressionTransformer.Transform(CallExpressionTransformer_TransformProps{
+    Context: nativecontext.ITypiaContext{},
+  }) != nil {
+    t.Fatal("nil call expressions should not transform")
+  }
+  if module, ok := callExpressionTransformer_targetModule(filepath.Join("node_modules", "typia", "src", "module.ts")); !ok || module != "module" {
+    t.Fatalf("typia source module target mismatch: module=%q ok=%v", module, ok)
+  }
+  if module, ok := callExpressionTransformer_targetModule(filepath.Join("node_modules", "typia", "lib", "json.d.ts")); !ok || module != "json" {
+    t.Fatalf("typia declaration target mismatch: module=%q ok=%v", module, ok)
+  }
+  if _, ok := callExpressionTransformer_targetModule(filepath.Join("node_modules", "other", "src", "module.ts")); ok {
+    t.Fatal("typia target path detection mismatch")
+  }
+  if callExpressionTransformer_sourceFile(shimast.NewNodeFactory(shimast.NodeFactoryHooks{}).NewIdentifier("standalone")) != nil {
+    t.Fatal("standalone nodes should not resolve a source file")
+  }
+  for module, methods := range callExpressionTransformer_FUNCTORS() {
+    if len(methods) == 0 {
+      t.Fatalf("%s registry should not be empty", module)
+    }
+    for name, materialize := range methods {
+      if materialize == nil || materialize() == nil {
+        t.Fatalf("%s.%s registry closure returned nil", module, name)
+      }
+    }
+  }
 }

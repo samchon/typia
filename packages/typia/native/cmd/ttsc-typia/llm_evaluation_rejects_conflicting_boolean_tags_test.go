@@ -17,6 +17,11 @@ import (
 //     literal only.
 //  2. Require a transform diagnostic at each.
 //  3. Accept `boolean & Tag` and the same tag on both literals.
+//
+// @evidence contracts/testing.md#behavioral-verification Conflicting and half-tagged boolean literal unions report their decision paths; whole-boolean and equal-literal-tag controls compile.
+// @evidence contracts/testing.md#independent-expectations True and false form one boolean decision, so they must share one threshold; folding the union cannot choose one inconsistent requirement.
+// @evidence contracts/testing.md#distinguishing-cases Different thresholds and one-sided tagging contrast with one tag on boolean and the same tag on both literals.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsConflictingBooleanTags as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsConflictingBooleanTags(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "boolean-tags", `import typia, { tags } from "typia";
 

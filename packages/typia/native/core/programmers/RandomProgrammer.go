@@ -165,6 +165,13 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
   if init == nil {
     init = f.NewToken(shimast.KindQuestionToken)
   }
+  // A caller's initializer can itself be named generator. A generated binding
+  // prevents its default expression from resolving to this parameter's TDZ.
+  generatorEmit := props.Context.Emit
+  if generatorEmit == nil {
+    generatorEmit = shimprinter.NewEmitContext()
+  }
+  generator := generatorEmit.Factory.NewUniqueName("generator")
   resolvedType := randomProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "Resolved",
@@ -187,7 +194,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("generator", randomGeneratorType, init, props.Context.Emit),
+        nativefactories.IdentifierFactory.Parameter(generator.Clone(generatorEmit.Factory), randomGeneratorType, init, props.Context.Emit),
       }),
       resolvedType,
       nil,
@@ -198,7 +205,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
           f.NewIdentifier("_generator"),
           nil,
           f.NewToken(shimast.KindEqualsToken),
-          f.NewIdentifier("generator"),
+          generator.Clone(generatorEmit.Factory),
         )),
         f.NewReturnStatement(randomProgrammer_decode(randomProgrammer_decodeProps{
           Context: props.Context,
@@ -588,7 +595,8 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
   return randomProgrammer_decode_pick(props, expressions)
 }
 
-// randomProgrammer_decode_pick draws one of the candidate expressions uniformly.
+// randomProgrammer_decode_pick selects a lazy candidate through the optional pick hook or uniform built-in fallback.
+// The custom hook receives its generator object as the receiver; only the selected candidate executes.
 func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expressions []*shimast.Node) *shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   pickers := make([]*shimast.Node, 0, len(expressions))
@@ -606,10 +614,11 @@ func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expression
   }
   return f.NewCallExpression(
     f.NewCallExpression(
-      randomProgrammer_internal(props.Context, "randomPick"),
+      nativefactories.IdentifierFactory.Access(props.Context.Emit, randomProgrammer_coalesce(props.Context, "pick", "randomPick"), "call"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
+        f.NewIdentifier("_generator"),
         f.NewArrayLiteralExpression(f.NewNodeList(pickers), true),
       }),
       shimast.NodeFlagsNone,

@@ -29,10 +29,14 @@ interface IShortFirst {
  * 2. Require every independent sibling, quoted-key, and indexed error path.
  * 3. Exercise the runtime reporter directly to retain true-parent suppression.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.validate is evaluated by the native host on the types declared in this case and the result is checked by 4 assertions (runtime reporter boundaries; ancestor first). The case documents its purpose as: Verifies generated validation reports only suppress real ancestor paths.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The reporter sees errors in declaration order and historically treated a raw identifier prefix as ancestry. This pins both sibling orders plus the quoted, indexed, duplicate, and genuine parent/child path boundaries. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (runtime reporter boundaries; ancestor first) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_validate_report_path_boundary is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Validation suppresses actual ancestor paths while retaining independent prefix siblings.
+ * @evidence contracts/testing.md#independent-expectations Authored sibling/quoted/indexed paths and literal reporter sequences anchor exact expected errors independently.
+ * @evidence contracts/testing.md#distinguishing-cases Both declaration orders, eleven array indices, duplicate container, quoted keys and ancestor-first/descendant-first reporter controls remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_report_path_boundary in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Emitted validators must produce and connect correctly formed paths to the runtime suppression reporter.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Both declaration orders, eleven array indices, duplicate container, quoted keys and ancestor-first/descendant-first reporter controls remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_report_path_boundary = (): void => {
   const input = {

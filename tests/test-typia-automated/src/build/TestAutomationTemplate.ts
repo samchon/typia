@@ -1,12 +1,21 @@
 import { NamingConvention } from "@typia/utils";
 
-// import { write_functional } from "./writers/write_functional";
-// import { write_functionalAsync } from "./writers/write_functionalAsync";
-// import { write_notation } from "./writers/write_notation";
 import { write_protobuf_decode } from "./writers/write_protobuf_decode";
 import { write_protobuf_encode } from "./writers/write_protobuf_encode";
 import { write_random } from "./writers/write_random";
 
+/**
+ * Describes one operation's direct/factory generation and fixture eligibility.
+ *
+ * Capability flags belong to the fixture-selection controller; programmer
+ * overrides only rendering. asynchronous preserves a helper's rejected
+ * promise.
+ *
+ * @evidence contracts/common.md#principled-implementation Module, prefix and method compose the public operation and family identity. createOnly and creatable distinguish available binding forms, while capability flags select applicable fixtures. A programmer renders specialized random or binary bindings without replacing their assertions.
+ * @evidence contracts/common.md#clear-and-simple-design The interface keeps selection and rendering options in one operation descriptor; DATA is the configured population. Runtime fixture callbacks remain in TestAutomationMetadata rather than being duplicated here.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Flags describe supported operation inputs, not expected results. The currently configured population deliberately omits several public operations; ObjectSimple composites retain selected validating variants, and this descriptor does not claim exhaustive public API coverage.
+ * @evidence contracts/common.md#meaningful-documentation The introduction separates selection, rendering and promise ownership. asynchronous explains why a void wrapper would hide failed async assertions; method and directory document discoverable naming.
+ */
 export interface TestAutomationTemplate {
   module: string | null;
   prefix?: string;
@@ -32,10 +41,26 @@ export interface TestAutomationTemplate {
    * rejection.
    */
   asynchronous?: true;
+  /**
+   * Overrides source rendering for the operation's binding form and fixture.
+   *
+   * @evidence contracts/common.md#principled-implementation The curried create and structure inputs select a direct/factory binding and exact fixture identity, returning source text for the same controller enrollment decision.
+   * @evidence contracts/common.md#clear-and-simple-design One optional renderer specializes random or protobuf source skeletons without introducing another fixture selector or execution owner.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The callback produces test source, not verdicts or expected codec bytes; real native bindings and assertions remain in the generated operation-specific cases.
+   * @evidence contracts/common.md#meaningful-documentation Native prose explains override responsibility and its two inputs; the interface introduction separates rendering from selection and asynchronous execution.
+   */
   programmer?: (create: boolean) => (structure: string) => string;
 }
+/** Owns active operation descriptors and their direct/factory family names. */
 export namespace TestAutomationTemplate {
-  /** The public method a template's direct or factory half exercises. */
+  /**
+   * Returns the public method for the direct or factory half.
+   *
+   * @evidence contracts/common.md#principled-implementation Direct forms retain tpl.method; factory forms prepend create to the capitalized method, matching typia's configured public naming convention.
+   * @evidence contracts/common.md#clear-and-simple-design One pure conditional owns this name composition and is reused by directory and the controller.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No fixture identity or expected output influences the method spelling; the configured descriptor supplies the operation.
+   * @evidence contracts/common.md#meaningful-documentation Native prose states the distinction between direct and factory halves; it makes no execution or output correctness claim.
+   */
   export const method = (
     tpl: TestAutomationTemplate,
     create: boolean,
@@ -47,6 +72,11 @@ export namespace TestAutomationTemplate {
    *
    * The direct/factory matrix backstop reads the same composition, so a renamed
    * family cannot leave the backstop asserting against a stale name.
+   *
+   * @evidence contracts/common.md#principled-implementation Ordered optional prefix/module, composed method and Custom suffix preserve each configured family's discoverable directory identity, including standardSchema factory-only entries.
+   * @evidence contracts/common.md#clear-and-simple-design directory calls the shared method function and joins four naming components; it does not duplicate eligibility or render source.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Naming depends only on the descriptor and binding half, never a fixture name or test verdict.
+   * @evidence contracts/common.md#meaningful-documentation The comment describes src/features naming and shared composition, which is useful when renaming an operation or its factory half.
    */
   export const directory = (
     tpl: TestAutomationTemplate,
@@ -60,10 +90,6 @@ export namespace TestAutomationTemplate {
     ].join("");
 
   export const DATA: TestAutomationTemplate[] = [
-    //----
-    // RUNTIME VALIDATORS
-    //----
-    // VALIDATORS
     {
       module: null,
       method: "is",
@@ -97,7 +123,6 @@ export namespace TestAutomationTemplate {
       spoilable: true,
     },
 
-    // STRICT VALIDATORS
     {
       module: null,
       method: "equals",
@@ -127,7 +152,6 @@ export namespace TestAutomationTemplate {
       strict: true,
     },
 
-    // RANDOM
     {
       module: null,
       method: "random",
@@ -138,72 +162,6 @@ export namespace TestAutomationTemplate {
       programmer: write_random,
     },
 
-    // //----
-    // // FUNCTIONAL FEATURES
-    // //----
-    // ...[
-    //   "assertFunction",
-    //   "assertParameters",
-    //   "assertReturn",
-    //   "isFunction",
-    //   "isParameters",
-    //   "isReturn",
-    //   "validateFunction",
-    //   "validateParameters",
-    //   "validateReturn",
-    // ]
-    //   .map((method) => [
-    //     {
-    //       module: "functional",
-    //       method,
-    //       creatable: false,
-    //       spoilable: true,
-    //       programmer: () => write_functional(method),
-    //     },
-    //     {
-    //       module: "functional",
-    //       method: `${method}Async`,
-    //       creatable: false,
-    //       spoilable: true,
-    //       programmer: () => write_functionalAsync(method),
-    //     },
-    //   ])
-    //   .flat(),
-    // ...[
-    //   "assertEqualsFunction",
-    //   "assertEqualsParameters",
-    //   "assertEqualsReturn",
-    //   "equalsFunction",
-    //   "equalsParameters",
-    //   "equalsReturn",
-    //   "validateEqualsFunction",
-    //   "validateEqualsParameters",
-    //   "validateEqualsReturn",
-    // ]
-    //   .map((method) => [
-    //     {
-    //       module: "functional",
-    //       method,
-    //       creatable: false,
-    //       spoilable: false,
-    //       strict: true,
-    //       programmer: () => write_functional(method),
-    //     },
-    //     {
-    //       module: "functional",
-    //       method: `${method}Async`,
-    //       creatable: false,
-    //       spoilable: false,
-    //       strict: true,
-    //       programmer: () => write_functionalAsync(method),
-    //     },
-    //   ])
-    //   .flat(),
-
-    //----
-    // PROTOBUF FUNCTIONS
-    //----
-    // ENCODERS
     {
       module: "protobuf",
       method: "encode",
@@ -212,31 +170,6 @@ export namespace TestAutomationTemplate {
       resolved: true,
       programmer: write_protobuf_encode("encode"),
     },
-    // {
-    //   module: "protobuf",
-    //   method: "isEncode",
-    //   creatable: true,
-    //   spoilable: true,
-    //   resolved: true,
-    //   programmer: write_protobuf_encode("isEncode"),
-    // },
-    // {
-    //   module: "protobuf",
-    //   method: "assertEncode",
-    //   creatable: true,
-    //   spoilable: true,
-    //   resolved: true,
-    //   programmer: write_protobuf_encode("assertEncode"),
-    // },
-    // {
-    //   module: "protobuf",
-    //   method: "validateEncode",
-    //   creatable: true,
-    //   spoilable: true,
-    //   resolved: true,
-    //   programmer: write_protobuf_encode("validateEncode"),
-    // },
-    // DECODERS
     {
       module: "protobuf",
       method: "decode",
@@ -245,65 +178,7 @@ export namespace TestAutomationTemplate {
       resolved: true,
       programmer: write_protobuf_decode("decode"),
     },
-    // {
-    //   module: "protobuf",
-    //   method: "isDecode",
-    //   creatable: true,
-    //   spoilable: true,
-    //   resolved: true,
-    //   programmer: write_protobuf_decode("isDecode"),
-    // },
-    // {
-    //   module: "protobuf",
-    //   method: "assertDecode",
-    //   creatable: true,
-    //   spoilable: true,
-    //   resolved: true,
-    //   programmer: write_protobuf_decode("assertDecode"),
-    // },
-    // {
-    //   module: "protobuf",
-    //   method: "validateDecode",
-    //   creatable: true,
-    //   spoilable: true,
-    //   resolved: true,
-    //   programmer: write_protobuf_decode("validateDecode"),
-    // },
 
-    //----
-    // JSON FUNCTIONS
-    //----
-    // PARSERS
-    // {
-    //   module: "json",
-    //   method: "isParse",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    //   primitive: true,
-    //   explicit: true,
-    // },
-    // {
-    //   module: "json",
-    //   method: "assertParse",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    //   primitive: true,
-    //   explicit: true,
-    // },
-    // {
-    //   module: "json",
-    //   method: "validateParse",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    //   explicit: true,
-    //   primitive: true,
-    //   resolved: true,
-    // },
-
-    // STRINGIFY
     {
       module: "json",
       method: "stringify",
@@ -311,31 +186,7 @@ export namespace TestAutomationTemplate {
       spoilable: false,
       jsonable: true,
     },
-    // {
-    //   module: "json",
-    //   method: "isStringify",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    // },
-    // {
-    //   module: "json",
-    //   method: "assertStringify",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    // },
-    // {
-    //   module: "json",
-    //   method: "validateStringify",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    // },
 
-    //----
-    // HTTP
-    //----
     {
       module: "http",
       method: "formData",
@@ -345,30 +196,6 @@ export namespace TestAutomationTemplate {
       spoilable: false,
       asynchronous: true,
     },
-    // {
-    //   module: "http",
-    //   method: "assertFormData",
-    //   creatable: true,
-    //   formData: true,
-    //   resolved: true,
-    //   spoilable: true,
-    // },
-    // {
-    //   module: "http",
-    //   method: "isFormData",
-    //   creatable: true,
-    //   formData: true,
-    //   resolved: true,
-    //   spoilable: true,
-    // },
-    // {
-    //   module: "http",
-    //   method: "validateFormData",
-    //   creatable: true,
-    //   formData: true,
-    //   resolved: true,
-    //   spoilable: true,
-    // },
     {
       module: "http",
       method: "query",
@@ -377,30 +204,6 @@ export namespace TestAutomationTemplate {
       resolved: true,
       spoilable: false,
     },
-    // {
-    //   module: "http",
-    //   method: "assertQuery",
-    //   creatable: true,
-    //   query: true,
-    //   resolved: true,
-    //   spoilable: true,
-    // },
-    // {
-    //   module: "http",
-    //   method: "isQuery",
-    //   creatable: true,
-    //   query: true,
-    //   resolved: true,
-    //   spoilable: true,
-    // },
-    // {
-    //   module: "http",
-    //   method: "validateQuery",
-    //   creatable: true,
-    //   query: true,
-    //   resolved: true,
-    //   spoilable: true,
-    // },
     {
       module: "http",
       method: "headers",
@@ -434,29 +237,6 @@ export namespace TestAutomationTemplate {
       spoilable: true,
     },
 
-    //----
-    // NOTATIONS
-    //----
-    // ...["camel", "pascal", "snake"]
-    //   .map((method) =>
-    //     ([null, "assert", "is", "validate"] as const).map((mode) => ({
-    //       module: "notation",
-    //       method,
-    //       creatable: true,
-    //       resolved: true as const,
-    //       spoilable: false,
-    //       dynamic: false as const,
-    //       programmer: write_notation({
-    //         method,
-    //         mode,
-    //       }),
-    //     })),
-    //   )
-    //   .flat(),
-
-    //----
-    // MISCELLANEOUS
-    //----
     {
       module: "plain",
       method: "clone",
@@ -465,30 +245,6 @@ export namespace TestAutomationTemplate {
       jsonable: true,
       resolved: true,
     },
-    // {
-    //   module: "plain",
-    //   method: "isClone",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    //   resolved: true,
-    // },
-    // {
-    //   module: "plain",
-    //   method: "assertClone",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    //   resolved: true,
-    // },
-    // {
-    //   module: "plain",
-    //   method: "validateClone",
-    //   creatable: true,
-    //   spoilable: true,
-    //   jsonable: true,
-    //   resolved: true,
-    // },
     {
       module: "plain",
       method: "prune",
@@ -497,29 +253,5 @@ export namespace TestAutomationTemplate {
       strict: true,
       resolved: true,
     },
-    // {
-    //   module: "plain",
-    //   method: "isPrune",
-    //   creatable: true,
-    //   spoilable: true,
-    //   strict: true,
-    //   resolved: true,
-    // },
-    // {
-    //   module: "plain",
-    //   method: "assertPrune",
-    //   creatable: true,
-    //   spoilable: true,
-    //   strict: true,
-    //   resolved: true,
-    // },
-    // {
-    //   module: "plain",
-    //   method: "validatePrune",
-    //   creatable: true,
-    //   spoilable: true,
-    //   strict: true,
-    //   resolved: true,
-    // },
   ];
 }

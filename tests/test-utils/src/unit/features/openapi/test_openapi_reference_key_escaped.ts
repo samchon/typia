@@ -1,5 +1,5 @@
 import { OpenApi, OpenApiV3, SwaggerV2 } from "@typia/interface";
-import { TestEquality } from "@typia/oracle/equality";
+import { TestEquality } from "@typia/template/oracle-equality";
 import {
   HttpLlm,
   HttpMigration,

@@ -1,6 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 import { IHttpMigrateApplication, OpenApi, SwaggerV2 } from "@typia/interface";
-import { TestEquality } from "@typia/oracle/equality";
+import { TestEquality } from "@typia/template/oracle-equality";
 import {
   HttpMigration,
   OpenApiConverter,

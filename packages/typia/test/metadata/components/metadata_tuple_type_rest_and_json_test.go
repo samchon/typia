@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataTupleTypeRestAndJSON verifies tuple rest detection and DTOs.
@@ -22,21 +22,21 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Only the positive rest tuple is asserted; the non-rest negative is not asserted here.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It builds and converts the tuple in memory with no filesystem fixture, process or native command build.
 func TestMetadataTupleTypeRestAndJSON(t *testing.T) {
-	tuple := metadata.MetadataTupleType_create(metadata.MetadataTupleType{
-		Name: "PairRest",
-		Elements: []*metadata.MetadataSchema{
-			testutil.AtomicMetadata("string"),
-			metadata.MetadataSchema_create(metadata.MetadataSchema{
-				Required: true,
-				Rest:     testutil.AtomicMetadata("number"),
-			}),
-		},
-	})
+  tuple := metadata.MetadataTupleType_create(metadata.MetadataTupleType{
+    Name: "PairRest",
+    Elements: []*metadata.MetadataSchema{
+      testutil.AtomicMetadata("string"),
+      metadata.MetadataSchema_create(metadata.MetadataSchema{
+        Required: true,
+        Rest:     testutil.AtomicMetadata("number"),
+      }),
+    },
+  })
 
-	if !tuple.IsRest() {
-		t.Fatal("tuple with rest metadata on final element should be rest tuple")
-	}
-	if json := tuple.ToJSON(); len(json.Elements) != 2 || json.Elements[1].Rest == nil {
-		t.Fatalf("tuple JSON should preserve rest element: %#v", json.Elements)
-	}
+  if !tuple.IsRest() {
+    t.Fatal("tuple with rest metadata on final element should be rest tuple")
+  }
+  if json := tuple.ToJSON(); len(json.Elements) != 2 || json.Elements[1].Rest == nil {
+    t.Fatalf("tuple JSON should preserve rest element: %#v", json.Elements)
+  }
 }

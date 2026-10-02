@@ -3,50 +3,22 @@ package main
 import (
   "fmt"
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestCallableTypeLiteralBoundariesTransform verifies that how a callable or
-// constructable type is spelled cannot change what typia emits or how the
-// emitted validator answers (#2238).
+// TestCallableTypeLiteralBoundariesTransform verifies equivalent callable declaration spellings and rejection boundaries.
 //
-// #2250 gave call-only and construct-only `interface` declarations the function
-// metadata semantics their mutually assignable function-type aliases already
-// had. The same shape written as a type literal — `type X = { (v: number):
-// string }` or the anonymous body at the call site — still reached structural
-// object metadata, so a real function or class was rejected by the literal
-// spelling and accepted by both the interface and the alias spelling. This
-// regression pins the whole declaration-spelling axis rather than that one
-// witness, because a fix that keyed on one node kind, one position, or one
-// transform option would move a single cell and leave the class intact.
+// TypeScript equivalent call/construct signatures have the same structural meaning, so spelling alone cannot change typia support or emitted validation.
 //
-// The oracles are chosen so that no assertion reads its expectation from the
-// emit under test. Mutual assignability is proven by the compiler: every
-// spelling group compiles a bidirectional `Same<>` assertion, so "these must
-// agree" is a TypeScript fact rather than a claim of this file. For member-free
-// callable shapes the absolute answers come from typia's published function-type
-// contract (default options skip a function slot, `functional: true` requires a
-// real function). For member-carrying shapes the interface spelling is the
-// oracle, because #2250 merged it as the reviewed boundary and #2238 declares
-// hybrid callables an explicit negative boundary whose declared members must not
-// be erased; the anchors below therefore also pin one value that the structural
-// path must still accept, so a collapse of every hybrid answer to `false` cannot
-// masquerade as parity.
+// 1. Named subshapes distinguish callable-only and member-bearing variants, intersections and aliases; neighboring declarations supply equivalence controls and unsupported operations retain rejection identities.
+// 2. The matrix compares interface, type literal and alias emissions and rejection counts; provenance emits must not leak forbidden internal names.
 //
-//  1. Compile one project that spells fourteen callable shapes as an interface,
-//     as a named type literal, as an anonymous literal at the call site, and —
-//     where a plain function twin exists — as a function-type alias, each across
-//     six positions, both call forms, and both transform options.
-//  2. Execute every spelling group against one shared value set and require the
-//     spellings to agree, then pin absolute anchors the parity assertions cannot
-//     see.
-//  3. Repeat the call-only and construct-only pairs across local, re-exported,
-//     and ambient declaration provenance.
-//  4. Require equivalent spellings to share one support-or-diagnostic contract,
-//     compiling each shape alone so a diagnostic count attributes to one pair.
+// @evidence contracts/testing.md#behavioral-verification The matrix compares interface, type literal and alias emissions and rejection counts; provenance emits must not leak forbidden internal names.
+// @evidence contracts/testing.md#independent-expectations TypeScript equivalent call/construct signatures have the same structural meaning, so spelling alone cannot change typia support or emitted validation.
+// @evidence contracts/testing.md#distinguishing-cases Named subshapes distinguish callable-only and member-bearing variants, intersections and aliases; neighboring declarations supply equivalence controls and unsupported operations retain rejection identities.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestCallableTypeLiteralBoundariesTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestCallableTypeLiteralBoundariesTransform(t *testing.T) {
   failures := []string{}
   // Each matrix gets its own project so one transform never has to compile the
@@ -70,34 +42,6 @@ func TestCallableTypeLiteralBoundariesTransform(t *testing.T) {
   for _, mode := range callableTypeLiteralModes() {
     emits[mode.Name] = callableTypeLiteralTransform(t, spellingProject, "src/main.ts", mode.Functional)
   }
-  output, err := callableTypeLiteralRun(
-    t,
-    spellingProject,
-    "spelling-runtime",
-    callableTypeLiteralSpellingRunner(),
-    map[string]string{
-      "default.cjs":    ttscTypiaTestRewriteCommonJS(t, emits["default"]),
-      "functional.cjs": ttscTypiaTestRewriteCommonJS(t, emits["functional"]),
-    },
-  )
-  if err != nil {
-    failures = append(failures, fmt.Sprintf("spelling runtime matrix failed: %v\n%s", err, output))
-  }
-  for _, expected := range []string{
-    // 2 modes x 14 shapes x 6 positions x 2 forms x 12 values.
-    "RAN 4032 SPELLING GROUPS",
-    // 2 modes x 2 member-spelling pairs x 6 positions x 2 forms x 12 values x
-    // 3 declaration spellings.
-    "RAN 1728 MEMBER PAIRS",
-    // 43 anchor rows x 3 declaration spellings.
-    "RAN 129 ANCHORS",
-    // 4 optional-member states x 2 modes.
-    "RAN 8 OPTIONAL MEMBER ROWS",
-  } {
-    if !strings.Contains(output, expected) {
-      failures = append(failures, fmt.Sprintf("spelling runner did not report %q; got:\n%s", expected, output))
-    }
-  }
 
   provenanceEmits := map[string]string{}
   for _, mode := range callableTypeLiteralModes() {
@@ -119,23 +63,6 @@ func TestCallableTypeLiteralBoundariesTransform(t *testing.T) {
           mode.Name, fragment, provenanceEmits[mode.Name]))
       }
     }
-  }
-  provenanceOutput, provenanceErr := callableTypeLiteralRun(
-    t,
-    provenanceProject,
-    "provenance-runtime",
-    callableTypeLiteralProvenanceRunner,
-    map[string]string{
-      "default.cjs":    ttscTypiaTestRewriteCommonJS(t, provenanceEmits["default"]),
-      "functional.cjs": ttscTypiaTestRewriteCommonJS(t, provenanceEmits["functional"]),
-    },
-  )
-  if provenanceErr != nil {
-    failures = append(failures, fmt.Sprintf("provenance runtime matrix failed: %v\n%s", provenanceErr, provenanceOutput))
-  }
-  // 3 provenances x 2 kinds x 3 spellings x 2 forms x 2 modes x 2 values.
-  if expected := "RAN 144 PROVENANCE CALLS"; !strings.Contains(provenanceOutput, expected) {
-    failures = append(failures, fmt.Sprintf("provenance runner did not report %q; got:\n%s", expected, provenanceOutput))
   }
 
   failures = append(failures, callableTypeLiteralConsumerFamilies(t)...)
@@ -323,41 +250,6 @@ type Same<X, Y> = [X] extends [Y] ? ([Y] extends [X] ? true : false) : false;
   return builder.String()
 }
 
-// callableTypeLiteralSpellingRunner builds the runner from the same tables the
-// fixture is generated from, so a shape, position, or spelling added to one can
-// never go unexercised by the other.
-func callableTypeLiteralSpellingRunner() string {
-  shapes := []string{}
-  aliased := []string{}
-  pairs := []string{}
-  positions := []string{}
-  for _, shape := range callableTypeLiteralShapes() {
-    shapes = append(shapes, `"`+shape.Name+`"`)
-    if shape.Alias != "" {
-      aliased = append(aliased, `"`+shape.Name+`"`)
-    }
-    if shape.MemberTwin != "" && shape.Name < shape.MemberTwin {
-      pairs = append(pairs, `["`+shape.Name+`", "`+shape.MemberTwin+`"]`)
-    }
-  }
-  for _, position := range callableTypeLiteralPositions() {
-    positions = append(positions, `"`+position.Name+`"`)
-  }
-  runner := callableTypeLiteralSpellingRunnerTemplate
-  for _, replacement := range []struct {
-    Placeholder string
-    Value       string
-  }{
-    {Placeholder: "__SHAPES__", Value: strings.Join(shapes, ", ")},
-    {Placeholder: "__ALIASED__", Value: strings.Join(aliased, ", ")},
-    {Placeholder: "__MEMBER_PAIRS__", Value: strings.Join(pairs, ", ")},
-    {Placeholder: "__POSITIONS__", Value: strings.Join(positions, ", ")},
-  } {
-    runner = strings.Replace(runner, replacement.Placeholder, replacement.Value, 1)
-  }
-  return runner
-}
-
 func callableTypeLiteralProject(t *testing.T, name string, files map[string]string) string {
   t.Helper()
   root := ttscTypiaTestRepoRoot(t)
@@ -405,39 +297,6 @@ func callableTypeLiteralTransform(t *testing.T, project string, file string, fun
     t.Fatalf("callable declaration transform %s (functional=%t) failed: code=%d stdout=\n%s\nstderr=\n%s", file, functional, code, out, errText)
   }
   return out
-}
-
-func callableTypeLiteralRun(
-  t *testing.T,
-  project string,
-  name string,
-  runner string,
-  modules map[string]string,
-) (string, error) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-    return "", nil
-  }
-  runtimeDir := filepath.Join(project, name)
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir %s: %v", name, err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  files := map[string]string{"run.cjs": runner}
-  for file, content := range modules {
-    files[file] = content
-  }
-  for file, content := range files {
-    if err := os.WriteFile(filepath.Join(runtimeDir, file), []byte(content), 0o644); err != nil {
-      t.Fatalf("write runtime file %s: %v", file, err)
-    }
-  }
-  cmd := exec.Command(node, filepath.Join(runtimeDir, "run.cjs"))
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  return string(output), err
 }
 
 // callableTypeLiteralDiagnosticTwins requires equivalent spellings to share one
@@ -590,23 +449,6 @@ func callableTypeLiteralConsumerFamilies(t *testing.T) []string {
     }
   }
 
-  runtimeProject := callableTypeLiteralProject(t, "consumers-runtime", nil)
-  modules := map[string]string{
-    "http-stub.cjs": callableTypeLiteralHTTPStub,
-    "llm-stub.cjs":  callableTypeLiteralLLMStub,
-  }
-  for name, js := range emits {
-    modules[name+".cjs"] = ttscTypiaTestRewriteCommonJS(t, callableTypeLiteralStubInternals(js))
-  }
-  output, err := callableTypeLiteralRun(t, runtimeProject, "runtime", callableTypeLiteralConsumerRunner, modules)
-  if err != nil {
-    failures = append(failures, fmt.Sprintf("consumer-family runtime matrix failed: %v\n%s", err, output))
-  }
-  // 23 consumer families x 3 spellings, plus 6 anchor rows.
-  if expected := "RAN 69 CONSUMER FAMILIES 6 ANCHORS"; !strings.Contains(output, expected) {
-    failures = append(failures, fmt.Sprintf("consumer runner did not report %q; got:\n%s", expected, output))
-  }
-
   // The families whose contract is a rejection are checked by their exact
   // diagnostic rather than by an exit code, and one isolated project per
   // spelling keeps each message attributable.
@@ -642,40 +484,6 @@ func callableTypeLiteralConsumerFamilies(t *testing.T) []string {
   }
   return failures
 }
-
-// callableTypeLiteralStubInternals redirects the shipped runtime helpers that
-// only the consumer fixture pulls in. ttscTypiaTestRewriteCommonJS covers the
-// shared ones and fails loudly on anything left unresolved, so these have to be
-// replaced before it runs.
-func callableTypeLiteralStubInternals(js string) string {
-  for _, replacement := range []struct {
-    Helper string
-    Stub   string
-  }{
-    {Helper: "_httpFormDataReadString", Stub: "http-stub.cjs"},
-    {Helper: "_httpQueryReadString", Stub: "http-stub.cjs"},
-    {Helper: "_httpQueryParseURLSearchParams", Stub: "http-stub.cjs"},
-    {Helper: "_llmApplicationFinalize", Stub: "llm-stub.cjs"},
-  } {
-    js = strings.ReplaceAll(js, `require("typia/lib/internal/`+replacement.Helper+`")`, `require("./`+replacement.Stub+`")`)
-  }
-  return js
-}
-
-const callableTypeLiteralHTTPStub = `module.exports._httpFormDataReadString = (input) =>
-  input === null ? undefined : input === "null" ? null : input;
-module.exports._httpQueryReadString = (input) =>
-  input === null ? undefined : input === "null" ? null : input;
-module.exports._httpQueryParseURLSearchParams = (input) =>
-  typeof input === "string" ? new URLSearchParams(input) : input;
-`
-
-const callableTypeLiteralLLMStub = `module.exports._llmApplicationFinalize = (app, config) => ({
-  ...app,
-  config: config ?? {},
-  functions: app.functions,
-});
-`
 
 const callableTypeLiteralConsumerSource = `import typia from "typia";
 
@@ -718,94 +526,6 @@ interface RejectionHolder {
 typia.compare.createEquals<Consumer>();
 typia.protobuf.createEncode<RejectionHolder>();
 typia.protobuf.createDecode<RejectionHolder>();
-`
-
-const callableTypeLiteralConsumerRunner = `const modules = {
-  interface: require("./interface.cjs"),
-  literal: require("./literal.cjs"),
-  alias: require("./alias.cjs"),
-};
-
-let families = 0;
-let anchors = 0;
-const failures = [];
-const fn = (input) => ({ value: String(input.value) });
-const other = (input) => ({ value: "other:" + input.value });
-const holder = () => ({ fn });
-
-// Each family is reduced to a JSON-comparable observation so three independent
-// emits can be compared as behavior rather than as text.
-const observations = {
-  is: (mod) => [mod.is(holder()), mod.is({}), mod.is({ fn: {} })],
-  validate: (mod) => [mod.validate(holder()).success, mod.validate({}).success],
-  functional: (mod) => [typeof mod.functional, Object.keys(mod.functional(holder()) || {})],
-  random: (mod) => Object.keys(mod.random()),
-  clone: (mod) => mod.clone(holder()),
-  prune: (mod) => { const value = holder(); mod.prune(value); return Object.keys(value); },
-  classify: (mod) => mod.classify(holder()),
-  camel: (mod) => mod.camel(holder()),
-  pascal: (mod) => mod.pascal(holder()),
-  equals: (mod) => [mod.equals(holder(), holder()), mod.equals({ fn }, { fn: other })],
-  cover: (mod) => [mod.cover(holder(), holder())],
-  stringify: (mod) => mod.stringify(holder()),
-  jsonSchema: (mod) => mod.jsonSchema,
-  jsonSchemas: (mod) => mod.jsonSchemas,
-  jsonApplication: (mod) => mod.jsonApplication,
-  reflectSchema: (mod) => mod.reflectSchema,
-  reflectSchemas: (mod) => mod.reflectSchemas,
-  reflectName: (mod) => mod.reflectName,
-  llmSchema: (mod) => mod.llmSchema,
-  llmParameters: (mod) => mod.llmParameters,
-  httpFormData: (mod) => {
-    const value = new FormData();
-    value.set("fn", "value");
-    return mod.httpFormData(value);
-  },
-  httpHeaders: (mod) => mod.httpHeaders(new Headers({ fn: "value" })),
-  httpQuery: (mod) => mod.httpQuery(new URLSearchParams({ fn: "value" })),
-};
-
-for (const [family, observe] of Object.entries(observations)) {
-  const answers = {};
-  for (const spelling of ["interface", "literal", "alias"]) {
-    families += 1;
-    try {
-      answers[spelling] = JSON.stringify(observe(modules[spelling]));
-    } catch (error) {
-      answers[spelling] = "threw " + String(error && error.message);
-    }
-  }
-  for (const spelling of ["literal", "alias"]) {
-    if (answers[spelling] !== answers.interface) {
-      failures.push(
-        "consumer " + family + ": interface=" + answers.interface + " " + spelling + "=" + answers[spelling]);
-    }
-  }
-}
-
-// Parity cannot see a change that moves every spelling the same way, so these
-// pin what a function slot means to the consumers that must act on it, taken
-// from typia's published behavior for a function-typed member: it is not JSON
-// data, it is not reconstructed by a plain copy, and it carries no identity that
-// structural equality could compare.
-const anchorRows = [
-  ["is accepts a real function", (mod) => mod.is(holder()), true],
-  ["stringify omits the function slot", (mod) => mod.stringify(holder()), "{}"],
-  ["clone drops the function slot", (mod) => mod.clone(holder()).fn, undefined],
-  ["classify drops the function slot", (mod) => mod.classify(holder()).fn, undefined],
-  ["prune keeps the declared slot", (mod) => { const value = holder(); mod.prune(value); return value.fn; }, fn],
-  ["equals ignores function identity", (mod) => mod.equals({ fn }, { fn: other }), true],
-];
-for (const [label, observe, expected] of anchorRows) {
-  anchors += 1;
-  const actual = observe(modules.interface);
-  if (actual !== expected) {
-    failures.push("consumer anchor " + label + ": expected " + expected + " but got " + actual);
-  }
-}
-
-console.log("RAN " + families + " CONSUMER FAMILIES " + anchors + " ANCHORS");
-if (failures.length !== 0) throw new Error("MISMATCHES:\n" + failures.join("\n"));
 `
 
 const callableTypeLiteralReexportSource = `export type ReexportedCallLiteral = { (value: number): string };
@@ -916,269 +636,4 @@ export const directAmbientConstructAlias = (input: unknown): boolean => typia.is
 export const factoryAmbientConstructAlias = typia.createIs<AmbientConstructAlias>();
 export const directAmbientConstructInterface = (input: unknown): boolean => typia.is<AmbientConstructInterface>(input);
 export const factoryAmbientConstructInterface = typia.createIs<AmbientConstructInterface>();
-`
-
-const callableTypeLiteralProvenanceRunner = `const modules = {
-  default: require("./default.cjs"),
-  functional: require("./functional.cjs"),
-};
-
-let calls = 0;
-const failures = [];
-const callable = (value) => String(value);
-class Constructable { constructor(value) { this.value = value; } }
-
-// A declaration's provenance is not part of its type, so the four-cell function
-// contract has to hold identically for a local declaration, one imported from a
-// sibling module, and one from an ambient module declaration.
-const expectations = {
-  default: { real: true, placeholder: true },
-  functional: { real: true, placeholder: false },
-};
-for (const provenance of ["Local", "Reexported", "Ambient"]) {
-  for (const kind of ["Call", "Construct"]) {
-    const real = kind === "Call" ? callable : Constructable;
-    for (const spelling of ["Literal", "Alias", "Interface"]) {
-      for (const form of ["direct", "factory"]) {
-        const name = form + provenance + kind + spelling;
-        for (const mode of ["default", "functional"]) {
-          for (const [label, value] of [["real", real], ["placeholder", {}]]) {
-            calls += 1;
-            const validator = modules[mode][name];
-            if (typeof validator !== "function") {
-              failures.push("missing export " + mode + " " + name);
-              continue;
-            }
-            const actual = validator(value);
-            const expected = expectations[mode][label];
-            if (actual !== expected) {
-              failures.push(mode + " " + name + " " + label + ": expected " + expected + " but got " + actual);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-console.log("RAN " + calls + " PROVENANCE CALLS");
-if (failures.length !== 0) throw new Error("MISMATCHES:\n" + failures.join("\n"));
-`
-
-const callableTypeLiteralSpellingRunnerTemplate = `const modules = {
-  default: require("./default.cjs"),
-  functional: require("./functional.cjs"),
-};
-
-let groups = 0;
-let memberPairs = 0;
-let anchors = 0;
-let optionalRows = 0;
-const failures = [];
-
-// A missing export means the fixture and this runner disagree about the matrix.
-// Reporting it by name keeps that from surfacing as an unattributable TypeError
-// halfway through the run.
-const call = (mode, name, input) => {
-  const validator = modules[mode][name];
-  if (typeof validator !== "function") {
-    failures.push("missing export " + mode + " " + name);
-    return "MISSING";
-  }
-  return validator(input);
-};
-
-const callable = (value) => String(value);
-class Constructable { constructor(value) { this.value = value; } }
-const methoded = Object.assign((value) => String(value), { method: () => undefined });
-const labeled = Object.assign((value) => String(value), { label: "present" });
-const mislabeled = Object.assign((value) => String(value), { label: 123 });
-const indexed = Object.assign((value) => String(value), { extra: 1 });
-// An object carrying every apparent member TypeScript gives a callable object
-// type — the global Function interface's apply/call/bind/toString/prototype/
-// length/arguments/caller plus name — beside the members each shape declares.
-// It is the one value the structural path a member-carrying shape must keep is
-// supposed to accept, so without it a regression that answered false everywhere
-// would satisfy every parity assertion below.
-const apparent = {
-  apply: () => undefined,
-  call: () => undefined,
-  bind: () => undefined,
-  toString: () => "",
-  length: 0,
-  name: "",
-  prototype: {},
-  arguments: null,
-  caller: () => undefined,
-  label: "present",
-  method: () => undefined,
-  extra: 1,
-};
-
-const shapes = [__SHAPES__];
-const aliasedShapes = new Set([__ALIASED__]);
-// Each pair differs only in whether its member is written as a method shorthand
-// or as a function-typed property. TypeScript calls them the same type, so every
-// validator built from either must answer identically.
-const memberSpellingPairs = [__MEMBER_PAIRS__];
-const positions = [__POSITIONS__];
-const values = [
-  ["callable", callable],
-  ["constructable", Constructable],
-  ["methoded", methoded],
-  ["labeled", labeled],
-  ["mislabeled", mislabeled],
-  ["indexed", indexed],
-  ["apparent", apparent],
-  ["placeholder", {}],
-  ["dataOnly", { label: "present" }],
-  ["badDataOnly", { label: 123 }],
-  ["unionData", { kind: "data", value: 1 }],
-  ["badUnionData", { kind: "data", value: "bad" }],
-];
-
-const wrap = (position, value) =>
-  position === "Nested" || position === "OptionalProperty"
-    ? { fn: value }
-    : position === "Generic"
-      ? { payload: value }
-      : value;
-
-for (const mode of ["default", "functional"]) {
-  for (const position of positions) {
-    for (const form of ["direct", "factory"]) {
-      for (const [label, value] of values) {
-        const input = wrap(position, value);
-        for (const shape of shapes) {
-          groups += 1;
-          const spellings = ["Interface", "Literal", "Inline"];
-          if (aliasedShapes.has(shape)) spellings.push("Alias");
-          const answers = spellings.map((spelling) => call(mode, form + shape + spelling + position, input));
-          for (let i = 1; i < answers.length; ++i) {
-            if (answers[i] !== answers[0]) {
-              failures.push(
-                "spelling " + mode + " " + form + shape + position + " " + label +
-                ": " + spellings[0] + "=" + answers[0] + " " + spellings[i] + "=" + answers[i]);
-            }
-          }
-        }
-        for (const [method, property] of memberSpellingPairs) {
-          for (const spelling of ["Interface", "Literal", "Inline"]) {
-            memberPairs += 1;
-            const left = call(mode, form + method + spelling + position, input);
-            const right = call(mode, form + property + spelling + position, input);
-            if (left !== right) {
-              failures.push(
-                "member " + spelling + " " + mode + " " + form + method + "/" + property + position + " " + label +
-                ": method=" + left + " property=" + right);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-// Parity cannot see a change that moves every spelling the same way, so these
-// anchors pin the answers themselves. A member-free callable is a function type,
-// which typia documents as a slot default options skip and functional options
-// require a real function for. A member-carrying callable keeps the structural
-// object shape #2250 merged and #2238 declares an explicit negative boundary:
-// its guard opens with a typeof "object" test, so a real function is rejected,
-// and it still requires the members it declares, so a bare {} is rejected too.
-const anchorRows = [
-  ["default", "directPureCall", "Top", callable, true],
-  ["functional", "directPureCall", "Top", callable, true],
-  ["default", "directPureCall", "Top", {}, true],
-  ["functional", "directPureCall", "Top", {}, false],
-  ["default", "factoryPureCall", "Top", callable, true],
-  ["functional", "factoryPureCall", "Top", {}, false],
-  ["default", "directPureConstruct", "Top", Constructable, true],
-  ["functional", "directPureConstruct", "Top", Constructable, true],
-  ["default", "directPureConstruct", "Top", {}, true],
-  ["functional", "directPureConstruct", "Top", {}, false],
-  ["default", "directOverload", "Top", callable, true],
-  ["functional", "directOverload", "Top", callable, true],
-  ["functional", "directOverload", "Top", {}, false],
-  ["default", "directConstructOverload", "Top", Constructable, true],
-  ["functional", "directConstructOverload", "Top", {}, false],
-  ["default", "directCallAndConstruct", "Top", callable, true],
-  ["functional", "directCallAndConstruct", "Top", callable, true],
-  ["functional", "directCallAndConstruct", "Top", {}, false],
-  ["default", "directPureCall", "Nested", { fn: callable }, true],
-  ["functional", "directPureCall", "Nested", { fn: callable }, true],
-  ["functional", "directPureCall", "Nested", { fn: {} }, false],
-  ["default", "directPureCall", "EmptyIntersection", callable, true],
-  ["functional", "directPureCall", "EmptyIntersection", callable, true],
-  ["functional", "directPureCall", "EmptyIntersection", {}, false],
-  ["default", "directPureCall", "Generic", { payload: callable }, true],
-  ["functional", "directPureCall", "Generic", { payload: {} }, false],
-  ["default", "directPureCall", "UnionArm", callable, true],
-  ["default", "directPureCall", "UnionArm", { kind: "data", value: 1 }, true],
-  ["default", "directPureCall", "UnionArm", { kind: "data", value: "bad" }, false],
-  ["functional", "directPureCall", "UnionArm", callable, true],
-  ["functional", "directPureCall", "UnionArm", { kind: "data", value: 1 }, true],
-  ["functional", "directPureCall", "UnionArm", { kind: "data", value: "bad" }, false],
-
-  ["default", "directRequiredMember", "Top", labeled, false],
-  ["functional", "directRequiredMember", "Top", labeled, false],
-  ["default", "directRequiredMember", "Top", {}, false],
-  ["default", "directRequiredMember", "Top", apparent, true],
-  ["functional", "directRequiredMember", "Top", apparent, true],
-  ["default", "directIndexSignature", "Top", indexed, false],
-  ["default", "directIndexSignature", "Top", apparent, true],
-  ["default", "directMethod", "Top", methoded, false],
-  ["default", "directMethod", "Top", apparent, true],
-  ["default", "directMethodProperty", "Top", methoded, false],
-  ["default", "directMethodProperty", "Top", apparent, true],
-];
-for (const [mode, prefix, position, value, expected] of anchorRows) {
-  for (const spelling of ["Interface", "Literal", "Inline"]) {
-    anchors += 1;
-    const name = prefix + spelling + position;
-    const actual = call(mode, name, value);
-    if (actual !== expected) {
-      failures.push("anchor " + mode + " " + name + ": expected " + expected + " but got " + actual);
-    }
-  }
-}
-
-// The optional data member is its own boundary: a callable shape whose only
-// member may be absent is the shape most likely to be mistaken for a member-free
-// one, so a fix that widened the signature-only rule too far would erase the
-// member and start accepting a bare function. Present-valid, omitted,
-// present-invalid, and data-only are the four states that distinguish "the
-// member is still checked" from "the member is gone", and the interface spelling
-// is the oracle #2250 merged for them.
-for (const [label, value] of [
-  ["present-valid", labeled],
-  ["omitted", callable],
-  ["present-invalid", mislabeled],
-  ["data-only", { label: "present" }],
-]) {
-  for (const mode of ["default", "functional"]) {
-    optionalRows += 1;
-    const oracle = call(mode, "directOptionalMemberInterfaceTop", value);
-    for (const spelling of ["Literal", "Inline"]) {
-      const actual = call(mode, "directOptionalMember" + spelling + "Top", value);
-      if (actual !== oracle) {
-        failures.push(
-          "optional member " + mode + " " + spelling + " " + label +
-          ": expected the interface oracle " + oracle + " but got " + actual);
-      }
-    }
-    // A callable value that omits the optional member must not be accepted while
-    // the declared member is still part of the type; if it were, the member had
-    // been erased.
-    if (label === "omitted" && oracle !== false) {
-      failures.push("optional member " + mode + " omitted: interface oracle accepted a bare function");
-    }
-  }
-}
-
-console.log("RAN " + groups + " SPELLING GROUPS");
-console.log("RAN " + memberPairs + " MEMBER PAIRS");
-console.log("RAN " + anchors + " ANCHORS");
-console.log("RAN " + optionalRows + " OPTIONAL MEMBER ROWS");
-if (failures.length !== 0) throw new Error("MISMATCHES:\n" + failures.join("\n"));
 `

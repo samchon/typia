@@ -399,16 +399,20 @@ export namespace OpenApiV3_1Upgrader {
   /**
    * Upgrade one 3.1 schema, as the 3.2 upgrader does too.
    *
-   * A `type` array becomes a union with one member per listed type. A non-empty
-   * `enum` restricts every listed type to its own values, and a type that none
-   * of them has is not a member. A tuple in either spelling becomes
-   * `prefixItems` with its rest schema.
+   * A `type` array becomes a union restricted by its `enum`, including the
+   * empty enum. Null requires both assertions to allow it. An empty primitive
+   * intersection becomes a string with contradictory length bounds, a valid
+   * schema with no possible instance. This preserves rejection through schema
+   * validation and downversion conversion; strict LLM conversion still shifts
+   * bounds into descriptions, and type coverage remains conservative across
+   * different atomic types. A tuple becomes `prefixItems` with its rest
+   * schema.
    *
    * @param components Components used to resolve references
    *
    * @returns Function that converts a 3.1 schema to the emended schema
    *
-   * @evidence contracts/common.md#principled-implementation A type array is expanded to one visit per listed type, so each member is a normal single-type schema, and a non-empty enum restricts each listed type to its own values; a type that no enum value has is not kept. Other keywords follow the 3.0 conversion plus tuple, recursive reference and base64 handling.
+   * @evidence contracts/common.md#principled-implementation Mixed primitive enum members satisfy both listed type and enum membership; integer uses Number.isInteger and null must be explicitly listed. If no member survives, minLength 1 and maxLength 0 define an empty valid-instance set using supported string assertions instead of invalid empty oneOf or unknown. The outer annotation record remains on the result. This is not a universal never variant: strict LLM conversion and cross-type covers keep their documented limitations, and existing container enum support is not expanded.
    * @evidence contracts/common.md#clear-and-simple-design One recursive function with a mixed-type branch that reuses the single-type branches.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The enum restriction follows JSON Schema's simultaneous type and enum constraint, and the condition is the general form and not a patch for one input.
    * @evidence contracts/common.md#meaningful-documentation The doc states the type array, enum and tuple rules.
@@ -449,12 +453,16 @@ export namespace OpenApiV3_1Upgrader {
 
       const visit = (schema: OpenApiV3_1.IJsonSchema): void => {
         // NULLABLE PROPERTY
-        if ((schema as OpenApiV3_1.IJsonSchema.INumber).nullable === true) {
+        if (
+          !OpenApiV3_1TypeChecker.isMixed(schema) &&
+          (schema as OpenApiV3_1.IJsonSchema.INumber).nullable === true
+        ) {
           nullable.value ||= true;
           if ((schema as OpenApiV3_1.IJsonSchema.INumber).default === null)
             nullable.default = null;
         }
         if (
+          !OpenApiV3_1TypeChecker.isMixed(schema) &&
           Array.isArray((schema as OpenApiV3_1.IJsonSchema.INumber).enum) &&
           (schema as OpenApiV3_1.IJsonSchema.INumber).enum?.length &&
           (schema as OpenApiV3_1.IJsonSchema.INumber).enum?.some(
@@ -465,6 +473,8 @@ export namespace OpenApiV3_1Upgrader {
 
         // MIXED TYPE CASE
         if (OpenApiV3_1TypeChecker.isMixed(schema)) {
+          const previous: number = union.length;
+          const previousNullable: boolean = nullable.value;
           if (schema.const !== undefined)
             visit({
               ...schema,
@@ -506,10 +516,9 @@ export namespace OpenApiV3_1Upgrader {
                 $ref: undefined,
               },
             });
-          // A non-empty enum restricts every listed type to the values of that
-          // type; a type none of them has is not a member.
-          const enumerated: boolean =
-            schema.enum !== undefined && schema.enum.length !== 0;
+          // Both assertions apply: even an empty enum admits no value, and
+          // null is admitted only by a listed null type and a matching enum.
+          const enumerated: boolean = schema.enum !== undefined;
           for (const type of schema.type) {
             const values: unknown[] | undefined = !enumerated
               ? undefined
@@ -525,6 +534,7 @@ export namespace OpenApiV3_1Upgrader {
             if (values !== undefined && values.length === 0) continue;
             visit({
               ...schema,
+              nullable: undefined,
               ...(type === "null"
                 ? { enum: undefined }
                 : type === "boolean" ||
@@ -536,6 +546,11 @@ export namespace OpenApiV3_1Upgrader {
               type: type as any,
             });
           }
+          if (union.length === previous && nullable.value === previousNullable)
+            // This supported string schema has no possible instance. Unlike
+            // an empty oneOf, it is valid JSON Schema and retains rejection
+            // through the existing OpenAPI downgrader and validator paths.
+            union.push({ type: "string", minLength: 1, maxLength: 0 });
         }
         // UNION TYPE CASE
         else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {

@@ -19,10 +19,14 @@ import { Greeter } from "../structures/Greeter";
  * 2. Connect an SDK client through the public in-memory transport.
  * 3. Assert the initialize handshake announces the `"1.0.0"` fallback.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 1 assertion (class controller should announce the 1.0.0 default). The case documents its purpose as: Verifies a class controller announces the fixed `"1.0.0"` handshake version.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: An HTTP controller can inherit OpenAPI `info.version`, but a class controller has no inferred version source. When the caller omits an explicit version, the handshake therefore preserves the backward-compatible `"1.0.0"` fallback rather than announcing `undefined`. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (class controller should announce the 1.0.0 default) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-mcp start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_mcp_create_server_version is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The real SDK initialize exchange announces greeter with the class-controller default version 1.0.0.
+ * @evidence contracts/testing.md#independent-expectations The literal class-controller default and authored controller name define the expected handshake identity.
+ * @evidence contracts/testing.md#distinguishing-cases Default class version contrasts with explicit class version and inferred/overridden HTTP version siblings.
+ * @evidence contracts/testing.md#execution-ownership test-mcp test:integration discovers test_mcp_create_server_version through DynamicExecutor. The controller call is native-transformed before runtime adapter execution.
+ * @evidence contracts/e2e.md#necessary-boundary The real SDK initialize exchange announces greeter with the class-controller default version 1.0.0. A public SDK Client and McpServer exchange initialize/tool messages through InMemoryTransport. Direct handler calls cannot establish SDK message admission or host response enforcement.
+ * @evidence contracts/e2e.md#shared-execution All native controller call sites share the suite TypeScript project and content-keyed plugin artifact; no declaration builds its own native program. All requests in this scenario reuse its configured SDK host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each connected host owns its application/options and paired transports. Requests within that host reuse the initialized connection; finally closes client and server with Promise.allSettled on success or failure.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Default class version contrasts with explicit class version and inferred/overridden HTTP version siblings. Portable HTTP-executor handler assertions run separately in test_mcp_http_controller_execute under test:unit; no assertion is removed to shorten boundary execution.
  */
 export const test_mcp_create_server_version = async (): Promise<void> => {
   const server: McpServer = createMcpServer(

@@ -11,6 +11,11 @@ import { PascalCase } from "@typia/interface";
  * 1. Pascalize a battery of representative key spellings.
  * 2. Pascalize through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification PascalCase must produce ExpectedBattery and nested capitalized keys, retaining Date and mapping methods to never.
+ * @evidence contracts/testing.md#independent-expectations Authored output types fix capitalized segments and the preserved ID spelling independently of the alias.
+ * @evidence contracts/testing.md#distinguishing-cases Leading underscores, ID, single-letter snake segments, digits and already-Pascal spellings are combined with recursion and native/callable controls.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks PascalCaseCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type PascalCaseCases = [
   Assert<IsEqual<PascalCase<Battery>, ExpectedBattery>>,

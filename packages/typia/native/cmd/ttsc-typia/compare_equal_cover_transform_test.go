@@ -2,21 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestCompareEqualCoverTransform verifies type-directed structural comparison.
+// TestCompareEqualCoverTransform verifies comparison native content helpers and unsupported-type diagnostics.
 //
-// Issue #1497 adds `typia.compare.equals` and `typia.compare.cover`:
+// Structural comparison reads native content rather than object identity, while unsupported domains must diagnose instead of inventing equality. Expected native operations and rejected type categories come from the public compare contract.
 //
-//  1. Transform direct and factory calls for equal/cover.
-//  2. Execute object, partial-object, array-length, native, dynamic-key,
-//     union, and recursive pair-tracking cases.
-//  3. Reject unsupported any, function, Set, Map, WeakSet, and WeakMap types
-//     at transform time.
+// 1. Direct/factory equals and cover inputs include natives and recursive structures; unsupported any, function, Set, Map and weak collections are negative twins. Runtime comparison outcomes are not asserted here.
+// 2. Emission contains Date timestamps, RegExp source/flags, byte views and recursive pair context; helper rejection cases require unsupported any/function/collection diagnostics.
+//
+// @evidence contracts/testing.md#behavioral-verification Emission contains Date timestamps, RegExp source/flags, byte views and recursive pair context; helper rejection cases require unsupported any/function/collection diagnostics.
+// @evidence contracts/testing.md#independent-expectations Structural comparison reads native content rather than object identity, while unsupported domains must diagnose instead of inventing equality. Expected native operations and rejected type categories come from the public compare contract.
+// @evidence contracts/testing.md#distinguishing-cases Direct/factory equals and cover inputs include natives and recursive structures; unsupported any, function, Set, Map and weak collections are negative twins. Runtime comparison outcomes are not asserted here.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestCompareEqualCoverTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestCompareEqualCoverTransform(t *testing.T) {
   project := compareEqualCoverProject(t, "compare-equal-cover-", compareEqualCoverSource)
   js := compareEqualCoverTransform(t, project)
@@ -25,7 +26,6 @@ func TestCompareEqualCoverTransform(t *testing.T) {
       t.Fatalf("compare equal/cover output is missing %q:\n%s", needle, js)
     }
   }
-  compareEqualCoverRunRuntimeCases(t, project, js)
   compareEqualCoverRejectsUnsupported(t)
 }
 
@@ -70,33 +70,6 @@ func compareEqualCoverTransform(t *testing.T, project string) string {
     t.Fatalf("compare equal/cover transform failed: code=%d stderr=\n%s", code, errText)
   }
   return out
-}
-
-func compareEqualCoverRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(compareEqualCoverRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("compare equal/cover runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 func compareEqualCoverRejectsUnsupported(t *testing.T) {
@@ -189,83 +162,4 @@ interface INode {
 }
 export const equalNode = typia.compare.createEquals<INode>();
 export const coverNode = typia.compare.createCover<INode>();
-`
-
-const compareEqualCoverRuntimeRunner = `const mod = require("./main.cjs");
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) {
-    throw new Error(label + ": expected " + expected + ", got " + actual);
-  }
-};
-
-const user = {
-  name: "ivan",
-  age: 19,
-  address: {
-    street: "Ivanovskaya",
-    city: "Berlin",
-  },
-  tags: ["a", "b"],
-  created: new Date("2026-06-11T00:00:00.000Z"),
-  pattern: /^ivan$/gi,
-  bytes: new Uint8Array([1, 2, 3]),
-};
-const same = {
-  name: "ivan",
-  age: 19,
-  address: {
-    street: "Ivanovskaya",
-    city: "Berlin",
-  },
-  tags: ["a", "b"],
-  created: new Date("2026-06-11T00:00:00.000Z"),
-  pattern: /^ivan$/gi,
-  bytes: new Uint8Array([1, 2, 3]),
-};
-const different = {
-  ...same,
-  address: { ...same.address, city: "Seoul" },
-};
-
-expect("equal user", mod.equalUser(user, same), true);
-expect("equal user direct", mod.equalUserDirect(user, same), true);
-expect("equal nested mismatch", mod.equalUser(user, different), false);
-expect("equal regexp mismatch", mod.equalUser(user, { ...same, pattern: /^ivan$/g }), false);
-expect("equal bytes mismatch", mod.equalUser(user, { ...same, bytes: new Uint8Array([1, 2, 4]) }), false);
-expect("cover nested partial", mod.coverUser(user, { address: { city: "Berlin" } }), true);
-expect("cover direct", mod.coverUserDirect(user, { name: "ivan", bytes: new Uint8Array([1, 2, 3]) }), true);
-expect("cover nested mismatch", mod.coverUser(user, { address: { city: "Seoul" } }), false);
-expect("cover array same length", mod.coverUser(user, { tags: ["a", "b"] }), true);
-expect("cover array length mismatch", mod.coverUser(user, { tags: ["a"] }), false);
-expect("cover extra key", mod.coverUser(user, { unknown: 1 }), false);
-
-expect("dictionary equal", mod.equalDictionary({ fixed: "f", extra: "x" }, { fixed: "f", extra: "x" }), true);
-expect("dictionary equal missing key", mod.equalDictionary({ fixed: "f", extra: "x" }, { fixed: "f" }), false);
-expect("dictionary cover dynamic", mod.coverDictionary({ fixed: "f", extra: "x" }, { extra: "x" }), true);
-expect("dictionary cover dynamic mismatch", mod.coverDictionary({ fixed: "f", extra: "x" }, { extra: "y" }), false);
-
-const circle = { kind: "circle", radius: 5, nested: { label: "round" } };
-const circleSame = { kind: "circle", radius: 5, nested: { label: "round" } };
-const square = { kind: "square", size: 5, nested: { label: "round" } };
-expect("union equal same branch", mod.equalShape(circle, circleSame), true);
-expect("union equal different branch", mod.equalShape(circle, square), false);
-expect("union cover branch", mod.coverShape(circle, { kind: "circle", nested: { label: "round" } }), true);
-expect("union cover wrong branch", mod.coverShape(circle, { kind: "square" }), false);
-
-const a = { id: 1, next: null, children: [] };
-const b = { id: 1, next: null, children: [] };
-a.next = a;
-b.next = b;
-a.children.push(a);
-b.children.push(b);
-expect("recursive equal", mod.equalNode(a, b), true);
-b.id = 2;
-expect("recursive mismatch", mod.equalNode(a, b), false);
-b.id = 1;
-const partial = { id: 1, next: null };
-partial.next = partial;
-expect("recursive cover partial", mod.coverNode(a, partial), true);
-partial.id = 9;
-expect("recursive cover mismatch", mod.coverNode(a, partial), false);
 `

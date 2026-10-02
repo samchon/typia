@@ -28,6 +28,11 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  *    single-character key, a combining mark, and full-case-conversion
  *    characters.
  * 2. Assert `CamelCase`/`PascalCase` over a word-final sigma key.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The four notation aliases must equal authored Unicode key shapes, with camel/pascal additionally checking word-final sigma.
+ * @evidence contracts/testing.md#independent-expectations Unicode-escaped literal keys fix code-point spelling independently of the transform; explicit expected full case expansions distinguish corrupted or simplified mapping.
+ * @evidence contracts/testing.md#distinguishing-cases NFC/NFD, uncased script, multibyte first/post-underscore/single characters, dotted I and sharp S are covered. Astral Pascal and snake/kebab word-final sigma are deliberately unasserted because of documented compiler/runtime differences.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks NotationUnicodeKeysCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type NotationUnicodeKeysCases = [
   Assert<IsEqual<CamelCase<Battery>, ExpectedCamel>>,

@@ -446,7 +446,7 @@ importers:
         specifier: catalog:typescript
         version: 0.30.4
 
-  tests/oracle:
+  tests/template:
     dependencies:
       '@typia/interface':
         specifier: workspace:^
@@ -454,19 +454,6 @@ importers:
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
-    devDependencies:
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.30.4
-
-  tests/template:
-    dependencies:
-      '@typia/oracle':
-        specifier: workspace:^
-        version: link:../oracle
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -495,6 +482,9 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
+      ttsc:
+        specifier: catalog:typescript
+        version: 0.30.4
 
   tests/test-error:
     dependencies:
@@ -530,6 +520,9 @@ importers:
       typescript:
         specifier: catalog:typescript
         version: 7.0.2
+      typia:
+        specifier: workspace:^
+        version: link:../../packages/typia
 
   tests/test-jev:
     dependencies:
@@ -653,9 +646,6 @@ importers:
       '@standard-schema/spec':
         specifier: ^1.0.0
         version: 1.1.0
-      '@typia/oracle':
-        specifier: workspace:^
-        version: link:../oracle
       '@typia/template':
         specifier: workspace:^
         version: link:../template
@@ -687,34 +677,6 @@ importers:
       '@types/uuid':
         specifier: catalog:utils
         version: 11.0.0
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.30.4
-
-  tests/test-typia-compiler:
-    devDependencies:
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      ttsc:
-        specifier: catalog:typescript
-        version: 0.30.4
-
-  tests/test-typia-exact-optional:
-    dependencies:
-      '@nestia/e2e':
-        specifier: catalog:utils
-        version: 10.0.2
-      typia:
-        specifier: workspace:^
-        version: link:../../packages/typia
-    devDependencies:
-      '@types/node':
-        specifier: catalog:utils
-        version: 25.6.0
-      '@typia/template':
-        specifier: workspace:^
-        version: link:../template
       ttsc:
         specifier: catalog:typescript
         version: 0.30.4
@@ -773,9 +735,6 @@ importers:
       '@typia/interface':
         specifier: workspace:^
         version: link:../../packages/interface
-      '@typia/oracle':
-        specifier: workspace:^
-        version: link:../oracle
       '@typia/utils':
         specifier: workspace:^
         version: link:../../packages/utils
@@ -813,9 +772,6 @@ importers:
       '@typia/interface':
         specifier: workspace:^
         version: link:../../packages/interface
-      '@typia/oracle':
-        specifier: workspace:^
-        version: link:../oracle
       '@typia/template':
         specifier: workspace:^
         version: link:../template

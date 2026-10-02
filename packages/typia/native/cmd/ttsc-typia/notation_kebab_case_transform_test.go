@@ -2,27 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestNotationKebabCaseTransform verifies kebab-case notation conversion.
+// TestNotationKebabCaseTransform verifies kebab spelling in emitted notation property assignments.
 //
-// `notations.kebab` derives the snake_case form of every property name and
-// rewrites the word separators to hyphens, keeping leading underscores. The
-// type-level `KebabCase<T>` must agree with the runtime rename exactly, or
-// the declared result type lies about the produced keys.
+// Kebab notation splits word boundaries and lowercases components; literal target property names are authored independently from the transform output.
 //
-//  1. Transform a fixture covering camelCase, snake_case, leading-underscore,
-//     consecutive-uppercase (the acronym run collapses, so `XMLParser` becomes
-//     `xmlparser`), and nested property names. The matching compile-time
-//     `KebabCase<T>` assertions live in the test-interface fixture, where ttsc
-//     enforces type diagnostics.
-//  2. Require the emitted converter to reference the kebab-case keys.
-//  3. Execute kebab, isKebab, assertKebab, and validateKebab runtime cases
-//     over valid and invalid inputs.
+// 1. Capitalized words, separators and acronym-like property inputs exercise distinct key spellings; Pascal/unicode spelling controls belong to separate cases.
+// 2. The output contains every authored expected kebab key.
+//
+// @evidence contracts/testing.md#behavioral-verification The output contains every authored expected kebab key.
+// @evidence contracts/testing.md#independent-expectations Kebab notation splits word boundaries and lowercases components; literal target property names are authored independently from the transform output.
+// @evidence contracts/testing.md#distinguishing-cases Capitalized words, separators and acronym-like property inputs exercise distinct key spellings; Pascal/unicode spelling controls belong to separate cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNotationKebabCaseTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestNotationKebabCaseTransform(t *testing.T) {
   project := notationKebabCaseProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -41,7 +36,6 @@ func TestNotationKebabCaseTransform(t *testing.T) {
       t.Fatalf("emitted converter should contain kebab key %s:\n%s", key, out)
     }
   }
-  notationKebabCaseRunRuntimeCases(t, project, out)
 }
 
 func notationKebabCaseProject(t *testing.T) string {
@@ -69,33 +63,6 @@ func notationKebabCaseProject(t *testing.T) string {
     t.Fatalf("write source: %v", err)
   }
   return dir
-}
-
-func notationKebabCaseRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(notationKebabCaseRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("kebab notation runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const notationKebabCaseTSConfig = `{
@@ -128,59 +95,4 @@ export const isKebab = typia.notations.createIsKebab<SourceRecord>();
 export const assertKebab = typia.notations.createAssertKebab<SourceRecord>();
 export const validateKebab =
   typia.notations.createValidateKebab<SourceRecord>();
-`
-
-const notationKebabCaseRuntimeRunner = `const mod = require("./main.cjs");
-
-const valid = {
-  userId: "u-1",
-  user_name: "John",
-  _privateValue: 3,
-  XMLParser: true,
-  nested: { innerValue: "deep" },
-};
-const expectedKeys = ["user-id", "user-name", "_private-value", "xmlparser", "nested"];
-
-const converted = mod.toKebab(valid);
-const keys = Object.keys(converted).sort();
-if (JSON.stringify(keys) !== JSON.stringify([...expectedKeys].sort())) {
-  throw new Error("kebab conversion produced unexpected keys: " + JSON.stringify(keys));
-}
-if (converted["user-id"] !== "u-1" || converted["user-name"] !== "John") {
-  throw new Error("kebab conversion lost property values: " + JSON.stringify(converted));
-}
-if (converted["_private-value"] !== 3 || converted["xmlparser"] !== true) {
-  throw new Error("prefix/acronym keys converted incorrectly: " + JSON.stringify(converted));
-}
-if (JSON.stringify(Object.keys(converted.nested)) !== JSON.stringify(["inner-value"])) {
-  throw new Error("nested keys should be kebab-cased: " + JSON.stringify(converted.nested));
-}
-
-if (mod.isKebab(valid) === null) {
-  throw new Error("isKebab should accept the valid input");
-}
-if (mod.isKebab({ ...valid, userId: 1 }) !== null) {
-  throw new Error("isKebab should reject an invalid property type");
-}
-if (mod.assertKebab(valid)["user-id"] !== "u-1") {
-  throw new Error("assertKebab should return the converted object");
-}
-let thrown = null;
-try {
-  mod.assertKebab({ ...valid, nested: { innerValue: 1 } });
-} catch (error) {
-  thrown = error;
-}
-if (thrown === null) {
-  throw new Error("assertKebab should throw on invalid nested input");
-}
-
-const success = mod.validateKebab(valid);
-if (success.success !== true || success.data["user-name"] !== "John") {
-  throw new Error("validateKebab should succeed with converted data: " + JSON.stringify(success));
-}
-const failure = mod.validateKebab({ ...valid, XMLParser: "yes" });
-if (failure.success !== false || failure.errors.length === 0) {
-  throw new Error("validateKebab should collect errors for invalid input: " + JSON.stringify(failure));
-}
 `

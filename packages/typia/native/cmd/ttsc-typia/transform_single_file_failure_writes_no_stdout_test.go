@@ -6,16 +6,17 @@ import (
   "testing"
 )
 
-// TestTransformSingleFileFailureWritesNoStdout verifies the stdout publication path.
+// TestTransformSingleFileFailureWritesNoStdout checks the authored operation results described below.
 //
-// Without `--out` the artifact is stdout, so withholding a file is not enough:
-// the untransformed source must not reach the stream a caller pipes into a file.
-// This is also the shape the wasm host reaches through `jsTransform`, whose
-// `{ code, stdout, stderr }` response is exactly these three values.
+// Stdout is an artifact publication channel, so a rejected transform cannot emit a surviving runtime stub or partial file before reporting failure.
 //
-//  1. Transform a typia-invalid source in `ts` and `js` with no `--out`.
-//  2. Require exit 3 and the diagnostic on stderr.
-//  3. Require stdout to be empty rather than carrying the untransformed call.
+// 1. Both output formats exercise failure without an --out target, complementing seeded filesystem atomicity checks.
+// 2. Rejected TypeScript/JavaScript stdout modes return status three with the typia.is diagnostic and write no artifact bytes.
+//
+// @evidence contracts/testing.md#behavioral-verification Rejected TypeScript/JavaScript stdout modes return status three with the typia.is diagnostic and write no artifact bytes.
+// @evidence contracts/testing.md#independent-expectations Stdout is an artifact publication channel, so a rejected transform cannot emit a surviving runtime stub or partial file before reporting failure.
+// @evidence contracts/testing.md#distinguishing-cases Both output formats exercise failure without an --out target, complementing seeded filesystem atomicity checks.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileFailureWritesNoStdout as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileFailureWritesNoStdout(t *testing.T) {
   for _, output := range []string{"ts", "js"} {
     t.Run(output, func(t *testing.T) {

@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataSchemaUnaliasChasesSingleRequiredAlias verifies alias collapse.
@@ -23,19 +23,19 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Only the collapsing case is asserted; the nullable, optional and multi-bucket cases the helper leaves intact are not asserted by this test.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It constructs metadata and calls the helper directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaUnaliasChasesSingleRequiredAlias(t *testing.T) {
-	target := testutil.AtomicMetadata("string")
-	alias := metadata.MetadataAliasType_create(metadata.MetadataAliasType{
-		Name:  "UserId",
-		Value: target,
-	})
-	wrapper := metadata.MetadataSchema_create(metadata.MetadataSchema{
-		Required: true,
-		Aliases: []*metadata.MetadataAlias{
-			metadata.MetadataAlias_create(metadata.MetadataAlias{Type: alias}),
-		},
-	})
+  target := testutil.AtomicMetadata("string")
+  alias := metadata.MetadataAliasType_create(metadata.MetadataAliasType{
+    Name:  "UserId",
+    Value: target,
+  })
+  wrapper := metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Required: true,
+    Aliases: []*metadata.MetadataAlias{
+      metadata.MetadataAlias_create(metadata.MetadataAlias{Type: alias}),
+    },
+  })
 
-	if got := metadata.MetadataSchema_unalias(wrapper); got != target {
-		t.Fatalf("unalias should return alias value: %#v", got)
-	}
+  if got := metadata.MetadataSchema_unalias(wrapper); got != target {
+    t.Fatalf("unalias should return alias value: %#v", got)
+  }
 }

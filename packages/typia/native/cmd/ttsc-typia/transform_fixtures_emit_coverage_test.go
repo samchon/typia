@@ -7,6 +7,7 @@ import (
   "bytes"
   "os"
   "path/filepath"
+  "regexp"
   "runtime"
   "strings"
   "testing"
@@ -29,12 +30,17 @@ import (
 // have failed the repair -- and left the JS emit path it exists to cover
 // unreached, since the run stopped at the identity check.
 //
-// 1. Create isolated temporary TypeScript projects under the native package.
-// 2. Transform each project's `src/main.ts` to TypeScript output in memory.
-// 3. Transform each project's `src/main.ts` to JavaScript and require emitted
-//    CommonJS, which is what reaches the printer and the emit path.
-// 4. Cover reflect metadata, protobuf maps, and object-union emit paths.
-// 5. Run build/check/project-transform command paths against the same project.
+//  1. Create isolated temporary TypeScript projects under the native package.
+//  2. Transform each project's `src/main.ts` to TypeScript output in memory.
+//  3. Transform each project's `src/main.ts` to JavaScript and require emitted
+//     CommonJS, which is what reaches the printer and the emit path.
+//  4. Cover reflect metadata, protobuf maps, and object-union emit paths.
+//  5. Run build/check/project-transform command paths against the same project.
+//
+// @evidence contracts/testing.md#behavioral-verification Eight authored API fixtures produce TypeScript and CommonJS output; the core fixture also succeeds through noEmit build and project transformation.
+// @evidence contracts/testing.md#independent-expectations The authored fixtures contain supported public operations. Transforming them must remove those operation calls while preserving named exports; CommonJS output must include module exports. These assertions establish command emission, not execution of the generated JavaScript.
+// @evidence contracts/testing.md#distinguishing-cases Core, JSON, HTTP, plain, functional, complex, protobuf and reflected metadata inputs exercise two output modes. Dedicated failure-atomicity, diagnostics and same-basename cases own rejection and output selection boundaries.
+// @evidence contracts/testing.md#execution-ownership The native tagged Go runner discovers TestTransformSyntheticEmitCoverage as a unit test. The command functions operate in process on project fixtures and captured output; no compiler or JavaScript subprocess is launched.
 func TestTransformSyntheticEmitCoverage(t *testing.T) {
   cases := []struct {
     name   string
@@ -65,7 +71,7 @@ func TestTransformSyntheticEmitCoverage(t *testing.T) {
       if code != 0 {
         t.Fatalf("transform ts failed for %s: code=%d stderr=\n%s", tc.name, code, errText)
       }
-      if !strings.Contains(out, "export") && !strings.Contains(out, "const") {
+      if !strings.Contains(out, "export") || regexp.MustCompile(`typia\.(?:[A-Za-z]+\.)?(?:create[A-Za-z]+|schema|schemas|literals|metadata)\s*(?:<|\()`).MatchString(out) {
         t.Fatalf("transform ts output for %s looks empty:\n%s", tc.name, out)
       }
     })

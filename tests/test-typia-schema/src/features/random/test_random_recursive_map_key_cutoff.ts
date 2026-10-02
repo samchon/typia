@@ -13,10 +13,14 @@ import typia from "typia";
  * 3. Require the map to terminate at the key edge.
  * 4. Repeat the same assertion through `typia.createRandom`.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (recursive map key cutoff; createRandom recursive map key cutoff). The case documents its purpose as: Verifies recursive map keys participate in depth cutoff detection.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Map keys used to be skipped when marking recursive metadata. A map whose key returns to the owner must still pass `recursive: true` into the synthetic entry array so custom generators can stop the graph. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (recursive map key cutoff; createRandom recursive map key cutoff) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_recursive_map_key_cutoff is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Direct/factory supported callbacks return0 elements whenever schema.recursive is true; the resulting recursive-key Map must be empty.
+ * @evidence contracts/testing.md#independent-expectations The authored callback deliberately exposes recursive metadata and the expected size0 independently checks that a recursive Map key takes the cutoff path.
+ * @evidence contracts/testing.md#distinguishing-cases Map-key recursion differs from ordinary value recursion; both direct and factory forms retain the exact empty-map assertion.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_recursive_map_key_cutoff in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_recursive_map_key_cutoff = (): void => {
   const value: IRecursiveMapKey = typia.random<IRecursiveMapKey>({

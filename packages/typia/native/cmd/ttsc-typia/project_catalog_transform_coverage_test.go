@@ -30,6 +30,10 @@ import (
 // 2. Run project transform mode so every source file contributes call sites.
 // 3. Require JSON project output to include a TypeScript map.
 // 4. Hold each project to its own purpose's diagnostic contract.
+// @evidence contracts/testing.md#behavioral-verification Project transformation accepts eight valid public API projects, rejects the intentional error corpus with exit 3 and reports nonempty transformed sources and consistent diagnostics for debug.
+// @evidence contracts/testing.md#independent-expectations Valid projects and intentional rejection fixtures have different public contracts. Debug may contain either valid or invalid samples, but must load sources and report an exit matching its diagnostic envelope.
+// @evidence contracts/testing.md#distinguishing-cases The positive catalog, negative error corpus and content-agnostic debug cases separate source loading, success, transformation rejection and publication of a nonempty result.
+// @evidence contracts/testing.md#execution-ownership The native tagged Go runner discovers TestProjectCatalogTransformCoverage as a unit test. The command functions operate in process on project fixtures and captured output; no compiler or JavaScript subprocess is launched.
 func TestProjectCatalogTransformCoverage(t *testing.T) {
   root := transformCoverageRepoRoot(t)
   for _, project := range []string{

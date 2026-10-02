@@ -7,24 +7,17 @@ import (
   "testing"
 )
 
-// TestMetadataTypeTagSoleMalformedDiagnostic verifies a malformed type tag is
-// reported even when no valid tag accompanies it.
+// TestMetadataTypeTagSoleMalformedDiagnostic checks the authored operation results described below.
 //
-// MetadataTypeTagFactory.Analyze collects a message for every malformed tag
-// object, but returned early when no tag object survived, before those messages
-// reached the error list. A sole malformed tag therefore vanished: the
-// constraint its author wrote was enforced nowhere, while the same tag beside a
-// valid one was reported (samchon/typia#2400). The now-visible message must
-// also name the malformed `validate` property instead of blaming `target`.
-// The accompanied case keeps its message, and a valid sole tag is the negative
-// twin that must keep compiling.
+// Tag metadata fields have distinct contracts; invalid validation text is a validation-expression defect rather than a target-kind error.
 //
-//  1. Build one project whose calls carry a sole non-literal tag value, the
-//     same value beside a valid tag, and the same value through
-//     `typia.llm.evaluation`, and a separate project with a valid sole tag.
-//  2. Require the first build to fail through the transform-diagnostic path.
-//  3. Require every malformed call's messages, and the valid project to
-//     compile.
+// 1. The tag has one malformed field, isolating field ownership instead of hiding the error behind another invalid tag property.
+// 2. A malformed sole validate tag returns status three, names the expected validate failure and does not misattribute it to typia.tag.target.
+//
+// @evidence contracts/testing.md#behavioral-verification A malformed sole validate tag returns status three, names the expected validate failure and does not misattribute it to typia.tag.target.
+// @evidence contracts/testing.md#independent-expectations Tag metadata fields have distinct contracts; invalid validation text is a validation-expression defect rather than a target-kind error.
+// @evidence contracts/testing.md#distinguishing-cases The tag has one malformed field, isolating field ownership instead of hiding the error behind another invalid tag property.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestMetadataTypeTagSoleMalformedDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestMetadataTypeTagSoleMalformedDiagnostic(t *testing.T) {
   root := ttscTypiaTestRepoRoot(t)
   base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")

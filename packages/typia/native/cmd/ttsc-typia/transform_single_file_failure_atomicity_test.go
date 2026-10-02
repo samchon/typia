@@ -8,19 +8,17 @@ import (
   "testing"
 )
 
-// TestTransformSingleFileFailurePreservesArtifacts verifies single-file atomicity.
+// TestTransformSingleFileFailurePreservesArtifacts checks the authored operation results described below.
 //
-// The project host returns 3 when typia's analysis produced diagnostics, but both
-// single-file hosts used to publish `--out` and exit 0 regardless, shipping the
-// untransformed `typia.is<T>(input)` call behind a success code. Publication must
-// follow the same decision as the exit code in both output modes, and a failed
-// transform must not destroy an artifact a previous run left behind.
+// Single-file publication is transactional just like project builds: rejected transforms must not replace earlier artifacts or create partial output trees.
 //
-//  1. Seed `--out` with a byte-sensitive prior artifact beside an unrelated file.
-//  2. Run the single-file transform over a typia-invalid source in `ts` and `js`.
-//  3. Require exit 3, the diagnostic on stderr, and a byte-identical output tree.
-//  4. Require a fresh `--out` parent to stay uncreated, since publishing nothing
-//     must also mean creating no directory for it.
+// 1. TypeScript and JavaScript modes cover seeded and absent output targets, distinguishing replacement from first-publication failure.
+// 2. Each rejected single-file output mode returns status three with detailed diagnostics and preserves existing seeded artifact trees; a missing output directory stays absent.
+//
+// @evidence contracts/testing.md#behavioral-verification Each rejected single-file output mode returns status three with detailed diagnostics and preserves existing seeded artifact trees; a missing output directory stays absent.
+// @evidence contracts/testing.md#independent-expectations Single-file publication is transactional just like project builds: rejected transforms must not replace earlier artifacts or create partial output trees.
+// @evidence contracts/testing.md#distinguishing-cases TypeScript and JavaScript modes cover seeded and absent output targets, distinguishing replacement from first-publication failure.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileFailurePreservesArtifacts as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileFailurePreservesArtifacts(t *testing.T) {
   for _, output := range []string{"ts", "js"} {
     t.Run(output, func(t *testing.T) {

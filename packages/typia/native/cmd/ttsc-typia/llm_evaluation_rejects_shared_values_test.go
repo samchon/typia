@@ -20,6 +20,11 @@ import (
 //  2. Require a transform diagnostic naming the shared value at each.
 //  3. Accept a distributed tag, an enum with a tag, a flattened alias union, an
 //     `Exclude`, and an enum subset.
+//
+// @evidence contracts/testing.md#behavioral-verification Every duplicated enum/literal/tagged value reports the shared literal; distributed tags, enum tags, flattened aliases, Exclude and enum-subset controls compile.
+// @evidence contracts/testing.md#independent-expectations One option value cannot preserve two independently declared descriptions or thresholds after TypeScript literal union folding, so ambiguous duplicate declarations must fail.
+// @evidence contracts/testing.md#distinguishing-cases String/numeric enum collisions, mixed enum/literal forms, tagged/plain literals in both orders and sets contrast with semantic aliases that enumerate each value once.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsSharedValues as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsSharedValues(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "shared-values", `import typia, { tags } from "typia";
 

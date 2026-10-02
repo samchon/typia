@@ -7,19 +7,17 @@ import (
   "testing"
 )
 
-// TestRandomRecursiveMinItemsDiagnostic verifies impossible recursive arrays fail.
+// TestRandomRecursiveMinItemsDiagnostic checks the authored operation results described below.
 //
-// A recursive random array can be depth-stopped to `[]`; combining that edge
-// with a positive `MinItems` constraint is unsatisfiable. The build command must
-// report a real transform diagnostic across direct aliases, type aliases, graph
-// cycles, map-key and map-value graph cycles, nested direct aliases, and
-// tuple-union nesting for both immediate and factory random entrypoints, and
-// for the `@minItems` comment-tag spelling.
+// A recursive container depth cutoff needs an empty terminal value, but a positive minimum cardinality forbids that escape; generation must reject instead of emitting values that violate its type.
 //
-// 1. Build a recursive object whose child array has `MinItems<1>`.
-// 2. Build a direct recursive array alias with `MinItems<1>`.
-// 3. Build alias-property, graph, map-key graph, and nested direct alias variants.
-// 4. Require each project to fail through the transform-diagnostic path.
+// 1. Direct/property/matrix aliases, mutual and map-key/value graphs, tuple/union nesting and comment tags preserve the same impossible minimum across both APIs.
+// 2. Every recursive fixture fails build with both random/createRandom operation codes and the MinItems one impossibility diagnostic.
+//
+// @evidence contracts/testing.md#behavioral-verification Every recursive fixture fails build with both random/createRandom operation codes and the MinItems one impossibility diagnostic.
+// @evidence contracts/testing.md#independent-expectations A recursive container depth cutoff needs an empty terminal value, but a positive minimum cardinality forbids that escape; generation must reject instead of emitting values that violate its type.
+// @evidence contracts/testing.md#distinguishing-cases Direct/property/matrix aliases, mutual and map-key/value graphs, tuple/union nesting and comment tags preserve the same impossible minimum across both APIs.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestRandomRecursiveMinItemsDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestRandomRecursiveMinItemsDiagnostic(t *testing.T) {
   for _, tt := range []struct {
     name   string

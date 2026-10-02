@@ -4,7 +4,7 @@ import {
   IResult,
   OpenApi,
 } from "@typia/interface";
-import { TestEquality } from "@typia/oracle/equality";
+import { TestEquality } from "@typia/template/oracle-equality";
 import { LlmSchemaConverter } from "@typia/utils";
 
 /**

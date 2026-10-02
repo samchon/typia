@@ -30,6 +30,11 @@ import (
 //  4. Assert `dependencies["src/main.ts"]` contains `src/barrel.ts` and
 //     `src/kind.ts`, and that `src/main.ts` is declared complete.
 //  5. Assert it omits `src/unused.ts`, the sibling the reference never traverses.
+//
+// @evidence contracts/testing.md#behavioral-verification The enum literal appears in the validator, kind/barrel are retained, unused is absent and the caller remains complete.
+// @evidence contracts/testing.md#independent-expectations A namespace-qualified enum member still depends on the barrel selecting its namespace, not solely on the terminal member symbol.
+// @evidence contracts/testing.md#distinguishing-cases Qualified consumed enum access is paired with an unconsumed export from that same barrel.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesQualifiedBarrelTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesQualifiedBarrelTransform(t *testing.T) {
   project := projectDependenciesQualifiedBarrelProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

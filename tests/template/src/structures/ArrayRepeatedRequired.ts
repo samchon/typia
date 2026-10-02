@@ -36,11 +36,5 @@ export namespace ArrayRepeatedRequired {
   ];
 
   export const ADDABLE: boolean = false;
-
-  /**
-   * Supplies strict schema clean-success coverage for a recursive value without
-   * object nodes.
-   */
-  export const SCHEMA_EQUALS = true;
   export const BINARABLE = false;
 }

@@ -184,6 +184,8 @@ For `url`, DNS host labels may contain interior hyphen runs such as `example--ex
 | `tags.MaxItems<N>` | `arr.length <= N`              |
 | `tags.UniqueItems` | All elements pairwise distinct |
 
+`tags.UniqueItems<false>` disables the runtime uniqueness check and emits `uniqueItems: false` in JSON Schema. Apply array tags to the array wrapper, for example `string[] & tags.UniqueItems<false>`.
+
 `Default` accepts a readonly tuple as an array default. Capture the value with `as const`, then use its type on the array wrapper: `Header[] & tags.Default<typeof headers>`. The tuple is emitted in the schema's `default` field and can be combined with `MinItems`, `MaxItems`, and `UniqueItems`. An open type such as `string[]` describes many possible arrays rather than one default value, so typia rejects `tags.Default<string[]>`.
 
 #### Other useful tags

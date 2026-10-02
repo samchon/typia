@@ -7,16 +7,17 @@ import (
   "testing"
 )
 
-// TestJSONSchemaNonsensibleIntersectionDiagnostic verifies that ttsc reports
-// the transform-time cause behind issue #2373.
+// TestJSONSchemaNonsensibleIntersectionDiagnostic checks the authored operation results described below.
 //
-// The runtime fallback cannot inspect a TypeScript type after transformation
-// has been skipped. This regression therefore compiles the reporter's exact
-// `Date & string` property through the real typia package and preserves the
-// actionable native diagnostic at its actual compiler boundary.
+// An unsupported intersection cannot silently emit a schema with weaker inhabitation meaning; the transform rejection must identify the failing call.
 //
-//  1. Compile a `typia.json.schema` call for the nonsensible intersection.
-//  2. Require the API diagnostic, property path, and intersection reason.
+// 1. One nonrepresentable schema intersection owns this rejection; valid phantom-branded cases are covered by the intersection backstop test.
+// 2. The unsupported JSON schema intersection returns status three and the authored operation/location/cause fragments.
+//
+// @evidence contracts/testing.md#behavioral-verification The unsupported JSON schema intersection returns status three and the authored operation/location/cause fragments.
+// @evidence contracts/testing.md#independent-expectations An unsupported intersection cannot silently emit a schema with weaker inhabitation meaning; the transform rejection must identify the failing call.
+// @evidence contracts/testing.md#distinguishing-cases One nonrepresentable schema intersection owns this rejection; valid phantom-branded cases are covered by the intersection backstop test.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestJSONSchemaNonsensibleIntersectionDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestJSONSchemaNonsensibleIntersectionDiagnostic(t *testing.T) {
   project := jsonSchemaNonsensibleIntersectionDiagnosticProject(t)
   stdout, stderr, code := ttscTypiaTestCapture(func() int {

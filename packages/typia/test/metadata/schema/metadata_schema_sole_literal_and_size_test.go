@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
 )
 
 // TestMetadataSchemaSoleLiteralAndSize verifies literal metadata accounting.
@@ -23,21 +23,21 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases One literal schema; multi-value and non-string literals are not covered.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It constructs metadata and reads accessors directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaSoleLiteralAndSize(t *testing.T) {
-	literal := testutil.StringLiteralMetadata("member_id")
+  literal := testutil.StringLiteralMetadata("member_id")
 
-	if literal.Size() != 1 {
-		t.Fatalf("literal size must be 1: %d", literal.Size())
-	}
-	if literal.Bucket() != 1 {
-		t.Fatalf("literal bucket must be 1: %d", literal.Bucket())
-	}
-	if !literal.IsRequired() {
-		t.Fatal("literal metadata should be required")
-	}
-	if !literal.IsSoleLiteral() {
-		t.Fatal("literal metadata should be recognized as sole literal")
-	}
-	if value := literal.GetSoleLiteral(); value == nil || *value != "member_id" {
-		t.Fatalf("unexpected sole literal: %#v", value)
-	}
+  if literal.Size() != 1 {
+    t.Fatalf("literal size must be 1: %d", literal.Size())
+  }
+  if literal.Bucket() != 1 {
+    t.Fatalf("literal bucket must be 1: %d", literal.Bucket())
+  }
+  if !literal.IsRequired() {
+    t.Fatal("literal metadata should be required")
+  }
+  if !literal.IsSoleLiteral() {
+    t.Fatal("literal metadata should be recognized as sole literal")
+  }
+  if value := literal.GetSoleLiteral(); value == nil || *value != "member_id" {
+    t.Fatalf("unexpected sole literal: %#v", value)
+  }
 }

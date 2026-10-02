@@ -1,5 +1,5 @@
 import type { IValidation } from "@typia/interface";
-import { _test_plain_validatePrune_success } from "@typia/oracle/prune";
+import { _test_plain_validatePrune_success } from "@typia/template/prune";
 import assert from "node:assert/strict";
 
 /**

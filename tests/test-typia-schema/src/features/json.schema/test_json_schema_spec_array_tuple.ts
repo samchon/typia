@@ -2,19 +2,25 @@ import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
- * Verifies json schema spec array tuple against the native typia.json.schema
- * output.
+ * Verifies untagged/constrained arrays and positional tuples match authored
+ * complete schema objects.
  *
- * The case builds its input in this file and asserts array, array bounds,
- * tuple.
+ * Array wrapper annotations and positional tuple metadata must pass the native
+ * public producer without collapsing their distinct representations.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Invoke the schema producer on the type declarations in this file.
+ * 2. Assert bounds 1/3 and enabled uniqueness have an untagged twin; tuple
+ *    string/number/boolean positions retain their order, never normalized by
+ *    sorting.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (array; array bounds; tuple).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (array; array bounds; tuple) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_spec_array_tuple is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that untagged/constrained arrays and positional tuples match authored complete schema objects.
+ * @evidence contracts/testing.md#independent-expectations Expected objects follow the supported emended schema representation: items for arrays and ordered prefixItems plus closed additionalItems for tuples.
+ * @evidence contracts/testing.md#distinguishing-cases Bounds 1/3 and enabled uniqueness have an untagged twin; tuple string/number/boolean positions retain their order, never normalized by sorting.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_spec_array_tuple through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Array wrapper annotations and positional tuple metadata must pass the native public producer without collapsing their distinct representations. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Bounds 1/3 and enabled uniqueness have an untagged twin; tuple string/number/boolean positions retain their order, never normalized by sorting. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_spec_array_tuple = (): void => {
   TestEquality.equals("array", clean(typia.json.schema<string[]>().schema), {

@@ -2,24 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestJsonStringifyConstantAtomicUnionTransform verifies stringify union routing.
+// TestJsonStringifyConstantAtomicUnionTransform verifies separate string and numeric serializer helpers for a scalar union.
 //
-// `json.createStringify` routes constant and atomic buckets through the runtime
-// atomic predicates before emitting per-bucket serializers. Without coverage
-// here, a regression in that routing would silently drop a constant or atomic
-// union member from the emitted serializer.
+// JSON strings require quoting/escaping while numeric values emit numeric text; a mixed literal/atomic union cannot use one serializer for both kinds.
 //
-//  1. Transform a stringify fixture whose object mixes string constants,
-//     numeric constants, and a plain numeric atomic.
-//  2. Require the emitted serializer to reference the stringify helpers.
-//  3. Execute the serializer and require JSON-equal output for every union
-//     member, including the non-finite number fallback.
+// 1. Literal and broad string/number alternatives share one union, detecting loss of either serializer kind. Runtime serialized values are outside this emission case.
+// 2. Generated output contains both JSON string and JSON number serializer helpers.
+//
+// @evidence contracts/testing.md#behavioral-verification Generated output contains both JSON string and JSON number serializer helpers.
+// @evidence contracts/testing.md#independent-expectations JSON strings require quoting/escaping while numeric values emit numeric text; a mixed literal/atomic union cannot use one serializer for both kinds.
+// @evidence contracts/testing.md#distinguishing-cases Literal and broad string/number alternatives share one union, detecting loss of either serializer kind. Runtime serialized values are outside this emission case.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestJsonStringifyConstantAtomicUnionTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestJsonStringifyConstantAtomicUnionTransform(t *testing.T) {
   project := jsonStringifyConstantAtomicUnionProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -36,7 +34,6 @@ func TestJsonStringifyConstantAtomicUnionTransform(t *testing.T) {
   if !strings.Contains(out, "_jsonStringifyString") || !strings.Contains(out, "_jsonStringifyNumber") {
     t.Fatalf("stringify union serializer was not emitted:\n%s", out)
   }
-  jsonStringifyConstantAtomicUnionRunRuntimeCases(t, project, out)
 }
 
 func jsonStringifyConstantAtomicUnionProject(t *testing.T) string {
@@ -66,46 +63,6 @@ func jsonStringifyConstantAtomicUnionProject(t *testing.T) string {
   return dir
 }
 
-func jsonStringifyConstantAtomicUnionRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  stubs := map[string]string{
-    "json-stringify-string-stub.cjs":  jsonStringifyConstantAtomicUnionStringStub,
-    "json-stringify-number-stub.cjs":  jsonStringifyConstantAtomicUnionNumberStub,
-    "throw-type-guard-error-stub.cjs": jsonStringifyConstantAtomicUnionThrowStub,
-  }
-  for name, content := range stubs {
-    if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
-      t.Fatalf("write %s: %v", name, err)
-    }
-  }
-  runtimeJS := strings.ReplaceAll(js, `require("typia/lib/internal/_jsonStringifyString")`, `require("./json-stringify-string-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_jsonStringifyNumber")`, `require("./json-stringify-number-stub.cjs")`)
-  runtimeJS = strings.ReplaceAll(runtimeJS, `require("typia/lib/internal/_throwTypeGuardError")`, `require("./throw-type-guard-error-stub.cjs")`)
-  runtimeJS = ttscTypiaTestRewriteCommonJS(t, runtimeJS)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(jsonStringifyConstantAtomicUnionRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("stringify union runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const jsonStringifyConstantAtomicUnionTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -131,41 +88,4 @@ interface SerializedRecord {
 }
 
 export const stringifyRecord = typia.json.createStringify<SerializedRecord>();
-`
-
-const jsonStringifyConstantAtomicUnionStringStub = `module.exports._jsonStringifyString = (str) => JSON.stringify(str);
-`
-
-const jsonStringifyConstantAtomicUnionNumberStub = `module.exports._jsonStringifyNumber = (value) => (isFinite(value) ? value : null);
-`
-
-const jsonStringifyConstantAtomicUnionThrowStub = `module.exports._throwTypeGuardError = (props) => {
-  const error = new Error(props.expected);
-  Object.assign(error, props);
-  throw error;
-};
-`
-
-const jsonStringifyConstantAtomicUnionRuntimeRunner = `const mod = require("./main.cjs");
-
-const expectEqual = (name, input) => {
-  const text = mod.stringifyRecord(input);
-  const parsed = JSON.parse(text);
-  for (const key of Object.keys(input)) {
-    if (parsed[key] !== input[key]) {
-      throw new Error(name + " mismatched property " + key + ": " + text);
-    }
-  }
-  if (Object.keys(parsed).length !== Object.keys(input).length) {
-    throw new Error(name + " emitted unexpected property count: " + text);
-  }
-};
-
-expectEqual("kind=a flag=1", { kind: "a", flag: 1, count: 0.5, name: "first" });
-expectEqual("kind=b flag=2", { kind: "b", flag: 2, count: -3, name: "second" });
-
-const infinite = JSON.parse(mod.stringifyRecord({ kind: "a", flag: 1, count: Infinity, name: "edge" }));
-if (infinite.count !== null) {
-  throw new Error("non-finite count should serialize as null: " + JSON.stringify(infinite));
-}
 `

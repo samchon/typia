@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
 
 // TestProtobufUtilNumericConstantDeduction verifies protobuf numeric scalar
@@ -25,18 +25,18 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Three value ranges flip the scalar choice; exact threshold boundary values are not asserted.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilNumericConstantDeduction(t *testing.T) {
-	int32Meta := testutil.NumberConstantMetadata(1, 2, 3)
-	if _, ok := helpers.ProtobufUtil.GetNumbers(int32Meta)["int32"]; !ok {
-		t.Fatalf("small integer constants should deduce int32: %#v", helpers.ProtobufUtil.GetNumbers(int32Meta))
-	}
+  int32Meta := testutil.NumberConstantMetadata(1, 2, 3)
+  if _, ok := helpers.ProtobufUtil.GetNumbers(int32Meta)["int32"]; !ok {
+    t.Fatalf("small integer constants should deduce int32: %#v", helpers.ProtobufUtil.GetNumbers(int32Meta))
+  }
 
-	int64Meta := testutil.NumberConstantMetadata(2147483648)
-	if _, ok := helpers.ProtobufUtil.GetNumbers(int64Meta)["int64"]; !ok {
-		t.Fatalf("large integer constants should deduce int64: %#v", helpers.ProtobufUtil.GetNumbers(int64Meta))
-	}
+  int64Meta := testutil.NumberConstantMetadata(2147483648)
+  if _, ok := helpers.ProtobufUtil.GetNumbers(int64Meta)["int64"]; !ok {
+    t.Fatalf("large integer constants should deduce int64: %#v", helpers.ProtobufUtil.GetNumbers(int64Meta))
+  }
 
-	doubleMeta := testutil.NumberConstantMetadata(1.5)
-	if _, ok := helpers.ProtobufUtil.GetNumbers(doubleMeta)["double"]; !ok {
-		t.Fatalf("fractional constants should deduce double: %#v", helpers.ProtobufUtil.GetNumbers(doubleMeta))
-	}
+  doubleMeta := testutil.NumberConstantMetadata(1.5)
+  if _, ok := helpers.ProtobufUtil.GetNumbers(doubleMeta)["double"]; !ok {
+    t.Fatalf("fractional constants should deduce double: %#v", helpers.ProtobufUtil.GetNumbers(doubleMeta))
+  }
 }

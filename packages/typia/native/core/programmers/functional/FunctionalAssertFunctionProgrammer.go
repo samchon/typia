@@ -43,8 +43,8 @@ type FunctionalAssertFunctionProgrammer_IProps struct {
 }
 
 // FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput is what the
-// generator returns: Name is an optional type name and Variable is the declared
-// variable statement.
+// generator returns: Name is the generated error-factory wrapper variable name
+// and Variable is its constant declaration statement.
 //
 // @evidence contracts/common.md#principled-implementation The generator returns its pieces separately so the caller can place helper functions, statements and values where its own wrapper needs them.
 // @evidence contracts/common.md#clear-and-simple-design A record of 2 fields.

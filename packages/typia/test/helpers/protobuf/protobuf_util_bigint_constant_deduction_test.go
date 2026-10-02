@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
+  helpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
 
 // TestProtobufUtilBigintConstantDeduction verifies signed bigint deduction.
@@ -23,13 +23,13 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases All-positive and sign-mixed unions form the pair.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilBigintConstantDeduction(t *testing.T) {
-	unsigned := helpers.ProtobufUtil.GetBigints(testutil.BigintConstantMetadata("1", "2"))
-	if _, ok := unsigned["uint64"]; !ok {
-		t.Fatalf("positive bigint constants should deduce uint64: %#v", unsigned)
-	}
+  unsigned := helpers.ProtobufUtil.GetBigints(testutil.BigintConstantMetadata("1", "2"))
+  if _, ok := unsigned["uint64"]; !ok {
+    t.Fatalf("positive bigint constants should deduce uint64: %#v", unsigned)
+  }
 
-	signed := helpers.ProtobufUtil.GetBigints(testutil.BigintConstantMetadata("-1", "2"))
-	if _, ok := signed["int64"]; !ok {
-		t.Fatalf("negative bigint constants should deduce int64: %#v", signed)
-	}
+  signed := helpers.ProtobufUtil.GetBigints(testutil.BigintConstantMetadata("-1", "2"))
+  if _, ok := signed["int64"]; !ok {
+    t.Fatalf("negative bigint constants should deduce int64: %#v", signed)
+  }
 }

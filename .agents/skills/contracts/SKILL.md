@@ -15,7 +15,7 @@ Meet all applicable requirements together. No chapter permits weakening the supp
 
 Benchmarks, test runs and formal proofs are not universal acknowledgment requirements. The answer supplies grounds for review, not a verification report.
 
-Product behavior belongs to [project](../project/SKILL.md) and package documentation. [Development](../development/SKILL.md#testing) owns test procedures and [Evidence adoption](../development/SKILL.md#evidence-adoption) owns selection and validation. Evidence checks that answers exist; [review](../review/SKILL.md#review-law) checks their truth. Neither replaces behavioral verification.
+Product behavior belongs to [project](../project/SKILL.md) and package documentation. [Development](../development/SKILL.md#testing) owns test procedures and [Evidence adoption](../development/SKILL.md#evidence-adoption) owns selection and validation. Evidence checks that answers exist; [review](../review/SKILL.md#non-negotiable-review-law) checks their truth. Neither replaces behavioral verification.
 
 Keep document links in this entry file. Checklist documents must contain no links, so each checklist remains independently readable.
 

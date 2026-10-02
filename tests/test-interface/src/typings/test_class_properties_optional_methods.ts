@@ -15,6 +15,11 @@ declare const symbolData: unique symbol;
  * 2. Mix them with optional data, numeric/symbol data, an accessor, overloads, and
  *    inherited members.
  * 3. Require the shallow data-only object with modifiers intact.
+ *
+ * @evidence contracts/testing.md#behavioral-verification ClassProperties must erase required/optional/overloaded functions and preserve the authored inherited, optional, numeric, symbol and getter data shape.
+ * @evidence contracts/testing.md#independent-expectations The literal output object states the shallow data contract; exact type identity checks key kinds and optional/readonly modifiers.
+ * @evidence contracts/testing.md#distinguishing-cases Required versus optional methods, callable properties, inherited methods, overloads and string/number/symbol keys are contrasted with adjacent data of each key kind.
+ * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported ClassPropertiesOptionalMethodCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type ClassPropertiesOptionalMethodCases = [
   Assert<

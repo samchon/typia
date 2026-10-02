@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataCollectionTracksUnionIndices verifies object-union registration.
@@ -23,22 +23,22 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Repeated registration of one union is the positive case; registering a different union and the index of a second union are not asserted here.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It builds a collection in memory with no filesystem fixture, process or native command build.
 func TestMetadataCollectionTracksUnionIndices(t *testing.T) {
-	collection := metadata.NewMetadataCollection()
-	meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
-		Objects: []*metadata.MetadataObject{
-			metadata.MetadataObject_create(metadata.MetadataObject{
-				Type: metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "A"}),
-			}),
-			metadata.MetadataObject_create(metadata.MetadataObject{
-				Type: metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "B"}),
-			}),
-		},
-	})
+  collection := metadata.NewMetadataCollection()
+  meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
+    Objects: []*metadata.MetadataObject{
+      metadata.MetadataObject_create(metadata.MetadataObject{
+        Type: metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "A"}),
+      }),
+      metadata.MetadataObject_create(metadata.MetadataObject{
+        Type: metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "B"}),
+      }),
+    },
+  })
 
-	if first, second := collection.GetUnionIndex(meta), collection.GetUnionIndex(meta); first != 0 || second != 0 {
-		t.Fatalf("repeated union should keep index zero: first=%d second=%d", first, second)
-	}
-	if unions := collection.Clone().Unions(); len(unions) != 1 || len(unions[0]) != 2 {
-		t.Fatalf("cloned union order was not preserved: %#v", unions)
-	}
+  if first, second := collection.GetUnionIndex(meta), collection.GetUnionIndex(meta); first != 0 || second != 0 {
+    t.Fatalf("repeated union should keep index zero: first=%d second=%d", first, second)
+  }
+  if unions := collection.Clone().Unions(); len(unions) != 1 || len(unions[0]) != 2 {
+    t.Fatalf("cloned union order was not preserved: %#v", unions)
+  }
 }

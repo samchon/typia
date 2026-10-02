@@ -1,5 +1,5 @@
 import type { Resolved } from "@typia/interface";
-import { _test_plain_clone, prepareClone } from "@typia/oracle/clone";
+import { _test_plain_clone, prepareClone } from "@typia/template/clone";
 import assert from "node:assert/strict";
 
 /**

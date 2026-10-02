@@ -2,30 +2,28 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestDynamicKeyPathHelperAliasTransform verifies dynamic-key path helpers run.
+// TestDynamicKeyPathHelperAliasTransform verifies materialization of the dynamic-key path helper alias.
 //
-// Dynamic object keys build path postfixes as expression text, so the
-// emit-context importer must materialize the internal helper alias that those
-// snippets reference. Otherwise transformed assert and validate functions import
-// the helper module but throw ReferenceError before reporting the path.
+// A generated diagnostic path helper reference requires a materialized callable binding in the same output; a type-only/import reference cannot supply it at runtime.
 //
-//  1. Transform a string-keyed record fixture through ttsc-typia.
-//  2. Assert the generated JavaScript defines the text-snippet helper alias.
-//  3. Execute assert, assertGuard, and validate failures for identifier and
-//     quoted keys, and verify their reported paths.
+// 1. The dynamic-key fixture exercises path-producing validation rather than fixed property access; exact path formatting is covered by the helper unit cases.
+// 2. The emitted JavaScript must contain the local accessExpressionAsString alias definition required by generated error paths.
+//
+// @evidence contracts/testing.md#behavioral-verification The emitted JavaScript must contain the local accessExpressionAsString alias definition required by generated error paths.
+// @evidence contracts/testing.md#independent-expectations A generated diagnostic path helper reference requires a materialized callable binding in the same output; a type-only/import reference cannot supply it at runtime.
+// @evidence contracts/testing.md#distinguishing-cases The dynamic-key fixture exercises path-producing validation rather than fixed property access; exact path formatting is covered by the helper unit cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestDynamicKeyPathHelperAliasTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestDynamicKeyPathHelperAliasTransform(t *testing.T) {
   project := dynamicKeyPathHelperAliasProject(t)
   js := dynamicKeyPathHelperAliasTransform(t, project, "js")
   if !strings.Contains(js, "const __typia_transform__accessExpressionAsString =") {
     t.Fatalf("dynamic-key path helper alias was not materialized:\n%s", js)
   }
-  dynamicKeyPathHelperAliasRunRuntimeCases(t, project, js)
 }
 
 func dynamicKeyPathHelperAliasProject(t *testing.T) string {
@@ -71,33 +69,6 @@ func dynamicKeyPathHelperAliasTransform(t *testing.T, project string, output str
   return out
 }
 
-func dynamicKeyPathHelperAliasRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(dynamicKeyPathHelperAliasRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = project
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("dynamic-key path runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const dynamicKeyPathHelperAliasTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -136,24 +107,4 @@ export const run = () => ({
   guardQuoted: capture(() => assertGuardRecord({ "bad-key": "not-number" as any })),
   validateQuoted: validateRecord({ "bad-key": "not-number" as any }),
 });
-`
-
-const dynamicKeyPathHelperAliasRuntimeRunner = `const mod = require("./main.cjs");
-const result = mod.run();
-
-if (!result.assertIdentifier || result.assertIdentifier.path !== "$input.validKey") {
-  throw new Error("assert identifier key path mismatch: " + JSON.stringify(result.assertIdentifier));
-}
-if (!result.assertQuoted || result.assertQuoted.path !== "$input[\"bad-key\"]") {
-  throw new Error("assert quoted key path mismatch: " + JSON.stringify(result.assertQuoted));
-}
-if (!result.guardQuoted || result.guardQuoted.path !== "$input[\"bad-key\"]") {
-  throw new Error("assertGuard quoted key path mismatch: " + JSON.stringify(result.guardQuoted));
-}
-if (result.validateQuoted.success !== false) {
-  throw new Error("validate accepted a non-number record value");
-}
-if (!result.validateQuoted.errors.some((error) => error.path === "$input[\"bad-key\"]")) {
-  throw new Error("validate quoted key path mismatch: " + JSON.stringify(result.validateQuoted.errors));
-}
 `

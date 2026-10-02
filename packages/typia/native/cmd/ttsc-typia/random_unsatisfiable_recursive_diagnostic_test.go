@@ -7,22 +7,17 @@ import (
   "testing"
 )
 
-// TestRandomUnsatisfiableRecursiveDiagnostic verifies non-terminating recursive
-// types fail.
+// TestRandomUnsatisfiableRecursiveDiagnostic checks the authored operation results described below.
 //
-// Random generation terminates a recursive type through an escape it can take at
-// the depth cutoff: an array/set/map (or a tuple rest spread) empties, a nullable
-// edge becomes null, an optional or index-signature property is dropped, or a
-// union picks a finite variant. A recursive cycle whose every step is a required,
-// non-nullable, non-container value has no such escape, so the generated function
-// would recurse until the stack overflows. The build must reject it through the
-// transform diagnostic path across object, mutual-object, deep-chain, and
-// array-of-owner shapes, for both immediate and factory random entrypoints.
+// A finite random value needs an empty-container, optional, nullable or finite-union escape. A required nonnullable object cycle with no such exit cannot be generated soundly.
 //
-//  1. Build a self-referential required object and a mutual object cycle.
-//  2. Build a deep required object chain.
-//  3. Build an array whose element is an unsatisfiable recursive object.
-//  4. Require each project to fail through the transform-diagnostic path.
+// 1. Direct, mutual and deep required-object cycles and a recursive array-owner shape exercise unescapable graphs; terminating random shapes are owned by other random cases.
+// 2. Each required recursive graph fails with random and createRandom codes and a recursion-never-terminates cause.
+//
+// @evidence contracts/testing.md#behavioral-verification Each required recursive graph fails with random and createRandom codes and a recursion-never-terminates cause.
+// @evidence contracts/testing.md#independent-expectations A finite random value needs an empty-container, optional, nullable or finite-union escape. A required nonnullable object cycle with no such exit cannot be generated soundly.
+// @evidence contracts/testing.md#distinguishing-cases Direct, mutual and deep required-object cycles and a recursive array-owner shape exercise unescapable graphs; terminating random shapes are owned by other random cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestRandomUnsatisfiableRecursiveDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestRandomUnsatisfiableRecursiveDiagnostic(t *testing.T) {
   for _, tt := range []struct {
     name   string

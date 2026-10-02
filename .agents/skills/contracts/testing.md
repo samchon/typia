@@ -8,8 +8,6 @@ Run the behavior the test concerns and assert its observable result. Identify th
 
 Do not test the repository's arrangement instead of behavior: a committed file exists, a package manifest contains a string, a document lists a name, a workflow contains a step, source text matches a pattern, or two committed files agree. Remove such checks rather than rewriting their acknowledgments. A resolver interpreting a fixture manifest or an installed package being imported exercises behavior; explain that operation and its result. Contract-defined constants and deliberate fixture inputs remain legitimate.
 
-Retain the development skill's repository integrity enforcement for feature identity, workspace selection and prohibited assertion oracles as static analysis. These commands enforce declared source constraints; they do not prove runtime discovery or product behavior. Keep their repository enforcement separate from fixture-driven tests of the analyzer, whose inputs and expected diagnostics must distinguish correct and incorrect parsing or policy decisions. Do not remove an authorized integrity constraint under the arrangement-test rule or relabel its repository scan as behavioral coverage.
-
 ## Independent expectations
 
 Derive expected results from the supported contract, an authoritative specification or an independent reference implementation. Identify that basis and explain how the assertion detects an incorrect implementation rather than repeating its computation.

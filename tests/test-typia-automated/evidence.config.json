@@ -2,63 +2,14 @@
   "severity": "error",
   "claims": [
     {
-      "name": "authored TypeScript test declarations",
+      "name": "generated feature and authored composite boundaries",
       "type": "typescript",
-      "files": [
-        "src/**/*.ts",
-        "!src/internal/**",
-        "!src/structures/**",
-        "!src/controllers/**",
-        "src/internal/_test_*.ts",
-        "!src/build/**/*.ts",
-        "!src/generate.ts",
-        "!src/features/assert/test_*.ts",
-        "!src/features/assertGuard/test_*.ts",
-        "!src/features/createAssert/test_*.ts",
-        "!src/features/createAssertGuard/test_*.ts",
-        "!src/features/createIs/test_*.ts",
-        "!src/features/createValidate/test_*.ts",
-        "!src/features/is/test_*.ts",
-        "!src/features/standardSchema.createValidate/test_*.ts",
-        "!src/features/validate/test_*.ts",
-        "!src/internal/_test_is.ts",
-        "!src/internal/_test_equals.ts",
-        "!src/internal/_test_plain_isPrune.ts",
-        "!src/internal/_test_plain_prune.ts",
-        "!src/features/equals/test_*.ts",
-        "!src/features/createEquals/test_*.ts",
-        "!src/features/assertEquals/test_*.ts",
-        "!src/features/createAssertEquals/test_*.ts",
-        "!src/features/assertGuardEquals/test_*.ts",
-        "!src/features/createAssertGuardEquals/test_*.ts",
-        "!src/features/validateEquals/test_*.ts",
-        "!src/features/createValidateEquals/test_*.ts",
-        "!src/internal/_test_plain_validatePrune.ts",
-        "!src/composite/test_plain_validatePrune_ObjectSimple.ts",
-        "!src/features/json.stringify/test_*.ts",
-        "!src/features/json.createStringify/test_*.ts",
-        "!src/features/plain.clone/test_*.ts",
-        "!src/features/plain.createClone/test_*.ts",
-        "!src/features/plain.prune/test_*.ts",
-        "!src/features/plain.createPrune/test_*.ts",
-        "!src/features/http.query/test_*.ts",
-        "!src/features/http.createQuery/test_*.ts",
-        "!src/features/http.headers/test_*.ts",
-        "!src/features/http.createHeaders/test_*.ts",
-        "!src/features/http.formData/test_*.ts",
-        "!src/features/http.createFormData/test_*.ts",
-        "!src/internal/_test_plain_clone.ts",
-        "!src/internal/_test_plain_assertClone.ts",
-        "!src/internal/_test_plain_isClone.ts",
-        "!src/internal/_test_plain_validateClone.ts"
-      ],
+      "files": ["src/features/**/*.ts", "src/composite/test_*.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md"
-        ],
+        "files": ["contracts/testing.md", "contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }
@@ -67,163 +18,51 @@
       "reference": {
         "root": "../../.agents/skills",
         "checklist": true,
-        "files": [
-          "contracts/common.md"
-        ],
+        "files": ["contracts/common.md"],
         "type": "markdown",
         "symbol": "h2"
       },
-      "name": "maintained test generators",
+      "name": "maintained generators and comparison utilities",
       "files": [
         "src/build/**/*.ts",
         "src/generate.ts",
+        "src/utils/create_query.ts",
+        "src/utils/headers_to_string.ts",
+        "src/utils/primitive_clone.ts",
         "!src/build/writers/write_data_contract.ts"
       ],
       "type": "typescript",
-      "symbol": [
-        "type",
-        "function"
-      ]
+      "symbol": ["type", "function"]
     },
     {
-      "name": "generated normal validator boundaries",
+      "name": "maintained assertion helpers",
       "type": "typescript",
       "files": [
-        "src/features/assert/test_*.ts",
-        "src/features/assertGuard/test_*.ts",
-        "src/features/createAssert/test_*.ts",
-        "src/features/createAssertGuard/test_*.ts",
-        "src/features/createIs/test_*.ts",
-        "src/features/createValidate/test_*.ts",
-        "src/features/is/test_*.ts",
-        "src/features/standardSchema.createValidate/test_*.ts",
-        "src/features/validate/test_*.ts"
+        "src/internal/_test_*.ts",
+        "!src/internal/_test_is.ts",
+        "!src/internal/_test_equals.ts",
+        "!src/internal/_test_plain_isPrune.ts",
+        "!src/internal/_test_plain_prune.ts",
+        "!src/internal/_test_plain_clone.ts",
+        "!src/internal/_test_plain_assertClone.ts",
+        "!src/internal/_test_plain_isClone.ts",
+        "!src/internal/_test_plain_validateClone.ts",
+        "!src/internal/_test_plain_validatePrune.ts"
       ],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
+        "files": ["contracts/common.md", "contracts/testing.md"],
         "symbol": "h2",
         "checklist": true
       }
     },
     {
-      "name": "generated strict validator boundaries",
+      "name": "native validating clone and prune assertion helpers",
       "type": "typescript",
       "files": [
-        "src/features/equals/test_*.ts",
-        "src/features/createEquals/test_*.ts",
-        "src/features/assertEquals/test_*.ts",
-        "src/features/createAssertEquals/test_*.ts",
-        "src/features/assertGuardEquals/test_*.ts",
-        "src/features/createAssertGuardEquals/test_*.ts",
-        "src/features/validateEquals/test_*.ts",
-        "src/features/createValidateEquals/test_*.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "native validation-prune assertion helper",
-      "type": "typescript",
-      "files": [
-        "src/internal/_test_plain_validatePrune.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "native validation-prune producer connection",
-      "type": "typescript",
-      "files": [
-        "src/composite/test_plain_validatePrune_ObjectSimple.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "generated data operation boundaries",
-      "type": "typescript",
-      "files": [
-        "src/features/json.stringify/test_*.ts",
-        "src/features/json.createStringify/test_*.ts",
-        "src/features/plain.clone/test_*.ts",
-        "src/features/plain.createClone/test_*.ts",
-        "src/features/plain.prune/test_*.ts",
-        "src/features/plain.createPrune/test_*.ts",
-        "src/features/http.query/test_*.ts",
-        "src/features/http.createQuery/test_*.ts",
-        "src/features/http.headers/test_*.ts",
-        "src/features/http.createHeaders/test_*.ts",
-        "src/features/http.formData/test_*.ts",
-        "src/features/http.createFormData/test_*.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "data contract rendering owner",
-      "type": "typescript",
-      "files": [
-        "src/build/writers/write_data_contract.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/performance.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "native validating clone assertion helpers",
-      "type": "typescript",
-      "files": [
+        "src/internal/_test_plain_validatePrune.ts",
         "src/internal/_test_plain_assertClone.ts",
         "src/internal/_test_plain_isClone.ts",
         "src/internal/_test_plain_validateClone.ts"
@@ -232,11 +71,72 @@
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
+        "files": ["contracts/common.md", "contracts/testing.md", "contracts/e2e.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "contract rendering and native profile execution",
+      "type": "typescript",
+      "files": ["src/build/writers/write_data_contract.ts", "src/native-profiles/TestNativeProfile.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md", "contracts/performance.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "maintained runner helpers",
+      "type": "typescript",
+      "files": ["src/TestGlobal.ts", "src/servant/index.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/common.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "reference": {
+        "root": "../../.agents/skills",
+        "checklist": true,
+        "files": ["contracts/common.md", "contracts/portability.md", "contracts/performance.md"],
+        "type": "markdown",
+        "symbol": "h2"
+      },
+      "name": "suite and compiler-profile orchestration",
+      "files": ["src/index.ts", "src/native-profiles/TestNativeProfiles.ts"],
+      "type": "typescript",
+      "symbol": "function"
+    },
+    {
+      "name": "portable oracle and generator enrollment regressions",
+      "type": "typescript",
+      "files": ["src/regressions/test_*.ts", "src/unit/features/**/*.ts", "!src/regressions/test_process_fatal_events.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/testing.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    },
+    {
+      "name": "fatal-event subprocess lifecycle",
+      "type": "typescript",
+      "files": ["src/regressions/test_process_fatal_events.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/testing.md", "contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }

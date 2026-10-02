@@ -7,19 +7,17 @@ import (
   "testing"
 )
 
-// TestProtobufIsEncodeFiniteNumberTransform pins protobuf.isEncode against a bare
-// number leaf so a non-finite value cannot be encoded into the message (#2196).
+// TestProtobufIsEncodeFiniteNumberTransform checks the authored operation results described below.
 //
-// protobuf.isEncode forces Options.Finite on its inner `__is` guard, then emits
-// `__is(input) ? __encode(input) : null`. A protobuf double can hold NaN and
-// Infinity, so the guard is the only thing keeping them out of the wire. While
-// `is` dropped `finite`, that guard accepted NaN and the encoder wrote it; the
-// guard must now carry Number.isFinite on the number leaf. Because isEncode has no
-// separate error-path checker, the guard is the sole place the number leaf's
-// finite check can appear, so its presence in the emit is an unambiguous oracle.
+// Checked protobuf encoding explicitly rejects nonfinite number leaves even though the underlying double wire representation can encode them; the inner is guard owns that admission.
 //
-//  1. Transform a `protobuf.isEncode<{ value: number }>` fixture with default options.
-//  2. Assert the emitted `__is` guards the number leaf with Number.isFinite.
+// 1. A bare number leaf under default options pins the forced-finite branch; ordinary numeric option behavior is tested by option cases.
+// 2. The emitted isEncode guard contains Number.isFinite(input.value).
+//
+// @evidence contracts/testing.md#behavioral-verification The emitted isEncode guard contains Number.isFinite(input.value).
+// @evidence contracts/testing.md#independent-expectations Checked protobuf encoding explicitly rejects nonfinite number leaves even though the underlying double wire representation can encode them; the inner is guard owns that admission.
+// @evidence contracts/testing.md#distinguishing-cases A bare number leaf under default options pins the forced-finite branch; ordinary numeric option behavior is tested by option cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProtobufIsEncodeFiniteNumberTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestProtobufIsEncodeFiniteNumberTransform(t *testing.T) {
   project := protobufIsEncodeFiniteNumberProject(t)
   js := protobufIsEncodeFiniteNumberTransform(t, project)

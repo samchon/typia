@@ -2,7 +2,6 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
@@ -22,8 +21,13 @@ import (
 //     records a diagnostic naming the offending tuple, which every host --
 //     single-file included since samchon/typia#2117 -- reports while refusing to
 //     publish an artifact.
-//  2. Require trailing-rest tuples to keep compiling and validating
-//     correctly at every length.
+//  2. Require a trailing-rest tuple to transform successfully and retain both
+//     its number head check and boolean rest checks in emitted code.
+//
+// @evidence contracts/testing.md#behavioral-verification Leading and middle rest positions return status 3, name the offending tuple and cause, and publish no artifact; the trailing-rest twin emits number and boolean guards instead of the runtime stub.
+// @evidence contracts/testing.md#independent-expectations Typia's positional tuple contract supports a fixed head followed by a repeated tail, while non-trailing variable-length segments are explicitly unsupported and must diagnose rather than emit fixed wrong indices.
+// @evidence contracts/testing.md#distinguishing-cases Leading and middle rest shapes are rejected separately; moving the variable-length segment to the end produces an accepted number-head/boolean-tail twin.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNonTrailingRestTupleTransform as a unit test. Its named subtests call runTransform in process on isolated fixture files; the helper verifies diagnostic identity and output without a compiler subprocess.
 func TestNonTrailingRestTupleTransform(t *testing.T) {
   t.Run("leading rest rejected", func(t *testing.T) {
     nonTrailingRestExpectRejection(t, "leading-",
@@ -36,7 +40,17 @@ func TestNonTrailingRestTupleTransform(t *testing.T) {
       "[number, ...boolean[], string]")
   })
   t.Run("trailing rest keeps working", func(t *testing.T) {
-    nonTrailingRestTrailingControl(t)
+    project := nonTrailingRestProject(t, "trailing-",
+      "export const validate = typia.createValidate<[number, ...boolean[]]>();")
+    out, errText, code := ttscTypiaTestCapture(func() int {
+      return runTransform([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--file", "src/main.ts", "--output", "js"})
+    })
+    if code != 0 {
+      t.Fatalf("trailing rest tuple must transform: code=%d stderr=%s", code, errText)
+    }
+    if !strings.Contains(out, `"number" === typeof`) || !strings.Contains(out, `"boolean" === typeof`) || strings.Contains(out, ".createValidate()") {
+      t.Fatalf("trailing rest output must check both the head and rest elements:\n%s", out)
+    }
   })
 }
 
@@ -97,46 +111,6 @@ func nonTrailingRestExpectRejection(t *testing.T, prefix string, body string, tu
   }
 }
 
-func nonTrailingRestTrailingControl(t *testing.T) {
-  t.Helper()
-  project := nonTrailingRestProject(t, "trailing-",
-    "export const validate = typia.createValidate<[string, ...number[]]>();")
-  out, errText, code := ttscTypiaTestCapture(func() int {
-    return runTransform([]string{
-      "--cwd", project,
-      "--tsconfig", "tsconfig.json",
-      "--file", "src/main.ts",
-      "--output", "js",
-    })
-  })
-  if code != 0 {
-    t.Fatalf("trailing rest tuple failed to compile: %s", errText)
-  }
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, out)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(nonTrailingRestRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("trailing rest runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const nonTrailingRestTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -150,19 +124,4 @@ const nonTrailingRestTSConfig = `{
   },
   "include": ["src"]
 }
-`
-
-const nonTrailingRestRuntimeRunner = `const mod = require("./main.cjs");
-
-const expect = (label, result, success) => {
-  if (result.success !== success) {
-    throw new Error(label + " expected success=" + success + ": " + JSON.stringify(result.errors));
-  }
-};
-
-expect("solo head", mod.validate(["head"]), true);
-expect("head + numbers", mod.validate(["head", 1, 2, 3]), true);
-expect("empty", mod.validate([]), false);
-expect("wrong head", mod.validate([1, 2]), false);
-expect("wrong rest element", mod.validate(["head", 1, "x"]), false);
 `

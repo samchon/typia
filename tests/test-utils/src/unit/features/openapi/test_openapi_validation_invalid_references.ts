@@ -1,5 +1,5 @@
 import { OpenApi } from "@typia/interface";
-import { _test_validate } from "@typia/oracle/openapi-validation";
+import { _test_validate } from "@typia/template/openapi-validation";
 import { OpenApiValidator } from "@typia/utils";
 import assert from "node:assert/strict";
 

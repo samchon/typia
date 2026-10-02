@@ -2,19 +2,23 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies json schemas spec collection refs against the native
- * typia.json.schemas output.
+ * Verifies the 3.1 collection retains exact ordered roots and the article
+ * component's nested author reference.
  *
- * The case builds its input in this file and asserts collection version,
- * collection schemas, article component.
+ * Native collection generation must connect root and nested references to the
+ * correct shared components.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Produce the collection from the tuple of declared source types.
+ * 2. Assert root identity and schema meaning using independent expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schemas is evaluated by the native host on the types declared in this case and the result is checked by 3 assertions (collection version; collection schemas; article component).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (collection version; collection schemas; article component) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schemas_spec_collection_refs is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that the 3.1 collection retains exact ordered roots and the article component's nested author reference.
+ * @evidence contracts/testing.md#independent-expectations Handwritten reference/nullable/root/article objects follow the declared tuple and interface member semantics rather than current generated output.
+ * @evidence contracts/testing.md#distinguishing-cases Both named roots and the nullable string root, nested IMember author reference, required fields and closed additionalProperties remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schemas_spec_collection_refs in test-typia-schema start. Actual typia.json calls and any complementary generated validator are rewritten in the suite project; the emitted results are evaluated and consumed in the existing process.
+ * @evidence contracts/e2e.md#necessary-boundary Native collection generation must connect root and nested references to the correct shared components. Direct converter/writer unit calls cannot establish actual TypeScript call/signature resolution and evaluated public schema assembly together.
+ * @evidence contracts/e2e.md#shared-execution All declared variants join the existing ttsx schema-suite project and process. Siblings reuse the content-keyed native plugin artifact; the case adds no independent compiler launch or install per type/dialect.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Generated collections/applications and conversion projections are invocation-local; declarations remain immutable. ttsc owns content-keyed artifact invalidation and the suite owns process termination. No cold-cache or installation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Both named roots and the nullable string root, nested IMember author reference, required fields and closed additionalProperties remain. Every original producer call, conversion and assertion remains enrolled under the same exported name; no meaningfully different dialect or graph consumer was deleted.
  */
 export const test_json_schemas_spec_collection_refs = (): void => {
   interface IMember {

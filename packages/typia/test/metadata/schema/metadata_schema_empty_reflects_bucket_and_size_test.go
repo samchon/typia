@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataSchemaEmptyReflectsBucketAndSize verifies empty-schema detection.
@@ -22,13 +22,13 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Bucketless metadata is the empty case and any is the adjacent non-empty case; multi-bucket accounting is owned by the sole-literal case.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It constructs metadata and reads accessors directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaEmptyReflectsBucketAndSize(t *testing.T) {
-	empty := metadata.MetadataSchema_create(metadata.MetadataSchema{Required: true})
-	if !empty.Empty() || empty.Size() != 0 || empty.Bucket() != 0 {
-		t.Fatalf("bucketless metadata should be empty: size=%d bucket=%d", empty.Size(), empty.Bucket())
-	}
+  empty := metadata.MetadataSchema_create(metadata.MetadataSchema{Required: true})
+  if !empty.Empty() || empty.Size() != 0 || empty.Bucket() != 0 {
+    t.Fatalf("bucketless metadata should be empty: size=%d bucket=%d", empty.Size(), empty.Bucket())
+  }
 
-	anyMeta := metadata.MetadataSchema_create(metadata.MetadataSchema{Any: true, Required: true})
-	if anyMeta.Empty() || anyMeta.Size() != 1 || anyMeta.Bucket() != 1 {
-		t.Fatalf("any metadata should occupy one bucket: size=%d bucket=%d", anyMeta.Size(), anyMeta.Bucket())
-	}
+  anyMeta := metadata.MetadataSchema_create(metadata.MetadataSchema{Any: true, Required: true})
+  if anyMeta.Empty() || anyMeta.Size() != 1 || anyMeta.Bucket() != 1 {
+    t.Fatalf("any metadata should occupy one bucket: size=%d bucket=%d", anyMeta.Size(), anyMeta.Bucket())
+  }
 }

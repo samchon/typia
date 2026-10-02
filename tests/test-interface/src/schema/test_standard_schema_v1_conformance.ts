@@ -24,6 +24,11 @@ import { StandardSchemaV1 } from "@typia/interface";
  * 1. Assert the two interfaces are identical, generic and defaulted.
  * 2. Assert the same for every member of the namespace.
  * 3. Assert the inference helpers read back the type arguments.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Every selected StandardSchemaV1 namespace member must be identical to the upstream specification and inference helpers must read the authored generic input/output.
+ * @evidence contracts/testing.md#independent-expectations The installed @standard-schema/spec declarations independently establish the copied contract. Symmetric generic-function identity distinguishes optional/readonly drift that mutual assignability can forgive.
+ * @evidence contracts/testing.md#distinguishing-cases Default/one/two type arguments, Props/Options, result arms/issues/path segments, phantom carriers and distinct input/output inference cover each declared conformance owner.
+ * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over this compile-only StandardSchemaV1ConformanceCases declaration. Assert/type identity, assignability, return checking and expect-error directives apply as written; no runtime invocation or native artifact is required.
  */
 export type StandardSchemaV1ConformanceCases = [
   // the interface itself

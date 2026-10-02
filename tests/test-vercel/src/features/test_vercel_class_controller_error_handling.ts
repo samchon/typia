@@ -16,10 +16,14 @@ import { Calculator } from "../structures/Calculator";
  * 1. Generate the value from the types declared in this file.
  * 2. Assert the properties listed above.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.llm.controller is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (result should be a failure object; error should contain division by zero).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (result should be a failure object; error should contain division by zero) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-vercel start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_vercel_class_controller_error_handling is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Executes the transformed Calculator divide tool with x=10,y=0 and asserts failure plus the declared Division by zero message.
+ * @evidence contracts/testing.md#independent-expectations Calculator.divide deliberately throws when y is zero; the adapter contract returns success:false with actionable error text instead of rejecting its tool Promise.
+ * @evidence contracts/testing.md#distinguishing-cases The zero denominator is the runtime-exception branch; class_controller_execute owns a valid 20/4 division through the same adapter.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_class_controller_error_handling in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary The actual native producer emits controller or structured-output metadata consumed by the public Vercel adapter. This retains a producer-to-adapter assembly check that handwritten metadata alone would not exercise.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each entry creates its own controller, seeds and mock model or callback counters. Awaited tool/SDK Promises expose failures to DynamicExecutor; this case opens no server, live-provider session or separate process.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_class_controller_error_handling =
   async (): Promise<void> => {

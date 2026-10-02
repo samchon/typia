@@ -7,6 +7,8 @@ import (
   "math/big"
   "testing"
 
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
@@ -22,10 +24,11 @@ import (
 // 3. Build stringify output for regular and dynamic object properties.
 // 4. Build prune and native stringify statements for object metadata.
 // 5. Build full JSON schema station outputs for empty, any, native, and union metadata.
+// 6. Classify required, mixed optional and empty regular property populations.
 //
-// @evidence contracts/testing.md#behavioral-verification JSON schema attribute, native export, prune and stringify property helpers are called on constructed metadata; JSDoc cast results and several helper outputs are compared exactly while others only require a non-nil node.
-// @evidence contracts/testing.md#independent-expectations Authored JSDoc texts and expected cast values are independent; non-nil checks have no oracle and are a limitation of this test.
-// @evidence contracts/testing.md#distinguishing-cases Title, description, constants, escaped, template and native schema paths are visited once without negative twins.
+// @evidence contracts/testing.md#behavioral-verification JSDoc casts and selected schema results are compared exactly. The actual dynamic-property helper must classify the original required string entry as all-required, reject the adjacent optional entry and accept an empty population. Remaining AST-builder presence checks detect missing nodes only.
+// @evidence contracts/testing.md#independent-expectations Authored JSDoc text and expected casts are independent. Required/optional flags establish the all-required outcomes, and an empty list contains no optional property; those expectations are not produced by the classifier. Non-nil builder checks have no semantic oracle.
+// @evidence contracts/testing.md#distinguishing-cases The original required singleton is preserved beside a mixed optional negative and an empty boundary. Title, description, constants, escaped, template and native schema paths retain their existing checks without new negative twins.
 // @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test calls helpers on constructed metadata with no checker, filesystem fixture or process.
 func TestIterateUtilityCoverage(t *testing.T) {
   schema := json_schema_jsDocTags(JsonSchema{}, []nativemetadata.IJsDocTagInfo{
@@ -81,6 +84,25 @@ func TestIterateUtilityCoverage(t *testing.T) {
 
   literal := iterateLiteral("fixed")
   stringMeta := iterateAtomic("string")
+  requiredInput := shimast.NewNodeFactory(shimast.NodeFactoryHooks{}).NewIdentifier("input")
+  requiredEntries := []nativehelpers.IExpressionEntry{
+    {Input: requiredInput, Key: literal, Meta: stringMeta, Expression: requiredInput},
+  }
+  if !check_dynamic_properties_every_required(requiredEntries) {
+    t.Fatal("the authored required string property must be classified as required")
+  }
+  optionalMeta := iterateAtomic("string")
+  optionalMeta.Required = false
+  optionalMeta.Optional = true
+  optionalEntries := append(requiredEntries, nativehelpers.IExpressionEntry{
+    Input: requiredInput, Key: iterateLiteral("optional"), Meta: optionalMeta, Expression: requiredInput,
+  })
+  if check_dynamic_properties_every_required(optionalEntries) {
+    t.Fatal("an optional property must prevent the all-required classification")
+  }
+  if !check_dynamic_properties_every_required(nil) {
+    t.Fatal("the empty property population has no optional entry")
+  }
   constantDescription := "constant"
   constantSchemas := json_schema_constant(nativemetadata.MetadataConstant_create(nativemetadata.MetadataConstant{
     Type: "bigint",

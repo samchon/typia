@@ -1,4 +1,4 @@
-import { _test_plain_prune, preparePrune } from "@typia/oracle/prune";
+import { _test_plain_prune, preparePrune } from "@typia/template/prune";
 import assert from "node:assert/strict";
 
 /**

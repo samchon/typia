@@ -35,6 +35,11 @@ import (
 //  5. Assert the destructured caller is withheld too. A binding element is a
 //     declaration kind the predicate names nowhere, so it answers through the
 //     default -- which is what pins that the default is "withhold".
+//
+// @evidence contracts/testing.md#behavioral-verification All three typeof callers emit validators; only the annotated constant caller remains complete and reports shape.ts, while inferred and destructured callers are withheld without erasing their reported dependencies.
+// @evidence contracts/testing.md#independent-expectations An explicit annotation bounds consulted declaration identities; initializer inference and destructured bindings can depend on expression typing outside that written surface, so they cannot promise completeness.
+// @evidence contracts/testing.md#distinguishing-cases Annotated and inferred constants have the same value shape, and a destructured binding pins the unrecognized-declaration fallback separately.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesInferredDeclarationTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesInferredDeclarationTransform(t *testing.T) {
   project := projectDependenciesInferredDeclarationProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

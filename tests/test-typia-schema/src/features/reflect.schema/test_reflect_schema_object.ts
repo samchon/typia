@@ -3,20 +3,23 @@ import { TestEquality } from "@typia/template/equality";
 import typia from "typia";
 
 /**
- * Verifies reflect schema object against the native typia.reflect.schema
- * output.
+ * Verifies IMember retains its named reference/component, three property keys
+ * and optional email metadata.
  *
- * The case builds its input in this file and asserts objects length, object
- * name, components objects length, object name in components, properties count,
- * has id property.
+ * Native interface/property extraction must connect a runtime metadata
+ * reference with the emitted named component.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Invoke the reflection producer on the type arguments declared here.
+ * 2. Compare emitted values with their independent source-derived expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.reflect.schema is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (objects length; object name; components objects length; object name in components; properties count; has id property).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (objects length; object name; components objects length; object name in components; properties count; has id property) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_reflect_schema_object is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The exported case asserts that IMember retains its named reference/component, three property keys and optional email metadata.
+ * @evidence contracts/testing.md#independent-expectations The interface declaration supplies IMember, id/name/email and email optionality as fixed independent expectations.
+ * @evidence contracts/testing.md#distinguishing-cases Named reference/component counts, every property name and optional-email flag remain; requiredness/atomic field details not asserted here are not certified.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_reflect_schema_object in test-typia-schema start. Actual typia.reflect call expressions are transformed in the suite project and their emitted reflection values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native interface/property extraction must connect a runtime metadata reference with the emitted named component. Direct metadata/emitter unit calls do not establish public call resolution and evaluation of the emitted JavaScript together.
+ * @evidence contracts/e2e.md#shared-execution All inputs in this declaration join the existing ttsx schema-suite project and process; siblings reuse the same content-keyed native plugin artifact. The case adds no compiler subprocess, installation or independent host per variant.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Reflected values, projections and assertion accumulators belong to this invocation. Shared source declarations are read without mutation; ttsc owns plugin artifact invalidation and the suite owns process termination. No cold-cache transition is claimed.
+ * @evidence contracts/e2e.md#preserved-coverage Named reference/component counts, every property name and optional-email flag remain; requiredness/atomic field details not asserted here are not certified. All original producer invocations and assertions stay enrolled under the unchanged exported case; no meaningful distinction was removed as redundant.
  */
 export const test_reflect_schema_object = (): void => {
   interface IMember {

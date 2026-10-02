@@ -18,19 +18,29 @@ import { _isMultipleOf } from "./_isMultipleOf";
  * searched across exponent bands when none is found; an unsatisfiable range
  * throws.
  *
+ * The optional source supplies draws in [0, 1); it defaults to the platform
+ * source resolved when this helper is called. Nested draws use the same
+ * source.
+ *
  * @evidence contracts/common.md#principled-implementation The step is read as a decimal, the bounds are converted to the nearest quotient range with exact big-integer arithmetic, a quotient is drawn and several nearby candidates are checked for being valid doubles that the multiple test accepts, and, when none is representable, it searches representable multiples across integer and decimal exponent bands before throwing. A value is accepted only after the exact multiple test, so the answer does not depend on rounding assumptions.
+ * @evidence contracts/performance.md#efficient-algorithms Source injection adds one callback invocation at each existing draw without adding sampling, retries or state. Existing output-size traversal and multiple search bounds are unchanged.
+ * @evidence contracts/performance.md#reuse-equivalent-work Random draws are effectful and cannot be shared across calls merely because bounds match. One invocation reuses its decomposed step and quotient bounds while checking candidate multiples; no earlier draw or output is cached.
+ * @evidence contracts/performance.md#bound-retention-and-release-resources Exact ratios, bigint coefficients, bounded candidate lists and exponent-band scratch values belong to this invocation. Sizes depend on finite input exponents and coefficient widths. No request history, source callback, handles or tasks are retained after return or throw; the numeric result belongs to the caller.
  * @evidence contracts/common.md#clear-and-simple-design One public function and many private helpers for bounds, candidates and alignment, each used by the search; the search is long because doubles cannot represent every decimal multiple.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The final check uses the same predicate as the validator, and an unsatisfiable range throws.
  * @evidence contracts/common.md#meaningful-documentation The doc states the exact quotient range, the candidate search and the failure case; the private helpers are covered by this function's answer.
  */
-export const _randomMultiple = (props: {
-  minimum: number;
-  maximum: number;
-  multipleOf: number;
-  exclusiveMinimum: boolean;
-  exclusiveMaximum: boolean;
-  integer: boolean;
-}): number => {
+export const _randomMultiple = (
+  props: {
+    minimum: number;
+    maximum: number;
+    multipleOf: number;
+    exclusiveMinimum: boolean;
+    exclusiveMaximum: boolean;
+    integer: boolean;
+  },
+  source: () => number = Math.random,
+): number => {
   const step: _IDecimal | null = props.integer
     ? _decimalIntegerStep(props.multipleOf)
     : _decimalDecompose(props.multipleOf);
@@ -46,7 +56,7 @@ export const _randomMultiple = (props: {
   if (minimum > maximum)
     throw new Error("The range does not contain a multipleOf value.");
 
-  const selected: bigint = randomBigint(minimum, maximum);
+  const selected: bigint = randomBigint(minimum, maximum, source);
   const candidates: bigint[] = unique([
     selected,
     minimum,
@@ -63,11 +73,15 @@ export const _randomMultiple = (props: {
     });
     if (isValid(props, value)) return value;
   }
-  const aligned: number | null = findRepresentableIntegerMultiple(props);
+  const aligned: number | null = findRepresentableIntegerMultiple(
+    props,
+    source,
+  );
   if (aligned !== null) return aligned;
   const decimalAligned: number | null = findRepresentableDecimalMultiple(
     props,
     step,
+    source,
   );
   if (decimalAligned !== null) return decimalAligned;
   throw new Error(
@@ -88,6 +102,7 @@ const isValid = (
 const findRepresentableDecimalMultiple = (
   props: Parameters<typeof _randomMultiple>[0],
   step: _IDecimal,
+  source: () => number,
 ): number | null => {
   const limit: bigint = BigInt("999999999999999");
   for (let exponent = -324; exponent <= 308; ++exponent) {
@@ -117,7 +132,7 @@ const findRepresentableDecimalMultiple = (
     );
     if (minimum > maximum) continue;
 
-    const selected: bigint = randomBigint(minimum, maximum);
+    const selected: bigint = randomBigint(minimum, maximum, source);
     for (const quotient of unique([
       selected,
       minimum,
@@ -146,6 +161,7 @@ const decimalCoefficientStep = (step: _IDecimal, exponent: number): bigint => {
 
 const findRepresentableIntegerMultiple = (
   props: Parameters<typeof _randomMultiple>[0],
+  source: () => number,
 ): number | null => {
   const step: _IDecimal | null = _decimalIntegerStep(props.multipleOf);
   if (step === null) return null;
@@ -161,12 +177,13 @@ const findRepresentableIntegerMultiple = (
 
   const candidate: bigint | null =
     minimum > BigInt(0)
-      ? findPositiveAligned(minimum, maximum, step.coefficient)
+      ? findPositiveAligned(minimum, maximum, step.coefficient, source)
       : (() => {
           const magnitude: bigint | null = findPositiveAligned(
             -maximum,
             -minimum,
             step.coefficient,
+            source,
           );
           return magnitude === null ? null : -magnitude;
         })();
@@ -179,6 +196,7 @@ const findPositiveAligned = (
   minimum: bigint,
   maximum: bigint,
   integerStep: bigint,
+  source: () => number,
 ): bigint | null => {
   const first: number = bitLength(minimum) - 1;
   const last: number = bitLength(maximum) - 1;
@@ -200,7 +218,7 @@ const findPositiveAligned = (
       { numerator: bandMaximum, denominator: alignedStep },
       false,
     );
-    if (lower <= upper) return randomBigint(lower, upper) * alignedStep;
+    if (lower <= upper) return randomBigint(lower, upper, source) * alignedStep;
   }
   return null;
 };
@@ -228,12 +246,16 @@ const upperBound = (ratio: _IDecimalRatio, exclusive: boolean): bigint => {
   return floor - (exclusive && remainder === BigInt(0) ? BigInt(1) : BigInt(0));
 };
 
-const randomBigint = (minimum: bigint, maximum: bigint): bigint => {
+const randomBigint = (
+  minimum: bigint,
+  maximum: bigint,
+  source: () => number,
+): bigint => {
   const scale: bigint = BigInt(1) << BigInt(53);
   const sample: bigint = BigInt(
     Math.min(
       Number(scale - BigInt(1)),
-      Math.floor(Math.max(0, Math.random()) * Number(scale)),
+      Math.floor(Math.max(0, source()) * Number(scale)),
     ),
   );
   return minimum + ((maximum - minimum + BigInt(1)) * sample) / scale;

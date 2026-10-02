@@ -28,6 +28,11 @@ import (
 //  4. Assert `dependencies["src/consumer.ts"]` contains `src/barrel.ts`, and
 //     not `src/unused.ts`, which the barrel also re-exports but this reference
 //     never traverses.
+//
+// @evidence contracts/testing.md#behavioral-verification The re-exported call is rewritten and its barrel dependency is present, while unused is absent.
+// @evidence contracts/testing.md#independent-expectations A barrel choosing typia rather than a local is function can change whether the caller is transformed; unrelated exports do not.
+// @evidence contracts/testing.md#distinguishing-cases A consumed typia re-export and an unconsumed sibling share one barrel.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCalleeBarrelTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCalleeBarrelTransform(t *testing.T) {
   project := projectDependenciesCalleeBarrelProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

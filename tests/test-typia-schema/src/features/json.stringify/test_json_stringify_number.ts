@@ -6,20 +6,18 @@ interface IValue {
 }
 
 /**
- * Verifies json stringify number against the native typia.json.stringify
- * output.
+ * Generated JSON number serialization maps nonfinite values to null.
  *
- * The case builds its input in this file and asserts top-level finite,
- * top-level Infinity, top-level -Infinity, top-level NaN, finite number,
- * Infinity.
+ * Run authored inputs through the native producer and check the outputs below.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
- *
- * @evidence contracts/testing.md#behavioral-verification typia.json.stringify is evaluated by the native host on the types declared in this case and the result is checked by 11 assertions (top-level finite; top-level Infinity; top-level -Infinity; top-level NaN; finite number; Infinity).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (top-level finite; top-level Infinity; top-level -Infinity; top-level NaN; finite number; Infinity) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_stringify_number is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Generated JSON number serialization maps nonfinite values to null.
+ * @evidence contracts/testing.md#independent-expectations Eleven handwritten JSON strings fix behavior independently of another typia producer.
+ * @evidence contracts/testing.md#distinguishing-cases Finite, Infinity, negative Infinity and NaN remain separate at scalar/object locations, alongside finite and mixed nonfinite arrays.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_json_stringify_number through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native scalar and collection emission must preserve the JSON nonfinite-number rule.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Finite, Infinity, negative Infinity and NaN remain separate at scalar/object locations, alongside finite and mixed nonfinite arrays. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_json_stringify_number = (): void => {
   // top-level number

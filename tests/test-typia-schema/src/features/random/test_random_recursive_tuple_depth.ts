@@ -13,10 +13,14 @@ import typia from "typia";
  * 3. Require generation to terminate at the transform depth cap.
  * 4. Repeat the same assertion through `typia.createRandom`.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.random is evaluated by the native host on the types declared in this case and the result is checked by 2 assertions (recursive tuple array depth; createRandom recursive tuple array depth). The case documents its purpose as: Verifies tuple-owned recursive arrays stop at the depth cap.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: Recursive tuple helpers carry their owner tuple through array decoding. The array member must therefore receive the same depth guard as object-owned recursive arrays. Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (recursive tuple array depth; createRandom recursive tuple array depth) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_random_recursive_tuple_depth is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification Direct/factory custom array callbacks grow a tuple-wrapped recursive array and its independent tupleDepth must equal6.
+ * @evidence contracts/testing.md#independent-expectations The handwritten traversal counts tuple-contained recursion and compares to literal cutoff6; no generated validator supplies the expected depth.
+ * @evidence contracts/testing.md#distinguishing-cases Tuple wrapping distinguishes recursion bookkeeping from direct array helpers; both public forms retain the exact depth verdict.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_recursive_tuple_depth in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_recursive_tuple_depth = (): void => {
   const value: IRecursiveTuple = typia.random<IRecursiveTuple>({

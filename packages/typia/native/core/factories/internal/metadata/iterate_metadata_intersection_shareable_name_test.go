@@ -2,7 +2,6 @@ package metadata
 
 import "testing"
 
-//
 // @evidence contracts/testing.md#behavioral-verification The shareable-name predicate is called on a named interface, anonymous object literals, an intersection rendering and a TypeLiteral name; each verdict is compared.
 // @evidence contracts/testing.md#independent-expectations Only named types can be shared across intersection members; the four names and verdicts are authored.
 // @evidence contracts/testing.md#distinguishing-cases One shareable name against three structural names.

@@ -30,6 +30,11 @@ import (
 //  4. Assert `written.ts` is declared complete and `inferred.ts` is not, and
 //     that `inferred.ts` still keeps its reported dependency entry -- it falls
 //     back to the host-owned bound, it is not stripped of what it did report.
+//
+// @evidence contracts/testing.md#behavioral-verification Both written and contextually inferred assert calls emit validators; written.ts remains complete, inferred.ts is withheld and its existing dependency entry remains populated.
+// @evidence contracts/testing.md#independent-expectations A written generic type argument bounds the consulted type graph; contextual argument typing can select a Handler declaration not represented in that graph.
+// @evidence contracts/testing.md#distinguishing-cases The same Shape contract is supplied once as an explicit generic and once through a contextually typed function parameter, distinguishing completeness without changing validation meaning.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCompleteInferredTypeTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCompleteInferredTypeTransform(t *testing.T) {
   project := projectDependenciesCompleteInferredTypeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

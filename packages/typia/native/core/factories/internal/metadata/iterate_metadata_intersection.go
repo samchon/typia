@@ -394,7 +394,6 @@ func iterate_metadata_intersection_is_call_signature_only(m *schemametadata.Meta
 // string-keyed property (literal or not) might be real data, so it keeps the
 // intersection nonsensible rather than silently dropping a declared constraint.
 
-
 func iterate_metadata_intersection_is_removable_brand(m *schemametadata.MetadataSchema) bool {
   if m == nil || m.Size() != 1 || len(m.Objects) != 1 {
     return false

@@ -68,7 +68,9 @@ function unique(files) {
 }
 
 function isFormatTarget(file) {
-  return file.includes("/third_party/") === false && isGenerated(file) === false;
+  return (
+    file.includes("/third_party/") === false && isGenerated(file) === false
+  );
 }
 
 function isGenerated(file) {
@@ -83,10 +85,17 @@ function isGenerated(file) {
  * preserves each file's formatting while collecting all batch failures before
  * the caller applies its indentation convention.
  *
- * @evidence contracts/common.md#principled-implementation gofmt formats each input independently, so ordered disjoint batches preserve the complete selected population. A conservative UTF-16 argument budget accounts for quoting and escaping; arguments stay separate from shell syntax. Every batch runs and any spawn or exit failure prevents indentation postprocessing and successful completion.
- * @evidence contracts/common.md#clear-and-simple-design This helper owns argument partitioning and synchronous process failure collection; file selection and indentation normalization remain with their existing owners.
- * @evidence contracts/common.md#prohibited-implementation-shortcuts The same path-length budget applies to every selected file without omitting a fixture, changing the comparison base or retrying a failed formatter with weaker inputs.
- * @evidence contracts/common.md#meaningful-documentation The comment states why batching is necessary and explains complete-population and failure behavior before indentation normalization.
+ * Gofmt formats each input independently, so ordered disjoint batches preserve
+ * the complete selected population. A conservative UTF-16 argument budget
+ * accounts for quoting and escaping; arguments stay separate from shell syntax.
+ * Every batch runs and any spawn or exit failure prevents indentation
+ * postprocessing and successful completion. This helper owns argument
+ * partitioning and synchronous process failure collection; file selection and
+ * indentation normalization remain with their existing owners. The same
+ * path-length budget applies to every selected file without omitting a fixture,
+ * changing the comparison base or retrying a failed formatter with weaker
+ * inputs. The comment states why batching is necessary and explains
+ * complete-population and failure behavior before indentation normalization.
  */
 function formatGoFiles(files) {
   const batches = [];
@@ -104,7 +113,9 @@ function formatGoFiles(files) {
   }
   if (batch.length !== 0) batches.push(batch);
 
-  console.log(`Formatting ${files.length} Go files in ${batches.length} batches.`);
+  console.log(
+    `Formatting ${files.length} Go files in ${batches.length} batches.`,
+  );
   const errors = [];
   let exitCode = 0;
   for (const inputs of batches) {

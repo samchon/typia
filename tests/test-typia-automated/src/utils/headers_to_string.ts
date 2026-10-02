@@ -1,3 +1,12 @@
+/**
+ * Converts fixture fields into lower-case header names and scalar/array wire
+ * representations.
+ *
+ * @evidence contracts/common.md#principled-implementation Converts fixture fields into lower-case header names and scalar/array wire representations.
+ * @evidence contracts/common.md#clear-and-simple-design One entry loop omits undefined/empty arrays, preserves set-cookie as separate strings and joins cookie with semicolons versus ordinary arrays with commas.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts These separators are explicit fixture transport policy. This helper does not establish every HTTP parser spelling or network framing rule.
+ * @evidence contracts/common.md#meaningful-documentation The native description makes separators, repeated-cookie behavior and omission visible.
+ */
 export const headers_to_string = (
   input: Record<string, any>,
 ): Record<string, string | string[] | undefined> => {

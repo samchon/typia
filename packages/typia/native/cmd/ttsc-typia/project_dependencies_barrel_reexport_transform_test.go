@@ -25,6 +25,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains both barrels (`barrel.ts`,
 //     `inner.ts`) and the concrete module `alpha.ts`.
 //  4. Assert it does NOT contain `beta.ts`, which no consulted type reaches.
+//
+// @evidence contracts/testing.md#behavioral-verification Decoded dependencies include barrel, inner and alpha and omit the unused beta export.
+// @evidence contracts/testing.md#independent-expectations Repointing either re-export changes the validated declaration; an unconsumed sibling cannot affect it.
+// @evidence contracts/testing.md#distinguishing-cases The two-hop consumed chain is paired with beta exported by the same barrel but not consulted.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesBarrelReexportTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesBarrelReexportTransform(t *testing.T) {
   project := projectDependenciesBarrelReexportProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

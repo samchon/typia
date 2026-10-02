@@ -7,26 +7,17 @@ import (
   "testing"
 )
 
-// TestTransformSingleFileJSEmptyEmitReportsNoOutput verifies the negative twin
-// of the `--output js` artifact match.
+// TestTransformSingleFileJSEmptyEmitReportsNoOutput checks the authored operation results described below.
 //
-// Teaching the match where an `outDir` puts an artifact must not turn it into a
-// match that always succeeds. "No output produced" is a real outcome: a source
-// can belong to the program and still have no JavaScript of its own, and the
-// caller needs exit 3 rather than an empty file behind exit 0. Every probe puts
-// a real artifact for a sibling source through the same write callback, so a
-// check that stopped discriminating would capture that neighbor and report
-// success. The three probes reach the outcome by different routes -- an emit
-// that skips the file, an emit that withholds it, and a file the resolution
-// gives no output path at all -- so no one of them stands in for the others.
+// An emit with no executable output cannot report successful publication or manufacture an empty requested artifact.
 //
-//  1. Ask for the JavaScript of a declaration source, which the emit skips.
-//  2. Ask for the JavaScript of a source outside `rootDir`, whose output would
-//     land outside `outDir` and is therefore withheld by the emit.
-//  3. Ask for the JavaScript of a JSON module that would be emitted over
-//     itself, which resolves to no JavaScript output path.
-//  4. Require exit 3, the "no output produced" report, and an unwritten `--out`
-//     in all three.
+// 1. Several empty-emission configurations distinguish that cause from transform diagnostic failures and from valid layout publication.
+// 2. Each empty-emit layout returns status three with no output produced and leaves the requested --out path absent.
+//
+// @evidence contracts/testing.md#behavioral-verification Each empty-emit layout returns status three with no output produced and leaves the requested --out path absent.
+// @evidence contracts/testing.md#independent-expectations An emit with no executable output cannot report successful publication or manufacture an empty requested artifact.
+// @evidence contracts/testing.md#distinguishing-cases Several empty-emission configurations distinguish that cause from transform diagnostic failures and from valid layout publication.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileJSEmptyEmitReportsNoOutput as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileJSEmptyEmitReportsNoOutput(t *testing.T) {
   for _, probe := range []struct {
     name    string

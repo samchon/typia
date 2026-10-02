@@ -4,19 +4,24 @@ import { OpenApiTypeChecker } from "@typia/utils";
 import typia from "typia";
 
 /**
- * Verifies json schema object against the native typia.json.schema output.
+ * Verifies IMember retains all named fields, required id/name, optional email
+ * and the stated atomic field kinds.
  *
- * The case builds its input in this file and asserts IMember exists in
- * components, is object type, has id property, has name property, has email
- * property, id is required.
+ * Native interface metadata must survive component publication and root
+ * dereferencing.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Invoke the schema producer on the type declarations in this file.
+ * 2. Assert required/optional and number/string distinctions remain; absence of
+ *    properties now fails instead of returning before all member assertions.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 10 assertions (IMember exists in components; is object type; has id property; has name property; has email property; id is required).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (IMember exists in components; is object type; has id property; has name property; has email property; id is required) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_object is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that IMember retains all named fields, required id/name, optional email and the stated atomic field kinds.
+ * @evidence contracts/testing.md#independent-expectations The interface declaration independently determines the property set, required membership and number/string kinds.
+ * @evidence contracts/testing.md#distinguishing-cases Required/optional and number/string distinctions remain; absence of properties now fails instead of returning before all member assertions.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_object through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native interface metadata must survive component publication and root dereferencing. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Required/optional and number/string distinctions remain; absence of properties now fails instead of returning before all member assertions. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_object = (): void => {
   interface IMember {
@@ -48,7 +53,8 @@ export const test_json_schema_object = (): void => {
   if (OpenApiTypeChecker.isObject(actualSchema)) {
     const obj = actualSchema as OpenApi.IJsonSchema.IObject;
     const props = obj.properties;
-    if (props === undefined) return;
+    if (props === undefined)
+      throw new Error("the named object must publish its properties");
 
     TestValidator.predicate("has id property", () => "id" in props);
     TestValidator.predicate("has name property", () => "name" in props);

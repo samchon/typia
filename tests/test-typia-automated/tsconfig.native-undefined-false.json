@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "transform": "typia/lib/transform",
+        "functional": false,
+        "numeric": false,
+        "finite": false,
+        "undefined": false
+      }
+    ]
+  },
+  "include": [
+    "src/native-profiles/undefined.ts",
+    "src/composite/fixtures/callable_ambient.d.ts"
+  ],
+  "exclude": []
+}

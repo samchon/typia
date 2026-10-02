@@ -5,20 +5,17 @@ import (
   "testing"
 )
 
-// TestTransformPluginOptionsComeFromPayload verifies the transform host takes
-// typia's options from ttsc's resolved plugin entry, not from tsconfig text.
+// TestTransformPluginOptionsComeFromPayload checks the authored operation results described below.
 //
-// This host owns its own `--plugins-json` flag and its own option read, so it
-// needs its own proof: the build host passing does not show that this one is
-// wired. Every row writes a tsconfig whose raw text disagrees with the resolved
-// entry, which is exactly what samchon/typia#1887 could not tell apart -- the
-// old reader regex-matched option names over the leaf file's bytes, so it
-// enabled options the user had commented out, adopted a sibling plugin's
-// options, and ignored options inherited through `extends`.
+// The host payload configures typia transform behavior; source-project plugin options do not replace those explicit operation settings.
 //
-//  1. Materialize each matrix row as a project plus the payload ttsc resolves it into.
-//  2. Run the transform host over it.
-//  3. Assert the emitted validator honors the entry, not the file text.
+// 1. Enabled/disabled option payload twins distinguish finite, functional, numeric and undefined checks while retaining the same fixture shape.
+// 2. Each transform option subcase emits guards matching its explicit plugin payload, independent of fixture config settings.
+//
+// @evidence contracts/testing.md#behavioral-verification Each transform option subcase emits guards matching its explicit plugin payload, independent of fixture config settings.
+// @evidence contracts/testing.md#independent-expectations The host payload configures typia transform behavior; source-project plugin options do not replace those explicit operation settings.
+// @evidence contracts/testing.md#distinguishing-cases Enabled/disabled option payload twins distinguish finite, functional, numeric and undefined checks while retaining the same fixture shape.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformPluginOptionsComeFromPayload as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformPluginOptionsComeFromPayload(t *testing.T) {
   for _, tc := range pluginOptionsPayloadCases() {
     t.Run(tc.name, func(t *testing.T) {

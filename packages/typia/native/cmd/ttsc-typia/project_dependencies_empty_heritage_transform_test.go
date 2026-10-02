@@ -20,6 +20,11 @@ import (
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `dependencies["src/main.ts"]` contains both `src/doc.ts` (the
 //     declaring file) and `src/empty.ts` (the property-less heritage target).
+//
+// @evidence contracts/testing.md#behavioral-verification The empty heritage fixture retains the base declaration dependency and omits unused declarations.
+// @evidence contracts/testing.md#independent-expectations Editing an empty base to add members changes validation, so absence of current properties cannot remove the heritage edge.
+// @evidence contracts/testing.md#distinguishing-cases An empty inherited type is contrasted with a declaration never inherited by the target.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesEmptyHeritageTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesEmptyHeritageTransform(t *testing.T) {
   project := projectDependenciesEmptyHeritageProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {

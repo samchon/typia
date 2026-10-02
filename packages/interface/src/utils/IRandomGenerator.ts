@@ -8,19 +8,37 @@ import { OpenApi } from "../openapi/OpenApi";
  *
  * Every method is replaceable: `typia.random<T>()` accepts a
  * `Partial<IRandomGenerator>` and falls back to its built-in generator for each
- * method that is not supplied. The generated code passes the `minLength` and
- * `maxLength` bounds of a property to the string format and pattern generators
- * when the property carries length tags; a custom generator has to honor them
- * for its value to pass the generated validator.
+ * method that is not supplied. The optional `pick` hook selects lazy candidates
+ * independently of primitive-value methods. The generated code passes the
+ * `minLength` and `maxLength` bounds of a property to the string format and
+ * pattern generators when the property carries length tags; a custom generator
+ * has to honor them for its value to pass the generated validator.
  *
  * @author Jeongho Nam - https://github.com/samchon
  *
- * @evidence contracts/common.md#principled-implementation The interface lists one method per atomic kind, array and string format that the random programmer can request, so a caller can replace any of them through `Partial<IRandomGenerator>`. Each signature takes the schema or bounds the generated code actually passes: JSON schemas for atomics, length bounds for formats and patterns, and epoch bounds for dates. The format methods declare the optional length bounds that the generated code forwards.
+ * @evidence contracts/common.md#principled-implementation The interface lists primitive, array and string-format methods plus an optional generic candidate selector that the random programmer can request, so a caller can replace any of them through `Partial<IRandomGenerator>`. Each signature takes the schema or bounds the generated code actually passes: JSON schemas for atomics, length bounds for formats and patterns, and epoch bounds for dates. The format methods declare the optional length bounds that the generated code forwards.
  * @evidence contracts/common.md#clear-and-simple-design One flat method table with no inheritance; the two small bound records and the custom map are in the namespace because only these signatures use them.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts Replacement happens through the supplied generator object; the declaration does not patch the built-in generator. It cannot make a custom generator honor the bounds it receives, which the comment states as the caller's duty.
  * @evidence contracts/common.md#meaningful-documentation The comment states the purpose, the replacement and fallback rule and the length-bound duty, and each method has its own comment.
  */
 export interface IRandomGenerator {
+  /**
+   * Selects one candidate while generating a union or other alternative.
+   *
+   * The candidates are lazy generation functions when used by typia. Return an
+   * element of the supplied array; generation invokes only that selected
+   * element. The hook receives the supplied generator object as its receiver,
+   * so a stateful selector can keep state on that object. Omitting this hook
+   * preserves uniform built-in selection. It does not change the source of
+   * primitive, format or pattern generators.
+   *
+   * @evidence contracts/common.md#principled-implementation A generic selector returns one of the supplied candidates without requiring knowledge of its value type. The native random programmer supplies lazy callbacks, so selection decides a branch before generation executes it; existing leaf integer customization remains independent.
+   * @evidence contracts/common.md#clear-and-simple-design One optional method extends the existing customization table. Its generic result has the candidate element type, and no global seeded-generator state is introduced.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Consumers pass the selector through the supported generator object. The declaration requires an actual candidate and does not patch platform randomness or assume a fixture branch.
+   * @evidence contracts/common.md#meaningful-documentation The prose explains lazy candidates, required membership, uniform fallback and the distinction from primitive/format entropy.
+   */
+  pick?<T>(array: T[]): T;
+
   /**
    * Generates a random boolean.
    *
@@ -44,7 +62,7 @@ export interface IRandomGenerator {
   /**
    * Generates a random integer within schema constraints.
    *
-   * @evidence contracts/common.md#principled-implementation Takes the integer schema, whose bounds are whole numbers, and returns a number, since an integer outside the safe range cannot be a number anyway.
+   * @evidence contracts/common.md#principled-implementation Takes the integer schema and returns a JavaScript number. Representable integers can exceed the safe-integer range, which guarantees consecutive integer precision rather than bounding every representable integer.
    * @evidence contracts/common.md#clear-and-simple-design One method with the schema as its only parameter.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
    * @evidence contracts/common.md#meaningful-documentation The one-line comment says it follows schema constraints.
@@ -74,7 +92,7 @@ export interface IRandomGenerator {
   /**
    * Generates a random array with elements from the generator function.
    *
-   * @evidence contracts/common.md#principled-implementation The parameter is the array schema without `items`, an element callback that receives the index and the final count so the generator can build elements after choosing a length, and an optional recursion flag that lets a custom generator shorten cyclic structures so generation terminates.
+   * @evidence contracts/common.md#principled-implementation The parameter is the array schema without `items`, an element callback that receives the index and the chosen count so the generator can build elements after choosing a length, and an optional recursion flag that lets a custom generator shorten cyclic structures so generation terminates. For unique arrays the chosen count is a target; duplicate exhaustion may produce fewer elements above the minimum.
    * @evidence contracts/common.md#clear-and-simple-design The callback is passed in instead of a items schema because the generated code owns how elements are built.
    * @evidence contracts/common.md#prohibited-implementation-shortcuts The recursion flag is a documented hint, and the contract does not guarantee termination for a generator that ignores it.
    * @evidence contracts/common.md#meaningful-documentation The one-line comment and the flag's comment state the callback role and the termination purpose.

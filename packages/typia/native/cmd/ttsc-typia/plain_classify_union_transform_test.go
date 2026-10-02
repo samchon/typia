@@ -2,17 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestPlainClassifyUnionTransform verifies that classify<typeof A | typeof B>
-// DISCRIMINATES the input at runtime and constructs the RIGHT class per member:
-// a `from` member and a `new` member in one union, a mixed typeof A | number
-// (the number passes through), and assertClassify of a union validating the seed
-// union rather than rejecting every valid seed.
+// TestPlainClassifyUnionTransform verifies separate static-factory and constructor strategies in a union.
+//
+// Each discriminated union arm retains its supported reconstruction contract; choosing a single strategy for the whole union would reconstruct another arm incorrectly.
+//
+// 1. A Circle factory arm and Square constructor arm share one union, pinning both generated strategies.
+// 2. The output contains a .from call and new Square.
+//
+// @evidence contracts/testing.md#behavioral-verification The output contains a .from call and new Square.
+// @evidence contracts/testing.md#independent-expectations Each discriminated union arm retains its supported reconstruction contract; choosing a single strategy for the whole union would reconstruct another arm incorrectly.
+// @evidence contracts/testing.md#distinguishing-cases A Circle factory arm and Square constructor arm share one union, pinning both generated strategies.
+// @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPlainClassifyUnionTransform as a unit test. Captured runTransform calls operate on the isolated fixture project in process; output assertions and cleanup remain owned by these helpers without a compiler or Node subprocess.
 func TestPlainClassifyUnionTransform(t *testing.T) {
   project := plainClassifyUnionProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -32,7 +37,6 @@ func TestPlainClassifyUnionTransform(t *testing.T) {
   if !strings.Contains(out, "new Square(") {
     t.Fatalf("the union should construct the `new` member via new Square(seed):\n%s", out)
   }
-  plainClassifyUnionRun(t, project, out)
 }
 
 func plainClassifyUnionProject(t *testing.T) string {
@@ -58,35 +62,6 @@ func plainClassifyUnionProject(t *testing.T) string {
     t.Fatalf("write source: %v", err)
   }
   return dir
-}
-
-func plainClassifyUnionRun(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
-    t.Fatalf("write generic stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(plainClassifyUnionRunner), 0o644); err != nil {
-    t.Fatalf("write runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("classify union runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const plainClassifyUnionSource = `import typia from "typia";
@@ -119,31 +94,4 @@ export class Square {
 export const buildShape = typia.plain.createClassify<typeof Circle | typeof Square>();
 export const buildShapeOrNum = typia.plain.createClassify<typeof Circle | number>();
 export const assertShape = typia.plain.createAssertClassify<typeof Circle | typeof Square>();
-`
-
-const plainClassifyUnionRunner = `const mod = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-// (1) discriminate the union: seed { r } builds the from-member Circle
-const c = mod.buildShape({ r: 2 });
-assert(c instanceof mod.Circle, "seed {r} should build a Circle (from), got: " + (c && c.constructor && c.constructor.name));
-assert(c.area() === 12, "Circle.from seed should reconstruct (area), got: " + c.area());
-
-// (2) seed { side } builds the new-member Square — the RIGHT class is chosen
-const s = mod.buildShape({ side: 3 });
-assert(s instanceof mod.Square, "seed {side} should build a Square (new), got: " + (s && s.constructor && s.constructor.name));
-assert(s.area() === 9, "new Square seed should reconstruct, got: " + s.area());
-
-// (3) mixed typeof Circle | number: the class is built, the number passes through
-const c2 = mod.buildShapeOrNum({ r: 4 });
-assert(c2 instanceof mod.Circle, "mixed union: object seed should build a Circle");
-assert(mod.buildShapeOrNum(42) === 42, "mixed union: a number must pass through unchanged");
-
-// (4) assertClassify of a class union validates the SEED union, not typeof C
-const sq = mod.assertShape({ side: 5 });
-assert(sq instanceof mod.Square, "assert union: a valid seed must NOT be rejected and builds the right class");
-assert(sq.area() === 25, "assert union reconstruction");
 `

@@ -18,6 +18,11 @@ import (
 //  1. Transform a decision beside an unrelated, untagged source module.
 //  2. Require the decision's complete dependency list to include that module.
 //  3. Add an illegal tag in that module and require a new diagnostic.
+//
+// @evidence contracts/testing.md#behavioral-verification A valid decision reports the unused source in its complete dependency set; adding an illegal tag there changes the next transform to status 3 with the Unused declaration diagnostic.
+// @evidence contracts/testing.md#independent-expectations The program-wide annotation scan can change success when any scanned source gains a tag, so even currently unrelated modules are invalidating inputs.
+// @evidence contracts/testing.md#distinguishing-cases The same source identity is first untagged and then tagged, pinning both dependency admission and the changed diagnostic outcome.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationProgramScanDependencies as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationProgramScanDependencies(t *testing.T) {
   dir := llmEvaluationProject(t, "program-scan-dependencies", `import typia from "typia";
 interface IDecision {

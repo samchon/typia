@@ -14,6 +14,11 @@ import { Classifiable } from "@typia/interface";
  * 2. Apply `Classifiable` and compare against the hand-written plain shape.
  * 3. Assert a live instance is assignable, while a literal freshly carrying the
  *    method, or dropping a required member, is rejected.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Classifiable must omit methods, preserve optional/readonly/getter data, recursively project nested classes and retain method-free identity.
+ * @evidence contracts/testing.md#independent-expectations ExpectedUser/Profile and plain interfaces are authored independent shapes; valid literals and expect-error assignments require ordinary TypeScript member acceptance/rejection.
+ * @evidence contracts/testing.md#distinguishing-cases Nested classes, live instances, optional count and readonly getters are contrasted with fresh method-bearing literals and missing required data.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifiableObjectMemberCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifiableObjectMemberCases = [
   Assert<IsEqual<Classifiable<User>, ExpectedUser>>,

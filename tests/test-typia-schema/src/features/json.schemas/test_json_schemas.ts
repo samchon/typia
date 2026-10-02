@@ -4,19 +4,23 @@ import { OpenApiTypeChecker } from "@typia/utils";
 import typia, { IJsonSchemaCollection } from "typia";
 
 /**
- * Verifies json schemas against the native typia.json.schemas output.
+ * Verifies four ordered collection roots preserve each object reference and
+ * inline string/number kind.
  *
- * The case builds its input in this file and asserts schemas count, IMember is
- * ref, IArticle is ref, string is inline, number is inline, components has
- * IMember.
+ * Plural native schema generation must retain input tuple order and
+ * named-reference identity.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Produce the collection from the tuple of declared source types.
+ * 2. Assert root identity and schema meaning using independent expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schemas is evaluated by the native host on the types declared in this case and the result is checked by 7 assertions (schemas count; IMember is ref; IArticle is ref; string is inline; number is inline; components has IMember).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (schemas count; IMember is ref; IArticle is ref; string is inline; number is inline; components has IMember) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schemas is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that four ordered collection roots preserve each object reference and inline string/number kind.
+ * @evidence contracts/testing.md#independent-expectations The authored [IMember,IArticle,string,number] tuple supplies fixed root positions and exact component references.
+ * @evidence contracts/testing.md#distinguishing-cases All original kind/count/component-presence checks remain; exact IMember/IArticle reference objects now prevent two object roots from swapping identities.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schemas in test-typia-schema start. Actual typia.json calls and any complementary generated validator are rewritten in the suite project; the emitted results are evaluated and consumed in the existing process.
+ * @evidence contracts/e2e.md#necessary-boundary Plural native schema generation must retain input tuple order and named-reference identity. Direct converter/writer unit calls cannot establish actual TypeScript call/signature resolution and evaluated public schema assembly together.
+ * @evidence contracts/e2e.md#shared-execution All declared variants join the existing ttsx schema-suite project and process. Siblings reuse the content-keyed native plugin artifact; the case adds no independent compiler launch or install per type/dialect.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Generated collections/applications and conversion projections are invocation-local; declarations remain immutable. ttsc owns content-keyed artifact invalidation and the suite owns process termination. No cold-cache or installation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage All original kind/count/component-presence checks remain; exact IMember/IArticle reference objects now prevent two object roots from swapping identities. Every original producer call, conversion and assertion remains enrolled under the same exported name; no meaningfully different dialect or graph consumer was deleted.
  */
 export const test_json_schemas = (): void => {
   interface IMember {
@@ -42,6 +46,12 @@ export const test_json_schemas = (): void => {
   TestValidator.predicate("IArticle is ref", () =>
     OpenApiTypeChecker.isReference(collection.schemas[1]!),
   );
+  TestEquality.equals("IMember owns its reference", collection.schemas[0], {
+    $ref: "#/components/schemas/IMember",
+  });
+  TestEquality.equals("IArticle owns its reference", collection.schemas[1], {
+    $ref: "#/components/schemas/IArticle",
+  });
 
   // primitive types are inline
   TestValidator.predicate("string is inline", () =>

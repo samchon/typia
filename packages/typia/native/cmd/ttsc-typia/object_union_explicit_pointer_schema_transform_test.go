@@ -2,8 +2,8 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
+  "strings"
   "testing"
 )
 
@@ -16,13 +16,77 @@ import (
 // component, so OpenAPI validation saw every branch as the same shape.
 //
 //  1. Transform a local fixture mirroring the template structure.
-//  2. Execute the emitted JavaScript with typia runtime imports stubbed out.
+//  2. Decode the emitted schema literal AST without executing JavaScript.
 //  3. Assert the `Shape` oneOf points to seven distinct discriminator
 //     components and that each component retains its literal kind and fields.
+//
+// @evidence contracts/testing.md#behavioral-verification Exactly one seven-branch Shape union contains distinct references and all seven authored discriminator literals; every component retains its kind-specific fields.
+// @evidence contracts/testing.md#independent-expectations Expected primitive types, discriminator literals and member names come from the authored TypeScript type, not a previous transform snapshot. AST literal decoding interprets the emitted result but does not execute JavaScript.
+// @evidence contracts/testing.md#distinguishing-cases Exactly one seven-branch Shape union contains distinct references and all seven authored discriminator literals; every component retains its kind-specific fields.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestObjectUnionExplicitPointerSchemaTransform as a unit test. It runs the transform in process and parses its result through the in-memory TypeScript parser; no compiler or JavaScript subprocess is launched.
 func TestObjectUnionExplicitPointerSchemaTransform(t *testing.T) {
   project := objectUnionExplicitPointerSchemaProject(t)
   js := objectUnionExplicitPointerSchemaTransform(t, project)
-  objectUnionExplicitPointerSchemaRunRuntimeCases(t, project, js)
+  unit := ttscTypiaTestSchemaLiteral(t, js)
+  schemas := ttscTypiaTestSchemaPath(t, unit, "components", "schemas").(map[string]any)
+  expected := map[string][]string{"circle": {"centroid", "radius"}, "line": {"p1", "p2"}, "point": {"x", "y"}, "polygon": {"outer", "inner"}, "polyline": {"points"}, "rectangle": {"p1", "p2", "p3", "p4"}, "triangle": {"p1", "p2", "p3"}}
+  candidates := 0
+  for _, value := range schemas {
+    shape, ok := value.(map[string]any)
+    if !ok {
+      continue
+    }
+    branches, ok := shape["oneOf"].([]any)
+    if !ok || len(branches) != 7 {
+      continue
+    }
+    kinds := map[string]bool{}
+    refs := map[string]bool{}
+    for _, value := range branches {
+      branch, ok := value.(map[string]any)
+      if !ok {
+        t.Fatalf("non-object branch %#v", value)
+      }
+      ref, ok := branch["$ref"].(string)
+      if !ok || refs[ref] {
+        t.Fatalf("missing or duplicated reference %#v", branch)
+      }
+      refs[ref] = true
+      name := ref[strings.LastIndex(ref, "/")+1:]
+      target, ok := schemas[name].(map[string]any)
+      if !ok {
+        t.Fatalf("missing target %s", ref)
+      }
+      properties, ok := target["properties"].(map[string]any)
+      if !ok {
+        t.Fatalf("missing properties %s", ref)
+      }
+      typ, ok := properties["type"].(map[string]any)
+      if !ok {
+        t.Fatalf("missing discriminator %s", ref)
+      }
+      kind, ok := typ["const"].(string)
+      if !ok {
+        if enums, valid := typ["enum"].([]any); valid && len(enums) > 0 {
+          kind, ok = enums[0].(string)
+        }
+      }
+      fields, valid := expected[kind]
+      if !ok || !valid || kinds[kind] {
+        t.Fatalf("wrong or repeated discriminator %#v", typ)
+      }
+      kinds[kind] = true
+      for _, field := range fields {
+        if _, ok := properties[field]; !ok {
+          t.Fatalf("%s lost field %s", kind, field)
+        }
+      }
+    }
+    candidates++
+  }
+  if candidates != 1 {
+    t.Fatalf("expected one complete seven-branch Shape union, got %d", candidates)
+  }
 }
 
 func objectUnionExplicitPointerSchemaProject(t *testing.T) string {
@@ -66,33 +130,6 @@ func objectUnionExplicitPointerSchemaTransform(t *testing.T, project string) str
     t.Fatalf("object union explicit pointer schema transform failed: code=%d stderr=\n%s", code, errText)
   }
   return out
-}
-
-func objectUnionExplicitPointerSchemaRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(objectUnionExplicitPointerSchemaRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("object union explicit pointer schema runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const objectUnionExplicitPointerSchemaTSConfig = `{
@@ -194,76 +231,4 @@ export namespace ObjectUnionExplicitPointer {
 }
 
 export const schema = typia.json.schema<ObjectUnionExplicitPointer>();
-`
-
-const objectUnionExplicitPointerSchemaRuntimeRunner = `const unit = require("./main.cjs").schema;
-
-const schemas = unit.components?.schemas ?? {};
-const expectedKinds = ["circle", "line", "point", "polygon", "polyline", "rectangle", "triangle"];
-const expectedFields = {
-  circle: ["centroid", "radius"],
-  line: ["p1", "p2"],
-  point: ["x", "y"],
-  polygon: ["outer", "inner"],
-  polyline: ["points"],
-  rectangle: ["p1", "p2", "p3", "p4"],
-  triangle: ["p1", "p2", "p3"],
-};
-
-const schemaName = (ref) => ref.split("/").at(-1);
-const refsOf = (schema) =>
-  Array.isArray(schema?.oneOf)
-    ? schema.oneOf.map((branch) => branch?.$ref).filter((ref) => typeof ref === "string")
-    : [];
-const literalOf = (schema) => {
-  const property = schema?.properties?.type;
-  if (typeof property?.const === "string") return property.const;
-  if (Array.isArray(property?.enum) && typeof property.enum[0] === "string") return property.enum[0];
-  return undefined;
-};
-const sameStrings = (actual, expected) =>
-  JSON.stringify([...actual].sort()) === JSON.stringify([...expected].sort());
-
-const candidates = Object.entries(schemas).filter(([, schema]) => {
-  const refs = refsOf(schema);
-  const unique = [...new Set(refs)];
-  if (refs.length !== 7 || unique.length !== 7) return false;
-  const kinds = unique
-    .map((ref) => literalOf(schemas[schemaName(ref)]))
-    .filter((kind) => typeof kind === "string");
-  return sameStrings(kinds, expectedKinds);
-});
-
-if (candidates.length !== 1) {
-  throw new Error(
-    "expected exactly one seven-branch Shape oneOf, got " +
-      candidates.length +
-      " among components " +
-      JSON.stringify(Object.keys(schemas)),
-  );
-}
-
-const [shapeName, shape] = candidates[0];
-const refs = refsOf(shape);
-const uniqueRefs = [...new Set(refs)];
-if (refs.length !== 7 || uniqueRefs.length !== 7) {
-  throw new Error(shapeName + " collapsed discriminator refs: " + JSON.stringify(refs));
-}
-
-for (const ref of uniqueRefs) {
-  const target = schemas[schemaName(ref)];
-  if (target === undefined) {
-    throw new Error("missing component for " + ref);
-  }
-  const kind = literalOf(target);
-  if (expectedKinds.includes(kind) === false) {
-    throw new Error("unexpected discriminator kind for " + ref + ": " + JSON.stringify(target));
-  }
-  const properties = target.properties ?? {};
-  for (const field of expectedFields[kind]) {
-    if (properties[field] === undefined) {
-      throw new Error(kind + " branch lost field " + field + ": " + JSON.stringify(target));
-    }
-  }
-}
 `

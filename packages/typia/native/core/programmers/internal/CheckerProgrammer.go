@@ -223,6 +223,7 @@ type CheckerProgrammer_WriteObjectFunctionsProps struct {
 // @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
 // @evidence contracts/common.md#meaningful-documentation The doc states what the alias stands for.
 type CheckerProgrammer_WriteArrayFunctionsProps = CheckerProgrammer_WriteObjectFunctionsProps
+
 // CheckerProgrammer_WriteTupleFunctionsProps is the argument record of
 // CheckerProgrammer.Write_tuple_functions, which is the same as that of the
 // object functions.

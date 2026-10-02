@@ -17,6 +17,11 @@ import {
  * 1. Resolve a recursive tuple and inspect its transformed head.
  * 2. Apply every notation family to a recursive tuple.
  * 3. Confirm each notation head is renamed while compilation terminates.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Resolved and each notation alias must expose the authored head type/key of a recursive rest tuple while compilation terminates.
+ * @evidence contracts/testing.md#independent-expectations Literal string and key-union outputs establish the visible head meaning independently of recursion expansion.
+ * @evidence contracts/testing.md#distinguishing-cases Boxed String in recursive Resolved and method-free recursive notation heads cover the five families. The test checks termination and head semantics, not identity of every recursively expanded tail.
+ * @evidence contracts/testing.md#execution-ownership test-interface start typechecks TupleHelperRecursiveBoundaryCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type TupleHelperRecursiveBoundaryCases = [
   Assert<IsEqual<Resolved<RecursiveResolved>[0], string>>,

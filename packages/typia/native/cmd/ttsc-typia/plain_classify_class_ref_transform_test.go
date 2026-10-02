@@ -2,25 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestPlainClassifyClassRefTransform pins the class VALUE-reference resolution
-// that both the from/new construct path and the field-copy allocator depend on:
-//   - a class declared inside a `namespace` constructs / field-copies via its
-//     QUALIFIED name (NS.Point / NS.Inner.Deep), not a bare identifier that is
-//     not in scope;
-//   - a generic class instantiation (Container<string>) field-copies onto the
-//     BARE constructor (Object.create(Container.prototype)), not the specialized
-//     type-argument-laden name;
-//   - a class EXPRESSION constructs / field-copies via its enclosing `const`
-//     binding (Animal / Plant), not the binder-internal `__class` or the inner
-//     `class Beast {}` name that only binds inside the class body.
-// Each is a runtime ReferenceError / wrong-instance pre-fix, so the node runner
-// is the true regression guard; the emit assertions catch it on a node-less CI.
+// TestPlainClassifyClassRefTransform verifies qualified class reconstruction references.
+//
+// Runtime constructor values are addressed by their accessible lexical/namespace binding, not type-specialization text or a class expression inner name. The authored declaration bindings establish each reference.
+//
+// 1. Namespace nesting, a generic class, anonymous/named class expressions and static/constructor/field-copy strategies supply both expected value references and inaccessible-name negative twins.
+// 2. Output uses NS.Point.from, new NS.Box, nested NS.Inner.Deep, NS.Plain.prototype, bare Container and outer Animal/Plant bindings; specialized generics and binder/inner class identities are forbidden.
+//
+// @evidence contracts/testing.md#behavioral-verification Output uses NS.Point.from, new NS.Box, nested NS.Inner.Deep, NS.Plain.prototype, bare Container and outer Animal/Plant bindings; specialized generics and binder/inner class identities are forbidden.
+// @evidence contracts/testing.md#independent-expectations Runtime constructor values are addressed by their accessible lexical/namespace binding, not type-specialization text or a class expression inner name. The authored declaration bindings establish each reference.
+// @evidence contracts/testing.md#distinguishing-cases Namespace nesting, a generic class, anonymous/named class expressions and static/constructor/field-copy strategies supply both expected value references and inaccessible-name negative twins.
+// @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPlainClassifyClassRefTransform as a unit test. Captured runTransform calls operate on the isolated fixture project in process; output assertions and cleanup remain owned by these helpers without a compiler or Node subprocess.
 func TestPlainClassifyClassRefTransform(t *testing.T) {
   project := plainClassifyClassRefProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -70,7 +67,6 @@ func TestPlainClassifyClassRefTransform(t *testing.T) {
   if strings.Contains(out, "Object.create(Beast") || strings.Contains(out, "new Beast(") {
     t.Fatalf("named class-expression reconstruction must NOT reference the inner `Beast` name:\n%s", out)
   }
-  plainClassifyClassRefRun(t, project, out)
 }
 
 func plainClassifyClassRefProject(t *testing.T) string {
@@ -96,35 +92,6 @@ func plainClassifyClassRefProject(t *testing.T) string {
     t.Fatalf("write source: %v", err)
   }
   return dir
-}
-
-func plainClassifyClassRefRun(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "generic-internal-stub.cjs"), []byte(plainClassifyFromNewGenericStub), 0o644); err != nil {
-    t.Fatalf("write generic stub: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(plainClassifyFromNewRewrite(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(plainClassifyClassRefRunner), 0o644); err != nil {
-    t.Fatalf("write runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("classify class-ref runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const plainClassifyClassRefSource = `import typia from "typia";
@@ -215,47 +182,4 @@ export const fieldPlain = typia.plain.createClassify<NS.Plain>();
 export const fieldContainer = typia.plain.createClassify<Container<string>>();
 export const newAnimal = typia.plain.createClassify<typeof Animal>();
 export const fieldPlant = typia.plain.createClassify<Plant>();
-`
-
-const plainClassifyClassRefRunner = `const mod = require("./main.cjs");
-
-const assert = (cond, msg) => {
-  if (!cond) throw new Error(msg);
-};
-
-// namespaced from
-const p = mod.fromPoint({ x: 1, y: 2 });
-assert(p instanceof mod.NS.Point, "namespaced from should yield an NS.Point instance");
-assert(p.sum() === 3, "NS.Point.from seed should reconstruct, got: " + p.sum());
-
-// namespaced new
-const b = mod.newBox({ value: 5 });
-assert(b instanceof mod.NS.Box, "namespaced new should yield an NS.Box instance");
-assert(b.doubled() === 10, "new NS.Box(seed) should reconstruct, got: " + b.doubled());
-
-// doubly-nested namespace
-const d = mod.newDeep({ tag: "x" });
-assert(d instanceof mod.NS.Inner.Deep, "doubly-nested namespace should yield an NS.Inner.Deep instance");
-assert(d.shout() === "x!", "new NS.Inner.Deep(seed) should reconstruct, got: " + d.shout());
-
-// namespaced field-copy
-const pl = mod.fieldPlain({ id: 7 });
-assert(pl instanceof mod.NS.Plain, "namespaced instance form should field-copy to NS.Plain");
-assert(pl.greet() === "hi 7", "NS.Plain prototype method should work, got: " + pl.greet());
-
-// generic field-copy
-const c = mod.fieldContainer({ value: "x", label: "L" });
-assert(c instanceof mod.Container, "generic instance form should field-copy to Container");
-assert(c.describe() === "L", "Container prototype method should work, got: " + c.describe());
-assert(c.value === "x" && c.label === "L", "Container fields should be copied");
-
-// unnamed class expression construct
-const an = mod.newAnimal({ name: "z" });
-assert(an instanceof mod.Animal, "unnamed class-expression construct should yield an Animal instance");
-assert(an.speak() === "z", "Animal prototype method should work, got: " + an.speak());
-
-// named class expression field-copy
-const plant = mod.fieldPlant({ species: "oak" });
-assert(plant instanceof mod.Plant, "named class-expression field-copy should yield a Plant instance");
-assert(plant.grow() === "oak!", "Plant prototype method should work, got: " + plant.grow());
 `

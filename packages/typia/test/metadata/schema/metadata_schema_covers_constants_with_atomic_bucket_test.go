@@ -1,10 +1,10 @@
 package typia_test
 
 import (
-	testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
-	"testing"
+  testutil "github.com/samchon/typia/packages/typia/test/internal/testutil"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataSchemaCoversConstantsWithAtomicBucket verifies coverage rules.
@@ -23,15 +23,15 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases The atomic-over-literal case is positive; the constant set covering b is positive and covering c is the adjacent negative. Numeric and boolean constants are owned by sibling cases.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported coverage function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaCoversConstantsWithAtomicBucket(t *testing.T) {
-	if !metadata.MetadataSchema_covers(testutil.AtomicMetadata("string"), testutil.StringConstantMetadata("hello")) {
-		t.Fatal("string atomic bucket should cover string literal metadata")
-	}
+  if !metadata.MetadataSchema_covers(testutil.AtomicMetadata("string"), testutil.StringConstantMetadata("hello")) {
+    t.Fatal("string atomic bucket should cover string literal metadata")
+  }
 
-	source := testutil.StringConstantMetadata("a", "b")
-	if !metadata.MetadataSchema_covers(source, testutil.StringConstantMetadata("b")) {
-		t.Fatal("constant bucket should cover included literal")
-	}
-	if metadata.MetadataSchema_covers(source, testutil.StringConstantMetadata("c")) {
-		t.Fatal("constant bucket should not cover unrelated literal")
-	}
+  source := testutil.StringConstantMetadata("a", "b")
+  if !metadata.MetadataSchema_covers(source, testutil.StringConstantMetadata("b")) {
+    t.Fatal("constant bucket should cover included literal")
+  }
+  if metadata.MetadataSchema_covers(source, testutil.StringConstantMetadata("c")) {
+    t.Fatal("constant bucket should not cover unrelated literal")
+  }
 }

@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataSchemaInitializeDefaults verifies initialized metadata state.
@@ -21,15 +21,15 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases One initialization; non-default flags are not covered.
 // @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported initializer directly, with no filesystem fixture, process or native command build.
 func TestMetadataSchemaInitializeDefaults(t *testing.T) {
-	meta := metadata.MetadataSchema_initialize()
+  meta := metadata.MetadataSchema_initialize()
 
-	if !meta.IsRequired() || meta.Optional || meta.Nullable {
-		t.Fatalf("unexpected initialized flags: %#v", meta)
-	}
-	if meta.Atomics == nil || meta.Constants == nil || meta.Templates == nil || meta.Objects == nil {
-		t.Fatalf("initializer should allocate primary bucket slices: %#v", meta)
-	}
-	if !meta.Empty() {
-		t.Fatalf("fresh initialized metadata should be empty: size=%d bucket=%d", meta.Size(), meta.Bucket())
-	}
+  if !meta.IsRequired() || meta.Optional || meta.Nullable {
+    t.Fatalf("unexpected initialized flags: %#v", meta)
+  }
+  if meta.Atomics == nil || meta.Constants == nil || meta.Templates == nil || meta.Objects == nil {
+    t.Fatalf("initializer should allocate primary bucket slices: %#v", meta)
+  }
+  if !meta.Empty() {
+    t.Fatalf("fresh initialized metadata should be empty: size=%d bucket=%d", meta.Size(), meta.Bucket())
+  }
 }

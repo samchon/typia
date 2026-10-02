@@ -38,10 +38,14 @@ interface IBounds {
  * 3. Require no numeric `exclusive*` to survive anywhere in the 3.0 document, at
  *    any depth.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schemas is evaluated by the native host on the types declared in this case and the result is checked by 9 assertions (3.1 keeps a numeric exclusiveMinimum; 3.1 keeps a numeric exclusiveMaximum; 3.0 exclusive bounds become boolean flags; 3.0 keeps an inclusive bound beside an exclusive one; an inclusive bound stays inclusive; a zero bound survives as a flag). The case documents its purpose as: Verifies a document emitted for OpenAPI 3.0 spells an exclusive bound the way that dialect defines it.
- * @evidence contracts/testing.md#independent-expectations The case states its expectation basis: The 3.0 Schema Object descends from JSON Schema draft-04, where `exclusiveMinimum` and `exclusiveMaximum` are booleans qualifying `minimum` and `maximum`; the numeric spelling belongs to 3.1. The downgrader carried the number through, so a document labeled 3.0 held a 3.1 keyword with no `minimum` beside it — and a 3.0 reader taking the value as the boolean its dialect declares drops the bound entirely (#2300). Properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (3.1 keeps a numeric exclusiveMinimum; 3.1 keeps a numeric exclusiveMaximum; 3.0 exclusive bounds become boolean flags; 3.0 keeps an inclusive bound beside an exclusive one; an inclusive bound stays inclusive; a zero bound survives as a flag) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schemas_v3_0_exclusive_bounds is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that numeric 3.1 exclusive bounds become Boolean 3.0 flags beside the retained inclusive bound at every asserted depth.
+ * @evidence contracts/testing.md#independent-expectations Handwritten 3.0 versus 3.1 keyword/value objects derive from their dialect contracts, not the other downgrader; bounds normalizes absence to null so lost keywords cannot pass.
+ * @evidence contracts/testing.md#distinguishing-cases Inclusive/exclusive/mixed/zero bounds, array depth and global nonnumeric flags retain all checks; union-alternative bound presence now distinguishes loss from a vacuously clean walk.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schemas_v3_0_exclusive_bounds in test-typia-schema start. Actual typia.json calls and any complementary generated validator are rewritten in the suite project; the emitted results are evaluated and consumed in the existing process.
+ * @evidence contracts/e2e.md#necessary-boundary The native dialect converter must emit evaluated schema values with retained numerical meaning and correct 3.0 keyword types. Direct converter/writer unit calls cannot establish actual TypeScript call/signature resolution and evaluated public schema assembly together.
+ * @evidence contracts/e2e.md#shared-execution All declared variants join the existing ttsx schema-suite project and process. Siblings reuse the content-keyed native plugin artifact; the case adds no independent compiler launch or install per type/dialect.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Generated collections/applications and conversion projections are invocation-local; declarations remain immutable. ttsc owns content-keyed artifact invalidation and the suite owns process termination. No cold-cache or installation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Inclusive/exclusive/mixed/zero bounds, array depth and global nonnumeric flags retain all checks; union-alternative bound presence now distinguishes loss from a vacuously clean walk. Every original producer call, conversion and assertion remains enrolled under the same exported name; no meaningfully different dialect or graph consumer was deleted.
  */
 export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
   const v31 = typia.json.schemas<[IBounds], "3.1">();
@@ -131,6 +135,14 @@ export const test_json_schemas_v3_0_exclusive_bounds = (): void => {
     "an array element carries the 3.0 form",
     bounds(props30.list.items, "maximum", "exclusiveMaximum"),
     { maximum: 5, exclusiveMaximum: true },
+  );
+  const numberAlternative = props30.either.oneOf.find(
+    (schema: any) => schema.type === "number",
+  );
+  TestEquality.equals(
+    "a union alternative retains the 3.0 bound",
+    bounds(numberAlternative ?? {}, "minimum", "exclusiveMinimum"),
+    { minimum: 1, exclusiveMinimum: true },
   );
 
   // STRUCTURAL: nothing numeric may survive anywhere in the 3.0 document.

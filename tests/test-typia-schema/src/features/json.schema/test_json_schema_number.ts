@@ -4,18 +4,25 @@ import { OpenApiTypeChecker } from "@typia/utils";
 import typia, { tags } from "typia";
 
 /**
- * Verifies json schema number against the native typia.json.schema output.
+ * Verifies number, integer, inclusive/exclusive ranges and multipleOf tags
+ * retain their numeric schema fields.
  *
- * The case builds its input in this file and asserts is number type, int32 is
- * integer, minimum, maximum, exclusiveMinimum, exclusiveMaximum.
+ * Numeric type/tag analysis must supply the generated schema with both kind and
+ * constraint annotations.
  *
- * 1. Generate the value from the types declared in this file.
- * 2. Assert the properties listed above.
+ * 1. Invoke the schema producer on the type declarations in this file.
+ * 2. Assert untagged number and int32 kind checks remain; range/exclusive/multiple
+ *    shapes now fail explicitly rather than skipping their existing field
+ *    assertions.
  *
- * @evidence contracts/testing.md#behavioral-verification typia.json.schema is evaluated by the native host on the types declared in this case and the result is checked by 7 assertions (is number type; int32 is integer; minimum; maximum; exclusiveMinimum; exclusiveMaximum).
- * @evidence contracts/testing.md#independent-expectations Expectations are literals or structural checks written in the case against the declared types; where the case compares two typia producers its titles say so, and properties of the generated value that are not asserted are not certified.
- * @evidence contracts/testing.md#distinguishing-cases The assertion titles (is number type; int32 is integer; minimum; maximum; exclusiveMinimum; exclusiveMaximum) are the distinctions this case owns. Twins that are not named by those titles are either owned by sibling cases in this workspace or not asserted.
- * @evidence contracts/testing.md#execution-ownership The test-typia-schema start command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this case: test_json_schema_number is the exported entry; the native producer is a real boundary here because the typia calls are rewritten by the native host.
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that number, integer, inclusive/exclusive ranges and multipleOf tags retain their numeric schema fields.
+ * @evidence contracts/testing.md#independent-expectations Declared int32, 0/100 boundaries and factor 5 supply fixed expected schema keywords/values.
+ * @evidence contracts/testing.md#distinguishing-cases Untagged number and int32 kind checks remain; range/exclusive/multiple shapes now fail explicitly rather than skipping their existing field assertions.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_number through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Numeric type/tag analysis must supply the generated schema with both kind and constraint annotations. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Untagged number and int32 kind checks remain; range/exclusive/multiple shapes now fail explicitly rather than skipping their existing field assertions. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_number = (): void => {
   const unit = typia.json.schema<number>();
@@ -37,6 +44,9 @@ export const test_json_schema_number = (): void => {
     number & tags.Minimum<0> & tags.Maximum<100>
   >();
   const ranged = rangedUnit.schema;
+  TestValidator.predicate("range is number", () =>
+    OpenApiTypeChecker.isNumber(ranged),
+  );
   if (OpenApiTypeChecker.isNumber(ranged)) {
     TestEquality.equals("minimum", ranged.minimum, 0);
     TestEquality.equals("maximum", ranged.maximum, 100);
@@ -47,6 +57,9 @@ export const test_json_schema_number = (): void => {
     number & tags.ExclusiveMinimum<0> & tags.ExclusiveMaximum<100>
   >();
   const exclusive = exclusiveUnit.schema;
+  TestValidator.predicate("exclusive range is number", () =>
+    OpenApiTypeChecker.isNumber(exclusive),
+  );
   if (OpenApiTypeChecker.isNumber(exclusive)) {
     TestEquality.equals("exclusiveMinimum", exclusive.exclusiveMinimum, 0);
     TestEquality.equals("exclusiveMaximum", exclusive.exclusiveMaximum, 100);
@@ -55,6 +68,9 @@ export const test_json_schema_number = (): void => {
   // multipleOf
   const multipleUnit = typia.json.schema<number & tags.MultipleOf<5>>();
   const multiple = multipleUnit.schema;
+  TestValidator.predicate("multiple is number", () =>
+    OpenApiTypeChecker.isNumber(multiple),
+  );
   if (OpenApiTypeChecker.isNumber(multiple)) {
     TestEquality.equals("multipleOf", multiple.multipleOf, 5);
   }

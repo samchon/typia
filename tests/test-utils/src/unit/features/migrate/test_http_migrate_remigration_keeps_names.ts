@@ -1,5 +1,5 @@
 import { IHttpMigrateApplication } from "@typia/interface";
-import { TestEquality } from "@typia/oracle/equality";
+import { TestEquality } from "@typia/template/oracle-equality";
 import { HttpMigration, OpenApiConverter } from "@typia/utils";
 import fs from "fs";
 

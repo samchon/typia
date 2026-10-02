@@ -16,10 +16,10 @@ import (
 // expected shapes below come from the OpenAPI 3.0 specification, not from what
 // the downgrader happens to produce.
 //
-// 1. Downgrade a nullable atomic, a literal union, and a tuple.
-// 2. Assert each uses the 3.0 spelling: nullable flag, enum, bounded array.
-// 3. Assert no 3.1-only keyword (`const`, `prefixItems`, a null union member)
-//    survives.
+//  1. Downgrade a nullable atomic, a literal union, and a tuple.
+//  2. Assert each uses the 3.0 spelling: nullable flag, enum, bounded array.
+//  3. Assert no 3.1-only keyword (`const`, `prefixItems`, a null union member)
+//     survives.
 //
 // @evidence contracts/testing.md#behavioral-verification The 3.0 downgrader is run on nullable unions, literals and tuples; the output must equal the authored 3.0 text and no 3.1-only keyword may appear in the serialization.
 // @evidence contracts/testing.md#independent-expectations OpenAPI 3.0 defines nullable, enum and items instead of null types, const and prefixItems; expected texts and the banned keywords are authored.
