@@ -222,8 +222,9 @@ export namespace LangChainToolsRegistrar {
       {
         name: entry.name,
         description: entry.function.description ?? "",
-        // Declares the model-facing schema without a validator, so the
-        // coerce-and-validate step above is the only one that runs; see
+        // The carrier exposes the model-facing schema without top-level JSON
+        // Schema constraints or a Standard Schema validator, so argument
+        // constraints and coercion stay with the step above; see
         // `LangChainParameterConverter`. The cast is needed because `tool()`
         // still types `schema` as Zod-or-JSON-Schema, even though the
         // `toJsonSchema` it reads that schema back with accepts Standard JSON

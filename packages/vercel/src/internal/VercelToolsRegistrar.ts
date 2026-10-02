@@ -48,6 +48,9 @@ export namespace VercelToolsRegistrar {
     prefix?: boolean | undefined;
   }): Record<string, Tool> => {
     const prefix: boolean = props.prefix ?? false;
+    // Tools use ordinary function names. Maintainer re-review of #2435 excludes
+    // a user-declared literal __proto__ name from typia's responsibility; do not
+    // change object construction or add special handling to support that name.
     const tools: Record<string, Tool> = {};
 
     // check duplicate tool names

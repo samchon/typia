@@ -35,9 +35,11 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  * Converts TypeScript class methods via `typia.llm.controller<Class>()` or
  * OpenAPI operations via `HttpLlm.controller()` to LangChain tools.
  *
- * Every tool call is validated by typia. If LLM provides invalid arguments,
- * returns validation error formatted by {@link LlmJson.stringify} so that LLM
- * can correct them automatically.
+ * Every tool call is validated by typia. Invalid arguments reject the call with
+ * LangChain's `ToolInputParsingException`, containing typia's formatted
+ * validation errors. The agent must handle that exception to give the model
+ * feedback for another attempt. Invocation and output failures are returned as
+ * `{ success: false, error }` tool results.
  *
  * ```typescript
  * import { toLangChainTools } from "@typia/langchain";
@@ -56,7 +58,7 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  * );
  * const tools = toLangChainTools(controller);
  *
- * const llm = await initChatModel();
+ * const llm = await initChatModel("gpt-4o", { modelProvider: "openai" });
  * const modelWithTools = llm.bindTools(tools);
  * const result = await modelWithTools.invoke("What is 10 + 5?");
  * ```
@@ -69,7 +71,7 @@ interface ILangChainToolsProps extends ILangChainToolsOptions {
  * @evidence contracts/common.md#principled-implementation All overloads normalize to a controller list and prefix before using the same registrar; properties objects retain their own options, and class and HTTP execution remain delegated to their declared controllers.
  * @evidence contracts/common.md#clear-and-simple-design The public overloads express the three accepted input shapes while two private normalization helpers and one registrar keep conversion behavior shared.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The adapter uses the public LangChain factory through its registrar and typia's validation; normalization does not manufacture controllers, schemas or successful results.
- * @evidence contracts/common.md#meaningful-documentation The API documents input shapes, prefix behavior and class usage; the registrar explains strict-output validation and model-visible failure results.
+ * @evidence contracts/common.md#meaningful-documentation The API documents input shapes, prefix behavior, class usage and the distinction between argument exceptions and invocation/output failure results; the registrar explains strict-output validation.
  */
 export function toLangChainTools(
   controller: ILangChainController,

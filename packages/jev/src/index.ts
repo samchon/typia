@@ -22,15 +22,15 @@ export type IJevQuestion =
  * The neutral {@link ILlmEvaluation.IBoolean} question, spelled `"noul"`.
  *
  * @evidence contracts/common.md#principled-implementation The discriminator and instructions retain the boolean question's meaning while representing Jev's required noul spelling.
- * @evidence contracts/common.md#clear-and-simple-design Two required fields express the entire wire variant without duplicating unrelated choice or score fields.
+ * @evidence contracts/common.md#clear-and-simple-design Two required fields express the converted neutral boolean question without duplicating unrelated choice or score fields. Optional outcome criteria supported by Jev are outside this generated-question representation.
  * @evidence contracts/common.md#prohibited-implementation-shortcuts The contract-defined noul literal is the only specialization; the interface introduces no foreign mutation or test-only behavior.
  * @evidence contracts/common.md#meaningful-documentation The declaration links the neutral boolean question and documents both the discriminator and decision instructions.
  */
 export interface IJevNoulQuestion {
-  /** Discriminator. */
+  /** Identifies Jev's yes/no question variant. */
   type: "noul";
 
-  /** What to decide. */
+  /** Question text copied from the neutral boolean question's instructions. */
   instructions: string;
 }
 
