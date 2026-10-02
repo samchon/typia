@@ -12,10 +12,6 @@ import { LlmJson } from "@typia/utils";
  * 2. Compare complete data for quoted delimiters, unfinished, empty and
  *    consecutive comments.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert success and complete recovered data for all thirteen scenarios, distinguishing stripped string contents and invented or lost members.
- * @evidence contracts/testing.md#independent-expectations Literal objects, arrays and quoted strings independently define the data; ignored comments and recovery after a completed value follow the maintained lenient parse contract.
- * @evidence contracts/testing.md#distinguishing-cases Line and block comments at different token boundaries contrast with the same delimiters inside strings; unfinished blocks, empty and consecutive comments retain all twenty-six assertions. Valueless comments are rejected by comment_only_input.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_comments = (): void => {
   // Single-line comment after value

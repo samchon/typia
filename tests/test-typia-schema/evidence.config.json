@@ -2,46 +2,30 @@
   "severity": "error",
   "claims": [
     {
-      "name": "TypeScript test declarations",
+      "name": "native schema test functions",
       "type": "typescript",
-      "files": ["src/**/*.ts"],
-      "symbol": ["type", "function"],
-      "reference": [
-        {
-          "type": "markdown",
-          "root": "../../.agents/skills",
-          "files": ["contracts/testing.md"],
-          "symbol": "h2",
-          "checklist": true
-        },
-        {
-          "type": "markdown",
-          "root": "../../.agents/skills",
-          "files": ["contracts/e2e.md"],
-          "symbol": "h2",
-          "checklist": false
-        }
-      ]
-    },
-    {
-      "name": "real component boundary cases",
-      "type": "typescript",
-      "files": ["src/features/**/test_*.ts"],
+      "files": [
+        "src/features/**/test_*.ts"
+      ],
       "symbol": "function",
       "reference": [
         {
           "type": "markdown",
           "root": "../../.agents/skills",
-          "files": ["contracts/e2e.md"],
+          "files": [
+            "contracts/testing.md"
+          ],
           "symbol": "h2",
           "checklist": true
         },
         {
           "type": "markdown",
           "root": "../../.agents/skills",
-          "files": ["contracts/testing.md"],
+          "files": [
+            "contracts/e2e.md"
+          ],
           "symbol": "h2",
-          "checklist": false
+          "checklist": true
         }
       ]
     }

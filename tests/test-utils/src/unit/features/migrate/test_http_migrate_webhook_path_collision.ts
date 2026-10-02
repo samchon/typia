@@ -20,10 +20,6 @@ import { HttpLlm, HttpMigration } from "@typia/utils";
  *    accessors and component names while a colliding webhook's are escaped.
  * 3. Assert `HttpLlm` names one function per route after its accessor.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application and HttpLlm.application run on authored documents mixing paths and webhooks; per document the error list, the route set and the LLM function set are compared, so a replaced path item, a lost operation or a stolen name fails.
- * @evidence contracts/testing.md#independent-expectations The input document is the oracle: each path and webhook operation must produce its own route, schema and accessor, with literal expected accessors and component names rather than a snapshot.
- * @evidence contracts/testing.md#distinguishing-cases A path without a webhook, a distinct webhook, a webhook sharing the path key and method and one sharing only the key distinguish replacement from addition and name escaping.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration and LLM composition run in process on authored documents with no native build, installation or host.
  */
 export const test_http_migrate_webhook_path_collision = (): void => {
   const response = (key: string): OpenApi.IOperation.IResponse => ({

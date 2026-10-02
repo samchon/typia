@@ -12,10 +12,6 @@ import { OpenApiV3_1, OpenApiV3_2 } from "@typia/interface";
  * 2. Check each composition/reference keyword independently and together.
  * 3. Reject an unknown type name and malformed composition/reference values.
  *
- * @evidence contracts/testing.md#behavioral-verification Authored type-array schemas must be assignable to both IMixed and IJsonSchema contracts without unrelated required keywords; malformed keyword values must remain unassignable.
- * @evidence contracts/testing.md#independent-expectations OpenAPI 3.1 and 3.2 adopt JSON Schema type arrays and independently optional composition/default keywords. Literal schema shapes provide expectations without deriving them from the interface definitions.
- * @evidence contracts/testing.md#distinguishing-cases String/number/Boolean/null/array/object defaults, bare mixed schemas, individual const/oneOf/anyOf/allOf/$ref and their combination are positive controls. Unknown type, string oneOf, numeric anyOf, object allOf and numeric reference are adjacent negative controls in both versions.
- * @evidence contracts/testing.md#execution-ownership test-interface start invokes tsc --noEmit over this exported compile-only tuple. Assert instantiates assignability and negative checks; no schema converter, runtime host or native transform executes.
  */
 export type OpenApiMixedSchemaCases = [
   Assert<Accepted<{ type: ["string", "null"] }>>,

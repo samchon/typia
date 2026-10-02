@@ -18,10 +18,6 @@ import { CalculatorApi } from "../../structures/CalculatorApi";
  * 1. Generate the value from the types declared in this file.
  * 2. Assert the properties listed above.
  *
- * @evidence contracts/testing.md#behavioral-verification Calls HttpLlm.controller on the authored CalculatorApi OpenAPI fixture, converts it with toVercelTools, and checks matching function names/count plus every tool description, inputSchema and execute function.
- * @evidence contracts/testing.md#independent-expectations Names and count are compared to the same composed controller, so this proves adapter population consistency but does not independently prove OpenAPI composition retained every source operation. Required Tool properties are direct runtime checks.
- * @evidence contracts/testing.md#distinguishing-cases One POST calculator operation exercises the HTTP registration branch; the unit output-validation sibling owns execution success, malformed body and callback exception. No transport or native producer runs here.
- * @evidence contracts/testing.md#execution-ownership The plugin-free node:test runner explicitly registers test_vercel_http_controller_register under its original case name. test:unit uses ttsx --no-plugins and tsconfig.unit.json; these portable operations do not load a native producer or product host.
  */
 export const test_vercel_http_controller_register = async (): Promise<void> => {
   // 1. Create a controller from a checked-in OpenAPI document

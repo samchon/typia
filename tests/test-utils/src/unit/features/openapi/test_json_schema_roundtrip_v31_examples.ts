@@ -15,10 +15,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 3. Upgrade the raw schema back and assert example values reappear under
  *    deterministic `v0`, `v1` keys.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter downgrades an emended schema to 3.1 and upgrades it back; the raw arrays at parent and property level and the regenerated v0, v1 keys are compared.
- * @evidence contracts/testing.md#independent-expectations The expected arrays preserve value and order as authored literals, and the deterministic v0, v1 naming is the documented upgrade rule rather than converter output.
- * @evidence contracts/testing.md#distinguishing-cases Parent and property examples distinguish recursive handling from top-level copying; schemas without examples and items-level examples are not asserted here.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on an authored schema with no native build, installation or host.
  */
 export const test_json_schema_roundtrip_v31_examples = (): void => {
   const input: OpenApi.IJsonSchema = {

@@ -15,10 +15,6 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 3. Validate roundtrip rest and minimum-length boundaries, including empty closed
  *    tuples and ordinary arrays with boolean or omitted items.
  *
- * @evidence contracts/testing.md#behavioral-verification Public upgradeSchema and downgradeSchema execute authored tuple and ordinary-array schemas. Literal raw items, prefixItems and length assertions detect an incorrect dialect emission; value validation after roundtrip detects widened rest constraints or changed required-prefix defaults.
- * @evidence contracts/testing.md#independent-expectations JSON Schema 2020-12 defines items as the rest schema beside prefixItems, permits a shorter prefix unless minItems forbids it, and makes omitted or true items unconstrained. The emended ITuple contract instead defaults to a required prefix and closed rest. Literal native fields and independent value witnesses check preservation across that difference; unrelated annotations are outside the field projection.
- * @evidence contracts/testing.md#distinguishing-cases Schema, false, true and omitted rest forms distinguish native open-rest and emended closed-rest defaults. Empty versus present prefixes, default versus explicit zero minima, and nonprefix false items with positive minimum and retained maximum cover the same conversion boundary. Existing schema-rest positive and negative witnesses remain intact.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and validation run in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_upgrade_v31_tuple_items = (): void => {
   const schemaRest = upgrade({

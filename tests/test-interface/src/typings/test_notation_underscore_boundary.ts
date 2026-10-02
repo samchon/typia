@@ -17,10 +17,6 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  *    interface.
  * 2. Cover trailing, leading, and internal underscores plus all-caps segments.
  *
- * @evidence contracts/testing.md#behavioral-verification Each notation alias must equal its authored Expected shape for the mixed-boundary Battery.
- * @evidence contracts/testing.md#independent-expectations Literal Expected interfaces fix the historical declared return-key policy, including camel/pascal trailing-underscore asymmetry; no runtime naming helper supplies the expectation.
- * @evidence contracts/testing.md#distinguishing-cases Leading/internal/trailing underscores, mixed camel segments, userID, MAX_COUNT and single-letter segments expose the prior segment and boundary losses.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks NotationUnderscoreBoundaryCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type NotationUnderscoreBoundaryCases = [
   Assert<IsEqual<SnakeCase<Battery>, ExpectedSnake>>,

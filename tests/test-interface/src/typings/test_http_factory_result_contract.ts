@@ -21,10 +21,6 @@ interface IPlain {
  * 2. Preserve the plain-interface result control.
  * 3. Reject method calls on four representative decoded class results.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpFactoryResultCases retains every original thirteen direct/factory Same assertion and the plain-interface identity assertion. The methodOnFactoryResult expected-error controls require Query.twice to remain noncallable on query, nullable isQuery, FormData and assertHeaders results.
- * @evidence contracts/testing.md#independent-expectations The return-type comparison uses a local deferred generic-function type-identity predicate against the public direct signatures. The Query class's authored callable method supplies four independent negative controls; a correlated wrong direct/factory class return would still fail those controls.
- * @evidence contracts/testing.md#distinguishing-cases Query/assertQuery/isQuery/validateQuery, FormData/assert/is/validate, headers/assert/is/validate and atomic parameter retain all factory signatures. The plain-interface control and nullable-is method call preserve their separate structural/nullability distinctions.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks this compile-only file with noEmit. The typia import is type-only and every factory reference is a type query; no factory executes or must be transformed. The original runtime equality checks remain in the schema-suite case.
  */
 export type HttpFactoryResultCases = [
   Assert<
@@ -130,10 +126,6 @@ declare const assertHeadersResult: ReturnType<
  * replaces an unevaluated factory call so no native producer is needed merely
  * to typecheck whether twice is callable.
  *
- * @evidence contracts/testing.md#behavioral-verification Four original expected-error method-call checks remain on the exact inferred factory result types. If any result incorrectly exposes Query.twice as callable, its directive becomes unused and compilation fails.
- * @evidence contracts/testing.md#independent-expectations The authored Query.twice method is a runtime class member that resolved decoded data must not expose as callable; the controls do not compute expected output with a decoder.
- * @evidence contracts/testing.md#distinguishing-cases Ordinary query, nullable isQuery, FormData and asserted headers preserve all four original negative forms, including optional chaining on isQuery.
- * @evidence contracts/testing.md#execution-ownership test-interface start checks this declaration with noEmit. It is never invoked, imports typia only for type queries and executes no factory or native transform; native output comparisons are separately owned by the original schema case.
  */
 export const methodOnFactoryResult = () => [
   // @ts-expect-error a decoded Query has no callable twice method.

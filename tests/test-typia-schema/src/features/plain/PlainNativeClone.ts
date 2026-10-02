@@ -3,11 +3,6 @@ import { TestEquality } from "@typia/template/equality";
 
 /**
  * Asserts a cloned DataView is an independent view over its own buffer.
- *
- * @evidence contracts/testing.md#behavioral-verification DataView instance, separate identity, zero offset, exact visible/backing lengths, backing brand and visible bytes; nonempty source and output mutations must not cross storage.
- * @evidence contracts/testing.md#independent-expectations Visible input bytes supply the expectation before either view is mutated.
- * @evidence contracts/testing.md#distinguishing-cases Empty views skip mutation only; populated/sliced/shared/cross-realm views are supplied by the native callers.
- * @evidence contracts/testing.md#execution-ownership This assertion helper is invoked by the five plain native feature cases; it does not own a standalone test or construct a typia producer. Caller-created inputs and emitted outputs define its executable coverage.
  */
 export const assertDataViewClone = (
   label: string,
@@ -60,11 +55,6 @@ export const assertDataViewClone = (
 
 /**
  * Asserts a cloned typed array owns its own copy of the elements.
- *
- * @evidence contracts/testing.md#behavioral-verification Typed array instance, separate object/buffer identity and exact elements; nonempty source mutation cannot alter the clone.
- * @evidence contracts/testing.md#independent-expectations Array.from(input) is captured before mutation; no generated clone supplies the expectation.
- * @evidence contracts/testing.md#distinguishing-cases Uint8/Uint16 and nonempty/empty behavior follow caller inputs; only source-to-result mutation is asserted here.
- * @evidence contracts/testing.md#execution-ownership This assertion helper is invoked by the five plain native feature cases; it does not own a standalone test or construct a typia producer. Caller-created inputs and emitted outputs define its executable coverage.
  */
 export const assertTypedArrayClone = (
   label: string,
@@ -97,11 +87,6 @@ export const assertTypedArrayClone = (
 
 /**
  * Asserts a cloned Buffer owns its own bytes.
- *
- * @evidence contracts/testing.md#behavioral-verification ArrayBuffer/shared-buffer identity, brand and bytes are checked; nonempty source mutation cannot alter output.
- * @evidence contracts/testing.md#independent-expectations Captured native byte views independently define expected content and brand.
- * @evidence contracts/testing.md#distinguishing-cases Shared and ordinary buffers remain distinct; empty buffers retain identity/content checks without mutation.
- * @evidence contracts/testing.md#execution-ownership This assertion helper is invoked by the five plain native feature cases; it does not own a standalone test or construct a typia producer. Caller-created inputs and emitted outputs define its executable coverage.
  */
 export const assertBufferClone = (
   label: string,
@@ -134,11 +119,6 @@ export const assertBufferClone = (
 
 /**
  * Asserts a cloned Blob has the same size, type and bytes.
- *
- * @evidence contracts/testing.md#behavioral-verification Blob instance/identity/type/size and asynchronously read bytes must match.
- * @evidence contracts/testing.md#independent-expectations Independent arrayBuffer reads of original and output fix content rather than comparing another producer.
- * @evidence contracts/testing.md#distinguishing-cases Empty and populated typed/dynamic/union Blob inputs are supplied by caller cases.
- * @evidence contracts/testing.md#execution-ownership This assertion helper is invoked by the five plain native feature cases; it does not own a standalone test or construct a typia producer. Caller-created inputs and emitted outputs define its executable coverage.
  */
 export const assertBlobClone = async (
   label: string,
@@ -158,11 +138,6 @@ export const assertBlobClone = async (
 
 /**
  * Asserts a cloned File has the same name, size, type and bytes.
- *
- * @evidence contracts/testing.md#behavioral-verification File instance and Blob byte/identity metadata checks also preserve name and lastModified.
- * @evidence contracts/testing.md#independent-expectations Source File metadata and independent byte reads anchor output.
- * @evidence contracts/testing.md#distinguishing-cases Empty/populated typed/dynamic/union File inputs remain caller-owned.
- * @evidence contracts/testing.md#execution-ownership This assertion helper is invoked by the five plain native feature cases; it does not own a standalone test or construct a typia producer. Caller-created inputs and emitted outputs define its executable coverage.
  */
 export const assertFileClone = async (
   label: string,
@@ -182,11 +157,6 @@ export const assertFileClone = async (
 /**
  * Asserts a cloned RegExp has the same source and flags and is a distinct
  * instance.
- *
- * @evidence contracts/testing.md#behavioral-verification RegExp instance/identity/source/flags and reset zero lastIndex are required; modifying each instance must leave the other state intact.
- * @evidence contracts/testing.md#independent-expectations Source text/flags and literal output state independently anchor cloning.
- * @evidence contracts/testing.md#distinguishing-cases Typed/dynamic/union/cross-realm cases are supplied by callers; source lastIndex is deliberately left at two and output restored to zero.
- * @evidence contracts/testing.md#execution-ownership This assertion helper is invoked by the five plain native feature cases; it does not own a standalone test or construct a typia producer. Caller-created inputs and emitted outputs define its executable coverage.
  */
 export const assertRegExpClone = (
   label: string,

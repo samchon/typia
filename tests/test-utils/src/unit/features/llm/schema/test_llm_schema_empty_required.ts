@@ -19,10 +19,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Compare the complete JSON-visible shells against independently authored
  *    literals.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema and parameters must return successful explicit properties/required shells; strict and parameter roots retain their distinct additionalProperties requirements.
- * @evidence contracts/testing.md#independent-expectations The authored input and public LLM object/parameters contract define the literal shell. The private clean helper removes undefined-valued metadata using native JSON serialization; it verifies JSON-visible shape rather than JavaScript optional-key presence.
- * @evidence contracts/testing.md#distinguishing-cases Default schema, strict schema and default parameters exercise three distinct entry/configuration combinations. Nonempty fields and recursive definitions are owned by the other direct schema cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_empty_required = (): void => {
   const nonStrict = LlmSchemaConverter.schema({

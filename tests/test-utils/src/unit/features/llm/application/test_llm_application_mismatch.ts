@@ -17,10 +17,6 @@ import { HttpLlm } from "@typia/utils";
  * 2. Compare the original rejected population and all diagnostic accessors.
  * 3. Correct only the three reference names and require valid body acceptance.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct HttpLlm.application must reject each missing request-body reference, assert zero functions, three errors and their accessors, and accept all three routes after only their reference names are corrected.
- * @evidence contracts/testing.md#independent-expectations Literal OpenAPI object definitions specify required numeric point coordinates, circle radius/center and rectangle endpoints. References ending in 1 have no matching definition; the diagnostic locations follow the authored path/requestBody positions rather than implementation-produced expectations.
- * @evidence contracts/testing.md#distinguishing-cases Point, circle and rectangle request bodies retain all three unresolved-reference diagnostics. One-axis corrected references must produce three callable functions without errors and accept their hand-authored bodies, distinguishing reference rejection from an implementation that rejects every operation.
- * @evidence contracts/testing.md#execution-ownership This exported case is registered by the plugin-free test-utils test:unit node:test runner. Reference-resolution assertions execute against authored schemas through HttpLlm directly. Native schema producer coverage remains in test-typia-schema and is not claimed by this unit.
  */
 export const test_llm_application_mismatch = (): void => {
   const collection: IJsonSchemaCollection = {

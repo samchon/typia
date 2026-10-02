@@ -14,10 +14,6 @@ declare const retained: unique symbol;
  * 2. Apply `OmitNever` to the object.
  * 3. Require only the ordinary string, number, and symbol data keys to remain.
  *
- * @evidence contracts/testing.md#behavioral-verification OmitNever must remove string, numeric and unique-symbol never fields while keeping neighboring data of all three key kinds.
- * @evidence contracts/testing.md#independent-expectations The handwritten three-kind data shape supplies the expected remaining keys, independently of SpecialFields or OmitNever.
- * @evidence contracts/testing.md#distinguishing-cases Each removed key has a retained adjacent key of the same kind; exact type equality rejects both omitted data and exposed impossible members.
- * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported OmitNeverPropertyKeyCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type OmitNeverPropertyKeyCases = [
   Assert<

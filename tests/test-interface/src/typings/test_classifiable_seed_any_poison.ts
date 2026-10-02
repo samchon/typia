@@ -14,10 +14,6 @@ import { Classifiable } from "@typia/interface";
  * 2. A `static from(x: unknown)` factory likewise contributes no widening arm.
  * 3. The resolved type stays the strict property shape, never `any`/`unknown`.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must resolve any/unknown factory inputs to strict property shapes rather than expose any or unknown acceptance.
- * @evidence contracts/testing.md#independent-expectations Handwritten id/name shapes establish the fallback contract independently of seed inference; type identity rejects absorbed any/unknown outputs.
- * @evidence contracts/testing.md#distinguishing-cases Any and unknown are separate unconstrained seed controls, with required numeric/string data making widened input distinguishable. Typed seed precedence is covered by the strategy cases.
- * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableSeedAnyPoisonCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableSeedAnyPoisonCases = [
   Assert<

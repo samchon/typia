@@ -12,10 +12,6 @@ import { LlmJson, dedent } from "@typia/utils";
  * 2. Remove common template indentation while preserving multiline values.
  * 3. Check empty, blank, mixed-indent and adjacent-interpolation boundaries.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct dedent results are compared with literal expected strings, and actual LlmJson failure feedback must preserve the supplied JSON string; dollar substitution, marker collisions, cascading substitution and interpolation indentation changes alter those assertions.
- * @evidence contracts/testing.md#independent-expectations Expected strings come from the template text's minimum indentation and verbatim String conversion of supplied values; no generated template or current implementation output supplies an oracle.
- * @evidence contracts/testing.md#distinguishing-cases Dollar metacharacters, marker-like literals and values, adjacent and multiline interpolations, empty and blank templates, tabs, scalar values and ordinary text distinguish preservation from accidental replacement and whitespace trimming.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit command registers this exported function with node:test under a config without the typia plugin; direct utility and feedback calls require no generated fixture, product native artifact or provider.
  */
 export const test_dedent_interpolation = (): void => {
   for (const value of [

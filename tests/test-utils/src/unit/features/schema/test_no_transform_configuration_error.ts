@@ -38,10 +38,6 @@ const EXPECTED = [
  * 2. Require the fallback to identify the API, supported toolchains, diagnostic
  *    command, unsupported compilers, and setup documentation.
  *
- * @evidence contracts/testing.md#behavioral-verification An indirect schema alias executes the runtime fallback and must throw an Error with the complete authored setup guidance.
- * @evidence contracts/testing.md#independent-expectations EXPECTED is written independently to pin the public fallback message; no generated schema is used as an oracle.
- * @evidence contracts/testing.md#distinguishing-cases Alias nontransformation, Error identity and full API/toolchain/install/diagnostic/unsupported-tool/docs text remain; successful transformed calls are owned by native schema cases.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_no_transform_configuration_error. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_no_transform_configuration_error = (): void => {
   const schema: () => never = typia.json.schema;

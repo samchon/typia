@@ -13,10 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Apply `Classifiable<Company>` once.
  * 3. Compare against the exhaustive plain shape, methods omitted throughout.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must equal the authored Company/Person/Address projections and accept the full mixed input while rejecting a missing nested age.
- * @evidence contracts/testing.md#independent-expectations PlainCompany/Person/Address are handwritten independent expected shapes; the missing-age expect-error directive requires the compiler to reject incomplete nested data.
- * @evidence contracts/testing.md#distinguishing-cases Three nested classes combine optional/readonly fields, boxed/native values, arrays/tuples, Set/Map and nullable records; valid and missing-age literals distinguish data preservation from overacceptance.
- * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableChaoticCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableChaoticCases = [
   Assert<IsEqual<Classifiable<Company>, PlainCompany>>,

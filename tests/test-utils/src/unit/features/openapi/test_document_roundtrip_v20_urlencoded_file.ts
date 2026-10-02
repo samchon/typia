@@ -18,10 +18,6 @@ import {
  * 2. Verify binary schemas and HTTP migration accept the resulting bodies.
  * 3. Downgrade again and assert the file field and media lists return.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter and HttpMigration.application run on Swagger 2 file form parameters for URL-encoded and dual media; the binary string schema, migration errors, round-trip file field and media lists are asserted.
- * @evidence contracts/testing.md#independent-expectations Swagger's rule that file parameters may use either form media type and the source document decide the expectations, which are authored.
- * @evidence contracts/testing.md#distinguishing-cases URL-encoded-only and dual-media file operations are positive cases; multipart-only files are covered by the form-data round-trip case.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and migration run in process on authored documents with no native build, installation or host.
  */
 export const test_document_roundtrip_v20_urlencoded_file = (): void => {
   const file = {

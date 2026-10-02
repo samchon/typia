@@ -13,10 +13,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Require the same valid value to pass under both branch permutations.
  * 3. Require invalid arrays to fail and object discriminators to keep detail.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs on array unions in both branch orders; the same valid value must pass, invalid arrays must fail and the object discriminator must report its property error.
- * @evidence contracts/testing.md#independent-expectations JSON Schema oneOf semantics decide acceptance independent of branch order; values are authored.
- * @evidence contracts/testing.md#distinguishing-cases Two orderings of overlapping array branches, valid and invalid arrays and an object discriminator pair distinguish a first-candidate commitment from a full evaluation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_array_union_permutation = (): void => {
   const pattern: OpenApi.IJsonSchema.IArray = {

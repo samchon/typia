@@ -14,10 +14,6 @@ import { OpenApiConverter, OpenApiValidator } from "@typia/utils";
  * 2. Require the emended union to hold only those enum values.
  * 3. Validate a value that the enum excludes and one that it admits.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema runs on mixed type arrays with enums and OpenApiValidator checks values against each result, so a retained member for a type without an enum value changes acceptance of strings, booleans and null.
- * @evidence contracts/testing.md#independent-expectations JSON Schema defines type and enum as simultaneous constraints, so a value is valid only when both hold; the accepted and rejected values and the const members are derived from that rule.
- * @evidence contracts/testing.md#distinguishing-cases Compatible numbers, strings, integers and explicit null retain their members; disjoint enums, fractional integer values and empty enums reject every input. Null absent from the type array is rejected even when present in the enum. Public 3.1/3.2 document conversion and three downversion roundtrips retain these authored acceptance sets and annotations.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion and validation run in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_upgrade_v31_mixed_type_enum = (): void => {
   const numbers = upgrade({

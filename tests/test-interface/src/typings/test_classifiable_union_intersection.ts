@@ -13,10 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Apply `Classifiable` and compare against the distributed / merged shape.
  * 3. Confirm a discriminated union narrows correctly after classification.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must distribute class/primitive/nullish unions, absorb callable/never arms, merge class intersections and retain discriminant checking.
- * @evidence contracts/testing.md#independent-expectations Handwritten PlainCat/PlainDog/PlainAnimalTagged outputs state expected retained data; an invalid fish discriminant must consume expect-error rather than silently typecheck.
- * @evidence contracts/testing.md#distinguishing-cases Class unions/intersections, primitive/null/undefined/callable arms, never, nested union and valid/invalid discriminants distinguish each variance and filtering category.
- * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableUnionIntersectionCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableUnionIntersectionCases = [
   // union of classes distributes member-wise

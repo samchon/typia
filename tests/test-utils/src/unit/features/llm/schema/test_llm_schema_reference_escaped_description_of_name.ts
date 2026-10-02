@@ -15,10 +15,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Retain reference presence and compare every exact pointer and numeric target
  *    field.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.parameters retains the deep reference and exact deep/nested/something bindings and numeric z/y/x targets without namespace prose.
- * @evidence contracts/testing.md#independent-expectations Authored qualified component names and independent required numeric target subsets establish expected bindings; no expected pointer is read from converter output. Exact generated descriptor prose is not certified here.
- * @evidence contracts/testing.md#distinguishing-cases The same three qualification depths with descriptions absent distinguish name resolution from prose availability; the documented namespace sibling retains the corresponding prose-bearing input.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. Inline OpenAPI or LLM fixtures establish portable input meaning independently; local private helpers are reviewed through this owning case. Native JSON/LLM emission and JSDoc extraction remain in their existing schema/spec batches.
  */
 export const test_llm_schema_reference_escaped_description_of_name =
   (): void => {

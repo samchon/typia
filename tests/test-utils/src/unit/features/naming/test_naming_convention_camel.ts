@@ -18,10 +18,6 @@ import { NamingConvention } from "@typia/utils";
  *    (#2193), including the `a_b_c` single-char-middle asymmetry.
  * 3. Convert degenerate inputs (empty, underscores only, single word).
  *
- * @evidence contracts/testing.md#behavioral-verification Direct camel conversion asserts exact strings, catching loss of trailing underscores and incorrect lowercasing around underscore/case boundaries.
- * @evidence contracts/testing.md#independent-expectations Literal tables encode the documented camel and CamelCase spellings independently of the converter; no notation transform generates these expectations.
- * @evidence contracts/testing.md#distinguishing-cases Plain camel and Pascal names, underscore boundaries, acronym runs, single-character segments, leading/trailing/repeated underscores and empty input pin changed and preserved characters.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_camel = (): void => {
   const expectations: [string, string][] = [

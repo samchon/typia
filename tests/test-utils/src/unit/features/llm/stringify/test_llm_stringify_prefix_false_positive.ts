@@ -11,10 +11,6 @@ import { LlmJson } from "@typia/utils";
  * 1. Author failure data and error paths for the stated scenarios.
  * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.stringify calls assert similarly prefixed keys do not expose unrelated undefined data; authored failure objects reach the shared runtime renderer without a compiler-produced validator.
- * @evidence contracts/testing.md#independent-expectations Literal values, error paths and expected fields follow the documented annotated-feedback contract; native JSON spelling supplies the value meaning. These retained presence assertions do not establish complete-output equivalence.
- * @evidence contracts/testing.md#distinguishing-cases This case owns three prefix pairs with explicit negative undefined-property assertions. Complementary direct cases preserve their own assertion identity.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test and imports the plugin-free shared oracle; no native producer, installed consumer or host is needed to execute its authored failure objects.
  */
 export const test_llm_stringify_prefix_false_positive = (): void => {
   // Test: hasErrorsAtOrUnder must NOT match "$input.names" when prefix is "$input.name"

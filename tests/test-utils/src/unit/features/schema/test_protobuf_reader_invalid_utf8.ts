@@ -15,10 +15,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 2. Reject every authoritative malformed UTF-8 class with one stable error.
  * 3. Read the same malformed octets through `bytes()` without changing them.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct string reads reject malformed UTF-8 with the exact encoding error; identical bytes reads preserve every raw octet and framing faults keep their own error.
- * @evidence contracts/testing.md#independent-expectations Authored text roundtrips use the platform TextEncoder reference, while handwritten malformed sequences distinguish UTF-8 invalidity from length overflow.
- * @evidence contracts/testing.md#distinguishing-cases All nine valid texts, six malformed UTF-8 classes and three truncated frames retain their positive, negative and BOM-preservation controls.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_reader_invalid_utf8. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_protobuf_reader_invalid_utf8 = (): void => {
   for (const [label, text] of VALID_TEXTS) {

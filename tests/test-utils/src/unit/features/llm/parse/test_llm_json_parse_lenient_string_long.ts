@@ -11,10 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    segments, 200 numbered keys and 500 array elements.
  * 2. Compare the retained results with literal expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
- * @evidence contracts/testing.md#independent-expectations Repeated literal characters, authored escape segments, numbered keys and integer sequences construct expectations independently of parsing; no expected value is obtained from LlmJson.
- * @evidence contracts/testing.md#distinguishing-cases This case owns 10000 literal characters, 500 independently constructed escape segments, 200 numbered keys and 500 array elements; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_string_long = (): void => {
   // Very long string value

@@ -21,10 +21,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Compare exact description strings and assert removal of the original default
  *    field.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema executes strict conversion directly and exact description/default-removal assertions distinguish missing defaults, wrong order or spelling and lost nested defaults.
- * @evidence contracts/testing.md#independent-expectations Each expected description is authored independently from the documented strict description-tag representation and literal numeric values; none is read from converter output. The optional reads explicitly expose a lost description as null in the failure report.
- * @evidence contracts/testing.md#distinguishing-cases Integer zero/negative and number fractional/scientific defaults, existing descriptions and other constraints, direct properties, array items, union branches and named references keep all distinctions. Non-strict numeric retention is a separate converter concern, not certified here.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_strict_numeric_default = (): void => {
   const cases: Array<{

@@ -15,10 +15,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Assert success, two union alternatives and the independently expected
  *    referenced enum.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.schema is exercised directly; the result must succeed, contain two alternatives and write the named definition with values four and five.
- * @evidence contracts/testing.md#independent-expectations Literal OpenAPI const values three, four and five define the expected cardinality and named enum independently of the converter. The assertions do not separately compare every inline alternative field; their exact contribution is success, cardinality and referenced values.
- * @evidence contracts/testing.md#distinguishing-cases The inline constant and named two-constant branch own different provenance. Reference encoding, missing references and recursive definitions are exercised by their dedicated direct cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_enum_reference = (): void => {
   const components: OpenApi.IComponents = {

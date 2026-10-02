@@ -5,10 +5,6 @@ import { _randomNumber } from "typia/lib/internal/_randomNumber";
 /**
  * Verifies finite scalar generation across binary64 boundary cases.
  *
- * @evidence contracts/testing.md#behavioral-verification Both actual scalar generators execute with fixed source draws over overflowing widths. Integer exclusive bounds exercise positive and negative magnitudes where adding one cannot advance the bound; number exclusivity exercises adjacent and subnormal endpoints and an impossible interval.
- * @evidence contracts/testing.md#independent-expectations Authored finite interval predicates and literal binary64 successor values establish independent expectations. Ordinary integer and number endpoint literals preserve existing arithmetic, without deriving expected values from another generated validator.
- * @evidence contracts/testing.md#distinguishing-cases Zero, midpoint and near-one draws cover opposite-sign extreme intervals, same-sign controls, signed large exclusive endpoints, adjacent representable numbers, subnormals and standard midpoint fallback. Counted draws preserve one source invocation; an empty interval fails without sampling.
- * @evidence contracts/testing.md#execution-ownership The plugin-free unit runner registers this exported function and invokes the owning portable helpers directly. Native generator callback and tagged schema tests retain their separate transformation wiring coverage.
  */
 export const test_random_scalar_extreme_bounds = (): void => {
   for (const draw of [0, 0.5, 1 - Number.EPSILON]) {

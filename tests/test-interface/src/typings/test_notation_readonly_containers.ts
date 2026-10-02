@@ -12,10 +12,6 @@ import { CamelCase, KebabCase, PascalCase, SnakeCase } from "@typia/interface";
  * 2. Pin optional-only tuples and mutable sets/maps separately.
  * 3. Keep the transformed nested member keys specific to each naming family.
  *
- * @evidence contracts/testing.md#behavioral-verification All four notation aliases must preserve container readonlyness, optional/rest tuple positions and mutable collection forms while renaming nested data.
- * @evidence contracts/testing.md#independent-expectations Authored SnakeItem/CamelItem/PascalItem/KebabItem shapes and a shared container construction specify expected structure independently of notation.
- * @evidence contracts/testing.md#distinguishing-cases Readonly arrays, optional-only/fixed/rest tuples, readonly Set/Map and mutable Set/Map distinguish collection preservation and per-family key conversion.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks NotationReadonlyContainerCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type NotationReadonlyContainerCases = [
   Assert<

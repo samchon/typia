@@ -8,10 +8,6 @@ import path from "path";
  * followed, so directory cycles cannot expand this fixture walk. Callers read
  * and parse each file afresh; this helper shares no mutable document state.
  *
- * @evidence contracts/testing.md#behavioral-verification This support operation returns regular JSON filenames for the document cases and rejects a zero-file run rather than allowing their assertions to pass vacuously. test_json_fixture_population independently exercises flat, nested, ignored-file and empty states.
- * @evidence contracts/testing.md#independent-expectations Directory-entry kinds and the JSON extension determine enrollment; expected fixture paths are authored by the unit case rather than derived from this operation's output. Each consumer parses its own fresh document.
- * @evidence contracts/testing.md#distinguishing-cases The reader distinguishes flat files, nested directories, non-JSON entries and empty populations. Symlinks are not followed; inaccessible directories reject through the filesystem API.
- * @evidence contracts/testing.md#execution-ownership Document integration cases call this portable helper before native assertions. The plugin-free test_json_fixture_population unit supplies an owned temporary tree and releases it in finally, without a producer or host.
  */
 export const _readJsonFixturePaths = async (
   root: string,

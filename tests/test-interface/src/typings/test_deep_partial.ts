@@ -11,10 +11,6 @@ import { DeepPartial } from "@typia/interface";
  * 2. Apply through arrays of objects.
  * 3. Confirm primitives and functions are returned as-is.
  *
- * @evidence contracts/testing.md#behavioral-verification DeepPartial must optionalize nested records and array element records while retaining primitive arrays, numbers and callable signatures.
- * @evidence contracts/testing.md#independent-expectations Handwritten optional object types and unchanged input primitive/callable types supply independent expected results.
- * @evidence contracts/testing.md#distinguishing-cases Nested versus scalar values, object arrays versus primitive arrays, and callable identity distinguish recursion from blanket optional mapping; the authored empty nested value also typechecks.
- * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported DeepPartialCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type DeepPartialCases = [
   Assert<

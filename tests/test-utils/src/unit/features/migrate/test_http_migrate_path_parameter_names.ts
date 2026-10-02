@@ -12,10 +12,6 @@ import { HttpMigration } from "@typia/utils";
  * 2. Compare the resulting placeholder schemas and synthesized parameter.
  * 3. Require deterministic errors for duplicate and incompatible name sets.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application and HttpMigration.execute are run on ordered, reversed, missing, repeated, duplicate and wrong-name path parameter declarations; the resulting schemas, synthesized parameters, route omissions, diagnostics and request paths are compared.
- * @evidence contracts/testing.md#independent-expectations The expected join follows the OpenAPI rule that placeholders match parameters by name; schemas and diagnostics are authored literals, not snapshots of the migrator.
- * @evidence contracts/testing.md#distinguishing-cases A reversed declaration order is the positive regression, while missing, repeated, duplicate and wrong names are the boundary and rejection cases, repeated for several OpenAPI versions and an embedded special key.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration and request construction run in process with no native build, installation or host.
  */
 export const test_http_migrate_path_parameter_names =
   async (): Promise<void> => {

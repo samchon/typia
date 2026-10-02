@@ -18,10 +18,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  * 2. Compose the application through `HttpLlm.application()`.
  * 3. Assert `application.version` mirrors `document.info.version`.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpLlm.application is composed from the upgraded fixture and its version is compared with the document's info.version; discarding or defaulting the version changes the comparison.
- * @evidence contracts/testing.md#independent-expectations The expected value is read from the fixture's own info.version, a literal in swagger.json, not from the application. The fixture version is a development string, so only verbatim pass-through is established.
- * @evidence contracts/testing.md#distinguishing-cases One document with a version is the positive case. A document without info.version, an empty version or a custom override is not covered by this case.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The swagger fixture is read from disk and composed in process with no native build, installation or host.
  */
 export const test_http_llm_application_version = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

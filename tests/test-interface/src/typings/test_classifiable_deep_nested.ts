@@ -13,10 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Apply `Classifiable` at every level.
  * 3. Compare against the exhaustive plain shape, methods omitted throughout.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must equal each authored Engine/Wheel/Car/Garage/Dealer projection and accept the deeply populated plain Dealer value.
- * @evidence contracts/testing.md#independent-expectations Five handwritten Plain interfaces establish recursively stripped methods and retained native/readonly data without deriving outputs from the alias.
- * @evidence contracts/testing.md#distinguishing-cases Class, array and fixed-tuple paths with optional/readonly members and native leaves cover every declared level. The test asserts exact shapes and a valid assignment, not a runtime reconstruction.
- * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableDeepNestedCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableDeepNestedCases = [
   Assert<IsEqual<Classifiable<Engine>, PlainEngine>>,

@@ -13,10 +13,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * 2. Escape a recursive reference with recursion disabled.
  * 3. Require both failures to name the escape operation.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiTypeChecker.escape runs on a dangling reference and on a recursive one with recursion disabled, and the reported method of each failure is compared, so a wrong operation name changes the result.
- * @evidence contracts/testing.md#independent-expectations The expected name is the public operation's own name, `OpenApiTypeChecker.escape`, which follows from the exported identifier and not from the implementation's computation.
- * @evidence contracts/testing.md#distinguishing-cases Two different failure causes, a missing component and disallowed recursion, each report the method, and a successful escape of a non-reference schema is the adjacent case that must report no error.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json; the operation runs in process on authored components with no native build, installation or host.
  */
 export const test_openapi_type_checker_escape_error_method = (): void => {
   const components: OpenApi.IComponents = {

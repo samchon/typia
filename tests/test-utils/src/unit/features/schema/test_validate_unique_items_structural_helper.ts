@@ -12,10 +12,6 @@ import { _isUniqueItems } from "typia/lib/internal/_isUniqueItems";
  * 2. Preserve ordering, visible-byte, brand, key and cyclic-state distinctions.
  * 3. Keep optional platform branches without replacing absent constructors.
  *
- * @evidence contracts/testing.md#behavioral-verification The original assertUnique matrix invokes _isUniqueItems directly and compares every result to its original handwritten boolean. A wrong primitive, key, container, view, native-brand or cycle relation fails its named assertion.
- * @evidence contracts/testing.md#independent-expectations All expected verdicts are fixed booleans beside authored input pairs. No generated predicate, clone, schema or second typia producer computes the expected relation.
- * @evidence contracts/testing.md#distinguishing-cases Every original empty/single/primitive/mixed pair, both array orders, own/symbol keys, null prototypes, unordered sets/maps, boxed values, dates/regexp, visible views/typed arrays/buffers, conditional Blob/File/shared buffers and equal/unequal cycles remains unchanged.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner registers test_validate_unique_items_structural_helper. Fresh local values and direct runtime helper calls require no native producer, fixture file, process or cache; generated tag wiring remains in test_validate_unique_items_structural.
  */
 export const test_validate_unique_items_structural_helper = (): void => {
   const duplicateObject = { id: 1 };

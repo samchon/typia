@@ -21,10 +21,6 @@ import { HttpMigration, OpenApiConverter } from "@typia/utils";
  *    name and accessor, that migrating the migrated document again keeps every
  *    name, and that a failed route takes no name from a valid one.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application migrates an authored document whose routes derive the same component name and the resulting route schemas, preexisting component, reordered-document, re-migrated, downgraded and failed-route outputs are compared; an overwrite, unstable name or stolen name changes an assertion.
- * @evidence contracts/testing.md#independent-expectations The input document is the oracle: each route's expected property keys, plain component names and accessors are authored literals following the documented naming rule, and the reversed, re-migrated and downgraded runs are compared with the first migration only for order and idempotence invariants, not for their absolute names.
- * @evidence contracts/testing.md#distinguishing-cases Colliding response, query and body pairs, dotted versus dashed paths, a component the document already owns, a failed sibling route and key-reordering conversions each flip a collision or renaming decision; a document with no collision is not asserted here beyond the plain names.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration and downgrade run in process on authored documents with no native build, installation or host.
  */
 export const test_http_migrate_component_name_collision = (): void => {
   const object = (key: string): OpenApi.IJsonSchema.IObject => ({

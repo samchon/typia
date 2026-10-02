@@ -11,10 +11,6 @@ import { OmitNever } from "@typia/interface";
  * 2. Confirm optional and `undefined`-valued members are retained.
  * 3. Reduce an all-`never` object to the empty object type.
  *
- * @evidence contracts/testing.md#behavioral-verification OmitNever must remove impossible fields while retaining ordinary, optional and undefined-valued data, including unchanged and all-never controls.
- * @evidence contracts/testing.md#independent-expectations Authored output objects state exact retained keys and modifiers; the empty object expectation follows omission of all impossible fields.
- * @evidence contracts/testing.md#distinguishing-cases Mixed, optional/undefined, all-never and no-never inputs distinguish selective omission from blanket deletion or identity.
- * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported OmitNeverCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type OmitNeverCases = [
   Assert<

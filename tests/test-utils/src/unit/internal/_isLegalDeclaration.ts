@@ -23,10 +23,6 @@ import vm from "node:vm";
  *   Inputs are authored fixture identifiers or names produced from those
  *   fixtures. This parser oracle does not sanitize arbitrary source fragments.
  *
- * @evidence contracts/testing.md#behavioral-verification The helper compiles the generated declaration with node:vm in strict async mode and reports whether the engine accepts it, so a reserved word, duplicate parameter or invalid identifier is rejected exactly as the engine would.
- * @evidence contracts/testing.md#independent-expectations The JavaScript engine is the oracle and shares no code with NamingConvention or the migrator that produced the names.
- * @evidence contracts/testing.md#distinguishing-cases The helper owns no cases; the migration unit cases supply legal and illegal names and read the boolean.
- * @evidence contracts/testing.md#execution-ownership It runs in process inside the plugin-free test-utils test:unit command and only compiles a script without executing it.
  */
 export const _isLegalDeclaration = (props: {
   name: string;

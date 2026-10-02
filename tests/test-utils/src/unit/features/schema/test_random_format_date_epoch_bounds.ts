@@ -18,10 +18,6 @@ import { _randomFormatDatetime } from "typia/lib/internal/_randomFormatDatetime"
  * 3. Require `maximum: 0` to mean the epoch itself rather than `NaN`, and the
  *    unbounded call to keep its present-day upper bound.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct date/datetime generators honor the declared epoch window, maximum:0 and unbounded present-day control.
- * @evidence contracts/testing.md#independent-expectations Literal calendar bounds and platform Date parsing establish the closed UTC window independently of random output.
- * @evidence contracts/testing.md#distinguishing-cases The 200 draws of both generators, epoch-zero expectation and unbounded positive control remain; samples do not certify a probability distribution.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_random_format_date_epoch_bounds. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_random_format_date_epoch_bounds = (): void => {
   const minimum: number = Date.UTC(2000, 0, 1);

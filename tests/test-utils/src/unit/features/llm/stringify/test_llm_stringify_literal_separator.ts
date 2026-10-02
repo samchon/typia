@@ -13,10 +13,6 @@ import assert from "node:assert/strict";
  * 2. Contrast non-last siblings with last values and missing-element placeholders.
  * 3. Check compound values and toJSON results through the same public operation.
  *
- * @evidence contracts/testing.md#behavioral-verification Actual LlmJson.stringify calls compare complete fenced output for arrays, complex object properties and toJSON values; comments retain the complete authored path, expected type and description rather than merely containing an error marker.
- * @evidence contracts/testing.md#independent-expectations Native JSON.stringify supplies the spelling of authored string values and error-field objects; literal container layout and separators follow the documented annotated JSON contract. No expected output is obtained from the feedback renderer.
- * @evidence contracts/testing.md#distinguishing-cases Marker text in values, expected types, descriptions and escaped strings contrasts with ordinary text and absent errors; last and non-last siblings, missing placeholders, empty compounds and toJSON primitive results distinguish separator placement from marker search.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this public runtime case through node:test without a native producer or consumer installation; authored failure objects exercise the renderer directly.
  */
 export const test_llm_stringify_literal_separator = (): void => {
   const spellings = ["ordinary", "data // ❌ fake", 'quote " // ❌ \\ fake'];

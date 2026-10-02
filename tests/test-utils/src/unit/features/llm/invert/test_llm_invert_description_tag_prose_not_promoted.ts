@@ -22,10 +22,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 3. Assert no constraint keyword is invented.
  * 4. Assert the description survives verbatim.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.invert runs on a non-strict string leaf whose description contains tag-like text; the compared constraint keywords and the verbatim description fail if prose is promoted to a keyword or edited.
- * @evidence contracts/testing.md#independent-expectations The input is hand-built and the expected leaf is the all-undefined keyword set plus the unchanged description; the strict-mode tag shifting rule that makes @minimum a constraint is the documented contract, not the inversion output. The strict counterpart is owned by sibling conversion cases.
- * @evidence contracts/testing.md#distinguishing-cases A non-strict leaf with @minimum and @maxLength prose is the negative case where nothing may be promoted; the strict positive case lives in other inversion cases. Only a string leaf is exercised.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. LlmSchemaConverter.invert runs in process on an authored schema with no native build, installation or host.
  */
 export const test_llm_invert_description_tag_prose_not_promoted = (): void => {
   const description: string = [

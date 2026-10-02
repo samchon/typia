@@ -12,10 +12,6 @@ import assert from "node:assert/strict";
  * 2. Change one field at a time and require the guard to reject at that path.
  * 3. Preserve the former ordinary-assert surplus/undefined/sparse-array policy.
  *
- * @evidence contracts/testing.md#behavioral-verification ProtobufVarintCorpus.parse runs directly on valid and one-axis malformed documents. Identity checks pin borrowing, and each rejected shape must throw a TypeError identifying the altered field path; accepting a malformed row or dropping a field check fails.
- * @evidence contracts/testing.md#independent-expectations Expected acceptance comes from the original IDocument/IEntry declarations: required strings, string arrays/records, lowercase complete hex pairs, signed int32 consumed, nullable string value and three fault literals. No reader or generated validator supplies expected results. Surplus properties, default undefined record values and Array.every sparse slots are explicit compatibility controls traced to the former checker.
- * @evidence contracts/testing.md#distinguishing-cases All required document and row fields have malformed twins, including missing values, null objects, wrong containers, invalid hex, fractional/nonfinite/one-past-int32 counts, invalid value/fault domains, and empty entries. Both signed extrema, empty bytes, nullable values, every fault class and permitted structural extras remain positive controls.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_varint_corpus_shape under tsconfig.unit.json and --no-plugins. Pure parse calls use fresh local documents, do not read or alter the corpus file/cache, and need no producer artifact or external process.
  */
 export const test_protobuf_varint_corpus_shape = (): void => {
   const baseline = document();

@@ -10,10 +10,6 @@ import { ClassifyResult } from "@typia/interface";
  * non-class type the result is `T` unchanged. The conditional distributes over
  * a union, so a mixed `typeof A | number` maps per-member to `A | number`.
  *
- * @evidence contracts/testing.md#behavioral-verification ClassifyResult must turn constructor types into instances, preserve nonconstructors and distribute across mixed unions.
- * @evidence contracts/testing.md#independent-expectations Original Point/Secret instance types and authored number/object unions establish result identity independently of the helper.
- * @evidence contracts/testing.md#distinguishing-cases Public/private constructors, instance/plain/primitive types and constructor-plus-number union distinguish construction from identity and nondistributive mapping.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifyResultCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifyResultCases = [
   // class TYPE (typeof C) -> the INSTANCE, not the constructor

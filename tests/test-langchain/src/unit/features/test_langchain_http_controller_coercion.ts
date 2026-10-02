@@ -19,11 +19,6 @@ import { HttpLlm } from "@typia/utils";
  * 2. Inject an `execute` that records the arguments it receives.
  * 3. Invoke the operation with a stringified operand.
  * 4. Assert the recorded body is coerced to numbers and the call succeeds.
- *
- * @evidence contracts/testing.md#behavioral-verification The actual DynamicStructuredTool invocation coerces body.x from string 42 to number 42, and the injected executor observes body {x:42,y:5} before returning successful value 47.
- * @evidence contracts/testing.md#independent-expectations The authored numeric body schema and literal dispatched arguments/sum are expectations independent of conversion or callback output.
- * @evidence contracts/testing.md#distinguishing-cases An authored numeric string exercises pre-dispatch coercion; invalid numeric text is rejected by the HTTP validation sibling, and this case starts no HTTP connection.
- * @evidence contracts/testing.md#execution-ownership test-langchain test:unit explicitly registers this export with node:test under a plugin-free project. Authored OpenAPI metadata reaches the public in-process DynamicStructuredTool API without a native producer, installed host, model endpoint or HTTP transport.
  */
 export const test_langchain_http_controller_coercion =
   async (): Promise<void> => {

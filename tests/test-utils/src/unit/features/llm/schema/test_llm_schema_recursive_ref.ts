@@ -15,10 +15,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Compare success, the complete independently authored definition and the root
  *    reference.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter.schema calls must populate the complete Department definition and return its local reference; literal graph comparison distinguishes missing fields and broken recursive reference spelling.
- * @evidence contracts/testing.md#independent-expectations The hand-written OpenAPI properties/required list and public component-to-definitions reference mapping establish the expected literal graph independently of converter output.
- * @evidence contracts/testing.md#distinguishing-cases The object, required scalar and recursive array member contribute distinct shape requirements; malformed and unresolved references are exercised by json_pointer_references and reserved_references.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_recursive_ref = (): void => {
   const $defs: Record<string, ILlmSchema> = {};

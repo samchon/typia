@@ -12,10 +12,6 @@ import { CamelCase } from "@typia/interface";
  * 2. Camelize through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
  *
- * @evidence contracts/testing.md#behavioral-verification CamelCase must produce the authored key battery and nested object/array shapes while preserving Date and converting methods to never.
- * @evidence contracts/testing.md#independent-expectations Explicit ExpectedBattery and nested output types state the supported spelling and projection rules; generic-function identity compares the whole type rather than using CamelCase to build expectations.
- * @evidence contracts/testing.md#distinguishing-cases Snake, Pascal, all-caps, leading underscores, digits and already-camel keys are paired with unchanged native values and removed callable values; nested objects and arrays pin recursion.
- * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported CamelCaseCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type CamelCaseCases = [
   Assert<IsEqual<CamelCase<Battery>, ExpectedBattery>>,

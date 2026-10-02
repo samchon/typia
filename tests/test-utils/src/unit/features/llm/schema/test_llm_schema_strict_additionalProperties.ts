@@ -16,10 +16,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Retain the original root/nested subset assertions and contrast default mode
  *    at both levels.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter.schema must set additionalProperties false at the root and array-item object; default mode must not add either closure.
- * @evidence contracts/testing.md#independent-expectations The documented strict object contract defines the authored expected subset; the same independent input is converted under the opposite option for the negative twin.
- * @evidence contracts/testing.md#distinguishing-cases Root and nested array object closure plus the strict/default option difference are asserted. This subset intentionally does not certify unrelated fields; native strict generation stays in its matrix.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from declared fields rather than generated at execution. Private local helpers remain reviewed through this owning case.
  */
 export const test_llm_schema_strict_additionalProperties = (): void => {
   const collection: IJsonSchemaCollection = {

@@ -25,10 +25,6 @@ import {
  * 2. Assert own-key presence, unchanged prototypes, unresolved-reference failure
  *    and version-conversion preservation.
  *
- * @evidence contracts/testing.md#behavioral-verification Actual LLM/OpenAPI converter and coverage operations verify own definition keys, prototype identity, failure for inherited-only definitions and termination of cyclic coverage.
- * @evidence contracts/testing.md#independent-expectations Authored reserved keys and explicit expected booleans/undefined values establish ownership and absence. Prototype comparisons use native Object.prototype identity rather than a produced schema as an oracle. Own-key checks establish preservation of names without claiming every unasserted field of version-converted definitions.
- * @evidence contracts/testing.md#distinguishing-cases toString/constructor/__proto__, nested and self-recursive references, inherited-only names, cyclic LLM aliases, absent components store and Swagger/OpenAPI 2.0/3.0/3.1 conversion keep their positive and negative distinctions.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test under a plugin-free configuration and oracle. Its inputs are authored literals and direct utility calls; no native producer, installed artifact or product host is required. Private local assertion/reference helpers remain part of this case's review.
  */
 export const test_llm_schema_reserved_references = (): void => {
   const schemas = Object.fromEntries([

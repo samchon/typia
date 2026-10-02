@@ -17,10 +17,6 @@ import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
  * 3. Assert every allocated key is legal, keys stay distinct and the mapping is
  *    order independent.
  *
- * @evidence contracts/testing.md#behavioral-verification invert is run on definitions with problematic keys in several orders and the allocated component keys, their legality, distinctness and the property-to-key mapping are asserted.
- * @evidence contracts/testing.md#independent-expectations The Components Object key grammar defines legality and the authored key list defines distinctness; legal controls must keep their names.
- * @evidence contracts/testing.md#distinguishing-cases Legal controls, encoded keys and keys that collide after escaping (for example _x2F_ and /) are the rows, each checked for order independence.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The inversion runs in process on authored definitions with no native producer.
  */
 export const test_llm_invert_openapi_component_names = (): void => {
   const keys: string[] = [

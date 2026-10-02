@@ -15,10 +15,6 @@ import { _test_llm_invert } from "../../../internal/_test_llm_invert";
  * 2. Reject a different target, missing target, inherited target and alias cycle.
  * 3. Compare independently authored recursive objects without infinite expansion.
  *
- * @evidence contracts/testing.md#behavioral-verification The actual _test_llm_invert helper accepts equivalent string targets despite pointer escaping and aliases, rejects number targets and invalid component graphs, and terminates on recursive object schemas.
- * @evidence contracts/testing.md#independent-expectations Literal string versus number schemas establish the intended verdict without native generation; RFC 6901 makes A~1B~0C denote A/B~C. The oracle decodes pointers itself to preserve reference siblings and distinguish definition contents without using the converter's reference-resolution result as its expectation.
- * @evidence contracts/testing.md#distinguishing-cases Plain, slash/tilde and percent-encoded equivalent references, aliases, changed type, missing and inherited entries, alias cycles, recursive objects and reference-shaped example data remain distinct inputs.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers this exported case. Both LLM and JSON schemas are authored values; no typia schema call, native artifact, consumer installation or host is required by its operations.
  */
 export const test_llm_invert_oracle_references = (): void => {
   const compare = (

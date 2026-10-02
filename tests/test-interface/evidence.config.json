@@ -4,8 +4,8 @@
     {
       "name": "TypeScript test declarations",
       "type": "typescript",
-      "files": ["src/**/*.ts"],
-      "symbol": ["type", "function"],
+      "files": ["src/features/**/test_*.ts"],
+      "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",

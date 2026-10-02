@@ -16,10 +16,6 @@ import assert from "node:assert/strict";
  *    members, return stale or malformed text, or answer an omitted value.
  * 3. Require every rejection to carry the scenario's own failure message.
  *
- * @evidence contracts/testing.md#behavioral-verification The maintained prepareStringify check judges real callbacks. Faithful serializers pass; mutate-then-serialize, dropped member, extra member, stale text, malformed text, non-string results and a defined result for an omitted value all throw the scenario message.
- * @evidence contracts/testing.md#independent-expectations The reference is JSON.stringify of the authored input captured before the callback, and authored literals define each callback's wrong data; neither the callback's text nor the post-callback input supplies the expectation. The mutate-then-serialize case is the regression the earlier post-callback reference accepted.
- * @evidence contracts/testing.md#distinguishing-cases The faithful serializer is the control for each one-axis negative: edited input, changed member value, dropped key, added key, array element loss, stale text, malformed text and a wrong undefined result. Omitted-value, toJSON and nested-array inputs show the check does not reject legitimate JSON semantics. Date and Map content is left to the equality oracle's own case.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case with node:test under the plugin-free tsconfig.unit.json; the check runs in process on authored values with no native host. The automated stringify helpers call the same check around their native producers.
  */
 export const test_stringify_oracle_input_ownership = (): void => {
   const MESSAGE: string = "stringify failure";

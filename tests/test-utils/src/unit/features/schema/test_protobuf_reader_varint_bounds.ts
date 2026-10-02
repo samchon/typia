@@ -30,10 +30,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 3. Preserve the decoded value of every accepted row, exact pointer advancement,
  *    and the trailing byte behind it.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct runtime scalar/bool/skip readers consume every protowire corpus row, assert independently projected values and consumed indices, and preserve exact faults/atomic framing restoration. The corpus loader is a portable shape guard with no generated producer dependency.
- * @evidence contracts/testing.md#independent-expectations The unchanged shared JSON corpus is held against google.golang.org/protobuf by its Go unit owner. BigInt signed-width/ZigZag projections supply scalar expectations, fixed error mapping pins fault classes, and the bool maximum control is authored separately because the corpus does not establish bool values.
- * @evidence contracts/testing.md#distinguishing-cases All seven value readers and the skipper cross every accepted/rejected row. Malformed bytes/string/fork/LEN/VARIANT/group-length/group-tag contexts, equal-width overlong/overflow distinction, trailing-byte indices and legal ten-byte bool maximum remain unchanged.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_reader_varint_bounds under tsconfig.unit.json and --no-plugins. The shared template helper validates and loads the unchanged oracle corpus directly; no native plugin, artifact build or process host is needed.
  */
 export const test_protobuf_reader_varint_bounds = (): void => {
   const entries: ProtobufVarintCorpus.IEntry[] = ProtobufVarintCorpus.entries();

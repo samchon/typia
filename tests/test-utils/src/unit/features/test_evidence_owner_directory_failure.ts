@@ -15,10 +15,6 @@ import path from "node:path";
  * 2. Check missing packages, then missing tests after creating packages.
  * 3. Remove the owned fixture on both success and failure.
  *
- * @evidence contracts/testing.md#behavioral-verification The real root checkEvidence function must return status 2 for missing packages and missing tests instead of exposing ENOENT to its caller.
- * @evidence contracts/testing.md#independent-expectations The documented incomplete-analysis status is 2; literal fixture directory states independently determine that discovery cannot finish before any checker process starts.
- * @evidence contracts/testing.md#distinguishing-cases Missing packages and present packages with missing tests exercise distinct discovery failures. This case does not verify normal checker aggregation; the official root pnpm evidence command executes that path.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers this exported case. It directly loads the maintained root function and uses an owned temporary filesystem fixture; discovery fails before launching a CLI, native producer or host.
  */
 export const test_evidence_owner_directory_failure = (): void => {
   const { checkEvidence } = require(

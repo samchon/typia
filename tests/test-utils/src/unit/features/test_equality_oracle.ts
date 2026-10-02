@@ -30,10 +30,6 @@ import assert from "node:assert/strict";
  * Native `node:assert` checks the comparison outcomes and diagnostic paths; the
  * oracle under test never decides whether those expectations pass.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct equals, subset, difference and thrown calls exercise the shared oracle; native assertions verify success, rejection, diagnostic paths and exception messages instead of using that same oracle to certify itself.
- * @evidence contracts/testing.md#independent-expectations Literal equality pairs follow the documented content, identity and ignored-property contract; node:assert checks the boolean probes and literal diagnostic paths without calling TestEquality again to establish the result.
- * @evidence contracts/testing.md#distinguishing-cases Both argument orders distinguish equal and unequal primitives, missing keys, array elements, dates, maps, sets, binary values, errors and cycles; subsets permit only extra object keys, exception callbacks reach nested members, and synchronous probes preserve messages while refusing object asynchronous results. Callable asynchronous results and rejection observation are owned by test_equality_async_result_refusal.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case through node:test; its direct oracle dependency has no typia plugin, fixture generator or product host.
  */
 export const test_equality_oracle = (): void => {
   const date = (text: string): Date => new Date(text);

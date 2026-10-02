@@ -14,10 +14,6 @@ import { Classifiable } from "@typia/interface";
  * 2. A class's `Set`/`Map` members are kept and classified (array form allowed).
  * 3. The remaining data property survives unchanged.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must remove weak collection fields but retain strong Set/Map member forms and ordinary data.
- * @evidence contracts/testing.md#independent-expectations Handwritten remaining shapes and strong collection/array-entry unions establish reconstructible input meaning independently of the alias.
- * @evidence contracts/testing.md#distinguishing-cases WeakSet/WeakMap versus Set/Map are adjacent structural twins, and retained id data prevents blanket object deletion.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifiableWeakMemberCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifiableWeakMemberCases = [
   Assert<IsEqual<Classifiable<WithWeak>, { id: number }>>,

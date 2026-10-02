@@ -13,10 +13,6 @@ import { primitive_equal_to } from "@typia/template/primitive-equality";
  *    orders.
  * 3. Require the tracer to name the first differing path.
  *
- * @evidence contracts/testing.md#behavioral-verification Runs every authored JSON comparison in both argument orders and pins the tracer path $input.a[1]; dropped keys, nested loss, changed values and shorter arrays must fail.
- * @evidence contracts/testing.md#independent-expectations Authored JSON-shaped values and literal verdicts establish all expected answers; no native output supplies them.
- * @evidence contracts/testing.md#distinguishing-cases Six source rows execute in forward and reverse order plus one tracer assertion, preserving all original distinctions.
- * @evidence contracts/testing.md#execution-ownership node:test explicitly registers test_automated_primitive_equal_to_oracle under test-utils test:unit. The same template implementation is re-exported by automated utilities, and this unit population imports no native producer or compiler process. Local table/probe/binary constructors belong to this case.
  */
 export const test_automated_primitive_equal_to_oracle = (): void => {
   const wrong: string[] = [];

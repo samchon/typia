@@ -19,10 +19,6 @@ import { LlmSchemaConverter, OpenApiTypeChecker } from "@typia/utils";
  * 2. Invert references to both.
  * 3. Assert each resolves to a distinct component carrying its own content.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.invert and OpenApiTypeChecker run on definitions that include an own non-enumerable key; component allocation must cover it and not let it seize a name another definition owns.
- * @evidence contracts/testing.md#independent-expectations The authored definitions state which names are taken, and the expectation that both definitions survive with distinct names follows from the allocation contract.
- * @evidence contracts/testing.md#distinguishing-cases A non-enumerable definition beside a legal one that would receive the same name separates enumerable-only seeding from complete seeding.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The inversion runs in process on authored schemas with no native producer.
  */
 export const test_llm_invert_non_enumerable_definition = (): void => {
   const $defs: Record<string, ILlmSchema> = {

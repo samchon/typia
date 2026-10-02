@@ -24,10 +24,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 2. Require a mixed document to answer both objects correctly at once.
  * 3. Pin the reported path so a rejection stays diagnosable.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs with equals false and true on objects whose additionalProperties is true, false, absent or null, plus a mixed document; stray properties are accepted or rejected per declaration, so reading the keyword by type instead of value fails.
- * @evidence contracts/testing.md#independent-expectations JSON Schema additionalProperties semantics and the documented lenient versus equals modes decide each expected outcome; the matrix is authored, not captured from the validator.
- * @evidence contracts/testing.md#distinguishing-cases Open, closed, absent and null declarations under both modes, each with clean and stray values, and a document mixing an open and a closed object pin which object owns the report.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Validation runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_validator_object_additional_properties = (): void => {
   const build = (

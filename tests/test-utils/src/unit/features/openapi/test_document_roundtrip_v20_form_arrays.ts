@@ -14,10 +14,6 @@ import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
  * 2. Assert the emended field shapes retain both array boundaries and null.
  * 3. Downgrade the document and compare the original parameter contracts.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeDocument and downgradeDocument run on Swagger 2 documents with nested and nullable form arrays; the emended shapes are checked with OpenApiTypeChecker predicates and the downgrade is compared with the source parameters.
- * @evidence contracts/testing.md#independent-expectations The source Swagger document is the oracle for the round trip, and the emended shapes are checked structurally from the Items Object and typia nullable extension rules rather than copied from output.
- * @evidence contracts/testing.md#distinguishing-cases A nested array and a nullable array are the two shapes, each checked in both directions; arrays of objects and non-form locations are not covered here.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_document_roundtrip_v20_form_arrays = (): void => {
   const input: SwaggerV2.IDocument = {

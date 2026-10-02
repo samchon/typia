@@ -14,10 +14,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  *    minimum, maximum and exclusive-bound relations.
  * 2. Assert the reversed or tighter non-covering twin of each relation.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiTypeChecker.covers is called directly on authored number schema pairs and each boolean is compared.
- * @evidence contracts/testing.md#independent-expectations Interval and divisibility containment decides each expected boolean; the pairs are authored, not computed by the checker.
- * @evidence contracts/testing.md#distinguishing-cases Each bound kind has a covering and a non-covering adjacent pair, including equal bounds and exclusive versus inclusive endpoints; decimal divisors are owned by the constraints case.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The predicate runs in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_type_checker_cover_number = (): void => {
   //----

@@ -24,11 +24,6 @@ import { HttpLlm } from "@typia/utils";
  * 3. Invoke the operation with a non-numeric operand.
  * 4. Assert the throw carries typia's annotated feedback for the body path and
  *    never LangChain's schema message.
- *
- * @evidence contracts/testing.md#behavioral-verification A public DynamicStructuredTool invoke with body.x="not a number" rejects as ToolInputParsingException with the registrar title, $input.body.x path, numeric expectation and error annotation rather than the SDK generic schema message.
- * @evidence contracts/testing.md#independent-expectations The authored numeric OpenAPI body and invalid literal define rejection and the expected property path/type; SDK exception identity is imported separately from the adapter.
- * @evidence contracts/testing.md#distinguishing-cases Invalid numeric input exercises the rejection-before-execution branch. The HTTP coercion sibling accepts numeric strings and observes dispatch; malformed text must not be coerced into a valid number.
- * @evidence contracts/testing.md#execution-ownership test-langchain test:unit explicitly registers this export with node:test under a plugin-free project. Authored OpenAPI metadata reaches the public in-process DynamicStructuredTool API without a native producer, installed host, model endpoint or HTTP transport.
  */
 export const test_langchain_http_controller_validation =
   async (): Promise<void> => {

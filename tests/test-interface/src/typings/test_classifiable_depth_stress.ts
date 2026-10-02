@@ -16,10 +16,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Resolve `Classifiable` over the root and assign a deep plain value.
  * 3. Assert a leaf class flattens to its method-free property shape.
  *
- * @evidence contracts/testing.md#behavioral-verification The cyclic mixed root must typecheck a deep authored value and extend a head carrying PlainLeaf; the leaf projection must exactly omit its method.
- * @evidence contracts/testing.md#independent-expectations PlainLeaf and the authored monster value independently establish observable leaf data and acceptance. Root head assignability is weaker than full root identity, so unasserted root fields are not certified by that assertion.
- * @evidence contracts/testing.md#distinguishing-cases Nine interlinked classes combine optional back-edges, arrays/tuples, Set/Map and boxed object layers; empty collections, populated branches and native leaf data exercise termination without claiming a maximum supported depth.
- * @evidence contracts/testing.md#execution-ownership test-interface start invokes the installed TypeScript compiler (tsc) with noEmit; ClassifiableDepthStressCases instantiates the real Classifiable alias and its Assert constraints. Authored assignments and expect-error directives also belong to this compile-only unit, without a generated native artifact or runtime host.
  */
 export type ClassifiableDepthStressCases = [
   Assert<IsEqual<Classifiable<Leaf>, PlainLeaf>>,

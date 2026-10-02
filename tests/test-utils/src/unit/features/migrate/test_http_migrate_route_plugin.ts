@@ -19,10 +19,6 @@ import { HttpMigration } from "@typia/utils";
  * 3. Assert the comment equals the description, the connection parameter tag and
  *    the specification tag with its blank line.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application migrates the authored operation and the whole comment() string is compared, so a missing, reordered or flattened extension changes it.
- * @evidence contracts/testing.md#independent-expectations The expected comment is an authored literal following the documented comment layout; it is not generated from the implementation.
- * @evidence contracts/testing.md#distinguishing-cases A multiline extension with a blank line is the owned case; operations without extensions and several extensions are not asserted here.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration runs in process on an authored document with no native build, installation or host.
  */
 export const test_http_migrate_route_plugin = async (): Promise<void> => {
   const document: OpenApi.IDocument = {

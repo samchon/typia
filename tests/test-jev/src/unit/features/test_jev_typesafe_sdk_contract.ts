@@ -17,10 +17,6 @@ import { TestEquality } from "@typia/template/equality";
  * 3. Assert a converted score keeps its two-level tuple at runtime; the SDK answer
  *    map needs no check, because `decode()` takes `unknown`.
  *
- * @evidence contracts/testing.md#behavioral-verification Compile-time Extends assignments check five adapter question/map relationships against actual TypeSafe SDK declarations, while runtime conversion checks a score with its literal two-entry criteria.
- * @evidence contracts/testing.md#independent-expectations Imported Question and TypeSafeClient.systemOne parameter types independently constrain the tuple assignment. The runtime cases.length assertion alone does not establish assignability; compilation of the typed true values does.
- * @evidence contracts/testing.md#distinguishing-cases Noul, choice, score, their union and the entire question map each have a separate static relationship. Low/High criteria preserve the required score tuple at runtime; no TypeSafe client or external service is executed.
- * @evidence contracts/testing.md#execution-ownership The plugin-free node:test runner explicitly registers test_jev_typesafe_sdk_contract under its original case name. test:unit uses ttsx --no-plugins and tsconfig.unit.json; these portable operations do not load a native producer or product host.
  */
 export const test_jev_typesafe_sdk_contract = (): void => {
   // each element type is `true` only when the assignment holds

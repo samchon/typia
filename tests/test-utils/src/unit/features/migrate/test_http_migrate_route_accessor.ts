@@ -19,10 +19,6 @@ import { TestGlobal } from "../../../TestGlobal";
  * 2. Find POST /shoppings/sellers/sales.
  * 3. Assert its accessor is shoppings.sellers.sales.create.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application migrates the shopping example and compares one route's accessor, exercising preservation of its unambiguous x-samchon-accessor extension.
- * @evidence contracts/testing.md#independent-expectations The expected literal matches the checked-in operation's authored x-samchon-accessor array; the default method alias would be post, so create is not derived from the migrator's default naming rule.
- * @evidence contracts/testing.md#distinguishing-cases One explicit collection-POST accessor is the positive case; default derivation, parameterized paths, reserved words and collisions are covered by separate cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The example is read from disk and migrated in process with no native build, installation or host.
  */
 export const test_http_migrate_route_accessor = async (): Promise<void> => {
   const document: OpenApi.IDocument = OpenApiConverter.upgradeDocument(

@@ -11,10 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    containers.
  * 2. Compare every returned shape and include whitespace-surrounded empty inputs.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmJson.parse success and complete data comparisons distinguish empty arrays from objects and preserve each nesting level.
- * @evidence contracts/testing.md#independent-expectations Literal JSON shapes establish the object-versus-array distinction under standard JSON semantics; no expected value is obtained from LlmJson.
- * @evidence contracts/testing.md#distinguishing-cases Top-level empty objects and arrays, nested mixtures, arrays of empty containers, deeper objects and interior whitespace retain ten separate success and data pairs; nonempty preservation is owned by standard_roundtrip.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported function with node:test; it imports the plugin-free oracle and calls the utility directly without a transformed fixture, native artifact, SDK host or process protocol.
  */
 export const test_llm_json_parse_lenient_empty_containers = (): void => {
   // Empty object

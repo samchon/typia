@@ -132,10 +132,6 @@ const DRAWS = 8;
  * 3. Require an unrealizable length to throw instead of yielding an invalid value,
  *    and require one-sided windows to respect their single bound.
  *
- * @evidence contracts/testing.md#behavioral-verification Every direct format generator runs the complete exact-length and window matrix, preserving format acceptance and required failures.
- * @evidence contracts/testing.md#independent-expectations Handwritten realizable-length functions establish success/throw expectations; typia format predicates are complementary output checks and have an acknowledged shared-library limitation.
- * @evidence contracts/testing.md#distinguishing-cases All eleven formats, 0..48 lengths, eight draws, five one-sided/two-sided/default windows and invalid-length exceptions remain; realizable windows now reject an unexpected generator throw.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_random_format_length_grammar. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_random_format_length_grammar = (): void => {
   const failures: string[] = [];

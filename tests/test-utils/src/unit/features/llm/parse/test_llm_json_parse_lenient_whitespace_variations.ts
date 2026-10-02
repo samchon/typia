@@ -13,10 +13,6 @@ import { LlmJson } from "@typia/utils";
  * 2. Compare complete data with a compressed input control and assert the
  *    missing-value diagnostic kind.
  *
- * @evidence contracts/testing.md#behavioral-verification Eight direct parse scenarios check rejection or complete data; the failure subset intentionally checks the expected JSON-value diagnostic without pinning its path or description.
- * @evidence contracts/testing.md#independent-expectations Literal fixtures follow standard JSON whitespace semantics, and the error type independently establishes that valueless input requires a JSON value.
- * @evidence contracts/testing.md#distinguishing-cases Whitespace-only rejection contrasts with excessive spaces, tabs, mixed newlines, spaced arrays, multiline members, CRLF and compressed nested data..
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_whitespace_variations = (): void => {
   // Whitespace only (various types)

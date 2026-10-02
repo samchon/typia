@@ -13,10 +13,6 @@ import { HttpMigration } from "@typia/utils";
  * 2. Capture the outgoing body and content type for each request.
  * 3. Require primitive preservation, multipart boundary delegation, and schemas.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application composes an authored OpenAPI 3.1 document and HttpMigration.execute runs each route against a capturing fetch; the outgoing body text, FormData identity, Content-Type header and the route's success type and exception schema are compared, so a rejected scalar body, a leaked inherited content type, a rejected JSON-suffix type or an uncanonicalized mixed-case media type changes an assertion.
- * @evidence contracts/testing.md#independent-expectations Request bodies, media types and expected wire strings are authored literals derived from the HTTP and OpenAPI media-type rules (JSON text for null and arrays, multipart boundary delegation, canonical lower-case types); they are not read from the migrator's own output. The capture function is the test's own fetch double.
- * @evidence contracts/testing.md#distinguishing-cases Text, array, null, multipart, JSON-suffix and three mixed-case media types each flip a different branch of the body encoder or the type canonicalizer, with the connection's inherited application/json header as the counterexample that must not leak into multipart. Binary bodies, streams and error responses are not exercised here.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Execution uses a fetch double supplied by the test, so no socket, native build, installation or host is involved.
  */
 export const test_http_migrate_body_media_contract =
   async (): Promise<void> => {

@@ -15,10 +15,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 3. Downgrade a nullable object and compare the schema with the downgraded
  *    components.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.downgradeSchema runs three scenarios and the schema and component map are compared together, so a misplaced nullable or a changed component fails.
- * @evidence contracts/testing.md#independent-expectations Authored literals follow OpenAPI 3.0's nullable convention; no expectation is copied from output.
- * @evidence contracts/testing.md#distinguishing-cases Already nullable, newly nullable reference and nullable object scenarios each flip a branch; deeper recursion is not covered.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_downgrade_v30_nullable = (): void => {
   test_originally_nullable();

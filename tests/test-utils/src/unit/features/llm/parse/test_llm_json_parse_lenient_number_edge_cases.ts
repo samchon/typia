@@ -12,10 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    negative zero.
  * 2. Compare the retained results with literal expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
- * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output.
- * @evidence contracts/testing.md#distinguishing-cases This case owns zero/negative zero, large and small values, exponent case/sign, leading zeros and root numbers; Object.is distinguishes positive and negative zero in native and forced-fallback input; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_number_edge_cases = (): void => {
   // Zero

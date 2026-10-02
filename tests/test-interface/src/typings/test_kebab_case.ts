@@ -11,10 +11,6 @@ import { KebabCase } from "@typia/interface";
  * 2. Kebab-case through nested objects and arrays.
  * 3. Confirm Date survives and a method member becomes `never`.
  *
- * @evidence contracts/testing.md#behavioral-verification KebabCase must produce ExpectedBattery and nested hyphenated keys, preserving Date and mapping methods to never.
- * @evidence contracts/testing.md#independent-expectations Authored key/output interfaces establish the supported case policy independently of the alias.
- * @evidence contracts/testing.md#distinguishing-cases Snake/camel/Pascal/all-caps, digits, leading underscores and XMLParser join nested object/array and native/callable controls.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks KebabCaseCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type KebabCaseCases = [
   Assert<IsEqual<KebabCase<Battery>, ExpectedBattery>>,

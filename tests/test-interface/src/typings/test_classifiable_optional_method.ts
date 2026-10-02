@@ -14,10 +14,6 @@ import { Classifiable } from "@typia/interface";
  * 2. The classified shape equals the data-only `{ id: number }`.
  * 3. A live instance of the class is assignable to its classified shape.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must omit an optional method and retain assignability of the live instance to its data shape.
- * @evidence contracts/testing.md#independent-expectations The explicit id-only object is independent of the alias; TypeScript assignability checks the actual method-bearing class against that shape.
- * @evidence contracts/testing.md#distinguishing-cases Optional callable versus required numeric data pins absence-aware method omission; the separate instance-assignability control prevents keeping an undefined-valued method key.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifiableOptionalMethodCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifiableOptionalMethodCases = [
   Assert<IsEqual<Classifiable<WithOptionalMethod>, { id: number }>>,

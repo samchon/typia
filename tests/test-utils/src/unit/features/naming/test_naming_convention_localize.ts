@@ -16,10 +16,6 @@ import { NamingConvention } from "@typia/utils";
  * 2. Localize inputs whose tail must survive untouched, including acronym runs.
  * 3. Localize the empty string and require `""` rather than a throw.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct localize calls assert a lowercase first character with an unchanged tail, catching an empty-input exception and accidental whole-string lowercasing.
- * @evidence contracts/testing.md#independent-expectations The documented first-character-only contract yields literal expectations, including xMLParser and unchanged punctuation prefixes.
- * @evidence contracts/testing.md#distinguishing-cases Capitalized, already localized and single-character names, acronym tails, nonletter prefixes and empty input cover both changed and preserved positions.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_localize = (): void => {
   const expectations: [string, string][] = [

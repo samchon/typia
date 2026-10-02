@@ -14,10 +14,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Compare against the preserved native or unwrapped primitive.
  * 3. Confirm native members survive intact when nested inside a class.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must preserve named native/atomic types, unbox primitive wrappers and project the authored Mixed class data.
- * @evidence contracts/testing.md#independent-expectations Original built-in/literal types and ExpectedMixed establish independent expected outputs; exact identity distinguishes native preservation from method stripping.
- * @evidence contracts/testing.md#distinguishing-cases Date/RegExp/binary/Blob/File, wrappers versus atomics, bigint/string literals, nullish types and mixed class properties cover each selected category.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifiableNativeAtomicCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifiableNativeAtomicCases = [
   // native classes preserved

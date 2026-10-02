@@ -24,10 +24,6 @@ import { OpenApiValidator } from "@typia/utils";
  * 3. Keep the negative regressions: a bare integer/number invents no format, and a
  *    number never echoes a format its validator does not report.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiValidator.validate runs each authored numeric schema against a string so the first error's expected type is exactly the name the naming rule produced; every declared bound, divisor and integer format must appear with its own value, so boolean reading of exclusive bounds or a dropped zero fails.
- * @evidence contracts/testing.md#independent-expectations The expected type names are authored literals following the Typia tag spelling and the declared numeric field types of OpenApi.IJsonSchema; they are not produced by the naming rule or the validator.
- * @evidence contracts/testing.md#distinguishing-cases Exclusive bounds alone and paired with inclusive bounds, the zero boundary, a declared int32 or int64 format and the negative twins (bare integer invents no format, a number ignores a format its validator never reports, plain minimum and multipleOf unchanged) each flip a naming decision.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Naming runs in process on authored schemas with no native build, installation or host.
  */
 export const test_openapi_naming_numeric_constraints = (): void => {
   const matrix: Array<{

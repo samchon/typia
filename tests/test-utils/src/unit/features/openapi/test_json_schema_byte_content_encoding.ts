@@ -16,10 +16,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 3. Assert exact equivalents normalize and custom or conflicting metadata is
  *    preserved.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.upgradeSchema, upgradeComponents, upgradeDocument, downgradeSchema and downgradeDocument run on authored schemas; each expected object is compared, so spelling normalization applied to unrelated formats or lost for the base64 equivalents fails.
- * @evidence contracts/testing.md#independent-expectations JSON Schema 2020-12 defines contentEncoding base64 and OpenAPI 3.0 defines format byte; the authored expectations follow those definitions, not the converter output.
- * @evidence contracts/testing.md#distinguishing-cases The exact base64 spellings in each direction are positive cases, while custom formats, other encodings, media types and conflicting pairs are preserved negative twins across 3.0, 3.1 and 3.2.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored schemas with no native build, installation or host.
  */
 export const test_json_schema_byte_content_encoding = (): void => {
   const components: OpenApiV3_1.IComponents = {

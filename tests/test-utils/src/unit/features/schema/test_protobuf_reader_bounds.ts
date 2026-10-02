@@ -13,10 +13,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 2. Reject one-byte-short bytes, strings, float, double, and skip payloads.
  * 3. Assert every rejected read reports the stable overflow and keeps its index.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct _ProtobufReader bytes/string/fixed-width/skip/fork/close operations preserve exact payload boundaries and atomic rejection.
- * @evidence contracts/testing.md#independent-expectations Authored buffers, fixed overflow text, previous index/size and literal ab/9 expectations are independent of reader calculations.
- * @evidence contracts/testing.md#distinguishing-cases Zero-length/exact-end/sliced views, one-byte-short payloads, varint and fixed-width skips, fork failure and close restoration all remain.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_reader_bounds. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_protobuf_reader_bounds = (): void => {
   const empty: _ProtobufReader = new _ProtobufReader(Uint8Array.of(0));

@@ -12,10 +12,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 1. Convert an authored null/number OpenAPI union.
  * 2. Compare both complete LLM alternatives and the number-only negative twin.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter.schema must return null and number alternatives; a number-only input must not acquire null.
- * @evidence contracts/testing.md#independent-expectations The number-or-null contract establishes both independently authored expected alternatives and the number-only control.
- * @evidence contracts/testing.md#distinguishing-cases The nullable positive and one-axis number-only negative distinguish branch loss from overmatching. Native union generation remains in the native schema matrix.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. The inline OpenAPI input is authored from declared fields rather than generated at execution. Private local helpers remain reviewed through this owning case.
  */
 export const test_llm_schema_nullable = (): void => {
   const collection: IJsonSchemaCollection = {

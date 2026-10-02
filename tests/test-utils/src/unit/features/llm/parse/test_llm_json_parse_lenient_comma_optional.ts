@@ -12,10 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    value kinds.
  * 2. Compare complete outputs for missing and mixed present-or-missing separators.
  *
- * @evidence contracts/testing.md#behavioral-verification Ten direct parse scenarios assert successful recovery and exact object members or ordered arrays, catching dropped or merged values.
- * @evidence contracts/testing.md#independent-expectations Literal object and array fixtures define the independent recovered values under the maintained missing-comma tolerance, rather than duplicating parser loops.
- * @evidence contracts/testing.md#distinguishing-cases Four object scenarios cover numbers, keyword values, nested objects and mixed separators; six arrays cover numbers, strings, keywords, objects, arrays and mixed separators. Standard comma-separated values remain owned by standard_roundtrip.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported function with node:test and calls the utility through the plugin-free oracle. No installation, native artifact, transformed fixture or host is involved.
  */
 export const test_llm_json_parse_lenient_comma_optional = (): void => {
   // =========================================================================

@@ -19,10 +19,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Downgrade an emended OpenAPI document containing `required: []`.
  * 3. Assert every converted object keeps its shape and empty `required`.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter upgrade and downgrade routines run on authored documents with empty required arrays and the converted object and record shapes are compared, so stripping an explicit empty required fails.
- * @evidence contracts/testing.md#independent-expectations Authored documents state which objects declare required arrays and the expected shapes are literals; no snapshot of the converter is used.
- * @evidence contracts/testing.md#distinguishing-cases Optional-only objects, empty objects, records, undefined property entries and allOf merges across four source versions distinguish preservation from synthesis. Non-empty required controls and both required-first and required-last merges pin required-member retention beside the empty cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_openapi_converter_empty_required = (): void => {
   const upgraded = [

@@ -17,10 +17,6 @@ import { _readJsonFixturePaths } from "../../../internal/_readJsonFixturePaths";
  * 2. Compare the selected native paths with the two authored JSON filenames.
  * 3. Require an empty directory to fail and release the temporary tree in finally.
  *
- * @evidence contracts/testing.md#behavioral-verification The actual shared fixture reader selects both flat and nested JSON files, omits a non-JSON file and throws for an empty population.
- * @evidence contracts/testing.md#independent-expectations The expected paths come from the two explicitly created JSON files; no directory listing or reader output computes the expectation.
- * @evidence contracts/testing.md#distinguishing-cases Flat and nested positives, a non-JSON negative and zero-population failure remain distinct. JSON contents are irrelevant to enumeration and are parsed by each document caller.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers this filesystem resolver case. A unique OS temporary directory is removed in finally; no native producer or product host is involved.
  */
 export const test_json_fixture_population = async (): Promise<void> => {
   const root: string = await fs.promises.mkdtemp(

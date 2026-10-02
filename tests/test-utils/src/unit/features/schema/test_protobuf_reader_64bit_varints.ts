@@ -12,10 +12,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 2. Decode both signed extrema and their adjacent ordinary values.
  * 3. Decode the ZigZag extrema and neighboring values from canonical bytes.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct _ProtobufReader uint64/int64/sint64 calls decode every authored boundary vector exactly.
- * @evidence contracts/testing.md#independent-expectations Handwritten varint bytes and fixed bigint expectations follow unsigned, two's-complement and ZigZag wire semantics; they are not computed by the reader.
- * @evidence contracts/testing.md#distinguishing-cases Bits 31/32/53/63/64, zero, signed extrema, -2/-1/1/2 and ZigZag extrema retain every vector.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_reader_64bit_varints. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_protobuf_reader_64bit_varints = (): void => {
   for (const [bytes, expected] of UINT64_VECTORS)

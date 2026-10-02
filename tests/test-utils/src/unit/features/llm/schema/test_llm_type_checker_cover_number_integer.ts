@@ -14,10 +14,6 @@ import { LlmTypeChecker } from "@typia/utils";
  * 2. Require coverage where the number schema is the wider one.
  * 3. Require refusal for a narrower number, the reverse direction and enums.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmTypeChecker.covers runs on authored number and integer schemas and the returned booleans are compared, so a dispatch that rejects an integer beside a number, or that ignores bounds, multiples and enums, changes a result.
- * @evidence contracts/testing.md#independent-expectations Integers are a subset of numbers and a bound or divisor narrows the accepted set, so each expected boolean follows from set inclusion and not from the checker's own computation.
- * @evidence contracts/testing.md#distinguishing-cases The plain case is positive; a narrower upper bound on the number, a divisor that the integer set does not satisfy, the reverse direction and a number enum that omits an integer enum value are the adjacent negative cases.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json; the checker runs in process on authored schemas with no native build, installation or host.
  */
 export const test_llm_type_checker_cover_number_integer = (): void => {
   const number = (props: Partial<ILlmSchema.INumber> = {}): ILlmSchema =>

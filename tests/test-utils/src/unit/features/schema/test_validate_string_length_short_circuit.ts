@@ -15,10 +15,6 @@ import { _stringLengthLte } from "typia/lib/internal/_stringLengthLte";
  * 2. Count reads with a test-owned iterable probe, leaving global methods intact.
  * 3. Require zero-bound checks to return without opening the iterator at all.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct _stringLengthGte/_stringLengthLte calls retain the full primitive-string/boundary matrix. Test-owned iterable probes additionally pin true/false results, decisive next() counts and zero iterator openings without changing global String.prototype.
- * @evidence contracts/testing.md#independent-expectations The primitive matrix compares against [...value].length and JavaScript relational semantics; the six-character authored probe independently establishes 2/3 decisive reads and zero reads/openings for already-decided bounds. The probe observes iterable consumption, while the primitive matrix establishes supported string behavior.
- * @evidence contracts/testing.md#distinguishing-cases All six empty/ASCII/astral/regional/ZWJ string values and nine negative/zero/fractional/infinite/NaN bounds remain. Minimum/maximum thresholds and zero/negative immediate decisions retain every original assertion; iterator-opening controls strengthen the immediate-decision checks.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_validate_string_length_short_circuit under tsconfig.unit.json and --no-plugins. It calls the owning runtime predicates directly; the observation input is local and no native artifact, consumer installation or process host is needed.
  */
 export const test_validate_string_length_short_circuit = (): void => {
   const values: string[] = [

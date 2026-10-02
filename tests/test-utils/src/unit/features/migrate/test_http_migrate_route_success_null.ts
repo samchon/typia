@@ -17,10 +17,6 @@ import { HttpMigration } from "@typia/utils";
  * 2. Migrate the document.
  * 3. Assert the route's success is null.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration.application migrates the authored document and the route's success is compared with null; synthesizing a schema or undefined fails.
- * @evidence contracts/testing.md#independent-expectations The input is authored and null is the route model's documented value for an untyped response, not a snapshot of the migrator.
- * @evidence contracts/testing.md#distinguishing-cases The empty-content response is the only case; a typed response and a response without content are not asserted by this case.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Migration runs in process on an authored document with no native build, installation or host.
  */
 export const test_http_migrate_route_success_null = (): void => {
   const document: OpenApi.IDocument = {

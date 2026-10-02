@@ -12,10 +12,6 @@ import { Resolved } from "@typia/interface";
  * 2. Resolve a method-bearing nested class and a Set/Map of it.
  * 3. Confirm weak collections become `never`.
  *
- * @evidence contracts/testing.md#behavioral-verification Resolved must preserve Date/bigint/typed arrays, unbox primitives, erase method values and recursively resolve strong collections while rejecting weak collections.
- * @evidence contracts/testing.md#independent-expectations Authored ResolvedWithMethod and original native primitive types supply expected meaning independently of Resolved; expected weak collections are the impossible type never.
- * @evidence contracts/testing.md#distinguishing-cases Boxed/unboxed primitives, class versus native values, nested classes, Set/Map contents and WeakSet/WeakMap exclusion separate each conversion category.
- * @evidence contracts/testing.md#execution-ownership test-interface start runs the installed TypeScript compiler (tsc) with noEmit over src; the exported ResolvedCoreCases tuple is instantiated by the compiler and each Assert requires true. These are compile-only type units, with no native artifact or runtime host; local Assert and symmetric IsEqual supply the typecheck oracle.
  */
 export type ResolvedCoreCases = [
   Assert<IsEqual<Resolved<Date>, Date>>,

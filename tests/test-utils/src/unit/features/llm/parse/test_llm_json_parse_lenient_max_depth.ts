@@ -11,10 +11,6 @@ import { LlmJson } from "@typia/utils";
  *    511/512/513-level twins distinguish the value-depth boundary.
  * 2. Compare the retained results with literal expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
- * @evidence contracts/testing.md#independent-expectations The declared 512-level fallback limit establishes the expected failure for the authored 515-level input; the diagnostic is checked for the depth reason rather than copied from a prior run.
- * @evidence contracts/testing.md#distinguishing-cases This case owns 515 unclosed object levels and the required depth diagnostic; 511/512/513-level twins distinguish the value-depth boundary; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_max_depth = (): void => {
   // Test that deeply nested structures beyond MAX_DEPTH (512) produce errors

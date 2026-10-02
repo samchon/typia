@@ -19,10 +19,6 @@ import assert from "node:assert/strict";
  * 3. Repeat the distinction through nested objects and local references.
  * 4. Preserve all eight authored additional-property/required rows moved from E2E.
  *
- * @evidence contracts/testing.md#behavioral-verification Both public covers predicates must reject a missing or optional required key while accepting matching requirements and an optional covering key. A literal empty-object witness establishes the invalid containment independently. Eight unchanged authored OpenAPI rows transferred from the integration object-cover case exercise additional-property openness and required-key decisions directly here.
- * @evidence contracts/testing.md#independent-expectations Required-key set containment determines the literal booleans; the authored empty object is valid for the empty object schema and invalid for the required-key schema. Nested and reference cases retain that same semantic requirement. The transferred rows retain their original inputs and literal verdicts, derived from the supported closed/open additional-properties policy.
- * @evidence contracts/testing.md#distinguishing-cases Absent, optional, matching-required and unrelated properties separate required-key decisions; an optional covering key is the positive converse, and nested/local-reference forms exercise recursion. Additional properties absent, true and object-valued supply both accepted and rejected coverage directions in the eight transferred rows.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers this exported case. Authored OpenAPI and LLM schemas call the portable public predicates and validator without native generation or a host.
  */
 export const test_schema_cover_required_properties = (): void => {
   const required = {

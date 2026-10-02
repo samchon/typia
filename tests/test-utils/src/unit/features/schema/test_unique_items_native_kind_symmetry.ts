@@ -5,10 +5,6 @@ import { _isUniqueItems } from "typia/lib/internal/_isUniqueItems";
 /**
  * Verifies native equality categories in both operand orders.
  *
- * @evidence contracts/testing.md#behavioral-verification The runtime uniqueness helper and public OpenAPI array validator reject same-kind duplicates and accept native/plain and distinct-kind pairs in both orders. Blob/File pairs specifically distinguish their inheritance boundary.
- * @evidence contracts/testing.md#independent-expectations Authored native constructors define distinct categories, and separately constructed equal values define duplicates. Literal booleans establish expectations; neither implementation computes an oracle for the other.
- * @evidence contracts/testing.md#distinguishing-cases Builtin containers, wrappers, views, all available typed arrays, Buffer, Blob and File are compared to plain objects with identical enumerable keys. Cross-kind pairs and same-kind twins preserve native distinctions, while ordinary class/plain twins preserve structural equality. Platform constructors are exercised when present.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils runner registers this exported unit. It calls portable runtime helpers and the public schema validator without transforming a fixture or mutating platform state.
  */
 export const test_unique_items_native_kind_symmetry = (): void => {
   const factories: [string, () => object][] = [

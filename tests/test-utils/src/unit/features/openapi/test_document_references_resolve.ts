@@ -34,10 +34,6 @@ import { TestGlobal } from "../../../TestGlobal";
  *    the URI-fragment charset forbids, so the check cannot pass on tidy inputs
  *    alone.
  *
- * @evidence contracts/testing.md#behavioral-verification Every example document is upgraded and walked. For local references whose raw suffix exactly matches a source key, OpenApiTypeChecker must visit the target and OpenApiValidator and LlmSchemaConverter must report no reference-resolution failure. The two failure collections must be empty.
- * @evidence contracts/testing.md#independent-expectations Raw suffix membership is checked against the source document's component keys, independently of converter output. Defined raw references must reach a target and avoid resolution diagnostics; decoded escaped and percent-encoded spellings are judged against authored literal verdicts in test_openapi_reference_key_escaped instead of being decoded by this fixture gate.
- * @evidence contracts/testing.md#distinguishing-cases A final assertion requires at least one fixture with a key the URI-fragment charset forbids. References with escaped or percent-encoded suffixes that differ from their source keys are outside this raw-membership gate; the escaped peer owns their positive, negative and malformed literal matrix. Behavior outside checked-in fixtures is not covered.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Fixtures are read from disk and processed in process with no native build, installation or host.
  */
 export const test_document_references_resolve = async (): Promise<void> => {
   const unresolved: string[] = [];

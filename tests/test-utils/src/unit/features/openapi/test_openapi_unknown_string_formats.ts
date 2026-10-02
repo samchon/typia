@@ -12,10 +12,6 @@ import assert from "node:assert/strict";
  * 2. Preserve string type, pattern and length decisions independently.
  * 3. Check positive and negative registered-format controls repeatedly.
  *
- * @evidence contracts/testing.md#behavioral-verification Public validator and constant-schema coverage calls execute the maintained dispatch owner. Unknown format annotations must accept authored strings without throwing; independent schema constraints and known formats must still reject their negative twins.
- * @evidence contracts/testing.md#independent-expectations The supported registry and unknown-format fallback define the decisions. Explicit unknown/Object.prototype names, authored string constants and independently invalid type, pattern, length and known-format values establish expectations without deriving them from another checker.
- * @evidence contracts/testing.md#distinguishing-cases Empty/custom/case-different formats and standard inherited names cover lookup boundaries with empty and ordinary strings. Wrong type, short/long/pattern-mismatching values and email/date/UUID/IPv4 twins distinguish annotation fallback from bypassing validation; repeated calls verify stable dispatch.
- * @evidence contracts/testing.md#execution-ownership The exported case is registered in the plugin-free node:test runner. It uses authored schemas and the real portable dispatch/validator/coverage implementations, with no native schema producer, compiler fixture or substituted registry.
  */
 export const test_openapi_unknown_string_formats = (): void => {
   const unknown = [

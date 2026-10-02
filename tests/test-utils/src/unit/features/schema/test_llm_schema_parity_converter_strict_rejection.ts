@@ -14,10 +14,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Assert non-empty optional properties are rejected.
  * 3. Assert an empty object without `required` is accepted and restored.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmSchemaConverter schema/parameters operations reject optional and dynamic strict objects but accept the empty strict object.
- * @evidence contracts/testing.md#independent-expectations Handwritten required/property/additionalProperties inputs independently establish strict acceptance and the expected required:[] output.
- * @evidence contracts/testing.md#distinguishing-cases Partially required and missing required lists, empty-object control and dynamic-key rejection retain exact verdict/reason checks.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_llm_schema_parity_converter_strict_rejection. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_llm_schema_parity_converter_strict_rejection = (): void => {
   const optional = LlmSchemaConverter.schema({

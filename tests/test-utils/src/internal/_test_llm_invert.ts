@@ -28,10 +28,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * @param $defs Definitions `llm` was written into
  * @param json OpenAPI schema of the same type
  *
- * @evidence contracts/testing.md#behavioral-verification The helper inverts a supplied LLM schema and compares the normalized result with the expected JSON schema; native callers produce both schemas from the same type, while the oracle unit supplies authored schemas. An erased keyword, unresolved union or empty definition changes the comparison.
- * @evidence contracts/testing.md#independent-expectations The expected JSON schema comes from the separate json.schema API rather than from invert, but both native producers share metadata and can share defects. Authored unit inputs pin the comparison's reference resolution and mismatch sensitivity; this native parity helper cannot independently establish producer correctness.
- * @evidence contracts/testing.md#distinguishing-cases The helper owns the comparison policy only (descriptions skipped, members as a set); the type families are supplied by the invert cases.
- * @evidence contracts/testing.md#execution-ownership Native inversion cases call this helper from test:integration; the explicitly registered test_llm_invert_oracle_references unit case supplies authored schemas without a native producer. The helper's actual operations are portable TypeScript.
  */
 export const _test_llm_invert = (
   title: string,

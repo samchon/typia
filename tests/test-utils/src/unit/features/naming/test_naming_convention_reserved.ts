@@ -22,10 +22,6 @@ import { NamingConvention } from "@typia/utils";
  * 3. Assert `eval`/`arguments` are not reserved words, though not valid bindings.
  * 4. Assert ordinary names are not reserved, and pin the `module` policy.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct reserved and variable calls distinguish grammar keywords from contextual words and restricted bindings, catching omitted strict-mode words.
- * @evidence contracts/testing.md#independent-expectations The literal keyword and strict-future-reserved lists come from the stated ECMAScript grammar, while module is separately asserted as typia policy.
- * @evidence contracts/testing.md#distinguishing-cases Reserved words, strict future names, ordinary/contextual names, eval/arguments and the deliberate module policy preserve the distinctions between reservedness and binding legality.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case and invokes NamingConvention directly without installing a consumer, applying typia's transform or starting a product host.
  */
 export const test_naming_convention_reserved = (): void => {
   // 1. ECMAScript ReservedWord (ECMA-262, Keywords and Reserved Words)

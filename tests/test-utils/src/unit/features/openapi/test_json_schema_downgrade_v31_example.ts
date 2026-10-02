@@ -12,10 +12,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 2. Downgrade it to 3.1.
  * 3. Assert the union, title and example are unchanged.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.downgradeSchema runs on the authored union and the whole schema is compared, so a nullable rewrite or lost annotation fails.
- * @evidence contracts/testing.md#independent-expectations JSON Schema 2020-12 null-type semantics define the expected output, authored as a literal.
- * @evidence contracts/testing.md#distinguishing-cases The 3.1 counterpart of the 3.0 nullable distribution case differs only in target version.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on an authored schema with no native build, installation or host.
  */
 export const test_json_schema_downgrade_v31_example = (): void => {
   const input: OpenApi.IJsonSchema = {

@@ -26,10 +26,6 @@ import { OpenApiConverter } from "@typia/utils";
  * 4. Assert omitted optional values, explicit `false`, required `true`, and
  *    parameter override semantics are preserved.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter downgrades and upgrades authored documents across Swagger 2 and OpenAPI 3.x; parameter and request-body required flags and nested schema required arrays are compared in both directions.
- * @evidence contracts/testing.md#independent-expectations Each specification defines required as an operation-level boolean for parameters and bodies; expected values are authored from that rule rather than from converter output.
- * @evidence contracts/testing.md#distinguishing-cases Omitted, false and true values, path normalization, mixed references and schema-array required are covered; many cases share one document, so a failure is located by the assertion title.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_openapi_converter_parameter_required = (): void => {
   const swagger: SwaggerV2.IDocument = OpenApiConverter.downgradeDocument(

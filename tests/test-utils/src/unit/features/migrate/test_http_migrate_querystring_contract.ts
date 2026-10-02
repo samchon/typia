@@ -13,10 +13,6 @@ import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
  * 2. Execute it with media-type encoding and compare the exact query text.
  * 3. Reject invalid declarations and retain canonical schema compatibility.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration, HttpLlm, HttpMigration.execute and OpenApiConverter run on authored 3.2 querystring documents; media-type encoded wire text, LLM inputs, downgrade results and rejection diagnostics are compared.
- * @evidence contracts/testing.md#independent-expectations Wire strings, rejection diagnostics and downgraded locations are authored literals following the OpenAPI 3.2 querystring rule, not snapshots of the serializer.
- * @evidence contracts/testing.md#distinguishing-cases Form, JSON, scalar and text media types and the legacy form are positive cases, while a mixed ordinary query, a duplicate querystring and other invalid declarations are rejected; downgrade to older versions removes the content field.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The wire text is captured through a fetch double and conversions run in process, so no native build, installation or host is involved.
  */
 export const test_http_migrate_querystring_contract =
   async (): Promise<void> => {

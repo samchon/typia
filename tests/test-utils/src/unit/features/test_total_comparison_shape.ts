@@ -26,10 +26,6 @@ import assert from "node:assert/strict";
  * Native `node:assert` verifies the caught outcome independently of the shared
  * comparison under test.
  *
- * @evidence contracts/testing.md#behavioral-verification Each equals call compares complete or incomplete report values; native assertions require complete values to pass and missing fields or keys to fail in raw, tuple and null-normalized shapes.
- * @evidence contracts/testing.md#independent-expectations Literal path and expected-type fields define the report contract; the local caught probe observes throwing directly, and node:assert establishes the expected boolean without invoking the comparison being tested.
- * @evidence contracts/testing.md#distinguishing-cases A complete report is the positive control for each shape; missing raw fields, missing raw keys, reversed argument order, null-normalized tuples and null-normalized objects retain their distinct regression assertions. General value-kind equality is owned by test_equality_oracle.
- * @evidence contracts/testing.md#execution-ownership This exported node:test case directly imports the plugin-free oracle and is registered by test-utils test:unit; no native compilation or transformed fixture package is needed.
  */
 export const test_total_comparison_shape = (): void => {
   interface IReport {

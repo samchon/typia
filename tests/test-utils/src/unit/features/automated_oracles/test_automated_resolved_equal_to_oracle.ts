@@ -16,10 +16,6 @@ import { resolved_equal_to } from "@typia/template/resolved-equality";
  * 2. Move exactly one observable property away from it.
  * 3. Require the oracle to reject the twin while accepting the original.
  *
- * @evidence contracts/testing.md#behavioral-verification Runs all authored projection/native/value comparisons and requires exact literal verdicts, then requires synchronous Blob input to throw the specific asynchronous-oracle guidance.
- * @evidence contracts/testing.md#independent-expectations Each paired value, optional authored projection and literal verdict is independent of strict_equal_to. Class and native identities and byte contents are constructed directly.
- * @evidence contracts/testing.md#distinguishing-cases Every original class, leaked/dropped member, function reference, typed-array/buffer/view/Date/Set/Map/RegExp and array-like row remains, together with the synchronous Blob guard. Numeric transport tolerance remains a disclosed helper limitation.
- * @evidence contracts/testing.md#execution-ownership node:test explicitly registers test_automated_resolved_equal_to_oracle under test-utils test:unit. The same template implementation is re-exported by automated utilities, and this unit population imports no native producer or compiler process. Local table/probe/binary constructors belong to this case.
  */
 export const test_automated_resolved_equal_to_oracle = (): void => {
   const wrong: string[] = [];

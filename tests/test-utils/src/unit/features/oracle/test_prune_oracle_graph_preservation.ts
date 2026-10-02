@@ -14,10 +14,6 @@ import assert from "node:assert/strict";
  * 3. Preserve authored prefix keys and shared/cyclic identities, and handle
  *    primitive and empty fixtures without inventing declared properties.
  *
- * @evidence contracts/testing.md#behavioral-verification The actual preparePrune check and plain.prune entry run authored deletion and corruption callbacks. Lost/replaced children, array truncation/holes, changed scalar values, missing undefined-valued keys and changed prototypes fail; correct mutation retains the original graph.
- * @evidence contracts/testing.md#independent-expectations The literal authored values and references precede injection. Deletion-only pruning cannot change them. Prefix-like declared keys are valid fixture data, while only keys absent before preparation are surplus in these closed fixtures.
- * @evidence contracts/testing.md#distinguishing-cases Nested records/arrays, empty/primitive inputs, NaN/-0/undefined/function values, prefix collisions, null prototypes, reserved valueOf data, aliases and cycles contribute different preservation or traversal boundaries. Adjacent corruptions target each captured invariant.
- * @evidence contracts/testing.md#execution-ownership This exported case is registered in the plugin-free test-utils test:unit node:test runner. It calls the maintained portable oracle directly; native producer assembly remains in the automated suite.
  */
 export const test_prune_oracle_graph_preservation = (): void => {
   const make = () => ({

@@ -17,10 +17,6 @@ import type { Tool } from "ai";
  * 3. Reject a wrong nested body with an actionable validation path.
  * 4. Preserve a thrown HTTP executor exception in the failure branch.
  *
- * @evidence contracts/testing.md#behavioral-verification Uses the supported HttpLlm controller execute callback to return valid or wrong nested HTTP bodies or throw; the tool must return complete valid data, a nested-label output diagnostic or the thrown-message failure.
- * @evidence contracts/testing.md#independent-expectations The handwritten OpenAPI nested label:string and literal return bodies establish valid and invalid verdicts independently. The authored thrown message establishes the exception result; no generated typia schema supplies expectations.
- * @evidence contracts/testing.md#distinguishing-cases Valid label, numeric label and executor exception distinguish the success, output-validation and runtime-error branches. The supported callback bypasses network transport without patching a foreign API.
- * @evidence contracts/testing.md#execution-ownership The plugin-free node:test runner explicitly registers test_vercel_http_controller_output_validation under its original case name. test:unit uses ttsx --no-plugins and tsconfig.unit.json; these portable operations do not load a native producer or product host.
  */
 export const test_vercel_http_controller_output_validation =
   async (): Promise<void> => {

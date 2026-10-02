@@ -17,11 +17,6 @@ import { CalculatorApi } from "../../structures/CalculatorApi";
  *
  * 1. Convert the imported CalculatorApi document into an HTTP controller.
  * 2. Assert the properties listed above.
- *
- * @evidence contracts/testing.md#behavioral-verification HttpLlm.controller converts the authored CalculatorApi document and toLangChainTools exposes each resulting function name plus a nonempty description.
- * @evidence contracts/testing.md#independent-expectations The checked-in authored OpenAPI fixture supplies descriptive prose. Name/count expectations are taken from controller.application.functions, so they establish adapter propagation rather than independently proving HttpLlm conversion.
- * @evidence contracts/testing.md#distinguishing-cases This fixture contributes successful tool population and some description only. Prefix/collision cases and argument execution are independently exercised by siblings; a missing description or wrong converter population shared by both sides can remain indistinguishable.
- * @evidence contracts/testing.md#execution-ownership test-langchain test:unit explicitly registers this export with node:test under a plugin-free project. Authored OpenAPI metadata reaches the public in-process DynamicStructuredTool API without a native producer, installed host, model endpoint or HTTP transport.
  */
 export const test_langchain_http_controller_standalone =
   async (): Promise<void> => {

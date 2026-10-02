@@ -12,10 +12,6 @@ import { Singleton } from "@typia/utils";
  * 2. Retry after a synchronous initialization failure.
  * 3. Retain the same rejected promise and observe its original rejection.
  *
- * @evidence contracts/testing.md#behavioral-verification Actual Singleton.get calls assert lazy call counts, value identity, first-argument retention and exception/promise behavior; eager creation, falsy regeneration or automatic promise retry produce distinct failures.
- * @evidence contracts/testing.md#independent-expectations The documented first-success instance contract establishes literal values and call counts; Object.is and reference equality compare retained values and promises independently of singleton state.
- * @evidence contracts/testing.md#distinguishing-cases Falsy values remain initialized, different later arguments cannot refresh the instance, synchronous failure must allow a retry, and asynchronous rejection must retain the returned promise rather than behave like a synchronous throw.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported asynchronous function with node:test, which awaits its promise; its configuration has no typia transform, and direct cache semantics require no host or installed consumer.
  */
 export const test_singleton_lifecycle = async (): Promise<void> => {
   for (const value of [false, 0, -0, "", null, undefined, NaN]) {

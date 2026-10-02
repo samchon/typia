@@ -23,10 +23,6 @@ import { CalculatorApi } from "../../structures/CalculatorApi";
  * 3. Call it and assert the response body arrives as `structuredContent` with no
  *    text duplicate.
  *
- * @evidence contracts/testing.md#behavioral-verification the adapter or utility under test is called directly on inputs built in this case and the result is checked by 5 assertions (every converted operation should be listed; the operation should advertise its response outputSchema; http tool call should not be an error; response body should arrive as structuredContent; content should stay empty without the opt-in text fallback). The case documents its purpose as: Verifies an OpenAPI operation executes through the MCP adapter handler.
- * @evidence contracts/testing.md#independent-expectations The authored OpenAPI document supplies required numeric body and numeric response data, and literal arithmetic value 15 plus disabled fallback define expected delivery. Listed names are compared with controller.application.functions, so that assertion establishes registration propagation rather than independently proving HttpLlm name conversion.
- * @evidence contracts/testing.md#distinguishing-cases One authored HTTP operation contributes successful listing, advertised output, injected execution, structured value 15 and absence of fallback content. This unit owns no malformed output or transport assertion; the separate HTTP output-validation SDK case owns valid/malformed/exception transport behavior.
- * @evidence contracts/testing.md#execution-ownership The test-mcp test:unit command registers this export with node:test using a plugin-free project. Authored OpenAPI input, an injected in-process executor and direct handlers exercise portable adapter behavior; no native producer or transport connection is required.
  */
 export const test_mcp_http_controller_execute = async (): Promise<void> => {
   const controller: IHttpLlmController = HttpLlm.controller({

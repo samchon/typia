@@ -23,10 +23,6 @@ import { NamingConvention } from "@typia/utils";
  * 4. Assert the deliberate `module` policy, the identifier-shape boundaries, and
  *    that repeated calls are stable.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct variable calls must reject illegal bindings and accept ordinary identifiers; escaped reserved words and repeated calls detect keyword omissions and stateful regex behavior.
- * @evidence contracts/testing.md#independent-expectations TestBinding invokes the native parser independently of NamingConvention; literal grammar-boundary verdicts and the explicit module policy supplement that reference.
- * @evidence contracts/testing.md#distinguishing-cases Reserved and contextual names, restricted eval/arguments, escaped words, invalid character shapes, empty input and repeated positive/negative calls retain their distinct verdicts.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit command registers this exported case without a typia plugin; the oracle compiles a VM script without launching or executing a product host.
  */
 export const test_naming_convention_variable = (): void => {
   // 1. THE ENGINE IS THE ORACLE

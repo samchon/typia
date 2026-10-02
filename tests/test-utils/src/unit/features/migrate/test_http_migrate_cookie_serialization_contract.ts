@@ -15,10 +15,6 @@ import { HttpLlm, HttpMigration, OpenApiConverter } from "@typia/utils";
  * 3. Require LLM validation to advertise and accept every flattened value.
  * 4. Execute the route and compare the exact merged Cookie header.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpMigration, OpenApiConverter downgrades, HttpLlm validation and HttpMigration.execute run on an authored 3.2 cookie document; the style and explode metadata, the 3.0, 3.1 and 2.0 downgrade outputs, LLM validation and the exact merged Cookie header are compared.
- * @evidence contracts/testing.md#independent-expectations The cookie header string is an authored literal following RFC 3986 percent-encoding for style form and pass-through for style cookie, and the downgrade expectations follow each target version's lack of the cookie style; none is produced by the serializer under test.
- * @evidence contracts/testing.md#distinguishing-cases The raw value with a style cookie, spaced names and values with style form and an exploded object member each distinguish pass-through from encoding, and the inherited cookie header shows merge and override. Non-exploded cookie objects and arrays are not covered.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. The request is captured by a fetch double; downgrades and validation run in process with no native build, installation or host.
  */
 export const test_http_migrate_cookie_serialization_contract =
   async (): Promise<void> => {

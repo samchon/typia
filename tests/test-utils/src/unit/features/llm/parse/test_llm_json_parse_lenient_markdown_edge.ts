@@ -12,10 +12,6 @@ import { LlmJson } from "@typia/utils";
  *    blocks, quoted markers, CRLF and empty-gap fences.
  * 2. Compare the retained results with literal expectations.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct LlmJson.parse calls assert the authored success, data and diagnostic distinctions.
- * @evidence contracts/testing.md#independent-expectations Authored literal values and the maintained JSON/recovery contract establish expectations independently of parser output. Diagnostic subsets pin selected expected fields rather than every diagnostic detail.
- * @evidence contracts/testing.md#distinguishing-cases This case owns no newline, newline-only, same-line text, spaces, first-of-multiple blocks, quoted markers, CRLF and empty-gap fences; complementary valid/invalid spellings execute in the other direct parser units rather than repeating native preparation.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this exported case with node:test. Its portable utility calls use the plugin-free oracle; no consumer installation, native producer or host is needed.
  */
 export const test_llm_json_parse_lenient_markdown_edge = (): void => {
   // "```json" with no newline at all → extractMarkdownCodeBlock returns null

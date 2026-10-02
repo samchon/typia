@@ -11,10 +11,6 @@ import { ProtobufAtomic } from "@typia/interface";
  * 2. Confirm `Numeric` and `BigNumeric` are assignable to `ProtobufAtomic`.
  * 3. Confirm `BigNumeric` is assignable to `Numeric`.
  *
- * @evidence contracts/testing.md#behavioral-verification ProtobufAtomic and its Numeric/BigNumeric subsets must equal the authored scalar-name unions and retain subset assignability.
- * @evidence contracts/testing.md#independent-expectations The documented supported protobuf scalar vocabulary supplies literals independently of the namespace; exact identity detects added or lost names.
- * @evidence contracts/testing.md#distinguishing-cases Bool/string versus integer/float numeric names, 32/64-bit families and the 64-bit-only BigNumeric subset distinguish each vocabulary boundary.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ProtobufAtomicCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ProtobufAtomicCases = [
   Assert<

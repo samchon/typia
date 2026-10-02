@@ -8,10 +8,6 @@ import { OpenApiValidator } from "@typia/utils";
  * These seven original literal verdicts move from the native interoperability
  * peer with their schemas and payloads unchanged.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiValidator validates every original closed-object and additionalProperties object against authored success booleans.
- * @evidence contracts/testing.md#independent-expectations The literal verdicts follow JSON projection: undefined-valued extras disappear, while defined numeric extras violate closure or a string additionalProperties schema.
- * @evidence contracts/testing.md#distinguishing-cases Undefined extras, defined extras and an undefined extra with a defined sibling cover closure; both equals settings cover constrained extras. The native peer retains its generated equals callbacks and emitted-schema round trip.
- * @evidence contracts/testing.md#execution-ownership The test-utils test:unit entry registers this case under plugin-free tsconfig.unit.json; every schema and payload is local to this invocation and needs no native producer.
  */
 export const test_openapi_validator_object_undefined_property_portable =
   (): void => {

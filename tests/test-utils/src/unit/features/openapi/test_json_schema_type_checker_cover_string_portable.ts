@@ -7,10 +7,6 @@ import { OpenApiTypeChecker } from "@typia/utils";
  * The original enum, length and pattern inputs and their literal verdicts move
  * here from the native format-population sweep without changing either.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiTypeChecker.covers runs every original authored enum, length and pattern pair and compares its boolean result.
- * @evidence contracts/testing.md#independent-expectations Literal enum subsets, length intervals and identical or disjoint patterns decide the expected verdicts independently of the coverage implementation.
- * @evidence contracts/testing.md#distinguishing-cases Both directions of enum inclusion, equal and unequal length bounds, and identical versus disjoint patterns retain all ten original positive and negative rows. Format population remains owned by the native test_json_schema_type_checker_cover_string peer.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json; authored schema comparisons run in process without a native host.
  */
 export const test_json_schema_type_checker_cover_string_portable = (): void => {
   // SUCCESS SCENARIOS

@@ -20,10 +20,6 @@ import { TestGlobal } from "../../../../TestGlobal";
  *    characters.
  * 3. Assert every function name is at most 64 characters and all names are unique.
  *
- * @evidence contracts/testing.md#behavioral-verification HttpLlm.application runs with its default configuration on the GitHub example; the overflow, length and uniqueness assertions fail if shortening is skipped, cuts too little or collapses two functions into one name.
- * @evidence contracts/testing.md#independent-expectations The 64-character limit and uniqueness are the documented default contract, and the overflow precondition is read from each route's own accessor, so the shortening result is not used to derive its expectation. The fixture is a checked-in GitHub document rather than a remote one.
- * @evidence contracts/testing.md#distinguishing-cases The overflow assertion makes the positive case non-vacuous: without a long route the length check would pass trivially. Explicit maxLength values, digit-leading segments and impossible limits are owned by test_http_llm_application_function_name_fallback; no short-name negative twin is asserted.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. It reads a local fixture and calls HttpLlm in process, with no network access or native host.
  */
 export const test_http_llm_application_function_name_length =
   async (): Promise<void> => {

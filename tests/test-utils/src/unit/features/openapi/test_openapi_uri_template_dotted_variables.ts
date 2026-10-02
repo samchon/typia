@@ -11,10 +11,6 @@ import assert from "node:assert/strict";
  * 2. Reject empty dotted runs and a misplaced operator.
  * 3. Check both direct validation and constant-schema coverage decisions.
  *
- * @evidence contracts/testing.md#behavioral-verification Public string validation and constant-schema coverage dispatch uri-template format checks, distinguishing valid dotted variables from malformed empty name runs.
- * @evidence contracts/testing.md#independent-expectations Authored positive and negative templates follow RFC 6570 section 2.3 varname and expression operator grammar; expected booleans are not computed by the format owner.
- * @evidence contracts/testing.md#distinguishing-cases Dotted, percent-encoded, prefix and exploded variables contrast with doubled or trailing dots and a misplaced question mark; label expansion and literal dots outside an expression remain valid.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner registers this exported case. Portable validator and coverage calls use authored schemas without a native producer, installed consumer or external process.
  */
 export const test_openapi_uri_template_dotted_variables = (): void => {
   const schema = { type: "string" as const, format: "uri-template" };

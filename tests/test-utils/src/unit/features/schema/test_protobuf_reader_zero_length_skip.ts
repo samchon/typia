@@ -18,10 +18,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  *    honors an enclosing `fork` boundary, and that truncated fields are still
  *    rejected atomically.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct skipType operations stop at the exact next byte and preserve fork boundaries while truncated skips reject atomically.
- * @evidence contracts/testing.md#independent-expectations Handwritten wire buffers and authored byte indices supply independent framing expectations.
- * @evidence contracts/testing.md#distinguishing-cases Zero/nonzero/multibyte LEN, zero/single/multibyte VARIANT, fixed widths, groups/nested groups, fork/close and four truncation controls retain all assertions.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_reader_zero_length_skip. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_protobuf_reader_zero_length_skip = (): void => {
   assertSkip("zero-length LEN before another field", [0x00, 0x0a], 1, (r) =>

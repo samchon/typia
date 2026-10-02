@@ -16,10 +16,6 @@ import { _ProtobufWriter } from "typia/lib/internal/_ProtobufWriter";
  * 2. Require the writer to fill exactly the size that the sizer announced.
  * 3. Require the reader to return the original value and the canonical bytes.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct sizer/writer/reader calls agree with independently authored sint32 sizes, bytes and decoded values.
- * @evidence contracts/testing.md#independent-expectations The fixed byte vectors follow unsigned 32-bit ZigZag and varint rules; a correlated roundtrip cannot pass incorrect bytes because the literal encoding is asserted.
- * @evidence contracts/testing.md#distinguishing-cases All ten vectors at zero, +/-1, 2^29, around +/-2^30 and signed 32-bit extrema remain unchanged.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_sint32_zigzag_boundaries. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_protobuf_sint32_zigzag_boundaries = (): void => {
   for (const [value, bytes] of VECTORS) {

@@ -16,10 +16,6 @@ import { OpenApiConverter } from "@typia/utils";
  *    schemas or unrepresentable examples.
  * 4. Assert every lossy case reports a TypeError with its exact diagnostic.
  *
- * @evidence contracts/testing.md#behavioral-verification OpenApiConverter.downgradeDocument runs on authored documents with incompatible servers, variables, media entries and examples; each lossy case must throw the actual TypeError constructor and its independently authored diagnostic, so silently selecting an entry or an unrelated exception fails.
- * @evidence contracts/testing.md#independent-expectations The Swagger 2.0 model (one host and basePath with schemes, one schema per request or response) decides what is representable; documents are authored and the expected failures are not read from the converter's output.
- * @evidence contracts/testing.md#distinguishing-cases Different authorities, server variables, incomplete request media, mixed form and non-form media, schema-differing media and unrepresentable examples are rejection cases; the representable counterparts are covered by the server and media round-trip case.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit registers this exported case with node:test under the plugin-free tsconfig.unit.json. Conversion runs in process on authored documents with no native build, installation or host.
  */
 export const test_document_downgrade_v20_unrepresentable = (): void => {
   const document = (props: Partial<OpenApi.IDocument>): OpenApi.IDocument => ({

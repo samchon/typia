@@ -17,10 +17,6 @@ import { _randomString } from "typia/lib/internal/_randomString";
  * 2. Check exclusive bounds, exact decimal multiples and empty-range failures.
  * 3. Call each builtin without a source on a single-result domain.
  *
- * @evidence contracts/testing.md#behavioral-verification Six actual runtime helpers execute with constant or counted scalar sources. Literal endpoints, lowercase alphabet output, recursive and ordinary array widths, candidate identities, exclusive midpoint handling and invalid-domain exceptions distinguish dropped or misrouted source propagation.
- * @evidence contracts/testing.md#independent-expectations Bounds and inclusive integer arithmetic establish authored endpoint literals; exact decimal examples have single simple expected values. Candidate objects are compared by identity. These checks neither derive expectations from generated validators nor replace the builtin algorithms.
- * @evidence contracts/testing.md#distinguishing-cases Minimum/maximum source twins, ordinary/recursive defaults, zero lengths, exclusive numbers, integer decimal multiples, impossible ranges and a throwing source remain distinct. Default-source singleton domains check the fallback without statistical sampling or foreign mutation.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers this matching exported function. It invokes portable runtime helpers directly; native schema cases separately verify transformation and generator callback forwarding.
  */
 export const test_random_source_injection = (): void => {
   const low = (): number => 0;

@@ -21,10 +21,6 @@ import { Classifiable } from "@typia/interface";
  * 3. `from` returning an unrelated/`any` type is ignored; `from` returning
  *    `Instance | null` is honored.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must select authored seeds or field-copy shapes for private constructors and refuse fake prototype/callable factory identities.
- * @evidence contracts/testing.md#independent-expectations Literal seed/data outputs follow valid instance-producing from signatures; authored unrelated/any/never/nullish signatures establish invalid factories independently of Classifiable.
- * @evidence contracts/testing.md#distinguishing-cases Private classes with/without factories, data prototype fields, callable prototype carriers and unrelated/any/nullable/never/nullish from returns isolate class and factory detection.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifiableClassDetectionCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifiableClassDetectionCases = [
   Assert<IsEqual<Classifiable<typeof Singleton>, { value: number }>>,

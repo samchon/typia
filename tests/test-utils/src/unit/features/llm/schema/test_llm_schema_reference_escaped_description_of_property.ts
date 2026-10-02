@@ -16,10 +16,6 @@ import { LlmSchemaConverter } from "@typia/utils";
  * 2. Retain the original missing-description assertion and compare the exact
  *    reference and target fields.
  *
- * @evidence contracts/testing.md#behavioral-verification LlmSchemaConverter.parameters removes the hobby reference description; independent reference and definition subset checks also prevent an absent or wrongly bound hobby from passing that absence check.
- * @evidence contracts/testing.md#independent-expectations The authored IHobby reference and name:string target establish the exact local pointer and required target shape independently. The subset intentionally leaves unrelated descriptor formatting to description cases.
- * @evidence contracts/testing.md#distinguishing-cases The strict property-description distinction is paired with preserved reference/target meaning. Default-versus-strict placement is verified in strict_description.
- * @evidence contracts/testing.md#execution-ownership test-utils test:unit explicitly registers this matching export through node:test with the plugin-free oracle/configuration. Inline OpenAPI or LLM fixtures establish portable input meaning independently; local private helpers are reviewed through this owning case. Native JSON/LLM emission and JSDoc extraction remain in their existing schema/spec batches.
  */
 export const test_llm_schema_reference_escaped_description_of_property =
   (): void => {

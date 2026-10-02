@@ -16,10 +16,6 @@ import { TestEquality } from "@typia/template/equality";
  * 3. Assert the renamed booleans, the passed-through choice and score, the own
  *    `__proto__` key, and the unchanged input.
  *
- * @evidence contracts/testing.md#behavioral-verification Directly converts boolean, choice and score records and checks complete literal outputs, own __proto__ descriptor, ordinary output prototype, input nonmutation and empty-map behavior.
- * @evidence contracts/testing.md#independent-expectations Jev noul versus neutral choice/score spellings and ordinary JavaScript own-property semantics establish literal expectations. The input snapshot only establishes nonmutation, not correctness of the output.
- * @evidence contracts/testing.md#distinguishing-cases Boolean type must change while choice/score remain intact; own __proto__ must remain data rather than mutate the prototype, and empty input must yield an empty ordinary record.
- * @evidence contracts/testing.md#execution-ownership The plugin-free node:test runner explicitly registers test_jev_questions under its original case name. test:unit uses ttsx --no-plugins and tsconfig.unit.json; these portable operations do not load a native producer or product host.
  */
 export const test_jev_questions = (): void => {
   const empty: Record<string, IJevQuestion> = toJevQuestions({});

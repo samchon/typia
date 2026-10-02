@@ -18,10 +18,6 @@ import {
  * 2. Apply every notation family to a suffix-only variadic tuple.
  * 3. Preserve mutable and readonly shapes without widening to union arrays.
  *
- * @evidence contracts/testing.md#behavioral-verification Resolved and notation aliases must preserve required heads/suffixes and repeated middles while converting their member types.
- * @evidence contracts/testing.md#independent-expectations Handwritten Expected tuples state position, readonlyness, unboxing and renamed member keys independently of the aliases.
- * @evidence contracts/testing.md#distinguishing-cases Mutable and readonly, head-plus-middle-plus-tail and suffix-only tuples across four naming families distinguish variadic tuples from widened homogeneous arrays.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks TupleHelperVariadicBoundaryCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type TupleHelperVariadicBoundaryCases = [
   Assert<IsEqual<ResolvedVariadic, ExpectedResolvedVariadic>>,

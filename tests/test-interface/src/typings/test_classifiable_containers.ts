@@ -13,10 +13,6 @@ import { Classifiable } from "@typia/interface";
  * 2. Apply `Classifiable` and compare against the plain-element container.
  * 3. Assert array elements still demand their required data members.
  *
- * @evidence contracts/testing.md#behavioral-verification Classifiable must recurse into arrays/tuples/records and strong collections, reject weak collections and preserve valid assignments.
- * @evidence contracts/testing.md#independent-expectations Authored Plain and explicit container types state output meaning; expected-error assignment requires missing element data to be rejected.
- * @evidence contracts/testing.md#distinguishing-cases Mutable/readonly/nested arrays, fixed/optional/empty tuples, documented variadic widening, Set/Map array forms, weak collections and string/number records pin distinct branches.
- * @evidence contracts/testing.md#execution-ownership test-interface start typechecks ClassifiableContainerCases through the installed TypeScript compiler (tsc) with noEmit. Each Assert requires a true result from the local symmetric type-identity or assignability check; value assignments and expect-error directives are also compile-only. No native artifact, consumer installation or runtime host executes this unit.
  */
 export type ClassifiableContainerCases = [
   // arrays

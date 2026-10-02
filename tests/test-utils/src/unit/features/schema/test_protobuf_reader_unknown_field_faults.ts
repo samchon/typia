@@ -22,10 +22,6 @@ import { _ProtobufReader } from "typia/lib/internal/_ProtobufReader";
  * 3. Assert every fault carries the standard prefix and restores the reader, and
  *    that legal wire types and legal ten-byte values are left untouched.
  *
- * @evidence contracts/testing.md#behavioral-verification Direct unknown-field skips assert exact offsets, widths and stable errors, including atomic restoration.
- * @evidence contracts/testing.md#independent-expectations Wire constants and handwritten varint/frame vectors determine expected widths and errors independently of the skipper.
- * @evidence contracts/testing.md#distinguishing-cases Reserved 6/7/bare END_GROUP, nonzero offset, legal widths 1/2/9/10, 11/13/runaway/ten-continuation and truncated variants, groups and legal fixed/LEN controls remain.
- * @evidence contracts/testing.md#execution-ownership The plugin-free test-utils unit runner explicitly registers test_protobuf_reader_unknown_field_faults. It imports the owning runtime operations directly under tsconfig.unit.json and --no-plugins, with no consumer install, native artifact or process host required.
  */
 export const test_protobuf_reader_unknown_field_faults = (): void => {
   //----

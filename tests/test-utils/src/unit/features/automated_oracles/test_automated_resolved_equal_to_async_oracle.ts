@@ -17,10 +17,6 @@ import { resolved_equal_to_async } from "@typia/template/resolved-equality-async
  * 2. Reject same-size different bytes, which only the awaited pass can see.
  * 3. Round trip through a real `FormData` and require the result accepted.
  *
- * @evidence contracts/testing.md#behavioral-verification Runs every authored Blob/File pair and FormData projection and requires literal verdicts after awaiting byte reads; same-sized changed bytes and metadata changes must fail.
- * @evidence contracts/testing.md#independent-expectations Authored byte arrays, names/times/media types and literal verdicts establish expectations independently of the helper; platform FormData supplies the separate binary materialization control.
- * @evidence contracts/testing.md#distinguishing-cases All thirteen original content, metadata, Blob-to-File projection, real round-trip and swapped-part distinctions remain, including same-size different-content negative cases.
- * @evidence contracts/testing.md#execution-ownership node:test explicitly registers test_automated_resolved_equal_to_async_oracle under test-utils test:unit. The same template implementation is re-exported by automated utilities, and this unit population imports no native producer or compiler process. Local table/probe/binary constructors belong to this case.
  */
 export const test_automated_resolved_equal_to_async_oracle =
   async (): Promise<void> => {
