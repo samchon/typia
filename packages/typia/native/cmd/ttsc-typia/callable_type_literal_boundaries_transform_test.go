@@ -252,16 +252,7 @@ type Same<X, Y> = [X] extends [Y] ? ([Y] extends [X] ? true : false) : false;
 
 func callableTypeLiteralProject(t *testing.T, name string, files map[string]string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "callable-type-literal-"+name+"-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "callable-type-literal-"+name+"-")
   if err := os.MkdirAll(filepath.Join(dir, "src"), 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }

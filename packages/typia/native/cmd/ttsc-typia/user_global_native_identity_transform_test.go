@@ -110,18 +110,7 @@ func TestUserGlobalNativeIdentityTransform(t *testing.T) {
 
 func userGlobalNativeIdentityWriteProject(t *testing.T, prefix string, files map[string]string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, prefix)
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, prefix)
   for name, content := range files {
     path := filepath.Join(dir, filepath.FromSlash(name))
     if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {

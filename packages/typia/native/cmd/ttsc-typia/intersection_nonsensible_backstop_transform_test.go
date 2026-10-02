@@ -99,13 +99,9 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
 }
 
 // Unlike the sibling suites sharing atomicIntersectionSchemaTSConfig, this
-// test runs a full `--emit` build, and the fixture imports the real "typia"
-// package whose exports ship TypeScript source — so packages/typia/src/**
-// joins the program as emittable input. outDir keeps that emit inside the
-// fixture directory (removed by t.Cleanup) instead of writing .js beside
-// typia's own sources, and tsgo then demands rootDir name the program's
-// common source directory explicitly (TS5011): "../../.." resolves to
-// packages/typia from a fixture at native/.tmp-ttsc-typia-tests/<name>/.
+// test runs a full `--emit` build. Workspace declaration inputs are copied into
+// the temporary node_modules, so imported package sources are external inputs.
+// rootDir and outDir keep the fixture's emitted source inside its own directory.
 const intersectionBackstopTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -117,7 +113,7 @@ const intersectionBackstopTSConfig = `{
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "rootDir": "../../.."
+    "rootDir": "src"
   },
   "include": ["src"]
 }
@@ -125,16 +121,7 @@ const intersectionBackstopTSConfig = `{
 
 func intersectionBackstopProject(t *testing.T, name string, decl string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "backstop-"+strings.ReplaceAll(name, "_", "-")+"-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "backstop-"+strings.ReplaceAll(name, "_", "-")+"-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

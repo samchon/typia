@@ -48,16 +48,7 @@ func TestWrongTypeTagTargetDiagnostic(t *testing.T) {
 
 func wrongTypeTagTargetDiagnosticProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  project, err := os.MkdirTemp(base, "wrong-tag-target-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(project) })
+  project := ttscTypiaTestFixtureDirectory(t, "wrong-tag-target-")
   src := filepath.Join(project, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

@@ -115,18 +115,7 @@ func TestNodeBufferNativeExportsIsTransform(t *testing.T) {
 
 func nodeBufferNativeExportsProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "node-buffer-native-exports-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "node-buffer-native-exports-")
 
   src := filepath.Join(dir, "src")
   dependency := filepath.Join(dir, "node_modules", "native-buffer-lookalike")
@@ -153,18 +142,7 @@ func nodeBufferNativeExportsProject(t *testing.T) string {
 
 func nodeBufferNativeExportsSpoofProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "node-buffer-native-exports-spoof-")
-  if err != nil {
-    t.Fatalf("create counterfeit fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "node-buffer-native-exports-spoof-")
 
   src := filepath.Join(dir, "src")
   fakeNodeRoot := filepath.Join(src, "node_modules", "@types", "node")

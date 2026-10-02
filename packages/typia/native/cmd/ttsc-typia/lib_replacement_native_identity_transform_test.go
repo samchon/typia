@@ -57,18 +57,7 @@ func TestLibReplacementNativeIdentityTransform(t *testing.T) {
 
 func libReplacementNativeIdentityProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "lib-replacement-native-identity-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "lib-replacement-native-identity-")
   for name, content := range map[string]string{
     "tsconfig.json": libReplacementNativeIdentityTSConfig,
     "node_modules/@typescript/lib-es2015/package.json":    libReplacementNativeIdentityPackageJSON,

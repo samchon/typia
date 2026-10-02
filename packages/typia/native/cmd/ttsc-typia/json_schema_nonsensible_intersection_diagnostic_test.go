@@ -44,20 +44,7 @@ func TestJSONSchemaNonsensibleIntersectionDiagnostic(t *testing.T) {
 
 func jsonSchemaNonsensibleIntersectionDiagnosticProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("create fixture base: %v", err)
-  }
-  project, err := os.MkdirTemp(base, "json-schema-nonsensible-intersection-")
-  if err != nil {
-    t.Fatalf("create fixture project: %v", err)
-  }
-  t.Cleanup(func() {
-    if err := os.RemoveAll(project); err != nil {
-      t.Errorf("remove fixture project: %v", err)
-    }
-  })
+  project := ttscTypiaTestFixtureDirectory(t, "json-schema-nonsensible-intersection-")
   src := filepath.Join(project, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("create fixture src: %v", err)

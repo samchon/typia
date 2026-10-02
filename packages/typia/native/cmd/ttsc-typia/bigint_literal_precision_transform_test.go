@@ -19,16 +19,7 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases Five literal validators cover the first unsafe integer, both signed 64-bit limits, an unsafe literal union and a small safe integer. Each unsafe value must retain its exact decimal text; reflection and schema conversion are not exercised here.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestBigintLiteralPrecisionTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestBigintLiteralPrecisionTransform(t *testing.T) {
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "bigint-precision-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "bigint-precision-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

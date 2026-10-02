@@ -19,18 +19,7 @@ import (
 // @evidence contracts/testing.md#distinguishing-cases The tag has one malformed field, isolating field ownership instead of hiding the error behind another invalid tag property.
 // @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestMetadataTypeTagSoleMalformedDiagnostic as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestMetadataTypeTagSoleMalformedDiagnostic(t *testing.T) {
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "sole-malformed-tag-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "sole-malformed-tag-")
   if err := os.MkdirAll(filepath.Join(dir, "src"), 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
   }

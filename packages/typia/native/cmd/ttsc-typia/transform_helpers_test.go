@@ -11,14 +11,9 @@ import (
 // ttscTypiaTestTypecheck requires a fixture project to be free of TypeScript
 // errors, which is what makes an `@ts-expect-error` in a fixture load-bearing.
 //
-// It runs the build command in no-emit mode with the rewrite disabled, so the
-// only diagnostics it can report are the program's own. It used to shell out to
-// `pnpm exec ttsc --noEmit -p tsconfig.json`, which reported nothing and exited
-// 0 for a fixture under `.tmp-ttsc-typia-tests` — `const value: number = "bad"`
-// passed — so every caller was asserting against an oracle that could not fail.
-// `runBuild` is the same program these tests already drive, and
-// build_reports_semantic_diagnostics_test.go pins that it surfaces semantic
-// diagnostics as status 2.
+// It runs the build command in no-emit mode with the rewrite disabled, so fixture
+// validity is checked independently of the typia transformation. This is a
+// prerequisite for the caller's typia assertions, not a separate compiler test.
 func ttscTypiaTestTypecheck(t *testing.T, project string) {
   t.Helper()
   out, errText, code := ttscTypiaTestCapture(func() int {

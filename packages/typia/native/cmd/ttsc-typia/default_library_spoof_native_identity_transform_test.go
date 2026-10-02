@@ -52,18 +52,7 @@ func TestDefaultLibrarySpoofNativeIdentityTransform(t *testing.T) {
 
 func defaultLibrarySpoofNativeIdentityProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "default-library-spoof-native-identity-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "default-library-spoof-native-identity-")
   for name, content := range map[string]string{
     "tsconfig.json": defaultLibrarySpoofNativeIdentityTSConfig,
     "node_modules/@types/spoof-lib/package.json": defaultLibrarySpoofNativeIdentityPackageJSON,
