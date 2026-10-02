@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/config",
-  "version": "15.0.1",
+  "version": "15.1.0",
   "description": "Shared build configuration for typia packages",
   "devDependencies": {
     "@ttsc/unplugin": "catalog:samchon",

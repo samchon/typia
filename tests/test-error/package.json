@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typia/test-error",
-  "version": "15.0.1",
+  "version": "15.1.0",
   "description": "Test program of typia generated error",
   "main": "index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@typia/langchain",
-  "version": "15.0.1",
+  "version": "15.1.0",
   "description": "LangChain.js integration for typia",
   "main": "src/index.ts",
   "exports": {
