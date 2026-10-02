@@ -72,14 +72,3 @@ lead는 모듈 간 원인과 소유권 충돌을 해결하고 결과를 독립 �
 각 처분 기록에는 `owner / 대상 경로와 symbol / 적용 chapter / 확인한 사실과 근거 / 처분 / 조치 파일 / 검증 명령과 실제 exit·결과 / source 상태 / 남은 문제`를 넣는다. 별도 스크립트나 거대한 자동 ledger를 만들지 않고 간결한 Markdown 기록 및 공식 도구 출력으로 남긴다. 새 담당자는 기록의 결론을 증거 없이 상속하지 않는다.
 
 진행률은 **완료 처분 수 ÷ 배정한 전체 대상 수**다. 전체 대상에는 승인된 의미 없는 대상 말소도 포함해 분모를 줄여 완료율을 부풀리지 않는다. `PASS_UNCHANGED`, `PASS_FIXED`, `PASS_REMOVED`를 따로 보고하고 PENDING과 필수 검증 누락도 함께 보고한다. 기록이 없거나 원본 근거가 없어 재확인해야 하는 과거 분석은 완료 처분이 아니다.
-
-## 보존 및 금지
-
-- master의 의미 있는 입력·assertion·negative·failure identity·canonical 등록과 실행을 보존한다. 테스트를 줄이거나 옮길 때 남은 실행 owner를 확인한다.
-- Go unit은 실제 metadata/AST/options/emission을 in-process로 검사한다. Node/subprocess runtime을 Go unit에 넣지 않는다. 필요한 실제 JavaScript 의미는 정규 TS E2E에서 확인한다.
-- 공개 API·visibility·옵션 의미를 Evidence 선택을 위해 변경하지 않는다. `@internal`을 제거하지 않는다. alias·wrapper·재export로 실제 소유자를 숨겨 체크를 우회하지 않는다. 잘못된 답변을 일반 준수 문구로 바꾸지 않는다.
-- master 복원 대상인 template 기존 파일은 의미를 보존하고 새 공유 검증 helper는 유지한다. 사용자의 최신 명시적 수정은 되돌리지 않는다.
-- native/cache·generator·packing·Git index writer는 각각 순차로 조정한다. source 소비 실행을 formatter·generator와 경합시키지 않는다. 남의 프로세스·lock을 종료하거나 wholesale cache 삭제로 문제를 가리지 않는다.
-- `.tmp-ttsc-typia-tests` 고정 폴더·생성 경로·ignore·설정 참조는 완전 말소한다. 이름만 바꾼 repo scratch로 되살리지 않는다. 현재 전담자 결과를 확인해 실제 typia 회귀 assertion을 보존했는지 검증한다.
-- 최신 사용자 지시에 따라 목적 없는 fixture와 ttsc 자체를 검증하는 테스트는 삭제한다. typia 결과를 검사하지 않는 일반 TypeScript assignability·compiler reporting 검증 등을 다른 임시 디렉터리에 옮겨 존속시키지 않는다. 유지하는 테스트는 실제 typia metadata/AST/emission/diagnostic 책임을 근거로 구분한다. 이 명시적 삭제는 과거의 일괄 보존 지시보다 우선한다.
-- release·package version 변경·merge는 이번 작업에 포함하지 않는다. 완료 조건 전 Draft 해제나 작업 완료 선언을 하지 않는다.
