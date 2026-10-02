@@ -2,27 +2,10 @@
   "severity": "error",
   "claims": [
     {
-      "name": "native schema and data operation boundaries",
+      "name": "TypeScript test declarations",
       "type": "typescript",
-      "files": [
-        "src/features/**/*.ts",
-        "!src/features/plain/PlainNativeClone.ts",
-        "!src/features/protobuf.decode/ProtobufVarintCorpus.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/testing.md", "contracts/e2e.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "portable clone assertion helpers",
-      "type": "typescript",
-      "files": ["src/features/plain/PlainNativeClone.ts"],
-      "symbol": "function",
+      "files": ["src/**/*.ts"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
@@ -32,14 +15,14 @@
       }
     },
     {
-      "name": "maintained runner helpers",
+      "name": "real component boundary cases",
       "type": "typescript",
-      "files": ["src/TestGlobal.ts"],
+      "files": ["src/features/**/test_*.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": ["contracts/common.md"],
+        "files": ["contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }

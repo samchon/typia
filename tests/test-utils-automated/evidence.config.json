@@ -2,69 +2,30 @@
   "severity": "error",
   "claims": [
     {
-      "name": "generated schema and fatal-event boundaries",
+      "name": "TypeScript test declarations",
       "type": "typescript",
-      "files": ["src/features/**/*.ts", "src/regressions/test_process_fatal_events.ts"],
-      "symbol": "function",
+      "files": ["src/**/*.ts", "!src/features/**"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": ["contracts/testing.md", "contracts/e2e.md"],
+        "files": ["contracts/testing.md"],
         "symbol": "h2",
         "checklist": true
       }
     },
     {
-      "reference": {
-        "root": "../../.agents/skills",
-        "checklist": true,
-        "files": ["contracts/common.md"],
-        "type": "markdown",
-        "symbol": "h2"
-      },
-      "name": "maintained test generators",
-      "files": ["src/TestAutomation.ts", "src/generate.ts"],
+      "name": "real component boundary cases",
       "type": "typescript",
-      "symbol": ["type", "function"]
-    },
-    {
-      "name": "strict OpenAPI validation assertion helper",
-      "type": "typescript",
-      "files": ["src/internal/_test_validateEquals.ts"],
+      "files": ["src/regressions/test_process_fatal_events.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": ["contracts/common.md", "contracts/testing.md"],
+        "files": ["contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }
-    },
-    {
-      "name": "maintained runner helpers",
-      "type": "typescript",
-      "files": ["src/TestGlobal.ts", "src/servant/index.ts"],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/common.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "reference": {
-        "root": "../../.agents/skills",
-        "checklist": true,
-        "files": ["contracts/common.md", "contracts/portability.md", "contracts/performance.md"],
-        "type": "markdown",
-        "symbol": "h2"
-      },
-      "name": "automated suite execution owner",
-      "files": ["src/index.ts"],
-      "type": "typescript",
-      "symbol": "function"
     }
   ]
 }

@@ -6,8 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf bin && ttsc --emit",
-    "start": "node index.js",
-    "evidence": "evidence"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

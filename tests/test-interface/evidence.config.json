@@ -2,7 +2,7 @@
   "severity": "error",
   "claims": [
     {
-      "name": "compile-only interface test declarations",
+      "name": "TypeScript test declarations",
       "type": "typescript",
       "files": ["src/**/*.ts"],
       "symbol": ["type", "function"],

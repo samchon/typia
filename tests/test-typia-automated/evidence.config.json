@@ -2,124 +2,10 @@
   "severity": "error",
   "claims": [
     {
-      "name": "generated feature and authored composite boundaries",
+      "name": "TypeScript test declarations",
       "type": "typescript",
-      "files": ["src/features/**/*.ts", "src/composite/test_*.ts"],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/testing.md", "contracts/e2e.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "reference": {
-        "root": "../../.agents/skills",
-        "checklist": true,
-        "files": ["contracts/common.md"],
-        "type": "markdown",
-        "symbol": "h2"
-      },
-      "name": "maintained generators and comparison utilities",
-      "files": [
-        "src/build/**/*.ts",
-        "src/generate.ts",
-        "src/utils/create_query.ts",
-        "src/utils/headers_to_string.ts",
-        "src/utils/primitive_clone.ts",
-        "!src/build/writers/write_data_contract.ts"
-      ],
-      "type": "typescript",
-      "symbol": ["type", "function"]
-    },
-    {
-      "name": "maintained assertion helpers",
-      "type": "typescript",
-      "files": [
-        "src/internal/_test_*.ts",
-        "!src/internal/_test_is.ts",
-        "!src/internal/_test_equals.ts",
-        "!src/internal/_test_plain_isPrune.ts",
-        "!src/internal/_test_plain_prune.ts",
-        "!src/internal/_test_plain_clone.ts",
-        "!src/internal/_test_plain_assertClone.ts",
-        "!src/internal/_test_plain_isClone.ts",
-        "!src/internal/_test_plain_validateClone.ts",
-        "!src/internal/_test_plain_validatePrune.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/common.md", "contracts/testing.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "native validating clone and prune assertion helpers",
-      "type": "typescript",
-      "files": [
-        "src/internal/_test_plain_validatePrune.ts",
-        "src/internal/_test_plain_assertClone.ts",
-        "src/internal/_test_plain_isClone.ts",
-        "src/internal/_test_plain_validateClone.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/common.md", "contracts/testing.md", "contracts/e2e.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "contract rendering and native profile execution",
-      "type": "typescript",
-      "files": ["src/build/writers/write_data_contract.ts", "src/native-profiles/TestNativeProfile.ts"],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/common.md", "contracts/performance.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "maintained runner helpers",
-      "type": "typescript",
-      "files": ["src/TestGlobal.ts", "src/servant/index.ts"],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": ["contracts/common.md"],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "reference": {
-        "root": "../../.agents/skills",
-        "checklist": true,
-        "files": ["contracts/common.md", "contracts/portability.md", "contracts/performance.md"],
-        "type": "markdown",
-        "symbol": "h2"
-      },
-      "name": "suite and compiler-profile orchestration",
-      "files": ["src/index.ts", "src/native-profiles/TestNativeProfiles.ts"],
-      "type": "typescript",
-      "symbol": "function"
-    },
-    {
-      "name": "portable oracle and generator enrollment regressions",
-      "type": "typescript",
-      "files": ["src/regressions/test_*.ts", "src/unit/features/**/*.ts", "!src/regressions/test_process_fatal_events.ts"],
-      "symbol": "function",
+      "files": ["src/**/*.ts", "!src/features/**"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
@@ -129,14 +15,21 @@
       }
     },
     {
-      "name": "fatal-event subprocess lifecycle",
+      "name": "real component boundary cases",
       "type": "typescript",
-      "files": ["src/regressions/test_process_fatal_events.ts"],
+      "files": [
+        "src/regressions/test_process_fatal_events.ts",
+        "src/composite/test_*.ts",
+        "src/internal/_test_plain_assertClone.ts",
+        "src/internal/_test_plain_isClone.ts",
+        "src/internal/_test_plain_validateClone.ts",
+        "src/internal/_test_plain_validatePrune.ts"
+      ],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": ["contracts/testing.md", "contracts/e2e.md"],
+        "files": ["contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }

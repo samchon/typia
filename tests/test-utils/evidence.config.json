@@ -2,90 +2,27 @@
   "severity": "error",
   "claims": [
     {
-      "name": "native utility and schema-producer boundaries",
+      "name": "TypeScript test declarations",
       "type": "typescript",
-      "files": [
-        "src/features/**/*.ts"
-      ],
-      "symbol": "function",
+      "files": ["src/**/*.ts"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md",
-          "contracts/e2e.md"
-        ],
+        "files": ["contracts/testing.md"],
         "symbol": "h2",
         "checklist": true
       }
     },
     {
-      "name": "portable utility unit cases",
+      "name": "real component boundary cases",
       "type": "typescript",
-      "files": [
-        "src/unit/features/**/*.ts"
-      ],
+      "files": ["src/features/**/test_*.ts"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "maintained runner helpers",
-      "type": "typescript",
-      "files": [
-        "src/TestGlobal.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "portable declaration and inversion assertion helpers",
-      "type": "typescript",
-      "files": [
-        "src/unit/internal/**/*.ts",
-        "src/internal/_test_llm_invert.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/testing.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "portable JSON fixture discovery",
-      "type": "typescript",
-      "files": [
-        "src/internal/_readJsonFixturePaths.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/portability.md"
-        ],
+        "files": ["contracts/e2e.md"],
         "symbol": "h2",
         "checklist": true
       }

@@ -4,51 +4,12 @@
     {
       "name": "maintained TypeScript production declarations",
       "type": "typescript",
-      "files": [
-        "src/**/*.ts",
-        "!src/index.ts",
-        "!src/module.ts",
-        "!src/re-exports.ts",
-        "!src/internal/_randomArray.ts",
-        "!src/internal/_randomInteger.ts",
-        "!src/internal/_randomMultiple.ts",
-        "!src/internal/_randomNumber.ts",
-        "!src/internal/_randomPick.ts",
-        "!src/internal/_randomString.ts"
-      ],
-      "symbol": [
-        "type",
-        "function"
-      ],
+      "files": ["src/**/*.ts"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md"
-        ],
-        "symbol": "h2",
-        "checklist": true
-      }
-    },
-    {
-      "name": "random helpers performance and implementation ownership",
-      "type": "typescript",
-      "files": [
-        "src/internal/_randomArray.ts",
-        "src/internal/_randomInteger.ts",
-        "src/internal/_randomMultiple.ts",
-        "src/internal/_randomNumber.ts",
-        "src/internal/_randomPick.ts",
-        "src/internal/_randomString.ts"
-      ],
-      "symbol": "function",
-      "reference": {
-        "type": "markdown",
-        "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md",
-          "contracts/performance.md"
-        ],
+        "files": ["contracts/common.md"],
         "symbol": "h2",
         "checklist": true
       }
@@ -56,21 +17,12 @@
     {
       "name": "maintained native Go production declarations",
       "type": "go",
-      "files": [
-        "native/**/*.go",
-        "!native/**/*_test.go",
-        "!native/.tmp-ttsc-typia-tests/**"
-      ],
-      "symbol": [
-        "type",
-        "function"
-      ],
+      "files": ["native/**/*.go", "!native/**/*_test.go"],
+      "symbol": ["type", "function"],
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/common.md"
-        ],
+        "files": ["contracts/common.md"],
         "symbol": "h2",
         "checklist": true
       }
@@ -78,17 +30,12 @@
     {
       "name": "maintained native Go unit test declarations",
       "type": "go",
-      "files": [
-        "native/**/*_test.go",
-        "test/**/*.go"
-      ],
+      "files": ["native/**/*_test.go", "test/**/*.go"],
       "symbol": "function",
       "reference": {
         "type": "markdown",
         "root": "../../.agents/skills",
-        "files": [
-          "contracts/testing.md"
-        ],
+        "files": ["contracts/testing.md"],
         "symbol": "h2",
         "checklist": true
       }
