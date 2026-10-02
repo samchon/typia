@@ -23,29 +23,80 @@ type notationGeneralProgrammerNamespace struct{}
 
 var NotationGeneralProgrammer = notationGeneralProgrammerNamespace{}
 
+// NotationGeneralProgrammer_IRename is a key conversion: its Name selects the
+// runtime helper and the `*Case` type, and Func converts one key.
+//
+// @evidence contracts/common.md#principled-implementation The case name picks the runtime helper and the return type and Func is the conversion that the transform applies to emitted keys, so one record defines a notation.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type NotationGeneralProgrammer_IRename struct {
+  // Name selects the runtime notation helper and public case type.
   Name string
+
+  // Func converts a static property key while emitting its object member.
   Func func(str string) string
 }
 
+// NotationGeneralProgrammer_IProps is the shared programmer props plus the
+// Rename that selects the key conversion.
+//
+// @evidence contracts/common.md#principled-implementation The embedded shared props carry the context, call site, type, name and initializer, so the notation programmers take what every generic programmer takes and only add the conversion.
+// @evidence contracts/common.md#clear-and-simple-design An embedded record and one field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names the embedded record and the rename.
 type NotationGeneralProgrammer_IProps struct {
+  // IProgrammerProps carries the shared call context, type and initializer.
   nativecontext.IProgrammerProps
+
+  // Rename selects the runtime case helper and static key conversion.
   Rename NotationGeneralProgrammer_IRename
 }
 
+// NotationGeneralProgrammer_ReturnTypeProps is the Rename, the transform context
+// and the name of the type whose `*Case` return type is built.
+//
+// @evidence contracts/common.md#principled-implementation The return type is typia's case type applied to the type name, so those three inputs are enough.
+// @evidence contracts/common.md#clear-and-simple-design A three-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type NotationGeneralProgrammer_ReturnTypeProps struct {
-  Rename  NotationGeneralProgrammer_IRename
+  // Rename selects the runtime case helper and static key conversion.
+  Rename NotationGeneralProgrammer_IRename
+
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
-  Type    string
+
+  // Type is the rendered type name passed to the public case type.
+  Type string
 }
 
+// NotationGeneralProgrammer_DecomposeProps is the input of Decompose: the
+// Rename, whether the input is already Validated, the transform context, the
+// Functor and the type with its optional name.
+//
+// @evidence contracts/common.md#principled-implementation When a caller has already validated the input the is-helpers are not emitted again, so the flag is part of the input.
+// @evidence contracts/common.md#clear-and-simple-design A six-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and the meaning of Validated.
 type NotationGeneralProgrammer_DecomposeProps struct {
-  Rename    NotationGeneralProgrammer_IRename
+  // Rename selects the runtime case helper and static key conversion.
+  Rename NotationGeneralProgrammer_IRename
+
+  // Validated reuses enclosing checks instead of adding ordinary is-helper declarations.
   Validated bool
-  Context   nativecontext.ITypiaContext
-  Functor   *nativehelpers.FunctionProgrammer
-  Type      *shimchecker.Type
-  Name      *string
+
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
+  Functor *nativehelpers.FunctionProgrammer
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
 }
 
 const notationGeneralProgrammer_PREFIX = "_c"
@@ -288,7 +339,7 @@ func notationGeneralProgrammer_decode(props struct {
           Functor:  props.Functor,
           Input:    props.Input,
           Metadata: partial,
-          Explore:  notationGeneralProgrammer_checker_explore(props.Explore),
+          Explore:  props.Explore,
         })
       },
       Value: func() *shimast.Node {
@@ -676,7 +727,7 @@ func notationGeneralProgrammer_explore_sets(props notationGeneralProgrammer_expl
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
-            Explore:  notationGeneralProgrammer_checker_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -690,7 +741,7 @@ func notationGeneralProgrammer_explore_sets(props notationGeneralProgrammer_expl
                 Functor: props.Functor,
                 Input:   v.Input,
                 Array:   v.Definition.(*schemametadata.MetadataArray),
-                Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+                Explore: v.Explore,
               }),
             }),
           )
@@ -769,7 +820,7 @@ func notationGeneralProgrammer_explore_maps(props notationGeneralProgrammer_expl
                 Functor: props.Functor,
                 Input:   v.Input,
                 Array:   v.Definition.(*schemametadata.MetadataArray),
-                Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+                Explore: v.Explore,
               }),
             }),
           )
@@ -865,7 +916,7 @@ func notationGeneralProgrammer_explore_arrays(props notationGeneralProgrammer_ex
               Functor:  props.Functor,
               Input:    v.Input,
               Metadata: v.Definition.(*schemametadata.MetadataSchema),
-              Explore:  notationGeneralProgrammer_checker_explore(v.Explore),
+              Explore:  v.Explore,
             })
           },
           Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -875,7 +926,7 @@ func notationGeneralProgrammer_explore_arrays(props notationGeneralProgrammer_ex
               Functor: props.Functor,
               Input:   v.Input,
               Array:   v.Definition.(*schemametadata.MetadataArray),
-              Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+              Explore: v.Explore,
             })
           },
           Empty:   f.NewIdentifier("[]"),
@@ -1015,7 +1066,7 @@ func notationGeneralProgrammer_configure(props struct {
           Functor:  props.Functor,
           Input:    next.Input,
           Metadata: next.Metadata,
-          Explore:  notationGeneralProgrammer_checker_explore(next.Explore),
+          Explore:  next.Explore,
         })
       },
       Decoder: func(next nativeinternal.FeatureProgrammer_ObjectorDecoderProps) *shimast.Node {
@@ -1061,7 +1112,7 @@ func notationGeneralProgrammer_configure(props struct {
               Functor: props.Functor,
               Object:  v.Object,
               Input:   v.Input,
-              Explore: notationGeneralProgrammer_feature_explore(v.Explore),
+              Explore: v.Explore,
             })
           },
           Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -1070,7 +1121,7 @@ func notationGeneralProgrammer_configure(props struct {
               Object  *schemametadata.MetadataObjectType
               Input   *shimast.Node
               Explore nativeinternal.FeatureProgrammer_IExplore
-            }{Functor: props.Functor, Object: v.Object, Input: v.Input, Explore: notationGeneralProgrammer_feature_explore(v.Explore)})
+            }{Functor: props.Functor, Object: v.Object, Input: v.Input, Explore: v.Explore})
           },
           Success: func(exp *shimast.Expression) *shimast.Node {
             return exp
@@ -1232,32 +1283,9 @@ func notationGeneralProgrammer_method_text(modulo *shimast.Node) string {
   return nativehelpers.ModuloMethodText(modulo)
 }
 
-func notationGeneralProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {
-  switch v := input.(type) {
-  case nativeinternal.FeatureProgrammer_IExplore:
-    return v
-  case *nativeinternal.FeatureProgrammer_IExplore:
-    return *v
-  default:
-    return nativeinternal.FeatureProgrammer_IExplore{}
-  }
-}
-
-func notationGeneralProgrammer_checker_explore(input any) nativeinternal.CheckerProgrammer_IExplore {
-  v := notationGeneralProgrammer_feature_explore(input)
-  return nativeinternal.CheckerProgrammer_IExplore{
-    Tracable: v.Tracable,
-    Source:   v.Source,
-    From:     v.From,
-    Postfix:  v.Postfix,
-    Start:    v.Start,
-  }
-}
-
-func notationGeneralProgrammer_checker_explore_with_postfix(input any, postfix string) nativeinternal.CheckerProgrammer_IExplore {
-  v := notationGeneralProgrammer_checker_explore(input)
-  v.Postfix = v.Postfix + postfix
-  return v
+func notationGeneralProgrammer_checker_explore_with_postfix(input nativeinternal.CheckerProgrammer_IExplore, postfix string) nativeinternal.CheckerProgrammer_IExplore {
+  input.Postfix = input.Postfix + postfix
+  return input
 }
 
 func notationGeneralProgrammer_explore_with(explore nativeinternal.FeatureProgrammer_IExplore, source string, from string) nativeinternal.FeatureProgrammer_IExplore {

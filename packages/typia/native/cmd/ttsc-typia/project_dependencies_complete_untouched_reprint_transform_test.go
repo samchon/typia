@@ -29,6 +29,11 @@ import (
 //  3. Assert the published text preserves each construct verbatim and emits no
 //     `design:type` metadata, so nothing type-driven ran.
 //  4. Assert the file is declared complete with no dependency entry at all.
+//
+// @evidence contracts/testing.md#behavioral-verification The untouched source preserves its type-only import, enum, namespace, as-const expression and decorator, emits no design:type metadata and remains complete without a dependency entry.
+// @evidence contracts/testing.md#independent-expectations A TypeScript project-envelope reprint preserves parsed syntax rather than performing JavaScript lowering or checker-driven decorator metadata emission; those operations would introduce unreported type dependencies.
+// @evidence contracts/testing.md#distinguishing-cases The fixture enables both decorator options yet contrasts preserved decorator syntax with absent design:type output, alongside constructs that ordinary JavaScript emission would lower or erase.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCompleteUntouchedReprintTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCompleteUntouchedReprintTransform(t *testing.T) {
   project := projectDependenciesCompleteUntouchedReprintProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -81,16 +86,7 @@ func TestProjectDependenciesCompleteUntouchedReprintTransform(t *testing.T) {
 
 func projectDependenciesCompleteUntouchedReprintProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-complete-untouched-reprint-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-complete-untouched-reprint-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

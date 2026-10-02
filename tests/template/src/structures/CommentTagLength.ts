@@ -18,12 +18,14 @@ export namespace CommentTagLength {
 
     /**
      * @minLength 3
+     *
      * @maxLength 7
      */
     minimum_and_maximum: string;
 
     /**
      * @minLength 10
+     *
      * @maxLength 19
      */
     equal: string;

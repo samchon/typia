@@ -26,6 +26,15 @@ type INested = { wrap: { a?: number } | { b?: string } };
  * 3. Assert `equals` agrees with `plain.clone` over every ordered pair of samples:
  *    two values are equal exactly when they clone to the same member with the
  *    same declared payload.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Equals distinguishes optional overlapping union members, shared properties and nesting.
+ * @evidence contracts/testing.md#independent-expectations Fixed true/false comparisons independently anchor behavior; the 64-pair matrix uses generated is/clone as correlated oracles and does not independently certify them.
+ * @evidence contracts/testing.md#distinguishing-cases Eight samples retain every ordered pair and separate fixed optional/shared/nested accepted and rejected comparisons.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_compare_equals_object_union_non_discriminable in the schema start suite under ttsx and the native plugin; its exported body owns all runtime assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native optional-union metadata must emit equality traversal without relying on a discriminator.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native artifact; input variants do not create separate hosts or builds.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs, generated results and captured errors are local to the exported body. The suite owns host lifetime; no cold cache or invalidation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Eight samples retain every ordered pair and separate fixed optional/shared/nested accepted and rejected comparisons. Every original input/call/assertion remains; final execution is reported separately from source review.
  */
 export const test_compare_equals_object_union_non_discriminable = (): void => {
   const equals = typia.compare.createEquals<IOptional>();

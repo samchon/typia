@@ -17,10 +17,15 @@ import (
 // from that declared type: only keys it allows may survive, and `examples` — the
 // one 3.0 does not define — must not.
 //
-// 1. Downgrade a boolean carrying `default`, and one also carrying attributes.
-// 2. Assert each keeps every declared keyword and drops only `examples`.
-// 3. Assert a keyword-less boolean still degrades to a bare `{"type": "boolean"}`
-//    and that a boolean inside a union keeps its `default`.
+//  1. Downgrade a boolean carrying `default`, and one also carrying attributes.
+//  2. Assert each keeps every declared keyword and drops only `examples`.
+//  3. Assert a keyword-less boolean still degrades to a bare `{"type": "boolean"}`
+//     and that a boolean inside a union keeps its `default`.
+//
+// @evidence contracts/testing.md#behavioral-verification The 3.0 downgrader is run on boolean schemas with default and other keywords and the serialized output is compared with the expected schema text.
+// @evidence contracts/testing.md#independent-expectations OpenAPI 3.0 retains the declared keywords of a boolean schema; the expected JSON is authored.
+// @evidence contracts/testing.md#distinguishing-cases Boolean schemas with and without extra keywords are compared row by row.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the downgrader and serializes in memory with no checker, filesystem fixture or process.
 func TestOpenApiV3DowngraderCarriesBooleanKeywords(t *testing.T) {
   collection := OpenApiV3Downgrader_downgrade_components(&OpenApi_IComponents{})
 

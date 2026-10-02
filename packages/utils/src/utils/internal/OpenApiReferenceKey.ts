@@ -29,6 +29,7 @@ export namespace OpenApiReferenceKey {
    * @param reference Local reference, like `#/components/schemas/A~1B`
    * @param prefix Prefix the key must follow; without one, the key is the last
    *   token
+   *
    * @returns The decoded key, like `A/B`, or `undefined` when the reference
    *   does not follow the prefix or its token is malformed
    */
@@ -44,6 +45,7 @@ export namespace OpenApiReferenceKey {
    * @param dictionary Components of the referenced kind
    * @param reference Local reference into `dictionary`
    * @param prefix Prefix the key follows, as in {@link read}
+   *
    * @returns The referenced component
    */
   export const get = <T>(
@@ -56,6 +58,7 @@ export namespace OpenApiReferenceKey {
    * @param dictionary Components of the referenced kind
    * @param reference Local reference into `dictionary`
    * @param prefix Prefix the key follows, as in {@link read}
+   *
    * @returns The referenced component with the key it was found under, for a
    *   caller that derives another component's key from it
    */

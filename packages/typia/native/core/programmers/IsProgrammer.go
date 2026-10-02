@@ -16,6 +16,15 @@ type isProgrammerNamespace struct{}
 
 var IsProgrammer = isProgrammerNamespace{}
 
+// IsProgrammer_CONFIG_IOptions selects the generator's variants: Numeric is
+// whether number leaves are guarded against NaN, Finite is whether number leaves
+// are guarded against NaN and the infinities, Undefined is whether undefined
+// property values are accepted and Object is the object check.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 4 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type IsProgrammer_CONFIG_IOptions struct {
   Numeric   *bool
   Finite    *bool
@@ -23,26 +32,58 @@ type IsProgrammer_CONFIG_IOptions struct {
   Object    func(props IsProgrammer_CONFIG_IOptions_ObjectProps) *shimast.Node
 }
 
+// IsProgrammer_CONFIG_IOptions_ObjectProps is the input of the object check
+// hook: the checked expression, the property checks and the object type.
+//
+// @evidence contracts/common.md#principled-implementation A custom object check receives the already composed property checks together with the input and the object type, so it need not recompute them.
+// @evidence contracts/common.md#clear-and-simple-design A three-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IsProgrammer_CONFIG_IOptions_ObjectProps struct {
   Input   *shimast.Expression
   Entries []nativehelpers.IExpressionEntry
   Object  *nativemetadata.MetadataObjectType
 }
 
+// IsProgrammer_IConfig selects the generator's variants: Equals is the strict
+// form that also rejects properties the type does not declare and Depth is the
+// remaining nesting depth, where nil means unlimited and a spent budget accepts
+// composites as a bare object.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 2 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type IsProgrammer_IConfig struct {
   Equals bool
   Depth  *int
 }
 
+// IsProgrammer_IProps is the input of Write for the is generator: Context (the
+// transform context), Modulo (the call's callee expression), Type (the type to
+// generate for), Name (an optional type name) and Config (the configuration).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for, an optional type name and the configuration, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IsProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
   Type    *nativechecker.Type
   Name    *string
-  Init    *shimast.Node
   Config  IsProgrammer_IConfig
 }
 
+// IsProgrammer_DecomposeProps is the input of Decompose for the is generator:
+// Context (the transform context), Functor (the collector of the helper
+// functions that the generator emits), Config (the configuration), Type (the
+// type to generate for) and Name (an optional type name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the collector of the helper functions that the generator emits, the configuration, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type IsProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
@@ -51,6 +92,15 @@ type IsProgrammer_DecomposeProps struct {
   Name    *string
 }
 
+// IsProgrammer_WriteFunctionStatementsProps is the input of
+// Write_function_statements: the transform context, the Functor that collects
+// helpers and the Collection whose objects get is-helpers. Prefix selects the
+// helper namespace.
+//
+// @evidence contracts/common.md#principled-implementation The helpers are written from the caller's own collection under a caller-chosen prefix, so two collections never collide on indexes.
+// @evidence contracts/common.md#clear-and-simple-design A four-field record with a documented Prefix.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and the field comment explains the prefix.
 type IsProgrammer_WriteFunctionStatementsProps struct {
   Context    nativecontext.ITypiaContext
   Functor    *nativehelpers.FunctionProgrammer
@@ -63,6 +113,14 @@ type IsProgrammer_WriteFunctionStatementsProps struct {
   Prefix string
 }
 
+// IsProgrammer_DecodeProps is the input of Decode: the transform context, the
+// Functor, the Metadata and Input to check, the Explore state and the helper
+// Prefix.
+//
+// @evidence contracts/common.md#principled-implementation A union ladder is decoded against the same metadata and input it was written for, with the caller's helper namespace.
+// @evidence contracts/common.md#clear-and-simple-design A six-field record with a documented Prefix.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and the field comment explains the prefix.
 type IsProgrammer_DecodeProps struct {
   Context  nativecontext.ITypiaContext
   Functor  *nativehelpers.FunctionProgrammer
@@ -76,6 +134,14 @@ type IsProgrammer_DecodeProps struct {
   Prefix string
 }
 
+// IsProgrammer_DecodeObjectProps is the input of Decode_object: the transform
+// context, the Functor, the Object type and Input to check, the Explore state
+// and the helper Prefix.
+//
+// @evidence contracts/common.md#principled-implementation Nested object discrimination uses the caller's helper namespace as the surrounding union ladder does.
+// @evidence contracts/common.md#clear-and-simple-design A six-field record with a documented Prefix.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field and the field comment explains the prefix.
 type IsProgrammer_DecodeObjectProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer

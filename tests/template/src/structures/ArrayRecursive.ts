@@ -1,10 +1,12 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a finite category tree with recursive child arrays. */
 export type ArrayRecursive = ArrayRecursive.ICategory;
 export namespace ArrayRecursive {
   export const RECURSIVE = true;
 
+  /** Declares required category data and recursively typed children. */
   export interface ICategory {
     children: ICategory[];
     id: number;
@@ -12,11 +14,13 @@ export namespace ArrayRecursive {
     sequence: number;
     created_at: ITimestamp;
   }
+  /** Supplies required numeric time and zone fields in each category. */
   export interface ITimestamp {
     time: number;
     zone: number;
   }
 
+  /** Constructs a fresh finite two-child tree to the requested depth limit. */
   export function generate(
     limit: number = 6,
     index: number = 0,
@@ -36,6 +40,7 @@ export namespace ArrayRecursive {
     };
   }
 
+  /** Prepares a dormant invalid timestamp at the final recursive leaf. */
   export function trail(): ArrayRecursive {
     const data: ArrayRecursive = ArrayRecursive.generate();
     const current: { value: ArrayRecursive } = { value: data };

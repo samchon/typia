@@ -9,7 +9,16 @@ import typia from "typia";
  *
  * 1. Exercise every direct and factory decoder with truncated strings and bytes.
  * 2. Cover optional, repeated, map, nested, packed, unknown, and fixed-width data.
- * 3. Pair every one-byte-short case with zero-length or exact-end valid input.
+ * 3. Keep zero-length, exact-end, and sliced-buffer valid controls.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Eight variants reject truncated string/bytes; direct paths also cover optional/repeated/map/nested/packed/unknown/fixed-width truncation, exact ends, zero length and sliced-buffer bounds.
+ * @evidence contracts/testing.md#independent-expectations Hand-framed field tags and declared lengths independently establish overflow or exact consumption. Literal ab/a/map and fixed-width zero values certify valid controls without typia encode output.
+ * @evidence contracts/testing.md#distinguishing-cases Every original malformed placement and valid counterpart remain; subarray exact-end and one-byte-short views distinguish backing-buffer size from the payload view limit.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_protobuf_decode_truncated_length_delimited in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native decode call sites select field numbers, reader operations and direct/factory/validation wrappers that consume the authored binary vectors. Portable reader units cannot prove this generated field dispatch and wrapper assembly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_protobuf_decode_truncated_length_delimited = (): void => {
   const decoders: Array<readonly [string, (input: Uint8Array) => unknown]> = [

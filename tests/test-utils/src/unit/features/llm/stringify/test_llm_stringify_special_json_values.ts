@@ -1,0 +1,144 @@
+import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/oracle-equality";
+import { LlmJson } from "@typia/utils";
+
+/**
+ * Verifies feedback follows native JSON value spelling.
+ *
+ * Non-finite numbers and negative zero have JSON spellings distinct from their
+ * JavaScript representations.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ */
+export const test_llm_stringify_special_json_values = (): void => {
+  // Test case: Special values that JSON.stringify handles specially
+
+  // Test 1: NaN (JSON.stringify returns null)
+  const failure1: IValidation.IFailure = {
+    success: false,
+    data: { value: NaN },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "number (finite)",
+        value: NaN,
+      },
+    ],
+  };
+
+  const output1: string = LlmJson.stringify(failure1);
+  TestEquality.equals("nan-code-block", output1.includes("```json"), true);
+  TestEquality.equals("nan-error-marker", output1.includes("// ❌"), true);
+  // NaN becomes null in JSON
+  TestEquality.equals("nan-null", output1.includes("null"), true);
+
+  // Test 2: Infinity
+  const failure2: IValidation.IFailure = {
+    success: false,
+    data: { value: Infinity },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "number (finite)",
+        value: Infinity,
+      },
+    ],
+  };
+
+  const output2: string = LlmJson.stringify(failure2);
+  TestEquality.equals("inf-code-block", output2.includes("```json"), true);
+  // Infinity becomes null in JSON
+  TestEquality.equals("inf-null", output2.includes("null"), true);
+
+  // Test 3: -Infinity
+  const failure3: IValidation.IFailure = {
+    success: false,
+    data: { value: -Infinity },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "number (finite)",
+        value: -Infinity,
+      },
+    ],
+  };
+
+  const output3: string = LlmJson.stringify(failure3);
+  TestEquality.equals("neginf-code-block", output3.includes("```json"), true);
+  TestEquality.equals("neginf-null", output3.includes("null"), true);
+
+  // Test 5: Empty string
+  const failure5: IValidation.IFailure = {
+    success: false,
+    data: { value: "" },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "string & MinLength<1>",
+        value: "",
+      },
+    ],
+  };
+
+  const output5: string = LlmJson.stringify(failure5);
+  TestEquality.equals(
+    "empty-str-code-block",
+    output5.includes("```json"),
+    true,
+  );
+  TestEquality.equals("empty-str-value", output5.includes('""'), true);
+
+  // Test 6: Zero
+  const failure6: IValidation.IFailure = {
+    success: false,
+    data: { value: 0 },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "number & Minimum<1>",
+        value: 0,
+      },
+    ],
+  };
+
+  const output6: string = LlmJson.stringify(failure6);
+  TestEquality.equals("zero-code-block", output6.includes("```json"), true);
+  // Check that 0 appears (not "0" as string)
+  TestEquality.equals("zero-value", output6.includes(": 0"), true);
+
+  // Test 7: Negative zero
+  const failure7: IValidation.IFailure = {
+    success: false,
+    data: { value: -0 },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "number & Minimum<1>",
+        value: -0,
+      },
+    ],
+  };
+
+  const output7: string = LlmJson.stringify(failure7);
+  TestEquality.equals("negzero-code-block", output7.includes("```json"), true);
+  // -0 becomes 0 in JSON
+  TestEquality.equals("negzero-value", output7.includes(": 0"), true);
+
+  // Test 8: False (falsy but valid)
+  const failure8: IValidation.IFailure = {
+    success: false,
+    data: { value: false },
+    errors: [
+      {
+        path: "$input.value",
+        expected: "true",
+        value: false,
+      },
+    ],
+  };
+
+  const output8: string = LlmJson.stringify(failure8);
+  TestEquality.equals("false-code-block", output8.includes("```json"), true);
+  TestEquality.equals("false-value", output8.includes("false"), true);
+};

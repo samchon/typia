@@ -22,6 +22,7 @@ interface IClerk {
 
   /**
    * @exclusiveMinimum 19
+   *
    * @maximum 100
    */
   age: number;

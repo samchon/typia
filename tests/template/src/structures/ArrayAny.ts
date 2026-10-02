@@ -1,6 +1,7 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies array-container distinctions while allowing unrestricted elements. */
 export interface ArrayAny {
   anys: any[];
   undefindable1: any[] | undefined;
@@ -13,6 +14,7 @@ export interface ArrayAny {
   union: Array<any | number | null>;
 }
 export namespace ArrayAny {
+  /** Creates the valid arrays and explicit nullish container alternatives. */
   export function generate(): ArrayAny {
     return {
       anys: TestRandomGenerator.array(random),

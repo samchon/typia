@@ -52,6 +52,7 @@ export namespace OpenApiComponentName {
    *
    * @param props.keys Raw `$defs` keys to allocate
    * @param props.reserved Component keys the caller already owns
+   *
    * @returns Raw `$defs` key to allocated component key
    */
   export const allocate = (props: {

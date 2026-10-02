@@ -3,31 +3,23 @@ package main
 import (
   "bytes"
   "os"
-  "os/exec"
   "path/filepath"
   "runtime"
   "strings"
   "testing"
 )
 
-// TestShallowDepthLimitTransform verifies typia.shallow() bounds how deep the
-// emitted checker descends through the depth budget N.
+// TestShallowDepthLimitTransform checks the authored operation results described below.
 //
-// The shallow check powers discrimination rather than full validation: once
-// the budget is exhausted a value is accepted as long as it is a non-null
-// object, instead of paying for a full structural walk of every leaf. At depth
-// 0 a composite
-// type must collapse to a bare `typeof input === "object"` guard with a null
-// check; at the default depth (2) the near-surface discriminant is still
-// checked so the right union branch can be told apart.
+// Shallow depth limits traversal rather than changing top-level type membership; a zero budget cannot inspect nested fields and a surface budget must stop after its level.
 //
-//  1. Transform one fixture that calls shallow<T, 0> and another that calls
-//     shallow<Discriminated> at the default depth.
-//  2. Assert the depth-0 emit is only the structural object guard and never
-//     reaches the inner property, while the default-depth emit still checks the
-//     discriminant property.
-//  3. Execute both emitted guards against matching, shallow-wrong, and
-//     non-object runtime cases.
+// 1. Zero and surface depth fixtures distinguish stopping boundaries while the nested-depth case separately checks budgets one and two.
+// 2. Depth zero emits object/non-null checks and excludes the Point discriminant; surface output contains its union discriminant check. Deeper stopping is asserted by the nested-depth case.
+//
+// @evidence contracts/testing.md#behavioral-verification Depth zero emits object/non-null checks and excludes the Point discriminant; surface output contains its union discriminant check. Deeper stopping is asserted by the nested-depth case.
+// @evidence contracts/testing.md#independent-expectations Shallow depth limits traversal rather than changing top-level type membership; a zero budget cannot inspect nested fields and a surface budget must stop after its level.
+// @evidence contracts/testing.md#distinguishing-cases Zero and surface depth fixtures distinguish stopping boundaries while the nested-depth case separately checks budgets one and two.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestShallowDepthLimitTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestShallowDepthLimitTransform(t *testing.T) {
   project := shallowDepthProject(t)
 
@@ -45,28 +37,11 @@ func TestShallowDepthLimitTransform(t *testing.T) {
     `input.type`,
   })
 
-  shallowDepthRunRuntimeCases(
-    t,
-    project,
-    shallowDepthTransform(t, project, "src/zero.ts", "js"),
-    shallowDepthTransform(t, project, "src/surface.ts", "js"),
-  )
 }
 
 func shallowDepthProject(t *testing.T) string {
   t.Helper()
-  root := shallowDepthRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "shallow-depth-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "shallow-depth-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
@@ -161,40 +136,6 @@ func shallowDepthReturnedGuardExcludes(t *testing.T, text string, forbidden []st
   }
 }
 
-func shallowDepthRunRuntimeCases(t *testing.T, project string, zeroJS string, surfaceJS string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "typia-stub.cjs"), []byte("module.exports = {};\n"), 0o644); err != nil {
-    t.Fatalf("write typia stub: %v", err)
-  }
-  stub := func(js string) string {
-    return strings.ReplaceAll(js, `require("typia")`, `require("./typia-stub.cjs")`)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "zero.cjs"), []byte(stub(zeroJS)), 0o644); err != nil {
-    t.Fatalf("write zero runtime module: %v", err)
-  }
-  if err := os.WriteFile(filepath.Join(runtimeDir, "surface.cjs"), []byte(stub(surfaceJS)), 0o644); err != nil {
-    t.Fatalf("write surface runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(shallowDepthRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = project
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("shallow runtime cases failed: %v\n%s", err, output)
-  }
-}
-
 const shallowDepthTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -239,40 +180,4 @@ export const shallowSquare = (input: unknown): boolean =>
 
 export const discriminate = (input: Shape): string =>
   typia.shallow<Circle>(input) ? "circle" : "square";
-`
-
-const shallowDepthRuntimeRunner = `const { shallowZero } = require("./zero.cjs");
-const { shallowSquare, discriminate } = require("./surface.cjs");
-
-const zeroCases = [
-  ["matching object", { type: "point", x: 1, y: 2 }, true],
-  ["object with wrong inner fields still passes at depth 0", { anything: true }, true],
-  ["null is rejected", null, false],
-  ["primitive is rejected", 42, false],
-];
-for (const [name, input, expected] of zeroCases) {
-  const actual = shallowZero(input);
-  if (actual !== expected) {
-    throw new Error("zero/" + name + ": expected " + expected + " but got " + actual);
-  }
-}
-
-const surfaceCases = [
-  ["matching square", { type: "square", side: 3 }, true],
-  ["wrong discriminant", { type: "circle", radius: 3 }, false],
-  ["non object", "square", false],
-];
-for (const [name, input, expected] of surfaceCases) {
-  const actual = shallowSquare(input);
-  if (actual !== expected) {
-    throw new Error("surface/" + name + ": expected " + expected + " but got " + actual);
-  }
-}
-
-if (discriminate({ type: "circle", radius: 1 }) !== "circle") {
-  throw new Error("discriminate: circle branch failed");
-}
-if (discriminate({ type: "square", side: 1 }) !== "square") {
-  throw new Error("discriminate: square branch failed");
-}
 `

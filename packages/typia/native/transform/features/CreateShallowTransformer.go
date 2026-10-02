@@ -24,7 +24,6 @@ func (createShallowTransformerNamespace) Transform(config nativeprogrammers.IsPr
           Modulo:  x.Modulo,
           Type:    x.Type,
           Name:    x.Name,
-          Init:    x.Init,
           Config:  config,
         })
       },

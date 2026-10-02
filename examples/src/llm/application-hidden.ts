@@ -13,6 +13,7 @@ interface BbsArticleController {
    * Writes a new article and archives it into the DB.
    *
    * @param props Properties of create function
+   *
    * @returns Newly created article
    */
   create(props: {
@@ -26,7 +27,9 @@ interface BbsArticleController {
    * Reads an article from the DB.
    *
    * @ignore
+   *
    * @param props Properties of read function
+   *
    * @returns The article
    */
   at(props: {
@@ -41,6 +44,7 @@ interface BbsArticleController {
    *
    * @param props Properties of update function
    * @param input New content to update
+   *
    * @internal
    */
   update(props: {
@@ -57,6 +61,7 @@ interface BbsArticleController {
    * Erases an article from the DB.
    *
    * @param props Properties of erase function
+   *
    * @human
    */
   erase(props: {

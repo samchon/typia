@@ -7,22 +7,17 @@ import (
   "testing"
 )
 
-// TestTransformSingleFileJSDistinguishesSameBasenameSources verifies the
-// collision boundary of the `--output js` artifact match.
+// TestTransformSingleFileJSDistinguishesSameBasenameSources checks the authored operation results described below.
 //
-// The comment on the old whole-path-stem match named the intended repair --
-// "match on basename stem" -- and a basename match would indeed have unblocked
-// `outDir`. It would also have made `src/alpha/main.ts` and `src/beta/main.ts`
-// indistinguishable, so whichever emitted `main.js` arrived last would win and
-// the command would publish another file's validator under an exit 0. Resolving
-// the expected output path through the compiler keeps the two apart by
-// construction, since they resolve to different artifacts.
+// Output selection follows source identity through the emit layout, not a filename stem shared by distinct source directories.
 //
-//  1. Give one project two sources that share a basename in different
-//     directories, each lowering a differently shaped validator.
-//  2. Transform each with `--output js --out` under a `rootDir`/`outDir` layout.
-//  3. Require each published artifact to carry its own validator and not its
-//     namesake's.
+// 1. Two nested sources named alike carry different literal/data checks, supplying positive selected and negative sibling content for both selections.
+// 2. Each selected same-basename source publishes its own validator and excludes the sibling validator.
+//
+// @evidence contracts/testing.md#behavioral-verification Each selected same-basename source publishes its own validator and excludes the sibling validator.
+// @evidence contracts/testing.md#independent-expectations Output selection follows source identity through the emit layout, not a filename stem shared by distinct source directories.
+// @evidence contracts/testing.md#distinguishing-cases Two nested sources named alike carry different literal/data checks, supplying positive selected and negative sibling content for both selections.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileJSDistinguishesSameBasenameSources as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileJSDistinguishesSameBasenameSources(t *testing.T) {
   const alphaSource = `import typia from "typia";
 export function check(input: unknown): boolean {

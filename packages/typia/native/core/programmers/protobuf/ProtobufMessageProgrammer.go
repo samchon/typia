@@ -17,6 +17,13 @@ type protobufMessageProgrammerNamespace struct{}
 
 var ProtobufMessageProgrammer = protobufMessageProgrammerNamespace{}
 
+// ProtobufMessageProgrammer_IProps is the transform context and the type whose
+// protobuf message schema is written.
+//
+// @evidence contracts/common.md#principled-implementation A message schema is derived from the type alone, so the record has no call site, name or initializer.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type ProtobufMessageProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Type    *shimchecker.Type
@@ -169,11 +176,10 @@ func protobufMessageProgrammer_decodeProperty(props struct {
     // the label that matches what the codecs already do, rather than the merely
     // legal one: ProtobufEncodeProgrammer writes a required non-nullable field
     // unguarded, so it emits the field even when the value equals the scalar
-    // default, and ProtobufDecodeProgrammer defaults an absent required number
-    // or boolean to `undefined`. A bare field means implicit presence, which
-    // licenses a peer to drop default values from the wire and would decode back
-    // into a property the declared type says is always there. `optional` keeps
-    // that presence explicit on both sides.
+    // default. The decoder seeds absent required atomic fields with their typed
+    // defaults, but optional fields retain absence. A bare field has implicit
+    // presence and lets a peer drop explicit default values from the wire;
+    // `optional` lets the peer preserve that presence distinction.
     //
     // Requiredness itself is a TypeScript-level guarantee that proto3 has no
     // label for; `protobuf.assertEncode` / `assertDecode` remain the place it is

@@ -20,6 +20,11 @@ import (
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `dependencies["src/main.ts"]` contains both `src/doc.ts` (the
 //     declaring file) and `src/empty.ts` (the property-less heritage target).
+//
+// @evidence contracts/testing.md#behavioral-verification The envelope reports both Doc's declaration and its currently property-less Empty heritage target for the validating caller.
+// @evidence contracts/testing.md#independent-expectations Editing an empty base to add members changes validation, so absence of current properties cannot remove the heritage edge.
+// @evidence contracts/testing.md#distinguishing-cases Doc contributes its own id property while Empty contributes none, so the base edge cannot be inferred only from property symbols. Unconsumed declaration exclusion is owned by the sibling barrel cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesEmptyHeritageTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesEmptyHeritageTransform(t *testing.T) {
   project := projectDependenciesEmptyHeritageProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -53,16 +58,7 @@ func TestProjectDependenciesEmptyHeritageTransform(t *testing.T) {
 
 func projectDependenciesEmptyHeritageProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-empty-heritage-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-empty-heritage-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

@@ -24,6 +24,11 @@ import (
 //     and the concrete module `alpha.ts`.
 //  4. Assert it does NOT contain `beta.ts`, a module the same barrel also stars
 //     in but no consulted type reaches.
+//
+// @evidence contracts/testing.md#behavioral-verification The star barrel and terminal alpha are retained while unconsumed beta is excluded.
+// @evidence contracts/testing.md#independent-expectations A star export selects a consumed declaration without a named export specifier; module resolution still supplies an invalidating edge.
+// @evidence contracts/testing.md#distinguishing-cases Consumed and unconsumed star exports occupy the same barrel.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesStarBarrelTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesStarBarrelTransform(t *testing.T) {
   project := projectDependenciesStarBarrelProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -60,16 +65,7 @@ func TestProjectDependenciesStarBarrelTransform(t *testing.T) {
 
 func projectDependenciesStarBarrelProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-star-barrel-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-star-barrel-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

@@ -17,6 +17,11 @@ import (
 // 1. Assert wrapper natives intersect matching primitive and constant metadata.
 // 2. Assert `String` also intersects template-literal strings.
 // 3. Assert a wrapper native does not intersect an unrelated primitive.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_intersects runs wrapper natives against matching atomic, constant and template-literal strings and against a number atomic.
+// @evidence contracts/testing.md#independent-expectations Wrapper natives accept their matching primitive at runtime, so overlap is an authored truth about values; the booleans are literals.
+// @evidence contracts/testing.md#distinguishing-cases Four wrapper/primitive pairs, constants and a template are positives, and String against number atomic is the adjacent negative.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported intersection function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaIntersectsAtomicLikeNatives(t *testing.T) {
   cases := []struct {
     native string

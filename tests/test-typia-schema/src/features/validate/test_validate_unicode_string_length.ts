@@ -29,6 +29,15 @@ import typia, { tags } from "typia";
  * 4. Confirm the emitted JSON and LLM schemas keep the exact length keywords.
  * 5. Require the shared `@typia/utils` OpenAPI validator to answer identically on
  *    the emitted schema, for every value.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Generated length tags count Unicode code points across validator and schema entry points.
+ * @evidence contracts/testing.md#independent-expectations Spread-string code-point counts independently fix verdicts; OpenAPI parity is wiring evidence because it uses a related counting algorithm.
+ * @evidence contracts/testing.md#distinguishing-cases Nine escaped samples and four divergence witnesses retain three windows/both spellings, assert/validate controls and exact JSON/LLM keywords.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_unicode_string_length in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native length-tag and comment emission must connect to code-point runtime checks consistently with schema consumers.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Nine escaped samples and four divergence witnesses retain three windows/both spellings, assert/validate controls and exact JSON/LLM keywords. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_unicode_string_length = (): void => {
   // Every sample is spelled with escapes. The two accent forms are one code

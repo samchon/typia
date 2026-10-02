@@ -269,41 +269,41 @@ export namespace OpenApiTypeCheckerBase {
     components: OpenApi.IComponents;
     schema: OpenApi.IJsonSchema;
     reasons: IJsonSchemaTransformError.IReason[];
-    first?: string;
   }): OpenApi.IJsonSchema | null => {
-    if (isReference(props.schema) === false) return props.schema;
-    const key: string | undefined = OpenApiReferenceKey.read(
-      props.schema.$ref,
-      props.prefix,
-    );
-    const found: OpenApi.IJsonSchema | undefined =
-      key !== undefined
-        ? ObjectDictionary.get(props.components.schemas, key)
-        : undefined;
-    if (key === undefined || found === undefined) {
-      // A FOREIGN OR MALFORMED REFERENCE IS NAMED WHOLE; a key is read only
-      // from a reference that follows the prefix
-      const missing: string = key ?? props.schema.$ref;
-      props.reasons.push({
-        schema: props.schema,
-        accessor: props.accessor,
-        message: `unable to find reference type ${JSON.stringify(missing)}.`,
-      });
-      return null;
-    } else if (isReference(found) === false) return found;
-    else if (props.first === key) {
-      props.reasons.push({
-        schema: props.schema,
-        accessor: props.accessor,
-        message: `recursive reference type ${JSON.stringify(key)}.`,
-      });
-      return null;
+    let schema: OpenApi.IJsonSchema = props.schema;
+    let accessor: string = props.accessor;
+    const visited = new Set<string>();
+    while (isReference(schema)) {
+      const key: string | undefined = OpenApiReferenceKey.read(
+        schema.$ref,
+        props.prefix,
+      );
+      const found: OpenApi.IJsonSchema | undefined =
+        key !== undefined
+          ? ObjectDictionary.get(props.components.schemas, key)
+          : undefined;
+      if (key === undefined || found === undefined) {
+        // Foreign or malformed references are named whole, not as local keys.
+        props.reasons.push({
+          schema,
+          accessor,
+          message: `unable to find reference type ${JSON.stringify(key ?? schema.$ref)}.`,
+        });
+        return null;
+      }
+      if (visited.has(key)) {
+        props.reasons.push({
+          schema,
+          accessor,
+          message: `recursive reference type ${JSON.stringify(key)}.`,
+        });
+        return null;
+      }
+      visited.add(key);
+      schema = found;
+      accessor = `${props.refAccessor}[${JSON.stringify(key)}]`;
     }
-    return unreferenceSchema({
-      ...props,
-      accessor: `${props.refAccessor}[${JSON.stringify(key)}]`,
-      first: key,
-    });
+    return schema;
   };
 
   const escapeSchema = (props: {
@@ -798,6 +798,8 @@ export namespace OpenApiTypeCheckerBase {
     x: OpenApi.IJsonSchema.IObject;
     y: OpenApi.IJsonSchema.IObject;
   }): boolean => {
+    if (p.x.required?.some((key) => p.y.required?.includes(key) !== true))
+      return false;
     if (!p.x.additionalProperties && !!p.y.additionalProperties) return false;
     else if (
       !!p.x.additionalProperties &&
@@ -821,11 +823,6 @@ export namespace OpenApiTypeCheckerBase {
         key,
       );
       if (a === undefined) return false;
-      else if (
-        p.x.required?.includes(key) === true &&
-        (p.y.required?.includes(key) ?? false) === false
-      )
-        return false;
       return coverStation({
         prefix: p.prefix,
         components: p.components,

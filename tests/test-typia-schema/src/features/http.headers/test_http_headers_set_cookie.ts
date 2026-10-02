@@ -15,6 +15,15 @@ import typia, { IValidation } from "typia";
  * 2. Cover a required and an optional declaration side by side.
  * 3. Keep `Expires` values, which contain `", "`, and surrounding spaces verbatim.
  * 4. Match a mixed-case declaration, and read a numeric element type.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The case asserts that eight direct/factory required/optional header forms preserve set-cookie array semantics and exact cookie text.
+ * @evidence contracts/testing.md#independent-expectations Authored cookie text includes an Expires comma and spaces; fixed required/optional outputs and own-key checks distinguish array conversion from splitting, trimming or retaining absent keys.
+ * @evidence contracts/testing.md#distinguishing-cases Absent/empty/single-string/multivalue required and optional matrices, mixed-case declarations/cookie delimiters, numeric array/string cookies retain every check.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_http_headers_set_cookie in test-typia-schema start. Each actual typia.http call is rewritten in the native suite project and its emitted decoder executes on local HTTP representations in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native header-key normalization and cookie-specialized reader selection must connect declared array/optional/element types with evaluated decoders. Calling a portable read helper alone cannot detect wrong compiler metadata selection, omitted generated validation or broken direct/factory decoder assembly.
+ * @evidence contracts/e2e.md#shared-execution All declared operation/type variants share the existing ttsx suite project and process plus content-keyed native artifact. Runtime input matrices reuse those prepared decoders; no input row causes a compiler process or fixture installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Input query/header/FormData values and result projections are local. Decoders are required to read these representations without changing their contents; no case changes a foreign prototype or retained fixture. The suite owns process termination and ttsc owns artifact invalidation; cache warmth is not a behavior assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Absent/empty/single-string/multivalue required and optional matrices, mixed-case declarations/cookie delimiters, numeric array/string cookies retain every check. Every original HTTP producer form, input and assertion stays under the unchanged exported entry; no malformed/optional/nullability distinction was dropped to reduce execution.
  */
 export const test_http_headers_set_cookie = (): void => {
   const required: Array<[string, (input: Input) => IRequired | null]> = [

@@ -20,6 +20,11 @@ import (
 // 3. Assert tagged numeric and string sequences are preserved.
 // 4. Assert bigint defaults to int64 and scalar ordering ranks bool before string.
 // 5. Build smaller integer tag metadata and assert protobuf scalar normalization.
+//
+// @evidence contracts/testing.md#behavioral-verification The protobuf atomic extraction runs on tagged uint32 number, bigint atomic and string constant metadata, and the normalization of the smaller integer tags.
+// @evidence contracts/testing.md#independent-expectations Protobuf scalar mapping (uint32 tag to uint32, bigint default int64, small tags normalized) and the ordering rank are authored literals.
+// @evidence contracts/testing.md#distinguishing-cases Tagged number, default bigint, string and each smaller integer tag cover separate scalar rows with their sequences.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported utility on constructed metadata with no filesystem fixture, process or native command build.
 func TestProtobufUtilAtomicsAndSequences(t *testing.T) {
   sequence := 7
   meta := metadata.MetadataSchema_create(metadata.MetadataSchema{

@@ -7,6 +7,16 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_native records a built-in class such as Date, a typed array,
+// Blob, File or WeakMap as a native entry.
+//
+// The type must resolve to the runtime-provided symbol of that name, so a package
+// or user declaration with the same name is analyzed structurally instead.
+//
+// @evidence contracts/common.md#principled-implementation The type's symbol-derived name is normalized for lookup and accepted only through the runtime-provenance identity gate, so a same-named user class remains structural. WeakMap and WeakSet use the same global provenance gate and retain only native identity, not their generic arguments; this iterator does not enforce generic arity.
+// @evidence contracts/common.md#clear-and-simple-design One function with the provenance gate in a helper and a static table of the supported natives.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Qualifier stripping only restores the lookup and the identity gate still decides, as the comment says.
+// @evidence contracts/common.md#meaningful-documentation The doc states the gate and the table.
 func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   var symbol *nativeast.Symbol
   name := ""
@@ -41,7 +51,7 @@ func Iterate_metadata_native(props IMetadataIteratorProps) bool {
   for _, generic := range iterate_metadata_native_generics {
     if name == generic.Name || strings.HasPrefix(name, generic.Name+"<") {
       // Use the same runtime-provenance identity gate for WeakMap/WeakSet. The
-      // `+"<"` arity guard (#2181) and generic metadata remain unchanged.
+      // Generic arguments are erased from this native-identity representation.
       if !metadata_symbol_is_runtime_global_type(props.Checker, symbol, generic.Name) {
         return false
       }

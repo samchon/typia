@@ -4,6 +4,21 @@ import typia from "typia";
 
 import { resolved_equal_to } from "../utils/resolved_equal_to";
 
+/**
+ * Verifies protobuf.encode through its supplied operation and fixture.
+ *
+ * Local byte comparison checks length and every index. protobufJS parsing is
+ * local when enabled; no encoded data or parsed schema is cached between helper
+ * invocations.
+ *
+ * 1. Run the clean fixture scenario and its observable assertions.
+ * 2. Retain the applicable invalid or round-trip distinctions described below.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual encoder emits bytes for a clean fixture. Messages without oneof or int64 additionally require exact protobufJS byte equality; all fixtures require resolved decoded content and byte-stable re-encoding.
+ * @evidence contracts/testing.md#independent-expectations protobufJS is an independent wire encoder for the supplied message subset, but the message itself comes from typia and is not an independent schema oracle. Authored fixture/RESOLVE establishes content; the typia decoder/re-encoder may share emitter errors.
+ * @evidence contracts/testing.md#distinguishing-cases The fixture contributes its binary-compatible scalar/array/union shape. oneof/int64 messages have round-trip-only coverage; this helper applies no spoilers or malformed input.
+ * @evidence contracts/testing.md#execution-ownership Generated protobuf.encode/createEncode entries bind native encode/decode/message producers and execute through TestServant. Validating encode composites delegate the clean phase here.
+ */
 export const _test_protobuf_encode =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>

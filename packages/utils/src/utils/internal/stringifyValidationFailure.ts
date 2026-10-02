@@ -3,6 +3,19 @@ import { IValidation } from "@typia/interface";
 import { NamingConvention } from "../NamingConvention";
 import { dedent } from "../dedent";
 
+/**
+ * Formats validation failures as fenced data with inline error annotations.
+ *
+ * Missing values receive undefined placeholders; errors unreachable in the data
+ * remain in a separate block. Native JSON encoding handles values and metadata,
+ * while sibling ownership determines separators before annotations are added.
+ * This diagnostic format includes comments and need not be strict JSON.
+ *
+ * @evidence contracts/common.md#principled-implementation A path index attaches each authored error to its rendered value, and used-error tracking preserves unreachable errors separately. Recursive calls carry sibling separator ownership, so arbitrary marker text inside JSON strings cannot become a syntax boundary; native JSON encoding supplies data and metadata spellings.
+ * @evidence contracts/common.md#clear-and-simple-design One recursive renderer owns data traversal, placeholders and sibling layout; path helpers distinguish direct missing children from unreachable descendants. Separators are an input of value rendering rather than a second parser over its completed output.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Formatting follows container structure and the supplied failure paths without recognizing fixture names or interpreting marker substrings as comments. The ordinary toJSON protocol renders its returned value while preventing immediate repeated invocation on that value.
+ * @evidence contracts/common.md#meaningful-documentation The comment describes inline/fallback errors, missing values, separator ownership and the diagnostic format's departure from strict JSON. The LLM JSON guide explains literal marker preservation for feedback consumers.
+ */
 export function stringifyValidationFailure(
   failure: IValidation.IFailure,
 ): string {
@@ -55,16 +68,18 @@ function stringify(props: {
   tab: number;
   inArray: boolean;
   inToJson: boolean;
+  trailingComma?: boolean;
   usedErrors: Set<IValidation.IError>;
 }): string {
   const { value, errorsByPath, path, tab, inArray, inToJson, usedErrors } =
     props;
   const indent: string = "  ".repeat(tab);
+  const comma: string = props.trailingComma ? "," : "";
   const errorComment: string = getErrorComment(path, errorsByPath, usedErrors);
 
   // Handle undefined in arrays
   if (inArray && value === undefined) {
-    return `${indent}undefined${errorComment}`;
+    return `${indent}undefined${comma}${errorComment}`;
   }
 
   // Array
@@ -88,10 +103,10 @@ function stringify(props: {
           const comma = idx < missingElementErrors.length - 1 ? "," : "";
           lines.push(`${innerIndent}undefined${comma}${errComment}`);
         });
-        lines.push(`${indent}]`);
+        lines.push(`${indent}]${comma}`);
         return lines.join("\n");
       }
-      return `${indent}[]${errorComment}`;
+      return `${indent}[]${comma}${errorComment}`;
     }
 
     const lines: string[] = [];
@@ -103,19 +118,16 @@ function stringify(props: {
       // If there are missing element errors, this is not truly the last line
       const needsComma = !isLastElement || hasMissingElements;
 
-      let itemStr: string = stringify({
+      const itemStr: string = stringify({
         value: item,
         errorsByPath,
         path: itemPath,
         tab: tab + 1,
         inArray: true,
         inToJson: false,
+        trailingComma: needsComma,
         usedErrors,
       });
-      // Add comma before the error comment if not the last element
-      if (needsComma) {
-        itemStr = insertCommaBeforeComment(itemStr);
-      }
       lines.push(itemStr);
     });
 
@@ -129,7 +141,7 @@ function stringify(props: {
       });
     }
 
-    lines.push(`${indent}]`);
+    lines.push(`${indent}]${comma}`);
     return lines.join("\n");
   }
 
@@ -147,6 +159,7 @@ function stringify(props: {
         tab,
         inArray,
         inToJson: true,
+        trailingComma: props.trailingComma,
         usedErrors,
       });
     }
@@ -186,7 +199,7 @@ function stringify(props: {
     ];
 
     if (allKeys.length === 0) {
-      return `${indent}{}${errorComment}`;
+      return `${indent}{}${comma}${errorComment}`;
     }
 
     const lines: string[] = [];
@@ -231,28 +244,22 @@ function stringify(props: {
       // Complex property value (object or array)
       else {
         const keyLine: string = `${propIndent}${JSON.stringify(key)}: `;
-        let valStr: string = stringify({
+        const valStr: string = stringify({
           value: val,
           errorsByPath,
           path: propPath,
           tab: tab + 1,
           inArray: false,
           inToJson: false,
+          trailingComma: index < array.length - 1,
           usedErrors,
         });
-        const valStrWithoutIndent: string = valStr.trimStart();
-        // Add comma before the error comment if not the last property
-        if (index < array.length - 1) {
-          valStr = insertCommaBeforeComment(valStrWithoutIndent);
-        } else {
-          valStr = valStrWithoutIndent;
-        }
-        const combined: string = keyLine + valStr;
+        const combined: string = keyLine + valStr.trimStart();
         lines.push(combined);
       }
     });
 
-    lines.push(`${indent}}`);
+    lines.push(`${indent}}${comma}`);
     return lines.join("\n");
   }
 
@@ -261,24 +268,7 @@ function stringify(props: {
     value === undefined
       ? "undefined"
       : (JSON.stringify(value) ?? String(value));
-  return `${indent}${valStr}${errorComment}`;
-}
-
-/** Insert comma before inline error comment on the last line */
-function insertCommaBeforeComment(str: string): string {
-  const lines: string[] = str.split("\n");
-  const lastLine: string = lines[lines.length - 1]!;
-  // Use specific error marker to avoid false positives with values containing " //"
-  const commentIndex: number = lastLine.lastIndexOf(" // ❌");
-  if (commentIndex !== -1) {
-    lines[lines.length - 1] = `${lastLine.slice(
-      0,
-      commentIndex,
-    )},${lastLine.slice(commentIndex)}`;
-  } else {
-    lines[lines.length - 1] += ",";
-  }
-  return lines.join("\n");
+  return `${indent}${valStr}${comma}${errorComment}`;
 }
 
 /** Get error comment for a given path */

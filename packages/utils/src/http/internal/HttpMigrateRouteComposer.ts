@@ -8,16 +8,62 @@ import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiSchemaSanitizer } from "../../utils/internal/OpenApiSchemaSanitizer";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 
+/**
+ * Composes one {@link IHttpMigrateRoute} from an OpenAPI operation.
+ *
+ * The operation's parameters are grouped into path, header, cookie and query
+ * records, its bodies are classified by media type, and anonymous schemas are
+ * emplaced as named components so the route can refer to them.
+ *
+ * @evidence contracts/common.md#principled-implementation A route is built by sanitizing the operation's schemas, classifying request and response bodies by media type, grouping header, cookie and query parameters into single objects with per-parameter serialization records, completing and checking path parameters, and emplacing anonymous schemas as named components whose names are escaped on collision. Failures are collected and returned together so one report names every problem.
+ * @evidence contracts/common.md#clear-and-simple-design The exported compose wraps one large composeRoute and private helpers for bodies, schema sanitation, reference emplacement and comment writing; each handles one concern and is used by that function.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Style and media-type support follow the OpenAPI rules enumerated in the code, unsupported ones are rejected with a message, and nothing is accepted by naming a particular route or fixture.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment states the purpose; emplaceReference carries a long rationale with issue references and failure messages state the exact limitation.
+ */
 export namespace HttpMigrateRouteComposer {
   const SCHEMAS = "#/components/schemas/";
 
+  /**
+   * Properties of {@link compose}.
+   *
+   * @evidence contracts/common.md#principled-implementation The record carries the document, the method, original and emended paths and the operation, which is the minimum needed to name schemas and compose the route.
+   * @evidence contracts/common.md#clear-and-simple-design Five fields that are all used by compose.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation A comment names it as the properties of compose.
+   */
   export interface IProps {
+    /** Live document receiving composed component schemas. */
     document: OpenApi.IDocument;
+
+    /** HTTP method of the operation. */
     method: "head" | "get" | "post" | "put" | "patch" | "delete" | "query";
+
+    /** Original OpenAPI path template. */
     path: string;
+
+    /** Router path with colon parameters. */
     emendedPath: string;
+
+    /** Live operation whose parameters and schemas are normalized. */
     operation: OpenApi.IOperation;
   }
+  /**
+   * Compose a route, or report why the operation cannot be migrated.
+   *
+   * The document and operation are modified: schemas are sanitized in place,
+   * missing path parameters are added to the operation, and inline schemas
+   * become components. When composition fails, the components added by this
+   * call are removed so that a failed route owns no name.
+   *
+   * @param props Document, operation and path information
+   *
+   * @returns The route, or the list of failure messages
+   *
+   * @evidence contracts/common.md#principled-implementation The route is composed against the live document and, when it fails, the component schemas that this call added are deleted so a failed route owns no name; the document and operation are modified during composition, which callers must accept.
+   * @evidence contracts/common.md#clear-and-simple-design A small wrapper that snapshots component names around composeRoute.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Rollback restores only names this call created, so no existing component is removed.
+   * @evidence contracts/common.md#meaningful-documentation The doc comment states the mutation and the rollback.
+   */
   export const compose = (props: IProps): IHttpMigrateRoute | string[] => {
     const before: Set<string> = new Set(
       Object.keys(props.document.components.schemas ?? {}),

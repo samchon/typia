@@ -57,11 +57,11 @@
     "rimraf": "catalog:utils",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
-    "tgrid": "^0.10.0",
-    "tstl": "^3.0.0",
+    "tgrid": "catalog:samchon",
+    "tstl": "catalog:samchon",
     "uuid": "catalog:utils",
     "zod": "^3.19.1",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@typia/interface": "workspace:^",
@@ -69,7 +69,7 @@
     "randexp": "^0.5.3",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
-    "tstl": "^3.0.0",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
   }

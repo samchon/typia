@@ -1,14 +1,17 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies a tuple of generic primitive-valued records. */
 export type ConstantAtomicWrapper = [
   ConstantAtomicWrapper.IPointer<boolean>,
   ConstantAtomicWrapper.IPointer<number>,
   ConstantAtomicWrapper.IPointer<string>,
 ];
 export namespace ConstantAtomicWrapper {
+  /** Wraps the fixture's generic primitive type in a required value field. */
   export interface IPointer<T> {
     value: T;
   }
+  /** Constructs fresh primitive-valued records in the authored tuple order. */
   export function generate(): ConstantAtomicWrapper {
     return [{ value: false }, { value: 1 }, { value: "two" }];
   }

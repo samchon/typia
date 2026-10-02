@@ -9,8 +9,26 @@ import { OpenApiV3_1Upgrader } from "./OpenApiV3_1Upgrader";
  *
  * Reuses JSON Schema conversion logic from OpenApiV3_1Upgrader since the schema
  * format is identical between v3.1 and v3.2.
+ *
+ * @evidence contracts/common.md#principled-implementation A 3.2 document differs from 3.1 in tags, additional operations, `querystring` parameters, item schemas and OAuth2 additions, so only those parts are converted here and every schema goes through the 3.1 conversion because the dialect is identical.
+ * @evidence contracts/common.md#clear-and-simple-design A small number of helpers around reuse of the 3.1 schema conversion.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Reuse is by calling the 3.1 converter and not by copying its logic; the 3.2-only fields are copied by name from the interface.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment explains the reuse of the 3.1 schema conversion.
  */
 export namespace OpenApiV3_2Upgrader {
+  /**
+   * Upgrade a whole 3.2 document; a document that is already emended is
+   * returned as it is.
+   *
+   * @param input OpenAPI 3.2 document
+   *
+   * @returns Emended document marked with `x-typia-emended-v12`
+   *
+   * @evidence contracts/common.md#principled-implementation An emended input is returned as is, otherwise tags, paths and webhooks are converted and the emended marker is set.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The marker is the contract marker.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the pass-through.
+   */
   export const convert = (input: OpenApiV3_2.IDocument): OpenApi.IDocument => {
     if ((input as OpenApi.IDocument)["x-typia-emended-v12"] === true)
       return input as OpenApi.IDocument;
@@ -367,6 +385,18 @@ export namespace OpenApiV3_2Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Upgrade the components of a 3.2 document.
+   *
+   * @param input OpenAPI 3.2 components
+   *
+   * @returns Emended components
+   *
+   * @evidence contracts/common.md#principled-implementation Component schemas are converted through the 3.1 schema conversion and security schemes kept.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Supported schema and security-scheme stores are retained without reachability pruning; other component kinds are consumed while converting operations.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what is kept.
+   */
   export const convertComponents = (
     input: OpenApiV3_2.IComponents,
   ): OpenApi.IComponents => ({
@@ -405,6 +435,11 @@ export namespace OpenApiV3_2Upgrader {
   /**
    * Reuse schema conversion from OpenApiV3_1Upgrader. OpenAPI v3.2 uses the
    * same JSON Schema (2020-12) as v3.1.
+   *
+   * @evidence contracts/common.md#principled-implementation The call forwards to the 3.1 schema conversion, whose input shape is the same dialect, so the 3.2 schema rules are one implementation.
+   * @evidence contracts/common.md#clear-and-simple-design One delegation with casts for the shared structural type.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The casts reflect the identical dialect; a future 3.2 schema difference would have to be handled here and is not handled today.
+   * @evidence contracts/common.md#meaningful-documentation The existing doc says it reuses the 3.1 conversion because the dialects match.
    */
   export const convertSchema =
     (components: OpenApiV3_2.IComponents) =>

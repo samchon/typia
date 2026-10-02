@@ -1,3 +1,14 @@
+/**
+ * Read one query value as a number.
+ *
+ * Blank text is absent, `null` is null and other text is converted when it is a
+ * number and kept as text otherwise.
+ *
+ * @evidence contracts/common.md#principled-implementation Blank or missing text is absent because `Number(" ")` would read as zero, the text `null` is null and other text is converted when it is a number and kept as text otherwise.
+ * @evidence contracts/common.md#clear-and-simple-design One conditional and a private converter.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The blank rule follows the cited issue.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the cases.
+ */
 export const _httpQueryReadNumber = (
   str: string | null,
 ): number | null | undefined =>

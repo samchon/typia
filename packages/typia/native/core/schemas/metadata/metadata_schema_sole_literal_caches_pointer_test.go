@@ -8,6 +8,11 @@ import "testing"
 // schema-dts-style validators ask for the same property key literal while
 // generating many object helpers, so the schema stores the positive literal
 // result and reuses it.
+//
+// @evidence contracts/testing.md#behavioral-verification The sole-literal lookup is called twice on a literal schema and once on a non-literal atomic; the literal value, pointer reuse, absent atomic result and recorded negative cache flag are asserted.
+// @evidence contracts/testing.md#independent-expectations The expected literal roleName and absence are authored; pointer reuse pins a caching implementation property.
+// @evidence contracts/testing.md#distinguishing-cases Repeated literal lookup checks pointer reuse; a single non-literal lookup checks absence and the recorded cache flag. Repeated negative lookup is not exercised.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported accessor in memory with no filesystem fixture, process or native command build.
 func TestMetadataSchemaSoleLiteralCachesPointer(t *testing.T) {
   schema := MetadataSchema_initialize()
   schema.Constants = append(schema.Constants, MetadataConstant_create(MetadataConstant{

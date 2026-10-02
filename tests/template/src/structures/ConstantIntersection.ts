@@ -1,13 +1,16 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies literal primitives intersected with optional metadata records. */
 export type ConstantIntersection = [
   ConstantIntersection.Wrapper<false>,
   ConstantIntersection.Wrapper<1>,
   ConstantIntersection.Wrapper<"two">,
 ];
 export namespace ConstantIntersection {
+  /** Retains an exact literal while permitting an optional metadata shape. */
   export type Wrapper<T> = T & { __meta?: object };
 
+  /** Constructs a fresh tuple containing the three authored literal values. */
   export function generate(): ConstantIntersection {
     return [false, 1, "two"];
   }

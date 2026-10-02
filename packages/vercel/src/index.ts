@@ -108,9 +108,16 @@ interface IVercelToolsProps extends IVercelToolsOptions {
  * ```
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @param input Controller, controller list, or conversion properties
  * @param options Conversion options when `input` is not a properties object
+ *
  * @returns Record of Vercel AI SDK Tools keyed by tool name
+ *
+ * @evidence contracts/common.md#principled-implementation The overloads normalize a controller, array or props object to the same registrar input; props objects retain their own prefix, and class/HTTP discriminants preserve each execution protocol.
+ * @evidence contracts/common.md#clear-and-simple-design One normalization helper owns overload handling and one registrar owns naming, validation and execution, so public overloads cannot drift into separate conversion policies.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The public function uses the SDK tool adapter through supported registrar operations rather than patching SDK validation; ordinary tool-name support retains the historical __proto__ exclusion from #2435.
+ * @evidence contracts/common.md#meaningful-documentation The JSDoc explains controller sources, correctable argument errors, provider usage, HTTP setup, overload input forms, prefix options and the returned record.
  */
 export function toVercelTools(
   controller: IVercelController,
@@ -164,10 +171,17 @@ export function toVercelTools(
  * ```
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @param parameters LLM parameters schema from
  *   `typia.llm.structuredOutput<T>().parameters` or
  *   `typia.llm.parameters<T>()`
+ *
  * @returns Vercel AI SDK Schema for `generateObject()`
+ *
+ * @evidence contracts/common.md#principled-implementation The reflected LLM object-parameter schema is already JSON Schema; its public SDK carrier preserves that document without adding validation before typia's coerce/validate operations.
+ * @evidence contracts/common.md#clear-and-simple-design The public entry delegates the single schema-carrier responsibility to VercelParameterConverter, sharing it with tool registration instead of duplicating the SDK mapping.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Conversion uses the SDK's public jsonSchema API and the actual supplied parameters rather than modifying a foreign validator or synthesizing expected fixtures.
+ * @evidence contracts/common.md#meaningful-documentation The example demonstrates schema advertisement followed by explicit coercion and validation, and the parameter/return documentation identifies supported typia schema producers.
  */
 export function toVercelSchema(
   parameters: ILlmSchema.IParameters,

@@ -1,5 +1,9 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/**
+ * Supplies records whose closure field mixes nullish, primitive and callable
+ * values.
+ */
 export type FunctionalPropertyUnion = FunctionalPropertyUnion.IUnion[];
 export namespace FunctionalPropertyUnion {
   export const BINARABLE = false;
@@ -7,10 +11,12 @@ export namespace FunctionalPropertyUnion {
   export const PRIMITIVE = false;
   export const RESOLVABLE = false;
 
+  /** Declares required name and the nullable/undefinable closure-value union. */
   export interface IUnion {
     name: string;
     closure: undefined | null | number | string | ((...args: any[]) => any);
   }
+  /** Constructs five fresh records covering every declared closure alternative. */
   export function generate(): FunctionalPropertyUnion {
     return [undefined, null, 1, "two", console.log].map((closure) => ({
       name: "name",

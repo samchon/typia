@@ -10,11 +10,16 @@
  * fine-grained control over fetch behavior, use {@link options} to configure
  * caching, CORS, credentials, and other fetch API settings.
  *
- * In Node.js versions prior to 20 (which lack native fetch), provide a polyfill
- * like `node-fetch` via the {@link fetch} property.
+ * When the runtime has no global fetch, provide an implementation such as
+ * `node-fetch` via the {@link fetch} property.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Seungjun We - https://github.com/SeungjunWe
+ *
+ * @evidence contracts/common.md#principled-implementation The record carries the three things a fetch needs apart from the call itself: a required base host, optional per-request headers whose values may be primitives or primitive arrays, and optional fetch options, with a replaceable fetch for runtimes lacking one. Optional members are optional because a connection with only a host is complete.
+ * @evidence contracts/common.md#clear-and-simple-design One flat interface with its helper types in the same-named namespace; the fetch and signal types are separate aliases because they need conditional resolution that the interface itself should not carry.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The injectable `fetch` member is the supported replacement point, so callers supply an implementation instead of patching the global; the interface does not itself contain a fetch call.
+ * @evidence contracts/common.md#meaningful-documentation The comment states who uses the type, relates host, headers, options and fetch, and explains injection when global fetch is unavailable, with an example on the fetch member.
  */
 export interface IHttpConnection {
   /**
@@ -45,9 +50,9 @@ export interface IHttpConnection {
   /**
    * Custom fetch function implementation.
    *
-   * For Node.js versions before 20 that lack native fetch support, provide a
-   * polyfill such as `node-fetch`. This allows the same connection
-   * configuration to work across all Node.js versions.
+   * Supply this when global fetch is unavailable or when a request needs a
+   * different implementation. The supplied function must implement the fetch
+   * behavior required by the HTTP executor.
    *
    * @example
    *   import fetch from "node-fetch";
@@ -75,6 +80,11 @@ export namespace IHttpConnection {
    * consumers installed a declaration whose types could not resolve, and the
    * repository's own transform fixtures silently loaded the DOM library while
    * believing they had excluded it (samchon/typia#2267, samchon/typia#2268).
+   *
+   * @evidence contracts/common.md#principled-implementation The conditional checks whether `typeof globalThis` declares `fetch` and then resolves to that declared type, otherwise to a callable stand-in, so it equals the real type wherever a declaration exists and does not fail to resolve elsewhere. It does not check the stand-in against any real fetch signature.
+   * @evidence contracts/common.md#clear-and-simple-design One conditional alias, needed because the emitted declarations must be self-contained without a `lib` reference; the comment records the issues that required it.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The alias adapts to the consumer's declared library instead of forcing a DOM reference or patching a global.
+   * @evidence contracts/common.md#meaningful-documentation The comment says what it resolves to in each environment, why the indirection exists and cites the issues that motivated it.
    */
   export type IFetch = typeof globalThis extends { fetch: infer T }
     ? T
@@ -87,6 +97,11 @@ export namespace IHttpConnection {
    * so a value read from here stays assignable back to `RequestInit["signal"]`
    * and a real signal stays assignable into it. See {@link IFetch} for why the
    * indirection exists.
+   *
+   * @evidence contracts/common.md#principled-implementation The conditional extracts the instance type from a declared `AbortSignal` constructor, so a signal read from the options is assignable to and from `RequestInit["signal"]`; where none is declared, a minimal object with `aborted` stands in.
+   * @evidence contracts/common.md#clear-and-simple-design A conditional alias in the same pattern as IFetch, referenced from IOptions.signal.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It adapts to declared types rather than casting or patching a global.
+   * @evidence contracts/common.md#meaningful-documentation The comment states the resolution, the assignability goal and refers to IFetch for the reason.
    */
   export type IAbortSignal = typeof globalThis extends {
     AbortSignal: abstract new (...args: any) => infer T;
@@ -100,6 +115,11 @@ export namespace IHttpConnection {
    * Subset of the standard `RequestInit` interface, excluding properties that
    * are managed internally (body, headers, method). These options control
    * caching, CORS, credentials, and request lifecycle behavior.
+   *
+   * @evidence contracts/common.md#principled-implementation Each property copies the name and the permitted string literals of the standard `RequestInit` member it mirrors, and excludes body, headers and method, which the fetcher owns. Properties are optional because the platform supplies defaults.
+   * @evidence contracts/common.md#clear-and-simple-design A subset of RequestInit is declared locally so the declaration file does not depend on the DOM library.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It is a data record and the options are passed through without special-casing a runtime.
+   * @evidence contracts/common.md#meaningful-documentation The comment states the subset and each option has its allowed literals described, with an abort example.
    */
   export interface IOptions {
     /**
@@ -219,6 +239,11 @@ export namespace IHttpConnection {
    * Supports primitive types (string, boolean, number, bigint) and arrays of
    * primitives. Arrays are typically joined with commas when sent as HTTP
    * headers.
+   *
+   * @evidence contracts/common.md#principled-implementation A union of single primitives and homogeneous primitive arrays lets one header carry a scalar or a list; arrays are limited to one element type each, not mixed.
+   * @evidence contracts/common.md#clear-and-simple-design A single union, used as the record value for headers.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A type-level description; joining arrays is the fetcher's concern and is not done here.
+   * @evidence contracts/common.md#meaningful-documentation The comment states the permitted primitives and that arrays are typically comma-joined.
    */
   export type HeaderValue =
     | string

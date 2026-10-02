@@ -10,17 +10,43 @@ type functionalIsFunctionProgrammerNamespace struct{}
 
 var FunctionalIsFunctionProgrammer = functionalIsFunctionProgrammerNamespace{}
 
+// FunctionalIsFunctionProgrammer_IConfig selects the generator's variants:
+// Equals is the strict form that also rejects properties the type does not
+// declare.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 1 field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalIsFunctionProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
+// FunctionalIsFunctionProgrammer_IProps is the input of Write for the is
+// function generator: Context (the transform context), Modulo (the call's
+// callee expression), Config (the configuration), Declaration (the function
+// declaration) and Expression (the function expression).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the configuration, the function declaration and the function expression, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalIsFunctionProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalIsFunctionProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalIsFunctionProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
-  Init        *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
 }
 
 func (functionalIsFunctionProgrammerNamespace) Write(props FunctionalIsFunctionProgrammer_IProps) *shimast.Node {

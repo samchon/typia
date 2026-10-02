@@ -25,6 +25,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains `src/id.ts`, and that `a.ts`
 //     is declared complete so the narrowed bound is the one that carries it.
 //  4. Assert it omits `src/unused.ts`, whose interface the call never reaches.
+//
+// @evidence contracts/testing.md#behavioral-verification The generic interface default id is retained, unused is absent and the caller remains complete.
+// @evidence contracts/testing.md#independent-expectations An omitted generic argument receives the written default; changing the default alias changes validation even when it resolves to an intrinsic.
+// @evidence contracts/testing.md#distinguishing-cases The validated interface default is paired with a default belonging to an unused interface.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesTypeParameterDefaultTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesTypeParameterDefaultTransform(t *testing.T) {
   project := projectDependenciesTypeParameterDefaultProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -71,16 +76,7 @@ func TestProjectDependenciesTypeParameterDefaultTransform(t *testing.T) {
 
 func projectDependenciesTypeParameterDefaultProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-type-parameter-default-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-type-parameter-default-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

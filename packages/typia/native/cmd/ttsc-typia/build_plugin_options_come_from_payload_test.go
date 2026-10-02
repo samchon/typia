@@ -6,19 +6,17 @@ import (
   "testing"
 )
 
-// TestBuildPluginOptionsComeFromPayload verifies the build host takes typia's
-// options from ttsc's resolved plugin entry, not from tsconfig text.
+// TestBuildPluginOptionsComeFromPayload checks the authored operation results described below.
 //
-// The build host declares its own `--plugins-json` flag and performs its own
-// option read, so the transform host's coverage does not speak for it: reverting
-// this host alone would leave the transform tests green. The rows write a
-// tsconfig whose raw text disagrees with the resolved entry -- the distinction
-// samchon/typia#1887's regex scrape could not make -- and the assertion reads
-// the JavaScript this host actually wrote to disk.
+// The actual host payload owns native plugin options; a fixture tsconfig option cannot override the selected command payload. Literal guards are derived from each option contract.
 //
-//  1. Materialize each matrix row as a project plus the payload ttsc resolves it into.
-//  2. Run the build host with emit forced into the project's outDir.
-//  3. Assert the emitted validator honors the entry, not the file text.
+// 1. An enabled typia entry and inherited enabled entry include the function guard; line and block comments and a sibling plugin option omit it. All five cases share the same callback property.
+// 2. Each build option subcase emits JavaScript whose function-property checks match the explicit plugin payload.
+//
+// @evidence contracts/testing.md#behavioral-verification Each build option subcase emits JavaScript whose function-property checks match the explicit plugin payload.
+// @evidence contracts/testing.md#independent-expectations The actual host payload owns native plugin options; a fixture tsconfig option cannot override the selected command payload. Literal guards are derived from each option contract.
+// @evidence contracts/testing.md#distinguishing-cases An enabled typia entry and inherited enabled entry include the function guard; line and block comments and a sibling plugin option omit it. All five cases share the same callback property.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestBuildPluginOptionsComeFromPayload as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestBuildPluginOptionsComeFromPayload(t *testing.T) {
   for _, tc := range pluginOptionsPayloadCases() {
     t.Run(tc.name, func(t *testing.T) {

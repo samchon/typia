@@ -25,6 +25,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains both barrels (`barrel.ts`,
 //     `inner.ts`) and the concrete module `alpha.ts`.
 //  4. Assert it does NOT contain `beta.ts`, which no consulted type reaches.
+//
+// @evidence contracts/testing.md#behavioral-verification Decoded dependencies include barrel, inner and alpha and omit the unused beta export.
+// @evidence contracts/testing.md#independent-expectations Repointing either re-export changes the validated declaration; an unconsumed sibling cannot affect it.
+// @evidence contracts/testing.md#distinguishing-cases The two-hop consumed chain is paired with beta exported by the same barrel but not consulted.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesBarrelReexportTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesBarrelReexportTransform(t *testing.T) {
   project := projectDependenciesBarrelReexportProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -64,16 +69,7 @@ func TestProjectDependenciesBarrelReexportTransform(t *testing.T) {
 
 func projectDependenciesBarrelReexportProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-barrel-reexport-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-barrel-reexport-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

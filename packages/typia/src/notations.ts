@@ -35,8 +35,11 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * - {@link validateCamel} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with camelCase property names
+ *
  * @throws {Error} When two source keys become the same destination key
  */
 export function camel<T>(input: T): CamelCase<T>;
@@ -59,10 +62,13 @@ export function camel(): never {
  * - {@link validateCamel} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns New object with camelCase property names
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertCamel<T>(
@@ -94,7 +100,9 @@ export function assertCamel(): never {
  * - {@link validateCamel} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with camelCase property names, or `null` if invalid
  */
 export function isCamel<T>(input: T): CamelCase<T> | null;
@@ -121,7 +129,9 @@ export function isCamel(): never {
  * - {@link isCamel} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns Validation result containing converted object or errors
  */
 export function validateCamel<T>(input: T): IValidation<CamelCase<T>>;
@@ -153,8 +163,11 @@ export function validateCamel(): never {
  * - {@link validatePascal} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with PascalCase property names
+ *
  * @throws {Error} When two source keys become the same destination key
  */
 export function pascal<T>(input: T): PascalCase<T>;
@@ -177,10 +190,13 @@ export function pascal(): never {
  * - {@link validatePascal} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns New object with PascalCase property names
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertPascal<T>(
@@ -212,7 +228,9 @@ export function assertPascal(): never {
  * - {@link validatePascal} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with PascalCase property names, or `null` if invalid
  */
 export function isPascal<T>(input: T): PascalCase<T> | null;
@@ -239,7 +257,9 @@ export function isPascal(): never {
  * - {@link isPascal} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns Validation result containing converted object or errors
  */
 export function validatePascal<T>(input: T): IValidation<PascalCase<T>>;
@@ -271,8 +291,11 @@ export function validatePascal(): never {
  * - {@link validateSnake} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with snake_case property names
+ *
  * @throws {Error} When two source keys become the same destination key
  */
 export function snake<T>(input: T): SnakeCase<T>;
@@ -295,10 +318,13 @@ export function snake(): never {
  * - {@link validateSnake} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns New object with snake_case property names
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertSnake<T>(
@@ -330,7 +356,9 @@ export function assertSnake(): never {
  * - {@link validateSnake} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with snake_case property names, or `null` if invalid
  */
 export function isSnake<T>(input: T): SnakeCase<T> | null;
@@ -357,7 +385,9 @@ export function isSnake(): never {
  * - {@link isSnake} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns Validation result containing converted object or errors
  */
 export function validateSnake<T>(input: T): IValidation<SnakeCase<T>>;
@@ -389,8 +419,11 @@ export function validateSnake(): never {
  * - {@link validateKebab} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with kebab-case property names
+ *
  * @throws {Error} When two source keys become the same destination key
  */
 export function kebab<T>(input: T): KebabCase<T>;
@@ -413,10 +446,13 @@ export function kebab(): never {
  * - {@link validateKebab} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns New object with kebab-case property names
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertKebab<T>(
@@ -448,7 +484,9 @@ export function assertKebab(): never {
  * - {@link validateKebab} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns New object with kebab-case property names, or `null` if invalid
  */
 export function isKebab<T>(input: T): KebabCase<T> | null;
@@ -475,7 +513,9 @@ export function isKebab(): never {
  * - {@link isKebab} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Object to convert
+ *
  * @returns Validation result containing converted object or errors
  */
 export function validateKebab<T>(input: T): IValidation<KebabCase<T>>;
@@ -502,6 +542,7 @@ export function createCamel(): never;
  * Creates reusable {@link camel} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createCamel<T>(): (input: T) => CamelCase<T>;
@@ -524,8 +565,10 @@ export function createAssertCamel(
  * Creates reusable {@link assertCamel} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable conversion function
  */
 export function createAssertCamel<T>(
@@ -551,6 +594,7 @@ export function createIsCamel(): never;
  * Creates reusable {@link isCamel} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createIsCamel<T>(): (input: T) => CamelCase<T> | null;
@@ -571,6 +615,7 @@ export function createValidateCamel(): never;
  * Creates reusable {@link validateCamel} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createValidateCamel<T>(): (
@@ -593,6 +638,7 @@ export function createPascal(): never;
  * Creates reusable {@link pascal} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createPascal<T>(): (input: T) => PascalCase<T>;
@@ -615,8 +661,10 @@ export function createAssertPascal(
  * Creates reusable {@link assertPascal} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable conversion function
  */
 export function createAssertPascal<T>(
@@ -642,6 +690,7 @@ export function createIsPascal(): never;
  * Creates reusable {@link isPascal} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createIsPascal<T>(): (input: T) => PascalCase<T> | null;
@@ -662,6 +711,7 @@ export function createValidatePascal(): never;
  * Creates reusable {@link validatePascal} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createValidatePascal<T>(): (
@@ -684,6 +734,7 @@ export function createSnake(): never;
  * Creates reusable {@link snake} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createSnake<T>(): (input: T) => SnakeCase<T>;
@@ -706,8 +757,10 @@ export function createAssertSnake(
  * Creates reusable {@link assertSnake} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable conversion function
  */
 export function createAssertSnake<T>(
@@ -733,6 +786,7 @@ export function createIsSnake(): never;
  * Creates reusable {@link isSnake} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createIsSnake<T>(): (input: T) => SnakeCase<T> | null;
@@ -753,6 +807,7 @@ export function createValidateSnake(): never;
  * Creates reusable {@link validateSnake} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createValidateSnake<T>(): (
@@ -775,6 +830,7 @@ export function createKebab(): never;
  * Creates reusable {@link kebab} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createKebab<T>(): (input: T) => KebabCase<T>;
@@ -797,8 +853,10 @@ export function createAssertKebab(
  * Creates reusable {@link assertKebab} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable conversion function
  */
 export function createAssertKebab<T>(
@@ -824,6 +882,7 @@ export function createIsKebab(): never;
  * Creates reusable {@link isKebab} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createIsKebab<T>(): (input: T) => KebabCase<T> | null;
@@ -844,6 +903,7 @@ export function createValidateKebab(): never;
  * Creates reusable {@link validateKebab} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable conversion function
  */
 export function createValidateKebab<T>(): (

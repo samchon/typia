@@ -12,6 +12,7 @@ Follow the literal request; it is the contract, not a hint at what the user "rea
 - **Choose the principled course.** Decide from evidence, correctness, product boundaries, and the durable consequence. Time, difficulty, and consequence surface are reasons to investigate and validate more carefully, never reasons to settle for a shortcut, workaround, or weaker standard.
 - **Evidence precedes correction.** Treat issue reports, review proposals, and claims that something is wrong or missing as hypotheses. Verify the real code path, tests, generated artifacts, upstream ownership, and history before accepting the premise or changing behavior.
 - **Trace the consequence surface.** A named file or failing case is the starting point, not the investigation boundary. Follow the same cause through downstream consumers, side effects, state transitions, platforms, and boundary cases, then address the whole verified class of failure within the requested goal.
+- **Collect every symptom before correcting.** Finish the test run, CI run, reproduction, or review round that produced a finding before repairing it. Group all findings by cause, trace their consequences, and correct the complete verified set together.
 - **Default over ask.** On an ambiguous detail, pick the sensible default and say what you chose; reserve questions for forks only the user can settle.
 
 ## Skills
@@ -25,6 +26,10 @@ What typia is, the package family, the JS-descriptor / Go-plugin boundary, the w
 ### Development
 
 Work rules, testing, validation, consequence analysis, and change integrity, `.agents/skills/development/SKILL.md`. Read before writing or modifying code.
+
+### Implementation Contracts
+
+Self-acknowledgments for maintained production declarations, unit tests, and E2E tests, `.agents/skills/contracts/SKILL.md`. Read when implementing or reviewing those declarations or selecting Evidence checklists.
 
 ### Documentation
 
@@ -74,4 +79,4 @@ Update AGENTS.md only for repository-contract changes: a new skill area, a renam
 - **Create or merge.** Add a skill when a substantial repository concern would otherwise inflate AGENTS.md beyond an index. Merge sibling concerns when they share most of their structure.
 - **Repository skill files only.** Keep repository skills to `SKILL.md` and conditionally loaded sibling documents. Do not add separate `multi-agent-*` skills; the parallel variants live under the one `multi-agent` skill.
 - **Headings are plain.** No chapter numbers in skill or AGENTS.md headings. Use descriptive titles.
-- **Current set.** The repository skills are `project`, `development`, `documentation`, `issue-campaign`, `review`, `multi-agent`, `discussion`, `pull-request`, and `benchmark`.
+- **Current set.** The repository skills are `project`, `contracts`, `development`, `documentation`, `issue-campaign`, `review`, `multi-agent`, `discussion`, `pull-request`, and `benchmark`.

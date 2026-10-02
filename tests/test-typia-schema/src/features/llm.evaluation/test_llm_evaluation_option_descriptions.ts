@@ -16,6 +16,15 @@ import typia, { tags } from "typia";
  *    members.
  * 2. Generate the evaluation.
  * 3. Assert each question's instructions and criteria.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Generated choice and score questions preserve Constant description, ignore title-only metadata, forward enum JSDoc paragraphs and spell undocumented numeric criteria with JavaScript number text.
+ * @evidence contracts/testing.md#independent-expectations The expected full question objects are handwritten from source descriptions and Number string representations such as 1e-7 and 1e+21, rather than copied from emitted questions.
+ * @evidence contracts/testing.md#distinguishing-cases Description versus title-only versus bare options, enum summary/body versus undocumented members, and small/large/fractional numeric levels cover independent metadata sources.
+ * @evidence contracts/testing.md#execution-ownership test_llm_evaluation_option_descriptions is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.llm.evaluation through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.
+ * @evidence contracts/e2e.md#necessary-boundary The native analyzer must turn this decision type, its JSDoc and probability/configuration requirements into the question and decoding plan consumed by the runtime evaluation. Calling the runtime decoder with a handwritten plan cannot detect a missing rewrite or a mismatched emitted plan.
+ * @evidence contracts/e2e.md#shared-execution This case joins the existing schema-suite ttsx invocation and DynamicExecutor population; it starts no per-case project, installation, native binary build or worker. The typia.llm.evaluation call sites use the same workspace/compiler configuration as their sibling cases. Compiler host and content-keyed artifact reuse are owned by ttsx, not asserted as a cold-cache transition here.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The source declarations, JSDoc, tags and generic configuration are part of the compilation input, so changed producer inputs require recompilation. Schema maps, payloads, callbacks and counters declared here are case-local; this file owns no process or persistent cache and shares no mutated result with another case. ttsx owns the compiler/host lifetime; cache invalidation is not this scenario.
+ * @evidence contracts/e2e.md#preserved-coverage The original public calls, input declarations and assertions remain in this exported case. Description versus title-only versus bare options, enum summary/body versus undocumented members, and small/large/fractional numeric levels cover independent metadata sources. Added literal or shape controls strengthen those observations; no generated schema comparison replaces an existing independent expected value, and no case is removed from execution.
  */
 export const test_llm_evaluation_option_descriptions = (): void => {
   const { questions } = typia.llm.evaluation<IDecision>();

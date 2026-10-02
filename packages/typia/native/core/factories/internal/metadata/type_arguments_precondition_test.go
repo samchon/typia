@@ -18,6 +18,11 @@ import (
 //  1. Load primitive and generic reference declarations through the checker.
 //  2. Verify the primitive follows the unsupported-input fallback.
 //  3. Verify the reference returns its sole string argument.
+//
+// @evidence contracts/testing.md#behavioral-verification A temporary TypeScript project is loaded in-process and the type-arguments helper is called on a primitive and on a generic reference; the primitive must yield none and the reference its arguments.
+// @evidence contracts/testing.md#independent-expectations TypeScript semantics (only object-reference types have type arguments) decide the expectation, observed through the checker.
+// @evidence contracts/testing.md#distinguishing-cases Primitive and generic reference form the pair.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It writes a temporary project and loads it with the in-process typescript-go program API; no tsc or ttsc process or native command build is started.
 func TestMetadataTypeArgumentsPrecondition(t *testing.T) {
   dir := t.TempDir()
   if err := os.WriteFile(filepath.Join(dir, "tsconfig.json"), []byte(`{

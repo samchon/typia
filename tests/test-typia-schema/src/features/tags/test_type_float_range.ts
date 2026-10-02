@@ -22,6 +22,15 @@ interface ICommentFloat {
  * 1. Accept zero, subnormal, normal, and boundary values through both tag forms.
  * 2. Reject non-finite values and numbers outside the float32 range.
  * 3. Require Float32Array random generation to expose the same range.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Float type/comment validators and typed-array random metadata preserve finite float32 range.
+ * @evidence contracts/testing.md#independent-expectations Authored symmetric limits and literal verdicts anchor validation; the custom generator captures actual schema bounds and expected fround output.
+ * @evidence contracts/testing.md#distinguishing-cases Twelve zero/subnormal/normal/edge values and seven outside/nonfinite values remain through helper and both native tag forms.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_type_float_range in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native tag checks and typed-array generator emission must connect to the same numeric range.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Twelve zero/subnormal/normal/edge values and seven outside/nonfinite values remain through helper and both native tag forms. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_type_float_range = (): void => {
   const limit = 3.4028235e38;

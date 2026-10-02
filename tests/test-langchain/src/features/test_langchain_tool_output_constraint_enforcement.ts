@@ -27,6 +27,15 @@ import typia, { tags } from "typia";
  * 3. Assert a result violating `Minimum` is reported with its failing path, in
  *    both modes, and the same for `Format<"email">`.
  * 4. Assert a method that declares no output keeps its plain success.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Strict config remains true; both strict and ordinary tools accept the authored member, reject negative age and malformed email at authored paths, and retain success for a void note.
+ * @evidence contracts/testing.md#independent-expectations Minimum<0>, Format<email>, authored member literals and negative mutations establish expectations independently of inversion or emitted config.
+ * @evidence contracts/testing.md#distinguishing-cases Strict/ordinary modes, valid/minimum/format output and void success isolate distinct output and configuration branches.
+ * @evidence contracts/testing.md#execution-ownership test-langchain test:integration discovers test_langchain_tool_output_constraint_enforcement through DynamicExecutor after native rewriting of its typia call sites. No live model endpoint is used.
+ * @evidence contracts/e2e.md#necessary-boundary Strict config remains true; both strict and ordinary tools accept the authored member, reject negative age and malformed email at authored paths, and retain success for a void note. The native-produced controller is registered as an actual DynamicStructuredTool and its public SDK surface is exercised; authored metadata alone cannot establish producer-to-SDK assembly.
+ * @evidence contracts/e2e.md#shared-execution All native calls share one suite project, installed content-keyed plugin artifact and runtime process. Tool conversions and scenario inputs need no separate compiler, installation or model host; strict/ordinary options, where present, are emitted in that same project.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its controller/tool or structured-output object and authored input. No endpoint connection, transport, timer or native process is acquired by the case. Local state and returned promises live through the awaited scenario; the suite/compiler own native artifact lifecycle.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Strict/ordinary modes, valid/minimum/format output and void success isolate distinct output and configuration branches. Portable authored-OpenAPI HTTP tool cases retain their original names and assertions in the plugin-free test:unit population.
  */
 export const test_langchain_tool_output_constraint_enforcement =
   async (): Promise<void> => {

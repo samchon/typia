@@ -15,6 +15,7 @@ export class Inspector {
    * Inspect the deferred state.
    *
    * @param props Query to run against the state
+   *
    * @returns The matching answer
    */
   public inspect(props: Inspector.IProps): Inspector.IResult {
@@ -22,13 +23,17 @@ export class Inspector {
   }
 }
 export namespace Inspector {
+  /** Value supplied by the deferred fixture source. */
   export interface IState {
+    /** Deferred numeric value. */
     value: number;
   }
+  /** Query consumed by the inspection fixture. */
   export interface IProps {
     /** Question to answer from the state */
     query: string;
   }
+  /** Answer returned by the inspection fixture. */
   export interface IResult {
     /** Answer text */
     answer: string;

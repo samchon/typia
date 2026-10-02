@@ -28,6 +28,15 @@ import typia, { tags } from "typia";
  * 2. Assert a conforming result uses the typed success branch.
  * 3. Assert a result violating `Minimum` uses the failure branch in both modes.
  * 4. Assert the same for a result violating `Format<"email">`.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Checks strict configuration provenance, then executes valid, negative-age and malformed-email outputs in strict and non-strict native controller modes.
+ * @evidence contracts/testing.md#independent-expectations Minimum0 and email Format tags establish the two invalid paths; literal valid data and success:false feedback containing age/email paths distinguish lost constraint inversion.
+ * @evidence contracts/testing.md#distinguishing-cases Both strictness modes retain a valid twin and two independent tag violations; changing config must not erase enforcement when constraints are represented differently.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_tool_output_constraint_enforcement in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native strict and non-strict output schemas plus their reported configs must connect to adapter inversion without losing Minimum0/email constraints. Literal valid output and two one-axis violations distinguish both modes and config provenance.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_tool_output_constraint_enforcement =
   async (): Promise<void> => {

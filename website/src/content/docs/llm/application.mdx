@@ -116,6 +116,7 @@ export namespace llm {
 The compile-time transform enforces a small set of method-shape rules on every method. Getting this right is the #1 reason a new `typia.llm.application<Class>()` call fails to compile, so read it before anything else:
 
 - **Each method takes exactly one keyworded-object parameter.** LLMs invoke functions with named arguments, so `add(x: number, y: number)` is rejected. Wrap the args: `add(props: { x: number; y: number })`.
+- **The whole object parameter must be required.** A question token or default initializer permits omission and is rejected. Defaults and optional fields inside the object are separate from omission of the whole argument.
 - **Each method returns a keyworded-object type** (e.g. `{ value: number }`, `{ items: T[] }`) **or `void`.** Primitives, arrays, and `T | undefined` are rejected. If you need to return one, wrap it.
 - **Object parameter and return types may not have dynamic keys.** `Record<string, number>` won't work — use `Array<{ key: string; value: number }>`.
 

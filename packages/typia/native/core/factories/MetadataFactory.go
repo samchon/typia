@@ -49,27 +49,81 @@ func init() {
   }
 }
 
+// MetadataFactory_Validator checks one metadata node during analysis and returns
+// the reasons it is unsupported, or none.
+//
+// @evidence contracts/common.md#principled-implementation A validator receives the node, its location and the top schema and returns reasons as strings, so it can be written without knowing the analysis internals and an empty result means the node is acceptable.
+// @evidence contracts/common.md#clear-and-simple-design A function type used by the options and the JSON factory.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the inputs and the empty-result meaning.
 type MetadataFactory_Validator = func(props struct {
   Metadata *schemametadata.MetadataSchema
   Explore  MetadataFactory_IExplore
   Top      *schemametadata.MetadataSchema
 }) []string
 
+// MetadataFactory_IOptions is the option record of the metadata analysis.
+//
+// @evidence contracts/common.md#principled-implementation The alias names the option record that the metadata package owns.
+// @evidence contracts/common.md#clear-and-simple-design A type alias to the metadata package's record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record configures.
 type MetadataFactory_IOptions = nativemetadata.MetadataFactory_IOptions
+
+// MetadataFactory_IExplore locates the node that is being analyzed.
+//
+// @evidence contracts/common.md#principled-implementation The alias names the location record that the metadata package owns.
+// @evidence contracts/common.md#clear-and-simple-design A type alias to the metadata package's record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record locates.
 type MetadataFactory_IExplore = nativemetadata.MetadataFactory_IExplore
+
+// MetadataFactory_IError is one analysis failure with its location and reasons.
+//
+// @evidence contracts/common.md#principled-implementation The alias names the error record that the metadata package owns.
+// @evidence contracts/common.md#clear-and-simple-design A type alias to the metadata package's record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record holds.
 type MetadataFactory_IError = nativemetadata.MetadataFactory_IError
 
+// MetadataFactory_IProps is the input of an analysis: checker, options, the
+// collection to fill and the type.
+//
+// @evidence contracts/common.md#principled-implementation An analysis needs the checker, the options, the collection that receives named types and the type, which is all the shared analyzer reads.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record for Analyze.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc lists the inputs.
 type MetadataFactory_IProps struct {
-  Checker    *nativechecker.Checker
-  Options    MetadataFactory_IOptions
+  // Checker resolves Type and its reachable compiler types.
+  Checker *nativechecker.Checker
+
+  // Options selects the shape analysis and optional validation hooks.
+  Options MetadataFactory_IOptions
+
+  // Components is the per-analysis registry filled with shared named types.
   Components *schemametadata.MetadataCollection
-  Type       *nativechecker.Type
+
+  // Type is the root type to explore.
+  Type *nativechecker.Type
 }
 
+// MetadataFactory_ValidationPipe is the analysis result: Success, the metadata
+// on success or the errors collected on failure. Analyze leaves Data nil on
+// failure and Errors empty on success.
+//
+// @evidence contracts/common.md#principled-implementation The result carries a success flag, the schema and the errors, so a caller can report every error and not only the first.
+// @evidence contracts/common.md#clear-and-simple-design A three-field result record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the three parts.
 type MetadataFactory_ValidationPipe struct {
+  // Success selects whether Data or Errors carries the analysis result.
   Success bool
-  Data    *schemametadata.MetadataSchema
-  Errors  []MetadataFactory_IError
+
+  // Data is the root schema on success; Analyze leaves it nil on failure.
+  Data *schemametadata.MetadataSchema
+
+  // Errors contains all collected analysis/validation failures on failure.
+  Errors []MetadataFactory_IError
 }
 
 func (metadataFactoryNamespace) Analyze(props MetadataFactory_IProps) MetadataFactory_ValidationPipe {

@@ -39,6 +39,7 @@ export namespace OpenApiSchemaSanitizer {
    * The open `any[]` form of an array that omits `items` and `prefixItems`.
    *
    * @param schema Schema about to be walked
+   *
    * @returns The same schema, or a copy with `items: {}`
    */
   export const fillOpenArray = (

@@ -30,6 +30,11 @@ import (
 //  4. Assert `dependencies["src/main.ts"]` contains `src/barrel.ts` and
 //     `src/kind.ts`, and that `src/main.ts` is declared complete.
 //  5. Assert it omits `src/unused.ts`, the sibling the reference never traverses.
+//
+// @evidence contracts/testing.md#behavioral-verification The enum literal appears in the validator, kind/barrel are retained, unused is absent and the caller remains complete.
+// @evidence contracts/testing.md#independent-expectations A namespace-qualified enum member still depends on the barrel selecting its namespace, not solely on the terminal member symbol.
+// @evidence contracts/testing.md#distinguishing-cases Qualified consumed enum access is paired with an unconsumed export from that same barrel.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesQualifiedBarrelTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesQualifiedBarrelTransform(t *testing.T) {
   project := projectDependenciesQualifiedBarrelProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -80,16 +85,7 @@ func TestProjectDependenciesQualifiedBarrelTransform(t *testing.T) {
 
 func projectDependenciesQualifiedBarrelProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-qualified-barrel-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-qualified-barrel-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

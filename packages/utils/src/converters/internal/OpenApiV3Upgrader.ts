@@ -6,7 +6,32 @@ import { OpenApiV3TypeChecker } from "../../validators/OpenApiV3TypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
+/**
+ * Upgrades an OpenAPI 3.0 document to the emended OpenAPI 3.2 form.
+ *
+ * Referenced parameters, request bodies, responses and examples are inlined,
+ * `nullable` becomes a `null` member of a `oneOf`, `allOf` of plain objects is
+ * merged, boolean exclusive bounds become numeric ones and path-level
+ * parameters are merged into each operation.
+ *
+ * @evidence contracts/common.md#principled-implementation A 3.0 document is brought to the emended form by inlining parameter, header, body, response and example references, merging path-level parameters into operations, expressing `nullable` as a `null` member, rewriting boolean exclusive bounds as numbers and merging an `allOf` of closed objects; schema references stay references.
+ * @evidence contracts/common.md#clear-and-simple-design Path, operation, parameter and content conversion are private helpers of this namespace, and the path-item, parameter-merging and media conversion have the same shape in the 3.1, 3.2 and Swagger upgraders, which is a duplication limitation.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Conversion follows the 3.0 object model and no document is special-cased; an unreadable reference is dropped, not guessed.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites; the exported functions carry their own docs.
+ */
 export namespace OpenApiV3Upgrader {
+  /**
+   * Upgrade a whole 3.0 document.
+   *
+   * @param input OpenAPI 3.0 document
+   *
+   * @returns Emended document marked with `x-typia-emended-v12`
+   *
+   * @evidence contracts/common.md#principled-implementation The document is spread to preserve unknown fields, its components and path items are converted and the version and emended marker are set.
+   * @evidence contracts/common.md#clear-and-simple-design One function that delegates to the component and path-item converters.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The marker is the contract marker and no input is modified.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const convert = (input: OpenApiV3.IDocument): OpenApi.IDocument => ({
     ...input,
     components: convertComponents(input.components ?? {}),
@@ -312,6 +337,19 @@ export namespace OpenApiV3Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Upgrade the components of a 3.0 document; only schemas and security schemes
+   * are kept, because the emended form inlines every other component kind.
+   *
+   * @param input OpenAPI 3.0 components
+   *
+   * @returns Emended components
+   *
+   * @evidence contracts/common.md#principled-implementation Component schemas are converted, security schemes are kept and all other component kinds are dropped, because the converted operations no longer reference them.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Supported schema and security-scheme stores are retained without reachability pruning; other component kinds are consumed while converting operations.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what is kept.
+   */
   export const convertComponents = (
     input: OpenApiV3.IComponents,
   ): OpenApi.IComponents => ({
@@ -323,6 +361,24 @@ export namespace OpenApiV3Upgrader {
     securitySchemes: input.securitySchemes,
   });
 
+  /**
+   * Upgrade one 3.0 schema, resolving references that must be inlined through
+   * the given components.
+   *
+   * Constructs the union of the schema's members, adds a `null` member for
+   * `nullable`, folds an enum into `const` members and merges an `allOf` of
+   * plain objects; an `allOf` that cannot be merged is dropped to an untyped
+   * schema.
+   *
+   * @param components Components used to resolve references
+   *
+   * @returns Function that converts a 3.0 schema to the emended schema
+   *
+   * @evidence contracts/common.md#principled-implementation The schema's members are visited into a union: an enum becomes `const` members, a nullable flag or enum null becomes a `null` member, exclusive booleans become numbers, an `allOf` of closed objects is merged and one with other members is dropped to an untyped schema, which loses that composition. Attributes move to the result and, when the union is a value and a null, the value's own attributes are removed so they appear once. A discriminator is kept only while its union stayed one member per branch.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function whose visit handles one member kind per branch and whose allOf helpers are separate.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The allOf drop is a stated lossy case and is not hidden behind a different spelling.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the rewrites, including the lossy allOf case.
+   */
   export const convertSchema =
     (components: OpenApiV3.IComponents) =>
     (input: OpenApiV3.IJsonSchema): OpenApi.IJsonSchema => {

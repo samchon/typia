@@ -2,31 +2,58 @@ package metadata
 
 import "strings"
 
+// IMetadataSchema_IAtomic is the JSON form of an atomic: its primitive type name
+// and the tag rows.
+//
+// @evidence contracts/common.md#principled-implementation An atomic has no shared type, so its JSON form is the type name and the tags themselves.
+// @evidence contracts/common.md#clear-and-simple-design Two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation Each field describes the atomic projection produced by ToJSON.
 type IMetadataSchema_IAtomic struct {
+  // Type is the primitive category of this atomic.
   Type string
+  // Tags contains alternative rows whose tags apply together within each row.
   Tags [][]IMetadataTypeTag
 }
 
+// MetadataAtomic is a primitive type (`boolean`, `number`, `bigint` or `string`)
+// with the rows of type tags that constrain it. Each row is one alternative and
+// the tags inside a row apply together. The name is computed once and cached, so
+// Type and Tags must be final before the first GetName.
+//
+// @evidence contracts/common.md#principled-implementation A primitive has no shared declaration, so the record holds the type and the tag alternatives directly, and the name is cached because it is compared and used as a key often.
+// @evidence contracts/common.md#clear-and-simple-design Two fields and one cache.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is stated, not hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states the row meaning and the cache limitation.
 type MetadataAtomic struct {
-  Type  string
+  // Type is the primitive category: boolean, number, bigint or string.
+  Type string
+  // Tags contains alternative rows of jointly applied type tags.
   Tags  [][]IMetadataTypeTag
   name_ string
 }
 
+// MetadataAtomic_create builds an atomic from props and copies the tag matrix, so
+// later edits of the caller's rows do not reach it.
+//
+// @evidence contracts/common.md#principled-implementation The comment-tag step rewrites atomic tag rows in place, so each atomic must own its rows, as every other tagged member does.
+// @evidence contracts/common.md#clear-and-simple-design One constructor using cloneTagMatrix.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Sharing the caller's matrix was the defect this ownership removes, and a unit test pins it.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the matrix is copied.
 func MetadataAtomic_create(props MetadataAtomic) *MetadataAtomic {
   return &MetadataAtomic{
     Type: props.Type,
-    Tags: props.Tags,
+    Tags: cloneTagMatrix(props.Tags),
   }
 }
 
-func MetadataAtomic_from(json IMetadataSchema_IAtomic) *MetadataAtomic {
-  return MetadataAtomic_create(MetadataAtomic{
-    Type: json.Type,
-    Tags: json.Tags,
-  })
-}
-
+// GetName returns the type, or `(type & tag)` for one row, or
+// `(type & (row | row))` for several, with the tags of a row joined by `&`.
+//
+// @evidence contracts/common.md#principled-implementation The name is the type intersected with the tag alternatives, which is how the tagged type is written in TypeScript, and it is cached after the first call.
+// @evidence contracts/common.md#clear-and-simple-design A cache check and one private helper that formats the rows.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The cache limitation is documented on the record.
+// @evidence contracts/common.md#meaningful-documentation The doc gives the output forms.
 func (obj *MetadataAtomic) GetName() string {
   if obj.name_ == "" {
     obj.name_ = metadataAtomic_getName(obj)
@@ -34,10 +61,17 @@ func (obj *MetadataAtomic) GetName() string {
   return obj.name_
 }
 
+// ToJSON returns the JSON form with independent tag rows. References inside
+// individual tag values remain shared.
+//
+// @evidence contracts/common.md#principled-implementation The primitive and tag records are projected with copied matrix rows; nested tag payloads remain shared.
+// @evidence contracts/common.md#clear-and-simple-design One record construction.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The matrix is copied.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the tags are copied.
 func (obj *MetadataAtomic) ToJSON() IMetadataSchema_IAtomic {
   return IMetadataSchema_IAtomic{
     Type: obj.Type,
-    Tags: obj.Tags,
+    Tags: cloneTagMatrix(obj.Tags),
   }
 }
 

@@ -14,6 +14,11 @@ import (
 //  1. Annotate several declaration kinds, including unused declarations.
 //  2. Compile a neighboring evaluation call.
 //  3. Require a normal diagnostic for every invalid placement.
+//
+// @evidence contracts/testing.md#behavioral-verification The diagnostic build names each illegally annotated alias, interface, enum, class and unrelated declaration.
+// @evidence contracts/testing.md#independent-expectations Primitive aliases can lose their declaration identity during type resolution; unsupported declaration-level requirements must diagnose rather than silently supply or drop decision constraints.
+// @evidence contracts/testing.md#distinguishing-cases Consumed and unused declarations of several syntax kinds carry illegal annotations, while valid property and enum-member placements are owned by the acceptance case.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsDeclarationProbability as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsDeclarationProbability(t *testing.T) {
   diagnostics := llmEvaluationDiagnosticsBuild(t, "declaration-probability", `import typia from "typia";
 

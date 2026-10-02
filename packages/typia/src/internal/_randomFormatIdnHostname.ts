@@ -3,6 +3,18 @@ import { _randomInteger } from "./_randomInteger";
 import { _randomString } from "./_randomString";
 import { _ILengthProps } from "./_randomStringLength";
 
+/**
+ * Generate an internationalized hostname at a length the bounds allow.
+ *
+ * Samples lowercase ASCII labels, each at most 63 characters. Constrained
+ * lengths range from one to 253; an empty intersection with the supplied
+ * inclusive bounds throws.
+ *
+ * @evidence contracts/common.md#principled-implementation The internationalized hostname has the same label structure as the hostname, so the same label builder realizes the requested length.
+ * @evidence contracts/common.md#clear-and-simple-design One function sharing the label builder.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It generates ASCII labels, which are valid IDN hostnames.
+ * @evidence contracts/common.md#meaningful-documentation Native prose states the ASCII sample and label/total length bounds with explicit failure; the inline comment explains reuse of the shared label structure.
+ */
 export const _randomFormatIdnHostname = (props?: _ILengthProps): string => {
   if (props?.minLength === undefined && props?.maxLength === undefined)
     return `${random(10)}.${random(3)}`;

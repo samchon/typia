@@ -47,8 +47,11 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * - {@link validateFormData} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input FormData instance to decode
+ *
  * @returns Decoded object of type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function formData<T extends object>(input: FormData): Resolved<T>;
@@ -79,11 +82,15 @@ export function formData(): never {
  * - {@link validateFormData} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input FormData instance to decode
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Decoded object of type `T`
+ *
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function assertFormData<T extends object>(
@@ -117,8 +124,11 @@ export function assertFormData(): never {
  * - {@link validateFormData} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input FormData instance to decode
+ *
  * @returns Decoded object of type `T`, or `null` if invalid
+ *
  * @danger You must configure the generic argument `T`
  */
 export function isFormData<T extends object>(
@@ -152,8 +162,11 @@ export function isFormData(): never {
  * - {@link isFormData} — Returns `null` instead of error details
  *
  * @template T Target object type
+ *
  * @param input FormData instance to decode
+ *
  * @returns Validation result containing decoded value or errors
+ *
  * @danger You must configure the generic argument `T`
  */
 export function validateFormData<T extends object>(
@@ -195,8 +208,11 @@ export function validateFormData(): never {
  * - {@link validateQuery} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input Query string or URLSearchParams instance
+ *
  * @returns Decoded object of type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function query<T extends object>(
@@ -229,11 +245,15 @@ export function query(): never {
  * - {@link validateQuery} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input Query string or URLSearchParams instance
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Decoded object of type `T`
+ *
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function assertQuery<T extends object>(
@@ -267,8 +287,11 @@ export function assertQuery(): never {
  * - {@link validateQuery} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input Query string or URLSearchParams instance
+ *
  * @returns Decoded object of type `T`, or `null` if invalid
+ *
  * @danger You must configure the generic argument `T`
  */
 export function isQuery<T extends object>(
@@ -302,8 +325,11 @@ export function isQuery(): never {
  * - {@link isQuery} — Returns `null` instead of error details
  *
  * @template T Target object type
+ *
  * @param input Query string or URLSearchParams instance
+ *
  * @returns Validation result containing decoded value or errors
+ *
  * @danger You must configure the generic argument `T`
  */
 export function validateQuery<T extends object>(
@@ -352,8 +378,11 @@ export function validateQuery(): never {
  * - {@link validateHeaders} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input Headers object from HTTP request
+ *
  * @returns Decoded object of type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function headers<T extends object>(
@@ -395,11 +424,15 @@ export function headers(): never {
  * - {@link validateHeaders} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input Headers object from HTTP request
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Decoded object of type `T`
+ *
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function assertHeaders<T extends object>(
@@ -442,8 +475,11 @@ export function assertHeaders(): never {
  * - {@link validateHeaders} — Returns detailed validation errors
  *
  * @template T Target object type
+ *
  * @param input Headers object from HTTP request
+ *
  * @returns Decoded object of type `T`, or `null` if invalid
+ *
  * @danger You must configure the generic argument `T`
  */
 export function isHeaders<T extends object>(
@@ -486,8 +522,11 @@ export function isHeaders(): never {
  * - {@link isHeaders} — Returns `null` instead of error details
  *
  * @template T Target object type
+ *
  * @param input Headers object from HTTP request
+ *
  * @returns Validation result containing decoded value or errors
+ *
  * @danger You must configure the generic argument `T`
  */
 export function validateHeaders<T extends object>(
@@ -515,9 +554,13 @@ export function validateHeaders(): never {
  *
  * @template T Target atomic type (`boolean`, `bigint`, `number`, or `string`),
  *   optionally with `null`
+ *
  * @param input Path parameter string
+ *
  * @returns Decoded value of type `T`
+ *
  * @throws {TypeGuardError} When decoded value doesn't conform to type `T`
+ *
  * @danger You must configure the generic argument `T`
  */
 export function parameter<T extends Atomic.Type | null>(
@@ -536,6 +579,7 @@ export function parameter(): never {
  * Creates reusable {@link formData} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createFormData(): never;
@@ -544,6 +588,7 @@ export function createFormData(): never;
  * Creates reusable {@link formData} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createFormData<T extends object>(): (
@@ -559,8 +604,10 @@ export function createFormData<T>(): (input: FormData) => Resolved<T> {
  * Creates reusable {@link assertFormData} function.
  *
  * @template T Target object type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssertFormData(
@@ -571,8 +618,10 @@ export function createAssertFormData(
  * Creates reusable {@link assertFormData} function.
  *
  * @template T Target object type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable decoder function
  */
 export function createAssertFormData<T extends object>(
@@ -594,6 +643,7 @@ export function createAssertFormData<T>(): (
  * Creates reusable {@link isFormData} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createIsFormData(): never;
@@ -602,6 +652,7 @@ export function createIsFormData(): never;
  * Creates reusable {@link isFormData} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createIsFormData<T extends object>(): (
@@ -617,6 +668,7 @@ export function createIsFormData<T>(): (input: FormData) => Resolved<T> | null {
  * Creates reusable {@link validateFormData} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createValidateFormData(): never;
@@ -625,6 +677,7 @@ export function createValidateFormData(): never;
  * Creates reusable {@link validateFormData} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createValidateFormData<T extends object>(): (
@@ -642,6 +695,7 @@ export function createValidateFormData<T>(): (
  * Creates reusable {@link query} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createQuery(): never;
@@ -650,6 +704,7 @@ export function createQuery(): never;
  * Creates reusable {@link query} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createQuery<T extends object>(): (
@@ -667,8 +722,10 @@ export function createQuery<T>(): (
  * Creates reusable {@link assertQuery} function.
  *
  * @template T Target object type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssertQuery(
@@ -679,8 +736,10 @@ export function createAssertQuery(
  * Creates reusable {@link assertQuery} function.
  *
  * @template T Target object type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable decoder function
  */
 export function createAssertQuery<T extends object>(
@@ -702,6 +761,7 @@ export function createAssertQuery<T>(): (
  * Creates reusable {@link isQuery} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createIsQuery(): never;
@@ -710,6 +770,7 @@ export function createIsQuery(): never;
  * Creates reusable {@link isQuery} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createIsQuery<T extends object>(): (
@@ -727,6 +788,7 @@ export function createIsQuery<T>(): (
  * Creates reusable {@link validateQuery} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createValidateQuery(): never;
@@ -735,6 +797,7 @@ export function createValidateQuery(): never;
  * Creates reusable {@link validateQuery} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createValidateQuery<T extends object>(): (
@@ -752,6 +815,7 @@ export function createValidateQuery<T>(): (
  * Creates reusable {@link headers} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createHeaders(): never;
@@ -760,6 +824,7 @@ export function createHeaders(): never;
  * Creates reusable {@link headers} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createHeaders<T extends object>(): (
@@ -777,8 +842,10 @@ export function createHeaders<T>(): (
  * Creates reusable {@link assertHeaders} function.
  *
  * @template T Target object type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createAssertHeaders(
@@ -789,8 +856,10 @@ export function createAssertHeaders(
  * Creates reusable {@link assertHeaders} function.
  *
  * @template T Target object type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable decoder function
  */
 export function createAssertHeaders<T extends object>(
@@ -812,6 +881,7 @@ export function createAssertHeaders<T>(): (
  * Creates reusable {@link isHeaders} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createIsHeaders(): never;
@@ -820,6 +890,7 @@ export function createIsHeaders(): never;
  * Creates reusable {@link isHeaders} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createIsHeaders<T extends object>(): (
@@ -837,6 +908,7 @@ export function createIsHeaders<T>(): (
  * Creates reusable {@link validateHeaders} function.
  *
  * @template T Target object type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createValidateHeaders(): never;
@@ -845,6 +917,7 @@ export function createValidateHeaders(): never;
  * Creates reusable {@link validateHeaders} function.
  *
  * @template T Target object type
+ *
  * @returns Reusable decoder function
  */
 export function createValidateHeaders<T extends object>(): (
@@ -862,6 +935,7 @@ export function createValidateHeaders<T>(): (
  * Creates reusable {@link parameter} function.
  *
  * @template T Target atomic type
+ *
  * @danger You must configure the generic argument `T`
  */
 export function createParameter(): never;
@@ -870,6 +944,7 @@ export function createParameter(): never;
  * Creates reusable {@link parameter} function.
  *
  * @template T Target atomic type
+ *
  * @returns Reusable decoder function
  */
 export function createParameter<T extends Atomic.Type | null>(): (

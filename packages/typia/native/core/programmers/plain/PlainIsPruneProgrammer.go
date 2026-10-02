@@ -14,11 +14,27 @@ type plainIsPruneProgrammerNamespace struct{}
 
 var PlainIsPruneProgrammer = plainIsPruneProgrammerNamespace{}
 
+// PlainIsPruneProgrammer_DecomposeProps is the input of Decompose for the plain
+// is prune generator: Context (the transform context), Functor (the collector of
+// the helper functions that the generator emits), Type (the type to generate
+// for) and Name (an optional type name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the collector of the helper functions that the generator emits, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 4 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainIsPruneProgrammer_DecomposeProps struct {
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
   Functor *nativehelpers.FunctionProgrammer
-  Type    *shimchecker.Type
-  Name    *string
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
 }
 
 var plainIsPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

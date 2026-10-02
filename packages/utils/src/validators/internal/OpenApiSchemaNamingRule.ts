@@ -3,7 +3,29 @@ import { OpenApi } from "@typia/interface";
 import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 
+/**
+ * Names a schema in typia's type notation for validation messages.
+ *
+ * @evidence contracts/common.md#principled-implementation The expected type name is written in typia's tag notation (`number & tags.Minimum<3>`), reading each bound on its own value so a falsy bound such as 0 is not dropped, and echoing a `format` only where the validator reports it so the two cannot disagree. References use their component key, objects are named `__object`, and a union joins its members with a bar and parenthesizes intersections.
+ * @evidence contracts/common.md#clear-and-simple-design One recursive function with small per-kind helpers that each build a list of tag strings.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Names are derived from the schema fields and no schema is special-cased; the pattern is omitted when a format is present, which mirrors how the string validator reports.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract, with comments on the integer format and number rules.
+ */
 export namespace OpenApiSchemaNamingRule {
+  /**
+   * Write the type name of a schema, such as `string & tags.MinLength<3>`.
+   *
+   * @param schema Schema to name
+   * @param union Whether the name is a member of a union, which parenthesizes
+   *   an intersection
+   *
+   * @returns Type name
+   *
+   * @evidence contracts/common.md#principled-implementation The kind dispatch mirrors the station validator, and tags are built only for constraints present; the uniqueness tag is written only when `uniqueItems` is true, since a false value imposes no constraint and the array validator does not report one.
+   * @evidence contracts/common.md#clear-and-simple-design One function over per-kind helpers and a union flag.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No consumer-specific names.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameters and result.
+   */
   export const getName = (
     schema: OpenApi.IJsonSchema,
     union: boolean = false,
@@ -119,7 +141,7 @@ export namespace OpenApiSchemaNamingRule {
     ...(schema.maxItems !== undefined
       ? [`tags.MaxItems<${schema.maxItems}>`]
       : []),
-    ...(schema.uniqueItems !== undefined ? [`tags.UniqueItems`] : []),
+    ...(schema.uniqueItems === true ? [`tags.UniqueItems`] : []),
   ];
 
   const getNameOfTuple = (schema: OpenApi.IJsonSchema.ITuple): string =>

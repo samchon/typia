@@ -7,6 +7,19 @@ import {
 } from "./_randomStringLength";
 import { __randomDigits } from "./private/__randomComposition";
 
+/**
+ * Generate an RFC 3339 time with an offset at a length the bounds allow.
+ *
+ * Constrained output lengths are nine or at least 11 characters; ten is
+ * unreachable because a fractional part needs a dot and a digit. An allowed
+ * window containing no such length throws. Samples use ordinary seconds from a
+ * UTC clock, with either Z or a numeric offset, rather than leap seconds.
+ *
+ * @evidence contracts/common.md#principled-implementation An unconstrained draw is the clock part of a random instant, and a constrained one writes `HH:MM:SS` with either a `Z` offset or a numeric offset and a fraction, choosing the form that fits the window, with the single unreachable length of ten excluded and an empty window throwing.
+ * @evidence contracts/common.md#clear-and-simple-design One function with small offset helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The length arithmetic follows RFC 3339 and is explained inline.
+ * @evidence contracts/common.md#meaningful-documentation Native prose states the length gap, impossible-window failure and ordinary-second sample policy; inline comments justify the fraction/offset arithmetic.
+ */
 export const _randomFormatTime = (props?: _ILengthProps): string => {
   const clock = (): string =>
     new Date(

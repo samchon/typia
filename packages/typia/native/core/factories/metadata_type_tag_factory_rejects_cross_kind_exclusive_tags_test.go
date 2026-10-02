@@ -21,6 +21,11 @@ import (
 // 1. Derive every declared cross-kind pair from the declarations themselves.
 // 2. Validate each pair, both orders, and require rejection naming the conflict.
 // 3. Require all six declarations to contribute exactly one cross-kind partner.
+//
+// @evidence contracts/testing.md#behavioral-verification For every array-form declaration the validator is called with its declared cross-kind partner and must reject the pair with a conflict report.
+// @evidence contracts/testing.md#independent-expectations The transcribed interface declarations are the specification of which kinds conflict.
+// @evidence contracts/testing.md#distinguishing-cases The sweep covers every declaration and asserts each names exactly one cross-kind partner, so omissions fail.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed tags with no checker, filesystem fixture or process.
 func TestMetadataTypeTagFactoryRejectsCrossKindExclusiveTags(t *testing.T) {
   declarations := metadataTypeTagFactoryTestDeclarations()
   byKind := map[string]metadataTypeTagFactoryTestDeclaration{}

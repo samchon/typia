@@ -1,6 +1,21 @@
 import { TestStructure } from "@typia/template";
 import typia from "typia";
 
+/**
+ * Verifies validate through its supplied operation and fixture.
+ *
+ * The clean phase separates blanket rejection from correct validation. The
+ * spoiler loop collects path mismatches and reports them together; actual
+ * acceptance of an invalid input throws immediately.
+ *
+ * 1. Run the clean fixture scenario and its observable assertions.
+ * 2. Retain the applicable invalid or round-trip distinctions described below.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The supplied validator must return clean success with the original input reference, then reject every authored spoiler and report the exact sorted path multiset, including count. Native assertEquals also checks each validation record.
+ * @evidence contracts/testing.md#independent-expectations generate and spoiler-returned paths are authored independently of validation output. Sorting compares the entire path population rather than a subset. The extra native assertEquals record check shares the same emitter and cannot independently certify result shape.
+ * @evidence contracts/testing.md#distinguishing-cases Clean success and identity precede every invalid-value scenario. Each spoiler uses a new generated value; a spoiler-free fixture has no negative-value assertion. Missing, extra and duplicate-path changes fail multiset equality.
+ * @evidence contracts/testing.md#execution-ownership Generated validate/createValidate families supply the native callback and TestServant discovery. This helper owns the success/error comparison and local accumulated mismatch reports.
+ */
 export const _test_validate =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>

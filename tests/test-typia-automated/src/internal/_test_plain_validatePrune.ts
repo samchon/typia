@@ -1,35 +1,28 @@
 import { TestStructure } from "@typia/template";
+import { _test_plain_validatePrune_success } from "@typia/template/prune";
 import { IValidation, assertEquals } from "typia";
 
+/**
+ * Checks native validation pruning on clean and independently spoiled fixtures.
+ *
+ * Portable clean mutation/report checks are shared with plugin-free units.
+ * Invalid reports retain the existing native shape assertion and complete
+ * expected-path comparison; that native oracle dependency remains explicit.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Clean execution requires correct mutation, literal true and original report data. Invalid execution must reject, pass the existing report-shape check and return every authored error path with matching multiplicity; mismatches aggregate before failure.
+ * @evidence contracts/testing.md#independent-expectations The fixture and spoilers establish clean/invalid inputs and expected paths before product execution. The successful report contract is independently checked by the shared operation; invalid shape checking remains the existing native validator dependency.
+ * @evidence contracts/testing.md#distinguishing-cases The actual ObjectSimple composite supplies one otherwise-valid surplus-mutated input and all its authored spoilers. Malformed successful reports and mutation boundaries are separately distinguished by the shared plugin-free report and graph units.
+ * @evidence contracts/testing.md#execution-ownership The authored native composite passes its actual generated validatePrune callback here. The shared clean operation also runs in units; native assertEquals and the producer connection keep this wrapper in the E2E population.
+ * @evidence contracts/e2e.md#necessary-boundary This wrapper consumes the real native-generated validatePrune callback and invalid-report shape assertion. The composite detects producer assembly/report/path defects that direct portable callback units cannot establish.
+ * @evidence contracts/e2e.md#shared-execution Its clean and spoiler cases reuse the same suite worker and native artifact as every generated family and composite. main completes generation before opening that worker and executes all directories through the same TestServant driver; this helper starts no additional project or process.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each spoiler receives a newly generated fixture and report; expected and actual path arrays are local to that scenario. TestServant reports the case and the runner closes its composite worker in finally; no process is acquired by this helper.
+ * @evidence contracts/e2e.md#preserved-coverage The invalid-report assertion, all spoilers, sorting/multiplicity comparison and failure identity are retained. The complete clean scenario now executes in both the native connection and the shared portable unit owner; disabled generated factory families are not credited.
+ */
 export const _test_plain_validatePrune =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
   (prune: (input: T) => IValidation<T>): void => {
-    const input: T = factory.generate();
-
-    // SPOIL OBJECTS
-    iterate((obj: any) =>
-      new Array(10)
-        .fill("")
-        .forEach((_, i) => (obj[`__non_regular_type__${i}`] = "vulnerable")),
-    )(input);
-
-    // DO VALIDATE
-    if (prune(input).success === false)
-      throw new Error(
-        `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
-      );
-    else if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
-      iterate((obj: any) => {
-        if (
-          Object.keys(obj).some(
-            (key) => key.indexOf("__non_regular_type__") === 0,
-          )
-        )
-          throw new Error(
-            `Bug on typia.plain.validatePrune(): failed to prune the ${name} type.`,
-          );
-      })(input);
+    _test_plain_validatePrune_success(name)(factory)(prune);
 
     // SPOIL
     const wrong: ISpoiled[] = [];
@@ -65,30 +58,9 @@ export const _test_plain_validatePrune =
   };
 
 interface ISpoiled {
+  /** Independently authored diagnostic paths from the fixture spoiler. */
   expected: string[];
+
+  /** Diagnostic paths returned by the native validation report. */
   actual: string[];
 }
-
-const iterate =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    if (Array.isArray(input)) return iterate_array(closure)(input);
-    else if (
-      input !== null &&
-      typeof input === "object" &&
-      typeof input.valueOf() === "object"
-    )
-      return iterate_object(closure)(input);
-  };
-
-const iterate_object =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    closure(input);
-    for (const value of Object.values(input)) iterate(closure)(value);
-  };
-
-const iterate_array =
-  (closure: (obj: any) => void) =>
-  (input: any): void =>
-    input.forEach((elem: any) => iterate(closure)(elem));

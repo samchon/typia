@@ -1,9 +1,31 @@
 import { TestValidator } from "@nestia/e2e";
 import { ILlmSchema } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
-import { LlmTypeChecker } from "@typia/utils";
+import { LlmJson, LlmTypeChecker } from "@typia/utils";
 import typia from "typia";
 
+/**
+ * Verifies native parameter schemas connect to discriminated utility coercion.
+ *
+ * Hand-authored schemas in utility units cannot reveal a broken reference or
+ * discriminator emitted by the transformer. This case reuses its one generated
+ * schema for both variants and an unmatched discriminator, without rebuilding
+ * the native producer for the portable coercion matrix.
+ *
+ * 1. Generate parameters for the two declared animal variants and inspect the
+ *    independently required object, definitions and union shape.
+ * 2. Pass both encoded boolean variants through the public utility and compare
+ *    complete literal data; an unknown discriminator retains its inner text.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The native IInput parameter schema retains an object shell, animal union and cat/dog definitions; the same schema drives utility coercion of both variants and an unmatched discriminator.
+ * @evidence contracts/testing.md#independent-expectations Local ICat/IDog declarations independently require their fields and two variants. Complete literal coercion results expect true/false booleans and retained unknown-discriminator text; no second schema supplies these expectations.
+ * @evidence contracts/testing.md#distinguishing-cases Named-reference or inline union representation, cat versus dog and unmatched bird discriminator all remain asserted. Definition shape predicates prevent losing the field checks by emitting the wrong node kind.
+ * @evidence contracts/testing.md#execution-ownership test_llm_parameters_anyof is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.llm.parameters through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.
+ * @evidence contracts/e2e.md#necessary-boundary The actual native transformer emits typia.llm.parameters into runtime data consumed by public LlmJson.coerce. Authored utility schemas cannot detect malformed generated references, discriminator mappings or kind wiring; both variants and a negative twin verify that supported connection once.
+ * @evidence contracts/e2e.md#shared-execution This existing suite case generates one schema and shares it across three conversion inputs. The suite uses its shared ttsx/native plugin session and workspace artifact cache; no installation, compiler host, native build or parameter generation is repeated for the transferred portable cases.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation supplies local literal inputs and the same unchanged schema; no earlier output becomes a later expectation. The suite runner owns the host/cache lifetime, and this case retains no process, handle or temporary directory. It tests warm assembly, not cold artifact invalidation.
+ * @evidence contracts/e2e.md#preserved-coverage Every original definition, union and property assertion remains in this existing case, with missing shape guarded explicitly and complete runtime outputs added. Thirty-seven former utility coercion scenarios preserve their non-producer bodies in test-utils unit; this batch owns only the generated-schema connection they cannot prove.
+ */
 export const test_llm_parameters_anyof = (): void => {
   interface ICat {
     type: "cat";
@@ -50,12 +72,23 @@ export const test_llm_parameters_anyof = (): void => {
     TestEquality.equals("pet has 2 types", pet.anyOf.length, 2);
   }
 
+  TestValidator.predicate(
+    "pet has a supported union representation",
+    () =>
+      pet !== undefined &&
+      (LlmTypeChecker.isReference(pet) || LlmTypeChecker.isAnyOf(pet)),
+  );
+
   // ICat and IDog should be in $defs
   TestValidator.predicate("ICat in $defs", () => "ICat" in params.$defs);
   TestValidator.predicate("IDog in $defs", () => "IDog" in params.$defs);
 
   // verify ICat structure
   const catDef = params.$defs["ICat"];
+  TestValidator.predicate(
+    "ICat definition is object",
+    () => catDef !== undefined && LlmTypeChecker.isObject(catDef),
+  );
   if (catDef && LlmTypeChecker.isObject(catDef)) {
     TestValidator.predicate("ICat has type", () => "type" in catDef.properties);
     TestValidator.predicate("ICat has name", () => "name" in catDef.properties);
@@ -64,9 +97,36 @@ export const test_llm_parameters_anyof = (): void => {
 
   // verify IDog structure
   const dogDef = params.$defs["IDog"];
+  TestValidator.predicate(
+    "IDog definition is object",
+    () => dogDef !== undefined && LlmTypeChecker.isObject(dogDef),
+  );
   if (dogDef && LlmTypeChecker.isObject(dogDef)) {
     TestValidator.predicate("IDog has type", () => "type" in dogDef.properties);
     TestValidator.predicate("IDog has name", () => "name" in dogDef.properties);
     TestValidator.predicate("IDog has bark", () => "bark" in dogDef.properties);
   }
+
+  TestEquality.equals(
+    "generated cat schema connects to coercion",
+    LlmJson.coerce(
+      { pet: { type: "cat", name: "Mina", meow: "true" } },
+      params,
+    ),
+    { pet: { type: "cat", name: "Mina", meow: true } },
+  );
+  TestEquality.equals(
+    "generated dog schema connects to coercion",
+    LlmJson.coerce(
+      { pet: { type: "dog", name: "Duke", bark: "false" } },
+      params,
+    ),
+    { pet: { type: "dog", name: "Duke", bark: false } },
+  );
+  const unmatched = { pet: { type: "bird", name: "Pip", meow: "true" } };
+  TestEquality.equals(
+    "unknown generated discriminator retains text",
+    LlmJson.coerce(unmatched, params),
+    { pet: { type: "bird", name: "Pip", meow: "true" } },
+  );
 };

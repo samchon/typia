@@ -21,6 +21,15 @@ import typia, { tags } from "typia";
  *    keyword-less boolean stays a bare `{ type: "boolean" }`.
  * 3. Assert the 3.0 components validate as a legal `OpenApiV3.IComponents`, so no
  *    key outside the declared boolean type leaked in.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that native Boolean schemas preserve defaults, prose/title/deprecated metadata and keyword-free controls in both dialects.
+ * @evidence contracts/testing.md#independent-expectations Authored complete objects provide independent true/false default and keyword expectations; generated validateEquals against OpenApiV3.IComponents is a complementary shared-producer shape check.
+ * @evidence contracts/testing.md#distinguishing-cases Scalar true-default 3.1/3.0, object false-default annotations and plain Boolean control retain all comparisons and the public component validator.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schemas_v3_0_boolean_default in test-typia-schema start. Actual typia.json calls and any complementary generated validator are rewritten in the suite project; the emitted results are evaluated and consumed in the existing process.
+ * @evidence contracts/e2e.md#necessary-boundary Native Boolean branch conversion must retain source tags/comments through 3.0 schema emission. Direct converter/writer unit calls cannot establish actual TypeScript call/signature resolution and evaluated public schema assembly together.
+ * @evidence contracts/e2e.md#shared-execution All declared variants join the existing ttsx schema-suite project and process. Siblings reuse the content-keyed native plugin artifact; the case adds no independent compiler launch or install per type/dialect.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Generated collections/applications and conversion projections are invocation-local; declarations remain immutable. ttsc owns content-keyed artifact invalidation and the suite owns process termination. No cold-cache or installation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Scalar true-default 3.1/3.0, object false-default annotations and plain Boolean control retain all comparisons and the public component validator. Every original producer call, conversion and assertion remains enrolled under the same exported name; no meaningfully different dialect or graph consumer was deleted.
  */
 export const test_json_schemas_v3_0_boolean_default = (): void => {
   const emended = typia.json.schemas<[boolean & tags.Default<true>], "3.1">();
@@ -44,6 +53,7 @@ export const test_json_schemas_v3_0_boolean_default = (): void => {
      * Whether the feature is enabled.
      *
      * @deprecated
+     *
      * @title Enabled
      */
     enabled: boolean & tags.Default<false>;

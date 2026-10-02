@@ -7,6 +7,7 @@ import { Spoiler } from "../utils/Spoiler";
  * An interface designed to test JSON schema's object description.
  *
  * @author Samchon
+ *
  * @title This is the title of object type
  */
 export interface ObjectDescription {

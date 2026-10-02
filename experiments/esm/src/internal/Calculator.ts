@@ -11,6 +11,7 @@ export class Calculator {
    * Add two integers.
    *
    * @param p The two integers to add
+   *
    * @returns Their sum
    */
   public add(p: {

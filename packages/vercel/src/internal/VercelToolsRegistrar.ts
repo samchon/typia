@@ -11,18 +11,46 @@ import { Tool, tool } from "ai";
 
 import { VercelParameterConverter } from "./VercelParameterConverter";
 
+/**
+ * Registers reflected class and HTTP functions as AI SDK tools.
+ *
+ * Tool names share one namespace across controllers. Each tool validates and
+ * coerces arguments before dispatch, then represents successful data or a
+ * correctable execution/output error using the adapter's result envelope.
+ *
+ * @evidence contracts/common.md#principled-implementation Protocol-specific dispatch preserves class receiver binding or HTTP connection data; common tool creation owns argument coercion, reflected output validation and the success/error envelope advertised to the SDK.
+ * @evidence contracts/common.md#clear-and-simple-design Conversion owns the final name namespace, two private registration helpers own their execution protocols, and one private tool constructor owns validation and result framing.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The SDK's public tool/jsonSchema APIs leave validation to LlmJson without foreign mutation; application.config controls inversion instead of guessing strictness. The supported name contract retains #2435's prototype-name exclusion.
+ * @evidence contracts/common.md#meaningful-documentation The namespace explains naming, dispatch and feedback, and convert documents collision failure and the application-level unique-name premise; private comments explain output-config ownership.
+ */
 export namespace VercelToolsRegistrar {
   /**
    * Convert typia controllers to Vercel AI SDK tools.
    *
+   * Functions are unique within each reflected application. Multiple
+   * controllers are checked against the final prefixed or unprefixed names
+   * before registration, and a collision throws without returning partial
+   * tools. Class methods retain their receiver. Argument and output validation
+   * errors become correctable tool results rather than successful controller
+   * data.
+   *
    * @param props Conversion properties
+   *
    * @returns Record of Vercel AI SDK Tools
+   *
+   * @evidence contracts/common.md#principled-implementation A shared final-name map detects cross-controller collisions before dispatch registration; class calls bind execute as receiver, HTTP calls preserve the connection, and common creation applies the function's argument validator and its application's output-schema config.
+   * @evidence contracts/common.md#clear-and-simple-design The public conversion validates namespace ownership then delegates protocol-specific registration, while createTool keeps coercion, execution errors and output validation consistent for both protocols.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Duplicate checking assumes the public ILlmFunction contract's within-application uniqueness; supported ordinary names are stored in a record and the historical __proto__ exclusion remains. No known fixture, consumer or foreign SDK method is special-cased.
+   * @evidence contracts/common.md#meaningful-documentation The comment states uniqueness, final-name collision failure, receiver binding and error representation, with props and return documentation; config-related private comments explain strict-schema inversion.
    */
   export const convert = (props: {
     controllers: Array<ILlmController | IHttpLlmController>;
     prefix?: boolean | undefined;
   }): Record<string, Tool> => {
     const prefix: boolean = props.prefix ?? false;
+    // Tools use ordinary function names. Maintainer re-review of #2435 excludes
+    // a user-declared literal __proto__ name from typia's responsibility; do not
+    // change object construction or add special handling to support that name.
     const tools: Record<string, Tool> = {};
 
     // check duplicate tool names

@@ -26,6 +26,11 @@ import (
 //  3. Assert `plain.ts` was left untransformed, so it is a class-2 file.
 //  4. Assert it is declared complete, and that its reported list nevertheless
 //     carries `src/barrel.ts` and the `src/local.ts` the barrel resolves to.
+//
+// @evidence contracts/testing.md#behavioral-verification The local is call survives unchanged, yet its complete entry includes both barrel and local callee declarations.
+// @evidence contracts/testing.md#independent-expectations Retargeting the local re-export to typia would create a transform without editing the caller, so unchanged output still depends on the selecting barrel.
+// @evidence contracts/testing.md#distinguishing-cases An untransformed caller retains dependencies instead of receiving a falsely empty complete set.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCalleeUntransformedBarrelTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCalleeUntransformedBarrelTransform(t *testing.T) {
   project := projectDependenciesCalleeUntransformedBarrelProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -72,16 +77,7 @@ func TestProjectDependenciesCalleeUntransformedBarrelTransform(t *testing.T) {
 
 func projectDependenciesCalleeUntransformedBarrelProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-callee-untransformed-barrel-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-callee-untransformed-barrel-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

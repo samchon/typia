@@ -12,6 +12,15 @@ interface IBlobFilePayload {
 /**
  * Verifies plain clone and classify preserve Blob and File content and
  * metadata.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Clone/classify preserve Blob/File bytes and metadata.
+ * @evidence contracts/testing.md#independent-expectations Native arrayBuffer bytes and authored metadata anchor output; identity is independently required.
+ * @evidence contracts/testing.md#distinguishing-cases Four direct/factory clone/classify operations retain typed/nested-any fields, root-any cloning, empty/populated union members and separate fake Blob/File negatives.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor executes test_plain_native_clone_blob_file under the schema ttsx/native suite. PlainNativeClone helpers inspect actual emitted outputs and async Blob/File checks are awaited.
+ * @evidence contracts/e2e.md#necessary-boundary Native typed/union/any emission must select actual Blob/File constructors and retain File metadata.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load/native artifact and generated factories across its input variants; no extra host process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each operation constructs local input payloads. Helper byte mutations are restored; RegExp helpers deliberately set local lastIndex to verify independence. Foreign VM objects are case-local; the suite owns host lifetime.
+ * @evidence contracts/e2e.md#preserved-coverage Four direct/factory clone/classify operations retain typed/nested-any fields, root-any cloning, empty/populated union members and separate fake Blob/File negatives. All helper assertions and original calls remain; source review does not substitute for final runtime checks.
  */
 export const test_plain_native_clone_blob_file = async (): Promise<void> => {
   const clone = typia.plain.createClone<IBlobFilePayload>();

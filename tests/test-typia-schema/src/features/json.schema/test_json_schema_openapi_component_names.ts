@@ -115,6 +115,15 @@ interface IApplication {
  * 1. Generate schema, schemas, and application output for OAS 3.0 and 3.1.
  * 2. Check legal/illegal names, recursive alias/array/object refs, and mappings.
  * 3. Reorder discovery and validate the generated graph through public utils.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that all three JSON generators publish legal resolving component graphs for both dialects and public utility consumers.
+ * @evidence contracts/testing.md#independent-expectations Authored legal-key grammar, RFC-style URI/JSON-pointer token resolver and sample/type literals supply controls; forward/reverse comparison checks determinism but alone cannot prove correctness.
+ * @evidence contracts/testing.md#distinguishing-cases All eight producer/dialect/order units, punctuation/unicode/collision controls, recursive refs, discriminator refs and validator/converter/migration/HTTP-LLM consumers remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_openapi_component_names through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Generated component identifiers and references must be usable by actual downstream public utilities, beyond allocator unit calls. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage All eight producer/dialect/order units, punctuation/unicode/collision controls, recursive refs, discriminator refs and validator/converter/migration/HTTP-LLM consumers remain. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_openapi_component_names = (): void => {
   const forward30 = typia.json.schema<IForward, "3.0">();

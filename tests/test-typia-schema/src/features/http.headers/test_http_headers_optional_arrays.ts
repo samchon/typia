@@ -11,6 +11,15 @@ import typia from "typia";
  * 1. Exercise direct and factory forms of every headers decoder.
  * 2. Check omitted, explicitly undefined, empty, and populated arrays.
  * 3. Require omitted and empty arrays to be absent from the result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The case asserts that all eight header forms omit undefined/empty optional arrays without errors and preserve populated arrays.
+ * @evidence contracts/testing.md#independent-expectations Authored expected objects and Object.hasOwn checks independently distinguish absent properties from present undefined/empty arrays.
+ * @evidence contracts/testing.md#distinguishing-cases Omitted/explicit-undefined/empty ordinary and set-cookie arrays, comma-separated ordinary lists and populated cookie arrays retain the entire eight-by-five matrix.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_http_headers_optional_arrays in test-typia-schema start. Each actual typia.http call is rewritten in the native suite project and its emitted decoder executes on local HTTP representations in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native optional-array cleanup must operate safely after emitted header readers return either undefined or actual arrays. Calling a portable read helper alone cannot detect wrong compiler metadata selection, omitted generated validation or broken direct/factory decoder assembly.
+ * @evidence contracts/e2e.md#shared-execution All declared operation/type variants share the existing ttsx suite project and process plus content-keyed native artifact. Runtime input matrices reuse those prepared decoders; no input row causes a compiler process or fixture installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Input query/header/FormData values and result projections are local. Decoders are required to read these representations without changing their contents; no case changes a foreign prototype or retained fixture. The suite owns process termination and ttsc owns artifact invalidation; cache warmth is not a behavior assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Omitted/explicit-undefined/empty ordinary and set-cookie arrays, comma-separated ordinary lists and populated cookie arrays retain the entire eight-by-five matrix. Every original HTTP producer form, input and assertion stays under the unchanged exported entry; no malformed/optional/nullability distinction was dropped to reduce execution.
  */
 export const test_http_headers_optional_arrays = (): void => {
   const decoders = [

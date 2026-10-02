@@ -39,6 +39,15 @@ const KEYS: readonly string[] = [
  *    characters through the Standard Schema adapter.
  * 2. Assert it returns issues rather than throwing.
  * 3. Assert every issue path segment is the original key, unmangled.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The generated validator adapter reports escaped property keys intact.
+ * @evidence contracts/testing.md#independent-expectations Eight authored keys independently define exact one-segment issue paths and the expected count.
+ * @evidence contracts/testing.md#distinguishing-cases Quote, backslash, newline, tab, bell, NUL, Unicode separator and punctuation failures remain beside a valid identifier.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_standard_schema_escaped_key_paths through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary createValidate emits paths parsed by the Standard Schema adapter; direct adapter units cannot detect malformed emitted escaping.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Quote, backslash, newline, tab, bell, NUL, Unicode separator and punctuation failures remain beside a valid identifier. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_standard_schema_escaped_key_paths = (): void => {
   const validator = typia.createValidate<IHostileKeys>();

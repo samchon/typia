@@ -1,5 +1,16 @@
 import { Primitive, tags } from "@typia/interface";
 
+/**
+ * Verifies Primitive preserves tuple positions while projecting repeated
+ * members.
+ *
+ * Variadic head and tail literals must remain restrictive after Date and
+ * boxed-data conversion.
+ *
+ * 1. Compare every tuple and array form with its authored output type.
+ * 2. Accept valid empty/short/long repeats and reject changed literals or
+ *    unconverted members.
+ */
 export type PrimitiveVariadicTupleCases = [
   Assert<IsEqual<LiteralVariadic, ExpectedLiteralVariadic>>,
   Assert<IsEqual<DateRest, ExpectedDateRest>>,

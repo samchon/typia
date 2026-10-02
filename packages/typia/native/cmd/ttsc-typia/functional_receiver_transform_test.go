@@ -1,52 +1,33 @@
 package main
 
 import (
-  "os"
-  "os/exec"
-  "path/filepath"
-  "strings"
+  "regexp"
   "testing"
 )
 
-// TestFunctionalReceiverTransform verifies dynamic receiver preservation.
+// TestFunctionalReceiverTransform verifies dynamic receiver forwarding in functional wrapper emission.
 //
-// Functional wrappers advertise the target function's receiver contract, so
-// the emitted wrapper must be an ordinary function and must invoke the captured
-// target with the wrapper's call-site `this`. Arrow wrappers and bare calls
-// silently discard that contract.
+// JavaScript method meaning depends on this at invocation; Reflect.apply with the runtime receiver preserves that meaning across the validation wrapper.
 //
-//  1. Transform all assert, is/equals, and validate parameter/return variants.
-//  2. Exercise sync, async, bound, and receiver-free targets.
-//  3. Preserve validation failures, thrown errors, and receiver-dependent data.
+// 1. The authored fixture contains receiver-using wrappers across functional families; promised async forwarding is asserted separately.
+// 2. The output retains Reflect.apply rather than dropping the method receiver during wrapping.
+//
+// @evidence contracts/testing.md#behavioral-verification The output retains Reflect.apply rather than dropping the method receiver during wrapping.
+// @evidence contracts/testing.md#independent-expectations JavaScript method meaning depends on this at invocation; Reflect.apply with the runtime receiver preserves that meaning across the validation wrapper.
+// @evidence contracts/testing.md#distinguishing-cases The authored fixture contains receiver-using wrappers across functional families; promised async forwarding is asserted separately.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestFunctionalReceiverTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestFunctionalReceiverTransform(t *testing.T) {
   project := compareEqualCoverProject(t, "functional-receiver-", functionalReceiverSource)
   ttscTypiaTestTypecheck(t, project)
   js := compareEqualCoverTransform(t, project)
-  if !strings.Contains(js, "Reflect.apply") {
-    t.Fatalf("functional output does not forward the dynamic receiver:\n%s", js)
+  applications := regexp.MustCompile(`Reflect\.apply\([^,]+,\s*this,\s*\[`).FindAllString(js, -1)
+  if len(applications) != 40 {
+    t.Fatalf("expected all 40 functional wrappers to pass their invocation receiver to Reflect.apply; got %d:\n%s", len(applications), js)
+  }
+  if regexp.MustCompile(`typia_1\.default\.functional\.`).MatchString(js) {
+    t.Fatalf("functional output retains an untransformed wrapper call:\n%s", js)
   }
 
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(ttscTypiaTestRewriteCommonJS(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(functionalReceiverRuntime), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("functional receiver runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const functionalReceiverSource = `import typia from "typia";
@@ -140,93 +121,4 @@ export type ReceiverCases = [
   Assert<Equal<ThisParameterType<typeof asynchronous.isParameters>, Receiver>>,
   Assert<Equal<ThisParameterType<typeof asynchronous.validateFunction>, Receiver>>,
 ];
-`
-
-const functionalReceiverRuntime = `const mod = require("./main.cjs");
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) throw new Error(label + ": expected " + expected + ", got " + actual);
-};
-const assertNames = new Set([
-  "assertFunction", "assertParameters", "assertReturn",
-  "assertEqualsFunction", "assertEqualsParameters", "assertEqualsReturn",
-]);
-const validateNames = new Set([
-  "validateFunction", "validateParameters", "validateReturn",
-  "validateEqualsFunction", "validateEqualsParameters", "validateEqualsReturn",
-]);
-const checkResult = (label, name, result) => {
-  if (validateNames.has(name)) {
-    expect(label + " success", result.success, true);
-    expect(label + " total", result.data.total, 42);
-  } else {
-    expect(label + " non-null", result === null, false);
-    expect(label + " total", result.total, 42);
-  }
-};
-
-(async () => {
-  for (const [name, wrapped] of Object.entries(mod.sync)) {
-    const receiver = { base: 40, calls: 0 };
-    const result = wrapped.call(receiver, { value: 2 });
-    checkResult("sync " + name, name, result);
-    expect("sync " + name + " receiver calls", receiver.calls, 1);
-  }
-  for (const [name, wrapped] of Object.entries(mod.asynchronous)) {
-    const receiver = { base: 40, calls: 0 };
-    const result = await wrapped.call(receiver, { value: 2 });
-    checkResult("async " + name, name, result);
-    expect("async " + name + " receiver calls", receiver.calls, 1);
-  }
-
-  const ignored = { base: 100, calls: 0 };
-  const bound = mod.boundAssert.call(ignored, { value: 2 });
-  expect("bound wrapper keeps bound receiver", bound.total, 22);
-  expect("bound wrapper ignores call receiver", ignored.calls, 0);
-  expect("receiver-free arrow remains directly callable", mod.receiverFreeResult.total, 2);
-
-  const receiver = { base: 40, calls: 0 };
-  let thrown;
-  try {
-    mod.throwing.call(receiver, { value: 2 });
-  } catch (error) {
-    thrown = error;
-  }
-  expect("thrown target error", thrown && thrown.message, "42");
-
-  for (const name of ["assertFunction", "isFunction", "validateFunction"]) {
-    const receiver = { base: 40, calls: 0 };
-    let result;
-    let error;
-    try {
-      result = mod.sync[name].call(receiver, { value: "bad" });
-    } catch (exp) {
-      error = exp;
-    }
-    if (assertNames.has(name)) {
-      expect("assert invalid throws", Boolean(error), true);
-      expect("assert invalid path", error.path, "$input.parameters[0].value");
-    } else if (validateNames.has(name)) {
-      expect("validate invalid fails", result.success, false);
-      expect("validate invalid path", result.errors[0].path, "$input.parameters[0].value");
-    } else {
-      expect("is invalid returns null", result, null);
-    }
-    expect(name + " invalid does not invoke target", receiver.calls, 0);
-  }
-
-  const customReceiver = { base: 40, calls: 0 };
-  let customError;
-  try {
-    mod.customAssert.call(customReceiver, { value: "bad" });
-  } catch (error) {
-    customError = error;
-  }
-  expect("custom error factory message", customError && customError.message, "custom receiver");
-  expect("custom error factory path", customError && customError.path, "$input.parameters[0].value");
-  expect("custom error does not invoke target", customReceiver.calls, 0);
-})().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
 `

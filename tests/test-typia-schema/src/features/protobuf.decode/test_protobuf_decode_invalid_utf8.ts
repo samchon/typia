@@ -12,6 +12,15 @@ import typia from "typia";
  *    public paths.
  * 2. Move each malformed UTF-8 class through every generated string position.
  * 3. Require one wire error while the identical bytes field remains valid.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Eight decoder variants preserve nine valid-text vectors in six string positions and bytes, allow each malformed sequence as bytes, and reject it as singular/optional/repeated/nested/map-key/map-value strings with the exact UTF8 fault.
+ * @evidence contracts/testing.md#independent-expectations TextEncoder supplies valid wire payloads independently; authored illegal UTF8 byte sequences and literal strings establish rejection and preservation without a typia encoder oracle.
+ * @evidence contracts/testing.md#distinguishing-cases Empty, ASCII, replacement character, leading/interior BOM, multibyte, emoji and scalar-width boundaries remain, paired with six malformed sequences and their bytes negative twins.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_protobuf_decode_invalid_utf8 in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native decode call sites select field numbers, reader operations and direct/factory/validation wrappers that consume the authored binary vectors. Portable reader units cannot prove this generated field dispatch and wrapper assembly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_protobuf_decode_invalid_utf8 = (): void => {
   for (const [label, text] of VALID_TEXTS) {

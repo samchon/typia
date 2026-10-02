@@ -8,6 +8,17 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Emplace_metadata_object returns the collection's entry for the object type,
+// building its properties the first time it is seen.
+//
+// It records documentation, the declaring file and class facts, skips members
+// that have no JSON form, analyzes every property and index signature and
+// delegates to the intersection merge when the type is an intersection.
+//
+// @evidence contracts/common.md#principled-implementation The collection registers an object before exploring its members, preserving recursive identity. First sight fills type documentation and available source/class facts. The modifier/symbol/member-kind filter depends on Functional, Methods and StrictObjectMembers: methods can be retained explicitly and strict mode diagnoses unsupported members. Visible properties and supported index domains become key/value schemas, while eligible disjoint plain-object intersections share parent objects and copy property roots. Heritage dependency reporting includes otherwise empty bases.
+// @evidence contracts/common.md#clear-and-simple-design One long function that holds the member filter as a closure and delegates heritage touching, privacy detection, symbol-name tests and property creation to private helpers; the length reflects the many member kinds a TypeScript object can have.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The member filter is by symbol and modifier kinds, with the symbol rule referencing the cited issue, and no property name is special-cased.
+// @evidence contracts/common.md#meaningful-documentation Long comments explain each rule at its place; the exported function has its own doc.
 func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.MetadataObjectType {
   obj, newbie := props.Components.Emplace(props.Checker, props.Type)
   metadata_array_util_add_bool(&obj.Nullables, props.Metadata.Nullable)
@@ -30,7 +41,7 @@ func Emplace_metadata_object(props IMetadataIteratorProps) *schemametadata.Metad
     obj.Description = metadata_node_type_description(symbol)
     obj.JsDocTags = metadata_node_type_js_doc_tags(symbol)
 
-    // Capture the declaring source file (named declarations only) so
+    // Capture the first symbol declaration's source file when locatable so
     // plain.classify can value-import a cross-module class it reconstructs.
     // Additive: other features ignore obj.Source.
     if sym := props.Type.Symbol(); sym != nil && len(sym.Declarations) != 0 {

@@ -15,6 +15,11 @@ import (
 // 1. Build branches sharing a primitive/native-wrapper property.
 // 2. Assert UnionPredicator chooses the branch-unique properties instead.
 // 3. Repeat for every atomic-like native wrapper.
+//
+// @evidence contracts/testing.md#behavioral-verification Union specialization runs on branches sharing a property typed as a primitive on one side and a wrapper native on the other; the property must not be chosen as the discriminator.
+// @evidence contracts/testing.md#independent-expectations String, Number and Boolean natives accept matching primitives at runtime, so the property overlaps; the authored branches and the expected choice of unique properties follow that.
+// @evidence contracts/testing.md#distinguishing-cases String, number and boolean primitive-versus-wrapper sharing are negative cases for discriminator selection; the neighbor-flag case owns shared disjoint string literals.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the predicator on constructed metadata with no checker, filesystem fixture or process.
 func TestUnionPredicatorSkipsAtomicLikeNativeFields(t *testing.T) {
   cases := []struct {
     name   string

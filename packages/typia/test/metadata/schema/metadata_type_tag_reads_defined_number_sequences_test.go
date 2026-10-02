@@ -21,6 +21,11 @@ type definedNumber float64
 // 1. Read a sequence tag whose schema value is a defined float64 type.
 // 2. Read plain int, float64, and numeric-string values the old switch knew.
 // 3. Reject non-sequence kinds, malformed schemas, and non-numeric values.
+//
+// @evidence contracts/testing.md#behavioral-verification IMetadataTypeTag_getSequence is called on tags whose schema values are a defined float64 type, plain int, float64 and a numeric string, and on non-sequence, schema-less, nil, non-numeric and boolean inputs.
+// @evidence contracts/testing.md#independent-expectations Sequence 7 and the rejection cases are authored from the sequence tag contract and Go reflection kinds; no result of the reader supplies them.
+// @evidence contracts/testing.md#distinguishing-cases Four accepted spellings are positives and five malformed or non-sequence inputs are negatives, so a closed type switch that drops the defined type fails.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported reader directly, with no filesystem fixture, process or native command build.
 func TestMetadataTypeTagReadsDefinedNumberSequences(t *testing.T) {
   tag := func(value any) metadata.IMetadataTypeTag {
     return metadata.IMetadataTypeTag{

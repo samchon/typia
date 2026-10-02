@@ -1,6 +1,27 @@
 import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
+/**
+ * Verifies numeric type tags, comment spellings, ranges, multiples and literal
+ * unions match complete authored schemas.
+ *
+ * Native tag/comment metadata and numeric schema generation must agree across
+ * public source spellings.
+ *
+ * 1. Invoke the schema producer on the type declarations in this file.
+ * 2. Assert signed/unsigned 8/16/32-bit spellings, comment tags,
+ *    inclusive/exclusive limits, factor 5 and 1|2|3 alternatives retain every
+ *    check; storage width upper limits are not schema assertions here.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that numeric type tags, comment spellings, ranges, multiples and literal unions match complete authored schemas.
+ * @evidence contracts/testing.md#independent-expectations The independent number/integer/unsigned-minimum contract and declared tag bounds define expectations; equalsSchema compares both directions using the shared equality helper.
+ * @evidence contracts/testing.md#distinguishing-cases Signed/unsigned 8/16/32-bit spellings, comment tags, inclusive/exclusive limits, factor 5 and 1|2|3 alternatives retain every check; storage width upper limits are not schema assertions here.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_spec_number through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native tag/comment metadata and numeric schema generation must agree across public source spellings. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Signed/unsigned 8/16/32-bit spellings, comment tags, inclusive/exclusive limits, factor 5 and 1|2|3 alternatives retain every check; storage width upper limits are not schema assertions here. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
+ */
 export const test_json_schema_spec_number = (): void => {
   interface ICommentTypeNumbers {
     /** @type int8 */

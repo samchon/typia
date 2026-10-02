@@ -1,0 +1,81 @@
+import { IValidation } from "@typia/interface";
+import { TestEquality } from "@typia/template/oracle-equality";
+import { LlmJson } from "@typia/utils";
+
+/**
+ * Verifies last array elements and missing placeholders remain visible.
+ *
+ * Existing values and absent trailing elements must remain distinct in
+ * correction feedback.
+ *
+ * 1. Author failure data and error paths for the stated scenarios.
+ * 2. Call LlmJson.stringify and compare the declared fields and boundaries.
+ */
+export const test_llm_stringify_array_last_element_error = (): void => {
+  // Test case: Error on the last element of an array
+
+  const failure: IValidation.IFailure = {
+    success: false,
+    data: { items: [1, 2, "wrong"] },
+    errors: [
+      {
+        path: "$input.items[2]",
+        expected: "number",
+        value: "wrong",
+      },
+    ],
+  };
+
+  const output: string = LlmJson.stringify(failure);
+
+  TestEquality.equals("contains code block", output.includes("```json"), true);
+  TestEquality.equals("contains error marker", output.includes("// ❌"), true);
+  TestEquality.equals(
+    "contains items[2] path",
+    output.includes("$input.items[2]"),
+    true,
+  );
+  // Last element should not have a comma after it
+  // Check structure is valid
+
+  // Test: Last element error with missing elements after
+  const failure2: IValidation.IFailure = {
+    success: false,
+    data: { items: [1, 2, "wrong"] },
+    errors: [
+      {
+        path: "$input.items[2]",
+        expected: "number",
+        value: "wrong",
+      },
+      {
+        path: "$input.items[]",
+        expected: "number",
+        value: undefined,
+        description: "Need more elements",
+      },
+    ],
+  };
+
+  const output2: string = LlmJson.stringify(failure2);
+  TestEquality.equals("missing-code-block", output2.includes("```json"), true);
+  // In this case, the last data element needs a comma because missing elements follow
+  TestEquality.equals("missing-undefined", output2.includes("undefined"), true);
+
+  // Test: Single element array with error
+  const failure3: IValidation.IFailure = {
+    success: false,
+    data: { items: ["wrong"] },
+    errors: [
+      {
+        path: "$input.items[0]",
+        expected: "number",
+        value: "wrong",
+      },
+    ],
+  };
+
+  const output3: string = LlmJson.stringify(failure3);
+  TestEquality.equals("single-code-block", output3.includes("```json"), true);
+  TestEquality.equals("single-error-marker", output3.includes("// ❌"), true);
+};

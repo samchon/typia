@@ -20,6 +20,11 @@ import "testing"
 //     the `PascalCase<T>` / `_notationPascal` oracle.
 //  2. Confirm single-word keys still route through `plain` unchanged.
 //  3. Confirm camel, snake, and kebab of the same keys are unaffected.
+//
+// @evidence contracts/testing.md#behavioral-verification The compile-time pascal, camel, snake and kebab conversions are called on multi-word keys with uppercase inner characters and compared with authored results.
+// @evidence contracts/testing.md#independent-expectations The expected strings follow the PascalCase and related type-level rules (and the runtime notation helper), authored in the table.
+// @evidence contracts/testing.md#distinguishing-cases Keys such as MAX_COUNT and HTTP words separate tail lowercasing from capitalization alone.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the conversion functions on strings with no checker, filesystem fixture or process.
 func TestNotationGeneralProgrammerPascalMultiword(t *testing.T) {
   pascal := []struct{ input, expected string }{
     // Multi-word: every word becomes upper-first + lower-rest, byte-equal to

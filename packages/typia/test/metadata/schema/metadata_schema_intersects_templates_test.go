@@ -17,6 +17,11 @@ import (
 // 2. Assert overlapping non-identical template buckets intersect.
 // 3. Assert string literals conservatively intersect template-literal strings.
 // 4. Assert a template does not intersect an unrelated primitive.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_intersects compares identical and overlapping templates, a string literal with a template and a template with a number atomic.
+// @evidence contracts/testing.md#independent-expectations Template-literal strings are strings, so overlap with strings follows value sets, with the conservative literal case documented; verdicts are authored.
+// @evidence contracts/testing.md#distinguishing-cases Three positives (identical, overlapping, string literal) and the number atomic negative.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported intersection function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaIntersectsTemplates(t *testing.T) {
   idNumber := testutil.TemplateMetadata(
     testutil.StringConstantMetadata("id-"),

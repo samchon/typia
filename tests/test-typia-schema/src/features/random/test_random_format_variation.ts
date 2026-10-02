@@ -148,6 +148,15 @@ const DRAWS = 32;
  *    generator and the only property a constant cannot fake.
  * 3. Require an eight-element unique array of the two formats to be drawn and to
  *    validate, which is what the constant made impossible.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Each of22 format rows draws32 strings, requires generated is acceptance and at least two distinct values; byte/regex UniqueItems arrays draw8 times each and failures are aggregated.
+ * @evidence contracts/testing.md#independent-expectations Distinct string counting independently detects a constant generator. Generated validators remain correlated format/uniqueness checks; this does not certify provider-independent grammar correctness or uniformity.
+ * @evidence contracts/testing.md#distinguishing-cases Twenty-two scalar format populations and unique-array byte/regex constraints retain their separate failure labels. Variation is a sampled assertion, not a deterministic coverage proof.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_format_variation in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_format_variation = (): void => {
   const failures: string[] = [];

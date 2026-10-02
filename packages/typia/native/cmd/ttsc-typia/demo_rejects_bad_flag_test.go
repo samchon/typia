@@ -5,21 +5,22 @@ package main
 
 import "testing"
 
-// TestDemoRejectsBadFlag verifies demo flag parsing returns usage failure.
+// TestDemoRejectsBadFlag checks the authored operation results described below.
 //
-// The demo command currently accepts no flags, so malformed arguments must stop
-// inside the demo flag set. This keeps the route distinct from the successful
-// demo smoke path.
+// The demo command has a closed flag parser; unrecognized options are usage failures rather than silently accepted work.
 //
-// 1. Invoke the command dispatcher with the demo label.
-// 2. Pass an unsupported flag to the demo flag set.
-// 3. Capture command output.
-// 4. Assert the command reports usage status 2.
+// 1. A single unsupported flag owns the usage-rejection branch; ordinary route/default handling is tested separately.
+// 2. The demo route rejects its unsupported flag with status two.
+//
+// @evidence contracts/testing.md#behavioral-verification The demo route rejects its unsupported flag with status two.
+// @evidence contracts/testing.md#independent-expectations The demo command has a closed flag parser; unrecognized options are usage failures rather than silently accepted work.
+// @evidence contracts/testing.md#distinguishing-cases A single unsupported flag owns the usage-rejection branch; ordinary route/default handling is tested separately.
+// @evidence contracts/testing.md#execution-ownership The native Go runner selects this unit only with typia_native_internal enabled. The command router and captured demo flag parser run in process; this case owns no temporary fixture, named subcase or subprocess.
 func TestDemoRejectsBadFlag(t *testing.T) {
-	_, errText, code := transformCoverageCapture(func() int {
-		return run([]string{"demo", "--bad"})
-	})
-	if code != 2 {
-		t.Fatalf("demo bad flag should fail with status 2, got %d stderr=%s", code, errText)
-	}
+  _, errText, code := transformCoverageCapture(func() int {
+    return run([]string{"demo", "--bad"})
+  })
+  if code != 2 {
+    t.Fatalf("demo bad flag should fail with status 2, got %d stderr=%s", code, errText)
+  }
 }

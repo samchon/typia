@@ -32,6 +32,15 @@ import typia from "typia";
  *
  * 1. Convert a static-key object under each notation and read every declared key.
  * 2. Convert the same keys through a `Record` (dynamic) and compare the key set.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Notation emission preserves Unicode keys without corrupting multibyte characters.
+ * @evidence contracts/testing.md#independent-expectations Escaped authored NFC/NFD and uncased keys map to explicit result keys and numeric values; dynamic key sets check parity with static output.
+ * @evidence contracts/testing.md#distinguishing-cases Seven simple-mapping spellings retain multibyte leading/interior characters, combining marks and lowercase sharp s across four operations; full-mapping intrinsics remain outside this battery.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_notation_unicode_keys through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native rune-based static emission must agree with runtime helpers and mapped return keys.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Seven simple-mapping spellings retain multibyte leading/interior characters, combining marks and lowercase sharp s across four operations; full-mapping intrinsics remain outside this battery. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_notation_unicode_keys = (): void => {
   const value: Battery = {

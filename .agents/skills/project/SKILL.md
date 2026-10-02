@@ -27,7 +27,7 @@ A single Go program under `packages/typia/native` performs the compile-time tran
 "ttsc": { "plugin": { "transform": "typia/lib/transform" } }
 ```
 
-The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transformer; there is no TypeScript-side transform anymore. The descriptor resolves the installed `typia` package root and returns the Go entrypoint under `native/cmd/ttsc-typia`. The adapter packages do not register their own transforms. Consumers reach the binary through `ttsc` / `ttsx` and the published descriptor. ttsc keys each plugin build by content and stores it workspace-wide under `node_modules/.cache/ttsc` (it walks up to `pnpm-workspace.yaml`), so every package and test workspace shares one binary; `TTSC_CACHE_DIR` overrides the location only for suites whose fixture projects live outside the workspace (e.g. `tests/test-typia-compiler`).
+The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transformer; there is no TypeScript-side transform anymore. The descriptor resolves the installed `typia` package root and returns the Go entrypoint under `native/cmd/ttsc-typia`. The adapter packages do not register their own transforms. Consumers reach the binary through `ttsc` / `ttsx` and the published descriptor. ttsc keys each plugin build by content and stores it workspace-wide under `node_modules/.cache/ttsc` (it walks up to `pnpm-workspace.yaml`), so every package and test workspace shares one binary.
 
 ## Layout
 
@@ -35,12 +35,9 @@ The `packages/typia/src/transform.ts` file is a plugin descriptor, not a transfo
 - `tests/template`: `@typia/template`, a workspace package that ships the structure fixtures (`ObjectSimple`, `ArrayHierarchical`, ...) and the `TestServant` runtime helper consumed by the automated suites.
 - `tests/test-*`: feature-test workspaces:
   - `test-typia-schema`, `test-langchain`, `test-mcp`, `test-vercel`, `test-jev`, `test-utils`: function-per-file suites under `src/features/**/test_*.ts`, each file exporting one matching `test_<snake_case>` function discovered by `DynamicExecutor` (from `@nestia/e2e`).
+  - `test-utils`, `test-mcp`, `test-langchain`, `test-vercel`, and `test-jev` also hold portable cases under `src/unit/features/**/test_*.ts`, registered explicitly through `node:test` by `src/unit/index.ts` under `tsconfig.unit.json`, which has no native typia plugin. Their `start` runs the unit population before the integration population. Portable utility and adapter semantics belong in the unit population; preserve each exported case's inputs, assertions and failure identity when transferring it from a transformed suite.
   - `test-typia-automated`, `test-utils-automated`: generator-driven matrix suites over their configured typia operations and `@typia/template` structures; their generated `src/features/` trees are rebuilt by the suite.
-  - `test-interface`: compile-time tests for the exported `@typia/interface` types.
-  - `test-typia-compiler`: compiler-process integration tests that exercise the native plugin through `ttsc` against temporary projects.
-  - `test-typia-bundler-cache`: webpack persistent filesystem-cache invalidation through `@ttsc/unplugin`; the only suite that exercises a bundler's cache.
-  - `test-typia-exact-optional`: focused `exactOptionalPropertyTypes` behavior.
-  - `test-feature-identity`: repository check that every suite's tracked `src/features` file exports exactly one `test_*` function named after the file, that one suite never exports a name twice, and that every `tests/*` workspace declares the package name `@typia/<directory>`.
+  - `test-interface`: compile-time tests for exported `@typia/interface` types and public typia signatures; these cases execute no typia factory.
   - `test-error`: transform-rejection verification; the build must fail and every fixture must be named by a typia diagnostic.
 - `tests/debug`: `@typia/debug`, a one-off `ttsx` runner for ad-hoc local repros.
 - `benchmark/`: `@typia/benchmark`, performance generators with archived results under `benchmark/results/**`. See `.agents/skills/benchmark/SKILL.md`.
@@ -53,11 +50,14 @@ CI uses Node 24.x and Go 1.26.x, while the workspace pins pnpm exactly to 10.6.4
 
 ```bash
 pnpm install
+pnpm evidence
 pnpm format
 pnpm build
 pnpm test
 ```
 
-`pnpm test` runs every `tests/test-*` workspace through `pnpm test:packages`, then runs both Go trees through `pnpm test:toolchain`: `go -C packages/typia/test test ./...` and `go -C packages/typia/test test ../native/...`. It needs `go` on `PATH`. Run `pnpm install` first, or the test Go workspace cannot resolve `ttsc` and its shims through `../node_modules/`. Most feature workspaces execute TypeScript directly through `ttsx`; `test-error` uses a Node harness and `test-interface` invokes `ttsc`. Plugin-building workspaces share the cache under `node_modules/.cache/ttsc`.
+`pnpm test` runs every `tests/test-*` workspace through `pnpm test:packages`, then runs both Go trees through `pnpm test:toolchain`: `go -C packages/typia/test test ./...` and `go -C packages/typia/test test ../native/...`. It needs `go` on `PATH`. Run `pnpm install` first, or the test Go workspace cannot resolve `ttsc` and its shims through `../node_modules/`. Most feature workspaces execute TypeScript directly through `ttsx`; `test-error` uses a Node harness and `test-interface` invokes TypeScript `tsc --noEmit`. Plugin-building workspaces share the cache under `node_modules/.cache/ttsc`.
+
+`pnpm evidence` checks every enrolled production owner, test feature function, and root tooling configuration without building or generating test matrices. Every enrolled `tests/*/evidence.config.json` selects exactly `src/features/**/test_*.ts` with `symbol: "function"`; unit populations, types, runners and support declarations are outside this selection while their ordinary execution remains intact. `pnpm evidence:packages` and `pnpm evidence:tests` check their enrolled workspace populations separately. The template and both automated test workspaces are not enrolled; their ordinary generation and test commands retain their behavioral coverage.
 
 Release-time commands (most contributors skip these): `pnpm package:rc`, `pnpm package:next`, `pnpm package:latest`, and `pnpm release`. `pnpm package:tgz` stages local tarballs in `experiments/tarballs/` for offline testing. See `.agents/skills/pull-request/SKILL.md` for the remote delivery flow.

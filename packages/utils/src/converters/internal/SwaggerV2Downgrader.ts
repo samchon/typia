@@ -6,12 +6,55 @@ import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 
+/**
+ * Downgrades the emended OpenAPI document to Swagger 2.0.
+ *
+ * Component schemas become definitions, request bodies become a body or
+ * form-data parameters, servers become host, base path and schemes, and
+ * nullable and union schemas use the `x-nullable` and `x-oneOf` extensions. A
+ * feature that Swagger 2.0 cannot express, such as request body examples or
+ * mixed form and non-form media types, throws a TypeError instead of being
+ * dropped by those checks. Other mappings remain lossy: webhooks and
+ * unsupported security schemes are omitted, parameter serialization annotations
+ * are dropped, and tuples become arrays without positional restrictions.
+ * Existing generated `.Nullable` definitions are reused without checking schema
+ * equivalence.
+ *
+ * @evidence contracts/common.md#principled-implementation Servers are reduced to a shared host/base path and scheme set, bodies become body or formData parameters, unions and nullability use extension keys and constants become enums. Explicit media/server/form checks reject unsupported cases, but this is not universal loss prevention: webhooks and unsupported security forms are omitted, serialization annotations are dropped, tuple positions are approximated and existing generated nullable names are reused.
+ * @evidence contracts/common.md#clear-and-simple-design A long namespace with private helpers per object kind, server reduction and schema rewriting; the failure cases are explicit checks rather than silent drops.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Explicit representability checks reject the cases they cover; the remaining lossy mappings are disclosed. Reference inlining and enumeration follow schema structure rather than fixtures.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the mappings and the rejection rule; the larger helpers carry their own comments.
+ */
 export namespace SwaggerV2Downgrader {
+  /**
+   * Pair of the original emended components and the Swagger definitions being
+   * built.
+   *
+   * @evidence contracts/common.md#principled-implementation A pair of the original components and the definitions being built.
+   * @evidence contracts/common.md#clear-and-simple-design Two fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation A short comment states the role.
+   */
   export interface IComponentsCollection {
+    /** Emended schemas used to resolve the source references. */
     original: OpenApi.IComponents;
+
+    /** Target definitions receiving converted schemas. */
     downgraded: Record<string, SwaggerV2.IJsonSchema>;
   }
 
+  /**
+   * Downgrade a whole emended document to Swagger 2.0.
+   *
+   * @param input Emended document
+   *
+   * @returns Swagger 2.0 document
+   *
+   * @evidence contracts/common.md#principled-implementation Components, servers and security definitions are downgraded first and paths are rewritten against them, so references and server reduction use one consistent view.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Rejection of unrepresentable servers and bodies happens in the helpers it calls.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgrade = (input: OpenApi.IDocument): SwaggerV2.IDocument => {
     const collection: IComponentsCollection = downgradeComponents(
       input.components,
@@ -647,6 +690,18 @@ export namespace SwaggerV2Downgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Downgrade every component schema to a definition.
+   *
+   * @param input Emended components
+   *
+   * @returns Collection holding the original components and the definitions
+   *
+   * @evidence contracts/common.md#principled-implementation Each schema is downgraded into a definitions record keyed by the same names.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No hidden state.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgradeComponents = (
     input: OpenApi.IComponents,
   ): IComponentsCollection => {
@@ -666,6 +721,18 @@ export namespace SwaggerV2Downgrader {
     return collection;
   };
 
+  /**
+   * Downgrade one emended schema to Swagger 2.0.
+   *
+   * @param collection Original components and downgraded definitions
+   *
+   * @returns Function that converts an emended schema to a Swagger 2.0 schema
+   *
+   * @evidence contracts/common.md#principled-implementation Nullable and union schemas use vendor extensions, constants become enums and references use definitions. Tuples approximate positional members by an item union and prefix-length bounds, losing positional and optional-prefix constraints. Existing generated nullable definitions are reused without equivalence checking; these mappings are not exact inverses of every source schema.
+   * @evidence contracts/common.md#clear-and-simple-design One large recursive function with helpers for nullable references, enumerations and form-data schemas.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Documented extension keys express supported unions and nullability; tuple and generated-name limitations remain explicit rather than being claimed lossless.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result; helpers carry comments.
+   */
   export const downgradeSchema =
     (collection: IComponentsCollection) =>
     (input: OpenApi.IJsonSchema): SwaggerV2.IJsonSchema => {

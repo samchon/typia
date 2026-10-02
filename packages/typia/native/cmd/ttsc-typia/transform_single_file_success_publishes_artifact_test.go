@@ -7,17 +7,17 @@ import (
   "testing"
 )
 
-// TestTransformSingleFileSuccessPublishesArtifact verifies the positive twin.
+// TestTransformSingleFileSuccessPublishesArtifact checks the authored operation results described below.
 //
-// Consulting the diagnostics before publishing must not make a clean transform
-// withhold its artifact: the guard has to key on a reported diagnostic, not on
-// merely having run. This pins the success side of the same decision in both
-// output modes, including that the call was actually rewritten rather than
-// copied through as an untransformed stub.
+// Successful single-file transformation must produce the selected lowered artifact, whereas preserving its runtime stub would not implement the API.
 //
-//  1. Transform a typia-valid source with `--out` in `ts` and `js`.
-//  2. Require exit 0 and a silent stderr.
-//  3. Require the published artifact to exist and carry the lowered validator.
+// 1. Both output formats are positive twins of failure atomicity/no-stdout cases and inspect actual artifact content.
+// 2. TypeScript and JavaScript --out modes succeed without diagnostics, publish a numeric validator and remove the generic typia call.
+//
+// @evidence contracts/testing.md#behavioral-verification TypeScript and JavaScript --out modes succeed without diagnostics, publish a numeric validator and remove the generic typia call.
+// @evidence contracts/testing.md#independent-expectations Successful single-file transformation must produce the selected lowered artifact, whereas preserving its runtime stub would not implement the API.
+// @evidence contracts/testing.md#distinguishing-cases Both output formats are positive twins of failure atomicity/no-stdout cases and inspect actual artifact content.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileSuccessPublishesArtifact as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileSuccessPublishesArtifact(t *testing.T) {
   for _, output := range []string{"ts", "js"} {
     t.Run(output, func(t *testing.T) {

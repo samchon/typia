@@ -3,6 +3,29 @@ import { TestEquality } from "@typia/template/equality";
 import { LlmSchemaConverter } from "@typia/utils";
 import typia, { tags } from "typia";
 
+/**
+ * Verifies native animal schemas connect to inversion and native JSON parity,
+ * while discriminator mappings and strict format/length/pattern restored
+ * fragments are also pinned literally.
+ *
+ * Nullable named animal union, referenced definitions, discriminator
+ * preservation, strict format-versus-pattern paths and description consumption
+ * remain separate. stripXDiscriminator removes only the extension for parity
+ * and its value is checked independently.
+ *
+ * 1. Execute the native calls for the declarations and inputs in this file.
+ * 2. Compare the observed schema fragments or runtime results with the stated
+ *    expectations.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Native animal schemas connect to inversion and native JSON parity, while discriminator mappings and strict format/length/pattern restored fragments are also pinned literally.
+ * @evidence contracts/testing.md#independent-expectations Full graph parity shares native metadata and may miss correlated losses. Handwritten discriminator paths, UUID/36-length and numeric-free pattern fragment plus consumed descriptions independently establish the asserted inversion meaning.
+ * @evidence contracts/testing.md#distinguishing-cases Nullable named animal union, referenced definitions, discriminator preservation, strict format-versus-pattern paths and description consumption remain separate. stripXDiscriminator removes only the extension for parity and its value is checked independently.
+ * @evidence contracts/testing.md#execution-ownership test_llm_schema_parity_invert is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.json.schemas, typia.llm.schema through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.
+ * @evidence contracts/e2e.md#necessary-boundary The native type analyzer/emitter connects the declared TypeScript type and options to the schema or bound runtime operation observed here. A utility unit with a handwritten schema cannot detect a missing rewrite, wrong emitted type shape or incorrect binding at this public producer.
+ * @evidence contracts/e2e.md#shared-execution This case joins the existing schema-suite ttsx invocation and DynamicExecutor population; it starts no per-case project, installation, native binary build or worker. The typia.json.schemas, typia.llm.schema call sites use the same workspace/compiler configuration as their sibling cases. Compiler host and content-keyed artifact reuse are owned by ttsx, not asserted as a cold-cache transition here.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The source declarations, JSDoc, tags and generic configuration are part of the compilation input, so changed producer inputs require recompilation. Schema maps, payloads, callbacks and counters declared here are case-local; this file owns no process or persistent cache and shares no mutated result with another case. ttsx owns the compiler/host lifetime; cache invalidation is not this scenario.
+ * @evidence contracts/e2e.md#preserved-coverage The original public calls, input declarations and assertions remain in this exported case. Nullable named animal union, referenced definitions, discriminator preservation, strict format-versus-pattern paths and description consumption remain separate. stripXDiscriminator removes only the extension for parity and its value is checked independently. Added literal or shape controls strengthen those observations; no generated schema comparison replaces an existing independent expected value, and no case is removed from execution.
+ */
 export const test_llm_schema_parity_invert = (): void => {
   interface ICat {
     type: "cat";

@@ -4,6 +4,25 @@ import typia, { IValidation, Primitive } from "typia";
 import { primitive_equal_to } from "../utils/primitive_equal_to";
 import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 
+/**
+ * Verifies json.validateParse through its supplied operation and fixture.
+ *
+ * Clean platform projection precedes the supplied parser. Every spoiler
+ * receives a new fixture and the private JSON-invalid filter remains owned by
+ * its reusable utility.
+ *
+ * 1. Run the clean fixture scenario and its observable assertions.
+ * 2. Retain the applicable invalid or round-trip distinctions described below.
+ *
+ * @evidence contracts/common.md#principled-implementation The supplied parser receives built-in JSON.stringify of a clean fixture and must return content equal to built-in JSON.parse of that text. Clean validation must succeed with a consistent result; each JSON-representable spoiler must fail with its entire sorted path multiset. Platform JSON serialization/parsing establishes the clean projection, and authored spoilers establish invalid values/paths. _check_invalidate_json_value skips mutations with no faithful invalid JSON representation. The native error/result property checker shares the producer and is not an independent record oracle.
+ * @evidence contracts/common.md#clear-and-simple-design Clean platform projection precedes the supplied parser. Every spoiler receives a new fixture and the private JSON-invalid filter remains owned by its reusable utility.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The actual supplied callback is executed without substituting a verdict. Clean valid JSON contrasts with each representable spoiled value. Non-finite/undefined/function mutations filtered by the existing helper are not claimed as parser negatives. These cases do not supply malformed JSON syntax.
+ * @evidence contracts/common.md#meaningful-documentation The introduction and scenario list identify this helper's assertion responsibility; the answers state its exact comparisons, executable owner and oracle limitations.
+ * @evidence contracts/testing.md#behavioral-verification The supplied parser receives built-in JSON.stringify of a clean fixture and must return content equal to built-in JSON.parse of that text. Clean validation must succeed with a consistent result; each JSON-representable spoiler must fail with its entire sorted path multiset.
+ * @evidence contracts/testing.md#independent-expectations Platform JSON serialization/parsing establishes the clean projection, and authored spoilers establish invalid values/paths. _check_invalidate_json_value skips mutations with no faithful invalid JSON representation. The native error/result property checker shares the producer and is not an independent record oracle.
+ * @evidence contracts/testing.md#distinguishing-cases Clean valid JSON contrasts with each representable spoiled value. Non-finite/undefined/function mutations filtered by the existing helper are not claimed as parser negatives. These cases do not supply malformed JSON syntax.
+ * @evidence contracts/testing.md#execution-ownership The committed test_json_validateParse_ObjectSimple composite supplies the native parser and TestServant entry. Its active full generated family is disabled; this helper owns projection and spoiler assertions.
+ */
 export const _test_json_validateParse =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>

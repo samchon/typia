@@ -15,15 +15,14 @@ type llmStructuredOutputProgrammerNamespace struct{}
 
 var LlmStructuredOutputProgrammer = llmStructuredOutputProgrammerNamespace{}
 
-type LlmStructuredOutputProgrammer_IProps struct {
-  Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
-  Type    *shimchecker.Type
-  Name    *string
-  Init    *shimast.Node
-  Config  map[string]any
-}
-
+// LlmStructuredOutputProgrammer_IWriteProps is the argument record of
+// LlmStructuredOutputProgrammer.Write, which builds the structured output of a
+// type. Config is the call's literal configuration.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of LlmStructuredOutputProgrammer.Write, which builds the structured output of a type; its 6 fields (Context, Modulo, Type, Metadata, Config, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type LlmStructuredOutputProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Modulo   *shimast.Node

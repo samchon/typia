@@ -18,6 +18,15 @@ import typia from "typia";
  *
  * 1. Convert a static-key object under each notation and read every declared key.
  * 2. Convert the same keys through a `Record` (dynamic) and compare the key set.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Static and dynamic notation conversion preserve declared keys across underscore and case boundaries.
+ * @evidence contracts/testing.md#independent-expectations Handwritten key reads with unique values anchor static output; dynamic key sets check parity against that anchored output.
+ * @evidence contracts/testing.md#distinguishing-cases Nine spellings retain leading/trailing underscores, acronyms and mixed boundaries across four operations.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_notation_underscore_boundary through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native static emission and runtime dynamic key conversion must agree with mapped return keys.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Nine spellings retain leading/trailing underscores, acronyms and mixed boundaries across four operations. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_notation_underscore_boundary = (): void => {
   const value: Battery = {

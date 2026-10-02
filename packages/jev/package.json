@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "rimraf lib && ttsc && rolldown -c",
-    "dev": "ttsc --watch"
+    "dev": "ttsc --watch",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
   "devDependencies": {
     "rimraf": "catalog:utils",
     "rolldown": "catalog:rolldown",
-    "ttsc": "catalog:typescript",
+    "ttsc": "catalog:samchon",
     "typescript": "catalog:typescript",
     "tinyglobby": "^0.2.12"
   },

@@ -20,6 +20,15 @@ import { Calculator } from "../structures/Calculator";
  * 1. Build a controller whose method both takes and returns a typed value.
  * 2. Force an argument failure and count the fences in its feedback.
  * 3. Force an output failure and count the fences in its feedback.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Executes malformed Calculator arguments and deliberately malformed OutputController results, then checks each feedback title and exactly one opening JSON fence.
+ * @evidence contracts/testing.md#independent-expectations Both declared input/output types require numbers; counting the literal opening fence detects double wrapping while retaining the adapter-specific argument/output titles.
+ * @evidence contracts/testing.md#distinguishing-cases Separate argument and result validation branches each carry one fence; helper failureOf requires an actual failure result before returning error text.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_tool_error_single_json_fence in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native argument/output metadata reaches both adapter failure-formatting branches, and each must retain exactly one JSON opening fence. The basic validation case only checks fence presence, which cannot detect duplicate wrapping.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_tool_error_single_json_fence =
   async (): Promise<void> => {
@@ -58,6 +67,7 @@ class OutputController {
    * Read the stored value.
    *
    * @param input The lookup seed
+   *
    * @returns The stored value
    */
   read(input: OutputController.IInput): OutputController.IResult {

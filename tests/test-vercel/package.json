@@ -4,9 +4,12 @@
   "version": "15.0.1",
   "description": "Test suite for @typia/vercel package",
   "scripts": {
-    "start": "ttsx src/index.ts",
+    "start": "pnpm run test:unit && pnpm run test:integration",
     "tool-calling": "ttsx src/experimental/tool-calling.ts",
-    "structured-output": "ttsx src/experimental/structured-output.ts"
+    "structured-output": "ttsx src/experimental/structured-output.ts",
+    "evidence": "evidence",
+    "test:unit": "ttsx --no-plugins --project tsconfig.unit.json src/unit/index.ts",
+    "test:integration": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -17,7 +20,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@typia/template": "workspace:^",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^2.0.35",

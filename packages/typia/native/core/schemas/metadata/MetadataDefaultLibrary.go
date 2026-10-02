@@ -36,6 +36,11 @@ var metadataDefaultLibrary_classifiers sync.Map
 
 // MetadataDefaultLibrary_register records the program-level classifier for
 // `checker`. Register it once per loaded program, before any transform runs.
+//
+// @evidence contracts/common.md#principled-implementation The program, not the file name, knows which files are its default libraries, so the host registers a classifier for its checker once per loaded program, and a nil checker or classifier registers nothing.
+// @evidence contracts/common.md#clear-and-simple-design One guard and one map store.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The registry is keyed by checker so unrelated programs in one process stay isolated.
+// @evidence contracts/common.md#meaningful-documentation The doc states when to register and the registry rationale is in the declaration comment.
 func MetadataDefaultLibrary_register(checker *nativechecker.Checker, classifier func(*nativeast.SourceFile) bool) {
   if checker == nil || classifier == nil {
     return
@@ -45,6 +50,11 @@ func MetadataDefaultLibrary_register(checker *nativechecker.Checker, classifier 
 
 // MetadataDefaultLibrary_release removes the classifier registered for
 // `checker`.
+//
+// @evidence contracts/common.md#principled-implementation Deleting the entry for a checker ends the registry reference to it, so a checker that is no longer used is not retained; the command entry points defer it.
+// @evidence contracts/common.md#clear-and-simple-design One guard and one map delete.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A nil checker is ignored.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is removed.
 func MetadataDefaultLibrary_release(checker *nativechecker.Checker) {
   if checker == nil {
     return
@@ -54,6 +64,11 @@ func MetadataDefaultLibrary_release(checker *nativechecker.Checker) {
 
 // MetadataDefaultLibrary_is reports whether `source` is one of the program's
 // default library files.
+//
+// @evidence contracts/common.md#principled-implementation The registered classifier decides for a source file of that checker's program, and without one the file-name rule answers, which keeps hosts that never register on the former behavior; a nil source is not a library.
+// @evidence contracts/common.md#clear-and-simple-design A short chain of three checks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The fallback is the same shared predicate and not a second copy of the rule.
+// @evidence contracts/common.md#meaningful-documentation The doc states the question it answers.
 func MetadataDefaultLibrary_is(checker *nativechecker.Checker, source *nativeast.SourceFile) bool {
   if source == nil {
     return false
@@ -71,6 +86,11 @@ func MetadataDefaultLibrary_is(checker *nativechecker.Checker, source *nativeast
 // MetadataDefaultLibrary_isFileNamed is the registry's file-name fallback,
 // exported so the one predicate that still answers without a checker keeps
 // using the same rule.
+//
+// @evidence contracts/common.md#principled-implementation After separator normalization, a base name beginning with lib. and ending with .d.ts passes the historical test, including lib.d.ts; callers without a checker use this same fallback.
+// @evidence contracts/common.md#clear-and-simple-design One normalization and two prefix and suffix tests.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts It is the documented fallback and does not claim to be authoritative.
+// @evidence contracts/common.md#meaningful-documentation The doc states that it is the file-name fallback.
 func MetadataDefaultLibrary_isFileNamed(fileName string) bool {
   slash := strings.ReplaceAll(fileName, "\\", "/")
   base := slash

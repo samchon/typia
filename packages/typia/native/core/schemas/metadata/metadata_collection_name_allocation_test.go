@@ -2,6 +2,7 @@ package metadata
 
 import (
   "regexp"
+  "strconv"
   "testing"
 )
 
@@ -27,6 +28,11 @@ import (
 //     kept apart by the set.
 //  5. Prove the counter is honored when it is right and overridden when it is
 //     wrong.
+//
+// @evidence contracts/testing.md#behavioral-verification The collection allocator mints ids for many repeated base names including names that equal a minted id; every id must be unique and legal and the counter must never move backwards.
+// @evidence contracts/testing.md#independent-expectations Uniqueness and key grammar are checked by comparing ids with each other and with the grammar, not with a snapshot.
+// @evidence contracts/testing.md#distinguishing-cases A free base name, repeated base names and a base name equal to a minted id cover collision classes.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the allocator in memory with no filesystem fixture, process or native command build.
 func TestMetadataCollectionNameAllocation(t *testing.T) {
   grammar := regexp.MustCompile(`^[a-zA-Z0-9.\-_]+$`)
   allocate := func(taken map[string]bool, name string, from int) string {
@@ -130,8 +136,9 @@ func TestMetadataCollectionNameAllocation(t *testing.T) {
   // that rescanned the run from zero each time would be quadratic in a
   // program's anonymous type count.
   run := map[string]bool{}
-  for i := 0; i != 64; i++ {
-    run[metadataCollection_composeName("__type", i)] = true
+  run["__type"] = true
+  for i := 1; i != 64; i++ {
+    run["__type-o"+strconv.Itoa(i)] = true
   }
   if _, index := metadataCollection_allocateName(run, "__type", 64); index != 64 {
     t.Fatalf("a correct counter was not honored: index=%d expected=64", index)

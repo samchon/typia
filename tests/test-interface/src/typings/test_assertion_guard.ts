@@ -25,11 +25,30 @@ export type AssertionGuardCases = [
 
 declare const guard: AssertionGuard<{ id: number }>;
 
+/**
+ * Verifies calling AssertionGuard must narrow unknown input enough to return
+ * its numeric id.
+ *
+ * The compiler must distinguish the permitted type use from its adjacent
+ * invalid form.
+ *
+ * 1. Typecheck the authored signature or constraint.
+ * 2. Require the stated acceptance or expected diagnostic.
+ */
 export const narrowed = (x: unknown): number => {
   guard(x);
   return x.id;
 };
 
+/**
+ * Verifies reading id on unguarded unknown must remain a compile error.
+ *
+ * The compiler must distinguish the permitted type use from its adjacent
+ * invalid form.
+ *
+ * 1. Typecheck the authored signature or constraint.
+ * 2. Require the stated acceptance or expected diagnostic.
+ */
 export const notNarrowed = (x: unknown): number =>
   // @ts-expect-error `x` is still `unknown` until the guard asserts it.
   x.id;

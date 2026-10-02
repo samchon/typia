@@ -5,6 +5,16 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Emplace_metadata_tuple returns the collection's entry for the tuple type,
+// analyzing its elements the first time it is seen.
+//
+// Optional elements are marked optional, a trailing rest element is wrapped in a
+// rest schema, and a rest element elsewhere is reported as unsupported.
+//
+// @evidence contracts/common.md#principled-implementation A tuple type is stored once and its element types are the checker's type arguments, each explored in a nested state; an optional element is marked optional, a rest element in the last position is wrapped in a schema with the Rest field, and a rest element anywhere else is reported because the programmers address elements by leading position.
+// @evidence contracts/common.md#clear-and-simple-design One function over the collection's emplace service with a closure that receives the elements.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The unsupported position is rejected with a message and not compiled into wrong checks, as the comment records.
+// @evidence contracts/common.md#meaningful-documentation The doc states the optional and rest rules.
 func Emplace_metadata_tuple(props IMetadataIteratorProps) *schemametadata.MetadataTupleType {
   tuple, newbie, closure := props.Components.EmplaceTuple(
     props.Checker,

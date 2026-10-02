@@ -20,6 +20,11 @@ import (
 //
 //  1. Cast every row of the issue's table.
 //  2. Assert no result is NaN or an infinity, and every result marshals.
+//
+// @evidence contracts/testing.md#behavioral-verification The @x- extension cast is called on JavaScript number spellings (hex, NaN, infinities, exponents) and ordinary text; each result must equal the authored value and numbers must marshal as JSON.
+// @evidence contracts/testing.md#independent-expectations The JavaScript Number() grammar defines which spellings are numbers; expected values are authored literals and JSON marshaling is the independent check.
+// @evidence contracts/testing.md#distinguishing-cases Accepted JavaScript spellings and Go-only spellings give positives and negatives.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the cast and encoding/json in memory with no checker, filesystem fixture or process.
 func TestJsonSchemaJsDocTagsCastReadsJavaScriptNumbers(t *testing.T) {
   for _, item := range []struct {
     text     string
@@ -54,7 +59,7 @@ func TestJsonSchemaJsDocTagsCastReadsJavaScriptNumbers(t *testing.T) {
     }
     if number, ok := actual.(float64); ok {
       if math.IsNaN(number) || math.IsInf(number, 0) || math.Signbit(number) && number == 0 {
-        t.Fatalf("cast(%q) = %v is not a JSON number", item.text, number)
+        t.Fatalf("cast(%q) = %v violates the finite, normalized-zero contract", item.text, number)
       }
     }
     if _, err := json.Marshal(actual); err != nil {

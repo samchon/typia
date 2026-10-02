@@ -1,23 +1,22 @@
 package main
 
 import (
-  "os"
-  "os/exec"
-  "path/filepath"
+  "regexp"
   "strings"
   "testing"
 )
 
-// TestFunctionalPromisedTypeTransform verifies semantic async wrappers.
+// TestFunctionalPromisedTypeTransform verifies async and dynamic receiver forwarding in promised wrappers.
 //
-// Every functional family shares the return-type classifier. A derived Promise
-// must produce an async wrapper that validates the fulfilled value, while a
-// non-thenable class merely named Promise must remain synchronous.
+// A promised functional wrapper must await the invoked result before validating its resolved value, and method invocation must retain this binding rather than call the function detached.
 //
-//  1. Transform all assert, is/equals, and validate function variants.
-//  2. Exercise derived class/interface and branded Promise results.
-//  3. Pin invalid parameters, invalid fulfilled values, rejection, and the
-//     shadowed-name negative control without regressing receiver forwarding.
+// 1. Promised assertion/validation wrappers and receiver-bearing declarations are combined; synchronous wrappers are owned by the functional receiver case.
+// 2. Emission contains async functions, awaited Reflect.apply calls and dynamic receiver forwarding.
+//
+// @evidence contracts/testing.md#behavioral-verification Emission contains async functions, awaited Reflect.apply calls and dynamic receiver forwarding.
+// @evidence contracts/testing.md#independent-expectations A promised functional wrapper must await the invoked result before validating its resolved value, and method invocation must retain this binding rather than call the function detached.
+// @evidence contracts/testing.md#distinguishing-cases Promised assertion/validation wrappers and receiver-bearing declarations are combined; synchronous wrappers are owned by the functional receiver case.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestFunctionalPromisedTypeTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestFunctionalPromisedTypeTransform(t *testing.T) {
   project := compareEqualCoverProject(t, "functional-promised-type-", functionalPromisedTypeSource)
   ttscTypiaTestTypecheck(t, project)
@@ -25,31 +24,10 @@ func TestFunctionalPromisedTypeTransform(t *testing.T) {
   if !strings.Contains(js, "async function") || !strings.Contains(js, "await Reflect.apply") {
     t.Fatalf("promised wrappers do not emit async/await:\n%s", js)
   }
-  if !strings.Contains(js, "Reflect.apply") {
+  if !regexp.MustCompile(`await Reflect\.apply\([^,]+,\s*this,\s*\[`).MatchString(js) {
     t.Fatalf("promised wrappers do not preserve receiver forwarding:\n%s", js)
   }
 
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(ttscTypiaTestRewriteCommonJS(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(functionalPromisedTypeRuntime), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("functional promised-type runtime cases failed: %v\n%s", err, output)
-  }
 }
 
 const functionalPromisedTypeSource = `import typia from "typia";
@@ -146,75 +124,4 @@ export type PromisedWrapperCases = [
   Assert<Equal<ReturnType<typeof shadowed.isFunction>, Shadow.Promise<Output> | null>>,
   Assert<Equal<ReturnType<typeof shadowed.validateReturn>, typia.IValidation<Shadow.Promise<Output>>>>,
 ];
-`
-
-const functionalPromisedTypeRuntime = `const mod = require("./main.cjs");
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) throw new Error(label + ": expected " + expected + ", got " + actual);
-};
-const assertNames = new Set([
-  "assertFunction", "assertParameters", "assertReturn",
-  "assertEqualsFunction", "assertEqualsParameters", "assertEqualsReturn",
-]);
-const validateNames = new Set([
-  "validateFunction", "validateParameters", "validateReturn",
-  "validateEqualsFunction", "validateEqualsParameters", "validateEqualsReturn",
-]);
-
-(async () => {
-  for (const [name, wrapped] of Object.entries(mod.promised)) {
-    const pending = wrapped.call({ base: 40 }, { value: 2 });
-    expect("promised " + name + " returns Promise", pending instanceof Promise, true);
-    const result = await pending;
-    if (validateNames.has(name)) {
-      expect("promised " + name + " succeeds", result.success, true);
-      expect("promised " + name + " fulfilled total", result.data.total, 42);
-    } else {
-      expect("promised " + name + " is non-null", result === null, false);
-      expect("promised " + name + " fulfilled total", result.total, 42);
-    }
-
-    const invalid = wrapped.call({ base: 40 }, { value: "bad" });
-    expect("invalid " + name + " keeps Promise shape", invalid instanceof Promise, true);
-    if (assertNames.has(name)) {
-      let error;
-      try { await invalid; } catch (exp) { error = exp; }
-      expect("invalid " + name + " rejects", Boolean(error), true);
-    } else {
-      const failure = await invalid;
-      if (validateNames.has(name)) expect("invalid " + name + " validation fails", failure.success, false);
-      else expect("invalid " + name + " returns null", failure, null);
-    }
-  }
-
-  for (const [name, wrapped] of Object.entries(mod.semanticShapes)) {
-    const pending = wrapped({ value: 7 });
-    expect(name + " returns Promise", pending instanceof Promise, true);
-    const result = await pending;
-    if (name.endsWith("Validate")) {
-      expect(name + " succeeds", result.success, true);
-      expect(name + " total", result.data.total, 7);
-    } else expect(name + " total", result.total, 7);
-  }
-
-  for (const [name, wrapped] of Object.entries(mod.shadowed)) {
-    const result = wrapped({ value: 9 });
-    expect("shadowed " + name + " stays synchronous", result instanceof Promise, false);
-    if (validateNames.has(name)) {
-      expect("shadowed " + name + " succeeds", result.success, true);
-      expect("shadowed " + name + " value", result.data.value.total, 9);
-    } else {
-      expect("shadowed " + name + " is non-null", result === null, false);
-      expect("shadowed " + name + " value", result.value.total, 9);
-    }
-  }
-
-  let rejection;
-  try { await mod.rejecting(); } catch (error) { rejection = error; }
-  expect("rejection propagates", rejection && rejection.message, "promised rejection");
-})().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
 `

@@ -25,6 +25,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains `src/id.ts` and that `a.ts` is
 //     declared complete, so the narrowed bound is the one carrying it.
 //  4. Assert it omits `src/unused.ts`, which no consulted member names.
+//
+// @evidence contracts/testing.md#behavioral-verification pair and id are retained, unused is absent and the tuple caller remains complete.
+// @evidence contracts/testing.md#independent-expectations A named tuple member annotation controls element validation even when its Id alias collapses to string.
+// @evidence contracts/testing.md#distinguishing-cases The consumed named-member alias is contrasted with another alias not named by the tuple.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesNamedTupleMemberTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesNamedTupleMemberTransform(t *testing.T) {
   project := projectDependenciesNamedTupleMemberProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -71,16 +76,7 @@ func TestProjectDependenciesNamedTupleMemberTransform(t *testing.T) {
 
 func projectDependenciesNamedTupleMemberProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-named-tuple-member-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-named-tuple-member-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

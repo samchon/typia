@@ -4,18 +4,29 @@ import { NativeClass } from "./internal/NativeClass";
 import { ValueOf } from "./internal/ValueOf";
 
 /**
- * Converts a type to its JSON-serializable primitive form.
+ * Projects a type into typia's JSON-oriented static representation.
  *
  * `Primitive<T>` transforms types for JSON serialization: boxed primitives
  * become primitives (Boolean→boolean), classes become plain objects with
- * methods removed, Date becomes `string & Format<"date-time">`, and types with
- * `toJSON()` use their return type. Native classes (except Date) and bigint
- * become `never` as they're not JSON-serializable.
+ * callable property values mapped to `never`, Date becomes `string &
+ * Format<"date-time">`, and types with `toJSON()` use their return type. Native
+ * classes (except Date) and bigint become `never` in this representation.
+ *
+ * This type does not execute or validate serialization. It retains property
+ * keys even when their values become `never`, and a declared `toJSON()` return
+ * supplies the projected value without proving that the method returns valid
+ * JSON at runtime.
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @author Kyungsu Kang - https://github.com/kakasoo
  * @author Michael - https://github.com/8471919
+ *
  * @template T Target type to convert
+ *
+ * @evidence contracts/common.md#principled-implementation Ordered conditional types unwrap boxed primitives, represent Date as a date-time string and replace a declared toJSON object with its declared return projection. Bigint, callable values and recognized non-Date native classes become never in the ordinary branches, while object property keys are retained. Finite optional and variadic tuple positions are mapped by local tuple helpers. This is a static projection, not a complete model or proof of runtime JSON.stringify behavior; the toJSON arm uses its declared atomic return directly.
+ * @evidence contracts/common.md#clear-and-simple-design The exported alias applies the Equal short-circuit and the private PrimitiveMain, PrimitiveObject and tuple helpers each own one branch of the JSON mapping.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The mapping encodes the JSON serialization contract, not a fixture; no cast or runtime logic is involved. Its `toJSON` support is structural, so a `toJSON` that does not return a plain JSON value is mapped on its declared return type without checking it.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the transformations and the never cases; the local variadic-tuple helper explains why it differs from the shared IsTuple.
  */
 export type Primitive<T> =
   Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;

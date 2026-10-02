@@ -12,6 +12,13 @@ type pruneJoinerNamespace struct{}
 
 var PruneJoiner = pruneJoinerNamespace{}
 
+// PruneJoiner_ObjectProps is the argument record of PruneJoiner.Object, which
+// builds the pruning of an object.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of PruneJoiner.Object, which builds the pruning of an object; its 4 fields (Input, Entries, Object, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type PruneJoiner_ObjectProps struct {
   Input   *shimast.Expression
   Entries []IExpressionEntry
@@ -19,12 +26,26 @@ type PruneJoiner_ObjectProps struct {
   Emit    *shimprinter.EmitContext
 }
 
+// PruneJoiner_ArrayProps is the argument record of PruneJoiner.Array, which
+// prunes an array by visiting its elements with Arrow for side effects.
+//
+// @evidence contracts/common.md#principled-implementation Input is the array expression and Arrow is the in-place element pruner passed to forEach. Emit supplies AST creation context; this record does not model a mapped output array.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type PruneJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression
   Emit  *shimprinter.EmitContext
 }
 
+// PruneJoiner_TupleProps is the argument record of PruneJoiner.Tuple, which
+// prunes the element and rest bodies of a tuple.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of PruneJoiner.Tuple, which prunes the element and rest bodies of a tuple; its 3 fields (Elements, Rest, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type PruneJoiner_TupleProps struct {
   Elements []*shimast.ConciseBody
   Rest     *shimast.ConciseBody

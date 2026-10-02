@@ -16,6 +16,11 @@ import (
 // 1. Build metadata with only a native `BigInt` bucket.
 // 2. Validate it through `JsonSchemasProgrammer`.
 // 3. Require the bigint unsupported diagnostic.
+//
+// @evidence contracts/testing.md#behavioral-verification The JSON schemas validator runs on metadata with only a native BigInt bucket and must reject it.
+// @evidence contracts/testing.md#independent-expectations JSON schema has no bigint, so rejection is authored.
+// @evidence contracts/testing.md#distinguishing-cases Native BigInt alone; other natives are not asserted.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed metadata with no checker, filesystem fixture or process.
 func TestJsonSchemasProgrammerRejectsBigIntNative(t *testing.T) {
   meta := schemametadata.MetadataSchema_initialize()
   meta.Natives = append(meta.Natives, schemametadata.MetadataNative_create(schemametadata.MetadataNative{Name: "BigInt"}))

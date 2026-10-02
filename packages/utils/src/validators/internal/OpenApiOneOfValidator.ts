@@ -7,7 +7,33 @@ import { OpenApiTypeChecker } from "../OpenApiTypeChecker";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
 
+/**
+ * Validates a value against a union schema.
+ *
+ * The branch is chosen by a discriminator that is derived from the schema when
+ * possible, so one failing branch reports its own errors instead of a general
+ * union mismatch.
+ *
+ * @evidence contracts/common.md#principled-implementation A union is validated by choosing a branch from the value instead of reporting a generic mismatch: a lone non-null member is selected for any non-null value, arrays are discriminated by an item schema that no sibling covers using the first element, and objects by a required property that is unique among the branches, preferring a constant. The branches that apply are validated quietly and the first that accepts the value wins; if a non-retryable branch fails, it is revalidated loudly to report its errors, and if no discriminator applies the remainders are tried in order, with an unknown member accepting everything.
+ * @evidence contracts/common.md#clear-and-simple-design A public validate with private discrimination helpers for arrays and objects and a flatten helper; the branch records carry a retryable flag so tentative array probes may fall through while object discriminators own their errors.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The discriminator is derived from the schema's own constants and required keys, with no consumer or property name built in. The array probe only inspects the first element, so a heterogeneous array whose first element selects the wrong branch is retried through the remaining ones.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract, and the branch flag has its own comment.
+ */
 export namespace OpenApiOneOfValidator {
+  /**
+   * Validate the value against the union, trying the branches that the
+   * discriminator selects before the remaining ones.
+   *
+   * @param ctx Validation context
+   * @param references Reference keys already followed, for cycle detection
+   *
+   * @returns Whether some branch accepts the value
+   *
+   * @evidence contracts/common.md#principled-implementation Branches chosen by the discriminator are tried first and quietly, the first that accepts is revalidated loudly only when `equals` is set, and a non-retryable failure is reported in place of a union mismatch; otherwise the remainders are searched. With `equals`, acceptance is therefore decided in two passes, one that ignores superfluous properties to select a branch and one that applies them to report.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function that calls itself for the remainders.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Quiet probing uses the `exceptionable` flag of the context rather than catching errors.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameters and result.
+   */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IOneOf>,
     references: ReadonlySet<string> = new Set(),

@@ -1,7 +1,24 @@
 import { TestStructure } from "@typia/template";
+import { isErrorClass } from "@typia/template/error-class";
 import { NamingConvention } from "@typia/utils";
 import typia, { AssertionGuard, TypeGuardError } from "typia";
 
+/**
+ * Verifies assertGuardEquals through its supplied operation and fixture.
+ *
+ * Private tracing separates array traversal from object identity/path
+ * collection; an active-stack WeakSet prevents recursive cycles while a WeakMap
+ * collects alias paths. One local fixture is mutated and restored on each
+ * successful negative scenario.
+ *
+ * 1. Run the clean fixture scenario and its observable assertions.
+ * 2. Retain the applicable invalid or round-trip distinctions described below.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The supplied assertGuardEquals callback requires clean acceptance, then must reject one injected surplus property per reachable ordinary object. Each exception must have the selected exact prototype, a permitted method, an independently traced path, expected undefined and the injected key value; accepted exceptions remove that key before the next scenario.
+ * @evidence contracts/testing.md#independent-expectations The authored fixture establishes the clean graph; trace records object identities and reachable accessor paths before independent key injection. NamingConvention supplies quoting and is not independently verified here. The additional generated typia.is check is correlated with the producer.
+ * @evidence contracts/testing.md#distinguishing-cases ADDABLE false and graphs with no eligible objects stop after clean acceptance. Eligible objects each receive a surplus key; identifier versus quoted key spelling is chosen randomly, so one run does not guarantee both forms. Shared/cyclic path traversal uses weak identity collections; value spoilers belong to the normal validator families.
+ * @evidence contracts/testing.md#execution-ownership Generated direct/factory assertGuardEquals families own the discoverable entries and native callbacks. This helper owns trace, trace_object and trace_array and their cleanup on the accepted-exception path.
+ */
 export const _test_assertGuardEquals =
   (ErrorClass: Function) =>
   (name: string) =>
@@ -13,7 +30,7 @@ export const _test_assertGuardEquals =
       assertEquals(input);
     } catch (exp) {
       if (
-        (exp as Function).constructor?.name === ErrorClass.name &&
+        isErrorClass(exp, ErrorClass) &&
         typia.is<TypeGuardError.IProps>(exp)
       ) {
         throw new Error(
@@ -51,7 +68,7 @@ export const _test_assertGuardEquals =
         );
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp) &&
           (exp.method === "typia.assertGuardEquals" ||
             exp.method === "typia.createAssertGuardEquals") &&
@@ -63,7 +80,7 @@ export const _test_assertGuardEquals =
           delete value[key];
           continue;
         } else if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         ) {
           console.log({

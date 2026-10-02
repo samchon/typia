@@ -18,6 +18,11 @@ import (
 // 3. Assert disabled non-undefined flags remain nil.
 // 4. Assert explicit undefined=false remains a false pointer.
 // 5. Assert runtime is pinned to the typia runtime package name.
+//
+// @evidence contracts/testing.md#behavioral-verification The plugin option projection runs with two enabled and two disabled flags and an explicit undefined false; pointer values and the fixed runtime are asserted.
+// @evidence contracts/testing.md#independent-expectations The ttsc option surface and the pointer-valued native options are specified by the adapter contract; expected pointers and the typia runtime are authored.
+// @evidence contracts/testing.md#distinguishing-cases Enabled flags, disabled flags and the explicit-false exception are separate decisions; omitted undefined is not asserted here.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported projection with constructed options and no filesystem fixture, process or native command build.
 func TestAdapterPluginOptionsTransformOptions(t *testing.T) {
   disabled := false
   options := typiaadapter.PluginOptions{

@@ -22,8 +22,8 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * `LlmSchemaConverter` converts OpenAPI JSON schemas to LLM-compatible
  * {@link ILlmSchema} format. LLMs don't fully support JSON Schema, so this
- * simplifies schemas by removing unsupported features (tuples, `const`, mixed
- * unions).
+ * converts constants to enum members and mixed unions to `anyOf`. Tuple schemas
+ * are rejected with structured reasons.
  *
  * Main functions:
  *
@@ -33,16 +33,28 @@ import { OpenApiConstraintShifter } from "./internal/OpenApiConstraintShifter";
  *
  * Configuration options ({@link ILlmSchema.IConfig}):
  *
- * - `strict`: OpenAI structured output mode (all properties required)
+ * - `strict`: Require all declared properties to be required, reject dynamic
+ *   properties and move supported constraints into description tags.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation An LLM schema is built by validating the OpenAPI schema first, collecting every reason that it is unsupported (tuples, bad references, and in strict mode optional properties and additional properties), and then converting through a union of members with named types moved to `$defs`; a recursive reference stores an empty placeholder before its target is converted so recursion ends. Strict conversion shifts constraint keywords into description tags that `invert` can read back.
+ * @evidence contracts/common.md#clear-and-simple-design A public set of four functions over one recursive transform, with the parameter finder, constraint shifter and description inverter kept as separate internal namespaces for their own rules.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Unsupported schemas are reported as structured reasons and are not coerced into something the model would accept silently.
+ * @evidence contracts/common.md#meaningful-documentation The comment lists the functions and the strict-mode effect; each function documents its properties and mutation of the definitions store.
  */
 export namespace LlmSchemaConverter {
   /**
    * Get configuration with defaults applied.
    *
    * @param config Partial configuration
+   *
    * @returns Full configuration with defaults
+   *
+   * @evidence contracts/common.md#principled-implementation The only option is `strict`, and an absent configuration or value means false, which is the documented default.
+   * @evidence contracts/common.md#clear-and-simple-design One object expression.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The default is the contract default and not a consumer-specific one.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the partial input and the completed result.
    */
   export const getConfig = (
     config?: Partial<ILlmSchema.IConfig> | undefined,
@@ -61,7 +73,13 @@ export namespace LlmSchemaConverter {
    * @param props.schema Object or reference schema to convert
    * @param props.accessor Error path accessor
    * @param props.refAccessor Reference path accessor
+   *
    * @returns Converted parameters or error
+   *
+   * @evidence contracts/common.md#principled-implementation The schema is resolved through references to an object without additional properties, converted, and returned with `additionalProperties: false` and the `$defs` collected during conversion; when the input was a reference its description is composed with its namespace ancestors' descriptions.
+   * @evidence contracts/common.md#clear-and-simple-design One function over the shared finder and transform, adding only the parameter-specific wrapping.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Failure comes back as an IResult value; circular and unresolved references are reported with their key.
+   * @evidence contracts/common.md#meaningful-documentation The doc names each property including the two accessors used in error messages.
    */
   export const parameters = (props: {
     config?: Partial<ILlmSchema.IConfig>;
@@ -118,7 +136,13 @@ export namespace LlmSchemaConverter {
    * @param props.schema Schema to convert
    * @param props.accessor Error path accessor
    * @param props.refAccessor Reference path accessor
+   *
    * @returns Converted schema or error
+   *
+   * @evidence contracts/common.md#principled-implementation The schema is converted into a union of LLM members with references stored in the caller's `$defs`, so several schemas converted against one store share their named definitions.
+   * @evidence contracts/common.md#clear-and-simple-design A thin function that completes the configuration and calls the transform.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The caller's `$defs` is mutated as documented; there is no hidden cache.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the mutated store and the result type.
    */
   export const schema = (props: {
     config?: Partial<ILlmSchema.IConfig>;
@@ -507,13 +531,21 @@ export namespace LlmSchemaConverter {
    * `strict` inversion reads them back. Pass the same `config` the schema was
    * converted with; the default is the same non-strict default {@link getConfig}
    * applies, under which the constraint keywords are still on the schema and a
-   * description is only ever prose.
+   * description is only ever prose. Strict tags are a line-based approximation:
+   * multiline or surrounding whitespace in string constraints and pre-existing
+   * matching description tags are not restored exactly.
    *
    * @param props.config Configuration the schema was converted with
    * @param props.components Target components (mutated with definitions)
    * @param props.schema LLM schema to invert
    * @param props.$defs LLM schema definitions
+   *
    * @returns OpenAPI JSON schema
+   *
+   * @evidence contracts/common.md#principled-implementation Each LLM member is mapped back to an OpenAPI member: enum values become const members, strict description tags become constraint keywords, and definitions become components under keys allocated once per conversion, preserving reference/store agreement and existing caller components. Conversion is not universally lossless even for forward-produced schemas: strict tags trim one-line string values, cannot preserve embedded newlines and can select pre-existing matching tags before the appended ones.
+   * @evidence contracts/common.md#clear-and-simple-design One public wrapper that seeds the key allocation and a recursive worker with an emitted-set that stops repeated definitions.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The allocation follows the component-key grammar rather than echoing raw `$defs` keys, and the own-property view is used consistently for seeding and resolution.
+   * @evidence contracts/common.md#meaningful-documentation The doc explains the strict gate and the config argument; inline comments explain the allocation seeding and the emitted-set.
    */
   export const invert = (props: {
     config?: Partial<ILlmSchema.IConfig>;

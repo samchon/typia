@@ -22,7 +22,7 @@ This repository owns one benchmark system. Read its procedure in full before act
 
 Finish every fixture change before publishing it:
 
-1. Run the relevant template entrypoint, then the benchmark package's formatting and build commands until they finish green. `pnpm template` regenerates only the templates imported by `benchmark/src/template/index.ts`.
+1. Run the relevant template entrypoint, then the benchmark package's build commands until they finish green. `pnpm template` regenerates only the templates imported by `benchmark/src/template/index.ts`. Defer repository formatting to the development skill's final pre-merge cleanup gate.
 2. Confirm every comparator receives the same structure and input for the measured row.
 3. Review the generated-program diff. A stale or inconsistent generated program contaminates every later run.
 

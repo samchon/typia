@@ -17,6 +17,13 @@ type httpFormDataProgrammerNamespace struct{}
 
 var HttpFormDataProgrammer = httpFormDataProgrammerNamespace{}
 
+// HttpFormDataProgrammer_DecomposeProps is the argument record of
+// HttpFormDataProgrammer.Decompose, which builds the form-data decoder.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of HttpFormDataProgrammer.Decompose, which builds the form-data decoder; its 4 fields (Context, Functor, Type, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type HttpFormDataProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer

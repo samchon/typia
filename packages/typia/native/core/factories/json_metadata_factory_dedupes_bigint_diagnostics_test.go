@@ -16,6 +16,11 @@ import (
 // 1. Build metadata holding atomic bigint, a bigint constant, and native BigInt.
 // 2. Validate it through `JsonMetadataFactory`.
 // 3. Require exactly one bigint diagnostic.
+//
+// @evidence contracts/testing.md#behavioral-verification JSON metadata validation runs on a schema holding atomic bigint, a bigint constant and native BigInt, and exactly one bigint diagnostic must be reported.
+// @evidence contracts/testing.md#independent-expectations The union fills three buckets for one unsupported type, so the authored expectation is one message.
+// @evidence contracts/testing.md#distinguishing-cases One three-bucket union; a single bucket is covered by the native rejection case.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed metadata with no checker, filesystem fixture or process.
 func TestJsonMetadataFactoryDedupesBigintDiagnostics(t *testing.T) {
   meta := schemametadata.MetadataSchema_initialize()
   meta.Atomics = append(meta.Atomics, schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: "bigint"}))

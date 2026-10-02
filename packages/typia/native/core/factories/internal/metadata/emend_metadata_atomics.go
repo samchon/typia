@@ -6,6 +6,15 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Emend_metadata_atomics removes constants that an atomic of the same type
+// already covers without validation requirements and folds a boolean constant
+// of both values into one boolean. An unconstrained string atomic also removes
+// template alternatives.
+//
+// @evidence contracts/common.md#principled-implementation A constant of a type that an atomic of the same type already covers is redundant and is removed, and a boolean constant set with both values is replaced by a boolean atomic, keeping both alternatives if the two values carry different tags; this normalizes unions such as `string | "a"` and `true | false`.
+// @evidence contracts/common.md#clear-and-simple-design One function over the metadata's constants and atomics, applied by the explorer to the schema and its escaped halves.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The rules follow set inclusion of values and no consumer type is involved.
+// @evidence contracts/common.md#meaningful-documentation The doc states both rewrites.
 func Emend_metadata_atomics(meta *schemametadata.MetadataSchema) {
   for _, atomic := range meta.Atomics {
     if is_not_pure(atomic) {

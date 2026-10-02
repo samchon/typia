@@ -17,7 +17,7 @@ Solo work never creates a clone or worktree. If the current checkout contains un
 
 Use one commit per coherent unit when the diff is large. Follow the repository's `<type>(<scope>): <subject>` history with an imperative lowercase subject and no trailing period.
 
-Run the validation required by the development skill. Run `pnpm format` before ordinary commits. A solo issue campaign formats its unified cycle pull request. Only an explicit multi-agent campaign implementation batch defers the repository-wide formatter result to its Post-Campaign Cleanup pull request.
+Run the validation required by the development skill. Defer `pnpm format` to its final pre-merge cleanup gate; do not run it for each commit or push. Parallel issue-campaign implementation batches keep their dedicated Post-Campaign Cleanup formatter gate.
 
 Stage explicit paths when the worktree is mixed. Never include unrelated user changes silently.
 
@@ -31,7 +31,7 @@ Push only the topic branch with upstream tracking. Use a file-backed body for mu
 
 ## Issue Campaign Override
 
-Before any issue-campaign push or pull request, complete `.agents/skills/issue-campaign/development.md`. A solo campaign uses one formatted cycle pull request and the ordinary check loop, plus its integration-sensitive gate. Only `.agents/skills/multi-agent/issue-campaign.md` overrides that flow with worktree batches, exact-SHA campaign-run cancellation, local implementation gates, and Post-Campaign Cleanup.
+Before any issue-campaign push or pull request, complete `.agents/skills/issue-campaign/development.md`. A solo campaign uses one cycle pull request, the final pre-merge formatter gate, the ordinary check loop, and its integration-sensitive gate. Only `.agents/skills/multi-agent/issue-campaign.md` overrides that flow with worktree batches, exact-SHA campaign-run cancellation, local implementation gates, and Post-Campaign Cleanup.
 
 ## Watch Checks After Every Ordinary Push
 

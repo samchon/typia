@@ -16,18 +16,40 @@ type cloneJoinerNamespace struct{}
 
 var CloneJoiner = cloneJoinerNamespace{}
 
+// CloneJoiner_ObjectProps is the argument record of CloneJoiner.Object, which
+// builds the cloned object.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CloneJoiner.Object, which builds the cloned object; its 3 fields (Input, Entries, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CloneJoiner_ObjectProps struct {
   Input   *shimast.Expression
   Entries []IExpressionEntry
   Emit    *shimprinter.EmitContext
 }
 
+// CloneJoiner_TupleProps is the argument record of CloneJoiner.Tuple, which
+// builds the cloned tuple from its element and rest expressions.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CloneJoiner.Tuple, which builds the cloned tuple from its element and rest expressions; its 3 fields (Elements, Rest, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CloneJoiner_TupleProps struct {
   Elements []*shimast.Expression
   Rest     *shimast.Expression
   Emit     *shimprinter.EmitContext
 }
 
+// CloneJoiner_OptionalElementProps is the argument record of
+// CloneJoiner.OptionalTupleElement, which clones an optional tuple element at
+// Index.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CloneJoiner.OptionalTupleElement, which clones an optional tuple element at Index; its 4 fields (Input, Value, Index, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CloneJoiner_OptionalElementProps struct {
   Input *shimast.Expression
   Value *shimast.Expression
@@ -35,6 +57,13 @@ type CloneJoiner_OptionalElementProps struct {
   Emit  *shimprinter.EmitContext
 }
 
+// CloneJoiner_ArrayProps is the argument record of CloneJoiner.Array, which
+// clones an array by mapping its elements with Arrow.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CloneJoiner.Array, which clones an array by mapping its elements with Arrow; its 3 fields (Input, Arrow, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CloneJoiner_ArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Expression

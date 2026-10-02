@@ -20,12 +20,31 @@ type plainPruneProgrammerNamespace struct{}
 
 var PlainPruneProgrammer = plainPruneProgrammerNamespace{}
 
+// PlainPruneProgrammer_DecomposeProps is the input of Decompose for the plain
+// prune generator: Validated (whether an enclosing check has already validated
+// the input), Context (the transform context), Functor (the collector of the
+// helper functions that the generator emits), Type (the type to generate for)
+// and Name (an optional type name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs whether an enclosing check has already validated the input, the transform context, the collector of the helper functions that the generator emits, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainPruneProgrammer_DecomposeProps struct {
+  // Validated reuses enclosing checks instead of adding ordinary is-helper declarations.
   Validated bool
-  Context   nativecontext.ITypiaContext
-  Functor   *nativehelpers.FunctionProgrammer
-  Type      *shimchecker.Type
-  Name      *string
+
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
+  Functor *nativehelpers.FunctionProgrammer
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
 }
 
 const plainPruneProgrammer_PREFIX = "_p"
@@ -221,7 +240,7 @@ func plainPruneProgrammer_decode(props struct {
           Functor:  props.Functor,
           Metadata: partial,
           Input:    props.Input,
-          Explore:  plainCloneProgrammer_checker_explore(props.Explore),
+          Explore:  props.Explore,
         })
       },
       Value: func() *shimast.Node {
@@ -576,7 +595,7 @@ func plainPruneProgrammer_explore_arrays(props plainPruneProgrammer_exploreArray
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*schemametadata.MetadataSchema),
-            Explore:  plainCloneProgrammer_checker_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
@@ -586,7 +605,7 @@ func plainPruneProgrammer_explore_arrays(props plainPruneProgrammer_exploreArray
             Functor: props.Functor,
             Input:   v.Input,
             Array:   v.Definition.(*schemametadata.MetadataArray),
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Empty:   f.NewStringLiteral("[]", shimast.TokenFlagsNone),
@@ -700,7 +719,7 @@ func plainPruneProgrammer_configure(props struct {
         Functor:  props.Functor,
         Input:    next.Input,
         Metadata: next.Metadata,
-        Explore:  plainCloneProgrammer_checker_explore(next.Explore),
+        Explore:  next.Explore,
       })
     },
     Decoder: func(next nativeinternal.FeatureProgrammer_ObjectorDecoderProps) *shimast.Node {
@@ -727,7 +746,7 @@ func plainPruneProgrammer_configure(props struct {
             Functor: props.Functor,
             Input:   v.Input,
             Object:  v.Object,
-            Explore: plainCloneProgrammer_feature_explore(v.Explore),
+            Explore: v.Explore,
           })
         },
         Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -736,7 +755,7 @@ func plainPruneProgrammer_configure(props struct {
             Input   *shimast.Node
             Object  *schemametadata.MetadataObjectType
             Explore nativeinternal.FeatureProgrammer_IExplore
-          }{Functor: props.Functor, Input: v.Input, Object: v.Object, Explore: plainCloneProgrammer_feature_explore(v.Explore)})
+          }{Functor: props.Functor, Input: v.Input, Object: v.Object, Explore: v.Explore})
         },
         Success: func(exp *shimast.Node) *shimast.Node { return exp },
         Escaper: func(v nativeiterate.Decode_union_object_escape) *shimast.Node {

@@ -31,6 +31,15 @@ interface IArguments {
  *    type is documented as another type's shape.
  * 4. Assert the minted id is not read back as a member of the name it
  *    disambiguates, which would inherit that name's description.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that each same-named/colliding type retains a distinct resolving reference, own property and description.
+ * @evidence contracts/testing.md#independent-expectations Three authored property/accessor pairs and four total types establish expected identity independently of the allocator.
+ * @evidence contracts/testing.md#distinguishing-cases Duplicate Foo and real Foo.o1 must coexist; minted names must avoid namespace-parent inheritance and retain BETA rather than ALPHA prose.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_openapi_component_name_collision through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Metadata component identity must survive allocator publication and descriptor lookup for colliding source modules. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Duplicate Foo and real Foo.o1 must coexist; minted names must avoid namespace-parent inheritance and retain BETA rather than ALPHA prose. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_openapi_component_name_collision = (): void => {
   const collection = typia.json.schema<IArguments, "3.1">();

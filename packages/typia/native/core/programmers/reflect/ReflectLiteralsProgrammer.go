@@ -14,6 +14,13 @@ type reflectLiteralsProgrammerNamespace struct{}
 
 var ReflectLiteralsProgrammer = reflectLiteralsProgrammerNamespace{}
 
+// ReflectLiteralsProgrammer_IProps is the transform context and the type argument
+// of the `typia.reflect.literals` call.
+//
+// @evidence contracts/common.md#principled-implementation The programmer needs the transform context and the type argument of the call.
+// @evidence contracts/common.md#clear-and-simple-design A two-field argument record for Write.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type ReflectLiteralsProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Type    *shimchecker.Type
@@ -106,6 +113,14 @@ func (reflectLiteralsProgrammerNamespace) Write(props ReflectLiteralsProgrammer_
   )
 }
 
+// ReflectLiteralsProgrammer_ErrorMessages are the two reasons the literal list
+// is refused: no constant literal was found, or a member other than a constant
+// literal exists.
+//
+// @evidence contracts/common.md#principled-implementation The two rejection reasons are named constants of a string type, so the validator and the diagnostics share one spelling and no free text is repeated.
+// @evidence contracts/common.md#clear-and-simple-design A string type with two constants.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the two reasons.
 type ReflectLiteralsProgrammer_ErrorMessages string
 
 const (

@@ -31,7 +31,9 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * - {@link validateClone} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to clone
+ *
  * @returns Deep cloned value
  */
 export function clone<T>(input: T): Resolved<T>;
@@ -55,10 +57,13 @@ export function clone(): never {
  * - {@link validateClone} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to clone
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Deep cloned value
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertClone<T>(
@@ -90,7 +95,9 @@ export function assertClone(): never {
  * - {@link validateClone} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Value to clone
+ *
  * @returns Deep cloned value, or `null` if invalid
  */
 export function isClone<T>(input: T): Resolved<T> | null;
@@ -118,7 +125,9 @@ export function isClone(): never {
  * - {@link isClone} — Returns `null` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Value to clone
+ *
  * @returns Validation result containing cloned value or errors
  */
 export function validateClone<T>(input: T): IValidation<Resolved<T>>;
@@ -147,6 +156,7 @@ export function validateClone(): never {
  * - {@link validatePrune} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to prune
  */
 export function prune<T extends object>(input: T): void;
@@ -170,10 +180,13 @@ export function prune(): never {
  * - {@link validatePrune} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to assert and prune
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns The pruned input
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertPrune<T>(
@@ -206,7 +219,9 @@ export function assertPrune(): unknown {
  * - {@link validatePrune} — Returns detailed validation errors
  *
  * @template T Type of input value
+ *
  * @param input Object to check and prune
+ *
  * @returns `true` if valid and pruned, `false` if type mismatch
  */
 export function isPrune<T>(input: T): input is T;
@@ -234,7 +249,9 @@ export function isPrune(): never {
  * - {@link isPrune} — Returns `false` instead of error details
  *
  * @template T Type of input value
+ *
  * @param input Object to validate and prune
+ *
  * @returns Validation result
  */
 export function validatePrune<T>(input: T): IValidation<T>;
@@ -266,7 +283,9 @@ export function validatePrune<T>(): IValidation<T> {
  * - {@link validateClassify} — Returns detailed validation errors
  *
  * @template T Target class type to reconstruct
+ *
  * @param input Plain data to classify
+ *
  * @returns A real instance of type `T`
  */
 export function classify<T>(input: Classifiable<T>): ClassifyResult<T>;
@@ -289,10 +308,13 @@ export function classify(): never {
  * - {@link validateClassify} — Returns detailed validation errors
  *
  * @template T Target class type to reconstruct
+ *
  * @param input Plain data to validate and classify
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns A real instance of type `T`
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
  */
 export function assertClassify<T>(
@@ -324,7 +346,9 @@ export function assertClassify(): never {
  * - {@link assertClassify} — Throws on first error
  *
  * @template T Target class type to reconstruct
+ *
  * @param input Plain data to validate and classify
+ *
  * @returns Validation result containing the instance or errors
  */
 export function validateClassify<T>(
@@ -355,6 +379,7 @@ export function createClone(): never;
  * Creates reusable {@link clone} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable clone function
  */
 export function createClone<T>(): (input: T) => Resolved<T>;
@@ -377,8 +402,10 @@ export function createAssertClone(
  * Creates reusable {@link assertClone} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable clone function
  */
 export function createAssertClone<T>(
@@ -404,6 +431,7 @@ export function createIsClone(): never;
  * Creates reusable {@link isClone} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable clone function
  */
 export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
@@ -424,6 +452,7 @@ export function createValidateClone(): never;
  * Creates reusable {@link validateClone} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable clone function
  */
 export function createValidateClone<T>(): (
@@ -446,6 +475,7 @@ export function createPrune(): never;
  * Creates reusable {@link prune} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable prune function
  */
 export function createPrune<T extends object>(): (input: T) => void;
@@ -468,8 +498,10 @@ export function createAssertPrune(
  * Creates reusable {@link assertPrune} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable prune function
  */
 export function createAssertPrune<T extends object>(
@@ -495,6 +527,7 @@ export function createIsPrune(): never;
  * Creates reusable {@link isPrune} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable prune function
  */
 export function createIsPrune<T extends object>(): (
@@ -517,6 +550,7 @@ export function createValidatePrune(): never;
  * Creates reusable {@link validatePrune} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable prune function
  */
 export function createValidatePrune<T extends object>(): (
@@ -539,6 +573,7 @@ export function createClassify(): never;
  * Creates reusable {@link classify} function.
  *
  * @template T Target class type to reconstruct
+ *
  * @returns Reusable classify function
  */
 export function createClassify<T>(): (
@@ -563,8 +598,10 @@ export function createAssertClassify(
  * Creates reusable {@link assertClassify} function.
  *
  * @template T Target class type to reconstruct
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable classify function
  */
 export function createAssertClassify<T>(
@@ -590,6 +627,7 @@ export function createValidateClassify(): never;
  * Creates reusable {@link validateClassify} function.
  *
  * @template T Target class type to reconstruct
+ *
  * @returns Reusable classify function
  */
 export function createValidateClassify<T>(): (

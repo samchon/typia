@@ -2,7 +2,12 @@ import cp from "child_process";
 
 import { TestProcessFailure } from "./TestProcessFailure";
 
+/** Checks the automated runner's fatal listener against real Node child exits. */
 export namespace TestProcessFailureTester {
+  /**
+   * Requires ordinary success and retained fatal failure across child
+   * lifetimes.
+   */
   export const assert = (): void => {
     const normal: cp.SpawnSyncReturns<string> = execute(null, null);
     if (

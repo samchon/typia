@@ -4,12 +4,49 @@ import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
+/**
+ * Downgrades the emended OpenAPI document to OpenAPI 3.1.
+ *
+ * The `query` method and additional operations move to
+ * `x-additionalOperations`, which 3.1 lacks, the `byte` format becomes
+ * `contentEncoding: base64`, examples become arrays and the device
+ * authorization flow is dropped. Tuple rest constraints become `items`, and the
+ * emended required-prefix and closed-rest defaults become explicit.
+ *
+ * @evidence contracts/common.md#principled-implementation The emended document is rewritten to 3.1 by moving `query` and additional operations to `x-additionalOperations`, writing `byte` as base64 content encoding, turning example maps into arrays and removing the device authorization flow, while schemas keep their 2020-12 form.
+ * @evidence contracts/common.md#clear-and-simple-design Per-object helpers in one namespace.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Extension fields are documented ones; unsupported flows are removed and not renamed.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites.
+ */
 export namespace OpenApiV3_1Downgrader {
+  /**
+   * Pair of the original emended components and the 3.1 components being built.
+   *
+   * @evidence contracts/common.md#principled-implementation A pair of the original and downgraded components.
+   * @evidence contracts/common.md#clear-and-simple-design Two fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation A one-line comment states the role.
+   */
   export interface IComponentsCollection {
+    /** Emended schemas used to resolve the source references. */
     original: OpenApi.IComponents;
+
+    /** Target component store receiving converted schemas. */
     downgraded: OpenApiV3_1.IComponents;
   }
 
+  /**
+   * Downgrade a whole emended document to 3.1.
+   *
+   * @param input Emended document
+   *
+   * @returns OpenAPI 3.1 document
+   *
+   * @evidence contracts/common.md#principled-implementation Components are downgraded first and paths and webhooks are rewritten against the collection.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No hidden state.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgrade = (
     input: OpenApi.IDocument,
   ): OpenApiV3_1.IDocument => {
@@ -210,6 +247,18 @@ export namespace OpenApiV3_1Downgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Downgrade every component schema and security scheme.
+   *
+   * @param input Emended components
+   *
+   * @returns Collection holding the original and the downgraded components
+   *
+   * @evidence contracts/common.md#principled-implementation Each schema is downgraded into a new store under the same name and security schemes are rewritten for 3.1.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts No hidden state.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgradeComponents = (
     input: OpenApi.IComponents,
   ): IComponentsCollection => {
@@ -234,6 +283,18 @@ export namespace OpenApiV3_1Downgrader {
     return collection;
   };
 
+  /**
+   * Downgrade one emended schema to 3.1.
+   *
+   * @param collection Original and downgraded components
+   *
+   * @returns Function that converts an emended schema to a 3.1 schema
+   *
+   * @evidence contracts/common.md#principled-implementation Members of a `oneOf` are flattened into one union, null and constants are written in their 3.1 forms, strings get their base64 encoding, and tuples and objects recurse, with a discriminator kept only while the union kept one member per branch.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function with a small examples helper.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Rewrites follow the 3.1 dialect and no keyword is invented.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgradeSchema =
     (collection: IComponentsCollection) =>
     (input: OpenApi.IJsonSchema): OpenApiV3_1.IJsonSchema => {
@@ -294,11 +355,15 @@ export namespace OpenApiV3_1Downgrader {
           union.push({
             ...schema,
             examples: downgradeSchemaExamples(schema.examples),
-            prefixItems: schema.prefixItems.map(downgradeSchema(collection)),
-            additionalItems:
+            prefixItems: schema.prefixItems.length
+              ? schema.prefixItems.map(downgradeSchema(collection))
+              : undefined,
+            minItems: schema.minItems ?? schema.prefixItems.length,
+            items:
               typeof schema.additionalItems === "object"
                 ? downgradeSchema(collection)(schema.additionalItems)
-                : schema.additionalItems,
+                : (schema.additionalItems ?? false),
+            additionalItems: undefined,
           });
         else if (OpenApiTypeChecker.isObject(schema))
           union.push({

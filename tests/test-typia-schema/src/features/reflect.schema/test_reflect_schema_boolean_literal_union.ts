@@ -18,6 +18,15 @@ import typia from "typia";
  * 2. Reflect `{ ok: false; ... } | { ok: true; ... }`.
  * 3. Collect every object's `ok` boolean constant and assert both `false` and
  *    `true` are present (neither branch collapsed).
+ *
+ * @evidence contracts/testing.md#behavioral-verification The exported case asserts that bare false and both false/true object discriminants remain Boolean constants.
+ * @evidence contracts/testing.md#independent-expectations The authored false/true union establishes literal values; presence checks inspect emitted ok metadata rather than using a generated validator.
+ * @evidence contracts/testing.md#distinguishing-cases Bare false complements the true-only sibling, and both nested tagged object branches must survive.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_reflect_schema_boolean_literal_union in test-typia-schema start. Actual typia.reflect call expressions are transformed in the suite project and their emitted reflection values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary TypeScript-Go Boolean literal values must retain their source identity during metadata emission. Direct metadata/emitter unit calls do not establish public call resolution and evaluation of the emitted JavaScript together.
+ * @evidence contracts/e2e.md#shared-execution All inputs in this declaration join the existing ttsx schema-suite project and process; siblings reuse the same content-keyed native plugin artifact. The case adds no compiler subprocess, installation or independent host per variant.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Reflected values, projections and assertion accumulators belong to this invocation. Shared source declarations are read without mutation; ttsc owns plugin artifact invalidation and the suite owns process termination. No cold-cache transition is claimed.
+ * @evidence contracts/e2e.md#preserved-coverage Bare false complements the true-only sibling, and both nested tagged object branches must survive. All original producer invocations and assertions stay enrolled under the unchanged exported case; no meaningful distinction was removed as redundant.
  */
 export const test_reflect_schema_boolean_literal_union = (): void => {
   // 1) a bare `false` literal must report `false`, not the `true`-only path

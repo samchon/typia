@@ -9,6 +9,7 @@ export namespace JsonPointer {
    * every other character is itself.
    *
    * @param token Reference token, after any URI decoding
+   *
    * @returns The token's text, or `undefined` when a `~` is followed by
    *   anything but `0` or `1`
    */

@@ -1,5 +1,20 @@
 import { Resolved } from "@typia/interface";
 
+/**
+ * Clone an untyped value into plain data.
+ *
+ * Arrays, sets, maps, dates, regular expressions, typed arrays, buffers, blobs,
+ * files, boxed primitives and plain objects are rebuilt. Functions become
+ * undefined; object properties with undefined results are omitted, while
+ * arrays, sets and maps retain them. Weak collections throw. Cycles are not
+ * tracked, and ordinary objects may invoke their own valueOf or property
+ * getters.
+ *
+ * @evidence contracts/common.md#principled-implementation The clone walks the value and rebuilds arrays, sets, maps, boxed primitives, dates, regular expressions, typed arrays, buffers, data views, blobs, files and plain objects, turns functions into undefined, omits object properties whose cloned values are undefined while retaining such array/set/map results, and throws for weak collections. Native recognition checks intrinsic prototype accessors with `Reflect.apply` rather than trusting a supplied string tag or own getter; native clones use those captured accessors for their internal data. The ordinary-object branch invokes valueOf and clones its replacement when different, otherwise rebuilding enumerable own entries. Cycles are not tracked, so a cyclic value does not terminate.
+ * @evidence contracts/common.md#clear-and-simple-design One entry function over a recognition function, a native cloner and a buffer range copier; the accessor captures are module-level constants because they are looked up once from the prototypes.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Recognition uses the intrinsic prototype accessors and no foreign method is replaced; native tags are checked through them and not by the forgeable string tag alone.
+ * @evidence contracts/common.md#meaningful-documentation A comment states the cloned kinds, the object-member omission, retained container entries, observable valueOf/getters and the cycle limitation.
+ */
 export const _plainCloneAny = <T>(value: T): Resolved<T> =>
   cloneMain(value) as Resolved<T>;
 

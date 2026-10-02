@@ -10,16 +10,41 @@ type jsonMetadataFactoryNamespace struct{}
 
 var JsonMetadataFactory = jsonMetadataFactoryNamespace{}
 
+// JsonMetadataFactory_IProps describes one JSON analysis: the typia method name
+// for diagnostics, the checker and type, and a validator of the metadata.
+//
+// @evidence contracts/common.md#principled-implementation A JSON analysis needs the method name for diagnostic codes, the checker and type to analyze and a validator that adds the call-specific rules to the shared JSON validation.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record for Analyze.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field is for.
 type JsonMetadataFactory_IProps struct {
-  Method   string
-  Checker  *nativechecker.Checker
-  Type     *nativechecker.Type
+  // Method identifies the invoking typia API in transformation diagnostics.
+  Method string
+
+  // Checker resolves the Type within the current compiler program.
+  Checker *nativechecker.Checker
+
+  // Type is the root TypeScript type to analyze for JSON representation.
+  Type *nativechecker.Type
+
+  // Validate adds consumer-specific checks after the shared JSON checks.
+  // Nil adds no checks.
   Validate MetadataFactory_Validator
 }
 
+// JsonMetadataFactory_IOutput is the analyzed metadata and the collection of
+// named types it refers to.
+//
+// @evidence contracts/common.md#principled-implementation The analysis returns both the root schema and the collection of named types that it refers to, because the schema refers to components by name.
+// @evidence contracts/common.md#clear-and-simple-design A two-field result record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both parts.
 type JsonMetadataFactory_IOutput struct {
+  // Collection owns named components referenced by Metadata.
   Collection *schemametadata.MetadataCollection
-  Metadata   *schemametadata.MetadataSchema
+
+  // Metadata is the validated root schema, sharing its named components.
+  Metadata *schemametadata.MetadataSchema
 }
 
 func (jsonMetadataFactoryNamespace) Analyze(props JsonMetadataFactory_IProps) JsonMetadataFactory_IOutput {

@@ -16,6 +16,15 @@ import typia, { IValidation } from "typia";
  * 3. Keep nullable strings, nullable numbers, `unknown`, `any`, and nullable array
  *    elements reading `null` as the twins; a nullable array's own element does
  *    not admit it.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The case asserts that eight query forms keep the literal text null unless the declared scalar or element domain admits null.
+ * @evidence contracts/testing.md#independent-expectations Handwritten string/null outputs follow each TypeScript declaration; explicit optionalUnknown absence stays undefined.
+ * @evidence contracts/testing.md#distinguishing-cases Required/optional/literal/nullable/array strings and nullable count across eight forms, unknown/any, nullable container versus nullable elements and absent optionalUnknown remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_http_query_null_text in test-typia-schema start. Each actual typia.http call is rewritten in the native suite project and its emitted decoder executes on local HTTP representations in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native nullability metadata must select correct emitted query scalar and array-element readers instead of globally converting null text. Calling a portable read helper alone cannot detect wrong compiler metadata selection, omitted generated validation or broken direct/factory decoder assembly.
+ * @evidence contracts/e2e.md#shared-execution All declared operation/type variants share the existing ttsx suite project and process plus content-keyed native artifact. Runtime input matrices reuse those prepared decoders; no input row causes a compiler process or fixture installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Input query/header/FormData values and result projections are local. Decoders are required to read these representations without changing their contents; no case changes a foreign prototype or retained fixture. The suite owns process termination and ttsc owns artifact invalidation; cache warmth is not a behavior assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Required/optional/literal/nullable/array strings and nullable count across eight forms, unknown/any, nullable container versus nullable elements and absent optionalUnknown remain. Every original HTTP producer form, input and assertion stays under the unchanged exported entry; no malformed/optional/nullability distinction was dropped to reduce execution.
  */
 export const test_http_query_null_text = (): void => {
   const decoders: Array<[string, (input: string) => IQuery | null]> = [

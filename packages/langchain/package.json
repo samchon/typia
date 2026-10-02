@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "rimraf lib && ttsc && node ../../scripts/create-conditional-declarations.cjs lib/index.d.ts && rolldown -c",
-    "dev": "ttsc --watch"
+    "dev": "ttsc --watch",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",
@@ -34,7 +35,7 @@
     "rimraf": "catalog:utils",
     "rolldown": "catalog:rolldown",
     "tinyglobby": "^0.2.12",
-    "ttsc": "catalog:typescript",
+    "ttsc": "catalog:samchon",
     "typescript": "catalog:typescript"
   },
   "sideEffects": false,

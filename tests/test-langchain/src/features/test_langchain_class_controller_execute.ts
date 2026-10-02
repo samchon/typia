@@ -6,6 +6,25 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies langchain class controller execute against the native
+ * typia.llm.controller output.
+ *
+ * The case builds its input in this file and asserts number of tools, add(10,
+ * 5), subtract(10, 3), multiply(4, 7), divide(20, 4).
+ *
+ * 1. Generate a controller from the imported Calculator fixture.
+ * 2. Assert the properties listed above.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Four reflected Calculator tools invoke actual methods and return authored arithmetic results 15, 7, 28 and 5 in success wrappers.
+ * @evidence contracts/testing.md#independent-expectations Declared method population and literal arithmetic expectations are independent of emitted controller metadata.
+ * @evidence contracts/testing.md#distinguishing-cases Four normal dispatches complement coercion, invalid-input and execution-error sibling cases.
+ * @evidence contracts/testing.md#execution-ownership test-langchain test:integration discovers test_langchain_class_controller_execute through DynamicExecutor after native rewriting of its typia call sites. No live model endpoint is used.
+ * @evidence contracts/e2e.md#necessary-boundary Four reflected Calculator tools invoke actual methods and return authored arithmetic results 15, 7, 28 and 5 in success wrappers. The native-produced controller is registered as an actual DynamicStructuredTool and its public SDK surface is exercised; authored metadata alone cannot establish producer-to-SDK assembly.
+ * @evidence contracts/e2e.md#shared-execution All native calls share one suite project, installed content-keyed plugin artifact and runtime process. Tool conversions and scenario inputs need no separate compiler, installation or model host; strict/ordinary options, where present, are emitted in that same project.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its controller/tool or structured-output object and authored input. No endpoint connection, transport, timer or native process is acquired by the case. Local state and returned promises live through the awaited scenario; the suite/compiler own native artifact lifecycle.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Four normal dispatches complement coercion, invalid-input and execution-error sibling cases. Portable authored-OpenAPI HTTP tool cases retain their original names and assertions in the plugin-free test:unit population.
+ */
 export const test_langchain_class_controller_execute =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

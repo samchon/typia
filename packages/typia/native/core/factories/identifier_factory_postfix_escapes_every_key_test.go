@@ -23,6 +23,11 @@ import (
 //  2. Decode every result as JSON twice and assert the original key survives.
 //  3. Assert the identifier fast path stays a dotted accessor, so ordinary keys
 //     and prototype-shadowing keys keep their existing output.
+//
+// @evidence contracts/testing.md#behavioral-verification IdentifierFactory.Postfix is called on keys with quotes, backslashes, separators and unicode; the output must equal the authored string, parse as a JavaScript string literal, and the accessor must decode back to the key.
+// @evidence contracts/testing.md#independent-expectations Authored expected strings plus a decoding oracle (JSON parsing of the emitted accessor) establish correctness independently of the escaper.
+// @evidence contracts/testing.md#distinguishing-cases A table of regressed characters plus round-trip checks for dotted and bracketed accessors; a complete sweep is owned by the code-point test.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory on strings and decodes the result with encoding/json, with no checker, filesystem fixture or process.
 func TestIdentifierFactoryPostfixEscapesEveryKey(t *testing.T) {
   for _, item := range []struct {
     name     string

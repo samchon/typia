@@ -39,6 +39,11 @@ import (
 //     (samchon/typia#2361). `nocall2.ts` is the control that only annotates the
 //     same type, and `replaced.ts` above is the twin that must stay withheld, so
 //     the fix cannot degenerate into never withholding on a library.
+//
+// @evidence contracts/testing.md#behavioral-verification Both validators emit; the project-declared control stays complete, the caller consulting replaced Map is withheld and the replacement library stays out of its narrowed dependencies. Two non-typia library method callers remain complete.
+// @evidence contracts/testing.md#independent-expectations On-disk replacement libraries are watched by the host globals bound but omitted from typia's project dependency lists. Withholding completeness retains that sound bound when validation reads the replacement; merely resolving a non-typia method cannot change a faithful reprint.
+// @evidence contracts/testing.md#distinguishing-cases Native validation through the replaced library contrasts with a project interface and two unchanged method callers, distinguishing type-analysis touches from callee-identity touches.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCompleteReplacedLibraryTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCompleteReplacedLibraryTransform(t *testing.T) {
   project := projectDependenciesCompleteReplacedLibraryProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -94,16 +99,7 @@ func TestProjectDependenciesCompleteReplacedLibraryTransform(t *testing.T) {
 
 func projectDependenciesCompleteReplacedLibraryProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-complete-replaced-library-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-complete-replaced-library-")
   for name, content := range map[string]string{
     "tsconfig.json": libReplacementNativeIdentityTSConfig,
     "node_modules/@typescript/lib-es2015/package.json":    libReplacementNativeIdentityPackageJSON,

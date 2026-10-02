@@ -21,9 +21,28 @@ export type ValidationPipeCases = [
   >,
 ];
 
+/**
+ * Verifies checking success must make the corresponding numeric data or
+ * Error-array length accessible.
+ *
+ * The compiler must distinguish the permitted type use from its adjacent
+ * invalid form.
+ *
+ * 1. Typecheck the authored signature or constraint.
+ * 2. Require the stated acceptance or expected diagnostic.
+ */
 export const read = (r: ValidationPipe<number, Error>): number =>
   r.success ? r.data : r.errors.length;
 
+/**
+ * Verifies reading data without checking success must remain a compile error.
+ *
+ * The compiler must distinguish the permitted type use from its adjacent
+ * invalid form.
+ *
+ * 1. Typecheck the authored signature or constraint.
+ * 2. Require the stated acceptance or expected diagnostic.
+ */
 export const bad = (r: ValidationPipe<number, Error>): number =>
   // @ts-expect-error `data` exists only on the success arm.
   r.data;

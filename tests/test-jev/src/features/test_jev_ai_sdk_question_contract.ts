@@ -18,6 +18,15 @@ import typia, { tags } from "typia";
  * 2. Run them through `experimental_evaluate()` with a mock model that answers
  *    each question from its own criteria.
  * 3. Assert the SDK accepted them and `decode()` rebuilds the decision.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Real AI SDK7 evaluates native-generated boolean, choice and score questions; authored mock answers decode to the complete nested decision, and a literal six-key list checks leaf enrollment.
+ * @evidence contracts/testing.md#independent-expectations The SDK validates questions independently of typia. Expected decision values and six paths follow the declared IDecision; mock choice answers use the first generated criterion, so this does not independently certify every criterion label or provider decision.
+ * @evidence contracts/testing.md#distinguishing-cases Boolean, enum choice, numeric score, literal-array membership and nested Probability0.8 cover distinct question kinds and paths. Record rejection and rounded-distribution rejection belong to the corresponding record and decimals siblings.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_jev_ai_sdk_question_contract in the native-enabled Jev integration population; awaited SDK operations and local mock callbacks belong to this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Generated questions cross into real AI SDK7 experimental_evaluate using its supported mock evaluation model. The SDK validates its own accepted question protocol before typia folds answers back into the decision.
+ * @evidence contracts/e2e.md#shared-execution These three generated-evaluation cases share the existing Jev project and ttsx integration invocation. Official SDK mock-model instances supply in-process responses without independent compiler projects or live-provider sessions.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh evaluation callbacks, answers and mock models; SDK promises are awaited and failures reach DynamicExecutor. No globals or foreign methods are replaced and no external server or process is retained.
+ * @evidence contracts/e2e.md#preserved-coverage All original handwritten answers, precision settings, prototype layers and assertions remain executable here. Direct Jev conversion and TypeSafe SDK assignability cases retain their original assertions in the separate plugin-free unit population.
  */
 export const test_jev_ai_sdk_question_contract = async (): Promise<void> => {
   const evaluation = typia.llm.evaluation<IDecision>();

@@ -8,16 +8,17 @@ import (
   "testing"
 )
 
-// TestIntersectionNonsensibleBackstop pins the intersection boundary of issue
-// #1967. The only sound `&` is `Base & TaggedObject…` — a real base (primitive,
-// array, tuple, object) carrying phantom/tag marker objects that drop away,
-// leaving the base validated. Intersecting two genuine constraint carriers
-// (`array & array`, `array & tuple`, `tuple & tuple`, template & template, a
-// real data object onto a non-object base) is a misuse with no sound result, so
-// it must keep raising a clear `nonsensible` diagnostic.
+// TestIntersectionNonsensibleBackstop checks the authored operation results described below.
 //
-// The accepted rows pin the positive side (Base & tag) so a future change cannot
-// quietly collapse the boundary.
+// An intersection must have an inhabitable supported representation; phantom optional metadata may be stripped without discarding actual incompatible value constraints.
+//
+// 1. Constructed invalid intersections are paired with supported branded counterparts, distinguishing rejection from an overbroad intersection ban.
+// 2. Unsupported array, tuple, template and required-data intersections produce a typia.createIs transformation diagnostic, while the phantom-brand strip controls build successfully.
+//
+// @evidence contracts/testing.md#behavioral-verification Unsupported array, tuple, template and required-data intersections produce a typia.createIs transformation diagnostic, while the phantom-brand strip controls build successfully.
+// @evidence contracts/testing.md#independent-expectations An intersection must have an inhabitable supported representation; phantom optional metadata may be stripped without discarding actual incompatible value constraints.
+// @evidence contracts/testing.md#distinguishing-cases Constructed invalid intersections are paired with supported branded counterparts, distinguishing rejection from an overbroad intersection ban.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestIntersectionNonsensibleBackstop as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestIntersectionNonsensibleBackstop(t *testing.T) {
   rejected := []struct {
     name string
@@ -54,10 +55,9 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
       _, errText, code := ttscTypiaTestCapture(func() int {
         return runBuild([]string{"--cwd", project, "--tsconfig", "tsconfig.json", "--emit"})
       })
-      if code == 0 {
-        t.Fatalf("%q was unexpectedly accepted; the nonsensible backstop must reject it", tc.decl)
+      if code != 3 || !strings.Contains(errText, "typia.createIs") {
+        t.Fatalf("%q must fail through typia.createIs transformation, not an unrelated compiler failure: code=%d stderr=\n%s", tc.decl, code, errText)
       }
-      _ = errText
     })
   }
 
@@ -99,13 +99,9 @@ func TestIntersectionNonsensibleBackstop(t *testing.T) {
 }
 
 // Unlike the sibling suites sharing atomicIntersectionSchemaTSConfig, this
-// test runs a full `--emit` build, and the fixture imports the real "typia"
-// package whose exports ship TypeScript source — so packages/typia/src/**
-// joins the program as emittable input. outDir keeps that emit inside the
-// fixture directory (removed by t.Cleanup) instead of writing .js beside
-// typia's own sources, and tsgo then demands rootDir name the program's
-// common source directory explicitly (TS5011): "../../.." resolves to
-// packages/typia from a fixture at native/.tmp-ttsc-typia-tests/<name>/.
+// test runs a full `--emit` build. Workspace declaration inputs are copied into
+// the temporary node_modules, so imported package sources are external inputs.
+// rootDir and outDir keep the fixture's emitted source inside its own directory.
 const intersectionBackstopTSConfig = `{
   "compilerOptions": {
     "target": "ES2022",
@@ -117,7 +113,7 @@ const intersectionBackstopTSConfig = `{
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist",
-    "rootDir": "../../.."
+    "rootDir": "src"
   },
   "include": ["src"]
 }
@@ -125,16 +121,7 @@ const intersectionBackstopTSConfig = `{
 
 func intersectionBackstopProject(t *testing.T, name string, decl string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "backstop-"+strings.ReplaceAll(name, "_", "-")+"-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "backstop-"+strings.ReplaceAll(name, "_", "-")+"-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

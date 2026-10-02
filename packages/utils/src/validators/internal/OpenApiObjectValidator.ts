@@ -5,7 +5,33 @@ import { ObjectDictionary } from "../../utils/internal/ObjectDictionary";
 import { IOpenApiValidatorContext } from "./IOpenApiValidatorContext";
 import { OpenApiStationValidator } from "./OpenApiStationValidator";
 
+/**
+ * Validates a value against an object schema.
+ *
+ * An ordinary Object string tag is accepted, including class instances; this
+ * does not require Object.prototype as the value's prototype. Own-property
+ * access can invoke caller-defined getters, whose exceptions propagate.
+ *
+ * @evidence contracts/common.md#principled-implementation An object with the ordinary Object string tag is accepted, including class instances. Declared properties follow the required list, schema-valued additional properties constrain undeclared own entries, and equals reports valued undeclared entries on closed objects. Undefined additional entries have no JSON form and are skipped. Own-key lookup avoids inherited values but can invoke getters; this is not a prototype-based plain-object test.
+ * @evidence contracts/common.md#clear-and-simple-design One function that concatenates three groups of checks and a private equals checker; path building is the shared naming rule.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Openness is read from the boolean keyword itself and not from its type, as the comment records, and no key is special-cased.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and function doc state the contract, and the comments on additional properties and `equals` explain the rules.
+ */
 export namespace OpenApiObjectValidator {
+  /**
+   * Validate that the value has the ordinary Object tag and check each declared
+   * property, each value of a schema-typed additional property and, for a
+   * closed object when `equals` is set, that no undeclared key has a value.
+   *
+   * @param ctx Validation context
+   *
+   * @returns Whether the value satisfies the schema
+   *
+   * @evidence contracts/common.md#principled-implementation Non-objects, arrays and values whose string tag is not `Object` are reported with the object expected name; the checks of the three groups are all evaluated so every problem is reported.
+   * @evidence contracts/common.md#clear-and-simple-design One function with the property, additional property and equals groups.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The string tag test rejects values such as dates and maps and accepts a class instance with the ordinary tag, which fits the JSON data model.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the function does.
+   */
   export const validate = (
     ctx: IOpenApiValidatorContext<OpenApi.IJsonSchema.IObject>,
   ): boolean => {

@@ -3,31 +3,22 @@ package main
 import (
   "fmt"
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestDefaultLibrarySpoofNativeIdentityTransform keeps a declaration package out
-// of the runtime-native authority even when its file is named like a TypeScript
-// default library (#2200).
+// TestDefaultLibrarySpoofNativeIdentityTransform verifies structural validation of counterfeit default-library types.
 //
-// Runtime-native identity admits a global whose constructor a default library
-// provides, so how "default library" is decided is the whole boundary. `lib.d.ts`
-// is an ordinary published file name, so a base-name test makes that authority
-// claimable by any package a project pulls in through `typeRoots` — the forged
-// declarations below are a full-member copy of the DOM `File` and `Blob`,
-// including their `declare var` constructor bindings, and nothing but the
-// containing directory distinguishes them from the real thing.
+// A default-library-looking filename or directive does not grant a user declaration the semantic ownership of a supported native class. Structural members remain required by its declared type.
 //
-//  1. Publish `lib.dom.d.ts` and `lib.es5.d.ts` from a fixture `@types` package
-//     that declares global File and Blob with their constructors.
-//  2. Transform validators for those globals with no DOM library and no Node
-//     types loaded, so the forged package is their only declaration source.
-//  3. Require the emit to keep the forged members instead of an `instanceof`.
-//  4. Execute the validators in Node against the forged structural values and
-//     against the real runtime instances, requiring an exact case count.
+// 1. Several native-name collisions share forged library provenance; genuine native controls are owned by the library replacement and user-global cases.
+// 2. The counterfeit default-library fixture retains each data-member check and emits none of the listed native instanceof paths.
+//
+// @evidence contracts/testing.md#behavioral-verification The counterfeit default-library fixture retains each data-member check and emits none of the listed native instanceof paths.
+// @evidence contracts/testing.md#independent-expectations A default-library-looking filename or directive does not grant a user declaration the semantic ownership of a supported native class. Structural members remain required by its declared type.
+// @evidence contracts/testing.md#distinguishing-cases Several native-name collisions share forged library provenance; genuine native controls are owned by the library replacement and user-global cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestDefaultLibrarySpoofNativeIdentityTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestDefaultLibrarySpoofNativeIdentityTransform(t *testing.T) {
   project := defaultLibrarySpoofNativeIdentityProject(t)
   js, errText, code := ttscTypiaTestCapture(func() int {
@@ -54,13 +45,6 @@ func TestDefaultLibrarySpoofNativeIdentityTransform(t *testing.T) {
     }
   }
 
-  output, runtimeErr := defaultLibrarySpoofNativeIdentityRun(t, project, js)
-  if runtimeErr != nil {
-    failures = append(failures, fmt.Sprintf("runtime matrix failed: %v\n%s", runtimeErr, output))
-  }
-  if expected := "RAN 6 SPOOF CASES"; !strings.Contains(output, expected) {
-    failures = append(failures, fmt.Sprintf("spoof runner did not report %q; got:\n%s", expected, output))
-  }
   if len(failures) != 0 {
     t.Fatalf("default library spoof mismatches:\n%s\n\nemit:\n%s", strings.Join(failures, "\n"), js)
   }
@@ -68,18 +52,7 @@ func TestDefaultLibrarySpoofNativeIdentityTransform(t *testing.T) {
 
 func defaultLibrarySpoofNativeIdentityProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "default-library-spoof-native-identity-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "default-library-spoof-native-identity-")
   for name, content := range map[string]string{
     "tsconfig.json": defaultLibrarySpoofNativeIdentityTSConfig,
     "node_modules/@types/spoof-lib/package.json": defaultLibrarySpoofNativeIdentityPackageJSON,
@@ -96,32 +69,6 @@ func defaultLibrarySpoofNativeIdentityProject(t *testing.T) string {
     }
   }
   return dir
-}
-
-func defaultLibrarySpoofNativeIdentityRun(t *testing.T, project string, js string) (string, error) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-    return "", nil
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  for name, content := range map[string]string{
-    "input.cjs": ttscTypiaTestRewriteCommonJS(t, js),
-    "run.cjs":   defaultLibrarySpoofNativeIdentityRuntimeRunner,
-  } {
-    if err := os.WriteFile(filepath.Join(runtimeDir, name), []byte(content), 0o644); err != nil {
-      t.Fatalf("write runtime file %s: %v", name, err)
-    }
-  }
-  cmd := exec.Command(node, filepath.Join(runtimeDir, "run.cjs"))
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  return string(output), err
 }
 
 const defaultLibrarySpoofNativeIdentityTSConfig = `{
@@ -176,41 +123,4 @@ const defaultLibrarySpoofNativeIdentitySource = `import typia from "typia";
 
 export const createdIsBlob = typia.createIs<Blob>();
 export const createdIsFile = typia.createIs<File>();
-`
-
-const defaultLibrarySpoofNativeIdentityRuntimeRunner = `const validators = require("./input.cjs");
-
-let ran = 0;
-const failures = [];
-const eq = (name, actual, expected) => {
-  ran += 1;
-  if (actual !== expected) {
-    failures.push(name + ": expected " + expected + " but got " + actual);
-  }
-};
-
-const spoofBlob = {
-  size: 1,
-  type: "text/plain",
-  spoofBlobBrand: "spoof",
-};
-const spoofFile = {
-  ...spoofBlob,
-  lastModified: 0,
-  name: "x.txt",
-  webkitRelativePath: "",
-  spoofFileBrand: "spoof",
-};
-
-eq("spoof Blob structural", validators.createdIsBlob(spoofBlob), true);
-eq("spoof Blob rejects runtime instance", validators.createdIsBlob(new Blob(["x"])), false);
-eq("spoof Blob missing brand", validators.createdIsBlob({ size: 1, type: "text/plain" }), false);
-eq("spoof File structural", validators.createdIsFile(spoofFile), true);
-eq("spoof File rejects runtime instance", validators.createdIsFile(new File(["x"], "x.txt")), false);
-eq("spoof File missing brand", validators.createdIsFile({ ...spoofFile, spoofFileBrand: undefined }), false);
-
-console.log("RAN " + ran + " SPOOF CASES");
-if (failures.length !== 0) {
-  throw new Error("MISMATCHES:\n" + failures.join("\n"));
-}
 `

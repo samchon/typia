@@ -1,12 +1,15 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies Boolean, numeric and string tuple slots through an identity generic. */
 export type AtomicSimple = [
   AtomicSimple.Value<boolean>,
   AtomicSimple.Value<number>,
   AtomicSimple.Value<string>,
 ];
 export namespace AtomicSimple {
+  /** Preserves the supplied primitive type through an identity alias. */
   export type Value<T> = T;
+  /** Returns the authored three-primitive positive tuple. */
   export function generate(): AtomicSimple {
     return [false, 1, "two"];
   }

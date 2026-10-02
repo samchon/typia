@@ -17,6 +17,15 @@ interface IValue {
  * 1. Validate symbols, null-prototype objects, cycles, and hostile proxies.
  * 2. Exercise both createValidate and createValidateEquals at root/property paths.
  * 3. Preserve readable primitive/object messages and ordinary success results.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Ordinary and exact generated validators return adapter issues for hostile unknown values.
+ * @evidence contracts/testing.md#independent-expectations Literal issue counts and root/property paths anchor failures; fixed readable messages and a success value supply controls.
+ * @evidence contracts/testing.md#distinguishing-cases Six hostile values cross both modes at root/property locations, including revoked/throwing proxies, cycles, null-prototype objects and coercion traps.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_standard_schema_unknown_diagnostics through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native validators must connect to the runtime diagnostic adapter without throwing while rendering rejected values.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Six hostile values cross both modes at root/property locations, including revoked/throwing proxies, cycles, null-prototype objects and coercion traps. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_standard_schema_unknown_diagnostics = (): void => {
   const cyclic: Record<string, unknown> = { bigint: 1n };

@@ -22,6 +22,15 @@ import typia, { tags } from "typia";
  * 1. Draw a large sample of each satisfiable pattern/format + length type.
  * 2. Require every draw to pass `is` of the same type and honor the bounds.
  * 3. Require an unsatisfiable pattern/format + length type to throw on draw.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct/factory draws alternate1000 times in every authored satisfiable pattern/format/length combination, while five unsatisfiable combinations must throw.
+ * @evidence contracts/testing.md#independent-expectations Type-declared patterns and length constraints establish the intended domains; positive verdicts come from generated is and share native metadata, so grammar correctness is not independently certified by these loops.
+ * @evidence contracts/testing.md#distinguishing-cases Pattern bounds, email/hostname/URL/password/UUID, IDN short and multi-label windows, exact lengths and uncombined controls retain their distinct rows; no row or negative combination is omitted.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_string_pattern_format_length in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_string_pattern_format_length = (): void => {
   // POSITIVE: every satisfiable combination round-trips through `is`.

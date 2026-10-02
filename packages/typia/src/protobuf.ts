@@ -15,12 +15,12 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
 /**
  * Generates Protocol Buffer message schema.
  *
- * @danger You must configure the generic argument `T`
+ * @danger You must configure the generic argument `_T`
  */
 export function message(): never;
 
 /**
- * Generates Protocol Buffer message schema for type `T`.
+ * Generates Protocol Buffer message schema for type `_T`.
  *
  * Creates a `.proto` message definition string from a TypeScript type. Use for
  * sharing schemas with other languages/frameworks.
@@ -28,11 +28,13 @@ export function message(): never;
  * Protocol Buffer has limited expressiveness compared to TypeScript.
  * Incompatible types cause compilation errors.
  *
- * @template T Target type
+ * @template _T Target type
+ *
  * @returns Protocol Buffer message schema string
+ *
  * @see https://typia.io/docs/protobuf/message/#restrictions
  */
-export function message<T>(): string;
+export function message<_T>(): string;
 
 /** @internal */
 export function message(): never {
@@ -66,7 +68,9 @@ export function decode(input: Uint8Array): never;
  * like `number & Minimum<7>`, not structural type safety.
  *
  * @template T Target type
+ *
  * @param input Protocol Buffer binary data
+ *
  * @returns Decoded value of type `T`
  */
 export function decode<T>(input: Uint8Array): Resolved<T>;
@@ -103,10 +107,13 @@ export function assertDecode(
  * - {@link validateDecode} — Returns detailed validation errors
  *
  * @template T Target type
+ *
  * @param input Protocol Buffer binary data
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Decoded value of type `T`
+ *
  * @throws {TypeGuardError} When custom tag validation fails
  */
 export function assertDecode<T>(
@@ -142,7 +149,9 @@ export function isDecode(input: Uint8Array): never;
  * - {@link validateDecode} — Returns detailed validation errors
  *
  * @template T Target type
+ *
  * @param input Protocol Buffer binary data
+ *
  * @returns Decoded value of type `T`, or `null` if invalid
  */
 export function isDecode<T>(input: Uint8Array): Resolved<T> | null;
@@ -177,7 +186,9 @@ export function validateDecode(input: Uint8Array): never;
  * - {@link isDecode} — Returns `null` instead of error details
  *
  * @template T Target type
+ *
  * @param input Protocol Buffer binary data
+ *
  * @returns Validation result containing decoded value or errors
  */
 export function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
@@ -205,8 +216,11 @@ export function validateDecode(): never {
  * Incompatible types cause compilation errors.
  *
  * @template T Type of input value
+ *
  * @param input Value to encode
+ *
  * @returns Protocol Buffer binary data
+ *
  * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function encode<T>(input: T): Uint8Array;
@@ -232,11 +246,15 @@ export function encode(): never {
  * Incompatible types cause compilation errors.
  *
  * @template T Type of input value
+ *
  * @param input Value to encode
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Protocol Buffer binary data
+ *
  * @throws {TypeGuardError} When input doesn't conform to type `T`
+ *
  * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function assertEncode<T>(
@@ -245,7 +263,7 @@ export function assertEncode<T>(
 ): Uint8Array;
 
 /** @internal */
-export function assertEncode<T>(
+export function assertEncode<_T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
@@ -270,14 +288,17 @@ export function assertEncode(): never {
  * Incompatible types cause compilation errors.
  *
  * @template T Type of input value
+ *
  * @param input Value to encode
+ *
  * @returns Protocol Buffer binary data, or `null` if invalid
+ *
  * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function isEncode<T>(input: T): Uint8Array | null;
 
 /** @internal */
-export function isEncode<T>(input: unknown): Uint8Array | null;
+export function isEncode<_T>(input: unknown): Uint8Array | null;
 
 /** @internal */
 export function isEncode(): never {
@@ -301,14 +322,17 @@ export function isEncode(): never {
  * Incompatible types cause compilation errors.
  *
  * @template T Type of input value
+ *
  * @param input Value to encode
+ *
  * @returns Validation result containing binary data or errors
+ *
  * @see https://typia.io/docs/protobuf/message/#restrictions
  */
 export function validateEncode<T>(input: T): IValidation<Uint8Array>;
 
 /** @internal */
-export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
+export function validateEncode<_T>(input: unknown): IValidation<Uint8Array>;
 
 /** @internal */
 export function validateEncode(): never {
@@ -329,6 +353,7 @@ export function createDecode(): never;
  * Creates reusable {@link decode} function.
  *
  * @template T Target type
+ *
  * @returns Reusable decoder function
  */
 export function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
@@ -349,6 +374,7 @@ export function createIsDecode(): never;
  * Creates reusable {@link isDecode} function.
  *
  * @template T Target type
+ *
  * @returns Reusable decoder function
  */
 export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
@@ -371,8 +397,10 @@ export function createAssertDecode(
  * Creates reusable {@link assertDecode} function.
  *
  * @template T Target type
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable decoder function
  */
 export function createAssertDecode<T>(
@@ -401,6 +429,7 @@ export function createValidateDecode(): never;
  * Creates reusable {@link validateDecode} function.
  *
  * @template T Target type
+ *
  * @returns Reusable decoder function
  */
 export function createValidateDecode<T>(): (
@@ -425,6 +454,7 @@ export function createEncode(): never;
  * Creates reusable {@link encode} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable encoder function
  */
 export function createEncode<T>(): (input: T) => Uint8Array;
@@ -445,6 +475,7 @@ export function createIsEncode(): never;
  * Creates reusable {@link isEncode} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable encoder function
  */
 export function createIsEncode<T>(): (input: T) => Uint8Array | null;
@@ -467,8 +498,10 @@ export function createAssertEncode(
  * Creates reusable {@link assertEncode} function.
  *
  * @template T Type of input value
+ *
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Reusable encoder function
  */
 export function createAssertEncode<T>(
@@ -497,6 +530,7 @@ export function createValidateEncode(): never;
  * Creates reusable {@link validateEncode} function.
  *
  * @template T Type of input value
+ *
  * @returns Reusable encoder function
  */
 export function createValidateEncode<T>(): (

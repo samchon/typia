@@ -25,6 +25,15 @@ import { Calculator } from "../structures/Calculator";
  * 3. Assert the message opens exactly one JSON fence.
  * 4. Assert the message is the registrar's title followed by `LlmJson.stringify`
  *    verbatim.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Invalid add arguments produce exactly one json fence and feedback equal to the unwrapped LlmJson.stringify failure with the registrar title.
+ * @evidence contracts/testing.md#independent-expectations The literal fence count and title are independent; the expected report body uses the same validateArguments/stringify family, so agreement establishes propagation and cannot rule out a shared rendering or validation defect.
+ * @evidence contracts/testing.md#distinguishing-cases A malformed numeric operand distinguishes failure formatting; valid argument dispatch belongs to the validation sibling.
+ * @evidence contracts/testing.md#execution-ownership test-langchain test:integration discovers test_langchain_tool_error_single_json_fence through DynamicExecutor after native rewriting of its typia call sites. No live model endpoint is used.
+ * @evidence contracts/e2e.md#necessary-boundary Invalid add arguments produce exactly one json fence and feedback equal to the unwrapped LlmJson.stringify failure with the registrar title. The native-produced controller is registered as an actual DynamicStructuredTool and its public SDK surface is exercised; authored metadata alone cannot establish producer-to-SDK assembly.
+ * @evidence contracts/e2e.md#shared-execution All native calls share one suite project, installed content-keyed plugin artifact and runtime process. Tool conversions and scenario inputs need no separate compiler, installation or model host; strict/ordinary options, where present, are emitted in that same project.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its controller/tool or structured-output object and authored input. No endpoint connection, transport, timer or native process is acquired by the case. Local state and returned promises live through the awaited scenario; the suite/compiler own native artifact lifecycle.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. A malformed numeric operand distinguishes failure formatting; valid argument dispatch belongs to the validation sibling. Portable authored-OpenAPI HTTP tool cases retain their original names and assertions in the plugin-free test:unit population.
  */
 export const test_langchain_tool_error_single_json_fence =
   async (): Promise<void> => {

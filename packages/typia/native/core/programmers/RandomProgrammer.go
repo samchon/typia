@@ -23,6 +23,15 @@ type randomProgrammerNamespace struct{}
 
 var RandomProgrammer = randomProgrammerNamespace{}
 
+// RandomProgrammer_IProps is the input of Write for the random generator:
+// Context (the transform context), Modulo (the call's callee expression), Type
+// (the type to generate for), Name (an optional type name) and Init (the
+// optional initializer of the generator parameter).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for, an optional type name and the optional initializer of the generator parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type RandomProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
@@ -31,6 +40,16 @@ type RandomProgrammer_IProps struct {
   Init    *shimast.Node
 }
 
+// RandomProgrammer_IDecomposeProps is the input of Decompose for the random
+// generator: Context (the transform context), Functor (the collector of the
+// helper functions that the generator emits), Type (the type to generate for),
+// Name (an optional type name) and Init (the optional initializer of the
+// generator parameter).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the collector of the helper functions that the generator emits, the type to generate for, an optional type name and the optional initializer of the generator parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type RandomProgrammer_IDecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
@@ -146,6 +165,13 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
   if init == nil {
     init = f.NewToken(shimast.KindQuestionToken)
   }
+  // A caller's initializer can itself be named generator. A generated binding
+  // prevents its default expression from resolving to this parameter's TDZ.
+  generatorEmit := props.Context.Emit
+  if generatorEmit == nil {
+    generatorEmit = shimprinter.NewEmitContext()
+  }
+  generator := generatorEmit.Factory.NewUniqueName("generator")
   resolvedType := randomProgrammer_import_type(props.Context, nativecontext.ImportProgrammer_TypeProps{
     File: "typia",
     Name: "Resolved",
@@ -168,7 +194,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
-        nativefactories.IdentifierFactory.Parameter("generator", randomGeneratorType, init, props.Context.Emit),
+        nativefactories.IdentifierFactory.Parameter(generator.Clone(generatorEmit.Factory), randomGeneratorType, init, props.Context.Emit),
       }),
       resolvedType,
       nil,
@@ -179,7 +205,7 @@ func (randomProgrammerNamespace) Decompose(props RandomProgrammer_IDecomposeProp
           f.NewIdentifier("_generator"),
           nil,
           f.NewToken(shimast.KindEqualsToken),
-          f.NewIdentifier("generator"),
+          generator.Clone(generatorEmit.Factory),
         )),
         f.NewReturnStatement(randomProgrammer_decode(randomProgrammer_decodeProps{
           Context: props.Context,
@@ -569,7 +595,8 @@ func randomProgrammer_decode(props randomProgrammer_decodeProps) *shimast.Node {
   return randomProgrammer_decode_pick(props, expressions)
 }
 
-// randomProgrammer_decode_pick draws one of the candidate expressions uniformly.
+// randomProgrammer_decode_pick selects a lazy candidate through the optional pick hook or uniform built-in fallback.
+// The custom hook receives its generator object as the receiver; only the selected candidate executes.
 func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expressions []*shimast.Node) *shimast.Node {
   f := nativecontext.EmitFactoryOf(randomProgrammer_factory, props.Context.Emit)
   pickers := make([]*shimast.Node, 0, len(expressions))
@@ -587,10 +614,11 @@ func randomProgrammer_decode_pick(props randomProgrammer_decodeProps, expression
   }
   return f.NewCallExpression(
     f.NewCallExpression(
-      randomProgrammer_internal(props.Context, "randomPick"),
+      nativefactories.IdentifierFactory.Access(props.Context.Emit, randomProgrammer_coalesce(props.Context, "pick", "randomPick"), "call"),
       nil,
       nil,
       f.NewNodeList([]*shimast.Node{
+        f.NewIdentifier("_generator"),
         f.NewArrayLiteralExpression(f.NewNodeList(pickers), true),
       }),
       shimast.NodeFlagsNone,
@@ -1507,24 +1535,13 @@ func randomProgrammer_is_typed_array(name string) bool {
 // randomProgrammer_typed_array_range reports the type tag and range a TypedArray's
 // elements are generated from.
 //
-// These bounds are a generation hint, not a validation gate, and they are the one
-// copy of the 64-bit bound that is deliberately inexact. They become `minimum` and
-// `maximum` comment tags on a number-typed JSON schema, and `number` cannot
-// represent 2**63 - 1 or 2**64 - 1 -- both arrive rounded up to the next power of
-// two. That costs nothing here, and not because the generator is careless: it
-// draws Math.floor(Math.random() * (maximum - minimum + 1)) + minimum, and that
-// span is 2**64 either way, where consecutive doubles are 2048 apart. So the
-// largest draw is 2**63 - 2048 for int64 and 2**64 - 2048 for uint64, both
-// inside the width. (Nearer the int64 maximum itself the spacing is 1024, which
-// is why the largest double below 2**63 is 2**63 - 1024; the span is what bounds
-// the draw.) The TypedArray constructor then wraps whatever it is handed anyway.
-//
-// Only the `bigint` path is exact, in _isTypeInt64Bigint and _isTypeUint64Bigint,
-// which take the true inclusive bound through a BigInt string a `number` literal
-// here could not spell. _isTypeInt64 and _isTypeUint64 on the `number` path
-// carry the same rounding this table does: their maxima are written 2**63 - 1
-// and 2**64 - 1, which are the powers of two as doubles, so each accepts one
-// value above its width -- the only float form that maximum has.
+// These strings become generation tags, not validation gates. BigInt typed
+// arrays select a bigint atomic schema, while the minimum/maximum tags pass
+// through the existing number-based schema representation. Endpoints beyond
+// JavaScript's exact integer range therefore retain that representation's
+// rounding limit. The default generator or a supplied generator consumes the
+// resulting schema, and the TypedArray constructor performs its normal element
+// conversion; this table does not promise an exact draw distribution.
 func randomProgrammer_typed_array_range(name string) (string, string, string) {
   switch name {
   case "Uint8Array", "Uint8ClampedArray":

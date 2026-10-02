@@ -26,7 +26,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "rimraf": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "typia": "workspace:^"

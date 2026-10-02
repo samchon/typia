@@ -34,9 +34,18 @@ interface AliasHolder {
  * 2. Generate the schema for a holder of each and require the documents to be
  *    equal.
  * 3. Require the member itself to be absent, so the parity cannot be satisfied by
- *    all three describing it wrongly in the same way.
+ *    both describing it wrongly in the same way.
  * 4. Require the neighboring data member to survive, so omission is confined to
  *    the function.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that interface-callable and alias-callable holders omit the function member and retain their data member.
+ * @evidence contracts/testing.md#independent-expectations A callable-only property has no JSON value; the authored component count/properties/required object prevents two equally wrong generated schemas from passing parity.
+ * @evidence contracts/testing.md#distinguishing-cases Both callable spellings are checked against each other and the fixed keep-only shape; other callable spellings remain owned by their existing regressions.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_function_member_spelling_parity through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Resolved callable provenance must feed the same JSON member-omission rule across source spellings. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Both callable spellings are checked against each other and the fixed keep-only shape; other callable spellings remain owned by their existing regressions. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_function_member_spelling_parity = (): void => {
   const shape = (

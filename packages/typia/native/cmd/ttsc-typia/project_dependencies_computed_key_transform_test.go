@@ -38,6 +38,11 @@ import (
 //  7. Assert `d.ts` stays declared AND reports `src/keyconst.ts`: a bare name
 //     whose constant fixes its own value is the bounded twin of `b.ts`, and it
 //     is the only case that pins both halves of the bare-name branch.
+//
+// @evidence contracts/testing.md#behavioral-verification Dependencies retain the computed property-key declaration and traversed barrel while excluding the unused sibling. Completeness is retained for the enum, literal and self-defined constant keys, withheld for a borrowed-value key, and the self-defined constant's declaration remains reported.
+// @evidence contracts/testing.md#independent-expectations Changing a consulted computed key changes the property tested by the validator, even when its primitive value is interned.
+// @evidence contracts/testing.md#distinguishing-cases The consumed enum key contrasts with an unused sibling; a borrowed-value constant key contrasts with a literal key and a constant that defines its own value. The latter also pins its declaration dependency.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesComputedKeyTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesComputedKeyTransform(t *testing.T) {
   project := projectDependenciesComputedKeyProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -98,16 +103,7 @@ func TestProjectDependenciesComputedKeyTransform(t *testing.T) {
 
 func projectDependenciesComputedKeyProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-computed-key-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-computed-key-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

@@ -7,20 +7,17 @@ import (
   "testing"
 )
 
-// TestJsonApplicationAliasFunctionValidation verifies that a function property
-// written through a `type` alias reaches the same #2195 guards as an inline one.
+// TestJsonApplicationAliasFunctionValidation checks the authored operation results described below.
 //
-// `json.application` keeps the alias on the property value it validates but
-// unaliases the one it emits, so before #2216 the two disagreed: `Validate` read
-// `p.Value.Functions` (empty for an aliased member) and skipped every per-function
-// check, while `WriteApplication` unaliased and silently dropped the malformed
-// function. The mirror case rejected a valid aliased application with a spurious
-// "must have at least a function type." This pins both directions.
+// A type alias preserves the underlying function meaning: JSON application requires one required, nonnullable signature and must apply the same checks before and after unaliasing.
 //
-//  1. Reject an aliased union / optional / nullable function with its exact
-//     #2195 diagnostic, matching the inline sibling fixtures.
-//  2. Accept an aliased required single function (direct and through a deep
-//     alias chain), emitting it and reporting no "at least a function" error.
+// 1. Three invalid alias shapes contrast with direct and deep single-function alias chains, pinning both under-rejection and over-rejection.
+// 2. Aliased union/optional/nullable functions report their exact rejection reasons; direct and deep required aliases emit the named function without spurious empty-application errors.
+//
+// @evidence contracts/testing.md#behavioral-verification Aliased union/optional/nullable functions report their exact rejection reasons; direct and deep required aliases emit the named function without spurious empty-application errors.
+// @evidence contracts/testing.md#independent-expectations A type alias preserves the underlying function meaning: JSON application requires one required, nonnullable signature and must apply the same checks before and after unaliasing.
+// @evidence contracts/testing.md#distinguishing-cases Three invalid alias shapes contrast with direct and deep single-function alias chains, pinning both under-rejection and over-rejection.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestJsonApplicationAliasFunctionValidation as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestJsonApplicationAliasFunctionValidation(t *testing.T) {
   for _, tt := range []struct {
     name     string
@@ -127,16 +124,7 @@ func jsonApplicationAliasExpectInclusion(t *testing.T, name string, source strin
 
 func jsonApplicationAliasProject(t *testing.T, name string, source string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "json-application-alias-"+name+"-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "json-application-alias-"+name+"-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

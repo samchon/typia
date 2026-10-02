@@ -13,6 +13,7 @@ interface BbsArticleController {
    * Writes a new article and archives it into the DB.
    *
    * @param props Properties of create function
+   *
    * @returns Newly created article
    */
   create(props: {

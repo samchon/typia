@@ -21,6 +21,11 @@ import (
 //  4. Reject Go-only spellings, separators, and empty or blank text.
 //  5. Spell values back exactly as JavaScript's `String()` does.
 //  6. Read integer spellings exactly, beyond double precision.
+//
+// @evidence contracts/testing.md#behavioral-verification NumberUtil.Read, String and Integer are called on JavaScript numeric spellings and the results are compared with authored values.
+// @evidence contracts/testing.md#independent-expectations The expectations are what JavaScript Number(text) returns, taken from the StringNumericLiteral grammar and not from Go's float parser.
+// @evidence contracts/testing.md#distinguishing-cases Hex, binary, octal, exponent, infinity, NaN, whitespace and invalid spellings are accepted and rejected rows.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported utility on strings with no filesystem fixture, process or native command build.
 func TestNumberUtilReadsJavaScriptNumberGrammar(t *testing.T) {
   finite := func(value float64) NumberUtil_Reading {
     return NumberUtil_Reading{Value: value, Numeric: true, Finite: true}

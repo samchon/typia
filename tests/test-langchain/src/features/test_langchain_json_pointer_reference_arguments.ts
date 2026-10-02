@@ -27,6 +27,15 @@ import typia from "typia";
  * 3. Execute a valid recursive value through the real LangChain tool.
  * 4. Reject both a referenced numeric and a referenced literal violation, each
  *    with typia's feedback naming the path under the reference.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Reflected RecursiveA~1B metadata survives the SDK schema converter; its Validator accepts a conforming recursive tree and rejects wrong literal/count, while invoke reports both authored failure paths.
+ * @evidence contracts/testing.md#independent-expectations RFC 6901 slash escaping, authored recursive literal/number constraints, tree data and negative mutations establish expectations independently of emitted references.
+ * @evidence contracts/testing.md#distinguishing-cases Model-facing SDK validation and actual invoke cover valid trees plus literal and numeric one-axis negatives; numeric-string coercion is avoided in these negatives.
+ * @evidence contracts/testing.md#execution-ownership test-langchain test:integration discovers test_langchain_json_pointer_reference_arguments through DynamicExecutor after native rewriting of its typia call sites. No live model endpoint is used.
+ * @evidence contracts/e2e.md#necessary-boundary Reflected RecursiveA~1B metadata survives the SDK schema converter; its Validator accepts a conforming recursive tree and rejects wrong literal/count, while invoke reports both authored failure paths. The native-produced controller is registered as an actual DynamicStructuredTool and its public SDK surface is exercised; authored metadata alone cannot establish producer-to-SDK assembly.
+ * @evidence contracts/e2e.md#shared-execution All native calls share one suite project, installed content-keyed plugin artifact and runtime process. Tool conversions and scenario inputs need no separate compiler, installation or model host; strict/ordinary options, where present, are emitted in that same project.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its controller/tool or structured-output object and authored input. No endpoint connection, transport, timer or native process is acquired by the case. Local state and returned promises live through the awaited scenario; the suite/compiler own native artifact lifecycle.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Model-facing SDK validation and actual invoke cover valid trees plus literal and numeric one-axis negatives; numeric-string coercion is avoided in these negatives. Portable authored-OpenAPI HTTP tool cases retain their original names and assertions in the plugin-free test:unit population.
  */
 export const test_langchain_json_pointer_reference_arguments =
   async (): Promise<void> => {

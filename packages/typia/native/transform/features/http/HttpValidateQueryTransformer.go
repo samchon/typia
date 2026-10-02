@@ -21,7 +21,6 @@ func (httpValidateQueryTransformerNamespace) Transform(props nativeinternal.ITra
         Modulo:  x.Modulo,
         Type:    x.Type,
         Name:    x.Name,
-        Init:    x.Init,
       })
     },
   })

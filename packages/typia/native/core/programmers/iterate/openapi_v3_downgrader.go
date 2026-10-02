@@ -7,24 +7,28 @@ import (
   nativefactories "github.com/samchon/typia/packages/typia/native/core/factories"
 )
 
-// OpenApiV3Downgrader rewrites an emended (OpenAPI 3.1) schema collection into
+// OpenApiV3Downgrader rewrites an emended schema collection into
 // the OpenAPI 3.0 dialect. `json.schema`, `json.schemas`, and `json.application`
-// all build their document through json_schema_station, which speaks 3.1 only:
+// all build their document through json_schema_station, whose normalized dialect
+// uses 3.1-style schema keywords:
 // it emits `const`, `prefixItems`, and a `{"type": "null"}` union member for a
 // nullable type. None of those exist in 3.0, which spells the same three things
 // as `enum`, `items` + `minItems`/`maxItems`, and the `nullable` flag.
 //
-// This is a port of `@typia/utils`' OpenApiV3Downgrader, which the TypeScript
-// implementation of JsonSchemasProgrammer called through
-// `OpenApiConverter.downgradeComponents` / `downgradeSchema` before the Go port
-// replaced it. The Go transform cannot call into TypeScript, so the two are
-// necessarily separate implementations of one contract; the port is kept
-// deliberately literal so the correspondence stays reviewable, and
+// This is a port of `@typia/utils`' OpenApiV3Downgrader. The Go transform cannot
+// call into TypeScript, so the two are necessarily separate implementations of
+// one contract; the port is kept deliberately literal so the correspondence stays
+// reviewable, and
 // `tests/test-typia-schema/src/features/json.schemas/test_json_schemas_v3_0_parity_converter.ts`
 // pins the two owners against each other on every emitted construct.
 //
 // Only the components-and-schemas surface is ported. The TypeScript owner also
 // downgrades paths, operations, and security schemes, none of which typia emits.
+//
+// @evidence contracts/common.md#principled-implementation It is the working state of OpenApiV3Downgrader; its 2 fields (Original, Downgraded) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type OpenApiV3Downgrader_IComponentsCollection struct {
   // Original is the emended 3.1 collection, read to resolve `$ref` targets
   // while deciding nullability. It is never mutated.
@@ -39,6 +43,11 @@ type OpenApiV3Downgrader_IComponentsCollection struct {
 // downgraded before its own key is registered, so the `X.Nullable` companions
 // that its references create land ahead of it exactly as the TypeScript owner's
 // argument-evaluation order places them.
+//
+// @evidence contracts/common.md#principled-implementation Every schema is downgraded in discovery order before its own key is registered, so the `X.Nullable` companions that its references create land ahead of it, and the input collection is only read.
+// @evidence contracts/common.md#clear-and-simple-design One loop over the ordered keys that delegates each schema to the schema downgrade.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Order comes from the recorded Order and not from sorting.
+// @evidence contracts/common.md#meaningful-documentation The doc states the order and why the companions come first.
 func OpenApiV3Downgrader_downgrade_components(input *OpenApi_IComponents) *OpenApiV3Downgrader_IComponentsCollection {
   collection := &OpenApiV3Downgrader_IComponentsCollection{
     Original:   input,
@@ -63,10 +72,20 @@ func OpenApiV3Downgrader_downgrade_components(input *OpenApi_IComponents) *OpenA
 // OpenApiV3Downgrader_downgrade_schema rewrites one emended schema into 3.0.
 //
 // The emended dialect expresses a union as `oneOf` and nullability as a
-// `{"type": "null"}` member of it. 3.0 has neither, so the schema is flattened
+// `{"type": "null"}` member of it. 3.0 supports oneOf but has no null type, so
+// the schema is flattened
 // into a union of concrete members, the null member is dropped, and the
 // surviving members carry `nullable: true` instead. Constants collapse into the
 // `enum` of a member of the same primitive type.
+// Tuple positions become an item union with prefix-length bounds, losing
+// positional and optional-prefix restrictions. Existing nullable companion names
+// are reused without comparing their schemas. A pure null result retains the
+// existing null-typed representation rather than acquiring a 3.0 nullable type.
+//
+// @evidence contracts/common.md#principled-implementation Constants merge into primitive enums, mixed null unions mark surviving members nullable, references may use nullable companions, and a discriminator survives only when each branch stays one member. Tuple conversion approximates positions and optional-prefix bounds. Existing nullable companion names are reused without schema comparison, and a pure null result keeps the existing null-typed representation; these are not universal lossless 3.0 mappings.
+// @evidence contracts/common.md#clear-and-simple-design One recursive function with a visitor over the schema kinds, delegating tuples, objects and nullable references to named helpers.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The rewrite follows the schema kinds and keywords of the dialect and special-cases no type name.
+// @evidence contracts/common.md#meaningful-documentation The doc states the flattening, the null handling and the constant folding.
 func OpenApiV3Downgrader_downgrade_schema(collection *OpenApiV3Downgrader_IComponentsCollection, input JsonSchema) JsonSchema {
   nullable := openApiV3Downgrader_is_nullable(map[string]bool{}, collection.Original, input)
   union := []JsonSchema{}
@@ -198,7 +217,7 @@ func openApiV3Downgrader_downgrade_tuple(collection *OpenApiV3Downgrader_ICompon
     elements := []JsonSchema{}
     elements = append(elements, prefixItems...)
     if rest := openApiV3Downgrader_schema(additional); rest != nil {
-      elements = append(elements, OpenApiV3Downgrader_downgrade_schema(collection, rest))
+      elements = append(elements, rest)
     }
     if len(elements) == 0 {
       items = JsonSchema{}

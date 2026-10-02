@@ -8,15 +8,17 @@ import (
   "testing"
 )
 
-// TestBuildTransformFailurePreservesArtifacts verifies failed-build atomicity.
+// TestBuildTransformFailurePreservesArtifacts checks the authored operation results described below.
 //
-// A transform failure can arrive after valid siblings have already produced
-// JavaScript, declarations, maps, and a manifest candidate. None of those
-// buffered results may replace prior artifacts or escape as new files.
+// Transform publication is atomic: any rejected call aborts the project before replacing previously valid artifacts or manifests.
 //
-//  1. Seed output and manifest trees with byte-sensitive prior artifacts.
-//  2. Build one valid source beside one typia-invalid generic source.
-//  3. Require the diagnostic and compare both trees byte-for-byte.
+// 1. One valid and one invalid source share a transaction; seeded existing files exercise preservation rather than only absence of newly created output.
+// 2. A multi-file project with one invalid typia call returns status three and preserves seeded output/manifest trees byte for byte.
+//
+// @evidence contracts/testing.md#behavioral-verification A multi-file project with one invalid typia call returns status three and preserves seeded output/manifest trees byte for byte.
+// @evidence contracts/testing.md#independent-expectations Transform publication is atomic: any rejected call aborts the project before replacing previously valid artifacts or manifests.
+// @evidence contracts/testing.md#distinguishing-cases One valid and one invalid source share a transaction; seeded existing files exercise preservation rather than only absence of newly created output.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestBuildTransformFailurePreservesArtifacts as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestBuildTransformFailurePreservesArtifacts(t *testing.T) {
   project := buildAtomicityProject(t, true)
   dist := filepath.Join(project, "dist")

@@ -19,6 +19,11 @@ import (
 //  2. Validate keys with dashes, leading digits, spaces, and empty names and
 //     assert each is rejected.
 //  3. Assert a dynamic string-typed key passes the name rule untouched.
+//
+// @evidence contracts/testing.md#behavioral-verification The protobuf object validator runs on identifier and non-identifier sole-literal keys and on a dynamic string key; invalid names must be rejected and dynamic keys exempted.
+// @evidence contracts/testing.md#independent-expectations The proto3 identifier grammar defines which names are legal; keys are authored.
+// @evidence contracts/testing.md#distinguishing-cases Accepted identifiers, rejected punctuated keys and the exempt dynamic key give three decision classes.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed metadata with no checker, filesystem fixture or process.
 func TestProtobufFactoryRejectsInvalidFieldNames(t *testing.T) {
   literal := func(value string) *schemametadata.MetadataSchema {
     return schemametadata.MetadataSchema_create(schemametadata.MetadataSchema{

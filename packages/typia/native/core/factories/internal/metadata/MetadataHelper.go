@@ -2,6 +2,7 @@ package metadata
 
 import (
   "strings"
+  "unicode"
 
   nativeast "github.com/microsoft/typescript-go/shim/ast"
   nativechecker "github.com/microsoft/typescript-go/shim/checker"
@@ -587,6 +588,11 @@ func metadata_js_doc_type_expression_text(tag *nativeast.Node) string {
   return metadata_clean_js_doc_text(nativescanner.GetTextOfNode(typ))
 }
 
+// metadata_js_doc_comment_text renders visible text from native JSDoc nodes.
+//
+// Links retain their target or display label. Source-only blank starred lines
+// delimit comment groups and supply no text, even when an unbraced type tag
+// causes the native parser to expose their marker as a JSDocText value.
 func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
   if list == nil {
     return ""
@@ -598,7 +604,9 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
     }
     switch node.Kind {
     case nativeast.KindJSDocText:
-      parts = append(parts, node.Text())
+      if !metadata_js_doc_text_is_separator_artifact(node) {
+        parts = append(parts, node.Text())
+      }
     case nativeast.KindJSDocLink,
       nativeast.KindJSDocLinkCode,
       nativeast.KindJSDocLinkPlain:
@@ -606,6 +614,61 @@ func metadata_js_doc_comment_text(list *nativeast.NodeList) string {
     }
   }
   return metadata_clean_js_doc_text(strings.Join(parts, ""))
+}
+
+// metadata_js_doc_text_is_separator_artifact recognizes a marker without content.
+//
+// A span starts inside its first line, so its first asterisk is actual text.
+// Subsequent lines may start with one JSDoc marker after a whitespace token
+// beginning with ASCII horizontal whitespace, as the native JSDoc scanner does.
+// Removing that marker must leave only whitespace to establish empty content.
+// Unicode line and paragraph separators are not part of the whitespace token.
+// Actual whitespace between visible nodes remains text. Missing source
+// provenance leaves the parser result untouched.
+func metadata_js_doc_text_is_separator_artifact(node *nativeast.Node) bool {
+  if node == nil {
+    return false
+  }
+  isWhitespace := func(char rune) bool {
+    // Match the native scanner's whitespace, including its BOM and zero-width space.
+    return unicode.IsSpace(char) || char == '\ufeff' || char == '\u200b'
+  }
+  text := strings.TrimFunc(node.Text(), isWhitespace)
+  if text == "" {
+    return false
+  }
+  for _, char := range text {
+    if char != '*' && !isWhitespace(char) {
+      return false
+    }
+  }
+  file := nativeast.GetSourceFileOfNode(node)
+  if file == nil {
+    return false
+  }
+  source := file.Text()
+  start, end := node.Pos(), node.End()
+  if start < 0 || end > len(source) || start >= end {
+    return false
+  }
+  text = strings.ReplaceAll(source[start:end], "\r\n", "\n")
+  text = strings.ReplaceAll(text, "\r", "\n")
+  for index, line := range strings.Split(text, "\n") {
+    if index != 0 {
+      // JSDoc starts whitespace tokens with ASCII horizontal whitespace;
+      // the same token may then include native Unicode whitespace.
+      if len(line) != 0 && strings.ContainsRune(" \t\v\f", rune(line[0])) {
+        line = strings.TrimLeftFunc(line, func(char rune) bool {
+          return char != '\u2028' && char != '\u2029' && isWhitespace(char)
+        })
+      }
+      line = strings.TrimPrefix(line, "*")
+    }
+    if strings.TrimFunc(line, isWhitespace) != "" {
+      return false
+    }
+  }
+  return true
 }
 
 func metadata_js_doc_link_text(node *nativeast.Node) string {

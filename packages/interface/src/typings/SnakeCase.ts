@@ -12,7 +12,13 @@ import { ValueOf } from "./internal/ValueOf";
  * structures.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target type to transform
+ *
+ * @evidence contracts/common.md#principled-implementation Object keys are rewritten by key remapping from a template-literal conversion that inserts an underscore before an uppercase letter not preceded by another uppercase letter, an empty string or an underscore, then lowercases. Methods are erased, boxed primitives unwrapped, native classes preserved and `any`, `unknown` and `object` returned unchanged. Arrays are mapped before the Equal check so recursive tuple rest aliases are not compared eagerly, and TupleStack stops recursion through a tuple that contains itself.
+ * @evidence contracts/common.md#clear-and-simple-design The exported alias decides whether conversion is needed and delegates object, array and string concerns to private helpers, one per structure, sharing Equal, IsTupleLike and ValueOf with the sibling case converters.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The conversion follows a closed algorithm over the key text and uses no consumer-specific key list; the Equal short-circuit only returns the original type when nothing would change.
+ * @evidence contracts/common.md#meaningful-documentation The comment states what is converted, that methods are erased as in Resolved and that nested structures recurse; private sections are headed with line comments. It does not list consecutive-capital or digit edge cases of the key algorithm.
  */
 export type SnakeCase<T> = unknown extends T
   ? T

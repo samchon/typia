@@ -7,6 +7,7 @@ import (
   "bytes"
   "os"
   "path/filepath"
+  "regexp"
   "runtime"
   "strings"
   "testing"
@@ -29,25 +30,39 @@ import (
 // have failed the repair -- and left the JS emit path it exists to cover
 // unreached, since the run stopped at the identity check.
 //
-// 1. Create isolated temporary TypeScript projects under the native package.
-// 2. Transform each project's `src/main.ts` to TypeScript output in memory.
-// 3. Transform each project's `src/main.ts` to JavaScript and require emitted
-//    CommonJS, which is what reaches the printer and the emit path.
-// 4. Cover reflect metadata, protobuf maps, and object-union emit paths.
-// 5. Run build/check/project-transform command paths against the same project.
+//  1. Create isolated temporary TypeScript projects in the writable OS temp directory.
+//  2. Transform each project's `src/main.ts` to TypeScript output in memory.
+//  3. Transform each project's `src/main.ts` to JavaScript and require emitted
+//     CommonJS, which is what reaches the printer and the emit path.
+//  4. Cover reflect metadata, protobuf maps, and object-union emit paths.
+//  5. Run build/check/project-transform command paths against the same project.
+//
+// @evidence contracts/testing.md#behavioral-verification Eight authored API fixtures produce TypeScript and CommonJS output; the core fixture also succeeds through noEmit build and project transformation.
+// @evidence contracts/testing.md#independent-expectations The authored fixtures contain supported public operations. Transforming them must remove those operation calls while preserving named exports; CommonJS output must include module exports. The public typia declaration has no reflect.metadata, so the legacy call in the core fixture is unresolved and must pass through verbatim, while the stub project that declares metadata must replace its call with the emitted metadata object. These assertions establish command emission, not execution of the generated JavaScript.
+// @evidence contracts/testing.md#distinguishing-cases Core, JSON, HTTP, plain, functional, complex, protobuf and reflected metadata inputs exercise two output modes; the unsupported legacy metadata call and the stubbed one are opposite twins on whether the call is replaced. Dedicated failure-atomicity, diagnostics and same-basename cases own rejection and output selection boundaries.
+// @evidence contracts/testing.md#execution-ownership The native tagged Go runner discovers TestTransformSyntheticEmitCoverage as a unit test. The command functions operate in process on project fixtures and captured output; no compiler or JavaScript subprocess is launched.
 func TestTransformSyntheticEmitCoverage(t *testing.T) {
+  // The public `typia` declaration has no `reflect.metadata`, so the core
+  // fixture's legacy call cannot be resolved and must pass through unchanged;
+  // only the project that declares a stub `metadata` makes it a supported
+  // operation. `preserved` lists text that must survive the transform,
+  // `removed` lists operation calls that must be replaced and `emitted` lists
+  // text their replacement must contain.
   cases := []struct {
-    name   string
-    source string
+    name      string
+    source    string
+    preserved []string
+    removed   []string
+    emitted   []string
   }{
-    {"core", transformCoverageCoreSource},
-    {"json", transformCoverageJSONSource},
-    {"http", transformCoverageHTTPSource},
-    {"plain", transformCoveragePlainSource},
-    {"functional", transformCoverageFunctionalSource},
-    {"complex", transformCoverageComplexSource},
-    {"protobuf", transformCoverageProtobufSource},
-    {"reflect-metadata", transformCoverageReflectMetadataSource},
+    {"core", transformCoverageCoreSource, []string{"export const metadata = typia.reflect.metadata<["}, nil, nil},
+    {"json", transformCoverageJSONSource, nil, nil, nil},
+    {"http", transformCoverageHTTPSource, nil, nil, nil},
+    {"plain", transformCoveragePlainSource, nil, nil, nil},
+    {"functional", transformCoverageFunctionalSource, nil, nil, nil},
+    {"complex", transformCoverageComplexSource, nil, nil, nil},
+    {"protobuf", transformCoverageProtobufSource, nil, nil, nil},
+    {"reflect-metadata", transformCoverageReflectMetadataSource, nil, []string{"metadata<[Reflected, string]>()"}, []string{"components: {", `value: "id"`}},
   }
   projects := map[string]string{}
   for _, tc := range cases {
@@ -65,8 +80,23 @@ func TestTransformSyntheticEmitCoverage(t *testing.T) {
       if code != 0 {
         t.Fatalf("transform ts failed for %s: code=%d stderr=\n%s", tc.name, code, errText)
       }
-      if !strings.Contains(out, "export") && !strings.Contains(out, "const") {
+      if !strings.Contains(out, "export") || regexp.MustCompile(`typia\.(?:[A-Za-z]+\.)?(?:create[A-Za-z]+|schema|schemas|literals)\s*(?:<|\()`).MatchString(out) {
         t.Fatalf("transform ts output for %s looks empty:\n%s", tc.name, out)
+      }
+      for _, text := range tc.preserved {
+        if !strings.Contains(out, text) {
+          t.Fatalf("transform ts output for %s must preserve unsupported call %q:\n%s", tc.name, text, out)
+        }
+      }
+      for _, text := range tc.removed {
+        if strings.Contains(out, text) {
+          t.Fatalf("transform ts output for %s must replace call %q:\n%s", tc.name, text, out)
+        }
+      }
+      for _, text := range tc.emitted {
+        if !strings.Contains(out, text) {
+          t.Fatalf("transform ts output for %s must contain %q:\n%s", tc.name, text, out)
+        }
       }
     })
   }
@@ -118,18 +148,7 @@ func TestTransformSyntheticEmitCoverage(t *testing.T) {
 
 func transformCoverageProject(t *testing.T, name string, source string) string {
   t.Helper()
-  root := transformCoverageRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, name+"-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, name+"-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

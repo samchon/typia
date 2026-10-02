@@ -6,6 +6,15 @@ type unionPredicatorNamespace struct{}
 
 var UnionPredicator = unionPredicatorNamespace{}
 
+// UnionPredicator_ISpecialized is one object type of a union with the property
+// that discriminates it. Index is the position of the object in the union, and
+// Neighbor says whether the discriminating property also exists in another
+// member.
+//
+// @evidence contracts/common.md#principled-implementation It is one object type of a union with the property that discriminates it; its 4 fields (Index, Object, Property, Neighbor) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type UnionPredicator_ISpecialized struct {
   Index    int
   Object   *nativemetadata.MetadataObjectType

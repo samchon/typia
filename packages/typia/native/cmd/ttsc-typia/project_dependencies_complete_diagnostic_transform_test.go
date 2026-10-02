@@ -18,13 +18,18 @@ import (
 // explaining (samchon/typia#2357).
 //
 //  1. Build a project where `rejected.ts` asks for a protobuf message over
-//     `bigint`, which no protobuf entry point supports, beside a `control.ts`
+//     a top-level `bigint` instead of a static message object, beside `control.ts`
 //     that transforms cleanly.
 //  2. Run project transform mode; the host reports the diagnostic and exits 3
 //     after printing the envelope.
 //  3. Assert the diagnostic names `rejected.ts`, so the fixture failed for the
 //     reason the test intends.
 //  4. Assert `control.ts` is declared complete and `rejected.ts` is not.
+//
+// @evidence contracts/testing.md#behavioral-verification A rejected call produces status 3 and a diagnostic owned by rejected.ts; the clean source remains complete and rejected.ts is withheld.
+// @evidence contracts/testing.md#independent-expectations A failed lowering cannot promise a bounded successful dependency set, while a different successful file need not lose its own claim.
+// @evidence contracts/testing.md#distinguishing-cases One project contains both a clean and a rejected call, pinning per-file failure isolation.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCompleteDiagnosticTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCompleteDiagnosticTransform(t *testing.T) {
   project := projectDependenciesCompleteDiagnosticProject(t)
   out, _, code := ttscTypiaTestCapture(func() int {
@@ -69,16 +74,7 @@ func TestProjectDependenciesCompleteDiagnosticTransform(t *testing.T) {
 
 func projectDependenciesCompleteDiagnosticProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-complete-diagnostic-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-complete-diagnostic-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

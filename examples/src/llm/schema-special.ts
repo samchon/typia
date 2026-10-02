@@ -8,6 +8,7 @@ interface Special {
    * Deprecated tags are just used for marking.
    *
    * @deprecated
+   *
    * @title Unsigned integer
    */
   type: number & tags.Type<"int32">;
@@ -35,6 +36,7 @@ interface Special {
    * You can limit the range of number.
    *
    * @exclusiveMinimum 19
+   *
    * @maximum 100
    */
   number?: number;

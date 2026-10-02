@@ -1,0 +1,279 @@
+import { TestValidator } from "@nestia/e2e";
+import { OpenApi, SwaggerV2 } from "@typia/interface";
+import { TestEquality } from "@typia/template/oracle-equality";
+import { OpenApiConverter, OpenApiTypeChecker } from "@typia/utils";
+
+/**
+ * Verifies Swagger 2 downgrade groups constants into typed enums.
+ *
+ * Swagger 2 has no `const`, so scalar and constant-only union schemas must be
+ * represented as deterministic, deduplicated enums without erasing ordinary
+ * union branches.
+ *
+ * 1. Downgrade scalar string, number, and boolean constants.
+ * 2. Group duplicate same-type constants and preserve mixed-type branches.
+ * 3. Assert top-level attributes and nullable union behavior remain intact.
+ */
+export const test_json_schema_downgrade_v20_enum = (): void => {
+  const convert = (schema: OpenApi.IJsonSchema): SwaggerV2.IJsonSchema =>
+    OpenApiConverter.downgradeSchema({
+      components: {},
+      schema,
+      version: "2.0",
+      downgraded: {},
+    });
+
+  TestEquality.equals("scalar string", convert({ const: "alpha" }), {
+    type: "string",
+    enum: ["alpha"],
+  });
+  TestEquality.equals("scalar number", convert({ const: 3 }), {
+    type: "number",
+    enum: [3],
+  });
+  TestEquality.equals("scalar boolean", convert({ const: false }), {
+    type: "boolean",
+    enum: [false],
+  });
+  TestEquality.equals(
+    "same-type union",
+    convert({
+      oneOf: [{ const: "a" }, { const: "b" }, { const: "a" }, { const: "c" }],
+      title: "something",
+      description: "nothing",
+    }),
+    {
+      type: "string",
+      title: "something",
+      description: "nothing",
+      enum: ["a", "b", "c"],
+    },
+  );
+  TestEquality.equals(
+    "mixed union",
+    convert({
+      oneOf: [{ const: "a" }, { const: 1 }, { const: true }],
+    }),
+    {
+      "x-oneOf": [
+        { type: "string", enum: ["a"] },
+        { type: "number", enum: [1] },
+        { type: "boolean", enum: [true] },
+      ],
+    },
+  );
+  TestEquality.equals(
+    "ordinary and constant branches",
+    convert({
+      oneOf: [{ const: "fixed" }, { type: "number", minimum: 0 }],
+    }),
+    {
+      "x-oneOf": [
+        { type: "string", enum: ["fixed"] },
+        { type: "number", minimum: 0 },
+      ],
+    },
+  );
+  TestEquality.equals(
+    "attributed constant branches",
+    convert({
+      oneOf: [
+        { const: "a", description: "First" },
+        { const: "b", description: "Second" },
+      ],
+    }),
+    {
+      "x-oneOf": [
+        { type: "string", enum: ["a"], description: "First" },
+        { type: "string", enum: ["b"], description: "Second" },
+      ],
+    },
+  );
+  TestEquality.equals(
+    "attributed constant branch round trip",
+    OpenApiConverter.upgradeSchema({
+      definitions: {},
+      schema: convert({
+        oneOf: [
+          { const: "a", description: "First" },
+          { const: "b", description: "Second" },
+        ],
+      }),
+    }),
+    {
+      oneOf: [
+        { const: "a", description: "First" },
+        { const: "b", description: "Second" },
+      ],
+    },
+  );
+  const singleAttributed: SwaggerV2.IJsonSchema = convert({
+    oneOf: [{ const: "a", description: "First" }],
+  });
+  TestEquality.equals("single attributed constant branch", singleAttributed, {
+    type: "string",
+    enum: ["a"],
+    description: "First",
+  });
+  TestValidator.predicate(
+    "single attributed constant description",
+    singleAttributed.description === "First",
+  );
+  const nullableAttributed: OpenApi.IJsonSchema = {
+    oneOf: [
+      { const: "a", description: "First" },
+      { type: "null", description: "Absent" },
+    ],
+  };
+  const nullableAttributedDowngraded: SwaggerV2.IJsonSchema =
+    convert(nullableAttributed);
+  TestEquality.equals(
+    "nullable attributed constant branch",
+    nullableAttributedDowngraded,
+    {
+      "x-oneOf": [
+        { type: "string", enum: ["a"], description: "First" },
+        { type: "null", description: "Absent" },
+      ],
+    },
+  );
+  TestEquality.equals(
+    "nullable attributed constant branch round trip",
+    OpenApiConverter.upgradeSchema({
+      definitions: {},
+      schema: nullableAttributedDowngraded,
+    }),
+    nullableAttributed,
+  );
+  const explicitNullable: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    definitions: {},
+    schema: {
+      "x-oneOf": [{ type: "number", description: "Amount" }, { type: "null" }],
+    },
+  });
+  TestEquality.equals(
+    "explicit nullable Swagger branch attributes",
+    explicitNullable,
+    {
+      oneOf: [{ type: "number", description: "Amount" }, { type: "null" }],
+    },
+  );
+  TestValidator.predicate(
+    "explicit nullable Swagger branch description",
+    OpenApiTypeChecker.isOneOf(explicitNullable) &&
+      explicitNullable.oneOf[0]?.description === "Amount",
+  );
+  TestEquality.equals(
+    "nullable constant",
+    convert({ oneOf: [{ const: "fixed" }, { type: "null" }] }),
+    { type: "string", enum: ["fixed"], "x-nullable": true },
+  );
+  const nullOnlyEnum: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    definitions: {},
+    schema: { type: "string", enum: [null] },
+  });
+  TestEquality.equals("null-only Swagger enum", nullOnlyEnum, {
+    type: "null",
+  });
+  TestValidator.predicate(
+    "null-only Swagger enum remains null-only",
+    OpenApiTypeChecker.isNull(nullOnlyEnum),
+  );
+  const nullableDefault: OpenApi.IJsonSchema = OpenApiConverter.upgradeSchema({
+    definitions: {},
+    schema: { type: "number", "x-nullable": true, default: null },
+  });
+  const nullableDefaultRoundTrip: SwaggerV2.IJsonSchema =
+    convert(nullableDefault);
+  TestEquality.equals(
+    "nullable null default round trip",
+    nullableDefaultRoundTrip,
+    { type: "number", "x-nullable": true, default: null },
+  );
+  TestValidator.predicate(
+    "nullable null default remains defined",
+    "default" in nullableDefaultRoundTrip &&
+      nullableDefaultRoundTrip.default === null,
+  );
+  const nullDefault: SwaggerV2.IJsonSchema = convert({
+    type: "null",
+    default: null,
+  });
+  TestEquality.equals("null-only default", nullDefault, {
+    type: "null",
+    default: null,
+  });
+  TestValidator.predicate(
+    "null-only default remains defined",
+    "default" in nullDefault && nullDefault.default === null,
+  );
+  const nullableReferenceDefinitions: Record<string, SwaggerV2.IJsonSchema> =
+    {};
+  const nullableReference: SwaggerV2.IJsonSchema =
+    OpenApiConverter.downgradeSchema({
+      components: { schemas: { Value: { type: "number" } } },
+      downgraded: nullableReferenceDefinitions,
+      schema: {
+        oneOf: [
+          { $ref: "#/components/schemas/Value" },
+          { type: "null", default: null },
+        ],
+      },
+      version: "2.0",
+    });
+  TestEquality.equals("nullable reference null default", nullableReference, {
+    "x-oneOf": [
+      { $ref: "#/definitions/Value" },
+      { type: "null", default: null },
+    ],
+  });
+  TestEquality.equals(
+    "nullable reference null default round trip",
+    OpenApiConverter.upgradeSchema({
+      definitions: nullableReferenceDefinitions,
+      schema: nullableReference,
+    }),
+    {
+      oneOf: [
+        { $ref: "#/components/schemas/Value" },
+        { type: "null", default: null },
+      ],
+    },
+  );
+  TestEquality.equals("null only", convert({ type: "null" }), {
+    type: "null",
+  });
+
+  const downgraded: Record<string, SwaggerV2.IJsonSchema> = {};
+  TestEquality.equals(
+    "constant reference",
+    OpenApiConverter.downgradeSchema({
+      components: {
+        schemas: { Fixed: { const: "referenced" } },
+      },
+      downgraded,
+      schema: {
+        oneOf: [{ $ref: "#/components/schemas/Fixed" }, { type: "null" }],
+      },
+      version: "2.0",
+    }),
+    { $ref: "#/definitions/Fixed.Nullable" },
+  );
+  TestEquality.equals(
+    "referenced constant definition",
+    downgraded["Fixed.Nullable"],
+    {
+      type: "string",
+      enum: ["referenced"],
+      "x-nullable": true,
+    },
+  );
+  TestEquality.equals(
+    "component definitions",
+    OpenApiConverter.downgradeComponents(
+      { schemas: { Component: { const: "component" } } },
+      "2.0",
+    ),
+    { Component: { type: "string", enum: ["component"] } },
+  );
+};

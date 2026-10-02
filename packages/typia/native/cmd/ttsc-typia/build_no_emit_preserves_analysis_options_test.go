@@ -7,18 +7,17 @@ import (
   "testing"
 )
 
-// TestBuildNoEmitPreservesAnalysisOnlyOptions verifies forced traversal does
-// not invalidate options that are legal precisely because the project emits
-// nothing.
+// TestBuildNoEmitPreservesAnalysisOnlyOptions checks the authored operation results described below.
 //
-// `allowImportingTsExtensions` is valid with `noEmit`, but invalid in an
-// emitting program. The private emit-enabled traversal must therefore reuse
-// the already-proven TypeScript analysis instead of reporting diagnostics
-// introduced only by its internal override.
+// allowImportingTsExtensions is legal for noEmit analysis; an internal traversal override must not invalidate already-valid user options or publish outputs.
 //
-//  1. Create a valid no-emit typia project with allowImportingTsExtensions.
-//  2. Run the native build command through its configured no-emit path.
-//  3. Require success and prove the private traversal publishes no output.
+// 1. A valid typia call uses noEmit together with the analysis-only option; invalid transform noEmit twins are owned by the neighboring diagnostic case.
+// 2. The configured noEmit build succeeds without private emit diagnostics and creates neither dist nor incremental state.
+//
+// @evidence contracts/testing.md#behavioral-verification The configured noEmit build succeeds without private emit diagnostics and creates neither dist nor incremental state.
+// @evidence contracts/testing.md#independent-expectations allowImportingTsExtensions is legal for noEmit analysis; an internal traversal override must not invalidate already-valid user options or publish outputs.
+// @evidence contracts/testing.md#distinguishing-cases A valid typia call uses noEmit together with the analysis-only option; invalid transform noEmit twins are owned by the neighboring diagnostic case.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestBuildNoEmitPreservesAnalysisOnlyOptions as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestBuildNoEmitPreservesAnalysisOnlyOptions(t *testing.T) {
   project := buildNoEmitDiagnosticProject(t, true)
   configPath := filepath.Join(project, "tsconfig.json")

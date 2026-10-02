@@ -7,7 +7,30 @@ import { TestAutomationMetadata } from "./TestAutomationMetadata";
 import { TestAutomationTemplate } from "./TestAutomationTemplate";
 import { write_common } from "./writers/write_common";
 
+/**
+ * Owns fixture discovery, feature replacement and suite directory enrollment.
+ *
+ * The visitor receives completed families, including the authored composite
+ * directory. It may collect these locations before starting a shared worker.
+ *
+ * @evidence contracts/testing.md#behavioral-verification This namespace prepares inputs rather than asserting product behavior. loadMetadata rejects a missing exported fixture, generateFeatureSet binds eligible authored fixtures, and writeScript preserves assertion/error callback imports; test_direct_factory_matrix checks completed enrollment and the generated helpers assert runtime results.
+ * @evidence contracts/testing.md#independent-expectations Authored operation capability flags and fixture metadata determine generation. No emitted callback result supplies an expected value; runtime helpers own their fixture, platform or reference-codec oracles and their documented limits.
+ * @evidence contracts/testing.md#distinguishing-cases createOnly, creatable and capability flags choose supported halves and fixtures; missing fixture exports and rejected writes fail preparation. The controller does not independently test each eligibility branch; the explicit direct/factory regression checks active operation enrollment.
+ * @evidence contracts/testing.md#execution-ownership generate and main invoke iterate. Private loadMetadata, generateFeatureSet and writeScript callbacks belong to this namespace's preparation path; completed generated exports and authored composites are executed by the caller's TestServant rather than here.
+ */
 export namespace TestAutomationController {
+  /**
+   * Replaces generated features and visits every completed family in order.
+   *
+   * A rejected write or visit stops preparation; the caller must not execute a
+   * partially generated project as a successful matrix. Composites are
+   * retained.
+   *
+   * @evidence contracts/testing.md#behavioral-verification iterate awaits generation and visitation without computing a product verdict. test_direct_factory_matrix receives its completed locations and checks supported direct/factory enrollment; later TestServant executions own actual callback assertions.
+   * @evidence contracts/testing.md#independent-expectations Fixture export metadata and configured operation flags establish the generated population before callbacks run. This operation does not create expected decoded data, schemas or diagnostic paths from emitted output.
+   * @evidence contracts/testing.md#distinguishing-cases It replaces only generated features, distinguishes create-only from direct/factory descriptors and retains authored composites. A rejected generation or visit stops preparation; partial generated output is not treated as a complete run.
+   * @evidence contracts/testing.md#execution-ownership The package generate entry supplies a no-op visitor; main collects completed directory paths before opening one worker. Private metadata, eligibility and source-rendering operations execute as this awaited preparation, while every generated case retains its separate matching export.
+   */
   export const iterate = async (
     visit: (location: string) => Promise<void>,
   ): Promise<void> => {
@@ -149,11 +172,18 @@ export namespace TestAutomationController {
                   `${method}<${struct.name}>(input, (p) => new CustomGuardError(p))`,
                 )
         : (str: string) => str;
+    const comment = content.lastIndexOf("/**", from);
+    const commentEnd = comment === -1 ? -1 : content.indexOf("*/", comment);
+    const importAt =
+      commentEnd !== -1 && content.substring(commentEnd + 2, from).trim() === ""
+        ? comment
+        : from;
     return [
-      content.substring(0, from),
+      content.substring(0, importAt),
       feat.custom === true
         ? `import { CustomGuardError } from "../../internal/CustomGuardError";\n\n`
         : `import { TypeGuardError } from "typia";\n\n`,
+      content.substring(importAt, from),
       feat.custom === true
         ? content
             .substring(from, to)

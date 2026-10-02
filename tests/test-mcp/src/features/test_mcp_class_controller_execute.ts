@@ -19,6 +19,15 @@ import { Calculator } from "../structures/Calculator";
  * 1. Serve a `Calculator` controller and grab its tools/call handler.
  * 2. Call add, subtract, multiply, and divide with concrete operands.
  * 3. Assert each returns the correct arithmetic result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The reflected add, subtract, multiply and divide handlers return structured values 15, 7, 28 and 5 for their authored operands.
+ * @evidence contracts/testing.md#independent-expectations Literal arithmetic results follow the authored Calculator method contract independently of schema emission.
+ * @evidence contracts/testing.md#distinguishing-cases Four registered successful operations complement unknown-name, invalid-input and controller-exception sibling cases.
+ * @evidence contracts/testing.md#execution-ownership test-mcp test:integration discovers test_mcp_class_controller_execute through DynamicExecutor. The controller call is native-transformed before runtime adapter execution.
+ * @evidence contracts/e2e.md#necessary-boundary The reflected add, subtract, multiply and divide handlers return structured values 15, 7, 28 and 5 for their authored operands. The native-produced controller is registered by createMcpServer and the actual SDK handler is invoked directly. This pins producer-to-adapter assembly, not transport serialization; private SDK handler lookup is an existing test coupling.
+ * @evidence contracts/e2e.md#shared-execution All native controller call sites share the suite TypeScript project and content-keyed plugin artifact; no declaration builds its own native program. The directly invoked handlers require no separate host process or installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The case owns a fresh controller and unconnected server registry, invokes only its local handlers and opens no transport. Inputs and any fixture counter remain local, so another case cannot provide its verdict.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Four registered successful operations complement unknown-name, invalid-input and controller-exception sibling cases. Portable HTTP-executor handler assertions run separately in test_mcp_http_controller_execute under test:unit; no assertion is removed to shorten boundary execution.
  */
 export const test_mcp_class_controller_execute = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =

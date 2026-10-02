@@ -18,6 +18,11 @@ import (
 // 1. Build object properties for each smaller integer alias and for a mixed row.
 // 2. Emplace protobuf property metadata through ProtobufFactory.EmplaceObject.
 // 3. Assert signed aliases become int32 and unsigned aliases become uint32.
+//
+// @evidence contracts/testing.md#behavioral-verification ProtobufFactory.EmplaceObject runs on properties tagged with each smaller integer alias and on a mixed row; the resulting scalar types are asserted.
+// @evidence contracts/testing.md#independent-expectations Protobuf has no 8 or 16 bit scalars, so signed aliases map to int32 and unsigned to uint32 as authored expectations.
+// @evidence contracts/testing.md#distinguishing-cases Each alias and a mixed row; non-integer tags are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported factory in memory with no filesystem fixture, process or native command build.
 func TestProtobufFactorySmallerIntegerNormalization(t *testing.T) {
   for _, tuple := range []struct {
     tag      string

@@ -16,6 +16,11 @@ import (
 //  1. Verify unsupported metadata remains an ordinary diagnostic.
 //  2. Build a static object with an impossible empty semantic schema.
 //  3. Require the panic to escape the post-validation emplacement pass.
+//
+// @evidence contracts/testing.md#behavioral-verification The protobuf emplacer runs on unsupported metadata, which must produce an ordinary diagnostic, and on a static object with an impossible schema, which must panic and not be swallowed.
+// @evidence contracts/testing.md#independent-expectations Diagnostics for unsupported input and visibility of invariant failures are the stated contract; the expected error and panic are authored.
+// @evidence contracts/testing.md#distinguishing-cases Diagnostic versus panic separates expected failure from an invariant violation.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the emplacer on constructed metadata and recovers a panic in the test itself, with no checker, filesystem fixture or process.
 func TestProtobufEmplacerRecoveryOwnership(t *testing.T) {
   unsupported := schemametadata.MetadataSchema_initialize()
   unsupported.Any = true

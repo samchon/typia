@@ -6,7 +6,33 @@ import { OpenApiV3_1TypeChecker } from "../../validators/OpenApiV3_1TypeChecker"
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
+/**
+ * Upgrades an OpenAPI 3.1 document to the emended OpenAPI 3.2 form.
+ *
+ * Besides the work shared with the 3.0 upgrader, it resolves webhook and
+ * component references, turns `type` arrays and tuple spellings into the
+ * emended union and tuple forms, and reads `contentEncoding: base64` as the
+ * `byte` format. The 3.2 upgrader reuses its schema conversion.
+ *
+ * @evidence contracts/common.md#principled-implementation A 3.1 document is brought to the emended form with the 3.0 rewrites plus webhooks and path-item references, `type` arrays, `const`, both tuple spellings and base64 content encoding, with schema references rewritten to the components path.
+ * @evidence contracts/common.md#clear-and-simple-design Private helpers per object kind; the schema conversion is exported because the 3.2 upgrader reuses it, and the document-level helpers duplicate the 3.0 ones, which is a limitation.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The declared dialect decides every rewrite; no example document is special-cased.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites and the reuse by 3.2.
+ */
 export namespace OpenApiV3_1Upgrader {
+  /**
+   * Upgrade a whole 3.1 document; a document that is already emended is
+   * returned as it is.
+   *
+   * @param input OpenAPI 3.1 document
+   *
+   * @returns Emended document marked with `x-typia-emended-v12`
+   *
+   * @evidence contracts/common.md#principled-implementation An emended input is returned unchanged, otherwise the version and marker are set and components, paths and webhooks are converted.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The marker is the contract marker.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the pass-through of an emended document.
+   */
   export const convert = (input: OpenApiV3_1.IDocument): OpenApi.IDocument => {
     if ((input as unknown as OpenApi.IDocument)["x-typia-emended-v12"] === true)
       return input as unknown as OpenApi.IDocument;
@@ -346,6 +372,19 @@ export namespace OpenApiV3_1Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Upgrade the components of a 3.1 or 3.2 document; only schemas and security
+   * schemes are kept.
+   *
+   * @param input OpenAPI 3.1 components
+   *
+   * @returns Emended components
+   *
+   * @evidence contracts/common.md#principled-implementation Component schemas are converted and security schemes kept; other component kinds are not needed once references are inlined.
+   * @evidence contracts/common.md#clear-and-simple-design One function, also used for 3.2 and for the component entry of OpenApiConverter.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Supported schema and security-scheme stores are retained without reachability pruning; other component kinds are consumed while converting operations.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what is kept.
+   */
   export const convertComponents = (
     input: OpenApiV3_1.IComponents,
   ): OpenApi.IComponents => ({
@@ -357,6 +396,28 @@ export namespace OpenApiV3_1Upgrader {
     securitySchemes: input.securitySchemes,
   });
 
+  /**
+   * Upgrade one 3.1 schema, as the 3.2 upgrader does too.
+   *
+   * A `type` array becomes a union restricted by its `enum`, including the
+   * empty enum. Null requires both assertions to allow it. An empty primitive
+   * intersection becomes a string with contradictory length bounds, a valid
+   * schema with no possible instance. This preserves rejection through schema
+   * validation and downversion conversion; strict LLM conversion still shifts
+   * bounds into descriptions, and type coverage remains conservative across
+   * different atomic types. A tuple becomes `prefixItems` with its rest schema.
+   * Boolean `items: false` without a prefix becomes an empty closed tuple; true
+   * or omitted items leave array elements unconstrained.
+   *
+   * @param components Components used to resolve references
+   *
+   * @returns Function that converts a 3.1 schema to the emended schema
+   *
+   * @evidence contracts/common.md#principled-implementation Mixed primitive enum members satisfy both listed type and enum membership; integer uses Number.isInteger and null must be explicitly listed. If no member survives, minLength 1 and maxLength 0 define an empty valid-instance set using supported string assertions instead of invalid empty oneOf or unknown. The outer annotation record remains on the result. This is not a universal never variant: strict LLM conversion and cross-type covers keep their documented limitations, and existing container enum support is not expanded.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function with a mixed-type branch that reuses the single-type branches.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The enum restriction follows JSON Schema's simultaneous type and enum constraint, and the condition is the general form and not a patch for one input.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the type array, enum and tuple rules.
+   */
   export const convertSchema =
     (components: OpenApiV3_1.IComponents) =>
     (input: OpenApiV3_1.IJsonSchema): OpenApi.IJsonSchema => {
@@ -393,12 +454,16 @@ export namespace OpenApiV3_1Upgrader {
 
       const visit = (schema: OpenApiV3_1.IJsonSchema): void => {
         // NULLABLE PROPERTY
-        if ((schema as OpenApiV3_1.IJsonSchema.INumber).nullable === true) {
+        if (
+          !OpenApiV3_1TypeChecker.isMixed(schema) &&
+          (schema as OpenApiV3_1.IJsonSchema.INumber).nullable === true
+        ) {
           nullable.value ||= true;
           if ((schema as OpenApiV3_1.IJsonSchema.INumber).default === null)
             nullable.default = null;
         }
         if (
+          !OpenApiV3_1TypeChecker.isMixed(schema) &&
           Array.isArray((schema as OpenApiV3_1.IJsonSchema.INumber).enum) &&
           (schema as OpenApiV3_1.IJsonSchema.INumber).enum?.length &&
           (schema as OpenApiV3_1.IJsonSchema.INumber).enum?.some(
@@ -409,6 +474,8 @@ export namespace OpenApiV3_1Upgrader {
 
         // MIXED TYPE CASE
         if (OpenApiV3_1TypeChecker.isMixed(schema)) {
+          const previous: number = union.length;
+          const previousNullable: boolean = nullable.value;
           if (schema.const !== undefined)
             visit({
               ...schema,
@@ -450,35 +517,41 @@ export namespace OpenApiV3_1Upgrader {
                 $ref: undefined,
               },
             });
-          for (const type of schema.type)
-            if (type === "boolean" || type === "number" || type === "string")
-              visit({
-                ...schema,
-                ...{
-                  enum:
-                    schema.enum?.length && schema.enum.filter((e) => e !== null)
-                      ? schema.enum.filter((x) => typeof x === type)
-                      : undefined,
-                },
-                type: type as any,
-              });
-            else if (type === "integer")
-              visit({
-                ...schema,
-                ...{
-                  enum:
-                    schema.enum?.length && schema.enum.filter((e) => e !== null)
-                      ? schema.enum.filter(
-                          (x) =>
-                            x !== null &&
-                            typeof x === "number" &&
-                            Number.isInteger(x),
-                        )
-                      : undefined,
-                },
-                type: type as any,
-              });
-            else visit({ ...schema, type: type as any });
+          // Both assertions apply: even an empty enum admits no value, and
+          // null is admitted only by a listed null type and a matching enum.
+          const enumerated: boolean = schema.enum !== undefined;
+          for (const type of schema.type) {
+            const values: unknown[] | undefined = !enumerated
+              ? undefined
+              : type === "boolean" || type === "number" || type === "string"
+                ? schema.enum!.filter((x) => typeof x === type)
+                : type === "integer"
+                  ? schema.enum!.filter(
+                      (x) => typeof x === "number" && Number.isInteger(x),
+                    )
+                  : type === "null"
+                    ? schema.enum!.filter((x) => x === null)
+                    : undefined;
+            if (values !== undefined && values.length === 0) continue;
+            visit({
+              ...schema,
+              nullable: undefined,
+              ...(type === "null"
+                ? { enum: undefined }
+                : type === "boolean" ||
+                    type === "number" ||
+                    type === "string" ||
+                    type === "integer"
+                  ? { enum: values as any }
+                  : {}),
+              type: type as any,
+            });
+          }
+          if (union.length === previous && nullable.value === previousNullable)
+            // This supported string schema has no possible instance. Unlike
+            // an empty oneOf, it is valid JSON Schema and retains rejection
+            // through the existing OpenAPI downgrader and validator paths.
+            union.push({ type: "string", minLength: 1, maxLength: 0 });
         }
         // UNION TYPE CASE
         else if (OpenApiV3_1TypeChecker.isOneOf(schema)) {
@@ -625,8 +698,18 @@ export namespace OpenApiV3_1Upgrader {
                     : (schema.items ?? true),
               },
             });
-          else if (schema.items === undefined)
-            // JSON SCHEMA 2020-12 TREATS OMITTED `items` AS AN OPEN `any[]`
+          else if (schema.items === false)
+            union.push({
+              ...schema,
+              ...{
+                items: undefined!,
+                prefixItems: [],
+                minItems: schema.minItems ?? 0,
+                additionalItems: false,
+              },
+            } satisfies OpenApi.IJsonSchema.ITuple);
+          else if (schema.items === undefined || schema.items === true)
+            // OMITTED OR TRUE `items` LEAVES EVERY ARRAY ELEMENT UNCONSTRAINED.
             union.push({
               ...schema,
               ...{

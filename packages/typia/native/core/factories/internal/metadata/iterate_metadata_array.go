@@ -5,6 +5,13 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_array records an array type, or a class or interface that
+// extends an array, as an array entry. It reports false for any other type.
+//
+// @evidence contracts/common.md#principled-implementation The checker's array test accepts array types, and a class or interface that extends an array is found by walking its base types with a memo table so cycles end; the array type is emplaced and recorded once per name in the schema.
+// @evidence contracts/common.md#clear-and-simple-design One function and a private recursive finder.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The array identity comes from the checker, not from the type's text.
+// @evidence contracts/common.md#meaningful-documentation The doc states the extended-array case.
 func Iterate_metadata_array(props IMetadataIteratorProps) bool {
   var array *nativechecker.Type
   if props.Checker != nil && nativechecker.Checker_isArrayType(props.Checker, props.Type) {

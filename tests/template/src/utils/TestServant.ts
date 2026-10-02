@@ -1,7 +1,9 @@
 import { DynamicExecutor } from "@nestia/e2e";
 import chalk from "chalk";
 
+/** Discovers selected named scenario exports and returns their failures. */
 export class TestServant {
+  /** Executes selected exports and serializes their reported error diagnostics. */
   public async execute(props: TestServant.IProps): Promise<Error[]> {
     const exceptions: Error[] = [];
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
@@ -39,6 +41,7 @@ export class TestServant {
   }
 }
 export namespace TestServant {
+  /** Describes the actual discovery directory and name filters for one request. */
   export interface IProps {
     location: string;
     include: string[];

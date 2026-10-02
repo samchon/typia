@@ -25,6 +25,15 @@ import { ProtobufVarintCorpus } from "./ProtobufVarintCorpus";
  *    the value of an unknown varint field the decoder only skips.
  * 3. Preserve every accepted row's decoded value, trailing fields, and encoder
  *    round trips.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The shared corpus reaches eight decoder variants across scalar, packed/unpacked, map, nested, length, unknown, group and tag placements; accepted values and trailing fields are checked alongside exact fault messages.
+ * @evidence contracts/testing.md#independent-expectations Corpus rows record independent Go protowire.ConsumeVarint outcomes and exact bigint values. A typia-encoded baseline supplies valid framing, so final round trips are correlated controls rather than the source of expected varint verdicts.
+ * @evidence contracts/testing.md#distinguishing-cases Malformed irreversible prefixes, truncated prefixes and accepted noncanonical/maximal rows retain every original placement, eight public variants and trailing-field controls; the malformed corpus is explicitly required nonempty.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_protobuf_decode_varint_bounds in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native decode call sites select field numbers, reader operations and direct/factory/validation wrappers that consume the authored binary vectors. Portable reader units cannot prove this generated field dispatch and wrapper assembly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_protobuf_decode_varint_bounds = (): void => {
   const baseline: Uint8Array = typia.protobuf.encode<ISurface>({

@@ -1,5 +1,6 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies primitive values under wrapper interfaces and primitive unions. */
 export type AtomicClass = [
   Boolean,
   false | Boolean,
@@ -12,6 +13,7 @@ export type AtomicClass = [
   string | String,
 ];
 export namespace AtomicClass {
+  /** Creates the nine primitive representatives for the wrapper-spelled tuple. */
   export function generate(): AtomicClass {
     return [false, true, true, 2, 3, 4, "five", "six", "seven"];
   }

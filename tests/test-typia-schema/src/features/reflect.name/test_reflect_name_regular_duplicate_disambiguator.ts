@@ -21,6 +21,15 @@ import { Foo as Gamma } from "../json.schema/ComponentNameCollisionGamma";
  * 2. Report the regular name of a union of two identically named types.
  * 3. Assert the union names both members distinctly and that neither minted id
  *    collides with the real member's qualified name.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The exported case asserts that regular-mode duplicate identities cannot occupy the actual Foo.o1 namespace member name.
+ * @evidence contracts/testing.md#independent-expectations The authored real namespace identifier independently establishes Foo.o1; two distinct imported Foo types must have distinct allocated identities.
+ * @evidence contracts/testing.md#distinguishing-cases Real qualification, two duplicate member identities and absence of that real qualified name in the duplicate union remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_reflect_name_regular_duplicate_disambiguator in test-typia-schema start. Actual typia.reflect call expressions are transformed in the suite project and their emitted reflection values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Resolved source-module identities must remain distinguishable when the public regular-name mode publishes allocated ids. Direct metadata/emitter unit calls do not establish public call resolution and evaluation of the emitted JavaScript together.
+ * @evidence contracts/e2e.md#shared-execution All inputs in this declaration join the existing ttsx schema-suite project and process; siblings reuse the same content-keyed native plugin artifact. The case adds no compiler subprocess, installation or independent host per variant.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Reflected values, projections and assertion accumulators belong to this invocation. Shared source declarations are read without mutation; ttsc owns plugin artifact invalidation and the suite owns process termination. No cold-cache transition is claimed.
+ * @evidence contracts/e2e.md#preserved-coverage Real qualification, two duplicate member identities and absence of that real qualified name in the duplicate union remain. All original producer invocations and assertions stay enrolled under the unchanged exported case; no meaningful distinction was removed as redundant.
  */
 export const test_reflect_name_regular_duplicate_disambiguator = (): void => {
   // 1. THE REAL QUALIFIED NAME

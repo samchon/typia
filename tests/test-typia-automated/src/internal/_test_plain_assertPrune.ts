@@ -1,6 +1,22 @@
 import { TestStructure } from "@typia/template";
+import { isErrorClass } from "@typia/template/error-class";
+import { preparePrune } from "@typia/template/prune";
 import typia, { TypeGuardError } from "typia";
 
+/**
+ * Verifies plain.assertPrune through its supplied operation and fixture.
+ *
+ * Clean mutation checks delegate to preparePrune, while a separate spoiler loop
+ * retains operation-specific thrown diagnostics and independent fresh values.
+ *
+ * 1. Run the clean fixture scenario and its observable assertions.
+ * 2. Retain the applicable invalid or round-trip distinctions described below.
+ *
+ * @evidence contracts/testing.md#behavioral-verification preparePrune captures valid graph data and injects surplus keys; the real pruner must remove those keys while preserving valid data, references, prototypes and array lengths. Each authored value spoiler must throw the selected exact error prototype, satisfy native property checks and report one allowed path.
+ * @evidence contracts/testing.md#independent-expectations Pre-call authored graph snapshots and helper-owned surplus keys establish clean expectations. Spoilers supply invalid values/paths independently; native typia.is error shape is correlated, while exact prototype identity is independent.
+ * @evidence contracts/testing.md#distinguishing-cases ObjectSimple supplies a clean pruning graph and all declared invalid-value mutations. The shared portable prune units own destructive/no-op callbacks and graph boundaries; this wrapper does not assert return identity.
+ * @evidence contracts/testing.md#execution-ownership Committed test_plain_assertPrune_ObjectSimple owns the native callback and discovery. Full generated assertPrune families are disabled; this helper preserves their current composite assertion behavior.
+ */
 export const _test_plain_assertPrune =
   (ErrorClass: Function) =>
   (name: string) =>
@@ -8,26 +24,12 @@ export const _test_plain_assertPrune =
   (prune: (input: T) => T): void => {
     const input: T = factory.generate();
 
-    // SPOIL OBJECTS
-    iterate((obj: any) =>
-      new Array(10)
-        .fill("")
-        .forEach((_, i) => (obj[`__non_regular_type__${i}`] = "vulnerable")),
-    )(input);
-
-    // DO VALIDATE
+    const check = preparePrune(
+      input,
+      `Bug on typia.plain.assertPrune(): failed to prune the ${name} type.`,
+    );
     prune(input);
-    if (prune.toString().indexOf("RegExp(/(.*)/).test") === -1)
-      iterate((obj: any) => {
-        if (
-          Object.keys(obj).some(
-            (key) => key.indexOf("__non_regular_type__") === 0,
-          )
-        )
-          throw new Error(
-            `Bug on typia.plain.isPrune(): failed to prune the ${name} type.`,
-          );
-      })(input);
+    check();
 
     // SPOIL
     for (const spoil of factory.SPOILERS ?? []) {
@@ -38,7 +40,7 @@ export const _test_plain_assertPrune =
         prune(elem);
       } catch (exp) {
         if (
-          (exp as Function).constructor?.name === ErrorClass.name &&
+          isErrorClass(exp, ErrorClass) &&
           typia.is<TypeGuardError.IProps>(exp)
         )
           if (exp.path && expected.includes(exp.path) === true) continue;
@@ -53,27 +55,3 @@ export const _test_plain_assertPrune =
       );
     }
   };
-
-const iterate =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    if (Array.isArray(input)) return iterate_array(closure)(input);
-    else if (
-      input !== null &&
-      typeof input === "object" &&
-      typeof input.valueOf() === "object"
-    )
-      return iterate_object(closure)(input);
-  };
-
-const iterate_object =
-  (closure: (obj: any) => void) =>
-  (input: any): void => {
-    closure(input);
-    for (const value of Object.values(input)) iterate(closure)(value);
-  };
-
-const iterate_array =
-  (closure: (obj: any) => void) =>
-  (input: any): void =>
-    input.forEach((elem: any) => iterate(closure)(elem));

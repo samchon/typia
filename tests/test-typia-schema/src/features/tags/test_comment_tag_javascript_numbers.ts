@@ -13,6 +13,15 @@ import typia from "typia";
  * 1. Declare hexadecimal, exponent, and binary tag values.
  * 2. Validate values on and one step past each boundary.
  * 3. Assert the emitted JSON schema carries the numeric values.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Numeric JSDoc tags interpret hexadecimal, exponent and binary spellings as JavaScript numbers.
+ * @evidence contracts/testing.md#independent-expectations Authored 16, 1000 and 3 values plus below-bound/nonmultiple twins independently anchor runtime and schema results.
+ * @evidence contracts/testing.md#distinguishing-cases Hex minimum, bigint exponent multiple, binary item count and three emitted schema keywords remain distinct.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_comment_tag_javascript_numbers in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Comment numeric parsing must feed valid emitted JavaScript checks and schema values rather than Go literal syntax.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Hex minimum, bigint exponent multiple, binary item count and three emitted schema keywords remain distinct. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_comment_tag_javascript_numbers = (): void => {
   const valid: IValue = { hex: 16, big: 2000n, list: ["a", "b", "c"] };

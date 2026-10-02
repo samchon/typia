@@ -26,6 +26,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains both `src/b.ts` and `src/c.ts`.
 //  4. Assert no entry exists for `src/b.ts`, `src/c.ts`, or `src/d.ts`, the
 //     entry omits `src/a.ts` itself, and no `lib.*.d.ts` value leaks.
+//
+// @evidence contracts/testing.md#behavioral-verification a.ts is published and reports b.ts and transitive c.ts; its own path and default libraries are absent, and b.ts/c.ts/d.ts without typia calls have no dependency entry.
+// @evidence contracts/testing.md#independent-expectations A consumer cache needs declaration files whose edits can change the emitted validator, using normalized project-relative identities.
+// @evidence contracts/testing.md#distinguishing-cases Direct and property-transitive type references are paired with self identity, compiler default libraries and three sources without typia calls.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesEnvelopeTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesEnvelopeTransform(t *testing.T) {
   project := projectDependenciesEnvelopeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -78,16 +83,7 @@ func TestProjectDependenciesEnvelopeTransform(t *testing.T) {
 
 func projectDependenciesEnvelopeProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-envelope-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-envelope-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

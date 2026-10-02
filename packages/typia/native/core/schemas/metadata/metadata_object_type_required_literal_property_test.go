@@ -3,11 +3,17 @@ package metadata
 import "testing"
 
 // TestMetadataObjectTypeRequiredLiteralPropertyCaches verifies object-level
-// required literal detection is computed once.
+// required literal detection records a positive cache and includes a parent's
+// required literal without adding it to the child's remaining check properties.
 //
 // Object validators ask this question repeatedly when array element decoders
 // revisit the same metadata. The answer depends only on the completed property
 // list, so the object type caches it after the first scan.
+//
+// @evidence contracts/testing.md#behavioral-verification The object is queried directly and through the child's parent traversal; the positive result, stored cache and child's empty check-only list are asserted. The test does not count scans to establish that computation happens only once.
+// @evidence contracts/testing.md#independent-expectations Authored property lists state the answer; the cache assertion pins stored positive state, while the child assertion pins inheritance without property-list leakage.
+// @evidence contracts/testing.md#distinguishing-cases Detected, cached, inherited and non-leaking cases; objects with no required literal are not asserted.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the exported methods in memory with no filesystem fixture, process or native command build.
 func TestMetadataObjectTypeRequiredLiteralPropertyCaches(t *testing.T) {
   key := MetadataSchema_initialize()
   key.Constants = append(key.Constants, MetadataConstant_create(MetadataConstant{

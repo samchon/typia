@@ -6,18 +6,17 @@ import (
   "testing"
 )
 
-// TestTransformWasmHostArgvReportsDiagnostics verifies the wasm host contract.
+// TestTransformWasmHostArgvReportsDiagnostics checks the authored operation results described below.
 //
-// `main_wasm.go` is `js && wasm` only, so its `jsTransform` cannot be called
-// here. It carries no decision of its own: it renders the JS options object into
-// argv via `transformArgs`, hands that to this same `runTransform`, and returns
-// the resulting `{ code, stdout, stderr }`. Driving the exact argv it builds --
-// `--cwd=`/`--tsconfig=`/`--file=` with its `--output=ts` default -- therefore
-// pins what a playground caller observes: the typia error, not a stub.
+// Wasm-facing argument normalization must preserve the same command diagnostic/publication contract as the ordinary host route.
 //
-//  1. Build the argv `transformArgs` produces for a single-file request.
-//  2. Run it against a typia-invalid source.
-//  3. Require code 3, the diagnostic in stderr, and no stub in stdout.
+// 1. Wasm host argv spelling exercises the route boundary; direct transform/build diagnostic identities are owned by neighboring cases.
+// 2. The in-process host argv route returns status three with the missing-generic diagnostic and no untransformed stdout artifact.
+//
+// @evidence contracts/testing.md#behavioral-verification The in-process host argv route returns status three with the missing-generic diagnostic and no untransformed stdout artifact.
+// @evidence contracts/testing.md#independent-expectations Wasm-facing argument normalization must preserve the same command diagnostic/publication contract as the ordinary host route.
+// @evidence contracts/testing.md#distinguishing-cases Wasm host argv spelling exercises the route boundary; direct transform/build diagnostic identities are owned by neighboring cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformWasmHostArgvReportsDiagnostics as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformWasmHostArgvReportsDiagnostics(t *testing.T) {
   project := transformSingleFileProject(t, transformDiagnosticSource)
   argv := []string{

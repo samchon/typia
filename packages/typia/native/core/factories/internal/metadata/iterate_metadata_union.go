@@ -1,5 +1,15 @@
 package metadata
 
+// Iterate_metadata_union records every member of a union type into the same
+// schema.
+//
+// When all members of a non-empty union contribute nothing, the schema is marked
+// not required so that it describes `never`, except when the union carries null.
+//
+// @evidence contracts/common.md#principled-implementation Each member of a union is iterated into the same schema in the unioned and prunable states, so buckets accumulate; when every member of a non-empty union contributes nothing and the schema is neither any nor nullable, it is marked not required, which renders as `never`, because an empty schema would accept every value; a null member is excluded because the union would then still need to reject undefined.
+// @evidence contracts/common.md#clear-and-simple-design One function that loops over the members and applies one final rule.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The never rule is derived from the schema's own size and flags and the comment explains the case it fixes.
+// @evidence contracts/common.md#meaningful-documentation The doc states the accumulation and the never rule.
 func Iterate_metadata_union(props IMetadataIteratorProps) bool {
   if props.Type == nil || props.Type.IsUnion() == false {
     return false

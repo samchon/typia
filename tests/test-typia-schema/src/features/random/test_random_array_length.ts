@@ -1,5 +1,11 @@
+import type { IRandomGenerator } from "@typia/interface";
 import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
+import { _randomArray } from "typia/lib/internal/_randomArray";
+import { _randomInteger } from "typia/lib/internal/_randomInteger";
+import { _randomNumber } from "typia/lib/internal/_randomNumber";
+import { _randomPick } from "typia/lib/internal/_randomPick";
+import { _randomString } from "typia/lib/internal/_randomString";
 
 /**
  * Verifies typia.random resolves array length defaults against item-count tags.
@@ -9,15 +15,27 @@ import typia, { tags } from "typia";
  * caps the maximum (`MaxItems<8>` stays `1..8`) while a `MaxItems` of 0
  * collapses the whole range. A lone `MinItems` keeps the `+5` span. The
  * arithmetic mirrors `_randomString` and is just as easy to regress, so the
- * draws are pinned at both ends of `Math.random`.
+ * draws are pinned at both ends of the local RNG source.
  *
- * 1. Draw each tagged array at the minimum and maximum of `Math.random`.
+ * 1. Draw each tagged array at the minimum and maximum of the local RNG source.
  * 2. Require the unconstrained array to span `1..6`.
  * 3. Require `MaxItems` to cap only the maximum, keeping the minimum at 1.
  * 4. Require `MinItems` alone and a `MinItems`/`MaxItems` pair to honor both.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct and factory random draw minimum and maximum arrays for plain, capped, wide, floor and bounded properties, asserting exact lengths1/6,1/3,1/8,3/8 and2/4.
+ * @evidence contracts/testing.md#independent-expectations Literal tag bounds and documented default windows establish endpoint lengths; forcing both RNG endpoints avoids inferring a maximum from a random sample.
+ * @evidence contracts/testing.md#distinguishing-cases Both direct/factory endpoints and five bound combinations remain. Supported callbacks run the real built-in array, string, number and integer algorithms under a local deterministic source.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_array_length in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its sample state and supported IRG callbacks calling the real built-in algorithms with a local source. withRandom restores that local sample in finally; factories reuse only their own callback closure. No foreign method or global is replaced.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_array_length = (): void => {
-  const minimum: ILengths = withRandom(0, () => typia.random<ILengths>());
+  const { generator, withRandom } = makeRandom();
+  const minimum: ILengths = withRandom(0, () =>
+    typia.random<ILengths>(generator),
+  );
   assertLengths("random minimum", minimum, {
     plain: 1,
     capped: 1,
@@ -27,7 +45,7 @@ export const test_random_array_length = (): void => {
   });
 
   const maximum: ILengths = withRandom(1 - Number.EPSILON, () =>
-    typia.random<ILengths>(),
+    typia.random<ILengths>(generator),
   );
   assertLengths("random maximum", maximum, {
     plain: 6,
@@ -37,7 +55,7 @@ export const test_random_array_length = (): void => {
     bounded: 4,
   });
 
-  const create = typia.createRandom<ILengths>();
+  const create = typia.createRandom<ILengths>(generator);
   const createdMinimum: ILengths = withRandom(0, () => create());
   assertLengths("createRandom minimum", createdMinimum, {
     plain: 1,
@@ -105,12 +123,24 @@ const assertLengths = (
   );
 };
 
-const withRandom = <T>(value: number, closure: () => T): T => {
-  const old: () => number = Math.random;
-  Math.random = () => value;
-  try {
-    return closure();
-  } finally {
-    Math.random = old;
-  }
+const makeRandom = () => {
+  let sample: number = 0;
+  const source = (): number => sample;
+  const generator: Partial<IRandomGenerator> = {
+    array: (schema) => _randomArray(schema, source),
+    string: (schema) => _randomString(schema, source),
+    number: (schema) => _randomNumber(schema, source),
+    integer: (schema) => _randomInteger(schema, source),
+    pick: <T>(array: T[]): T => _randomPick(array, source),
+  };
+  const withRandom = <T>(value: number, closure: () => T): T => {
+    const previous: number = sample;
+    sample = value;
+    try {
+      return closure();
+    } finally {
+      sample = previous;
+    }
+  };
+  return { generator, withRandom };
 };

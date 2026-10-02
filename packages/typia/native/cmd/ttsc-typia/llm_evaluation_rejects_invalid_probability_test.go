@@ -22,6 +22,11 @@ import (
 //  2. Require the first build to fail through the transform-diagnostic path.
 //  3. Require each rejected accessor with its message, and the valid project
 //     to compile.
+//
+// @evidence contracts/testing.md#behavioral-verification Each malformed or ambiguous requirement reports its accessor, literal member where relevant and authored reason; the valid requirement project compiles.
+// @evidence contracts/testing.md#independent-expectations Probabilities must be numeric in zero through one, unambiguous and complete across options; JavaScript numeric spelling excludes Go hexadecimal floating syntax.
+// @evidence contracts/testing.md#distinguishing-cases Out-of-range tags/comments, empty/non-number text, duplicate/dual requirements, partially covered choices, object placement and valid neighboring spellings distinguish admission.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsInvalidProbability as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsInvalidProbability(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "probability", llmEvaluationProbabilitySource)
   for _, expected := range []string{

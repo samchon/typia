@@ -7,27 +7,17 @@ import (
   "testing"
 )
 
-// TestReflectLiteralsNonLiteralRejectionTransform verifies every argument that
-// names no listable literal is refused at compile time.
+// TestReflectLiteralsNonLiteralRejectionTransform checks the authored operation results described below.
 //
-// `reflect.literals` hands back the members of a union, so an argument it
-// cannot enumerate has no answer to give. Refusing it is the point: emitting an
-// empty array for `never`, or dropping the half it cannot render from a mixed
-// argument, would hand the caller a list that silently disagrees with the type
-// it was derived from (issue #2377).
+// reflect.literals must enumerate the entire finite literal domain; an empty never domain and mixed unenumerable members cannot silently become incomplete lists.
 //
-// The two diagnostics stay distinguishable because they say different things:
-// `NO` reports that nothing listable was found at all, while `ONLY` reports
-// that something listable was found beside something that is not. Collapsing
-// them would hide which half of a mixed argument is wrong.
+// 1. Never/aliases/exhaustive Exclude/null/atomic/any/branded shapes contrast with literal-plus-atomic/template and boolean-plus-number mixtures, distinguishing the two rejection causes.
+// 2. Each unsupported literal enumeration fails with its authored no-constants or only-constants reason.
 //
-//  1. Transform arguments naming no listable member: `never` and the bare
-//     `null` flag, which carry nothing, and `string`, `any`, and a tag-branded
-//     atomic, which carry a member that cannot be enumerated.
-//  2. Transform arguments mixing a listable member with one that is not,
-//     including `boolean | number`, where the listable half is an atomic rather
-//     than a constant.
-//  3. Assert each fails, and with the diagnostic its composition calls for.
+// @evidence contracts/testing.md#behavioral-verification Each unsupported literal enumeration fails with its authored no-constants or only-constants reason.
+// @evidence contracts/testing.md#independent-expectations reflect.literals must enumerate the entire finite literal domain; an empty never domain and mixed unenumerable members cannot silently become incomplete lists.
+// @evidence contracts/testing.md#distinguishing-cases Never/aliases/exhaustive Exclude/null/atomic/any/branded shapes contrast with literal-plus-atomic/template and boolean-plus-number mixtures, distinguishing the two rejection causes.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestReflectLiteralsNonLiteralRejectionTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestReflectLiteralsNonLiteralRejectionTransform(t *testing.T) {
   cases := []struct {
     Name     string
@@ -73,16 +63,7 @@ func TestReflectLiteralsNonLiteralRejectionTransform(t *testing.T) {
 
 func reflectLiteralsRejectionProject(t *testing.T, argument string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "reflect-literals-reject-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "reflect-literals-reject-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

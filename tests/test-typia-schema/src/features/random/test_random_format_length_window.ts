@@ -2,7 +2,7 @@ import { TestEquality } from "@typia/template/equality";
 import typia, { tags } from "typia";
 
 /**
- * Verifies typia.random draws every format at a length its own validator
+ * Verifies typia.random draws each tested format at a length its own validator
  * accepts, and refuses only genuinely unsatisfiable windows.
  *
  * #2192 converted part of the format set to length-aware builders and left nine
@@ -17,6 +17,15 @@ import typia, { tags } from "typia";
  * 1. Draw each format at an exact length and require `is` of the same type.
  * 2. Repeat with one-sided and wide windows, plus the already-correct controls.
  * 3. Require a window with no realizable length to keep throwing.
+ *
+ * @evidence contracts/testing.md#behavioral-verification For each authored format/length row,200 generated strings must pass generated is; nine impossible windows must throw rather than return invalid output.
+ * @evidence contracts/testing.md#independent-expectations Handwritten grammar limits establish boundary inputs such as base64 multiples of4, IPv4 lengths7..15, IPv6 maximum45 and UUID36. The positive is oracle shares native tag interpretation and is not an independent format implementation.
+ * @evidence contracts/testing.md#distinguishing-cases All exact, one-sided, wide, empty-pointer and unconstrained controls remain, including time length14,15,24,40 and the unreachable10 gap. Samples do not prove every grammar production or output distribution.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_format_length_window in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_format_length_window = (): void => {
   // POSITIVE: an exact length every format's grammar expresses.

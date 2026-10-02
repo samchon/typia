@@ -35,6 +35,15 @@ import typia, { tags } from "typia";
  * 5. Check the emitted JSON and LLM schemas retain the decimal constraint, and
  *    require the shared `@typia/utils` OpenAPI validator to agree on every
  *    value.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Generated decimal multiple validators agree with exact printed-decimal divisibility.
+ * @evidence contracts/testing.md#independent-expectations Local bigint rational arithmetic anchors the rule; decimal decomposition shares the same mathematical form as production and OpenAPI parity checks share algorithm lineage.
+ * @evidence contracts/testing.md#distinguishing-cases Fifteen cent samples, divergence counts, both tag spellings and error names, integer/fractional/large divisors, bigint controls, JSON/LLM keywords and all OpenAPI comparisons remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_decimal_multiple_of in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native tag emission must connect to decimal runtime checks and schema producers without reverting to binary remainder.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Fifteen cent samples, divergence counts, both tag spellings and error names, integer/fractional/large divisors, bigint controls, JSON/LLM keywords and all OpenAPI comparisons remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_decimal_multiple_of = (): void => {
   type Cent = number & tags.MultipleOf<0.01>;

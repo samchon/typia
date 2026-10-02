@@ -14,7 +14,13 @@
  * directly.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template Props Tag properties defining validation behavior and schema output
+ *
+ * @evidence contracts/common.md#principled-implementation The phantom optional property `typia.tag` holds the Props record, so the intersection preserves the underlying type's values while the transform reads the metadata from the type. The property is optional, so it cannot be required of a value, and it is never assigned at runtime.
+ * @evidence contracts/common.md#clear-and-simple-design One mapped property type, with IProps in the same-named namespace; the six generic arguments of IProps let tags express their target, kind, validate and schema without inheritance.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The phantom property is typia's own declared channel for tag metadata and not a monkey-patched property on foreign types.
+ * @evidence contracts/common.md#meaningful-documentation The comment states that it is an internal implementation detail, explains the phantom property and points users to the concrete tags.
  */
 export type TagBase<
   Props extends TagBase.IProps<any, any, any, any, any, any>,
@@ -41,6 +47,11 @@ export namespace TagBase {
    * @template Validate The validation expression to generate
    * @template Exclusive Whether this tag conflicts with others
    * @template Schema Additional JSON Schema properties to output
+   *
+   * @evidence contracts/common.md#principled-implementation Each field is the record the transform consumes: the permitted primitive target, a kind name, the user value, an optional validation expression, an exclusivity declaration and optional schema fragments; the generic arguments narrow `validate` to a string or a per-target map keyed by Target.
+   * @evidence contracts/common.md#clear-and-simple-design Fields are separate because the transform treats them independently; only target, kind and value are required.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It describes configuration data and does not itself validate or evaluate expressions.
+   * @evidence contracts/common.md#meaningful-documentation Each field is separately documented with examples and the `@default false` for exclusivity; the template parameters are listed.
    */
   export interface IProps<
     Target extends

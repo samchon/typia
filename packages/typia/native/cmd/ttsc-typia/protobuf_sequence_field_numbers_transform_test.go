@@ -7,23 +7,17 @@ import (
   "testing"
 )
 
-// TestProtobufSequenceFieldNumbersTransform verifies Sequence tag consumption.
+// TestProtobufSequenceFieldNumbersTransform checks the authored operation results described below.
 //
-// typescript-go materializes the `Sequence<N>` schema literal as its internal
-// jsnum number type, which the previous closed type switches never matched, so
-// explicit protobuf field numbers were silently replaced by auto-numbering and
-// duplicate-sequence validation never fired.
+// Explicit Sequence literals establish field numbers, automatic numbering follows the greatest reserved explicit number, and one field number cannot identify two properties.
 //
-// The two messages live in separate fixtures because a duplicate-sequence
-// diagnostic now withholds the whole file's artifact (samchon/typia#2117), so one
-// combined source could no longer show the valid message's emitted numbers.
+// 1. Two nonconsecutive explicit numbers and one untagged field contrast with a duplicate-number fixture isolated to preserve successful output observability.
+// 2. The emitted proto uses id five, age seven and automatic flag eight; duplicate Sequence one reports the colliding properties with status three and no artifact.
 //
-//  1. Transform a message fixture carrying explicit `Sequence<5>` / `Sequence<7>`
-//     field numbers plus an untagged property (auto-numbered after the highest
-//     explicit number), and require the emitted proto message to carry them.
-//  2. Require a message whose two properties share `Sequence<1>` to fail the
-//     transform with a diagnostic naming the duplicate.
-//  3. Require that rejected transform to publish no artifact.
+// @evidence contracts/testing.md#behavioral-verification The emitted proto uses id five, age seven and automatic flag eight; duplicate Sequence one reports the colliding properties with status three and no artifact.
+// @evidence contracts/testing.md#independent-expectations Explicit Sequence literals establish field numbers, automatic numbering follows the greatest reserved explicit number, and one field number cannot identify two properties.
+// @evidence contracts/testing.md#distinguishing-cases Two nonconsecutive explicit numbers and one untagged field contrast with a duplicate-number fixture isolated to preserve successful output observability.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProtobufSequenceFieldNumbersTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestProtobufSequenceFieldNumbersTransform(t *testing.T) {
   out, errText, code := protobufSequenceFieldNumbersTransform(t, "sequenced-", protobufSequenceFieldNumbersSource)
   if code != 0 {
@@ -72,18 +66,7 @@ func protobufSequenceFieldNumbersTransform(t *testing.T, prefix string, source s
 
 func protobufSequenceFieldNumbersProject(t *testing.T, prefix string, source string) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "protobuf-sequence-"+prefix)
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "protobuf-sequence-"+prefix)
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

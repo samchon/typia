@@ -1,3 +1,16 @@
+/**
+ * Checks the `iri-reference` format at the character level.
+ *
+ * Rejects control characters, DEL and C1 controls, lone surrogates, space and
+ * the characters `"<>\^`{|}`, and any `%`that is not followed by two
+ * hexadecimal digits. A colon before the first`/`, `?`or`#` must end a valid
+ * scheme. Authority, port and path structure are not parsed.
+ *
+ * @evidence contracts/common.md#principled-implementation Characters that no IRI may contain (controls, space, lone surrogates and a few ASCII delimiters) and malformed percent escapes are rejected, and a colon before the first path delimiter must be the end of a valid scheme, which separates `a:b` from the relative `./a:b`. Authority, port and path structure are not parsed, so the predicate is a character and scheme check and not full grammar validation.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate with three private patterns, identical to the copy in the typia package that emitted code imports.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The forbidden set comes from the IRI grammar and not from examples.
+ * @evidence contracts/common.md#meaningful-documentation The doc states what is rejected and what is not parsed.
+ */
 export const _isFormatIriReference = (str: string): boolean => {
   if (FORBIDDEN.test(str) || INVALID_PERCENT.test(str)) return false;
   const colon: number = str.indexOf(":");

@@ -12,6 +12,11 @@ import { _decimalIntegerStep } from "./_decimal";
  * returned values the validator rejects, or gave up on a range that holds one
  * (#2457). An integral bound or step is read as the integer the double holds,
  * which is the integer the validator compares with.
+ *
+ * @evidence contracts/common.md#principled-implementation Bounds and step are read as the integers their doubles hold, an exclusive bound is moved to the next inclusive integer, and the draw is made on bigints so no precision is lost past 2^53; a multiple of the step is chosen by dividing the range by the step, drawing a quotient and multiplying back. The draw scales one 53-bit sample, so a range wider than 2^53 values is sampled at most that many distinct points.
+ * @evidence contracts/common.md#clear-and-simple-design One function with small private helpers for the bound, the step, the rounding divisions and the draw.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Errors for empty or infinite ranges are explicit, and the step is the integer the validator compares with.
+ * @evidence contracts/common.md#meaningful-documentation The doc explains why the draw is not done through doubles and cites the issue.
  */
 export const _randomBigint = (schema: OpenApi.IJsonSchema.IInteger): bigint => {
   const lower: bigint | null = boundary(

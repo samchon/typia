@@ -20,12 +20,21 @@ type llmEvaluationProgrammerNamespace struct{}
 // LlmEvaluationProgrammer writes `typia.llm.evaluation<T>()`.
 //
 // The emitted code is one call to the `_createLlmEvaluation` runtime helper
-// with a compile-time plan: one entry per decision leaf of `T`, carrying its
-// property path, question text, and probability requirements. The helper
+// with the configured decimals and a compile-time plan: one entry per decision
+// leaf of `T`, carrying its property path, question text, and probability
+// requirements. The helper
 // derives both the question map and the checked decoder from that plan,
 // so the question-key encoding has a single owner at runtime.
 var LlmEvaluationProgrammer = llmEvaluationProgrammerNamespace{}
 
+// LlmEvaluationProgrammer_IWriteProps is the argument record of
+// LlmEvaluationProgrammer.Write, which builds the evaluation function of a
+// decision type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of LlmEvaluationProgrammer.Write, which builds the evaluation function of a decision type; its 4 fields (Context, Metadata, Name, Config) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type LlmEvaluationProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Metadata *schemametadata.MetadataSchema
@@ -35,11 +44,21 @@ type LlmEvaluationProgrammer_IWriteProps struct {
 
 // LlmEvaluationProgrammer_IConfig is `ILlmEvaluation.IConfig`: the decimal
 // places of the evaluation model's answers, two by default.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of the evaluation function, which is the number of decimal places of the evaluation model's answers; its 1 fields (Decimals) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 1-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type LlmEvaluationProgrammer_IConfig struct {
   Decimals int
 }
 
 // LlmEvaluationProgrammer_IError is one rejected position of the decision type.
+//
+// @evidence contracts/common.md#principled-implementation It is one rejected position of the decision type, with its validation path and its message; its 2 fields (Accessor, Message) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type LlmEvaluationProgrammer_IError struct {
   // Accessor is the typia validation path of the position, like
   // `$input.refund.requested`.
@@ -49,8 +68,8 @@ type LlmEvaluationProgrammer_IError struct {
 
 var llmEvaluationProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
 
-// Write emits `_createLlmEvaluation(plan) as ILlmEvaluation<T>`. The metadata
-// must already have passed Compose without errors.
+// Write emits `_createLlmEvaluation(plan, decimals) as ILlmEvaluation<T>`.
+// The metadata must already have passed Compose without errors.
 func (llmEvaluationProgrammerNamespace) Write(props LlmEvaluationProgrammer_IWriteProps, plan []any) *shimast.Node {
   f := nativecontext.EmitFactoryOf(llmEvaluationProgrammer_factory, props.Context.Emit)
   typeName := "unknown"

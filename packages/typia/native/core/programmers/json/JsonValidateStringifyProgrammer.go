@@ -14,6 +14,14 @@ type jsonValidateStringifyProgrammerNamespace struct{}
 
 var JsonValidateStringifyProgrammer = jsonValidateStringifyProgrammerNamespace{}
 
+// JsonValidateStringifyProgrammer_DecomposeProps is the argument record of
+// JsonValidateStringifyProgrammer.Decompose, which builds the
+// `json.validateStringify` function.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of JsonValidateStringifyProgrammer.Decompose, which builds the `json.validateStringify` function; its 5 fields (Context, Modulo, Functor, Type, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type JsonValidateStringifyProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node

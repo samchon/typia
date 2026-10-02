@@ -26,6 +26,11 @@ const FileName = "typia.proto"
 
 // Compile returns the error a strict Protobuf compiler raises for document, or
 // nil when the document compiles cleanly.
+//
+// @evidence contracts/testing.md#behavioral-verification Compile hands the document to the protocompile front end and returns its diagnosis unchanged, so an illegal label or syntax error is reported and a valid document yields nil.
+// @evidence contracts/testing.md#independent-expectations The oracle is the third-party compiler front end, which enforces the proto3 label rules independently of typia's renderer and of any substring check.
+// @evidence contracts/testing.md#distinguishing-cases Compile owns no cases; the callers supply valid documents of several shapes, and the compile oracle's own rejection behavior is the library's, not asserted here.
+// @evidence contracts/testing.md#execution-ownership The compiler is the in-process bufbuild/protocompile Go library reading the document from memory, so no protoc binary or process is involved.
 func Compile(document string) error {
   compiler := protocompile.Compiler{
     Resolver: protocompile.WithStandardImports(&protocompile.SourceResolver{

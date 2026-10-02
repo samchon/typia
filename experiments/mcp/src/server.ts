@@ -14,6 +14,7 @@ class Calculator {
    * Add two integers.
    *
    * @param p The two integers to add
+   *
    * @returns Their sum
    */
   public add(p: {
@@ -27,6 +28,7 @@ class Calculator {
    * Divide two numbers.
    *
    * @param p Dividend and divisor
+   *
    * @returns The quotient
    */
   public divide(p: { x: number; y: number }): { value: number } {

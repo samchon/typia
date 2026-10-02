@@ -7,24 +7,17 @@ import (
   "testing"
 )
 
-// TestTransformSingleFileJSLocatesOutputAcrossLayouts verifies `--output js`
-// finds its artifact wherever the compiler places the emit.
+// TestTransformSingleFileJSLocatesOutputAcrossLayouts checks the authored operation results described below.
 //
-// `transformSingleToJavaScript` captures the emit by matching the write callback
-// against the requested source. Comparing whole path stems made that match ask
-// whether `dist/main` equals `src/main`, so every project with an `outDir` --
-// which is every realistic layout -- reported "no output produced" and exited 3
-// over a transform that had in fact succeeded (samchon/typia#2134). `outDir` is
-// only one of the settings that reposition an emit, so this pins the whole class
-// rather than the reported witness: the match must come from the compiler's own
-// output-path resolution, the same one the emitter uses to choose where to
-// write, so no combination of `outDir`, `rootDir`, `rootDirs`, or source nesting
-// can desynchronize the two.
+// Selected source identity must be matched through rootDir/outDir/rootDirs layouts and distinguished from declaration/source-map artifacts rather than inferred from coincident path stems.
 //
-//  1. Build the same typia-valid source under each output-path layout.
-//  2. Transform it with `--output js --out`.
-//  3. Require exit 0, a silent stderr, and a published artifact carrying the
-//     lowered validator rather than the untransformed call.
+// 1. The authored layout matrix retains one selected numeric shape while varying source/output identities, so layout errors cannot hide behind source changes.
+// 2. Every configured layout publishes JavaScript with its numeric validator, no diagnostic and no untransformed generic call.
+//
+// @evidence contracts/testing.md#behavioral-verification Every configured layout publishes JavaScript with its numeric validator, no diagnostic and no untransformed generic call.
+// @evidence contracts/testing.md#independent-expectations Selected source identity must be matched through rootDir/outDir/rootDirs layouts and distinguished from declaration/source-map artifacts rather than inferred from coincident path stems.
+// @evidence contracts/testing.md#distinguishing-cases The authored layout matrix retains one selected numeric shape while varying source/output identities, so layout errors cannot hide behind source changes.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestTransformSingleFileJSLocatesOutputAcrossLayouts as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestTransformSingleFileJSLocatesOutputAcrossLayouts(t *testing.T) {
   for _, layout := range []struct {
     name  string

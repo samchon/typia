@@ -25,6 +25,15 @@ import typia, { tags } from "typia";
  *    type it declared.
  * 3. Require several template signatures on one object to keep answering the same
  *    way, since that is the shape the generated matrices cover.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Outside template keys remain surplus while keys failing a string tag remain violations.
+ * @evidence contracts/testing.md#independent-expectations Literal is/equals verdicts and exact expected/path/value tuples anchor the two failure categories.
+ * @evidence contracts/testing.md#distinguishing-cases Same wrong key crosses template and Pattern spellings, valid-value and wrong-value twins, plus three simultaneous template signatures.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_dynamic_key_surplus in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native dynamic signature matching must distinguish undeclared keys from declared keys with failed tags.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Same wrong key crosses template and Pattern spellings, valid-value and wrong-value twins, plus three simultaneous template signatures. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_dynamic_key_surplus = (): void => {
   interface ITemplateKey {

@@ -15,17 +15,23 @@ import { TagBase } from "./TagBase";
  * `typia.validate()`. It generates `minItems` in JSON Schema output.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Order {
  *     // Must have at least 1 item
- *     items: (Product & MinItems<1>)[];
+ *     items: Product[] & MinItems<1>;
  *   }
  *   interface Team {
  *     // Team must have 2-10 members
- *     members: (User & MinItems<2> & MaxItems<10>)[];
+ *     members: User[] & MinItems<2> & MaxItems<10>;
  *   }
  *
  * @template Value Minimum number of elements required
+ *
+ * @evidence contracts/common.md#principled-implementation The check is `N <= $input.length`, the definition of a lower bound on length, and `schema.minItems` repeats the number. The tag is exclusive, so one lower bound applies per array.
+ * @evidence contracts/common.md#clear-and-simple-design One TagBase record, mirroring MaxItems.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A general template with no consumer-specific expression.
+ * @evidence contracts/common.md#meaningful-documentation The comment states the constraint, the pairing with MaxItems and UniqueItems and shows required and ranged arrays.
  */
 export type MinItems<Value extends number> = TagBase<{
   target: "array";

@@ -1,3 +1,20 @@
+/**
+ * Checks that no two elements of an array are equal.
+ *
+ * Primitives are compared with strict equality, so two `NaN` values are not
+ * duplicates. Objects, arrays, maps, sets, dates, regular expressions, boxed
+ * primitives, buffers and typed arrays are compared structurally, with cycles
+ * tolerated. Native categories must match on both sides; ordinary class
+ * instances retain comparison by enumerable structure. Every pair is compared,
+ * so the work grows quadratically with the number of elements. Blob comparison
+ * uses size and MIME type; File adds name and last-modified time. Their payload
+ * bytes are not read.
+ *
+ * @evidence contracts/common.md#principled-implementation Native categories are checked on both sides, distinguishing files from blobs and native values from ordinary objects. Every pair of elements is compared with a structural equality that is strict for primitives, handles arrays, sets, maps, boxed primitives, dates, expressions, files, blobs and binary buffers and compares plain objects by own enumerable keys, with a pair table so cycles end. Sets and maps are matched without regard to order. The pairwise scan costs quadratic time in the number of elements, which is stated in the doc.
+ * @evidence contracts/common.md#clear-and-simple-design One predicate over a private equality builder and a bytes helper, identical to the copy in @typia/utils.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Equality rules are the documented ones and no element is special-cased.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the equality rules, the cycle tolerance and the quadratic cost.
+ */
 export const _isUniqueItems = (elements: any[]): boolean => {
   for (let i = 0; i < elements.length; i++)
     for (let j = i + 1; j < elements.length; j++)
@@ -29,6 +46,7 @@ const equals = (visited: WeakMap<object, WeakMap<object, boolean>>) => {
   };
 
   const compare = (a: object, b: object): boolean => {
+    if (kind(a) !== kind(b)) return false;
     if (Array.isArray(a)) {
       if (!Array.isArray(b) || a.length !== b.length) return false;
       for (let i = 0; i < a.length; i++) {
@@ -159,3 +177,31 @@ const bytes = (
   byteOffset: number = 0,
   byteLength: number = buffer.byteLength,
 ): Uint8Array => new Uint8Array(buffer, byteOffset, byteLength);
+
+/**
+ * Keeps native categories separate while ordinary class instances stay
+ * structural.
+ */
+const kind = (value: object): string => {
+  if (Array.isArray(value)) return "Array";
+  if (value instanceof Set) return "Set";
+  if (value instanceof Map) return "Map";
+  if (value instanceof Boolean) return "Boolean";
+  if (value instanceof Number) return "Number";
+  if (value instanceof String) return "String";
+  const tag: string = Object.prototype.toString.call(value);
+  if (tag === "[object BigInt]" || tag === "[object Symbol]") return tag;
+  if (value instanceof Date) return "Date";
+  if (value instanceof RegExp) return "RegExp";
+  if (typeof File !== "undefined" && value instanceof File) return "File";
+  if (typeof Blob !== "undefined" && value instanceof Blob) return "Blob";
+  if (value instanceof DataView) return "DataView";
+  if (ArrayBuffer.isView(value)) return "TypedArray";
+  if (value instanceof ArrayBuffer) return "ArrayBuffer";
+  if (
+    typeof SharedArrayBuffer !== "undefined" &&
+    value instanceof SharedArrayBuffer
+  )
+    return "SharedArrayBuffer";
+  return "Object";
+};

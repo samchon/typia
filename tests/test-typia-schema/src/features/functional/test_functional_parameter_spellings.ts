@@ -13,13 +13,22 @@ import typia from "typia";
  * transform panic (#2461).
  *
  * 1. Call each spelling through the `is`, `assert`, and `validate` variants of
- *    `Function` and `Parameters`, and `isReturn`, and compare with a direct
- *    call.
+ *    `Function` and `Parameters`, and `isReturn`, and compare with the literal
+ *    expected result.
  * 2. Keep a destructured parameter apart from a parameter named like its
  *    positional stand-in, and let a later default read a name the pattern
  *    binds.
  * 3. Keep rejecting a wrong optional argument, rest element, rest tuple element,
  *    array pattern element, defaulted argument, and destructured property.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Generated wrappers correctly handle optional, rest, tuple, patterns and defaults.
+ * @evidence contracts/testing.md#independent-expectations Twenty accepted calls use literal results; seven malformed controls use null or exact parameter paths rather than another wrapper as oracle.
+ * @evidence contracts/testing.md#distinguishing-cases Omission/undefined/populated and empty rest/short tuple, object and array patterns, inferred defaults, positional-name collisions and defaults reading bindings remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_functional_parameter_spellings in the schema start suite under ttsx and the native plugin; its exported body owns all runtime assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native parameter syntax analysis and wrapper emission must preserve callable bindings and argument forwarding.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native artifact; input variants do not create separate hosts or builds.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs, generated results and captured errors are local to the exported body. The suite owns host lifetime; no cold cache or invalidation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Omission/undefined/populated and empty rest/short tuple, object and array patterns, inferred defaults, positional-name collisions and defaults reading bindings remain. Every original input/call/assertion remains; final execution is reported separately from source review.
  */
 export const test_functional_parameter_spellings = (): void => {
   const optional = (x: number, y?: string): number => x + (y?.length ?? 0);

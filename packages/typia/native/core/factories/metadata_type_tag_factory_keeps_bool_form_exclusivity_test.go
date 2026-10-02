@@ -16,6 +16,11 @@ import (
 //
 // 1. Duplicate a bool-form kind and require rejection naming the kind.
 // 2. Require an opted-out `exclusive: false` tag to permit its own duplicate.
+//
+// @evidence contracts/testing.md#behavioral-verification The validator is called on a duplicated bool-form kind, and on a tag that opts out of exclusivity; the first must be rejected with a report naming the kind and the second must be accepted.
+// @evidence contracts/testing.md#independent-expectations Bool-form exclusivity is declared by each tag; both verdicts are authored from the declaration.
+// @evidence contracts/testing.md#distinguishing-cases Rejected duplicate versus permitted opted-out duplicate form the pair.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed tags with no checker, filesystem fixture or process.
 func TestMetadataTypeTagFactoryKeepsBoolFormExclusivity(t *testing.T) {
   success, messages := metadataTypeTagFactoryTestValidate("string", []schemametadata.IMetadataTypeTag{
     {Target: "string", Name: "Format<\"uuid\">", Kind: "format", Exclusive: true},

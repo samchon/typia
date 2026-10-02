@@ -17,6 +17,7 @@ export namespace CommentTagArrayUnion {
 
     /**
      * @minItems 3
+     *
      * @maxItems 7
      */
     both: string[];

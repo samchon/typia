@@ -17,6 +17,11 @@ import (
 // 2. Assert nested arrays with incompatible elements are not covered.
 // 3. Assert failed candidate pairs do not leak through the recursion guard.
 // 4. Assert tuple elements containing arrays or tuples are also checked.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_covers recurses through arrays and tuples with literal, mismatched and nested collection elements; a recursion that stops at collection-only elements, or that leaks a failed pair through the visited guard, flips a Fatal.
+// @evidence contracts/testing.md#independent-expectations Element-wise containment of nested collections defines each expected boolean; operands are authored arrays and tuples, not output of the function.
+// @evidence contracts/testing.md#distinguishing-cases A compatible literal element is positive; mismatched elements, a repeated failing pair and mismatched nested array and tuple elements are negatives. Map and Set nesting is owned by their cases.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported coverage function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaCoversNestedCollectionEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.ArrayMetadata(testutil.ArrayMetadata(testutil.AtomicMetadata("number"))),

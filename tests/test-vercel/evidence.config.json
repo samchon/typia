@@ -1,0 +1,27 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "feature test functions and real component boundaries",
+      "type": "typescript",
+      "files": ["src/features/**/test_*.ts"],
+      "symbol": "function",
+      "reference": [
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/testing.md"],
+          "symbol": "h2",
+          "checklist": true
+        },
+        {
+          "type": "markdown",
+          "root": "../../.agents/skills",
+          "files": ["contracts/e2e.md"],
+          "symbol": "h2",
+          "checklist": true
+        }
+      ]
+    }
+  ]
+}

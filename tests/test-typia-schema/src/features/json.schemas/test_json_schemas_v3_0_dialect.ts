@@ -14,6 +14,15 @@ import typia from "typia";
  *    tuple — one witness for each dialect difference.
  * 2. Emit its schema collection under "3.0".
  * 3. Assert the 3.0 spellings are used and that no 3.1-only keyword survives.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that the 3.0 collection publishes the exact nullable/enum/bounded-array component and no 3.1-only constructs.
+ * @evidence contracts/testing.md#independent-expectations Handwritten OpenAPI 3.0 schema expectations establish nullable:true, enum and homogeneous tuple degradation; version alone cannot certify dialect.
+ * @evidence contracts/testing.md#distinguishing-cases Version/root reference/complete component and global absence of const/prefixItems/type:null remain; singular and application siblings own their entry-point assembly.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schemas_v3_0_dialect in test-typia-schema start. Actual typia.json calls and any complementary generated validator are rewritten in the suite project; the emitted results are evaluated and consumed in the existing process.
+ * @evidence contracts/e2e.md#necessary-boundary The public Version generic must select real dialect conversion before native collection publication. Direct converter/writer unit calls cannot establish actual TypeScript call/signature resolution and evaluated public schema assembly together.
+ * @evidence contracts/e2e.md#shared-execution All declared variants join the existing ttsx schema-suite project and process. Siblings reuse the content-keyed native plugin artifact; the case adds no independent compiler launch or install per type/dialect.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Generated collections/applications and conversion projections are invocation-local; declarations remain immutable. ttsc owns content-keyed artifact invalidation and the suite owns process termination. No cold-cache or installation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Version/root reference/complete component and global absence of const/prefixItems/type:null remain; singular and application siblings own their entry-point assembly. Every original producer call, conversion and assertion remains enrolled under the same exported name; no meaningfully different dialect or graph consumer was deleted.
  */
 export const test_json_schemas_v3_0_dialect = (): void => {
   interface IV3Target {

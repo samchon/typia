@@ -17,6 +17,7 @@ export class Inspector {
    * Inspect the resident graph.
    *
    * @param props Query to run against the graph
+   *
    * @returns The matching answer
    */
   public inspect(props: Inspector.IProps): Inspector.IResult {
@@ -24,13 +25,16 @@ export class Inspector {
   }
 }
 export namespace Inspector {
+  /** Resident value supplied on demand. */
   export interface IState {
     value: number;
   }
+  /** Inspection query reflected into tool arguments. */
   export interface IProps {
     /** Question to answer from the graph */
     query: string;
   }
+  /** Inspection answer reflected into structured output. */
   export interface IResult {
     /** Answer text */
     answer: string;

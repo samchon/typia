@@ -9,15 +9,17 @@ import (
   "testing"
 )
 
-// TestBuildTransactionalEmitPublishesCleanProject verifies the commit path.
+// TestBuildTransactionalEmitPublishesCleanProject checks the authored operation results described below.
 //
-// Buffering failed transforms must not suppress or alter successful JavaScript,
-// declarations, maps, or manifest entries. A clean multi-file build publishes
-// every compiler output only after the shared transform phase succeeds.
+// A successful transaction must publish actual artifacts for the complete emitted set; manifests cannot advertise absent files or a partial operation.
 //
-//  1. Build two valid typia sources with declarations and source maps enabled.
-//  2. Read the emitted manifest and require every recorded file to exist.
-//  3. Check each output family and prove JavaScript no longer calls typia.is.
+// 1. Clean emission is the positive twin of the transform-failure atomicity case, checking both artifact contents and exact normalized output identities.
+// 2. A valid multi-file build publishes the authored output set and manifest paths, reports emission and replaces typia stubs with validators.
+//
+// @evidence contracts/testing.md#behavioral-verification A valid multi-file build publishes the authored output set and manifest paths, reports emission and replaces typia stubs with validators.
+// @evidence contracts/testing.md#independent-expectations A successful transaction must publish actual artifacts for the complete emitted set; manifests cannot advertise absent files or a partial operation.
+// @evidence contracts/testing.md#distinguishing-cases Clean emission is the positive twin of the transform-failure atomicity case, checking both artifact contents and exact normalized output identities.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestBuildTransactionalEmitPublishesCleanProject as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestBuildTransactionalEmitPublishesCleanProject(t *testing.T) {
   project := buildAtomicityProject(t, false)
   manifest := filepath.Join(project, "artifacts", "manifest.json")

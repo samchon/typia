@@ -1,0 +1,18 @@
+{
+  "severity": "error",
+  "claims": [
+    {
+      "name": "TypeScript test declarations",
+      "type": "typescript",
+      "files": ["src/features/**/test_*.ts"],
+      "symbol": "function",
+      "reference": {
+        "type": "markdown",
+        "root": "../../.agents/skills",
+        "files": ["contracts/testing.md"],
+        "symbol": "h2",
+        "checklist": true
+      }
+    }
+  ]
+}

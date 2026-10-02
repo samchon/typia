@@ -20,15 +20,38 @@ type compareEqualProgrammerNamespace struct{}
 
 var CompareEqualProgrammer = compareEqualProgrammerNamespace{}
 
+// CompareEqualProgrammer_IConfig selects the generator's variants: Cover is the
+// covering form, where a missing property on the right side passes.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 1 field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type CompareEqualProgrammer_IConfig struct {
+  // Cover permits absent right-side members during directional comparison.
   Cover bool
 }
 
+// CompareEqualProgrammer_IProps is the input of Write for the compare equal
+// generator: Context (the transform context), Modulo (the call's callee
+// expression), Type (the type to generate for) and Config (the configuration).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for and the configuration, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 4 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type CompareEqualProgrammer_IProps struct {
+  // Context borrows the checker and emitter for this transform.
   Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
-  Type    *shimchecker.Type
-  Config  CompareEqualProgrammer_IConfig
+
+  // Modulo supplies the public comparison method name for diagnostics.
+  Modulo *shimast.Node
+
+  // Type is the declared operand structure analyzed into comparison metadata.
+  Type *shimchecker.Type
+
+  // Config selects equality or directional covering within the shared generator.
+  Config CompareEqualProgrammer_IConfig
 }
 
 type compareEqualProgrammerGenerator struct {

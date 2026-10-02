@@ -18,6 +18,11 @@ import (
 // 1. Parse each alias spelling of the `date-time` format as a JSDoc comment tag.
 // 2. Require the emitted format name, schema, and tag name to be the canonical one.
 // 3. Require the generated validator to be the cheat sheet entry verbatim.
+//
+// @evidence contracts/testing.md#behavioral-verification Every @format alias is expanded by the comment tag factory and the produced tag is compared with the cheat sheet entry it must equal: tag count, canonical value, name, emitted schema format and validator text.
+// @evidence contracts/testing.md#independent-expectations The cheat sheet entry for the canonical format is the reference; the alias must produce exactly that entry, so a second implementation under the alias name is detected without hard-coding either validator string.
+// @evidence contracts/testing.md#distinguishing-cases Each alias is checked individually, and a lookup of a missing canonical name is a guard that the sweep covers real entries. Aliases that do not exist cannot be detected by this test.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory in memory with no checker, filesystem fixture or process.
 func TestFormatAliasResolvesToCheatSheet(t *testing.T) {
   canonical := "date-time"
   expected, ok := FormatCheatSheet[canonical]

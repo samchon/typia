@@ -38,6 +38,11 @@ import (
 //  6. Assert the tagged-template spelling of the same pass-through --
 //     “tag`x${ns}`.is<Foo>(input)“ -- reports `src/ns.ts` as well, because a
 //     template is what its tag is applied to.
+//
+// @evidence contracts/testing.md#behavioral-verification Pass-through and tagged-template calls emit validators and report ns/pick; callback-only hidden is omitted while all bounded callers remain complete.
+// @evidence contracts/testing.md#independent-expectations A namespace supplied as a callee argument selects typia identity, whereas a callback body cannot select the outer array method.
+// @evidence contracts/testing.md#distinguishing-cases Ordinary and tagged argument indirection are contrasted with a chain callback whose body names hidden.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCalleeArgumentTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCalleeArgumentTransform(t *testing.T) {
   project := projectDependenciesCalleeArgumentProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -104,16 +109,7 @@ func TestProjectDependenciesCalleeArgumentTransform(t *testing.T) {
 
 func projectDependenciesCalleeArgumentProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-callee-argument-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-callee-argument-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

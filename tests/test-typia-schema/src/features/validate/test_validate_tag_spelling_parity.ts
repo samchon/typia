@@ -26,6 +26,15 @@ import typia, { tags } from "typia";
  * 2. Require the two to agree on every value.
  * 3. Require each matrix to contain an accepted and a rejected value, so no row
  *    can agree vacuously.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Type tags and JSDoc spellings agree across the maintained constraint matrix.
+ * @evidence contracts/testing.md#independent-expectations Each result is compared to the other producer, so this is a parity oracle; per-row accepted/rejected witnesses prevent all-true/all-false agreement but cannot independently prove every value verdict.
+ * @evidence contracts/testing.md#distinguishing-cases All nineteen constraint rows retain all values, including decimal, astral, exact-width and one-past boundary distinctions.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_tag_spelling_parity in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary The distinct native type-tag and comment-tag factories must emit checks with equivalent runtime behavior.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage All nineteen constraint rows retain all values, including decimal, astral, exact-width and one-past boundary distinctions. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_tag_spelling_parity = (): void => {
   const rows: IRow[] = [

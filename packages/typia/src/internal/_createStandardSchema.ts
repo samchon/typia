@@ -1,5 +1,18 @@
 import { IValidation, StandardSchemaV1 } from "@typia/interface";
 
+/**
+ * Make a validator satisfy the Standard Schema contract.
+ *
+ * The same function is returned with a `~standard` property whose `validate`
+ * runs it and maps its errors to issues with key-segment paths. Error paths
+ * must use the generated `$input` grammar; validator or path-parsing exceptions
+ * propagate rather than becoming Standard Schema issues.
+ *
+ * @evidence contracts/common.md#principled-implementation The validator function is extended with a `~standard` property that satisfies the Standard Schema contract: version 1, vendor `typia`, and a validate function that runs the original validator and maps its errors to issues whose path is parsed from typia's `$input` notation into key segments. Success returns the data as the value. The function is modified in place with Object.assign, so the returned value is the same callable.
+ * @evidence contracts/common.md#clear-and-simple-design One factory and a path parser written as a small state machine for start, property, string key and number key; the value formatter is separate.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The contract members are declared by the specification and are filled from the validator's own results, with no case keyed on a consumer. The parser expects generated `$input` paths and throws for an invalid prefix or unfinished segment; validator and conversion exceptions propagate. The fixed version/vendor fields are contract constants.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the added property, the issue mapping and that the returned function is the same object.
+ */
 export const _createStandardSchema = <T>(
   fn: (input: unknown) => IValidation<T>,
 ): ((input: unknown) => IValidation<T>) & StandardSchemaV1<T, T> =>

@@ -48,10 +48,13 @@ type FunctionalValidate<T extends (...args: any[]) => any> = T extends (
  * - {@link assertEqualsFunction} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Wrapped function with same signature
+ *
  * @throws {TypeGuardError} When parameter or return value type mismatch
  */
 export function assertFunction<T extends (...args: any[]) => any>(
@@ -80,10 +83,13 @@ export function assertFunction(): never {
  * - {@link assertEqualsParameters} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Wrapped function with same signature
+ *
  * @throws {TypeGuardError} When parameter type mismatch
  */
 export function assertParameters<T extends (...args: any[]) => any>(
@@ -112,10 +118,13 @@ export function assertParameters(): never {
  * - {@link assertEqualsReturn} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Wrapped function with same signature
+ *
  * @throws {TypeGuardError} When return value type mismatch
  */
 export function assertReturn<T extends (...args: any[]) => any>(
@@ -147,10 +156,13 @@ export function assertReturn(): never {
  * - {@link validateEqualsFunction} — Collects all errors instead of throwing
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Wrapped function with same signature
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEqualsFunction<T extends (...args: any[]) => any>(
@@ -179,10 +191,13 @@ export function assertEqualsFunction(): never {
  * - {@link validateEqualsParameters} — Collects all errors instead of throwing
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Wrapped function with same signature
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEqualsParameters<T extends (...args: any[]) => any>(
@@ -211,10 +226,13 @@ export function assertEqualsParameters(): never {
  * - {@link validateEqualsReturn} — Collects all errors instead of throwing
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
  * @param errorFactory Custom error factory receiving
  *   {@link TypeGuardError.IProps}
+ *
  * @returns Wrapped function with same signature
+ *
  * @throws {TypeGuardError} When type mismatch or extra property detected
  */
 export function assertEqualsReturn<T extends (...args: any[]) => any>(
@@ -245,7 +263,9 @@ export function assertEqualsReturn(): never {
  * - {@link equalsFunction} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning `Output | null`
  */
 export function isFunction<T extends (...args: any[]) => any>(
@@ -272,7 +292,9 @@ export function isFunction(): never {
  * - {@link equalsParameters} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning `Output | null`
  */
 export function isParameters<T extends (...args: any[]) => any>(
@@ -299,7 +321,9 @@ export function isParameters(): never {
  * - {@link equalsReturn} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning `Output | null`
  */
 export function isReturn<T extends (...args: any[]) => any>(
@@ -326,7 +350,9 @@ export function isReturn(): never {
  * - {@link validateEqualsFunction} — Returns all error details
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning `Output | null`
  */
 export function equalsFunction<T extends (...args: any[]) => any>(
@@ -353,7 +379,9 @@ export function equalsFunction(): never {
  * - {@link validateEqualsParameters} — Returns all error details
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning `Output | null`
  */
 export function equalsParameters<T extends (...args: any[]) => any>(
@@ -380,7 +408,9 @@ export function equalsParameters(): never {
  * - {@link validateEqualsReturn} — Returns all error details
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning `Output | null`
  */
 export function equalsReturn<T extends (...args: any[]) => any>(
@@ -414,7 +444,9 @@ export function equalsReturn(): never {
  * - {@link validateEqualsFunction} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning {@link IValidation}
  */
 export function validateFunction<T extends (...args: any[]) => any>(
@@ -442,7 +474,9 @@ export function validateFunction(): never {
  * - {@link validateEqualsParameters} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning {@link IValidation}
  */
 export function validateParameters<T extends (...args: any[]) => any>(
@@ -470,7 +504,9 @@ export function validateParameters(): never {
  * - {@link validateEqualsReturn} — Also rejects extra properties
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning {@link IValidation}
  */
 export function validateReturn<T extends (...args: any[]) => any>(
@@ -501,7 +537,9 @@ export function validateReturn(): never {
  * - {@link assertEqualsFunction} — Throws on first error
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning {@link IValidation}
  */
 export function validateEqualsFunction<T extends (...args: any[]) => any>(
@@ -529,7 +567,9 @@ export function validateEqualsFunction(): never {
  * - {@link assertEqualsParameters} — Throws on first error
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning {@link IValidation}
  */
 export function validateEqualsParameters<T extends (...args: any[]) => any>(
@@ -557,7 +597,9 @@ export function validateEqualsParameters(): never {
  * - {@link assertEqualsReturn} — Throws on first error
  *
  * @template T Target function type
+ *
  * @param func Function to wrap
+ *
  * @returns Wrapped function returning {@link IValidation}
  */
 export function validateEqualsReturn<T extends (...args: any[]) => any>(

@@ -20,6 +20,15 @@ import { Calculator } from "../structures/Calculator";
  * 1. Serve a `Calculator` controller through createMcpServer.
  * 2. Call `tools/list`.
  * 3. Assert every method is listed and `add` requires its `x`/`y` params.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The reflected Calculator registration exposes tools/list and four authored method names, required add operands x/y and method description Add two numbers.
+ * @evidence contracts/testing.md#independent-expectations The Calculator declaration and its authored JSDoc define names, count, required properties and description independently of generated tool metadata.
+ * @evidence contracts/testing.md#distinguishing-cases The complete four-name population and add metadata are checked; dispatch and unknown-name behavior belong to sibling cases.
+ * @evidence contracts/testing.md#execution-ownership test-mcp test:integration discovers test_mcp_tool_list through DynamicExecutor. The controller call is native-transformed before runtime adapter execution.
+ * @evidence contracts/e2e.md#necessary-boundary The reflected Calculator registration exposes tools/list and four authored method names, required add operands x/y and method description Add two numbers. The native-produced controller is registered by createMcpServer and the actual SDK handler is invoked directly. This pins producer-to-adapter assembly, not transport serialization; private SDK handler lookup is an existing test coupling.
+ * @evidence contracts/e2e.md#shared-execution All native controller call sites share the suite TypeScript project and content-keyed plugin artifact; no declaration builds its own native program. The directly invoked handlers require no separate host process or installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The case owns a fresh controller and unconnected server registry, invokes only its local handlers and opens no transport. Inputs and any fixture counter remain local, so another case cannot provide its verdict.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. The complete four-name population and add metadata are checked; dispatch and unknown-name behavior belong to sibling cases. Portable HTTP-executor handler assertions run separately in test_mcp_http_controller_execute under test:unit; no assertion is removed to shorten boundary execution.
  */
 export const test_mcp_tool_list = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =

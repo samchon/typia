@@ -27,6 +27,11 @@ import (
 //  3. Assert `dependencies["src/a.ts"]` contains `model.ts` and `kept.ts`, so
 //     the fixture is genuinely analyzed.
 //  4. Assert it contains neither `callret.ts` nor `newret.ts`.
+//
+// @evidence contracts/testing.md#behavioral-verification model and the ordinary property kept are retained; callret and newret are absent.
+// @evidence contracts/testing.md#independent-expectations Callable validation checks function membership without reading parameter/return types; ordinary properties still affect emitted checks.
+// @evidence contracts/testing.md#distinguishing-cases Call and construct signature return aliases are negative twins of a consulted data-property alias.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesSignatureAliasTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesSignatureAliasTransform(t *testing.T) {
   project := projectDependenciesSignatureAliasProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -66,16 +71,7 @@ func TestProjectDependenciesSignatureAliasTransform(t *testing.T) {
 
 func projectDependenciesSignatureAliasProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-signature-alias-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-signature-alias-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

@@ -12,4 +12,6 @@ module.exports = {
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
   importOrderParserPlugins: ["decorators-legacy", "typescript", "jsx"],
+  // Preserve visible boundaries between descriptive and acknowledgment tags.
+  jsdocSeparateTagGroups: true,
 };

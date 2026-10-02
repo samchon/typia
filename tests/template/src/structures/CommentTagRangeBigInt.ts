@@ -21,30 +21,35 @@ export namespace CommentTagRangeBigInt {
 
     /**
      * @exclusiveMinimum 3
+     *
      * @exclusiveMaximum 7
      */
     greater_less: bigint;
 
     /**
      * @minimum 3
+     *
      * @exclusiveMaximum 7
      */
     greater_equal_less: bigint;
 
     /**
      * @exclusiveMinimum 3
+     *
      * @maximum 7
      */
     greater_less_equal: bigint;
 
     /**
      * @minimum 3
+     *
      * @maximum 7
      */
     greater_equal_less_equal: bigint;
 
     /**
      * @minimum 10
+     *
      * @maximum 10
      */
     equal: bigint;

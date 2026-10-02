@@ -21,6 +21,11 @@ import (
 // 1. Build two tags of one kind from each array-form declaration.
 // 2. Validate the pair and require rejection.
 // 3. Require the report to name the kind and the conflicting tag.
+//
+// @evidence contracts/testing.md#behavioral-verification For every array-form declaration the validator is called with two tags of its own kind and must reject the duplicate with a report.
+// @evidence contracts/testing.md#independent-expectations Each declaration lists its own kind as exclusive, so a duplicate is forbidden by specification.
+// @evidence contracts/testing.md#distinguishing-cases One duplicate pair per declaration; distinct-kind pairs are owned by the legal-combinations case.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the validator on constructed tags with no checker, filesystem fixture or process.
 func TestMetadataTypeTagFactoryRejectsDuplicatedArrayFormTags(t *testing.T) {
   for _, declaration := range metadataTypeTagFactoryTestDeclarations() {
     first := declaration.tag("A")

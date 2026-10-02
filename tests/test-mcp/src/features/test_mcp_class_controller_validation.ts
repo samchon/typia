@@ -22,6 +22,15 @@ import { Calculator } from "../structures/Calculator";
  * 1. Serve a `Calculator` controller and grab its tools/call handler.
  * 2. Call `add` with a non-numeric `x`.
  * 3. Assert the result is an error carrying the exact typia failure message.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Calling reflected add with non-numeric x returns isError true and the same rendered failure as the explicit typia.validate plus LlmJson.coerce reference path.
+ * @evidence contracts/testing.md#independent-expectations The error flag and authored invalid operand are independent. Expected text is computed with the same native validator/coercion/rendering family, so matching text establishes feedback propagation and cannot independently detect a shared validation or rendering defect.
+ * @evidence contracts/testing.md#distinguishing-cases Invalid numeric input contrasts with numeric-string coercion and valid arithmetic sibling cases; this case checks exact feedback agreement rather than a separately authored full report.
+ * @evidence contracts/testing.md#execution-ownership test-mcp test:integration discovers test_mcp_class_controller_validation through DynamicExecutor. The controller call is native-transformed before runtime adapter execution.
+ * @evidence contracts/e2e.md#necessary-boundary Calling reflected add with non-numeric x returns isError true and the same rendered failure as the explicit typia.validate plus LlmJson.coerce reference path. The native-produced controller is registered by createMcpServer and the actual SDK handler is invoked directly. This pins producer-to-adapter assembly, not transport serialization; private SDK handler lookup is an existing test coupling.
+ * @evidence contracts/e2e.md#shared-execution All native controller call sites share the suite TypeScript project and content-keyed plugin artifact; no declaration builds its own native program. The directly invoked handlers require no separate host process or installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The case owns a fresh controller and unconnected server registry, invokes only its local handlers and opens no transport. Inputs and any fixture counter remain local, so another case cannot provide its verdict.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Invalid numeric input contrasts with numeric-string coercion and valid arithmetic sibling cases; this case checks exact feedback agreement rather than a separately authored full report. Portable HTTP-executor handler assertions run separately in test_mcp_http_controller_execute under test:unit; no assertion is removed to shorten boundary execution.
  */
 export const test_mcp_class_controller_validation = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =

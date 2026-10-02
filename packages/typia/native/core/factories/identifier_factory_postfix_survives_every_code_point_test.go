@@ -25,6 +25,11 @@ import (
 //     escape rather than corrupting the literal.
 //  3. Sweep every single byte, including the ones that are not UTF-8, and assert
 //     the emitted literal still decodes.
+//
+// @evidence contracts/testing.md#behavioral-verification Postfix is called on every Unicode scalar, lone surrogate code unit and single byte. Scalars and valid UTF-8 bytes must round-trip exactly; surrogates must retain their exact escaped code unit and decode without error, while invalid UTF-8 bytes are checked only for decodability.
+// @evidence contracts/testing.md#independent-expectations The independent JSON decoder must recover the authored scalar and valid-byte inputs. It replaces lone surrogates, so their separate authored escape checks establish code-unit preservation; no exact decoded value is asserted for invalid UTF-8 bytes.
+// @evidence contracts/testing.md#distinguishing-cases An exhaustive sweep closes the class of unescaped characters that the table-driven case samples.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the factory on strings and decodes the result with encoding/json, with no checker, filesystem fixture or process.
 func TestIdentifierFactoryPostfixSurvivesEveryCodePoint(t *testing.T) {
   for code := rune(0); code <= utf8.MaxRune; code++ {
     if code >= 0xd800 && code <= 0xdfff {

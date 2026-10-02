@@ -13,16 +13,44 @@ type typeFactoryNamespace struct{}
 
 var TypeFactory = typeFactoryNamespace{}
 
+// TypeFactory_GetReturnTypeOfClassMethodProps names a method of a class type
+// whose return type is wanted.
+//
+// @evidence contracts/common.md#principled-implementation Finding a method's return type needs the checker, the class type and the method name.
+// @evidence contracts/common.md#clear-and-simple-design A three-field argument record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it names.
 type TypeFactory_GetReturnTypeOfClassMethodProps struct {
-  Checker  *shimchecker.Checker
-  Class    *shimchecker.Type
+  // Checker resolves the property and its first call signature; nil yields nil.
+  Checker *shimchecker.Checker
+
+  // Class is the type containing the named property; nil yields nil.
+  Class *shimchecker.Type
+
+  // Function names the property whose first call signature supplies the return
+  // type. Missing properties or call signatures yield nil.
   Function string
 }
 
+// TypeFactory_GetFullNameProps selects the type or symbol whose full name is
+// wanted. A non-nil Type and Checker are required even with an explicit Symbol.
+// AliasTypeArguments is retained for compatibility and is currently not read.
+//
+// @evidence contracts/common.md#principled-implementation The checker and type provide the name fallback and reference type arguments; an explicit symbol overrides the type's symbol. AliasTypeArguments preserves the input shape but the current builder does not consult it.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states the selection and the switch.
 type TypeFactory_GetFullNameProps struct {
-  Checker            *shimchecker.Checker
-  Type               *shimchecker.Type
-  Symbol             *shimast.Symbol
+  // Checker renders unnamed types and resolves reference type arguments.
+  Checker *shimchecker.Checker
+
+  // Type supplies the type to name; nil causes the empty result.
+  Type *shimchecker.Type
+
+  // Symbol overrides Type.Symbol when non-nil; it does not replace Type.
+  Symbol *shimast.Symbol
+
+  // AliasTypeArguments is retained but currently has no effect on naming.
   AliasTypeArguments *bool
 }
 

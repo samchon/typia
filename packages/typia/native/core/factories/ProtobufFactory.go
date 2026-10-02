@@ -16,16 +16,29 @@ type protobufFactoryNamespace struct{}
 
 var ProtobufFactory = protobufFactoryNamespace{}
 
+// ProtobufFactory_IProps is the input of a protobuf metadata analysis. Method is
+// the whole typia API name as it appears in diagnostics.
+//
+// @evidence contracts/common.md#principled-implementation The analysis needs the checker, the collection and the type, and the method is the complete API name because it becomes the diagnostic code verbatim, which the field comment explains.
+// @evidence contracts/common.md#clear-and-simple-design A four-field argument record for Metadata.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc and the field comment state the full-name rule.
 type ProtobufFactory_IProps struct {
   // Method is the fully qualified typia API the call site invoked, exactly as
   // it must appear in the diagnostic code (`typia.protobuf.encode`). It is the
   // sole source of that code: composing the code here from a shorter spelling
   // let the encode and decode programmers, which already pass the whole call
   // accessor, report `typia.protobuf.typia.protobuf.encode`.
-  Method     string
-  Checker    *shimchecker.Checker
+  Method string
+
+  // Checker resolves the Type in the current compiler program.
+  Checker *shimchecker.Checker
+
+  // Components receives named analysis entries and protobuf property layouts.
   Components *schemametadata.MetadataCollection
-  Type       *shimchecker.Type
+
+  // Type is the root type, required to be a sole static object by validation.
+  Type *shimchecker.Type
 }
 
 func (protobufFactoryNamespace) Metadata(props ProtobufFactory_IProps) *schemametadata.MetadataSchema {
@@ -281,7 +294,7 @@ func protobufFactory_emplaceBigint(output map[string]nativeprotobuf.IProtobufPro
         break
       }
     }
-    output[init] = &nativeprotobuf.IProtobufPropertyType_IBigint{
+    output[value] = &nativeprotobuf.IProtobufPropertyType_IBigint{
       IProtobufSchema_IBigint: nativeprotobuf.IProtobufSchema_IBigint{Type: "bigint", Name: value},
       Index:                   protobufFactory_getSequence(row),
     }

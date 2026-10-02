@@ -1,10 +1,31 @@
 import * as template from "@typia/template";
+import { TestStructureSelector } from "@typia/template/structure-selector";
 import { dedent } from "@typia/utils";
 import fs from "fs";
 
 import { TestGlobal } from "./TestGlobal";
 
+/**
+ * Owns generation of the ordinary and surplus-member OpenAPI schema matrices.
+ *
+ * Source discovery, suite enrollment and both declaration writers stay
+ * together; generated callbacks supply the native schema boundary to reusable
+ * helpers.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Groups discovery and declaration writers for clean/spoiled and surplus-member schema validation. Generated entries invoke the native json.schema producer and assertion helpers; generation itself computes no verdict.
+ * @evidence contracts/testing.md#independent-expectations Fixtures author clean values and invalid SPOILERS; the surplus helper authors injected-key paths. Writers preserve these owners instead of deriving expected reports from generated schemas. Ordinary union-path grouping has the limitation described by its helper.
+ * @evidence contracts/testing.md#distinguishing-cases The ordinary matrix retains clean acceptance and authored invalid-value mutations; the equality matrix retains clean identity and extra-key reports. Eligibility and existing held-out policies define this suite's population rather than all possible TypeScript declarations.
+ * @evidence contracts/testing.md#execution-ownership generate prepares both feature directories for the parent main and its single TestServant worker. Private writers retain one discoverable export per fixture; the namespace is support code, not an independently registered case.
+ */
 export namespace TestAutomation {
+  /**
+   * Regenerates both schema-validation feature directories before execution.
+   *
+   * @evidence contracts/testing.md#behavioral-verification Replaces generated feature files before main executes their clean/spoiled and surplus-member assertions. Every selected write is awaited; a preparation rejection propagates instead of running a stale partial population.
+   * @evidence contracts/testing.md#independent-expectations Private writers bind authored fixtures and assertion helpers to actual typia.json.schema output. They emit no expected schema snapshot or validation report; helper oracle limitations remain documented at their owner.
+   * @evidence contracts/testing.md#distinguishing-cases Both ordinary and equality populations are generated, including cases with no spoilers or no object nodes. Fixture flags and held-out policies determine membership; generation is not a separate positive/negative test.
+   * @evidence contracts/testing.md#execution-ownership Parent main awaits this support operation before connecting its shared worker; generate.ts uses it for nonexecuting preparation. Private writers own filenames and matching exports, while TestServant owns discovery and case reporting.
+   */
   export const generate = async (): Promise<void> => {
     const directories: string[] = [
       `${TestGlobal.ROOT}/src/features`,
@@ -28,6 +49,24 @@ export namespace TestAutomation {
 
       import { _test_validate } from "../../internal/_test_validate";
 
+      /**
+       * Verifies the native-produced ${key} schema validates its fixture values.
+       *
+       * Clean acceptance and authored invalid mutations exercise the connection
+       * between the TypeScript schema producer and runtime OpenAPI validation.
+       *
+       * 1. Produce the ${key} root and components and validate a clean value.
+       * 2. Apply each declared spoiler and compare the complete grouped paths.
+       *
+       * @evidence contracts/testing.md#behavioral-verification This ${key} entry passes typia.json.schema output to _test_validate, which checks clean success and input identity, requires rejection of each declared spoiler, and compares the entire sorted diagnostic-path population including multiplicity after expected-path grouping.
+       * @evidence contracts/testing.md#independent-expectations ${key}.generate and .SPOILERS supply valid values, invalid mutations and original expected paths independently of OpenApiValidator output. The helper's normalization consults the emitted schema and OpenApiTypeChecker to group ambiguous union leaves; that grouping is not an independent oracle of the schema or branch-selection utility. Actual reported paths remain unnormalized.
+       * @evidence contracts/testing.md#distinguishing-cases A clean ${key} value is the positive case and each declared spoiler changes an invalid value for this fixture. A fixture with no spoilers contributes only clean success and identity. Distinct fixture declarations retain their array, nullable, optional, recursive, scalar and tagged contexts; surplus-member assertions belong to the separate equality matrix.
+       * @evidence contracts/testing.md#execution-ownership Generated test_validate_${key} is discovered by TestServant in src/features/validate during test-utils-automated start. The entry owns its native schema binding and fixture identity; _test_validate owns validation and its private expected-path normalization.
+       * @evidence contracts/e2e.md#necessary-boundary The Go producer's root and components for ${key} must compose with OpenApiValidator, including reference and object constraints. A direct validator call on an authored schema cannot verify the TypeScript-to-schema connection. Portable validator rules have separate direct unit owners; this entry retains the real emitted-schema connection.
+       * @evidence contracts/e2e.md#shared-execution The suite generates both matrices before starting one shared TestServant worker. Entries share that workspace project and its content-keyed native artifact without per-fixture installation or worker creation, and every case keeps its own discoverable failure identity. The entry does not certify minimum preparation across the parent generation entry and worker project load.
+       * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The helper creates one validator for this schema and calls the fixture generator separately for clean and each spoiled scenario. Normalization uses local path/visit collections without mutating schema or components; spoilers mutate their supplied value. The runner closes its connected worker in finally and ttsc owns artifact invalidation. This case does not prove cold-cache behavior or isolation of a fixture's global random state.
+       * @evidence contracts/e2e.md#preserved-coverage This binding retains the ${key} fixture, native schema call, selected helper and discoverable export. Every existing clean/spoiler invocation and complete path comparison remains executed. The emitted schema is an input under test, and no unit or compiler boundary assertion is removed or replaced by this documentation.
+       */
       export const test_validate_${key} = () => _test_validate<${key}>({
         ...typia.json.schema<${key}>(),
         factory: ${key},
@@ -47,6 +86,24 @@ export namespace TestAutomation {
 
       import { _test_validateEquals } from "../../internal/_test_validateEquals";
 
+      /**
+       * Verifies the native-produced ${key} schema supports strict validation.
+       *
+       * The schema's root and component references must compose with the runtime
+       * validator, accepting the fixture before detecting injected extra keys.
+       *
+       * 1. Produce the ${key} schema and validate a clean fixture value.
+       * 2. Inject extra object keys and compare the complete sorted error paths.
+       *
+       * @evidence contracts/testing.md#behavioral-verification This ${key} entry passes typia.json.schema output into _test_validateEquals, which asserts clean success and input identity before comparing every injected surplus path. It detects a schema/validator disagreement and blanket clean-input rejection.
+       * @evidence contracts/testing.md#independent-expectations ${key}.generate supplies the value, while the helper's mutations supply expected extra-key paths independently of the schema output. Full multiset equality detects missing or extra reports; accessor quoting uses NamingConvention and is not independent coverage of that utility. The emitted schema is an input under test, not the expected answer.
+       * @evidence contracts/testing.md#distinguishing-cases The clean ${key} graph is the positive case; adding only non_regular_member to its object nodes is the negative twin. Arrays retain index paths and nested objects contribute each injected key. A value without object nodes contributes zero surplus paths but still owns clean success and identity; declared-value spoilers belong to the separate validate matrix.
+       * @evidence contracts/testing.md#execution-ownership Generated test_validateEquals_${key} is discovered by TestServant under src/features/validateEquals during the automated suite's start command. It is an E2E schema-producer/validator entry; _test_validateEquals owns the portable assertion and traversal implementation.
+       * @evidence contracts/e2e.md#necessary-boundary This entry composes the Go transformer's schema for the ${key} TypeScript declaration with OpenApiValidator, including its generated root and components. Direct validation of a hand-authored schema cannot detect disagreement in those emitted references or object constraints; portable validator rules also have direct unit coverage.
+       * @evidence contracts/e2e.md#shared-execution The entry belongs to one generated suite project and one shared TestServant worker, reusing the workspace's content-keyed native plugin artifact. It performs no installation, compiler launch or worker creation itself, and retains its own discoverable name and failure report.
+       * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The helper generates a fresh ${key} value per invocation, checks it clean and then mutates only that value. Schema/components are not mutated. The suite runner closes its connected worker in finally; ttsc owns native artifact invalidation by content, and this case does not claim a cold-cache transition.
+       * @evidence contracts/e2e.md#preserved-coverage This generated binding retains the ${key} fixture, typia.json.schema call and complete helper invocation. Clean success, identity and every surplus-path assertion remain in _test_validateEquals; this documentation change neither transfers nor deletes an executable distinction.
+       */
       export const test_validateEquals_${key} = () => _test_validateEquals<${key}>({
         ...typia.json.schema<${key}>(),
         factory: ${key},
@@ -67,8 +124,8 @@ export namespace TestAutomation {
    * Matching source text means prose decides coverage: a doc comment that
    * merely mentioned one of those words dropped a structure from the matrix
    * silently, with nothing to observe (#2136). The set below reproduces those
-   * three scans exactly — the same 148 structures resolve to the same 83
-   * validate and 80 equality cases.
+   * three scans' population. Its suite-specific exclusions remain separate from
+   * the declaration-based ordinary/equality eligibility selector.
    *
    * The reason belongs here rather than on the fixture because it describes the
    * emitted schema, not the fixture: nothing about `DynamicSimple` makes it
@@ -136,6 +193,11 @@ export namespace TestAutomation {
    * _which_ structures the matrix covers — a separate decision from _how_ they
    * are selected, left to #2136's follow-up.
    */
+  // Schema validation concerns the constraints expressible in its emitted
+  // schema. Integer-width tags and tagged template interpolations need not
+  // preserve every TypeScript-side constraint there, and JavaScript numbers
+  // retain their normal finite precision. Those representation boundaries do
+  // not justify fixture-specific range patches or monkey-patching validators.
   const HELD_OUT: Record<string, string> = {
     // `additionalProperties` from an index signature
     DynamicArray: "index signature; passes today",
@@ -155,62 +217,52 @@ export namespace TestAutomation {
     TypeTagType: "integer width tags emit no range",
   };
 
+  /**
+   * Discovers schema-matrix candidates and selects their declared eligibility.
+   *
+   * The schema equality override preserves independently useful assertions
+   * whose native equality flag differs. No fixture source content is read.
+   *
+   * @evidence contracts/testing.md#behavioral-verification Supplies candidate names to both generated schema matrices by binding directory basenames to template exports and declared eligibility. It selects assertions for execution rather than validating values itself; missing exports fail in TestStructureSelector.
+   * @evidence contracts/testing.md#independent-expectations JSONABLE and schema/native equality flags state fixture suitability independently of emitted schemas. Four copied recursive-array schema-equality flags preserve this suite's established enrollment without changing native fixture policy; HELD_OUT preserves the documented schema-representation population.
+   * @evidence contracts/testing.md#distinguishing-cases Ordinary and equality modes differ by eligibility. Comment, ToJson, custom-tag and held-out fixtures stay outside the existing population; recursive nullable/required/union arrays retain their schema-only equality cases. Pure selector decision cases execute in test-utils unit coverage.
+   * @evidence contracts/testing.md#execution-ownership generate calls this support wrapper once per matrix before any worker executes. The shared selector owns flag interpretation, this wrapper owns directory discovery and suite policy, and generated exports own their native-schema bindings.
+   */
   export const getStructures = async (equals: boolean): Promise<string[]> => {
     const directory: string[] = await fs.promises.readdir(
       `${TestGlobal.ROOT}/../template/src/structures`,
     );
-    const declarations: Record<string, IStructureDeclaration> =
-      template as unknown as Record<string, IStructureDeclaration>;
-    const result: string[] = [];
-    for (const file of directory) {
-      if (
-        file.endsWith(".ts") === false ||
-        file === "index.ts" ||
-        file === "TypeTagCustom.ts" ||
-        file.startsWith("Comment") ||
-        file.startsWith("ToJson")
-      )
-        continue;
-      const name: string = file.substring(0, file.length - 3);
-      // `Object.hasOwn`, not a truthiness test: a fixture named after an
-      // `Object.prototype` member would otherwise resolve against the prototype
-      // and be held out silently — the very failure this selector is shedding.
-      if (Object.hasOwn(declarations, name) === false)
-        throw new Error(`@typia/template does not export ${name}`);
-      const structure: IStructureDeclaration = declarations[name]!;
-      // Read what the fixture declares about itself, so that prose cannot
-      // decide the matrix. `JSONABLE === false` marks a type whose value has no
-      // faithful JSON form.
-      if (structure.JSONABLE === false) continue;
-      else if (Object.hasOwn(HELD_OUT, name)) continue;
-      // `ADDABLE` is still read from source text, and deliberately so: four
-      // fixtures spell it `ADDABLE: boolean = false`, which this scan does not
-      // match, so they sit in the equality matrix despite declaring otherwise.
-      // Reading the declaration instead would drop them — and two of the four
-      // (ArrayRepeatedUnion, ArrayRepeatedUnionWithTuple) assert 270 superfluous
-      // paths each, so the "faithful" read silently deletes real coverage. That
-      // is a decision about *which* structures the matrix covers, so it is left
-      // to #2136's follow-up rather than smuggled in behind a refactor.
-      else if (equals === true) {
-        const content: string = await fs.promises.readFile(
-          `${TestGlobal.ROOT}/../template/src/structures/${file}`,
-          "utf-8",
-        );
-        if (content.includes("ADDABLE = false")) continue;
-      }
-      result.push(name);
-    }
-    return result;
+    return TestStructureSelector.select({
+      files: directory.filter(
+        (file) =>
+          file !== "TypeTagCustom.ts" &&
+          !file.startsWith("Comment") &&
+          !file.startsWith("ToJson"),
+      ),
+      // These four existing schema cases are distinct from native equality:
+      // the nullable/required cases pin clean acceptance; the union cases also
+      // pin nested surplus paths. Keep their enrollment in this suite rather
+      // than changing the shared master fixture's native ADDABLE policy.
+      declarations: {
+        ...template,
+        ArrayRepeatedNullable: {
+          ...template.ArrayRepeatedNullable,
+          SCHEMA_EQUALS: true,
+        },
+        ArrayRepeatedRequired: {
+          ...template.ArrayRepeatedRequired,
+          SCHEMA_EQUALS: true,
+        },
+        ArrayRepeatedUnion: {
+          ...template.ArrayRepeatedUnion,
+          SCHEMA_EQUALS: true,
+        },
+        ArrayRepeatedUnionWithTuple: {
+          ...template.ArrayRepeatedUnionWithTuple,
+          SCHEMA_EQUALS: true,
+        },
+      } as unknown as Record<string, TestStructureSelector.IStructure>,
+      equals,
+    }).filter((name) => !Object.hasOwn(HELD_OUT, name));
   };
-}
-
-/**
- * The part of a `@typia/template` structure this selector reads.
- *
- * Mirrors `TestAutomationMetadata` in `test-typia-automated`, which narrows the
- * same namespaces to the flags its own matrix consumes. Only declared members
- * belong here: a flag this selector does not read would be dead configuration.
- */
-interface IStructureDeclaration {
-  JSONABLE?: boolean;
 }

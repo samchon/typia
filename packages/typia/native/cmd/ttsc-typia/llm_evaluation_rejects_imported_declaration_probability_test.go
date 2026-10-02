@@ -14,8 +14,13 @@ import (
 // the checker still resolves that alias at the evaluation decision.
 //
 //  1. Define an annotated primitive alias in an imported module.
-//  2. Use it in evaluation calls in two source files.
+//  2. Use it in one evaluation call and place another call in a second file.
 //  3. Require the imported declaration's diagnostic from both CLI paths.
+//
+// @evidence contracts/testing.md#behavioral-verification Both in-process build and project transform report status 3 and two occurrences of the imported Urgency declaration diagnostic.
+// @evidence contracts/testing.md#independent-expectations Each evaluation call performs its program-wide placement check, so an illegal tag in another source must be visible to both callers and both command routes.
+// @evidence contracts/testing.md#distinguishing-cases The tagged alias lives in a separate module while two source files contain evaluation calls; build and transform routes retain the same diagnostic multiplicity.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsImportedDeclarationProbability as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsImportedDeclarationProbability(t *testing.T) {
   dir := llmEvaluationProject(t, "imported-declaration-probability", `import typia from "typia";
 import type { Urgency } from "./urgency";

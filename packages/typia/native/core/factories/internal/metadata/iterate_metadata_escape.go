@@ -5,6 +5,13 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_escape records a type with a `toJSON` method as an escaped
+// schema holding both the original type and the method's return type.
+//
+// @evidence contracts/common.md#principled-implementation A type whose class has a `toJSON` method serializes as that method's return type, so the schema records both the original type and the return type as an escaped pair, each explored with the escaped state so they are not escaped again.
+// @evidence contracts/common.md#clear-and-simple-design One function that explores two types into one escaped record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The method name is the JSON protocol's.
+// @evidence contracts/common.md#meaningful-documentation The doc states the two halves.
 func Iterate_metadata_escape(props IMetadataIteratorProps) bool {
   if props.Options.Escape == false || props.Explore.Escaped == true {
     return false

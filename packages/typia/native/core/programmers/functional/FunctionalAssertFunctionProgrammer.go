@@ -11,21 +11,62 @@ type functionalAssertFunctionProgrammerNamespace struct{}
 
 var FunctionalAssertFunctionProgrammer = functionalAssertFunctionProgrammerNamespace{}
 
+// FunctionalAssertFunctionProgrammer_IConfig selects the generator's variants:
+// Equals is the strict form that also rejects properties the type does not
+// declare.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 1 field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalAssertFunctionProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
+// FunctionalAssertFunctionProgrammer_IProps is the input of Write for the assert
+// function generator: Context (the transform context), Modulo (the call's callee
+// expression), Config (the configuration), Declaration (the function
+// declaration), Expression (the function expression) and Init (the optional
+// initializer of the error factory parameter).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the configuration, the function declaration, the function expression and the optional initializer of the error factory parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalAssertFunctionProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalAssertFunctionProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalAssertFunctionProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
-  Init        *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
+
+  // Init initializes the error factory; nil selects the functional default.
+  Init *shimast.Node
 }
 
+// FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput is what the
+// generator returns: Name is the generated error-factory wrapper variable name
+// and Variable is its constant declaration statement.
+//
+// @evidence contracts/common.md#principled-implementation The generator returns its pieces separately so the caller can place helper functions, statements and values where its own wrapper needs them.
+// @evidence contracts/common.md#clear-and-simple-design A record of 2 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states each returned part.
 type FunctionalAssertFunctionProgrammer_ErrorFactoryWrapperOutput struct {
-  Name     string
+  // Name is the error factory binding, disambiguated against parameter names.
+  Name string
+
+  // Variable declares the shared factory once around the returned wrapper.
   Variable *shimast.Node
 }
 

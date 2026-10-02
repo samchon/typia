@@ -1,6 +1,7 @@
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies an outer array of homogeneous callable/primitive/null arrays. */
 export type FunctionalArrayUnion = FunctionalArrayUnion.Union[];
 export namespace FunctionalArrayUnion {
   export const BINARABLE = false;
@@ -8,7 +9,9 @@ export namespace FunctionalArrayUnion {
   export const PRIMITIVE = false;
   export const RESOLVABLE = false;
 
+  /** Declares four homogeneous inner-array alternatives. */
   export type Union = Array<() => any> | number[] | string[] | null[];
+  /** Constructs all four nonempty inner-array alternatives in a fresh array. */
   export function generate(): FunctionalArrayUnion {
     return [
       TestRandomGenerator.array(() => console.log),

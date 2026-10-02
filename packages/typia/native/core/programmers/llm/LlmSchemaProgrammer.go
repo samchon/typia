@@ -22,20 +22,27 @@ type llmSchemaProgrammerNamespace struct{}
 
 var LlmSchemaProgrammer = llmSchemaProgrammerNamespace{}
 
-type LlmSchemaProgrammer_IProps struct {
-  Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
-  Type    any
-  Name    *string
-  Init    *shimast.Node
-  Config  map[string]any
-}
-
+// LlmSchemaProgrammer_IOutput is the converted LLM schema together with its
+// definitions. Schema is the schema of the type and Defs the named definitions
+// it refers to.
+//
+// @evidence contracts/common.md#principled-implementation It is the converted LLM schema together with its definitions; its 2 fields (Schema, Defs) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type LlmSchemaProgrammer_IOutput struct {
   Schema map[string]any
   Defs   map[string]any
 }
 
+// LlmSchemaProgrammer_IWriteProps is the argument record of
+// LlmSchemaProgrammer.Write, which builds the LLM schema of a type. Config is
+// the call's literal configuration.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of LlmSchemaProgrammer.Write, which builds the LLM schema of a type; its 3 fields (Context, Metadata, Config) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type LlmSchemaProgrammer_IWriteProps struct {
   Context  nativecontext.ITypiaContext
   Metadata *schemametadata.MetadataSchema

@@ -17,6 +17,15 @@ import typia from "typia";
  *    through every direct and factory decoder.
  * 3. Assert the record leaves a required, optional, packed, and surrounding known
  *    field intact, and that a truncated record is still rejected.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Eight variants preservea around leading/trailing empty unknown records; direct controls cover empty evolved string/bytes/nested, packed records, optional absence, between-fields records and truncated unknown overflow.
+ * @evidence contracts/testing.md#independent-expectations Literal leading/trailing bytes establish cursor behavior independently. Evolved encoders must match the authored trailing bytes exactly before their decoder checks, avoiding unexamined round-trip agreement.
+ * @evidence contracts/testing.md#distinguishing-cases Zero versus positive truncated length, leading/trailing/intermediate position, optional phantom absence and repeated packed fields retain all original distinction checks.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_protobuf_decode_zero_length_unknown_field in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native decode call sites select field numbers, reader operations and direct/factory/validation wrappers that consume the authored binary vectors. Portable reader units cannot prove this generated field dispatch and wrapper assembly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_protobuf_decode_zero_length_unknown_field = (): void => {
   // field 2 length-delimited declaring a length of zero, around field 1 = "a"

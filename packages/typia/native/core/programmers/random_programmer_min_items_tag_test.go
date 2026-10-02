@@ -19,6 +19,11 @@ type randomProgrammerDefinedInt int
 // 1. Check positive direct, schema-backed, defined numeric, and fractional tags.
 // 2. Check zero, negative, and unrelated tags are ignored.
 // 3. Verify the helper returns the matching tag name for diagnostics.
+//
+// @evidence contracts/testing.md#behavioral-verification The positive-MinItems lookup is called on direct, schema-backed, bridge numeric and fractional tags and on zero, negative and unrelated tags.
+// @evidence contracts/testing.md#independent-expectations Only positive MinItems values matter to the recursion check; the tags and verdicts are authored.
+// @evidence contracts/testing.md#distinguishing-cases Five detected rows and four ignored rows separate positive detection from over-matching.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the lookup on constructed tags with no checker, filesystem fixture or process.
 func TestRandomProgrammerFindPositiveMinItems(t *testing.T) {
   for _, tags := range [][][]schemametadata.IMetadataTypeTag{
     {{{Name: "MinItems<2>", Kind: "minItems", Value: 2}}},

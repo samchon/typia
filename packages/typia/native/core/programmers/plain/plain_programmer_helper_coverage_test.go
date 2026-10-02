@@ -27,6 +27,11 @@ import (
 // 4. Explore clone array, set, map, and object-union metadata.
 // 5. Drive top-level clone and prune union decoders across rich metadata.
 // 6. Verify prune tuple filters and generic name joiners.
+//
+// @evidence contracts/testing.md#behavioral-verification Clone and prune helper functions are called for throw statements, explore conversion, tuple decoding and name joining; explore conversion is compared and most builders only require a non-nil node.
+// @evidence contracts/testing.md#independent-expectations Explore/name/method/join strings, filter and callback true/false/empty twins, imported node identity and error count are authored; remaining non-nil checks are construction-only limitations.
+// @evidence contracts/testing.md#distinguishing-cases Filter and collection predicates have positive/negative twins and an empty boundary; most decoder builders are visited without semantic negative twins.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestPlainProgrammerHelperCoverage(t *testing.T) {
   emit := shimprinter.NewEmitContext()
   factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
@@ -56,8 +61,7 @@ func TestPlainProgrammerHelperCoverage(t *testing.T) {
   }) == nil || plainCloneProgrammer_internal(context, "helper") == nil {
     t.Fatal("plain clone throw or internal helper returned nil")
   }
-  if plainCloneProgrammer_checker_explore(explore).Postfix != "\"\"" ||
-    plainCloneProgrammer_checker_explore_with_postfix(&explore, ".x").Postfix != "\"\".x" ||
+  if plainCloneProgrammer_checker_explore_with_postfix(explore, ".x").Postfix != "\"\".x" ||
     plainCloneProgrammer_explore_with(explore, "function", "array").From != "array" {
     t.Fatal("plain clone explore conversion mismatch")
   }
@@ -254,7 +258,6 @@ func TestPlainProgrammerHelperCoverage(t *testing.T) {
       Name:     "Failure",
       Messages: []string{"bad"},
     }})) != 1 ||
-    plainCloneProgrammer_feature_explore("unknown").Postfix != "" ||
     !plainCloneProgrammer_some_arrays([]*schemametadata.MetadataArray{array}, func(*schemametadata.MetadataArray) bool { return true }) ||
     plainCloneProgrammer_some_arrays([]*schemametadata.MetadataArray{array}, func(*schemametadata.MetadataArray) bool { return false }) ||
     !plainCloneProgrammer_some_tuples([]*schemametadata.MetadataTuple{tuple}, func(*schemametadata.MetadataTuple) bool { return true }) ||

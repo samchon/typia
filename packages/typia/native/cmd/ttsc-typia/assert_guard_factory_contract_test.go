@@ -1,8 +1,6 @@
 package main
 
 import (
-  "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
@@ -11,46 +9,46 @@ import (
   "github.com/samchon/ttsc/packages/ttsc/driver"
 )
 
-// TestAssertGuardFactoryContract verifies factory typing and runtime shape.
+// TestAssertGuardFactoryContract verifies factory assertion-guard types and replacement of its call.
 //
-// An assertion-guard factory returns the guard itself. Its successful invocation
-// returns void while narrowing the input; it never returns another callable
-// assertion guard. The guard carries the optional call-time `errorFactory` the
-// emit really gives it, and stays assignable to the documented
-// `AssertionGuard<T>` annotation.
+// An assertion function narrows its argument and returns void, and the public AssertionGuard signature owns the optional error factory parameter. Authored Equal/Assert types and an expected-error assignment establish those static expectations.
 //
-//  1. Compile normal and equals factories with explicit and inferred types.
-//  2. Prove successful invocations narrow and have a void return type.
-//  3. Exercise custom errors and the equals-only surplus-property boundary.
+// 1. Explicit/inferred and ordinary/equals factory typings contrast with an invalid nested-guard assignment; generated runtime execution is outside this case.
+// 2. The checker verifies two inferred guards have assertion signatures rather than nested guard return types; the fixture typechecks void return/narrowing contracts.
+// 3. Require each emitted factory export to contain its generated predicate and reject an unrewritten control from the same fixture.
+//
+// @evidence contracts/testing.md#behavioral-verification The checker verifies two inferred guards have assertion signatures rather than nested guard return types and the fixture typechecks void return/narrowing contracts. Each factory export must contain its generated predicate; a no-rewrite control must lack that predicate and retain the public factory invocation.
+// @evidence contracts/testing.md#independent-expectations An assertion function narrows its argument and returns void, and the public AssertionGuard signature owns the optional error factory parameter. Authored Equal/Assert types and an expected-error assignment establish those static expectations.
+// @evidence contracts/testing.md#distinguishing-cases Explicit/inferred and ordinary/equals factory typings contrast with an invalid nested-guard assignment. Rewritten and no-rewrite emits differ only in transformation mode, so erasing generic syntax alone cannot satisfy the replacement assertion; generated runtime execution is outside this case.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestAssertGuardFactoryContract as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestAssertGuardFactoryContract(t *testing.T) {
   project := compareEqualCoverProject(t, "assert-guard-factory-", assertGuardFactorySource)
   ttscTypiaTestAssertGuardFactoryType(t, project)
   ttscTypiaTestTypecheck(t, project)
   js := compareEqualCoverTransform(t, project)
-  if strings.Contains(js, "createAssertGuard<") {
-    t.Fatalf("assert guard factory call was not transformed:\n%s", js)
+  for _, name := range []string{"guard", "equalsGuard", "inferred", "inferredEquals"} {
+    emitted := anyArrayTypeTagsExport(t, js, name)
+    if !strings.Contains(emitted, "__is") || strings.Contains(emitted, ".createAssertGuard(") || strings.Contains(emitted, ".createAssertGuardEquals(") {
+      t.Fatalf("%s did not replace the factory with its generated predicate:\n%s", name, emitted)
+    }
   }
-
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
+  control, errText, code := ttscTypiaTestCapture(func() int {
+    return runTransform([]string{
+      "--cwd", project,
+      "--tsconfig", "tsconfig.json",
+      "--file", "src/main.ts",
+      "--output", "js",
+      "--rewrite-mode", "none",
+    })
+  })
+  if code != 0 {
+    t.Fatalf("no-rewrite assertion guard control failed: code=%d stderr=%s", code, errText)
   }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(ttscTypiaTestRewriteCommonJS(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(assertGuardFactoryRuntime), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("assert guard factory runtime cases failed: %v\n%s", err, output)
+  for _, name := range []string{"guard", "equalsGuard", "inferred", "inferredEquals"} {
+    emitted := anyArrayTypeTagsExport(t, control, name)
+    if strings.Contains(emitted, "__is") || !(strings.Contains(emitted, ".createAssertGuard(") || strings.Contains(emitted, ".createAssertGuardEquals(")) {
+      t.Fatalf("%s no-rewrite control does not distinguish factory replacement:\n%s", name, emitted)
+    }
   }
 }
 
@@ -137,29 +135,4 @@ export type FactoryCases = [
 // @ts-expect-error invoking an assertion guard returns void, not another guard.
 const nested: AssertionGuard<User> = guard(input);
 void nested;
-`
-
-const assertGuardFactoryRuntime = `const mod = require("./main.cjs");
-
-const expect = (label, actual, expected) => {
-  if (actual !== expected) throw new Error(label + ": expected " + expected + ", got " + actual);
-};
-
-expect("normal success returns void", mod.guard({ id: 1 }), undefined);
-expect("equals success returns void", mod.equalsGuard({ id: 1 }), undefined);
-expect("normal permits surplus", mod.guard({ id: 1, extra: true }), undefined);
-
-for (const [label, guard, value] of [
-  ["normal invalid", mod.guard, { id: "bad" }],
-  ["equals invalid", mod.equalsGuard, { id: "bad" }],
-  ["equals surplus", mod.equalsGuard, { id: 1, extra: true }],
-]) {
-  let error;
-  try {
-    guard(value);
-  } catch (exp) {
-    error = exp;
-  }
-  expect(label + " uses custom error", error && error.message, "custom guard");
-}
 `

@@ -20,6 +20,13 @@ var HttpHeadersProgrammer = httpHeadersProgrammerNamespace{}
 
 const HttpHeadersProgrammer_INPUT_TYPE = "Record<string, string | string[] | undefined>"
 
+// HttpHeadersProgrammer_DecomposeProps is the argument record of
+// HttpHeadersProgrammer.Decompose, which builds the headers decoder.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of HttpHeadersProgrammer.Decompose, which builds the headers decoder; its 4 fields (Context, Functor, Type, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type HttpHeadersProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer

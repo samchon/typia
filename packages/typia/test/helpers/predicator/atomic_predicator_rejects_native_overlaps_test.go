@@ -19,6 +19,11 @@ import (
 // 3. Assert runtime predicates reject primitive names covered by wrapper natives.
 // 4. Assert unrelated primitive names are still allowed.
 // 5. Assert template predicates reject a native string wrapper.
+//
+// @evidence contracts/testing.md#behavioral-verification The constant, runtime atomic, runtime constant and template predicates run on metadata that already holds String, Number or BigInt natives; overlapping primitives must be rejected and an unrelated boolean allowed.
+// @evidence contracts/testing.md#independent-expectations Authored metadata states which primitive each native wrapper stands for, and the case-insensitive comparison is the documented rule for TypeScript symbol names.
+// @evidence contracts/testing.md#distinguishing-cases Four predicate entry points, a mixed-case name and the boolean control separate overlap rejection from blanket rejection.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported predicates on constructed metadata with no filesystem fixture, process or native command build.
 func TestAtomicPredicatorRejectsNativeOverlaps(t *testing.T) {
   meta := metadata.MetadataSchema_create(metadata.MetadataSchema{
     Natives: []*metadata.MetadataNative{

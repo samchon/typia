@@ -7,6 +7,26 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies vercel generate text multiple tools against the native
+ * typia.llm.controller output.
+ *
+ * The case builds its input in this file and asserts should have 3 tool calls,
+ * should have 3 tool results, add(10, 5) should be 15, multiply(3, 7) should be
+ * 21, subtract(100, 42) should be 58.
+ *
+ * 1. Generate the value from the types declared in this file.
+ * 2. Assert the properties listed above.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Runs real AI SDK generateText with three official mock tool calls and checks call/result counts plus add15, multiply21 and subtract58 outputs matched by call IDs.
+ * @evidence contracts/testing.md#independent-expectations The mock protocol specifies three distinct call IDs and literal arithmetic inputs; handwritten outputs follow Calculator methods independently of native schema generation.
+ * @evidence contracts/testing.md#distinguishing-cases Multiple dispatch and call-ID association differ from the single-call case; generate_text_validation_error and generate_text_runtime_error cover failure outputs.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_generate_text_multiple_tools in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Real SDK orchestration parses three injected tool calls and associates independent Calculator outputs with their call IDs. The single-call case cannot detect cross-call result routing; failure-path siblings own invalid arguments and exceptions.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
+ */
 export const test_vercel_generate_text_multiple_tools =
   async (): Promise<void> => {
     // 1. Create class-based controller using typia.llm.controller

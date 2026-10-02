@@ -69,6 +69,15 @@ interface IExotic {
  * 2. Repeat for all-optional, `any`-typed, dynamic-keyed and nested shapes, and
  *    for every stringify flavor and factory.
  * 3. Require each result to equal `JSON.stringify` of the same value and to parse.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Generated stringify preserves property order and valid JSON for optional and nested shapes.
+ * @evidence contracts/testing.md#independent-expectations Exact native JSON.stringify strings anchor order; parsing generated strings detects malformed JSON. Sixteen random exotic samples use the platform oracle without claiming distribution correctness.
+ * @evidence contracts/testing.md#distinguishing-cases Present/absent optional positions, all-optional objects, any/undefined/null, dynamic keys and nested arrays/tuples remain across raw/assert/is/validate direct forms and createStringify.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_json_stringify_declaration_order through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary The native serializer must assemble separators and declaration-order keys across optional and dynamic emission branches.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Present/absent optional positions, all-optional objects, any/undefined/null, dynamic keys and nested arrays/tuples remain across raw/assert/is/validate direct forms and createStringify. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_json_stringify_declaration_order = (): void => {
   const same = (title: string, mine: string, value: unknown): void => {

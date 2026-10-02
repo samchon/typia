@@ -5,12 +5,51 @@ import { OpenApiReferenceKey } from "../../utils/internal/OpenApiReferenceKey";
 import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { OpenApiDiscriminatorConverter } from "./OpenApiDiscriminatorConverter";
 
+/**
+ * Downgrades the emended OpenAPI document to OpenAPI 3.0.
+ *
+ * Numeric exclusive bounds become the boolean 3.0 form, `null` members become
+ * `nullable` on the other members, tuples become bounded arrays of the union of
+ * their elements, constants become enums and `examples` are dropped, because
+ * 3.0 does not define them. A nullable reference gets a generated `.Nullable`
+ * component. Tuple conversion loses positional restrictions and uses the prefix
+ * length for its bounds. An existing `.Nullable` component is reused, so
+ * callers must reserve that generated suffix for this conversion.
+ *
+ * @evidence contracts/common.md#principled-implementation The emended document is rewritten to 3.0 by turning numeric exclusive bounds into the draft-04 boolean form, `null` members into `nullable`, constants into enums, tuples into bounded arrays and by dropping `examples`; a nullable reference gets a generated `.Nullable` component so `nullable` can be expressed on a reference.
+ * @evidence contracts/common.md#clear-and-simple-design Per-object helpers in one namespace; the rewrites that only 3.0 needs are private to it.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The generated .Nullable suffix is a convention and an existing target is reused without schema comparison, so callers must reserve that suffix. Tuple approximation is an explicit dialect limitation rather than exact positional preservation.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the rewrites.
+ */
 export namespace OpenApiV3Downgrader {
+  /**
+   * Pair of the original emended components and the 3.0 components being built.
+   *
+   * @evidence contracts/common.md#principled-implementation A pair of the original and downgraded components lets nullable references consult the source schemas while the target is being built.
+   * @evidence contracts/common.md#clear-and-simple-design Two fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+   * @evidence contracts/common.md#meaningful-documentation A one-line comment states the role.
+   */
   export interface IComponentsCollection {
+    /** Emended schemas used to resolve the source references. */
     original: OpenApi.IComponents;
+
+    /** Target component store receiving converted schemas. */
     downgraded: OpenApiV3.IComponents;
   }
 
+  /**
+   * Downgrade a whole emended document to 3.0.
+   *
+   * @param input Emended document
+   *
+   * @returns OpenAPI 3.0 document
+   *
+   * @evidence contracts/common.md#principled-implementation The components are downgraded first and then paths are rewritten against the collection; `query` and additional operations have no 3.0 form and are carried to `x-additionalOperations`, while webhooks, which 3.0 has no place for, are not carried and are lost.
+   * @evidence contracts/common.md#clear-and-simple-design One function over the shared helpers.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Extension fields are documented ones.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgrade = (input: OpenApi.IDocument): OpenApiV3.IDocument => {
     const collection: IComponentsCollection = downgradeComponents(
       input.components,
@@ -193,6 +232,18 @@ export namespace OpenApiV3Downgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Downgrade every component schema and carry the security schemes over.
+   *
+   * @param input Emended components
+   *
+   * @returns Collection holding the original and the downgraded components
+   *
+   * @evidence contracts/common.md#principled-implementation Every schema is downgraded into a new store keyed by the same names, while the security schemes are carried over unchanged.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A data transformation with no hidden state.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const downgradeComponents = (
     input: OpenApi.IComponents,
   ): IComponentsCollection => {
@@ -215,6 +266,18 @@ export namespace OpenApiV3Downgrader {
     return collection;
   };
 
+  /**
+   * Downgrade one emended schema to 3.0.
+   *
+   * @param collection Original and downgraded components
+   *
+   * @returns Function that converts an emended schema to a 3.0 schema
+   *
+   * @evidence contracts/common.md#principled-implementation A nullable schema, found by following oneOf and references, gets nullable on each member, constants merge into enums per type and exclusive bounds are rewritten. Tuples approximate positional schemas as one item union, set the minimum to the prefix length and close the maximum at that length when no rest is present; this loses positional and optional-prefix constraints. Existing generated .Nullable targets are reused without schema equivalence checking.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function with helpers for nullable references, example removal and bounds.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Rewrites follow the 3.0 dialect and the bound rewrite cites its issue.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result; helpers have comments.
+   */
   export const downgradeSchema =
     (collection: IComponentsCollection) =>
     (input: OpenApi.IJsonSchema): OpenApiV3.IJsonSchema => {

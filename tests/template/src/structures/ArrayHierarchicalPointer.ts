@@ -3,10 +3,12 @@ import { IPointer } from "tstl";
 import { Spoiler } from "../utils/Spoiler";
 import { TestRandomGenerator } from "../utils/TestRandomGenerator";
 
+/** Supplies a pointer-wrapped company hierarchy fixture. */
 export type ArrayHierarchicalPointer = IPointer<
   ArrayHierarchicalPointer.ICompany[]
 >;
 export namespace ArrayHierarchicalPointer {
+  /** Declares company data within the pointer's value array. */
   export interface ICompany {
     id: number;
     serial: number;
@@ -14,6 +16,7 @@ export namespace ArrayHierarchicalPointer {
     established_at: ITimestamp;
     departments: IDepartment[];
   }
+  /** Declares department data and the required employee array. */
   export interface IDepartment {
     id: number;
     code: string;
@@ -21,6 +24,7 @@ export namespace ArrayHierarchicalPointer {
     created_at: ITimestamp;
     employees: IEmployee[];
   }
+  /** Declares all five required employee fields. */
   export interface IEmployee {
     id: number;
     name: string;
@@ -28,11 +32,13 @@ export namespace ArrayHierarchicalPointer {
     grade: number;
     employed_at: ITimestamp;
   }
+  /** Supplies a required numeric time/zone record shape. */
   export interface ITimestamp {
     time: number;
     zone: number;
   }
 
+  /** Constructs a fresh pointer record and nonempty nested hierarchy. */
   export function generate(): ArrayHierarchicalPointer {
     return {
       value: TestRandomGenerator.array(() => ({
@@ -66,6 +72,7 @@ export namespace ArrayHierarchicalPointer {
     };
   }
 
+  /** Prepares a deliberately missing final employee in a dormant trail input. */
   export function trail(): ArrayHierarchicalPointer {
     const data = generate();
     const departments = data.value.at(-1)!.departments;

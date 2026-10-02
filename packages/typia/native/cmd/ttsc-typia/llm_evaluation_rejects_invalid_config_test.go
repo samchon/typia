@@ -16,6 +16,11 @@ import (
 //     an unknown option beside `decimals`.
 //  2. Require each build to fail with its message.
 //  3. Accept the bounds 0 and 15.
+//
+// @evidence contracts/testing.md#behavioral-verification Fractional, negative, sixteen and unknown-scale configs produce the authored messages; decimals zero and fifteen compile.
+// @evidence contracts/testing.md#independent-expectations The evaluation config admits an integer precision in the inclusive range zero through fifteen and rejects options with no supported meaning.
+// @evidence contracts/testing.md#distinguishing-cases One-beyond bounds, a fractional interior value and an extra key contrast with both inclusive limits.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsInvalidConfig as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsInvalidConfig(t *testing.T) {
   for name, tc := range map[string]struct{ config, message string }{
     "fraction": {`{ decimals: 1.5 }`, "decimals must be an integer between 0 and 15."},

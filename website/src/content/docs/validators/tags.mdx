@@ -118,6 +118,8 @@ interface IPort {
 
 A key that falls outside the signature's declared _type_ is a different case: nothing declares it, so it is a surplus property. `is` accepts it as it accepts any surplus property, and only the `equals` variants report it — as an extra property, with `expected` of `"undefined"`. For ``interface IPrefixed { [key: `prefix_${string}`]: string }``, the key `wrong` is surplus, while for `[key: string & tags.Pattern<"^prefix_">]` the same key is a declared key that broke its tag. The two spellings accept the same keys and differ only in what they call a rejection.
 
+Runtime key constraints also apply when a tag is combined with a schema annotation such as `tags.Default`. Template-literal keys retain the same distinction: a key matching the template shape but failing a whole-string or supported placeholder constraint is an invalid declared key.
+
 ### Inside template literals
 
 A tag intersected into a template-literal interpolation constrains that placeholder's parsed value, not just the surrounding shape:
@@ -168,6 +170,8 @@ On a `bigint`, `Type<"int64">` accepts `-(2n ** 63n)` through `2n ** 63n - 1n` a
 
 `Format` accepts: `byte`, `password`, `regex`, `uuid`, `email`, `hostname`, `idn-email`, `idn-hostname`, `iri`, `iri-reference`, `ipv4`, `ipv6`, `uri`, `uri-reference`, `uri-template`, `url`, `date-time`, `date`, `time`, `duration`, `json-pointer`, `relative-json-pointer`.
 
+`Format<"uri-template">` accepts dotted variable names such as `{user.name}`, as defined by RFC 6570. A leading, trailing or repeated dot inside a variable name is rejected.
+
 `byte` validates one complete standard base64 value with required padding, `iri-reference` accepts both absolute IRIs and relative references, and `date` / `date-time` reject impossible Gregorian calendar dates.
 
 For `url`, DNS host labels may contain interior hyphen runs such as `example--example`, but leading or trailing label hyphens and private IPv4 hosts are rejected.
@@ -183,6 +187,8 @@ For `url`, DNS host labels may contain interior hyphen runs such as `example--ex
 | `tags.MinItems<N>` | `arr.length >= N`              |
 | `tags.MaxItems<N>` | `arr.length <= N`              |
 | `tags.UniqueItems` | All elements pairwise distinct |
+
+`tags.UniqueItems<false>` disables the runtime uniqueness check and emits `uniqueItems: false` in JSON Schema. Apply array tags to the array wrapper, for example `string[] & tags.UniqueItems<false>`.
 
 `Default` accepts a readonly tuple as an array default. Capture the value with `as const`, then use its type on the array wrapper: `Header[] & tags.Default<typeof headers>`. The tuple is emitted in the schema's `default` field and can be combined with `MinItems`, `MaxItems`, and `UniqueItems`. An open type such as `string[]` describes many possible arrays rather than one default value, so typia rejects `tags.Default<string[]>`.
 

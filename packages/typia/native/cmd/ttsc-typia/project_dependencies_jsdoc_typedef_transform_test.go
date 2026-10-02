@@ -26,6 +26,11 @@ import (
 //     `src/id.js`.
 //  4. Assert `src/main.ts` is declared complete, so the narrowed bound is the
 //     one carrying them.
+//
+// @evidence contracts/testing.md#behavioral-verification doc.js and the property type id.js are retained and main.ts remains complete.
+// @evidence contracts/testing.md#independent-expectations JSDoc typedef and property annotations supply real type meaning to JavaScript sources, so editing either consulted declaration changes validation.
+// @evidence contracts/testing.md#distinguishing-cases JavaScript typedef/property references exercise the written-type path independently of TypeScript type declarations.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesJsDocTypedefTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesJsDocTypedefTransform(t *testing.T) {
   project := projectDependenciesJsDocTypedefProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -69,16 +74,7 @@ func TestProjectDependenciesJsDocTypedefTransform(t *testing.T) {
 
 func projectDependenciesJsDocTypedefProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-jsdoc-typedef-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-jsdoc-typedef-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

@@ -2,7 +2,26 @@ import { OpenApi } from "@typia/interface";
 
 import { _randomMultiple } from "./_randomMultiple";
 
-export const _randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
+/**
+ * Generate a random number from a number schema.
+ *
+ * The stricter of the inclusive and exclusive bounds wins, a missing side
+ * defaults to a window of one hundred, and a step is satisfied through the
+ * decimal multiple generator.
+ *
+ * The optional source supplies draws in [0, 1); it defaults to the platform
+ * source resolved when this helper is called. Nested draws use the same
+ * source.
+ *
+ * @evidence contracts/common.md#principled-implementation The bounds are selected from the inclusive and exclusive values with the stricter winning, a missing side defaults to a window of one hundred, the source fraction is scaled into the selected interval using weighted finite endpoints when subtraction overflows; an exclusive bound hit exactly uses an interior midpoint or an exact adjacent binary64 value, and a step is handled by the decimal multiple generator.
+ * @evidence contracts/common.md#clear-and-simple-design One function with private boundary helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Errors are explicit for empty and infinite ranges.
+ * @evidence contracts/common.md#meaningful-documentation The boundary helper explains the infinite bound rule.
+ */
+export const _randomNumber = (
+  schema: OpenApi.IJsonSchema.INumber,
+  source: () => number = Math.random,
+): number => {
   const lower: IBoundary | null = getLowerBoundary(schema);
   const upper: IBoundary | null = getUpperBoundary(schema);
   const minimum: number =
@@ -12,43 +31,69 @@ export const _randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
   return schema.multipleOf === undefined
-    ? scalar({
-        minimum,
-        maximum,
-        exclusiveMinimum: lower?.exclusive ?? false,
-        exclusiveMaximum: upper?.exclusive ?? false,
-      })
-    : _randomMultiple({
-        minimum,
-        maximum,
-        multipleOf: schema.multipleOf,
-        exclusiveMinimum: lower?.exclusive ?? false,
-        exclusiveMaximum: upper?.exclusive ?? false,
-        integer: false,
-      });
+    ? scalar(
+        {
+          minimum,
+          maximum,
+          exclusiveMinimum: lower?.exclusive ?? false,
+          exclusiveMaximum: upper?.exclusive ?? false,
+        },
+        source,
+      )
+    : _randomMultiple(
+        {
+          minimum,
+          maximum,
+          multipleOf: schema.multipleOf,
+          exclusiveMinimum: lower?.exclusive ?? false,
+          exclusiveMaximum: upper?.exclusive ?? false,
+          integer: false,
+        },
+        source,
+      );
 };
 
-const scalar = (props: {
-  minimum: number;
-  maximum: number;
-  exclusiveMinimum: boolean;
-  exclusiveMaximum: boolean;
-}): number => {
+const scalar = (
+  props: {
+    minimum: number;
+    maximum: number;
+    exclusiveMinimum: boolean;
+    exclusiveMaximum: boolean;
+  },
+  source: () => number,
+): number => {
   if (
     props.minimum === props.maximum &&
     (props.exclusiveMinimum || props.exclusiveMaximum)
   )
     throw new Error("Exclusive numeric range is empty.");
-  const value: number =
-    Math.random() * (props.maximum - props.minimum) + props.minimum;
+  const draw: number = source();
+  const width: number = props.maximum - props.minimum;
+  const value: number = Math.max(
+    props.minimum,
+    Math.min(
+      props.maximum,
+      Number.isFinite(width)
+        ? draw * width + props.minimum
+        : (1 - draw) * props.minimum + draw * props.maximum,
+    ),
+  );
   if (
     (props.exclusiveMinimum && value === props.minimum) ||
     (props.exclusiveMaximum && value === props.maximum)
   ) {
-    const middle: number = props.minimum + (props.maximum - props.minimum) / 2;
-    if (middle <= props.minimum || middle >= props.maximum)
+    const middle: number = props.minimum / 2 + props.maximum / 2;
+    if (middle > props.minimum && middle < props.maximum) return middle;
+    const adjacent: number = nextRepresentable(value, value === props.minimum);
+    if (
+      !Number.isFinite(adjacent) ||
+      adjacent < props.minimum ||
+      adjacent > props.maximum ||
+      (props.exclusiveMinimum && adjacent === props.minimum) ||
+      (props.exclusiveMaximum && adjacent === props.maximum)
+    )
       throw new Error("Exclusive numeric range has no representable value.");
-    return middle;
+    return adjacent;
   }
   return value;
 };
@@ -106,3 +151,16 @@ interface IBoundary {
   value: number;
   exclusive: boolean;
 }
+
+/**
+ * Advances one IEEE 754 binary64 bit pattern, including signed zero and
+ * subnormals.
+ */
+const nextRepresentable = (value: number, upward: boolean): number => {
+  if (value === 0) return upward ? Number.MIN_VALUE : -Number.MIN_VALUE;
+  const view: DataView = new DataView(new ArrayBuffer(8));
+  view.setFloat64(0, value);
+  const bits: bigint = view.getBigUint64(0);
+  view.setBigUint64(0, bits + (value > 0 === upward ? BigInt(1) : -BigInt(1)));
+  return view.getFloat64(0);
+};

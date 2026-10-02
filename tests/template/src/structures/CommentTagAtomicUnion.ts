@@ -8,7 +8,9 @@ export namespace CommentTagAtomicUnion {
   export interface Type {
     /**
      * @minimum 3
+     *
      * @minLength 3
+     *
      * @maxLength 7
      */
     value: number | string;

@@ -4,17 +4,14 @@
   "version": "15.0.1",
   "description": "Automated test features of typia.",
   "scripts": {
-    "prestart": "ttsx src/regressions/index.ts",
+    "generate": "ttsx --project tsconfig.generate.json src/generate.ts",
     "start": "ttsx src/index.ts"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
-  "keywords": [
-    "typia",
-    "test"
-  ],
+  "keywords": ["typia", "test"],
   "author": "Jeongho Nam",
   "license": "MIT",
   "bugs": {
@@ -24,7 +21,7 @@
   "devDependencies": {
     "@types/node": "catalog:utils",
     "@types/uuid": "catalog:utils",
-    "ttsc": "catalog:typescript"
+    "ttsc": "catalog:samchon"
   },
   "dependencies": {
     "@nestia/e2e": "catalog:utils",
@@ -33,8 +30,8 @@
     "@typia/template": "workspace:^",
     "protobufjs": "7.2.5",
     "randexp": "^0.5.3",
-    "tgrid": "catalog:utils",
-    "tstl": "catalog:utils",
+    "tgrid": "catalog:samchon",
+    "tstl": "catalog:samchon",
     "typia": "workspace:^",
     "uuid": "catalog:utils"
   }

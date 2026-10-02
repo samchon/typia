@@ -5,6 +5,13 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_template records a template literal type as a template whose
+// row alternates literal text and the metadata of the embedded types.
+//
+// @evidence contracts/common.md#principled-implementation A template literal type is a sequence of texts and type slots, so the row alternates a literal text schema, for each non-empty text, and the explored schema of the type in the slot after it.
+// @evidence contracts/common.md#clear-and-simple-design One function over the checker's template accessors.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The structure is the language's.
+// @evidence contracts/common.md#meaningful-documentation The doc states the row layout.
 func Iterate_metadata_template(props IMetadataIteratorProps) bool {
   if props.Type == nil || props.Type.Flags()&nativechecker.TypeFlagsTemplateLiteral == 0 {
     return false

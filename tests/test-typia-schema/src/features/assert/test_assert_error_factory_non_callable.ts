@@ -22,6 +22,15 @@ interface IMember {
  * 2. Require a TypeGuardError naming the real failure at index 0, 1 and 2.
  * 3. Pin the same fallback when a create-time factory was configured, and confirm
  *    that factory still wins for an ordinary single-argument call.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Array.map numeric positions cannot become assert error factories.
+ * @evidence contracts/testing.md#independent-expectations Authored members and fixed TypeGuardError method/path/type text anchor callback behavior; configured custom errors have a fixed message.
+ * @evidence contracts/testing.md#distinguishing-cases Three malformed indices, accepted mapped inputs, configured non-callable fallback and ordinary configured factory failure remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_assert_error_factory_non_callable in the schema start suite under ttsx and the native plugin; its exported body owns all runtime assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native generated assert signatures must safely accept callback extras while preserving real factory behavior.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native artifact; input variants do not create separate hosts or builds.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs, generated results and captured errors are local to the exported body. The suite owns host lifetime; no cold cache or invalidation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Three malformed indices, accepted mapped inputs, configured non-callable fallback and ordinary configured factory failure remain. Every original input/call/assertion remains; final execution is reported separately from source review.
  */
 export const test_assert_error_factory_non_callable = (): void => {
   // The cast is the point: it reproduces what the pre-fix declaration allowed
@@ -71,6 +80,11 @@ export const test_assert_error_factory_non_callable = (): void => {
     throw new Error(
       `Expected a non-callable override to fall back, got ${String(overridden)}.`,
     );
+  TestEquality.equals(
+    "configured non-callable override keeps diagnostics",
+    [overridden.method, overridden.path, overridden.expected],
+    ["typia.createAssert", "$input.age", "number"],
+  );
 
   const kept: unknown = capture(() => configured({ id: "robin" }));
   if (kept instanceof Error === false || kept instanceof TypeGuardError)

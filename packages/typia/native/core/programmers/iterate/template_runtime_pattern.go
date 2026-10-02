@@ -31,6 +31,11 @@ type templateCapture struct {
 // Consumers that only need template membership can share the checker's exact
 // pattern without duplicating its lowering. Runtime tag conditions remain owned
 // by Check_template because they require the checker context and capture map.
+//
+// @evidence contracts/common.md#principled-implementation Other consumers that only need template membership share the checker's own lowering of a template row, and the capture map that the runtime tag conditions need stays with Check_template.
+// @evidence contracts/common.md#clear-and-simple-design One function that discards the capture map of the private lowering.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The pattern is the checker's and is not duplicated.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is shared and what Check_template keeps.
 func TemplateRuntimePattern(row []*nativemetadata.MetadataSchema) string {
   pattern, _ := template_runtime_pattern(row)
   return pattern
@@ -252,9 +257,10 @@ func template_is_literal(meta *nativemetadata.MetadataSchema) bool {
 // The matrix must be fully constrained — every OR row contributes at least one
 // validate-able tag. A row with no validate-able tag accepts every value of the
 // base type, which would unconstrain the whole matrix; honoring only the
-// validate-able rows would then reject values the type accepts. Such
-// placeholders (and `boolean`/union/constant placeholders, and tags with no
-// `Validate`) fall back to the historical behavior: structural match only, with
+// validate-able rows would then reject values the type accepts. Runtime checks
+// include exclusions synthesized from schema fragments, not only Validate text.
+// Such unconstrained placeholders (and `boolean`/union/constant placeholders)
+// fall back to the historical behavior: structural match only, with
 // the tag left unenforced rather than emitting a broken check.
 func template_constrained_capture(meta *nativemetadata.MetadataSchema) (*nativemetadata.MetadataAtomic, string, bool) {
   if meta == nil || meta.Bucket() != 1 || len(meta.Atomics) != 1 {
@@ -282,7 +288,7 @@ func template_fully_constrained(tags [][]nativemetadata.IMetadataTypeTag) bool {
   for _, row := range tags {
     validating := false
     for _, tag := range row {
-      if tag.Validate != "" {
+      if tag.Validate != "" || (tag.Kind == "exclude" && len(check_exclude_values(tag)) != 0) {
         validating = true
         break
       }

@@ -18,6 +18,20 @@ type checkerProgrammerNamespace struct{}
 
 var CheckerProgrammer = checkerProgrammerNamespace{}
 
+// CheckerProgrammer_IConfig is the configuration of CheckerProgrammer, which
+// lets each checking feature (is, assert, validate and the others) supply its
+// own atoms, combiner and joiner. Prefix names the generated helper functions.
+// Path and Trace add the `_path` and `_exceptionable` parameters. ObjectParents
+// turns on the object-parent compaction. Numeric is passed to the number check.
+// Success is the expression that stands for a passing check, and Depth is the
+// shallow depth budget: when it is spent, composite types are accepted as bare
+// objects, and nil means no limit. Addition adds statements to the generated
+// helpers.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of CheckerProgrammer, which lets each checking feature (is, assert, validate and the others) supply its own atoms, combiner and joiner; its 13 members (Prefix, Path, Trace, Equals, Numeric, ObjectParents, Addition, Decoder, Combiner, Atomist, Joiner, Success, Depth) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 13-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type CheckerProgrammer_IConfig struct {
   Prefix        string
   Path          bool
@@ -34,8 +48,22 @@ type CheckerProgrammer_IConfig struct {
   Depth         *int
 }
 
+// CheckerProgrammer_IConfig_Combiner is the callback that combines the binaries
+// of one metadata schema with `and` or `or`.
+//
+// @evidence contracts/common.md#principled-implementation It is the callback that combines the binaries of one metadata schema with `and` or `or`.
+// @evidence contracts/common.md#clear-and-simple-design A single type declaration.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the type is.
 type CheckerProgrammer_IConfig_Combiner func(props CheckerProgrammer_CombinerProps) *shimast.Node
 
+// CheckerProgrammer_CombinerProps is the argument of the Combiner callback: the
+// logic, the binaries to combine, the input and the expected description.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Combiner callback: the logic, the binaries to combine, the input and the expected description; its 5 fields (Explore, Logic, Input, Binaries, Expected) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_CombinerProps struct {
   Explore  CheckerProgrammer_IExplore
   Logic    string
@@ -44,6 +72,13 @@ type CheckerProgrammer_CombinerProps struct {
   Expected string
 }
 
+// CheckerProgrammer_IConfig_IJoiner is the joiner hooks of CheckerProgrammer,
+// which build the results for objects, arrays, tuples and failures.
+//
+// @evidence contracts/common.md#principled-implementation It is the joiner hooks of CheckerProgrammer, which build the results for objects, arrays, tuples and failures; its 7 members (Object, Array, Tuple, Failure, Is, Required, Full) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 7-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role.
 type CheckerProgrammer_IConfig_IJoiner struct {
   Object   func(props CheckerProgrammer_JoinerObjectProps) *shimast.Node
   Array    func(props CheckerProgrammer_JoinerArrayProps) *shimast.Node
@@ -54,23 +89,51 @@ type CheckerProgrammer_IConfig_IJoiner struct {
   Full     func(props CheckerProgrammer_JoinerFullProps) *shimast.Node
 }
 
+// CheckerProgrammer_JoinerObjectProps is the argument of the Object hook of the
+// checker joiner: the input, the property entries and the object type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Object hook of the checker joiner: the input, the property entries and the object type; its 3 fields (Input, Entries, Object) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_JoinerObjectProps struct {
   Input   *shimast.Expression
   Entries []nativehelpers.IExpressionEntry
   Object  *nativemetadata.MetadataObjectType
 }
 
+// CheckerProgrammer_JoinerArrayProps is the argument of the Array hook of the
+// checker joiner: the input and the element arrow.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Array hook of the checker joiner: the input and the element arrow; its 2 fields (Input, Arrow) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_JoinerArrayProps struct {
   Input *shimast.Expression
   Arrow *shimast.Node
 }
 
+// CheckerProgrammer_JoinerFailureProps is the argument of the Failure hook of
+// the checker joiner, which reports that no member matched.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Failure hook of the checker joiner, which reports that no member matched; its 3 fields (Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_JoinerFailureProps struct {
   Input    *shimast.Expression
   Expected string
   Explore  *FeatureProgrammer_IExplore
 }
 
+// CheckerProgrammer_JoinerFullProps is the argument of the Full hook of the
+// checker joiner, which wraps a matched condition with the expected description.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Full hook of the checker joiner, which wraps a matched condition with the expected description; its 4 fields (Condition, Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_JoinerFullProps struct {
   Condition *shimast.Expression
   Input     *shimast.Expression
@@ -78,19 +141,47 @@ type CheckerProgrammer_JoinerFullProps struct {
   Explore   CheckerProgrammer_IExplore
 }
 
+// CheckerProgrammer_IExplore is the explore state of a feature programmer, which
+// the checker explores with as well.
+//
+// @evidence contracts/common.md#principled-implementation It is the explore state of a feature programmer, which the checker explores with as well, so the two names cannot drift apart.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias stands for.
 type CheckerProgrammer_IExplore = FeatureProgrammer_IExplore
 
+// CheckerProgrammer_IBinary is one operand of a combination: the expression and
+// whether it is already a combination.
+//
+// @evidence contracts/common.md#principled-implementation It is one operand of a combination: the expression and whether it is already a combination; its 2 fields (Expression, Combined) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_IBinary struct {
   Expression *shimast.Node
   Combined   bool
 }
 
+// CheckerProgrammer_AtomistProps is the argument of the Atomist callback, which
+// turns one check entry into the expression that the checker uses.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Atomist callback, which turns one check entry into the expression that the checker uses; its 3 fields (Entry, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_AtomistProps struct {
   Entry   nativehelpers.ICheckEntry
   Input   *shimast.Expression
   Explore CheckerProgrammer_IExplore
 }
 
+// CheckerProgrammer_ComposeProps is the argument record of
+// CheckerProgrammer.Compose, which composes the checker function of a type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Compose, which composes the checker function of a type; its 5 fields (Context, Config, Functor, Type, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_ComposeProps struct {
   Context nativecontext.ITypiaContext
   Config  CheckerProgrammer_IConfig
@@ -99,8 +190,23 @@ type CheckerProgrammer_ComposeProps struct {
   Name    *string
 }
 
+// CheckerProgrammer_WriteProps is the argument record of
+// CheckerProgrammer.Write, which is the same as that of Compose.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Write, which is the same as that of Compose, so the two names cannot drift apart.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias stands for.
 type CheckerProgrammer_WriteProps = CheckerProgrammer_ComposeProps
 
+// CheckerProgrammer_WriteObjectFunctionsProps is the argument record of
+// CheckerProgrammer.Write_object_functions and Write_union_functions, which
+// write the functions of a metadata collection.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Write_object_functions and Write_union_functions, which write the functions of a metadata collection; its 4 fields (Context, Config, Functor, Collection) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_WriteObjectFunctionsProps struct {
   Context    nativecontext.ITypiaContext
   Config     CheckerProgrammer_IConfig
@@ -108,15 +214,46 @@ type CheckerProgrammer_WriteObjectFunctionsProps struct {
   Collection *nativemetadata.MetadataCollection
 }
 
+// CheckerProgrammer_WriteArrayFunctionsProps is the argument record of
+// CheckerProgrammer.Write_array_functions, which is the same as that of the
+// object functions.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Write_array_functions, which is the same as that of the object functions, so the two names cannot drift apart.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias stands for.
 type CheckerProgrammer_WriteArrayFunctionsProps = CheckerProgrammer_WriteObjectFunctionsProps
+
+// CheckerProgrammer_WriteTupleFunctionsProps is the argument record of
+// CheckerProgrammer.Write_tuple_functions, which is the same as that of the
+// object functions.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Write_tuple_functions, which is the same as that of the object functions, so the two names cannot drift apart.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias stands for.
 type CheckerProgrammer_WriteTupleFunctionsProps = CheckerProgrammer_WriteObjectFunctionsProps
 
+// CheckerProgrammer_DecoderProps is the argument of the Decoder callback of the
+// checker: the metadata, the input and the explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Decoder callback of the checker: the metadata, the input and the explore state; its 3 fields (Metadata, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_DecoderProps struct {
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
   Explore  CheckerProgrammer_IExplore
 }
 
+// CheckerProgrammer_DecodeProps is the argument record of
+// CheckerProgrammer.Decode, which builds the check of one metadata schema.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Decode, which builds the check of one metadata schema; its 6 fields (Context, Config, Functor, Input, Metadata, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_DecodeProps struct {
   Context  nativecontext.ITypiaContext
   Config   CheckerProgrammer_IConfig
@@ -126,6 +263,13 @@ type CheckerProgrammer_DecodeProps struct {
   Explore  CheckerProgrammer_IExplore
 }
 
+// CheckerProgrammer_DecodeObjectProps is the argument record of
+// CheckerProgrammer.Decode_object, which builds the check of one object type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of CheckerProgrammer.Decode_object, which builds the check of one object type; its 7 fields (Config, Context, Functor, Object, Input, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 7-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type CheckerProgrammer_DecodeObjectProps struct {
   Config  CheckerProgrammer_IConfig
   Context nativecontext.ITypiaContext
@@ -408,12 +552,12 @@ func checkerProgrammer_configure(context nativecontext.ITypiaContext, config Che
                 Functor: functor,
                 Object:  v.Object,
                 Input:   v.Input,
-                Explore: featureProgrammer_as_explore(v.Explore),
+                Explore: v.Explore,
                 Emit:    context.Emit,
               })
             },
             Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
-              explore := featureProgrammer_as_explore(v.Explore)
+              explore := v.Explore
               explore.Tracable = true
               return CheckerProgrammer.Decode_object(CheckerProgrammer_DecodeObjectProps{
                 Config:  config,
@@ -1399,18 +1543,18 @@ func checkerProgrammer_explore_sets(props checkerProgrammer_exploreSetsProps) *s
             Functor:  props.Functor,
             Input:    v.Input,
             Metadata: v.Definition.(*nativemetadata.MetadataSchema),
-            Explore:  featureProgrammer_as_explore(v.Explore),
+            Explore:  v.Explore,
           })
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
           return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{
-            Config: props.Config, Context: props.Context, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore),
+            Config: props.Config, Context: props.Context, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: v.Explore,
           })
         },
         Empty:   props.Config.Success,
         Success: props.Config.Success,
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
-          explore := featureProgrammer_as_explore(v.Explore)
+          explore := v.Explore
           return f.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{Input: v.Input, Expected: v.Expected, Explore: &explore}))
         },
       },
@@ -1443,7 +1587,7 @@ func checkerProgrammer_explore_maps(props checkerProgrammer_exploreMapsProps) *s
       Config: nativehelpers.UnionExplorer_ArrayLikeConfig{
         Checker: func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
           pair := v.Definition.([]*nativemetadata.MetadataSchema)
-          explore := featureProgrammer_as_explore(v.Explore)
+          explore := v.Explore
           leftExplore := explore
           leftExplore.Postfix = explore.Postfix + "[0]"
           rightExplore := explore
@@ -1462,13 +1606,13 @@ func checkerProgrammer_explore_maps(props checkerProgrammer_exploreMapsProps) *s
         },
         Decoder: func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
           return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{
-            Context: props.Context, Config: props.Config, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore),
+            Context: props.Context, Config: props.Config, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: v.Explore,
           })
         },
         Empty:   props.Config.Success,
         Success: props.Config.Success,
         Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
-          explore := featureProgrammer_as_explore(v.Explore)
+          explore := v.Explore
           return f.NewReturnStatement(props.Config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{Input: v.Input, Expected: v.Expected, Explore: &explore}))
         },
       },
@@ -1527,10 +1671,10 @@ func checkerProgrammer_explore_tuples(props checkerProgrammer_exploreTuplesProps
       return nativehelpers.UnionExplorer.Tuple(nativehelpers.UnionExplorer_TupleProps{
         Config: checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
           func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
-            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Tuple: v.Definition.(*nativemetadata.MetadataTuple), Explore: featureProgrammer_as_explore(v.Explore)})
+            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Tuple: v.Definition.(*nativemetadata.MetadataTuple), Explore: v.Explore})
           },
           func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
-            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Tuple: v.Definition.(*nativemetadata.MetadataTuple), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
+            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Tuple: v.Definition.(*nativemetadata.MetadataTuple), Input: v.Input, Explore: v.Explore})
           }),
         Parameters: next.Parameters,
         Tuples:     tuples,
@@ -1556,10 +1700,10 @@ func checkerProgrammer_explore_arrays(props checkerProgrammer_exploreArraysProps
       }
       config := checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
         func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
-          return CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
+          return CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: v.Explore})
         },
         func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
-          return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)})
+          return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Array: v.Definition.(*nativemetadata.MetadataArray), Input: v.Input, Explore: v.Explore})
         })
       if checkerProgrammer_has_array_type_tags(arrays) {
         config.Candidate = checkerProgrammer_array_tag_candidate(props.Context)
@@ -1583,7 +1727,7 @@ func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_explore
       config := checkerProgrammer_array_like_config(props.Context, props.Config, props.Functor,
         func(v nativehelpers.UnionExplorer_ArrayLikeCheckerProps) *shimast.Node {
           if tuple, ok := v.Definition.(*nativemetadata.MetadataTuple); ok {
-            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: featureProgrammer_as_explore(v.Explore)})
+            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Config: props.Config, Context: props.Context, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: v.Explore})
           }
           expected := []string{}
           for _, elem := range props.Definitions {
@@ -1595,10 +1739,10 @@ func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_explore
             }
           }
           return props.Config.Atomist(CheckerProgrammer_AtomistProps{
-            Explore: featureProgrammer_as_explore(v.Explore),
+            Explore: v.Explore,
             Entry: nativehelpers.ICheckEntry{
               Expected:   strings.Join(expected, " | "),
-              Expression: CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Functor: props.Functor, Context: props.Context, Config: props.Config, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: featureProgrammer_as_explore(v.Explore)}),
+              Expression: CheckerProgrammer.Decode(CheckerProgrammer_DecodeProps{Functor: props.Functor, Context: props.Context, Config: props.Config, Metadata: v.Definition.(*nativemetadata.MetadataSchema), Input: v.Input, Explore: v.Explore}),
               Conditions: [][]nativehelpers.ICheckEntry_ICondition{},
             },
             Input: v.Container,
@@ -1606,9 +1750,9 @@ func checkerProgrammer_explore_arrays_and_tuples(props checkerProgrammer_explore
         },
         func(v nativehelpers.UnionExplorer_ArrayLikeDecoderProps) *shimast.Node {
           if tuple, ok := v.Definition.(*nativemetadata.MetadataTuple); ok {
-            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: featureProgrammer_as_explore(v.Explore)})
+            return checkerProgrammer_decode_tuple(checkerProgrammer_decodeTupleProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Tuple: tuple, Explore: v.Explore})
           }
-          return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Array: v.Definition.(*nativemetadata.MetadataArray), Explore: featureProgrammer_as_explore(v.Explore)})
+          return checkerProgrammer_decode_array(checkerProgrammer_decodeArrayProps{Context: props.Context, Config: props.Config, Functor: props.Functor, Input: v.Input, Array: v.Definition.(*nativemetadata.MetadataArray), Explore: v.Explore})
         })
       if checkerProgrammer_definitions_have_array_type_tags(next.Definitions) {
         config.Candidate = checkerProgrammer_array_tag_candidate(props.Context)
@@ -1920,7 +2064,7 @@ func checkerProgrammer_array_like_config(context nativecontext.ITypiaContext, co
     Empty:   config.Success,
     Success: config.Success,
     Failure: func(v nativehelpers.UnionExplorer_ArrayLikeFailureProps) *shimast.Node {
-      explore := featureProgrammer_as_explore(v.Explore)
+      explore := v.Explore
       return f.NewReturnStatement(config.Joiner.Failure(CheckerProgrammer_JoinerFailureProps{
         Input:    v.Input,
         Expected: v.Expected,

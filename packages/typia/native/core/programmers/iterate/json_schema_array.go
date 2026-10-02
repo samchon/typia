@@ -2,6 +2,13 @@ package iterate
 
 import nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 
+// Json_schema_array_export_props is the argument record of
+// Json_schema_array_export, which converts an array type to JSON schemas.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Json_schema_array_export, which converts an array type to JSON schemas; its 2 fields (Components, Array) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type Json_schema_array_export_props struct {
   Components *OpenApi_IComponents
   Array      *nativemetadata.MetadataArray
@@ -55,6 +62,15 @@ func json_schema_array(props struct {
   return factory()
 }
 
+// Json_schema_array_export converts an array type to its JSON schemas: an
+// `array` schema whose items come from the element metadata, or a reference to
+// the component of a recursive array type, which is registered the first time it
+// is met.
+//
+// @evidence contracts/common.md#principled-implementation It converts an array type to its JSON schemas: an `array` schema whose items come from the element metadata, or a reference to the component of a recursive array type, which is registered the first time it is met.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The only state it changes is the components record it is given.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Json_schema_array_export(props Json_schema_array_export_props) []JsonSchema {
   return json_schema_array(struct {
     components *OpenApi_IComponents

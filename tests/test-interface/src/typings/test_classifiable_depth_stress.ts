@@ -12,7 +12,7 @@ import { Classifiable } from "@typia/interface";
  * correctly-shaped plain value assigns to it; a leaf assertion confirms methods
  * are still stripped at the bottom of the web.
  *
- * 1. Declare ~14 interlinked classes forming deep + wide + cyclic structure.
+ * 1. Declare nine interlinked classes forming deep + wide + cyclic structure.
  * 2. Resolve `Classifiable` over the root and assign a deep plain value.
  * 3. Assert a leaf class flattens to its method-free property shape.
  */

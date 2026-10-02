@@ -49,6 +49,15 @@ const DRAWS = 128;
  * 2. Require a window whose floor exceeds the domain to throw every time, naming
  *    the domain.
  * 3. Require a wide domain to still produce several distinct lengths.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Nine small-domain populations draw128 times, requiring generated validity, domain bounds and reaching full domain; impossible MinItems3 booleans throw16 times, while a wide domain must vary among at least three lengths.
+ * @evidence contracts/testing.md#independent-expectations Handwritten finite domain cardinalities independently bound lengths and establish the impossible floor. Generated validity is correlated and sampled full-domain reach/variation are probabilistic, not uniformity proofs.
+ * @evidence contracts/testing.md#distinguishing-cases Boolean/literal/enum/integer/singleton/nested-array domains, exact/capped windows, impossible floor and wide control retain every original population and assertion.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_unique_items_domain in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_unique_items_domain = (): void => {
   // POSITIVE: a domain smaller than the count the generator would like.

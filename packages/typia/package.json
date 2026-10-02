@@ -16,8 +16,9 @@
     }
   },
   "scripts": {
-    "build": "rimraf lib && ttsc && rolldown -c && cp ../../README.md README.md",
-    "dev": "ttsc --watch"
+    "build": "rimraf lib && ttsc && rolldown -c && node -e \"require('node:fs').copyFileSync('../../README.md', 'README.md')\"",
+    "dev": "ttsc --watch",
+    "evidence": "evidence"
   },
   "repository": {
     "type": "git",
@@ -46,7 +47,7 @@
     "@types/node": "catalog:utils",
     "rimraf": "catalog:utils",
     "rolldown": "catalog:rolldown",
-    "ttsc": "catalog:typescript",
+    "ttsc": "catalog:samchon",
     "typescript": "catalog:typescript"
   },
   "sideEffects": false,

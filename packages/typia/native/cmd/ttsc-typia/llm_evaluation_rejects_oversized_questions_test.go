@@ -20,6 +20,11 @@ import (
 //     enum.
 //  2. Require a transform diagnostic naming the size at each.
 //  3. Accept a 255-option choice, a 10-level score, and a 300-member array set.
+//
+// @evidence contracts/testing.md#behavioral-verification Choice size 256 and score/enum size eleven diagnose their paths and sizes; choice 255, score ten and a 300-member array set compile.
+// @evidence contracts/testing.md#independent-expectations The supported Jev question contract caps choice options at 255 and score levels at ten; array membership questions have a separate boolean-per-member meaning without that cap.
+// @evidence contracts/testing.md#distinguishing-cases Exact inclusive limits and one-beyond limits are checked for literal and enum forms, with an oversized set as the negative overmatch control.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsOversizedQuestions as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsOversizedQuestions(t *testing.T) {
   union := func(count int, quote bool) string {
     parts := make([]string, count)

@@ -19,6 +19,15 @@ type INested = { value: ITemplateUnion };
  * 2. Exercise different and equal `b_*` values, `a_*` values, cross-member values,
  *    and invalid discriminators through factory and direct equals.
  * 3. Repeat the membership controls with the union nested in an object.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct/factory equality retains comparisons inside template-literal union members.
+ * @evidence contracts/testing.md#independent-expectations Authored a_/b_ values and literal is/clone/equality expectations supply the oracle independently.
+ * @evidence contracts/testing.md#distinguishing-cases Different/equal/cross-member and invalid c_ values remain at root and nested locations across direct/factory forms.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_compare_equals_object_union_template_literal in the schema start suite under ttsx and the native plugin; its exported body owns all runtime assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native template-literal member dispatch must preserve scalar equality inside matching union members.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native artifact; input variants do not create separate hosts or builds.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs, generated results and captured errors are local to the exported body. The suite owns host lifetime; no cold cache or invalidation transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Different/equal/cross-member and invalid c_ values remain at root and nested locations across direct/factory forms. Every original input/call/assertion remains; final execution is reported separately from source review.
  */
 export const test_compare_equals_object_union_template_literal = (): void => {
   const is = typia.createIs<ITemplateUnion>();

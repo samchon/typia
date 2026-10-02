@@ -23,6 +23,15 @@ import { Inspector } from "../structures/Inspector";
  * 2. Assert the class JSDoc reached the handshake instructions and that
  *    `tools/list` never triggered the closure.
  * 3. Invoke the tool and assert the closure ran exactly once with the result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Listing reflected Inspector tools leaves built=0; the first inspect call increments it once and returns depth=42, while class guidance reaches instructions.
+ * @evidence contracts/testing.md#independent-expectations The authored counter and Inspector closure define 0, 1 and the literal result independently of generated controller metadata.
+ * @evidence contracts/testing.md#distinguishing-cases Listing versus first execution distinguishes deferred construction; this case does not exercise a second call or concurrency.
+ * @evidence contracts/testing.md#execution-ownership test-mcp test:integration discovers test_mcp_create_server_lazy_controller through DynamicExecutor. The controller call is native-transformed before runtime adapter execution.
+ * @evidence contracts/e2e.md#necessary-boundary Listing reflected Inspector tools leaves built=0; the first inspect call increments it once and returns depth=42, while class guidance reaches instructions. The native-produced controller is registered by createMcpServer and the actual SDK handler is invoked directly. This pins producer-to-adapter assembly, not transport serialization; private SDK handler lookup is an existing test coupling.
+ * @evidence contracts/e2e.md#shared-execution All native controller call sites share the suite TypeScript project and content-keyed plugin artifact; no declaration builds its own native program. The directly invoked handlers require no separate host process or installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The case owns a fresh controller and unconnected server registry, invokes only its local handlers and opens no transport. Inputs and any fixture counter remain local, so another case cannot provide its verdict.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Listing versus first execution distinguishes deferred construction; this case does not exercise a second call or concurrency. Portable HTTP-executor handler assertions run separately in test_mcp_http_controller_execute under test:unit; no assertion is removed to shorten boundary execution.
  */
 export const test_mcp_create_server_lazy_controller =
   async (): Promise<void> => {

@@ -15,6 +15,11 @@ import { OpenApiTypeCheckerBase } from "../utils/internal/OpenApiTypeCheckerBase
  * operators for traversing and comparing schemas.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation The namespace provides the guards and operations over ILlmSchema, whose member set is smaller than the OpenAPI one: no constants, tuples or null-or-union spelling beyond `anyOf`, and references into `$defs` rather than components; operations resolve references through the supplied `$defs`.
+ * @evidence contracts/common.md#clear-and-simple-design A flat namespace with module-level cover helpers that separate array, object and atomic comparisons; the shared atomic comparisons are borrowed from the OpenAPI base.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The guards and the cover rules follow the LLM schema model and name no consumer type.
+ * @evidence contracts/common.md#meaningful-documentation The comment says it is the checker of ILlmSchema and that it offers guards and operators; each function has its own doc.
  */
 export namespace LlmTypeChecker {
   /* -----------------------------------------------------------
@@ -24,7 +29,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a null type.
    *
    * @param schema Target schema
+   *
    * @returns Whether null type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `null` and narrows the schema union to the null variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isNull = (schema: ILlmSchema): schema is ILlmSchema.INull =>
     (schema as ILlmSchema.INull).type === "null";
@@ -33,7 +44,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an unknown type.
    *
    * @param schema Target schema
+   *
    * @returns Whether unknown type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads an absent `type` together with no `anyOf` and no `$ref` and narrows the schema union to the unconstrained variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isUnknown = (
     schema: ILlmSchema,
@@ -46,7 +63,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a boolean type.
    *
    * @param schema Target schema
+   *
    * @returns Whether boolean type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `boolean` and narrows the schema union to the boolean variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isBoolean = (
     schema: ILlmSchema,
@@ -57,7 +80,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an integer type.
    *
    * @param schema Target schema
+   *
    * @returns Whether integer type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `integer` and narrows the schema union to the integer variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isInteger = (
     schema: ILlmSchema,
@@ -68,7 +97,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a number type.
    *
    * @param schema Target schema
+   *
    * @returns Whether number type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `number` and narrows the schema union to the number variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isNumber = (schema: ILlmSchema): schema is ILlmSchema.INumber =>
     (schema as ILlmSchema.INumber).type === "number";
@@ -77,7 +112,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a string type.
    *
    * @param schema Target schema
+   *
    * @returns Whether string type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `string` and narrows the schema union to the string variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isString = (schema: ILlmSchema): schema is ILlmSchema.IString =>
     (schema as ILlmSchema.IString).type === "string";
@@ -86,7 +127,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an array type.
    *
    * @param schema Target schema
+   *
    * @returns Whether array type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `array` with a defined `items` and narrows the schema union to the array variant; it inspects no other member, so a schema that is malformed beyond that member still passes. An array schema without `items` is therefore not an array here.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isArray = (schema: ILlmSchema): schema is ILlmSchema.IArray =>
     (schema as ILlmSchema.IArray).type === "array" &&
@@ -96,7 +143,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is an object type.
    *
    * @param schema Target schema
+   *
    * @returns Whether object type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads `type` equal to `object` and narrows the schema union to the object variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isObject = (schema: ILlmSchema): schema is ILlmSchema.IObject =>
     (schema as ILlmSchema.IObject).type === "object";
@@ -105,7 +158,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a reference type.
    *
    * @param schema Target schema
+   *
    * @returns Whether reference type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads a defined `$ref` and narrows the schema union to the reference variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isReference = (
     schema: ILlmSchema,
@@ -115,7 +174,13 @@ export namespace LlmTypeChecker {
    * Test whether the schema is a union type.
    *
    * @param schema Target schema
+   *
    * @returns Whether union type or not
+   *
+   * @evidence contracts/common.md#principled-implementation The guard reads a defined `anyOf` and narrows the schema union to the union variant; it inspects no other member, so a schema that is malformed beyond that member still passes.
+   * @evidence contracts/common.md#clear-and-simple-design One property test with a type predicate, so a caller narrows once and then reads the variant's own fields.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The test is the declared discriminant of the dialect and names no document or fixture.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what the guard tests, the parameter and the result.
    */
   export const isAnyOf = (schema: ILlmSchema): schema is ILlmSchema.IAnyOf =>
     (schema as ILlmSchema.IAnyOf).anyOf !== undefined;
@@ -137,6 +202,11 @@ export namespace LlmTypeChecker {
    * - {@link ILlmSchema.IArray.items}
    *
    * @param props Properties for visiting
+   *
+   * @evidence contracts/common.md#principled-implementation The closure is called for the schema, the target of each reference once by key through the `$defs` store, each `anyOf` member, each object property and additional property schema and the array items, with an accessor for each; a set of resolved keys ends recursive cycles.
+   * @evidence contracts/common.md#clear-and-simple-design One closure-based traversal over a recursive local function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts It reads the structure only and mutates nothing.
+   * @evidence contracts/common.md#meaningful-documentation The doc lists the visited positions and the properties.
    */
   export const visit = (props: {
     closure: (schema: ILlmSchema, accessor: string) => void;
@@ -178,7 +248,13 @@ export namespace LlmTypeChecker {
    * Test whether the `x` schema covers the `y` schema.
    *
    * @param props Properties for testing
+   *
    * @returns Whether the `x` schema covers the `y` schema
+   *
+   * @evidence contracts/common.md#principled-implementation The comparison flattens unions and dereferences, then requires every flattened member of the covered schema to be covered by some flattened member of the covering one. Atomics honor enums before ranges; arrays compare item bounds and item schemas; objects compare additional properties, required keys and the property schemas; a visited table assumes coverage for a pair under comparison so recursion ends. A number schema covers an integer schema, as in the OpenAPI checker, because integers are numbers.
+   * @evidence contracts/common.md#clear-and-simple-design A public wrapper plus private cover helpers per shape, each used once.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The rule is set inclusion over the declared constraints and not a list of known pairs.
+   * @evidence contracts/common.md#meaningful-documentation The doc states the question the function answers and the properties.
    */
   export const covers = (props: {
     $defs?: Record<string, ILlmSchema> | undefined;
@@ -259,7 +335,8 @@ export namespace LlmTypeChecker {
     // ATOMIC CASE
     else if (isBoolean(p.x)) return isBoolean(p.y) && coverBoolean(p.x, p.y);
     else if (isInteger(p.x)) return isInteger(p.y) && coverInteger(p.x, p.y);
-    else if (isNumber(p.x)) return isNumber(p.y) && coverNumber(p.x, p.y);
+    else if (isNumber(p.x))
+      return (isInteger(p.y) || isNumber(p.y)) && coverNumber(p.x, p.y);
     else if (isString(p.x)) return isString(p.y) && coverString(p.x, p.y);
     // INSTANCE CASE
     else if (isArray(p.x))
@@ -320,6 +397,8 @@ export namespace LlmTypeChecker {
     x: ILlmSchema.IObject;
     y: ILlmSchema.IObject;
   }): boolean => {
+    if (p.x.required?.some((key) => p.y.required?.includes(key) !== true))
+      return false;
     if (!p.x.additionalProperties && !!p.y.additionalProperties) return false;
     else if (
       !!p.x.additionalProperties &&
@@ -342,11 +421,6 @@ export namespace LlmTypeChecker {
         key,
       );
       if (a === undefined) return false;
-      else if (
-        (p.x.required?.includes(key) ?? false) === true &&
-        (p.y.required?.includes(key) ?? false) === false
-      )
-        return false;
       return coverStation({
         $defs: p.$defs,
         visited: p.visited,

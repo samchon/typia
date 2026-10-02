@@ -7,6 +7,16 @@ import {
 import { __randomDigits } from "./private/__randomComposition";
 import { __IEpochProps, __randomEpoch } from "./private/__randomEpoch";
 
+/**
+ * Generate an RFC 3339 date-time with a `Z` offset at a length the bounds
+ * allow. Custom epoch bounds must stay within valid Date instants with
+ * four-digit ISO years, which the fixed-width second-precision prefix assumes.
+ *
+ * @evidence contracts/common.md#principled-implementation Within valid Date bounds with four-digit ISO years, an unconstrained draw is a random instant in ISO text; a constrained one keeps the fixed-width second-precision prefix and chooses either a `Z` suffix or a fraction of the digits needed, avoiding length21 and throwing when the window holds no valid length. Custom expanded-year bounds are outside this fixed-width contract.
+ * @evidence contracts/common.md#clear-and-simple-design One function over the length window and digit helpers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The length rules are those of RFC 3339 timestamps with a `Z` offset.
+ * @evidence contracts/common.md#meaningful-documentation The inline comments explain the length arithmetic.
+ */
 export const _randomFormatDatetime = (
   props?: __IEpochProps & _ILengthProps,
 ) => {

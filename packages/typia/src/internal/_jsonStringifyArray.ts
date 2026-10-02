@@ -20,7 +20,9 @@
  *
  * @param elements Array being serialized.
  * @param mapper Serializer of one element, emitted by the transform.
+ *
  * @returns Comma separated element text, without the enclosing brackets.
+ *
  * @internal
  */
 export const _jsonStringifyArray = <T>(

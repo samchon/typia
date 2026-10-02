@@ -5,7 +5,33 @@ import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { SwaggerV2TypeChecker } from "../../validators/SwaggerV2TypeChecker";
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
+/**
+ * Upgrades a Swagger 2.0 document to the emended OpenAPI 3.2 form.
+ *
+ * Definitions become component schemas, body and form-data parameters become a
+ * request body per consumed media type, responses are keyed by produced media
+ * type, host, base path and schemes become servers, and `x-nullable`, `x-anyOf`
+ * and `x-oneOf` become the emended unions. A document that cannot be
+ * represented, such as a body together with form data, throws a TypeError.
+ *
+ * @evidence contracts/common.md#principled-implementation A Swagger 2.0 document is converted by turning definitions into component schemas, body and form-data parameters into request bodies per consumed media type, response schemas into content per produced media type, and host, base path and schemes into servers, and by reading `x-nullable`, `x-anyOf` and `x-oneOf`. Constructs that have no 3.x form, such as a body with form data or file parameters outside form data, throw TypeError with a message instead of being converted wrongly.
+ * @evidence contracts/common.md#clear-and-simple-design Helpers per object kind in one namespace, and server composition and form-data schema checks are private; the operation and path-item conversion duplicates the other upgraders' shape.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Unsupported combinations are rejected. Media types come from the operation, then the document, with application/json as the existing default when neither declares them; an explicitly empty declaration stays empty and can cause rejection.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment lists the mappings and the rejections.
+ */
 export namespace SwaggerV2Upgrader {
+  /**
+   * Upgrade a whole Swagger 2.0 document.
+   *
+   * @param input Swagger 2.0 document
+   *
+   * @returns Emended document marked with `x-typia-emended-v12`
+   *
+   * @evidence contracts/common.md#principled-implementation Info, components, paths, servers, security and tags are converted, and the version and marker are set; Swagger fields that have no counterpart are not copied.
+   * @evidence contracts/common.md#clear-and-simple-design One function over the sub-converters.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The marker is the contract marker.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const convert = (input: SwaggerV2.IDocument): OpenApi.IDocument => ({
     openapi: "3.2.0",
     info: input.info,
@@ -517,6 +543,18 @@ export namespace SwaggerV2Upgrader {
   /* -----------------------------------------------------------
     DEFINITIONS
   ----------------------------------------------------------- */
+  /**
+   * Upgrade the definitions and security definitions of a Swagger 2.0 document.
+   *
+   * @param input Swagger 2.0 document
+   *
+   * @returns Emended components
+   *
+   * @evidence contracts/common.md#principled-implementation Definitions are converted as component schemas and security definitions are mapped to the security scheme forms, dropping a definition whose type or flow is not recognized.
+   * @evidence contracts/common.md#clear-and-simple-design One function.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts An unrecognized security type is dropped and not mapped by guess.
+   * @evidence contracts/common.md#meaningful-documentation The doc states what is converted.
+   */
   export const convertComponents = (
     input: SwaggerV2.IDocument,
   ): OpenApi.IComponents => ({
@@ -598,6 +636,18 @@ export namespace SwaggerV2Upgrader {
     return undefined!;
   };
 
+  /**
+   * Upgrade one Swagger 2.0 schema, resolving `allOf` through the definitions.
+   *
+   * @param definitions Definitions used to resolve references
+   *
+   * @returns Function that converts a Swagger 2.0 schema to the emended schema
+   *
+   * @evidence contracts/common.md#principled-implementation The visit handles nullable, `x-anyOf`, `x-oneOf`, `allOf` merge, enums as constants and the instance types, like the 3.0 conversion with Swagger's extension keys, and resolves `allOf` members through the definitions.
+   * @evidence contracts/common.md#clear-and-simple-design One recursive function with the same structure as the 3.0 one.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The allOf drop for non-object members matches the 3.0 conversion and is a stated lossy case.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const convertSchema =
     (definitions: Record<string, SwaggerV2.IJsonSchema>) =>
     (input: SwaggerV2.IJsonSchema): OpenApi.IJsonSchema => {

@@ -10,6 +10,11 @@ import { IMetadataSchema } from "./IMetadataSchema";
  * tuples) are stored in {@link components}.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation One schema and the components table its references resolve into; keeping the table with the schema makes the unit self-contained.
+ * @evidence contracts/common.md#clear-and-simple-design Two fields, the smallest unit of a reflect result.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Plain data only.
+ * @evidence contracts/common.md#meaningful-documentation The comment names the producing call `typia.reflect.schema` and links the fields.
  */
 export interface IMetadataSchemaUnit {
   /** Metadata schema for the target type. */

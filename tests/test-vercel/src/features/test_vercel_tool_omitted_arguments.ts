@@ -16,6 +16,15 @@ import { Greeter } from "../structures/Greeter";
  * 1. Convert `Greeter.hello()` as a Vercel AI SDK tool.
  * 2. Execute it with an omitted arguments object.
  * 3. Assert the tool returns the greeting as a successful result.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Executes a native zero-parameter Greeter tool with undefined arguments and compares the complete successful greeting wrapper.
+ * @evidence contracts/testing.md#independent-expectations Greeter.hello declares no parameters and returns the literal greeting, so omission must normalize to an empty argument object and preserve that output.
+ * @evidence contracts/testing.md#distinguishing-cases Undefined argument omission is the boundary input; class_controller_execute covers ordinary populated arguments and class_controller_validation covers malformed required arguments.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_tool_omitted_arguments in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native reflection must emit the zero-parameter Greeter contract consumed by adapter normalization of undefined arguments. The exact greeting proves omission still invokes the method; populated and invalid required arguments belong to Calculator siblings.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_tool_omitted_arguments = async (): Promise<void> => {
   const tools: Record<string, Tool> = toVercelTools(

@@ -2,7 +2,33 @@ import { OpenApi } from "@typia/interface";
 
 import { OpenApiExclusiveEmender } from "./OpenApiExclusiveEmender";
 
+/**
+ * Moves constraint keywords of a schema into tags of its description.
+ *
+ * Strict LLM schemas cannot carry these keywords, so each one is written as a
+ * `@name value` line and deleted from the schema. `LlmDescriptionInverter`
+ * reads the tags back. The functions modify the schema they receive. The raw
+ * line format cannot exactly restore multiline or whitespace-sensitive strings;
+ * pre-existing matching tags can also take precedence on inversion.
+ *
+ * @evidence contracts/common.md#principled-implementation Each keyword a strict LLM schema cannot hold is appended as raw @name value text and deleted from the schema; the numeric shifter first settles a redundant inclusive or exclusive bound. This line-based representation is not lossless for multiline or whitespace-sensitive string values, or descriptions already containing matching tags: the inverse trims values and takes the first match.
+ * @evidence contracts/common.md#clear-and-simple-design Three shifters share one description writer and one bound settler.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The shifters mutate the schema they receive and say so; callers pass copies.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment states the tag format, the inverse reader and the mutation.
+ */
 export namespace OpenApiConstraintShifter {
+  /**
+   * Shift `minItems`, `maxItems` and `uniqueItems` into the description.
+   *
+   * @param schema Array schema, modified in place
+   *
+   * @returns The same schema without the shifted keywords
+   *
+   * @evidence contracts/common.md#principled-implementation The item bounds become tags, and `uniqueItems` becomes a bare tag only when it is true; the keyword is removed in every case.
+   * @evidence contracts/common.md#clear-and-simple-design One function over four array keywords.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Mutation of the argument is stated.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const shiftArray = <
     Schema extends Pick<
       OpenApi.IJsonSchema.IArray,
@@ -31,6 +57,19 @@ export namespace OpenApiConstraintShifter {
     return schema;
   };
 
+  /**
+   * Shift bounds, `multipleOf` and `default` into the description, after
+   * settling a redundant pair of inclusive and exclusive bounds.
+   *
+   * @param schema Number or integer schema, modified in place
+   *
+   * @returns The same schema without the shifted keywords
+   *
+   * @evidence contracts/common.md#principled-implementation After the bounds are settled, the bounds, multipleOf and default become tags and are removed, so a numeric constraint survives as text.
+   * @evidence contracts/common.md#clear-and-simple-design One function over six numeric keywords.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Mutation of the argument is stated.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const shiftNumeric = <
     Schema extends Pick<
       OpenApi.IJsonSchema.INumber | OpenApi.IJsonSchema.IInteger,
@@ -87,6 +126,19 @@ export namespace OpenApiConstraintShifter {
     return schema;
   };
 
+  /**
+   * Shift length, format, pattern, content type and default into the
+   * description.
+   *
+   * @param schema String schema, modified in place
+   *
+   * @returns The same schema without the shifted keywords
+   *
+   * @evidence contracts/common.md#principled-implementation Length bounds, format, pattern, content type and default become tags and are removed.
+   * @evidence contracts/common.md#clear-and-simple-design One function over six string keywords.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts Mutation of the argument is stated.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameter and result.
+   */
   export const shiftString = <
     Schema extends Pick<
       OpenApi.IJsonSchema.IString,

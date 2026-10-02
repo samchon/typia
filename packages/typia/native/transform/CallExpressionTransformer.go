@@ -26,16 +26,41 @@ type callExpressionTransformerNamespace struct{}
 
 var CallExpressionTransformer = callExpressionTransformerNamespace{}
 
+// CallExpressionTransformer_TransformProps is the context and the call expression
+// to rewrite.
+//
+// @evidence contracts/common.md#principled-implementation Deciding whether a call is typia's needs the context, whose checker resolves the callee, and the call itself.
+// @evidence contracts/common.md#clear-and-simple-design Two fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states both fields.
 type CallExpressionTransformer_TransformProps struct {
-  Context    nativecontext.ITypiaContext
+  // Context supplies the checker used to resolve the callee's declaration.
+  Context nativecontext.ITypiaContext
+
+  // Expression is the source call whose declaration selects a transformer.
   Expression *shimast.CallExpression
 }
 
+// CallExpressionTransformer_TransformKnownProps is a call that is already known
+// to be typia's: the context, the call, and the module and method names that
+// select its transformer.
+//
+// @evidence contracts/common.md#principled-implementation Once the declaring module and the method are resolved, the lookup is keyed by that module and method name, so they travel with the context and the call.
+// @evidence contracts/common.md#clear-and-simple-design Four fields consumed by TransformKnown's table lookup.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states that the call is already known to be typia's and what selects its transformer.
 type CallExpressionTransformer_TransformKnownProps struct {
-  Context    nativecontext.ITypiaContext
+  // Context supplies type analysis, options and generated-code services.
+  Context nativecontext.ITypiaContext
+
+  // Expression is the source call to rewrite.
   Expression *shimast.CallExpression
-  Module     string
-  Method     string
+
+  // Module selects a typia operation family such as module, json or llm.
+  Module string
+
+  // Method is the exported operation name within that family.
+  Method string
 }
 
 type callExpressionTransformerTask func(props ITransformProps) *shimast.Node
@@ -134,6 +159,13 @@ func (callExpressionTransformerNamespace) TransformKnown(props CallExpressionTra
 
 func callExpressionTransformer_targetModule(location string) (string, bool) {
   location = filepath.ToSlash(location)
+  // Root operation declarations live in basic.ts; module.ts remains the
+  // public barrel, including its portable interface aliases. Keep the older
+  // module declaration identity for consumers of earlier package layouts.
+  if strings.HasSuffix(location, "/typia/lib/basic.d.ts") ||
+    strings.HasSuffix(location, "/typia/src/basic.ts") {
+    return "module", true
+  }
   for file := range callExpressionTransformer_FUNCTORS() {
     if strings.HasSuffix(location, "/typia/lib/"+file+".d.ts") ||
       strings.HasSuffix(location, "/typia/src/"+file+".ts") {
@@ -879,36 +911,36 @@ func callExpressionTransformer_functionalAssertReturn(props nativefunctionaltran
 
 func callExpressionTransformer_functionalIsFunction(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalIsFunctionProgrammer.Write(nativefunctionalprogrammers.FunctionalIsFunctionProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalIsParameters(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalIsParametersProgrammer.Write(nativefunctionalprogrammers.FunctionalIsParametersProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalIsReturn(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalIsReturnProgrammer.Write(nativefunctionalprogrammers.FunctionalIsReturnProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalIsReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalValidateFunction(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer.Write(nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateFunctionProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalValidateParameters(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalValidateParametersProgrammer.Write(nativefunctionalprogrammers.FunctionalValidateParametersProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateParametersProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }
 
 func callExpressionTransformer_functionalValidateReturn(props nativefunctionaltransformers.FunctionalGenericTransformer_IProgrammerProps) *shimast.Node {
   return nativefunctionalprogrammers.FunctionalValidateReturnProgrammer.Write(nativefunctionalprogrammers.FunctionalValidateReturnProgrammer_IProps{
-    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression, Init: props.Init,
+    Context: props.Context, Modulo: props.Modulo, Config: nativefunctionalprogrammers.FunctionalValidateReturnProgrammer_IConfig{Equals: props.Config.Equals}, Declaration: props.Declaration, Expression: props.Expression,
   })
 }

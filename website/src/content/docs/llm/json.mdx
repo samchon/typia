@@ -140,6 +140,7 @@ When `validate` reports failures, you want to tell the LLM what it did wrong in 
 What the format does:
 
 - **Inline annotations** — each error sits next to the offending value, prefixed with `// ❌`
+- **Literal content** — marker-like text inside values, expected types or descriptions stays intact; separators follow the data structure
 - **Full path** — `$input.order.product.price` so the LLM knows exactly where to fix
 - **Expected type** — the same intersection syntax typia uses everywhere (`number & Minimum<0>`)
 - **Missing properties** — required properties that are absent are written as `undefined` with the same annotation
@@ -178,6 +179,7 @@ LlmJson.parse<T>(input: string, parameters?: ILlmSchema.IParameters)
 | Junk prefix | `Here is your JSON: {"a": 1}` | Skips to first `{` or `[` |
 | Markdown blocks | ` ```json\n{"a": 1}\n``` ` | Extracts the content |
 | Unicode surrogates | `"😀"` | Handles emoji correctly |
+| Malformed Unicode escapes | `{"text":"\u00","next":1}` | Keeps `\u00` as literal text and preserves the following property |
 
 ### Type coercion
 

@@ -28,6 +28,7 @@ import { TagBase } from "./TagBase";
  * evaluation answer is converted, not the value itself.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface ITicketTriage {
  *     // true only when P(true) >= 0.8
@@ -36,6 +37,11 @@ import { TagBase } from "./TagBase";
  *
  * @template Value The probability requirement, in `[0, 1]`, with at most
  *   `ILlmEvaluation.IConfig.decimals` (two by default) decimal places
+ *
+ * @evidence contracts/common.md#principled-implementation The tag has only metadata, a numeric `value`, and no `validate` or `schema`, because it parameterizes how an evaluation answer is decoded rather than constraining the property value. The `[0, 1]` range and the decimal-place limit are stated in the comment but are not enforced by the `number` parameter, so out-of-range values are caught elsewhere, if at all.
+ * @evidence contracts/common.md#clear-and-simple-design A single TagBase record that applies to booleans and literal unions; the comment describes the threshold and acceptance roles in one place.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It adds no runtime check or schema keyword, and states that it does not.
+ * @evidence contracts/common.md#meaningful-documentation The comment is detailed about the three roles, the enum-member comment-tag alternative, the rule that every member needs a requirement and the absence of a runtime or schema effect.
  */
 export type Probability<Value extends number> = TagBase<{
   target: "boolean" | "string" | "number";

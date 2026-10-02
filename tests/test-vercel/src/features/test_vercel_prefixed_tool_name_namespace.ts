@@ -22,6 +22,15 @@ class CollisionController {
  * 1. Create class and HTTP controllers that both expose `run_post`.
  * 2. Reject every colliding class/HTTP combination in deterministic order.
  * 3. Accept mixed controllers when their prefixes make the final names unique.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Checks the HTTP run_post name, all four ordered class/HTTP collision combinations with exact origin text, and the distinct prefixed class_run_post/http_run_post keys.
+ * @evidence contracts/testing.md#independent-expectations Declared class run_post and OpenAPI POST /run identify the same function; literal origin strings and distinct renamed controller names establish collision and success expectations.
+ * @evidence contracts/testing.md#distinguishing-cases Class/class, HTTP/HTTP and both mixed orders retain provenance-specific diagnostics; changing controller names to class/http supplies the adjacent noncolliding twin.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_prefixed_tool_name_namespace in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native class metadata and authored HTTP composition both produce run_post; the adapter must reject all protocol orders after final prefixing and accept renamed distinct controllers. This owns final prefixed namespace assembly, unlike the unprefixed duplicate case.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_prefixed_tool_name_namespace = (): void => {
   const classController: ILlmController<CollisionController> =

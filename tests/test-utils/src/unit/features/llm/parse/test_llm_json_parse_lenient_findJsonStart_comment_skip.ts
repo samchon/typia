@@ -1,0 +1,67 @@
+import { TestEquality } from "@typia/template/oracle-equality";
+import { LlmJson } from "@typia/utils";
+
+/**
+ * Verifies that prefix scanning ignores structure inside comments.
+ *
+ * Comment-contained braces and brackets must not displace the actual JSON
+ * value, while valueless comments remain failures.
+ *
+ * 1. Exercise line/block/multiple comments, nested structural text, EOF line
+ *    comments and comments within the recovered object.
+ * 2. Compare the retained results with literal expectations.
+ */
+export const test_llm_json_parse_lenient_findJsonStart_comment_skip =
+  (): void => {
+    // Single-line comment with { in junk prefix
+    const r1 = LlmJson.parse('// see {here}\n{"key": 1}');
+    TestEquality.equals("sl-brace-success", r1.success, true);
+    if (r1.success) TestEquality.equals("sl-brace-data", r1.data, { key: 1 });
+
+    // Single-line comment with [ in junk prefix
+    const r2 = LlmJson.parse("// items [0] [1]\n[1, 2, 3]");
+    TestEquality.equals("sl-bracket-success", r2.success, true);
+    if (r2.success) TestEquality.equals("sl-bracket-data", r2.data, [1, 2, 3]);
+
+    // Multi-line comment with { in junk prefix
+    const r3 = LlmJson.parse('/* config: {a: 1, b: 2} */ {"key": 1}');
+    TestEquality.equals("ml-brace-success", r3.success, true);
+    if (r3.success) TestEquality.equals("ml-brace-data", r3.data, { key: 1 });
+
+    // Multi-line comment with [ in junk prefix
+    const r4 = LlmJson.parse("/* see [0, 1, 2] */ [10, 20]");
+    TestEquality.equals("ml-bracket-success", r4.success, true);
+    if (r4.success) TestEquality.equals("ml-bracket-data", r4.data, [10, 20]);
+
+    // Multiple comments with braces before real JSON
+    const r5 = LlmJson.parse(
+      '// first {a}\n// second [b]\n/* third {c: [d]} */\n{"real": true}',
+    );
+    TestEquality.equals("multi-comment-success", r5.success, true);
+    if (r5.success)
+      TestEquality.equals("multi-comment-data", r5.data, { real: true });
+
+    // Comment with nested braces and brackets
+    const r6 = LlmJson.parse('/* {{{[[[}}}]]] */ {"key": "value"}');
+    TestEquality.equals("nested-in-comment-success", r6.success, true);
+    if (r6.success)
+      TestEquality.equals("nested-in-comment-data", r6.data, {
+        key: "value",
+      });
+
+    // Single-line comment with { at end of line (no newline after)
+    const r7 = LlmJson.parse("// {comment");
+    TestEquality.equals("sl-no-newline-success", r7.success, false);
+    if (!r7.success)
+      TestEquality.subset(
+        "sl-no-newline-errors",
+        [{ expected: "JSON value" }],
+        r7.errors,
+      );
+
+    // Comment in junk, then JSON with comment inside
+    const r8 = LlmJson.parse('// junk {x}\n{"key": 1 /* inline {y} */}');
+    TestEquality.equals("nested-comments-success", r8.success, true);
+    if (r8.success)
+      TestEquality.equals("nested-comments-data", r8.data, { key: 1 });
+  };

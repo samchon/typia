@@ -19,6 +19,17 @@ type featureProgrammerNamespace struct{}
 
 var FeatureProgrammer = featureProgrammerNamespace{}
 
+// FeatureProgrammer_IConfig is the configuration of FeatureProgrammer, which
+// lets each generating feature supply its types, decoder, object operations and
+// generators. Prefix names the generated helper functions. Path and Trace add
+// the `_path` and `_exceptionable` parameters. ObjectParents turns on the
+// object-parent compaction, and Addition adds statements for the analyzed
+// collection.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of FeatureProgrammer, which lets each generating feature supply its types, decoder, object operations and generators; its 12 members (Types, Prefix, Path, Trace, Addition, Initializer, Decoder, Objector, Generator, ObjectParents, Visited, VisitGuard) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 12-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type FeatureProgrammer_IConfig struct {
   Types         FeatureProgrammer_IConfig_ITypes
   Prefix        string
@@ -42,10 +53,17 @@ type FeatureProgrammer_IConfig struct {
   VisitGuard func(props FeatureProgrammer_VisitGuardProps) *shimast.Node
 }
 
+// FeatureProgrammer_VisitGuardProps is the argument of the VisitGuard hook,
+// which wraps the body of a recursive function.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the VisitGuard hook, which wraps the body of a recursive function; its 4 fields (Key, Input, Body, Object) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_VisitGuardProps struct {
-  // Key names the `_vctx` slot of the guarded function (e.g. "o3" for the
-  // object function of index 3), so each recursive function tracks its own
-  // visit set and union-branch probing cannot pollute sibling checks.
+  // Key includes the feature prefix (e.g. "io3" for the "_i" object function
+  // of index 3), so recursive helpers in composed feature families do not
+  // share visit state merely because their metadata indices match.
   Key   string
   Input *shimast.Expression
   Body  *shimast.Node
@@ -56,11 +74,27 @@ type FeatureProgrammer_VisitGuardProps struct {
   Object *nativemetadata.MetadataObjectType
 }
 
+// FeatureProgrammer_IConfig_ITypes is the type builders of a feature, which give
+// the type of the generated function's input and output.
+//
+// @evidence contracts/common.md#principled-implementation It is the type builders of a feature, which give the type of the generated function's input and output; its 2 members (Input, Output) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 2-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role.
 type FeatureProgrammer_IConfig_ITypes struct {
   Input  func(t *shimchecker.Type, name *string) *shimast.TypeNode
   Output func(t *shimchecker.Type, name *string) *shimast.TypeNode
 }
 
+// FeatureProgrammer_IConfig_IObjector is the object operations that a feature
+// supplies to FeatureProgrammer. Checker, Decoder, Joiner, Unionizer, Failure
+// and Full build the feature's checks and results, Is and Required wrap a
+// condition, and Type is the return type of generated object helpers.
+//
+// @evidence contracts/common.md#principled-implementation It is the object operations that a feature supplies to FeatureProgrammer; its 9 members (Checker, Decoder, Joiner, Unionizer, Failure, Is, Required, Full, Type) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 9-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type FeatureProgrammer_IConfig_IObjector struct {
   Checker   func(props FeatureProgrammer_ObjectorCheckerProps) *shimast.Node
   Decoder   func(props FeatureProgrammer_ObjectorDecoderProps) *shimast.Node
@@ -73,6 +107,15 @@ type FeatureProgrammer_IConfig_IObjector struct {
   Type      *shimast.TypeNode
 }
 
+// FeatureProgrammer_IConfig_IGenerator supplies helper-function generators.
+// Objects and Unions may be nil to use the shared writers. Arrays and Tuples
+// are called directly and must be supplied, even when they return no helpers.
+// A supplied Unions callback may also return nil to use the shared writer.
+//
+// @evidence contracts/common.md#principled-implementation Objects and Unions optionally override shared writers; Arrays and Tuples are required callbacks consumed by Compose and Write. Keeping the four metadata families separate lets each feature supply its helper bodies without changing the common assembly.
+// @evidence contracts/common.md#clear-and-simple-design A 4-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The native comment distinguishes optional overrides from callbacks that Compose and Write call directly, including the empty-helper case.
 type FeatureProgrammer_IConfig_IGenerator struct {
   Objects func(collection *nativemetadata.MetadataCollection) []*shimast.Node
   Unions  func(collection *nativemetadata.MetadataCollection) []*shimast.Node
@@ -80,55 +123,127 @@ type FeatureProgrammer_IConfig_IGenerator struct {
   Tuples  func(collection *nativemetadata.MetadataCollection) []*shimast.Node
 }
 
+// FeatureProgrammer_IExplore is the explore state of the union explorer, which
+// feature programmers share.
+//
+// @evidence contracts/common.md#principled-implementation It is the explore state of the union explorer, which feature programmers share, so the two names cannot drift apart.
+// @evidence contracts/common.md#clear-and-simple-design A type alias.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias stands for.
 type FeatureProgrammer_IExplore = nativehelpers.UnionExplorer_IExplore
 
+// FeatureProgrammer_InitializerProps is the argument of the Initializer hook,
+// which analyzes the type of a feature.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Initializer hook, which analyzes the type of a feature; its 3 fields (Context, Functor, Type) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_InitializerProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer
   Type    *shimchecker.Type
 }
 
+// FeatureProgrammer_InitializerOutput is the result of the Initializer hook: the
+// metadata collection and the metadata of the analyzed type.
+//
+// @evidence contracts/common.md#principled-implementation It is the result of the Initializer hook: the metadata collection and the metadata of the analyzed type; its 2 fields (Collection, Metadata) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 2-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_InitializerOutput struct {
   Collection *nativemetadata.MetadataCollection
   Metadata   *nativemetadata.MetadataSchema
 }
 
+// FeatureProgrammer_DecoderProps is the argument of the Decoder hook of a
+// feature: the metadata, the input and the explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Decoder hook of a feature: the metadata, the input and the explore state; its 3 fields (Metadata, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_DecoderProps struct {
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
   Explore  FeatureProgrammer_IExplore
 }
 
+// FeatureProgrammer_ObjectorCheckerProps is the argument of the Checker
+// operation of a feature: the metadata, the input and the explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Checker operation of a feature: the metadata, the input and the explore state; its 3 fields (Metadata, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ObjectorCheckerProps struct {
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
   Explore  FeatureProgrammer_IExplore
 }
 
+// FeatureProgrammer_ObjectorDecoderProps is the argument of the Decoder
+// operation of a feature: the input, the object type and the explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Decoder operation of a feature: the input, the object type and the explore state; its 3 fields (Input, Object, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ObjectorDecoderProps struct {
   Input   *shimast.Expression
   Object  *nativemetadata.MetadataObjectType
   Explore FeatureProgrammer_IExplore
 }
 
+// FeatureProgrammer_ObjectorJoinerProps is the argument of the Joiner operation
+// of a feature: the property entries, the input and the object type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Joiner operation of a feature: the property entries, the input and the object type; its 3 fields (Entries, Input, Object) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ObjectorJoinerProps struct {
   Entries []nativehelpers.IExpressionEntry
   Input   *shimast.Expression
   Object  *nativemetadata.MetadataObjectType
 }
 
+// FeatureProgrammer_ObjectorUnionizerProps is the argument of the Unionizer
+// operation of a feature: the object types, the input and the explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Unionizer operation of a feature: the object types, the input and the explore state; its 3 fields (Objects, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ObjectorUnionizerProps struct {
   Objects []*nativemetadata.MetadataObjectType
   Input   *shimast.Expression
   Explore FeatureProgrammer_IExplore
 }
 
+// FeatureProgrammer_ObjectorFailureProps is the argument of the Failure
+// operation of a feature: the input, the expected description and the explore
+// state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Failure operation of a feature: the input, the expected description and the explore state; its 3 fields (Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ObjectorFailureProps struct {
   Input    *shimast.Expression
   Expected string
   Explore  *FeatureProgrammer_IExplore
 }
 
+// FeatureProgrammer_ObjectorFullProps is the argument of the Full operation of a
+// feature: the condition, the input, the expected description and the explore
+// state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Full operation of a feature: the condition, the input, the expected description and the explore state; its 4 fields (Condition, Input, Expected, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ObjectorFullProps struct {
   Condition *shimast.Expression
   Input     *shimast.Expression
@@ -136,12 +251,27 @@ type FeatureProgrammer_ObjectorFullProps struct {
   Explore   FeatureProgrammer_IExplore
 }
 
+// FeatureProgrammer_Decoder is the callback type that decodes a definition of
+// any metadata kind with an input and an explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the callback type that decodes a definition of any metadata kind with an input and an explore state.
+// @evidence contracts/common.md#clear-and-simple-design A single type declaration.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the type is.
 type FeatureProgrammer_Decoder[T any] func(props struct {
   Input      *shimast.Expression
   Definition T
   Explore    FeatureProgrammer_IExplore
 }) *shimast.Node
 
+// FeatureProgrammer_IComposed is the result of FeatureProgrammer.Compose: the
+// body, the parameters, the helper functions, the statements and the response
+// type.
+//
+// @evidence contracts/common.md#principled-implementation It is the result of FeatureProgrammer.Compose: the body, the parameters, the helper functions, the statements and the response type; its 5 fields (Body, Parameters, Functions, Statements, Response) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_IComposed struct {
   Body       *shimast.Node
   Parameters []*shimast.Node
@@ -150,12 +280,26 @@ type FeatureProgrammer_IComposed struct {
   Response   *shimast.TypeNode
 }
 
+// FeatureProgrammer_IDecomposed is the result of FeatureProgrammer.Decompose:
+// the helper functions, the statements and the arrow function.
+//
+// @evidence contracts/common.md#principled-implementation It is the result of FeatureProgrammer.Decompose: the helper functions, the statements and the arrow function; its 3 fields (Functions, Statements, Arrow) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_IDecomposed struct {
   Functions  map[string]*shimast.Node
   Statements []*shimast.Node
   Arrow      *shimast.Node
 }
 
+// FeatureProgrammer_ComposeProps is the argument record of
+// FeatureProgrammer.Compose, which composes the function of a type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Compose, which composes the function of a type; its 5 fields (Context, Config, Functor, Type, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ComposeProps struct {
   Context nativecontext.ITypiaContext
   Config  FeatureProgrammer_IConfig
@@ -164,6 +308,14 @@ type FeatureProgrammer_ComposeProps struct {
   Name    *string
 }
 
+// FeatureProgrammer_WriteDecomposedProps is the argument record of
+// FeatureProgrammer.WriteDecomposed, which writes a decomposed function as one
+// call expression. ReturnWrapper, when set, wraps the arrow that is returned.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.WriteDecomposed, which writes a decomposed function as one call expression; its 5 fields (Modulo, Functor, Result, ReturnWrapper, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type FeatureProgrammer_WriteDecomposedProps struct {
   Modulo        *shimast.Expression
   Functor       *nativehelpers.FunctionProgrammer
@@ -172,6 +324,13 @@ type FeatureProgrammer_WriteDecomposedProps struct {
   Emit          *shimprinter.EmitContext
 }
 
+// FeatureProgrammer_WriteProps is the argument record of
+// FeatureProgrammer.Write, which writes the function of a type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Write, which writes the function of a type; its 5 fields (Context, Config, Functor, Type, Name) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_WriteProps struct {
   Context nativecontext.ITypiaContext
   Config  FeatureProgrammer_IConfig
@@ -180,6 +339,14 @@ type FeatureProgrammer_WriteProps struct {
   Name    *string
 }
 
+// FeatureProgrammer_WriteObjectFunctionsProps is the argument record of
+// FeatureProgrammer.Write_object_functions, which writes the object functions of
+// a metadata collection.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Write_object_functions, which writes the object functions of a metadata collection; its 4 fields (Config, Context, Functor, Collection) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_WriteObjectFunctionsProps struct {
   Config     FeatureProgrammer_IConfig
   Context    nativecontext.ITypiaContext
@@ -187,12 +354,28 @@ type FeatureProgrammer_WriteObjectFunctionsProps struct {
   Collection *nativemetadata.MetadataCollection
 }
 
+// FeatureProgrammer_WriteUnionFunctionsProps is the argument record of
+// FeatureProgrammer.Write_union_functions, which writes the union functions of a
+// metadata collection.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Write_union_functions, which writes the union functions of a metadata collection; its 3 fields (Config, Collection, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_WriteUnionFunctionsProps struct {
   Config     FeatureProgrammer_IConfig
   Collection *nativemetadata.MetadataCollection
   Emit       *shimprinter.EmitContext
 }
 
+// FeatureProgrammer_DecodeArrayConfig is the configuration of
+// FeatureProgrammer.Decode_array. Trace and Path add the index parameter, Prefix
+// names the helper functions and Decoder decodes the elements.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of FeatureProgrammer.Decode_array; its 4 members (Trace, Path, Decoder, Prefix) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 4-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type FeatureProgrammer_DecodeArrayConfig struct {
   Trace   bool
   Path    bool
@@ -200,6 +383,14 @@ type FeatureProgrammer_DecodeArrayConfig struct {
   Prefix  string
 }
 
+// FeatureProgrammer_DecodeArrayProps is the argument record of
+// FeatureProgrammer.Decode_array, which decodes an array type. Combiner joins
+// the input and the element arrow.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Decode_array, which decodes an array type; its 7 fields (Config, Functor, Combiner, Array, Input, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 7-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type FeatureProgrammer_DecodeArrayProps struct {
   Config   FeatureProgrammer_DecodeArrayConfig
   Functor  *nativehelpers.FunctionProgrammer
@@ -213,6 +404,13 @@ type FeatureProgrammer_DecodeArrayProps struct {
   Emit    *shimprinter.EmitContext
 }
 
+// FeatureProgrammer_DecodeObjectConfig is the configuration of
+// FeatureProgrammer.Decode_object.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of FeatureProgrammer.Decode_object; its 4 members (Trace, Path, Prefix, Visited) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 4-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role.
 type FeatureProgrammer_DecodeObjectConfig struct {
   Trace  bool
   Path   bool
@@ -225,6 +423,13 @@ type FeatureProgrammer_DecodeObjectConfig struct {
   Visited bool
 }
 
+// FeatureProgrammer_DecodeObjectProps is the argument record of
+// FeatureProgrammer.Decode_object, which calls the function of one object type.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Decode_object, which calls the function of one object type; its 6 fields (Config, Functor, Object, Input, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_DecodeObjectProps struct {
   Config  FeatureProgrammer_DecodeObjectConfig
   Functor *nativehelpers.FunctionProgrammer
@@ -234,12 +439,29 @@ type FeatureProgrammer_DecodeObjectProps struct {
   Emit    *shimprinter.EmitContext
 }
 
+// FeatureProgrammer_IndexProps is the argument record of
+// FeatureProgrammer.Index, which builds the path text of an array element. Start
+// is the index offset, Postfix the path suffix and Rand the counter suffix of
+// the generated index variable.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.Index, which builds the path text of an array element; its 3 fields (Start, Postfix, Rand) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type FeatureProgrammer_IndexProps struct {
   Start   *int
   Postfix string
   Rand    string
 }
 
+// FeatureProgrammer_ArgumentsArrayProps is the argument record of
+// FeatureProgrammer.ArgumentsArray, which builds the arguments of a call to a
+// generated helper function, including object and recursive-array helpers.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.ArgumentsArray, which builds the arguments of a call to a generated array function; its 4 fields (Config, Input, Explore, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ArgumentsArrayProps struct {
   Config  FeatureProgrammer_ArgumentsArrayConfig
   Input   *shimast.Expression
@@ -247,12 +469,28 @@ type FeatureProgrammer_ArgumentsArrayProps struct {
   Emit    *shimprinter.EmitContext
 }
 
+// FeatureProgrammer_ArgumentsArrayConfig is the configuration of
+// FeatureProgrammer.ArgumentsArray. Path and Trace add the path and
+// exceptionable arguments, and Visited adds the `_vctx` argument.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of FeatureProgrammer.ArgumentsArray; its 3 members (Path, Trace, Visited) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 3-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type FeatureProgrammer_ArgumentsArrayConfig struct {
   Path    bool
   Trace   bool
   Visited bool
 }
 
+// FeatureProgrammer_ParameterDeclarationsProps is the argument record of
+// FeatureProgrammer.ParameterDeclarations, which builds the parameters of a
+// generated function.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of FeatureProgrammer.ParameterDeclarations, which builds the parameters of a generated function; its 4 fields (Config, Type, Input, Emit) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type FeatureProgrammer_ParameterDeclarationsProps struct {
   Config FeatureProgrammer_ParameterConfig
   Type   *shimast.TypeNode
@@ -260,6 +498,14 @@ type FeatureProgrammer_ParameterDeclarationsProps struct {
   Emit   *shimprinter.EmitContext
 }
 
+// FeatureProgrammer_ParameterConfig is the configuration of
+// FeatureProgrammer.ParameterDeclarations. Path adds the `_path` parameter,
+// Trace the `_exceptionable` parameter and Visited the `_vctx` parameter.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of FeatureProgrammer.ParameterDeclarations; its 3 members (Path, Trace, Visited) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 3-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type FeatureProgrammer_ParameterConfig struct {
   Path    bool
   Trace   bool
@@ -1280,25 +1526,25 @@ func featureProgrammer_union_objector(objector FeatureProgrammer_IConfig_IObject
       return objector.Checker(FeatureProgrammer_ObjectorCheckerProps{
         Metadata: props.Metadata,
         Input:    props.Input,
-        Explore:  featureProgrammer_as_explore(props.Explore),
+        Explore:  props.Explore,
       })
     },
     Decoder: func(props nativehelpers.UnionExplorer_ObjectorDecoderProps) *shimast.Node {
       return objector.Decoder(FeatureProgrammer_ObjectorDecoderProps{
         Input:   props.Input,
         Object:  props.Object,
-        Explore: featureProgrammer_as_explore(props.Explore),
+        Explore: props.Explore,
       })
     },
     Unionizer: func(props nativehelpers.UnionExplorer_ObjectorUnionizerProps) *shimast.Node {
       return objector.Unionizer(FeatureProgrammer_ObjectorUnionizerProps{
         Objects: props.Objects,
         Input:   props.Input,
-        Explore: featureProgrammer_as_explore(props.Explore),
+        Explore: props.Explore,
       })
     },
     Failure: func(props nativehelpers.UnionExplorer_ObjectorFailureProps) *shimast.Node {
-      explore := featureProgrammer_as_explore(props.Explore)
+      explore := props.Explore
       return objector.Failure(FeatureProgrammer_ObjectorFailureProps{
         Input:    props.Input,
         Expected: props.Expected,
@@ -1315,10 +1561,9 @@ func featureProgrammer_union_objector(objector FeatureProgrammer_IConfig_IObject
         Condition: props.Condition,
         Input:     props.Input,
         Expected:  props.Expected,
-        Explore:   featureProgrammer_as_explore(props.Explore),
+        Explore:   props.Explore,
       })
     },
-    Type: objector.Type,
   }
 }
 
@@ -1328,34 +1573,5 @@ func featureProgrammer_from_iterate_explore(input nativeiterate.Feature_object_e
     Source:   input.Source,
     From:     input.From,
     Postfix:  input.Postfix,
-  }
-}
-
-func featureProgrammer_as_explore(input any) FeatureProgrammer_IExplore {
-  switch value := input.(type) {
-  case FeatureProgrammer_IExplore:
-    return value
-  case *FeatureProgrammer_IExplore:
-    return *value
-  case map[string]any:
-    output := FeatureProgrammer_IExplore{}
-    if v, ok := value["tracable"].(bool); ok {
-      output.Tracable = v
-    }
-    if v, ok := value["source"].(string); ok {
-      output.Source = v
-    }
-    if v, ok := value["from"].(string); ok {
-      output.From = v
-    }
-    if v, ok := value["postfix"].(string); ok {
-      output.Postfix = v
-    }
-    if v, ok := value["start"].(int); ok {
-      output.Start = &v
-    }
-    return output
-  default:
-    return FeatureProgrammer_IExplore{}
   }
 }

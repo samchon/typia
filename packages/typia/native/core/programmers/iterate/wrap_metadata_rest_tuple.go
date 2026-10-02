@@ -18,6 +18,14 @@ func wrap_metadata_rest_tuple(rest *nativemetadata.MetadataSchema) *nativemetada
   return wrapper
 }
 
+// Wrap_metadata_rest_tuple_export wraps the rest element of a tuple into a
+// metadata schema holding one array whose name and display name are the
+// element's prefixed with `...`.
+//
+// @evidence contracts/common.md#principled-implementation It wraps the rest element of a tuple into a metadata schema holding one array whose name and display name are the element's prefixed with `...`.
+// @evidence contracts/common.md#clear-and-simple-design A one-line exported wrapper over the package-private function.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The wrapper has no logic of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Wrap_metadata_rest_tuple_export(rest *nativemetadata.MetadataSchema) *nativemetadata.MetadataSchema {
   return wrap_metadata_rest_tuple(rest)
 }

@@ -2,6 +2,13 @@ package metadata
 
 import schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 
+// Iterate_metadata_map records the runtime global `Map` type with its key and
+// value metadata. A same-named user declaration is not treated as a Map.
+//
+// @evidence contracts/common.md#principled-implementation Only a type whose symbol is the runtime global `Map` with two type arguments is a map, so a package or user declaration with the same name falls through to the object path; key and value are explored separately, and an existing map entry of the same display name is replaced.
+// @evidence contracts/common.md#clear-and-simple-design One function over the shared provenance test.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The identity check is the cited provenance gate and no name is trusted by itself.
+// @evidence contracts/common.md#meaningful-documentation The doc states the provenance rule.
 func Iterate_metadata_map(props IMetadataIteratorProps) bool {
   if props.Checker == nil || props.Type == nil {
     return false

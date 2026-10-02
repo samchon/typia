@@ -4,11 +4,11 @@
 package http
 
 import (
-	"testing"
+  "testing"
 
-	shimast "github.com/microsoft/typescript-go/shim/ast"
-	nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
-	schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  shimast "github.com/microsoft/typescript-go/shim/ast"
+  nativecontext "github.com/samchon/typia/packages/typia/native/core/context"
+  schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestHttpProgrammerHelperCoverage exercises HTTP array helpers.
@@ -21,100 +21,105 @@ import (
 // 2. Build nullable and optional form-data array readers.
 // 3. Build header array readers for string, number, and cookie delimiters.
 // 4. Verify HTTP import, property-key, type decoding, and debug helpers.
+//
+// @evidence contracts/testing.md#behavioral-verification HTTP array reader helpers are called for required, nullable, optional, string, number and cookie-delimited cases; the required array has identity equality and method/property-key helpers have exact text checks; debug requires nonempty text, array/import builders require non-nil nodes, and the metadata decoder checks only the array-output flag.
+// @evidence contracts/testing.md#independent-expectations Exact checks use authored text; the non-nil checks have no independent oracle and certify only construction.
+// @evidence contracts/testing.md#distinguishing-cases Required, nullable, optional and delimiter variants are each visited once; few negatives exist.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestHttpProgrammerHelperCoverage(t *testing.T) {
-	factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
-	input := factory.NewIdentifier("input")
-	required := httpMetadata("string", true, false)
-	optional := httpMetadata("string", false, false)
-	nullable := httpMetadata("string", true, true)
-	if httpFormDataProgrammer_decode_array(struct {
-		Context  nativecontext.ITypiaContext
-		Metadata *schemametadata.MetadataSchema
-		Input    *shimast.Node
-	}{Metadata: required, Input: input}) != input {
-		t.Fatal("required form-data array should return input unchanged")
-	}
-	if httpFormDataProgrammer_decode_array(struct {
-		Context  nativecontext.ITypiaContext
-		Metadata *schemametadata.MetadataSchema
-		Input    *shimast.Node
-	}{Metadata: optional, Input: input}) == nil ||
-		httpFormDataProgrammer_decode_array(struct {
-			Context  nativecontext.ITypiaContext
-			Metadata *schemametadata.MetadataSchema
-			Input    *shimast.Node
-		}{Metadata: nullable, Input: input}) == nil {
-		t.Fatal("form-data array reader returned nil")
-	}
-	if httpHeadersProgrammer_decode_array(struct {
-		Context nativecontext.ITypiaContext
-		Type    string
-		Key     string
-		Value   *schemametadata.MetadataSchema
-		Input   *shimast.Node
-	}{Type: "string", Key: "accept", Value: required, Input: input}) == nil ||
-		httpHeadersProgrammer_decode_array(struct {
-			Context nativecontext.ITypiaContext
-			Type    string
-			Key     string
-			Value   *schemametadata.MetadataSchema
-			Input   *shimast.Node
-		}{Type: "number", Key: "cookie", Value: optional, Input: input}) == nil {
-		t.Fatal("header array reader returned nil")
-	}
-	if httpProgrammer_debug([]string{"a", "b"}) == "" {
-		t.Fatal("HTTP debug helper returned empty text")
-	}
-	if httpProgrammer_method_text(nil) != "" ||
-		httpProgrammer_method_text(factory.NewIdentifier("method")) != "method" {
-		t.Fatal("HTTP method text helper mismatch")
-	}
-	if httpProgrammer_import_type(nativecontext.ITypiaContext{}, nativecontext.ImportProgrammer_TypeProps{Name: "Alias"}) == nil ||
-		httpProgrammer_import_type(nativecontext.ITypiaContext{}, nativecontext.ImportProgrammer_TypeProps{Name: factory.NewIdentifier("AliasNode")}) == nil ||
-		httpProgrammer_import_type(nativecontext.ITypiaContext{Importer: nativecontext.NewImportProgrammer()}, nativecontext.ImportProgrammer_TypeProps{Name: "Alias"}) == nil {
-		t.Fatal("HTTP import type helper returned nil")
-	}
-	if httpProgrammer_property_key(nil) != "" ||
-		httpProgrammer_property_key(schemametadata.MetadataProperty_create(schemametadata.MetadataProperty{Key: httpLiteral("field")})) != "field" {
-		t.Fatal("HTTP property key helper mismatch")
-	}
-	nativeBlob := schemametadata.MetadataSchema_initialize()
-	nativeBlob.Natives = append(nativeBlob.Natives, schemametadata.MetadataNative_create(schemametadata.MetadataNative{Name: "Blob"}))
-	nativeFile := schemametadata.MetadataSchema_initialize()
-	nativeFile.Natives = append(nativeFile.Natives, schemametadata.MetadataNative_create(schemametadata.MetadataNative{Name: "File"}))
-	array := schemametadata.MetadataSchema_initialize()
-	array.Arrays = append(array.Arrays, schemametadata.MetadataArray_create(schemametadata.MetadataArray{
-		Type: schemametadata.MetadataArrayType_create(schemametadata.MetadataArrayType{Name: "string[]", Value: required}),
-	}))
-	tuple := schemametadata.MetadataSchema_initialize()
-	tuple.Tuples = append(tuple.Tuples, schemametadata.MetadataTuple_create(schemametadata.MetadataTuple{
-		Type: schemametadata.MetadataTupleType_create(schemametadata.MetadataTupleType{Name: "[string]", Elements: []*schemametadata.MetadataSchema{required}}),
-	}))
-	constant := schemametadata.MetadataSchema_initialize()
-	constant.Constants = append(constant.Constants, schemametadata.MetadataConstant_create(schemametadata.MetadataConstant{Type: "number"}))
-	for _, meta := range []*schemametadata.MetadataSchema{nil, required, constant, nativeBlob, nativeFile, array, tuple} {
-		if _, ok := httpProgrammer_decode_type_from_metadata(meta, true, false); meta != nil && !ok && len(meta.Arrays) != 0 {
-			t.Fatal("HTTP array decode type should report array output")
-		}
-	}
+  factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
+  input := factory.NewIdentifier("input")
+  required := httpMetadata("string", true, false)
+  optional := httpMetadata("string", false, false)
+  nullable := httpMetadata("string", true, true)
+  if httpFormDataProgrammer_decode_array(struct {
+    Context  nativecontext.ITypiaContext
+    Metadata *schemametadata.MetadataSchema
+    Input    *shimast.Node
+  }{Metadata: required, Input: input}) != input {
+    t.Fatal("required form-data array should return input unchanged")
+  }
+  if httpFormDataProgrammer_decode_array(struct {
+    Context  nativecontext.ITypiaContext
+    Metadata *schemametadata.MetadataSchema
+    Input    *shimast.Node
+  }{Metadata: optional, Input: input}) == nil ||
+    httpFormDataProgrammer_decode_array(struct {
+      Context  nativecontext.ITypiaContext
+      Metadata *schemametadata.MetadataSchema
+      Input    *shimast.Node
+    }{Metadata: nullable, Input: input}) == nil {
+    t.Fatal("form-data array reader returned nil")
+  }
+  if httpHeadersProgrammer_decode_array(struct {
+    Context nativecontext.ITypiaContext
+    Type    string
+    Key     string
+    Value   *schemametadata.MetadataSchema
+    Input   *shimast.Node
+  }{Type: "string", Key: "accept", Value: required, Input: input}) == nil ||
+    httpHeadersProgrammer_decode_array(struct {
+      Context nativecontext.ITypiaContext
+      Type    string
+      Key     string
+      Value   *schemametadata.MetadataSchema
+      Input   *shimast.Node
+    }{Type: "number", Key: "cookie", Value: optional, Input: input}) == nil {
+    t.Fatal("header array reader returned nil")
+  }
+  if httpProgrammer_debug([]string{"a", "b"}) == "" {
+    t.Fatal("HTTP debug helper returned empty text")
+  }
+  if httpProgrammer_method_text(nil) != "" ||
+    httpProgrammer_method_text(factory.NewIdentifier("method")) != "method" {
+    t.Fatal("HTTP method text helper mismatch")
+  }
+  if httpProgrammer_import_type(nativecontext.ITypiaContext{}, nativecontext.ImportProgrammer_TypeProps{Name: "Alias"}) == nil ||
+    httpProgrammer_import_type(nativecontext.ITypiaContext{}, nativecontext.ImportProgrammer_TypeProps{Name: factory.NewIdentifier("AliasNode")}) == nil ||
+    httpProgrammer_import_type(nativecontext.ITypiaContext{Importer: nativecontext.NewImportProgrammer()}, nativecontext.ImportProgrammer_TypeProps{Name: "Alias"}) == nil {
+    t.Fatal("HTTP import type helper returned nil")
+  }
+  if httpProgrammer_property_key(nil) != "" ||
+    httpProgrammer_property_key(schemametadata.MetadataProperty_create(schemametadata.MetadataProperty{Key: httpLiteral("field")})) != "field" {
+    t.Fatal("HTTP property key helper mismatch")
+  }
+  nativeBlob := schemametadata.MetadataSchema_initialize()
+  nativeBlob.Natives = append(nativeBlob.Natives, schemametadata.MetadataNative_create(schemametadata.MetadataNative{Name: "Blob"}))
+  nativeFile := schemametadata.MetadataSchema_initialize()
+  nativeFile.Natives = append(nativeFile.Natives, schemametadata.MetadataNative_create(schemametadata.MetadataNative{Name: "File"}))
+  array := schemametadata.MetadataSchema_initialize()
+  array.Arrays = append(array.Arrays, schemametadata.MetadataArray_create(schemametadata.MetadataArray{
+    Type: schemametadata.MetadataArrayType_create(schemametadata.MetadataArrayType{Name: "string[]", Value: required}),
+  }))
+  tuple := schemametadata.MetadataSchema_initialize()
+  tuple.Tuples = append(tuple.Tuples, schemametadata.MetadataTuple_create(schemametadata.MetadataTuple{
+    Type: schemametadata.MetadataTupleType_create(schemametadata.MetadataTupleType{Name: "[string]", Elements: []*schemametadata.MetadataSchema{required}}),
+  }))
+  constant := schemametadata.MetadataSchema_initialize()
+  constant.Constants = append(constant.Constants, schemametadata.MetadataConstant_create(schemametadata.MetadataConstant{Type: "number"}))
+  for _, meta := range []*schemametadata.MetadataSchema{nil, required, constant, nativeBlob, nativeFile, array, tuple} {
+    if _, ok := httpProgrammer_decode_type_from_metadata(meta, true, false); meta != nil && !ok && len(meta.Arrays) != 0 {
+      t.Fatal("HTTP array decode type should report array output")
+    }
+  }
 }
 
 func httpMetadata(kind string, required bool, nullable bool) *schemametadata.MetadataSchema {
-	meta := schemametadata.MetadataSchema_initialize()
-	meta.Required = required
-	meta.Optional = !required
-	meta.Nullable = nullable
-	meta.Atomics = append(meta.Atomics, schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: kind}))
-	return meta
+  meta := schemametadata.MetadataSchema_initialize()
+  meta.Required = required
+  meta.Optional = !required
+  meta.Nullable = nullable
+  meta.Atomics = append(meta.Atomics, schemametadata.MetadataAtomic_create(schemametadata.MetadataAtomic{Type: kind}))
+  return meta
 }
 
 func httpLiteral(value string) *schemametadata.MetadataSchema {
-	meta := schemametadata.MetadataSchema_initialize()
-	meta.Constants = append(meta.Constants, schemametadata.MetadataConstant_create(schemametadata.MetadataConstant{
-		Type: "string",
-		Values: []*schemametadata.MetadataConstantValue{
-			schemametadata.MetadataConstantValue_create(schemametadata.MetadataConstantValue{Value: value}),
-		},
-	}))
-	return meta
+  meta := schemametadata.MetadataSchema_initialize()
+  meta.Constants = append(meta.Constants, schemametadata.MetadataConstant_create(schemametadata.MetadataConstant{
+    Type: "string",
+    Values: []*schemametadata.MetadataConstantValue{
+      schemametadata.MetadataConstantValue_create(schemametadata.MetadataConstantValue{Value: value}),
+    },
+  }))
+  return meta
 }

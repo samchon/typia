@@ -9,6 +9,18 @@ import { Atomic } from "@typia/interface";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+/**
+ * The partial form of `T` that `typia.compare.cover` matches against.
+ *
+ * Atomics, null, undefined and functions stay as they are, an array becomes an
+ * array of covered elements and every property of an object becomes optional
+ * and covered in turn.
+ *
+ * @evidence contracts/common.md#principled-implementation The mapped type keeps atomics, null, undefined and functions as they are, turns an array or tuple into an array of covered elements and an object into a record whose properties are optional and covered recursively. The array branch transforms element types without encoding the original tuple length; identical compared array lengths are enforced separately by the runtime transform.
+ * @evidence contracts/common.md#clear-and-simple-design One recursive conditional alias used by the `cover` signature.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts A type-level description with no runtime effect; the transform decides what the call compares.
+ * @evidence contracts/common.md#meaningful-documentation A comment states what the alias describes and how it relates to the cover operation.
+ */
 export type Cover<T> = T extends Atomic.Type | null | undefined
   ? T
   : T extends (...args: any[]) => any
@@ -32,8 +44,10 @@ export type Cover<T> = T extends Atomic.Type | null | undefined
  * comparison.
  *
  * @template T Type of values to compare
+ *
  * @param x Left value
  * @param y Right value
+ *
  * @returns Whether both values are equal by structure
  */
 export function equals<T>(x: T, y: T): boolean;
@@ -50,8 +64,10 @@ export function equals(): never {
  * tuples still require identical lengths and compare element-by-element.
  *
  * @template T Type of value to compare
+ *
  * @param x Full value
  * @param y Partial value to match
+ *
  * @returns Whether `x` covers `y`
  */
 export function cover<T>(x: T, y: Cover<T>): boolean;
@@ -84,8 +100,10 @@ export function cover(): never {
  * ```
  *
  * @template T Type of values to compare
+ *
  * @param x Left value
  * @param y Right value
+ *
  * @returns Whether `x` precedes `y`
  */
 export function less<T>(x: T, y: T): boolean;
@@ -109,6 +127,7 @@ export function createEquals(): never;
  * Creates reusable {@link equals} function.
  *
  * @template T Type of values to compare
+ *
  * @returns Reusable equality function
  */
 export function createEquals<T>(): (x: T, y: T) => boolean;
@@ -129,6 +148,7 @@ export function createCover(): never;
  * Creates reusable {@link cover} function.
  *
  * @template T Type of value to compare
+ *
  * @returns Reusable cover function
  */
 export function createCover<T>(): (x: T, y: Cover<T>) => boolean;
@@ -149,6 +169,7 @@ export function createLess(): never;
  * Creates reusable {@link less} function.
  *
  * @template T Type of values to compare
+ *
  * @returns Reusable ordering function
  */
 export function createLess<T>(): (x: T, y: T) => boolean;

@@ -28,6 +28,11 @@ import (
 //  4. Assert `dependencies["src/consumer.ts"]` contains `src/barrel.ts`, and
 //     not `src/unused.ts`, which the barrel also re-exports but this reference
 //     never traverses.
+//
+// @evidence contracts/testing.md#behavioral-verification The re-exported call is rewritten and its barrel dependency is present, while unused is absent.
+// @evidence contracts/testing.md#independent-expectations A barrel choosing typia rather than a local is function can change whether the caller is transformed; unrelated exports do not.
+// @evidence contracts/testing.md#distinguishing-cases A consumed typia re-export and an unconsumed sibling share one barrel.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCalleeBarrelTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCalleeBarrelTransform(t *testing.T) {
   project := projectDependenciesCalleeBarrelProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -65,16 +70,7 @@ func TestProjectDependenciesCalleeBarrelTransform(t *testing.T) {
 
 func projectDependenciesCalleeBarrelProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-callee-barrel-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-callee-barrel-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

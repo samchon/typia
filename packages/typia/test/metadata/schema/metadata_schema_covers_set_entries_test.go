@@ -17,6 +17,11 @@ import (
 // 2. Assert mismatched value schemas are not covered.
 // 3. Assert a source without Set buckets does not cover a Set target.
 // 4. Assert nested tuple value schemas are checked.
+//
+// @evidence contracts/testing.md#behavioral-verification MetadataSchema_covers compares Set buckets: compatible literal values, mismatched values, a source with no Set bucket and nested tuple values.
+// @evidence contracts/testing.md#independent-expectations Set containment follows value-schema containment and a bucketless source accepts no Set; operands and verdicts are authored.
+// @evidence contracts/testing.md#distinguishing-cases One positive and three negatives (value mismatch, missing bucket, nested tuple mismatch) isolate the recursion into the Set value.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the exported coverage function on constructed metadata with no filesystem fixture, process or native command build.
 func TestMetadataSchemaCoversSetEntries(t *testing.T) {
   if !metadata.MetadataSchema_covers(
     testutil.SetMetadata(testutil.AtomicMetadata("string")),

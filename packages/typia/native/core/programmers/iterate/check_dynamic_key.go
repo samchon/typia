@@ -10,12 +10,29 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Check_dynamic_keyProps is the argument record of Check_dynamic_key, which
+// tests a dynamic key against the metadata of an index signature.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Check_dynamic_key, which tests a dynamic key against the metadata of an index signature; its 3 fields (Context, Metadata, Input) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 3-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type Check_dynamic_keyProps struct {
   Context  nativecontext.ITypiaContext
   Metadata *nativemetadata.MetadataSchema
   Input    *shimast.Expression
 }
 
+// Check_dynamic_key builds the condition that a dynamic key, which is a string
+// at runtime, spells a value of the index signature's key metadata: `true` for a
+// pure string key, and otherwise a disjunction of the spellings that the
+// metadata admits. A string shortcut applies only when no runtime type-tag
+// condition is emitted, including exclusions carried by schema fragments.
+//
+// @evidence contracts/common.md#principled-implementation It builds the condition that a dynamic key, which is a string at runtime, spells a value of the index signature's key metadata: `true` for a pure string key, and otherwise a disjunction of the spellings that the metadata admits.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(check_dynamic_key_factory, props.Context.Emit)
   if check_dynamic_key_has_pure_string(props.Metadata) {
@@ -180,8 +197,22 @@ func Check_dynamic_key(props Check_dynamic_keyProps) *shimast.Node {
 func check_dynamic_key_has_pure_string(metadata *nativemetadata.MetadataSchema) bool {
   if len(metadata.Atomics) != 0 {
     for _, atomic := range metadata.Atomics {
-      if atomic.Type == "string" && len(check_dynamic_key_fully_validated_tag_rows(atomic.Tags)) == 0 {
-        return true
+      if atomic.Type == "string" {
+        constrained := false
+        for _, row := range atomic.Tags {
+          for _, tag := range row {
+            if tag.Validate != "" || (tag.Kind == "exclude" && len(check_exclude_values(tag)) != 0) {
+              constrained = true
+              break
+            }
+          }
+          if constrained {
+            break
+          }
+        }
+        if !constrained {
+          return true
+        }
       }
     }
   }
@@ -193,23 +224,6 @@ func check_dynamic_key_has_pure_string(metadata *nativemetadata.MetadataSchema) 
     }
   }
   return false
-}
-
-func check_dynamic_key_fully_validated_tag_rows(rows [][]nativemetadata.IMetadataTypeTag) [][]nativemetadata.IMetadataTypeTag {
-  output := [][]nativemetadata.IMetadataTypeTag{}
-  for _, row := range rows {
-    passed := true
-    for _, tag := range row {
-      if tag.Validate == "" {
-        passed = false
-        break
-      }
-    }
-    if passed {
-      output = append(output, row)
-    }
-  }
-  return output
 }
 
 func check_dynamic_key_atomist(entry nativehelpers.ICheckEntry, emit ...*shimprinter.EmitContext) *shimast.Node {

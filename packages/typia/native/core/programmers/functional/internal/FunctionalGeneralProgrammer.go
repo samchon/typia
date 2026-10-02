@@ -10,13 +10,33 @@ type functionalGeneralProgrammerNamespace struct{}
 
 var FunctionalGeneralProgrammer = functionalGeneralProgrammerNamespace{}
 
+// FunctionalGeneralProgrammer_IProps is the checker and the function declaration
+// whose return type is wanted.
+//
+// @evidence contracts/common.md#principled-implementation The return type is read from the declaration's signature, so only those two inputs are needed.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type FunctionalGeneralProgrammer_IProps struct {
-  Checker     *shimchecker.Checker
+  // Checker resolves the declaration signature within the current program.
+  Checker *shimchecker.Checker
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
 }
 
+// FunctionalGeneralProgrammer_IOutput is the return type with a Promise
+// unwrapped and whether it was unwrapped.
+//
+// @evidence contracts/common.md#principled-implementation PromiseTypeFactory resolves the return type against the global Promise contract. The payload and resolution flag let wrappers await that value; syntax alone does not set Async.
+// @evidence contracts/common.md#clear-and-simple-design A two-field record.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names both fields.
 type FunctionalGeneralProgrammer_IOutput struct {
-  Type  *shimchecker.Type
+  // Type is the checker return type after supported Promise resolution.
+  Type *shimchecker.Type
+
+  // Async means PromiseTypeFactory resolved the global Promise contract.
   Async bool
 }
 

@@ -12,7 +12,7 @@ import (
 // The evaluation model rounds its answers to those decimals, so a finer
 // requirement can never be told apart from its neighbor. The same source must
 // fail without a config, because two decimals is the default, and compile once
-// `decimals` is coarse enough to hold it.
+// `decimals` is fine enough to hold it.
 //
 //  1. Declare a boolean, a choice member, and a set member finer than two
 //     decimals, with `decimals: 2`.
@@ -21,6 +21,11 @@ import (
 //     A property default finer than the grid is reported once, not once per
 //     member.
 //  3. Accept a requirement on the grid, and a finer one with `decimals: 3`.
+//
+// @evidence contracts/testing.md#behavioral-verification Boolean, choice and set thresholds finer than two decimals diagnose; an inherited property default is reported once, omitted config still uses two, and supported grid controls compile.
+// @evidence contracts/testing.md#independent-expectations A probability requirement must lie on the model answer rounding grid, otherwise neighboring requirements cannot be distinguished at configured precision.
+// @evidence contracts/testing.md#distinguishing-cases Three requirement positions, one inherited default, omitted config, on-grid literals and decimals three distinguish precision and duplicate-report boundaries.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestLlmEvaluationRejectsFinerThanProbabilityDecimals as a unit test. Its fixture helpers and captured Go command calls exercise the owning operation in process without a compiler subprocess. Named subcases retain their inputs and failure identities; temporary project cleanup belongs to the helper.
 func TestLlmEvaluationRejectsFinerThanProbabilityDecimals(t *testing.T) {
   errText := llmEvaluationDiagnosticsBuild(t, "finer-decimals", `import typia, { tags } from "typia";
 

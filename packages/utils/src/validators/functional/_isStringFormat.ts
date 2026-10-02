@@ -20,8 +20,25 @@ import { _isFormatUriTemplate } from "./_isFormatUriTemplate";
 import { _isFormatUrl } from "./_isFormatUrl";
 import { _isFormatUuid } from "./_isFormatUuid";
 
+/**
+ * Applies a registered string format and accepts unknown format annotations.
+ *
+ * Format names are arbitrary schema strings. Only the registry's own entries
+ * select predicates; inherited object members are not supported formats.
+ * Consumers still apply their independent type, pattern and length checks.
+ *
+ * @evidence contracts/common.md#principled-implementation Own-key membership distinguishes registered predicates from arbitrary format annotations, including Object.prototype names. Unknown annotations return literal true; known names delegate the same grammar checks used by validator and string-constant coverage consumers.
+ * @evidence contracts/common.md#clear-and-simple-design One fixed dispatch table owns name-to-predicate selection. The membership check and invocation stay together, so both consumers share unknown-format semantics without separate lists or exception handlers.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Registered names are supported schema formats, not consumer or fixture exceptions. Own-key selection applies uniformly to arbitrary names and changes no foreign prototype or checker.
+ * @evidence contracts/common.md#meaningful-documentation Native prose explains unknown annotations, inherited-name exclusion and the independent constraints owned by consumers. The registry gives the exact supported population; descriptive prose is separate from acknowledgments.
+ */
 export const _isStringFormat = (format: string, value: string): boolean => {
-  const checker: ((input: string) => boolean) | undefined = FORMAT[format];
+  const checker: ((input: string) => boolean) | undefined = Object.hasOwn(
+    FORMAT,
+    format,
+  )
+    ? FORMAT[format]
+    : undefined;
   return checker === undefined || checker(value);
 };
 

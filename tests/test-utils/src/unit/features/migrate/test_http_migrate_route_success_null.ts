@@ -1,0 +1,43 @@
+import {
+  IHttpMigrateApplication,
+  IHttpMigrateRoute,
+  OpenApi,
+} from "@typia/interface";
+import { TestEquality } from "@typia/template/oracle-equality";
+import { HttpMigration } from "@typia/utils";
+
+/**
+ * Verifies a JSON response without a schema yields a null route success.
+ *
+ * Empty JSON content carries no type information. Treating it as a schema would
+ * make generators invent a return type.
+ *
+ * 1. Declare a GET operation whose 200 response has an empty application/json
+ *    content object.
+ * 2. Migrate the document.
+ * 3. Assert the route's success is null.
+ */
+export const test_http_migrate_route_success_null = (): void => {
+  const document: OpenApi.IDocument = {
+    openapi: "3.2.0",
+    components: {},
+    paths: {
+      "/nothing": {
+        get: {
+          responses: {
+            "200": {
+              description: "something",
+              content: {
+                "application/json": {},
+              },
+            },
+          },
+        },
+      },
+    },
+    "x-typia-emended-v12": true,
+  };
+  const app: IHttpMigrateApplication = HttpMigration.application(document);
+  const route: IHttpMigrateRoute = app.routes[0]!;
+  TestEquality.equals("success", route.success, null);
+};

@@ -35,6 +35,11 @@ import { IHttpResponse } from "./IHttpResponse";
  * For TypeScript class-based controller, use {@link ILlmController} instead.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @evidence contracts/common.md#principled-implementation The `protocol: "http"` literal discriminates it from class-based controllers, and the record holds the application, a name and a connection, plus an optional executor whose argument object bundles the connection, application, function and arguments the default executor needs. The optional executor is the supported override point.
+ * @evidence contracts/common.md#clear-and-simple-design One flat controller interface with its executor argument inline, because only this member uses that argument shape.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Overriding execution goes through the executor member and not through patching HttpLlm.
+ * @evidence contracts/common.md#meaningful-documentation The comment shows creation and use with framework adapters, links the alternative class-based controller and documents how arguments are keyed.
  */
 export interface IHttpLlmController {
   /** Protocol discriminator. */
@@ -60,6 +65,7 @@ export interface IHttpLlmController {
    * it with your own function.
    *
    * @param props Properties of the API function call
+   *
    * @returns HTTP response of the API function call
    */
   execute?:

@@ -12,7 +12,9 @@
  * answers the same question while walking an array's own index range.
  *
  * @param text Serialized element value, or `undefined` when it has none.
+ *
  * @returns Element text, or `null` when the element has no serialization.
+ *
  * @internal
  */
 export const _jsonStringifyElement = (text: string | undefined): string =>

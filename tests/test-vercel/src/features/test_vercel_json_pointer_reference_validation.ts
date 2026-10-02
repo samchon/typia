@@ -11,6 +11,15 @@ import typia from "typia";
  * 1. Convert a recursive slash-key controller through the public adapter.
  * 2. Coerce numeric input strings and validate the referenced result.
  * 3. Reject a wrong referenced result through Vercel's failure branch.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Converts a native recursive slash-key controller, checks its canonical local reference, coerces count string42 and accepts the valid tree while rejecting the wrong returned discriminator.
+ * @evidence contracts/testing.md#independent-expectations The declared Recursive<A/B> literal and numeric count establish the result; JSON Pointer slash escaping requires A~1B, while the failure branch is verified without deriving expectations from another producer.
+ * @evidence contracts/testing.md#distinguishing-cases The valid empty-child tree and wrong one-axis output discriminator exercise referenced validation; other output-schema cases cover nested paths and container-shape failures.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_json_pointer_reference_validation in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native Recursive<A/B> references must retain JSON Pointer slash escaping through adapter coercion and output inversion. Valid empty-child output and a wrong discriminator distinguish reference advertisement from actual referenced validation.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_json_pointer_reference_validation =
   async (): Promise<void> => {

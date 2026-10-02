@@ -14,12 +14,31 @@ type plainAssertPruneProgrammerNamespace struct{}
 
 var PlainAssertPruneProgrammer = plainAssertPruneProgrammerNamespace{}
 
+// PlainAssertPruneProgrammer_DecomposeProps is the input of Decompose for the
+// plain assert prune generator: Context (the transform context), Functor (the
+// collector of the helper functions that the generator emits), Type (the type to
+// generate for), Name (an optional type name) and Init (the optional initializer
+// of the error factory parameter).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the collector of the helper functions that the generator emits, the type to generate for, an optional type name and the optional initializer of the error factory parameter, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type PlainAssertPruneProgrammer_DecomposeProps struct {
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
+
+  // Functor collects shared helper declarations and recursive-visit state.
   Functor *nativehelpers.FunctionProgrammer
-  Type    *shimchecker.Type
-  Name    *string
-  Init    *shimast.Node
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
+
+  // Init optionally initializes the assertion error factory parameter.
+  Init *shimast.Node
 }
 
 var plainAssertPruneProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

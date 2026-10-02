@@ -11,6 +11,7 @@ export namespace CommentTagObjectUnion {
   export interface Literal {
     /**
      * @minLength 3
+     *
      * @maxLength 7
      */
     value: string;

@@ -9,28 +9,17 @@ import (
   "testing"
 )
 
-// TestProtobufDiagnosticCodeTransform verifies that a rejected protobuf call
-// site is named by its own API in the diagnostic code (#2285).
+// TestProtobufDiagnosticCodeTransform checks the authored operation results described below.
 //
-// `ProtobufFactory.Metadata` used to compose the code as `"typia.protobuf." +
-// props.Method`, while the encode and decode programmers pass the whole call
-// accessor (`ModuloMethodText`, the same text `TypeGuardError.method` carries).
-// Sixteen of the seventeen entry points therefore reported
-// `TS(typia.protobuf.typia.protobuf.encode)`; only `protobuf.message` was
-// correct, because its programmer passed a bare literal. The code is the only
-// machine-readable identity a typia rejection has, so a code that names no API
-// is a silent loss for anyone searching it.
+// Diagnostic codes identify public calls as written, not programmer-internal naming conventions. The authored call accessor list supplies an independent finite expected identity set.
 //
-// The oracle is the fixture source, not another copy of the expected string: a
-// diagnostic code is correct only when the accessor it names is literally the
-// accessor written at a call site in that file. A concatenation defect cannot
-// satisfy that, and neither can a misspelling.
+// 1. All seventeen direct/factory message/encode/decode combinations reject a top-level bigint instead of a static message object and retain their own operation code.
+// 2. Every rejected protobuf operation is represented exactly by a code matching a source-written accessor, with no doubled typia.protobuf prefix.
 //
-//  1. Write one fixture that calls every protobuf entry point with `bigint`,
-//     which none of them supports.
-//  2. Transform it and collect every diagnostic code the transform reported.
-//  3. Require each code to be an accessor present in the fixture, and require
-//     every entry point to have been named.
+// @evidence contracts/testing.md#behavioral-verification Every rejected protobuf operation is represented exactly by a code matching a source-written accessor, with no doubled typia.protobuf prefix.
+// @evidence contracts/testing.md#independent-expectations Diagnostic codes identify public calls as written, not programmer-internal naming conventions. The authored call accessor list supplies an independent finite expected identity set.
+// @evidence contracts/testing.md#distinguishing-cases All seventeen direct/factory message/encode/decode combinations reject a top-level bigint instead of a static message object and retain their own operation code.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProtobufDiagnosticCodeTransform as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestProtobufDiagnosticCodeTransform(t *testing.T) {
   methods := []string{
     "message",
@@ -106,18 +95,7 @@ var protobufDiagnosticCodePattern = regexp.MustCompile(`"code":"([^"]+)"`)
 
 func protobufDiagnosticCodeProject(t *testing.T, methods []string) (string, string) {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "protobuf-code-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "protobuf-code-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

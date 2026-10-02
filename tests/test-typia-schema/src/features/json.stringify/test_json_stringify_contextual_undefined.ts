@@ -41,6 +41,15 @@ interface INested {
  * 2. Take the expected document from native `JSON.stringify` of the same input,
  *    never from typia's own emit.
  * 3. Assert every success payload parses and equals the oracle document.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Four stringify families retain contextual JSON omission and null substitution.
+ * @evidence contracts/testing.md#independent-expectations Parsed native JSON.stringify output supplies an independent platform oracle for each authored input.
+ * @evidence contracts/testing.md#distinguishing-cases Function/symbol/undefined/toJSON/null, unknown, dynamic records, sparse arrays, tuples/rest tuples and nesting remain; a malformed numeric neighbor stays rejected.
+ * @evidence contracts/testing.md#execution-ownership The schema start runner discovers test_json_stringify_contextual_undefined through DynamicExecutor and ttsx with the native typia plugin; its exported body owns the assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Type-specific emitted object and array serializers must connect to JSON semantics for values without standalone JSON representations.
+ * @evidence contracts/e2e.md#shared-execution The case reuses the suite project load and native plugin artifact. Its inputs do not build or launch a separate host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and generated results are local to the case. The suite owns the shared host lifetime; no cold cache transition is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Function/symbol/undefined/toJSON/null, unknown, dynamic records, sparse arrays, tuples/rest tuples and nesting remain; a malformed numeric neighbor stays rejected. Original inputs and assertions remain; source review and final execution are reported separately.
  */
 export const test_json_stringify_contextual_undefined = (): void => {
   // Compare a typia payload with what ECMAScript JSON.stringify writes for the

@@ -6,6 +6,26 @@ import typia from "typia";
 
 import { Calculator } from "../structures/Calculator";
 
+/**
+ * Verifies vercel class controller execute against the native
+ * typia.llm.controller output.
+ *
+ * The case builds its input in this file and asserts add(10, 5) should return
+ * 15, subtract(10, 3) should return 7, multiply(4, 7) should return 28,
+ * divide(20, 4) should return 5.
+ *
+ * 1. Generate the value from the types declared in this file.
+ * 2. Assert the properties listed above.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Calls add, subtract, multiply and divide tools and compares each complete success wrapper to literal values 15,7,28 and5.
+ * @evidence contracts/testing.md#independent-expectations Arithmetic follows the four handwritten Calculator methods; literals and the success/data wrapper do not depend on another generated validator.
+ * @evidence contracts/testing.md#distinguishing-cases Four separate method dispatches and operands distinguish wiring errors; class_controller_validation and class_controller_error_handling own malformed arguments and zero-denominator rejection.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_class_controller_execute in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native metadata for four distinct Calculator methods is consumed by adapter dispatch and output validation. Literal arithmetic wrappers distinguish incorrect producer-to-method wiring; validation and exception siblings own the negative branches.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
+ */
 export const test_vercel_class_controller_execute = async (): Promise<void> => {
   // 1. Create class-based controller using typia.llm.controller
   const controller: ILlmController<Calculator> =

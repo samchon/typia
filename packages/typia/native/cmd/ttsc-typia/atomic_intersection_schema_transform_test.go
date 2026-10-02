@@ -2,8 +2,8 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
+  "strings"
   "testing"
 )
 
@@ -16,29 +16,42 @@ import (
 // constraints must also stay neutral during union/never pruning.
 //
 //  1. Transform the AtomicIntersection fixture into JavaScript.
-//  2. Execute the emitted module with typia runtime imports stubbed out.
+//  2. Decode the emitted schema literal AST without executing JavaScript.
 //  3. Assert the three tuple element component schemas are boolean, number,
 //     and string, never an empty unconstrained schema.
+//
+// @evidence contracts/testing.md#behavioral-verification The three tuple references resolve to boolean, number and string schemas in authored order; missing components, wrong tuple size and unconstrained schemas fail.
+// @evidence contracts/testing.md#independent-expectations The authored tuple wraps boolean, number and string in optional-object intersections; those primitive kinds define the ordered expected schemas rather than a previous transform snapshot. AST literal decoding interprets the emitted result but does not execute JavaScript.
+// @evidence contracts/testing.md#distinguishing-cases The three tuple references resolve to boolean, number and string schemas in authored order; missing components, wrong tuple size and unconstrained schemas fail.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestAtomicIntersectionSchemaTransform as a unit test. It runs the transform in process and parses its result through the in-memory TypeScript parser; no compiler or JavaScript subprocess is launched.
 func TestAtomicIntersectionSchemaTransform(t *testing.T) {
   project := atomicIntersectionSchemaProject(t)
   js := atomicIntersectionSchemaTransform(t, project)
-  atomicIntersectionSchemaRunRuntimeCases(t, project, js)
+  unit := ttscTypiaTestSchemaLiteral(t, js)
+  schemas := ttscTypiaTestSchemaPath(t, unit, "components", "schemas").(map[string]any)
+  tuple := schemas["AtomicIntersection"].(map[string]any)
+  ttscTypiaTestSchemaEqual(t, tuple["type"], "array")
+  items, ok := tuple["prefixItems"].([]any)
+  if !ok || len(items) != 3 {
+    t.Fatalf("expected three tuple components, got %#v", tuple)
+  }
+  for index, typ := range []string{"boolean", "number", "string"} {
+    ref, ok := items[index].(map[string]any)["$ref"].(string)
+    if !ok {
+      t.Fatalf("missing tuple reference %#v", items[index])
+    }
+    name := ref[strings.LastIndex(ref, "/")+1:]
+    target, ok := schemas[name].(map[string]any)
+    if !ok {
+      t.Fatalf("missing tuple component %s", ref)
+    }
+    ttscTypiaTestSchemaEqual(t, target["type"], typ)
+  }
 }
 
 func atomicIntersectionSchemaProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "atomic-intersection-schema-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "atomic-intersection-schema-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
@@ -68,48 +81,6 @@ func atomicIntersectionSchemaTransform(t *testing.T, project string) string {
   return out
 }
 
-func atomicIntersectionSchemaRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(atomicIntersectionSchemaRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("atomic intersection schema runtime cases failed: %v\n%s", err, output)
-  }
-}
-
-const atomicIntersectionSchemaTSConfig = `{
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
-    "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
-    "types": ["*"],
-    "esModuleInterop": true,
-    "strict": true,
-    "skipLibCheck": true
-  },
-  "include": ["src"]
-}
-`
-
 const atomicIntersectionSchemaSource = `import typia from "typia";
 
 export type AtomicIntersection = [
@@ -123,26 +94,4 @@ export namespace AtomicIntersection {
 }
 
 export const schema = typia.json.schema<AtomicIntersection>();
-`
-
-const atomicIntersectionSchemaRuntimeRunner = `const unit = require("./main.cjs").schema;
-
-const schemas = unit.components?.schemas ?? {};
-const tuple = schemas.AtomicIntersection;
-if (tuple?.type !== "array" || Array.isArray(tuple.prefixItems) === false) {
-  throw new Error("AtomicIntersection tuple schema was not emitted: " + JSON.stringify(unit));
-}
-
-const schemaName = (ref) => ref.split("/").at(-1);
-const actual = tuple.prefixItems.map((item) => {
-  const target = schemas[schemaName(item.$ref)];
-  if (target === undefined) {
-    throw new Error("missing tuple component for " + item.$ref);
-  }
-  return target.type;
-});
-const expected = ["boolean", "number", "string"];
-if (JSON.stringify(actual) !== JSON.stringify(expected)) {
-  throw new Error("AtomicIntersection wrapper schemas were " + JSON.stringify(actual) + ", expected " + JSON.stringify(expected));
-}
 `

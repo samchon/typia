@@ -6,6 +6,14 @@ import {
 } from "./_randomStringLength";
 import { __randomNumeric } from "./private/__randomComposition";
 
+/**
+ * Generate an ISO 8601 duration at a length the bounds allow.
+ *
+ * @evidence contracts/common.md#principled-implementation An unconstrained draw composes years, months and days and hours, minutes and seconds with zero parts omitted, and falls back to `PT0S`; a constrained one writes a single year designator with the digit count that fits, since an integer has no maximum digits, so any length from three upward is reachable.
+ * @evidence contracts/common.md#clear-and-simple-design One function with two branches and a small composer.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The length rule follows the grammar and no length is redrawn blindly.
+ * @evidence contracts/common.md#meaningful-documentation An inline comment explains the single designator.
+ */
 export const _randomFormatDuration = (props?: _ILengthProps): string => {
   if (props?.minLength === undefined && props?.maxLength === undefined) {
     const period: string = durate([

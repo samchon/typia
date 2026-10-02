@@ -22,6 +22,11 @@ import (
 // 2. Exercise clone, prune, and stringify joiners for objects, arrays, and tuples.
 // 3. Exercise function programmer variable declaration and declaration-disable branches.
 // 4. Verify string joining, internal import fallback, and metadata pattern helpers.
+//
+// @evidence contracts/testing.md#behavioral-verification Clone, notation, prune and stringify joiners are called with literal, dynamic string, numeric, boolean and template keys for objects, arrays and tuples; most assertions only require a non-nil AST result and a few compare skipped or converted pieces.
+// @evidence contracts/testing.md#independent-expectations There is no independent oracle for most checks; they certify that a node is produced. This is a limitation of the test.
+// @evidence contracts/testing.md#distinguishing-cases Many metadata shapes are visited but few negative twins exist, so a joiner emitting the wrong code for a shape could still pass.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. The tagged test builds AST nodes in memory with no checker, filesystem fixture or process.
 func TestJoinerBranchCoverage(t *testing.T) {
   factory := shimast.NewNodeFactory(shimast.NodeFactoryHooks{})
   input := factory.NewIdentifier("input")

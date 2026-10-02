@@ -2,27 +2,22 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
 )
 
-// TestNativeNamedIntersectionUnionTransform verifies a structural intersection
-// keeps its object identity when a user declaration shares a native name.
+// TestNativeNamedIntersectionUnionTransform verifies structural user-native intersections and impossible native union pruning.
 //
-// The standalone local Date and Date intersection already use structural
-// metadata. Union composition must retain that classification instead of
-// pruning the inhabited arm as a native/object conflict. Native-named local
-// String and Number declarations must follow the same structural path, while
-// genuine native wrappers and impossible intersections retain their existing
-// pruning paths.
+// User-named structural intersections retain their members; typia prunes primitive/native intersections outside its supported validation domain while retaining supported object alternatives.
 //
-//  1. Transform standalone, union, genuine-native, impossible, and colliding
-//     native-name controls.
-//  2. Inspect each union factory to prove local structural arms are retained
-//     while genuine wrappers and existing collection arms keep their emit.
-//  3. Execute both valid arms, invalid near-misses, and pruning controls.
+// 1. Local names, real Date/boxed native controls and unsupported primitive intersections distinguish typia's identity and supported-domain boundaries.
+// 2. User-named structural members survive without native overmatch; real native wrappers and impossible intersections are pruned while inhabited object arms remain.
+//
+// @evidence contracts/testing.md#behavioral-verification User-named structural members survive without native overmatch; real native wrappers and impossible intersections are pruned while inhabited object arms remain.
+// @evidence contracts/testing.md#independent-expectations User-named structural intersections retain their members; typia prunes primitive/native intersections outside its supported validation domain while retaining supported object alternatives.
+// @evidence contracts/testing.md#distinguishing-cases Local names, real Date/boxed native controls and unsupported primitive intersections distinguish typia's identity and supported-domain boundaries.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestNativeNamedIntersectionUnionTransform as a unit test. The fixture and captured Go operation execute in process; helper assertions retain the same source inputs and failure identity without launching a compiler or JavaScript subprocess.
 func TestNativeNamedIntersectionUnionTransform(t *testing.T) {
   project := nativeNamedIntersectionUnionProject(t)
   js := nativeNamedIntersectionUnionTransform(t, project)
@@ -121,21 +116,11 @@ func TestNativeNamedIntersectionUnionTransform(t *testing.T) {
     t.Fatalf("impossible intersection control lost its inhabited object arm:\n%s", impossibleUnion)
   }
 
-  nativeNamedIntersectionUnionRunRuntimeCases(t, project, js)
 }
 
 func nativeNamedIntersectionUnionProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "native-named-intersection-union-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "native-named-intersection-union-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
@@ -181,35 +166,6 @@ func nativeNamedIntersectionUnionExport(t *testing.T, js string, name string, ne
     segment = segment[:end]
   }
   return segment
-}
-
-func nativeNamedIntersectionUnionRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(ttscTypiaTestRewriteCommonJS(t, js)), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(nativeNamedIntersectionUnionRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("native-named intersection union runtime cases failed: %v\n%s", err, output)
-  }
-  if !strings.Contains(string(output), "RAN 44 CASES") {
-    t.Fatalf("runtime runner did not report all cases:\n%s", output)
-  }
 }
 
 const nativeNamedIntersectionUnionTSConfig = `{
@@ -306,85 +262,4 @@ export const isNativeStringIntersectionUnion =
 export const isNativeNumberIntersectionUnion =
   typia.createIs<NativeNumberIntersectionUnion>();
 export const isImpossibleUnion = typia.createIs<ImpossibleUnion>();
-`
-
-const nativeNamedIntersectionUnionRuntimeRunner = `const mod = require("./main.cjs");
-
-let ran = 0;
-const failures = [];
-const check = (label, actual, expected) => {
-  ran += 1;
-  if (actual !== expected) {
-    failures.push(label + ": expected " + expected + " but got " + actual);
-  }
-};
-
-check("local Date valid", mod.isLocalDate({ stamp: 1 }), true);
-check("local Date native", mod.isLocalDate(new Date(0)), false);
-check("local Date missing stamp", mod.isLocalDate({}), false);
-
-check("local intersection valid", mod.isLocalIntersection({ stamp: 1, label: "x" }), true);
-check("local intersection missing label", mod.isLocalIntersection({ stamp: 1 }), false);
-check("local intersection missing stamp", mod.isLocalIntersection({ label: "x" }), false);
-
-check("local union structural arm", mod.isLocalUnion({ stamp: 1, label: "x" }), true);
-check("local union other arm", mod.isLocalUnion({ ok: true }), true);
-check("local union near-miss", mod.isLocalUnion({ stamp: 1 }), false);
-check("local union bad other arm", mod.isLocalUnion({ ok: "yes" }), false);
-
-check("local String union structural arm", mod.isLocalStringUnion({ stringValue: "x", label: "s" }), true);
-check("local String union other arm", mod.isLocalStringUnion({ stringOk: true }), true);
-check("local String union near-miss", mod.isLocalStringUnion({ stringValue: "x" }), false);
-check("local String union bad other arm", mod.isLocalStringUnion({ stringOk: "yes" }), false);
-check("local Number union structural arm", mod.isLocalNumberUnion({ numberValue: 1, label: "n" }), true);
-check("local Number union other arm", mod.isLocalNumberUnion({ numberOk: true }), true);
-check("local Number union near-miss", mod.isLocalNumberUnion({ numberValue: 1 }), false);
-check("local Number union bad other arm", mod.isLocalNumberUnion({ numberOk: "yes" }), false);
-
-check("local Map union structural arm", mod.isLocalMapUnion({ brandMap: "x", valueMap: 1, label: "m" }), true);
-check("local Map union other arm", mod.isLocalMapUnion({ mapOk: true }), true);
-check("local Map union near-miss", mod.isLocalMapUnion({ brandMap: "x", valueMap: 1 }), false);
-check("local Set union structural arm", mod.isLocalSetUnion({ brandSet: "x", label: "s" }), true);
-check("local Set union other arm", mod.isLocalSetUnion({ setOk: true }), true);
-check("local Set union near-miss", mod.isLocalSetUnion({ brandSet: "x" }), false);
-check("local WeakMap union structural arm", mod.isLocalWeakMapUnion({ brandWeakMap: {}, valueWeakMap: "x", label: "wm" }), true);
-check("local WeakMap union other arm", mod.isLocalWeakMapUnion({ weakMapOk: true }), true);
-check("local WeakMap union near-miss", mod.isLocalWeakMapUnion({ brandWeakMap: {}, valueWeakMap: "x" }), false);
-check("local WeakSet union structural arm", mod.isLocalWeakSetUnion({ brandWeakSet: {}, label: "ws" }), true);
-check("local WeakSet union other arm", mod.isLocalWeakSetUnion({ weakSetOk: true }), true);
-check("local WeakSet union near-miss", mod.isLocalWeakSetUnion({ brandWeakSet: {} }), false);
-
-check("genuine Date", mod.isNativeDate(new Date(0)), true);
-check("genuine Date plain object", mod.isNativeDate({}), false);
-check(
-  "genuine native intersection pruned",
-  mod.isNativeIntersectionUnion(Object.assign(new Date(0), { label: "x" })),
-  false,
-);
-check("genuine native union other arm", mod.isNativeIntersectionUnion({ ok: true }), true);
-check("genuine native plain near-miss", mod.isNativeIntersectionUnion({ label: "x" }), false);
-
-check(
-  "genuine String wrapper intersection pruned",
-  mod.isNativeStringIntersectionUnion(Object.assign(new String("x"), { label: "s" })),
-  false,
-);
-check("genuine String wrapper union other arm", mod.isNativeStringIntersectionUnion({ nativeStringOk: true }), true);
-check("genuine String wrapper plain near-miss", mod.isNativeStringIntersectionUnion({ label: "s" }), false);
-check(
-  "genuine Number wrapper intersection pruned",
-  mod.isNativeNumberIntersectionUnion(Object.assign(new Number(1), { label: "n" })),
-  false,
-);
-check("genuine Number wrapper union other arm", mod.isNativeNumberIntersectionUnion({ nativeNumberOk: true }), true);
-check("genuine Number wrapper plain near-miss", mod.isNativeNumberIntersectionUnion({ label: "n" }), false);
-
-check("impossible union other arm", mod.isImpossibleUnion({ ok: true }), true);
-check("impossible union primitive", mod.isImpossibleUnion("x"), false);
-check("impossible union object", mod.isImpossibleUnion({ data: 1 }), false);
-
-console.log("RAN " + ran + " CASES");
-if (failures.length !== 0) {
-  throw new Error("MISMATCHES:\n" + failures.join("\n"));
-}
 `

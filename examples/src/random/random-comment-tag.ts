@@ -9,6 +9,7 @@ interface TypeTag {
 
   /**
    * @exclusiveMinimum 19
+   *
    * @maximum 100
    */
   number?: number;

@@ -9,6 +9,17 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_sort orders buckets reached from the root and the
+// collection's array, tuple and object-property schemas.
+//
+// Objects use equal key signatures, arrays and tuples use covering-first
+// comparisons, strings use lexical order and numbers use numeric order. Bigint
+// constants use their decimal text's lexical order. Booleans place false first.
+//
+// @evidence contracts/common.md#principled-implementation The visitor uses object key signatures, covering-first array/tuple comparisons, lexical string/bigint text and numeric number comparisons, plus false-first boolean ordering. It visits each directly traversed schema once and records multi-object union identities; named array/tuple/object contents are visited from collection roots. These comparisons do not define a total order over alternatives or promise narrower-first dispatch.
+// @evidence contracts/common.md#clear-and-simple-design One function with a recursive visitor, a coverage comparator for objects with a key cache, and a numeric conversion helper.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Object keys and schema coverage are structural heuristics, not fixture names or predicate evaluation. Constant ordering follows the represented primitive value/text; bigint text order is not a numeric magnitude guarantee.
+// @evidence contracts/common.md#meaningful-documentation The doc states what is ordered and the stable sort limit is explained here.
 func Iterate_metadata_sort(props struct {
   Collection *schemametadata.MetadataCollection
   Metadata   *schemametadata.MetadataSchema

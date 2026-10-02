@@ -14,9 +14,9 @@ export class Greeter {
   }
 
   /**
-   * Reset the greeter's state.
+   * Complete an operation without a result value.
    *
-   * @returns Nothing; the reset is a side effect
+   * @returns Nothing; this fixture has no mutable state
    */
   reset(): void {}
 }

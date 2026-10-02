@@ -21,7 +21,6 @@ func (createHttpQueryTransformerNamespace) Transform(props nativeinternal.ITrans
         Modulo:  x.Modulo,
         Type:    x.Type,
         Name:    x.Name,
-        Init:    x.Init,
       })
     },
   })

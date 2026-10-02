@@ -15,6 +15,11 @@ import (
 //
 //  1. Insert two patterns, then replace the first pattern with new metadata and schema values.
 //  2. Assert the ordered keys remain unique and the map retains the replacement pair.
+//
+// @evidence contracts/testing.md#behavioral-verification Pattern properties are recorded with a repeated pattern; the key order must keep the first position and the replacement pair must be retained.
+// @evidence contracts/testing.md#independent-expectations Replacing an existing key without moving it is JavaScript object assignment semantics; the order is authored.
+// @evidence contracts/testing.md#distinguishing-cases One repeated pattern; distinct patterns are covered by ordering in the same fixture.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the order recorder in memory with no checker, filesystem fixture or process.
 func TestJsonSchemaPatternPropertyOrderPreservesFirstPosition(t *testing.T) {
   first := &nativemetadata.MetadataSchema{}
   replacement := &nativemetadata.MetadataSchema{}

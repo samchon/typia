@@ -15,7 +15,32 @@ import { OpenApiSchemaNamingRule } from "./OpenApiSchemaNamingRule";
 import { OpenApiStringValidator } from "./OpenApiStringValidator";
 import { OpenApiTupleValidator } from "./OpenApiTupleValidator";
 
+/**
+ * Dispatches a value to the validator of the schema's kind.
+ *
+ * It settles the cases that need no kind-specific rule: an unknown schema,
+ * `undefined`, null and references, which are resolved with cycle detection.
+ *
+ * @evidence contracts/common.md#principled-implementation The dispatcher settles the cases that need no kind rule (unknown accepts anything, `undefined` is accepted only when not required, null accepts null) and resolves a chain of references with a visited set, reporting malformed, circular and missing references, before calling the validator of the schema's kind. The expected name is computed once and passed down so messages agree.
+ * @evidence contracts/common.md#clear-and-simple-design One function that tests the schema kind in a fixed order and delegates; the kinds do not know about each other except through this dispatch.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Reference resolution is the generic rule with cycle detection, and nothing is keyed on component names.
+ * @evidence contracts/common.md#meaningful-documentation The namespace comment and the function doc state the dispatch and the reference handling.
+ */
 export namespace OpenApiStationValidator {
+  /**
+   * Validate a value against a schema of any kind.
+   *
+   * @param ctx Validation context without the expected type name
+   * @param expected Type name to report, derived from the schema when omitted
+   * @param references Reference keys already followed, for cycle detection
+   *
+   * @returns Whether the value satisfies the schema
+   *
+   * @evidence contracts/common.md#principled-implementation After the shared cases, references are followed to a terminal schema with a visited set that includes the keys already followed by an enclosing union, then the terminal schema is validated recursively; an unrecognized schema falls through to success, which is accepted because the emended union has no other member.
+   * @evidence contracts/common.md#clear-and-simple-design A recursive function with an optional expected name and visited set as defaults.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The fall-through returns true only for schema shapes outside the emended union and is not a default for known kinds.
+   * @evidence contracts/common.md#meaningful-documentation The doc names the parameters and result.
+   */
   export const validate = (
     ctx: Omit<IOpenApiValidatorContext<OpenApi.IJsonSchema>, "expected">,
     expected?: string,

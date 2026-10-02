@@ -15,6 +15,15 @@ import typia, { tags } from "typia";
  * 1. Accept each stated bound and reject the integer past it.
  * 2. Require every generated value to satisfy its own validator, for comment and
  *    type tags alike.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Bigint comment/type tags retain exact large integer bounds and multiples.
+ * @evidence contracts/testing.md#independent-expectations BigInt decimal constants and one-unit negative twins independently anchor acceptance; random-to-is checks are correlated consistency checks.
+ * @evidence contracts/testing.md#distinguishing-cases Pinned and exponent-spelled bounds, comment/type multiples, five malformed twins and one hundred random draws remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_comment_tag_bigint_exact in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native comment parsing and type-tag emission must retain integer precision when composing validators and generators.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Pinned and exponent-spelled bounds, comment/type multiples, five malformed twins and one hundred random draws remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_comment_tag_bigint_exact = (): void => {
   const bound: bigint = BigInt("18014398509481984");
@@ -49,6 +58,7 @@ export const test_comment_tag_bigint_exact = (): void => {
 interface IValue {
   /**
    * @minimum 18014398509481984
+   *
    * @maximum 18014398509481984
    */
   pinned: bigint;
@@ -57,14 +67,18 @@ interface IValue {
    * 2^60, whose double spells 1152921504606847000.
    *
    * @minimum 1.152921504606846976e18
+   *
    * @multipleOf 1.152921504606846976e18
+   *
    * @maximum 1.152921504606846976e18
    */
   exponent: bigint;
 
   /**
    * @minimum 50000000000000000
+   *
    * @maximum 60000000000000000
+   *
    * @multipleOf 18014398509481984
    */
   tripled: bigint;

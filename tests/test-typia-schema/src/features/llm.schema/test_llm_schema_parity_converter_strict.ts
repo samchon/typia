@@ -21,6 +21,15 @@ import typia, { tags } from "typia";
  * 1. Declare properties covering the full numeric, string, and array tag sets.
  * 2. Convert the same type through `@typia/utils` under `strict`.
  * 3. Assert the native schema and `$defs` equal the converter's output.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Strict native schema/definitions match TypeScript constraint shifting for the full local numeric/string/array tag inputs; a handwritten count schema separately pins minimum, maximum and default description lines.
+ * @evidence contracts/testing.md#independent-expectations The converter receives native JSON metadata and is not fully independent. The literal count fragment and schema_spec_strict_* cases pin strict meanings independently of cross-owner parity, including the previously lost numeric default.
+ * @evidence contracts/testing.md#distinguishing-cases Nested definitions, complete tag families, existing description plus tags and defaults remain in parity. The count literal detects common loss or spelling/order changes of its three shifted tags.
+ * @evidence contracts/testing.md#execution-ownership test_llm_schema_parity_converter_strict is the matching exported DynamicExecutor entry under test-typia-schema start (ttsx src/index.ts). It executes typia.json.schemas, typia.llm.schema through the configured native typia plugin. Private callbacks and schema projections stay part of this case; direct utility-only semantics are not relabeled as proof of the producer.
+ * @evidence contracts/e2e.md#necessary-boundary The native type analyzer/emitter connects the declared TypeScript type and options to the schema or bound runtime operation observed here. A utility unit with a handwritten schema cannot detect a missing rewrite, wrong emitted type shape or incorrect binding at this public producer.
+ * @evidence contracts/e2e.md#shared-execution This case joins the existing schema-suite ttsx invocation and DynamicExecutor population; it starts no per-case project, installation, native binary build or worker. The typia.json.schemas, typia.llm.schema call sites use the same workspace/compiler configuration as their sibling cases. Compiler host and content-keyed artifact reuse are owned by ttsx, not asserted as a cold-cache transition here.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The source declarations, JSDoc, tags and generic configuration are part of the compilation input, so changed producer inputs require recompilation. Schema maps, payloads, callbacks and counters declared here are case-local; this file owns no process or persistent cache and shares no mutated result with another case. ttsx owns the compiler/host lifetime; cache invalidation is not this scenario.
+ * @evidence contracts/e2e.md#preserved-coverage The original public calls, input declarations and assertions remain in this exported case. Nested definitions, complete tag families, existing description plus tags and defaults remain in parity. The count literal detects common loss or spelling/order changes of its three shifted tags. Added literal or shape controls strengthen those observations; no generated schema comparison replaces an existing independent expected value, and no case is removed from execution.
  */
 export const test_llm_schema_parity_converter_strict = (): void => {
   interface IStrictChild {
@@ -67,6 +76,15 @@ export const test_llm_schema_parity_converter_strict = (): void => {
 
   TestEquality.equals("strict schema", clean(actual), clean(converted.value));
   TestEquality.equals("strict $defs", clean(actualDefs), clean(expectedDefs));
+
+  TestEquality.equals(
+    "declared strict numeric default",
+    clean((actualDefs.IStrictChild as ILlmSchema.IObject).properties.count),
+    {
+      type: "number",
+      description: ["@minimum 1", "@maximum 9", "@default 7"].join("\n"),
+    },
+  );
 };
 
 const clean = <T>(value: T): T => JSON.parse(JSON.stringify(value));

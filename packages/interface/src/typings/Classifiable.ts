@@ -56,7 +56,13 @@ import { ValueOf } from "./internal/ValueOf";
  * `any` inside a property is preserved as-is.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target class (or instance) type to classify into
+ *
+ * @evidence contracts/common.md#principled-implementation The conditional mirrors the transform's one-strategy precedence: a static single-argument `from` that returns the instance, then a single-argument constructor, then the field-copy property shape, each arm being `never` when inapplicable so exactly one seed results rather than an unsound union. Arity, not assignability, selects the arm because the runtime selects by arity; `any` and `unknown` collapse to `never` so they cannot widen the result.
+ * @evidence contracts/common.md#clear-and-simple-design One public alias distributes over `T` and delegates to private arms (factory, constructor, properties, seed, main) that each own one strategy or one shape rule, so the precedence reads top to bottom in `ClassifiableInput`.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The type models the runtime strategies already implemented in the native plain.classify transform instead of special-casing a consumer class or fixture; it casts nothing and has no runtime component.
+ * @evidence contracts/common.md#meaningful-documentation The JSDoc states the precedence, why a union would be unsound, the instance-versus-class forms and the known inherited-constructor limitation of `Classifiable<typeof X>`; private arms carry line comments explaining each guard.
  */
 export type Classifiable<T> =
   IsAny<T> extends true
@@ -80,20 +86,34 @@ type ClassifiableInput<T> = [ClassifiableFactory<T>] extends [never]
     : ClassifiableConstructor<T>
   : ClassifiableFactory<T>;
 
-// Instance type of a class type T (its `prototype`). Unlike `abstract new`, this
-// also resolves a class whose constructor is private/protected (or declared in a
-// `.d.ts` ambient class) — whose construct signature `abstract new` does NOT
-// match — so a value-object with a private constructor stays classifiable. It is
-// `never` for any non-class type, letting the arms below tell a class apart from
-// a plain value. The `T extends Function` guard is essential: a class (even with
-// a private constructor) is a Function, whereas a plain object / interface /
-// instance that merely carries a data field literally named `prototype` is not —
-// without it, `{ prototype: infer I }` would read that field as the instance and
-// drop the object's other fields. The `(...args) => any` exclusion then drops a
-// CALLABLE object (a call signature, not a construct signature) that also carries
-// a `prototype` field — a class constructor has no call signature, so it passes.
-// `IsAny` rejects a plain function (whose `prototype` is `any`) and the `object`
-// guard a non-object `prototype`.
+/**
+ * Instance type of a class type `T`, read from its `prototype`.
+ *
+ * Unlike `abstract new`, reading `prototype` also resolves a class whose
+ * constructor is private or protected, or is declared in an ambient `.d.ts`
+ * class, whose construct signature `abstract new` does not match. The result is
+ * `never` for any non-class type, which lets the classification arms tell a
+ * class apart from a plain value.
+ *
+ * The `T extends Function` guard is essential: a class (even with a private
+ * constructor) is a Function, whereas a plain object, interface or instance
+ * that merely carries a data field literally named `prototype` is not. Without
+ * it, `{ prototype: infer I }` would read that field as the instance and drop
+ * the object's other fields. The `(...args) => any` exclusion then drops a
+ * callable object (a call signature, not a construct signature) that also
+ * carries a `prototype` field, while a class constructor has no call signature
+ * and passes. `IsAny` rejects a plain function, whose `prototype` is `any`, and
+ * the `object` guard rejects a non-object `prototype`.
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ *
+ * @template T Class (constructor) type whose instance type is wanted
+ *
+ * @evidence contracts/common.md#principled-implementation Reading `prototype` yields the instance type for any class, including ones with private constructors that `abstract new` cannot match, and the `Function`, call-signature, `any` and non-object guards make the result `never` for every non-class value so a data field named `prototype` is not mistaken for an instance.
+ * @evidence contracts/common.md#clear-and-simple-design A single conditional with ordered guards; it is exported because both Classifiable and ClassifyResult need the same class-versus-value decision and must not diverge.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It reads only the type's own `prototype` and construct signature and rejects look-alike shapes by structure, not by name or fixture.
+ * @evidence contracts/common.md#meaningful-documentation The JSDoc, converted from line comments, explains each guard and what it excludes so a maintainer can see which look-alike each guard rejects.
+ */
 export type ClassInstanceType<T> = T extends abstract new (
   ...args: any
 ) => infer I
@@ -137,9 +157,10 @@ type ClassifiableFactory<T> = [ClassInstanceType<T>] extends [never]
 //  - a private/protected constructor does not match `abstract new` at all, so the
 //    outer arm is already `never` for it;
 //  - an ABSTRACT class DOES match `abstract new` (that is precisely its construct
-//    signature) yet cannot be `new`-ed at runtime (`new Abstract()` throws), so
-//    the inner `T extends new (...) => any` gate drops it — an abstract
-//    constructor type is not assignable to a concrete `new` signature. Both then
+//    signature) but TypeScript does not permit direct construction; abstract is
+//    erased at runtime. The inner `T extends new (...) => any` gate drops it:
+//    an abstract constructor type is not assignable to a concrete `new`
+//    signature. Both then
 //    field-copy, matching the transform (which never emits `new` for them).
 type ClassifiableConstructor<T> = T extends abstract new (
   ...args: infer A
@@ -309,7 +330,13 @@ type ClassifiableTuple<T extends readonly any[]> = T extends []
  * per-member to `A | number`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @template T Target class (or instance) type to classify into
+ *
+ * @evidence contracts/common.md#principled-implementation For a class type the runtime returns an instance, so the result maps to `ClassInstanceType<T>`; for any other type the instance type is `never` and `T` passes through unchanged. Distribution over `T extends any` maps a mixed union per member.
+ * @evidence contracts/common.md#clear-and-simple-design A three-branch conditional reusing ClassInstanceType keeps the result type and the input type derived from the same class test.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It is a pure type-level mapping with no cast or runtime effect, and it contains no consumer-specific branch.
+ * @evidence contracts/common.md#meaningful-documentation The JSDoc states that classify returns the instance rather than the constructor, the unchanged non-class case and union distribution.
  */
 export type ClassifyResult<T> = T extends any
   ? [ClassInstanceType<T>] extends [never]

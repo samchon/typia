@@ -7,20 +7,17 @@ import (
   "testing"
 )
 
-// TestShallowDepthArgumentError verifies typia.shallow<T, N> rejects an N that
-// is not a non-negative integer literal.
+// TestShallowDepthArgumentError checks the authored operation results described below.
 //
-// The depth budget N is read off the second type argument at transform time, so
-// a non-literal such as `number` or a negative literal such as `-1` cannot be
-// lowered into a concrete budget. Each must abort the transform with a
-// diagnostic instead of silently defaulting; otherwise a typo like
-// `shallow<T, -1>` would emit a surprising guard rather than failing loudly.
-// This test only pins the rejection path; transform diagnostic detail is covered
-// by the command diagnostics tests.
+// A shallow depth budget must be a concrete nonnegative integer so code generation can determine the stopping level; unsupported arguments cannot silently choose a default.
 //
-//  1. Transform a call site whose N is the `number` type (not a literal).
-//  2. Transform a call site whose N is the negative literal `-1`.
-//  3. Assert each fails with the typia transform diagnostic instead of emitting.
+// 1. A broad numeric type and negative literal distinguish nonconcreteness from out-of-domain depth; zero/positive depths are accepted by neighboring shallow cases.
+// 2. Nonliteral number and negative one depth arguments fail through the typia transform diagnostic path.
+//
+// @evidence contracts/testing.md#behavioral-verification Nonliteral number and negative one depth arguments fail through the typia transform diagnostic path.
+// @evidence contracts/testing.md#independent-expectations A shallow depth budget must be a concrete nonnegative integer so code generation can determine the stopping level; unsupported arguments cannot silently choose a default.
+// @evidence contracts/testing.md#distinguishing-cases A broad numeric type and negative literal distinguish nonconcreteness from out-of-domain depth; zero/positive depths are accepted by neighboring shallow cases.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestShallowDepthArgumentError as a unit test. Its helpers call the owning Go operations in process; named subcases retain their fixture inputs, assertions and failure identities. Temporary fixtures and captured output are scoped to the test without a compiler or product-host subprocess.
 func TestShallowDepthArgumentError(t *testing.T) {
   cases := []struct {
     Name string
@@ -51,18 +48,7 @@ func TestShallowDepthArgumentError(t *testing.T) {
 
 func shallowDepthArgumentProject(t *testing.T, n string) string {
   t.Helper()
-  root := shallowDepthRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "shallow-arg-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "shallow-arg-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

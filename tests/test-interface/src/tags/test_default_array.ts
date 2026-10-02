@@ -25,11 +25,33 @@ const HEADERS = ["id", "status"] as const;
 
 type BigintProps = NonNullable<tags.Default<readonly [1n, 2n]>["typia.tag"]>;
 
-// @ts-expect-error an open array does not carry one concrete default value.
-export type MutableOpenArrayDefault = tags.Default<string[]>;
+/**
+ * Verifies an open mutable string array must fail the Default generic
+ * constraint.
+ *
+ * The compiler must distinguish the permitted type use from its adjacent
+ * invalid form.
+ *
+ * 1. Typecheck the authored signature or constraint.
+ * 2. Require the stated acceptance or expected diagnostic.
+ */
+export type MutableOpenArrayDefault =
+  // @ts-expect-error an open array does not carry one concrete default value.
+  tags.Default<string[]>;
 
-// @ts-expect-error a readonly open array is not a literal tuple either.
-export type ReadonlyOpenArrayDefault = tags.Default<readonly string[]>;
+/**
+ * Verifies an open readonly string array must fail the Default generic
+ * constraint.
+ *
+ * The compiler must distinguish the permitted type use from its adjacent
+ * invalid form.
+ *
+ * 1. Typecheck the authored signature or constraint.
+ * 2. Require the stated acceptance or expected diagnostic.
+ */
+export type ReadonlyOpenArrayDefault =
+  // @ts-expect-error a readonly open array is not a literal tuple either.
+  tags.Default<readonly string[]>;
 
 type Assert<T extends true> = T;
 

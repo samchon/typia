@@ -12,30 +12,86 @@ type functionalIsReturnProgrammerNamespace struct{}
 
 var FunctionalIsReturnProgrammer = functionalIsReturnProgrammerNamespace{}
 
+// FunctionalIsReturnProgrammer_IConfig selects the generator's variants: Equals
+// is the strict form that also rejects properties the type does not declare.
+//
+// @evidence contracts/common.md#principled-implementation Each variant of the generator is one boolean or option on a record, so the transformers pick a form by naming the field and no second code path is copied.
+// @evidence contracts/common.md#clear-and-simple-design A record of 1 field.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states what each field selects.
 type FunctionalIsReturnProgrammer_IConfig struct {
+  // Equals rejects surplus properties in addition to checking declared values.
   Equals bool
 }
 
+// FunctionalIsReturnProgrammer_IProps is the input of Write for the is return
+// generator: Context (the transform context), Modulo (the call's callee
+// expression), Config (the configuration), Declaration (the function
+// declaration) and Expression (the function expression).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the configuration, the function declaration and the function expression, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalIsReturnProgrammer_IProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalIsReturnProgrammer_IConfig
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalIsReturnProgrammer_IConfig
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
-  Expression  *shimast.Node
-  Init        *shimast.Node
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
 }
 
+// FunctionalIsReturnProgrammer_IDecomposeProps is the input of Decompose for the
+// is return generator: Context (the transform context), Modulo (the call's
+// callee expression), Config (the configuration), Expression (the function
+// expression) and Declaration (the function declaration).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the call's callee expression, the configuration, the function expression and the function declaration, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type FunctionalIsReturnProgrammer_IDecomposeProps struct {
-  Context     nativecontext.ITypiaContext
-  Modulo      *shimast.Node
-  Config      FunctionalIsReturnProgrammer_IConfig
-  Expression  *shimast.Node
+  // Context borrows the checker, emitter and importer for this transform.
+  Context nativecontext.ITypiaContext
+
+  // Modulo identifies the typia call for helper naming and diagnostics.
+  Modulo *shimast.Node
+
+  // Config selects ordinary validation or rejection of surplus properties.
+  Config FunctionalIsReturnProgrammer_IConfig
+
+  // Expression is the original callable, invoked with the wrapper receiver.
+  Expression *shimast.Node
+
+  // Declaration supplies parameter bindings and the checker return signature.
   Declaration *shimast.Node
 }
 
+// FunctionalIsReturnProgrammer_IDecomposeOutput is what the generator returns:
+// Async is whether the wrapped function is asynchronous, Functions is the helper
+// function statements and Statements is the body statements.
+//
+// @evidence contracts/common.md#principled-implementation The generator returns its pieces separately so the caller can place helper functions, statements and values where its own wrapper needs them.
+// @evidence contracts/common.md#clear-and-simple-design A record of 3 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc states each returned part.
 type FunctionalIsReturnProgrammer_IDecomposeOutput struct {
-  Async      bool
-  Functions  []*shimast.Node
+  // Async requests an async wrapper and awaiting of the original return value.
+  Async bool
+
+  // Functions contains helper declarations placed outside the returned wrapper.
+  Functions []*shimast.Node
+
+  // Statements contains ordered checks and returns inside the wrapper body.
   Statements []*shimast.Node
 }
 

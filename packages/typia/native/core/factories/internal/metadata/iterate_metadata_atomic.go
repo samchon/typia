@@ -5,6 +5,13 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_atomic records boolean, number, bigint and string types and
+// their literal forms as one atomic of the matching kind.
+//
+// @evidence contracts/common.md#principled-implementation The checker's type flags for boolean-like, number-like, bigint-like and string-like types, and their literal forms, select one atomic kind from a fixed table, and the atomic is added once per kind.
+// @evidence contracts/common.md#clear-and-simple-design One function over a four-row table.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The table is the language's primitive categories.
+// @evidence contracts/common.md#meaningful-documentation The doc states the four kinds.
 func Iterate_metadata_atomic(props struct {
   Metadata *schemametadata.MetadataSchema
   Type     *nativechecker.Type

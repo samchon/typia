@@ -20,6 +20,11 @@ import (
 // 3. Verify unsupported metadata targets are reported as factory errors.
 // 4. Cover parser aliases, invalid numeric values, and date-time fallback paths.
 // 5. Confirm exported Get returns typed comment tags and panics on missing tags.
+//
+// @evidence contracts/testing.md#behavioral-verification JSDoc comment tags are parsed and applied to array, string, number and bigint metadata, with unknown and missing-value tags and typed numeric comments; many assertions are exact (tag kinds, normalized numbers, reports) and some only check presence.
+// @evidence contracts/testing.md#independent-expectations Authored comment texts and the expected normalized values or reports are literals; presence-only checks carry no independent value and are a limitation.
+// @evidence contracts/testing.md#distinguishing-cases Unknown, missing-value, unique-items and typed numeric cases and unsupported targets give positives and negatives; many branches share one test so failures are located by message.
+// @evidence contracts/testing.md#execution-ownership The typia_native_internal Go command (go -C packages/typia/test test -tags typia_native_internal ../native/...) runs this same-package Test function in process. It calls the comment tag factory on constructed metadata with no checker, filesystem fixture or process.
 func TestMetadataCommentTagFactoryCoverage(t *testing.T) {
   reports := []string{}
   report := func(msg string) any {

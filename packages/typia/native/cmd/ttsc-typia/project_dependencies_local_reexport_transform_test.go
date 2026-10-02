@@ -25,6 +25,11 @@ import (
 //     `mid.ts`, and the concrete `real.ts`.
 //  4. Assert it does NOT contain `beta.ts`, which `barrel.ts` also imports but
 //     no consulted type reaches.
+//
+// @evidence contracts/testing.md#behavioral-verification barrel, mid and real are retained while the locally imported but unconsumed beta is excluded.
+// @evidence contracts/testing.md#independent-expectations An import followed by exporting its local binding selects the same declaration as an export-from chain, despite different AST ownership.
+// @evidence contracts/testing.md#distinguishing-cases Local-binding re-export syntax is paired with an unused local import.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesLocalReexportTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesLocalReexportTransform(t *testing.T) {
   project := projectDependenciesLocalReexportProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -64,16 +69,7 @@ func TestProjectDependenciesLocalReexportTransform(t *testing.T) {
 
 func projectDependenciesLocalReexportProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-local-reexport-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-local-reexport-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

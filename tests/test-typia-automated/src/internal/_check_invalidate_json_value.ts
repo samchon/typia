@@ -10,4 +10,4 @@ const iterate_object = (obj: any): boolean => Object.values(obj).every(iterate);
 const iterate_array = (elements: any[]): boolean =>
   elements.some((elem) => elem === undefined || iterate(elem));
 
-export const _check_invalidate_json_value = iterate;
+export const _check_invalidate_json_value = (value: any) => !iterate(value);

@@ -9,6 +9,16 @@ import (
   schemametadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Iterate_metadata_constant records string, number, bigint and boolean literal
+// types as constants when the Constant option is on.
+//
+// Enum members keep their documentation, and a value that two constituents list
+// is folded into the first and marked duplicated.
+//
+// @evidence contracts/common.md#principled-implementation When constants are enabled, a string, number or bigint literal becomes a constant value of that type, a bigint is normalized to a comparable text value and a boolean literal is read from the checker's printed type; enum members keep their documentation, and two constituents with the same value are folded into one with a duplicated mark because the second member's documentation cannot be reached from the type, which the enum-sharing helper detects by scanning the enum declarations.
+// @evidence contracts/common.md#clear-and-simple-design One function with small helpers for taking a constant bucket, adding with folding, keying values and detecting shared enum values.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The fold and its loss of documentation are stated limits and not hidden.
+// @evidence contracts/common.md#meaningful-documentation The doc states the option gate and the fold rule.
 func Iterate_metadata_constant(props IMetadataIteratorProps) bool {
   if props.Options.Constant == false {
     return false

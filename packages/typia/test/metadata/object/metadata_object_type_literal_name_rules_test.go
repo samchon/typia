@@ -1,9 +1,9 @@
 package typia_test
 
 import (
-	"testing"
+  "testing"
 
-	metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
+  metadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
 // TestMetadataObjectTypeLiteralNameRules verifies literal-object naming rules.
@@ -14,23 +14,28 @@ import (
 // cannot recognize it. Recursive objects must never be classified as literals,
 // even when their name uses the same synthetic marker.
 //
-// 1. Build object types named by the bare synthetic marker, by the marker plus
-//    a disambiguating counter, and by a readonly tuple-style rendering.
-// 2. Assert all three are classified as literal object types.
-// 3. Build a qualified name that merely starts with the marker.
-// 4. Assert it is not a literal, since the marker is not a namespace.
-// 5. Build a recursive anonymous object and assert recursion disables literal
-//    classification.
+//  1. Build object types named by the bare synthetic marker, by the marker plus
+//     a disambiguating counter, and by a readonly tuple-style rendering.
+//  2. Assert both synthetic marker kinds and the readonly rendering are literal.
+//  3. Build a qualified name that merely starts with the marker.
+//  4. Assert it is not a literal, since the marker is not a namespace.
+//  5. Build a recursive anonymous object and assert recursion disables literal
+//     classification.
+//
+// @evidence contracts/testing.md#behavioral-verification The literal-object predicate is called on the bare marker name, a counter-suffixed name, a readonly tuple-style rendering, a qualified member of a namespace named __type and a recursive object.
+// @evidence contracts/testing.md#independent-expectations The synthetic anonymous-type naming of the TypeScript checker defines which names are literal; the names are authored.
+// @evidence contracts/testing.md#distinguishing-cases Four accepted spellings are positives (__type, __type-o1, __object-o2 and readonly [string]); the qualified namespace member and the recursive object are negatives.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It calls the predicate on constructed types with no filesystem fixture, process or native command build.
 func TestMetadataObjectTypeLiteralNameRules(t *testing.T) {
-	for _, name := range []string{"__type", "__type-o1", "__object-o2", "readonly [string]"} {
-		if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: name}).IsLiteral() {
-			t.Fatalf("anonymous object name should be literal: name=%q", name)
-		}
-	}
-	if metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type.member"}).IsLiteral() {
-		t.Fatal("a qualified member of a namespace named __type is not an anonymous literal")
-	}
-	if metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type-o1", Recursive: true}).IsLiteral() {
-		t.Fatal("recursive object should not be literal")
-	}
+  for _, name := range []string{"__type", "__type-o1", "__object-o2", "readonly [string]"} {
+    if !metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: name}).IsLiteral() {
+      t.Fatalf("anonymous object name should be literal: name=%q", name)
+    }
+  }
+  if metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type.member"}).IsLiteral() {
+    t.Fatal("a qualified member of a namespace named __type is not an anonymous literal")
+  }
+  if metadata.MetadataObjectType_create(metadata.MetadataObjectType{Name: "__type-o1", Recursive: true}).IsLiteral() {
+    t.Fatal("recursive object should not be literal")
+  }
 }

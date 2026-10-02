@@ -1,7 +1,9 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies a three-level array fixture with numeric leaves. */
 export type ArrayMatrix = number[][][];
 export namespace ArrayMatrix {
+  /** Constructs a fresh three-level array with the authored numeric leaves. */
   export function generate(): ArrayMatrix {
     return [[[1, 2, 3]]];
   }

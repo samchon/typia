@@ -13,6 +13,16 @@ type httpAssertQueryProgrammerNamespace struct{}
 
 var HttpAssertQueryProgrammer = httpAssertQueryProgrammerNamespace{}
 
+// HttpAssertQueryProgrammer_IProps is the argument record of
+// HttpAssertQueryProgrammer.Write, which builds the asserting query decoder.
+// Init is the default initializer of the generated `errorFactory` parameter, or
+// nil. AllowOptional permits an optional target query type when all properties
+// are optional; it does not make the decoder input optional.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of HttpAssertQueryProgrammer.Write, which builds the asserting query decoder; its 6 fields (Context, Modulo, Type, Name, Init, AllowOptional) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type HttpAssertQueryProgrammer_IProps struct {
   Context       nativecontext.ITypiaContext
   Modulo        *shimast.Node
@@ -22,6 +32,16 @@ type HttpAssertQueryProgrammer_IProps struct {
   AllowOptional bool
 }
 
+// HttpAssertQueryProgrammer_DecomposeProps is the argument record of
+// HttpAssertQueryProgrammer.Decompose, which builds the asserting query decoder.
+// Init is the default initializer of the generated `errorFactory` parameter, or
+// nil. AllowOptional permits an optional target query type when all properties
+// are optional; it does not make the decoder input optional.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of HttpAssertQueryProgrammer.Decompose, which builds the asserting query decoder; its 6 fields (Context, Functor, Type, Name, Init, AllowOptional) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 6-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type HttpAssertQueryProgrammer_DecomposeProps struct {
   Context       nativecontext.ITypiaContext
   Functor       *nativehelpers.FunctionProgrammer

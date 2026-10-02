@@ -1,13 +1,16 @@
 import { Spoiler } from "../utils/Spoiler";
 
+/** Supplies primitive intersections with optional structural metadata. */
 export type AtomicIntersection = [
   AtomicIntersection.Wrapper<boolean>,
   AtomicIntersection.Wrapper<number>,
   AtomicIntersection.Wrapper<string>,
 ];
 export namespace AtomicIntersection {
+  /** Requires the primitive type while leaving structural metadata optional. */
   export type Wrapper<T> = T & { __meta?: object };
 
+  /** Creates the authored primitive positive tuple without metadata members. */
   export function generate(): AtomicIntersection {
     return [false, 1, "two"];
   }

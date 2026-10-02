@@ -17,6 +17,7 @@ import { TagBase } from "./TagBase";
  * object defaults, use optional properties with runtime default assignment.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Config {
  *     // Default to 10 items per page
@@ -30,6 +31,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template Value The primitive or readonly tuple default value
+ *
+ * @evidence contracts/common.md#principled-implementation The target is derived from the literal (array for readonly tuples, otherwise boolean, bigint, number or string) and the literal is copied into `schema.default`; a bigint is rendered as the JSON number `Numeric<Value>` obtained by template-literal inference from its decimal text, and tuples are mapped element by element. A bigint outside the double-precision safe range is therefore represented by the nearest number the inference yields, which is a limitation of JSON numbers. The tag is exclusive, so only one default applies.
+ * @evidence contracts/common.md#clear-and-simple-design Private Numeric, DefaultAtomic, DefaultArray and JsonDefault separate the permitted values from the JSON rendering; each is used once by the tag.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts Typia does not apply the default at runtime, and the tag does not simulate that; open arrays are rejected by the constraint rather than guessed at.
+ * @evidence contracts/common.md#meaningful-documentation The comment says the default is documentation metadata, which literals and tuples are accepted, why open arrays are not, and shows each form.
  */
 export type Default<Value extends DefaultAtomic | DefaultArray> = TagBase<{
   target: Value extends DefaultArray

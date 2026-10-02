@@ -13,6 +13,15 @@ import typia, { IValidation } from "typia";
  * 2. Require optional blanks to be absent and array blanks to be rejected.
  * 3. Keep `0` and a space-padded `1` as the negative twins, and read a non-string
  *    value from a `FormData` stand-in as absent instead of throwing.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The case asserts that eight FormData decoder forms preserve absent blank/empty optional numeric values, true zero/padded values and reject the blank array element.
+ * @evidence contracts/testing.md#independent-expectations Authored output objects distinguish blank absence from Number/BigInt zero; literal $input.list[1] independently fixes the validation location.
+ * @evidence contracts/testing.md#distinguishing-cases Eight direct/factory forms cross three data sets, nonstring Blob/undefined stand-ins remain absent without trim errors, and the malformed list twin remains rejected.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_http_form_data_blank_numbers in test-typia-schema start. Each actual typia.http call is rewritten in the native suite project and its emitted decoder executes on local HTTP representations in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Native numeric/optional/list metadata must select the correct FormData reader and validation path in emitted decoders. Calling a portable read helper alone cannot detect wrong compiler metadata selection, omitted generated validation or broken direct/factory decoder assembly.
+ * @evidence contracts/e2e.md#shared-execution All declared operation/type variants share the existing ttsx suite project and process plus content-keyed native artifact. Runtime input matrices reuse those prepared decoders; no input row causes a compiler process or fixture installation.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Input query/header/FormData values and result projections are local. Decoders are required to read these representations without changing their contents; no case changes a foreign prototype or retained fixture. The suite owns process termination and ttsc owns artifact invalidation; cache warmth is not a behavior assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Eight direct/factory forms cross three data sets, nonstring Blob/undefined stand-ins remain absent without trim errors, and the malformed list twin remains rejected. Every original HTTP producer form, input and assertion stays under the unchanged exported entry; no malformed/optional/nullability distinction was dropped to reduce execution.
  */
 export const test_http_form_data_blank_numbers = (): void => {
   const decoders: Array<[string, (input: FormData) => IForm | null]> = [

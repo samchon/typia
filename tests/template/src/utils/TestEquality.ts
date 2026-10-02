@@ -18,7 +18,7 @@
  *   one to one;
  * - Typed arrays, `DataView`, and `ArrayBuffer` by their kind and bytes;
  * - An `Error` by name and message as well as its own fields;
- * - `NaN` as equal to `NaN`;
+ * - `NaN` as equal to `NaN`, and positive versus negative zero as distinct;
  * - Two objects of different built-in kinds as different, so a `Uint8Array` never
  *   equals a plain object. A kind is read from the value's internal slots, so
  *   an object that only inherits a built-in prototype, or only carries its
@@ -88,6 +88,7 @@ export namespace TestEquality {
    * @param x First value
    * @param y Second value
    * @param exception Predicate on property keys to ignore
+   *
    * @returns Differing paths, like `.a.b[0]`
    */
   export function difference(
@@ -110,12 +111,13 @@ export namespace TestEquality {
    *
    * An asynchronous task would return a promise, a thenable, or an async
    * iterator before anything it does can throw, so it is refused rather than
-   * read as returning; await a promise and catch its rejection, or iterate an
-   * async iterator, instead. The refused promise's own rejection is handled
-   * first, so it cannot surface later as an unhandled rejection that ends the
-   * run.
+   * read as returning. Callable values can carry these protocols too. Await a
+   * promise and catch its rejection, or iterate an async iterator, instead. The
+   * refused promise's own rejection is handled first, so it cannot surface
+   * later as an unhandled rejection that ends the run.
    *
    * @param task Synchronous task expected to throw
+   *
    * @returns The thrown error's message, the thrown value as text when it is
    *   not an `Error`, or `null` when the task returns
    */
@@ -127,7 +129,7 @@ export namespace TestEquality {
       return error instanceof Error ? error.message : String(error);
     }
     if (
-      typeof output === "object" &&
+      (typeof output === "object" || typeof output === "function") &&
       output !== null &&
       (typeof (output as PromiseLike<unknown>).then === "function" ||
         Symbol.asyncIterator in output)
@@ -172,9 +174,8 @@ const compare = (
   y: unknown,
   visiting: Map<object, Set<object>> = new Map(),
 ): void => {
-  if (x === y) return;
+  if (Object.is(x, y)) return;
   if (typeof x === "number" && typeof y === "number") {
-    if (Number.isNaN(x) && Number.isNaN(y)) return;
     output.push(path);
     return;
   }

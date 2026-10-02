@@ -32,6 +32,15 @@ interface ICamelAlias {
  * 1. Assert every spelling emits the same `date-time` schema.
  * 2. Assert all three agree on ordinary, rolled-over, and leap-second inputs.
  * 3. Pin February 30th as rejected and the legal leap second as accepted.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Three datetime spellings share RFC-style date validation and emitted format.
+ * @evidence contracts/testing.md#independent-expectations Four authored accepted and six rejected timestamp strings have literal expected verdicts; each schema format is fixed date-time.
+ * @evidence contracts/testing.md#distinguishing-cases Leap day/leap seconds/offset fraction, impossible calendar dates/second/month and arbitrary text remain across all three spellings.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_format_datetime_alias in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native alias metadata must select the same runtime predicate and schema format as the canonical spelling.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Leap day/leap seconds/offset fraction, impossible calendar dates/second/month and arbitrary text remain across all three spellings. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_format_datetime_alias = (): void => {
   const valids: string[] = [

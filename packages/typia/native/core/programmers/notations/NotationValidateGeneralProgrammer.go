@@ -14,15 +14,43 @@ type notationValidateGeneralProgrammerNamespace struct{}
 
 var NotationValidateGeneralProgrammer = notationValidateGeneralProgrammerNamespace{}
 
+// NotationValidateGeneralProgrammer_IProps is an alias of the shared notation
+// props, so validate wrapper takes the same props as the base programmer.
+//
+// @evidence contracts/common.md#principled-implementation The wrapper takes exactly the base programmer's props, so the alias states that equality without repeating the fields.
+// @evidence contracts/common.md#clear-and-simple-design One alias declaration.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A type alias with no behavior.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the alias equals.
 type NotationValidateGeneralProgrammer_IProps = NotationGeneralProgrammer_IProps
 
+// NotationValidateGeneralProgrammer_DecomposeProps is the input of Decompose for
+// the notation validate general generator: Rename (the key conversion), Context
+// (the transform context), Modulo (the call's callee expression), Functor (the
+// collector of the helper functions that the generator emits), Type (the type to
+// generate for) and Name (an optional type name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the key conversion, the transform context, the call's callee expression, the collector of the helper functions that the generator emits, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 6 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type NotationValidateGeneralProgrammer_DecomposeProps struct {
-  Rename  NotationGeneralProgrammer_IRename
+  // Rename selects the runtime case helper and static key conversion.
+  Rename NotationGeneralProgrammer_IRename
+
+  // Context borrows the checker, emitter and importer for this transform.
   Context nativecontext.ITypiaContext
-  Modulo  *shimast.Node
+
+  // Modulo is the call-site expression forwarded to validation generation.
+  Modulo *shimast.Node
+
+  // Functor collects shared helper declarations and recursive-visit state.
   Functor *nativehelpers.FunctionProgrammer
-  Type    *shimchecker.Type
-  Name    *string
+
+  // Type is the checker type whose input shape is analyzed.
+  Type *shimchecker.Type
+
+  // Name optionally overrides the rendered type name; nil uses the checker name.
+  Name *string
 }
 
 var notationValidateGeneralProgrammer_factory = shimast.NewNodeFactory(shimast.NodeFactoryHooks{})

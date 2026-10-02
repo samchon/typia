@@ -18,6 +18,15 @@ import typia from "typia";
  *    first skips and the second is rejected.
  * 3. Assert both faults surface identically from every decoder variant, and that a
  *    known field, a valid payload, and the merged contracts are untouched.
+ *
+ * @evidence contracts/testing.md#behavioral-verification All eight variants attribute malformed unknown wire6 and overlong varints to exact typia errors; direct decode also distinguishes wire4/7, legal ten bytes, eleventh/runaway bytes, truncation and zero-length unknown records.
+ * @evidence contracts/testing.md#independent-expectations Wire-type and ten-byte varint limits plus handwritten payloads establish faults; literal known valuea must survive skipping. Encoder round-trip controls are supplemental and correlated.
+ * @evidence contracts/testing.md#distinguishing-cases Legal10 versus illegal11/64 continuation bytes, invalid wire types and buffer truncation retain different exact messages; known-field and isDecode valid controls remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_protobuf_decode_unknown_field_faults in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native decode call sites select field numbers, reader operations and direct/factory/validation wrappers that consume the authored binary vectors. Portable reader units cannot prove this generated field dispatch and wrapper assembly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_protobuf_decode_unknown_field_faults = (): void => {
   // IValue field 1 = "a", then an unknown field 2 with the given wire type

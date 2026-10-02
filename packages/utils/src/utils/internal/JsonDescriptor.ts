@@ -4,6 +4,18 @@ import { OpenApiTypeChecker } from "../../validators/OpenApiTypeChecker";
 import { NamingConvention } from "../NamingConvention";
 import { ObjectDictionary } from "./ObjectDictionary";
 
+/**
+ * Description text builders for generated schemas.
+ *
+ * They combine the descriptions carried by components and by documented
+ * reference properties into the text that an LLM or a document reader sees.
+ * Neither function modifies the document it reads.
+ *
+ * @evidence contracts/common.md#principled-implementation The namespace derives descriptions for references and objects from schema descriptions: a reference inherits the descriptions of its dotted ancestors, and an object lists its documented reference properties as quoted blocks, so a model reading a schema sees the prose of related types.
+ * @evidence contracts/common.md#clear-and-simple-design Two functions that build text; both read the component dictionary through ObjectDictionary and neither mutates the document.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The dotted-key reading is a stated invariant that each producer owes, and not a patch for a particular producer.
+ * @evidence contracts/common.md#meaningful-documentation The comments on both functions explain the key reading and the produced layout; the namespace comment states the purpose and that the document is not modified.
+ */
 export namespace JsonDescriptor {
   /**
    * Describe a reference by its own description and its namespace ancestors'.
@@ -23,6 +35,11 @@ export namespace JsonDescriptor {
    * `OpenApiComponentName` joins an escaped key's counter with `-x`. Each
    * carries the same reason: a dot they minted would be inherited from here as
    * an unrelated type's prose, straight into what an LLM reads.
+   *
+   * @evidence contracts/common.md#principled-implementation Component keys are split on dots, ancestors are looked up in the component map and each described ancestor is quoted under the schema's own description, joined with a separator line. The reading of a dot as a namespace boundary holds only if every key producer follows the invariant stated in the comment; the function cannot verify it from a key alone.
+   * @evidence contracts/common.md#clear-and-simple-design One pipeline that builds the ancestor list and then the text, with the first element always kept as the current type link.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts The reading is documented as an invariant on producers; the comment lists typia's own producers that keep it instead of compensating for foreign ones.
+   * @evidence contracts/common.md#meaningful-documentation The comment explains the namespace reading, the unverifiable premise and the producer duties with file references.
    */
   export const cascade = (props: {
     components: OpenApi.IComponents;
@@ -60,6 +77,22 @@ export namespace JsonDescriptor {
     ].join("\n\n------------------------------\n\n");
   };
 
+  /**
+   * Describe an object by its own description and its documented references.
+   *
+   * Each property whose schema is a reference with a description contributes a
+   * blockquoted section headed by the property name, written as a plain name
+   * when it is a legal variable name and as a JSON string otherwise.
+   *
+   * @param o Object schema to describe
+   *
+   * @returns Combined description, or `undefined` when there is no text
+   *
+   * @evidence contracts/common.md#principled-implementation The object's own description followed by a blockquoted description for each property that is a documented reference gives a combined description; the property name is written as a plain name or as a JSON string when it is not a valid variable name. No result is returned for empty text.
+   * @evidence contracts/common.md#clear-and-simple-design One function that filters, maps and joins.
+   * @evidence contracts/common.md#prohibited-implementation-shortcuts A general text composition without special properties.
+   * @evidence contracts/common.md#meaningful-documentation The doc comment states the contributed sections, the property-name quoting rule and the undefined result.
+   */
   export const take = (o: OpenApi.IJsonSchema.IObject): string | undefined => {
     const result: string = [
       ...(!!o.description?.length ? [o.description] : []),

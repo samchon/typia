@@ -27,6 +27,11 @@ import (
 //     really did reach the validator.
 //  4. Assert the caller of the self-contained enum is declared complete and the
 //     caller of the borrowing enum is not.
+//
+// @evidence contracts/testing.md#behavioral-verification Emitted comparisons retain the authored string and negative numeric literals, and the borrowed string value. The self-defined enum caller remains complete while the borrowed-value caller is withheld; this case does not assert individual dependency entries.
+// @evidence contracts/testing.md#independent-expectations The enum member constant is embedded in validation; changing that declaration changes output even when the type is represented as a literal.
+// @evidence contracts/testing.md#distinguishing-cases A self-defined string and unary-negative numeric enum contrast with an enum member initialized from another file; validator-output guards ensure both completeness assertions concern transformed callers.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesEnumMemberValueTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesEnumMemberValueTransform(t *testing.T) {
   project := projectDependenciesEnumMemberValueProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -67,16 +72,7 @@ func TestProjectDependenciesEnumMemberValueTransform(t *testing.T) {
 
 func projectDependenciesEnumMemberValueProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-enum-member-value-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-enum-member-value-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

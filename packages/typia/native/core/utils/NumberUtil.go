@@ -25,8 +25,14 @@ type numberUtilNamespace struct{}
 var NumberUtil = numberUtilNamespace{}
 
 // NumberUtil_Reading is the outcome of reading one numeric text.
+//
+// @evidence contracts/common.md#principled-implementation A reading has three facts, the value with negative zero normalized, whether the text is numeric and whether it is finite, because JSON cannot spell NaN or the infinities and emitted code must splice only values that JavaScript reads the same way.
+// @evidence contracts/common.md#clear-and-simple-design A three-field record returned by Read.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts The grammar is JavaScript's, as the namespace comment explains, and not Go's float syntax.
+// @evidence contracts/common.md#meaningful-documentation Each field has a comment and the namespace comment explains the grammar difference.
 type NumberUtil_Reading struct {
-  // Value is what `Number(text)` evaluates to, with negative zero read as zero.
+  // Value is what `Number(text)` evaluates to when Numeric is true, with
+  // negative zero read as zero. A non-numeric reading leaves Value at zero.
   Value float64
 
   // Numeric is false when `Number(text)` is NaN, or when the text is blank.

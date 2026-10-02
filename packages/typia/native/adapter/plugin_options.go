@@ -40,6 +40,11 @@ const PluginName = "typia"
 // An absent or empty payload yields the zero options, which are typia's
 // documented defaults. That is not a guess: a host that hands typia no entry
 // has stated that typia was configured with nothing.
+//
+// @evidence contracts/common.md#principled-implementation The ordered plugin payload that the host resolved from tsconfig is decoded, the entry with typia's name is selected and its config is read, so inherited and commented-out settings are handled by the host's own JSONC and extends resolution instead of a second parse; an absent or empty payload means no configuration, and an undecodable one is an error rather than silent defaults.
+// @evidence contracts/common.md#clear-and-simple-design A short function over three private helpers, one each for decoding, entry lookup and boolean reading.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts There is no fallback that rereads tsconfig.json, which the doc records as the cause of an earlier defect; a non-boolean option is treated as omitted and never coerced.
+// @evidence contracts/common.md#meaningful-documentation The doc explains why the payload is the only authority and what the empty case means.
 func ReadPluginOptions(pluginsJSON string) (PluginOptions, error) {
   entries, err := parsePluginEntries(pluginsJSON)
   if err != nil {

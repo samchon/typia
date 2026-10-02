@@ -2,10 +2,12 @@ import { IRandomGenerator } from "typia";
 
 import { Spoiler } from "./Spoiler";
 
+/** Supplies authored values, mutations and eligibility to generated test cases. */
 export interface TestStructure<T> {
   constructor: {
     name: string;
   };
+  /** Produces a valid authored input for a fresh scenario. */
   generate(): T;
   SPOILERS?: Spoiler<T>[];
   ADDABLE?: boolean;

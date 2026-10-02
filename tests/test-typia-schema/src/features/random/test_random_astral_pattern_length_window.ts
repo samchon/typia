@@ -18,6 +18,15 @@ import typia, { tags } from "typia";
  * 2. Require every draw of a lower-bounded, an upper-bounded, and a two-sided
  *    astral window to satisfy its own type through both random APIs.
  * 3. Keep an ASCII control, where the two measures cannot disagree.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Direct/factory draws alternate200 times for each astral lower, upper and two-sided length window; generated is must reject no draw,600 astral draws must differ in UTF16 and code-point counts, and ASCII is a control.
+ * @evidence contracts/testing.md#independent-expectations The count divergence is independently measured by string.length versus iteration over code points. The generated pattern/length validator remains a correlated oracle and does not independently prove every length bound.
+ * @evidence contracts/testing.md#distinguishing-cases Lower-only, upper-only and2..4 windows plus ASCII control retain all600 astral and200 ASCII draws. This sample does not certify distribution or exhaustive Unicode support.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_random_astral_pattern_length_window in the existing schema feature population; local typed fixtures, private traversals and callback tables belong to this exported entry.
+ * @evidence contracts/e2e.md#necessary-boundary Actual native random/validator lowering must connect declared type metadata, runtime generators and any supported custom callbacks. Direct helper units cannot prove that these TypeScript call sites forward recursion, constraints and result types correctly.
+ * @evidence contracts/e2e.md#shared-execution These declarations share the existing test-typia-schema project and one ttsx suite invocation, reusing native plugin preparation. No case installs an independent consumer, builds a separate fixture project or launches its own native host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation creates fresh values, payloads and local counters; supported generator injection is local to its call. Decoder factories share only immutable code, and borrowed corpus rows are never mutated. The existing runner owns its lifetime; this entry launches no independent process.
+ * @evidence contracts/e2e.md#preserved-coverage All original declarations, rows, callback variants and assertions remain executable in this case. Portable helper semantics live in the schema unit population; native producer assembly remains here.
  */
 export const test_random_astral_pattern_length_window = (): void => {
   type AtLeastThree = string & tags.Pattern<"^😀+$"> & tags.MinLength<3>;

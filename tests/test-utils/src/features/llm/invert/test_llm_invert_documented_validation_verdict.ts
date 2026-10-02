@@ -18,6 +18,15 @@ import typia, { tags } from "typia";
  * 3. Assert a value violating only the documented property is rejected.
  * 4. Assert the undocumented twin's violation is rejected identically, and that a
  *    conforming value still passes.
+ *
+ * @evidence contracts/testing.md#behavioral-verification LlmJson.validate is built from natively generated parameters and must reject the same violation on a documented and an undocumented property and accept a conforming value.
+ * @evidence contracts/testing.md#independent-expectations Two properties that differ only by a JSDoc comment must give one verdict, and the violating values are authored; no verdict is read from the validator.
+ * @evidence contracts/testing.md#distinguishing-cases Documented violation, undocumented twin and conforming value are the three cases.
+ * @evidence contracts/testing.md#execution-ownership The test-utils test:integration command (DynamicExecutor over src/features under ttsx with the native typia plugin) discovers this exported case. typia.llm.parameters is produced by the native transform; validation runs in process.
+ * @evidence contracts/e2e.md#necessary-boundary Documented and undocumented native parameter schemas reach inversion and LlmJson validation. An authored accepted object and four one-field invalid variants pin minimum/format verdicts beyond schema-shape agreement.
+ * @evidence contracts/e2e.md#shared-execution This case shares the test-utils integration project and native-plugin artifact lifecycle with the other src/features exports. Its runtime rows reuse emitted schemas/callbacks in this invocation instead of starting a compiler host per input; it performs no independent installation or host launch.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each invocation owns its schema/definition objects and payloads; document callers parse fresh text before conversion. Compiler-artifact reuse cannot supply a prior runtime verdict. This case opens no persistent service/process handle; fixture-reader unit temporary files are owned and released by that separate unit.
+ * @evidence contracts/e2e.md#preserved-coverage The previous inputs, producer calls and behavioral assertions remain in this exported DynamicExecutor case; portable rows described above have not yet been transferred to unit coverage. Producer parity and structural acceptance retain their stated oracle limits rather than certifying semantic correctness.
  */
 export const test_llm_invert_documented_validation_verdict = (): void => {
   interface IMember {

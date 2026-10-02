@@ -19,6 +19,15 @@ import { HttpLlm } from "@typia/utils";
  * 2. Accept its valid body through an SDK client and in-memory transport.
  * 3. Reject a wrong nested body with an actionable validation path.
  * 4. Preserve a thrown HTTP executor exception as a tool error.
+ *
+ * @evidence contracts/testing.md#behavioral-verification A public SDK call accepts the authored nested HTTP body, rejects numeric nested.label with its path, and preserves the injected executor exception as a tool error.
+ * @evidence contracts/testing.md#independent-expectations The authored OpenAPI string property, literal valid body and injected exception message supply independent expectations without a native producer.
+ * @evidence contracts/testing.md#distinguishing-cases Valid, malformed nested output and thrown execution are separate branches within one connected host session.
+ * @evidence contracts/testing.md#execution-ownership test-mcp test:integration discovers test_mcp_http_controller_output_validation through DynamicExecutor. The SDK host/protocol exchange is E2E even though this case needs no native transformer.
+ * @evidence contracts/e2e.md#necessary-boundary A public SDK call accepts the authored nested HTTP body, rejects numeric nested.label with its path, and preserves the injected executor exception as a tool error. A public SDK Client and McpServer exchange initialize/tool messages through InMemoryTransport. Direct handler calls cannot establish SDK message admission or host response enforcement.
+ * @evidence contracts/e2e.md#shared-execution This case has no native typia call; the SDK connection is its real boundary. It currently shares the integration project with native-controller cases, so plugin preparation remains suite overhead rather than a semantic requirement of this case. All requests in this scenario reuse its configured SDK host.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Each connected host owns its application/options and paired transports. Requests within that host reuse the initialized connection; finally closes client and server with Promise.allSettled on success or failure.
+ * @evidence contracts/e2e.md#preserved-coverage Existing inputs, callbacks and assertions remain unchanged. Valid, malformed nested output and thrown execution are separate branches within one connected host session. Portable HTTP-executor handler assertions run separately in test_mcp_http_controller_execute under test:unit; no assertion is removed to shorten boundary execution.
  */
 export const test_mcp_http_controller_output_validation =
   async (): Promise<void> => {

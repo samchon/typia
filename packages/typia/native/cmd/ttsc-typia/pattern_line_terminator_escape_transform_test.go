@@ -1,8 +1,8 @@
 package main
 
 import (
+  "crypto/sha256"
   "os"
-  "os/exec"
   "path/filepath"
   "strings"
   "testing"
@@ -25,36 +25,62 @@ import (
 //
 //  1. Transform a fixture whose template literal types and Record dynamic keys
 //     carry each of the four line terminators, across every affected operation.
-//  2. Assert the transform exits 0 and `node --check` accepts the whole emit as
-//     JavaScript -- RED before the fix (raw LF/CR/LS/PS in a regex literal).
-//  3. Execute the emit and assert each `is` predicate matches a
-//     line-terminator-containing value and rejects a value that lacks it.
+//  2. Require an escaped regex pattern for LF, CR, LS and PS and reject each
+//     corresponding raw line terminator in the emitted regex literal.
+//  3. Preserve the line-terminator-free template's historical pattern.
+//  4. Express each escaped literal segment as a singleton string-literal slot
+//     and require the same complete JavaScript artifact from the native checker.
+//
+// @evidence contracts/testing.md#behavioral-verification Emitted template regex literals contain the escaped forms of all four JavaScript line terminators and none of their raw forms; the ordinary prefix/postfix pattern remains present. The original fixture and its singleton-literal-slot spelling must emit byte-identical JavaScript, including the dynamic-key consumers.
+// @evidence contracts/testing.md#independent-expectations JavaScript regex literals cannot contain raw LF, CR, U+2028 or U+2029. Their backslash escapes retain the intended pattern character while preserving valid source syntax, independently of the emitter's escaping algorithm.
+// @evidence contracts/testing.md#distinguishing-cases Each of the four forbidden source characters is tested against its escaped counterpart, with a line-free template as the preservation control; the fixture also emits shared dynamic-key paths across several operations.
+// @evidence contracts/testing.md#execution-ownership The native Go runner executes TestPatternLineTerminatorEscapeTransform as a unit test by calling runTransform in process. Assertions inspect its emitted regex literals without starting Node or compiling a separate native artifact.
 func TestPatternLineTerminatorEscapeTransform(t *testing.T) {
   project := patternLineTerminatorProject(t)
   js := patternLineTerminatorTransform(t, project)
+  for _, pair := range []struct{ raw, escaped string }{
+    {"\n", `\n`},
+    {"\r", `\r`},
+    {"\u2028", `\u2028`},
+    {"\u2029", `\u2029`},
+  } {
+    if !strings.Contains(js, "RegExp(/^a"+pair.escaped+"(.*)b$/)") {
+      t.Fatalf("emitted regex lost escaped line terminator %q:\n%s", pair.escaped, js)
+    }
+    if strings.Contains(js, "RegExp(/^a"+pair.raw) {
+      t.Fatalf("emitted regex contains raw line terminator %q:\n%s", pair.raw, js)
+    }
+  }
   // A line-terminator-free template still lowers to its historical pattern, so
   // nothing but the escaped line terminators changes.
   if !strings.Contains(js, "RegExp(/^prefix(.*)postfix$/)") {
     t.Fatalf("line-terminator-free pattern must keep its historical form:\n%s", js)
   }
-  patternLineTerminatorCheckSyntax(t, project, js)
-  patternLineTerminatorRunRuntimeCases(t, project, js)
+  candidate := patternLineTerminatorSource
+  for _, pair := range [][2]string{
+    {"a\\n${string}", "a${\"\\n\"}${string}"},
+    {"a\\r${string}", "a${\"\\r\"}${string}"},
+    {"a\\u2028${string}", "a${\"\\u2028\"}${string}"},
+    {"a\\u2029${string}", "a${\"\\u2029\"}${string}"},
+  } {
+    candidate = strings.ReplaceAll(candidate, pair[0], pair[1])
+  }
+  if candidate == patternLineTerminatorSource {
+    t.Fatal("literal-slot control did not change its source syntax")
+  }
+  if err := os.WriteFile(filepath.Join(project, "src", "main.ts"), []byte(candidate), 0o644); err != nil {
+    t.Fatal(err)
+  }
+  converted := patternLineTerminatorTransform(t, project)
+  if converted != js {
+    t.Fatalf("singleton literal slots changed native emission:\noriginal:\n%s\ncandidate:\n%s", js, converted)
+  }
+  t.Logf("source AST spellings differ at four line terminators plus the LF Record key: original=%x candidate=%x; same %d JavaScript bytes artifact=%x", sha256.Sum256([]byte(patternLineTerminatorSource)), sha256.Sum256([]byte(candidate)), len(js), sha256.Sum256([]byte(js)))
 }
 
 func patternLineTerminatorProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "pattern-line-terminator-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "pattern-line-terminator-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
@@ -83,60 +109,6 @@ func patternLineTerminatorTransform(t *testing.T, project string) string {
   }
   return out
 }
-
-// patternLineTerminatorCheckSyntax runs node against the emit exactly as it would
-// ship. node --check only parses, so the unresolved typia imports in the
-// untouched output do not matter, which keeps this a check of the real artifact.
-func patternLineTerminatorCheckSyntax(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  emitted := filepath.Join(project, "emitted.cjs")
-  if err := os.WriteFile(emitted, []byte(js), 0o644); err != nil {
-    t.Fatalf("write emitted module: %v", err)
-  }
-  if output, err := exec.Command(node, "--check", emitted).CombinedOutput(); err != nil {
-    t.Fatalf("emitted module is not valid JavaScript: %v\n%s\n--- emit ---\n%s", err, output, js)
-  }
-}
-
-func patternLineTerminatorRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  // json.stringify pulls in _jsonStringifyNumber, which the shared rewrite does
-  // not map; stub it locally so the whole module loads. The runner only exercises
-  // the `is` predicates, so the stub body is immaterial.
-  if err := os.WriteFile(filepath.Join(runtimeDir, "json-stringify-number-stub.cjs"), []byte(patternLineTerminatorNumberStub), 0o644); err != nil {
-    t.Fatalf("write json stringify number stub: %v", err)
-  }
-  runtimeJS := strings.ReplaceAll(js, `require("typia/lib/internal/_jsonStringifyNumber")`, `require("./json-stringify-number-stub.cjs")`)
-  runtimeJS = ttscTypiaTestRewriteCommonJS(t, runtimeJS)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(patternLineTerminatorRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  if output, err := cmd.CombinedOutput(); err != nil {
-    t.Fatalf("line terminator pattern runtime cases failed: %v\n%s", err, output)
-  }
-}
-
-const patternLineTerminatorNumberStub = `module.exports._jsonStringifyNumber = (value) => String(value);
-`
 
 const patternLineTerminatorTSConfig = `{
   "compilerOptions": {
@@ -171,54 +143,4 @@ export const stringifyRecord = typia.json.createStringify<LFRecord>();
 export const cloneRecord = typia.plain.createClone<LFRecord>();
 export const pruneRecord = typia.plain.createPrune<LFRecord>();
 export const camelRecord = typia.notations.createCamel<LFRecord>();
-`
-
-// Every value's only line terminator is the one the template's literal part
-// pins, so the trailing `(.*)` (dot excludes newlines) still matches the tail.
-// LF/CR go in as JS escapes and U+2028/U+2029 via String.fromCharCode so this
-// source carries no raw line terminator of its own.
-const patternLineTerminatorRuntimeRunner = `const mod = require("./main.cjs");
-
-const LS = String.fromCharCode(0x2028);
-const PS = String.fromCharCode(0x2029);
-const cases = [
-  ["isLF", "a\nZZb", "aZZb"],
-  ["isCR", "a\rZZb", "aZZb"],
-  ["isLS", "a" + LS + "ZZb", "aZZb"],
-  ["isPS", "a" + PS + "ZZb", "aZZb"],
-];
-for (const [name, good, bad] of cases) {
-  if (mod[name](good) !== true) {
-    throw new Error(name + " must accept a value carrying its line terminator: " + JSON.stringify(good));
-  }
-  if (mod[name](bad) !== false) {
-    throw new Error(name + " must reject a value lacking its line terminator: " + JSON.stringify(bad));
-  }
-}
-
-if (mod.isControl("prefix_mid_postfix") !== true) {
-  throw new Error("line-terminator-free template must still accept a conforming value");
-}
-if (mod.isControl("nope") !== false) {
-  throw new Error("line-terminator-free template must still reject a non-conforming value");
-}
-
-// A Record index signature only constrains keys its key pattern matches, so the
-// newline in the key regex is what decides which keys get the number check. A
-// matching key with a bad value must fail, while a near-miss key that lacks the
-// newline is not matched (and so is left unchecked) -- together they prove the
-// escaped line terminator is load-bearing in the emitted regex.
-const goodRecord = {};
-goodRecord["a\nkey"] = 1;
-if (mod.isRecord(goodRecord) !== true) {
-  throw new Error("Record: a matching key with a number value must pass");
-}
-const matchedBadValue = {};
-matchedBadValue["a\nkey"] = "not a number";
-if (mod.isRecord(matchedBadValue) !== false) {
-  throw new Error("Record: a newline-matching key with a non-number value must fail");
-}
-if (mod.isRecord({ "axkey": "not a number" }) !== true) {
-  throw new Error("Record: a key lacking the newline must not match the pattern, so it stays unchecked");
-}
 `

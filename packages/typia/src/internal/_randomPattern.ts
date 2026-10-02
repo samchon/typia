@@ -3,6 +3,18 @@ import RandExp from "randexp";
 import { _ILengthProps } from "./_randomStringLength";
 import { _stringLength } from "./_stringLength";
 
+/**
+ * Generate a string that matches a regular expression and the length bounds.
+ *
+ * Candidates are drawn until one matches and has a length in characters within
+ * the bounds; the draw gives up with an error after a fixed number of
+ * attempts.
+ *
+ * @evidence contracts/common.md#principled-implementation A generator for the pattern draws candidates and keeps one that matches the expression and whose length in code points is within the bounds, with a maximum repeat steered toward the window, because the library offers no floor; it gives up after 1,024 draws for a bounded request and ten for an unbounded one and throws. Length is counted in characters, which is what the length tags compare.
+ * @evidence contracts/common.md#clear-and-simple-design One function with the verification loop.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts The retry is bounded and the failure is reported; the code-point count is the tag's unit, as the comment explains.
+ * @evidence contracts/common.md#meaningful-documentation The doc states the retry limits and the length unit, and a long inline comment explains the astral character case.
+ */
 export const _randomPattern = (
   regex: RegExp,
   props?: _ILengthProps,

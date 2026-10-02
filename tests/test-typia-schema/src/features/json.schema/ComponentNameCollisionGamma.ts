@@ -1,3 +1,4 @@
+/** Supplies a real namespace member that can collide with a minted duplicate id. */
 export namespace Foo {
   /**
    * GAMMA type: a real namespace member whose full name is exactly `Foo.o1`.

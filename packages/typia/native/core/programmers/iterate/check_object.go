@@ -7,6 +7,13 @@ import (
   nativehelpers "github.com/samchon/typia/packages/typia/native/core/programmers/helpers"
 )
 
+// Check_objectProps is the argument record of Check_object, which combines the
+// checks of an object's property entries.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Check_object, which combines the checks of an object's property entries; its 4 fields (Config, Context, Input, Entries) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type Check_objectProps struct {
   Config  Check_object_IConfig
   Context nativecontext.ITypiaContext
@@ -14,6 +21,19 @@ type Check_objectProps struct {
   Entries []nativehelpers.IExpressionEntry
 }
 
+// Check_object_IConfig is the configuration of Check_object and
+// Check_dynamic_properties, which tells how the checks of an object are combined
+// and reported. Equals rejects properties beyond the declared ones. Assert
+// combines the checks with Reduce, and otherwise they are collected with
+// `every`. Positive is the expression that stands for success. Undefined makes
+// the key count exact and combines it with the key test by `||` instead of `&&`.
+// Halt wraps the key check, and Superfluous reports a surplus property.
+// Entries optionally replaces the built-in key visitor collection.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of Check_object and Check_dynamic_properties, which tells how the checks of an object are combined and reported; its 9 members (Equals, Assert, Undefined, Halt, Reduce, Positive, Superfluous, InvalidKey, Entries) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 9-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type Check_object_IConfig struct {
   Equals      bool
   Assert      bool
@@ -36,6 +56,14 @@ type Check_object_IConfig struct {
   Entries    *shimast.Expression
 }
 
+// Check_object splits the entries into regular and dynamic properties, checks
+// each regular one and, for an exact object or one with dynamic properties, adds
+// the key check, then combines every check.
+//
+// @evidence contracts/common.md#principled-implementation It splits the entries into regular and dynamic properties, checks each regular one and, for an exact object or one with dynamic properties, adds the key check, then combines every check.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Check_object(props Check_objectProps) *shimast.Node {
   regular := []nativehelpers.IExpressionEntry{}
   dynamic := []nativehelpers.IExpressionEntry{}

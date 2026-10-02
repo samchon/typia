@@ -25,31 +25,40 @@ npm install -D ttsc typescript@rc
 
 ### From TypeScript class
 
+This example also uses LangChain's agent and OpenAI model packages:
+
+```bash
+npm install langchain @langchain/openai
+```
+
 ```typescript
-import { ChainValues, Runnable } from "@langchain/core";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
-import { DynamicStructuredTool } from "@langchain/core/tools";
 import { ChatOpenAI } from "@langchain/openai";
 import { toLangChainTools } from "@typia/langchain";
-import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
+import { createAgent } from "langchain";
 import typia from "typia";
 
-const tools: DynamicStructuredTool[] = toLangChainTools(
+class Calculator {
+  /** Add two numbers. */
+  add(input: { a: number; b: number }): { value: number } {
+    return { value: input.a + input.b };
+  }
+}
+
+const tools = toLangChainTools(
   typia.llm.controller<Calculator>("Calculator", new Calculator()),
 );
 
-const agent: Runnable = createToolCallingAgent({
-  llm: new ChatOpenAI({ model: "gpt-4o" }),
+const agent = createAgent({
+  model: new ChatOpenAI({ model: "gpt-4o" }),
   tools,
-  prompt: ChatPromptTemplate.fromMessages([
-    ["system", "You are a helpful assistant."],
-    ["human", "{input}"],
-    ["placeholder", "{agent_scratchpad}"],
-  ]),
+  systemPrompt: "You are a helpful assistant.",
 });
-const executor: AgentExecutor = new AgentExecutor({ agent, tools });
-const result: ChainValues = await executor.invoke({ input: "What is 10 + 5?" });
+const result = await agent.invoke({
+  messages: [{ role: "user", content: "What is 10 + 5?" }],
+});
 ```
+
+Set `OPENAI_API_KEY` before running the example.
 
 ### From OpenAPI document
 

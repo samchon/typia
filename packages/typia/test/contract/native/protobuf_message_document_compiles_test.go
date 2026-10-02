@@ -20,10 +20,15 @@ import (
 // The substring assertions in the sibling suites cannot see this — a compiler
 // is the only oracle that can, so the document goes to one here.
 //
-// 1. Build objects covering required scalars, the all-optional boundary,
-//    nullable fields, arrays, maps, bytes, nested messages, and a `oneof`.
-// 2. Render each through the message programmer's document writer.
-// 3. Require a strict Protobuf compiler to accept every rendered document.
+//  1. Build objects covering required scalars, the all-optional boundary,
+//     nullable fields, arrays, maps, bytes, and a `oneof`.
+//  2. Render each through the message programmer's document writer.
+//  3. Require a strict Protobuf compiler to accept every rendered document.
+//
+// @evidence contracts/testing.md#behavioral-verification Authored objects are rendered to a proto3 document and each document is compiled by a strict Protobuf compiler front end, so an illegal label fails compilation.
+// @evidence contracts/testing.md#independent-expectations A Protobuf compiler is the independent oracle for document legality; the authored metadata states each shape and no substring of the output decides acceptance.
+// @evidence contracts/testing.md#distinguishing-cases Required scalars, optional-only, nullable, arrays and maps, bytes and oneof unions each compile; documents using imports or nested messages are not covered.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. The compiler is the in-process bufbuild/protocompile Go library, so no protoc process, binary or native command build is started.
 func TestProtobufMessageDocumentCompiles(t *testing.T) {
   for _, tuple := range []struct {
     name    string

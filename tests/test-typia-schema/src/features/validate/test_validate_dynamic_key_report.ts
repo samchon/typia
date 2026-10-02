@@ -19,6 +19,15 @@ import typia, { tags } from "typia";
  *    cannot pass by rejecting everything.
  * 4. Require a declared property to stay exempt from the signature's tag, so the
  *    rejection reaches dynamic keys only.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Bad dynamic keys report their declared key constraint rather than surplus-property advice.
+ * @evidence contracts/testing.md#independent-expectations Literal path/type text and positive/exempt/untagged twins independently distinguish key constraint failures.
+ * @evidence contracts/testing.md#distinguishing-cases Short and satisfying keys, assert message, named-property exemption with valid/invalid neighbors and unconstrained empty keys remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_dynamic_key_report in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native constrained index-signature emission must connect to validation reporting with the correct diagnostic category.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Short and satisfying keys, assert message, named-property exemption with valid/invalid neighbors and unconstrained empty keys remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_dynamic_key_report = (): void => {
   interface ILengthKey {

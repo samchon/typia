@@ -23,6 +23,15 @@ import { Calculator } from "../structures/Calculator";
  * The markdown fencing of that feedback is asserted by
  * `test_vercel_tool_error_single_json_fence`, which counts the fence on both
  * the arguments and output paths.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Checks success-data/error output-schema branches, compares add15 and valid nested results, and rejects undefined,null,array,primitive,missing,extra and wrongNested outputs with authored error paths.
+ * @evidence contracts/testing.md#independent-expectations Declared Calculator and OutputController results establish literal data shapes; the wrapper contract establishes success/data and success/error branches independently of another producer.
+ * @evidence contracts/testing.md#distinguishing-cases Seven invalid output shapes preserve the original table and failure paths, while valid nested output is their positive control; schema helper checks do not claim complete schema equality.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_vercel_tool_output_schema in src/features through the native-enabled integration command. Private fixture classes and local callbacks are reviewed through this entry.
+ * @evidence contracts/e2e.md#necessary-boundary Native Calculator and nested OutputController metadata must connect to SDK output-schema advertisement and adapter runtime enforcement. Typed success, seven invalid shapes and authored diagnostic paths distinguish advertisement from actual result validation.
+ * @evidence contracts/e2e.md#shared-execution All feature declarations belong to the same test-vercel project and ttsx integration invocation; native plugin preparation is shared rather than rebuilt per case. SDK mock models are lightweight per-case protocol inputs, not independent compiler projects.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity The suite reuses ttsc's native binary keyed by plugin source/dependencies and the same project compilation; changed plugin inputs invalidate the key. This invocation owns fresh fixture or harness objects and any mock response/counter state, opens no network host and awaits all execution before returning. No case-owned process or handle survives assertion failure.
+ * @evidence contracts/e2e.md#preserved-coverage Every original input, assertion and exported case name remains in this feature. Portable HTTP registration/output cases are separately retained in the plugin-free unit population; no runtime assertion is replaced by source text or emitted-helper presence.
  */
 export const test_vercel_tool_output_schema = async (): Promise<void> => {
   const controller: ILlmController<Calculator> =

@@ -13,6 +13,15 @@ type httpAssertHeadersProgrammerNamespace struct{}
 
 var HttpAssertHeadersProgrammer = httpAssertHeadersProgrammerNamespace{}
 
+// HttpAssertHeadersProgrammer_DecomposeProps is the argument record of
+// HttpAssertHeadersProgrammer.Decompose, which builds the asserting headers
+// decoder. Init is the default initializer of the generated `errorFactory`
+// parameter, or nil.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of HttpAssertHeadersProgrammer.Decompose, which builds the asserting headers decoder; its 5 fields (Context, Functor, Type, Name, Init) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type HttpAssertHeadersProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Functor *nativehelpers.FunctionProgrammer

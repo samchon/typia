@@ -20,12 +20,18 @@ import (
 //
 //  1. Build a project where `a.ts` validates `Target` from `model.ts`, whose
 //     index signature uses the key alias `Key` (`key.ts`) and the value alias
-//     `Value` (`value.ts`), and whose unrelated property references `Kept`
-//     (`kept.ts`) while a method body alone references `BodyOnly` (`body.ts`).
+//     `Value` (`value.ts`). A separately validated Holder class has a property
+//     referencing `Kept` (`kept.ts`) and a method body alone referencing
+//     `BodyOnly` (`body.ts`).
 //  2. Run project transform mode and decode the JSON envelope.
 //  3. Assert `dependencies["src/a.ts"]` contains `key.ts`, `value.ts`, and
 //     `kept.ts`.
 //  4. Assert it does NOT contain the body-only `body.ts`.
+//
+// @evidence contracts/testing.md#behavioral-verification Index-signature aliases retain the files named by consulted key/value types and exclude unused aliases.
+// @evidence contracts/testing.md#independent-expectations Index-signature validation reads its key and value type declarations even when aliases collapse into primitive checker types.
+// @evidence contracts/testing.md#distinguishing-cases Consulted index-signature aliases are contrasted with a sibling outside the validated shape.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesIndexSignatureAliasTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesIndexSignatureAliasTransform(t *testing.T) {
   project := projectDependenciesIndexSignatureAliasProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -65,16 +71,7 @@ func TestProjectDependenciesIndexSignatureAliasTransform(t *testing.T) {
 
 func projectDependenciesIndexSignatureAliasProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-index-signature-alias-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-index-signature-alias-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

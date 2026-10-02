@@ -115,6 +115,8 @@ export function createRandom<T>(g?: Partial<IRandomGenerator>): () => Resolved<T
   </Tabs.Tab>
 </Tabs>
 
+The optional `pick` generator selects among lazy generation candidates for unions and alternatives. Return one of the supplied candidates; typia invokes only the selected candidate. The callback receives the generator object as its receiver. Omitting `pick` retains uniform built-in selection. This hook is independent of custom integer generation and does not control randomness inside format or pattern generators.
+
 ## Tags in action
 
 The constraints you'd normally use for runtime validation also pin down what `random` produces. Type tags and comment tags compile to the same code, so either style works:

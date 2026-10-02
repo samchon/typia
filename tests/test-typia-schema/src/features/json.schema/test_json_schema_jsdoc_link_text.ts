@@ -74,6 +74,15 @@ interface IApplication {
  * 2. Generate JSON Schema and LLM application metadata through normal typia calls.
  * 3. Assert every reflected description keeps its visible text and punctuation
  *    while tag labels lose the optional pipe separator.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The actual exported case asserts that native JSON/LLM metadata preserves visible inline link text, punctuation and labels across declarations.
+ * @evidence contracts/testing.md#independent-expectations Expected prose is authored from the source JSDoc link display contract rather than rendered output.
+ * @evidence contracts/testing.md#distinguishing-cases Plain/qualified/labeled/URL/unresolved/adjacent/linkcode/linkplain and title/summary cases remain, spanning aliases/interfaces/properties/functions.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_json_schema_jsdoc_link_text through test-typia-schema start. Its actual typia call expressions are transformed in the suite project and their emitted values are evaluated in the existing runner.
+ * @evidence contracts/e2e.md#necessary-boundary Compiler JSDoc Name/Text fields must assemble visible prose through JSON and LLM generation. Direct schema-writer unit calls do not establish TypeScript call resolution, emitted JavaScript evaluation and public runtime consumption together.
+ * @evidence contracts/e2e.md#shared-execution The case uses the existing ttsx schema-suite project and runner; sibling schema cases reuse the same content-keyed plugin artifact. All declared variants are prepared together, without per-variant compiler launches or fixture installs.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Produced schema objects and helper projections belong to this invocation; no generated schema is retained between cases. The suite owns process termination and ttsc owns content-keyed artifact invalidation; this case makes no cold-cache assertion.
+ * @evidence contracts/e2e.md#preserved-coverage Plain/qualified/labeled/URL/unresolved/adjacent/linkcode/linkplain and title/summary cases remain, spanning aliases/interfaces/properties/functions. Every original producer call and assertion stays enrolled under the same exported case; no portable assertion was removed or represented as independently covered elsewhere.
  */
 export const test_json_schema_jsdoc_link_text = (): void => {
   const json = typia.json.application<IApplication>();

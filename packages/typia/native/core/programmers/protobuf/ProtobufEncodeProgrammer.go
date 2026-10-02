@@ -20,14 +20,32 @@ type protobufEncodeProgrammerNamespace struct{}
 
 var ProtobufEncodeProgrammer = protobufEncodeProgrammerNamespace{}
 
+// ProtobufEncodeProgrammer_IProps is the input of Write for the protobuf encode
+// generator: Context (the transform context), Modulo (the call's callee
+// expression), Type (the type to generate for) and Name (an optional type
+// name).
+//
+// @evidence contracts/common.md#principled-implementation Write needs the transform context, the call's callee expression, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 4 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ProtobufEncodeProgrammer_IProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
   Type    *shimchecker.Type
   Name    *string
-  Init    *shimast.Node
 }
 
+// ProtobufEncodeProgrammer_DecomposeProps is the input of Decompose for the
+// protobuf encode generator: Context (the transform context), Modulo (the call's
+// callee expression), Functor (the collector of the helper functions that the
+// generator emits), Type (the type to generate for) and Name (an optional type
+// name).
+//
+// @evidence contracts/common.md#principled-implementation Decompose needs the transform context, the call's callee expression, the collector of the helper functions that the generator emits, the type to generate for and an optional type name, and the record carries them in one argument.
+// @evidence contracts/common.md#clear-and-simple-design A flat argument record of 5 fields.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record.
+// @evidence contracts/common.md#meaningful-documentation The doc names each field.
 type ProtobufEncodeProgrammer_DecomposeProps struct {
   Context nativecontext.ITypiaContext
   Modulo  *shimast.Node
@@ -315,7 +333,10 @@ type protobufEncodeProgrammer_decodePropertyProps struct {
 func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_decodePropertyProps) *shimast.Node {
   f := nativecontext.EmitFactoryOf(protobufEncodeProgrammer_factory, props.Context.Emit)
   union := []protobufEncodeProgrammer_IUnion{}
-  for _, schema := range props.Protobuf.Union {
+  bigintCandidates := protobufEncodeProgrammer_bigintCandidates(props.Protobuf.Union)
+  numberCandidates := protobufEncodeProgrammer_numberCandidates(props.Protobuf.Union)
+  objectSchemas := protobufEncodeProgrammer_objectSchemas(props.Protobuf.Union)
+  for i, schema := range props.Protobuf.Union {
     switch typed := schema.(type) {
     case *schemaprotobuf.IProtobufPropertyType_IBoolean:
       index := typed.Index
@@ -343,7 +364,7 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
       }{
         Input:      props.Input,
         Type:       typed.Name,
-        Candidates: protobufEncodeProgrammer_bigintCandidates(props.Protobuf.Union),
+        Candidates: bigintCandidates,
         Index:      typed.Index,
       }, props.Context.Emit))
     case *schemaprotobuf.IProtobufPropertyType_INumber:
@@ -355,7 +376,7 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
       }{
         Input:      props.Input,
         Type:       typed.Name,
-        Candidates: protobufEncodeProgrammer_numberCandidates(props.Protobuf.Union),
+        Candidates: numberCandidates,
         Index:      typed.Index,
       }, props.Context.Emit))
     case *schemaprotobuf.IProtobufPropertyType_IString:
@@ -423,8 +444,9 @@ func protobufEncodeProgrammer_decode_property(props protobufEncodeProgrammer_dec
         })
       }
     }
-    objectSchemas := protobufEncodeProgrammer_objectSchemas(props.Protobuf.Union)
-    if len(objectSchemas) != 0 {
+    // The aggregate arm already handles every object alternative. Keep its
+    // original position after the first schema arm; later copies cannot run.
+    if i == 0 && len(objectSchemas) != 0 {
       schemas := objectSchemas
       union = append(union, protobufEncodeProgrammer_IUnion{
         Is: func() *shimast.Node {
@@ -865,7 +887,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
           Functor: props.Functor,
           Object:  v.Object,
           Input:   v.Input,
-          Explore: protobufEncodeProgrammer_feature_explore(v.Explore),
+          Explore: v.Explore,
         })
       },
       Decoder: func(v nativeiterate.Decode_union_object_next) *shimast.Node {
@@ -929,7 +951,7 @@ func protobufEncodeProgrammer_explore_objects(props protobufEncodeProgrammer_exp
         Functor:  props.Functor,
         Input:    accessor,
         Metadata: spec.Property.Value,
-        Explore:  protobufEncodeProgrammer_checker_explore(explore),
+        Explore:  explore,
       })
     } else {
       pred = nativefactories.ExpressionFactory.IsRequired(accessor, props.Context.Emit)
@@ -1221,28 +1243,6 @@ func protobufEncodeProgrammer_numberCandidates(union []schemaprotobuf.IProtobufP
     }
   }
   return output
-}
-
-func protobufEncodeProgrammer_feature_explore(input any) nativeinternal.FeatureProgrammer_IExplore {
-  switch typed := input.(type) {
-  case nativeinternal.FeatureProgrammer_IExplore:
-    return typed
-  case *nativeinternal.FeatureProgrammer_IExplore:
-    return *typed
-  default:
-    return nativeinternal.FeatureProgrammer_IExplore{}
-  }
-}
-
-func protobufEncodeProgrammer_checker_explore(input any) nativeinternal.CheckerProgrammer_IExplore {
-  value := protobufEncodeProgrammer_feature_explore(input)
-  return nativeinternal.CheckerProgrammer_IExplore{
-    Tracable: value.Tracable,
-    Source:   value.Source,
-    From:     value.From,
-    Postfix:  value.Postfix,
-    Start:    value.Start,
-  }
 }
 
 func protobufEncodeProgrammer_import_type(context nativecontext.ITypiaContext, props nativecontext.ImportProgrammer_TypeProps) *shimast.Node {

@@ -6,7 +6,8 @@ import (
 )
 
 // TestMetadataCollectionOpenApiName verifies the OpenAPI-specific metadata
-// name allocator preserves legal controls while encoding every other rune.
+// name normalizer preserves legal controls while producing legal keys from the
+// selected punctuation, empty-name and Unicode cases.
 //
 // The schema generators use the allocated name as both a Components Object
 // key and a local-reference token. Deleting punctuation is insufficient:
@@ -15,6 +16,11 @@ import (
 //  1. Preserve ordinary, dotted, hyphenated, and underscored legal controls.
 //  2. Encode empty, punctuation, percent, fragment, and Unicode boundaries.
 //  3. Prove formerly colliding inputs remain legal, distinct, and repeatable.
+//
+// @evidence contracts/testing.md#behavioral-verification The OpenAPI name allocator is called on legal controls and on names with other runes; legal names stay unchanged, results are repeatable, legal and collision-free.
+// @evidence contracts/testing.md#independent-expectations The key grammar defines legality and the controls are authored; collision freedom is checked pairwise.
+// @evidence contracts/testing.md#distinguishing-cases Legal controls versus encoded names, repeated calls and pairwise distinctness.
+// @evidence contracts/testing.md#execution-ownership The canonical native Go command (pnpm test:go:native) runs this same-package Test function in process. It calls the allocator in memory with no filesystem fixture, process or native command build.
 func TestMetadataCollectionOpenApiName(t *testing.T) {
   legal := map[string]string{
     "Plain":            "Plain",

@@ -22,6 +22,7 @@ import { TagBase } from "./TagBase";
  * The field number also appears in JSON Schema as `x-protobuf-sequence`.
  *
  * @author Jeongho Nam - https://github.com/samchon
+ *
  * @example
  *   interface Message {
  *     // Frequently accessed fields use low numbers
@@ -32,6 +33,11 @@ import { TagBase } from "./TagBase";
  *   }
  *
  * @template N Field number (1 to 536,870,911, excluding 19000-19999)
+ *
+ * @evidence contracts/common.md#principled-implementation The field number is stored in `value` and in the `x-protobuf-sequence` schema property for every target kind. The type accepts any number; the documented range and the reserved block are not enforced by the type itself.
+ * @evidence contracts/common.md#clear-and-simple-design One TagBase record, with no helper or validation text, because the number is consumed by the protobuf programmers and the schema.
+ * @evidence contracts/common.md#prohibited-implementation-shortcuts It assigns a stable number from the declaration and does not hardcode a message or reserve a value by name.
+ * @evidence contracts/common.md#meaningful-documentation The comment gives byte-size ranges, the reserved block, when to use it and an example, and names the consumers.
  */
 export type Sequence<N extends number> = TagBase<{
   target: "boolean" | "bigint" | "number" | "string" | "array" | "object";

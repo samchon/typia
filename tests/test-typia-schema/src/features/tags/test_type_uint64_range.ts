@@ -42,6 +42,15 @@ interface ICommentBigint {
  * 4. Require `typia.random` output for the constrained type to satisfy it, and pin
  *    the window it actually draws from, since a bare type tag publishes no
  *    upper schema bound for the generator to follow.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Unsigned width checks preserve number compatibility and exact bigint bounds before encoding.
+ * @evidence contracts/testing.md#independent-expectations BigInt bounds and asUintN independently anchor width/truncation; encode/decode comparisons certify their connection rather than independent wire bytes.
+ * @evidence contracts/testing.md#distinguishing-cases Number/fraction controls, eight bigint samples including both edges and one-past twins, non-bigints, four round trips, three exact error reports and one hundred bounded random draws remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_type_uint64_range in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Native tag metadata must enforce unsigned width in validators and asserted protobuf encoding while preserving generator wiring.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Number/fraction controls, eight bigint samples including both edges and one-past twins, non-bigints, four round trips, three exact error reports and one hundred bounded random draws remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_type_uint64_range = (): void => {
   const MINIMUM: bigint = 0n;

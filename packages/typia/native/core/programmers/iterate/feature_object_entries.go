@@ -9,6 +9,14 @@ import (
   nativemetadata "github.com/samchon/typia/packages/typia/native/core/schemas/metadata"
 )
 
+// Feature_object_entriesProps is the argument record of Feature_object_entries,
+// which turns the properties of an object type into expression entries. From
+// names the parent kind and defaults to `object`.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument record of Feature_object_entries, which turns the properties of an object type into expression entries; its 5 fields (Config, Context, Object, Input, From) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type Feature_object_entriesProps struct {
   Config  Feature_object_entriesConfig
   Context nativecontext.ITypiaContext
@@ -17,12 +25,28 @@ type Feature_object_entriesProps struct {
   From    string
 }
 
+// Feature_object_entriesConfig is the configuration of Feature_object_entries.
+// Decoder decodes one property, and Path and Trace say whether the generated
+// function tracks the value path and whether it reports the exception.
+//
+// @evidence contracts/common.md#principled-implementation It is the configuration of Feature_object_entries; its 3 members (Decoder, Path, Trace) are supplied by the caller, so the shared programmer holds no feature-specific behavior.
+// @evidence contracts/common.md#clear-and-simple-design A 3-member record of values and callbacks.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A declaration only.
+// @evidence contracts/common.md#meaningful-documentation The doc states the role and the meaning of the members that are not obvious.
 type Feature_object_entriesConfig struct {
   Decoder func(props Feature_object_entriesDecoderProps) *shimast.Node
   Path    bool
   Trace   bool
 }
 
+// Feature_object_entriesDecoderProps is the argument of the Decoder callback of
+// Feature_object_entries: the property, its metadata, its sole key and input
+// accessor, and the explore state.
+//
+// @evidence contracts/common.md#principled-implementation It is the argument of the Decoder callback of Feature_object_entries: the property, its metadata, its sole key and input accessor, and the explore state; its 5 fields (Metadata, Property, Key, Input, Explore) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 5-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is.
 type Feature_object_entriesDecoderProps struct {
   Metadata *nativemetadata.MetadataSchema
   Property *nativemetadata.MetadataProperty
@@ -31,6 +55,14 @@ type Feature_object_entriesDecoderProps struct {
   Explore  Feature_object_entriesExplore
 }
 
+// Feature_object_entriesExplore is the explore state that Feature_object_entries
+// hands to its decoder. Tracable says whether the path is tracked, Source and
+// From name the position and Postfix is the path suffix of the property.
+//
+// @evidence contracts/common.md#principled-implementation It is the explore state that Feature_object_entries hands to its decoder; its 4 fields (Tracable, Source, From, Postfix) are named so that a producer and a consumer cannot transpose them.
+// @evidence contracts/common.md#clear-and-simple-design A 4-field record with no methods.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts A data record: it derives, defaults and validates nothing.
+// @evidence contracts/common.md#meaningful-documentation The doc states what the record is and explains its non-obvious fields.
 type Feature_object_entriesExplore struct {
   Tracable bool
   Source   string
@@ -38,6 +70,14 @@ type Feature_object_entriesExplore struct {
   Postfix  string
 }
 
+// Feature_object_entries decodes every property of an object type into an
+// IExpressionEntry, with the optional flags decided by the options and, when
+// tracing, a path postfix.
+//
+// @evidence contracts/common.md#principled-implementation It decodes every property of an object type into an IExpressionEntry, with the optional flags decided by the options and, when tracing, a path postfix.
+// @evidence contracts/common.md#clear-and-simple-design One exported function; the pieces that repeat live in private helpers of the same file.
+// @evidence contracts/common.md#prohibited-implementation-shortcuts Its inputs are its arguments and the context they carry, and it keeps no state of its own.
+// @evidence contracts/common.md#meaningful-documentation The doc states what it builds.
 func Feature_object_entries(props Feature_object_entriesProps) []nativehelpers.IExpressionEntry {
   output := make([]nativehelpers.IExpressionEntry, 0, len(props.Object.Properties))
   from := props.From

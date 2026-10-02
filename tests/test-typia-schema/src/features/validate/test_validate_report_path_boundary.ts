@@ -28,6 +28,15 @@ interface IShortFirst {
  * 1. Validate equivalent invalid structures with `a` and `ab` reversed.
  * 2. Require every independent sibling, quoted-key, and indexed error path.
  * 3. Exercise the runtime reporter directly to retain true-parent suppression.
+ *
+ * @evidence contracts/testing.md#behavioral-verification Validation suppresses actual ancestor paths while retaining independent prefix siblings.
+ * @evidence contracts/testing.md#independent-expectations Authored sibling/quoted/indexed paths and literal reporter sequences anchor exact expected errors independently.
+ * @evidence contracts/testing.md#distinguishing-cases Both declaration orders, eleven array indices, duplicate container, quoted keys and ancestor-first/descendant-first reporter controls remain.
+ * @evidence contracts/testing.md#execution-ownership DynamicExecutor discovers test_validate_report_path_boundary in the schema start suite under ttsx and the native plugin; the exported body owns these assertions.
+ * @evidence contracts/e2e.md#necessary-boundary Emitted validators must produce and connect correctly formed paths to the runtime suppression reporter.
+ * @evidence contracts/e2e.md#shared-execution The suite project load and native artifact are reused with neighboring cases; no per-input process or build is created.
+ * @evidence contracts/e2e.md#state-isolation-and-reuse-validity Inputs and observed outputs are local to the case. The suite owns shared host lifetime; mutable data is not handed to another case and no cold cache behavior is asserted.
+ * @evidence contracts/e2e.md#preserved-coverage Both declaration orders, eleven array indices, duplicate container, quoted keys and ancestor-first/descendant-first reporter controls remain. Source review preserves the executable matrix; final native execution is tracked separately.
  */
 export const test_validate_report_path_boundary = (): void => {
   const input = {

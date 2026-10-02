@@ -31,6 +31,11 @@ import (
 //     the project is not evidence of one: the envelope reports a `node_modules`
 //     declaration file like any other, and the files that decide a callee's
 //     typia identity are exactly such files.
+//
+// @evidence contracts/testing.md#behavioral-verification The envelope reports the authored src/lib.custom.d.ts ambient interface and direct src/b.ts declaration while rejecting virtual URI sources in that dependency list. It does not inspect completeness.
+// @evidence contracts/testing.md#independent-expectations The project owns CustomAmbient even though its filename resembles a compiler library; edits to its properties can change Bee validation. Date separately reaches the compiler-owned bundled library, which must stay excluded.
+// @evidence contracts/testing.md#distinguishing-cases A project-owned lib.custom.d.ts is the positive identity control against compiler-owned bundled Date declarations; the basename alone cannot decide ownership.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCustomLibNameTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCustomLibNameTransform(t *testing.T) {
   project := projectDependenciesCustomLibNameProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -71,16 +76,7 @@ func TestProjectDependenciesCustomLibNameTransform(t *testing.T) {
 
 func projectDependenciesCustomLibNameProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-custom-lib-name-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-custom-lib-name-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

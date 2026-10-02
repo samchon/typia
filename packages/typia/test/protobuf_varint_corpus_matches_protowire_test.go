@@ -19,10 +19,9 @@ import (
 // The corpus records that in its `strictness` field; typia follows `protowire`
 // so it never accepts bytes `google.golang.org/protobuf` would refuse.
 //
-// This test pins the third-party oracle, and only that. Go cannot execute
-// typia's TypeScript reader — the transform suites that run emitted JavaScript
-// stub every `typia/lib/internal` import away — so a Go test can never witness
-// a typia regression here, and this one does not claim to. The coupling lives
+// This test pins the third-party oracle, and only that. This test calls no
+// typia TypeScript reader or generated decoder, so it does not witness a typia
+// regression directly. The coupling lives
 // in `protobuf_varint_corpus.json` instead: this test proves the corpus still
 // matches `protowire`, and the `test_protobuf_reader_varint_bounds` and
 // `test_protobuf_decode_varint_bounds` regressions read the same bytes and the
@@ -32,8 +31,13 @@ import (
 //
 //  1. Require every corpus entry to be internally consistent with the wire rule.
 //  2. Require protowire to return exactly the recorded width, value, and error code.
-//  3. Require the same verdict when the varint stands in a tag, a length prefix,
-//     and a whole field, so the fault belongs to the varint and not to a position.
+//  3. For nonempty rejected entries, require the same verdict in a tag, a length
+//     prefix and a whole field. Accepted and empty entries use ConsumeVarint only.
+//
+// @evidence contracts/testing.md#behavioral-verification Every entry of the shared varint corpus is checked for internal consistency and decoded by ConsumeVarint; recorded widths, values and error codes must match. Only nonempty rejected entries additionally check tag, length-prefix and whole-field errors.
+// @evidence contracts/testing.md#independent-expectations google.golang.org/protobuf protowire is the independent reference implementation for the wire rule; the test validates the committed corpus against it and does not exercise typia code.
+// @evidence contracts/testing.md#distinguishing-cases Accepted, truncated, overlong and overflow entries with tag, length-prefix and field positions distinguish corpus errors; it can never detect a typia regression and does not claim to.
+// @evidence contracts/testing.md#execution-ownership The packages/typia/test module (pnpm test:go:public) runs this Test function in process with the Go test runner. It reads the committed JSON corpus through the testutil resolver and calls only protowire, with no process or native command build.
 func TestProtobufVarintCorpusMatchesProtowire(t *testing.T) {
   corpus := testutil.ReadJSON[protobufVarintCorpus](t, filepath.Join(
     testutil.RepoRoot(t),
@@ -107,6 +111,16 @@ func TestProtobufVarintCorpusMatchesProtowire(t *testing.T) {
 // alone, so the class is decided by that byte.
 func protobufVarintCorpusRequireConsistency(t *testing.T, entry protobufVarintEntry, bytes []byte) {
   t.Helper()
+  if entry.Fault != "" {
+    for index, value := range bytes {
+      if index >= 9 {
+        break
+      }
+      if value&0x80 == 0 {
+        t.Fatalf("rejected entry terminates before its recorded fault at byte %d", index+1)
+      }
+    }
+  }
   switch entry.Fault {
   case "":
     if entry.Consumed != len(bytes) {

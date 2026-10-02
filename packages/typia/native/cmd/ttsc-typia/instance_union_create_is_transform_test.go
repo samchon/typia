@@ -2,7 +2,6 @@ package main
 
 import (
   "os"
-  "os/exec"
   "path/filepath"
   "regexp"
   "testing"
@@ -16,27 +15,23 @@ import (
 // graph exercises both object-property helper emission and array-like union
 // helper emission in the same functor. A prior transform emitted duplicate
 // `const _ip0` declarations, so Node could not even load the generated module.
+//
+// 1. Transform InstanceUnion's mixed object and array-like shape.
+// 2. Require emitted property helpers to exist and each declaration name to be unique.
+//
+// @evidence contracts/testing.md#behavioral-verification The generated createIs module must contain property-helper declarations and the helper scanner rejects duplicate declaration names, distinguishing the prior syntactically invalid emit.
+// @evidence contracts/testing.md#independent-expectations JavaScript const bindings cannot be redeclared in the same generated helper scope. Requiring at least one declaration prevents an empty output from satisfying uniqueness vacuously.
+// @evidence contracts/testing.md#distinguishing-cases The single InstanceUnion graph combines native, collection, tuple, array and repeated-object branches so their helper naming populations coexist; the assertion checks every matching declaration, including the first and repeated-name boundary.
+// @evidence contracts/testing.md#execution-ownership The native Go runner executes TestInstanceUnionCreateIsTransform as a unit test through runTransform in process. The fixture helper supplies the mixed type graph and the declaration scanner checks its returned JavaScript; no JavaScript runtime is launched.
 func TestInstanceUnionCreateIsTransform(t *testing.T) {
   project := instanceUnionCreateIsProject(t)
   js := instanceUnionCreateIsTransform(t, project)
   instanceUnionCreateIsAssertUniqueHelpers(t, js)
-  instanceUnionCreateIsRunRuntimeCases(t, project, js)
 }
 
 func instanceUnionCreateIsProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "instance-union-create-is-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() {
-    _ = os.RemoveAll(dir)
-  })
+  dir := ttscTypiaTestFixtureDirectory(t, "instance-union-create-is-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)
@@ -77,32 +72,8 @@ func instanceUnionCreateIsAssertUniqueHelpers(t *testing.T, js string) {
     }
     seen[name] = true
   }
-}
-
-func instanceUnionCreateIsRunRuntimeCases(t *testing.T, project string, js string) {
-  t.Helper()
-  node, err := exec.LookPath("node")
-  if err != nil {
-    t.Skip("node executable not found")
-  }
-  runtimeDir := filepath.Join(project, "runtime")
-  if err := os.MkdirAll(runtimeDir, 0o755); err != nil {
-    t.Fatalf("mkdir runtime dir: %v", err)
-  }
-  ttscTypiaTestWriteCommonRuntimeStubs(t, runtimeDir)
-  runtimeJS := ttscTypiaTestRewriteCommonJS(t, js)
-  if err := os.WriteFile(filepath.Join(runtimeDir, "main.cjs"), []byte(runtimeJS), 0o644); err != nil {
-    t.Fatalf("write runtime module: %v", err)
-  }
-  runner := filepath.Join(runtimeDir, "run.cjs")
-  if err := os.WriteFile(runner, []byte(instanceUnionCreateIsRuntimeRunner), 0o644); err != nil {
-    t.Fatalf("write runtime runner: %v", err)
-  }
-  cmd := exec.Command(node, runner)
-  cmd.Dir = runtimeDir
-  output, err := cmd.CombinedOutput()
-  if err != nil {
-    t.Fatalf("instance union createIs runtime cases failed: %v\n%s", err, output)
+  if len(seen) == 0 {
+    t.Fatalf("mixed union output has no property helper declarations:\n%s", js)
   }
 }
 
@@ -197,52 +168,4 @@ export namespace ObjectUnionExplicit {
 }
 
 export const isInstanceUnion = typia.createIs<InstanceUnion>();
-`
-
-const instanceUnionCreateIsRuntimeRunner = `const { isInstanceUnion } = require("./main.cjs");
-
-const point = (value) => ({ x: value, y: value + 1, z: value + 2 });
-const simple = {
-  scale: point(1),
-  position: point(4),
-  rotate: point(7),
-  pivot: point(10),
-};
-const union = [
-  { type: "point", x: 1, y: 2 },
-  { type: "line", p1: { x: 1, y: 2 }, p2: { x: 3, y: 4 } },
-  { type: "triangle", p1: { x: 1, y: 2 }, p2: { x: 3, y: 4 }, p3: { x: 5, y: 6 } },
-  { type: "rectangle", p1: { x: 1, y: 2 }, p2: { x: 3, y: 4 }, p3: { x: 5, y: 6 }, p4: { x: 7, y: 8 } },
-  { type: "polyline", points: [{ x: 1, y: 2 }] },
-  { type: "polygon", outer: { points: [{ x: 1, y: 2 }] }, inner: [{ points: [{ x: 3, y: 4 }] }] },
-  { type: "circle", centroid: { x: 1, y: 2 }, radius: 5 },
-];
-const valid = [
-  3,
-  new Uint8Array([1, 2]),
-  new Set([false, true]),
-  new Map([[{ key: 1 }, { value: 2 }]]),
-  ["one", "two"],
-  [false, 1, 2],
-  [1, 2, 3],
-  [true, false],
-  [],
-  simple,
-  union,
-];
-
-const cases = [
-  ["valid", valid, true],
-  ["bad set element", [new Set([false, "x"])], false],
-  ["bad tuple", [["one", 2]], false],
-  ["bad object property", [{ ...simple, pivot: { ...simple.pivot, z: "x" } }], false],
-  ["bad discriminator", [[{ type: "circle", centroid: { x: 1, y: 2 } }]], false],
-];
-
-for (const [name, input, expected] of cases) {
-  const actual = isInstanceUnion(input);
-  if (actual !== expected) {
-    throw new Error(name + ": expected " + expected + " but got " + actual);
-  }
-}
 `

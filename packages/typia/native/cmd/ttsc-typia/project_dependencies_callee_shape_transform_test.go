@@ -26,6 +26,11 @@ import (
 //     IIFE body, so the walk neither charged nor withheld the body's names.
 //  4. Assert `indirect.ts` and `tagged.ts` are withheld, so a call-like form
 //     other than `()` does not quietly escape the same rule.
+//
+// @evidence contracts/testing.md#behavioral-verification Direct IIFE callers remain complete without deep body dependencies; indirect IIFE and tagged-return callers are withheld.
+// @evidence contracts/testing.md#independent-expectations A directly called literal resolves locally, but the identity of a returned callable depends on executing or analyzing that body.
+// @evidence contracts/testing.md#distinguishing-cases Direct literal invocation is paired with invoking its return and a tagged-template return.
+// @evidence contracts/testing.md#execution-ownership The native Go runner discovers TestProjectDependenciesCalleeShapeTransform as a unit test. Its fixture project and captured runTransform call exercise the owning Go operation in process; no consumer installation or compiler subprocess is used. Fixture helpers retain their source inputs and cleanup, and assertions inspect the resulting envelope or emitted output.
 func TestProjectDependenciesCalleeShapeTransform(t *testing.T) {
   project := projectDependenciesCalleeShapeProject(t)
   out, errText, code := ttscTypiaTestCapture(func() int {
@@ -67,16 +72,7 @@ func TestProjectDependenciesCalleeShapeTransform(t *testing.T) {
 
 func projectDependenciesCalleeShapeProject(t *testing.T) string {
   t.Helper()
-  root := ttscTypiaTestRepoRoot(t)
-  base := filepath.Join(root, "packages", "typia", "native", ".tmp-ttsc-typia-tests")
-  if err := os.MkdirAll(base, 0o755); err != nil {
-    t.Fatalf("mkdir temp base: %v", err)
-  }
-  dir, err := os.MkdirTemp(base, "project-dependencies-callee-shape-")
-  if err != nil {
-    t.Fatalf("create temp fixture: %v", err)
-  }
-  t.Cleanup(func() { _ = os.RemoveAll(dir) })
+  dir := ttscTypiaTestFixtureDirectory(t, "project-dependencies-callee-shape-")
   src := filepath.Join(dir, "src")
   if err := os.MkdirAll(src, 0o755); err != nil {
     t.Fatalf("mkdir fixture src: %v", err)

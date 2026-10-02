@@ -2,6 +2,21 @@ import { TestStructure } from "@typia/template";
 import { NamingConvention } from "@typia/utils";
 import typia, { IValidation } from "typia";
 
+/**
+ * Verifies validateEquals through its supplied operation and fixture.
+ *
+ * Private object/array walkers record their mutations and paths in a local
+ * list. They assume finite acyclic fixture values; no cycle guard or generic
+ * arbitrary-graph claim is made.
+ *
+ * 1. Run the clean fixture scenario and its observable assertions.
+ * 2. Retain the applicable invalid or round-trip distinctions described below.
+ *
+ * @evidence contracts/testing.md#behavioral-verification The supplied strict validator must accept the clean fixture without replacing its data. For ADDABLE fixtures with ordinary object nodes, private spoil walkers inject surplus keys and require exactly their sorted error-path multiset.
+ * @evidence contracts/testing.md#independent-expectations The helper derives expected paths from its own added non_regular_member keys before validation. The fixture supplies valid data; NamingConvention quoting and the native assertEquals clean-record check are not independent verification of those utilities.
+ * @evidence contracts/testing.md#distinguishing-cases Clean success and identity always execute. ADDABLE false or no injected object paths contribute clean-only checks. Nested objects and arrays contribute every injected path; ordinary value spoilers remain in validate.
+ * @evidence contracts/testing.md#execution-ownership Generated validateEquals/createValidateEquals families own native bindings. This helper owns finite acyclic traversal and multiset assertions; it does not launch a worker.
+ */
 export const _test_validateEquals =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
