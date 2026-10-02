@@ -7,7 +7,7 @@ import (
   "testing"
 )
 
-// TestCompareNonDiscriminableUnionTransform verifies membership helper emission for an unlabelled object union.
+// TestCompareNonDiscriminableUnionTransform verifies membership helper emission for an unlabeled object union.
 //
 // Absent a disjoint discriminator, typia must use structural member checks to select a comparison arm. The authored union requires that fallback.
 //
